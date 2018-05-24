@@ -29,7 +29,7 @@ import static android.content.Context.POWER_SERVICE;
 class BluetoothScanJob extends Job {
 
     static final String JOB_TAG  = "BluetoothScanJob";
-    static final String JOB_TAG_SHORT  = "BluetoothScanJob_short";
+    //static final String JOB_TAG_SHORT  = "BluetoothScanJob_short";
 
     public static BluetoothAdapter bluetooth = null;
 
@@ -105,7 +105,7 @@ class BluetoothScanJob extends Job {
                 interval = 2 * interval;
 
             if (!shortInterval) {
-                jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                //jobManager.cancelAllForTag(JOB_TAG_SHORT);
 
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
 
@@ -127,11 +127,12 @@ class BluetoothScanJob extends Job {
                 }
             } else {
                 _cancelJob(context);
-                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-                if (forScreenOn)
+                jobBuilder = new JobRequest.Builder(JOB_TAG/*_SHORT*/);
+                /*if (forScreenOn)
                     jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
                 else
-                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                    jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));*/
+                jobBuilder.startNow();
             }
 
             PPApplication.logE("BluetoothScanJob.scheduleJob", "build and schedule");
@@ -188,7 +189,7 @@ class BluetoothScanJob extends Job {
 
         try {
             JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            //jobManager.cancelAllForTag(JOB_TAG_SHORT);
             jobManager.cancelAllForTag(JOB_TAG);
         } catch (Exception ignored) {}
     }
@@ -220,8 +221,8 @@ class BluetoothScanJob extends Job {
 
         try {
             JobManager jobManager = JobManager.instance();
-            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
-                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
+            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0)/* ||
+                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0)*/;
         } catch (Exception e) {
             return  false;
         }

@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 class SearchCalendarEventsJob extends Job {
 
     static final String JOB_TAG  = "SearchCalendarEventsJob";
-    static final String JOB_TAG_SHORT  = "SearchCalendarEventsJob_short";
+    //static final String JOB_TAG_SHORT  = "SearchCalendarEventsJob_short";
 
     //private static CountDownLatch countDownLatch = null;
 
@@ -61,7 +61,7 @@ class SearchCalendarEventsJob extends Job {
         if (jobManager != null) {
             final JobRequest.Builder jobBuilder;
             if (!shortInterval) {
-                jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                //jobManager.cancelAllForTag(JOB_TAG_SHORT);
                 int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
                 PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
                 if (requestsForTagSize == 0) {
@@ -72,8 +72,9 @@ class SearchCalendarEventsJob extends Job {
                     return;
             } else {
                 _cancelJob();
-                jobBuilder = new JobRequest.Builder(JOB_TAG_SHORT);
-                jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                jobBuilder = new JobRequest.Builder(JOB_TAG/*_SHORT*/);
+                //jobBuilder.setExact(TimeUnit.SECONDS.toMillis(5));
+                jobBuilder.startNow();
             }
 
             PPApplication.logE("SearchCalendarEventsJob.scheduleJob", "build and schedule");
@@ -116,7 +117,7 @@ class SearchCalendarEventsJob extends Job {
     private static void _cancelJob(/*final Context context*/) {
         try {
             JobManager jobManager = JobManager.instance();
-            jobManager.cancelAllForTag(JOB_TAG_SHORT);
+            //jobManager.cancelAllForTag(JOB_TAG_SHORT);
             jobManager.cancelAllForTag(JOB_TAG);
         } catch (Exception ignored) {}
     }
@@ -148,8 +149,8 @@ class SearchCalendarEventsJob extends Job {
 
         try {
             JobManager jobManager = JobManager.instance();
-            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0) ||
-                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0);
+            return (jobManager.getAllJobRequestsForTag(JOB_TAG).size() != 0)/* ||
+                    (jobManager.getAllJobRequestsForTag(JOB_TAG_SHORT).size() != 0)*/;
         } catch (Exception e) {
             return false;
         }
