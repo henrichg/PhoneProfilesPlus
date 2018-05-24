@@ -154,7 +154,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     if (event.getStatus() == Event.ESTATUS_RUNNING) {
                         event.pauseEvent(dataWrapper, eventTimelineList, true, false,
                                 false, true, null, false); // activate return profile
-                        //dataWrapper.restartEvents(false, true, true);
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                 } else {
@@ -207,15 +206,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     getString(R.string.action_for_external_application_notification_no_action));
             dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
         }
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-
-        dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
     }
 
     private void showNotification(String title, String text) {

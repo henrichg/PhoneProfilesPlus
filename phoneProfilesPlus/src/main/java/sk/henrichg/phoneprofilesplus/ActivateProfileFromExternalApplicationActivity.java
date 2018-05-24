@@ -74,15 +74,6 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         }
     }
 
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-
-        dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
-    }
-
     private void showNotification(String title, String text) {
         String nTitle = title;
         String nText = text;
