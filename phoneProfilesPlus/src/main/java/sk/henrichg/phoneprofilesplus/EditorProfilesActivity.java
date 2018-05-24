@@ -793,7 +793,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
+                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
+                    .commitAllowingStateLoss();
                 if (removePreferences)
                     redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0, startTargetHelps);
                 break;
@@ -805,7 +806,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
+                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
+                    .commitAllowingStateLoss();
                 if (removePreferences)
                     redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0, startTargetHelps);
                 break;
@@ -817,7 +819,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment").commit();
+                    .replace(R.id.editor_list_container, fragment, "EditorProfileListFragment")
+                    .commitAllowingStateLoss();
                 if (removePreferences)
                     redrawProfilePreferences(null, EditorProfileListFragment.EDIT_MODE_EDIT, 0, startTargetHelps);
                 break;
@@ -830,7 +833,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
+                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                        .commitAllowingStateLoss();
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0, startTargetHelps);
                 break;
@@ -843,7 +847,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
+                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                        .commitAllowingStateLoss();
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0, startTargetHelps);
                 break;
@@ -856,7 +861,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
+                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                        .commitAllowingStateLoss();
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0, startTargetHelps);
                 break;
@@ -869,7 +875,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
+                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                        .commitAllowingStateLoss();
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0, startTargetHelps);
                 break;
@@ -882,7 +889,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
-                    .replace(R.id.editor_list_container, fragment, "EditorEventListFragment").commit();
+                        .replace(R.id.editor_list_container, fragment, "EditorEventListFragment")
+                        .commitAllowingStateLoss();
                 if (removePreferences)
                     redrawEventPreferences(null, EditorEventListFragment.EDIT_MODE_EDIT, 0, startTargetHelps);
                 break;
