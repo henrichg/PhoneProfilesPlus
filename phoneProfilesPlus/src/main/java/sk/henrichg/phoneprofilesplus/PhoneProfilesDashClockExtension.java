@@ -83,9 +83,11 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         }
         int iconResource;
         if (isIconResourceID)
-            iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getPackageName());
+            //iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getPackageName());
+            iconResource = Profile.profileIconIdMap.get(iconIdentifier);
         else
-            iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", getPackageName());
+            //iconResource = getResources().getIdentifier(Profile.PROFILE_ICON_DEFAULT, "drawable", getPackageName());
+            iconResource = Profile.profileIconIdMap.get(Profile.PROFILE_ICON_DEFAULT);
 
         // profile preferences indicator
         String indicator1 = "";

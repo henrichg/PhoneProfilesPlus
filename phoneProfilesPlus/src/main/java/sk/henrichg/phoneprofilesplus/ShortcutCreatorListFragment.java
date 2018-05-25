@@ -247,7 +247,8 @@ public class ShortcutCreatorListFragment extends Fragment {
             if (profile._iconBitmap != null)
                 profileBitmap = profile._iconBitmap;
             else {
-                int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getActivity().getPackageName());
+                //int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", getActivity().getPackageName());
+                int iconResource = Profile.profileIconIdMap.get(iconIdentifier);
                 profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
             }
             shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);

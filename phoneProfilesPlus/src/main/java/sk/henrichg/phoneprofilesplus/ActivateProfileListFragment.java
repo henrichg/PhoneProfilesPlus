@@ -345,7 +345,8 @@ public class ActivateProfileListFragment extends Fragment {
                 if (profile._iconBitmap != null)
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
                 else {
-                    int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
+                    //int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
+                    int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
                     activeProfileIcon.setImageResource(res); // icon resource
                 }
             }

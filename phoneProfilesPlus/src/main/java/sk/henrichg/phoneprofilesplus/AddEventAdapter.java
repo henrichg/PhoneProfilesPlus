@@ -161,8 +161,9 @@ class AddEventAdapter extends BaseAdapter {
                         holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                     else {
                         //holder.profileStartIcon.setImageBitmap(null);
-                        int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                vi.getContext().getPackageName());
+                        //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                        //        vi.getContext().getPackageName());
+                        int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
                         holder.profileStartIcon.setImageResource(res); // icon resource
                     }
                 }
@@ -231,8 +232,9 @@ class AddEventAdapter extends BaseAdapter {
                             holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                         else {
                             //holder.profileEndIcon.setImageBitmap(null);
-                            int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                    vi.getContext().getPackageName());
+                            //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        vi.getContext().getPackageName());
+                            int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
                             holder.profileEndIcon.setImageResource(res); // icon resource
                         }
                     } else {

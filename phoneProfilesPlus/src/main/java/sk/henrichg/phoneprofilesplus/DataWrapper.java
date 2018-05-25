@@ -23,7 +23,6 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
@@ -33,9 +32,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
-import android.support.v4.content.pm.ShortcutInfoCompat;
-import android.support.v4.content.pm.ShortcutManagerCompat;
-import android.support.v4.graphics.drawable.IconCompat;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
@@ -631,7 +627,8 @@ public class DataWrapper {
             if (profile._iconBitmap != null)
                 profileBitmap = profile._iconBitmap;
             else {
-                int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                int iconResource = Profile.profileIconIdMap.get(iconIdentifier);
                 profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
             }
         } else {

@@ -92,8 +92,9 @@ class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
                     holder.profileIcon.setImageBitmap(profile._iconBitmap);
                 else {
                     //holder.profileIcon.setImageBitmap(null);
-                    int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                            vi.getContext().getPackageName());
+                    //int res = vi.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                    //        vi.getContext().getPackageName());
+                    int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
                     holder.profileIcon.setImageResource(res); // icon resource
                 }
             }

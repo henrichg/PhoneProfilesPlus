@@ -132,7 +132,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 if (profile._iconBitmap != null)
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_icon, profile._iconBitmap);
                 else {
-                    int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                    //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
+                    int iconResource = Profile.profileIconIdMap.get(iconIdentifier);
                     widget.setImageViewResource(R.id.widget_profile_list_header_profile_icon, iconResource);
                 }
             }

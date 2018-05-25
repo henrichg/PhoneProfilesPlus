@@ -443,7 +443,8 @@ public class ProfileIconPreference extends DialogPreference {
             if (isImageResourceID)
             {
                 // je to resource id
-                int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.getPackageName());
+                //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.getPackageName());
+                int res = Profile.profileIconIdMap.get(imageIdentifier);
 
                 if (useCustomColor) {
                     Bitmap bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);

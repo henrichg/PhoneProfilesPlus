@@ -293,8 +293,9 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                             profileIcon.setImageBitmap(profile._iconBitmap);
                         else {
                             //profileIcon.setImageBitmap(null);
-                            int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                    prefContext.getPackageName());
+                            //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                            //        prefContext.getPackageName());
+                            int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
                             profileIcon.setImageResource(res); // icon resource
                         }
                     }
@@ -326,8 +327,9 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                                     profIcon.setImageBitmap(profile._iconBitmap);
                                 else {
                                     //profileIcon.setImageBitmap(null);
-                                    int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
-                                            prefContext.getPackageName());
+                                    //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
+                                    //        prefContext.getPackageName());
+                                    int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
                                     profIcon.setImageResource(res); // icon resource
                                 }
                             }

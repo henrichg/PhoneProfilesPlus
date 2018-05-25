@@ -2969,17 +2969,19 @@ public class PhoneProfilesService extends Service
                             notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                         }
                         else {
-                            iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
-                            if (iconSmallResource == 0)
-                                iconSmallResource = R.drawable.ic_profile_default;
+                            //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
+                            //if (iconSmallResource == 0)
+                            //    iconSmallResource = R.drawable.ic_profile_default;
+                            iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                             notificationBuilder.setSmallIcon(iconSmallResource);
                         }
                     }
                     else {
                         // native icon
-                        iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
-                        if (iconSmallResource == 0)
-                            iconSmallResource = R.drawable.ic_profile_default_notify;
+                        //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
+                        //if (iconSmallResource == 0)
+                        //    iconSmallResource = R.drawable.ic_profile_default_notify;
+                        iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                         notificationBuilder.setSmallIcon(iconSmallResource);
                     }
 
@@ -2988,26 +2990,30 @@ public class PhoneProfilesService extends Service
                 else {
                     if (ApplicationPreferences.notificationStatusBarStyle(dataWrapper.context).equals("0")) {
                         // colorful icon
-                        iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
-                        if (iconSmallResource == 0)
-                            iconSmallResource = R.drawable.ic_profile_default;
+                        //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
+                        //if (iconSmallResource == 0)
+                        //    iconSmallResource = R.drawable.ic_profile_default;
+                        iconSmallResource = Profile.profileIconNotifyColorId.get(iconIdentifier);
                         notificationBuilder.setSmallIcon(iconSmallResource);
 
-                        int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
-                        if (iconLargeResource == 0)
-                            iconLargeResource = R.drawable.ic_profile_default;
+                        //int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
+                        //if (iconLargeResource == 0)
+                        //    iconLargeResource = R.drawable.ic_profile_default;
+                        int iconLargeResource = Profile.profileIconIdMap.get(iconIdentifier);
                         Bitmap largeIcon = BitmapFactory.decodeResource(dataWrapper.context.getResources(), iconLargeResource);
                         contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                     } else {
                         // native icon
-                        iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
-                        if (iconSmallResource == 0)
-                            iconSmallResource = R.drawable.ic_profile_default_notify;
+                        //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify", "drawable", dataWrapper.context.getPackageName());
+                        //if (iconSmallResource == 0)
+                        //    iconSmallResource = R.drawable.ic_profile_default_notify;
+                        iconSmallResource = Profile.profileIconNotifyId.get(iconIdentifier);
                         notificationBuilder.setSmallIcon(iconSmallResource);
 
-                        int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
-                        if (iconLargeResource == 0)
-                            iconLargeResource = R.drawable.ic_profile_default;
+                        //int iconLargeResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier, "drawable", dataWrapper.context.getPackageName());
+                        //if (iconLargeResource == 0)
+                        //    iconLargeResource = R.drawable.ic_profile_default;
+                        int iconLargeResource = Profile.profileIconIdMap.get(iconIdentifier);
                         Bitmap largeIcon = BitmapFactory.decodeResource(dataWrapper.context.getResources(), iconLargeResource);
                         contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                     }
