@@ -110,7 +110,7 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-basement-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:common:1.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.github.KeepSafe:TapTargetView-master-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-core-2.6.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-core-2.6.3" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/libs/slook_v1.4.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.code-troopers.betterpickers:library-3.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.simplecityapps:recyclerview-fastscroll-1.0.18" level="project" />
@@ -125,8 +125,8 @@
     <orderEntry type="library" name="Gradle: com.afollestad.material-dialogs:core-0.9.6.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support:multidex-instrumentation-1.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7-27.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:beta-1.2.7" level="project" />
-    <orderEntry type="library" name="Gradle: io.fabric.sdk.android:fabric-1.4.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:beta-1.2.8" level="project" />
+    <orderEntry type="library" name="Gradle: io.fabric.sdk.android:fabric-1.4.3" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-placereport-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.billingclient:billing-1.0" level="project" />
@@ -139,7 +139,6 @@
     <orderEntry type="library" name="Gradle: __local_aars__:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/libs/sdk-v1.0.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:animated-vector-drawable-27.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-compat-27.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-2.9.2" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:viewmodel-1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: me.zhanghai.android.materialprogressbar:library-1.4.2" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-base-15.0.1" level="project" />
@@ -152,9 +151,10 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-maps-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:livedata-core-1.1.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-2.9.3" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.core:common:1.1.0@jar" level="project" />
-    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:answers-1.4.1" level="project" />
     <orderEntry type="library" name="Gradle: com.readystatesoftware.systembartint:systembartint:1.0.4@jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:answers-1.4.2" level="project" />
     <orderEntry type="library" name="Gradle: com.labo.kaji:relativepopupwindow-0.3.1" level="project" />
     <orderEntry type="library" name="Gradle: com.evernote:android-job-1.2.5" level="project" />
     <orderEntry type="module" module-name="RootShell" />
