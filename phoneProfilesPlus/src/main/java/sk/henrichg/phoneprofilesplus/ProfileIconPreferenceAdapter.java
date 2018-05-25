@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import java.util.Map;
+
 class ProfileIconPreferenceAdapter extends BaseAdapter {
 
     private final Context context;
@@ -67,7 +69,8 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
             holder = (ViewHolder)vi.getTag();
         }
 
-        String iconResName = context.getResources().getResourceEntryName(Profile.profileIconId[position]);
+        //String iconResName = context.getResources().getResourceEntryName(Profile.profileIconId[position]);
+        String iconResName = ProfileIconPreferenceAdapter.getImageResourceName(position);
         if (iconResName.equals(imageIdentifier) && isImageResourceID) {
             if (Build.VERSION.SDK_INT >= 21)
                 holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
@@ -103,13 +106,28 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    static int getImageResourcePosition(String imageIdentifier, Context context) {
-        for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
+    static int getImageResourcePosition(String imageIdentifier/*, Context context*/) {
+        /*for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
             String resName = context.getResources().getResourceEntryName(Profile.profileIconId[pos]);
             if (resName.equals(imageIdentifier))
                 return pos;
+        }*/
+        int iconResource = Profile.profileIconIdMap.get(imageIdentifier);
+        for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
+            if (Profile.profileIconId[pos] == iconResource)
+                return pos;
         }
         return 0;
+    }
+
+    static String getImageResourceName(int position) {
+        int iconResource = Profile.profileIconId[position];
+        for(Map.Entry entry: Profile.profileIconIdMap.entrySet()){
+            if (entry.getValue().equals(iconResource)) {
+                return entry.getKey().toString();
+            }
+        }
+        return "ic_profile_default";
     }
 
     void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
@@ -118,8 +136,8 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    static int getIconColor(String imageIdentifier, Context context) {
-        return Profile.profileIconColor[getImageResourcePosition(imageIdentifier, context)];
+    static int getIconColor(String imageIdentifier/*, Context context*/) {
+        return Profile.profileIconColor[getImageResourcePosition(imageIdentifier/*, context*/)];
     }
 
 }
