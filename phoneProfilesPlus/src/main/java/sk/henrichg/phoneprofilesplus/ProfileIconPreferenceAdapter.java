@@ -112,10 +112,12 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
             if (resName.equals(imageIdentifier))
                 return pos;
         }*/
-        int iconResource = Profile.profileIconIdMap.get(imageIdentifier);
-        for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
-            if (Profile.profileIconId[pos] == iconResource)
-                return pos;
+        if (Profile.profileIconIdMap.get(imageIdentifier) != null) {
+            int iconResource = Profile.profileIconIdMap.get(imageIdentifier);
+            for (int pos = 0; pos < Profile.profileIconId.length; pos++) {
+                if (Profile.profileIconId[pos] == iconResource)
+                    return pos;
+            }
         }
         return 0;
     }
