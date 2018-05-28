@@ -3560,7 +3560,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    void increaseActivationByUserCount(long profileId) {
+    private void increaseActivationByUserCount(long profileId) {
         long count = getActivationByUserCount(profileId);
         ++count;
 

@@ -63,7 +63,7 @@ public class DonationActivity extends AppCompatActivity implements BillingProvid
         super.onDestroy();
         try {
             mBillingManager.destroy();
-        } catch (Exception ignored) {};
+        } catch (Exception ignored) {}
     }
 
     /**

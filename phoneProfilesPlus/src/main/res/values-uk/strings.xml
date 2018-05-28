@@ -725,7 +725,7 @@
   <string name="info_notification_event_start_order_handler_icon">Регулятор порядку:</string>
   <string name="info_notification_activate_profile_from_tasker">Ви можете активувати профіль із Tasker. Конфігурація задачі \"Система\"/\"Надіслати ціль\" із параметрами:</string>
   <string name="phone_profiles_pref_notificationHideInLockscreen">Не показувати на екрані блокування</string>
-  <string name="phone_profiles_pref_deleteOldActivityLogs">Вилучити журнали дій давніші ніж... (днів)</string>
+  <string name="phone_profiles_pref_deleteOldActivityLogs">Вилучити журнали дій давніші ніж… (днів)</string>
   <string name="phone_profiles_pref_applicationWidgetIconBackground">Непрозорість тла (віджет)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Яскравість тла (віджет)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Яскравість текста (віджет)</string>

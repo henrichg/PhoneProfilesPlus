@@ -585,6 +585,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         });
     }
 
+    @SuppressLint("AlwaysShowAction")
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);

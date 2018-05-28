@@ -1141,6 +1141,7 @@ class Permissions {
         }
     }
 
+    @SuppressWarnings("unused")
     static boolean checkCamera(Context context) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -1152,6 +1153,7 @@ class Permissions {
         }
     }
 
+    @SuppressWarnings("unused")
     static boolean checkMicrophone(Context context) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -1163,6 +1165,7 @@ class Permissions {
         }
     }
 
+    @SuppressWarnings("unused")
     static boolean checkSensors(Context context) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
