@@ -2833,7 +2833,8 @@ class ActivateProfileHelper {
     }
     */
 
-    static boolean telephonyServiceExists(/*Context context, */String preference) {
+    static boolean telephonyServiceExists(/*Context context, */
+            @SuppressWarnings("SameParameterValue") String preference) {
         try {
             Object serviceManager = PPApplication.getServiceManager("phone");
             if (serviceManager != null) {
@@ -2910,7 +2911,8 @@ class ActivateProfileHelper {
         }
     }
 
-    static boolean wifiServiceExists(/*Context context, */String preference) {
+    static boolean wifiServiceExists(/*Context context, */
+            @SuppressWarnings("SameParameterValue") String preference) {
         try {
             Object serviceManager = PPApplication.getServiceManager("wifi");
             if (serviceManager != null) {

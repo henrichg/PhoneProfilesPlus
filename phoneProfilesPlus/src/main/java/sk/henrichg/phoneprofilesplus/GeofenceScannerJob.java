@@ -66,7 +66,7 @@ class GeofenceScannerJob extends Job {
             }
         }
 
-        GeofenceScannerJob.scheduleJob(context, false, null, false, false);
+        GeofenceScannerJob.scheduleJob(context, false, null, false/*, false*/);
 
         /*
         try {
@@ -79,7 +79,7 @@ class GeofenceScannerJob extends Job {
         return Result.SUCCESS;
     }
 
-    private static void _scheduleJob(final Context context, boolean shortInterval, final boolean forScreenOn) {
+    private static void _scheduleJob(final Context context, boolean shortInterval/*, final boolean forScreenOn*/) {
         JobManager jobManager = null;
         try {
             jobManager = JobManager.instance();
@@ -162,7 +162,9 @@ class GeofenceScannerJob extends Job {
         }
     }
 
-    static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean startScanning, final boolean forScreenOn) {
+    static void scheduleJob(final Context context,
+                            @SuppressWarnings("SameParameterValue") final boolean useHandler,
+                            final Handler _handler, final boolean startScanning/*, final boolean forScreenOn*/) {
         PPApplication.logE("GeofenceScannerJob.scheduleJob", "startScanning="+startScanning);
 
         //if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
@@ -172,14 +174,14 @@ class GeofenceScannerJob extends Job {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        _scheduleJob(context, startScanning, forScreenOn);
+                        _scheduleJob(context, startScanning/*, forScreenOn*/);
                         /*if (countDownLatch != null)
                             countDownLatch.countDown();*/
                     }
                 });
             }
             else {
-                _scheduleJob(context, startScanning, forScreenOn);
+                _scheduleJob(context, startScanning/*, forScreenOn*/);
                 /*if (countDownLatch != null)
                     countDownLatch.countDown();*/
             }

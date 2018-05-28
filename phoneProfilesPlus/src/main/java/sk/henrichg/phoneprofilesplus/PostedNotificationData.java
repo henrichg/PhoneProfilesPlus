@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 class PostedNotificationData {
 
     public final String packageName;
+    @SuppressWarnings({"WeakerAccess","unused"})
     public final long time;
 
     //public PostedNotificationData() {

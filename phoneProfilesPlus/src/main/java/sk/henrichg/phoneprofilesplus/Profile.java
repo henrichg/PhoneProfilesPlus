@@ -810,7 +810,7 @@ public class Profile {
     // constructor
     Profile(String name,
                    String icon,
-                   Boolean checked,
+                   @SuppressWarnings("SameParameterValue") Boolean checked,
                    int porder,
                    int volumeRingerMode,
                    String volumeRingtone,

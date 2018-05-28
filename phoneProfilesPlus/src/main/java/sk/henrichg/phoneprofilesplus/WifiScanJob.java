@@ -71,7 +71,7 @@ class WifiScanJob extends Job {
         }
 
         PPApplication.logE("WifiScanJob.onRunJob", "schedule job");
-        WifiScanJob.scheduleJob(context, false, null, false, false, false);
+        WifiScanJob.scheduleJob(context, false, null, false/*, false, false*/);
 
         /*try {
             countDownLatch.await();
@@ -82,7 +82,7 @@ class WifiScanJob extends Job {
         return Result.SUCCESS;
     }
 
-    private static void _scheduleJob(final Context context, final boolean shortInterval, final boolean forScreenOn, final boolean afterEnableWifi) {
+    private static void _scheduleJob(final Context context, final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
         JobManager jobManager = null;
         try {
             jobManager = JobManager.instance();
@@ -148,7 +148,7 @@ class WifiScanJob extends Job {
         }
     }
 
-    static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval, final boolean forScreenOn, final boolean afterEnableWifi) {
+    static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
         PPApplication.logE("WifiScanJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context)
@@ -159,14 +159,14 @@ class WifiScanJob extends Job {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        _scheduleJob(context, shortInterval, forScreenOn,afterEnableWifi);
+                        _scheduleJob(context, shortInterval/*, forScreenOn,afterEnableWifi*/);
                         /*if (countDownLatch != null)
                             countDownLatch.countDown();*/
                     }
                 });
             }
             else {
-                _scheduleJob(context, shortInterval, forScreenOn, afterEnableWifi);
+                _scheduleJob(context, shortInterval/*, forScreenOn, afterEnableWifi*/);
                 /*if (countDownLatch != null)
                     countDownLatch.countDown();*/
             }

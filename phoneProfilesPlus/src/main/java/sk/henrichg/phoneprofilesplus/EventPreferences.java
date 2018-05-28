@@ -20,6 +20,7 @@ class EventPreferences {
         _enabled = enabled;
     }
 
+    @SuppressWarnings("unused")
     void copyPreferences(Event fromEvent)
     {
     }
@@ -36,31 +37,38 @@ class EventPreferences {
     }
     */
 
+    @SuppressWarnings("unused")
     void loadSharedPreferences(SharedPreferences preferences)
     {
     }
 
+    @SuppressWarnings("unused")
     void saveSharedPreferences(SharedPreferences preferences)
     {
     }
 
+    @SuppressWarnings("unused")
     String getPreferencesDescription(boolean addBullet, Context context)
     {
         return "";
     }
 
+    @SuppressWarnings("unused")
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
     }
 
+    @SuppressWarnings("unused")
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
     }
 
+    @SuppressWarnings("unused")
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
     }
 
+    @SuppressWarnings("unused")
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
     }
 

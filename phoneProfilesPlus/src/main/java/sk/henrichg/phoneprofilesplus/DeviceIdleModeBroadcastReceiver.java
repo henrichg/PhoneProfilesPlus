@@ -52,11 +52,11 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule jobs");
 
                             // schedule job for one wifi scan
-                            PhoneProfilesService.instance.scheduleWifiJob(true,  true, true, false, false, false);
+                            PhoneProfilesService.instance.scheduleWifiJob(true,  true, /*true, false,*/ false, false);
                             // schedule job for one bluetooth scan
-                            PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, true, false, false);
+                            PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, /*true,*/ false, false);
                             // schedule job for location scan
-                            PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, true, false);
+                            PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, /*true,*/ false);
                         }
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {

@@ -122,7 +122,9 @@ class SearchCalendarEventsJob extends Job {
         } catch (Exception ignored) {}
     }
 
-    static void cancelJob(/*final Context context, */final boolean useHandler, final Handler _handler) {
+    static void cancelJob(/*final Context context, */
+            @SuppressWarnings("SameParameterValue") final boolean useHandler,
+            final Handler _handler) {
         PPApplication.logE("SearchCalendarEventsJob.cancelJob", "xxx");
 
         if (useHandler && (_handler == null)) {

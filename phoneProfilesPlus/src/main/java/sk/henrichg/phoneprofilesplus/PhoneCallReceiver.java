@@ -57,6 +57,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
     protected abstract void onIncomingCallEnded(String number, Date eventTime);
     protected abstract void onOutgoingCallEnded(String number, Date eventTime);
     protected abstract void onMissedCall(String number, Date eventTime);
+    @SuppressWarnings("EmptyMethod")
     protected abstract void onEndReceive();
 
     //Deals with actual events

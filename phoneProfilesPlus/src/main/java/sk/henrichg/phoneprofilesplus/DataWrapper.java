@@ -373,7 +373,8 @@ public class DataWrapper {
         return profile;
     }
 
-    void fillPredefinedProfileList(boolean generateIcons, boolean generateIndicators)
+    void fillPredefinedProfileList(@SuppressWarnings("SameParameterValue") boolean generateIcons,
+                                   boolean generateIndicators)
     {
         synchronized (profileList) {
             invalidateProfileList();
@@ -595,7 +596,9 @@ public class DataWrapper {
         editor.apply();
     }
 
-    void refreshProfileIcon(Profile profile, boolean generateIcon, boolean generateIndicators) {
+    void refreshProfileIcon(Profile profile,
+                            @SuppressWarnings("SameParameterValue") boolean generateIcon,
+                            boolean generateIndicators) {
         if (profile != null) {
             boolean isIconResourceID = profile.getIsIconResourceID();
             String iconIdentifier = profile.getIconIdentifier();
@@ -867,7 +870,8 @@ public class DataWrapper {
         restartEvents(false, true/*, false*/);
     }
 
-    void stopEventsForProfileFromMainThread(final Profile profile, final boolean alsoUnlink) {
+    void stopEventsForProfileFromMainThread(final Profile profile,
+                                            @SuppressWarnings("SameParameterValue") final boolean alsoUnlink) {
         final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);
@@ -945,7 +949,8 @@ public class DataWrapper {
         Event.setEventsBlocked(context, blockEvents);
     }
 
-    private void pauseAllEventsFromMainThread(final boolean noSetSystemEvent, final boolean blockEvents) {
+    private void pauseAllEventsFromMainThread(@SuppressWarnings("SameParameterValue") final boolean noSetSystemEvent,
+                                              @SuppressWarnings("SameParameterValue") final boolean blockEvents) {
         final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);
@@ -1001,7 +1006,8 @@ public class DataWrapper {
         }
     }
 
-    void stopAllEventsFromMainThread(final boolean saveEventStatus, final boolean alsoDelete) {
+    void stopAllEventsFromMainThread(@SuppressWarnings("SameParameterValue") final boolean saveEventStatus,
+                                     final boolean alsoDelete) {
         final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);

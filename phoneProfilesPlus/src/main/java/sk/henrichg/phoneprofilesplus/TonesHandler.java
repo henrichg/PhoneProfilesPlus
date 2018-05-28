@@ -21,7 +21,8 @@ class TonesHandler {
     static final int TONE_ID = R.raw.phoneprofiles_silent;
     static final String TONE_NAME = "PhoneProfiles Silent";
 
-    static String getPhoneProfilesSilentUri(Context context, int type) {
+    static String getPhoneProfilesSilentUri(Context context,
+                                            @SuppressWarnings("SameParameterValue") int type) {
         try {
             RingtoneManager manager = new RingtoneManager(context);
             manager.setType(type);
@@ -44,7 +45,9 @@ class TonesHandler {
         return "";
     }
 
-    static String getToneName(Context context, int type, String _uri) {
+    static String getToneName(Context context,
+                              @SuppressWarnings("SameParameterValue") int type,
+                              String _uri) {
         RingtoneManager manager = new RingtoneManager(context);
         manager.setType(type);
         Cursor cursor = manager.getCursor();
@@ -114,7 +117,8 @@ class TonesHandler {
         return true;
     }
 
-    static boolean isToneInstalled(int resID, Context context) {
+    static boolean isToneInstalled(@SuppressWarnings("SameParameterValue") int resID,
+                                   Context context) {
         if (Permissions.checkInstallTone(context, null)) {
             boolean ringtone = isToneInstalled(resID, Environment.DIRECTORY_RINGTONES, context);
             boolean notification = isToneInstalled(resID, Environment.DIRECTORY_NOTIFICATIONS, context);
@@ -276,7 +280,9 @@ class TonesHandler {
         return !isError;
     }
 
-    static void installTone(int resID, String title, Context context, boolean fromMenu) {
+    static void installTone(@SuppressWarnings("SameParameterValue") int resID,
+                            @SuppressWarnings("SameParameterValue") String title,
+                            Context context, boolean fromMenu) {
 
         boolean granted;
         if (fromMenu)

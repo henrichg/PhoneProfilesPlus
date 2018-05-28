@@ -5109,7 +5109,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    void updateAllEventsStatus(int fromStatus, int toStatus)
+    void updateAllEventsStatus(@SuppressWarnings("SameParameterValue") int fromStatus,
+                               @SuppressWarnings("SameParameterValue") int toStatus)
     {
         importExportLock.lock();
         try {

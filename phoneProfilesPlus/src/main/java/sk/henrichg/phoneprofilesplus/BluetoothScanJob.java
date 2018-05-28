@@ -78,7 +78,7 @@ class BluetoothScanJob extends Job {
                 startScanner(context, false);
         }
 
-        BluetoothScanJob.scheduleJob(context, false, null, false, false);
+        BluetoothScanJob.scheduleJob(context, false, null, false/*, false*/);
 
         /*try {
             countDownLatch.await();
@@ -89,7 +89,7 @@ class BluetoothScanJob extends Job {
         return Result.SUCCESS;
     }
 
-    private static void _scheduleJob(final Context context, final boolean shortInterval, final boolean forScreenOn) {
+    private static void _scheduleJob(final Context context, final boolean shortInterval/*, final boolean forScreenOn*/) {
         JobManager jobManager = null;
         try {
             jobManager = JobManager.instance();
@@ -151,7 +151,7 @@ class BluetoothScanJob extends Job {
         }
     }
 
-    static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval, final boolean forScreenOn) {
+    static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval/*, final boolean forScreenOn*/) {
         PPApplication.logE("BluetoothScanJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context)
@@ -162,14 +162,14 @@ class BluetoothScanJob extends Job {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        _scheduleJob(context, shortInterval, forScreenOn);
+                        _scheduleJob(context, shortInterval/*, forScreenOn*/);
                         /*if (countDownLatch != null)
                             countDownLatch.countDown();*/
                     }
                 });
             }
             else {
-                _scheduleJob(context, shortInterval, forScreenOn);
+                _scheduleJob(context, shortInterval/*, forScreenOn*/);
                 /*if (countDownLatch != null)
                     countDownLatch.countDown();*/
             }
