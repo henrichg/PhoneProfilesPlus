@@ -156,7 +156,7 @@
     <orderEntry type="library" name="Gradle: com.readystatesoftware.systembartint:systembartint:1.0.4@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:answers-1.4.2" level="project" />
     <orderEntry type="library" name="Gradle: com.labo.kaji:relativepopupwindow-0.3.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.evernote:android-job-1.2.5" level="project" />
+    <orderEntry type="library" name="Gradle: com.evernote:android-job-1.2.6" level="project" />
     <orderEntry type="module" module-name="RootShell" />
     <orderEntry type="module" module-name="RootTools" />
   </component>
