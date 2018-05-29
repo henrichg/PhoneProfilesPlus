@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -49,16 +50,23 @@ public class ImportantInfoHelpFragment extends Fragment {
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
             versionCode = pInfo.versionCode;
+            PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "versionCode="+versionCode);
         } catch (Exception ignored) {
         }
 
         boolean news = false;
         boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
         boolean news3670 = (versionCode >= 3670); // news for PhoneProfilesPlusExtender - show it when not activated
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3670="+news3670);
         boolean news3640 = ((versionCode >= 3640) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3640="+news3640);
         boolean news2190 = ((versionCode >= 2190) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news2190="+news2190);
         boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news1804="+news1804);
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news1772="+news1772);
 
         int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
         int applicationSensorsCount = 0;
@@ -70,20 +78,38 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         //noinspection StatementWithEmptyBody
         if (newsLatest) {
-            // empty this, for switch off news
+            // move this to newXXX, for switch off news
+            news = true;
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2);
+            infoText1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = "https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    } catch (Exception ignored) {}
+                }
+            });
         }
         else {
-            // empty this, for switch off news
+            // move this to newXXX, for switch off news
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files);
+            infoText1.setVisibility(View.GONE);
+            infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2);
+            infoText1.setVisibility(View.GONE);
         }
 
         if (news3670) {
-            news = true;
+            boolean news_extender = true;
             if ((extenderVersion > 0) || ((applicationSensorsCount == 0) && (orientationSensorsCount == 0))) {
                 // extender is installed or not needed
-                news = false;
+                news_extender = false;
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);
                 infoText1.setVisibility(View.GONE);
             }
+            news = news || news_extender;
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text1);

@@ -75,6 +75,8 @@ public class PPApplication extends Application {
 
                                          +"|DatabaseHandler.onUpgrade"
 
+                                         +"|ImportantInfoHelpFragment.onViewCreated"
+
                                          //+"|PPApplication.startHandlerThread"
                                          //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
 
