@@ -326,6 +326,7 @@ public class PPApplication extends Application {
     public static Handler toastHandler;
     public static Handler brightnessHandler;
     public static Handler screenTimeoutHandler;
+    public static Handler widgetHandler;
 
     public static int notAllowedReason;
     public static String notAllowedReasonDetail;
@@ -430,6 +431,7 @@ public class PPApplication extends Application {
         toastHandler = new Handler(getMainLooper());
         brightnessHandler = new Handler(getMainLooper());
         screenTimeoutHandler = new Handler(getMainLooper());
+        widgetHandler = new Handler(getMainLooper());
 
         JobConfig.setForceAllowApi14(true); // https://github.com/evernote/android-job/issues/197
         JobManager.create(this).addJobCreator(new PPJobsCreator());
