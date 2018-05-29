@@ -1432,16 +1432,17 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.export_profiles_alert_title);
-        dialogBuilder.setMessage(R.string.export_profiles_alert_message);
+        dialogBuilder.setMessage(getString(R.string.export_profiles_alert_message) + " \"" + PPApplication.EXPORT_PATH + "\".\n\n" +
+                                 getString(R.string.export_profiles_alert_message_note));
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+        dialogBuilder.setPositiveButton(R.string.alert_button_backup, new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
                 doExportData();
             }
         });
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         dialogBuilder.show();
     }
 

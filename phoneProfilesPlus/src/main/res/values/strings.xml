@@ -133,7 +133,6 @@
     <string name="import_profiles_alert_message">Are you sure?</string>
     <string name="import_profiles_alert_error">Error during restore process</string>
     <string name="export_profiles_alert_title">Backup settings</string>
-    <string name="export_profiles_alert_message">Are you sure?</string>
     <string name="export_profiles_alert_error">Error during backup process</string>
     <string name="profile_preferences_deviceMobileData">Mobile data</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Mobile data preferences</string>
@@ -1164,6 +1163,9 @@
     <string name="profile_preferences_dtmfToneWhenDialing">DTMF tone when dialing</string>
     <string name="not_saved_changes_alert_title">Preferences changed</string>
     <string name="not_saved_changes_alert_message">Save changes?</string>
+    <string name="export_profiles_alert_message">Backup files will be saved in device internal storage into folder</string>
+    <string name="export_profiles_alert_message_note">Note: Backup files contains sensitive private data. Distribute files to third parties, for example in zip file with password.</string>
+    <string name="alert_button_backup">Do backup</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
