@@ -2500,6 +2500,13 @@ public class PhoneProfilesService extends Service
 
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application not started, start it");
 
+                    PPApplication.createProfileNotificationChannel(appContext);
+                    PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
+                    PPApplication.createInformationNotificationChannel(appContext);
+                    PPApplication.createExclamationNotificationChannel(appContext);
+                    PPApplication.createGrantPermissionNotificationChannel(appContext);
+                    PPApplication.createNotifyEventStartNotificationChannel(appContext);
+
                     Permissions.clearMergedPermissions(appContext);
 
                     TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
