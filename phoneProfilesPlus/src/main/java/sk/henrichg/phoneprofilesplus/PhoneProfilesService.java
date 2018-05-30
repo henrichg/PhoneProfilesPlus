@@ -2500,12 +2500,7 @@ public class PhoneProfilesService extends Service
 
                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application not started, start it");
 
-                    PPApplication.createProfileNotificationChannel(appContext);
-                    PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
-                    PPApplication.createInformationNotificationChannel(appContext);
-                    PPApplication.createExclamationNotificationChannel(appContext);
-                    PPApplication.createGrantPermissionNotificationChannel(appContext);
-                    PPApplication.createNotifyEventStartNotificationChannel(appContext);
+                    PPApplication.createNotificationChannels(appContext);
 
                     Permissions.clearMergedPermissions(appContext);
 
