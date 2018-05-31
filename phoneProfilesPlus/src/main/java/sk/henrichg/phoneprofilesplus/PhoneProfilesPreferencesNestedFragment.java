@@ -29,8 +29,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                               implements SharedPreferences.OnSharedPreferenceChangeListener
 {
 
-    protected PreferenceManager prefMng;
-    protected SharedPreferences preferences;
+    PreferenceManager prefMng;
+    SharedPreferences preferences;
 
     public static MobileCellsRegistrationDialogPreference.MobileCellsRegistrationBroadcastReceiver mobileCellsRegistrationBroadcastReceiver;
 

@@ -14,7 +14,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
     //We need a static variable to remember data between instantiations
     private static PhoneCallStartEndDetector listener;
     //String outgoingSavedNumber;
-    protected Context savedContext;
+    Context savedContext;
 
 
     @Override

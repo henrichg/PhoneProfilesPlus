@@ -22,7 +22,7 @@ import java.util.HashMap;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public abstract class PreferenceFragment extends android.preference.PreferenceFragment {
 
-    public abstract int addPreferencesFromResource();
+    abstract int addPreferencesFromResource();
 
     private static final HashMap<String, PreferenceScreen> preferenceScreenHashMap = new HashMap<>();
 
@@ -272,7 +272,7 @@ public abstract class PreferenceFragment extends android.preference.PreferenceFr
             PPApplication.logE("PreferenceFragment.onPreferenceScreenClick","????");
     }
 
-    protected String getSavedInstanceStateKeyName() {
+    String getSavedInstanceStateKeyName() {
         return "PreferenceFragment_PreferenceScreenKey";
     }
 

@@ -15,12 +15,12 @@ import android.support.v7.widget.Toolbar;
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-    protected int startupSource;
+    int startupSource;
 
     private Event event;
     //private boolean first_start_activity;
-    protected PreferenceManager prefMng;
-    protected SharedPreferences preferences;
+    PreferenceManager prefMng;
+    SharedPreferences preferences;
     private Context context;
 
     private static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
