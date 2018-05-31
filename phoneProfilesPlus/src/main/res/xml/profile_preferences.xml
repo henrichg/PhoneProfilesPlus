@@ -30,6 +30,7 @@
             android:widgetLayout="@layout/mp_preference_switch" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="prf_pref_activationParametersCategory"
         android:summary="@string/profile_preferences_category_profileActivationParameters"
         android:title="@string/profile_preferences_category_profileActivationParameters"
         android:layout="@layout/mp_preference_category" >

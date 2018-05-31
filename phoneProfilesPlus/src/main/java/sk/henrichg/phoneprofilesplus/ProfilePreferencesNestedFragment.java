@@ -18,6 +18,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
@@ -311,6 +312,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 preference.setTitle("(R) "+getString(R.string.profile_preferences_deviceWiFiAP));
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "");
                 setSummary(Profile.PREF_PROFILE_DEVICE_WIFI_AP, value);
+            }
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
+            if (preference != null) {
+                PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("prf_pref_activationParametersCategory");
+                preferenceCategory.removePreference(preference);
             }
         }
         if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
@@ -1311,7 +1317,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 setCategorySummary(checkBoxPreference, show);
             }
         }
-        if (key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON))
+        if (key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) && (Build.VERSION.SDK_INT < 26))
         {
             String sValue = value.toString();
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);

@@ -798,10 +798,10 @@ public class PPApplication extends Application {
 
     static void createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
-            /*int importance;
+            int importance;
             PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
             if (ApplicationPreferences.notificationShowInStatusBar(context)) {
-                KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+                /*KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                 if (myKM != null) {
                     //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
                     boolean screenUnlocked = !myKM.isKeyguardLocked();
@@ -810,20 +810,20 @@ public class PPApplication extends Application {
                             ((profile != null) && profile._hideStatusBarIcon))
                         importance = NotificationManager.IMPORTANCE_MIN;
                     else
-                        importance = NotificationManager.IMPORTANCE_DEFAULT;
+                        importance = NotificationManager.IMPORTANCE_LOW;
                 }
-                else
-                    importance = NotificationManager.IMPORTANCE_DEFAULT;
+                else*/
+                    importance = NotificationManager.IMPORTANCE_LOW;
             }
             else
-                importance = NotificationManager.IMPORTANCE_MIN;*/
+                importance = NotificationManager.IMPORTANCE_MIN;
 
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_activated_profile);
             // The user-visible description of the channel.
             String description = context.getString(R.string.notification_channel_activated_profile_description_ppp);
 
-            NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel channel = new NotificationChannel(PROFILE_NOTIFICATION_CHANNEL, name, importance);
 
             // Configure the notification channel.
             //channel.setImportance(importance);
