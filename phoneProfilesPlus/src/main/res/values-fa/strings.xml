@@ -210,7 +210,6 @@
   <string name="array_pref_value_90_degrees" formatted="false">90°</string>
   <string name="array_pref_value_180_degrees" formatted="false">180°</string>
   <string name="array_pref_value_270_degrees" formatted="false">270°</string>
-  <string name="array_pref_value_auto_rotate">چرخش خودکار</string>
   <string name="default_profile_name">Shared profile</string>
   <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
   <string name="preference_profile_default_profile">Shared profile</string>
