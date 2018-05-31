@@ -212,7 +212,6 @@
     <string name="array_pref_value_90_degrees" formatted="false">90°</string>
     <string name="array_pref_value_180_degrees" formatted="false">180°</string>
     <string name="array_pref_value_270_degrees" formatted="false">270°</string>
-    <string name="array_pref_value_auto_rotate">Auto. rotate</string>
     <string name="default_profile_name">Shared profile</string>
     <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
     <string name="preference_profile_default_profile">Shared profile</string>
@@ -1170,6 +1169,8 @@
     <string name="important_info_privacy_policy_backup_files_2">Click this to show Privacy policy.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">System settings</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuration for notification category:</string>
+    <string name="array_pref_value_auto_rotate_on">Automatic rotation on</string>
+    <string name="array_pref_value_auto_rotate_off">Automatic rotation off</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -506,8 +506,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceAutoRotation"
                 android:defaultValue="0"
-                android:entries="@array/displayRotationArray11"
-                android:entryValues="@array/displayRotationValues11"
+                android:entries="@array/displayRotationArray"
+                android:entryValues="@array/displayRotationValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <Preference

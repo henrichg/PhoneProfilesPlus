@@ -319,12 +319,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             }
             // auto-rotation
             if (profile._deviceAutoRotate != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, this) == PPApplication.PREFERENCE_ALLOWED) {
-                    if (profile._deviceAutoRotate == 1)
-                        indicator1 = addIntoIndicator(indicator1, "aro");
-                    else if (profile._deviceAutoRotate != 0)
-                        indicator1 = addIntoIndicator(indicator1, "rot");
-                }
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, this) == PPApplication.PREFERENCE_ALLOWED)
+                    indicator1 = addIntoIndicator(indicator1, "rot");
             }
             // notification led
             if (profile._notificationLed != 0) {

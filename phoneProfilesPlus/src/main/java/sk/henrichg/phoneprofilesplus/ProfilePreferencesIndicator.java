@@ -263,12 +263,8 @@ class ProfilePreferencesIndicator {
             }
             // auto-rotate
             if (profile._deviceAutoRotate != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, context) == PPApplication.PREFERENCE_ALLOWED) {
-                    if (profile._deviceAutoRotate == 1)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off;
-                    else if (profile._deviceAutoRotate != 0)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
-                }
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, context) == PPApplication.PREFERENCE_ALLOWED)
+                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
             }
             // notification led
             if (profile._notificationLed != 0) {

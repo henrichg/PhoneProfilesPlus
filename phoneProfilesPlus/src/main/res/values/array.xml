@@ -184,19 +184,21 @@
         <item>@string/editor_drawer_order_profile_name</item>
         <item>@string/editor_drawer_order_priority</item>
     </string-array>
-    <string-array name="displayRotationArray11">
+    <string-array name="displayRotationArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_default_profile</item>
-        <item>@string/array_pref_value_auto_rotate</item>
+        <item>@string/array_pref_value_auto_rotate_on</item>
+        <item>@string/array_pref_value_auto_rotate_off</item>
         <item>@string/array_pref_value_0_degrees</item>
         <item>@string/array_pref_value_90_degrees</item>
         <item>@string/array_pref_value_180_degrees</item>
         <item>@string/array_pref_value_270_degrees</item>
     </string-array>
-    <string-array name="displayRotationValues11">
+    <string-array name="displayRotationValues">
         <item>0</item>
         <item>99</item>
         <item>1</item>
+        <item>6</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
@@ -289,17 +291,19 @@
         <item>5</item>
         <item>6</item>
     </string-array>
-    <string-array name="displayRotationDPArray11">
+    <string-array name="displayRotationDPArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_value_auto_rotate</item>
+        <item>@string/array_pref_value_auto_rotate_on</item>
+        <item>@string/array_pref_value_auto_rotate_off</item>
         <item>@string/array_pref_value_0_degrees</item>
         <item>@string/array_pref_value_90_degrees</item>
         <item>@string/array_pref_value_180_degrees</item>
         <item>@string/array_pref_value_270_degrees</item>
     </string-array>
-    <string-array name="displayRotationDPValues11">
+    <string-array name="displayRotationDPValues">
         <item>0</item>
         <item>1</item>
+        <item>6</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
