@@ -140,8 +140,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         EventsHandler eventsHandler = new EventsHandler(context);
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL/*, false*/);
 
-        if ((wakeLock != null) && wakeLock.isHeld())
-            wakeLock.release();
+        if ((wakeLock != null) && wakeLock.isHeld()) {
+            try {
+                wakeLock.release();
+            } catch (Exception ignored) {}
+        }
     }
 
     private void callStarted(boolean incoming, String phoneNumber, Date eventTime, Context context)

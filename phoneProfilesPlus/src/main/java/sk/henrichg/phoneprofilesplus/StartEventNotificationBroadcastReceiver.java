@@ -42,8 +42,11 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     if (event != null)
                         event.notifyEventStart(appContext);
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             }
         });

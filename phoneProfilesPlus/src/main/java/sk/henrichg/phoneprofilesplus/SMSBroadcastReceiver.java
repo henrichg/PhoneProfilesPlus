@@ -133,8 +133,11 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                         eventsHandler.setEventSMSParameters(_origin, _time);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS/*, false*/);
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 });
             }

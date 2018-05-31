@@ -52,8 +52,11 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END/*, false*/);
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 });
             //}

@@ -2452,8 +2452,11 @@ public class PhoneProfilesService extends Service
                         } catch (Exception ignored) {
                         }
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 });
             }
@@ -2493,8 +2496,11 @@ public class PhoneProfilesService extends Service
 
                     if (PPApplication.getApplicationStarted(appContext, false)) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                         return;
                     }
 
@@ -2590,8 +2596,11 @@ public class PhoneProfilesService extends Service
 
                     dataWrapper.invalidateDataWrapper();
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
 
@@ -3440,8 +3449,11 @@ public class PhoneProfilesService extends Service
                     EventsHandler eventsHandler = new EventsHandler(context);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION/*, false*/);
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
         }

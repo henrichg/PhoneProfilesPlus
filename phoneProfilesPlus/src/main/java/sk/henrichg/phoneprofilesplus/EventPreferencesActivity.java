@@ -418,8 +418,11 @@ public class EventPreferencesActivity extends PreferenceActivity
                         PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
                         dataWrapper.restartEvents(false, true/*, false*/);
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 });
             }
@@ -443,8 +446,11 @@ public class EventPreferencesActivity extends PreferenceActivity
                         PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
                         dataWrapper.restartEvents(false, true/*, false*/);
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 });
             }

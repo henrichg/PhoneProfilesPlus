@@ -121,8 +121,11 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION/*, false*/);
                         //}
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 });
             }

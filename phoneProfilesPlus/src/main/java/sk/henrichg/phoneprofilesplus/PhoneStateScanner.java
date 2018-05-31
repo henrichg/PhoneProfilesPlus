@@ -375,8 +375,11 @@ class PhoneStateScanner extends PhoneStateListener {
                     }
                     dataWrapper.invalidateDataWrapper();
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
         }

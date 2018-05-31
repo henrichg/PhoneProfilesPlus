@@ -135,8 +135,11 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         false, true, null, false); // activate return profile
                                 dataWrapper.restartEvents(false, true/*, true*/);
 
-                                if ((wakeLock != null) && wakeLock.isHeld())
-                                    wakeLock.release();
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {}
+                                }
                             }
                         });
                     }
@@ -183,8 +186,11 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         true, true); // activate return profile
                                 dataWrapper.restartEvents(false, true/*, true*/);
 
-                                if ((wakeLock != null) && wakeLock.isHeld())
-                                    wakeLock.release();
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {}
+                                }
                             }
                         });
                     }

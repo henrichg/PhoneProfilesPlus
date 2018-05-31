@@ -1675,8 +1675,11 @@ public class PPApplication extends Application {
 
                     PPApplication.setApplicationStarted(context, false);
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
 

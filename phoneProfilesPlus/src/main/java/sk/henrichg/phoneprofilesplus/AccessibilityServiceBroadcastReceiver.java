@@ -74,8 +74,11 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION/*, false*/);
 
-                                if ((wakeLock != null) && wakeLock.isHeld())
-                                    wakeLock.release();
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {}
+                                }
                             }
                         });
                     }
@@ -104,8 +107,11 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION/*, false*/);
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
         }
@@ -128,8 +134,11 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
                         ActivateProfileHelper.executeForInteractivePreferences(profile, appContext);
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 });
             }

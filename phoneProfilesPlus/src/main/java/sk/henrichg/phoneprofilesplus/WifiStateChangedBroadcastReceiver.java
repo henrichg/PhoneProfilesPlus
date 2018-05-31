@@ -107,8 +107,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                                 WifiScanJob.startScan(appContext);
 
-                                                if ((wakeLock != null) && wakeLock.isHeld())
-                                                    wakeLock.release();
+                                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                                    try {
+                                                        wakeLock.release();
+                                                    } catch (Exception ignored) {}
+                                                }
                                             }
                                         }, 5000);
 
@@ -135,8 +138,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                                 WifiScanJob.fillWifiConfigurationList(appContext);
 
-                                                if ((wakeLock != null) && wakeLock.isHeld())
-                                                    wakeLock.release();
+                                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                                    try {
+                                                        wakeLock.release();
+                                                    } catch (Exception ignored) {}
+                                                }
                                             }
                                         });
                                     }
@@ -157,8 +163,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                             }
                         }
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 });
             }

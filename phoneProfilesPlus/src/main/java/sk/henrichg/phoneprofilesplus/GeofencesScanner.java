@@ -407,8 +407,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE/*, false*/);
                                     }
 
-                                    if ((wakeLock != null) && wakeLock.isHeld())
-                                        wakeLock.release();
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {}
+                                    }
                                 }
                             });
                         }

@@ -895,8 +895,11 @@ public class DataWrapper {
 
                 dataWrapper.stopEventsForProfile(profile, alsoUnlink);
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
     }
@@ -974,8 +977,11 @@ public class DataWrapper {
 
                 dataWrapper.pauseAllEvents(noSetSystemEvent, blockEvents);
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
     }
@@ -1031,8 +1037,11 @@ public class DataWrapper {
 
                 dataWrapper.stopAllEvents(saveEventStatus, alsoDelete);
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
     }
@@ -1475,8 +1484,11 @@ public class DataWrapper {
                 }
                 PPApplication.logE("DataWrapper.activateProfileFromMainThread", "end in handler");
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
 
             }
         });
@@ -3414,8 +3426,11 @@ public class DataWrapper {
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE/*, false*/);
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
             return;
@@ -3467,8 +3482,11 @@ public class DataWrapper {
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS/*, interactive*/);
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
     }
@@ -3521,8 +3539,11 @@ public class DataWrapper {
                     PPApplication.restartPhoneStateScanner(dataWrapper.context, false);
                 }
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
 
             }
         });

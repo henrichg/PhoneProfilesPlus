@@ -143,8 +143,11 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
 

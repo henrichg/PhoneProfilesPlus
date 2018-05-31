@@ -468,8 +468,11 @@ class ActivateProfileHelper {
 
                 //PPApplication.sleep(500);
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
     }
@@ -1037,8 +1040,11 @@ class ActivateProfileHelper {
                     setTones(context, profile);
                 }
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
     }
@@ -1107,8 +1113,11 @@ class ActivateProfileHelper {
                                 }
                             }
 
-                            if ((wakeLock != null) && wakeLock.isHeld())
-                                wakeLock.release();
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
                     });
                 }
@@ -1472,8 +1481,11 @@ class ActivateProfileHelper {
                         }
                     }
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
         }
@@ -1585,8 +1597,11 @@ class ActivateProfileHelper {
                         }
                     }
 
-                    if ((wakeLock != null) && wakeLock.isHeld())
-                        wakeLock.release();
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             });
         }
@@ -1647,8 +1662,11 @@ class ActivateProfileHelper {
                     }
                 }
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
         //}
@@ -3398,8 +3416,11 @@ class ActivateProfileHelper {
                             }
                         }
 
-                        if ((wakeLock != null) && wakeLock.isHeld())
-                            wakeLock.release();
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             });
@@ -3488,8 +3509,11 @@ class ActivateProfileHelper {
                         break;
                 }
 
-                if ((wakeLock != null) && wakeLock.isHeld())
-                    wakeLock.release();
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
     }
