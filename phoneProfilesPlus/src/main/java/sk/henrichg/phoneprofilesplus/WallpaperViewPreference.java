@@ -158,6 +158,7 @@ public class WallpaperViewPreference extends Preference {
         try {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
                 intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             }else{
