@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -103,7 +105,6 @@ class BitmapManipulator {
 
     private static int getBitmapUriOrientation(Context context, Uri photoUri) {
         try {
-            /* it's on the external media. */
             Cursor cursor = context.getContentResolver().query(photoUri,
                     new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
             if (cursor != null) {
