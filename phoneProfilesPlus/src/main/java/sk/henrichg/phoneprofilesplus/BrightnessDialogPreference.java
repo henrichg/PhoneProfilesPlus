@@ -42,6 +42,7 @@ public class BrightnessDialogPreference extends
     private CheckBox noChangeChBox = null;
     private CheckBox automaticChBox = null;
     private CheckBox sharedProfileChBox = null;
+    private TextView levelText = null;
 
     // Custom xml attributes.
     private int noChange;
@@ -139,18 +140,12 @@ public class BrightnessDialogPreference extends
         automaticChBox = layout.findViewById(R.id.brightnessPrefDialogAutomatic);
         //noinspection ConstantConditions
         sharedProfileChBox = layout.findViewById(R.id.brightnessPrefDialogSharedProfile);
+        //noinspection ConstantConditions
+        levelText = layout.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot);
+
 
         if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
             automaticChBox.setText(R.string.preference_profile_adaptiveBrightness);
-        }
-
-        if (adaptiveAllowed) {
-            TextView textView = layout.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot);
-            if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
-                textView.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
-            }
-            else
-                textView.setVisibility(View.GONE);
         }
 
         seekBar.setOnSeekBarChangeListener(this);
@@ -202,11 +197,23 @@ public class BrightnessDialogPreference extends
             valueText.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (sharedProfile == 0));
             seekBar.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (sharedProfile == 0));
             automaticChBox.setEnabled((noChange == 0) && (sharedProfile == 0));
+            if (adaptiveAllowed) {
+                if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
+                    levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
+                    levelText.setEnabled((automatic != 0) && (noChange == 0) && (sharedProfile == 0));
+                }
+                else
+                    levelText.setVisibility(View.GONE);
+            }
+            else {
+                levelText.setEnabled((automatic != 0) && (noChange == 0) && (sharedProfile == 0));
+            }
         }
         else {
             valueText.setEnabled(false);
             seekBar.setEnabled(false);
             automaticChBox.setEnabled(false);
+            levelText.setEnabled(false);
         }
     }
 
@@ -317,6 +324,8 @@ public class BrightnessDialogPreference extends
                     Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                 else
                     Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                //PPApplication.logE("BrightnessDialogPreference.onCheckedChanged", "putInt value="+
+                //        Profile.convertPercentsToBrightnessManualValue(_value + minimumValue, _context));
                 Settings.System.putInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                         Profile.convertPercentsToBrightnessManualValue(_value + minimumValue, _context));
                 setAdaptiveBrightness(Profile.convertPercentsToBrightnessAdaptiveValue(_value + minimumValue, _context));
@@ -412,11 +421,11 @@ public class BrightnessDialogPreference extends
         String[] splits = sValue.split("\\|");
         try {
             value = Integer.parseInt(splits[0]);
-            if (value == -1)
-                value = 50;
             if (value == Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
                 // brightness is not set, change it to default adaptive brightness value
                 value = Math.round(savedAdaptiveBrightness * 50 + 50);
+            if ((value < 0) || (value > 100))
+                value = 50;
         } catch (Exception e) {
             value = 50;
         }

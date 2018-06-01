@@ -67,7 +67,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
                                          //+"|PhoneProfilesService.showProfileNotification"
-                                         +"|PPApplication.createProfileNotificationChannel"
+                                         //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
@@ -146,7 +146,7 @@ public class PPApplication extends Application {
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$W WifiBluetoothScanner"
 
-                                         +"|WifiScanJob"
+                                         //+"|WifiScanJob"
                                          //+"|WifiScanBroadcastReceiver.onReceive"
                                          //+"|----- DataWrapper.doHandleEvents"
 
@@ -190,6 +190,8 @@ public class PPApplication extends Application {
                                         //+"|PhoneProfilesService.registerAccessibilityServiceReceiver"
                                         //+"|DatabaseHandler.getTypeProfilesCount"
                                         //+"|AccessibilityServiceBroadcastReceiver.onReceive"
+
+                                        //+"|BrightnessDialogPreference"
             ;
 
 
