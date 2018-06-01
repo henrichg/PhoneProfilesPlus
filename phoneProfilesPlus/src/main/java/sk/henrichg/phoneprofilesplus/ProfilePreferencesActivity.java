@@ -53,7 +53,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         //setContentView(R.layout.activity_profile_preferences);
 
-        if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) && (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
+        if (/*(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) &&*/ (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -69,7 +69,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
         }
         else
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)*/ {
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
                 getWindow().setStatusBarColor(Color.parseColor("#1d6681"));
             else

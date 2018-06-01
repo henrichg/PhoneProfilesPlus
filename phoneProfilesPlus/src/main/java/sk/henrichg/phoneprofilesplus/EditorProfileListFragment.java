@@ -474,10 +474,10 @@ public class EditorProfileListFragment extends Fragment
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
         PopupMenu popup;
-        if (android.os.Build.VERSION.SDK_INT >= 19)
+        //if (android.os.Build.VERSION.SDK_INT >= 19)
             popup = new PopupMenu(context, view, Gravity.END);
-        else
-            popup = new PopupMenu(context, view);
+        //else
+        //    popup = new PopupMenu(context, view);
         getActivity().getMenuInflater().inflate(R.menu.profile_list_item_edit, popup.getMenu());
 
         final Profile profile = (Profile)view.getTag();

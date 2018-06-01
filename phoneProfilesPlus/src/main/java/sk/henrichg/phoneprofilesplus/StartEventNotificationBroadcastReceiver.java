@@ -92,10 +92,10 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             if (alarmManager != null) {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                else if (android.os.Build.VERSION.SDK_INT >= 19)
+                else //if (android.os.Build.VERSION.SDK_INT >= 19)
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                else
-                    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                //else
+                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             }
         //}
     }

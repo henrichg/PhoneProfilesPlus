@@ -488,10 +488,10 @@ public class EditorEventListFragment extends Fragment
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
         Context context = view.getContext();
         PopupMenu popup;
-        if (android.os.Build.VERSION.SDK_INT >= 19)
+        //if (android.os.Build.VERSION.SDK_INT >= 19)
             popup = new PopupMenu(context, view, Gravity.END);
-        else
-            popup = new PopupMenu(context, view);
+        //else
+        //    popup = new PopupMenu(context, view);
         Menu menu = popup.getMenu();
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_edit, menu);
 

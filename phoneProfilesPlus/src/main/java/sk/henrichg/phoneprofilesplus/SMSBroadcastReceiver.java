@@ -33,12 +33,12 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
         String origin = "";
         //String body = "";
 
-        String smsAction = "android.provider.Telephony.SMS_RECEIVED";
-        String mmsAction = "android.provider.Telephony.WAP_PUSH_RECEIVED";
-        if (android.os.Build.VERSION.SDK_INT >= 19) {
-            smsAction = Telephony.Sms.Intents.SMS_RECEIVED_ACTION;
-            mmsAction = Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION;
-        }
+        //String smsAction = "android.provider.Telephony.SMS_RECEIVED";
+        //String mmsAction = "android.provider.Telephony.WAP_PUSH_RECEIVED";
+        //if (android.os.Build.VERSION.SDK_INT >= 19) {
+            String smsAction = Telephony.Sms.Intents.SMS_RECEIVED_ACTION;
+            String mmsAction = Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION;
+        //}
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(smsAction))
         {

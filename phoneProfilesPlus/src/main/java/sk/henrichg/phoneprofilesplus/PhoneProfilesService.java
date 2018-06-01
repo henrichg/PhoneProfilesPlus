@@ -760,10 +760,10 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "REGISTER SMS");
                         smsBroadcastReceiver = new SMSBroadcastReceiver();
                         IntentFilter intentFilter21 = new IntentFilter();
-                        if (android.os.Build.VERSION.SDK_INT >= 19)
+                        //if (android.os.Build.VERSION.SDK_INT >= 19)
                             intentFilter21.addAction(Telephony.Sms.Intents.SMS_RECEIVED_ACTION);
-                        else
-                            intentFilter21.addAction("android.provider.Telephony.SMS_RECEIVED");
+                        //else
+                        //    intentFilter21.addAction("android.provider.Telephony.SMS_RECEIVED");
                         intentFilter21.setPriority(Integer.MAX_VALUE);
                         appContext.registerReceiver(smsBroadcastReceiver, intentFilter21);
                     }
@@ -774,10 +774,10 @@ public class PhoneProfilesService extends Service
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "REGISTER MMS");
                         mmsBroadcastReceiver = new SMSBroadcastReceiver();
                         IntentFilter intentFilter22;
-                        if (android.os.Build.VERSION.SDK_INT >= 19)
+                        //if (android.os.Build.VERSION.SDK_INT >= 19)
                             intentFilter22 = IntentFilter.create(Telephony.Sms.Intents.WAP_PUSH_RECEIVED_ACTION, "application/vnd.wap.mms-message");
-                        else
-                            intentFilter22 = IntentFilter.create("android.provider.Telephony.WAP_PUSH_RECEIVED", "application/vnd.wap.mms-message");
+                        //else
+                        //    intentFilter22 = IntentFilter.create("android.provider.Telephony.WAP_PUSH_RECEIVED", "application/vnd.wap.mms-message");
                         intentFilter22.setPriority(Integer.MAX_VALUE);
                         appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
                     }
@@ -1098,7 +1098,7 @@ public class PhoneProfilesService extends Service
                         locationModeChangedBroadcastReceiver = new LocationModeChangedBroadcastReceiver();
                         IntentFilter intentFilter18 = new IntentFilter();
                         intentFilter18.addAction(LocationManager.PROVIDERS_CHANGED_ACTION);
-                        if (android.os.Build.VERSION.SDK_INT >= 19)
+                        //if (android.os.Build.VERSION.SDK_INT >= 19)
                             intentFilter18.addAction(LocationManager.MODE_CHANGED_ACTION);
                         appContext.registerReceiver(locationModeChangedBroadcastReceiver, intentFilter18);
                     }
@@ -3198,18 +3198,18 @@ public class PhoneProfilesService extends Service
         int locationMode = 0;
         String locationProviders;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
             } catch (Settings.SettingNotFoundException ignored) {
             }
             return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
-        }
+        /*}
         else {
             //noinspection deprecation
             locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
             return  !TextUtils.isEmpty(locationProviders);
-        }
+        }*/
     }
 
     private void startGeofenceScanner(boolean resetUseGPS) {
@@ -3343,7 +3343,7 @@ public class PhoneProfilesService extends Service
             Sensor accelerometer = getAccelerometerSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
             if (accelerometer != null) {
-                if ((android.os.Build.VERSION.SDK_INT >= 19) && (accelerometer.getFifoMaxEventCount() > 0))
+                if (/*(android.os.Build.VERSION.SDK_INT >= 19) &&*/ (accelerometer.getFifoMaxEventCount() > 0))
                     mOrientationSensorManager.registerListener(this, accelerometer, 200000 * interval, 1000000 * interval);
                 else
                     mOrientationSensorManager.registerListener(this, accelerometer, 1000000 * interval);
@@ -3351,7 +3351,7 @@ public class PhoneProfilesService extends Service
             Sensor magneticField = getMagneticFieldSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","magneticField="+magneticField);
             if (magneticField != null) {
-                if ((android.os.Build.VERSION.SDK_INT >= 19) && (magneticField.getFifoMaxEventCount() > 0))
+                if (/*(android.os.Build.VERSION.SDK_INT >= 19) &&*/ (magneticField.getFifoMaxEventCount() > 0))
                     mOrientationSensorManager.registerListener(this, magneticField, 200000 * interval, 1000000 * interval);
                 else
                     mOrientationSensorManager.registerListener(this, magneticField, 1000000 * interval);
@@ -3360,7 +3360,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","proximity="+proximity);
             if (proximity != null) {
                 mMaxProximityDistance = proximity.getMaximumRange();
-                if ((android.os.Build.VERSION.SDK_INT >= 19) && (proximity.getFifoMaxEventCount() > 0))
+                if (/*(android.os.Build.VERSION.SDK_INT >= 19) &&*/ (proximity.getFifoMaxEventCount() > 0))
                     mOrientationSensorManager.registerListener(this, proximity, 200000 * interval, 1000000 * interval);
                 else
                     mOrientationSensorManager.registerListener(this, proximity, 1000000 * interval);

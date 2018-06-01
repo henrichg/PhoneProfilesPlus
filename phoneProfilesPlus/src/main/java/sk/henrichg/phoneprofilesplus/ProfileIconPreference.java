@@ -386,13 +386,13 @@ public class ProfileIconPreference extends DialogPreference {
     {
         Intent intent;
         try {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
                 intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            }else
-                intent = new Intent(Intent.ACTION_GET_CONTENT);
+            //}else
+            //    intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType("image/*");
@@ -400,7 +400,8 @@ public class ProfileIconPreference extends DialogPreference {
             // is not possible to get activity from preference, used is static method
             ProfilePreferencesFragment.setChangedProfileIconPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
-        } catch (ActivityNotFoundException e) {
+        } catch (Exception ignored) {}
+        /*} catch (ActivityNotFoundException e) {
             try {
                 intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
@@ -411,7 +412,7 @@ public class ProfileIconPreference extends DialogPreference {
                 ProfilePreferencesFragment.setChangedProfileIconPreference(this);
                 ((Activity) prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
             } catch (Exception ignored) {}
-        }
+        }*/
     }
 
     private void showCustomColorChooser() {
