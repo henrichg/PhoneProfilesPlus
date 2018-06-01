@@ -102,24 +102,27 @@ class BitmapManipulator {
     }
 
     private static int getBitmapUriOrientation(Context context, Uri photoUri) {
-        /* it's on the external media. */
-        Cursor cursor = context.getContentResolver().query(photoUri,
-                new String[] { MediaStore.Images.ImageColumns.ORIENTATION }, null, null, null);
-        if (cursor != null) {
-            if (cursor.getCount() != 1) {
+        try {
+            /* it's on the external media. */
+            Cursor cursor = context.getContentResolver().query(photoUri,
+                    new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
+            if (cursor != null) {
+                if (cursor.getCount() != 1) {
+                    cursor.close();
+                    return -1;
+                }
+
+                cursor.moveToFirst();
+
+                int orientation = cursor.getInt(0);
+
                 cursor.close();
+                return orientation;
+            } else
                 return -1;
-            }
-
-            cursor.moveToFirst();
-
-            int orientation = cursor.getInt(0);
-
-            cursor.close();
-            return orientation;
-        }
-        else
+        } catch (Exception e) {
             return -1;
+        }
     }
 
     static boolean checkBitmapSize(String bitmapUri, int width, int height, Context context) {
