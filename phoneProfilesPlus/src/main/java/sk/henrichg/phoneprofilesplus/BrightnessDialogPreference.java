@@ -141,12 +141,16 @@ public class BrightnessDialogPreference extends
         sharedProfileChBox = layout.findViewById(R.id.brightnessPrefDialogSharedProfile);
 
         if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
-            String text = _context.getString(R.string.preference_profile_adaptiveBrightness);
-            automaticChBox.setText(text);
+            automaticChBox.setText(R.string.preference_profile_adaptiveBrightness);
         }
 
         if (adaptiveAllowed) {
-            layout.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot).setVisibility(View.GONE);
+            TextView textView = layout.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot);
+            if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
+                textView.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
+            }
+            else
+                textView.setVisibility(View.GONE);
         }
 
         seekBar.setOnSeekBarChangeListener(this);
