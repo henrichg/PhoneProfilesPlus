@@ -68,6 +68,16 @@ public class PPNotificationListenerService extends NotificationListenerService {
         if (sbn.getPackageName().equals(context.getPackageName()))
             return;
 
+        /*
+        String ticker ="";
+        if(sbn.getNotification().tickerText !=null) {
+            ticker = sbn.getNotification().tickerText.toString();
+        }
+        Bundle extras = sbn.getNotification().extras;
+        String title = extras.getString("android.title");
+        String text = extras.getCharSequence("android.text").toString();
+        */
+
         if (PPApplication.logEnabled()) {
             PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "from=" + sbn.getPackageName());
             @SuppressLint("SimpleDateFormat")
