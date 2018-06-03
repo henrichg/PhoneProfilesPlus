@@ -10,7 +10,7 @@
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_profile_default" 
+        android:src="@drawable/ic_empty"
         android:contentDescription="@string/empty_string"/>
     
 </RelativeLayout>

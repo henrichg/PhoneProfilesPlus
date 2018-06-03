@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +9,9 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
+import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.Preference;
@@ -24,7 +25,7 @@ import java.io.File;
 public class WallpaperViewPreference extends Preference {
 
     private String imageIdentifier;
-    private Bitmap bitmap;
+    //private Bitmap bitmap;
 
     private final Context prefContext;
 
@@ -45,22 +46,45 @@ public class WallpaperViewPreference extends Preference {
     }
 
     //@Override
-    protected void onBindView(View view)
+    @SuppressLint("StaticFieldLeak")
+    protected void onBindView(final View view)
     {
         super.onBindView(view);
 
         //imageTitle = view.findViewById(R.id.imageview_pref_label);
         //imageTitle.setText(preferenceTitle);
 
-        ImageView imageView = view.findViewById(R.id.imageview_pref_imageview);
+        new AsyncTask<Void, Integer, Void>() {
+            ImageView imageView;
+            Bitmap bitmap;
 
-        if (imageView != null)
-        {
-            if (bitmap != null)
-                imageView.setImageBitmap(bitmap);
-            else
-                imageView.setImageResource(R.drawable.ic_empty);
-        }
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                imageView = view.findViewById(R.id.imageview_pref_imageview);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                bitmap = getBitmap();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+                if (imageView != null)
+                {
+                    if (bitmap != null)
+                        imageView.setImageBitmap(bitmap);
+                    else
+                        imageView.setImageResource(R.drawable.ic_empty);
+                }
+            }
+
+        }.execute();
     }
 
     @Override
@@ -85,12 +109,12 @@ public class WallpaperViewPreference extends Preference {
             // restore state
             imageIdentifier = getPersistedString(imageIdentifier);
             //Log.d("---- WallpaperViewPreference.onSetInitialValue","getBitmap");
-            getBitmap();
+            //getBitmap();
         }
         else {
             // set state
             imageIdentifier = (String) defaultValue;
-            getBitmap();
+            //getBitmap();
             persistString(imageIdentifier);
         }
     }
@@ -125,13 +149,15 @@ public class WallpaperViewPreference extends Preference {
         notifyChanged();
     }
 
-    private void getBitmap() {
+    private Bitmap getBitmap() {
         if (!imageIdentifier.startsWith("-")) {
             Resources resources = prefContext.getResources();
             int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-            bitmap = BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, false, prefContext);
+            return BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, false, prefContext);
         }
+        else
+            return null;
     }
 
     void setImageIdentifier(String newImageIdentifier)
@@ -142,7 +168,7 @@ public class WallpaperViewPreference extends Preference {
 
         imageIdentifier = newImageIdentifier;
         //Log.d("---- WallpaperViewPreference.setImageIdentifier","getBitmap");
-        getBitmap();
+        //getBitmap();
 
         // save to preferences
         persistString(newImageIdentifier);
