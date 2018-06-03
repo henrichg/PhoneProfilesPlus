@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.pm.ShortcutInfoCompat;
 import android.support.v4.content.pm.ShortcutManagerCompat;
@@ -267,7 +268,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                         int iconResource = Profile.profileIconIdMap.get(iconIdentifier);
                         profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
                     }
-                    shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);
+                    if (Build.VERSION.SDK_INT < 26)
+                        shortcutOverlayBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_shortcut_overlay);
                 } else {
                     Resources resources = getResources();
                     int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
@@ -278,7 +280,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                         int iconResource = R.drawable.ic_profile_default;
                         profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
                     }
-                    shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
+                    if (Build.VERSION.SDK_INT < 26)
+                        shortcutOverlayBitmap = BitmapManipulator.resampleResource(resources, R.drawable.ic_shortcut_overlay, width, height);
                 }
 
                 if (ApplicationPreferences.applicationWidgetIconColor(activityDataWrapper.context).equals("1")) {
@@ -297,8 +300,11 @@ public class ShortcutCreatorListFragment extends Fragment {
                         profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
                 }
 
-                profileShortcutBitmap = combineImages(profileBitmap, shortcutOverlayBitmap);
-                //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
+                if (Build.VERSION.SDK_INT < 26)
+                    profileShortcutBitmap = combineImages(profileBitmap, shortcutOverlayBitmap);
+                else
+                    profileShortcutBitmap = profileBitmap;
+                            //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
                 shortcutBuilder.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
 
                 return null;
