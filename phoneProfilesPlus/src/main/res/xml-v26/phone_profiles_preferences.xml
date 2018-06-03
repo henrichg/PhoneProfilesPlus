@@ -63,12 +63,6 @@
             android:entryValues="@array/themeValues"
             android:layout="@layout/mp_preference_material_widget"
             app:useStockLayout="true" />
-        <CheckBoxPreference
-            android:key="applicationShortcutEmblem"
-            android:title="@string/phone_profiles_pref_applicationShortcutEmblem"
-            android:defaultValue="true"
-            android:widgetLayout="@layout/mp_preference_switch"
-            android:layout="@layout/mp_preference_material_widget" />
     </PreferenceScreen>
 
     <PreferenceScreen
@@ -907,6 +901,12 @@
             android:entryValues="@array/widgetLightnessValues"
             android:layout="@layout/mp_preference_material_widget"
             app:useStockLayout="true" />
+        <!--<CheckBoxPreference
+            android:key="applicationShortcutEmblem"
+            android:title="@string/phone_profiles_pref_applicationShortcutEmblem"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget" /> -->
     </PreferenceScreen>
 
     <PreferenceScreen
