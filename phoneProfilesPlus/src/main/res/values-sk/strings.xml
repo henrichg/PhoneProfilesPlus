@@ -130,7 +130,6 @@
   <string name="import_profiles_alert_message">Ste si istý?</string>
   <string name="import_profiles_alert_error">Chyba počas procesu obnovy</string>
   <string name="export_profiles_alert_title">Záloha nastavení</string>
-  <string name="export_profiles_alert_message">Ste si istý?</string>
   <string name="export_profiles_alert_error">Chyba počas obnovy nastavení</string>
   <string name="profile_preferences_deviceMobileData">Mobilné dáta</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Nastavenia mobilných dát</string>
@@ -1158,6 +1157,18 @@
   <string name="profile_preferences_category_touchEffects">Efekty klepnutia</string>
   <string name="profile_preferences_soundOnTouch">Tón pri klepnutí</string>
   <string name="profile_preferences_dtmfToneWhenDialing">DTMF tón pri vytáčaní</string>
+  <string name="not_saved_changes_alert_title">Parametre sa zmenili</string>
+  <string name="not_saved_changes_alert_message">Uložiť zmeny?</string>
+  <string name="export_profiles_alert_message">Zálohovacie súbory sa uložia do interného úložiska zariadenia do priečinka</string>
+  <string name="export_profiles_alert_message_note">Poznámka: Zálohovacie súbory obsahujú citlivé súkromné údaje. Distribuujte súbory tretím stranám, napríklad v zipovom súbore s heslom.</string>
+  <string name="alert_button_backup">Zálohuj</string>
+  <string name="important_info_privacy_policy_backup_files">Pravidlá ochrany osobných údajov sa zmenili. Najmä o zálohovaných súboroch generovaných funkciou zálohovania.</string>
+  <string name="important_info_privacy_policy_backup_files_2">Kliknite sem, ak chcete zobraziť zásady ochrany osobných údajov.</string>
+  <string name="phone_profiles_pref_notificationSystemSettings">Systémové nastavenia</string>
+  <string name="phone_profiles_pref_notificationSystemSettings_summary">Konfigurácia pre notifikačnú kategóriu:</string>
+  <string name="array_pref_value_auto_rotate_on">Zapnúť automatickú orientáciu</string>
+  <string name="array_pref_value_auto_rotate_off">Vypnúť automatickú orientáciu</string>
+  <string name="brightness_pref_dialog_adaptive_level_may_not_working">Zmena úrovne adaptívneho jasu nemusí fungovať na vašom zariadení (napríklad: zariadenia Samsung).</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• sensory udalostí \"Parametre aplikácií\" and \"Parametre orientácie\".</string>

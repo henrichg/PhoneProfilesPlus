@@ -130,7 +130,6 @@
   <string name="import_profiles_alert_message">Вы уверены?</string>
   <string name="import_profiles_alert_error">Ошибка во время процесса восстановления</string>
   <string name="export_profiles_alert_title">Сохранить настройки</string>
-  <string name="export_profiles_alert_message">Вы уверены?</string>
   <string name="export_profiles_alert_error">Ошибка во время процесса резервного копирования</string>
   <string name="profile_preferences_deviceMobileData">Мобильные данные</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки мобильных данных</string>
@@ -491,7 +490,7 @@
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Изменить системные настройки</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions_summary">Найдите приложение «PhoneProfilesPlus» и включите его.</string>
   <string name="phone_profiles_pref_applicationPermissions">Разрешения для приложения</string>
-  <string name="phone_profiles_pref_applicationPermissions_summary">Пожалуйста, включите разрешения приложения в разделе «Разрешения».</string>
+  <string name="phone_profiles_pref_applicationPermissions_summary">Пожалуйста, дайте разрешения приложению в разделе \"Разрешения\".</string>
   <string name="permissions_for_event_text1">События</string>
   <string name="permissions_for_event_text1m">Другие события</string>
   <string name="permissions_for_event_text2">требуются разрешения:</string>
@@ -673,10 +672,10 @@
   <string name="about_application_transaltions">Переводы:</string>
   <string name="about_application_rate_in_gplay">Пожалуйста, оцените это приложение в Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>
-  <string name="permission_group_name_access_notification_policy">Не спрашивать доступ</string>
+  <string name="permission_group_name_access_notification_policy">Режим \"Не беспокоить\"</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Вы не разрешили «Не спрашивать доступ». Не спрашивать больше?</string>
-  <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Не спрашивать доступ</string>
-  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Найдите приложение «PhoneProfilesPlus» и разрешите его.</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Доступ к режиму \"Не беспокоить\"</string>
+  <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Найдите приложение «PhoneProfilesPlus» и разрешите доступ.</string>
   <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Добавьте PhoneProfilesPlus к категории «Не экономят заряд», если возникли проблемы с активацией профилей, после блокировки устройства с выключенным экраном.</string>
   <string name="profile_preferences_deviceWallpaperFor">Поменять обои для</string>
   <string name="array_pref_device_wallpaper_homescreen">Домашний экран</string>
@@ -777,7 +776,7 @@
   <string name="permissions_draw_overlays_not_allowed_confirm">Отображение поверх других приложений отключено.
 Не спрашивать больше?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Отображать поверх других приложений</string>
-  <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Найдите приложение «PhoneProfilesPlus» и разрешите его.</string>
+  <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Найдите приложение «PhoneProfilesPlus» и разрешите доступ.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">не настроено в параметрах системы</string>
   <string name="important_into_huawei_protected_apps">Если у Вас устройство Huawei, пожалуйста, включите защиту PhoneProfilesPlus в \"Расширенные настройки\" → \"Батарея\" → \"Защищенные приложения\". Без этого приложение не будет работать корректно.</string>
   <string name="important_into_xiaomi_no_restrictions">Если у вас телефон Xiaomi, для корректной работы приложения, пожалуйста, выберите \"Без ограничений\" для PhoneProfilesPlus в настройках: \"Настройки\"→\"Батарея и производительность\" → \"Управление использованием батареи приложениями\"→\"Выберите приложение\".</string>
@@ -1159,6 +1158,18 @@
   <string name="profile_preferences_category_touchEffects">Эффекты нажатия</string>
   <string name="profile_preferences_soundOnTouch">Звук при нажатии</string>
   <string name="profile_preferences_dtmfToneWhenDialing">Тональный сигнал при наборе номера</string>
+  <string name="not_saved_changes_alert_title">Настройки изменены</string>
+  <string name="not_saved_changes_alert_message">Сохранить изменения?</string>
+  <string name="export_profiles_alert_message">Файлы резервной копии будут сохранены во внутреннюю память устройства в папку</string>
+  <string name="export_profiles_alert_message_note">Примечание: Файлы резервной копии содержат конфиденциальные личные данные. Передавайте файлы, например, в zip-архиве с паролем.</string>
+  <string name="alert_button_backup">Сделать резервную копию</string>
+  <string name="important_info_privacy_policy_backup_files">Политика конфиденциальности изменена, особенно в отношении файлов, создаваемых функцией Резервного копирования.</string>
+  <string name="important_info_privacy_policy_backup_files_2">Нажмите сюда для просмотра Политики конфиденциальности.</string>
+  <string name="phone_profiles_pref_notificationSystemSettings">Настройки системы</string>
+  <string name="phone_profiles_pref_notificationSystemSettings_summary">Конфигурация для категории уведомлений:</string>
+  <string name="array_pref_value_auto_rotate_on">Автоповорот вкл.</string>
+  <string name="array_pref_value_auto_rotate_off">Автоповорот выкл.</string>
+  <string name="brightness_pref_dialog_adaptive_level_may_not_working">Изменение адаптивного уровня может не работать на вашем устройстве (например, на устройствах Samsung).</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Разрешите PhoneProfilesPlusExtender для:\n• параметра профиля \"Принудительная остановка приложений\"\n• датчиков событий \"Параметры приложений\" и \"Параметры ориентации\".</string>

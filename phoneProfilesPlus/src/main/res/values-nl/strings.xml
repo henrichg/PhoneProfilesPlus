@@ -130,7 +130,6 @@
   <string name="import_profiles_alert_message">Weet je het zeker?</string>
   <string name="import_profiles_alert_error">Fout tijdens herstelproces</string>
   <string name="export_profiles_alert_title">Back-up instellingen</string>
-  <string name="export_profiles_alert_message">Weet je het zeker?</string>
   <string name="export_profiles_alert_error">Fout tijdens back-up proces</string>
   <string name="profile_preferences_deviceMobileData">Mobiele data</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Voorkeuren mobiele data</string>
@@ -367,7 +366,7 @@
   <string name="array_pref_zenModeArray_priority">Prioriteit</string>
   <string name="array_pref_zenModeArray_none">Geen</string>
   <string name="profile_preferences_deviceMobileData_21">(R) Mobiele data</string>
-  <string name="preference_profile_adaptiveBrightness">Optimaal</string>
+  <string name="preference_profile_adaptiveBrightness">Adaptieve</string>
   <string name="profile_preferences_deviceKeyguard">Vergrendel scherm</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Profielnaam verbergen (widget)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Events herstarten</string>
@@ -520,7 +519,7 @@
   <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Inschakelen bij 5% batterij</string>
   <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Inschakelen bij 15% batterij</string>
   <string name="important_info_profile_ringerMode_root">In Android 6, is niet mogelijk om de systeem instelling \"Trillen bij oproepen\" te wijzigen in een non-rooted apparaat.</string>
-  <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, is het niet mogelijk om het niveau van \"Aanpasbare helderheid\" in een non-rooted telefoon te wijzigen.</string>
+  <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, is het niet mogelijk om het niveau van \"Adaptieve helderheid\" in een non-rooted telefoon te wijzigen.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6+, moet je voor het scannen van Wi-Fi de locatie modus \"Grote nauwkeurigheid\" kiezen in de locatie-instellingen.</string>
   <string name="important_info_profile_bluetoothScanning_location">In Android 6+, moet je voor het scannen van Bluetooth LE de locatie modus \"Grote nauwkeurigheid\" kiezen in de locatie-instellingen.</string>
   <string name="profile_preferences_devicePowerSaveMode">(G1)(R) energiebesparingsmodus</string>
@@ -544,7 +543,7 @@
   <string name="event_preferences_category_eventApplicationsParameters">Programmaparameters</string>
   <string name="event_preferences_applications_applications">Toepassingen</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Instellingen voor toegankelijkheid</string>
-  <string name="brightness_pref_dialog_adaptive_level_root_required">Voor wijzigen van Aanpasbare helderheid is ROOT nodig.</string>
+  <string name="brightness_pref_dialog_adaptive_level_root_required">Voor wijzigen van Adaptieve helderheid is ROOT nodig.</string>
   <string name="important_info_profile_activation_text1">Profiel kan worden geactiveerd in twee modi:</string>
   <string name="important_info_profile_activation_text2">1. handmatige activering - geactiveerd in Activator, Editor, notificatie, widget, snelkoppeling. Handmatig geactiveerd profiel wordt aangeduid met \"[M]\" voor de profielnaam.</string>
   <string name="important_info_profile_activation_text3">2. gebeurtenis activeren - geactiveerd door een event.</string>
@@ -1158,6 +1157,18 @@
   <string name="profile_preferences_category_touchEffects">Aanraakeffecten</string>
   <string name="profile_preferences_soundOnTouch">Aanraakgeluid</string>
   <string name="profile_preferences_dtmfToneWhenDialing">DTMF toon bij nummer kiezen</string>
+  <string name="not_saved_changes_alert_title">Voorkeuren gewijzigd</string>
+  <string name="not_saved_changes_alert_message">Wijzigingen opslaan?</string>
+  <string name="export_profiles_alert_message">Back-up bestanden worden opgeslagen in de interne opslag in een folder</string>
+  <string name="export_profiles_alert_message_note">Opmerking: Back-up bestanden bevatte gevoelige persoonlijke gegevens. Distribueer deze bestanden aan derden, bijvoorbeeld in zip-bestand met een wachtwoord.</string>
+  <string name="alert_button_backup">Backup</string>
+  <string name="important_info_privacy_policy_backup_files">Privacybeleid is gewijzigd. Vooral over backup bestanden gegenereerd door de backup functie.</string>
+  <string name="important_info_privacy_policy_backup_files_2">Klik hierop om de Privacy Policy te tonen.</string>
+  <string name="phone_profiles_pref_notificationSystemSettings">Systeeminstellingen</string>
+  <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuratie voor notificatie categorie:</string>
+  <string name="array_pref_value_auto_rotate_on">Automatische rotatie aan</string>
+  <string name="array_pref_value_auto_rotate_off">Automatische rotatie uit</string>
+  <string name="brightness_pref_dialog_adaptive_level_may_not_working">Verandering van adaptieve niveau werkt mogelijk niet op uw apparaat (voorbeeld: Samsung apparaten).</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Sta toe dat PhoneProfilesPlusExtender \n• profiel parameters \"Force stop toepassingen\" \n• sensoren \"toepassing gebeurtenisparameters\" en \"Oriëntatie parameters\" gebruikt.</string>

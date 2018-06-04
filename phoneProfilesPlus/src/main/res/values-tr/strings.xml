@@ -130,7 +130,6 @@
   <string name="import_profiles_alert_message">Emin misiniz?</string>
   <string name="import_profiles_alert_error">Geri yüklerken hata belirdi</string>
   <string name="export_profiles_alert_title">Ayarları yedekle</string>
-  <string name="export_profiles_alert_message">Emin misiniz?</string>
   <string name="export_profiles_alert_error">Yedeklerken hata belirdi</string>
   <string name="profile_preferences_deviceMobileData">Şebeke interneti</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Şebeke internet bağlantı ayarları</string>
@@ -1141,23 +1140,40 @@
   <string name="event_preferences_applications_PPPExtender_new_version_summary">PhoneProfilesPlusExtender\'ın yeni bir sürümü gerekli. Bunu yükseltmek için buraya dokunun.</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Erişebilirlik ayarları</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">\"Uygulamalar zorla durdur\" şartına izin vermek için \"Sistem Ayarları\" → \"Erişilebilirlik\" ayarlarında PhoneProfilesExtender\'a izin verin.</string>
-  <string name="shortcut_activate_profile">Activate profile:</string>
-  <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">It works only when the screen is on and unlocked.</string>
-  <string name="important_info_contact">If you have problems, questions and suggestions, write me an email:</string>
-  <string name="profile_preferences_deviceNetworkTypePrefs">(I) Mobile network type preferences</string>
-  <string name="profile_preferences_deviceCloseAllApplications">Close all applications</string>
-  <string name="array_pref_do_not_close">Do not close</string>
-  <string name="array_pref_close">Close</string>
-  <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simulates press of Home button in navigation bar.</string>
-  <string name="phone_profiles_pref_applicationEventLocation_info">These settings are for event sensor \"Location parameters\".</string>
-  <string name="phone_profiles_pref_applicationEventWifi_info">These settings are for event sensor \"Wi-Fi parameters\".</string>
-  <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for event sensor \"Bluetooth parameters\".</string>
-  <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event sensor \"Mobile cell parameters\".</string>
-  <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for event sensor \"Orientation parameters\".</string>
-  <string name="profileicon_pref_dialog_custom_icon_image_too_large">Custom icon image is too large. Allowed is max.</string>
-  <string name="profile_preferences_category_touchEffects">Touch effects</string>
-  <string name="profile_preferences_soundOnTouch">Sound on touch</string>
-  <string name="profile_preferences_dtmfToneWhenDialing">DTMF tone when dialing</string>
+  <string name="shortcut_activate_profile">Tercihi faal yap:</string>
+  <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Sadece ekran ve ekran kilidi açık olduğunda çalışır.</string>
+  <string name="important_info_contact">Eğer problem, soru ve önerileriniz varsa, bana bir e-posta yazınız:</string>
+  <string name="profile_preferences_deviceNetworkTypePrefs">(I) Şebeke ağ türü tercihleri</string>
+  <string name="profile_preferences_deviceCloseAllApplications">Uygulamaların tamamını kapat</string>
+  <string name="array_pref_do_not_close">Kapatılmasın</string>
+  <string name="array_pref_close">Kapat</string>
+  <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Gezinme çubuğundaki ev düğmesine basmayı taklit eder.</string>
+  <string name="phone_profiles_pref_applicationEventLocation_info">Bu ayarlar, \"Konum şartları\" durum sensörü içindir.</string>
+  <string name="phone_profiles_pref_applicationEventWifi_info">Bu ayarlar, \"Wi-Fi şartları\" durum sensörü içindir.</string>
+  <string name="phone_profiles_pref_applicationEventBluetooth_info">Bu ayarlar, \"Bluetooth şartları\" durum sensörü içindir.</string>
+  <string name="phone_profiles_pref_applicationEventMobileCell_info">Bu ayarlar, \"Baz istasyonu şartları\" durum sensörü içindir.</string>
+  <string name="phone_profiles_pref_applicationEventOrientation_info">Bu ayarlar, \"Ekran döndürme şartları\" durum sensörü içindir.</string>
+  <string name="profileicon_pref_dialog_custom_icon_image_too_large">Özel simge resmi çok büyük. İzin verilen en fazladır.</string>
+  <string name="profile_preferences_category_touchEffects">Dokunmatik etkileri</string>
+  <string name="profile_preferences_soundOnTouch">Dokunmada ses ver</string>
+  <string name="profile_preferences_dtmfToneWhenDialing">Çağrı esnasında DTMF ton</string>
+  <string name="not_saved_changes_alert_title">Tercihler değişti</string>
+  <string name="not_saved_changes_alert_message">Değişikler kaydedilsin mi? 
+
+
+
+
+</string>
+  <string name="export_profiles_alert_message">Yedek dosyalar aygıt dahili depolama klasörüne kaydedilir</string>
+  <string name="export_profiles_alert_message_note">Not: Yedekleme dosyaları gizli özel veri içerir. Dosyaları 3. parti olan bir uygulama ile açın, Misalen şifreli zip dosyasında.</string>
+  <string name="alert_button_backup">Yedekle</string>
+  <string name="important_info_privacy_policy_backup_files">Mahremiyet hareket tarzı değişti. Hususen yedekleme hizmeti kullanılarak üretilen yedek dosyaları hakkında.</string>
+  <string name="important_info_privacy_policy_backup_files_2">Mahremiyet hareket tarzını göstermek için buna dokunun.</string>
+  <string name="phone_profiles_pref_notificationSystemSettings">System settings</string>
+  <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuration for notification category:</string>
+  <string name="array_pref_value_auto_rotate_on">Automatic rotation on</string>
+  <string name="array_pref_value_auto_rotate_off">Automatic rotation off</string>
+  <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• profil şartları \"Zorla durdurulan uygulamalar\"\n• durum sensörleri \"Uygulama şartları\" ve \"Ekran döndürme şartları\".</string>
