@@ -3195,7 +3195,7 @@ public class PhoneProfilesService extends Service
 
     public static boolean isLocationEnabled(Context context) {
         int locationMode = 0;
-        String locationProviders;
+        //String locationProviders;
 
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             try {
