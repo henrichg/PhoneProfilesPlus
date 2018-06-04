@@ -135,7 +135,7 @@ public class ProfilePreference extends DialogPreference {
                         //profileIcon.setImageBitmap(null);
                         //int res = prefContext.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                         //        prefContext.getPackageName());
-                        int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
+                        int res = Profile.getIconResource(profile.getIconIdentifier());
                         profileIcon.setImageResource(res); // icon resource
                     }
                 }

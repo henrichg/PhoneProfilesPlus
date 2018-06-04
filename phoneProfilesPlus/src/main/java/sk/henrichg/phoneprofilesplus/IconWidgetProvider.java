@@ -119,7 +119,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     remoteViews.setImageViewBitmap(R.id.icon_widget_icon, profile._iconBitmap);
                 else {
                     //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
-                    int iconResource = Profile.profileIconIdMap.get(iconIdentifier);
+                    int iconResource = Profile.getIconResource(iconIdentifier);
                     remoteViews.setImageViewResource(R.id.icon_widget_icon, iconResource);
                 }
             }

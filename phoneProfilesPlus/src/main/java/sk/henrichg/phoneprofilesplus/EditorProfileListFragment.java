@@ -637,7 +637,7 @@ public class EditorProfileListFragment extends Fragment
                     activeProfileIcon.setImageBitmap(profile._iconBitmap);
                 else {
                     //int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
-                    int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
+                    int res = Profile.getIconResource(profile.getIconIdentifier());
                     activeProfileIcon.setImageResource(res); // icon resource
                 }
             }

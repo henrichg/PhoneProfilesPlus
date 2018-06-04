@@ -264,7 +264,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                         profileBitmap = profile._iconBitmap;
                     else {
                         //int iconResource = getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
-                        int iconResource = Profile.profileIconIdMap.get(iconIdentifier);
+                        int iconResource = Profile.getIconResource(iconIdentifier);
                         profileBitmap = BitmapFactory.decodeResource(getResources(), iconResource);
                     }
                     if (Build.VERSION.SDK_INT < 26)

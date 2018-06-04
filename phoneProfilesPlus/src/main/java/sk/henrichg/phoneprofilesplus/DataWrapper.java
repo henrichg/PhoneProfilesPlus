@@ -631,7 +631,7 @@ public class DataWrapper {
                 profileBitmap = profile._iconBitmap;
             else {
                 //int iconResource = context.getResources().getIdentifier(iconIdentifier, "drawable", context.getPackageName());
-                int iconResource = Profile.profileIconIdMap.get(iconIdentifier);
+                int iconResource = Profile.getIconResource(iconIdentifier);
                 profileBitmap = BitmapFactory.decodeResource(context.getResources(), iconResource);
             }
         } else {

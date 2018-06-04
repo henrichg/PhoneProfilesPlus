@@ -173,7 +173,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         //holder.profileStartIcon.setImageBitmap(null);
                         //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                         //        context.getPackageName());
-                        int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
+                        int res = Profile.getIconResource(profile.getIconIdentifier());
                         profileStartIcon.setImageResource(res); // icon resource
                     }
                 }
@@ -240,7 +240,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                             //holder.profileEndIcon.setImageBitmap(null);
                             //int res = context.getResources().getIdentifier(profile.getIconIdentifier(), "drawable",
                             //        context.getPackageName());
-                            int res = Profile.profileIconIdMap.get(profile.getIconIdentifier());
+                            int res = Profile.getIconResource(profile.getIconIdentifier());
                             profileEndIcon.setImageResource(res); // icon resource
                         }
                     } else {
