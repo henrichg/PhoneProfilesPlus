@@ -7,11 +7,11 @@
 // 3500 = added is "Confirm restart events"; removed "None", "Restart events" from rescan parameters; continue donation notification
 // 3900 = replaced applicationEventWifiEnableWifi with applicationEventBluetoothEnableBluetooth
 //        and applicationEventWifiScanIfWifiOff with applicationEventBluetoothScanIfBluetoothOff
-// 4100 = updated privacy policy
+// 4000 = updated privacy policy
 
 ext.ppVersions = [
-    publishVersion: '3.6b',
-    publishVersionCode: 3977,
+    publishVersion: '3.6',
+    publishVersionCode: 4000,
 
     minSdk: 19,
     targetSdk: 27,
