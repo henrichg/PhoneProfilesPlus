@@ -1158,12 +1158,7 @@
   <string name="profile_preferences_soundOnTouch">Dokunmada ses ver</string>
   <string name="profile_preferences_dtmfToneWhenDialing">Çağrı esnasında DTMF ton</string>
   <string name="not_saved_changes_alert_title">Tercihler değişti</string>
-  <string name="not_saved_changes_alert_message">Değişikler kaydedilsin mi? 
-
-
-
-
-</string>
+  <string name="not_saved_changes_alert_message">Değişikler kaydedilsin mi?</string>
   <string name="export_profiles_alert_message">Yedek dosyalar aygıt dahili depolama klasörüne kaydedilir</string>
   <string name="export_profiles_alert_message_note">Not: Yedekleme dosyaları gizli özel veri içerir. Dosyaları 3. parti olan bir uygulama ile açın, Misalen şifreli zip dosyasında.</string>
   <string name="alert_button_backup">Yedekle</string>
