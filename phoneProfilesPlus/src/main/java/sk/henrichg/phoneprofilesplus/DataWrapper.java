@@ -739,6 +739,40 @@ public class DataWrapper {
         }
     }
 
+    void setDynamicLauncherShortcutsFromMainThread()
+    {
+        PPApplication.logE("DataWrapper.setDynamicLauncherShortcutsFromMainThread", "start");
+        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
+        synchronized (profileList) {
+            dataWrapper.copyProfileList(this);
+        }
+        synchronized (eventList) {
+            dataWrapper.copyEventList(this);
+        }
+
+        PPApplication.startHandlerThread("DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.activateProfileFromMainThread");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                dataWrapper.setDynamicLauncherShortcuts();
+
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
+            }
+        });
+    }
+
 //---------------------------------------------------
 
     void fillEventList()

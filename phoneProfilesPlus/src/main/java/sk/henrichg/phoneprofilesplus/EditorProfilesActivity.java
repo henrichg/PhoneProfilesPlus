@@ -1708,27 +1708,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 PhoneProfilesService.instance.showProfileNotification(fragment.activityDataWrapper);
             ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
 
-            PPApplication.startHandlerThread("EditorProfilesActivity.redrawProfileListFragment");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    PowerManager powerManager = (PowerManager) fragment.activityDataWrapper.context.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EditorProfilesActivity.redrawProfileListFragment");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    fragment.activityDataWrapper.setDynamicLauncherShortcuts();
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
-                    }
-                }
-            });
+            fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
         }
         redrawProfilePreferences(profile, newProfileMode, predefinedProfileIndex, true/*startTargetHelps*/);
     }
