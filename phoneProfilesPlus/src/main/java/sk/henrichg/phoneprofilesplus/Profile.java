@@ -2714,7 +2714,7 @@ public class Profile {
     static int getIconResource(String identifier) {
         int iconResource = R.drawable.ic_profile_default;
         try {
-            iconResource = getIconResource(identifier);
+            iconResource = profileIconIdMap.get(identifier);
         } catch (Exception ignored) {}
         return iconResource;
     }
