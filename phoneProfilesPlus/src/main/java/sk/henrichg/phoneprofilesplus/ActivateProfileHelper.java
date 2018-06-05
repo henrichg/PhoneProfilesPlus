@@ -497,18 +497,19 @@ class ActivateProfileHelper {
 
 
     private static boolean isAudibleSystemRingerMode(AudioManager audioManager, Context context) {
-        int ringerMode = audioManager.getRingerMode();
+        /*int ringerMode = audioManager.getRingerMode();
+        PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "ringerMode="+ringerMode);
         if (ringerMode != AudioManager.RINGER_MODE_NORMAL) {
             if (ringerMode == AudioManager.RINGER_MODE_SILENT) {
                 int zenMode = getSystemZenMode(context, -1);
-                return (zenMode == ActivateProfileHelper.ZENMODE_PRIORITY) ||
-                        (zenMode == ActivateProfileHelper.ZENMODE_ALL);
+                return (zenMode == ActivateProfileHelper.ZENMODE_PRIORITY);
             }
             else
                 return false;
         }
         else
-            return true;
+            return true;*/
+        return audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
     }
 
     /*
