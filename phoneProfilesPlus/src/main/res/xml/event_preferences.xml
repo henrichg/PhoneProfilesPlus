@@ -845,7 +845,7 @@
                 android:title="@string/event_preferences_applications_applications"
                 app:addShortcuts="0"
                 app:removePPApplications="0"
-                app:systemSettings="accessibility_1.0.4"
+                app:systemSettings="accessibility_2.0"
                 android:dependency="eventApplicationEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
@@ -926,7 +926,7 @@
                 android:title="@string/event_preferences_orientation_ignoreForApplications"
                 app:addShortcuts="0"
                 app:removePPApplications="0"
-                app:systemSettings="accessibility_1.0.4"
+                app:systemSettings="accessibility_2.0"
                 android:dependency="eventOrientationEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
