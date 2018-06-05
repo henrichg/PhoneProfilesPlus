@@ -39,8 +39,8 @@
         android:contentDescription="@string/editor_event_list_item_profile_start_icon"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:layout_marginTop="5dp"
         android:src="@drawable/ic_profile_default" />
 
@@ -79,8 +79,8 @@
         android:contentDescription="@string/editor_event_list_item_profile_end_icon"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:layout_marginTop="5dp"
         android:src="@drawable/ic_profile_default" />
 
