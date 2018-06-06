@@ -690,6 +690,8 @@ public class DataWrapper {
         }
         if (profileName.isEmpty())
             profileName = " ";
+        if (longLabel.isEmpty())
+            longLabel = " ";
 
         return new ShortcutInfo.Builder(context, id)
                 .setShortLabel(profileName)
