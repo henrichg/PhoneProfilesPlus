@@ -318,6 +318,7 @@ public class PPApplication extends Application {
     static final String EXTRA_APPLICATIONS = "extra_applications";
 
     public static HandlerThread handlerThread = null;
+    public static HandlerThread handlerThreadWidget = null;
 
     public static HandlerThread handlerThreadVolumes = null;
     public static HandlerThread handlerThreadRadios = null;
@@ -331,7 +332,6 @@ public class PPApplication extends Application {
     public static Handler toastHandler;
     public static Handler brightnessHandler;
     public static Handler screenTimeoutHandler;
-    public static Handler widgetHandler;
 
     public static int notAllowedReason;
     public static String notAllowedReasonDetail;
@@ -424,6 +424,7 @@ public class PPApplication extends Application {
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
 
         startHandlerThread("PPApplication.onCreate");
+        startHandlerThreadWidget();
         startHandlerThreadVolumes();
         startHandlerThreadRadios();
         startHandlerThreadAdaptiveBrightness();
@@ -436,7 +437,6 @@ public class PPApplication extends Application {
         toastHandler = new Handler(getMainLooper());
         brightnessHandler = new Handler(getMainLooper());
         screenTimeoutHandler = new Handler(getMainLooper());
-        widgetHandler = new Handler(getMainLooper());
 
         JobConfig.setForceAllowApi14(true); // https://github.com/evernote/android-job/issues/197
         JobManager.create(this).addJobCreator(new PPJobsCreator());
@@ -1709,6 +1709,13 @@ public class PPApplication extends Application {
         if (handlerThread == null) {
             handlerThread = new HandlerThread("PPHandlerThread");
             handlerThread.start();
+        }
+    }
+
+    static void startHandlerThreadWidget() {
+        if (handlerThreadWidget == null) {
+            handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget");
+            handlerThreadWidget.start();
         }
     }
 

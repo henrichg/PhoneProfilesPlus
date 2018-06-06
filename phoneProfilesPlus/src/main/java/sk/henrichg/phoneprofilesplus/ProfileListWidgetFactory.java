@@ -205,7 +205,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         createProfilesDataWrapper();
 
         List<Profile> newProfileList = dataWrapper.getNewProfileList(true,
-                                            ApplicationPreferences.applicationWidgetListPrefIndicator(context));
+                ApplicationPreferences.applicationWidgetListPrefIndicator(context));
         if (!ApplicationPreferences.applicationWidgetListHeader(context))
         {
             // show activated profile in list if is not showed in activator
