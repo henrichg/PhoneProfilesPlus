@@ -950,8 +950,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
                     //Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
                     //dataWrapper.refreshProfileIcon(activatedProfile);
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+                    PPApplication.showProfileNotification(context);
                     ActivateProfileHelper.updateGUI(context, true);
 
                     if (finishActivity) {

@@ -8,7 +8,7 @@ import android.widget.CompoundButton;
 
 class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
 
-    RunStopIndicatorPopupWindow(DataWrapper dataWrapper, Activity activity) {
+    RunStopIndicatorPopupWindow(final DataWrapper dataWrapper, Activity activity) {
         super(R.layout.run_stop_indicator_popup_window, activity.getBaseContext());
 
         // Disable default animation for circular reveal
@@ -26,8 +26,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (_dataWrapper != null) {
                     _dataWrapper.runStopEvents();
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.showProfileNotification(_dataWrapper);
+                    PPApplication.showProfileNotification(dataWrapper.context);
                     if (_activity instanceof EditorProfilesActivity)
                         ((EditorProfilesActivity) _activity).refreshGUI(false, true);
                     else if (_activity instanceof ActivateProfileActivity)

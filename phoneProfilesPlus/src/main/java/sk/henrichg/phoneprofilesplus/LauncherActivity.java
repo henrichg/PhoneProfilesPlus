@@ -49,8 +49,7 @@ public class LauncherActivity extends AppCompatActivity {
             {
                 // activity was not started from notification, widget
 
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+                PPApplication.showProfileNotification(getApplicationContext());
                 ActivateProfileHelper.updateGUI(dataWrapper.context, true);
                 startupSource = PPApplication.STARTUP_SOURCE_LAUNCHER;
             }

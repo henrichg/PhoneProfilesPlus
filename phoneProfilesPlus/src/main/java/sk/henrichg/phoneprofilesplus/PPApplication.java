@@ -982,6 +982,17 @@ public class PPApplication extends Application {
         PPApplication.createNotifyEventStartNotificationChannel(appContext);
     }
 
+    static void showProfileNotification(Context context) {
+        try {
+            PPApplication.logE("PPApplication.showProfileNotification", "xxx");
+            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_SHOW_PROFILE_NOTIFICATION, true);
+            PPApplication.startPPService(context, serviceIntent);
+        } catch (Exception ignored) {}
+    }
+
     // -----------------------------------------------
 
     // root ------------------------------------------

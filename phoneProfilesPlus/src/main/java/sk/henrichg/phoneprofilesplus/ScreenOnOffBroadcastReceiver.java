@@ -76,8 +76,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
-                        if (PhoneProfilesService.instance != null)
-                            PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+                        PPApplication.showProfileNotification(appContext);
                         dataWrapper.invalidateDataWrapper();
                     }
                 } else if ((action != null) && action.equals(Intent.ACTION_USER_PRESENT)) {
@@ -90,8 +89,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             ApplicationPreferences.notificationHideInLockScreen(appContext)) {
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
-                        if (PhoneProfilesService.instance != null)
-                            PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+                        PPApplication.showProfileNotification(appContext);
                     }
 
                     // change screen timeout
@@ -193,8 +191,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
-                        if (PhoneProfilesService.instance != null)
-                            PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+                        PPApplication.showProfileNotification(appContext);
                         dataWrapper.invalidateDataWrapper();
                     }
                 }

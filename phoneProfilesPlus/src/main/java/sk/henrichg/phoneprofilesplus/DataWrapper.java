@@ -493,8 +493,7 @@ public class DataWrapper {
 
     void updateNotificationAndWidgets()
     {
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(this);
+        PPApplication.showProfileNotification(context);
         ActivateProfileHelper.updateGUI(context, true);
     }
 
@@ -1444,8 +1443,7 @@ public class DataWrapper {
             }
         }
 
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.showProfileNotification(this);
+        PPApplication.showProfileNotification(context);
         ActivateProfileHelper.updateGUI(context, true);
 
         if (profile != null)
@@ -1750,8 +1748,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).activateProfile(profile);
             setProfileActive(profile);
 
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(this);
+            PPApplication.showProfileNotification(context);
             ActivateProfileHelper.updateGUI(context, true);
 
             // for startActivityForResult
@@ -1776,8 +1773,7 @@ public class DataWrapper {
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(this);
+            PPApplication.showProfileNotification(context);
             ActivateProfileHelper.updateGUI(context, true);
             return;
         }

@@ -661,8 +661,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             DataWrapper dataWrapper = getDataWrapper();
             if (dataWrapper != null) {
                 dataWrapper.runStopEvents();
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+                PPApplication.showProfileNotification(getApplicationContext());
             }
             refreshGUI(false, true);
             ActivateProfileHelper.updateGUI(this, false);
@@ -1704,8 +1703,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
             fragment.updateHeader(activeProfile);
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(fragment.activityDataWrapper);
+            PPApplication.showProfileNotification(getApplicationContext());
             ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
 
             fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

@@ -937,8 +937,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.clearMergedPermissions(context);
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.showProfileNotification(dataWrapper);
+            PPApplication.showProfileNotification(context);
             ActivateProfileHelper.updateGUI(getApplicationContext(), true);
         //}
     }

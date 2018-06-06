@@ -21,10 +21,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                 @Override
                 public void run() {
                     if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
-                        if (PhoneProfilesService.instance != null) {
-                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                            PhoneProfilesService.instance.showProfileNotification(dataWrapper);
-                        }
+                        PPApplication.showProfileNotification(appContext);
                     }
                 }
             });
