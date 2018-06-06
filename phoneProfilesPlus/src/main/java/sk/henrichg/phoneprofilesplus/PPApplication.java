@@ -319,6 +319,7 @@ public class PPApplication extends Application {
 
     public static HandlerThread handlerThread = null;
     public static HandlerThread handlerThreadWidget = null;
+    public static HandlerThread handlerThreadProfileNotification = null;
 
     public static HandlerThread handlerThreadVolumes = null;
     public static HandlerThread handlerThreadRadios = null;
@@ -425,6 +426,7 @@ public class PPApplication extends Application {
 
         startHandlerThread("PPApplication.onCreate");
         startHandlerThreadWidget();
+        startHandlerThreadProfileNotification();
         startHandlerThreadVolumes();
         startHandlerThreadRadios();
         startHandlerThreadAdaptiveBrightness();
@@ -1716,6 +1718,13 @@ public class PPApplication extends Application {
         if (handlerThreadWidget == null) {
             handlerThreadWidget = new HandlerThread("PPHandlerThreadWidget");
             handlerThreadWidget.start();
+        }
+    }
+
+    static void startHandlerThreadProfileNotification() {
+        if (handlerThreadProfileNotification == null) {
+            handlerThreadProfileNotification = new HandlerThread("PPHandlerThreadProfileNotification");
+            handlerThreadProfileNotification.start();
         }
     }
 

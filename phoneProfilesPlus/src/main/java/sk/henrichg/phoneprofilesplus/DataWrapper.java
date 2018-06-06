@@ -81,6 +81,17 @@ public class DataWrapper {
         monochromeValue = monoVal;
     }
 
+    DataWrapper copyDataWrapper() {
+        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
+        synchronized (profileList) {
+            dataWrapper.copyProfileList(this);
+        }
+        synchronized (eventList) {
+            dataWrapper.copyEventList(this);
+        }
+        return dataWrapper;
+    }
+
     void fillProfileList(boolean generateIcons, boolean generateIndicators)
     {
         synchronized (profileList) {
@@ -744,13 +755,7 @@ public class DataWrapper {
     void setDynamicLauncherShortcutsFromMainThread()
     {
         PPApplication.logE("DataWrapper.setDynamicLauncherShortcutsFromMainThread", "start");
-        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
-        synchronized (profileList) {
-            dataWrapper.copyProfileList(this);
-        }
-        synchronized (eventList) {
-            dataWrapper.copyEventList(this);
-        }
+        final DataWrapper dataWrapper = copyDataWrapper();
 
         PPApplication.startHandlerThread("DataWrapper.setDynamicLauncherShortcutsFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -908,13 +913,7 @@ public class DataWrapper {
 
     void stopEventsForProfileFromMainThread(final Profile profile,
                                             @SuppressWarnings("SameParameterValue") final boolean alsoUnlink) {
-        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
-        synchronized (profileList) {
-            dataWrapper.copyProfileList(this);
-        }
-        synchronized (eventList) {
-            dataWrapper.copyEventList(this);
-        }
+        final DataWrapper dataWrapper = copyDataWrapper();
 
         PPApplication.startHandlerThread("DataWrapper.stopEventsForProfileFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -990,13 +989,7 @@ public class DataWrapper {
 
     private void pauseAllEventsFromMainThread(@SuppressWarnings("SameParameterValue") final boolean noSetSystemEvent,
                                               @SuppressWarnings("SameParameterValue") final boolean blockEvents) {
-        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
-        synchronized (profileList) {
-            dataWrapper.copyProfileList(this);
-        }
-        synchronized (eventList) {
-            dataWrapper.copyEventList(this);
-        }
+        final DataWrapper dataWrapper = copyDataWrapper();
 
         PPApplication.startHandlerThread("DataWrapper.pauseAllEventsFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1050,13 +1043,7 @@ public class DataWrapper {
 
     void stopAllEventsFromMainThread(@SuppressWarnings("SameParameterValue") final boolean saveEventStatus,
                                      final boolean alsoDelete) {
-        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
-        synchronized (profileList) {
-            dataWrapper.copyProfileList(this);
-        }
-        synchronized (eventList) {
-            dataWrapper.copyEventList(this);
-        }
+        final DataWrapper dataWrapper = copyDataWrapper();
 
         PPApplication.startHandlerThread("DataWrapper.stopAllEventsFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1492,13 +1479,7 @@ public class DataWrapper {
                                     final Activity _activity)
     {
         PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start");
-        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
-        synchronized (profileList) {
-            dataWrapper.copyProfileList(this);
-        }
-        synchronized (eventList) {
-            dataWrapper.copyEventList(this);
-        }
+        final DataWrapper dataWrapper = copyDataWrapper();
 
         PPApplication.startHandlerThread("DataWrapper.activateProfileFromMainThread");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -3531,13 +3512,7 @@ public class DataWrapper {
     {
         PPApplication.logE("$$$ DataWrapper.restartEventsWithRescan","xxx");
 
-        final DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
-        synchronized (profileList) {
-            dataWrapper.copyProfileList(this);
-        }
-        synchronized (eventList) {
-            dataWrapper.copyEventList(this);
-        }
+        final DataWrapper dataWrapper = copyDataWrapper();
 
         PPApplication.startHandlerThread("DataWrapper.restartEventsWithRescan");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
