@@ -2889,8 +2889,10 @@ public class PhoneProfilesService extends Service
             if (ApplicationPreferences.notificationTheme(dataWrapper.context).equals("2"))
                 contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_light);
             else {*/
-                if (miui && (Build.VERSION.SDK_INT < 25))
+                if (miui && (Build.VERSION.SDK_INT < 25)) {
                     contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_miui);
+                    PPApplication.logE("PhoneProfilesService.showProfileNotification", "miui < 25");
+                }
                 else
                     contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer);
             //}
