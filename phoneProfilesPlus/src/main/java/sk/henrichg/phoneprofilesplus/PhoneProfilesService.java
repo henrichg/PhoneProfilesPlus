@@ -2935,12 +2935,15 @@ public class PhoneProfilesService extends Service
                 //notificationBuilder.setSettingsText("Pokus");
             }
             else {
+                PPApplication.logE("PhoneProfilesService.showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
                 if (notificationShowInStatusBar) {
                     KeyguardManager myKM = (KeyguardManager) dataWrapper.context.getSystemService(Context.KEYGUARD_SERVICE);
                     if (myKM != null) {
                         //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
                         boolean screenUnlocked = !myKM.isKeyguardLocked();
                         //boolean screenUnlocked = getScreenUnlocked(context);
+                        //PPApplication.logE("PhoneProfilesService.showProfileNotification", "screenUnlocked="+screenUnlocked);
+                        //PPApplication.logE("PhoneProfilesService.showProfileNotification", "hide in lockscreen parameter="+ApplicationPreferences.notificationHideInLockScreen(dataWrapper.context));
                         if ((ApplicationPreferences.notificationHideInLockScreen(dataWrapper.context) && (!screenUnlocked)) ||
                                 ((profile != null) && profile._hideStatusBarIcon))
                             notificationBuilder.setPriority(Notification.PRIORITY_MIN);
