@@ -93,8 +93,8 @@
                 android:contentDescription="@string/empty_string"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/ic_profile_default" />
 
@@ -133,8 +133,8 @@
                 android:contentDescription="@string/empty_string"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/ic_profile_default" />
 

@@ -47,7 +47,7 @@
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_profile_default"
             android:contentDescription="@string/empty_string" />
 
         <ImageView
