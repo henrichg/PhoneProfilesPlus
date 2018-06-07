@@ -1164,7 +1164,7 @@
   <string name="alert_button_backup">Yedekle</string>
   <string name="important_info_privacy_policy_backup_files">Mahremiyet hareket tarzı değişti. Hususen yedekleme hizmeti kullanılarak üretilen yedek dosyaları hakkında.</string>
   <string name="important_info_privacy_policy_backup_files_2">Mahremiyet hareket tarzını göstermek için buna dokunun.</string>
-  <string name="phone_profiles_pref_notificationSystemSettings">System settings</string>
+  <string name="phone_profiles_pref_notificationSystemSettings">Sistem ayarları</string>
   <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuration for notification category:</string>
   <string name="array_pref_value_auto_rotate_on">Automatic rotation on</string>
   <string name="array_pref_value_auto_rotate_off">Automatic rotation off</string>
