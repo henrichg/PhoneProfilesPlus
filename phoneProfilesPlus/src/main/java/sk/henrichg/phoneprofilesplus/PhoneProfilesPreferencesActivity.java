@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -66,17 +67,17 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
-                tintManager.setStatusBarTintColor(Color.parseColor("#ff237e9f"));
+                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
             else
-                tintManager.setStatusBarTintColor(Color.parseColor("#ff202020"));
+                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
         }
-        else
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)*/ {
+        //else
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)*/ /*{
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
-                getWindow().setStatusBarColor(Color.parseColor("#1d6681"));
+                getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark));
             else
-                getWindow().setStatusBarColor(Color.parseColor("#141414"));
-        }
+                getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark_dark));
+        }*/
 
         invalidateEditor = false;
 
