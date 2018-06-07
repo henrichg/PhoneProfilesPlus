@@ -75,7 +75,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                 {
                     // fill with profile id strings separated with |
                     value = "";
-                    if (dataWrapper.profileList != null)
+                    if (dataWrapper.profileListFilled)
                     {
                         for (Profile profile : dataWrapper.profileList)
                         {

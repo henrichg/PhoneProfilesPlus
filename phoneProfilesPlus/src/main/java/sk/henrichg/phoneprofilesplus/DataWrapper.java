@@ -81,7 +81,7 @@ public class DataWrapper {
         monochromeValue = monoVal;
     }
 
-    DataWrapper copyDataWrapper() {
+    private DataWrapper copyDataWrapper() {
         DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);

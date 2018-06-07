@@ -16,7 +16,6 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
             setAnimationStyle(0);
         }
 
-        final DataWrapper _dataWrapper = dataWrapper;
         final Activity _activity = activity;
 
         SwitchCompat checkBox = popupView.findViewById(R.id.run_stop_indicator_popup_window_checkbox);
@@ -24,8 +23,8 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (_dataWrapper != null) {
-                    _dataWrapper.runStopEvents();
+                if (dataWrapper != null) {
+                    dataWrapper.runStopEvents();
                     PPApplication.showProfileNotification(dataWrapper.context);
                     if (_activity instanceof EditorProfilesActivity)
                         ((EditorProfilesActivity) _activity).refreshGUI(false, true);

@@ -26,8 +26,8 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
 
     public int getCount() {
         fragment.textViewNoData.setVisibility(
-                (((activityDataWrapper.profileList != null) &&
-                        (activityDataWrapper.profileList.size() > 0))
+                ((activityDataWrapper.profileListFilled &&
+                  (activityDataWrapper.profileList.size() > 0))
                 ) ? View.GONE : View.VISIBLE);
 
         return activityDataWrapper.profileList.size();
