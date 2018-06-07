@@ -1753,6 +1753,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 if (BitmapManipulator.checkBitmapSize(selectedImage.toString(), width, height, context)) {
                     if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
                         // set image identifier ant type for get bitmap path
+                        ProfilePreferencesFragment.changedProfileIconPreference.dismissDialog();
                         ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
                         ProfilePreferencesFragment.changedProfileIconPreference = null;
                     }
