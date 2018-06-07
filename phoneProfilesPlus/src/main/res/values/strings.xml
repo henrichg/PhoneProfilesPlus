@@ -1134,6 +1134,7 @@
     <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
     <string name="editor_drawer_open">Open navigation drawer</string>
     <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
+    <string name="important_info_accessibility_service_new_version_2">Click here to display PhoneProfilesPlusExtender releases in GitHub.</string>
     <string name="array_pref_no_force_stop">Do not force stop</string>
     <string name="array_pref_force_stop">Force stop</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>

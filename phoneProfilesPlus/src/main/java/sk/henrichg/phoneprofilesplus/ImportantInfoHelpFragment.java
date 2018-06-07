@@ -454,9 +454,24 @@ public class ImportantInfoHelpFragment extends Fragment {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.VISIBLE);
+            infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            infoText1.setVisibility(View.VISIBLE);
+            infoText1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    } catch (Exception ignored) {}
+                }
+            });
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            infoText1.setVisibility(View.GONE);
+            infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
             infoText1.setVisibility(View.GONE);
         }
 
