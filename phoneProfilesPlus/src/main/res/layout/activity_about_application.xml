@@ -113,6 +113,24 @@
             android:text="@string/about_application_transaltions"
             android:textSize="15sp"/>
 
+        <TextView
+            android:id="@+id/about_application_xda_developers_community"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/about_application_xda_developers_community"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/about_application_google_plus_community"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/about_application_google_plus_community"
+            android:textSize="15sp"/>
+
         <Button
             android:id="@+id/about_application_donate_button"
             android:layout_width="wrap_content"
