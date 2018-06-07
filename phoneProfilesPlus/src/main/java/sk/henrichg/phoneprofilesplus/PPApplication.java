@@ -25,8 +25,8 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobManager;
-import com.github.anrwatchdog.ANRError;
-import com.github.anrwatchdog.ANRWatchDog;
+//import com.github.anrwatchdog.ANRError;
+//import com.github.anrwatchdog.ANRWatchDog;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -388,6 +388,7 @@ public class PPApplication extends Application {
         Fabric.with(getApplicationContext(), crashlyticsKit);
         // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
 
+        /*
         // set up ANR-WatchDog
         ANRWatchDog anrWatchDog = new ANRWatchDog();
         //anrWatchDog.setReportMainThreadOnly();
@@ -398,6 +399,7 @@ public class PPApplication extends Application {
             }
         });
         anrWatchDog.start();
+        */
 
         try {
             Crashlytics.setBool("DEBUG", BuildConfig.DEBUG);
