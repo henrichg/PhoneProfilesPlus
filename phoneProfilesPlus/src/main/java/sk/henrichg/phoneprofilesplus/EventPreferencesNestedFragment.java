@@ -128,7 +128,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     try {
-                        startActivityForResult(Intent.createChooser(i, getString(R.string.web_browser_chooser)), RESULT_ACCESSIBILITY_SETTINGS);
+                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                     } catch (Exception ignored) {}
                     return false;
                 }
@@ -224,7 +224,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(url));
                     try {
-                        startActivityForResult(Intent.createChooser(i, getString(R.string.web_browser_chooser)), RESULT_ACCESSIBILITY_SETTINGS);
+                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
                     } catch (Exception ignored) {}
                     return false;
                 }
