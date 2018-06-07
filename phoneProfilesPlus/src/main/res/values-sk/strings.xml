@@ -1131,6 +1131,7 @@
   <string name="notification_channel_notify_event_start_description">Zobrazuje notifikáciu o spustení udalosti.</string>
   <string name="editor_drawer_open">Otvor navigačný panel</string>
   <string name="important_info_accessibility_service_new_version">Prosím nainštalujte novú verziu PhoneProfilesPlusExtender. Ďalšie informácie o inštalácii sú v parametroch, ktoré PhoneProfilesPlusExtender vyžadujú.</string>
+  <string name="important_info_accessibility_service_new_version_2">Kliknite sem pre zobrazenie vydaní PhoneProfilesPlusExtender v GitHub.</string>
   <string name="array_pref_no_force_stop">Nevynucovať zastavenie</string>
   <string name="array_pref_force_stop">Vynucovať zastavenie</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Vynútiť zastavenie aplikácií</string>
@@ -1169,6 +1170,8 @@
   <string name="array_pref_value_auto_rotate_on">Zapnúť automatickú orientáciu</string>
   <string name="array_pref_value_auto_rotate_off">Vypnúť automatickú orientáciu</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Zmena úrovne adaptívneho jasu nemusí fungovať na vašom zariadení (napríklad: zariadenia Samsung).</string>
+  <string name="about_application_xda_developers_community">Komunita XDA-developers:</string>
+  <string name="about_application_google_plus_community">Komunita Google+:</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• sensory udalostí \"Parametre aplikácií\" and \"Parametre orientácie\".</string>
