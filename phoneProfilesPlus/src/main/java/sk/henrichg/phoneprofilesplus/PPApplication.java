@@ -25,8 +25,6 @@ import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobManager;
-//import com.github.anrwatchdog.ANRError;
-//import com.github.anrwatchdog.ANRWatchDog;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -49,6 +47,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.fabric.sdk.android.Fabric;
+
+//import com.github.anrwatchdog.ANRError;
+//import com.github.anrwatchdog.ANRWatchDog;
 
 public class PPApplication extends Application {
 
