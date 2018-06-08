@@ -2884,8 +2884,10 @@ public class PhoneProfilesService extends Service
                     Notification.Builder notificationBuilder;
 
                     boolean miui = (PPApplication.romManufacturer != null) &&
-                            (PPApplication.romManufacturer.compareToIgnoreCase("xiaomi") == 0) &&
-                            (android.os.Build.VERSION.SDK_INT >= 24);
+                            (PPApplication.romManufacturer.compareToIgnoreCase("xiaomi") == 0)/* &&
+                            (android.os.Build.VERSION.SDK_INT >= 24)*/;
+
+                    Log.e("****** PhoneProfilesService.showProfileNotification", "miui="+miui);
 
                     RemoteViews contentView;
                     /*if (ApplicationPreferences.notificationTheme(dataWrapper.context).equals("1"))
@@ -2894,9 +2896,9 @@ public class PhoneProfilesService extends Service
                     if (ApplicationPreferences.notificationTheme(dataWrapper.context).equals("2"))
                         contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_light);
                     else {*/
-                    if (miui && (Build.VERSION.SDK_INT < 25)) {
+                    if (miui/* && (Build.VERSION.SDK_INT < 25)*/) {
                         contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_miui);
-                        PPApplication.logE("PhoneProfilesService.showProfileNotification", "miui < 25");
+                        PPApplication.logE("PhoneProfilesService.showProfileNotification", "miui");
                     }
                     else
                         contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer);
@@ -3098,9 +3100,9 @@ public class PhoneProfilesService extends Service
                     else
                         contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
 
-                    if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    if (/*(!miui) && */android.os.Build.VERSION.SDK_INT >= 24) {
                         // workaround for MIUI :-(
-                        if ((!miui) || (Build.VERSION.SDK_INT >= 25))
+                        if ((!miui)/* || (Build.VERSION.SDK_INT >= 25)*/)
                             notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
                         notificationBuilder.setCustomContentView(contentView);
                     }
