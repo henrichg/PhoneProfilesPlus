@@ -153,7 +153,7 @@ public class WallpaperViewPreference extends Preference {
             Resources resources = prefContext.getResources();
             int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
             int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
-            return BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, false, prefContext);
+            return BitmapManipulator.resampleBitmapUri(imageIdentifier, width, height, false, true, prefContext);
         }
         else
             return null;
