@@ -2856,7 +2856,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        if (serviceRunning && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
+        if (serviceRunning && (instance != null) && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
         {
             PPApplication.startHandlerThreadProfileNotification();
             final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
@@ -3100,9 +3100,9 @@ public class PhoneProfilesService extends Service
                     else
                         contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
 
-                    if (/*(!miui) && */android.os.Build.VERSION.SDK_INT >= 24) {
+                    if (android.os.Build.VERSION.SDK_INT >= 24) {
                         // workaround for MIUI :-(
-                        if ((!miui)/* || (Build.VERSION.SDK_INT >= 25)*/)
+                        if ((!miui) || (Build.VERSION.SDK_INT >= 26))
                             notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
                         notificationBuilder.setCustomContentView(contentView);
                     }
@@ -3133,7 +3133,8 @@ public class PhoneProfilesService extends Service
                         }
 
                         if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent)
-                            instance.startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                            if (instance != null)
+                                instance.startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                         else {
                             NotificationManager notificationManager = (NotificationManager) dataWrapper.context.getSystemService(Context.NOTIFICATION_SERVICE);
                             if (notificationManager != null)
