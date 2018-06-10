@@ -15,16 +15,19 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
             PPApplication.logE("##### LocaleChangedReceiver.onReceive", "xxx");
 
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThread("LocaleChangedReceiver.onReceive");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
-                        PPApplication.showProfileNotification(appContext);
+
+            if (PPApplication.getApplicationStarted(appContext, false)) {
+                PPApplication.startHandlerThread("LocaleChangedReceiver.onReceive");
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
+                            PPApplication.showProfileNotification(appContext);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 
