@@ -2366,15 +2366,15 @@ public class DataWrapper {
                 (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
             {
                 if (!done) {
-                    if (!ApplicationPreferences.applicationEventWifiEnableScannig(context)) {
+                    /*if (!ApplicationPreferences.applicationEventWifiEnableScannig(context)) {
                         // ignore for disabled scanning
                         ignoreWifi = true;
-                    } else {
-                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    } else {*/
+                        /*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                         if (!pm.isScreenOn() && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
                             // ignore for screen Off
                             ignoreWifi = true;
-                        } else {
+                        } else {*/
 
                             wifiPassed = false;
 
@@ -2431,8 +2431,8 @@ public class DataWrapper {
 
                             } else
                                 PPApplication.logE("----- DataWrapper.doHandleEvents", "scanResults == null");
-                        }
-                    }
+                        //}
+                    //}
                 }
             }
 
@@ -2583,16 +2583,16 @@ public class DataWrapper {
                 (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
             {
                 if (!done) {
-                    if (!ApplicationPreferences.applicationEventBluetoothEnableScannig(context)) {
+                    /*if (!ApplicationPreferences.applicationEventBluetoothEnableScannig(context)) {
                         // ignore for disabled scanning
                         ignoreBluetooth = true;
                     }
-                    else {
-                        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    else {*/
+                        /*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                         if (!pm.isScreenOn() && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
                             // ignore for screen Off
                             ignoreBluetooth = true;
-                        } else {
+                        } else {*/
                             bluetoothPassed = false;
 
                             List<BluetoothDeviceData> scanResults = BluetoothScanJob.getScanResults(context);
@@ -2661,8 +2661,8 @@ public class DataWrapper {
                             } else
                                 PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "scanResults == null");
 
-                        }
-                    }
+                        //}
+                    //}
                 }
             }
 
@@ -2817,18 +2817,18 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            if (!ApplicationPreferences.applicationEventLocationEnableScannig(context)) {
+            /*if (!ApplicationPreferences.applicationEventLocationEnableScannig(context)) {
                 // ignore for disabled location scanner
                 PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for disabled scanner");
                 ignoreLocation = true;
             }
-            else{
-                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            else{*/
+                /*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 if (!pm.isScreenOn() && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
                     // ignore for screen Off
                     PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for screen off");
                     ignoreLocation = true;
-                } else {
+                } else {*/
                     synchronized (PPApplication.geofenceScannerMutex) {
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
                                 PhoneProfilesService.getGeofencesScanner().mTransitionsUpdated) {
@@ -2861,8 +2861,8 @@ public class DataWrapper {
                             ignoreLocation = true;
                         }
                     }
-                }
-            }
+                //}
+            //}
         }
         else
             ignoreLocation = true;
@@ -2881,15 +2881,15 @@ public class DataWrapper {
                 // ignore changes during call
                 ignoreOrientation = true;
             }
-            else
+            /*else
             if (!ApplicationPreferences.applicationEventOrientationEnableScannig(context)) {
                 ignoreOrientation = true;
             }
             else
             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
-                    // ignore for screen Off
-                    ignoreOrientation = true;
-            }
+                // ignore for screen Off
+                ignoreOrientation = true;
+            }*/
             else
             {
                 synchronized (PPApplication.orientationScannerMutex) {
@@ -2992,15 +2992,15 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context)) {
+            /*if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context)) {
                 ignoreMobileCell = true;
             }
-            else {
-                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            else {*/
+                /*PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 if (!pm.isScreenOn() && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
                     // ignore for screen Off
                     ignoreMobileCell = true;
-                } else {
+                } else {*/
                     synchronized (PPApplication.phoneStateScannerMutex) {
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
                             String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
@@ -3022,8 +3022,8 @@ public class DataWrapper {
                         } else
                             ignoreMobileCell = true;
                     }
-                }
-            }
+                //}
+            //}
         }
         else
             ignoreMobileCell = true;
