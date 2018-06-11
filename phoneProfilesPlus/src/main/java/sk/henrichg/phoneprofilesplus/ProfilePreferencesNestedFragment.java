@@ -400,6 +400,28 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, component);
                             getActivity().startActivityForResult(intent, RESULT_DEVICE_ADMINISTRATOR_SETTINGS);
                         } else {
+                            Intent intent = new Intent().setComponent(new ComponentName("com.android.settings", "com.android.settings.DeviceAdminSettings"));
+                            if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+                                getActivity().startActivityForResult(intent, RESULT_DEVICE_ADMINISTRATOR_SETTINGS);
+                            } else {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                dialogBuilder.show();
+                            }
+                        }
+                        return false;
+                    }
+                });
+            } else {
+                deviceAdminSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent intent = new Intent().setComponent(new ComponentName("com.android.settings", "com.android.settings.DeviceAdminSettings"));
+                        if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+                            getActivity().startActivityForResult(intent, RESULT_DEVICE_ADMINISTRATOR_SETTINGS);
+                        } else {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
