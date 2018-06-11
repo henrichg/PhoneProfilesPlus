@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
@@ -321,14 +322,26 @@ public class VolumeDialogPreference extends
     public void onDismiss(DialogInterface dialog)
     {
         super.onDismiss(dialog);
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, defaultValueMusic, 0);
-        if (mediaPlayer != null) {
-            try {
-                if (mediaPlayer.isPlaying())
-                    mediaPlayer.stop();
-                mediaPlayer.release();
-            } catch (Exception ignored) {}
-        }
+
+        PPApplication.startHandlerThreadPlayTone();
+        final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (audioManager != null) {
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, defaultValueMusic, 0);
+                    if (mediaPlayer != null) {
+                        try {
+                            if (mediaPlayer.isPlaying())
+                                mediaPlayer.stop();
+                            mediaPlayer.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            }
+        });
+
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
     }
 

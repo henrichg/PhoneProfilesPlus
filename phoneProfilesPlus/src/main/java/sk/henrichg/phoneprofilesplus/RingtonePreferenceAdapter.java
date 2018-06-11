@@ -78,7 +78,7 @@ class RingtonePreferenceAdapter extends BaseAdapter {
             public void onClick(View v) {
                 RadioButton rb = (RadioButton) v;
                 preference.setRingtone((String)rb.getTag());
-                preference.playRingtone(true);
+                preference.playRingtone();
             }
         });
 
