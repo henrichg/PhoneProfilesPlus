@@ -1175,6 +1175,7 @@
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
     <string name="about_application_xda_developers_community">XDA-developers community:</string>
     <string name="about_application_google_plus_community">Google+ community:</string>
+    <string name="mobile_cells_pref_dlg_connected_cell">Connected cell:</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -49,6 +49,7 @@ public class MobileCellsPreference extends DialogPreference {
     //private RelativeLayout dataRelativeLayout;
     TextView cellFilter;
     TextView cellName;
+    TextView connectedCell;
     private MobileCellsPreferenceAdapter listAdapter;
     private MobileCellNamesDialog mMobileCellsFilterDialog;
     private MobileCellNamesDialog mMobileCellNamesDialog;
@@ -157,6 +158,7 @@ public class MobileCellsPreference extends DialogPreference {
         });
 
         cellName = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_name);
+        connectedCell = layout.findViewById(R.id.mobile_cells_pref_dlg_connectedCell);
 
         ListView cellsListView = layout.findViewById(R.id.mobile_cells_pref_dlg_listview);
         listAdapter = new MobileCellsPreferenceAdapter(context, this);
@@ -395,6 +397,7 @@ public class MobileCellsPreference extends DialogPreference {
             String _cellName;
             List<MobileCellsData> _cellsList = null;
             List<MobileCellsData> _filteredCellsList = null;
+            MobileCellsData registeredCellData = null;
             String _cellFilterValue;
             String _value;
 
@@ -436,13 +439,16 @@ public class MobileCellsPreference extends DialogPreference {
                         for (MobileCellsData cell : _cellsList) {
                             if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
                                 cell.connected = true;
+                                registeredCellData = cell;
                                 found = true;
                                 break;
                             }
                         }
-                        if (!found && (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE))
-                            _cellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
-                                    _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime));
+                        if (!found && (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
+                            registeredCellData = new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
+                                    _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime);
+                            _cellsList.add(registeredCellData);
+                        }
                     }
 
                     // add all from value
@@ -508,15 +514,32 @@ public class MobileCellsPreference extends DialogPreference {
                     boolean found = false;
                     for (MobileCellsData cell : filteredCellsList) {
                         if (isCellSelected(cell.cellId) && (!cell.name.isEmpty())) {
+                            // cell name = first filtered cell name. (???)
                             cellName.setText(cell.name);
                             found = true;
                         }
                     }
                     if (!found) {
+                        // cell name = event name
                         SharedPreferences sharedPreferences = getSharedPreferences();
                         cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
                     }
                 }
+
+                String connectedCellName = context.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
+                if (registeredCellData != null) {
+                    if (!registeredCellData.name.isEmpty())
+                        connectedCellName = connectedCellName + registeredCellData.name + ", ";
+                    String cellFlags = "";
+                    if (registeredCellData._new)
+                        cellFlags = cellFlags + "N";
+                    //if (registeredCellData.connected)
+                    //    cellFlags = cellFlags + "C";
+                    if (!cellFlags.isEmpty())
+                        connectedCellName = connectedCellName + "(" + cellFlags + ") ";
+                    connectedCellName = connectedCellName + registeredCellData.cellId;
+                }
+                connectedCell.setText(connectedCellName);
 
                 //progressLinearLayout.setVisibility(View.GONE);
                 //dataRelativeLayout.setVisibility(View.VISIBLE);
