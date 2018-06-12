@@ -49,7 +49,7 @@ public class MobileCellsPreference extends DialogPreference {
     //private RelativeLayout dataRelativeLayout;
     TextView cellFilter;
     TextView cellName;
-    TextView connectedCell;
+    private TextView connectedCell;
     private MobileCellsPreferenceAdapter listAdapter;
     private MobileCellNamesDialog mMobileCellsFilterDialog;
     private MobileCellNamesDialog mMobileCellNamesDialog;
@@ -514,7 +514,7 @@ public class MobileCellsPreference extends DialogPreference {
                     boolean found = false;
                     for (MobileCellsData cell : filteredCellsList) {
                         if (isCellSelected(cell.cellId) && (!cell.name.isEmpty())) {
-                            // cell name = first filtered cell name. (???)
+                            // cell name = first selected filtered cell name. (???)
                             cellName.setText(cell.name);
                             found = true;
                         }

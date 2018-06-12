@@ -258,6 +258,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestString = context.getString(R.string.permissions_for_brightness_dialog_text1) + "<br><br>";
                 else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG)
                     showRequestString = context.getString(R.string.permissions_for_mobile_cells_scan_dialog_text1) + "<br><br>";
+                else if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG)
+                    showRequestString = context.getString(R.string.permissions_for_mobile_cells_registration_dialog_text1) + "<br><br>";
                 else
                 if (grantType == Permissions.GRANT_TYPE_EVENT){
                     if (mergedNotification) {
@@ -910,6 +912,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);
             dataWrapper.restartEvents(false, true/*, false*/);
+            finish();
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {
+            if (Permissions.mobileCellsRegistrationDialogPreference != null)
+                Permissions.mobileCellsRegistrationDialogPreference.startRegistration();
             finish();
         }
         else

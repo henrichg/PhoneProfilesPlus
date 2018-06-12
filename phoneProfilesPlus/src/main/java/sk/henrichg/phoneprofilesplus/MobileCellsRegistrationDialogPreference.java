@@ -82,42 +82,22 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 .icon(getDialogIcon())
                 .positiveText(R.string.mobile_cells_registration_pref_dlg_start_button)
                 .negativeText(getNegativeButtonText())
+                .autoDismiss(false)
                 .content(getDialogMessage())
                 .customView(R.layout.activity_mobile_cells_registration_pref_dialog, true)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        int hours = mSeekBarHours.getProgress();
-                        int minutes = mSeekBarMinutes.getProgress();
-                        int seconds = mSeekBarSeconds.getProgress();
-
-                        int iValue = (hours * 3600 + minutes * 60 + seconds);
-                        if (iValue < mMin) iValue = mMin;
-                        if (iValue > mMax) iValue = mMax;
-
-                        //Log.d("MobileCellsRegistrationDialogPreference.onPositive","iValue="+iValue);
-
-                        //Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
-                        MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
-                        PhoneStateScanner.durationForAutoRegistration = iValue;
-                        PhoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
-                        PhoneStateScanner.enabledAutoRegistration = true;
-                        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
-                        PhoneStateScanner.startAutoRegistration(context);
-
-                        value = String.valueOf(iValue);
-                        setSummaryDDP(0);
-
-                        /*
-                        value = String.valueOf(iValue);
-
-                        if (callChangeListener(value)) {
-                            //persistInt(mNumberPicker.getValue());
-                            persistString(value);
-                        }
-                        */
+                        if (Permissions.grantMobileCellsRegistrationDialogPermissions(context, MobileCellsRegistrationDialogPreference.this))
+                            startRegistration();
                     }
                 });
+        mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
+            @Override
+            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                mDialog.dismiss();
+            }
+        });
 
         mBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
@@ -383,6 +363,31 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    void startRegistration() {
+        int hours = mSeekBarHours.getProgress();
+        int minutes = mSeekBarMinutes.getProgress();
+        int seconds = mSeekBarSeconds.getProgress();
+
+        int iValue = (hours * 3600 + minutes * 60 + seconds);
+        if (iValue < mMin) iValue = mMin;
+        if (iValue > mMax) iValue = mMax;
+
+        //Log.d("MobileCellsRegistrationDialogPreference.onPositive","iValue="+iValue);
+
+        //Log.d("MobileCellsRegistrationDialogPreference.onPositive","is started");
+        MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
+        PhoneStateScanner.durationForAutoRegistration = iValue;
+        PhoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
+        PhoneStateScanner.enabledAutoRegistration = true;
+        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
+        PhoneStateScanner.startAutoRegistration(context);
+
+        value = String.valueOf(iValue);
+        setSummaryDDP(0);
+
+        mDialog.dismiss();
     }
 
     public class MobileCellsRegistrationBroadcastReceiver extends BroadcastReceiver {
