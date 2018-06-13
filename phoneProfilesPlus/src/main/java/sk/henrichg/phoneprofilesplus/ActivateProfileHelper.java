@@ -509,7 +509,8 @@ class ActivateProfileHelper {
         }
         else
             return true;*/
-        return audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
+        return (audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) ||
+               (getSystemZenMode(context, -1) == ActivateProfileHelper.ZENMODE_PRIORITY);
     }
 
     /*
