@@ -7268,7 +7268,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } else
                     r = 0;
 
-                cursor.close();
                 //db.close();
             } catch (Exception ignored) {
             }
