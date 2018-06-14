@@ -389,12 +389,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         Preference deviceAdminSettings = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
         if (deviceAdminSettings != null) {
-            DevicePolicyManager manager = (DevicePolicyManager)getActivity().getSystemService(DEVICE_POLICY_SERVICE);
-            final ComponentName component = new ComponentName(getActivity(), PPDeviceAdminReceiver.class);
-            if ((manager == null) || !manager.isAdminActive(component)) {
-                deviceAdminSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
+            deviceAdminSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    DevicePolicyManager manager = (DevicePolicyManager)getActivity().getSystemService(DEVICE_POLICY_SERVICE);
+                    final ComponentName component = new ComponentName(getActivity(), PPDeviceAdminReceiver.class);
+                    if ((manager == null) || !manager.isAdminActive(component)) {
                         if (GlobalGUIRoutines.activityActionExists(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN, context)) {
                             Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
                             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, component);
@@ -411,13 +411,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                                 dialogBuilder.show();
                             }
                         }
-                        return false;
-                    }
-                });
-            } else {
-                deviceAdminSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
+                    } else {
                         Intent intent = new Intent().setComponent(new ComponentName("com.android.settings", "com.android.settings.DeviceAdminSettings"));
                         if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
                             getActivity().startActivityForResult(intent, RESULT_DEVICE_ADMINISTRATOR_SETTINGS);
@@ -428,10 +422,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             dialogBuilder.show();
                         }
-                        return false;
                     }
-                });
-            }
+                    return false;
+                }
+            });
         }
 
         InfoDialogPreference infoDialogPreference = (InfoDialogPreference)prefMng.findPreference("prf_pref_prefernceTypesInfo");
@@ -1641,6 +1635,13 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 Preference preference = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
                 if (preference != null) {
                     preference.setSummary(R.string.profile_preferences_lockDevice_deviceAdminSettings_summary_activated);
+                    //preference.setEnabled(false);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
+                if (preference != null) {
+                    preference.setSummary(R.string.profile_preferences_lockDevice_deviceAdminSettings_summary);
                     //preference.setEnabled(false);
                 }
             }
