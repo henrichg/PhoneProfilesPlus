@@ -7244,6 +7244,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    int getNewMobileCellsCount() {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT COUNT(*) " +
+                        " FROM " + TABLE_MOBILE_CELLS +
+                        " WHERE " + KEY_MC_NEW + "=1";
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = Integer.parseInt(cursor.getString(0));
+                    cursor.close();
+                } else
+                    r = 0;
+
+                cursor.close();
+                //db.close();
+            } catch (Exception ignored) {
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
 // NFC_TAGS ----------------------------------------------------------------------
 
     // Adding new nfc tag

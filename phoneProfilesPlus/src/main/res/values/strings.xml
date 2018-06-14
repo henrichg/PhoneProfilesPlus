@@ -1177,6 +1177,7 @@
     <string name="about_application_google_plus_community">Google+ community:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Connected cell:</string>
     <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobile cell registration requires some permissions.</string>
+    <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">New cells count:</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

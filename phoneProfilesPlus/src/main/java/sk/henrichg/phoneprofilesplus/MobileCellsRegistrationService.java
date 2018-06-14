@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -36,6 +37,7 @@ public class MobileCellsRegistrationService extends Service {
 
         PhoneStateScanner.autoRegistrationService = this;
 
+        removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
@@ -97,6 +99,8 @@ public class MobileCellsRegistrationService extends Service {
 
         stopForeground(true);
 
+        showResultNotification();
+
         //Log.d("MobileCellsRegistrationService", "Timer cancelled");
         super.onDestroy();
     }
@@ -107,13 +111,16 @@ public class MobileCellsRegistrationService extends Service {
         long iValue = millisUntilFinished / 1000;
         time = time + ": " + GlobalGUIRoutines.getDurationString((int)iValue);
         text = text + "; " + time;
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            text = text+" ("+getString(R.string.app_name)+")";
+        }
 
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(this, R.color.primary))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
-                .setContentText(text+" ("+getString(R.string.app_name)+")") // message for notification
+                .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
 
         Intent intent = new Intent(this, PhoneProfilesPreferencesActivity.class);
@@ -135,6 +142,49 @@ public class MobileCellsRegistrationService extends Service {
         startForeground(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
     }
 
+    private void showResultNotification() {
+        String text = getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
+        String newCount = getString(R.string.mobile_cells_registration_pref_dlg_status_new_cells_count);
+        long iValue = DatabaseHandler.getInstance(getApplicationContext()).getNewMobileCellsCount();
+        newCount = newCount + " " + iValue;
+        text = text + "; " + newCount;
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            text = text+" ("+getString(R.string.app_name)+")";
+        }
+
+        PPApplication.createMobileCellsRegistrationNotificationChannel(this);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(this, R.color.primary))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
+                .setContentText(text) // message for notification
+                .setAutoCancel(true); // clear notification after click
+
+        Intent intent = new Intent(this, PhoneProfilesPreferencesActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "mobileCellsScanningCategory");
+        //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+        {
+            mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
+        }
+
+        Notification notification = mBuilder.build();
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (mNotificationManager != null)
+            mNotificationManager.notify(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID, notification);
+    }
+
+    private void removeResultNotification() {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null)
+            notificationManager.cancel(PPApplication.MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID);
+    }
 
     static public void getMobileCellsAutoRegistration(Context context) {
         ApplicationPreferences.getSharedPreferences(context);
