@@ -310,8 +310,10 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         }
         if (!started) {
             summary = getContext().getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
-            int iValue = Integer.parseInt(value);
-            summary = summary + "; " + GlobalGUIRoutines.getDurationString(iValue);
+            String newCount = context.getString(R.string.mobile_cells_registration_pref_dlg_status_new_cells_count);
+            long iValue = DatabaseHandler.getInstance(context.getApplicationContext()).getNewMobileCellsCount();
+            newCount = newCount + " " + iValue;
+            summary = summary + "; " + newCount;
         }
 
         setSummary(summary);
