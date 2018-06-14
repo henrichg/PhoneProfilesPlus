@@ -669,6 +669,15 @@
                 android:widgetLayout="@layout/start_activity_preference"
                 android:layout="@layout/mp_preference_material_widget" >
             </Preference>
+            <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
+                android:key="eventMobileCellsRegistration"
+                android:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
+                android:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
+                android:defaultValue="0"
+                henrichg:dMin="0"
+                henrichg:dMax="86400"
+                android:dependency="eventMobileCellsEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MobileCellsPreference
                 android:defaultValue="0"
                 android:key="eventMobileCellsCells"
