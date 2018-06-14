@@ -3190,6 +3190,7 @@ public class PhoneProfilesService extends Service
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
             }
         } catch (Exception ignored) {}
+        runningInForeground = false;
     }
 
     private void setAlarmForNotificationCancel(Context context)
