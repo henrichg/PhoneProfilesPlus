@@ -633,6 +633,7 @@
             android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
+        <!--
         <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
             android:key="applicationEventMobileCellsRegistration"
             android:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
@@ -642,6 +643,7 @@
             henrichg:dMax="86400"
             android:dependency="applicationEventMobileCellEnableScannig"
             android:layout="@layout/mp_preference_material_widget" />
+        -->
         <com.afollestad.materialdialogs.prefs.MaterialListPreference
             android:key="applicationEventMobileCellScanInPowerSaveMode"
             android:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"

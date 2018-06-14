@@ -160,13 +160,15 @@ public class MobileCellsRegistrationService extends Service {
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
 
+        /*
         Intent intent = new Intent(this, PhoneProfilesPreferencesActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "mobileCellsScanningCategory");
         //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         mBuilder.setContentIntent(pi);
+        */
+
         mBuilder.setPriority(Notification.PRIORITY_MAX);
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {

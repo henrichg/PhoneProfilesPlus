@@ -45,6 +45,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private Button stopButton;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
+    private MobileCellsRegistrationDialogPreference.MobileCellsRegistrationBroadcastReceiver mobileCellsRegistrationBroadcastReceiver;
+
     //private int mColor = 0;
 
     public MobileCellsRegistrationDialogPreference(Context context, AttributeSet attrs) {
@@ -66,10 +68,9 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(MobileCellsRegistrationService.ACTION_COUNT_DOWN_TICK);
-        PhoneProfilesPreferencesNestedFragment.mobileCellsRegistrationBroadcastReceiver =
+        mobileCellsRegistrationBroadcastReceiver =
                 new MobileCellsRegistrationBroadcastReceiver(this);
-        context.registerReceiver(PhoneProfilesPreferencesNestedFragment.mobileCellsRegistrationBroadcastReceiver, intentFilter);
-
+        context.registerReceiver(mobileCellsRegistrationBroadcastReceiver, intentFilter);
     }
 
     @SuppressLint("SetTextI18n")
@@ -268,6 +269,15 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         super.onActivityDestroy();
         if (mDialog != null && mDialog.isShowing())
             mDialog.dismiss();
+
+        if (mobileCellsRegistrationBroadcastReceiver != null) {
+            try {
+                context.unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
+            } catch (IllegalArgumentException ignored) {
+            }
+            mobileCellsRegistrationBroadcastReceiver = null;
+        }
+
     }
 
     @Override

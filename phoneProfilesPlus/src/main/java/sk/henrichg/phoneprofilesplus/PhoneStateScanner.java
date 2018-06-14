@@ -238,7 +238,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
 
         doAutoRegistration();
-        sendBroadcast();
+        handleEvents();
     }
 
     @Override
@@ -256,7 +256,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
 
         doAutoRegistration();
-        sendBroadcast();
+        handleEvents();
     }
 
     private void getCellLocation(CellLocation location) {
@@ -323,7 +323,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
 
         doAutoRegistration();
-        sendBroadcast();
+        handleEvents();
     }
 
     /*
@@ -346,11 +346,11 @@ class PhoneStateScanner extends PhoneStateListener {
         if (ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext()) || PhoneStateScanner.forceStart) {
             getRegisteredCell();
             doAutoRegistration();
-            sendBroadcast();
+            handleEvents();
         }
     }
 
-    private void sendBroadcast() {
+    private void handleEvents() {
         //PhoneStateJob.start(context);
         if (Event.getGlobalEventsRunning(context))
         {
@@ -384,14 +384,12 @@ class PhoneStateScanner extends PhoneStateListener {
             });
         }
 
-
+        /*
         // broadcast for cells editor
-        /*Intent intent = new Intent(ACTION_PHONE_STATE_CHANGED);
-        //intent.putExtra("state", mode);
-        context.sendBroadcast(intent);*/
         Intent intent = new Intent("PhoneStateChangedBroadcastReceiver_preference");
         //intent.putExtra("state", mode);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+        */
     }
 
     private void doAutoRegistration() {

@@ -57,8 +57,8 @@ public class MobileCellsPreference extends DialogPreference {
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
-    private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
-    private RefreshListViewBroadcastReceiver refreshListViewBroadcastReceiver;
+    //private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
+    //private RefreshListViewBroadcastReceiver refreshListViewBroadcastReceiver;
 
     static boolean forceStart;
 
@@ -80,6 +80,7 @@ public class MobileCellsPreference extends DialogPreference {
         //value = persistedValue;
         value = getPersistedString("");
 
+        /*
         //IntentFilter intentFilter = new IntentFilter();
         //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
         phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(this);
@@ -88,6 +89,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         refreshListViewBroadcastReceiver = new RefreshListViewBroadcastReceiver(this);
         LocalBroadcastManager.getInstance(context).registerReceiver(refreshListViewBroadcastReceiver, new IntentFilter("RefreshListViewBroadcastReceiver"));
+        */
 
         PPApplication.forceStartPhoneStateScanner(context);
         forceStart = true;
@@ -299,6 +301,7 @@ public class MobileCellsPreference extends DialogPreference {
 
         GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
 
+        /*
         if (phoneStateChangedBroadcastReceiver != null) {
             //getActivity().unregisterReceiver(phoneStateChangedBroadcastReceiver);
             LocalBroadcastManager.getInstance(context).unregisterReceiver(phoneStateChangedBroadcastReceiver);
@@ -308,6 +311,7 @@ public class MobileCellsPreference extends DialogPreference {
             LocalBroadcastManager.getInstance(context).unregisterReceiver(refreshListViewBroadcastReceiver);
             refreshListViewBroadcastReceiver = null;
         }
+        */
 
         forceStart = false;
         PPApplication.restartPhoneStateScanner(context, false);
@@ -631,6 +635,7 @@ public class MobileCellsPreference extends DialogPreference {
         popup.show();
     }
 
+    /*
     public class PhoneStateChangedBroadcastReceiver extends BroadcastReceiver {
 
         final MobileCellsPreference preference;
@@ -683,5 +688,6 @@ public class MobileCellsPreference extends DialogPreference {
                 preference.refreshListView(false);
         }
     }
+    */
 
 }

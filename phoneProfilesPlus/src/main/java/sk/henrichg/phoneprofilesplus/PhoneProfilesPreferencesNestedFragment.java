@@ -32,8 +32,6 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     PreferenceManager prefMng;
     SharedPreferences preferences;
 
-    public static MobileCellsRegistrationDialogPreference.MobileCellsRegistrationBroadcastReceiver mobileCellsRegistrationBroadcastReceiver;
-
     private static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
     private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
     private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
@@ -846,13 +844,6 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             preferences.unregisterOnSharedPreferenceChangeListener(this);
         } catch (Exception ignored) {}
 
-        if (mobileCellsRegistrationBroadcastReceiver != null) {
-            try {
-                getActivity().unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
-            } catch (IllegalArgumentException ignored) {
-            }
-            mobileCellsRegistrationBroadcastReceiver = null;
-        }
         super.onDestroy();
     }
 
