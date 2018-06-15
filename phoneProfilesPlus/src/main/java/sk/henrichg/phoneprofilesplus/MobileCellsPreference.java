@@ -483,6 +483,7 @@ public class MobileCellsPreference extends DialogPreference {
                         }
                     }
 
+                    // save all from value = registeredCell to table
                     db.saveMobileCellsList(_cellsList, true, false);
 
                     Collections.sort(_cellsList, new SortList());

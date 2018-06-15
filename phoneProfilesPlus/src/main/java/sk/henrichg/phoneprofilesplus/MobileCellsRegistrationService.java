@@ -295,12 +295,16 @@ public class MobileCellsRegistrationService extends Service {
     static public void setMobileCellsAutoRegistration(Context context, boolean firstStart) {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneStateScanner.durationForAutoRegistration);
-        editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneStateScanner.cellsNameForAutoRegistration);
-        if (firstStart)
+        if (firstStart) {
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
+            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
             editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
-        else
+        }
+        else {
+            editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneStateScanner.durationForAutoRegistration);
+            editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, PhoneStateScanner.cellsNameForAutoRegistration);
             editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, PhoneStateScanner.enabledAutoRegistration);
+        }
         editor.apply();
     }
 
