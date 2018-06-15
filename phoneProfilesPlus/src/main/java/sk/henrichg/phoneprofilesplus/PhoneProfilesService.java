@@ -2882,7 +2882,7 @@ public class PhoneProfilesService extends Service
                     (PPApplication.romManufacturer.compareToIgnoreCase("xiaomi") == 0)/* &&
                     (android.os.Build.VERSION.SDK_INT >= 24)*/;
 
-            Log.e("****** PhoneProfilesService.showProfileNotification", "miui="+miui);
+            //Log.e("****** PhoneProfilesService.showProfileNotification", "miui="+miui);
 
             RemoteViews contentView;
             /*if (ApplicationPreferences.notificationTheme(dataWrapper.context).equals("1"))

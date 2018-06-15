@@ -45,8 +45,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private Button stopButton;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
-    private MobileCellsRegistrationDialogPreference.MobileCellsRegistrationBroadcastReceiver mobileCellsRegistrationBroadcastReceiver;
-
     //private int mColor = 0;
 
     public MobileCellsRegistrationDialogPreference(Context context, AttributeSet attrs) {
@@ -65,12 +63,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         this.context = context;
 
         MobileCellsRegistrationService.getMobileCellsAutoRegistration(context);
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(MobileCellsRegistrationService.ACTION_COUNT_DOWN_TICK);
-        mobileCellsRegistrationBroadcastReceiver =
-                new MobileCellsRegistrationBroadcastReceiver(this);
-        context.registerReceiver(mobileCellsRegistrationBroadcastReceiver, intentFilter);
     }
 
     @SuppressLint("SetTextI18n")
@@ -269,15 +261,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         super.onActivityDestroy();
         if (mDialog != null && mDialog.isShowing())
             mDialog.dismiss();
-
-        if (mobileCellsRegistrationBroadcastReceiver != null) {
-            try {
-                context.unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
-            } catch (IllegalArgumentException ignored) {
-            }
-            mobileCellsRegistrationBroadcastReceiver = null;
-        }
-
     }
 
     @Override
@@ -304,7 +287,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         setSummaryDDP(0);
     }
 
-    private void setSummaryDDP(long millisUntilFinished)
+    void setSummaryDDP(long millisUntilFinished)
     {
         String summary = "";
         boolean started = false;
@@ -329,7 +312,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         setSummary(summary);
     }
 
-    private void updateInterface(long millisUntilFinished, boolean forceStop) {
+    void updateInterface(long millisUntilFinished, boolean forceStop) {
         if ((mDialog != null) && mDialog.isShowing()) {
             boolean started = false;
             mCellsName.setText(PhoneStateScanner.cellsNameForAutoRegistration);
@@ -400,23 +383,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         setSummaryDDP(0);
 
         mDialog.dismiss();
-    }
-
-    public class MobileCellsRegistrationBroadcastReceiver extends BroadcastReceiver {
-
-        final MobileCellsRegistrationDialogPreference preference;
-
-        MobileCellsRegistrationBroadcastReceiver(MobileCellsRegistrationDialogPreference preference) {
-            this.preference = preference;
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //Log.d("MobileCellsRegistrationBroadcastReceiver", "xxx");
-            long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
-            preference.updateInterface(millisUntilFinished, false);
-            preference.setSummaryDDP(millisUntilFinished);
-        }
     }
 
 }

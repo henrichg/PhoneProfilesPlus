@@ -30,7 +30,7 @@ public class MobileCellsRegistrationService extends Service {
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
 
-    private MobileCellsRegistrationService.MobileCellsRegistrationServiceBroadcastReceiver mobileCellsRegistrationServiceBroadcastReceiver;
+    private MobileCellsRegistrationService.MobileCellsRegistrationServiceBroadcastReceiver mobileCellsRegistrationServiceBroadcastReceiver = null;
 
     @Override
     public void onCreate()
@@ -50,12 +50,13 @@ public class MobileCellsRegistrationService extends Service {
 
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
 
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_STOP_REGISTRATION);
-        mobileCellsRegistrationServiceBroadcastReceiver =
-                new MobileCellsRegistrationService.MobileCellsRegistrationServiceBroadcastReceiver();
-        context.registerReceiver(mobileCellsRegistrationServiceBroadcastReceiver, intentFilter);
-
+        if (mobileCellsRegistrationServiceBroadcastReceiver == null) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(ACTION_STOP_REGISTRATION);
+            mobileCellsRegistrationServiceBroadcastReceiver =
+                    new MobileCellsRegistrationService.MobileCellsRegistrationServiceBroadcastReceiver();
+            context.registerReceiver(mobileCellsRegistrationServiceBroadcastReceiver, intentFilter);
+        }
 
         countDownTimer = new CountDownTimer(remainingDuration * 1000, 1000) {
 

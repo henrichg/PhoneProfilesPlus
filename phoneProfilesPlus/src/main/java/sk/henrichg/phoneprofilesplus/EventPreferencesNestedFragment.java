@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -22,6 +25,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     PreferenceManager prefMng;
     SharedPreferences preferences;
     private Context context;
+
+    private MobileCellsRegistrationBroadcastReceiver mobileCellsRegistrationBroadcastReceiver = null;
 
     private static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
@@ -43,6 +48,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
     private static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
     private static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
+    private static final String PREF_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
 
     @Override
     public int addPreferencesFromResource() {
@@ -67,6 +73,16 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         preferences = prefMng.getSharedPreferences();
 
         event = new Event();
+
+        if (mobileCellsRegistrationBroadcastReceiver == null) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(MobileCellsRegistrationService.ACTION_COUNT_DOWN_TICK);
+            mobileCellsRegistrationBroadcastReceiver =
+                    new MobileCellsRegistrationBroadcastReceiver(
+                            (MobileCellsRegistrationDialogPreference)prefMng.findPreference(PREF_MOBILE_CELLS_REGISTRATION));
+            context.registerReceiver(mobileCellsRegistrationBroadcastReceiver, intentFilter);
+        }
+
     }
 
     public static String getPreferenceName(int startupSource) {
@@ -287,9 +303,19 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     @Override
     public void onDestroy()
     {
+        Log.e("****** EventPreferencesNestedFragment.onDestroy","xxxx");
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
         } catch (Exception ignored) {}
+
+        if (mobileCellsRegistrationBroadcastReceiver != null) {
+            try {
+                context.unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
+            } catch (IllegalArgumentException ignored) {
+            }
+            mobileCellsRegistrationBroadcastReceiver = null;
+        }
+
         super.onDestroy();
     }
 
@@ -367,5 +393,25 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     protected String getSavedInstanceStateKeyName() {
         return "EventPreferencesFragment_PreferenceScreenKey";
     }
+
+    public class MobileCellsRegistrationBroadcastReceiver extends BroadcastReceiver {
+
+        final MobileCellsRegistrationDialogPreference preference;
+
+        MobileCellsRegistrationBroadcastReceiver(MobileCellsRegistrationDialogPreference preference) {
+            this.preference = preference;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (preference != null) {
+                //Log.d("MobileCellsRegistrationBroadcastReceiver", "xxx");
+                long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
+                preference.updateInterface(millisUntilFinished, false);
+                preference.setSummaryDDP(millisUntilFinished);
+            }
+        }
+    }
+
 
 }
