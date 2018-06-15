@@ -129,10 +129,31 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                 //PPApplication.logE("##### GeofenceScanner.onConnected", "xxx2");
                 mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
                 useGPS = true;
-                clearAllEventGeofences();
-                PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
-                startLocationUpdates();
-                updateTransitionsByLastKnownLocation(false);
+
+                PPApplication.startHandlerThread("GeofenceScanner.onConnected");
+                final Handler handler6 = new Handler(PPApplication.handlerThread.getLooper());
+                handler6.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "GeofenceScanner.onConnected");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        clearAllEventGeofences();
+                        PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
+                        startLocationUpdates();
+                        updateTransitionsByLastKnownLocation(false);
+
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                });
             }
         } catch (Exception ignored) {
             //PPApplication.logE("##### GeofenceScanner.onConnected", Log.getStackTraceString(e));
