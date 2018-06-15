@@ -6953,18 +6953,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // add mobile cells to list
-    void addMobileCellsToList(List<MobileCellsData> cellsList) {
+    void addMobileCellsToList(List<MobileCellsData> cellsList, boolean onlyNew) {
         importExportLock.lock();
         try {
             try {
                 startRunningCommand();
 
                 // Select All Query
-                final String selectQuery = "SELECT " + KEY_MC_CELL_ID + "," +
+                String selectQuery = "SELECT " + KEY_MC_CELL_ID + "," +
                         KEY_MC_NAME + "," +
                         KEY_MC_NEW + "," +
                         KEY_MC_LAST_CONNECTED_TIME +
                         " FROM " + TABLE_MOBILE_CELLS;
+
+                if (onlyNew) {
+                    selectQuery = selectQuery +
+                            " WHERE " + KEY_MC_NEW + "=1";
+                }
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -7272,6 +7277,46 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception ignored) {
             }
             return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Updating single event
+    void updateMobileCellsCells(Event event) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+
+                EventPreferencesMobileCells eventPreferences = event._eventPreferencesMobileCells;
+
+                values.put(KEY_E_MOBILE_CELLS_CELLS, eventPreferences._cells);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[] { String.valueOf(event._id) });
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateMobileCellsCells", Log.getStackTraceString(e));
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
         } finally {
             stopRunningCommand();
         }

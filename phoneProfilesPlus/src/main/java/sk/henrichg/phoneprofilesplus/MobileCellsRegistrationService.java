@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
@@ -171,9 +173,64 @@ public class MobileCellsRegistrationService extends Service {
         intent.setPackage(context.getPackageName());
         sendBroadcast(intent);
 
-        eventList.clear();
+        final Context appContext = context.getApplicationContext();
+
+        PPApplication.startHandlerThread("MobileCellsRegistrationService.stopRegistration");
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MobileCellsRegistrationService.stopRegistration");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                List<MobileCellsData> cellsList = new ArrayList<>();
+
+                DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                db.addMobileCellsToList(cellsList, true);
+
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+
+                for (MobileCellsData cellData : cellsList) {
+                    for (Long event_id : eventList) {
+                        Event event = dataWrapper.getEventById(event_id);
+                        if (event != null) {
+                            String cells = event._eventPreferencesMobileCells._cells;
+                            cells = addCellId(cells, cellData.cellId);
+                            event._eventPreferencesMobileCells._cells = cells;
+                            db.updateMobileCellsCells(event);
+                            dataWrapper.updateEvent(event);
+                        }
+                    }
+                }
+                eventList.clear();
+            }
+        });
 
         stopSelf();
+    }
+
+    String addCellId(String cells, int cellId) {
+        String[] splits = cells.split("\\|");
+        String sCellId = Integer.toString(cellId);
+        boolean found = false;
+        for (String cell : splits) {
+            if (!cell.isEmpty()) {
+                if (cell.equals(sCellId)) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            if (!cells.isEmpty())
+                cells = cells + "|";
+            cells = cells + sCellId;
+        }
+        return cells;
     }
 
     private void showResultNotification() {

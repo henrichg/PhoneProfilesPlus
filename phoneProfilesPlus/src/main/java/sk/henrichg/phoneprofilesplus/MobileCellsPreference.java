@@ -444,7 +444,7 @@ public class MobileCellsPreference extends DialogPreference {
 
                     // add all from table
                     DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    db.addMobileCellsToList(_cellsList);
+                    db.addMobileCellsToList(_cellsList, false);
 
                     boolean found = false;
                     if (PhoneProfilesService.isPhoneStateScannerStarted()) {
