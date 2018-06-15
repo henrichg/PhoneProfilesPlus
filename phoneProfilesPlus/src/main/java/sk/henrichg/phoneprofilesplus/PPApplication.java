@@ -60,14 +60,14 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_2_0 = 90;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_2_0;
 
-    private static final boolean logIntoLogCat = false;
-    private static final boolean logIntoFile = false;
+    private static final boolean logIntoLogCat = true;
+    private static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
-                                         +"|PhoneProfilesService.showProfileNotification"
+                                         //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
@@ -196,6 +196,8 @@ public class PPApplication extends Application {
                                         //+"|AccessibilityServiceBroadcastReceiver.onReceive"
 
                                         //+"|BrightnessDialogPreference"
+
+                                        +"|PhoneStateScanner"
             ;
 
 
