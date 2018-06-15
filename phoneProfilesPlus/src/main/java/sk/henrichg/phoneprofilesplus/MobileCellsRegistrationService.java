@@ -14,6 +14,10 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class MobileCellsRegistrationService extends Service {
 
     public static final String ACTION_COUNT_DOWN_TICK = "sk.henrichg.phoneprofilesplus.ACTION_COUNT_DOWN_TICK";
@@ -24,6 +28,8 @@ public class MobileCellsRegistrationService extends Service {
 
     static boolean forceStart;
     Context context;
+
+    static private final List<Long> eventList = new ArrayList<Long>();
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
@@ -165,6 +171,8 @@ public class MobileCellsRegistrationService extends Service {
         intent.setPackage(context.getPackageName());
         sendBroadcast(intent);
 
+        eventList.clear();
+
         stopSelf();
     }
 
@@ -186,7 +194,7 @@ public class MobileCellsRegistrationService extends Service {
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
 
-        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        //mBuilder.setPriority(Notification.PRIORITY_MAX);
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
             mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
@@ -234,6 +242,18 @@ public class MobileCellsRegistrationService extends Service {
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
         editor.apply();
+    }
+
+    static boolean isEventAdded(long event_id) {
+        return eventList.indexOf(event_id) != -1;
+    }
+
+    static void addEvent(long event_id) {
+        eventList.add(event_id);
+    }
+
+    static void removeEvent(long event_id) {
+        eventList.remove(event_id);
     }
 
     public class MobileCellsRegistrationServiceBroadcastReceiver extends BroadcastReceiver {

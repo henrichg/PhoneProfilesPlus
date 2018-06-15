@@ -18,6 +18,7 @@ import android.util.Log;
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
+    long event_id;
     int startupSource;
 
     private Event event;
@@ -64,8 +65,10 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         setRetainInstance(false);
 
         Bundle bundle = this.getArguments();
-        if (bundle != null)
+        if (bundle != null) {
+            event_id = bundle.getLong(PPApplication.EXTRA_EVENT_ID, 0);
             startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+        }
 
         context = getActivity().getBaseContext();
 
@@ -298,12 +301,18 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
+        MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference =
+                (MobileCellsRegistrationDialogPreference)prefMng.findPreference(PREF_MOBILE_CELLS_REGISTRATION);
+        if (mobileCellsRegistrationDialogPreference != null) {
+            mobileCellsRegistrationDialogPreference.event_id = event_id;
+        }
+
     }
 
     @Override
     public void onDestroy()
     {
-        Log.e("****** EventPreferencesNestedFragment.onDestroy","xxxx");
+        //Log.e("****** EventPreferencesNestedFragment.onDestroy","xxxx");
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
         } catch (Exception ignored) {}

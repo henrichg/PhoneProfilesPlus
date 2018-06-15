@@ -32,6 +32,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private final Context context;
 
     private final int mMin, mMax;
+    long event_id;
 
     private MaterialDialog mDialog;
     private TextView mValue;
@@ -42,6 +43,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private TextView mStatus;
     private TextView mRemainingTime;
     private TimeDurationPickerDialog mValueDialog;
+    private MDButton startButton;
     private Button stopButton;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
@@ -81,8 +83,20 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (Permissions.grantMobileCellsRegistrationDialogPermissions(context, MobileCellsRegistrationDialogPreference.this))
-                            startRegistration();
+                        if (Permissions.grantMobileCellsRegistrationDialogPermissions(context, MobileCellsRegistrationDialogPreference.this)) {
+                            if (PhoneStateScanner.enabledAutoRegistration) {
+                                if (!MobileCellsRegistrationService.isEventAdded(event_id))
+                                    MobileCellsRegistrationService.addEvent(event_id);
+                                else
+                                    MobileCellsRegistrationService.removeEvent(event_id);
+                                mDialog.dismiss();
+                            }
+                            else {
+                                if (!MobileCellsRegistrationService.isEventAdded(event_id))
+                                    MobileCellsRegistrationService.addEvent(event_id);
+                                startRegistration();
+                            }
+                        }
                     }
                 });
         mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
@@ -132,8 +146,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             @Override
             public void afterTextChanged(Editable s) {
                 String value = mCellsName.getText().toString();
-                MDButton button = mDialog.getActionButton(DialogAction.POSITIVE);
-                button.setEnabled(!value.isEmpty());
+                startButton = mDialog.getActionButton(DialogAction.POSITIVE);
+                startButton.setEnabled(!value.isEmpty());
             }
         });
 
@@ -222,6 +236,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
+        startButton = mDialog.getActionButton(DialogAction.POSITIVE);
+
         stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,9 +259,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        String value = mCellsName.getText().toString();
-        MDButton button = mDialog.getActionButton(DialogAction.POSITIVE);
-        button.setEnabled(!value.isEmpty());
 
         mDialog.show();
     }
@@ -331,6 +344,20 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_stopped);
                 mRemainingTime.setVisibility(View.GONE);
             }
+
+            mCellsName.setEnabled(!started);
+
+            String value = mCellsName.getText().toString();
+            startButton.setEnabled(!value.isEmpty());
+            if (started) {
+                if (MobileCellsRegistrationService.isEventAdded(event_id))
+                    startButton.setText(R.string.mobile_cells_registration_pref_dlg_remove_event_button);
+                else
+                    startButton.setText(R.string.mobile_cells_registration_pref_dlg_add_event_button);
+            }
+            else
+                startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
+
             stopButton.setEnabled(started);
         }
     }
