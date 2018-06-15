@@ -24,6 +24,11 @@ import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
 import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
+import android.util.Log;
+
+import com.stericson.RootShell.execution.Command;
+import com.stericson.RootShell.execution.Shell;
+import com.stericson.RootTools.RootTools;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -163,6 +168,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                 registeredCell = identityGsm.getCid();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                             }
+                            doAutoRegistration(identityGsm.getCid());
                         }
                     } else if (_cellInfo instanceof CellInfoLte) {
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
@@ -173,6 +179,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                 registeredCell = identityLte.getCi();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                             }
+                            doAutoRegistration(identityLte.getCi());
                         }
                     } else if (_cellInfo instanceof CellInfoWcdma) {
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
@@ -183,6 +190,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                 registeredCell = identityWcdma.getCid();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                             }
+                            doAutoRegistration(identityWcdma.getCid());
                         }
                     } else if (_cellInfo instanceof CellInfoCdma) {
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cdma info="+_cellInfo);
@@ -193,6 +201,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                 registeredCell = identityCdma.getBasestationId();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                             }
+                            doAutoRegistration(identityCdma.getBasestationId());
                         }
                     }
                     else {
@@ -239,7 +248,7 @@ class PhoneStateScanner extends PhoneStateListener {
             db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
         }
 
-        doAutoRegistration();
+        doAutoRegistration(registeredCell);
         handleEvents();
     }
 
@@ -258,7 +267,7 @@ class PhoneStateScanner extends PhoneStateListener {
             db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
         }
 
-        doAutoRegistration();
+        doAutoRegistration(registeredCell);
         handleEvents();
     }
 
@@ -330,7 +339,7 @@ class PhoneStateScanner extends PhoneStateListener {
             db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
         }
 
-        doAutoRegistration();
+        doAutoRegistration(registeredCell);
         handleEvents();
     }
 
@@ -355,7 +364,7 @@ class PhoneStateScanner extends PhoneStateListener {
         if (ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext()) || PhoneStateScanner.forceStart) {
             PPApplication.logE("PhoneStateScanner.rescanMobileCells", "-----");
             getRegisteredCell();
-            doAutoRegistration();
+            doAutoRegistration(registeredCell);
             handleEvents();
         }
     }
@@ -404,19 +413,39 @@ class PhoneStateScanner extends PhoneStateListener {
         */
     }
 
-    private void doAutoRegistration() {
+    private void doAutoRegistration(final int cellId) {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
 
         PPApplication.logE("PhoneStateScanner.doAutoRegistration", "enabledAutoRegistration="+enabledAutoRegistration);
         if (enabledAutoRegistration) {
-            //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
-            List<MobileCellsData> localCellsList = new ArrayList<>();
-            if (registeredCell != Integer.MAX_VALUE)
-                localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, lastConnectedTime));
-            DatabaseHandler db = DatabaseHandler.getInstance(context);
-            db.saveMobileCellsList(localCellsList, true, true);
+            PPApplication.startHandlerThreadMobileCells();
+            final Handler handler = new Handler(PPApplication.handlerThreadMobileCells.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.doAutoRegistration");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
+                    List<MobileCellsData> localCellsList = new ArrayList<>();
+                    if (cellId != Integer.MAX_VALUE)
+                        localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, lastConnectedTime));
+                    DatabaseHandler db = DatabaseHandler.getInstance(context);
+                    db.saveMobileCellsList(localCellsList, true, true);
+
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
+                }
+            });
         }
     }
 
