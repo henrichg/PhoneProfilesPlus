@@ -207,6 +207,21 @@ public class MobileCellsRegistrationService extends Service {
                     }
                 }
                 eventList.clear();
+
+                if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
+                    // start events handler
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE/*, false*/);
+                }
+
+                dataWrapper.invalidateDataWrapper();
+
+
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
             }
         });
 
