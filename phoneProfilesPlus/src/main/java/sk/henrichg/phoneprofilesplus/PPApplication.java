@@ -198,6 +198,7 @@ public class PPApplication extends Application {
                                         //+"|BrightnessDialogPreference"
 
                                         +"|PhoneStateScanner"
+                                        +"|MobileCellsPreference"
             ;
 
 

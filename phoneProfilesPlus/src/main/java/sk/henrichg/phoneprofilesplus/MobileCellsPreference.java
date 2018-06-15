@@ -60,6 +60,7 @@ public class MobileCellsPreference extends DialogPreference {
     //private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
     //private RefreshListViewBroadcastReceiver refreshListViewBroadcastReceiver;
 
+    private boolean dialogCanceled = true;
     static boolean forceStart;
 
     //private static final String PREF_SHOW_HELP = "mobile_cells_pref_show_help";
@@ -126,12 +127,14 @@ public class MobileCellsPreference extends DialogPreference {
                                 persistString(value);
                             }
                         }
+                        dialogCanceled = false;
                         mDialog.dismiss();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                        dialogCanceled = true;
                         mDialog.dismiss();
                     }
                 });
@@ -314,7 +317,8 @@ public class MobileCellsPreference extends DialogPreference {
         */
 
         forceStart = false;
-        PPApplication.restartPhoneStateScanner(context, false);
+        if (!dialogCanceled)
+            PPApplication.restartPhoneStateScanner(context, false);
     }
 
     @Override
@@ -324,8 +328,10 @@ public class MobileCellsPreference extends DialogPreference {
             mRenameDialog.dismiss();
         if (mSelectorDialog != null && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
-        if (mDialog != null && mDialog.isShowing())
+        if (mDialog != null && mDialog.isShowing()) {
+            dialogCanceled = true;
             mDialog.dismiss();
+        }
     }
 
     @Override
@@ -449,15 +455,18 @@ public class MobileCellsPreference extends DialogPreference {
                     boolean found = false;
                     if (PhoneProfilesService.isPhoneStateScannerStarted()) {
                         // add registered cell
+                        PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell");
                         for (MobileCellsData cell : _cellsList) {
                             if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
                                 cell.connected = true;
                                 registeredCellData = cell;
                                 found = true;
+                                PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell found");
                                 break;
                             }
                         }
                         if (!found && (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
+                            PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell not found");
                             registeredCellData = new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
                                     _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime);
                             _cellsList.add(registeredCellData);
