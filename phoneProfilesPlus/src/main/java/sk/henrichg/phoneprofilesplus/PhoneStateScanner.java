@@ -42,8 +42,8 @@ class PhoneStateScanner extends PhoneStateListener {
     private final TelephonyManager telephonyManager;
     //private TelephonyManager telephonyManager2 = null;
 
-    int registeredCell = Integer.MAX_VALUE;
-    long lastConnectedTime = 0;
+    static int registeredCell = Integer.MAX_VALUE;
+    static long lastConnectedTime = 0;
 
     static boolean forceStart = false;
 
