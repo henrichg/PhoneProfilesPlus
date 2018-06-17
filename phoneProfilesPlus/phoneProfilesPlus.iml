@@ -125,8 +125,8 @@
     <orderEntry type="library" name="Gradle: com.afollestad.material-dialogs:core-0.9.6.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.android.support:multidex-instrumentation-1.0.2" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7-27.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:beta-1.2.8" level="project" />
     <orderEntry type="library" name="Gradle: io.fabric.sdk.android:fabric-1.4.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:beta-1.2.9" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-places-placereport-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.billingclient:billing-1.0" level="project" />
@@ -150,7 +150,7 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-maps-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:livedata-core-1.1.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-2.9.3" level="project" />
+    <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-2.9.4" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.core:common:1.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.readystatesoftware.systembartint:systembartint:1.0.4@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:answers-1.4.2" level="project" />
