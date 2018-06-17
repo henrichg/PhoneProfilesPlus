@@ -2873,7 +2873,7 @@ public class DataWrapper {
             ApplicationPreferences.getSharedPreferences(context);
             int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+            //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             if (/*Permissions.checkEventPhoneBroadcast(context, event) &&*/
                 (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) &&
                 (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) &&
@@ -3004,8 +3004,8 @@ public class DataWrapper {
                     synchronized (PPApplication.phoneStateScannerMutex) {
                         if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
                             String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                            if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE) {
-                                String registeredCell = Integer.toString(PhoneProfilesService.phoneStateScanner.registeredCell);
+                            if (PhoneStateScanner.registeredCell != Integer.MAX_VALUE) {
+                                String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);
                                 boolean found = false;
                                 for (String cell : splits) {
                                     if (cell.equals(registeredCell)) {

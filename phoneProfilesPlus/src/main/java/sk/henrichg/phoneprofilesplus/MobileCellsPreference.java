@@ -457,7 +457,7 @@ public class MobileCellsPreference extends DialogPreference {
                         // add registered cell
                         PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell");
                         for (MobileCellsData cell : _cellsList) {
-                            if (cell.cellId == PhoneProfilesService.phoneStateScanner.registeredCell) {
+                            if (cell.cellId == PhoneStateScanner.registeredCell) {
                                 cell.connected = true;
                                 registeredCellData = cell;
                                 found = true;
@@ -465,10 +465,10 @@ public class MobileCellsPreference extends DialogPreference {
                                 break;
                             }
                         }
-                        if (!found && (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
+                        if (!found && (PhoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
                             PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell not found");
-                            registeredCellData = new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
-                                    _cellName, true, true, PhoneProfilesService.phoneStateScanner.lastConnectedTime);
+                            registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
+                                    _cellName, true, true, PhoneStateScanner.lastConnectedTime);
                             _cellsList.add(registeredCellData);
                         }
                     }
@@ -667,10 +667,10 @@ public class MobileCellsPreference extends DialogPreference {
                         synchronized (PPApplication.phoneStateScannerMutex) {
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             if (PhoneProfilesService.isPhoneStateScannerStarted()) {
-                                if (PhoneProfilesService.phoneStateScanner.registeredCell != Integer.MAX_VALUE)
-                                    localCellsList.add(new MobileCellsData(PhoneProfilesService.phoneStateScanner.registeredCell,
+                                if (PhoneStateScanner.registeredCell != Integer.MAX_VALUE)
+                                    localCellsList.add(new MobileCellsData(PhoneStateScanner.registeredCell,
                                             preference.cellName.getText().toString(), true, false,
-                                            PhoneProfilesService.phoneStateScanner.lastConnectedTime));
+                                            PhoneStateScanner.lastConnectedTime));
                                 DatabaseHandler db = DatabaseHandler.getInstance(context);
                                 db.saveMobileCellsList(localCellsList, true, false);
                                 Intent intent = new Intent("RefreshListViewBroadcastReceiver");
