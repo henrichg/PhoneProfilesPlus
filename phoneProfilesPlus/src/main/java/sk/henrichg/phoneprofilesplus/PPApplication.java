@@ -57,7 +57,7 @@ public class PPApplication extends Application {
     static String PACKAGE_NAME;
 
     //static final int VERSION_CODE_EXTENDER_1_0_4 = 60;
-    static final int VERSION_CODE_EXTENDER_2_0 = 90;
+    static final int VERSION_CODE_EXTENDER_2_0 = 95;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_2_0;
 
     private static final boolean logIntoLogCat = true;
