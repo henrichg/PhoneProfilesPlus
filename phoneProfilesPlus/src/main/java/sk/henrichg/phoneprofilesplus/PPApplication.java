@@ -345,7 +345,7 @@ public class PPApplication extends Application {
     public static String notAllowedReasonDetail;
 
     public static final RootMutex rootMutex = new RootMutex();
-    //public static final RootMutex rootMutex = new RootMutex();
+    public static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
@@ -1239,41 +1239,43 @@ public class PPApplication extends Application {
     }
 
     static void getServicesList() {
-        synchronized (PPApplication.rootMutex) {
-            if (rootMutex.serviceList == null)
-                rootMutex.serviceList = new ArrayList<>();
+        synchronized (PPApplication.serviceListMutex) {
+            if (serviceListMutex.serviceList == null)
+                serviceListMutex.serviceList = new ArrayList<>();
             else
-                rootMutex.serviceList.clear();
+                serviceListMutex.serviceList.clear();
 
-            //noinspection RegExpRedundantEscape
-            final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
-            Command command = new Command(0, false, "service list") {
-                @Override
-                public void commandOutput(int id, String line) {
-                    //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - line="+line);
-                    Matcher matcher = compile.matcher(line);
-                    if (matcher.find()) {
-                        //noinspection unchecked
-                        rootMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
-                        //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(1)="+matcher.group(1));
-                        //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(2)="+matcher.group(2));
+            synchronized (PPApplication.rootMutex) {
+                //noinspection RegExpRedundantEscape
+                final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
+                Command command = new Command(0, false, "service list") {
+                    @Override
+                    public void commandOutput(int id, String line) {
+                        //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - line="+line);
+                        Matcher matcher = compile.matcher(line);
+                        if (matcher.find()) {
+                            //noinspection unchecked
+                            serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
+                            //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(1)="+matcher.group(1));
+                            //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(2)="+matcher.group(2));
+                        }
+                        super.commandOutput(id, line);
                     }
-                    super.commandOutput(id, line);
+                };
+                try {
+                    RootTools.getShell(false).add(command);
+                    commandWait(command);
+                } catch (Exception e) {
+                    Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
                 }
-            };
-            try {
-                RootTools.getShell(false).add(command);
-                commandWait(command);
-            } catch (Exception e) {
-                Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
             }
         }
     }
 
     static Object getServiceManager(String serviceType) {
-        synchronized (PPApplication.rootMutex) {
-            if (rootMutex.serviceList != null) {
-                for (Pair pair : rootMutex.serviceList) {
+        synchronized (PPApplication.serviceListMutex) {
+            if (serviceListMutex.serviceList != null) {
+                for (Pair pair : serviceListMutex.serviceList) {
                     if (serviceType.equals(pair.first)) {
                         return pair.second;
                     }

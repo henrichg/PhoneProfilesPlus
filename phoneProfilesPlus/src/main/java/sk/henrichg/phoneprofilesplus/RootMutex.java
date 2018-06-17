@@ -15,5 +15,4 @@ class RootMutex {
     //boolean suVersionChecked;
     boolean serviceBinaryChecked;
     boolean serviceBinaryExists;
-    ArrayList<Pair> serviceList = null;
 }
