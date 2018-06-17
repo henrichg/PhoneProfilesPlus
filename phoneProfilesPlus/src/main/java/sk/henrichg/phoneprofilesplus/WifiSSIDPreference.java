@@ -269,9 +269,9 @@ public class WifiSSIDPreference extends DialogPreference {
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
-        if (mSelectorDialog != null && mSelectorDialog.isShowing())
+        if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
-        if (mDialog != null && mDialog.isShowing())
+        if ((mDialog != null) && mDialog.isShowing())
             mDialog.dismiss();
     }
 

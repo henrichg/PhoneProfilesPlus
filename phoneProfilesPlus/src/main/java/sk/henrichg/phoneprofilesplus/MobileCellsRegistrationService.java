@@ -22,23 +22,24 @@ import java.util.List;
 
 public class MobileCellsRegistrationService extends Service {
 
-    public static final String ACTION_COUNT_DOWN_TICK = "sk.henrichg.phoneprofilesplus.ACTION_COUNT_DOWN_TICK";
+    public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN";
     public static final String EXTRA_COUNTDOWN = "countdown";
-    public static final String ACTION_STOP_REGISTRATION = "sk.henrichg.phoneprofilesplus.ACTION_STOP_REGISTRATION";
+    public static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_FOR_CELLS = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOP_FOR_CELLS";
+    public static final String ACTION_STOP_REGISTRATION_BUTTON = "sk.henrichg.phoneprofilesplus.ACTION_STOP_REGISTRATION_BUTTON";
 
     private CountDownTimer countDownTimer = null;
 
     static boolean forceStart;
     Context context;
 
-    static private final List<Long> eventList = new ArrayList<Long>();
+    static private final List<Long> eventList = new ArrayList<>();
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
 
-    private MobileCellsRegistrationService.MobileCellsRegistrationServiceBroadcastReceiver mobileCellsRegistrationServiceBroadcastReceiver = null;
+    private MobileCellsRegistrationStopButtonBroadcastReceiver mobileCellsRegistrationStopButtonBroadcastReceiver = null;
 
     @Override
     public void onCreate()
@@ -58,12 +59,12 @@ public class MobileCellsRegistrationService extends Service {
 
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
 
-        if (mobileCellsRegistrationServiceBroadcastReceiver == null) {
+        if (mobileCellsRegistrationStopButtonBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(ACTION_STOP_REGISTRATION);
-            mobileCellsRegistrationServiceBroadcastReceiver =
-                    new MobileCellsRegistrationService.MobileCellsRegistrationServiceBroadcastReceiver();
-            context.registerReceiver(mobileCellsRegistrationServiceBroadcastReceiver, intentFilter);
+            intentFilter.addAction(ACTION_STOP_REGISTRATION_BUTTON);
+            mobileCellsRegistrationStopButtonBroadcastReceiver =
+                    new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver();
+            context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
         }
 
         countDownTimer = new CountDownTimer(remainingDuration * 1000, 1000) {
@@ -77,7 +78,7 @@ public class MobileCellsRegistrationService extends Service {
                 setMobileCellsAutoRegistrationRemainingDuration(context, (int) millisUntilFinished / 1000);
 
                 // broadcast for event preferences
-                Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
+                Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
                 intent.putExtra(EXTRA_COUNTDOWN, millisUntilFinished);
                 intent.setPackage(context.getPackageName());
                 sendBroadcast(intent);
@@ -114,12 +115,12 @@ public class MobileCellsRegistrationService extends Service {
 
         showResultNotification();
 
-        if (mobileCellsRegistrationServiceBroadcastReceiver != null) {
+        if (mobileCellsRegistrationStopButtonBroadcastReceiver != null) {
             try {
-                context.unregisterReceiver(mobileCellsRegistrationServiceBroadcastReceiver);
+                context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
             } catch (IllegalArgumentException ignored) {
             }
-            mobileCellsRegistrationServiceBroadcastReceiver = null;
+            mobileCellsRegistrationStopButtonBroadcastReceiver = null;
         }
 
 
@@ -145,7 +146,7 @@ public class MobileCellsRegistrationService extends Service {
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
 
-        Intent stopRegistrationIntent = new Intent(ACTION_STOP_REGISTRATION);
+        Intent stopRegistrationIntent = new Intent(ACTION_STOP_REGISTRATION_BUTTON);
         PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
         mBuilder.addAction(R.drawable.ic_action_stop,
                 context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
@@ -168,7 +169,7 @@ public class MobileCellsRegistrationService extends Service {
         setMobileCellsAutoRegistration(context, false);
 
         // broadcast for event preferences
-        Intent intent = new Intent(ACTION_COUNT_DOWN_TICK);
+        Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
         intent.putExtra(EXTRA_COUNTDOWN, 0L);
         intent.setPackage(context.getPackageName());
         sendBroadcast(intent);
@@ -332,17 +333,17 @@ public class MobileCellsRegistrationService extends Service {
         eventList.remove(event_id);
     }
 
-    public class MobileCellsRegistrationServiceBroadcastReceiver extends BroadcastReceiver {
+    public class MobileCellsRegistrationStopButtonBroadcastReceiver extends BroadcastReceiver {
 
         //final MobileCellsRegistrationDialogPreference preference;
 
-        MobileCellsRegistrationServiceBroadcastReceiver(/*MobileCellsRegistrationDialogPreference preference*/) {
+        MobileCellsRegistrationStopButtonBroadcastReceiver(/*MobileCellsRegistrationDialogPreference preference*/) {
             //this.preference = preference;
         }
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            //Log.d("MobileCellsRegistrationServiceBroadcastReceiver", "xxx");
+            //Log.d("MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
             stopRegistration();
         }
     }

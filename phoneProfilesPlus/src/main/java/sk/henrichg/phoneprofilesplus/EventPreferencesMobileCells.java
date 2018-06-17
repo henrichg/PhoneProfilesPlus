@@ -12,7 +12,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     boolean _whenOutside;
 
     static final String PREF_EVENT_MOBILE_CELLS_ENABLED = "eventMobileCellsEnabled";
-    private static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
+    static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
     private static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
     private static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
     private static final String PREF_EVENT_MOBILE_CELLS_APP_SETTINGS = "eventMobileCellsScaningAppSettings";

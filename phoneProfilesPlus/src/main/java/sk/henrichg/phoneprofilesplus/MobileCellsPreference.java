@@ -324,11 +324,11 @@ public class MobileCellsPreference extends DialogPreference {
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
-        if (mRenameDialog != null && mRenameDialog.isShowing())
+        if ((mRenameDialog != null) && mRenameDialog.isShowing())
             mRenameDialog.dismiss();
-        if (mSelectorDialog != null && mSelectorDialog.isShowing())
+        if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
-        if (mDialog != null && mDialog.isShowing()) {
+        if (isDialogShowing()) {
             dialogCanceled = true;
             mDialog.dismiss();
         }
@@ -643,6 +643,10 @@ public class MobileCellsPreference extends DialogPreference {
 
 
         popup.show();
+    }
+
+    boolean isDialogShowing() {
+        return (mDialog != null) && mDialog.isShowing();
     }
 
     /*

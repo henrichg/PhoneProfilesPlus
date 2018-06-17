@@ -265,9 +265,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
-        if (mEditorDialog != null && mEditorDialog.mDialog != null && mEditorDialog.mDialog.isShowing())
+        if ((mEditorDialog != null) && (mEditorDialog.mDialog != null) && mEditorDialog.mDialog.isShowing())
             mEditorDialog.mDialog.dismiss();
-        if (mDialog != null && mDialog.isShowing())
+        if ((mDialog != null) && mDialog.isShowing())
             mDialog.dismiss();
     }
 

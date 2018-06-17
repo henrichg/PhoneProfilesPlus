@@ -195,7 +195,7 @@ public class RingtonePreference extends DialogPreference {
             }
         });
 
-        if (mDialog != null && mDialog.isShowing())
+        if ((mDialog != null) && mDialog.isShowing())
             mDialog.dismiss();
     }
 
@@ -212,7 +212,7 @@ public class RingtonePreference extends DialogPreference {
 
         final Parcelable superState = super.onSaveInstanceState();
         Dialog dialog = getDialog();
-        if (dialog == null || !dialog.isShowing()) {
+        if ((dialog == null) || !dialog.isShowing()) {
             return superState;
         }
 

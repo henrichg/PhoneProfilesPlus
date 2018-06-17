@@ -492,9 +492,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         super.onStop();
 
-        if (addProfileDialog != null && addProfileDialog.mDialog != null && addProfileDialog.mDialog.isShowing())
+        if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
             addProfileDialog.mDialog.dismiss();
-        if (addEventDialog != null && addEventDialog.mDialog != null && addEventDialog.mDialog.isShowing())
+        if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
             addEventDialog.mDialog.dismiss();
 
         if (instance == this)

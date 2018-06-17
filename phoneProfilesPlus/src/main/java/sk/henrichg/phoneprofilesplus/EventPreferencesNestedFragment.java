@@ -27,7 +27,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     SharedPreferences preferences;
     private Context context;
 
-    private MobileCellsRegistrationBroadcastReceiver mobileCellsRegistrationBroadcastReceiver = null;
+    private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
+    private MobileCellsRegistrationStopForCellsBroadcastReceiver mobileCellsRegistrationStopForCellsBroadcastReceiver = null;
 
     private static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
@@ -77,13 +78,21 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         event = new Event();
 
-        if (mobileCellsRegistrationBroadcastReceiver == null) {
+        if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(MobileCellsRegistrationService.ACTION_COUNT_DOWN_TICK);
-            mobileCellsRegistrationBroadcastReceiver =
-                    new MobileCellsRegistrationBroadcastReceiver(
+            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
+            mobileCellsRegistrationCountDownBroadcastReceiver =
+                    new MobileCellsRegistrationCountDownBroadcastReceiver(
                             (MobileCellsRegistrationDialogPreference)prefMng.findPreference(PREF_MOBILE_CELLS_REGISTRATION));
-            context.registerReceiver(mobileCellsRegistrationBroadcastReceiver, intentFilter);
+            context.registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter);
+        }
+        if (mobileCellsRegistrationStopForCellsBroadcastReceiver == null) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOP_FOR_CELLS);
+            mobileCellsRegistrationStopForCellsBroadcastReceiver =
+                    new MobileCellsRegistrationStopForCellsBroadcastReceiver(
+                            (MobileCellsPreference)prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS));
+            context.registerReceiver(mobileCellsRegistrationStopForCellsBroadcastReceiver, intentFilter);
         }
 
     }
@@ -317,12 +326,20 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             preferences.unregisterOnSharedPreferenceChangeListener(this);
         } catch (Exception ignored) {}
 
-        if (mobileCellsRegistrationBroadcastReceiver != null) {
+        if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
             try {
-                context.unregisterReceiver(mobileCellsRegistrationBroadcastReceiver);
+                context.unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
             } catch (IllegalArgumentException ignored) {
             }
-            mobileCellsRegistrationBroadcastReceiver = null;
+            mobileCellsRegistrationCountDownBroadcastReceiver = null;
+        }
+
+        if (mobileCellsRegistrationStopForCellsBroadcastReceiver != null) {
+            try {
+                context.unregisterReceiver(mobileCellsRegistrationStopForCellsBroadcastReceiver);
+            } catch (IllegalArgumentException ignored) {
+            }
+            mobileCellsRegistrationStopForCellsBroadcastReceiver = null;
         }
 
         super.onDestroy();
@@ -403,18 +420,18 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         return "EventPreferencesFragment_PreferenceScreenKey";
     }
 
-    public class MobileCellsRegistrationBroadcastReceiver extends BroadcastReceiver {
+    public class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
 
         final MobileCellsRegistrationDialogPreference preference;
 
-        MobileCellsRegistrationBroadcastReceiver(MobileCellsRegistrationDialogPreference preference) {
+        MobileCellsRegistrationCountDownBroadcastReceiver(MobileCellsRegistrationDialogPreference preference) {
             this.preference = preference;
         }
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (preference != null) {
-                //Log.d("MobileCellsRegistrationBroadcastReceiver", "xxx");
+                //Log.d("mobileCellsRegistrationCountDownBroadcastReceiver", "xxx");
                 long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
                 preference.updateInterface(millisUntilFinished, false);
                 preference.setSummaryDDP(millisUntilFinished);
@@ -422,5 +439,19 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
     }
 
+    public class MobileCellsRegistrationStopForCellsBroadcastReceiver extends BroadcastReceiver {
 
+        final MobileCellsPreference preference;
+
+        MobileCellsRegistrationStopForCellsBroadcastReceiver(MobileCellsPreference preference) {
+            this.preference = preference;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (preference != null) {
+                //Log.d("mobileCellsRegistrationCountDownBroadcastReceiver", "xxx");
+            }
+        }
+    }
 }

@@ -246,7 +246,7 @@ public class BrightnessDialogPreference extends
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
-        if (mDialog != null && mDialog.isShowing())
+        if ((mDialog != null) && mDialog.isShowing())
             mDialog.dismiss();
     }
 
@@ -542,7 +542,7 @@ public class BrightnessDialogPreference extends
 
         Dialog dialog = getDialog();
         //noinspection StatementWithEmptyBody
-        if (dialog == null || !dialog.isShowing()) {
+        if ((dialog == null) || !dialog.isShowing()) {
             //myState.isDialogShowing = superState.isDialogShowing;
             //myState.dialogBundle = dialogBundle;
         }
