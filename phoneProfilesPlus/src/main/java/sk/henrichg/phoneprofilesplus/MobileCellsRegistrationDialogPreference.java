@@ -345,6 +345,10 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 mRemainingTime.setVisibility(View.GONE);
             }
 
+            mValue.setEnabled(!started);
+            mSeekBarHours.setEnabled(!started);
+            mSeekBarMinutes.setEnabled(!started);
+            mSeekBarSeconds.setEnabled(!started);
             mCellsName.setEnabled(!started);
 
             String value = mCellsName.getText().toString();
