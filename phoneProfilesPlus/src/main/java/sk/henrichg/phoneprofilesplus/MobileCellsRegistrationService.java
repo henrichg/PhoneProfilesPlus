@@ -24,7 +24,8 @@ public class MobileCellsRegistrationService extends Service {
 
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN";
     public static final String EXTRA_COUNTDOWN = "countdown";
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_FOR_CELLS = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOP_FOR_CELLS";
+    public static final String ACTION_MOBILE_CELLS_PREFERENCE_USE = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_PREFERENCE_USE";
+    public static final String EXTRA_USE_STATE = "use_state";
     public static final String ACTION_STOP_REGISTRATION_BUTTON = "sk.henrichg.phoneprofilesplus.ACTION_STOP_REGISTRATION_BUTTON";
 
     private CountDownTimer countDownTimer = null;
@@ -40,6 +41,7 @@ public class MobileCellsRegistrationService extends Service {
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
 
     private MobileCellsRegistrationStopButtonBroadcastReceiver mobileCellsRegistrationStopButtonBroadcastReceiver = null;
+    private MobileCellsPreferenceUseBroadcastReceiver mobileCellsPreferenceUseBroadcastReceiver = null;
 
     @Override
     public void onCreate()
@@ -65,6 +67,14 @@ public class MobileCellsRegistrationService extends Service {
             mobileCellsRegistrationStopButtonBroadcastReceiver =
                     new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver();
             context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
+        }
+
+        if (mobileCellsPreferenceUseBroadcastReceiver == null) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(ACTION_MOBILE_CELLS_PREFERENCE_USE);
+            mobileCellsPreferenceUseBroadcastReceiver =
+                    new MobileCellsRegistrationService.MobileCellsPreferenceUseBroadcastReceiver();
+            context.registerReceiver(mobileCellsPreferenceUseBroadcastReceiver, intentFilter);
         }
 
         countDownTimer = new CountDownTimer(remainingDuration * 1000, 1000) {
@@ -123,6 +133,13 @@ public class MobileCellsRegistrationService extends Service {
             mobileCellsRegistrationStopButtonBroadcastReceiver = null;
         }
 
+        if (mobileCellsPreferenceUseBroadcastReceiver != null) {
+            try {
+                context.unregisterReceiver(mobileCellsPreferenceUseBroadcastReceiver);
+            } catch (IllegalArgumentException ignored) {
+            }
+            mobileCellsPreferenceUseBroadcastReceiver = null;
+        }
 
         //Log.d("MobileCellsRegistrationService", "Timer cancelled");
         super.onDestroy();
@@ -345,6 +362,17 @@ public class MobileCellsRegistrationService extends Service {
         public void onReceive(Context context, Intent intent) {
             //Log.d("MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
             stopRegistration();
+        }
+    }
+
+    public class MobileCellsPreferenceUseBroadcastReceiver extends BroadcastReceiver {
+
+        MobileCellsPreferenceUseBroadcastReceiver() {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Log.d("MobileCellsRegistrationCellsDialogStateBroadcastReceiver", "xxx");
         }
     }
 
