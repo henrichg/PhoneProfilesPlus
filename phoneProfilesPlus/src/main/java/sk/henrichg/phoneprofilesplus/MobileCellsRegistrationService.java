@@ -24,7 +24,9 @@ public class MobileCellsRegistrationService extends Service {
 
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN";
     public static final String EXTRA_COUNTDOWN = "countdown";
-    public static final String ACTION_STOP_REGISTRATION_BUTTON = "sk.henrichg.phoneprofilesplus.ACTION_STOP_REGISTRATION_BUTTON";
+    public static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON";
+    public static final String ACTION_MOBILE_CELLS_REGISTRATION_STOPPED = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOPPED";
+    public static final String EXTRA_NEW_CELLS_VALUE = "new_cells_value";
 
     private CountDownTimer countDownTimer = null;
 
@@ -60,7 +62,7 @@ public class MobileCellsRegistrationService extends Service {
 
         if (mobileCellsRegistrationStopButtonBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(ACTION_STOP_REGISTRATION_BUTTON);
+            intentFilter.addAction(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
             mobileCellsRegistrationStopButtonBroadcastReceiver =
                     new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver();
             context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
@@ -144,7 +146,7 @@ public class MobileCellsRegistrationService extends Service {
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
 
-        Intent stopRegistrationIntent = new Intent(ACTION_STOP_REGISTRATION_BUTTON);
+        Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
         PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
         mBuilder.addAction(R.drawable.ic_action_stop,
                 context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
@@ -202,6 +204,13 @@ public class MobileCellsRegistrationService extends Service {
                             event._eventPreferencesMobileCells._cells = cells;
                             db.updateMobileCellsCells(event);
                             dataWrapper.updateEvent(event);
+
+                            // broadcast for event preferences
+                            Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOPPED);
+                            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                            intent.putExtra(EXTRA_NEW_CELLS_VALUE, cellData.cellId);
+                            intent.setPackage(context.getPackageName());
+                            sendBroadcast(intent);
                         }
                     }
                 }

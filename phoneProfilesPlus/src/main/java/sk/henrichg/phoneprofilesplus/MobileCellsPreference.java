@@ -40,6 +40,7 @@ public class MobileCellsPreference extends DialogPreference {
     //private String persistedValue;
     private List<MobileCellsData> cellsList;
     List<MobileCellsData> filteredCellsList;
+    long event_id;
 
     private final Context context;
 
@@ -328,7 +329,7 @@ public class MobileCellsPreference extends DialogPreference {
             mRenameDialog.dismiss();
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
-        if (isDialogShowing()) {
+        if ((mDialog != null) && mDialog.isShowing()) {
             dialogCanceled = true;
             mDialog.dismiss();
         }
@@ -643,10 +644,6 @@ public class MobileCellsPreference extends DialogPreference {
 
 
         popup.show();
-    }
-
-    boolean isDialogShowing() {
-        return (mDialog != null) && mDialog.isShowing();
     }
 
     /*
