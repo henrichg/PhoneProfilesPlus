@@ -220,14 +220,19 @@ public class ShortcutCreatorListFragment extends Fragment {
                     profileName = profile._name;
                     longLabel = getString(R.string.shortcut_activate_profile) + profileName;
                     useCustomColor = profile.getUseCustomColorForIcon();
+                    String id;
                     if (position == 0) {
                         profileName = getString(R.string.menu_restart_events);
                         longLabel = profileName;
+                        id = "restart_events";
                     }
+                    else
+                        id = "profile_" + profile._id;
 
                     if (profileName.isEmpty())
                         profileName = " ";
 
+                    PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profile._id=" + profile._id);
                     PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileName=" + profileName);
 
                     if (position == 0) {
@@ -247,7 +252,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                     intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, profileName);
                     */
 
-                    shortcutBuilder = new ShortcutInfoCompat.Builder(context, "profile_shortcut");
+                    shortcutBuilder = new ShortcutInfoCompat.Builder(context, id);
                     shortcutBuilder.setIntent(shortcutIntent);
                     shortcutBuilder.setShortLabel(profileName);
                     shortcutBuilder.setLongLabel(longLabel);
