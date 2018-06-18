@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -346,21 +348,41 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             }
 
             mValue.setEnabled(!started);
+            if (started) {
+                ColorStateList colors = mValue.getHintTextColors();
+                mValue.setTextColor(colors);
+            }
+            else
+                mValue.setTextColor(ContextCompat.getColor(context, R.color.accent));
             mSeekBarHours.setEnabled(!started);
             mSeekBarMinutes.setEnabled(!started);
             mSeekBarSeconds.setEnabled(!started);
             mCellsName.setEnabled(!started);
+            if (started) {
+                ColorStateList colors = mCellsName.getHintTextColors();
+                mCellsName.setTextColor(colors);
+            }
+            else
+                mCellsName.setTextColor(ContextCompat.getColor(context, R.color.accent));
 
             String value = mCellsName.getText().toString();
             startButton.setEnabled(!value.isEmpty());
+            boolean enable = true;
             if (started) {
-                if (MobileCellsRegistrationService.isEventAdded(event_id))
-                    startButton.setText(R.string.mobile_cells_registration_pref_dlg_remove_event_button);
+                if (MobileCellsRegistrationService.isEventAdded(event_id)) {
+                    if (MobileCellsRegistrationService.getEventCount() == 1) {
+                        startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
+                        enable = false;
+                    }
+                    else
+                        startButton.setText(R.string.mobile_cells_registration_pref_dlg_remove_event_button);
+                }
                 else
                     startButton.setText(R.string.mobile_cells_registration_pref_dlg_add_event_button);
             }
             else
                 startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
+            startButton.setEnabled(enable);
 
             stopButton.setEnabled(started);
         }

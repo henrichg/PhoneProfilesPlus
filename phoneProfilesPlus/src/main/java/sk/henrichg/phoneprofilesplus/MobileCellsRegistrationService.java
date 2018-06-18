@@ -340,6 +340,10 @@ public class MobileCellsRegistrationService extends Service {
         eventList.remove(event_id);
     }
 
+    static int getEventCount() {
+        return eventList.size();
+    }
+
     public class MobileCellsRegistrationStopButtonBroadcastReceiver extends BroadcastReceiver {
 
         //final MobileCellsRegistrationDialogPreference preference;
