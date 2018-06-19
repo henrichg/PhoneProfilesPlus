@@ -538,6 +538,8 @@ public class EditorProfileListFragment extends Fragment
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
 
                 public void onClick(DialogInterface dialog, int which) {
+                    activityDataWrapper.addActivityLog(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, null, null, null, 0);
+
                     // remove alarm for profile duration
                     ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
                     Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);

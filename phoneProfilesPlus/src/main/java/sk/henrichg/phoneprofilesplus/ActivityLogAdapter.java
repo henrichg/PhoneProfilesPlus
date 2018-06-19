@@ -65,6 +65,8 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(DatabaseHandler.ALTYPE_PROFILEDELETED, R.string.altype_profileDeleted);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_PROFILEPREFERENCESCHANGED, R.string.altype_profilePreferencesChanged);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_SHAREDPROFILEPREFERENCESCHANGED, R.string.altype_sharedProfilePreferencesChanged);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_ALLEVENTSDELETED, R.string.altype_allEventsDeleted);
+        activityTypeStrings.put(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, R.string.altype_allProfilesDeleted);
 
         activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEACTIVATION, R.color.altype_profile);
         activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, R.color.altype_profile);
@@ -94,6 +96,8 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEDELETED, R.color.altype_other);
         activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEPREFERENCESCHANGED, R.color.altype_other);
         activityTypeColors.put(DatabaseHandler.ALTYPE_SHAREDPROFILEPREFERENCESCHANGED, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_ALLEVENTSDELETED, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, R.color.altype_other);
 
     }
 

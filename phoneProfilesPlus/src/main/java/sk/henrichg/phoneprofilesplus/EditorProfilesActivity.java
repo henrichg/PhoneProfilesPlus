@@ -1297,7 +1297,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         // restart events
                         if (Event.getGlobalEventsRunning(getApplicationContext())) {
-                            this.dataWrapper.restartEventsWithDelay(3, false);
+                            this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                         }
 
                         this.dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);

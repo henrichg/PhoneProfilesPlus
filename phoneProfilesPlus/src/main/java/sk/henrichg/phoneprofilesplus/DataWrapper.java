@@ -3644,22 +3644,37 @@ public class DataWrapper {
 
     @SuppressLint("NewApi")
     // delay is in seconds, max 5
-    void restartEventsWithDelay(int delay, boolean unblockEventsRun/*, boolean interactive*/)
+    void restartEventsWithDelay(int delay, boolean unblockEventsRun, boolean clearOld, final int logType)
     {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
 
         final boolean _unblockEventsRun = unblockEventsRun;
         //final boolean _interactive = false/*interactive*/;
 
-        PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PPApplication.logE("DataWrapper.restartEventsWithDelay","restart");
-                restartEvents(_unblockEventsRun, true/*, _interactive*/, true);
-            }
-        }, delay * 1000);
+        if (clearOld) {
+            PPApplication.startHandlerThreadRestartEventsWithDelay();
+            PPApplication.restartEventsWithDelayHandler.removeCallbacksAndMessages(null);
+            PPApplication.restartEventsWithDelayHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
+                    if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
+                        addActivityLog(logType, null, null, null, 0);
+                    restartEvents(_unblockEventsRun, true/*, _interactive*/, true);
+                }
+            }, delay * 1000);
+        }
+        else {
+            PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
+                    restartEvents(_unblockEventsRun, true/*, _interactive*/, true);
+                }
+            }, delay * 1000);
+        }
     }
 
     void setEventBlocked(Event event, boolean blocked)

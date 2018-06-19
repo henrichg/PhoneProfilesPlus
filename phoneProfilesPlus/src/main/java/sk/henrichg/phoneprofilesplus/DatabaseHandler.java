@@ -88,6 +88,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_RADIO_SWITCH_AIRPLANE_MODE = 24;
 
     // activity log types
+    static final int ALTYPE_UNDEFINED = 0;
     static final int ALTYPE_PROFILEACTIVATION = 1;
     static final int ALTYPE_AFTERDURATION_UNDOPROFILE = 21;
     static final int ALTYPE_AFTERDURATION_BACKGROUNDPROFILE = 22;
@@ -116,6 +117,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ALTYPE_PROFILEDELETED = 19;
     static final int ALTYPE_PROFILEPREFERENCESCHANGED = 30;
     static final int ALTYPE_SHAREDPROFILEPREFERENCESCHANGED = 31;
+    static final int ALTYPE_ALLEVENTSDELETED = 32;
+    static final int ALTYPE_ALLPROFILESDELETED = 33;
 
 
     // Profiles Table Columns names

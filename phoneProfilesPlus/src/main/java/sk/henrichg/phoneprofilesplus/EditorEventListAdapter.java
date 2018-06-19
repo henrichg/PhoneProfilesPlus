@@ -331,6 +331,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             }
 
             DatabaseHandler.getInstance(activityDataWrapper.context).setEventStartOrder(activityDataWrapper.eventList);  // set events _startOrder and write it into db
+            activityDataWrapper.restartEventsWithDelay(15, false, true, DatabaseHandler.ALTYPE_EVENTPREFERENCESCHANGED);
         }
         notifyItemMoved(fromPosition, toPosition);
         return true;

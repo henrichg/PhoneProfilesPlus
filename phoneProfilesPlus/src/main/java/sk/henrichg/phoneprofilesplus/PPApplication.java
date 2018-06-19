@@ -341,6 +341,9 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadHeadsUpNotifications = null;
     public static HandlerThread handlerThreadMobileCells = null;
 
+    public static HandlerThread handlerThreadRestartEventsWithDelay = null;
+    public static Handler restartEventsWithDelayHandler = null;
+
     public static Handler toastHandler;
     public static Handler brightnessHandler;
     public static Handler screenTimeoutHandler;
@@ -450,6 +453,7 @@ public class PPApplication extends Application {
         startHandlerThreadRunApplication();
         startHandlerThreadHeadsUpNotifications();
         startHandlerThreadMobileCells();
+        startHandlerThreadRestartEventsWithDelay();
 
         toastHandler = new Handler(getMainLooper());
         brightnessHandler = new Handler(getMainLooper());
@@ -1823,6 +1827,14 @@ public class PPApplication extends Application {
         if (handlerThreadMobileCells == null) {
             handlerThreadMobileCells = new HandlerThread("handlerThreadMobileCells");
             handlerThreadMobileCells.start();
+        }
+    }
+
+    static void startHandlerThreadRestartEventsWithDelay() {
+        if (handlerThreadRestartEventsWithDelay == null) {
+            handlerThreadRestartEventsWithDelay = new HandlerThread("handlerThreadRestartEventsWithDelay");
+            handlerThreadRestartEventsWithDelay.start();
+            restartEventsWithDelayHandler = new Handler(PPApplication.handlerThreadRestartEventsWithDelay.getLooper());
         }
     }
 
