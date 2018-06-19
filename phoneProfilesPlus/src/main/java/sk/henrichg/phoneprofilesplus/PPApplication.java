@@ -200,7 +200,8 @@ public class PPApplication extends Application {
                                         +"|PhoneStateScanner"
                                         +"|MobileCellsPreference"
 
-                                        +"|ShortcutCreatorListFragment.createShortcut"
+                                        //+"|ShortcutCreatorListFragment.createShortcut"
+                                        +"|LauncherActivity"
             ;
 
 

@@ -217,7 +217,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
         clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-        PendingIntent clickPI=PendingIntent.getActivity(context, 0,
+        PendingIntent clickPI=PendingIntent.getActivity(context, 400,
                 clickIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 

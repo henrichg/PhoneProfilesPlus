@@ -18,6 +18,7 @@ public class LauncherActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+        PPApplication.logE("LauncherActivity.onCreate", "startupSource="+startupSource);
     }
 
     @Override
@@ -67,20 +68,24 @@ public class LauncherActivity extends AppCompatActivity {
 
         Intent intentLaunch;
 
+        PPApplication.logE("LauncherActivity.endOnStart", "startupSource="+startupSource);
         switch (startupSource) {
             case PPApplication.STARTUP_SOURCE_NOTIFICATION:
+                PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_NOTIFICATION");
                 if (ApplicationPreferences.applicationNotificationLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             case PPApplication.STARTUP_SOURCE_WIDGET:
+                PPApplication.logE("LauncherActivity.endOnStart", "STARTUP_SOURCE_WIDGET");
                 if (ApplicationPreferences.applicationWidgetLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else
                     intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
                 break;
             default:
+                PPApplication.logE("LauncherActivity.endOnStart", "default");
                 if (ApplicationPreferences.applicationHomeLauncher(getApplicationContext()).equals("activator"))
                     intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
                 else

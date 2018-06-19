@@ -149,8 +149,10 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
                     // intent for start LauncherActivity on widget click
                     Intent intent = new Intent(context, LauncherActivity.class);
+                    // clear all opened activities
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
                     remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
 

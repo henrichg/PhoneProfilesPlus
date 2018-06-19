@@ -436,6 +436,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
         // intent
         Intent intent = new Intent(this, LauncherActivity.class);
+        // clear all opened activities
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
 
         String status = "";
