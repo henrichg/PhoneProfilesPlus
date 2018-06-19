@@ -366,8 +366,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 mCellsName.setTextColor(ContextCompat.getColor(context, R.color.accent));
 
             String value = mCellsName.getText().toString();
-            startButton.setEnabled(!value.isEmpty());
-            boolean enable = true;
+            boolean enable = !value.isEmpty();
             if (started) {
                 if (MobileCellsRegistrationService.isEventAdded(event_id)) {
                     if (MobileCellsRegistrationService.getEventCount() == 1) {
