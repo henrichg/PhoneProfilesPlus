@@ -390,19 +390,20 @@ public class EditorEventListFragment extends Fragment
                 // pause event
                 // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                 event.pauseEvent(activityDataWrapper, eventTimelineList, false, false,
-                        false, false, null, false);
+                        false, /*false,*/ null, false);
             } else {
                 // stop event
                 // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                 event.stopEvent(activityDataWrapper, eventTimelineList, false, false,
-                        true, false); // activate return profile
+                        true/*, false*/); // activate return profile
             }
 
             // redraw event list
             updateListView(event, false, false, true);
+
             // restart events
             PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
-            activityDataWrapper.restartEvents(false, true/*, false*/);
+            activityDataWrapper.restartEvents(false, true/*, false*/, true);
 
             Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
@@ -464,6 +465,8 @@ public class EditorEventListFragment extends Fragment
             // event not exists
             return;
 
+        activityDataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTDELETED, event._name, null, null, 0);
+
         listView.getRecycledViewPool().clear();
 
         eventListAdapter.deleteItemNoNotify(event);
@@ -471,7 +474,7 @@ public class EditorEventListFragment extends Fragment
 
         // restart events
         PPApplication.logE("$$$ restartEvents", "from EditorEventListFragment.deleteEvent");
-        activityDataWrapper.restartEvents(false, true/*, false*/);
+        activityDataWrapper.restartEvents(false, true/*, false*/, true);
 
         eventListAdapter.notifyDataSetChanged();
 

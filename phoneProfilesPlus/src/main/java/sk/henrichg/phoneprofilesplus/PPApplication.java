@@ -200,8 +200,8 @@ public class PPApplication extends Application {
                                         +"|PhoneStateScanner"
                                         +"|MobileCellsPreference"
 
-                                        //+"|ShortcutCreatorListFragment.createShortcut"
-                                        +"|LauncherActivity"
+                                        +"|@@@ Event.pauseEvent"
+                                        +"|@@@ Event.stopEvent"
             ;
 
 
@@ -211,6 +211,7 @@ public class PPApplication extends Application {
     static final String EXTRA_PROFILE_ID = "profile_id";
     static final String EXTRA_EVENT_ID = "event_id";
     static final String EXTRA_STARTUP_SOURCE = "startup_source";
+    static final String EXTRA_EVENT_STATUS = "event_status";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
     static final int STARTUP_SOURCE_WIDGET = 2;

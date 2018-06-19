@@ -827,7 +827,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.wifiSSIDPreference.refreshListView(true, "");
             if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");
-            dataWrapper.restartEvents(false, true/*, false*/);
+            dataWrapper.restartEvents(false, true/*, false*/, false);
             if (PhoneProfilesService.instance != null) {
                 PhoneProfilesService.instance.scheduleWifiJob(true, true, /*false, false,*/ Permissions.wifiSSIDPreference != null, false);
                 PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, /*false,*/ Permissions.bluetoothNamePreference != null, false);
@@ -839,7 +839,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
             if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true/*, false*/);
+            dataWrapper.restartEvents(false, true/*, false*/, false);
             finish();
         }
         else
@@ -848,7 +848,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.contactsMultiSelectDialogPreference.refreshListView(true);
             if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true/*, false*/);
+            dataWrapper.restartEvents(false, true/*, false*/, false);
             finish();
         }
         else
@@ -856,7 +856,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //finishAffinity();
             finish();
             Permissions.removeEventNotification(context);
-            dataWrapper.restartEvents(false, true/*, false*/);
+            dataWrapper.restartEvents(false, true/*, false*/, false);
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -895,7 +895,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     if (Permissions.locationGeofenceEditorActivity != null)
                         Permissions.locationGeofenceEditorActivity.getLastLocation();
 
-                    dataWrapper.restartEvents(false, true/*, false*/);
+                    dataWrapper.restartEvents(false, true/*, false*/, false);
 
                     finish();
                 }
@@ -911,7 +911,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
             if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true/*, false*/);
+            dataWrapper.restartEvents(false, true/*, false*/, false);
             finish();
         }
         else

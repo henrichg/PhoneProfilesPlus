@@ -33,7 +33,7 @@ public class RestartEventsFromNotificationActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, true, false, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
-        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+        //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
         PPApplication.logE("RestartEventsFromNotificationActivity.onStart", "xxx");
         dataWrapper.restartEventsWithAlert(this);

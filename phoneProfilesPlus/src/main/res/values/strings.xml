@@ -1181,6 +1181,9 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Stop</string>
     <string name="mobile_cells_registration_pref_dlg_add_event_button">Add event</string>
     <string name="mobile_cells_registration_pref_dlg_remove_event_button">Remove event</string>
+    <string name="altype_eventPreferencesChanged">Event preferences changed</string>
+    <string name="altype_eventDeleted">Event deleted</string>
+    <string name="altype_profileDeleted">Profile deleted</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

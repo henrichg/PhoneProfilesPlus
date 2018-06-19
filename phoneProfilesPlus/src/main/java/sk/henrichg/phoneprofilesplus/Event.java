@@ -1272,10 +1272,6 @@ class Event {
             // restart events when is set
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 PPApplication.logE("Event.pauseEvent","restart events");
-
-                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
-
-                PPApplication.logE("$$$ restartEvents", "from Event.doActivateEndProfile");
                 dataWrapper.restartEventsWithDelay(5, true);
                 profileActivated = true;
             }
@@ -1294,7 +1290,7 @@ class Event {
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
                             boolean noSetSystemEvent,
-                            boolean log,
+                            //boolean log,
                             Profile mergedProfile,
                             boolean allowRestart)
     {
@@ -1391,23 +1387,13 @@ class Event {
         if (!noSetSystemEvent)
             setSystemEvent(dataWrapper.context, ESTATUS_PAUSE);
         int status = this._status;
+        PPApplication.logE("@@@ Event.pauseEvent","-- old status="+this._status);
         this._status = ESTATUS_PAUSE;
+        PPApplication.logE("@@@ Event.pauseEvent","-- new status="+this._status);
         DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
-        if (log && (status != this._status)) {
-            int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
-            if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
-                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
-            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
-                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS;
-            else if (_atEndDo == EATENDDO_UNDONE_PROFILE)
-                alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
-            else if (_atEndDo == EATENDDO_RESTART_EVENTS)
-                alType = DatabaseHandler.ALTYPE_EVENTEND_RESTARTEVENTS;
-            else if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
-                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
-
-            dataWrapper.addActivityLog(alType, _name, null, null, 0);
+        if (/*log &&*/ (status != this._status)) {
+            doLogForPauseEvent(dataWrapper, allowRestart);
         }
 
 
@@ -1439,12 +1425,35 @@ class Event {
         //return;
     }
 
+    void doLogForPauseEvent(DataWrapper dataWrapper,
+                            boolean allowRestart) {
+        int alType = DatabaseHandler.ALTYPE_EVENTEND_NONE;
+        if ((_atEndDo == EATENDDO_UNDONE_PROFILE) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE))
+            alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE;
+        if ((_atEndDo == EATENDDO_RESTART_EVENTS) && (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)) {
+            if (allowRestart)
+                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS;
+            else
+                alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
+        }
+        else if (_atEndDo == EATENDDO_UNDONE_PROFILE)
+            alType = DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE;
+        else if (_atEndDo == EATENDDO_RESTART_EVENTS) {
+            if (allowRestart)
+                alType = DatabaseHandler.ALTYPE_EVENTEND_RESTARTEVENTS;
+        }
+        else if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
+            alType = DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE;
+
+        dataWrapper.addActivityLog(alType, _name, null, null, 0);
+    }
+
     void stopEvent(DataWrapper dataWrapper,
                             List<EventTimeline> eventTimelineList,
                             boolean activateReturnProfile,
                             boolean ignoreGlobalPref,
-                            boolean saveEventStatus,
-                            boolean log)
+                            boolean saveEventStatus)
+                            //boolean log)
                             //boolean allowRestart)
     {
         // remove delay alarm
@@ -1460,16 +1469,18 @@ class Event {
 
         if (this._status != ESTATUS_STOP)
         {
-            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, false, null, false/*allowRestart*/);
+            pauseEvent(dataWrapper, eventTimelineList, activateReturnProfile, ignoreGlobalPref, true, /*false,*/ null, false/*allowRestart*/);
         }
 
         setSystemEvent(dataWrapper.context, ESTATUS_STOP);
         int status = this._status;
+        PPApplication.logE("@@@ Event.stopEvent","-- old status="+this._status);
         this._status = ESTATUS_STOP;
+        PPApplication.logE("@@@ Event.stopEvent","-- new status="+this._status);
         if (saveEventStatus)
             DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
-        if (log && (status != this._status)) {
+        if (/*log &&*/ (status != this._status)) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTOP, _name, null, null, 0);
         }
 

@@ -132,8 +132,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                 }
 
                                 event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                        false, true, null, false); // activate return profile
-                                dataWrapper.restartEvents(false, true/*, true*/);
+                                        false, /*true,*/ null, false); // activate return profile
+                                dataWrapper.restartEvents(false, true/*, true*/, true);
 
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -156,7 +156,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() == Event.ESTATUS_RUNNING) {
                         event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                false, true, null, false); // activate return profile
+                                false, /*true,*/ null, false); // activate return profile
                     }
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                 } else {
@@ -183,8 +183,8 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                 }
 
                                 event.stopEvent(dataWrapper, eventTimelineList, true, false,
-                                        true, true); // activate return profile
-                                dataWrapper.restartEvents(false, true/*, true*/);
+                                        true/*, true*/); // activate return profile
+                                dataWrapper.restartEvents(false, true/*, true*/, true);
 
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

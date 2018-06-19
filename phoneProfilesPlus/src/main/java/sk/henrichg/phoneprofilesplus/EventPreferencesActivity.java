@@ -33,6 +33,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 {
 
     private long event_id = 0;
+    private int old_event_status;
     private int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
     private int predefinedEventIndex = 0;
 
@@ -83,6 +84,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         //getSupportActionBar().setTitle(R.string.title_activity_event_preferences);
 
         event_id = getIntent().getLongExtra(PPApplication.EXTRA_EVENT_ID, 0L);
+        old_event_status = getIntent().getIntExtra(PPApplication.EXTRA_EVENT_STATUS, -1);
         newEventMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorEventListFragment.EDIT_MODE_UNDEFINED);
         predefinedEventIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
 
@@ -367,6 +369,8 @@ public class EventPreferencesActivity extends PreferenceActivity
         if (event == null)
             return;
 
+        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTPREFERENCESCHANGED, event._name, null, null, 0);
+
         String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
 
         SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
@@ -385,7 +389,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             // restart Events
             PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-            dataWrapper.restartEvents(false, true/*, false*/);
+            dataWrapper.restartEvents(false, true/*, false*/, true);
         }
         else
         if (event_id > 0)
@@ -409,15 +413,18 @@ public class EventPreferencesActivity extends PreferenceActivity
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        // pause event
-                        event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                false, false, null, false);
-                        // stop event
-                        event.stopEvent(dataWrapper, eventTimelineList, true, false,
-                                true, false);
-                        // restart Events
-                        PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-                        dataWrapper.restartEvents(false, true/*, false*/);
+                        if (old_event_status != Event.ESTATUS_STOP) {
+                            // pause event - must be called, because status is ESTATUS_STOP
+                            event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                    false, /*false,*/ null, false);
+                            // stop event
+                            event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                                    true/*, false*/);
+
+                            // restart Events
+                            PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
+                            dataWrapper.restartEvents(false, true/*, false*/, true);
+                        }
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -442,10 +449,13 @@ public class EventPreferencesActivity extends PreferenceActivity
 
                         // pause event
                         event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                false, false, null, false);
+                                false, /*false,*/ null, false);
+                        // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
+                        event.doLogForPauseEvent(dataWrapper, false);
+
                         // restart Events
                         PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-                        dataWrapper.restartEvents(false, true/*, false*/);
+                        dataWrapper.restartEvents(false, true/*, false*/, true);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

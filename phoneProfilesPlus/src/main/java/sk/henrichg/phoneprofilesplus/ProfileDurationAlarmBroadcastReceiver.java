@@ -81,8 +81,6 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                                 DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
                                                 profile._icon, 0);
 
-                                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
-
                                         PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "restart events");
                                         dataWrapper.restartEventsWithDelay(3, true);
                                     } else {

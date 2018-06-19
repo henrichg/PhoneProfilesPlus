@@ -248,6 +248,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     int predefinedEventIndex = ApplicationPreferences.preferences.getInt(SP_DATA_DETAILS_PREDEFINED_EVENT_INDEX, 0);
                     Bundle arguments = new Bundle();
                     arguments.putLong(PPApplication.EXTRA_EVENT_ID, event_id);
+                    //arguments.putInt(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
                     arguments.putInt(EXTRA_NEW_EVENT_MODE, editMode);
                     arguments.putInt(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
                     arguments.putBoolean(EditorProfileListFragment.START_TARGET_HELPS_ARGUMENT, false);
@@ -650,7 +651,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             return super.onOptionsItemSelected(item);
         case R.id.menu_restart_events:
             //noinspection ConstantConditions
-            getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+            //getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
             // ignore manual profile activation
             // and unblock forceRun events
@@ -1715,8 +1716,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         Intent intent = new Intent(getBaseContext(), EventPreferencesActivity.class);
         if (editMode == EditorEventListFragment.EDIT_MODE_INSERT)
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
-        else
+        else {
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+            intent.putExtra(PPApplication.EXTRA_EVENT_STATUS, event.getStatus());
+        }
         intent.putExtra(EXTRA_NEW_EVENT_MODE, editMode);
         intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
         startActivityForResult(intent, REQUEST_CODE_EVENT_PREFERENCES);

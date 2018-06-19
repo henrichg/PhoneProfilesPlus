@@ -433,6 +433,8 @@ public class EditorProfileListFragment extends Fragment
             // profile not exists
             return;
 
+        activityDataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEDELETED, null, profile._name, profile._icon, 0);
+
         Profile activatedProfile = activityDataWrapper.getActivatedProfile(false, false);
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
             // remove alarm for profile duration
@@ -456,7 +458,7 @@ public class EditorProfileListFragment extends Fragment
             ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
         }
         else
-            activityDataWrapper.restartEvents(false, true/*, false*/);
+            activityDataWrapper.restartEvents(false, true/*, false*/, true);
 
         activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 

@@ -257,7 +257,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         case R.id.menu_restart_events:
             DataWrapper dataWrapper = getDataWrapper();
             if (dataWrapper != null) {
-                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+                //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                 // ignore manual profile activation
                 // and unblock forceRun events
