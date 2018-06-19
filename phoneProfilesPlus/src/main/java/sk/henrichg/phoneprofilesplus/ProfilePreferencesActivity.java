@@ -595,6 +595,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, ""));
 
             if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEPREFERENCESCHANGED, null, profile._name, profile._icon, 0);
+
                 if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                         (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
                     // add profile into DB
@@ -603,7 +606,18 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
                 } else if (profile_id > 0) {
                     DatabaseHandler.getInstance(getApplicationContext()).updateProfile(profile);
+
+                    // restart Events
+                    PPApplication.logE("$$$ restartEvents","from ProfilePreferencesActivity.savePreferences");
+                    dataWrapper.restartEvents(false, true/*, false*/, true);
                 }
+            }
+            else {
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_SHAREDPROFILEPREFERENCESCHANGED, null, null, null, 0);
+
+                // restart Events
+                PPApplication.logE("$$$ restartEvents","from ProfilePreferencesActivity.savePreferences");
+                dataWrapper.restartEvents(false, true/*, false*/, true);
             }
         }
     }

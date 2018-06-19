@@ -114,6 +114,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ALTYPE_EVENTPREFERENCESCHANGED = 17;
     static final int ALTYPE_EVENTDELETED = 18;
     static final int ALTYPE_PROFILEDELETED = 19;
+    static final int ALTYPE_PROFILEPREFERENCESCHANGED = 30;
+    static final int ALTYPE_SHAREDPROFILEPREFERENCESCHANGED = 31;
 
 
     // Profiles Table Columns names

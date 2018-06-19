@@ -1184,6 +1184,8 @@
     <string name="altype_eventPreferencesChanged">Event preferences changed</string>
     <string name="altype_eventDeleted">Event deleted</string>
     <string name="altype_profileDeleted">Profile deleted</string>
+    <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
+    <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
