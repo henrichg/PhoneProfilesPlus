@@ -2291,8 +2291,10 @@ class ActivateProfileHelper {
     {
         screenTimeoutUnlock(context);
 
+        final Context appContext = context.getApplicationContext();
+
         //Log.d("ActivateProfileHelper.screenTimeoutLock","xxx");
-        WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager)appContext.getSystemService(Context.WINDOW_SERVICE);
         if (windowManager != null) {
             int type;
             if (android.os.Build.VERSION.SDK_INT < 25)
@@ -2312,7 +2314,7 @@ class ActivateProfileHelper {
                 params.gravity = Gravity.RIGHT | Gravity.TOP;
             else
                 params.gravity = Gravity.END | Gravity.TOP;*/
-            GlobalGUIRoutines.keepScreenOnView = new BrightnessView(context);
+            GlobalGUIRoutines.keepScreenOnView = new BrightnessView(appContext);
             try {
                 windowManager.addView(GlobalGUIRoutines.keepScreenOnView, params);
             } catch (Exception e) {
@@ -2349,7 +2351,9 @@ class ActivateProfileHelper {
         //if (dataWrapper.context != null)
         //{
 
-            WindowManager windowManager = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
+            final Context appContext = context.getApplicationContext();
+
+            WindowManager windowManager = (WindowManager)appContext.getSystemService(Context.WINDOW_SERVICE);
             if (windowManager != null) {
                 if (GlobalGUIRoutines.brightnessView != null) {
                     //Log.d("ActivateProfileHelper.createBrightnessView","GlobalGUIRoutines.brightnessView != null");
@@ -2373,21 +2377,20 @@ class ActivateProfileHelper {
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
                         PixelFormat.TRANSLUCENT
                 );
-                GlobalGUIRoutines.brightnessView = new BrightnessView(context);
+                GlobalGUIRoutines.brightnessView = new BrightnessView(appContext);
                 try {
                     windowManager.addView(GlobalGUIRoutines.brightnessView, params);
                 } catch (Exception e) {
                     GlobalGUIRoutines.brightnessView = null;
                 }
 
-                final Handler handler = new Handler(context.getMainLooper());
-                final Context _context = context;
+                final Handler handler = new Handler(appContext.getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         PPApplication.logE("ActivateProfileHelper.createBrightnessView", "remove brightness view");
 
-                        WindowManager windowManager = (WindowManager) _context.getSystemService(Context.WINDOW_SERVICE);
+                        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
                         if (windowManager != null) {
                             if (GlobalGUIRoutines.brightnessView != null) {
                                 try {
