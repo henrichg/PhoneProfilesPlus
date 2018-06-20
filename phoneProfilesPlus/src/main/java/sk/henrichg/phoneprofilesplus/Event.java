@@ -1272,7 +1272,7 @@ class Event {
             // restart events when is set
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 PPApplication.logE("Event.pauseEvent","restart events");
-                dataWrapper.restartEventsWithDelay(5, true, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                dataWrapper.restartEventsWithDelay(5, true, true, DatabaseHandler.ALTYPE_UNDEFINED);
                 profileActivated = true;
             }
 
