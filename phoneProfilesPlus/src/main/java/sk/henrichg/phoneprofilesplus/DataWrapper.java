@@ -66,7 +66,7 @@ public class DataWrapper {
                         boolean mono,
                         int monoVal)
     {
-        context = c;
+        context = c.getApplicationContext();
 
         setParameters(/*fgui, */mono, monoVal);
     }
