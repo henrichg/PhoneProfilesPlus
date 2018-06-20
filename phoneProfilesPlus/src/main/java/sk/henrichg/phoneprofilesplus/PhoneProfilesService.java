@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
@@ -3566,10 +3567,17 @@ public class PhoneProfilesService extends Service
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
         final Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
 
+        if (BuildConfig.DEBUG)
+            isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+
         if (!runningInForeground) {
+        //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
             _showProfileNotification(profile, false, dataWrapper);
             runningInForeground = true;
         }
+
+        if (BuildConfig.DEBUG)
+            isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
         PPApplication.startHandlerThreadProfileNotification();
         final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
@@ -3593,6 +3601,20 @@ public class PhoneProfilesService extends Service
             }
         } catch (Exception ignored) {}
         runningInForeground = false;
+    }
+
+    public static boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (manager != null) {
+            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+                if (serviceClass.getName().equals(service.service.getClassName())) {
+                    PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "service.foreground="+service.foreground);
+                    return service.foreground;
+                }
+            }
+        }
+        PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "false");
+        return false;
     }
 
     private void setAlarmForNotificationCancel(Context context)
