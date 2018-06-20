@@ -67,7 +67,7 @@ public class MobileCellsPreference extends DialogPreference {
     //private PhoneStateChangedBroadcastReceiver phoneStateChangedBroadcastReceiver;
     //private RefreshListViewBroadcastReceiver refreshListViewBroadcastReceiver;
 
-    private boolean dialogCanceled = true;
+    //private boolean dialogCanceled = true;
     static boolean forceStart;
 
     //private static final String PREF_SHOW_HELP = "mobile_cells_pref_show_help";
@@ -134,14 +134,14 @@ public class MobileCellsPreference extends DialogPreference {
                                 persistString(value);
                             }
                         }
-                        dialogCanceled = false;
+                        //dialogCanceled = false;
                         mDialog.dismiss();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        dialogCanceled = true;
+                        //dialogCanceled = true;
                         mDialog.dismiss();
                     }
                 });
@@ -335,7 +335,7 @@ public class MobileCellsPreference extends DialogPreference {
         */
 
         forceStart = false;
-        if (!dialogCanceled)
+        //if (!dialogCanceled)
             PPApplication.restartPhoneStateScanner(context, false);
     }
 
@@ -347,7 +347,7 @@ public class MobileCellsPreference extends DialogPreference {
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();
         if ((mDialog != null) && mDialog.isShowing()) {
-            dialogCanceled = true;
+            //dialogCanceled = true;
             mDialog.dismiss();
         }
     }
