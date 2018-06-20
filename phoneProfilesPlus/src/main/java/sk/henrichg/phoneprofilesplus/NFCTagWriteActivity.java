@@ -82,7 +82,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
                 @Override
                 public void onTagRead(String tagRead) {
-                    //Toast.makeText(NFCTagWriteActivity.this, "tag read:"+tagRead, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "tag read:"+tagRead, Toast.LENGTH_LONG).show();
 
                     int[] attrs = {R.attr.navigationDrawerText};
                     TypedArray ta = obtainStyledAttributes(attrs);
@@ -105,7 +105,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             nfcManager.setOnTagWriteListener(new NFCTagReadWriteManager.TagWriteListener() {
                 @Override
                 public void onTagWritten() {
-                    Toast.makeText(NFCTagWriteActivity.this, R.string.write_nfc_tag_writed, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.write_nfc_tag_writed, Toast.LENGTH_LONG).show();
                     NFCTagWriteActivity.this.finish();
                 }
             });
@@ -123,8 +123,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     }
                     writableTextView.setTextColor(Color.RED);
                     writableTextView.setText(text);
-                    //Toast.makeText(NFCTagWriteActivity.this, exception.getType().toString(), Toast.LENGTH_LONG).show();
-                    //Toast.makeText(NFCTagWriteActivity.this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
 
                     //NFCTagWriteActivity.this.finish();
                 }

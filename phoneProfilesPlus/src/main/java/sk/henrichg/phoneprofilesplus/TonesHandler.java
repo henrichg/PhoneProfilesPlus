@@ -298,7 +298,7 @@ class TonesHandler {
                 if (!(ringtone && notification && alarm))
                     strId = R.string.toast_tone_installation_installed_error;
 
-                Toast msg = Toast.makeText(context,
+                Toast msg = Toast.makeText(context.getApplicationContext(),
                         context.getResources().getString(strId),
                         Toast.LENGTH_SHORT);
                 msg.show();

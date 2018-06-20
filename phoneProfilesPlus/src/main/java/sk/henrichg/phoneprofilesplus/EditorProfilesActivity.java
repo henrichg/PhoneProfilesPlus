@@ -697,7 +697,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/henrichg/PhoneProfilesPlus/wiki"));
                 startActivity(myIntent);
             } catch (ActivityNotFoundException e) {
-                Toast.makeText(this, "No application can handle this request."
+                Toast.makeText(getApplicationContext(), "No application can handle this request."
                     + " Please install a web browser",  Toast.LENGTH_LONG).show();
             }
             return true;*/

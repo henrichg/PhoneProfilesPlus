@@ -24,7 +24,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
             @Override
             public void onTagRead(String tagRead) {
-                Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
 
                 final String _tagRead = tagRead;
 
@@ -52,7 +52,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         /*nfcManager.setOnTagWriteListener(new NFCTagReadWriteManager.TagWriteListener() {
             @Override
             public void onTagWritten() {
-                Toast.makeText(NFCTagReadActivity.this, "tag write finished", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "tag write finished", Toast.LENGTH_LONG).show();
                 NFCTagReadActivity.this.finish();
             }
         });*/
@@ -60,8 +60,8 @@ public class NFCTagReadActivity extends AppCompatActivity {
         nfcManager.setOnTagWriteErrorListener(new NFCTagReadWriteManager.TagWriteErrorListener() {
             @Override
             public void onTagWriteError(NFCTagWriteException exception) {
-                //Toast.makeText(NFCTagReadActivity.this, exception.getType().toString(), Toast.LENGTH_LONG).show();
-                Toast.makeText(NFCTagReadActivity.this, "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_error), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_error), Toast.LENGTH_LONG).show();
                 NFCTagReadActivity.this.finish();
             }
         });

@@ -190,7 +190,7 @@ class EventPreferencesBattery extends EventPreferences {
         final MaterialListPreference chargingPreference = (MaterialListPreference)prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
         final CheckBoxPreference powerSaveModePreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BATTERY_POWER_SAVE_MODE);
         final PreferenceManager _prefMng = prefMng;
-        final Context _context = context;
+        final Context _context = context.getApplicationContext();
 
         if (lowLevelPreference != null) {
             lowLevelPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {

@@ -1788,7 +1788,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     String text = context.getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
                     text = text + " " + (width * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
                     text = text + "x" + (height * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
-                    Toast msg = Toast.makeText(context, text, Toast.LENGTH_LONG);
+                    Toast msg = Toast.makeText(context.getApplicationContext(), text, Toast.LENGTH_LONG);
                     msg.show();
                 }
             }
