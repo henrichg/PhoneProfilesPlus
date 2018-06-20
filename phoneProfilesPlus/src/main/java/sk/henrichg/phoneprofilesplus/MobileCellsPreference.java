@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -42,6 +43,10 @@ public class MobileCellsPreference extends DialogPreference {
     List<MobileCellsData> filteredCellsList;
     long event_id;
 
+    private MobileCellsData registeredCellData;
+    private boolean registeredCellInTable;
+    private boolean registeredCellInValue;
+
     private final Context context;
 
     private MaterialDialog mDialog;
@@ -55,6 +60,7 @@ public class MobileCellsPreference extends DialogPreference {
     private MobileCellsPreferenceAdapter listAdapter;
     private MobileCellNamesDialog mMobileCellsFilterDialog;
     private MobileCellNamesDialog mMobileCellNamesDialog;
+    private AppCompatImageButton addCellButton;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -286,6 +292,17 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
+        addCellButton = layout.findViewById(R.id.mobile_cells_pref_dlg_addCellButton);
+        addCellButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (registeredCellData != null) {
+                    addCellId(registeredCellData.cellId);
+                    refreshListView(false);
+                }
+            }
+        });
+
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
         if (state != null)
@@ -417,7 +434,6 @@ public class MobileCellsPreference extends DialogPreference {
             String _cellName;
             List<MobileCellsData> _cellsList = null;
             List<MobileCellsData> _filteredCellsList = null;
-            MobileCellsData registeredCellData = null;
             String _cellFilterValue;
             String _value;
 
@@ -453,7 +469,10 @@ public class MobileCellsPreference extends DialogPreference {
                     DatabaseHandler db = DatabaseHandler.getInstance(context);
                     db.addMobileCellsToList(_cellsList, false);
 
-                    boolean found = false;
+                    registeredCellData = null;
+                    registeredCellInTable = false;
+                    registeredCellInValue = false;
+
                     if (PhoneProfilesService.isPhoneStateScannerStarted()) {
                         // add registered cell
                         PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell");
@@ -461,12 +480,12 @@ public class MobileCellsPreference extends DialogPreference {
                             if (cell.cellId == PhoneStateScanner.registeredCell) {
                                 cell.connected = true;
                                 registeredCellData = cell;
-                                found = true;
+                                registeredCellInTable = true;
                                 PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell found");
                                 break;
                             }
                         }
-                        if (!found && (PhoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
+                        if (!registeredCellInTable && (PhoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
                             PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell not found");
                             registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
                                     _cellName, true, true, PhoneStateScanner.lastConnectedTime);
@@ -474,6 +493,7 @@ public class MobileCellsPreference extends DialogPreference {
                         }
                     }
 
+                    boolean found;
                     // add all from value
                     String[] splits = value.split("\\|");
                     for (String cell : splits) {
@@ -481,6 +501,8 @@ public class MobileCellsPreference extends DialogPreference {
                         for (MobileCellsData mCell : _cellsList) {
                             if (cell.equals(Integer.toString(mCell.cellId))) {
                                 found = true;
+                                if (registeredCellData != null)
+                                    registeredCellInValue = (mCell.cellId == registeredCellData.cellId);
                                 break;
                             }
                         }
@@ -493,7 +515,7 @@ public class MobileCellsPreference extends DialogPreference {
                         }
                     }
 
-                    // save all from value = registeredCell to table
+                    // save all from value + registeredCell to table
                     db.saveMobileCellsList(_cellsList, true, false);
 
                     Collections.sort(_cellsList, new SortList());
@@ -564,6 +586,8 @@ public class MobileCellsPreference extends DialogPreference {
                     connectedCellName = connectedCellName + registeredCellData.cellId;
                 }
                 connectedCell.setText(connectedCellName);
+                GlobalGUIRoutines.setImageButtonEnabled((registeredCellData != null) && !(registeredCellInTable && registeredCellInValue),
+                        addCellButton, R.drawable.ic_action_location_add, context);
 
                 //progressLinearLayout.setVisibility(View.GONE);
                 //dataRelativeLayout.setVisibility(View.VISIBLE);
