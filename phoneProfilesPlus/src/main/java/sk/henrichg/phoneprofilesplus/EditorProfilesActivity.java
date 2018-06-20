@@ -640,13 +640,15 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         Intent intent;
 
+        DataWrapper dataWrapper = getDataWrapper();
+
         switch (item.getItemId()) {
         case android.R.id.home:
             if (drawerLayout.isDrawerOpen(drawerRoot)) {
                 drawerLayout.closeDrawer(drawerRoot);
             } else {
                 drawerLayout.openDrawer(drawerRoot);
-            }	
+            }
             return super.onOptionsItemSelected(item);
         case R.id.menu_restart_events:
             //noinspection ConstantConditions
@@ -655,10 +657,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             // ignore manual profile activation
             // and unblock forceRun events
             PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
-            getDataWrapper().restartEventsWithAlert(this);
+            if (dataWrapper != null)
+                dataWrapper.restartEventsWithAlert(this);
             return true;
         case R.id.menu_run_stop_events:
-            DataWrapper dataWrapper = getDataWrapper();
             if (dataWrapper != null) {
                 dataWrapper.runStopEvents();
                 PPApplication.showProfileNotification(getApplicationContext());

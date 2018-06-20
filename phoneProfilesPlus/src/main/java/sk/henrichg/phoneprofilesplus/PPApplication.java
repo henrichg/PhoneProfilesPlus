@@ -341,7 +341,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadHeadsUpNotifications = null;
     public static HandlerThread handlerThreadMobileCells = null;
 
-    public static HandlerThread handlerThreadRestartEventsWithDelay = null;
+    private static HandlerThread handlerThreadRestartEventsWithDelay = null;
     public static Handler restartEventsWithDelayHandler = null;
 
     public static Handler toastHandler;
@@ -352,7 +352,7 @@ public class PPApplication extends Application {
     public static String notAllowedReasonDetail;
 
     public static final RootMutex rootMutex = new RootMutex();
-    public static final ServiceListMutex serviceListMutex = new ServiceListMutex();
+    private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();

@@ -36,7 +36,7 @@ public class MobileCellsPreference extends DialogPreference {
     //private String persistedValue;
     private List<MobileCellsData> cellsList;
     List<MobileCellsData> filteredCellsList;
-    long event_id;
+    //long event_id;
 
     private MobileCellsData registeredCellData;
     private boolean registeredCellInTable;

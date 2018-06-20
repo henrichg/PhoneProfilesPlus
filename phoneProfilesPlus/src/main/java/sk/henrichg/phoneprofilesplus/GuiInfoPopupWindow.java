@@ -4,7 +4,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,13 +40,15 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
 
     }
 
+    /*
     @Override
     public void showOnAnchor(@NonNull View anchor, int vertPos, int horizPos, int x, int y) {
         super.showOnAnchor(anchor, vertPos, horizPos, x, y);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            circularReveal(anchor);
-        }*/
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        //    circularReveal(anchor);
+        //}
     }
+    */
 
     /*
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)

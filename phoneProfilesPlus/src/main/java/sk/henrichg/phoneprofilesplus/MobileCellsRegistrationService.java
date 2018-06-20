@@ -23,14 +23,14 @@ public class MobileCellsRegistrationService extends Service {
 
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN";
     public static final String EXTRA_COUNTDOWN = "countdown";
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON";
+    private static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON";
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_STOPPED = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOPPED";
-    public static final String EXTRA_NEW_CELLS_VALUE = "new_cells_value";
+    private static final String EXTRA_NEW_CELLS_VALUE = "new_cells_value";
 
     private CountDownTimer countDownTimer = null;
 
     static boolean forceStart;
-    Context context;
+    private Context context;
 
     static private final List<Long> eventList = new ArrayList<>();
 
@@ -163,7 +163,7 @@ public class MobileCellsRegistrationService extends Service {
         startForeground(PPApplication.MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID, notification);
     }
 
-    void stopRegistration() {
+    private void stopRegistration() {
         PhoneStateScanner.enabledAutoRegistration = false;
         setMobileCellsAutoRegistration(context, false);
 
@@ -235,7 +235,7 @@ public class MobileCellsRegistrationService extends Service {
         stopSelf();
     }
 
-    String addCellId(String cells, int cellId) {
+    private String addCellId(String cells, int cellId) {
         String[] splits = cells.split("\\|");
         String sCellId = Integer.toString(cellId);
         boolean found = false;

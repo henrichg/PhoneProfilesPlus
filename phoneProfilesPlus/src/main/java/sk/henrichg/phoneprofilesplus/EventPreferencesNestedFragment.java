@@ -17,7 +17,7 @@ import android.support.v7.widget.Toolbar;
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
-    long event_id;
+    private long event_id;
     int startupSource;
 
     private Event event;

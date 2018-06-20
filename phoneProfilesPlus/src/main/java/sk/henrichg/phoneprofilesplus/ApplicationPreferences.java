@@ -428,10 +428,12 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventWifiScanOnlyWhenScreenIsOn(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventBluetoothScanOnlyWhenScreenIsOn(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
