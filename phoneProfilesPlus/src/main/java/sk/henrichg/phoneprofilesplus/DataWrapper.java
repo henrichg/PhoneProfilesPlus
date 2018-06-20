@@ -1788,7 +1788,7 @@ public class DataWrapper {
 
     @SuppressLint({ "NewApi", "SimpleDateFormat" })
     void doHandleEvents(Event event, boolean statePause,
-                                    boolean restartEvent, /*boolean interactive,*/
+                                    boolean forRestartEvents, /*boolean interactive,*/
                                     boolean forDelayStartAlarm, boolean forDelayEndAlarm,
                                     boolean reactivate, Profile mergedProfile,
                                     String sensorType)
@@ -3303,7 +3303,7 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.doHandleEvents","allIgnored="+allIgnored);
 
         //PPApplication.logE("DataWrapper.doHandleEvents","eventStart="+eventStart);
-        PPApplication.logE("DataWrapper.doHandleEvents","restartEvent="+restartEvent);
+        PPApplication.logE("DataWrapper.doHandleEvents","forRestartEvents="+forRestartEvents);
         PPApplication.logE("DataWrapper.doHandleEvents","statePause="+statePause);
 
         if (!allIgnored) {
@@ -3326,7 +3326,7 @@ public class DataWrapper {
 
             //PPApplication.logE("@@@ DataWrapper.doHandleEvents","restartEvent="+restartEvent);
 
-            if ((event.getStatus() != newEventStatus) || restartEvent || event._isInDelayStart || event._isInDelayEnd) {
+            if ((event.getStatus() != newEventStatus) || forRestartEvents || event._isInDelayStart || event._isInDelayEnd) {
                 PPApplication.logE("[***] DataWrapper.doHandleEvents", " do new event status");
 
                 if ((newEventStatus == Event.ESTATUS_RUNNING) && (!statePause)) {
@@ -3365,7 +3365,7 @@ public class DataWrapper {
                             event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile);
                         }
                     }
-                } else if (((newEventStatus == Event.ESTATUS_PAUSE) || restartEvent) && statePause) {
+                } else if (((newEventStatus == Event.ESTATUS_PAUSE) || forRestartEvents) && statePause) {
                     // when pausing and it is for restart events, force pause
 
                     PPApplication.logE("[***] DataWrapper.doHandleEvents", "pause event");
@@ -3379,7 +3379,7 @@ public class DataWrapper {
                         if (!forDelayEndAlarm) {
                             PPApplication.logE("[***] DataWrapper.doHandleEvents", "!forDelayEndAlarm");
                             // called not for delay alarm
-                            if (restartEvent) {
+                            if (forRestartEvents) {
                                 event._isInDelayEnd = false;
                             } else {
                                 if (!event._isInDelayEnd) {
@@ -3395,7 +3395,7 @@ public class DataWrapper {
                                 // no delay alarm is set
                                 // pause event
                                 event.pauseEvent(this, eventTimelineList, true, false,
-                                        false, /*true,*/ mergedProfile, !restartEvent);
+                                        false, /*true,*/ mergedProfile, !forRestartEvents);
                             }
                         }
 
@@ -3403,7 +3403,7 @@ public class DataWrapper {
                             // called for delay alarm
                             // pause event
                             event.pauseEvent(this, eventTimelineList, true, false,
-                                    false, /*true,*/ mergedProfile, !restartEvent);
+                                    false, /*true,*/ mergedProfile, !forRestartEvents);
                         }
                     }
                 }
