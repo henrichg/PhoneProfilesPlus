@@ -1,17 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 
-import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;

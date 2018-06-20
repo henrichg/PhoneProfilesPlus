@@ -1,9 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.util.Pair;
-
-import java.util.ArrayList;
-
 class RootMutex {
     boolean rootChecked;
     boolean rooted;
