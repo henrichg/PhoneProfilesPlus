@@ -1675,6 +1675,9 @@ class ActivateProfileHelper {
     }
 
     static void executeForInteractivePreferences(final Profile profile, final Context context) {
+        if (profile == null)
+            return;
+
         if (profile._deviceRunApplicationChange == 1)
         {
             executeForRunApplications(profile, context);
