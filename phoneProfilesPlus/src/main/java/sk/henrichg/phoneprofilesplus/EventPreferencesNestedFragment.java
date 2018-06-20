@@ -314,11 +314,13 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         if (mobileCellsRegistrationDialogPreference != null) {
             mobileCellsRegistrationDialogPreference.event_id = event_id;
         }
+        /*
         MobileCellsPreference mobileCellsPreference =
                 (MobileCellsPreference)prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
         if (mobileCellsPreference != null) {
             mobileCellsPreference.event_id = event_id;
         }
+        */
     }
 
     @Override
