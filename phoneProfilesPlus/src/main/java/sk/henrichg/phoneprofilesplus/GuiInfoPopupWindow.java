@@ -29,10 +29,12 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
         setOutsideTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        /*
         // Disable default animation for circular reveal
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setAnimationStyle(0);
         }
+        */
 
         popupView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,11 +49,12 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
     @Override
     public void showOnAnchor(@NonNull View anchor, int vertPos, int horizPos, int x, int y) {
         super.showOnAnchor(anchor, vertPos, horizPos, x, y);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             circularReveal(anchor);
-        }
+        }*/
     }
 
+    /*
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void circularReveal(@NonNull final View anchor) {
         final View contentView = getContentView();
@@ -80,5 +83,6 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
             }
         });
     }
+    */
 
 }

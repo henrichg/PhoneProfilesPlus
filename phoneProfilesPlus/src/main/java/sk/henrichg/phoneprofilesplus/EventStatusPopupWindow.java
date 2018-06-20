@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 
 import android.annotation.SuppressLint;
+import android.os.Build;
 import android.support.v7.widget.SwitchCompat;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -11,6 +12,9 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
     @SuppressLint("SetTextI18n")
     EventStatusPopupWindow(EditorEventListFragment fragment, Event event) {
         super(R.layout.event_status_popup_window, fragment.getActivity().getBaseContext());
+
+        // Disable default animation
+        setAnimationStyle(0);
 
         if (event != null) {
             final EditorEventListFragment _fragment = fragment;

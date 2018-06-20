@@ -11,10 +11,8 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
     RunStopIndicatorPopupWindow(final DataWrapper dataWrapper, Activity activity) {
         super(R.layout.run_stop_indicator_popup_window, activity.getBaseContext());
 
-        // Disable default animation for circular reveal
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setAnimationStyle(0);
-        }
+        // Disable default animation
+        setAnimationStyle(0);
 
         final Activity _activity = activity;
 

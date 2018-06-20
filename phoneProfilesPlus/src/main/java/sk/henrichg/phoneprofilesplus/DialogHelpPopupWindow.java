@@ -14,10 +14,8 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
     private DialogHelpPopupWindow(Context context, String helpString) {
         super(R.layout.dialog_help_popup_window, context);
 
-        // Disable default animation for circular reveal
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setAnimationStyle(0);
-        }
+        // Disable default animation
+        setAnimationStyle(0);
 
         TextView textView = popupView.findViewById(R.id.dialog_help_popup_window_text);
         textView.setText(helpString);
