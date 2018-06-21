@@ -26,6 +26,7 @@ import android.telephony.gsm.GsmCellLocation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import static android.content.Context.POWER_SERVICE;
@@ -44,7 +45,7 @@ class PhoneStateScanner extends PhoneStateListener {
     static boolean enabledAutoRegistration = false;
     static int durationForAutoRegistration = 0;
     static String cellsNameForAutoRegistration = "";
-    static private final List<Long> eventList = new ArrayList<>();
+    static private final List<Long> eventList = Collections.synchronizedList(new ArrayList<Long>());
 
     static MobileCellsRegistrationService autoRegistrationService = null;
 
@@ -407,7 +408,7 @@ class PhoneStateScanner extends PhoneStateListener {
         */
     }
 
-    private void doAutoRegistration(final int cellId) {
+    private void doAutoRegistration(final int cellIdToRegister) {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
@@ -428,28 +429,36 @@ class PhoneStateScanner extends PhoneStateListener {
                     }
 
                     //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
-                    List<MobileCellsData> localCellsList = new ArrayList<>();
-                    if (cellId != Integer.MAX_VALUE)
-                        localCellsList.add(new MobileCellsData(registeredCell, cellsNameForAutoRegistration, true, false, lastConnectedTime));
-                    DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    db.saveMobileCellsList(localCellsList, true, true);
+                    if (cellIdToRegister != Integer.MAX_VALUE) {
+                        DatabaseHandler db = DatabaseHandler.getInstance(context);
+                        if (!db.isMobileCellSaved(cellIdToRegister)) {
+                            List<MobileCellsData> localCellsList = new ArrayList<>();
+                            localCellsList.add(new MobileCellsData(cellIdToRegister, cellsNameForAutoRegistration, true, false, Calendar.getInstance().getTimeInMillis()));
+                            db.saveMobileCellsList(localCellsList, true, true);
 
-                    DataWrapper dataWrapper = new DataWrapper(context, false, 0);
+                            DataWrapper dataWrapper = new DataWrapper(context, false, 0);
 
-                    for (Long event_id : eventList) {
-                        Event event = dataWrapper.getEventById(event_id);
-                        if (event != null) {
-                            String cells = event._eventPreferencesMobileCells._cells;
-                            cells = addCellId(cells, registeredCell);
-                            event._eventPreferencesMobileCells._cells = cells;
-                            dataWrapper.updateEvent(event);
+                            synchronized (eventList) {
+                                for (Long event_id : eventList) {
+                                    Event event = dataWrapper.getEventById(event_id);
+                                    if (event != null) {
+                                        String cells = event._eventPreferencesMobileCells._cells;
+                                        cells = addCellId(cells, cellIdToRegister);
+                                        event._eventPreferencesMobileCells._cells = cells;
+                                        dataWrapper.updateEvent(event);
+                                        db.updateMobileCellsCells(event);
 
-                            // broadcast for event preferences
-                            Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEWCELLS);
-                            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                            intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, registeredCell);
-                            intent.setPackage(context.getPackageName());
-                            context.sendBroadcast(intent);
+                                        // broadcast for event preferences
+                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEWCELLS);
+                                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, cellIdToRegister);
+                                        intent.setPackage(context.getPackageName());
+                                        context.sendBroadcast(intent);
+                                    }
+                                }
+                            }
+
+                            dataWrapper.invalidateDataWrapper();
                         }
                     }
 
@@ -492,23 +501,33 @@ class PhoneStateScanner extends PhoneStateListener {
     }
 
     static boolean isEventAdded(long event_id) {
-        return eventList.indexOf(event_id) != -1;
+        synchronized (eventList) {
+            return eventList.indexOf(event_id) != -1;
+        }
     }
 
     static void addEvent(long event_id) {
-        eventList.add(event_id);
+        synchronized (eventList) {
+            eventList.add(event_id);
+        }
     }
 
     static void removeEvent(long event_id) {
-        eventList.remove(event_id);
+        synchronized (eventList) {
+            eventList.remove(event_id);
+        }
     }
 
-    static void clearEventList() {
-        eventList.clear();
+    private static void clearEventList() {
+        synchronized (eventList) {
+            eventList.clear();
+        }
     }
 
     static int getEventCount() {
-        return eventList.size();
+        synchronized (eventList) {
+            return eventList.size();
+        }
     }
 
     private String addCellId(String cells, int cellId) {

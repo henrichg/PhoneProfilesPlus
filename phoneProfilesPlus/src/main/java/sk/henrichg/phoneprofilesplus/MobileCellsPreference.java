@@ -462,7 +462,7 @@ public class MobileCellsPreference extends DialogPreference {
 
                     // add all from table
                     DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    db.addMobileCellsToList(_cellsList, false);
+                    db.addMobileCellsToList(_cellsList/*, false*/);
 
                     registeredCellData = null;
                     registeredCellInTable = false;

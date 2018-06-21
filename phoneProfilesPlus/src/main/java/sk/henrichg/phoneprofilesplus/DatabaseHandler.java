@@ -6962,7 +6962,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // add mobile cells to list
-    void addMobileCellsToList(List<MobileCellsData> cellsList, boolean onlyNew) {
+    void addMobileCellsToList(List<MobileCellsData> cellsList/*, boolean onlyNew*/) {
         importExportLock.lock();
         try {
             try {
@@ -6975,10 +6975,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_MC_LAST_CONNECTED_TIME +
                         " FROM " + TABLE_MOBILE_CELLS;
 
-                if (onlyNew) {
+                /*if (onlyNew) {
                     selectQuery = selectQuery +
                             " WHERE " + KEY_MC_NEW + "=1";
-                }
+                }*/
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -7326,6 +7326,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
             } catch (Exception ignored) {
             }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    boolean isMobileCellSaved(int mobileCell) {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT COUNT(*) " +
+                        " FROM " + TABLE_MOBILE_CELLS +
+                        " WHERE " + KEY_MC_CELL_ID + "=" + mobileCell;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = Integer.parseInt(cursor.getString(0));
+                    cursor.close();
+                } else
+                    r = 0;
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+            return r > 0;
         } finally {
             stopRunningCommand();
         }
