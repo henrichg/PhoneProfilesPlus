@@ -718,7 +718,7 @@ public class PPApplication extends Application {
     {
         ApplicationPreferences.getSharedPreferences(context);
         if (testService)
-            return ApplicationPreferences.preferences.getBoolean(PREF_APPLICATION_STARTED, false) && (PhoneProfilesService.instance != null);
+            return ApplicationPreferences.preferences.getBoolean(PREF_APPLICATION_STARTED, false) && PhoneProfilesService.serviceHasFirstStart;//&& (PhoneProfilesService.instance != null);
         else
             return ApplicationPreferences.preferences.getBoolean(PREF_APPLICATION_STARTED, false);
     }

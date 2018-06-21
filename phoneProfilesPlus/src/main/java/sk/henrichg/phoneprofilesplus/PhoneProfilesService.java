@@ -65,6 +65,7 @@ public class PhoneProfilesService extends Service
                                     AudioManager.OnAudioFocusChangeListener*/
 {
     public static PhoneProfilesService instance = null;
+    public static boolean serviceHasFirstStart = false;
     private static boolean serviceRunning = false;
     private static boolean runningInForeground = false;
 
@@ -198,6 +199,8 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
 
         instance = this;
+        serviceHasFirstStart = false;
+
         Context appContext = getApplicationContext();
 
         try {
@@ -270,6 +273,7 @@ public class PhoneProfilesService extends Service
         removeProfileNotification(this);
 
         instance = null;
+        serviceHasFirstStart = false;
         serviceRunning = false;
         runningInForeground = false;
 
@@ -2496,21 +2500,8 @@ public class PhoneProfilesService extends Service
 
                     GlobalGUIRoutines.setLanguage(appContext);
 
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                    dataWrapper.setDynamicLauncherShortcuts();
-
-                    MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
-
-                    BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
-                    BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                    List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
-                    BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
-                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-
-                    registerReceiversAndJobs();
-                    AboutApplicationJob.scheduleJob(getApplicationContext(), true);
-
-                    if (PPApplication.getApplicationStarted(appContext, false)) {
+                    //if (PPApplication.getApplicationStarted(appContext, false)) {
+                    if (serviceHasFirstStart) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -2563,6 +2554,21 @@ public class PhoneProfilesService extends Service
 
                     DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
 
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                    dataWrapper.setDynamicLauncherShortcuts();
+
+                    MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
+
+                    BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
+                    BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                    List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
+                    BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
+                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+
+                    registerReceiversAndJobs();
+                    AboutApplicationJob.scheduleJob(getApplicationContext(), true);
+
+                    serviceHasFirstStart = true;
                     PPApplication.setApplicationStarted(appContext, true);
                     if (_startOnBoot)
                         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
