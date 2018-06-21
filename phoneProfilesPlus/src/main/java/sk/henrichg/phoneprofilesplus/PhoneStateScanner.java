@@ -142,7 +142,7 @@ class PhoneStateScanner extends PhoneStateListener {
         // SlimKat in Galaxy Nexus - returns null :-/
         // Honor 7 - returns empty list (not null), Dual SIM?
 
-        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cellInfo="+cellInfo);
+        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cellInfo="+cellInfo);
 
         if (cellInfo!=null) {
 
@@ -151,56 +151,64 @@ class PhoneStateScanner extends PhoneStateListener {
                 PPApplication.logE("PhoneStateScanner.getAllCellInfo", "---- start ----------------------------");
 
                 for (CellInfo _cellInfo : cellInfo) {
-                    PPApplication.logE("PhoneStateScanner.getAllCellInfo", "registered="+_cellInfo.isRegistered());
+                    //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "registered="+_cellInfo.isRegistered());
 
                     if (_cellInfo instanceof CellInfoGsm) {
-                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm info="+_cellInfo);
+                        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm info="+_cellInfo);
                         CellIdentityGsm identityGsm = ((CellInfoGsm) _cellInfo).getCellIdentity();
                         if (identityGsm.getCid() != Integer.MAX_VALUE) {
-                            PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+identityGsm.getCid());
+                            //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+identityGsm.getCid());
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityGsm.getCid();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                                DatabaseHandler db = DatabaseHandler.getInstance(context);
+                                db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
                             }
                             doAutoRegistration(identityGsm.getCid());
                         }
                     } else if (_cellInfo instanceof CellInfoLte) {
-                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
+                        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
                         CellIdentityLte identityLte = ((CellInfoLte) _cellInfo).getCellIdentity();
                         if (identityLte.getCi() != Integer.MAX_VALUE) {
-                            PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte mCi="+identityLte.getCi());
+                            //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte mCi="+identityLte.getCi());
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityLte.getCi();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                                DatabaseHandler db = DatabaseHandler.getInstance(context);
+                                db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
                             }
                             doAutoRegistration(identityLte.getCi());
                         }
                     } else if (_cellInfo instanceof CellInfoWcdma) {
-                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
+                        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
                         CellIdentityWcdma identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
                         if (identityWcdma.getCid() != Integer.MAX_VALUE) {
-                            PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
+                            //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityWcdma.getCid();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                                DatabaseHandler db = DatabaseHandler.getInstance(context);
+                                db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
                             }
                             doAutoRegistration(identityWcdma.getCid());
                         }
                     } else if (_cellInfo instanceof CellInfoCdma) {
-                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cdma info="+_cellInfo);
+                        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cdma info="+_cellInfo);
                         CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
                         if (identityCdma.getBasestationId() != Integer.MAX_VALUE) {
-                            PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid="+identityCdma.getBasestationId());
+                            //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid="+identityCdma.getBasestationId());
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityCdma.getBasestationId();
                                 lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                                DatabaseHandler db = DatabaseHandler.getInstance(context);
+                                db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
                             }
                             doAutoRegistration(identityCdma.getBasestationId());
                         }
                     }
-                    else {
-                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "unknown info="+_cellInfo);
-                    }
+                    //else {
+                    //    PPApplication.logE("PhoneStateScanner.getAllCellInfo", "unknown info="+_cellInfo);
+                    //}
                 }
 
                 PPApplication.logE("PhoneStateScanner.getAllCellInfo", "---- end ----------------------------");
@@ -219,7 +227,7 @@ class PhoneStateScanner extends PhoneStateListener {
             List<CellInfo> cellInfo = null;
             if (Permissions.checkLocation(context.getApplicationContext()))
                 cellInfo = telephonyManager.getAllCellInfo();
-            PPApplication.logE("PhoneStateScanner.getAllCellInfo.2", "cellInfo="+cellInfo);
+            //PPApplication.logE("PhoneStateScanner.getAllCellInfo.2", "cellInfo="+cellInfo);
             getAllCellInfo(cellInfo);
         }
     }
@@ -237,12 +245,6 @@ class PhoneStateScanner extends PhoneStateListener {
         else
             getAllCellInfo(cellInfo);
 
-        if (registeredCell != Integer.MAX_VALUE) {
-            DatabaseHandler db = DatabaseHandler.getInstance(context);
-            db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
-        }
-
-        doAutoRegistration(registeredCell);
         handleEvents();
     }
 
@@ -256,44 +258,48 @@ class PhoneStateScanner extends PhoneStateListener {
         getRegisteredCell();
         PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=" + registeredCell);
 
-        if (registeredCell != Integer.MAX_VALUE) {
-            DatabaseHandler db = DatabaseHandler.getInstance(context);
-            db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
-        }
-
-        doAutoRegistration(registeredCell);
         handleEvents();
     }
 
     private void getCellLocation(CellLocation location) {
-        PPApplication.logE("PhoneStateScanner.getCellLocation", "location="+location);
+        //PPApplication.logE("PhoneStateScanner.getCellLocation", "location="+location);
 
         if (location!=null) {
 
             if (Permissions.checkLocation(context.getApplicationContext())) {
 
+                PPApplication.logE("PhoneStateScanner.getCellLocation", "---- start ----------------------------");
+
                 if (location instanceof GsmCellLocation) {
                     GsmCellLocation gcLoc = (GsmCellLocation) location;
-                    PPApplication.logE("PhoneStateScanner.getCellLocation", "gsm location="+gcLoc);
+                    //PPApplication.logE("PhoneStateScanner.getCellLocation", "gsm location="+gcLoc);
                     if (gcLoc.getCid() != -1) {
-                        PPApplication.logE("PhoneStateScanner.getCellLocation", "gsm mCid="+gcLoc.getCid());
+                        //PPApplication.logE("PhoneStateScanner.getCellLocation", "gsm mCid="+gcLoc.getCid());
                         registeredCell = gcLoc.getCid();
                         lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                        DatabaseHandler db = DatabaseHandler.getInstance(context);
+                        db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
                     }
+                    doAutoRegistration(gcLoc.getCid());
                 } else if (location instanceof CdmaCellLocation) {
                     CdmaCellLocation ccLoc = (CdmaCellLocation) location;
-                    PPApplication.logE("PhoneStateScanner.getCellLocation", "cdma location="+ccLoc);
+                    //PPApplication.logE("PhoneStateScanner.getCellLocation", "cdma location="+ccLoc);
                     if (ccLoc.getBaseStationId() != -1) {
-                        PPApplication.logE("PhoneStateScanner.getCellLocation", "cdma mCid="+ccLoc.getBaseStationId());
+                        //PPApplication.logE("PhoneStateScanner.getCellLocation", "cdma mCid="+ccLoc.getBaseStationId());
                         registeredCell = ccLoc.getBaseStationId();
                         lastConnectedTime = Calendar.getInstance().getTimeInMillis();
+                        DatabaseHandler db = DatabaseHandler.getInstance(context);
+                        db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
                     }
+                    doAutoRegistration(ccLoc.getBaseStationId());
                 }
-                else {
-                    PPApplication.logE("PhoneStateScanner.getCellLocation", "unknown location="+location);
-                }
+                //else {
+                //    PPApplication.logE("PhoneStateScanner.getCellLocation", "unknown location="+location);
+                //}
 
                 PPApplication.logE("PhoneStateScanner.getCellLocation", "registeredCell=" + registeredCell);
+
+                PPApplication.logE("PhoneStateScanner.getCellLocation", "---- end ----------------------------");
 
             }
 
@@ -308,7 +314,7 @@ class PhoneStateScanner extends PhoneStateListener {
             CellLocation location = null;
             if (Permissions.checkLocation(context.getApplicationContext()))
                 location = telephonyManager.getCellLocation();
-            PPApplication.logE("PhoneStateScanner.getCellLocation.2", "location="+location);
+            //PPApplication.logE("PhoneStateScanner.getCellLocation.2", "location="+location);
             getCellLocation(location);
         }
     }
@@ -325,15 +331,9 @@ class PhoneStateScanner extends PhoneStateListener {
         else
             getCellLocation(location);
 
-        PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "location="+location);
-        PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell="+registeredCell);
+        //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "location="+location);
+        //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell="+registeredCell);
 
-        if (registeredCell != Integer.MAX_VALUE) {
-            DatabaseHandler db = DatabaseHandler.getInstance(context);
-            db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
-        }
-
-        doAutoRegistration(registeredCell);
         handleEvents();
     }
 
@@ -358,7 +358,6 @@ class PhoneStateScanner extends PhoneStateListener {
         if (ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext()) || PhoneStateScanner.forceStart) {
             PPApplication.logE("PhoneStateScanner.rescanMobileCells", "-----");
             getRegisteredCell();
-            doAutoRegistration(registeredCell);
             handleEvents();
         }
     }
