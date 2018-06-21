@@ -73,11 +73,13 @@ class EventsHandler {
         synchronized (PPApplication.eventsHandlerMutex) {
             CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
+            PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
+
             if (!PPApplication.getApplicationStarted(context, true))
                 // application is not started
                 return;
 
-            PPApplication.logE("#### EventsHandler.handleEvents", "-- start --------------------------------");
+            PPApplication.logE("#### EventsHandler.handleEvents", "-- application started --------------------------------");
 
             //boolean interactive;
 

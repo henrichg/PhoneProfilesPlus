@@ -369,7 +369,7 @@ class PhoneStateScanner extends PhoneStateListener {
         if (Event.getGlobalEventsRunning(context))
         {
             final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThread("PhoneStateScanner.sendBroadcast");
+            PPApplication.startHandlerThread("PhoneStateScanner.handleEvents");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -377,7 +377,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.sendBroadcast");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.handleEvents");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 

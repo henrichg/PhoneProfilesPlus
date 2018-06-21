@@ -2496,6 +2496,20 @@ public class PhoneProfilesService extends Service
 
                     GlobalGUIRoutines.setLanguage(appContext);
 
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                    dataWrapper.setDynamicLauncherShortcuts();
+
+                    MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
+
+                    BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
+                    BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                    List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
+                    BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
+                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+
+                    registerReceiversAndJobs();
+                    AboutApplicationJob.scheduleJob(getApplicationContext(), true);
+
                     if (PPApplication.getApplicationStarted(appContext, false)) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2547,21 +2561,7 @@ public class PhoneProfilesService extends Service
 
                     PPNotificationListenerService.clearNotifiedPackages(appContext);
 
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
-
-                    dataWrapper.setDynamicLauncherShortcuts();
-
-                    MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
-
-                    BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
-                    BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                    List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
-                    BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
-                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-
-                    registerReceiversAndJobs();
-                    AboutApplicationJob.scheduleJob(getApplicationContext(), true);
 
                     PPApplication.setApplicationStarted(appContext, true);
                     if (_startOnBoot)

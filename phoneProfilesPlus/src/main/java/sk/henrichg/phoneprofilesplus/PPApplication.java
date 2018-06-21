@@ -74,10 +74,10 @@ public class PPApplication extends Application {
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
-
                                          +"|DatabaseHandler.onUpgrade"
-
                                          +"|ImportantInfoHelpFragment.onViewCreated"
+
+                                         +"|#### EventsHandler.handleEvents"
 
                                          //+"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
