@@ -159,7 +159,7 @@ class EventsHandler {
                 doEndHandler();
                 dataWrapper.invalidateDataWrapper();
 
-                PPApplication.logE("@@@ EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
+                PPApplication.logE("#### EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
 
                 return;
             }
@@ -180,7 +180,7 @@ class EventsHandler {
                 doEndHandler();
                 dataWrapper.invalidateDataWrapper();
 
-                PPApplication.logE("@@@ EventsHandler.handleEvents", "-- end: not events found --------------------------------");
+                PPApplication.logE("#### EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
                 return;
             }
@@ -498,7 +498,7 @@ class EventsHandler {
 
             dataWrapper.invalidateDataWrapper();
 
-            PPApplication.logE("@@@ EventsHandler.handleEvents", "-- end --------------------------------");
+            PPApplication.logE("#### EventsHandler.handleEvents", "-- end --------------------------------");
         }
     }
 
