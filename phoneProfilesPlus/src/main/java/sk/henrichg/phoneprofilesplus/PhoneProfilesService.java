@@ -3567,17 +3567,19 @@ public class PhoneProfilesService extends Service
         final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
         final Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
 
-        if (BuildConfig.DEBUG)
-            isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+        if (Build.VERSION.SDK_INT >= 26) {
+            //if (BuildConfig.DEBUG)
+            //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
-        if (!runningInForeground) {
-        //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-            _showProfileNotification(profile, false, dataWrapper);
-            runningInForeground = true;
+            if (!runningInForeground) {
+                //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
+                _showProfileNotification(profile, false, dataWrapper);
+                runningInForeground = true;
+            }
         }
 
-        if (BuildConfig.DEBUG)
-            isServiceRunningInForeground(appContext, PhoneProfilesService.class);
+        //if (BuildConfig.DEBUG)
+        //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
         PPApplication.startHandlerThreadProfileNotification();
         final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
