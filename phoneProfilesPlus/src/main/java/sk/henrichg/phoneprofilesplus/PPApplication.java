@@ -340,7 +340,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadLockDevice = null;
     public static HandlerThread handlerThreadRunApplication = null;
     public static HandlerThread handlerThreadHeadsUpNotifications = null;
-    public static HandlerThread handlerThreadMobileCells = null;
+    //public static HandlerThread handlerThreadMobileCells = null;
 
     private static HandlerThread handlerThreadRestartEventsWithDelay = null;
     public static Handler restartEventsWithDelayHandler = null;
@@ -453,7 +453,7 @@ public class PPApplication extends Application {
         startHandlerThreadLockDevice();
         startHandlerThreadRunApplication();
         startHandlerThreadHeadsUpNotifications();
-        startHandlerThreadMobileCells();
+        //startHandlerThreadMobileCells();
         startHandlerThreadRestartEventsWithDelay();
 
         toastHandler = new Handler(getMainLooper());
@@ -1824,12 +1824,14 @@ public class PPApplication extends Application {
         }
     }
 
+    /*
     static void startHandlerThreadMobileCells() {
         if (handlerThreadMobileCells == null) {
             handlerThreadMobileCells = new HandlerThread("handlerThreadMobileCells");
             handlerThreadMobileCells.start();
         }
     }
+    */
 
     static void startHandlerThreadRestartEventsWithDelay() {
         if (handlerThreadRestartEventsWithDelay == null) {

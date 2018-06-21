@@ -171,46 +171,6 @@ public class MobileCellsRegistrationService extends Service {
         intent.setPackage(context.getPackageName());
         sendBroadcast(intent);
 
-        final Context appContext = context.getApplicationContext();
-
-        PPApplication.startHandlerThread("MobileCellsRegistrationService.stopRegistration");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "MobileCellsRegistrationService.stopRegistration");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                List<MobileCellsData> cellsList = new ArrayList<>();
-
-                DatabaseHandler db = DatabaseHandler.getInstance(appContext);
-                db.addMobileCellsToList(cellsList, true);
-
-                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-
-                PhoneStateScanner.clearEventList();
-
-                if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
-                    // start events handler
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE/*, false*/);
-                }
-
-                dataWrapper.invalidateDataWrapper();
-
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
-                }
-            }
-        });
-
         stopSelf();
     }
 

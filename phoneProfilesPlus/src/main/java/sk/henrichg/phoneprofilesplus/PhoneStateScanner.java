@@ -414,8 +414,9 @@ class PhoneStateScanner extends PhoneStateListener {
 
         PPApplication.logE("PhoneStateScanner.doAutoRegistration", "enabledAutoRegistration="+enabledAutoRegistration);
         if (enabledAutoRegistration) {
-            PPApplication.startHandlerThreadMobileCells();
-            final Handler handler = new Handler(PPApplication.handlerThreadMobileCells.getLooper());
+            // use handlerThread, because is used in handleEvents(). handleEvents() must be called after doAutoRegistration().
+            PPApplication.startHandlerThread("PhoneStateScanner.doAutoRegistration");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -486,6 +487,7 @@ class PhoneStateScanner extends PhoneStateListener {
             PPApplication.logE("PhoneStateScanner.stopAutoRegistration", "xxx");
             context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
             autoRegistrationService = null;
+            clearEventList();
         }
     }
 
