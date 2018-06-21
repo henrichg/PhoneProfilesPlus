@@ -19,11 +19,11 @@
             android:background="?attr/dialogDivider" />
 
         <Button
-            android:id="@+id/profileicon_pref_dlg_custom_icon"
+            android:id="@+id/profileicon_pref_dlg_change_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/profileicon_pref_dlg_customIconButton"
+            android:text="@string/profileicon_pref_dialog_customColor_button"
             android:textColor="@color/action_button_text_color"
             android:background="?attr/selectableItemBackground" />
 
@@ -54,13 +54,13 @@
                 android:contentDescription="@string/profile_preferences_profileIcon"/>
 
             <Button
-                android:id="@+id/profileicon_pref_dlg_change_color"
+                android:id="@+id/profileicon_pref_dlg_custom_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:layout_centerInParent="true"
-                android:text="@string/profileicon_pref_dialog_customColor_button"
+                android:text="@string/profileicon_pref_dlg_customIconButton"
                 android:textColor="@color/action_button_text_color"
                 android:background="?attr/selectableItemBackground"
                 tools:ignore="RelativeOverlap"/>
