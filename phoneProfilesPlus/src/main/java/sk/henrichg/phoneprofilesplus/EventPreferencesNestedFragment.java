@@ -88,7 +88,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         if (mobileCellsRegistrationStoppedBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_STOPPED);
+            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEWCELLS);
             mobileCellsRegistrationStoppedBroadcastReceiver =
                     new MobileCellsRegistrationStoppedBroadcastReceiver(
                             (MobileCellsPreference)prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS));

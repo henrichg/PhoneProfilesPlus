@@ -44,6 +44,7 @@ class PhoneStateScanner extends PhoneStateListener {
     static boolean enabledAutoRegistration = false;
     static int durationForAutoRegistration = 0;
     static String cellsNameForAutoRegistration = "";
+    static private final List<Long> eventList = new ArrayList<>();
 
     static MobileCellsRegistrationService autoRegistrationService = null;
 
@@ -432,6 +433,25 @@ class PhoneStateScanner extends PhoneStateListener {
                     DatabaseHandler db = DatabaseHandler.getInstance(context);
                     db.saveMobileCellsList(localCellsList, true, true);
 
+                    DataWrapper dataWrapper = new DataWrapper(context, false, 0);
+
+                    for (Long event_id : eventList) {
+                        Event event = dataWrapper.getEventById(event_id);
+                        if (event != null) {
+                            String cells = event._eventPreferencesMobileCells._cells;
+                            cells = addCellId(cells, registeredCell);
+                            event._eventPreferencesMobileCells._cells = cells;
+                            dataWrapper.updateEvent(event);
+
+                            // broadcast for event preferences
+                            Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEWCELLS);
+                            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                            intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, registeredCell);
+                            intent.setPackage(context.getPackageName());
+                            context.sendBroadcast(intent);
+                        }
+                    }
+
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
                             wakeLock.release();
@@ -468,4 +488,45 @@ class PhoneStateScanner extends PhoneStateListener {
             autoRegistrationService = null;
         }
     }
+
+    static boolean isEventAdded(long event_id) {
+        return eventList.indexOf(event_id) != -1;
+    }
+
+    static void addEvent(long event_id) {
+        eventList.add(event_id);
+    }
+
+    static void removeEvent(long event_id) {
+        eventList.remove(event_id);
+    }
+
+    static void clearEventList() {
+        eventList.clear();
+    }
+
+    static int getEventCount() {
+        return eventList.size();
+    }
+
+    private String addCellId(String cells, int cellId) {
+        String[] splits = cells.split("\\|");
+        String sCellId = Integer.toString(cellId);
+        boolean found = false;
+        for (String cell : splits) {
+            if (!cell.isEmpty()) {
+                if (cell.equals(sCellId)) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            if (!cells.isEmpty())
+                cells = cells + "|";
+            cells = cells + sCellId;
+        }
+        return cells;
+    }
+
 }

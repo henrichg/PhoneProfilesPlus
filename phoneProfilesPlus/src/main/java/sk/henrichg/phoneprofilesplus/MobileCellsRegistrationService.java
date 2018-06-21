@@ -24,15 +24,13 @@ public class MobileCellsRegistrationService extends Service {
     public static final String ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN";
     public static final String EXTRA_COUNTDOWN = "countdown";
     private static final String ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON";
-    public static final String ACTION_MOBILE_CELLS_REGISTRATION_STOPPED = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_STOPPED";
-    private static final String EXTRA_NEW_CELLS_VALUE = "new_cells_value";
+    public static final String ACTION_MOBILE_CELLS_REGISTRATION_NEWCELLS = "sk.henrichg.phoneprofilesplus.ACTION_MOBILE_CELLS_REGISTRATION_NEWCELLS";
+    public static final String EXTRA_NEW_CELLS_VALUE = "new_cells_value";
 
     private CountDownTimer countDownTimer = null;
 
     static boolean forceStart;
     private Context context;
-
-    static private final List<Long> eventList = new ArrayList<>();
 
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION = "mobile_cells_autoregistration_duration";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION = "mobile_cells_autoregistration_remaining_duration";
@@ -194,26 +192,7 @@ public class MobileCellsRegistrationService extends Service {
 
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
 
-                for (MobileCellsData cellData : cellsList) {
-                    for (Long event_id : eventList) {
-                        Event event = dataWrapper.getEventById(event_id);
-                        if (event != null) {
-                            String cells = event._eventPreferencesMobileCells._cells;
-                            cells = addCellId(cells, cellData.cellId);
-                            event._eventPreferencesMobileCells._cells = cells;
-                            db.updateMobileCellsCells(event);
-                            dataWrapper.updateEvent(event);
-
-                            // broadcast for event preferences
-                            Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOPPED);
-                            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                            intent.putExtra(EXTRA_NEW_CELLS_VALUE, cellData.cellId);
-                            intent.setPackage(context.getPackageName());
-                            sendBroadcast(intent);
-                        }
-                    }
-                }
-                eventList.clear();
+                PhoneStateScanner.clearEventList();
 
                 if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                     // start events handler
@@ -233,26 +212,6 @@ public class MobileCellsRegistrationService extends Service {
         });
 
         stopSelf();
-    }
-
-    private String addCellId(String cells, int cellId) {
-        String[] splits = cells.split("\\|");
-        String sCellId = Integer.toString(cellId);
-        boolean found = false;
-        for (String cell : splits) {
-            if (!cell.isEmpty()) {
-                if (cell.equals(sCellId)) {
-                    found = true;
-                    break;
-                }
-            }
-        }
-        if (!found) {
-            if (!cells.isEmpty())
-                cells = cells + "|";
-            cells = cells + sCellId;
-        }
-        return cells;
     }
 
     private void showResultNotification() {
@@ -325,22 +284,6 @@ public class MobileCellsRegistrationService extends Service {
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
         editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_REMAINING_DURATION, remainingDuration);
         editor.apply();
-    }
-
-    static boolean isEventAdded(long event_id) {
-        return eventList.indexOf(event_id) != -1;
-    }
-
-    static void addEvent(long event_id) {
-        eventList.add(event_id);
-    }
-
-    static void removeEvent(long event_id) {
-        eventList.remove(event_id);
-    }
-
-    static int getEventCount() {
-        return eventList.size();
     }
 
     public class MobileCellsRegistrationStopButtonBroadcastReceiver extends BroadcastReceiver {

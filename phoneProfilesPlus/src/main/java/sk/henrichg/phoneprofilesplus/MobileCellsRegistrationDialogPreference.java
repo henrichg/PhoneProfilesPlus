@@ -84,15 +84,15 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                     public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
                         if (Permissions.grantMobileCellsRegistrationDialogPermissions(context, MobileCellsRegistrationDialogPreference.this)) {
                             if (PhoneStateScanner.enabledAutoRegistration) {
-                                if (!MobileCellsRegistrationService.isEventAdded(event_id))
-                                    MobileCellsRegistrationService.addEvent(event_id);
+                                if (!PhoneStateScanner.isEventAdded(event_id))
+                                    PhoneStateScanner.addEvent(event_id);
                                 else
-                                    MobileCellsRegistrationService.removeEvent(event_id);
+                                    PhoneStateScanner.removeEvent(event_id);
                                 mDialog.dismiss();
                             }
                             else {
-                                if (!MobileCellsRegistrationService.isEventAdded(event_id))
-                                    MobileCellsRegistrationService.addEvent(event_id);
+                                if (!PhoneStateScanner.isEventAdded(event_id))
+                                    PhoneStateScanner.addEvent(event_id);
                                 startRegistration();
                             }
                         }
@@ -365,8 +365,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             String value = mCellsName.getText().toString();
             boolean enable = !value.isEmpty();
             if (started) {
-                if (MobileCellsRegistrationService.isEventAdded(event_id)) {
-                    if (MobileCellsRegistrationService.getEventCount() == 1) {
+                if (PhoneStateScanner.isEventAdded(event_id)) {
+                    if (PhoneStateScanner.getEventCount() == 1) {
                         startButton.setText(R.string.mobile_cells_registration_pref_dlg_start_button);
                         enable = false;
                     }
