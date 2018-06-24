@@ -341,6 +341,7 @@ class GlobalGUIRoutines {
      * Use Color.Transparent if you wish to hide them
      */
     /*static void setSeparatorColorForNumberPicker(NumberPicker picker, int separatorColor) {
+        //TODO Android P - used reflecction!!
         Field[] pickerFields = NumberPicker.class.getDeclaredFields();
         for (Field pf : pickerFields) {
             if (pf.getName().equals("mSelectionDivider")) {
@@ -359,6 +360,7 @@ class GlobalGUIRoutines {
             View child = picker.getChildAt(i);
             if (child instanceof EditText) {
                 try {
+                    //TODO Android P - used reflecction!!
                     Field selectorWheelPaintField = NumberPicker.class.getDeclaredField("mSelectorWheelPaint");
                     selectorWheelPaintField.setAccessible(true);
 
@@ -522,6 +524,7 @@ class GlobalGUIRoutines {
                 display.getRealSize(size);
             /*} else {
                 try {
+                    //TODO Android P - used reflecction!!
                     size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
                     size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
                 } catch (Exception ignored) {
