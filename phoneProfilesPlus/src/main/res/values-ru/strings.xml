@@ -1186,8 +1186,8 @@
   <string name="altype_sharedProfilePreferencesChanged">Настройки Исходного профиля изменены</string>
   <string name="altype_allEventsDeleted">Все события удалены</string>
   <string name="altype_allProfilesDeleted">Все профили удалены</string>
-  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) настроено в системе, (S) возвращено сканером.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) настроено в системе, (S) возвращено сканером.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Разрешите PhoneProfilesPlusExtender для:\n• параметра профиля \"Принудительная остановка приложений\"\n• датчиков событий \"Параметры приложений\" и \"Параметры ориентации\".</string>
