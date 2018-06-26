@@ -1018,7 +1018,7 @@ public class Shell {
          */
         private void setShellOom() {
             try {
-                //TODO Android P - used reflecction!!
+                //TODO Android P - used reflections!!
                 Class<?> processClass = shell.proc.getClass();
                 Field field;
                 try {

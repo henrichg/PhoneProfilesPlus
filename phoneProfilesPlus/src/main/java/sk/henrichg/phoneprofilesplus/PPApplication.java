@@ -468,7 +468,7 @@ public class PPApplication extends Application {
         /*
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
-            //TODO Android P - used reflecction!!
+            //TODO Android P - used reflections!!
             F ield menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
             if(menuKeyField != null) {
                 menuKeyField.setAccessible(true);
