@@ -432,7 +432,7 @@ class WifiScanJob extends Job {
                         }
                     }
                     if (!found) {
-                        wifiConfigurationList.add(new WifiSSIDData(device.SSID, device.BSSID, false));
+                        wifiConfigurationList.add(new WifiSSIDData(device.SSID, device.BSSID, false, true, false));
                     }
                 }
             }
@@ -468,7 +468,7 @@ class WifiScanJob extends Job {
                         }
                     }
                     if (!found) {
-                        scanResults.add(new WifiSSIDData(device.SSID, device.BSSID, false));
+                        scanResults.add(new WifiSSIDData(device.SSID, device.BSSID, false, false, true));
                     }
                 }
                 //}
@@ -506,6 +506,7 @@ class WifiScanJob extends Job {
                 String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
                 if (!json.isEmpty()) {
                     WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
+                    device.configured = true;
                     wifiConfigurationList.add(device);
                 }
             }
@@ -555,6 +556,7 @@ class WifiScanJob extends Job {
                     String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
                     if (!json.isEmpty()) {
                         WifiSSIDData device = gson.fromJson(json, WifiSSIDData.class);
+                        device.scanned = true;
                         scanResults.add(device);
                     }
                 }

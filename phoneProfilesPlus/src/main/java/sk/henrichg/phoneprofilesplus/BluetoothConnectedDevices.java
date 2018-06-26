@@ -160,7 +160,7 @@ class BluetoothConnectedDevices {
                     Calendar now = Calendar.getInstance();
                     long timestamp = now.getTimeInMillis() - gmtOffset;
                     connectedDevices.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                            BluetoothScanJob.getBluetoothType(device), false, timestamp));
+                            BluetoothScanJob.getBluetoothType(device), false, timestamp, false, false));
                 }
             }
         //}

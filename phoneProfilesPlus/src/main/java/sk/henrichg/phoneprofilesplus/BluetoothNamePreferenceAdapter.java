@@ -77,20 +77,25 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
         if (bluetoothDevice.getName().equalsIgnoreCase(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE))
             holder.bluetoothName.setText("[DU] " + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb));
         else {
-            //if (android.os.Build.VERSION.SDK_INT >= 18) {
-                String sType;
-                if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_CLASSIC)
-                    sType = "CL";
-                else if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_DUAL)
-                    sType = "DU";
-                else if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_LE)
-                    sType = "LE";
-                else
-                    sType = "??";
+            String sType;
+            if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_CLASSIC)
+                sType = "CL";
+            else if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_DUAL)
+                sType = "DU";
+            else if (bluetoothDevice.type == BluetoothDevice.DEVICE_TYPE_LE)
+                sType = "LE";
+            else
+                sType = "??";
 
-                holder.bluetoothName.setText("[" + sType + "] " + bluetoothDevice.getName());
-            //} else
-            //    holder.bluetoothName.setText(bluetoothDevice.getName());
+            String btName = "";
+            if (bluetoothDevice.configured)
+                btName = "(C)";
+            else
+            if (bluetoothDevice.scanned)
+                btName = "(S)";
+            btName = btName + " " + "[" + sType + "] " + bluetoothDevice.getName();
+
+            holder.bluetoothName.setText(btName);
         }
 
         holder.checkBox.setTag(position);

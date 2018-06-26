@@ -1188,6 +1188,8 @@
     <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
     <string name="altype_allEventsDeleted">All events deleted</string>
     <string name="altype_allProfilesDeleted">All profiles deleted</string>
+    <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+    <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

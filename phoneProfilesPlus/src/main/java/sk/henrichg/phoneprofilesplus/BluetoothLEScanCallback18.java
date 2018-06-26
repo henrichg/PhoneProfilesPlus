@@ -28,7 +28,7 @@ class BluetoothLEScanCallback18 implements BluetoothAdapter.LeScanCallback {
             PPApplication.logE("BluetoothLEScanCallback18", "onLeScan - deviceName=" + btName);
 
             BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
-                    BluetoothScanJob.getBluetoothType(device), false, 0);
+                    BluetoothScanJob.getBluetoothType(device), false, 0, false, true);
             BluetoothScanJob.addLEScanResult(deviceData);
         }
     }

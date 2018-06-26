@@ -154,15 +154,15 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
                         //if ((wifiConfiguration.ssid != null) && (wifiConfiguration.bssid != null)) {
                         // bssid is null from configuration list
                         if (wifiConfiguration.ssid != null)
-                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false));
+                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid/*.replace("\"", "")*/, wifiConfiguration.bssid, false, true, false));
                     }
                 }
 
                 Collections.sort(_SSIDList, new ConnectToSSIDDialogPreference.SortList());
 
                 if (disableSharedProfile == 0)
-                    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false));
-                _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false));
+                    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
+                _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false, false, false));
 
                 return null;
             }

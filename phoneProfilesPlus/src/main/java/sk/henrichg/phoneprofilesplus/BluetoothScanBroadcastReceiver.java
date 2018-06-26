@@ -128,7 +128,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                         PPApplication.logE("@@@ BluetoothScanBroadcastReceiver.onReceive", "found=" + found);
                                         if (!found) {
                                             WifiBluetoothScanner.tmpBluetoothScanResults.add(new BluetoothDeviceData(btName, device.getAddress(),
-                                                    BluetoothScanJob.getBluetoothType(device), false, 0));
+                                                    BluetoothScanJob.getBluetoothType(device), false, 0, false, true));
                                         }
                                     }
                                 } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {

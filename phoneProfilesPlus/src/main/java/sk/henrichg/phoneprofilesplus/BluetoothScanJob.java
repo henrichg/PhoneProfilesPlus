@@ -478,7 +478,7 @@ class BluetoothScanJob extends Job {
             if (tmpScanLEResults != null) {
 
                 for (BluetoothDeviceData device : tmpScanLEResults) {
-                    scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0));
+                    scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
                 }
                 tmpScanLEResults = null;
             }
@@ -561,7 +561,7 @@ class BluetoothScanJob extends Job {
             if (boundedDevices != null) {
                 for (BluetoothDevice device : boundedDevices) {
                     boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                            getBluetoothType(device), false, 0));
+                            getBluetoothType(device), false, 0, true, false));
                 }
             }
             saveBoundedDevicesList(context, boundedDevicesList);
@@ -592,6 +592,7 @@ class BluetoothScanJob extends Job {
                 String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
                 if (!json.isEmpty()) {
                     BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                    device.configured = true;
                     boundedDevicesList.add(device);
                 }
             }
@@ -638,6 +639,7 @@ class BluetoothScanJob extends Job {
                     String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
                     if (!json.isEmpty()) {
                         BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                        device.scanned = true;
                         scanResults.add(device);
                     }
                 }
@@ -652,6 +654,7 @@ class BluetoothScanJob extends Job {
                     String json = preferences.getString(SCAN_RESULT_DEVICE_PREF + i, "");
                     if (!json.isEmpty()) {
                         BluetoothDeviceData device = gson.fromJson(json, BluetoothDeviceData.class);
+                        device.scanned = true;
                         scanResults.add(device);
                     }
                 }
@@ -782,7 +785,7 @@ class BluetoothScanJob extends Job {
             }
             if (!found) {
                 if (tmpScanLEResults != null) // maybe set to null by startLEScan() or finishLEScan()
-                    tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0));
+                    tmpScanLEResults.add(new BluetoothDeviceData(device.name, device.address, device.type, false, 0, false, true));
             }
         }
     }
@@ -800,7 +803,7 @@ class BluetoothScanJob extends Job {
                 if (WifiBluetoothScanner.tmpBluetoothScanResults != null) {
 
                     for (BluetoothDeviceData device : WifiBluetoothScanner.tmpBluetoothScanResults) {
-                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0));
+                        scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
                     }
                 }
 
