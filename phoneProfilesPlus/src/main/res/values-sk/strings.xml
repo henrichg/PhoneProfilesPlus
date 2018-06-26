@@ -1172,7 +1172,7 @@
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Zmena úrovne adaptívneho jasu nemusí fungovať na vašom zariadení (napríklad: zariadenia Samsung).</string>
   <string name="about_application_xda_developers_community">Komunita XDA-developers:</string>
   <string name="about_application_google_plus_community">Komunita Google+:</string>
-  <string name="mobile_cells_pref_dlg_connected_cell">Prepojená bunka:</string>
+  <string name="mobile_cells_pref_dlg_connected_cell">Pripojená bunka:</string>
   <string name="permissions_for_mobile_cells_registration_dialog_text1">Registrácia mobilných buniek vyžaduje nejaké povolenia.</string>
   <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Počet nových buniek:</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Zastaviť</string>
