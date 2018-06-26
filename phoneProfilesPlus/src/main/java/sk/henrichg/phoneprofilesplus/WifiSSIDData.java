@@ -17,7 +17,7 @@ class WifiSSIDData {
         this.bssid = bssid;
         this.custom = custom;
         this.configured = configured;
-        this.scanned = true;
+        this.scanned = scanned;
     }
 
 }

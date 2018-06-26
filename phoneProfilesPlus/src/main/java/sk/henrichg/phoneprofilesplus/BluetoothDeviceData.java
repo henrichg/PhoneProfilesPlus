@@ -21,7 +21,7 @@ class BluetoothDeviceData {
         this.custom = custom;
         this.timestamp = timestamp;
         this.configured = configured;
-        this.scanned = true;
+        this.scanned = scanned;
     }
 
     String getName() {
