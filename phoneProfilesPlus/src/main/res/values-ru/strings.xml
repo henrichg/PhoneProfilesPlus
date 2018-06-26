@@ -1132,6 +1132,7 @@
   <string name="notification_channel_notify_event_start_description">Показывает уведомление о начале события.</string>
   <string name="editor_drawer_open">Открыть боковое меню</string>
   <string name="important_info_accessibility_service_new_version">Установите, пожалуйста, новую версию PhoneProfilesPlusExtender. Дополнительные сведения об установке - в параметрах, для которых требуется PhoneProfilesPlusExtender.</string>
+  <string name="important_info_accessibility_service_new_version_2">Нажмите сюда для просмотра релизов PhoneProfilesPlusExtender на GitHub.</string>
   <string name="array_pref_no_force_stop">Не останавливать принудительно</string>
   <string name="array_pref_force_stop">Останавливать принудительно</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Принудительная остановка приложений</string>
@@ -1170,6 +1171,23 @@
   <string name="array_pref_value_auto_rotate_on">Автоповорот вкл.</string>
   <string name="array_pref_value_auto_rotate_off">Автоповорот выкл.</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Изменение адаптивного уровня может не работать на вашем устройстве (например, на устройствах Samsung).</string>
+  <string name="about_application_xda_developers_community">Сообщество XDA-developers:</string>
+  <string name="about_application_google_plus_community">Сообщество Google+:</string>
+  <string name="mobile_cells_pref_dlg_connected_cell">Подключённая вышка:</string>
+  <string name="permissions_for_mobile_cells_registration_dialog_text1">Регистрация мобильных вышек требует некоторых разрешений.</string>
+  <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Новых вышек:</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Остановить</string>
+  <string name="mobile_cells_registration_pref_dlg_add_event_button">Добавить событие</string>
+  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Удалить событие</string>
+  <string name="altype_eventPreferencesChanged">Настройки события изменены</string>
+  <string name="altype_eventDeleted">Событие удалено</string>
+  <string name="altype_profileDeleted">Профиль удалён</string>
+  <string name="altype_profilePreferencesChanged">Настройки профиля изменены</string>
+  <string name="altype_sharedProfilePreferencesChanged">Настройки Исходного профиля изменены</string>
+  <string name="altype_allEventsDeleted">Все события удалены</string>
+  <string name="altype_allProfilesDeleted">Все профили удалены</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Разрешите PhoneProfilesPlusExtender для:\n• параметра профиля \"Принудительная остановка приложений\"\n• датчиков событий \"Параметры приложений\" и \"Параметры ориентации\".</string>

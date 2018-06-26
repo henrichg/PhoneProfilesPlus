@@ -1131,6 +1131,7 @@
   <string name="notification_channel_notify_event_start_description">Zobrazí oznámení o zahájení události.</string>
   <string name="editor_drawer_open">Otevři navigační panel</string>
   <string name="important_info_accessibility_service_new_version">Prosím nainstalujte novou verzi PhoneProfilesPlusExtender. Další informace o instalaci jsou v parametrech, které PhoneProfilesPlusExtender vyžadují.</string>
+  <string name="important_info_accessibility_service_new_version_2">Klikněte zde pro zobrazení vydání PhoneProfilesPlusExtender v GitHub.</string>
   <string name="array_pref_no_force_stop">Nevynucovat zastavení</string>
   <string name="array_pref_force_stop">Vynucovat zastavení</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Vynutit zastavení aplikací</string>
@@ -1169,6 +1170,23 @@
   <string name="array_pref_value_auto_rotate_on">Zapnout automatickou orientaci</string>
   <string name="array_pref_value_auto_rotate_off">Vypnout automatickou orientaci</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Změna úrovně adaptivního jasu nemusí fungovat na vašem zařízení (například: zařízení Samsung).</string>
+  <string name="about_application_xda_developers_community">Komunita XDA-developers:</string>
+  <string name="about_application_google_plus_community">Komunita Google+:</string>
+  <string name="mobile_cells_pref_dlg_connected_cell">Propojená buňka:</string>
+  <string name="permissions_for_mobile_cells_registration_dialog_text1">Registrace mobilních buněk vyžaduje nějaké povolení.</string>
+  <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Počet nových buněk:</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Stop</string>
+  <string name="mobile_cells_registration_pref_dlg_add_event_button">Přidat událost</string>
+  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Odstranit událost</string>
+  <string name="altype_eventPreferencesChanged">Parametry události se změnily</string>
+  <string name="altype_eventDeleted">Událost vymazána</string>
+  <string name="altype_profileDeleted">Profil vymazán</string>
+  <string name="altype_profilePreferencesChanged">Parametry profilu se změnily</string>
+  <string name="altype_sharedProfilePreferencesChanged">Parametry sdíleného profilu se změnily</string>
+  <string name="altype_allEventsDeleted">Vymazány všechny události</string>
+  <string name="altype_allProfilesDeleted">Vymazány všechny profily</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací\" \n• sensory událostí \"Parametry aplikací\" a \"Parametry orientace\".</string>

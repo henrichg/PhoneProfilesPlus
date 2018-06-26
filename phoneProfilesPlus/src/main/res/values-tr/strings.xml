@@ -1131,6 +1131,7 @@
   <string name="notification_channel_notify_event_start_description">Durum başlangıcı hakkında bildirim gösterir.</string>
   <string name="editor_drawer_open">Düzenleyici ekranınını aç</string>
   <string name="important_info_accessibility_service_new_version">Lütfen PhoneProfilesPlusExtender yeni sürümünü yükleyin. Yükleme hakkında daha fazla malumat, PhoneProfilesPlusExtender\'ın gerektiği şartlarında yazılmıştır.</string>
+  <string name="important_info_accessibility_service_new_version_2">PhoneProfilesPlusExtender bültenlerini GitHub içinde görüntülemek için buraya dokunun.</string>
   <string name="array_pref_no_force_stop">Durdurmak için zorlama</string>
   <string name="array_pref_force_stop">Durmaya zorla</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Uygulamaları durmaya zorla</string>
@@ -1165,10 +1166,27 @@
   <string name="important_info_privacy_policy_backup_files">Mahremiyet hareket tarzı değişti. Hususen yedekleme hizmeti kullanılarak üretilen yedek dosyaları hakkında.</string>
   <string name="important_info_privacy_policy_backup_files_2">Mahremiyet hareket tarzını göstermek için buna dokunun.</string>
   <string name="phone_profiles_pref_notificationSystemSettings">Sistem ayarları</string>
-  <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuration for notification category:</string>
-  <string name="array_pref_value_auto_rotate_on">Automatic rotation on</string>
-  <string name="array_pref_value_auto_rotate_off">Automatic rotation off</string>
-  <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
+  <string name="phone_profiles_pref_notificationSystemSettings_summary">Bildirim kategorisi için yapılandırma:</string>
+  <string name="array_pref_value_auto_rotate_on">Otomatik ekran döndürme açık</string>
+  <string name="array_pref_value_auto_rotate_off">Otomatik ekran döndürme kapalı</string>
+  <string name="brightness_pref_dialog_adaptive_level_may_not_working">Uyarlanabilir seviyenin değişikliği sizin cihazinızda çalışmayabilir (örnek: Samsung cihazlar).</string>
+  <string name="about_application_xda_developers_community">XDA geliştirici topluluğu:</string>
+  <string name="about_application_google_plus_community">Google+ topluluğu:</string>
+  <string name="mobile_cells_pref_dlg_connected_cell">Bağlanılan baz istasyonu:</string>
+  <string name="permissions_for_mobile_cells_registration_dialog_text1">Şebeke baz istasyonlarını taramak için bazı izinler lazımdır.</string>
+  <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Yeni baz istasyon sayacı:</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Durdur</string>
+  <string name="mobile_cells_registration_pref_dlg_add_event_button">Olay ekle</string>
+  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Olayı kaldır</string>
+  <string name="altype_eventPreferencesChanged">Event preferences changed</string>
+  <string name="altype_eventDeleted">Event deleted</string>
+  <string name="altype_profileDeleted">Profile deleted</string>
+  <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
+  <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
+  <string name="altype_allEventsDeleted">All events deleted</string>
+  <string name="altype_allProfilesDeleted">All profiles deleted</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• profil şartları \"Zorla durdurulan uygulamalar\"\n• durum sensörleri \"Uygulama şartları\" ve \"Ekran döndürme şartları\".</string>

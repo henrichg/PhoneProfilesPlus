@@ -1172,6 +1172,21 @@
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Zmena úrovne adaptívneho jasu nemusí fungovať na vašom zariadení (napríklad: zariadenia Samsung).</string>
   <string name="about_application_xda_developers_community">Komunita XDA-developers:</string>
   <string name="about_application_google_plus_community">Komunita Google+:</string>
+  <string name="mobile_cells_pref_dlg_connected_cell">Prepojená bunka:</string>
+  <string name="permissions_for_mobile_cells_registration_dialog_text1">Registrácia mobilných buniek vyžaduje nejaké povolenia.</string>
+  <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Počet nových buniek:</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Zastaviť</string>
+  <string name="mobile_cells_registration_pref_dlg_add_event_button">Pridať udalosť</string>
+  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Odstrániť udalosť</string>
+  <string name="altype_eventPreferencesChanged">Parametre udalosti sa zmenili</string>
+  <string name="altype_eventDeleted">Udalosť vymazaná</string>
+  <string name="altype_profileDeleted">Profil vymazaný</string>
+  <string name="altype_profilePreferencesChanged">Parametre profilu sa zmenili</string>
+  <string name="altype_sharedProfilePreferencesChanged">Parametre zdieľaného profilu sa zmenili</string>
+  <string name="altype_allEventsDeleted">Vymazané všetky udalosti</string>
+  <string name="altype_allProfilesDeleted">Vymazané všetky profily</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) nakonfigurované v systéme, (S) vrátené skenerom.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) nakonfigurované v systéme, (S) vrátené skenerom.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• sensory udalostí \"Parametre aplikácií\" and \"Parametre orientácie\".</string>

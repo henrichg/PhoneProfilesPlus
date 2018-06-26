@@ -1131,6 +1131,7 @@
   <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
   <string name="editor_drawer_open">Άνοιγμα του navigation drawer</string>
   <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
+  <string name="important_info_accessibility_service_new_version_2">Click here to display PhoneProfilesPlusExtender releases in GitHub.</string>
   <string name="array_pref_no_force_stop">Do not force stop</string>
   <string name="array_pref_force_stop">Force stop</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
@@ -1169,6 +1170,23 @@
   <string name="array_pref_value_auto_rotate_on">Automatic rotation on</string>
   <string name="array_pref_value_auto_rotate_off">Automatic rotation off</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
+  <string name="about_application_xda_developers_community">XDA-developers community:</string>
+  <string name="about_application_google_plus_community">Google+ community:</string>
+  <string name="mobile_cells_pref_dlg_connected_cell">Connected cell:</string>
+  <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobile cell registration requires some permissions.</string>
+  <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">New cells count:</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Stop</string>
+  <string name="mobile_cells_registration_pref_dlg_add_event_button">Add event</string>
+  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Remove event</string>
+  <string name="altype_eventPreferencesChanged">Event preferences changed</string>
+  <string name="altype_eventDeleted">Event deleted</string>
+  <string name="altype_profileDeleted">Profile deleted</string>
+  <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
+  <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
+  <string name="altype_allEventsDeleted">All events deleted</string>
+  <string name="altype_allProfilesDeleted">All profiles deleted</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event sensors \"Application parameters\" and \"Orientation parameters\".</string>

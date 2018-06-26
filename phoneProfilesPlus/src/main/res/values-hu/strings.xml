@@ -1131,6 +1131,7 @@
   <string name="notification_channel_notify_event_start_description">Esemény megkezdéséről értesítést mutat.</string>
   <string name="editor_drawer_open">Irányító fiók megnyitása</string>
   <string name="important_info_accessibility_service_new_version">Kérjük, telepítse az új verzióját a PhoneProfilesPlusExtender-nek. További információt a paraméterek telepítéséhez, a PhoneProfilesPlusExtender szükséges.</string>
+  <string name="important_info_accessibility_service_new_version_2">Click here to display PhoneProfilesPlusExtender releases in GitHub.</string>
   <string name="array_pref_no_force_stop">Ne erőltesse a leállítást</string>
   <string name="array_pref_force_stop">Kényszerített leállítás</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Alkalmazások kényszer leállítása</string>
@@ -1168,7 +1169,24 @@
   <string name="phone_profiles_pref_notificationSystemSettings_summary">Konfiguráció értesítési kategória:</string>
   <string name="array_pref_value_auto_rotate_on">Automatikus forgatás be</string>
   <string name="array_pref_value_auto_rotate_off">Automatikus forgatás ki</string>
-  <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
+  <string name="brightness_pref_dialog_adaptive_level_may_not_working">Adaptív változást nem működik az eszközön (például: Samsung eszközök).</string>
+  <string name="about_application_xda_developers_community">XDA-developers közösség:</string>
+  <string name="about_application_google_plus_community">Google + közösség:</string>
+  <string name="mobile_cells_pref_dlg_connected_cell">Csatlakoztatott cella:</string>
+  <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobil cellák regisztrációhoz néhány engedélyt meg kell adni.</string>
+  <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Új cellák száma:</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Leállítás</string>
+  <string name="mobile_cells_registration_pref_dlg_add_event_button">Esemény hozzáadása</string>
+  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Távolítsa el az esemény</string>
+  <string name="altype_eventPreferencesChanged">Event preferences changed</string>
+  <string name="altype_eventDeleted">Event deleted</string>
+  <string name="altype_profileDeleted">Profile deleted</string>
+  <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
+  <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
+  <string name="altype_allEventsDeleted">All events deleted</string>
+  <string name="altype_allProfilesDeleted">All profiles deleted</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Lehetővé teszi a PhoneProfilesPlusExtender-nek: \n• profil paraméter \"Alkalmazások kényszerített leállítása\" \n• esemény érzékelők \"Alkalmazás paraméterek\" és az \"Irány paraméterek\".</string>

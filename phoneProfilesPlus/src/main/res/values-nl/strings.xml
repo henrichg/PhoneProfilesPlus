@@ -152,7 +152,7 @@
   <string name="event_type_time">Tijd</string>
   <string name="event_preferences_category_eventidentification">Event-identificatie</string>
   <string name="event_preferences_eventEnabled">Uitvoeren inschakelen</string>
-  <string name="event_preferences_eventName">Event naam</string>
+  <string name="event_preferences_eventName">Eventnaam</string>
   <string name="event_preferences_eventProfileStart">Profiel activeren</string>
   <string name="widget_label_icon">PhoneProfilesPlus-icoon</string>
   <string name="widget_label_one_row">PhoneProfilesPlus-één rij</string>
@@ -461,7 +461,7 @@
   <string name="permission_group_name_write_settings">Aanpassen systeem instellingen</string>
   <string name="permission_group_name_storage">Opslag</string>
   <string name="permission_group_name_phone">Telefoon</string>
-  <string name="permissions_alert_title">Toestemming aanvragen</string>
+  <string name="permissions_alert_title">Machtigingen aanvragen</string>
   <string name="permissions_for_profile_text1">Activering van profiel</string>
   <string name="permissions_for_profile_text1m">Sommige profielen</string>
   <string name="permissions_for_profile_text2">deze machtigingen vereist:</string>
@@ -1131,6 +1131,7 @@
   <string name="notification_channel_notify_event_start_description">Toont notificatie over start van event.</string>
   <string name="editor_drawer_open">Open navigatiebalk</string>
   <string name="important_info_accessibility_service_new_version">Installeer de nieuwe versie van PhoneProfilesPlusExtender. Meer informatie over de installatie vind je bij de opties die PhoneProfilesPlusExtender gebruiken.</string>
+  <string name="important_info_accessibility_service_new_version_2">Klik hier voor het weergeven van PhoneProfilesPlusExtender releases op GitHub.</string>
   <string name="array_pref_no_force_stop">Stoppen niet forceren</string>
   <string name="array_pref_force_stop">Stoppen forceren</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Forceer stoppen toepassing</string>
@@ -1169,6 +1170,23 @@
   <string name="array_pref_value_auto_rotate_on">Automatische rotatie aan</string>
   <string name="array_pref_value_auto_rotate_off">Automatische rotatie uit</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Verandering van adaptieve niveau werkt mogelijk niet op uw apparaat (voorbeeld: Samsung apparaten).</string>
+  <string name="about_application_xda_developers_community">XDA-developers community:</string>
+  <string name="about_application_google_plus_community">Google + community:</string>
+  <string name="mobile_cells_pref_dlg_connected_cell">Gekoppelde cel:</string>
+  <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobiele cel registratie vereist een aantal machtigingen.</string>
+  <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Aantal nieuwe mobiele cellen:</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Stop</string>
+  <string name="mobile_cells_registration_pref_dlg_add_event_button">Event toevoegen</string>
+  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Event verwijderen</string>
+  <string name="altype_eventPreferencesChanged">Event voorkeuren zijn veranderd</string>
+  <string name="altype_eventDeleted">Event verwijderd</string>
+  <string name="altype_profileDeleted">Profiel verwijderd</string>
+  <string name="altype_profilePreferencesChanged">Profiel-voorkeuren zijn veranderd</string>
+  <string name="altype_sharedProfilePreferencesChanged">Gedeeld profiel-voorkeuren zijn veranderd</string>
+  <string name="altype_allEventsDeleted">Alle events zijn verwijderd</string>
+  <string name="altype_allProfilesDeleted">Alle profielen zijn verwijderd</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Sta toe dat PhoneProfilesPlusExtender \n• profiel parameters \"Force stop toepassingen\" \n• sensoren \"toepassing gebeurtenisparameters\" en \"Oriëntatie parameters\" gebruikt.</string>
