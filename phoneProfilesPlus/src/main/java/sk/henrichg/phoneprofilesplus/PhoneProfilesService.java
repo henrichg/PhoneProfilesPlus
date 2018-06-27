@@ -257,6 +257,8 @@ public class PhoneProfilesService extends Service
         //notificationMediaPlayer = null;
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
+
+        doForFirstStart(null);
     }
 
     @Override
@@ -2628,8 +2630,8 @@ public class PhoneProfilesService extends Service
 
         serviceRunning = true;
 
-        if (!doForFirstStart(intent/*, flags, startId*/)) {
-            if (intent != null) {
+        if ((intent != null) && (!doForFirstStart(intent/*, flags, startId*/))) {
+            //if (intent != null) {
                 if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
                     showProfileNotification();
@@ -3241,7 +3243,7 @@ public class PhoneProfilesService extends Service
                             break;
                     }
                 }
-            }
+            //}
         }
 
         // We want this service to continue running until it is explicitly
