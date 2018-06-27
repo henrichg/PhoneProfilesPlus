@@ -424,168 +424,169 @@ public class MobileCellsPreference extends DialogPreference {
     @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean forRescan)
     {
-        rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
+        if ((mDialog != null) && mDialog.isShowing()) {
+            rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
-            String _cellName;
-            List<MobileCellsData> _cellsList = null;
-            List<MobileCellsData> _filteredCellsList = null;
-            String _cellFilterValue;
-            String _value;
+                String _cellName;
+                List<MobileCellsData> _cellsList = null;
+                List<MobileCellsData> _filteredCellsList = null;
+                String _cellFilterValue;
+                String _value;
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
 
-                _cellName = cellName.getText().toString();
-                _cellsList = new ArrayList<>();
-                _filteredCellsList = new ArrayList<>();
-                _cellFilterValue = cellFilter.getText().toString();
-                _value = value;
+                    _cellName = cellName.getText().toString();
+                    _cellsList = new ArrayList<>();
+                    _filteredCellsList = new ArrayList<>();
+                    _cellFilterValue = cellFilter.getText().toString();
+                    _value = value;
 
-                //dataRelativeLayout.setVisibility(View.GONE);
-                //progressLinearLayout.setVisibility(View.VISIBLE);
-            }
+                    //dataRelativeLayout.setVisibility(View.GONE);
+                    //progressLinearLayout.setVisibility(View.VISIBLE);
+                }
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                synchronized (PPApplication.phoneStateScannerMutex) {
+                @Override
+                protected Void doInBackground(Void... params) {
+                    synchronized (PPApplication.phoneStateScannerMutex) {
 
-                    if (forRescan) {
+                        if (forRescan) {
+                            if (PhoneProfilesService.isPhoneStateScannerStarted()) {
+                                PhoneProfilesService.phoneStateScanner.getRegisteredCell();
+
+                                //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                                //SystemClock.sleep(200);
+                                //PPApplication.sleep(200);
+                            }
+                        }
+
+                        // add all from table
+                        DatabaseHandler db = DatabaseHandler.getInstance(context);
+                        db.addMobileCellsToList(_cellsList/*, false*/);
+
+                        registeredCellData = null;
+                        registeredCellInTable = false;
+                        registeredCellInValue = false;
+
                         if (PhoneProfilesService.isPhoneStateScannerStarted()) {
-                            PhoneProfilesService.phoneStateScanner.getRegisteredCell();
-
-                            //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                            //SystemClock.sleep(200);
-                            //PPApplication.sleep(200);
-                        }
-                    }
-
-                    // add all from table
-                    DatabaseHandler db = DatabaseHandler.getInstance(context);
-                    db.addMobileCellsToList(_cellsList/*, false*/);
-
-                    registeredCellData = null;
-                    registeredCellInTable = false;
-                    registeredCellInValue = false;
-
-                    if (PhoneProfilesService.isPhoneStateScannerStarted()) {
-                        // add registered cell
-                        PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell");
-                        for (MobileCellsData cell : _cellsList) {
-                            if (cell.cellId == PhoneStateScanner.registeredCell) {
-                                cell.connected = true;
-                                registeredCellData = cell;
-                                registeredCellInTable = true;
-                                PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell found");
-                                break;
-                            }
-                        }
-                        if (!registeredCellInTable && (PhoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
-                            PPApplication.logE("MobileCellsPreference.refreshListView","add registered cell not found");
-                            registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
-                                    _cellName, true, true, PhoneStateScanner.lastConnectedTime);
-                            _cellsList.add(registeredCellData);
-                        }
-                    }
-
-                    boolean found;
-                    // add all from value
-                    String[] splits = value.split("\\|");
-                    for (String cell : splits) {
-                        found = false;
-                        for (MobileCellsData mCell : _cellsList) {
-                            if (cell.equals(Integer.toString(mCell.cellId))) {
-                                found = true;
-                                if (registeredCellData != null)
-                                    registeredCellInValue = (mCell.cellId == registeredCellData.cellId);
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            try {
-                                int iCell = Integer.parseInt(cell);
-                                _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0));
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
-
-                    // save all from value + registeredCell to table
-                    db.saveMobileCellsList(_cellsList, true, false);
-
-                    Collections.sort(_cellsList, new SortList());
-
-                    _filteredCellsList.clear();
-                    splits = _value.split("\\|");
-                    for (MobileCellsData cellData : _cellsList) {
-                        if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
-                            for (String cell : splits) {
-                                if (cell.equals(Integer.toString(cellData.cellId))) {
-                                    _filteredCellsList.add(cellData);
+                            // add registered cell
+                            PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell");
+                            for (MobileCellsData cell : _cellsList) {
+                                if (cell.cellId == PhoneStateScanner.registeredCell) {
+                                    cell.connected = true;
+                                    registeredCellData = cell;
+                                    registeredCellInTable = true;
+                                    PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell found");
                                     break;
                                 }
                             }
-                        } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
-                            if (cellData.name.isEmpty())
+                            if (!registeredCellInTable && (PhoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
+                                PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell not found");
+                                registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
+                                        _cellName, true, true, PhoneStateScanner.lastConnectedTime);
+                                _cellsList.add(registeredCellData);
+                            }
+                        }
+
+                        boolean found;
+                        // add all from value
+                        String[] splits = value.split("\\|");
+                        for (String cell : splits) {
+                            found = false;
+                            for (MobileCellsData mCell : _cellsList) {
+                                if (cell.equals(Integer.toString(mCell.cellId))) {
+                                    found = true;
+                                    if (registeredCellData != null)
+                                        registeredCellInValue = (mCell.cellId == registeredCellData.cellId);
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                try {
+                                    int iCell = Integer.parseInt(cell);
+                                    _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0));
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+
+                        // save all from value + registeredCell to table
+                        db.saveMobileCellsList(_cellsList, true, false);
+
+                        Collections.sort(_cellsList, new SortList());
+
+                        _filteredCellsList.clear();
+                        splits = _value.split("\\|");
+                        for (MobileCellsData cellData : _cellsList) {
+                            if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
+                                for (String cell : splits) {
+                                    if (cell.equals(Integer.toString(cellData.cellId))) {
+                                        _filteredCellsList.add(cellData);
+                                        break;
+                                    }
+                                }
+                            } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
+                                if (cellData.name.isEmpty())
+                                    _filteredCellsList.add(cellData);
+                            } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_new))) {
+                                if (cellData._new)
+                                    _filteredCellsList.add(cellData);
+                            } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_all))) {
                                 _filteredCellsList.add(cellData);
-                        } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_new))) {
-                            if (cellData._new)
-                                _filteredCellsList.add(cellData);
-                        } else if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_all))) {
-                            _filteredCellsList.add(cellData);
-                        } else {
-                            if (_cellFilterValue.equals(cellData.name))
-                                _filteredCellsList.add(cellData);
+                            } else {
+                                if (_cellFilterValue.equals(cellData.name))
+                                    _filteredCellsList.add(cellData);
+                            }
+                        }
+
+                        return null;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    super.onPostExecute(result);
+
+                    cellsList = new ArrayList<>(_cellsList);
+                    filteredCellsList = new ArrayList<>(_filteredCellsList);
+                    listAdapter.notifyDataSetChanged();
+
+                    if (cellName.getText().toString().isEmpty()) {
+                        boolean found = false;
+                        for (MobileCellsData cell : filteredCellsList) {
+                            if (isCellSelected(cell.cellId) && (!cell.name.isEmpty())) {
+                                // cell name = first selected filtered cell name. (???)
+                                cellName.setText(cell.name);
+                                found = true;
+                            }
+                        }
+                        if (!found) {
+                            // cell name = event name
+                            SharedPreferences sharedPreferences = getSharedPreferences();
+                            cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
                         }
                     }
 
-                    return null;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-
-                cellsList = new ArrayList<>(_cellsList);
-                filteredCellsList = new ArrayList<>(_filteredCellsList);
-                listAdapter.notifyDataSetChanged();
-
-                if (cellName.getText().toString().isEmpty()) {
-                    boolean found = false;
-                    for (MobileCellsData cell : filteredCellsList) {
-                        if (isCellSelected(cell.cellId) && (!cell.name.isEmpty())) {
-                            // cell name = first selected filtered cell name. (???)
-                            cellName.setText(cell.name);
-                            found = true;
-                        }
+                    String connectedCellName = context.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
+                    if (registeredCellData != null) {
+                        if (!registeredCellData.name.isEmpty())
+                            connectedCellName = connectedCellName + registeredCellData.name + ", ";
+                        String cellFlags = "";
+                        if (registeredCellData._new)
+                            cellFlags = cellFlags + "N";
+                        //if (registeredCellData.connected)
+                        //    cellFlags = cellFlags + "C";
+                        if (!cellFlags.isEmpty())
+                            connectedCellName = connectedCellName + "(" + cellFlags + ") ";
+                        connectedCellName = connectedCellName + registeredCellData.cellId;
                     }
-                    if (!found) {
-                        // cell name = event name
-                        SharedPreferences sharedPreferences = getSharedPreferences();
-                        cellName.setText(sharedPreferences.getString(Event.PREF_EVENT_NAME, ""));
-                    }
-                }
+                    connectedCell.setText(connectedCellName);
+                    GlobalGUIRoutines.setImageButtonEnabled((registeredCellData != null) && !(registeredCellInTable && registeredCellInValue),
+                            addCellButton, R.drawable.ic_action_location_add, context);
 
-                String connectedCellName = context.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
-                if (registeredCellData != null) {
-                    if (!registeredCellData.name.isEmpty())
-                        connectedCellName = connectedCellName + registeredCellData.name + ", ";
-                    String cellFlags = "";
-                    if (registeredCellData._new)
-                        cellFlags = cellFlags + "N";
-                    //if (registeredCellData.connected)
-                    //    cellFlags = cellFlags + "C";
-                    if (!cellFlags.isEmpty())
-                        connectedCellName = connectedCellName + "(" + cellFlags + ") ";
-                    connectedCellName = connectedCellName + registeredCellData.cellId;
-                }
-                connectedCell.setText(connectedCellName);
-                GlobalGUIRoutines.setImageButtonEnabled((registeredCellData != null) && !(registeredCellInTable && registeredCellInValue),
-                        addCellButton, R.drawable.ic_action_location_add, context);
-
-                //progressLinearLayout.setVisibility(View.GONE);
-                //dataRelativeLayout.setVisibility(View.VISIBLE);
+                    //progressLinearLayout.setVisibility(View.GONE);
+                    //dataRelativeLayout.setVisibility(View.VISIBLE);
 
                 /*
                 for (int position = 0; position < cellsList.size() - 1; position++) {
@@ -595,11 +596,12 @@ public class MobileCellsPreference extends DialogPreference {
                     }
                 }
                 */
-            }
+                }
 
-        };
+            };
 
-        rescanAsyncTask.execute();
+            rescanAsyncTask.execute();
+        }
     }
 
     private class SortList implements Comparator<MobileCellsData> {
