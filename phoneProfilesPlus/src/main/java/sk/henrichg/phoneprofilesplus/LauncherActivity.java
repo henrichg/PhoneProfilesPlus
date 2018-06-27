@@ -26,7 +26,7 @@ public class LauncherActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        if (!PPApplication.getApplicationStarted(getApplicationContext(), false))
+        if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
         {
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
@@ -37,7 +37,7 @@ public class LauncherActivity extends AppCompatActivity {
         }
         else
         {
-            if (PhoneProfilesService.instance == null) {
+            if (!PhoneProfilesService.serviceHasFirstStart) {
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
