@@ -454,11 +454,13 @@ public class PhoneProfilesService extends Service
 
             // required for unlink ring and notification volume
             if (settingsContentObserver == null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER settings content observer");
-                //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
-                settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
-                appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
+                try {
+                    CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                    PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER settings content observer");
+                    //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
+                    settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
+                    appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, settingsContentObserver);
+                } catch (Exception ignored) {}
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered settings content observer");
