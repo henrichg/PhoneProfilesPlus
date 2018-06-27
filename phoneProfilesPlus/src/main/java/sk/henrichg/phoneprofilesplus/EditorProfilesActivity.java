@@ -1293,6 +1293,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //dataWrapper.getActivateProfileHelper().updateGUI();
 
                         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                        PPApplication.setApplicationStarted(getApplicationContext(), true);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
                         PPApplication.startPPService(activity, serviceIntent);
@@ -1313,6 +1314,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // refresh activity
                         GlobalGUIRoutines.reloadActivity(activity, true);
                     } else {
+                        PPApplication.setApplicationStarted(getApplicationContext(), true);
                         Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);

@@ -68,7 +68,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.isServiceRunningInForeground"
-                                         //+"|PhoneProfilesService.showProfileNotification"
+                                         +"|PhoneProfilesService.showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
@@ -495,13 +495,16 @@ public class PPApplication extends Application {
             sLook = null;
         }
 
-        try {
-            PPApplication.logE("PPApplication.onCreate", "start service");
-            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
-            startPPService(getApplicationContext(), serviceIntent);
-        } catch (Exception ignored) {}
+        if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
+            try {
+                PPApplication.logE("PPApplication.onCreate", "start service");
+                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+                startPPService(getApplicationContext(), serviceIntent);
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     @Override
