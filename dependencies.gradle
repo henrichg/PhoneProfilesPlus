@@ -10,8 +10,8 @@
 // 4000 = updated privacy policy
 
 ext.ppVersions = [
-    publishVersion: '3.6.1',
-    publishVersionCode: 4060,
+    publishVersion: '3.6.1.1b',
+    publishVersionCode: 4061,
 
     minSdk: 19,
     targetSdk: 27,
