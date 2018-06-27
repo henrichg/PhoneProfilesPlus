@@ -494,6 +494,14 @@ public class PPApplication extends Application {
         } catch (SsdkUnsupportedException e) {
             sLook = null;
         }
+
+        try {
+            PPApplication.logE("PPApplication.onCreate", "start service");
+            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            startPPService(getApplicationContext(), serviceIntent);
+        } catch (Exception ignored) {}
     }
 
     @Override
@@ -512,6 +520,32 @@ public class PPApplication extends Application {
             return true;
         }
         return false;
+    }
+
+    static boolean isNewVersion(Context appContext) {
+        int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
+        PPApplication.logE("PPApplication.isNewVersion", "oldVersionCode="+oldVersionCode);
+        int actualVersionCode;
+        try {
+            if (oldVersionCode == 0) {
+                // save version code
+                try {
+                    PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                    actualVersionCode = pInfo.versionCode;
+                    PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+                } catch (Exception ignored) {
+                }
+                return false;
+            }
+
+            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+            actualVersionCode = pInfo.versionCode;
+            PPApplication.logE("PPApplication.isNewVersion", "actualVersionCode=" + actualVersionCode);
+
+            return (oldVersionCode < actualVersionCode);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     //--------------------------------------------------------------

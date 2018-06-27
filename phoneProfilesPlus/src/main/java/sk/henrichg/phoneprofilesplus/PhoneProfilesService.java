@@ -199,6 +199,7 @@ public class PhoneProfilesService extends Service
 
         instance = this;
         serviceHasFirstStart = false;
+        serviceRunning = false;
 
         Context appContext = getApplicationContext();
 
@@ -218,14 +219,6 @@ public class PhoneProfilesService extends Service
             Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScannig(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval(appContext));
         } catch (Exception ignored) {}
-
-        // save version code (is used in PackageReplacedReceiver)
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            int actualVersionCode = pInfo.versionCode;
-            PPApplication.setSavedVersionCode(appContext, actualVersionCode);
-        } catch (Exception ignored) {
-        }
 
         /*
         ApplicationPreferences.getSharedPreferences(appContext);
@@ -2311,6 +2304,24 @@ public class PhoneProfilesService extends Service
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
 
+        if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
+            // do not call this from handlerThread. In Android 8 handlerThread is not called
+            // when for service is not displayed foreground notification
+            showProfileNotification();
+        }
+
+        if (serviceRunning && onlyStart && !startOnBoot && !startOnPackageReplace) {
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START already running");
+            return true;
+        }
+
+        if ((!startOnPackageReplace) && PPApplication.isNewVersion(getApplicationContext())) {
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "is new version");
+            return true;
+        }
+
+        serviceRunning = true;
+
         if (onlyStart)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
         if (startOnBoot)
@@ -2320,15 +2331,18 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
-            // do not call this from handlerThread. In Android 8 handlerThread is not called
-            // when for service is not displayed foreground notification
-            showProfileNotification();
-        }
-
         if (onlyStart) {
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "startOnPackageReplace="+startOnPackageReplace);
             if (startOnPackageReplace) {
+                final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
+                // save version code
+                try {
+                    PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
+                    int actualVersionCode = pInfo.versionCode;
+                    PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+                } catch (Exception ignored) {
+                }
+
                 PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart.1");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
@@ -2348,7 +2362,6 @@ public class PhoneProfilesService extends Service
                         WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true);
                         //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
-                        int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
                         PPApplication.logE("PhoneProfilesService.doForFirstStart", "oldVersionCode="+oldVersionCode);
                         int actualVersionCode;
                         try {
@@ -2357,6 +2370,8 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("PhoneProfilesService.doForFirstStart", "actualVersionCode=" + actualVersionCode);
 
                             if (oldVersionCode < actualVersionCode) {
+                                PPApplication.logE("PhoneProfilesService.doForFirstStart", "is new version");
+
                                 if (actualVersionCode <= 2322) {
                                     // for old packages use Priority in events
                                     ApplicationPreferences.getSharedPreferences(appContext);
@@ -2627,8 +2642,6 @@ public class PhoneProfilesService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
     {
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
-
-        serviceRunning = true;
 
         if ((intent != null) && (!doForFirstStart(intent/*, flags, startId*/))) {
             //if (intent != null) {
@@ -3272,7 +3285,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        if (serviceRunning && (instance != null) && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
+        if ((instance != null) && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
         {
             boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(appContext);
             boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
