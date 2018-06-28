@@ -875,7 +875,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 @Override
                 protected Void doInBackground(Void... params) {
                     synchronized (PPApplication.geofenceScannerMutex) {
-                        if (!PhoneProfilesService.isGeofenceScannerStarted()) {
+                        if ((PhoneProfilesService.instance == null) || !PhoneProfilesService.instance.isGeofenceScannerStarted()) {
                             PPApplication.restartGeofenceScanner(context, false);
                             PPApplication.sleep(1000);
                         }

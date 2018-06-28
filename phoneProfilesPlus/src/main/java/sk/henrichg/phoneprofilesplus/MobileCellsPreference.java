@@ -459,8 +459,8 @@ public class MobileCellsPreference extends DialogPreference {
                     synchronized (PPApplication.phoneStateScannerMutex) {
 
                         if (forRescan) {
-                            if (PhoneProfilesService.isPhoneStateScannerStarted()) {
-                                PhoneProfilesService.phoneStateScanner.getRegisteredCell();
+                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isPhoneStateScannerStarted()) {
+                                PhoneProfilesService.instance.getPhoneStateScanner().getRegisteredCell();
 
                                 //try { Thread.sleep(200); } catch (InterruptedException e) { }
                                 //SystemClock.sleep(200);
@@ -476,7 +476,7 @@ public class MobileCellsPreference extends DialogPreference {
                         registeredCellInTable = false;
                         registeredCellInValue = false;
 
-                        if (PhoneProfilesService.isPhoneStateScannerStarted()) {
+                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isPhoneStateScannerStarted()) {
                             // add registered cell
                             PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell");
                             for (MobileCellsData cell : _cellsList) {

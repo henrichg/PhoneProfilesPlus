@@ -43,12 +43,12 @@ class GeofenceScannerJob extends Job {
 
                 boolean geofenceScannerUpdatesStarted = false;
                 synchronized (PPApplication.geofenceScannerMutex) {
-                    if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.getGeofencesScanner() != null)) {
-                        if (PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
+                    if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.instance.getGeofencesScanner() != null)) {
+                        if (PhoneProfilesService.instance.getGeofencesScanner().mUpdatesStarted) {
                             PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - save to DB");
 
-                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                                PhoneProfilesService.getGeofencesScanner().updateGeofencesInDB();
+                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted())
+                                PhoneProfilesService.instance.getGeofencesScanner().updateGeofencesInDB();
 
                             geofenceScannerUpdatesStarted = true;
                         }
@@ -91,16 +91,16 @@ class GeofenceScannerJob extends Job {
 
             int interval;
             synchronized (PPApplication.geofenceScannerMutex) {
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getGeofencesScanner().mUpdatesStarted);
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted())
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.instance.getGeofencesScanner().mUpdatesStarted);
                 else
                     PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=false");
 
                 // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
                 //int updateDuration = 30;
 
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
-                        PhoneProfilesService.getGeofencesScanner().mUpdatesStarted) {
+                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted() &&
+                        PhoneProfilesService.instance.getGeofencesScanner().mUpdatesStarted) {
                     interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
                     PPApplication.logE("GeofenceScannerJob.scheduleJob", "interval=" + interval);
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;

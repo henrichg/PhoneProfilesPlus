@@ -130,7 +130,7 @@ public class PhoneProfilesService extends Service
 
     //-----------------------
 
-    private static GeofencesScanner geofencesScanner = null;
+    private GeofencesScanner geofencesScanner = null;
 
     private static SensorManager mOrientationSensorManager = null;
     private static boolean mStartedOrientationSensors = false;
@@ -142,7 +142,7 @@ public class PhoneProfilesService extends Service
     private float mMaxProximityDistance;
     private float mGravityZ = 0;  //gravity acceleration along the z axis
 
-    public static PhoneStateScanner phoneStateScanner = null;
+    private PhoneStateScanner phoneStateScanner = null;
 
     private static final int DEVICE_ORIENTATION_UNKNOWN = 0;
     private static final int DEVICE_ORIENTATION_RIGHT_SIDE_UP = 3;
@@ -3593,11 +3593,11 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    static boolean isGeofenceScannerStarted() {
+    boolean isGeofenceScannerStarted() {
         return (geofencesScanner != null);
     }
 
-    static GeofencesScanner getGeofencesScanner() {
+    GeofencesScanner getGeofencesScanner() {
         return geofencesScanner;
     }
 
@@ -3622,8 +3622,13 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    public static boolean isPhoneStateScannerStarted() {
+    boolean isPhoneStateScannerStarted() {
         return (phoneStateScanner != null);
+    }
+
+
+    PhoneStateScanner getPhoneStateScanner() {
+        return phoneStateScanner;
     }
 
     //--------------------------------------------------------------------------

@@ -2830,8 +2830,8 @@ public class DataWrapper {
                     ignoreLocation = true;
                 } else {*/
                     synchronized (PPApplication.geofenceScannerMutex) {
-                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted() &&
-                                PhoneProfilesService.getGeofencesScanner().mTransitionsUpdated) {
+                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted() &&
+                                PhoneProfilesService.instance.getGeofencesScanner().mTransitionsUpdated) {
                             locationPassed = false;
 
                             String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
@@ -3002,7 +3002,7 @@ public class DataWrapper {
                     ignoreMobileCell = true;
                 } else {*/
                     synchronized (PPApplication.phoneStateScannerMutex) {
-                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
+                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isPhoneStateScannerStarted()) {
                             String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
                             if (PhoneStateScanner.registeredCell != Integer.MAX_VALUE) {
                                 String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);
