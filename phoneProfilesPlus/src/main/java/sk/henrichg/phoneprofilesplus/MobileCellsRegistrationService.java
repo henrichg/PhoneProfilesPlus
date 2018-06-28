@@ -24,6 +24,7 @@ public class MobileCellsRegistrationService extends Service {
 
     private CountDownTimer countDownTimer = null;
 
+    static boolean serviceStarted = false;
     static boolean forceStart;
     private Context context;
 
@@ -38,14 +39,16 @@ public class MobileCellsRegistrationService extends Service {
     public void onCreate()
     {
         super.onCreate();
-        //Log.d("MobileCellsRegistrationService", "START");
+
+        PPApplication.logE("MobileCellsRegistrationService.onCreate", "xxx");
 
         context = this;
+        serviceStarted = true;
 
         PPApplication.forceStartPhoneStateScanner(this);
         forceStart = true;
 
-        PhoneStateScanner.autoRegistrationService = this;
+        //PhoneStateScanner.autoRegistrationService = this;
 
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
@@ -96,10 +99,11 @@ public class MobileCellsRegistrationService extends Service {
 
     @Override
     public void onDestroy() {
+        PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
 
         countDownTimer.cancel();
 
-        PhoneStateScanner.autoRegistrationService = null;
+        //PhoneStateScanner.autoRegistrationService = null;
 
         forceStart = false;
         PPApplication.restartPhoneStateScanner(this, false);
@@ -115,6 +119,8 @@ public class MobileCellsRegistrationService extends Service {
             }
             mobileCellsRegistrationStopButtonBroadcastReceiver = null;
         }
+
+        serviceStarted = false;
 
         //Log.d("MobileCellsRegistrationService", "Timer cancelled");
         super.onDestroy();

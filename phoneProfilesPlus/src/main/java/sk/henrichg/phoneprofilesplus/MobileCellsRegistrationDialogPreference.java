@@ -245,8 +245,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                 MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, 0);
                 //PPApplication.phoneProfilesService.phoneStateScanner.durationForAutoRegistration = 0;
                 //PPApplication.phoneProfilesService.phoneStateScanner.cellsNameForAutoRegistration = "";
-                PhoneStateScanner.enabledAutoRegistration = false;
-                MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
                 setSummaryDDP(0);
                 PhoneStateScanner.stopAutoRegistration(context);
             }
@@ -424,9 +422,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
         PhoneStateScanner.durationForAutoRegistration = iValue;
         PhoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
-        PhoneStateScanner.enabledAutoRegistration = true;
-        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
-        PhoneStateScanner.startAutoRegistration(context);
+        PhoneStateScanner.startAutoRegistration(context, false);
 
         value = String.valueOf(iValue);
         setSummaryDDP(0);

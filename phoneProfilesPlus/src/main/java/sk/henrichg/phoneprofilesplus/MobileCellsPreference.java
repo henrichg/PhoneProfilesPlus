@@ -141,6 +141,13 @@ public class MobileCellsPreference extends DialogPreference {
                     }
                 });
 
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                refreshListView(false);
+            }
+        });
+
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
@@ -176,7 +183,7 @@ public class MobileCellsPreference extends DialogPreference {
         listAdapter = new MobileCellsPreferenceAdapter(context, this);
         cellsListView.setAdapter(listAdapter);
 
-        refreshListView(false);
+        //refreshListView(false);
 
         /*
         cellsListView.setOnItemClickListener(new OnItemClickListener() {
@@ -518,10 +525,12 @@ public class MobileCellsPreference extends DialogPreference {
 
                         _filteredCellsList.clear();
                         splits = _value.split("\\|");
+                        PPApplication.logE("MobileCellsPreference.refreshListView", "_value="+_value);
                         for (MobileCellsData cellData : _cellsList) {
                             if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
                                 for (String cell : splits) {
                                     if (cell.equals(Integer.toString(cellData.cellId))) {
+                                        PPApplication.logE("MobileCellsPreference.refreshListView", "added cellId="+cellData.cellId);
                                         _filteredCellsList.add(cellData);
                                         break;
                                     }
@@ -588,14 +597,14 @@ public class MobileCellsPreference extends DialogPreference {
                     //progressLinearLayout.setVisibility(View.GONE);
                     //dataRelativeLayout.setVisibility(View.VISIBLE);
 
-                /*
-                for (int position = 0; position < cellsList.size() - 1; position++) {
-                    if (Integer.toString(cellsList.get(position).cellId).equals(value)) {
-                        cellsListView.setSelection(position);
-                        break;
+                    /*
+                    for (int position = 0; position < cellsList.size() - 1; position++) {
+                        if (Integer.toString(cellsList.get(position).cellId).equals(value)) {
+                            cellsListView.setSelection(position);
+                            break;
+                        }
                     }
-                }
-                */
+                    */
                 }
 
             };

@@ -2975,20 +2975,23 @@ public class PhoneProfilesService extends Service
                             handler13.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                                    if (!MobileCellsRegistrationService.serviceStarted) {
+                                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                        PowerManager.WakeLock wakeLock = null;
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
 
-                                    PhoneStateScanner.forceStart = false;
-                                    startPhoneStateScanner(true, true, true, false, true);
+                                        PhoneStateScanner.forceStart = false;
+                                        startPhoneStateScanner(true, true, true, false, true);
 
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
+                                        }
                                     }
                                 }
                             });

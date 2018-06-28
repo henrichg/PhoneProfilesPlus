@@ -47,7 +47,7 @@ class PhoneStateScanner extends PhoneStateListener {
     static String cellsNameForAutoRegistration = "";
     static private final List<Long> eventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    static MobileCellsRegistrationService autoRegistrationService = null;
+    //static MobileCellsRegistrationService autoRegistrationService = null;
 
     //static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
 
@@ -117,7 +117,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
                 );*/
         }
-        startAutoRegistration(context);
+        startAutoRegistration(context, true);
     }
 
     void disconnect() {
@@ -472,7 +472,7 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
-    static void startAutoRegistration(Context context) {
+    static void startAutoRegistration(Context context, boolean forConnect) {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
@@ -481,23 +481,29 @@ class PhoneStateScanner extends PhoneStateListener {
 
         PPApplication.logE("PhoneStateScanner.startAutoRegistration", "enabledAutoRegistration="+enabledAutoRegistration);
 
+        if (!forConnect) {
+            enabledAutoRegistration = true;
+            MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
+        }
+
         if (enabledAutoRegistration) {
-            //Log.d("PhoneStateScanner.startAutoRegistration","xxx");
-            stopAutoRegistration(context);
             try {
                 Intent serviceIntent = new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class);
                 PPApplication.startPPService(context, serviceIntent);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         }
     }
 
     static void stopAutoRegistration(Context context) {
-        if (autoRegistrationService != null) {
-            PPApplication.logE("PhoneStateScanner.stopAutoRegistration", "xxx");
-            context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
-            autoRegistrationService = null;
-            clearEventList();
-        }
+        PPApplication.logE("PhoneStateScanner.stopAutoRegistration", "xxx");
+
+        context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
+
+        clearEventList();
+
+        enabledAutoRegistration = false;
+        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
     }
 
     static boolean isEventAdded(long event_id) {
