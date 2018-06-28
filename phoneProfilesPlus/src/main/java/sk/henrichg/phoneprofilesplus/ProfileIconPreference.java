@@ -157,7 +157,7 @@ public class ProfileIconPreference extends DialogPreference {
         customIconButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Permissions.grantCustomProfileIconPermissions(prefContext, ProfileIconPreference.this)) {
+                if (Permissions.grantCustomProfileIconPermissions(prefContext)) {
                     startGallery();
                     //mDialog.dismiss();
                 }

@@ -282,6 +282,24 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
     */
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
+            if (data != null) {
+                long profileId = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+                int startupSource = data.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+                boolean mergedProfile = data.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
+                boolean activateProfile = data.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, false);
+
+                if (activateProfile && (getDataWrapper() != null)) {
+                    Profile profile = getDataWrapper().getProfileById(profileId, false, false, mergedProfile);
+                    getDataWrapper().activateProfileFromMainThread(profile, mergedProfile, startupSource, /*true,*/ this);
+                }
+            }
+        }
+    }
+
     public void refreshGUI(boolean refreshIcons)
     {
         final boolean _refreshIcons = refreshIcons;

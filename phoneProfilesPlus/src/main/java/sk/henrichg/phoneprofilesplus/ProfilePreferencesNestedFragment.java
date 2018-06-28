@@ -1845,6 +1845,32 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             ProfilePreferencesActivity.showSaveMenu = true;
             activity.invalidateOptionsMenu();
         }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WALLPAPER) {
+            WallpaperViewPreference preference = (WallpaperViewPreference)prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+            if (preference != null)
+                preference.startGallery();
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON) {
+            ProfileIconPreference preference = (ProfileIconPreference)prefMng.findPreference(Profile.PREF_PROFILE_ICON);
+            if (preference != null)
+                preference.startGallery();
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
+            BrightnessDialogPreference preference = (BrightnessDialogPreference)prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS);
+            if (preference != null)
+                preference.enableViews();
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
+            RingtonePreference preference = (RingtonePreference) prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE);
+            if (preference != null)
+                preference.refreshListView();
+            preference = (RingtonePreference) prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
+            if (preference != null)
+                preference.refreshListView();
+            preference = (RingtonePreference) prefMng.findPreference(Profile.PREF_PROFILE_SOUND_ALARM);
+            if (preference != null)
+                preference.refreshListView();
+        }
     }
 
     @Override

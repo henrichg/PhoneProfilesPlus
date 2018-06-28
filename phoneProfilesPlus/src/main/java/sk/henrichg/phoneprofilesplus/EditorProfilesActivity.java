@@ -1080,6 +1080,30 @@ public class EditorProfilesActivity extends AppCompatActivity
                 doImportData(GlobalGUIRoutines.REMOTE_EXPORT_PATH);
             }
         }
+        else
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
+            if (data != null) {
+                long profileId = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+                int startupSource = data.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+                boolean mergedProfile = data.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
+                boolean activateProfile = data.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, false);
+
+                if (activateProfile && (getDataWrapper() != null)) {
+                    Profile profile = getDataWrapper().getProfileById(profileId, false, false, mergedProfile);
+                    getDataWrapper().activateProfileFromMainThread(profile, mergedProfile, startupSource, /*true,*/ this);
+                }
+            }
+        }
+        else
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT) {
+            doExportData();
+        }
+        else
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMPORT) {
+            if (data != null) {
+                doImportData(data.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH));
+            }
+        }
     }
 
     @Override

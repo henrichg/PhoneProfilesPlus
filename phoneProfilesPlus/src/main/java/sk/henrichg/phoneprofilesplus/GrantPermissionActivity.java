@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -799,64 +800,72 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_WALLPAPER) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.wallpaperViewPreference != null)
-                Permissions.wallpaperViewPreference.startGallery();
+            /*if (Permissions.wallpaperViewPreference != null)
+                Permissions.wallpaperViewPreference.startGallery();*/
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.profileIconPreference != null)
-                Permissions.profileIconPreference.startGallery();
+            /*if (Permissions.profileIconPreference != null)
+                Permissions.profileIconPreference.startGallery();*/
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EXPORT) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.editorActivity != null)
-                Permissions.editorActivity.doExportData();
+            //if (Permissions.editorActivity != null)
+            //    Permissions.editorActivity.doExportData();
         }
         else
         if (grantType == Permissions.GRANT_TYPE_IMPORT) {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(Permissions.EXTRA_APPLICATION_DATA_PATH, applicationDataPath);
+            setResult(Activity.RESULT_OK,returnIntent);
             finish();
-            if (Permissions.editorActivity != null)
-                Permissions.editorActivity.doImportData(applicationDataPath);
+            //if (Permissions.editorActivity != null)
+            //    Permissions.editorActivity.doImportData(applicationDataPath);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG) {
+            finish();
             if (Permissions.wifiSSIDPreference != null)
                 Permissions.wifiSSIDPreference.refreshListView(true, "");
             if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");
-            dataWrapper.restartEvents(false, true/*, false*/, false);
             if (PhoneProfilesService.instance != null) {
                 PhoneProfilesService.instance.scheduleWifiJob(true, true, /*false, false,*/ Permissions.wifiSSIDPreference != null, false);
                 PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, /*false,*/ Permissions.bluetoothNamePreference != null, false);
                 PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
             }
-            finish();
+            //dataWrapper.restartEvents(false, true/*, false*/, false);
+            dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
+            finish();
             if (Permissions.calendarsMultiSelectDialogPreference != null)
                 Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true/*, false*/, false);
-            finish();
+            //dataWrapper.restartEvents(false, true/*, false*/, false);
+            dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
+            finish();
             if (Permissions.contactsMultiSelectDialogPreference != null)
                 Permissions.contactsMultiSelectDialogPreference.refreshListView(true);
             if (Permissions.contactGroupsMultiSelectDialogPreference != null)
                 Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true/*, false*/, false);
-            finish();
+            //dataWrapper.restartEvents(false, true/*, false*/, false);
+            dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_EVENT) {
             //finishAffinity();
             finish();
             Permissions.removeEventNotification(context);
-            dataWrapper.restartEvents(false, true/*, false*/, false);
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -868,6 +877,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     break;
                 }
             }
+            //dataWrapper.restartEvents(false, true/*, false*/, false);
+            dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
@@ -892,39 +903,43 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         //PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false);
                         PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
                     }
-                    if (Permissions.locationGeofenceEditorActivity != null)
-                        Permissions.locationGeofenceEditorActivity.getLastLocation();
-
-                    dataWrapper.restartEvents(false, true/*, false*/, false);
-
+                    setResult(Activity.RESULT_OK);
                     finish();
+                    /*if (Permissions.locationGeofenceEditorActivity != null)
+                        Permissions.locationGeofenceEditorActivity.getLastLocation();*/
+
+                    //dataWrapper.restartEvents(false, true/*, false*/, false);
+                    dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                 }
             }.execute();
         }
         else
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.brightnessDialogPreference != null)
-                Permissions.brightnessDialogPreference.enableViews();
+            /*if (Permissions.brightnessDialogPreference != null)
+                Permissions.brightnessDialogPreference.enableViews();*/
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
+            finish();
             if (Permissions.mobileCellsPreference != null)
                 Permissions.mobileCellsPreference.refreshListView(true);
-            dataWrapper.restartEvents(false, true/*, false*/, false);
-            finish();
+            //dataWrapper.restartEvents(false, true/*, false*/, false);
+            dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {
+            finish();
             if (Permissions.mobileCellsRegistrationDialogPreference != null)
                 Permissions.mobileCellsRegistrationDialogPreference.startRegistration();
-            finish();
         }
         else
         if (grantType == Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
-            if (Permissions.ringtonePreference != null)
-                Permissions.ringtonePreference.refreshListView();
+            setResult(Activity.RESULT_OK);
             finish();
+            /*if (Permissions.ringtonePreference != null)
+                Permissions.ringtonePreference.refreshListView();*/
         }
         else {
             // Profile permission
@@ -933,12 +948,19 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PPApplication.logE("GrantPermissionActivity.finishGrant", "startupSource="+startupSource);
             //PPApplication.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
 
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            returnIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
+            returnIntent.putExtra(Permissions.EXTRA_MERGED_PROFILE, mergedProfile);
+            returnIntent.putExtra(Permissions.EXTRA_ACTIVATE_PROFILE, activateProfile);
+            setResult(Activity.RESULT_OK,returnIntent);
+
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
-            if (activateProfile)
-                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, /*interactive,*/
-                        Permissions.profileActivationActivity);
+            /*if (activateProfile)
+                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, //interactive,
+                        Permissions.profileActivationActivity);*/
         }
         Permissions.releaseReferences();
         if (mergedNotification)

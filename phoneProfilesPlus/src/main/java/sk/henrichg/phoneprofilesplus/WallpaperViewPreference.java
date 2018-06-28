@@ -89,7 +89,7 @@ public class WallpaperViewPreference extends Preference {
     @Override
     protected void onClick()
     {
-        if (Permissions.grantWallpaperPermissions(prefContext, this))
+        if (Permissions.grantWallpaperPermissions(prefContext))
             startGallery();
     }
 

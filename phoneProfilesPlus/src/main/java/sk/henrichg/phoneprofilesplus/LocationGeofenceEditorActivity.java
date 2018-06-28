@@ -312,6 +312,10 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 } catch (Exception ignored) {}
             }
         }
+        else
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
+            getLastLocation();
+        }
     }
 
     @Override

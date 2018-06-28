@@ -75,6 +75,24 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
+            if (data != null) {
+                long profileId = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+                int startupSource = data.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+                boolean mergedProfile = data.getBooleanExtra(Permissions.EXTRA_MERGED_PROFILE, false);
+                boolean activateProfile = data.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, false);
+
+                if (activateProfile) {
+                    Profile profile = dataWrapper.getProfileById(profileId, false, false, mergedProfile);
+                    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, /*true,*/ this);
+                }
+            }
+        }
+    }
+
     private void showNotification(String title, String text) {
         String nTitle = title;
         String nText = text;
