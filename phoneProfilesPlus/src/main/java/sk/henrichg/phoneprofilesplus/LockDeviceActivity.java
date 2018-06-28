@@ -22,7 +22,7 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
 
-        PPApplication.lockDeviceActivity = this;
+        ActivateProfileHelper.lockDeviceActivity = this;
 
         /*
         View decorView = getWindow().getDecorView();
@@ -36,7 +36,7 @@ public class LockDeviceActivity extends AppCompatActivity {
         getWindow().setAttributes(lp);
         */
 
-        PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+        ActivateProfileHelper.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
         ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
         Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
@@ -91,9 +91,9 @@ public class LockDeviceActivity extends AppCompatActivity {
             } catch (Exception ignored) {}
 
         LockDeviceActivityFinishBroadcastReceiver.removeAlarm(getApplicationContext());
-        PPApplication.lockDeviceActivity = null;
+        ActivateProfileHelper.lockDeviceActivity = null;
         if (Permissions.checkLockDevice(getApplicationContext()))
-            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, ActivateProfileHelper.screenTimeoutBeforeDeviceLock);
     }
 
     @Override

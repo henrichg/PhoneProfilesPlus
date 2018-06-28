@@ -1238,7 +1238,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         DatabaseHandler.getInstance(this.dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
                         DatabaseHandler.getInstance(this.dataWrapper.context).deactivateProfile();
                         DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
-                        DatabaseHandler.getInstance(this.dataWrapper.context).disableNotAllowedPreferences(getApplicationContext());
+                        DatabaseHandler.getInstance(this.dataWrapper.context).disableNotAllowedPreferences();
                         this.dataWrapper.invalidateProfileList();
                         this.dataWrapper.invalidateEventList();
                         Event.setEventsBlocked(getApplicationContext(), false);

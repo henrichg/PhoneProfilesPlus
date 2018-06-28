@@ -2335,8 +2335,9 @@ public class PhoneProfilesService extends Service
 
         if (onlyStart) {
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "startOnPackageReplace="+startOnPackageReplace);
-            if (startOnPackageReplace) {
-            }
+            //if (startOnPackageReplace) {
+            //  moved to PackageReplacedReceiver
+            //}
 
             /*
             registerReceiversAndJobs();

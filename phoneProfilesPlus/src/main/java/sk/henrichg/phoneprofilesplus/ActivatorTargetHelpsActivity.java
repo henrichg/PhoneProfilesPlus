@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 
     public static ActivatorTargetHelpsActivity activity;
-    public static ActivateProfileActivity activatorActivity;
+    //public static ActivateProfileActivity activatorActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,13 +21,12 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
     {
         super.onResume();
 
-        if (activatorActivity == null) {
+        if (ActivateProfileActivity.getInstance() == null) {
             finish();
             return;
         }
 
-        //GlobalGUIRoutines.setTheme(this, true, true, false);
-        activatorActivity.showTargetHelps();
+        ActivateProfileActivity.getInstance().showTargetHelps();
     }
 
     @Override

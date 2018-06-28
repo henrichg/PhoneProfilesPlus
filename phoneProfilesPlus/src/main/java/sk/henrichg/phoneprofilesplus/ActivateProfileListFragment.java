@@ -498,7 +498,7 @@ public class ActivateProfileListFragment extends Fragment {
                         //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
                         ActivatorTargetHelpsActivity.activity.finish();
                         ActivatorTargetHelpsActivity.activity = null;
-                        ActivatorTargetHelpsActivity.activatorActivity = null;
+                        //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }
                 }
             }, 500);
@@ -540,7 +540,7 @@ public class ActivateProfileListFragment extends Fragment {
                         //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
                         ActivatorTargetHelpsActivity.activity.finish();
                         ActivatorTargetHelpsActivity.activity = null;
-                        ActivatorTargetHelpsActivity.activatorActivity = null;
+                        //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }
                 }
             }, 500);

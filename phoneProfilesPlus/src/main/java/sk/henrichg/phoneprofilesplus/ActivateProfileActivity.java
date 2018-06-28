@@ -104,7 +104,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         popupHeight = popupHeight + (25f + 1f + 3f) * scale;
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
-        int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(true, getApplicationContext());
+        int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(true);
         dataWrapper.invalidateDataWrapper();
 
         if (profileCount > 0) {
@@ -203,7 +203,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         super.onStop();
         if (instance == this)
             instance = null;
-        ActivatorTargetHelpsActivity.activatorActivity = null;
+        //ActivatorTargetHelpsActivity.activatorActivity = null;
     }
 
     @Override
@@ -338,7 +338,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
             //Log.d("ActivateProfilesActivity.startTargetHelpsActivity", "xxx");
 
-            ActivatorTargetHelpsActivity.activatorActivity = this;
+            //ActivatorTargetHelpsActivity.activatorActivity = this;
             Intent intent = new Intent(this, ActivatorTargetHelpsActivity.class);
             startActivity(intent);
 
@@ -444,7 +444,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                     //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                                     ActivatorTargetHelpsActivity.activity.finish();
                                     ActivatorTargetHelpsActivity.activity = null;
-                                    ActivatorTargetHelpsActivity.activatorActivity = null;
+                                    //ActivatorTargetHelpsActivity.activatorActivity = null;
                                 }
                             }
                         }, 500);
@@ -480,7 +480,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
                 ActivatorTargetHelpsActivity.activity.finish();
                 ActivatorTargetHelpsActivity.activity = null;
-                ActivatorTargetHelpsActivity.activatorActivity = null;
+                //ActivatorTargetHelpsActivity.activatorActivity = null;
             }
         }
     }

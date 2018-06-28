@@ -371,9 +371,6 @@ public class PPApplication extends Application {
 
     public static boolean startedOnBoot = false;
 
-    public static LockDeviceActivity lockDeviceActivity = null;
-    public static int screenTimeoutBeforeDeviceLock = 0;
-
     // Samsung Look instance
     public static Slook sLook = null;
     public static boolean sLookCocktailPanelEnabled = false;

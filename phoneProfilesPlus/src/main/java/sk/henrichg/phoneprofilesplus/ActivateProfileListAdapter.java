@@ -287,7 +287,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                                 //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                                 ActivatorTargetHelpsActivity.activity.finish();
                                 ActivatorTargetHelpsActivity.activity = null;
-                                ActivatorTargetHelpsActivity.activatorActivity = null;
+                                //ActivatorTargetHelpsActivity.activatorActivity = null;
                             }
                         }
                     }, 500);
@@ -309,7 +309,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                                 //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                                 ActivatorTargetHelpsActivity.activity.finish();
                                 ActivatorTargetHelpsActivity.activity = null;
-                                ActivatorTargetHelpsActivity.activatorActivity = null;
+                                //ActivatorTargetHelpsActivity.activatorActivity = null;
                             }
                         }
                     }, 500);
@@ -329,7 +329,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                         //Log.d("ActivateProfileListAdapter.showTargetHelps", "finish activity");
                         ActivatorTargetHelpsActivity.activity.finish();
                         ActivatorTargetHelpsActivity.activity = null;
-                        ActivatorTargetHelpsActivity.activatorActivity = null;
+                        //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }
                 }
             }, 500);

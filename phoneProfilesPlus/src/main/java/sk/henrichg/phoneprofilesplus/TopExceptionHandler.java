@@ -30,8 +30,8 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread t, Throwable e)
     {
         try {
-            if ((PPApplication.lockDeviceActivity != null) && (Permissions.checkLockDevice(applicationContext)))
-                Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+            if ((ActivateProfileHelper.lockDeviceActivity != null) && (Permissions.checkLockDevice(applicationContext)))
+                Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, ActivateProfileHelper.screenTimeoutBeforeDeviceLock);
         } catch (Exception ignored) {}
 
         if (BuildConfig.DEBUG) {

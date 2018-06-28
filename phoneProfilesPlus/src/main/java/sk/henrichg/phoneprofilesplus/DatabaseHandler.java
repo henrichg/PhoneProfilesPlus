@@ -343,8 +343,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NT_NAME = "name";
 
     private DatabaseHandler(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
+        super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context.getApplicationContext();
     }
 
     public static DatabaseHandler getInstance(Context context) {
@@ -2922,7 +2922,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting profiles Count
-    int getProfilesCount(boolean forActivator, Context context) {
+    int getProfilesCount(boolean forActivator) {
         importExportLock.lock();
         try {
             int r = 0;
@@ -7530,7 +7530,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 // OTHERS -------------------------------------------------------------------------
 
-    void disableNotAllowedPreferences(Context context)
+    void disableNotAllowedPreferences()
     {
         importExportLock.lock();
         try {
@@ -7802,8 +7802,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                             }
                             if (Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ORIENTATION_ENABLED))) != 0) {
-                                boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
-                                        (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null);
+                                boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context) != null) &&
+                                        (PhoneProfilesService.getMagneticFieldSensor(context) != null);
                                 if (!enabled) {
                                     values.clear();
                                     values.put(KEY_E_ORIENTATION_DISPLAY, "");
@@ -7811,14 +7811,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                                 }
-                                enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
+                                enabled = (PhoneProfilesService.getAccelerometerSensor(context) != null);
                                 if (!enabled) {
                                     values.clear();
                                     values.put(KEY_E_ORIENTATION_SIDES, "");
                                     db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                                 }
-                                enabled = (PhoneProfilesService.getProximitySensor(context.getApplicationContext()) != null);
+                                enabled = (PhoneProfilesService.getProximitySensor(context) != null);
                                 if (!enabled) {
                                     values.clear();
                                     values.put(KEY_E_ORIENTATION_DISTANCE, 0);
