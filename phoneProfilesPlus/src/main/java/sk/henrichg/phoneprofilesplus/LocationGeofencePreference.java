@@ -275,11 +275,11 @@ public class LocationGeofencePreference extends DialogPreference {
 
         // is not possible to get activity from preference, used is static method
         if (onlyEdit == 0) {
-            EventPreferencesFragment.setChangedLocationGeofencePreference(this);
+            //EventPreferencesFragment.setChangedLocationGeofencePreference(this);
             ((Activity)context).startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
         }
         else {
-            PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
+            //PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
             ((Activity)context).startActivityForResult(intent, RESULT_GEOFENCE_EDITOR);
         }
     }

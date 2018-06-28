@@ -13,7 +13,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
 
     //private PreferenceManager prefMng;
     //private SharedPreferences preferences;
-    public static LocationGeofencePreference changedLocationGeofencePreference;
+    //public static LocationGeofencePreference changedLocationGeofencePreference;
     private String extraScrollTo;
     //private String extraScrollToType;
 
@@ -250,9 +250,11 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
 
     }
 
+    /*
     static public void setChangedLocationGeofencePreference(LocationGeofencePreference changedLocationGeofencePref)
     {
         changedLocationGeofencePreference = changedLocationGeofencePref;
     }
+    */
 
 }

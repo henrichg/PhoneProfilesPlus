@@ -10,7 +10,7 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
 {
     private Context context;
 
-    public static LocationGeofencePreference changedLocationGeofencePreference;
+    //public static LocationGeofencePreference changedLocationGeofencePreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,9 +52,11 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
         event.setAllSummary(prefMng, preferences, context);
     }
 
+    /*
     static public void setChangedLocationGeofencePreference(LocationGeofencePreference changedLocationGeofencePref)
     {
         changedLocationGeofencePreference = changedLocationGeofencePref;
     }
+    */
 
 }

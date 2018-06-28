@@ -371,14 +371,20 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
         }
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
-            if (EventPreferencesFragment.changedLocationGeofencePreference != null) {
+            if (resultCode == Activity.RESULT_OK) {
+                LocationGeofencePreference preference = (LocationGeofencePreference)prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_GEOFENCES);
+                if (preference != null) {
+                    preference.setGeofenceFromEditor(/*geofenceId*/);
+                }
+            }
+            /*if (EventPreferencesFragment.changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
                     //long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
                     // this persistGeofence, for multiselect this mus only refresh listView in preference
-                    EventPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor(/*geofenceId*/);
+                    EventPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor();
                     EventPreferencesFragment.changedLocationGeofencePreference = null;
                 }
-            }
+            }*/
         }
         if (requestCode == RESULT_ORIENTATION_SCANNING_SETTINGS) {
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);

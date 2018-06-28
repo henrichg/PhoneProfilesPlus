@@ -12,7 +12,7 @@ class EventPreferencesLocation extends EventPreferences {
     boolean _whenOutside;
 
     static final String PREF_EVENT_LOCATION_ENABLED = "eventLocationEnabled";
-    private static final String PREF_EVENT_LOCATION_GEOFENCES = "eventLocationGeofences";
+    static final String PREF_EVENT_LOCATION_GEOFENCES = "eventLocationGeofences";
     private static final String PREF_EVENT_LOCATION_WHEN_OUTSIDE = "eventLocationStartWhenOutside";
     private static final String PREF_EVENT_LOCATION_APP_SETTINGS = "eventLocationScanningSystemSettings";
 
