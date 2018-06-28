@@ -298,7 +298,7 @@
   <string name="event_preferences_calendar_calendars">Takvimler</string>
   <string name="event_type_calendar">Takvim</string>
   <string name="event_preferences_calendar_search_field">Arama alanı</string>
-  <string name="array_event_pref_calendarSearchField_eventName">Olay ismi</string>
+  <string name="array_event_pref_calendarSearchField_eventName">Durum ismi</string>
   <string name="array_event_pref_calendarSearchField_description">Açıklama</string>
   <string name="event_preferences_calendar_search_string">Arama dizesi</string>
   <string name="event_preferences_calendar_no_event">Durum yok</string>
@@ -907,8 +907,8 @@
   <string name="profile_preferences_lockDevice_deviceAdminSettings_summary">\"Cihaz Yöneticisi Kullanımı\" Kilit usulü için Cihaz Yöneticisinde, \"PhoneProfilesPlus\"a izin verin.</string>
   <string name="profile_preferences_lockDevice_deviceAdminSettings_summary_activated">Zaten izin verilmiş</string>
   <string name="lockDevice_screenOff_text">Hızlı ekran kapatma kilidi</string>
-  <string name="event_preferences_calendar_start_before_event">Olaydan önce başlat</string>
-  <string name="event_preferences_startBeforeEvent">Olaydan önce başlat</string>
+  <string name="event_preferences_calendar_start_before_event">Durumdan önce başlat</string>
+  <string name="event_preferences_startBeforeEvent">Durumdan önce başlat</string>
   <string name="event_preferences_category_eventRadioSwitchParameters">Radyo değerleri</string>
   <string name="event_preference_sensor_radioSwitch_summary">Bu sensör, durumun radyoların (açık/kapalı) geçişi yaparken başlatılması içindir. Değerler: Wi-fi, Bluetooth, Şebeke interneti GPS, NFC, Uçak modu.</string>
   <string name="event_type_radioSwitch">Radyolar</string>
@@ -1176,17 +1176,17 @@
   <string name="permissions_for_mobile_cells_registration_dialog_text1">Şebeke baz istasyonlarını taramak için bazı izinler lazımdır.</string>
   <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Yeni baz istasyon sayacı:</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Durdur</string>
-  <string name="mobile_cells_registration_pref_dlg_add_event_button">Olay ekle</string>
-  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Olayı kaldır</string>
-  <string name="altype_eventPreferencesChanged">Event preferences changed</string>
-  <string name="altype_eventDeleted">Event deleted</string>
-  <string name="altype_profileDeleted">Profile deleted</string>
-  <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
-  <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
-  <string name="altype_allEventsDeleted">All events deleted</string>
-  <string name="altype_allProfilesDeleted">All profiles deleted</string>
-  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="mobile_cells_registration_pref_dlg_add_event_button">Durum ekle</string>
+  <string name="mobile_cells_registration_pref_dlg_remove_event_button">Durumu kaldır</string>
+  <string name="altype_eventPreferencesChanged">Durum tercihleri değişti</string>
+  <string name="altype_eventDeleted">Durum silindi</string>
+  <string name="altype_profileDeleted">Tercih silindi</string>
+  <string name="altype_profilePreferencesChanged">Tercih ayarları değişti</string>
+  <string name="altype_sharedProfilePreferencesChanged">Müşterek tercih ayarları değişti</string>
+  <string name="altype_allEventsDeleted">Durumların tamamı silindi</string>
+  <string name="altype_allProfilesDeleted">Tercihlerin tamamı silindi</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) sistemdeki ayar, (S) tarayıcı tarafından döndürülen.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) sistemdeki ayar, (S) tarayıcı tarafından döndürülen.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• profil şartları \"Zorla durdurulan uygulamalar\"\n• durum sensörleri \"Uygulama şartları\" ve \"Ekran döndürme şartları\".</string>

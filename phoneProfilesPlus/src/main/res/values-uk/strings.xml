@@ -1179,15 +1179,15 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Зупинити</string>
   <string name="mobile_cells_registration_pref_dlg_add_event_button">Додати подію</string>
   <string name="mobile_cells_registration_pref_dlg_remove_event_button">Видалити подію</string>
-  <string name="altype_eventPreferencesChanged">Event preferences changed</string>
-  <string name="altype_eventDeleted">Event deleted</string>
-  <string name="altype_profileDeleted">Profile deleted</string>
-  <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
-  <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
-  <string name="altype_allEventsDeleted">All events deleted</string>
-  <string name="altype_allProfilesDeleted">All profiles deleted</string>
-  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="altype_eventPreferencesChanged">Налаштування події змінено</string>
+  <string name="altype_eventDeleted">Подію видалено</string>
+  <string name="altype_profileDeleted">Профіль видалено</string>
+  <string name="altype_profilePreferencesChanged">Налаштування профілю змінено</string>
+  <string name="altype_sharedProfilePreferencesChanged">Налаштування спільного профілю змінено</string>
+  <string name="altype_allEventsDeleted">Всі події видалено</string>
+  <string name="altype_allProfilesDeleted">Всі профілі видалено</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) налаштований в системі, (S), повернутий сканером.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) налаштований в системі, (S), повернутий сканером.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Надайте дозвіл PhoneProfilesPlusExtender для:\n• параметру профіля \"Примусова зупинка додатків\"\n• датчиків подій \"Параметри додатків\" і \"Параметри орієнтації\".</string>

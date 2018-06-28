@@ -1131,7 +1131,7 @@
   <string name="notification_channel_notify_event_start_description">Esemény megkezdéséről értesítést mutat.</string>
   <string name="editor_drawer_open">Irányító fiók megnyitása</string>
   <string name="important_info_accessibility_service_new_version">Kérjük, telepítse az új verzióját a PhoneProfilesPlusExtender-nek. További információt a paraméterek telepítéséhez, a PhoneProfilesPlusExtender szükséges.</string>
-  <string name="important_info_accessibility_service_new_version_2">Click here to display PhoneProfilesPlusExtender releases in GitHub.</string>
+  <string name="important_info_accessibility_service_new_version_2">Kattintson ide, hogy a PhoneProfilesPlusExtender-t jelenítse meg a GitHub-on.</string>
   <string name="array_pref_no_force_stop">Ne erőltesse a leállítást</string>
   <string name="array_pref_force_stop">Kényszerített leállítás</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Alkalmazások kényszer leállítása</string>
@@ -1178,15 +1178,15 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Leállítás</string>
   <string name="mobile_cells_registration_pref_dlg_add_event_button">Esemény hozzáadása</string>
   <string name="mobile_cells_registration_pref_dlg_remove_event_button">Távolítsa el az esemény</string>
-  <string name="altype_eventPreferencesChanged">Event preferences changed</string>
-  <string name="altype_eventDeleted">Event deleted</string>
-  <string name="altype_profileDeleted">Profile deleted</string>
-  <string name="altype_profilePreferencesChanged">Profile preferences changed</string>
-  <string name="altype_sharedProfilePreferencesChanged">Shared profile preferences changed</string>
-  <string name="altype_allEventsDeleted">All events deleted</string>
-  <string name="altype_allProfilesDeleted">All profiles deleted</string>
-  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="altype_eventPreferencesChanged">Esemény beállítások megváltoztak</string>
+  <string name="altype_eventDeleted">Esemény törölve</string>
+  <string name="altype_profileDeleted">Profil törölve</string>
+  <string name="altype_profilePreferencesChanged">Profil beállítások megváltoztak</string>
+  <string name="altype_sharedProfilePreferencesChanged">Közös profil beállítások megváltoztak</string>
+  <string name="altype_allEventsDeleted">Összes esemény törölve</string>
+  <string name="altype_allProfilesDeleted">Minden profil törölve</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) konfigurált a rendszerben, (S) visszaállítva a szkennerrel.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) konfigurált a rendszerben, (S) visszaállítva a szkennerrel.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Lehetővé teszi a PhoneProfilesPlusExtender-nek: \n• profil paraméter \"Alkalmazások kényszerített leállítása\" \n• esemény érzékelők \"Alkalmazás paraméterek\" és az \"Irány paraméterek\".</string>

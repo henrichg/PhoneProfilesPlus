@@ -1185,8 +1185,8 @@
   <string name="altype_sharedProfilePreferencesChanged">Gedeeld profiel-voorkeuren zijn veranderd</string>
   <string name="altype_allEventsDeleted">Alle events zijn verwijderd</string>
   <string name="altype_allProfilesDeleted">Alle profielen zijn verwijderd</string>
-  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) geconfigureerd in systeem, (S) door scanner gevonden.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) geconfigureerd in systeem, (S) door scanner gevonden.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Sta toe dat PhoneProfilesPlusExtender \n• profiel parameters \"Force stop toepassingen\" \n• sensoren \"toepassing gebeurtenisparameters\" en \"Oriëntatie parameters\" gebruikt.</string>
