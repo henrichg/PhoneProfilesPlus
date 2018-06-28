@@ -289,7 +289,7 @@ public class MobileCellsPreference extends DialogPreference {
         rescanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Permissions.grantMobileCellsDialogPermissions(context, MobileCellsPreference.this))
+                if (Permissions.grantMobileCellsDialogPermissions(context))
                     refreshListView(true);
             }
         });

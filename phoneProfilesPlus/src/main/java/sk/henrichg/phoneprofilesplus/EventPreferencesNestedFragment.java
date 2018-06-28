@@ -395,6 +395,48 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context);
         }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
+            RingtonePreference preference = (RingtonePreference) prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
+            if (preference != null)
+                preference.refreshListView();
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG) {
+            WifiSSIDPreference wifiPreference = (WifiSSIDPreference) prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
+            if (wifiPreference != null)
+                wifiPreference.refreshListView(true, "");
+            BluetoothNamePreference bluetoothPreference = (BluetoothNamePreference) prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+            if (bluetoothPreference != null)
+                bluetoothPreference.refreshListView(true, "");
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
+            MobileCellsPreference preference = (MobileCellsPreference) prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
+            if (preference != null)
+                preference.refreshListView(true);
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {
+            MobileCellsRegistrationDialogPreference preference = (MobileCellsRegistrationDialogPreference) prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
+            if (preference != null)
+                preference.startRegistration();
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
+            CalendarsMultiSelectDialogPreference preference = (CalendarsMultiSelectDialogPreference) prefMng.findPreference(EventPreferencesCalendar.PREF_EVENT_CALENDAR_CALENDARS);
+            if (preference != null)
+                preference.refreshListView(true);
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CONTACT_DIALOG) {
+            ContactsMultiSelectDialogPreference preference1 = (ContactsMultiSelectDialogPreference) prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACTS);
+            if (preference1 != null)
+                preference1.refreshListView(true);
+            preference1 = (ContactsMultiSelectDialogPreference) prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACTS);
+            if (preference1 != null)
+                preference1.refreshListView(true);
+            ContactGroupsMultiSelectDialogPreference preference2 = (ContactGroupsMultiSelectDialogPreference) prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_CONTACT_GROUPS);
+            if (preference2 != null)
+                preference2.refreshListView(true);
+            preference2 = (ContactGroupsMultiSelectDialogPreference) prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_CONTACT_GROUPS);
+            if (preference2 != null)
+                preference2.refreshListView(true);
+        }
     }
 
     @Override

@@ -91,7 +91,7 @@ class Event {
     static final String PREF_EVENT_NAME = "eventName";
     private static final String PREF_EVENT_PROFILE_START = "eventProfileStart";
     private static final String PREF_EVENT_PROFILE_END = "eventProfileEnd";
-    private static final String PREF_EVENT_NOTIFICATION_SOUND = "eventNotificationSound";
+    static final String PREF_EVENT_NOTIFICATION_SOUND = "eventNotificationSound";
     private static final String PREF_EVENT_NOTIFICATION_VIBRATE = "eventNotificationVibrate";
     private static final String PREF_EVENT_NOTIFICATION_REPEAT = "eventNotificationRepeat";
     private static final String PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL = "eventNotificationRepeatInterval";

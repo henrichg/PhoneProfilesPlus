@@ -30,8 +30,8 @@ class EventPreferencesSMS extends EventPreferences {
 
     static final String PREF_EVENT_SMS_ENABLED = "eventSMSEnabled";
     //static final String PREF_EVENT_SMS_EVENT = "eventSMSEvent";
-    private static final String PREF_EVENT_SMS_CONTACTS = "eventSMSContacts";
-    private static final String PREF_EVENT_SMS_CONTACT_GROUPS = "eventSMSContactGroups";
+    static final String PREF_EVENT_SMS_CONTACTS = "eventSMSContacts";
+    static final String PREF_EVENT_SMS_CONTACT_GROUPS = "eventSMSContactGroups";
     private static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
     private static final String PREF_EVENT_SMS_PERMANENT_RUN = "eventSMSPermanentRun";
     private static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";

@@ -171,7 +171,7 @@ public class BrightnessDialogPreference extends
         if (sharedProfile == 1)
             noChangeChBox.setChecked(false);
 
-        enableViews();
+        //enableViews();
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -193,27 +193,26 @@ public class BrightnessDialogPreference extends
     }
 
     void enableViews() {
-        if (Permissions.checkScreenBrightness(_context, null)) {
-            valueText.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (sharedProfile == 0));
-            seekBar.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (sharedProfile == 0));
-            automaticChBox.setEnabled((noChange == 0) && (sharedProfile == 0));
-            if (adaptiveAllowed) {
-                if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
-                    levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
+        if ((mDialog != null) && mDialog.isShowing()) {
+            if (Permissions.checkScreenBrightness(_context, null)) {
+                valueText.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (sharedProfile == 0));
+                seekBar.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (sharedProfile == 0));
+                automaticChBox.setEnabled((noChange == 0) && (sharedProfile == 0));
+                if (adaptiveAllowed) {
+                    if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
+                        levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
+                        levelText.setEnabled((automatic != 0) && (noChange == 0) && (sharedProfile == 0));
+                    } else
+                        levelText.setVisibility(View.GONE);
+                } else {
                     levelText.setEnabled((automatic != 0) && (noChange == 0) && (sharedProfile == 0));
                 }
-                else
-                    levelText.setVisibility(View.GONE);
+            } else {
+                valueText.setEnabled(false);
+                seekBar.setEnabled(false);
+                automaticChBox.setEnabled(false);
+                levelText.setEnabled(false);
             }
-            else {
-                levelText.setEnabled((automatic != 0) && (noChange == 0) && (sharedProfile == 0));
-            }
-        }
-        else {
-            valueText.setEnabled(false);
-            seekBar.setEnabled(false);
-            automaticChBox.setEnabled(false);
-            levelText.setEnabled(false);
         }
     }
 

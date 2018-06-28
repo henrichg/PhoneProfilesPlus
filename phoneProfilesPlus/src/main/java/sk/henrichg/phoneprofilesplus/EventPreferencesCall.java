@@ -27,8 +27,8 @@ class EventPreferencesCall extends EventPreferences {
 
     static final String PREF_EVENT_CALL_ENABLED = "eventCallEnabled";
     private static final String PREF_EVENT_CALL_EVENT = "eventCallEvent";
-    private static final String PREF_EVENT_CALL_CONTACTS = "eventCallContacts";
-    private static final String PREF_EVENT_CALL_CONTACT_GROUPS = "eventCallContactGroups";
+    static final String PREF_EVENT_CALL_CONTACTS = "eventCallContacts";
+    static final String PREF_EVENT_CALL_CONTACT_GROUPS = "eventCallContactGroups";
     private static final String PREF_EVENT_CALL_CONTACT_LIST_TYPE = "eventCallContactListType";
     private static final String PREF_EVENT_CALL_PERMANENT_RUN = "eventCallPermanentRun";
     private static final String PREF_EVENT_CALL_DURATION = "eventCallDuration";

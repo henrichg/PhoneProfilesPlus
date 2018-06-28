@@ -82,20 +82,21 @@ class Permissions {
     static final String EXTRA_APPLICATION_DATA_PATH = "application_data_path";
     static final String EXTRA_ACTIVATE_PROFILE = "activate_profile";
     static final String EXTRA_GRANT_ALSO_CONTACTS = "grant_also_contacts";
+    static final String EXTRA_FORCE_START_SCANNER = "force_start_scanner";
 
     //static Activity profileActivationActivity = null;
     //static WallpaperViewPreference wallpaperViewPreference = null;
     //static ProfileIconPreference profileIconPreference = null;
     //static EditorProfilesActivity editorActivity = null;
-    static WifiSSIDPreference wifiSSIDPreference = null;
-    static BluetoothNamePreference bluetoothNamePreference = null;
-    static CalendarsMultiSelectDialogPreference calendarsMultiSelectDialogPreference = null;
-    static ContactsMultiSelectDialogPreference contactsMultiSelectDialogPreference = null;
-    static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
+    //static WifiSSIDPreference wifiSSIDPreference = null;
+    //static BluetoothNamePreference bluetoothNamePreference = null;
+    //static CalendarsMultiSelectDialogPreference calendarsMultiSelectDialogPreference = null;
+    //static ContactsMultiSelectDialogPreference contactsMultiSelectDialogPreference = null;
+    //static ContactGroupsMultiSelectDialogPreference contactGroupsMultiSelectDialogPreference = null;
     //static LocationGeofenceEditorActivity locationGeofenceEditorActivity = null;
     //static BrightnessDialogPreference brightnessDialogPreference = null;
-    static MobileCellsPreference mobileCellsPreference = null;
-    static MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference = null;
+    //static MobileCellsPreference mobileCellsPreference = null;
+    //static MobileCellsRegistrationDialogPreference mobileCellsRegistrationDialogPreference = null;
     //static RingtonePreference ringtonePreference = null;
 
     private static final String PREF_SHOW_REQUEST_WRITE_SETTINGS_PERMISSION = "show_request_write_settings_permission";
@@ -1441,7 +1442,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantWifiScanDialogPermissions(Context context, WifiSSIDPreference preference) {
+    static boolean grantWifiScanDialogPermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkLocation(context);
             if (!granted) {
@@ -1451,18 +1452,20 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    wifiSSIDPreference = preference;
-                    bluetoothNamePreference = null;
+                    intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
+                    //wifiSSIDPreference = preference;
+                    //bluetoothNamePreference = null;
                     //locationGeofenceEditorActivity = null;
-                    mobileCellsPreference = null;
-                    mobileCellsRegistrationDialogPreference = null;
-                    context.startActivity(intent);
+                    //mobileCellsPreference = null;
+                    //mobileCellsRegistrationDialogPreference = null;
+                    //context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
                 }
@@ -1473,7 +1476,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantBluetoothScanDialogPermissions(Context context, BluetoothNamePreference preference) {
+    static boolean grantBluetoothScanDialogPermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkLocation(context);
             if (!granted) {
@@ -1483,18 +1486,20 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    bluetoothNamePreference = preference;
-                    wifiSSIDPreference = null;
+                    intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
+                    //bluetoothNamePreference = preference;
+                    //wifiSSIDPreference = null;
                     //locationGeofenceEditorActivity = null;
-                    mobileCellsPreference = null;
-                    mobileCellsRegistrationDialogPreference = null;
-                    context.startActivity(intent);
+                    //mobileCellsPreference = null;
+                    //mobileCellsRegistrationDialogPreference = null;
+                    //context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
                 }
@@ -1505,7 +1510,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantCalendarDialogPermissions(Context context, CalendarsMultiSelectDialogPreference preference) {
+    static boolean grantCalendarDialogPermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkCalendar(context);
             if (!granted) {
@@ -1514,14 +1519,15 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CALENDAR_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    calendarsMultiSelectDialogPreference = preference;
-                    context.startActivity(intent);
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CALENDAR_DIALOG);
+                    //calendarsMultiSelectDialogPreference = preference;
+                    //context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
                 }
@@ -1532,7 +1538,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantContactsDialogPermissions(Context context, ContactsMultiSelectDialogPreference preference) {
+    static boolean grantContactsDialogPermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkContacts(context);
             if (!granted) {
@@ -1541,15 +1547,16 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS, permission.READ_CONTACTS));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    contactsMultiSelectDialogPreference = preference;
-                    contactGroupsMultiSelectDialogPreference = null;
-                    context.startActivity(intent);
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONTACT_DIALOG);
+                    //contactsMultiSelectDialogPreference = preference;
+                    //contactGroupsMultiSelectDialogPreference = null;
+                    //context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
                 }
@@ -1560,7 +1567,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantContactGroupsDialogPermissions(Context context, ContactGroupsMultiSelectDialogPreference preference) {
+    static boolean grantContactGroupsDialogPermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkContacts(context);
             if (!granted) {
@@ -1569,14 +1576,15 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS, permission.READ_CONTACTS));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    contactGroupsMultiSelectDialogPreference = preference;
-                    contactsMultiSelectDialogPreference = null;
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONTACT_DIALOG);
+                    //contactGroupsMultiSelectDialogPreference = preference;
+                    //contactsMultiSelectDialogPreference = null;
                     context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
@@ -1604,12 +1612,12 @@ class Permissions {
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    bluetoothNamePreference = null;
-                    wifiSSIDPreference = null;
-                    //locationGeofenceEditorActivity = activity;
-                    mobileCellsPreference = null;
-                    mobileCellsRegistrationDialogPreference = null;
                     activity.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
+                    //bluetoothNamePreference = null;
+                    //wifiSSIDPreference = null;
+                    //locationGeofenceEditorActivity = activity;
+                    //mobileCellsPreference = null;
+                    //mobileCellsRegistrationDialogPreference = null;
                     //context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
@@ -1621,7 +1629,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantMobileCellsDialogPermissions(Context context, MobileCellsPreference preference) {
+    static boolean grantMobileCellsDialogPermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkLocation(context);
             if (!granted) {
@@ -1631,18 +1639,19 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    wifiSSIDPreference = null;
-                    bluetoothNamePreference = null;
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                    //wifiSSIDPreference = null;
+                    //bluetoothNamePreference = null;
                     //locationGeofenceEditorActivity = null;
-                    mobileCellsPreference = preference;
-                    mobileCellsRegistrationDialogPreference = null;
-                    context.startActivity(intent);
+                    //mobileCellsPreference = preference;
+                    //mobileCellsRegistrationDialogPreference = null;
+                    //context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
                 }
@@ -1653,7 +1662,7 @@ class Permissions {
             return true;
     }
 
-    static boolean grantMobileCellsRegistrationDialogPermissions(Context context, MobileCellsRegistrationDialogPreference preference) {
+    static boolean grantMobileCellsRegistrationDialogPermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkLocation(context);
             if (!granted) {
@@ -1663,18 +1672,19 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    wifiSSIDPreference = null;
-                    bluetoothNamePreference = null;
+                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
+                    //wifiSSIDPreference = null;
+                    //bluetoothNamePreference = null;
                     //locationGeofenceEditorActivity = null;
-                    mobileCellsPreference = null;
-                    mobileCellsRegistrationDialogPreference = preference;
-                    context.startActivity(intent);
+                    //mobileCellsPreference = null;
+                    //mobileCellsRegistrationDialogPreference = preference;
+                    //context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
                 }
@@ -1756,15 +1766,15 @@ class Permissions {
         //wallpaperViewPreference = null;
         //profileIconPreference = null;
         //editorActivity = null;
-        wifiSSIDPreference = null;
-        bluetoothNamePreference = null;
-        calendarsMultiSelectDialogPreference = null;
-        contactsMultiSelectDialogPreference = null;
-        contactGroupsMultiSelectDialogPreference = null;
+        //wifiSSIDPreference = null;
+        //bluetoothNamePreference = null;
+        //calendarsMultiSelectDialogPreference = null;
+        //contactsMultiSelectDialogPreference = null;
+        //contactGroupsMultiSelectDialogPreference = null;
         //locationGeofenceEditorActivity = null;
         //brightnessDialogPreference = null;
-        mobileCellsPreference = null;
-        mobileCellsRegistrationDialogPreference = null;
+        //mobileCellsPreference = null;
+        //mobileCellsRegistrationDialogPreference = null;
         //ringtonePreference = null;
     }
 

@@ -979,6 +979,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 }
             }*/
         }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
+            RingtonePreference preference = (RingtonePreference) prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND);
+            if (preference != null)
+                preference.refreshListView();
+        }
     }
 
     @Override

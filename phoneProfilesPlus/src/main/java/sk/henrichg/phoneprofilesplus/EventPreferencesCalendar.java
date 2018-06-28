@@ -38,7 +38,7 @@ class EventPreferencesCalendar extends EventPreferences {
     boolean _eventFound;
 
     static final String PREF_EVENT_CALENDAR_ENABLED = "eventCalendarEnabled";
-    private static final String PREF_EVENT_CALENDAR_CALENDARS = "eventCalendarCalendars";
+    static final String PREF_EVENT_CALENDAR_CALENDARS = "eventCalendarCalendars";
     private static final String PREF_EVENT_CALENDAR_SEARCH_FIELD = "eventCalendarSearchField";
     private static final String PREF_EVENT_CALENDAR_SEARCH_STRING = "eventCalendarSearchString";
     private static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";

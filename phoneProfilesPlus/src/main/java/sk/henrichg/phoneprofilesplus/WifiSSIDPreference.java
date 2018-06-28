@@ -111,6 +111,13 @@ public class WifiSSIDPreference extends DialogPreference {
                     }
                 });
 
+        mBuilder.showListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                refreshListView(false, "");
+            }
+        });
+
         mDialog = mBuilder.build();
         View layout = mDialog.getCustomView();
 
@@ -165,7 +172,7 @@ public class WifiSSIDPreference extends DialogPreference {
         listAdapter = new WifiSSIDPreferenceAdapter(context, this);
         SSIDListView.setAdapter(listAdapter);
 
-        refreshListView(false, "");
+        //refreshListView(false, "");
 
         SSIDListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -240,7 +247,7 @@ public class WifiSSIDPreference extends DialogPreference {
         rescanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Permissions.grantWifiScanDialogPermissions(context, WifiSSIDPreference.this))
+                if (Permissions.grantWifiScanDialogPermissions(context))
                     refreshListView(true, "");
             }
         });
@@ -347,152 +354,143 @@ public class WifiSSIDPreference extends DialogPreference {
     @SuppressLint("StaticFieldLeak")
     public void refreshListView(boolean forRescan, final String scrollToSSID)
     {
-        final boolean _forRescan = forRescan;
+        if ((mDialog != null) && mDialog.isShowing()) {
+            final boolean _forRescan = forRescan;
 
-        rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
+            rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
-            List<WifiSSIDData> _SSIDList = null;
+                List<WifiSSIDData> _SSIDList = null;
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
 
-                _SSIDList = new ArrayList<>();
+                    _SSIDList = new ArrayList<>();
 
-                if (_forRescan) {
-                    dataRelativeLayout.setVisibility(View.GONE);
-                    progressLinearLayout.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                if (_forRescan)
-                {
-                    WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
-                    WifiScanJob.startScanner(context, true);
-
-                    //try { Thread.sleep(200); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(200);
-                    //PPApplication.sleep(200);
-                    WifiBluetoothScanner.waitForWifiScanEnd(context, this);
-                }
-
-                List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);
-                if (wifiConfigurationList != null)
-                {
-                    for (WifiSSIDData wifiConfiguration : wifiConfigurationList)
-                    {
-                        //if ((wifiConfiguration.bssid != null) && (wifiConfiguration.ssid != null))
-                        // bssid is null from configuration list
-                        if (wifiConfiguration.ssid != null)
-                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid, false, true, false));
+                    if (_forRescan) {
+                        dataRelativeLayout.setVisibility(View.GONE);
+                        progressLinearLayout.setVisibility(View.VISIBLE);
                     }
                 }
 
-                List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(context);
-                if (scanResults != null)
-                {
-                    for (WifiSSIDData scanResult : scanResults)
-                    {
-                        //Log.d("WifiSSIDPreference.refreshListView","scanResult.ssid="+scanResult.ssid);
-                        if (!WifiScanJob.getSSID(scanResult, wifiConfigurationList).isEmpty())
-                        {
-                            //Log.d("WifiSSIDPreference.refreshListView","not empty");
-                            boolean exists = false;
-                            for (WifiSSIDData ssidData : _SSIDList)
-                            {
-                                if (!ssidData.ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
-                                    if (WifiScanJob.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList)) {
-                                        //Log.d("WifiSSIDPreference.refreshListView", "exists");
-                                        exists = true;
-                                        break;
+                @Override
+                protected Void doInBackground(Void... params) {
+
+                    if (_forRescan) {
+                        WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
+                        WifiScanJob.startScanner(context, true);
+
+                        //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(200);
+                        //PPApplication.sleep(200);
+                        WifiBluetoothScanner.waitForWifiScanEnd(context, this);
+                    }
+
+                    List<WifiSSIDData> wifiConfigurationList = WifiScanJob.getWifiConfigurationList(context);
+                    if (wifiConfigurationList != null) {
+                        for (WifiSSIDData wifiConfiguration : wifiConfigurationList) {
+                            //if ((wifiConfiguration.bssid != null) && (wifiConfiguration.ssid != null))
+                            // bssid is null from configuration list
+                            if (wifiConfiguration.ssid != null)
+                                _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), wifiConfiguration.bssid, false, true, false));
+                        }
+                    }
+
+                    List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(context);
+                    if (scanResults != null) {
+                        for (WifiSSIDData scanResult : scanResults) {
+                            //Log.d("WifiSSIDPreference.refreshListView","scanResult.ssid="+scanResult.ssid);
+                            if (!WifiScanJob.getSSID(scanResult, wifiConfigurationList).isEmpty()) {
+                                //Log.d("WifiSSIDPreference.refreshListView","not empty");
+                                boolean exists = false;
+                                for (WifiSSIDData ssidData : _SSIDList) {
+                                    if (!ssidData.ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
+                                        if (WifiScanJob.compareSSID(scanResult, ssidData.ssid, wifiConfigurationList)) {
+                                            //Log.d("WifiSSIDPreference.refreshListView", "exists");
+                                            exists = true;
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            if (!exists) {
-                                //Log.d("WifiSSIDPreference.refreshListView","not exists");
-                                _SSIDList.add(new WifiSSIDData(WifiScanJob.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false, false, true));
+                                if (!exists) {
+                                    //Log.d("WifiSSIDPreference.refreshListView","not exists");
+                                    _SSIDList.add(new WifiSSIDData(WifiScanJob.getSSID(scanResult, wifiConfigurationList), scanResult.bssid, false, false, true));
+                                }
                             }
                         }
                     }
+
+                    // add all from value
+                    boolean found;
+                    String[] splits = value.split("\\|");
+                    for (String _ssid : splits) {
+                        if (!_ssid.isEmpty() &&
+                                !_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE) &&
+                                !_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
+                            found = false;
+                            for (WifiSSIDData ssid : _SSIDList) {
+                                if (_ssid.equals(ssid.ssid)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                _SSIDList.add(new WifiSSIDData(_ssid, "", true, false, false));
+                                customSSIDList.add(new WifiSSIDData(_ssid, "", true, false, false));
+                            }
+                        }
+                    }
+
+                    // add custom SSIDs
+                    for (WifiSSIDData customSSID : customSSIDList) {
+                        if (customSSID.ssid != null) {
+                            boolean exists = false;
+                            for (WifiSSIDData ssidData : _SSIDList) {
+                                if (customSSID.ssid.equals(ssidData.ssid)) {
+                                    exists = true;
+                                    break;
+                                }
+                            }
+                            if (!exists)
+                                _SSIDList.add(new WifiSSIDData(customSSID.ssid, customSSID.bssid, true, false, false));
+                        }
+                    }
+
+                    Collections.sort(_SSIDList, new SortList());
+
+                    _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false, false, false));
+                    _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false, false, false));
+
+                    return null;
                 }
 
-                // add all from value
-                boolean found;
-                String[] splits = value.split("\\|");
-                for (String _ssid : splits) {
-                    if (!_ssid.isEmpty() &&
-                            !_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE) &&
-                            !_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
-                        found = false;
-                        for (WifiSSIDData ssid : _SSIDList) {
-                            if (_ssid.equals(ssid.ssid)) {
-                                found = true;
+                @Override
+                protected void onPostExecute(Void result) {
+                    super.onPostExecute(result);
+
+                    SSIDList = new ArrayList<>(_SSIDList);
+                    listAdapter.notifyDataSetChanged();
+
+                    if (_forRescan) {
+                        progressLinearLayout.setVisibility(View.GONE);
+                        dataRelativeLayout.setVisibility(View.VISIBLE);
+                    }
+
+                    if (!scrollToSSID.isEmpty()) {
+                        for (int position = 0; position < SSIDList.size() - 1; position++) {
+                            if (SSIDList.get(position).ssid.equals(scrollToSSID)) {
+                                SSIDListView.setSelection(position);
                                 break;
                             }
                         }
-                        if (!found) {
-                            _SSIDList.add(new WifiSSIDData(_ssid, "", true, false, false));
-                            customSSIDList.add(new WifiSSIDData(_ssid, "", true, false, false));
-                        }
                     }
+
                 }
 
-                // add custom SSIDs
-                for (WifiSSIDData customSSID : customSSIDList)
-                {
-                    if (customSSID.ssid != null) {
-                        boolean exists = false;
-                        for (WifiSSIDData ssidData : _SSIDList)
-                        {
-                            if (customSSID.ssid.equals(ssidData.ssid)) {
-                                exists = true;
-                                break;
-                            }
-                        }
-                        if (!exists)
-                            _SSIDList.add(new WifiSSIDData(customSSID.ssid, customSSID.bssid, true, false, false));
-                    }
-                }
+            };
 
-                Collections.sort(_SSIDList, new SortList());
-
-                _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, "", false, false, false));
-                _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.ALL_SSIDS_VALUE, "", false, false, false));
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                SSIDList = new ArrayList<>(_SSIDList);
-                listAdapter.notifyDataSetChanged();
-
-                if (_forRescan) {
-                    progressLinearLayout.setVisibility(View.GONE);
-                    dataRelativeLayout.setVisibility(View.VISIBLE);
-                }
-
-                if (!scrollToSSID.isEmpty()) {
-                    for (int position = 0; position < SSIDList.size() - 1; position++) {
-                        if (SSIDList.get(position).ssid.equals(scrollToSSID)) {
-                            SSIDListView.setSelection(position);
-                            break;
-                        }
-                    }
-                }
-
-            }
-
-        };
-
-        rescanAsyncTask.execute();
+            rescanAsyncTask.execute();
+        }
     }
 
     private class SortList implements Comparator<WifiSSIDData> {

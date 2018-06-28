@@ -42,6 +42,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private String applicationDataPath;
     private boolean activateProfile;
     private boolean grantAlsoContacts;
+    private boolean forceStartScanner;
 
     private Profile profile;
     private Event event;
@@ -84,6 +85,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != Profile.SHARED_PROFILE_ID);
         grantAlsoContacts = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, true);
+        forceStartScanner = intent.getBooleanExtra(Permissions.EXTRA_FORCE_START_SCANNER, false);
 
         long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 
@@ -830,14 +832,15 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_WIFI_BT_SCAN_DIALOG) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.wifiSSIDPreference != null)
-                Permissions.wifiSSIDPreference.refreshListView(true, "");
-            if (Permissions.bluetoothNamePreference != null)
-                Permissions.bluetoothNamePreference.refreshListView(true, "");
+            /*if (Permissions.wifiSSIDPreference != null)
+                Permissions.wifiSSIDPreference.refreshListView(true, "");*/
+            /*if (Permissions.bluetoothNamePreference != null)
+                Permissions.bluetoothNamePreference.refreshListView(true, "");*/
             if (PhoneProfilesService.instance != null) {
-                PhoneProfilesService.instance.scheduleWifiJob(true, true, /*false, false,*/ Permissions.wifiSSIDPreference != null, false);
-                PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, /*false,*/ Permissions.bluetoothNamePreference != null, false);
+                PhoneProfilesService.instance.scheduleWifiJob(true, true, /*false, false,*/ forceStartScanner, false);
+                PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, /*false,*/ forceStartScanner, false);
                 PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
             }
             //dataWrapper.restartEvents(false, true/*, false*/, false);
@@ -845,19 +848,21 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CALENDAR_DIALOG) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.calendarsMultiSelectDialogPreference != null)
-                Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);
+            /*if (Permissions.calendarsMultiSelectDialogPreference != null)
+                Permissions.calendarsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
             dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_CONTACT_DIALOG) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.contactsMultiSelectDialogPreference != null)
-                Permissions.contactsMultiSelectDialogPreference.refreshListView(true);
-            if (Permissions.contactGroupsMultiSelectDialogPreference != null)
-                Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);
+            /*if (Permissions.contactsMultiSelectDialogPreference != null)
+                Permissions.contactsMultiSelectDialogPreference.refreshListView(true);*/
+            /*if (Permissions.contactGroupsMultiSelectDialogPreference != null)
+                Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
             dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
@@ -922,17 +927,19 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.mobileCellsPreference != null)
-                Permissions.mobileCellsPreference.refreshListView(true);
+            /*if (Permissions.mobileCellsPreference != null)
+                Permissions.mobileCellsPreference.refreshListView(true);*/
             //dataWrapper.restartEvents(false, true/*, false*/, false);
             dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {
+            setResult(Activity.RESULT_OK);
             finish();
-            if (Permissions.mobileCellsRegistrationDialogPreference != null)
-                Permissions.mobileCellsRegistrationDialogPreference.startRegistration();
+            /*if (Permissions.mobileCellsRegistrationDialogPreference != null)
+                Permissions.mobileCellsRegistrationDialogPreference.startRegistration();*/
         }
         else
         if (grantType == Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {

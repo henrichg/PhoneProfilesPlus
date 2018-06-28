@@ -140,49 +140,49 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
 
     @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean notForUnselect) {
+        if ((mDialog != null) && mDialog.isShowing()) {
 
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
+            asyncTask = new AsyncTask<Void, Integer, Void>() {
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                if (notForUnselect) {
-                    rellaData.setVisibility(View.GONE);
-                    linlaProgress.setVisibility(View.VISIBLE);
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    if (notForUnselect) {
+                        rellaData.setVisibility(View.GONE);
+                        linlaProgress.setVisibility(View.VISIBLE);
+                    }
                 }
-            }
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                if (!EditorProfilesActivity.getContactsCache().cached)
-                    EditorProfilesActivity.getContactsCache().getContactList(_context);
+                @Override
+                protected Void doInBackground(Void... params) {
+                    if (!EditorProfilesActivity.getContactsCache().cached)
+                        EditorProfilesActivity.getContactsCache().getContactList(_context);
 
-                getValueCMSDP(notForUnselect);
+                    getValueCMSDP(notForUnselect);
 
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                if (!EditorProfilesActivity.getContactsCache().cached)
-                    EditorProfilesActivity.getContactsCache().clearCache(false);
-
-                listAdapter.notifyDataSetChanged();
-                if (notForUnselect) {
-                    rellaData.setVisibility(View.VISIBLE);
-                    linlaProgress.setVisibility(View.GONE);
+                    return null;
                 }
-            }
 
-        }.execute();
+                @Override
+                protected void onPostExecute(Void result) {
+                    super.onPostExecute(result);
+
+                    if (!EditorProfilesActivity.getContactsCache().cached)
+                        EditorProfilesActivity.getContactsCache().clearCache(false);
+
+                    listAdapter.notifyDataSetChanged();
+                    if (notForUnselect) {
+                        rellaData.setVisibility(View.VISIBLE);
+                        linlaProgress.setVisibility(View.GONE);
+                    }
+                }
+
+            }.execute();
+        }
     }
 
     private void onShow(/*DialogInterface dialog*/) {
-        if (Permissions.grantContactsDialogPermissions(_context, this))
+        if (Permissions.grantContactsDialogPermissions(_context))
             refreshListView(true);
     }
 
