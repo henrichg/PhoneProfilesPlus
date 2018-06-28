@@ -1747,12 +1747,16 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", Log.getStackTraceString(e));
                     }
                 //}
-
+                WallpaperViewPreference preference = (WallpaperViewPreference)prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+                if (preference != null)
+                    preference.setImageIdentifier(selectedImage.toString());
+                /*
                 if (ProfilePreferencesFragment.changedWallpaperViewPreference != null) {
                     // set image identifier for get bitmap path
                     ProfilePreferencesFragment.changedWallpaperViewPreference.setImageIdentifier(selectedImage.toString());
                     ProfilePreferencesFragment.changedWallpaperViewPreference = null;
                 }
+                */
             }
         }
         if (requestCode == ProfileIconPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
@@ -1775,12 +1779,17 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
                 int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
                 if (BitmapManipulator.checkBitmapSize(selectedImage.toString(), width, height, context)) {
-                    if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
+                    ProfileIconPreference preference = (ProfileIconPreference)prefMng.findPreference(Profile.PREF_PROFILE_ICON);
+                    if (preference != null) {
+                        preference.dismissDialog();
+                        preference.setImageIdentifierAndType(selectedImage.toString(), false, true);
+                    }
+                    /*if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
                         // set image identifier ant type for get bitmap path
                         ProfilePreferencesFragment.changedProfileIconPreference.dismissDialog();
                         ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
                         ProfilePreferencesFragment.changedProfileIconPreference = null;
-                    }
+                    }*/
                 }
                 else {
                     String text = context.getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
@@ -1802,16 +1811,25 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (requestCode == ApplicationsDialogPreference.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
         {
-            if (ProfilePreferencesFragment.applicationsDialogPreference != null) {
-                ProfilePreferencesFragment.applicationsDialogPreference.updateShortcut(
+            ApplicationsDialogPreference preference = (ApplicationsDialogPreference)prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            if (preference != null) {
+                preference.updateShortcut(
                         (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
                         data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
                         /*(Bitmap)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON),*/
                         data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, -1),
                         data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
+            }
+            /*
+            if (ProfilePreferencesFragment.applicationsDialogPreference != null) {
+                ProfilePreferencesFragment.applicationsDialogPreference.updateShortcut(
+                        (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
+                        data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
+                        data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, -1),
+                        data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
 
                 ProfilePreferencesFragment.applicationsDialogPreference = null;
-            }
+            }*/
         }
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);

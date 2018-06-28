@@ -391,7 +391,7 @@ public class ProfileIconPreference extends DialogPreference {
             intent.setType("image/*");
 
             // is not possible to get activity from preference, used is static method
-            ProfilePreferencesFragment.setChangedProfileIconPreference(this);
+            //ProfilePreferencesFragment.setChangedProfileIconPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception ignored) {}
         /*} catch (ActivityNotFoundException e) {
