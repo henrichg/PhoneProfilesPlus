@@ -17,8 +17,10 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         PPApplication.logE("##### LockDeviceActivityFinishBroadcastReceiver.onReceive", "xxx");
         CallsCounter.logCounter(context, "LockDeviceActivityFinishBroadcastReceiver.onReceive", "LockDeviceActivityFinishBroadcastReceiver_onReceive");
 
-        if (ActivateProfileHelper.lockDeviceActivity != null) {
-            ActivateProfileHelper.lockDeviceActivity.finish();
+        if (PhoneProfilesService.instance != null) {
+            if (PhoneProfilesService.instance.lockDeviceActivity != null) {
+                PhoneProfilesService.instance.lockDeviceActivity.finish();
+            }
         }
     }
 

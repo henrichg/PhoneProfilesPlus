@@ -65,10 +65,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.restartPhoneStateScanner(appContext, true);
                     PPApplication.restartOrientationScanner(appContext);*/
 
-                    //boolean lockDeviceEnabled = false;
-                    if (ActivateProfileHelper.lockDeviceActivity != null) {
-                        //lockDeviceEnabled = true;
-                        ActivateProfileHelper.lockDeviceActivity.finish();
+                    if (PhoneProfilesService.instance != null) {
+                        //boolean lockDeviceEnabled = false;
+                        if (PhoneProfilesService.instance.lockDeviceActivity != null) {
+                            //lockDeviceEnabled = true;
+                            PhoneProfilesService.instance.lockDeviceActivity.finish();
+                        }
                     }
 
                     //ActivateProfileHelper.setScreenUnlocked(appContext, false);

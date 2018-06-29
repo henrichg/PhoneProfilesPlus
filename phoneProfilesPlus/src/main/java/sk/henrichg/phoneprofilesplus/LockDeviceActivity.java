@@ -22,59 +22,63 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
 
-        ActivateProfileHelper.lockDeviceActivity = this;
+        if (PhoneProfilesService.instance != null) {
+            PhoneProfilesService.instance.lockDeviceActivity = this;
 
-        /*
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-        decorView.setSystemUiVisibility(uiOptions);
+            /*
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+            decorView.setSystemUiVisibility(uiOptions);
 
-        setContentView(R.layout.activity_lock_device);
+            setContentView(R.layout.activity_lock_device);
 
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.screenBrightness =0.005f;
-        getWindow().setAttributes(lp);
-        */
+            WindowManager.LayoutParams lp = getWindow().getAttributes();
+            lp.screenBrightness =0.005f;
+            getWindow().setAttributes(lp);
+            */
 
-        ActivateProfileHelper.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
-        ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
-        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+            PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+            ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
-        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        params.flags = 1808;
-        if (android.os.Build.VERSION.SDK_INT < 26)
-            params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+            params.flags = 1808;
+            if (android.os.Build.VERSION.SDK_INT < 26)
+                params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+            else
+                params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            params.gravity = Gravity.TOP;
+            params.width = -1;
+            params.height = -1;
+            params.format = -1;
+            params.screenBrightness = 0f;
+
+            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //noinspection ConstantConditions
+            view = layoutInflater.inflate(R.layout.activity_lock_device, null);
+            view.setSystemUiVisibility(5894);
+            view.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                @Override
+                public void onSystemUiVisibilityChange(int i) {
+                    view.setSystemUiVisibility(5894);
+                }
+            });
+
+            WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+            if (windowManager != null)
+                windowManager.addView(view, params);
+
+            /*
+            WindowManager.LayoutParams aParams = getWindow().getAttributes();
+            aParams.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+            aParams.screenBrightness = 0;
+            getWindow().setAttributes(aParams);
+            */
+
+            LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
+        }
         else
-            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        params.gravity = Gravity.TOP;
-        params.width = -1;
-        params.height = -1;
-        params.format = -1;
-        params.screenBrightness = 0f;
-
-        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //noinspection ConstantConditions
-        view = layoutInflater.inflate(R.layout.activity_lock_device, null);
-        view.setSystemUiVisibility(5894);
-        view.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
-            @Override
-            public void onSystemUiVisibilityChange(int i) {
-                view.setSystemUiVisibility(5894);
-            }
-        });
-
-        WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
-        if (windowManager != null)
-            windowManager.addView(view, params);
-
-        /*
-        WindowManager.LayoutParams aParams = getWindow().getAttributes();
-        aParams.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
-        aParams.screenBrightness = 0;
-        getWindow().setAttributes(aParams);
-        */
-
-        LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
+            finish();
     }
 
     @Override
@@ -83,17 +87,20 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         PPApplication.logE("LockDeviceActivity.onDestroy", "xxx");
 
-        if (view != null)
-            try {
-                WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
-                if (windowManager != null)
-                    windowManager.removeViewImmediate(view);
-            } catch (Exception ignored) {}
+        if (PhoneProfilesService.instance != null) {
+            if (view != null)
+                try {
+                    WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                    if (windowManager != null)
+                        windowManager.removeViewImmediate(view);
+                } catch (Exception ignored) {
+                }
 
-        LockDeviceActivityFinishBroadcastReceiver.removeAlarm(getApplicationContext());
-        ActivateProfileHelper.lockDeviceActivity = null;
-        if (Permissions.checkLockDevice(getApplicationContext()))
-            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, ActivateProfileHelper.screenTimeoutBeforeDeviceLock);
+            LockDeviceActivityFinishBroadcastReceiver.removeAlarm(getApplicationContext());
+            PhoneProfilesService.instance.lockDeviceActivity = null;
+            if (Permissions.checkLockDevice(getApplicationContext()))
+                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock);
+        }
     }
 
     @Override
