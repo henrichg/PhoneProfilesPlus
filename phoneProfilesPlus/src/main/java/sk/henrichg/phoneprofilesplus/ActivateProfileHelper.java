@@ -2273,6 +2273,8 @@ class ActivateProfileHelper {
             case 8:
                 screenTimeoutUnlock(context);
                 if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.instance.lockDeviceActivity != null))
+                    PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock = Integer.MAX_VALUE;
+                else
                     screenTimeoutLock(context);
                 break;
         }
