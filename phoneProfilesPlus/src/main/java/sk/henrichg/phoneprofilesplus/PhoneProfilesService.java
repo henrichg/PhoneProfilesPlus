@@ -4734,11 +4734,11 @@ public class PhoneProfilesService extends Service
         if (PPApplication.screenTimeoutHandler != null) {
             PPApplication.screenTimeoutHandler.post(new Runnable() {
                 public void run() {
-                    ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+                    ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
                 }
             });
         }// else
-        //    ActivateProfileHelper.screenTimeoutUnlock(getApplicationContext());
+        //    ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
         super.onTaskRemoved(rootIntent);
     }

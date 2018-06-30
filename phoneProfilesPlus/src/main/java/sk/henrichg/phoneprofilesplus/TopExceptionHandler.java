@@ -31,8 +31,13 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     {
         try {
             if (PhoneProfilesService.instance != null) {
-                if ((PhoneProfilesService.instance.lockDeviceActivity != null) && (Permissions.checkLockDevice(applicationContext)))
-                    Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock);
+                if (PhoneProfilesService.instance.lockDeviceActivity != null) {
+                    boolean canWriteSettings = true;
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        canWriteSettings = Settings.System.canWrite(applicationContext);
+                    if (canWriteSettings)
+                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock);
+                }
             }
         } catch (Exception ignored) {}
 

@@ -113,11 +113,11 @@ class SettingsContentObserver  extends ContentObserver {
                     if (PPApplication.screenTimeoutHandler != null) {
                         PPApplication.screenTimeoutHandler.post(new Runnable() {
                             public void run() {
-                                ActivateProfileHelper.screenTimeoutUnlock(context);
+                                ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
                             }
                         });
                     }// else
-                    //    ActivateProfileHelper.screenTimeoutUnlock(context);
+                    //    ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
                 }
             }
         }
