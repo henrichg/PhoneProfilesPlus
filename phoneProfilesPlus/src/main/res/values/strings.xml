@@ -593,7 +593,6 @@
     <string name="activity_log_clear_alert_title">Clear activity log</string>
     <string name="activity_log_clear_alert_message">Are you sure?</string>
     <string name="phone_profiles_pref_category_location">Location</string>
-    <string name="phone_profiles_pref_eventLocationAppSettings">Location settings</string>
     <string name="phone_profiles_pref_eventLocationAppSettings_summary">Setup location parameters in application settings.</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInterval">Location scan interval (minutes)</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Location scan in Power Save mode</string>
@@ -643,14 +642,11 @@
     <string name="event_preferences_orientation_ignoreForApplications">Ignore for applications</string>
     <string name="applications_preference_applicationType_application">application</string>
     <string name="applications_preference_applicationType_shortcut">shortcut</string>
-    <string name="phone_profiles_pref_eventWifiAppSettings">Wi-Fi settings</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Setup Wi-Fi scanning parameters in application settings.</string>
-    <string name="phone_profiles_pref_eventBluetoothAppSettings">Bluetooth settings</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Setup Bluetooth scanning parameters in application settings.</string>
     <string name="phone_profiles_pref_category_orientation_scanning">Orientation scanning</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Orientation scan interval (seconds)</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Orientation scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventOrientationAppSettings">Orientation settings</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation scanning parameters in application settings.</string>
     <string name="array_pref_screenTimeoutArray_24hours">24 hours</string>
     <string name="array_pref_screenTimeoutArray_alwaysOn">Always On</string>
@@ -695,7 +691,6 @@
     <string name="mobile_cells_pref_dlg_cell_name_hint">Cell name</string>
     <string name="mobile_cells_pref_dlg_cell_rename_title">Rename cells</string>
     <string name="mobile_cells_pref_dlg_cell_rename_button">Rename</string>
-    <string name="phone_profiles_pref_eventMobileCellsAppSettings">Mobile cell settings</string>
     <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
     <string name="phone_profiles_pref_category_mobile_cells_scanning">Mobile cell scanning</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Cell registration</string>
