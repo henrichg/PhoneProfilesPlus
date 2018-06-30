@@ -2273,7 +2273,7 @@ class ActivateProfileHelper {
             case 8:
                 screenTimeoutUnlock(context);
                 if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.instance.lockDeviceActivity != null))
-                    PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock = Integer.MAX_VALUE;
+                    PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock = 86400000;
                 else
                     screenTimeoutLock(context);
                 break;
@@ -2296,6 +2296,8 @@ class ActivateProfileHelper {
 
         if (PhoneProfilesService.instance != null) {
             final Context appContext = context.getApplicationContext();
+
+            Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 86400000);
 
             WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
             if (windowManager != null) {
