@@ -384,7 +384,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     @Override
                     public void onCancel(DialogInterface dialog) {
                         finish();
-                        Permissions.releaseReferences();
+                        //Permissions.releaseReferences();
                         if (mergedNotification)
                             Permissions.clearMergedPermissions(context);
                     }
@@ -571,7 +571,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         msg.show();
                     }
                     finish();
-                    Permissions.releaseReferences();
+                    //Permissions.releaseReferences();
                     if (mergedNotification)
                         Permissions.clearMergedPermissions(getApplicationContext());
                 }
@@ -969,7 +969,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, //interactive,
                         Permissions.profileActivationActivity);*/
         }
-        Permissions.releaseReferences();
+        //Permissions.releaseReferences();
         if (mergedNotification)
             Permissions.clearMergedPermissions(context);
 

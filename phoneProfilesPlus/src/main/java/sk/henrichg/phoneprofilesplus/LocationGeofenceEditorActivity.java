@@ -461,7 +461,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     @SuppressLint("MissingPermission")
-    void getLastLocation() {
+    private void getLastLocation() {
         if (Permissions.grantLocationGeofenceEditorPermissions(getApplicationContext(), this)) {
             try {
                 mFusedLocationClient.getLastLocation()

@@ -1210,7 +1210,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         return res;
     }
 
-    public void doImportData(String applicationDataPath)
+    private void doImportData(String applicationDataPath)
     {
         final EditorProfilesActivity activity = this;
         final String _applicationDataPath = applicationDataPath;
@@ -1475,7 +1475,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.show();
     }
 
-    public void doExportData()
+    private void doExportData()
     {
         final EditorProfilesActivity activity = this;
 

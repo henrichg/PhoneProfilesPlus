@@ -1761,6 +1761,7 @@ class Permissions {
         }
     }
 
+    /*
     static void releaseReferences() {
         //profileActivationActivity = null;
         //wallpaperViewPreference = null;
@@ -1777,7 +1778,7 @@ class Permissions {
         //mobileCellsRegistrationDialogPreference = null;
         //ringtonePreference = null;
     }
-
+    */
 
     static boolean getShowRequestWriteSettingsPermission(Context context)
     {
