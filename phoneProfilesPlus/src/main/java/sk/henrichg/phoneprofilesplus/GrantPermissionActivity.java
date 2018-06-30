@@ -593,14 +593,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     dialogBuilder.setTitle(R.string.permissions_alert_title);
                     dialogBuilder.setMessage(R.string.permissions_write_settings_not_allowed_confirm);
-                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Permissions.setShowRequestWriteSettingsPermission(context, false);
                             requestPermissions(2);
                         }
                     });
-                    dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    dialogBuilder.setNegativeButton(R.string.permission_ask_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Permissions.setShowRequestWriteSettingsPermission(context, true);
@@ -631,14 +631,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                         dialogBuilder.setTitle(R.string.permissions_alert_title);
                         dialogBuilder.setMessage(R.string.permissions_access_notification_policy_not_allowed_confirm);
-                        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                        dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Permissions.setShowRequestAccessNotificationPolicyPermission(context, false);
                                 requestPermissions(3);
                             }
                         });
-                        dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                        dialogBuilder.setNegativeButton(R.string.permission_ask_button, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
@@ -670,14 +670,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     dialogBuilder.setTitle(R.string.permissions_alert_title);
                     dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm);
-                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Permissions.setShowRequestDrawOverlaysPermission(context, false);
                             requestPermissions(4);
                         }
                     });
-                    dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                    dialogBuilder.setNegativeButton(R.string.permission_ask_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Permissions.setShowRequestDrawOverlaysPermission(context, true);

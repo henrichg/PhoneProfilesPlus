@@ -1202,6 +1202,8 @@
     <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
+    <string name="permission_ask_button">Ask</string>
+    <string name="permission_not_ask_button">Not ask</string>
 
 <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
