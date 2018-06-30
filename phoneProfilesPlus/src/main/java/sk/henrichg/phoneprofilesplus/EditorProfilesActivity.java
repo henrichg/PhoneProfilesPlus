@@ -1154,6 +1154,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.show();
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean importApplicationPreferences(File src, int what) {
         boolean res = true;
         ObjectInputStream input = null;
