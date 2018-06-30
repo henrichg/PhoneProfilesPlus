@@ -545,7 +545,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventLocationScanningSystemSettings"
-                android:title="@string/phone_profiles_pref_eventLocationAppSettings"
+                android:title="@string/phone_profiles_pref_category_location"
                 android:summary="@string/phone_profiles_pref_eventLocationAppSettings_summary"
                 android:dependency="eventLocationEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
@@ -579,7 +579,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventEnableWiFiScaningAppSettings"
-                android:title="@string/phone_profiles_pref_eventWifiAppSettings"
+                android:title="@string/phone_profiles_pref_category_wifi_scanning"
                 android:summary="@string/phone_profiles_pref_eventWifiAppSettings_summary"
                 android:dependency="eventWiFiEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
@@ -616,7 +616,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventEnableBluetoothScaningAppSettings"
-                android:title="@string/phone_profiles_pref_eventBluetoothAppSettings"
+                android:title="@string/phone_profiles_pref_category_bluetooth_scanning"
                 android:summary="@string/phone_profiles_pref_eventBluetoothAppSettings_summary"
                 android:dependency="eventBluetoothEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
@@ -663,7 +663,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventMobileCellsScaningAppSettings"
-                android:title="@string/phone_profiles_pref_eventMobileCellsAppSettings"
+                android:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
                 android:summary="@string/phone_profiles_pref_eventMobileCellsAppSettings_summary"
                 android:dependency="eventMobileCellsEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
@@ -872,7 +872,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventEnableOrientationScanningAppSettings"
-                android:title="@string/phone_profiles_pref_eventOrientationAppSettings"
+                android:title="@string/phone_profiles_pref_category_orientation_scanning"
                 android:summary="@string/phone_profiles_pref_eventOrientationAppSettings_summary"
                 android:dependency="eventOrientationEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
