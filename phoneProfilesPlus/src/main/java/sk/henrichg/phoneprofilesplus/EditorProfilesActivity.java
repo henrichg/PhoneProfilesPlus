@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -1197,6 +1198,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             } catch (FileNotFoundException ignored) {
                 // no error, this is OK
             } catch (Exception e) {
+                Log.e("EditorProfilesActivity.importApplicationPreferences", Log.getStackTraceString(e));
                 res = false;
             }
         }finally {
@@ -1220,6 +1222,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             @SuppressLint("StaticFieldLeak")
             class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
                 private DataWrapper dataWrapper;
+                private boolean dbError = false;
+                private boolean appSettingsError = false;
+                private boolean defaultProfileError = false;
 
                 private ImportAsyncTask() {
                     importProgressDialog = new MaterialDialog.Builder(activity)
@@ -1269,21 +1274,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                         DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
                         Event.setForceRunEventRunning(getApplicationContext(), false);
                     }
+                    else
+                        dbError = true;
 
-                    if (ret == 1) {
-                        File sd = Environment.getExternalStorageDirectory();
-                        File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                        if (importApplicationPreferences(exportFile, 1)) {
-                            exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                            if (!importApplicationPreferences(exportFile, 2)) {
-                                ret = 0;
-                            }
-                        }
-                        else
-                            ret = 0;
-                    }
+                    File sd = Environment.getExternalStorageDirectory();
+                    File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                    appSettingsError = !importApplicationPreferences(exportFile, 1);
+                    exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                    defaultProfileError = !importApplicationPreferences(exportFile, 2);
 
-                    if (ret == 1) {
+                    PPApplication.logE("EditorProfilesActivity.doImportData", "dbError="+dbError);
+                    PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError="+appSettingsError);
+                    PPApplication.logE("EditorProfilesActivity.doImportData", "defaultProfileError="+defaultProfileError);
+
+                    if (!appSettingsError) {
                         ApplicationPreferences.getSharedPreferences(dataWrapper.context);
                         Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
@@ -1296,7 +1300,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                         WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
                     }
 
-                    return ret;
+                    if (!(dbError && appSettingsError && defaultProfileError))
+                        return 1;
+                    else
+                        return 0;
                 }
 
                 @Override
