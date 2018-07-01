@@ -307,14 +307,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
         }
         if (android.os.Build.VERSION.SDK_INT >= 26) {
-            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
+            /*Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
             if (preference != null)
             {
                 preference.setTitle("(R) "+getString(R.string.profile_preferences_deviceWiFiAP));
                 String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "");
                 setSummary(Profile.PREF_PROFILE_DEVICE_WIFI_AP, value);
-            }
-            preference = prefMng.findPreference(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
+            }*/
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
             if (preference != null) {
                 PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("prf_pref_activationParametersCategory");
                 preferenceCategory.removePreference(preference);
