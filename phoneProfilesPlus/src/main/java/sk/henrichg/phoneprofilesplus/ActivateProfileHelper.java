@@ -154,7 +154,7 @@ class ActivateProfileHelper {
                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-wifiApManager!=null");
                     boolean setWifiAPState = false;
                     boolean isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled="+isWifiAPEnabled);
+                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=" + isWifiAPEnabled);
                     switch (profile._deviceWiFiAP) {
                         case 1:
                             if (!isWifiAPEnabled) {
@@ -176,9 +176,9 @@ class ActivateProfileHelper {
                             canChangeWifi = !isWifiAPEnabled;
                             break;
                     }
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-setWifiAPState="+setWifiAPState);
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled="+isWifiAPEnabled);
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-canChangeWifi="+canChangeWifi);
+                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-setWifiAPState=" + setWifiAPState);
+                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=" + isWifiAPEnabled);
+                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-canChangeWifi=" + canChangeWifi);
                     if (setWifiAPState) {
                         setWifiAP(wifiApManager, isWifiAPEnabled, context);
                         //try { Thread.sleep(200); } catch (InterruptedException e) { }
@@ -3029,6 +3029,12 @@ class ActivateProfileHelper {
                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                     PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
+            }
+            else {
+                if (enable)
+                    wifiApManager.startTethering();
+                else
+                    wifiApManager.stopTethering();
             }
         }
     }

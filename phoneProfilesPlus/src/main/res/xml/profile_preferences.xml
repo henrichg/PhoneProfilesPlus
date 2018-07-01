@@ -414,8 +414,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceWiFiAP"
                 android:defaultValue="0"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/wifiAPArray"
+                android:entryValues="@array/wifiAPValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
             <com.afollestad.materialdialogs.prefs.MaterialListPreference

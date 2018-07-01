@@ -1,35 +1,51 @@
 package sk.henrichg.phoneprofilesplus;
 
+//TODO Android P - used reflections!!
+
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
+import android.os.Build;
+import android.os.ResultReceiver;
 import android.util.Log;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 final class WifiApManager {
     //private static final int WIFI_AP_STATE_FAILED = 4;
-    private final WifiManager mWifiManager;
+    private WifiManager mWifiManager;
     private final String TAG = "Wifi Access Manager";
     private Method wifiControlMethod = null;
     private Method wifiApConfigurationMethod = null;
     //private Method wifiApState;
     private Method wifiApEnabled = null;
 
+    private ConnectivityManager mConnectivityManager;
+    private String packageName;
+
     @SuppressLint("PrivateApi")
     WifiApManager(Context context) throws SecurityException, NoSuchMethodException {
         mWifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        if (mWifiManager != null) {
-            wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
-            wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration"/*,null*/);
-            //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
+        if (mWifiManager != null)
             wifiApEnabled = mWifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
+        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-mWifiManager=" + mWifiManager);
+        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApEnabled=" + wifiApEnabled);
+        if (Build.VERSION.SDK_INT >= 26) {
+            mConnectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            packageName = context.getPackageName();
         }
-        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-mWifiManager="+mWifiManager);
-        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiControlMethod="+wifiControlMethod);
-        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApConfigurationMethod="+wifiApConfigurationMethod);
-        PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApEnabled="+wifiApEnabled);
+        else {
+            if (mWifiManager != null) {
+                wifiControlMethod = mWifiManager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
+                wifiApConfigurationMethod = mWifiManager.getClass().getMethod("getWifiApConfiguration"/*,null*/);
+                //wifiApState = mWifiManager.getClass().getMethod("getWifiApState");
+            }
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiControlMethod=" + wifiControlMethod);
+            PPApplication.logE("$$$ WifiAP", "WifiApManager.WifiApManager-wifiApConfigurationMethod=" + wifiApConfigurationMethod);
+        }
     }
 
     private void setWifiApState(WifiConfiguration config, boolean enabled) {
@@ -117,6 +133,87 @@ final class WifiApManager {
             /*WifiApManager wifiApManager = */new WifiApManager(context);
             return true;
         } catch (NoSuchMethodException e) {
+            return false;
+        }
+    }
+
+    void startTethering() {
+        if (mConnectivityManager != null) {
+            try {
+                Field internalConnectivityManagerField = ConnectivityManager.class.getDeclaredField("mService");
+                internalConnectivityManagerField.setAccessible(true);
+
+                callStartTethering(internalConnectivityManagerField.get(mConnectivityManager));
+            } catch (Exception e) {
+                Log.e("WifiApManager.startTethering", Log.getStackTraceString(e));
+            }
+        }
+    }
+
+    void stopTethering() {
+        if (mConnectivityManager != null) {
+            try {
+                Method stopTetheringMethod = ConnectivityManager.class.getDeclaredMethod("stopTethering", int.class);
+                stopTetheringMethod.invoke(mConnectivityManager, 0);
+            } catch (Exception e) {
+                Log.e("WifiApManager.startTethering", Log.getStackTraceString(e));
+            }
+        }
+    }
+
+    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess"})
+    private void callStartTethering(Object internalConnectivityManager) throws ReflectiveOperationException {
+        Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
+
+        ResultReceiver dummyResultReceiver = new ResultReceiver(null);
+
+        try {
+            Method startTetheringMethod = internalConnectivityManagerClass.getDeclaredMethod("startTethering",
+                    int.class,
+                    ResultReceiver.class,
+                    boolean.class);
+
+            startTetheringMethod.invoke(internalConnectivityManager,
+                    0,
+                    dummyResultReceiver,
+                    false);
+        } catch (NoSuchMethodException e) {
+            // Newer devices have "callingPkg" String argument at the end of this method.
+            Method startTetheringMethod = internalConnectivityManagerClass.getDeclaredMethod("startTethering",
+                    int.class,
+                    ResultReceiver.class,
+                    boolean.class,
+                    String.class);
+
+            startTetheringMethod.invoke(internalConnectivityManager,
+                    0,
+                    dummyResultReceiver,
+                    false,
+                    packageName);
+        }
+    }
+
+    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess"})
+    static boolean canExploitWifiTethering(Context context) {
+        try {
+            canExploitWifiAP(context);
+            ConnectivityManager.class.getDeclaredField("mService");
+            Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
+            try {
+                internalConnectivityManagerClass.getDeclaredMethod("startTethering",
+                        int.class,
+                        ResultReceiver.class,
+                        boolean.class);
+            } catch (NoSuchMethodException e) {
+                internalConnectivityManagerClass.getDeclaredMethod("startTethering",
+                        int.class,
+                        ResultReceiver.class,
+                        boolean.class,
+                        String.class);
+            }
+            ConnectivityManager.class.getDeclaredMethod("stopTethering", int.class);
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
