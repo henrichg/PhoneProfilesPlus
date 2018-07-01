@@ -1263,8 +1263,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 protected Integer doInBackground(Void... params) {
                     this.dataWrapper.stopAllEvents(true, false);
 
-                    int ret = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
-                    if (ret == 1) {
+                    int dbRet = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
+                    if (dbRet == 1) {
                         DatabaseHandler.getInstance(this.dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
                         DatabaseHandler.getInstance(this.dataWrapper.context).deactivateProfile();
                         DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
@@ -1303,8 +1303,12 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     if (!(dbError && appSettingsError && defaultProfileError))
                         return 1;
-                    else
-                        return 0;
+                    else {
+                        if (dbError)
+                            return dbRet;
+                        else
+                            return 0;
+                    }
                 }
 
                 @Override
