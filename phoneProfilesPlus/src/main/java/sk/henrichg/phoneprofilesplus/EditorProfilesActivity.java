@@ -1131,7 +1131,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
     */
 
-    private void importExportErrorDialog(int importExport, int result)
+    private void importExportErrorDialog(int importExport, int dbResult, int appSettingsResult, int sharedProfileResult)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         String title;
@@ -1142,9 +1142,15 @@ public class EditorProfilesActivity extends AppCompatActivity
         dialogBuilder.setTitle(title);
         String message;
         if (importExport == 1) {
-            message = getString(R.string.import_profiles_alert_error);
-            if (result == -999)
-                message = message + ". " + getString(R.string.import_profiles_alert_error_database_newer_version);
+            message = getString(R.string.import_profiles_alert_error) + ":";
+            if (dbResult == DatabaseHandler.IMPORT_ERROR_NEVER_VERSION)
+                message = message + "\n• " + getString(R.string.import_profiles_alert_error_database_newer_version);
+            else
+                message = message + "\n• " + getString(R.string.import_profiles_alert_error_database_bug);
+            if (appSettingsResult == 0)
+                message = message + "\n• " + getString(R.string.import_profiles_alert_error_appSettings_bug);
+            if (sharedProfileResult == 0)
+                message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
         }
         else
             message = getString(R.string.export_profiles_alert_error);
@@ -1225,7 +1231,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 private DataWrapper dataWrapper;
                 private boolean dbError = false;
                 private boolean appSettingsError = false;
-                private boolean defaultProfileError = false;
+                private boolean sharedProfileError = false;
 
                 private ImportAsyncTask() {
                     importProgressDialog = new MaterialDialog.Builder(activity)
@@ -1264,7 +1270,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     this.dataWrapper.stopAllEvents(true, false);
 
                     int dbRet = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
-                    if (dbRet == 1) {
+                    if (dbRet == DatabaseHandler.IMPORT_OK) {
                         DatabaseHandler.getInstance(this.dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
                         DatabaseHandler.getInstance(this.dataWrapper.context).deactivateProfile();
                         DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
@@ -1282,11 +1288,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                     File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                     appSettingsError = !importApplicationPreferences(exportFile, 1);
                     exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                    defaultProfileError = !importApplicationPreferences(exportFile, 2);
+                    sharedProfileError = !importApplicationPreferences(exportFile, 2);
 
                     PPApplication.logE("EditorProfilesActivity.doImportData", "dbError="+dbError);
                     PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError="+appSettingsError);
-                    PPApplication.logE("EditorProfilesActivity.doImportData", "defaultProfileError="+defaultProfileError);
+                    PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError="+sharedProfileError);
 
                     if (!appSettingsError) {
                         ApplicationPreferences.getSharedPreferences(dataWrapper.context);
@@ -1301,7 +1307,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
                     }
 
-                    if (!(dbError && appSettingsError && defaultProfileError))
+                    if (!(dbError && appSettingsError && sharedProfileError))
                         return 1;
                     else {
                         if (dbError)
@@ -1323,7 +1329,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
                     GlobalGUIRoutines.unlockScreenOrientation(activity);
 
-                    if (result == 1) {
+
+                    if (!(dbError && appSettingsError && sharedProfileError)) {
                         this.dataWrapper.updateNotificationAndWidgets();
                         //dataWrapper.getActivateProfileHelper().showNotification(null, "");
                         //dataWrapper.getActivateProfileHelper().updateGUI();
@@ -1356,7 +1363,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
                         PPApplication.startPPService(activity, serviceIntent);
 
-                        importExportErrorDialog(1, result);
+                        int dbResult = 1;
+                        if (dbError) dbResult = result;
+                        int appSettingsResult = 1;
+                        if (appSettingsError) appSettingsResult = 0;
+                        int sharedProfileResult = 1;
+                        if (sharedProfileError) sharedProfileResult = 0;
+                        importExportErrorDialog(1, dbResult, appSettingsResult, sharedProfileResult);
                     }
 
                 }
@@ -1554,7 +1567,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         msg.show();
 
                     } else {
-                        importExportErrorDialog(2, result);
+                        importExportErrorDialog(2, 0, 0, 0);
                     }
                 }
 
