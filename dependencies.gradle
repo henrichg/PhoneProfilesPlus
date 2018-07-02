@@ -8,6 +8,7 @@
 // 3900 = replaced applicationEventWifiEnableWifi with applicationEventBluetoothEnableBluetooth
 //        and applicationEventWifiScanIfWifiOff with applicationEventBluetoothScanIfBluetoothOff
 // 4000 = updated privacy policy
+// 4100 = Wi-Fi AP = Toggle is not supported fro Android 8+
 
 ext.ppVersions = [
     publishVersion: '3.6.1.1b',

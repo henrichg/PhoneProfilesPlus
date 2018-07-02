@@ -12,7 +12,7 @@ import android.os.PowerManager;
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(final Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
@@ -172,6 +172,17 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
                                         ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
                                 editor.apply();
+                            }
+
+                            if (actualVersionCode <= 4100) {
+                                SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
+                                if ((preferences.getInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0) == 3) &&
+                                        (Build.VERSION.SDK_INT >= 26)) {
+                                    // Toggle is not supported for wifi AP in Android 8+
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
+                                    editor.apply();
+                                }
                             }
                         }
                     } catch (Exception ignored) {
