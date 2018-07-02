@@ -10,8 +10,6 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.prefs.MaterialListPreference;
-
 class EventPreferencesBattery extends EventPreferences {
 
     int _levelLow;
