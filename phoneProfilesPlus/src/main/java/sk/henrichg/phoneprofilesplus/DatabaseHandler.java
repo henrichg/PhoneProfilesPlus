@@ -56,7 +56,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Condition runningCommandCondition = importExportLock.newCondition();
     private boolean runningImportExport = false;
     private boolean runningCommand = false;
-    static final int IMPORT_ERROR_BUG = 0;
+    private static final int IMPORT_ERROR_BUG = 0;
     static final int IMPORT_ERROR_NEVER_VERSION = -999;
     static final int IMPORT_OK = 1;
 

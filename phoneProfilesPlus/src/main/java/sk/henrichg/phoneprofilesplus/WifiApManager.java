@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 
 final class WifiApManager {
     //private static final int WIFI_AP_STATE_FAILED = 4;
-    private WifiManager mWifiManager;
+    private final WifiManager mWifiManager;
     private final String TAG = "Wifi Access Manager";
     private Method wifiControlMethod = null;
     private Method wifiApConfigurationMethod = null;

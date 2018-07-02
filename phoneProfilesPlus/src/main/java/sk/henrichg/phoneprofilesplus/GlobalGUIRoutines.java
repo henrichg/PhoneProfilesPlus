@@ -324,6 +324,7 @@ class GlobalGUIRoutines {
     }
     */
 
+    @SuppressWarnings("SameParameterValue")
     static int dpToPx(int dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
