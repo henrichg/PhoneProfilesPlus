@@ -324,11 +324,12 @@ class GlobalGUIRoutines {
     }
     */
 
-    /*static int dpToPx(int dp)
+    static int dpToPx(int dp)
     {
         return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
+    /*
     static int pxToDp(int px)
     {
         return (int) (px / Resources.getSystem().getDisplayMetrics().density);

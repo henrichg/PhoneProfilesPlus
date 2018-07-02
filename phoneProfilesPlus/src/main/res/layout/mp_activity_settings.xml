@@ -20,7 +20,7 @@
         app:contentInsetRight="0dp"
         app:contentInsetStart="72dp"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        android:elevation="4dp"
+        android:elevation="1dp"
         tools:ignore="UnusedAttribute" />
 
     <FrameLayout

@@ -58,6 +58,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.about_application_title);
+            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
         }
 
         TextView text = findViewById(R.id.about_application_application_version);

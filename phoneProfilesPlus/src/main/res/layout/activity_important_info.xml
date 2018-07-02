@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
-        android:elevation="3dp"
+        android:elevation="1dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_important_info_toolbar"
         android:background="?attr/colorPrimary"
-        android:elevation="3dp"
+        android:elevation="1dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         tools:ignore="UnusedAttribute"/>

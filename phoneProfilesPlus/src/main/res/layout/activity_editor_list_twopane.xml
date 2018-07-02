@@ -27,7 +27,7 @@
             android:paddingBottom="3dp"
             android:orientation="vertical"
             android:background="?attr/colorPrimary"
-            android:elevation="4dp"
+            android:elevation="1dp"
             tools:ignore="UnusedAttribute" >
 
             <android.support.v7.widget.Toolbar
@@ -165,7 +165,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
+                android:layout_height="1dp"
                 android:background="@drawable/bottombar_dropshadow"
                 android:layout_gravity="bottom" />
 

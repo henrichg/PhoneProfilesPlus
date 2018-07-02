@@ -22,7 +22,7 @@
             android:paddingBottom="3dp"
             android:orientation="vertical"
             android:background="?attr/colorPrimary"
-            android:elevation="4dp" >
+            android:elevation="1dp" >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/editor_tollbar"
@@ -158,7 +158,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="4dp"
+                android:layout_height="1dp"
                 android:background="@drawable/bottombar_dropshadow"
                 android:layout_gravity="bottom" />
 
@@ -173,7 +173,7 @@
         style="@style/NavDrawer"
         android:background="?attr/navigationDrawerBackground"
         android:fitsSystemWindows="true"
-        android:elevation="8dp"
+        android:elevation="1dp"
         app:insetForeground="#4000"  >
 
         <RelativeLayout
