@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,7 +36,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -135,7 +135,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private ListView drawerListView;
     private ActionBarDrawerToggle drawerToggle;
     private TextView filterStatusBarTitle;
-    private Spinner orderSpinner;
+    private AppCompatSpinner orderSpinner;
     private ImageView drawerHeaderFilterImage;
     private TextView drawerHeaderFilterTitle;
     private TextView drawerHeaderFilterSubtitle;
@@ -153,7 +153,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
 
-    @SuppressLint("NewApi")
+    @SuppressLint({"NewApi", "RestrictedApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -423,6 +423,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     R.layout.editor_drawer_spinner);
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_drawer_spinner_dropdown);
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorDrawerListHeaderTitleColor_dark));
+        else
+            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorDrawerListHeaderTitleColor));
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 

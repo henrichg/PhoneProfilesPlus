@@ -3,8 +3,6 @@
           android:id="@android:id/text1"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="5dp"
-          style="?attr/editorDrawerSpinner"
           android:textColor="?attr/editorDrawerListHeaderTitle"
           android:textSize="16sp"
           android:maxLines="1"/>

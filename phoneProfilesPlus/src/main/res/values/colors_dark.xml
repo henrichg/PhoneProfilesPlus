@@ -6,6 +6,7 @@
     <color name="accent_dark">#DC8160</color>       <!-- A100 -->
     <color name="accent_dark_disabled">#70DC8160</color>
 
+    <color name="activityBackgroundColor_dark">#FF303030</color>
     <color name="activityTextColor_dark">#FFFFFFFF</color>
     <color name="activityCommandBackgroundColor_dark">#1FFFFFFF</color>
 

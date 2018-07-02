@@ -11,10 +11,14 @@
         <item name="colorAccent">@color/accent_dark</item>
         <item name="colorAccentDisabled">@color/accent_dark_disabled</item>
 
+        <item name="android:windowBackground">@color/activityBackgroundColor_dark</item>
+        <item name="activityBackgroundColor">@color/activityBackgroundColor_dark</item>
         <item name="activityTextColor">@color/activityTextColor_dark</item>
         <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor_dark</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu_dark</item>
 
         <item name="md_dark_theme">true</item>
+        <item name="md_background_color">@color/activityBackgroundColor_dark</item>
         <item name="md_widget_color">?attr/colorAccent</item>
 
         <item name="actionNewProfileIcon">@drawable/ic_action_new_profile_dark</item>
@@ -68,6 +72,8 @@
         <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
 
         <item name="actionRunStopEventsIcon">@drawable/ic_action_run_stop_events_icon</item>
+
+        <item name="editorDrawerSpinnerDropDownTextColor">@color/activityTextColor_dark</item>
 
     </style>
 

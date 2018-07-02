@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.Phoneprofilestheme_withToolbar_dlight" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_dlight">
+        <item name="android:popupMenuStyle">@style/PopupMenu_dlight</item>
     </style>
 
 </resources>

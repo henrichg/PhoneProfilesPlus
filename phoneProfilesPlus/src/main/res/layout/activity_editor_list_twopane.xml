@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
             android:background="?attr/colorPrimary"
-            android:theme="?attr/toolbarTheme"
+            android:theme="?attr/bottomToolbarTheme"
             app:popupTheme="?attr/toolbarPopupMenu" >
 
             <LinearLayout
@@ -97,7 +97,6 @@
                     android:id="@+id/editor_list_bottom_bar_order_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:ellipsize="end"
                     android:textSize="14sp"
                     android:textColor="@android:color/white"
@@ -106,11 +105,10 @@
                     android:maxLines="1"
                     android:focusable="true"/>
 
-                <Spinner
+                <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/editor_list_bottom_bar_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="?attr/actionDropDownStyle"
                     android:entries="@array/drawerOrderEvents" />
 
             </LinearLayout>

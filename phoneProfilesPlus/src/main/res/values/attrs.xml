@@ -62,6 +62,7 @@
 
     <!-- theme dependent drawables -->
     <attr name="colorAccentDisabled" format="reference" />
+    <attr name="activityBackgroundColor" format="reference" />
     <attr name="activityTextColor" format="reference" />
     <attr name="activityCommandBackgroundColor" format="reference" />
     <attr name="actionNewProfileIcon" format="reference" />
@@ -77,7 +78,7 @@
     <attr name="navigationDrawerSubText" format="reference"/>
     <attr name="navigationDrawerSelector" format="reference"/>
     <attr name="filterStatusBarBackground" format="reference" />
-    <attr name="editorDrawerSpinner" format="reference" />
+    <!-- <attr name="editorDrawerSpinner" format="reference" /> -->
     <attr name="preferenceDialogBackground" format="reference" />
     <attr name="editItemMenuIcon" format="reference" />
     <attr name="applicationSettingsLanguageIcon" format="reference" />
@@ -101,5 +102,7 @@
     <attr name="fastScrollPopupTextPP" format="reference" />
     <attr name="actionDefaultProfile" format="reference" />
     <attr name="actionRunStopEventsIcon" format="reference" />
+    <attr name="editorDrawerSpinnerDropDownTextColor" format="reference" />
+    <attr name="bottomToolbarTheme" format="reference" />
 
 </resources>

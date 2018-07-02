@@ -6,6 +6,7 @@
     <color name="accent">#DC8160</color>       <!-- A400(A200) -->
     <color name="accent_disabled">#70DC8160</color>
 
+    <color name="activityBackgroundColor">#FFFFFFFF</color>
     <color name="activityTextColor">#FF000000</color>
     <color name="activityCommandBackgroundColor">#1F000000</color>
 
