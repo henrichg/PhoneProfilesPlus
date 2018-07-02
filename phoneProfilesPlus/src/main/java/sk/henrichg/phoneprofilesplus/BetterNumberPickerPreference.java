@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 import com.codetroopers.betterpickers.numberpicker.NumberPicker;
 
 import java.math.BigDecimal;
@@ -94,6 +95,14 @@ class BetterNumberPickerPreference extends DialogPreference {
                 });
 
         mDialog = mBuilder.build();
+
+        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
+        if (negative != null) negative.setAllCaps(false);
+        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
+        if (neutral != null) neutral.setAllCaps(false);
+        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        if (positive != null) positive.setAllCaps(false);
+
         View layout = mDialog.getCustomView();
 
         // External values

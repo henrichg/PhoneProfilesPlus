@@ -113,6 +113,14 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         });
 
         mDialog = mBuilder.build();
+
+        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
+        if (negative != null) negative.setAllCaps(false);
+        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
+        if (neutral != null) neutral.setAllCaps(false);
+        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        if (positive != null) positive.setAllCaps(false);
+
         View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
@@ -238,6 +246,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         startButton = mDialog.getActionButton(DialogAction.POSITIVE);
 
         stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
+        stopButton.setAllCaps(false);
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

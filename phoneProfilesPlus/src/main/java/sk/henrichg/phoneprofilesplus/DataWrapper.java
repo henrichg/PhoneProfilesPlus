@@ -35,6 +35,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -1602,7 +1603,17 @@ public class DataWrapper {
                         finishActivity(_startupSource, false, _activity);
                     }
                 });
-                dialogBuilder.show();
+                AlertDialog dialog = dialogBuilder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        if (positive != null) positive.setAllCaps(false);
+                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        if (negative != null) negative.setAllCaps(false);
+                    }
+                });
+                dialog.show();
             }
         }
         else
@@ -3618,7 +3629,17 @@ public class DataWrapper {
                         _activity.finish();
                 }
             });
-            dialogBuilder.show();
+            AlertDialog dialog = dialogBuilder.create();
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });
+            dialog.show();
         }
         else
         {

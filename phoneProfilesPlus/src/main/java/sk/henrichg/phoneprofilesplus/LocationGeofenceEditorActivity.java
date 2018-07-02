@@ -231,6 +231,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         });
 
         Button cancelButton = findViewById(R.id.location_editor_cancel);
+        cancelButton.setAllCaps(false);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

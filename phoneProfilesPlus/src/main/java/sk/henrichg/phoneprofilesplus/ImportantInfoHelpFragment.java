@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class ImportantInfoHelpFragment extends Fragment {
@@ -161,7 +163,17 @@ public class ImportantInfoHelpFragment extends Fragment {
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            dialogBuilder.show();
+                            AlertDialog dialog = dialogBuilder.create();
+                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });
+                            dialog.show();
                         }
                     }
                 });
@@ -181,7 +193,17 @@ public class ImportantInfoHelpFragment extends Fragment {
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            dialogBuilder.show();
+                            AlertDialog dialog = dialogBuilder.create();
+                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });
+                            dialog.show();
                         }
                     }
                 });
@@ -211,7 +233,17 @@ public class ImportantInfoHelpFragment extends Fragment {
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        dialogBuilder.show();
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });
+                        dialog.show();
                     }
                 }
             });
@@ -231,7 +263,17 @@ public class ImportantInfoHelpFragment extends Fragment {
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        dialogBuilder.show();
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });
+                        dialog.show();
                     }
                 }
             });
@@ -250,7 +292,17 @@ public class ImportantInfoHelpFragment extends Fragment {
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        dialogBuilder.show();
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });
+                        dialog.show();
                     }
                 }
             });
@@ -283,7 +335,17 @@ public class ImportantInfoHelpFragment extends Fragment {
                                 dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                dialogBuilder.show();
+                                AlertDialog dialog = dialogBuilder.create();
+                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    @Override
+                                    public void onShow(DialogInterface dialog) {
+                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                        if (positive != null) positive.setAllCaps(false);
+                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                        if (negative != null) negative.setAllCaps(false);
+                                    }
+                                });
+                                dialog.show();
                             }
                         }
                     });
@@ -317,7 +379,17 @@ public class ImportantInfoHelpFragment extends Fragment {
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            dialogBuilder.show();
+                            AlertDialog dialog = dialogBuilder.create();
+                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });
+                            dialog.show();
                         }
                     }
                 });

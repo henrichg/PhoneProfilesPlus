@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -253,7 +254,17 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                         ProfilePreferencesActivity.super.onBackPressed();
                     }
                 });
-                dialogBuilder.show();
+                AlertDialog dialog = dialogBuilder.create();
+                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        if (positive != null) positive.setAllCaps(false);
+                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        if (negative != null) negative.setAllCaps(false);
+                    }
+                });
+                dialog.show();
             }
             else
                 ProfilePreferencesActivity.super.onBackPressed();

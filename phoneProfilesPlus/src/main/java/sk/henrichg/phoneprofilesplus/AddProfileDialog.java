@@ -10,7 +10,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,14 @@ class AddProfileDialog
         });
 
         mDialog = dialogBuilder.build();
+
+        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
+        if (negative != null) negative.setAllCaps(false);
+        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
+        if (neutral != null) neutral.setAllCaps(false);
+        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        if (positive != null) positive.setAllCaps(false);
+
         View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions

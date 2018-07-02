@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,6 +28,7 @@ import android.widget.PopupMenu;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -103,6 +105,14 @@ public class NFCTagPreference extends DialogPreference {
                 })*/;
 
         mDialog = mBuilder.build();
+
+        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
+        if (negative != null) negative.setAllCaps(false);
+        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
+        if (neutral != null) neutral.setAllCaps(false);
+        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        if (positive != null) positive.setAllCaps(false);
+
         View layout = mDialog.getCustomView();
 
         //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
@@ -494,7 +504,17 @@ public class NFCTagPreference extends DialogPreference {
             dialogBuilder.setTitle(R.string.nfc_tag_pref_dlg_menu_writeToNfcTag);
             dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
-            dialogBuilder.show();
+            AlertDialog dialog = dialogBuilder.create();
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });
+            dialog.show();
             return;
         }
 

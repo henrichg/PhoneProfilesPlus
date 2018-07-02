@@ -22,6 +22,7 @@ import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 
 public class ProfileIconPreference extends DialogPreference {
 
@@ -114,6 +115,14 @@ public class ProfileIconPreference extends DialogPreference {
         //getValuePIDP();
 
         mDialog = mBuilder.build();
+
+        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
+        if (negative != null) negative.setAllCaps(false);
+        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
+        if (neutral != null) neutral.setAllCaps(false);
+        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        if (positive != null) positive.setAllCaps(false);
+
         View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
@@ -137,6 +146,7 @@ public class ProfileIconPreference extends DialogPreference {
         updateIcon(true);
 
         colorChooserButton = layout.findViewById(R.id.profileicon_pref_dlg_change_color);
+        colorChooserButton.setAllCaps(false);
         colorChooserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +164,7 @@ public class ProfileIconPreference extends DialogPreference {
         });*/
 
         final Button customIconButton = layout.findViewById(R.id.profileicon_pref_dlg_custom_icon);
+        customIconButton.setAllCaps(false);
         customIconButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -414,6 +425,7 @@ public class ProfileIconPreference extends DialogPreference {
         mColorDialog.show();
 
         /*
+        setAllCaps(false); ???
         mColorDialog  = new ColorChooserDialog.Builder(prefContext, R.string.colorChooser_pref_dialog_title)
                 .titleSub(R.string.colorChooser_pref_dialog_title)  // title of dialog when viewing shades of a color
                 .accentMode(false)  // when true, will display accent palette instead of primary palette

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.List;
@@ -58,6 +59,14 @@ class ApplicationEditorDialog
                 });
 
         mDialog = dialogBuilder.build();
+
+        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
+        if (negative != null) negative.setAllCaps(false);
+        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
+        if (neutral != null) neutral.setAllCaps(false);
+        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        if (positive != null) positive.setAllCaps(false);
+
         View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
@@ -117,8 +126,9 @@ class ApplicationEditorDialog
         }
 
         if (selectedPosition == -1) {
-            View positive = mDialog.getActionButton(DialogAction.POSITIVE);
-            positive.setEnabled(false);
+            //View positive = mDialog.getActionButton(DialogAction.POSITIVE);
+            if (positive != null)
+                positive.setEnabled(false);
         }
 
         listAdapter = new ApplicationEditorDialogAdapter(this, context);

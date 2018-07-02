@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -13,6 +14,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.widget.Button;
 
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -139,7 +141,17 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        dialogBuilder.show();
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });
+                        dialog.show();
                     }
                     return false;
                 }
@@ -175,7 +187,17 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        dialogBuilder.show();
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });
+                        dialog.show();
                     }
                     return false;
                 }
@@ -271,7 +293,17 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        dialogBuilder.show();
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });
+                        dialog.show();
                     }
                     return false;
                 }

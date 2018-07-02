@@ -23,6 +23,7 @@ import android.widget.PopupMenu;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.internal.MDButton;
 
 public class LocationGeofencePreference extends DialogPreference {
 
@@ -102,6 +103,14 @@ public class LocationGeofencePreference extends DialogPreference {
         }
 
         mDialog = mBuilder.build();
+
+        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
+        if (negative != null) negative.setAllCaps(false);
+        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
+        if (neutral != null) neutral.setAllCaps(false);
+        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        if (positive != null) positive.setAllCaps(false);
+
         View layout = mDialog.getCustomView();
 
         //progressLinearLayout = layout.findViewById(R.id.location_pref_dlg_linla_progress);
@@ -180,6 +189,7 @@ public class LocationGeofencePreference extends DialogPreference {
         });
 
         final Button unselectAllButton = layout.findViewById(R.id.location_pref_dlg_uselectAll);
+        unselectAllButton.setAllCaps(false);
         unselectAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -328,7 +338,17 @@ public class LocationGeofencePreference extends DialogPreference {
                                 dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
                                 dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                dialogBuilder.show();
+                                AlertDialog dialog = dialogBuilder.create();
+                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    @Override
+                                    public void onShow(DialogInterface dialog) {
+                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                        if (positive != null) positive.setAllCaps(false);
+                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                        if (negative != null) negative.setAllCaps(false);
+                                    }
+                                });
+                                dialog.show();
                             }
                         }
                         return true;

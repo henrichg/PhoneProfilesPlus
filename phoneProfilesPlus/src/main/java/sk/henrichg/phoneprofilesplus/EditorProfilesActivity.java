@@ -32,6 +32,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -1171,7 +1172,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                 GlobalGUIRoutines.reloadActivity(EditorProfilesActivity.this, true);
             }
         });
-        dialogBuilder.show();
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });
+        dialog.show();
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -1417,7 +1428,17 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
         dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
-        dialogBuilder2.show();
+        AlertDialog dialog = dialogBuilder2.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });
+        dialog.show();
     }
 
     private void importData()
@@ -1444,7 +1465,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                     importDataAlert(false);
                 }
             });
-            dialogBuilder.show();
+            AlertDialog dialog = dialogBuilder.create();
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });
+            dialog.show();
         }
         else*/
             importDataAlert();
@@ -1497,7 +1528,17 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        dialogBuilder.show();
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });
+        dialog.show();
     }
 
     private void doExportData()

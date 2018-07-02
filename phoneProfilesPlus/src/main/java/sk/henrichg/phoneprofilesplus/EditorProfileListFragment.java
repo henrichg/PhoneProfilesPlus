@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -522,7 +523,17 @@ public class EditorProfileListFragment extends Fragment
             }
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-        dialogBuilder.show();
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                if (positive != null) positive.setAllCaps(false);
+                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                if (negative != null) negative.setAllCaps(false);
+            }
+        });
+        dialog.show();
     }
 
     private void deleteAllProfiles()
@@ -570,7 +581,17 @@ public class EditorProfileListFragment extends Fragment
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-            dialogBuilder.show();
+            AlertDialog dialog = dialogBuilder.create();
+            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });
+            dialog.show();
         }
     }
 
