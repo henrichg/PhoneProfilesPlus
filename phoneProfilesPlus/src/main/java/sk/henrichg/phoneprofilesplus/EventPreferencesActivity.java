@@ -520,6 +520,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             int textColor = R.color.tabTargetHelpTextColor;
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
                 textColor = R.color.tabTargetHelpTextColor_white;
+            boolean tintTarget = !ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white");
 
             final TapTargetSequence sequence = new TapTargetSequence(this);
             List<TapTarget> targets = new ArrayList<>();
@@ -529,6 +530,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
                                 .targetCircleColor(circleColor)
                                 .textColor(textColor)
+                                .tintTarget(tintTarget)
                                 .drawShadow(true)
                                 .id(id)
                 );

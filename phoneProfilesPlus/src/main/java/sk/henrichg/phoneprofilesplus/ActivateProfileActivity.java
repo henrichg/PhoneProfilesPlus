@@ -390,6 +390,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 int textColor = R.color.tabTargetHelpTextColor;
                 if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
                     textColor = R.color.tabTargetHelpTextColor_white;
+                boolean tintTarget = !ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();
@@ -401,6 +402,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                         .targetCircleColor(circleColor)
                                         .textColor(textColor)
+                                        .tintTarget(tintTarget)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -412,6 +414,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                 TapTarget.forView(restartEventsActionView, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
                                         .targetCircleColor(circleColor)
                                         .textColor(textColor)
+                                        .tintTarget(tintTarget)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -428,6 +431,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
                                         .targetCircleColor(circleColor)
                                         .textColor(textColor)
+                                        .tintTarget(tintTarget)
                                         .drawShadow(true)
                                         .id(id)
                         );

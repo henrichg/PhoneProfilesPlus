@@ -811,6 +811,7 @@ public class EditorEventListFragment extends Fragment
                 int textColor = R.color.tabTargetHelpTextColor;
                 if (ApplicationPreferences.applicationTheme(getActivity()).equals("white"))
                     textColor = R.color.tabTargetHelpTextColor_white;
+                boolean tintTarget = !ApplicationPreferences.applicationTheme(getActivity()).equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
@@ -821,6 +822,7 @@ public class EditorEventListFragment extends Fragment
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, getString(R.string.editor_activity_targetHelps_newEventButton_title), getString(R.string.editor_activity_targetHelps_newEventButton_description))
                                         .targetCircleColor(circleColor)
                                         .textColor(textColor)
+                                        .tintTarget(tintTarget)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -832,6 +834,7 @@ public class EditorEventListFragment extends Fragment
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_title), getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_description))
                                         .targetCircleColor(circleColor)
                                         .textColor(textColor)
+                                        .tintTarget(tintTarget)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -845,6 +848,7 @@ public class EditorEventListFragment extends Fragment
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_default_profile, getString(R.string.editor_activity_targetHelps_backgroundProfileButton_title), getString(R.string.editor_activity_targetHelps_backgroundProfileButton_description))
                                         .targetCircleColor(circleColor)
                                         .textColor(textColor)
+                                        .tintTarget(tintTarget)
                                         .drawShadow(true)
                                         .id(id)
                         );
