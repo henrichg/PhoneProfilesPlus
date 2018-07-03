@@ -2,19 +2,19 @@
 <resources>
 
     <style name="PopupMenu_color" parent="@style/Widget.AppCompat.Light.PopupMenu">
-        <item name="android:popupBackground">@color/activityBackgroundColor</item>
+        <item name="android:popupBackground">@color/popupMenuColor</item>
     </style>
 
     <style name="PopupMenu_dlight" parent="@style/Widget.AppCompat.Light.PopupMenu">
-        <item name="android:popupBackground">@color/activityBackgroundColor</item>
+        <item name="android:popupBackground">@color/popupMenuColor</item>
     </style>
 
     <style name="PopupMenu_dark" parent="@style/Widget.AppCompat.PopupMenu">
-        <item name="android:popupBackground">@color/activityBackgroundColor_dark</item>
+        <item name="android:popupBackground">@color/popupMenuColor_dark</item>
     </style>
 
     <style name="PopupMenu_white" parent="@style/Widget.AppCompat.Light.PopupMenu">
-        <item name="android:popupBackground">@color/activityBackgroundColor</item>
+        <item name="android:popupBackground">@color/popupMenuColor_white</item>
     </style>
 
 </resources>

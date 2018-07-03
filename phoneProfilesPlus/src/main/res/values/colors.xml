@@ -33,6 +33,8 @@
     <color name="tabTargetHelpCircleColor">#FFFFFFFF</color>
     <color name="tabTargetHelpTextColor">#FFFFFFFF</color>
 
+    <color name="popupMenuColor">#FFF7F7F7</color>
+
     <!--
     <color name="notificationBackground_light">#FFFFFFFF</color>
     <color name="notificationTextColor_light">#FF000000</color>

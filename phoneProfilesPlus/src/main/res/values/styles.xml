@@ -60,7 +60,7 @@
         <item name="colorAccent">@color/accent_dark</item>
     </style>
     <style name="AlertDialogStyleWhite" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/activityBackgroundColor</item>
+        <item name="android:background">@color/activityBackgroundColor_white</item>
         <item name="colorAccent">@color/accent</item>
     </style>
 
@@ -77,7 +77,7 @@
         <item name="colorAccent">@color/accent_dark</item>
     </style>
     <style name="DialogStyleWhite" parent="Theme.AppCompat.Light.Dialog">
-        <item name="android:background">@color/activityBackgroundColor</item>
+        <item name="android:background">@color/activityBackgroundColor_white</item>
         <item name="colorAccent">@color/accent</item>
     </style>
 

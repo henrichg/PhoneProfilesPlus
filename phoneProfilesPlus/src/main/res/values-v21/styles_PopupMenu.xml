@@ -17,7 +17,7 @@
     </style>
 
     <style name="PopupMenu_white" parent="@style/Widget.AppCompat.Light.PopupMenu">
-        <item name="android:popupBackground">@color/activityBackgroundColor</item>
+        <item name="android:popupBackground">@color/activityBackgroundColor_white</item>
         <item name="android:overlapAnchor">true</item>
     </style>
 
