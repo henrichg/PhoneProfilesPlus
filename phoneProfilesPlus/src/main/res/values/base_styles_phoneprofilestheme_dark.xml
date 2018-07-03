@@ -77,6 +77,8 @@
 
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor_dark</item>
 
+        <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all</item>
+
     </style>
 
 </resources>

@@ -263,7 +263,7 @@
             android:text="@string/important_info_profile_activation_traffic_light_icon"
             android:id="@+id/activity_info_profile_activation8a"
             android:textStyle="bold"
-            android:drawableEnd="@drawable/ic_run_events_indicator_running"
+            android:drawableEnd="?attr/runEventsIndicatorAll"
             android:drawablePadding="6dp" />
         <TextView
             android:layout_width="wrap_content"

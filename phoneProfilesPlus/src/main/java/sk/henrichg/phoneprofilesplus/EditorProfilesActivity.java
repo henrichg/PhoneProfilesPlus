@@ -1971,15 +1971,28 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void setEventsRunStopIndicator()
     {
+        boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white");
         if (Event.getGlobalEventsRunning(getApplicationContext()))
         {
-            if (Event.getEventsBlocked(getApplicationContext()))
-                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
-            else
-                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);
+            if (Event.getEventsBlocked(getApplicationContext())) {
+                if (whiteTheme)
+                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation_white);
+                else
+                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_manual_activation);
+            }
+            else {
+                if (whiteTheme)
+                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running_white);
+                else
+                    eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_running);
+            }
         }
-        else
-            eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped);
+        else {
+            if (whiteTheme)
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped_white);
+            else
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped);
+        }
     }
 
     public void refreshGUI(boolean refreshIcons, boolean setPosition)

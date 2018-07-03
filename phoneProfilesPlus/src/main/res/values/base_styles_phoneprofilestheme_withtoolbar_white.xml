@@ -81,6 +81,8 @@
 
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor_white</item>
 
+        <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all_white</item>
+
     </style>
 
 </resources>
