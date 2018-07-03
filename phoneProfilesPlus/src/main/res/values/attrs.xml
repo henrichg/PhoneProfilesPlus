@@ -104,5 +104,6 @@
     <attr name="actionRunStopEventsIcon" format="reference" />
     <attr name="editorDrawerSpinnerDropDownTextColor" format="reference" />
     <attr name="bottomToolbarTheme" format="reference" />
+    <attr name="editorFilterTitleColor" format="reference" />
 
 </resources>

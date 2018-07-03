@@ -69,6 +69,9 @@ public class EventPreferencesActivity extends PreferenceActivity
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
             else
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
+                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_white));
+            else
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
         }
 
@@ -511,9 +514,12 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             //final Display display = getWindowManager().getDefaultDisplay();
 
-            int circleColor = 0xFFFFFF;
+            int circleColor = R.color.tabTargetHelpCircleColor;
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
-                circleColor = 0x7F7F7F;
+                circleColor = R.color.tabTargetHelpCircleColor_dark;
+            int textColor = R.color.tabTargetHelpTextColor;
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
+                textColor = R.color.tabTargetHelpTextColor_white;
 
             final TapTargetSequence sequence = new TapTargetSequence(this);
             List<TapTarget> targets = new ArrayList<>();
@@ -521,8 +527,8 @@ public class EventPreferencesActivity extends PreferenceActivity
             try {
                 targets.add(
                         TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
-                                .targetCircleColorInt(circleColor)
-                                .textColorInt(0xFFFFFF)
+                                .targetCircleColor(circleColor)
+                                .textColor(textColor)
                                 .drawShadow(true)
                                 .id(id)
                 );

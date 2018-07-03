@@ -79,6 +79,8 @@
 
         <item name="editorDrawerSpinnerDropDownTextColor">@color/activityTextColor</item>
 
+        <item name="editorFilterTitleColor">@color/editorFilterTitleColor</item>
+
     </style>
 
 </resources>

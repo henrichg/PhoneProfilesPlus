@@ -28,6 +28,11 @@
     <color name="map_last_location_marker_stroke">#FF84d2ef</color>
     <color name="map_last_location_marker_fill">#7784d2ef</color>
 
+    <color name="editorFilterTitleColor">#FFFFFFFF</color>
+
+    <color name="tabTargetHelpCircleColor">#FFFFFFFF</color>
+    <color name="tabTargetHelpTextColor">#FFFFFFFF</color>
+
     <!--
     <color name="notificationBackground_light">#FFFFFFFF</color>
     <color name="notificationTextColor_light">#FF000000</color>

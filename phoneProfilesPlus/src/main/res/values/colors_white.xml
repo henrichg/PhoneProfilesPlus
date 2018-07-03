@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_white">#237e9f</color>      <!-- 700(500) -->
-    <color name="primaryDark_white">#237e9f</color> <!-- 900(700) -->
-    <!--<color name="primaryDark">#1d6681</color>--> <!-- 900(700) -->
+    <color name="primary_white">#F0F0F0</color>      <!-- 500 -->
+    <color name="primaryDark_white">#F0F0F0</color> <!-- 700 -->
     <color name="accent_white">#DC8160</color>       <!-- A400(A200) -->
     <color name="accent_white_disabled">#70DC8160</color>
 
@@ -17,6 +16,11 @@
     <color name="preferenceDialogBackgroud_white">#FFFFFFFF</color>
     <color name="editorDrawerListHeaderTitleColor_white">#FFFFFFFF</color>
     <color name="dialog_divider_white">#10000000</color>
+
+    <color name="editorFilterTitleColor_white">#FF000000</color>
+
+    <color name="tabTargetHelpCircleColor_white">#FFFFFFFF</color>
+    <color name="tabTargetHelpTextColor_white">#FF000000</color>
 
     <!--
     <color name="notificationBackground_white">#FFFFFFFF</color>

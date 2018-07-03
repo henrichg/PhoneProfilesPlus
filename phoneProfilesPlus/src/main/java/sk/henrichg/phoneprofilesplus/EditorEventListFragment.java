@@ -805,9 +805,12 @@ public class EditorEventListFragment extends Fragment
                 editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, false);
                 editor.apply();
 
-                int circleColor = 0xFFFFFF;
+                int circleColor = R.color.tabTargetHelpCircleColor;
                 if (ApplicationPreferences.applicationTheme(getActivity()).equals("dark"))
-                    circleColor = 0x7F7F7F;
+                    circleColor = R.color.tabTargetHelpCircleColor_dark;
+                int textColor = R.color.tabTargetHelpTextColor;
+                if (ApplicationPreferences.applicationTheme(getActivity()).equals("white"))
+                    textColor = R.color.tabTargetHelpTextColor_white;
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());
                 List<TapTarget> targets = new ArrayList<>();
@@ -816,8 +819,8 @@ public class EditorEventListFragment extends Fragment
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, getString(R.string.editor_activity_targetHelps_newEventButton_title), getString(R.string.editor_activity_targetHelps_newEventButton_description))
-                                        .targetCircleColorInt(circleColor)
-                                        .textColorInt(0xFFFFFF)
+                                        .targetCircleColor(circleColor)
+                                        .textColor(textColor)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -827,8 +830,8 @@ public class EditorEventListFragment extends Fragment
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_delete_all_events, getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_title), getString(R.string.editor_activity_targetHelps_deleteAllEventsButton_description))
-                                        .targetCircleColorInt(circleColor)
-                                        .textColorInt(0xFFFFFF)
+                                        .targetCircleColor(circleColor)
+                                        .textColor(textColor)
                                         .drawShadow(true)
                                         .id(id)
                         );
@@ -840,8 +843,8 @@ public class EditorEventListFragment extends Fragment
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_default_profile, getString(R.string.editor_activity_targetHelps_backgroundProfileButton_title), getString(R.string.editor_activity_targetHelps_backgroundProfileButton_description))
-                                        .targetCircleColorInt(circleColor)
-                                        .textColorInt(0xFFFFFF)
+                                        .targetCircleColor(circleColor)
+                                        .textColor(textColor)
                                         .drawShadow(true)
                                         .id(id)
                         );

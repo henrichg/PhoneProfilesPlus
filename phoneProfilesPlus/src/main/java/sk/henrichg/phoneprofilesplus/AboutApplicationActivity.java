@@ -51,6 +51,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
             if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
             else
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
+                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_white));
+            else
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
         }
 

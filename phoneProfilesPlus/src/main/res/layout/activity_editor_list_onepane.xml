@@ -49,7 +49,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/editor_list_run_stop_indicator"
                         android:ellipsize="end"
-                        android:textColor="@android:color/white"
+                        android:textColor="?attr/editorFilterTitleColor"
                         android:textSize="15sp"
                         android:maxLines="1"/>
 
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:textSize="14sp"
-                    android:textColor="@android:color/white"
+                    android:textColor="?attr/editorFilterTitleColor"
                     android:clickable="true"
                     android:text="@string/editor_drawer_order_label"
                     android:maxLines="1"
