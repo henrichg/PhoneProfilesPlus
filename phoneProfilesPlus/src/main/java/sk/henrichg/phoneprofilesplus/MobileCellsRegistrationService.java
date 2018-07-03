@@ -146,7 +146,7 @@ public class MobileCellsRegistrationService extends Service {
 
         Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
         PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
-        mBuilder.addAction(R.drawable.ic_action_stop,
+        mBuilder.addAction(R.drawable.ic_action_stop_white,
                 context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
                 stopRegistrationPendingIntent);
 

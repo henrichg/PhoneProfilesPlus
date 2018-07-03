@@ -144,10 +144,10 @@
     <string name="alert_title_delete_all_events">Delete all events</string>
     <string name="alert_message_delete_all_events">Are you sure?</string>
     <string name="phone_profiles_pref_applicationTheme">Application theme</string>
-    <string name="phone_profiles_pref_applicationTheme_material">Color</string>
+    <string name="phone_profiles_pref_applicationTheme_color">Color</string>
     <string name="phone_profiles_pref_applicationTheme_dark">Dark</string>
     <string name="phone_profiles_pref_applicationTheme_dlight">Light with dark title</string>
-    <string name="array_pref_value_material">material</string>
+    <string name="array_pref_value_color">color</string>
     <string name="array_pref_value_dark">dark</string>
     <string name="array_pref_value_dlight">dlight</string>
     <string name="phone_preferences_actionmode_save">Save</string>
@@ -1188,6 +1188,8 @@
     <string name="import_profiles_alert_error_database_bug">Error restoring the database.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Error restoring the application settings.</string>
     <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>
+    <string name="phone_profiles_pref_applicationTheme_white">White</string>
+    <string name="array_pref_value_white">white</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -151,6 +151,28 @@ class GlobalGUIRoutines {
             }
         }
         else
+        if (ApplicationPreferences.applicationTheme(context).equals("white"))
+        {
+            if (forPopup)
+            {
+                if (withToolbar)
+                    return R.style.PopupTheme_withToolbar_white;
+                else
+                    return R.style.PopupTheme_white;
+            }
+            else
+            {
+                if (withToolbar) {
+                    if (withDrawerLayout)
+                        return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
+                    else
+                        return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
+                }
+                else
+                    return R.style.Theme_PhoneProfilesTheme_white;
+            }
+        }
+        else
         if (ApplicationPreferences.applicationTheme(context).equals("dark"))
         {
             if (forPopup)
