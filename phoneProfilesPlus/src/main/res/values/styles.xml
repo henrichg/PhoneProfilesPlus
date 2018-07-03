@@ -47,7 +47,11 @@
         <item name="android:layout_marginRight">@dimen/naw_drawer_margin_offset</item>
     </style>
 
-    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="AlertDialogStyleColor" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/activityBackgroundColor</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+    <style name="AlertDialogStyleDLight" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:background">@color/activityBackgroundColor</item>
         <item name="colorAccent">@color/accent</item>
     </style>
@@ -55,13 +59,26 @@
         <item name="android:background">@color/activityBackgroundColor_dark</item>
         <item name="colorAccent">@color/accent_dark</item>
     </style>
-    <style name="DialogStyle" parent="Theme.AppCompat.Light.Dialog">
+    <style name="AlertDialogStyleWhite" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/activityBackgroundColor</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="DialogStyleColor" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">@color/activityBackgroundColor</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+    <style name="DialogStyleDLight" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:background">@color/activityBackgroundColor</item>
         <item name="colorAccent">@color/accent</item>
     </style>
     <style name="DialogStyleDark" parent="Theme.AppCompat.Dialog">
         <item name="android:background">@color/activityBackgroundColor_dark</item>
         <item name="colorAccent">@color/accent_dark</item>
+    </style>
+    <style name="DialogStyleWhite" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:background">@color/activityBackgroundColor</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
 </resources>

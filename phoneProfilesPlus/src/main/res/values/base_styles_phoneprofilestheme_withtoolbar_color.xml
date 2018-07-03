@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Base.Theme.Phoneprofilestheme_withToolbar_material" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.PhoneProfilesTheme_withToolbar_color" parent="@style/Theme.AppCompat.Light.NoActionBar">
 
         <!-- disable initial empty screen - useful for dark theme -->
         <item name="android:windowDisablePreview">true</item>
@@ -16,7 +16,7 @@
         <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
         <item name="activityTextColor">@color/activityTextColor</item>
         <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor</item>
-        <item name="actionOverflowMenuStyle">@style/PopupMenu_material</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu_color</item>
 
         <item name="md_background_color">@color/activityBackgroundColor</item>
         <item name="md_widget_color">?attr/colorAccent</item>
@@ -24,14 +24,14 @@
         <item name="actionNewProfileIcon">@drawable/ic_action_new_profile_dark</item>
         <item name="actionDeleteAllIcon">@drawable/ic_action_delete_all_dark</item>
         <item name="actionEditProfilesIcon">@drawable/ic_action_edit_profiles_dark</item>
-        <item name="activityPopupBackground">@color/activityPopupBackground_phoneprofilestheme</item>
+        <item name="activityPopupBackground">@color/activityPopupBackground</item>
         <item name="dragHandleIcon">@drawable/ic_drag_handle</item>
         <item name="actionProfilePrefSave">@drawable/ic_action_profile_pref_save_dark</item>
         <item name="actionProfilePrefCancel">@drawable/ic_action_profile_pref_cancel_dark</item>
         <item name="actionProfileButtonTextStyle">@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</item>
-        <item name="navigationDrawerBackground">@color/navigationDrawerBackground_phoneprofiletheme</item>
-        <item name="navigationDrawerText">@color/navigationDrawerTextColor_phoneprofiletheme</item>
-        <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor_phoneprofiletheme</item>
+        <item name="navigationDrawerBackground">@color/navigationDrawerBackground</item>
+        <item name="navigationDrawerText">@color/navigationDrawerTextColor</item>
+        <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor</item>
         <item name="navigationDrawerSelector">@drawable/editor_drawer_selector</item>
         <item name="filterStatusBarBackground">@color/primary</item>
 <!--         <item name="editorDrawerSpinner">@style/editorDrawerSpinnerStyle</item>   --> 
@@ -60,8 +60,8 @@
         <item name="actionActivityLogPlayIcon">@drawable/ic_action_activity_log_play</item>
         <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause</item>
 
-        <item name="alertDialogTheme">@style/AlertDialogStyle</item>
-        <item name="dialogTheme">@style/DialogStyle</item>
+        <item name="alertDialogTheme">@style/AlertDialogStyleColor</item>
+        <item name="dialogTheme">@style/DialogStyleColor</item>
 
         <item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile</item>
         <item name="actionHelpIcon">@drawable/ic_action_help</item>

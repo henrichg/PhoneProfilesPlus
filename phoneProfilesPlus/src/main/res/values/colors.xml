@@ -10,10 +10,10 @@
     <color name="activityTextColor">#FF000000</color>
     <color name="activityCommandBackgroundColor">#1F000000</color>
 
-    <color name="activityPopupBackground_phoneprofilestheme">#FFd0d0d0</color>
-    <color name="navigationDrawerTextColor_phoneprofiletheme">#ff000000</color>
-    <color name="navigationDrawerSubTextColor_phoneprofiletheme">#80000000</color>
-    <color name="navigationDrawerBackground_phoneprofiletheme">#fffafafa</color>
+    <color name="activityPopupBackground">#FFd0d0d0</color>
+    <color name="navigationDrawerTextColor">#ff000000</color>
+    <color name="navigationDrawerSubTextColor">#80000000</color>
+    <color name="navigationDrawerBackground">#fffafafa</color>
     <color name="preferenceDialogBackgroud">#FFFFFFFF</color>
     <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>
     <color name="dialog_divider">#10000000</color>

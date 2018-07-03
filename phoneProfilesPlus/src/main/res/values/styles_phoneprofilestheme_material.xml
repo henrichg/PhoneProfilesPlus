@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="Theme.Phoneprofilestheme_material" parent="@style/Base.Theme.Phoneprofilestheme_material">
-        <item name="android:popupMenuStyle">@style/PopupMenu_material</item>
-    </style>
-
-</resources>

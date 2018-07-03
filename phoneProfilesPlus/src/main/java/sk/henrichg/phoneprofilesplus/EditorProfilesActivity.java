@@ -186,7 +186,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
             else
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
@@ -286,7 +286,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerRoot = findViewById(R.id.editor_drawer_root);
 
         // set status bar background for Activity body layout
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
             drawerLayout.setStatusBarBackground(R.color.primaryDark);
         else
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
@@ -303,19 +303,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerHeaderFilterImage = findViewById(R.id.editor_drawer_list_header_icon);
         drawerHeaderFilterTitle = findViewById(R.id.editor_drawer_list_header_title);
         drawerHeaderFilterSubtitle = findViewById(R.id.editor_drawer_list_header_subtitle);
-
-        /*
-        RelativeLayout headerBackground = findViewById(R.id.editor_drawer_list_header_background);
-        // set status bar background for Activity body layout
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
-            headerBackground.setBackgroundResource(R.drawable.editor_drawer_list_header_background);
-        else
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
-            headerBackground.setBackgroundResource(R.drawable.editor_drawer_list_header_background_dark);
-        else
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dlight"))
-            headerBackground.setBackgroundResource(R.drawable.editor_drawer_list_header_background);
-        */
 
         int drawerShadowId;
         if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
@@ -1224,7 +1211,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME))
                         {
                             if (v.equals("light"))
-                                prefEdit.putString(key, "material");
+                                prefEdit.putString(key, "color");
+                            if (v.equals("material"))
+                                prefEdit.putString(key, "color");
                         }
                         if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
                             ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);

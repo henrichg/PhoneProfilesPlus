@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="PopupMenu_material" parent="@style/Widget.AppCompat.Light.PopupMenu">
+    <style name="PopupMenu_color" parent="@style/Widget.AppCompat.Light.PopupMenu">
         <item name="android:popupBackground">@color/activityBackgroundColor</item>
     </style>
 
@@ -11,6 +11,10 @@
 
     <style name="PopupMenu_dark" parent="@style/Widget.AppCompat.PopupMenu">
         <item name="android:popupBackground">@color/activityBackgroundColor_dark</item>
+    </style>
+
+    <style name="PopupMenu_white" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="android:popupBackground">@color/activityBackgroundColor</item>
     </style>
 
 </resources>

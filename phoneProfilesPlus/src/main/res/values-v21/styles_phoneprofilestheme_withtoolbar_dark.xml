@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Phoneprofilestheme_withToolbar_dark" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_dark">
+    <style name="Theme.PhoneProfilesTheme_withToolbar_dark" parent="@style/Base.Theme.PhoneProfilesTheme_withToolbar_dark">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:popupMenuStyle">@style/PopupMenu_dark</item>
     </style>

@@ -142,9 +142,15 @@ class ApplicationPreferences {
     }
 
     static public String applicationTheme(Context context) {
-        String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, "material");
+        String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, "color");
         if (applicationTheme.equals("light")){
-            applicationTheme = "material";
+            applicationTheme = "color";
+            SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+            editor.putString(PREF_APPLICATION_THEME, applicationTheme);
+            editor.apply();
+        }
+        if (applicationTheme.equals("material")){
+            applicationTheme = "color";
             SharedPreferences.Editor editor = getSharedPreferences(context).edit();
             editor.putString(PREF_APPLICATION_THEME, applicationTheme);
             editor.apply();

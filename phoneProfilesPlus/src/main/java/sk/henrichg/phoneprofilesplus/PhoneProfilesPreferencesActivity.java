@@ -65,18 +65,11 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
             else
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
         }
-        //else
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)*/ /*{
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
-                getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark));
-            else
-                getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark_dark));
-        }*/
 
         invalidateEditor = false;
 
@@ -87,7 +80,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         ApplicationPreferences.getSharedPreferences(this);
         activeLanguage = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
-        activeTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, "material");
+        activeTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, "color");
         showEditorPrefIndicator = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
         showEditorHeader = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER, true);
 

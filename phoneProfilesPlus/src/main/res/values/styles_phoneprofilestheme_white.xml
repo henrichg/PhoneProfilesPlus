@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.PhoneProfilesTheme_white" parent="@style/Base.Theme.PhoneProfilesTheme_white">
+        <item name="android:popupMenuStyle">@style/PopupMenu_white</item>
+    </style>
+
+</resources>

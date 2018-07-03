@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Phoneprofilestheme_dlight" parent="@style/Base.Theme.Phoneprofilestheme_dlight">
+    <style name="Theme.PhoneProfilesTheme_dlight" parent="@style/Base.Theme.PhoneProfilesTheme_dlight">
         <item name="android:popupMenuStyle">@style/PopupMenu_dlight</item>
     </style>
 

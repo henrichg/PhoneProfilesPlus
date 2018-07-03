@@ -66,18 +66,11 @@ public class EventPreferencesActivity extends PreferenceActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
             else
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
         }
-        //else
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)*/ /*{
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("material"))
-                getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark));
-            else
-                getWindow().setStatusBarColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark_dark));
-        }*/
 
         //getSupportActionBar().setHomeButtonEnabled(true);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);

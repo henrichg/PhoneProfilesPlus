@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="PopupTheme_dark" parent="@style/Theme.Phoneprofilestheme_dark">
+    <style name="PopupTheme_dark" parent="@style/Theme.PhoneProfilesTheme_dark">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
         <item name="android:windowActionModeOverlay">true</item>

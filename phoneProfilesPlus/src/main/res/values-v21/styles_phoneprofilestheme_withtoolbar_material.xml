@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="Theme.Phoneprofilestheme_withToolbar_material" parent="@style/Base.Theme.Phoneprofilestheme_withToolbar_material">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu_material</item>
-    </style>
-
-</resources>
