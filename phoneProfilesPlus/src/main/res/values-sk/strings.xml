@@ -243,7 +243,7 @@
   <string name="event_preferences_battery_charging">Nabíjanie</string>
   <string name="pref_event_battery_level">Úroveň</string>
   <string name="pref_event_battery_charging">Nabíjanie</string>
-  <string name="event_preferences_category_eventTimeParameters">Parametre času</string>
+  <string name="event_preferences_category_eventTimeParameters">Senzor času</string>
   <string name="event_preferences_category_eventBatteryParameters">Senzor batérie</string>
   <string name="contacts_multiselect_summary_text_selected">Vybraté</string>
   <string name="contacts_multiselect_summary_text_not_selected">Nevybraté</string>
