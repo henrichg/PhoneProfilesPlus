@@ -25,6 +25,11 @@ android {
                 "b+sr+Latn", "sv", "te", "th", "tr", "uk", "vi", "zh-rCN", "zh-rTW"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
