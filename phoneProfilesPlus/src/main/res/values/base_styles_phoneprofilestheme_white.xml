@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Base.Theme.PhoneProfilesTheme_white" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+    <style name="Base.Theme.PhoneProfilesTheme_white" parent="@style/Theme.AppCompat.Light">
 
         <!-- disable initial empty screen - useful for dark theme -->
         <item name="android:windowDisablePreview">true</item>
