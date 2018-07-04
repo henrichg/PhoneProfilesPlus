@@ -3227,7 +3227,10 @@ public class PhoneProfilesService extends Service
             {
                 isIconResourceID = true;
                 iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
-                profileName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                if (inHandlerThread)
+                    profileName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                else
+                    profileName = appContext.getResources().getString(R.string.empty_string);
                 iconBitmap = null;
                 preferencesIndicator = null;
             }
@@ -3467,6 +3470,7 @@ public class PhoneProfilesService extends Service
             //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
                 _showProfileNotification(null, false, dataWrapper);
+                dataWrapper.invalidateDataWrapper();
                 runningInForeground = true;
             }
         }
@@ -3482,6 +3486,7 @@ public class PhoneProfilesService extends Service
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
                 Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                 _showProfileNotification(profile, true, dataWrapper);
+                dataWrapper.invalidateDataWrapper();
             }
         });
     }
