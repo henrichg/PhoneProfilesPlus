@@ -205,6 +205,7 @@ public class PhoneProfilesService extends Service
         instance = this;
         serviceHasFirstStart = false;
         serviceRunning = false;
+        runningInForeground = false;
 
         if (Build.VERSION.SDK_INT >= 26)
             // show empty notification to avoid ANR
