@@ -23,14 +23,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <View
+            android:id="@+id/event_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/dialogDivider"
+            android:layout_alignParentTop="true" />
+
         <TextView
             android:id="@+id/event_pref_dlg_help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:layout_alignParentBottom="true"
+            android:padding="10dp"
             android:textColor="#ffff0000"
             android:text="@string/event_pref_dialog_help"/>
+
+        <View
+            android:id="@+id/event_pref_dlg_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/event_pref_dlg_help"
+            android:background="?attr/dialogDivider" />
 
         <ListView
             android:id="@+id/event_pref_dlg_listview"

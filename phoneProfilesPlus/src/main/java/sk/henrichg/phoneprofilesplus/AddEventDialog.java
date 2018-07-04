@@ -41,7 +41,8 @@ class AddEventDialog
                             //.disableDefaultFonts()
                             .negativeText(android.R.string.cancel)
                             .autoDismiss(true)
-                            .customView(R.layout.activity_event_pref_dialog, false);
+                            .customView(R.layout.activity_event_pref_dialog, false)
+                            .dividerColor(0);
 
         dialogBuilder.showListener(new DialogInterface.OnShowListener() {
             @Override
