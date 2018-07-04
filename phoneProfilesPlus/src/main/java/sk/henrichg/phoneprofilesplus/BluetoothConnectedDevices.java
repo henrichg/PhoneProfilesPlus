@@ -78,6 +78,7 @@ class BluetoothConnectedDevices {
                         PPApplication.sleep(100);
                         --i;
                     }
+                    mBluetoothA2dp = null;
                 }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start");
@@ -97,6 +98,7 @@ class BluetoothConnectedDevices {
                         PPApplication.sleep(100);
                         --i;
                     }
+                    mBluetoothHeadset = null;
                 }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start");
@@ -116,6 +118,7 @@ class BluetoothConnectedDevices {
                         PPApplication.sleep(100);
                         --i;
                     }
+                    mBluetoothHealth = null;
                 }
 
                 //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
