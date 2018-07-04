@@ -3459,17 +3459,14 @@ public class PhoneProfilesService extends Service
     }
 
     private void showProfileNotification() {
-        final Context appContext = getApplicationContext();
-        final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-        final Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-
         if (Build.VERSION.SDK_INT >= 26) {
             //if (BuildConfig.DEBUG)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
             if (!runningInForeground) {
-                //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-                _showProfileNotification(profile, false, dataWrapper);
+            //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+                _showProfileNotification(null, false, dataWrapper);
                 runningInForeground = true;
             }
         }
@@ -3482,6 +3479,8 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+                Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                 _showProfileNotification(profile, true, dataWrapper);
             }
         });
