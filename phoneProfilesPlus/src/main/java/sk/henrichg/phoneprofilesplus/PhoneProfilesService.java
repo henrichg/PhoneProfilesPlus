@@ -3483,10 +3483,12 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
-                Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                _showProfileNotification(profile, true, dataWrapper);
-                dataWrapper.invalidateDataWrapper();
+                if (instance != null) {
+                    DataWrapper dataWrapper = new DataWrapper(instance.getApplicationContext(), false, 0);
+                    Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                    _showProfileNotification(profile, true, dataWrapper);
+                    dataWrapper.invalidateDataWrapper();
+                }
             }
         });
     }
