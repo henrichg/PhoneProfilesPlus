@@ -2396,7 +2396,7 @@ class ActivateProfileHelper {
 
                         WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
                         if (windowManager != null) {
-                            if (PhoneProfilesService.instance.brightnessView != null) {
+                            if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.instance.brightnessView != null)) {
                                 try {
                                     windowManager.removeView(PhoneProfilesService.instance.brightnessView);
                                 } catch (Exception ignored) {
