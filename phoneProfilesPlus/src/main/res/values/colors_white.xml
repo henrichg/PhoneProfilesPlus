@@ -19,7 +19,7 @@
 
     <color name="editorFilterTitleColor_white">#FF000000</color>
 
-    <color name="tabTargetHelpCircleColor_white">#FFFFFFFF</color>
+    <!--<color name="tabTargetHelpCircleColor_white">#FFFFFFFF</color>-->
     <color name="tabTargetHelpTextColor_white">#FF000000</color>
 
     <color name="popupMenuColor_white">#FFF7F7F7</color>

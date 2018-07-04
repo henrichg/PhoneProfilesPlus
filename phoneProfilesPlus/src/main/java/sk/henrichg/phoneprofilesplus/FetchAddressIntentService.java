@@ -41,7 +41,7 @@ public class FetchAddressIntentService extends IntentService {
 
         // Check if receiver was properly registered.
         if (mReceiver == null) {
-            Log.e("FetchAddressIntentService.onHandleIntent", "No receiver received. There is nowhere to send the results.");
+            //Log.e("FetchAddressIntentService.onHandleIntent", "No receiver received. There is nowhere to send the results.");
             return;
         }
 
@@ -82,7 +82,7 @@ public class FetchAddressIntentService extends IntentService {
         // Handle case where no address was found.
         if (addresses == null || addresses.size()  == 0) {
             //if (errorMessage.isEmpty()) {
-                Log.e("FetchAddressIntentService.onHandleIntent", "No address found");
+                //Log.e("FetchAddressIntentService.onHandleIntent", "No address found");
             //}
             deliverResultToReceiver(LocationGeofenceEditorActivity.FAILURE_RESULT,
                     getApplicationContext().getString(R.string.event_preferences_location_no_address_found));

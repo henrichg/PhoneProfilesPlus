@@ -4,4 +4,6 @@
     <dimen name="important_info_left_margin">15dp</dimen>
     <dimen name="important_info_right_margin">15dp</dimen>
     <dimen name="important_info_bottom_margin">15dp</dimen>
+
+    <dimen name="bottomBar_dropShadow_height">1dp</dimen>
 </resources>

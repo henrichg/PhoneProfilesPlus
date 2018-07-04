@@ -20,8 +20,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -310,12 +310,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerHeaderFilterTitle = findViewById(R.id.editor_drawer_list_header_title);
         drawerHeaderFilterSubtitle = findViewById(R.id.editor_drawer_list_header_subtitle);
 
-        int drawerShadowId;
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
-            drawerShadowId = R.drawable.drawer_shadow_dark;
-        else
-            drawerShadowId = R.drawable.drawer_shadow;
-        drawerLayout.setDrawerShadow(drawerShadowId, GravityCompat.START);
+        if (Build.VERSION.SDK_INT < 21)
+            drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         // actionbar titles
         drawerItemsTitle = new String[] {
