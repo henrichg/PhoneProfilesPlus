@@ -506,23 +506,23 @@ class ApplicationPreferences {
             return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF, true);
     }
 
-    static boolean applicationEventWifiEnableScannig(Context context) {
+    static boolean applicationEventWifiEnableScanning(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, true);
     }
 
-    static boolean applicationEventBluetoothEnableScannig(Context context) {
+    static boolean applicationEventBluetoothEnableScanning(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, true);
     }
 
-    static boolean applicationEventLocationEnableScannig(Context context) {
+    static boolean applicationEventLocationEnableScanning(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, true);
     }
 
-    static boolean applicationEventMobileCellEnableScannig(Context context) {
+    static boolean applicationEventMobileCellEnableScanning(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, true);
     }
 
-    static boolean applicationEventOrientationEnableScannig(Context context) {
+    static boolean applicationEventOrientationEnableScanning(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, true);
     }
 

@@ -79,14 +79,14 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                     byte[] buffer = bundle.getByteArray("data");
                     if (buffer != null) {
                         String incomingNumber = new String(buffer);
-                        int indx = incomingNumber.indexOf("/TYPE");
+                        int idx = incomingNumber.indexOf("/TYPE");
 
-                        if (indx > 0 && (indx - 15) > 0) {
-                            int newIndx = indx - 15;
-                            incomingNumber = incomingNumber.substring(newIndx, indx);
-                            indx = incomingNumber.indexOf("+");
-                            if (indx > 0) {
-                                origin = incomingNumber.substring(indx);
+                        if (idx > 0 && (idx - 15) > 0) {
+                            int newIdx = idx - 15;
+                            incomingNumber = incomingNumber.substring(newIdx, idx);
+                            idx = incomingNumber.indexOf("+");
+                            if (idx > 0) {
+                                origin = incomingNumber.substring(idx);
                             }
                         }
                     }
@@ -221,8 +221,8 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
         if (mmsObserver != null)
             return;
 
-        Uri uriMMSURI = Uri.parse("content://mms");
-        Cursor mmsCur = context.getContentResolver().query(uriMMSURI, null, "msg_box = 4", null, "_id");
+        Uri uriMMS = Uri.parse("content://mms");
+        Cursor mmsCur = context.getContentResolver().query(uriMMS, null, "msg_box = 4", null, "_id");
         if (mmsCur != null && mmsCur.getCount() > 0) {
            mmsCount = mmsCur.getCount();
         }
@@ -236,8 +236,8 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("SMSBroadcastReceiver.mmsObserver.onChange","xxx");
 
                 // read outgoing mms from db
-                Uri uriMMSURI = Uri.parse("content://mms/");
-                Cursor mmsCur = _context.getContentResolver().query(uriMMSURI, null, "msg_box = 4 or msg_box = 1", null,"_id");
+                Uri uriMMS = Uri.parse("content://mms/");
+                Cursor mmsCur = _context.getContentResolver().query(uriMMS, null, "msg_box = 4 or msg_box = 1", null,"_id");
 
                 int currMMSCount = 0;
                 if (mmsCur != null && mmsCur.getCount() > 0) {

@@ -94,7 +94,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     writableTextView.setTextColor(getResources().getColor(color));
                     ta.recycle();
 
-                    if (nfcManager.tagReaded) {
+                    if (nfcManager.tagRead) {
                         if (nfcManager.tagIsWritable)
                             writableTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_writable);
                         else {
@@ -118,7 +118,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 public void onTagWriteError(NFCTagWriteException exception) {
                     String text = getString(R.string.write_nfc_tag_error);
                     text = text + ": " + exception.getType().toString();
-                    if (nfcManager.tagReaded) {
+                    if (nfcManager.tagRead) {
                         if (nfcManager.tagIsWritable)
                             text = text + " (" + getString(R.string.nfc_tag_pref_dlg_writeToNfcTag_writable) + ")";
                         else {

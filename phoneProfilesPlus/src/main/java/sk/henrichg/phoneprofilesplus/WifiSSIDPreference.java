@@ -532,7 +532,7 @@ public class WifiSSIDPreference extends DialogPreference {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
-                     case R.id.wifi_ssif_pref_dlg_item_menu_change:
+                     case R.id.wifi_ssid_pref_dlg_item_menu_change:
                          if (!SSIDName.getText().toString().isEmpty()) {
                             String[] splits = value.split("\\|");
                             value = "";

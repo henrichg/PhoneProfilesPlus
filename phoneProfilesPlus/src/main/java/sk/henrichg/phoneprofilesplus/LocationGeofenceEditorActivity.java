@@ -446,7 +446,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     private void refreshActivity(boolean setMapCamera) {
         boolean enableAddressButton = false;
         if (mLocation != null) {
-            // Determine whether a Geocoder is available.
+            // Determine whether a geo-coder is available.
             if (Geocoder.isPresent()) {
                 startIntentService(false);
                 enableAddressButton = true;
@@ -593,7 +593,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         Bundle args = new Bundle();
         args.putInt(DIALOG_ERROR, errorCode);
         dialogFragment.setArguments(args);
-        dialogFragment.show(getSupportFragmentManager(), "errordialog");
+        dialogFragment.show(getSupportFragmentManager(), "errorDialog");
     }
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */

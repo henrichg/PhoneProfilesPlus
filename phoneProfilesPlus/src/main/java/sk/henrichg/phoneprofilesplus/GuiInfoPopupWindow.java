@@ -42,8 +42,8 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
 
     /*
     @Override
-    public void showOnAnchor(@NonNull View anchor, int vertPos, int horizPos, int x, int y) {
-        super.showOnAnchor(anchor, vertPos, horizPos, x, y);
+    public void showOnAnchor(@NonNull View anchor, int verticalPos, int horizontalPos, int x, int y) {
+        super.showOnAnchor(anchor, verticalPos, horizontalPos, x, y);
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         //    circularReveal(anchor);
         //}

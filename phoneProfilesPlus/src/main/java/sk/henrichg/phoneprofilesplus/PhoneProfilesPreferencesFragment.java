@@ -164,7 +164,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             SharedPreferences.Editor editor = preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);
             editor.apply();
-            Preference preference = prefMng.findPreference("bluetoothScanninCategory");
+            Preference preference = prefMng.findPreference("bluetoothScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity()));

@@ -17,7 +17,7 @@
         android:title="@string/profile_preferences_category_profileDeviceParameters"
         android:layout="@layout/mp_preference_category" >
         <sk.henrichg.phoneprofilesplus.InfoDialogPreference
-            android:key="prf_pref_prefernceTypesInfo"
+            android:key="prf_pref_preferenceTypesInfo"
             android:title="@string/profile_preferences_preferenceTypesInfo_title"
             android:summary="@string/info_preference_click_here"
             henrichg:infoText="@string/empty_string"

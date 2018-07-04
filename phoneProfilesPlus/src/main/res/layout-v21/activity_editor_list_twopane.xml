@@ -25,14 +25,14 @@
             android:elevation="1dp" >
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/editor_tollbar"
+                android:id="@+id/editor_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="?attr/toolbarTheme"
                 app:popupTheme="?attr/toolbarPopupMenu" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/editor_subtollbar"
+                android:id="@+id/editor_subToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginTop="1dp" >
@@ -63,7 +63,7 @@
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/run_stop_events_indicator"
                         android:scaleType="fitEnd"
-                        android:src="@drawable/ic_run_events_indicator_stoppped" />
+                        android:src="@drawable/ic_run_events_indicator_stopped" />
 
                 </RelativeLayout>
 

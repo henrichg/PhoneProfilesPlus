@@ -22,7 +22,7 @@ class NFCTagReadWriteManager {
     private final Activity activity;
     private PendingIntent pendingIntent;
 
-    boolean tagReaded = false;
+    boolean tagRead = false;
 
     boolean tagIsWritable;  // is tag writable?
 
@@ -135,7 +135,7 @@ class NFCTagReadWriteManager {
         if (intent != null){
             String action = intent.getAction();
             if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
-                tagReaded = true;
+                tagRead = true;
 
                 // get NDEF tag details
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -145,9 +145,9 @@ class NFCTagReadWriteManager {
                     tagIsWritable = ndefTag.isWritable();   // is tag writable?
                     //String tagType = ndefTag.getType();            // tag type
 
-                    Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-                    if (rawMsgs != null) {
-                        NdefRecord[] records = ((NdefMessage) rawMsgs[0]).getRecords();
+                    Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+                    if (rawMessages != null) {
+                        NdefRecord[] records = ((NdefMessage) rawMessages[0]).getRecords();
                         String text = ndefRecordToString(records[0]);
                         onTagReadListener.onTagRead(text);
                     }

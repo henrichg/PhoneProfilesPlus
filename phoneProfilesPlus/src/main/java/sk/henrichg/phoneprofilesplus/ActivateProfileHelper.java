@@ -809,7 +809,6 @@ class ActivateProfileHelper {
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
-                /* HENO */
                 if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
                     PPNotificationListenerService.requestInterruptionFilter(context, zenMode);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
@@ -864,12 +863,12 @@ class ActivateProfileHelper {
                 if (Permissions.checkVibrateWhenRinging(context)) {
                     if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
                         Settings.System.putInt(context.getContentResolver(), "vibrate_when_ringing", lValue);
-                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "wibrate when ringing set (API < 23)");
+                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API < 23)");
                     }
                     else {
                         try {
                             Settings.System.putInt(context.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
-                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "wibrate when ringing set (API >= 23)");
+                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
                         } catch (Exception ee) {
                             Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
 
@@ -882,7 +881,7 @@ class ActivateProfileHelper {
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command);
-                                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "wibrate when ringing set (API >= 23 with root)");
+                                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
                                     } catch (Exception e) {
                                         Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
                                     }
@@ -1137,7 +1136,6 @@ class ActivateProfileHelper {
         if (profile.getVolumeRingtoneChange()) {
 
             if (profile.getVolumeRingtoneValue() == 0) {
-                // HENO
                 profile.setVolumeRingtoneValue(1);
                 profile._ringerModeForZenMode = AudioManager.RINGER_MODE_SILENT;
 
@@ -1167,7 +1165,6 @@ class ActivateProfileHelper {
         if (profile.getVolumeNotificationChange() && getMergedRingNotificationVolumes(context)) {
             if (profile.getVolumeNotificationValue() == 0) {
                 PPApplication.logE("ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0", "changed notification value to 1");
-                // HENO
                 profile.setVolumeNotificationValue(1);
             }
         }
@@ -1842,7 +1839,7 @@ class ActivateProfileHelper {
                     // Settings.System.SOUND_EFFECTS_ENABLED - working
                     // Settings.System.LOCKSCREEN_SOUNDS_ENABLED - private secure settings :-(
                     // Settings.Global.CHARGING_SOUNDS_ENABLED - java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings. :-/
-                    //                                           (G1) nefunguje :-/
+                    //                                           (G1) not working :-/
                     break;
                 case 2:
                     Settings.System.putInt(context.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);

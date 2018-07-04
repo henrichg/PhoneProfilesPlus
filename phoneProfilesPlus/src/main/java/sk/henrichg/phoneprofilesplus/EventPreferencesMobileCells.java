@@ -15,7 +15,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
     private static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
     static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
-    private static final String PREF_EVENT_MOBILE_CELLS_APP_SETTINGS = "eventMobileCellsScaningAppSettings";
+    private static final String PREF_EVENT_MOBILE_CELLS_APP_SETTINGS = "eventMobileCellsScanningAppSettings";
 
     private static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
 
@@ -95,7 +95,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         if (key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context))
+                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context))
                     preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
                             context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary));
                 else

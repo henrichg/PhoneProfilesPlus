@@ -22,7 +22,7 @@ class EventPreferencesWifi extends EventPreferences {
     static final String PREF_EVENT_WIFI_ENABLED = "eventWiFiEnabled";
     static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
     private static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
-    private static final String PREF_EVENT_WIFI_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
+    private static final String PREF_EVENT_WIFI_APP_SETTINGS = "eventEnableWiFiScanningAppSettings";
 
     private static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
 
@@ -123,7 +123,7 @@ class EventPreferencesWifi extends EventPreferences {
         if (key.equals(PREF_EVENT_WIFI_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (!ApplicationPreferences.applicationEventWifiEnableScannig(context))
+                if (!ApplicationPreferences.applicationEventWifiEnableScanning(context))
                     preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
                             context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary));
                 else
@@ -134,7 +134,7 @@ class EventPreferencesWifi extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                /*if (!ApplicationPreferences.applicationEventWifiEnableScannig(context.getApplicationContext())) {
+                /*if (!ApplicationPreferences.applicationEventWifiEnableScanning(context.getApplicationContext())) {
                     preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
                 }
@@ -234,7 +234,7 @@ class EventPreferencesWifi extends EventPreferences {
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        /*final boolean enabled = ApplicationPreferences.applicationEventWifiEnableScannig(context.getApplicationContext());
+        /*final boolean enabled = ApplicationPreferences.applicationEventWifiEnableScanning(context.getApplicationContext());
         Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
         if (preference != null) preference.setEnabled(enabled);*/
         SharedPreferences preferences = prefMng.getSharedPreferences();

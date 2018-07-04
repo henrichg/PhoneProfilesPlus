@@ -82,11 +82,11 @@ class Wildcard {
                     continue;
                 }
                 if (p == more) {
-                    char pnext = 0;           // next pattern char
+                    char pNext = 0;           // next pattern char
                     if (pNdx + 1 < pLen) {
-                        pnext = pattern.charAt(pNdx + 1);
+                        pNext = pattern.charAt(pNdx + 1);
                     }
-                    if (pnext == more) {         // double <more> have the same effect as one <more>
+                    if (pNext == more) {         // double <more> have the same effect as one <more>
                         pNdx++;
                         continue;
                     }

@@ -309,12 +309,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    private void doOnUpdate(Context ctxt, AppWidgetManager appWidgetManager, int appWidgetId)
+    private void doOnUpdate(Context context, AppWidgetManager appWidgetManager, int appWidgetId)
     {
         Bundle myOptions;
         myOptions = appWidgetManager.getAppWidgetOptions (appWidgetId);
-        setLayoutParams(ctxt, appWidgetManager, appWidgetId, myOptions);
-        RemoteViews widget = buildLayout(ctxt, appWidgetId, isLargeLayout);
+        setLayoutParams(context, appWidgetManager, appWidgetId, myOptions);
+        RemoteViews widget = buildLayout(context, appWidgetId, isLargeLayout);
         try {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
         } catch (Exception ignored) {}

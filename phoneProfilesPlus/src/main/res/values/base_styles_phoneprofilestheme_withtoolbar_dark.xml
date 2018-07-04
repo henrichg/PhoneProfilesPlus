@@ -35,7 +35,7 @@
         <item name="navigationDrawerSelector">@drawable/editor_drawer_selector_dark</item>
         <item name="filterStatusBarBackground">@color/primary_dark</item>
 <!--         <item name="editorDrawerSpinner">@style/editorDrawerSpinnerStyle</item>  --> 
-        <item name="preferenceDialogBackground">@color/preferenceDialogBackgroud_dark</item>
+        <item name="preferenceDialogBackground">@color/preferenceDialogBackground_dark</item>
         <item name="editItemMenuIcon">@drawable/ic_profile_item_edit_menu_dark</item> 
         <item name="applicationSettingsLanguageIcon">@drawable/ic_settings_language_dark</item> 
         <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
@@ -66,7 +66,7 @@
         <item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile</item>
         <item name="actionHelpIcon">@drawable/ic_action_help</item>
 
-        <item name="actionProfileActivtionDuration">@drawable/ic_action_profile_activation_duration</item>
+        <item name="actionProfileActivationDuration">@drawable/ic_action_profile_activation_duration</item>
 
         <item name="fastScrollTrackPP">@color/fastScrollTrackPP_dark</item>
         <item name="fastScrollThumbPP">@color/fastScrollThumbPP_dark</item>

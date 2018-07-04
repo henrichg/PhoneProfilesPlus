@@ -361,7 +361,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerListView.setOnItemClickListener(new DrawerItemClickListener());
 
 
-        editorToolbar = findViewById(R.id.editor_tollbar);
+        editorToolbar = findViewById(R.id.editor_toolbar);
         setSupportActionBar(editorToolbar);
 
         // Enable ActionBar app icon to behave as action to toggle nav drawer
@@ -1987,7 +1987,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (whiteTheme)
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped_white);
             else
-                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped);
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped);
         }
     }
 

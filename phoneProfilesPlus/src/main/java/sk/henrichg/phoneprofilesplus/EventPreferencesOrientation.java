@@ -218,7 +218,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (!ApplicationPreferences.applicationEventOrientationEnableScannig(context))
+                if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context))
                     preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
                             context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary));
                 else

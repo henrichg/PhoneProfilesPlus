@@ -56,7 +56,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
         Bundle args = new Bundle();
         args.putInt(GeofencesScanner.DIALOG_ERROR, errorCode);
         dialogFragment.setArguments(args);
-        dialogFragment.show(getSupportFragmentManager(), "errordialog");
+        dialogFragment.show(getSupportFragmentManager(), "errorDialog");
     }
 
     /* Called from ErrorDialogFragment when the dialog is dismissed. */

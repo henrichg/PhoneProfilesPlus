@@ -152,7 +152,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContentView");
 
-        toolbar = findViewById(R.id.act_prof_tollbar);
+        toolbar = findViewById(R.id.act_prof_toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null)
@@ -351,7 +351,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             if (whiteTheme)
                 eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped_white);
             else
-                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stoppped);
+                eventsRunStopIndicator.setImageResource(R.drawable.ic_run_events_indicator_stopped);
         }
     }
 

@@ -188,7 +188,7 @@ public class LocationGeofencePreference extends DialogPreference {
             }
         });
 
-        final Button unselectAllButton = layout.findViewById(R.id.location_pref_dlg_uselectAll);
+        final Button unselectAllButton = layout.findViewById(R.id.location_pref_dlg_unselectAll);
         unselectAllButton.setAllCaps(false);
         unselectAllButton.setOnClickListener(new View.OnClickListener() {
             @Override

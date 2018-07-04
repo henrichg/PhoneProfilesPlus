@@ -84,7 +84,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
         void onCallStateChanged(Intent intent) {
             int state = telephony.getCallState();
             if(lastState == state){
-                //No change, debounce extras
+                //No change, de-bounce extras
                 return;
             }
             switch (state) {

@@ -13,7 +13,7 @@
     <color name="navigationDrawerTextColor_white">#ff000000</color>
     <color name="navigationDrawerSubTextColor_white">#80000000</color>
     <color name="navigationDrawerBackground_white">#fffafafa</color>
-    <color name="preferenceDialogBackgroud_white">#FFFFFFFF</color>
+    <color name="preferenceDialogBackground_white">#FFFFFFFF</color>
     <color name="editorDrawerListHeaderTitleColor_white">#FFFFFFFF</color>
     <color name="dialog_divider_white">#10000000</color>
 

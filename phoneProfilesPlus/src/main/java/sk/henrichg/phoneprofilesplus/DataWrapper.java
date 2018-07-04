@@ -1893,7 +1893,7 @@ public class DataWrapper {
 
             // get battery status
             Intent batteryStatus = null;
-            try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+            try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
                 IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                 batteryStatus = context.registerReceiver(null, filter);
             } catch (Exception ignored) {}
@@ -1953,7 +1953,7 @@ public class DataWrapper {
             {
                 if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE)
                 {
-                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "search in gropus");
+                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "search in groups");
                     // find phone number in groups
                     String[] splits = event._eventPreferencesCall._contactGroups.split("\\|");
                     for (String split : splits) {
@@ -2377,7 +2377,7 @@ public class DataWrapper {
                 (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
             {
                 if (!done) {
-                    /*if (!ApplicationPreferences.applicationEventWifiEnableScannig(context)) {
+                    /*if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
                         // ignore for disabled scanning
                         ignoreWifi = true;
                     } else {*/
@@ -2594,7 +2594,7 @@ public class DataWrapper {
                 (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
             {
                 if (!done) {
-                    /*if (!ApplicationPreferences.applicationEventBluetoothEnableScannig(context)) {
+                    /*if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
                         // ignore for disabled scanning
                         ignoreBluetooth = true;
                     }
@@ -2828,7 +2828,7 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            /*if (!ApplicationPreferences.applicationEventLocationEnableScannig(context)) {
+            /*if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
                 // ignore for disabled location scanner
                 PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for disabled scanner");
                 ignoreLocation = true;
@@ -2893,7 +2893,7 @@ public class DataWrapper {
                 ignoreOrientation = true;
             }
             /*else
-            if (!ApplicationPreferences.applicationEventOrientationEnableScannig(context)) {
+            if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
                 ignoreOrientation = true;
             }
             else
@@ -3003,7 +3003,7 @@ public class DataWrapper {
                 (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
         {
-            /*if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context)) {
+            /*if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
                 ignoreMobileCell = true;
             }
             else {*/
@@ -3896,7 +3896,7 @@ public class DataWrapper {
         }
 
         Intent batteryStatus = null;
-        try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+        try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
             IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             batteryStatus = context.registerReceiver(null, filter);
         } catch (Exception ignored) {}

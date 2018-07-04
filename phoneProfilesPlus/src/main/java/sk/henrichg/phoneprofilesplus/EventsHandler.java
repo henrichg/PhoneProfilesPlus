@@ -102,7 +102,7 @@ class EventsHandler {
             callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
             // save ringer mode, zen mode, ringtone before handle events
-            // used by ringing call simualtion
+            // used by ringing call simulation
             oldRingerMode = ActivateProfileHelper.getRingerMode(context);
             oldZenMode = ActivateProfileHelper.getZenMode(context);
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -643,7 +643,7 @@ class EventsHandler {
                 PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
 
             if (eventsExists(sensorType, true)) {
-                // doEndHandler is called even if no event exists, but ringing call simualtion is only for running event with call sensor
+                // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
                 if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
                     /*if (!linkUnlink) {
                         // wait for change ringer mode + volume

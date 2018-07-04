@@ -40,14 +40,14 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
     private static final String PREF_LOCATION_SETTINGS = "eventLocationScanningSystemSettings";
     private static final int RESULT_LOCATION_SETTINGS = 1983;
-    private static final String PREF_WIFI_SCANNING_APP_SETTINGS = "eventEnableWiFiScaningAppSettings";
+    private static final String PREF_WIFI_SCANNING_APP_SETTINGS = "eventEnableWiFiScanningAppSettings";
     private static final int RESULT_WIFI_SCANNING_SETTINGS = 1984;
-    private static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
+    private static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScanningAppSettings";
     private static final int RESULT_BLUETOOTH_SCANNING_SETTINGS = 1985;
     private static final String PREF_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
     private static final String PREF_ORIENTATION_SCANNING_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
     private static final int RESULT_ORIENTATION_SCANNING_SETTINGS = 1986;
-    private static final String PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS = "eventMobileCellsScaningAppSettings";
+    private static final String PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS = "eventMobileCellsScanningAppSettings";
     private static final int RESULT_MOBILE_CELLS_SCANNING_SETTINGS = 1987;
     private static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
     private static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
@@ -90,7 +90,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         if (mobileCellsRegistrationStoppedBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEWCELLS);
+            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
             mobileCellsRegistrationStoppedBroadcastReceiver =
                     new MobileCellsRegistrationStoppedBroadcastReceiver(
                             (MobileCellsPreference)prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS));
@@ -241,7 +241,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 public boolean onPreferenceClick(Preference preference) {
                     Intent intent = new Intent(context, PhoneProfilesPreferencesActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "bluetoothScanninCategory");
+                    intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategory");
                     //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                     startActivityForResult(intent, RESULT_BLUETOOTH_SCANNING_SETTINGS);
                     return false;
@@ -358,7 +358,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     @Override
     public void onDestroy()
     {
-        //Log.e("****** EventPreferencesNestedFragment.onDestroy","xxxx");
+        //Log.e("****** EventPreferencesNestedFragment.onDestroy","xxx");
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
         } catch (Exception ignored) {}

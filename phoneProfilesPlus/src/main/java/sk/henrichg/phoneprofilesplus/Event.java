@@ -1336,7 +1336,7 @@ class Event {
 
         if (exists)
         {
-            // clear start event notitifcation
+            // clear start event notification
             if (_repeatNotification) {
                 boolean clearNotification = true;
                 for (int i = eventTimelineList.size()-1; i > 0; i--)

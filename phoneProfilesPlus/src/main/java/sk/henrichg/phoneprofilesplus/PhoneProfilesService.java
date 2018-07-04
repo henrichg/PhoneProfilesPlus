@@ -214,14 +214,14 @@ public class PhoneProfilesService extends Service
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
             }
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScannig(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScannig(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.applicationEventBluetoothScanInterval(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScannig(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScanning(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.applicationEventLocationUpdateInterval(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScannig(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScannig(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval(appContext));
         } catch (Exception ignored) {}
 
@@ -265,7 +265,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onDestroy()
     {
-        PPApplication.logE("PhoneProfilesService.onDestroy", "xxxxx");
+        PPApplication.logE("PhoneProfilesService.onDestroy", "xxx");
 
         unregisterReceiversAndJobs();
 
@@ -1087,7 +1087,7 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 int eventScannerCount = 1;
                 if (checkDatabase/* || (locationModeChangedBroadcastReceiver == null)*/) {
-                    if (ApplicationPreferences.applicationEventLocationEnableScannig(appContext)) {
+                    if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                         // location scanner is enabled
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
@@ -1155,7 +1155,7 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 int eventScannerCount = 1;
                 if (checkDatabase/* || (bluetoothStateChangedBroadcastReceiver == null)*/) {
-                    if (ApplicationPreferences.applicationEventBluetoothEnableScannig(appContext)) {
+                    if (ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
@@ -1317,7 +1317,7 @@ public class PhoneProfilesService extends Service
             if (allowed) {
                 int eventCount = 1;
                 if (checkDatabase) {
-                    if (ApplicationPreferences.applicationEventBluetoothEnableScannig(appContext)) {
+                    if (ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
@@ -1381,7 +1381,7 @@ public class PhoneProfilesService extends Service
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
                     PPApplication.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (ApplicationPreferences.applicationEventWifiEnableScannig(appContext)) {
+                if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
@@ -1515,7 +1515,7 @@ public class PhoneProfilesService extends Service
                             profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, false);
                     }
                     if (eventAllowed) {
-                        if (ApplicationPreferences.applicationEventWifiEnableScannig(appContext)) {
+                        if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
                             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
@@ -1594,7 +1594,7 @@ public class PhoneProfilesService extends Service
                             profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, false);
                     }
                     if (eventAllowed) {
-                        if (ApplicationPreferences.applicationEventWifiEnableScannig(appContext)) {
+                        if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
                             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
@@ -1657,7 +1657,7 @@ public class PhoneProfilesService extends Service
             if (allowed) {
                 int eventCount = 1;
                 if (checkDatabase) {
-                    if (ApplicationPreferences.applicationEventWifiEnableScannig(appContext)) {
+                    if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
@@ -1720,7 +1720,7 @@ public class PhoneProfilesService extends Service
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext) ==
                             PPApplication.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
-                        if (ApplicationPreferences.applicationEventWifiEnableScannig(appContext)) {
+                        if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
                             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
@@ -1783,7 +1783,7 @@ public class PhoneProfilesService extends Service
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
                             PPApplication.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
-                        if (ApplicationPreferences.applicationEventBluetoothEnableScannig(appContext)) {
+                        if (ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) {
                             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
@@ -1843,7 +1843,7 @@ public class PhoneProfilesService extends Service
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
                             PPApplication.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
-                        if (ApplicationPreferences.applicationEventLocationEnableScannig(appContext)) {
+                        if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                             // location scanner is enabled
                             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
@@ -1945,7 +1945,7 @@ public class PhoneProfilesService extends Service
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext) ==
                         PPApplication.PREFERENCE_ALLOWED;
                 if (eventAllowed) {
-                    if (ApplicationPreferences.applicationEventLocationEnableScannig(appContext)) {
+                    if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                         // location scanner is enabled
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
@@ -1998,7 +1998,7 @@ public class PhoneProfilesService extends Service
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext) ==
                         PPApplication.PREFERENCE_ALLOWED;
                 if (eventAllowed) {
-                    if (ApplicationPreferences.applicationEventMobileCellEnableScannig(appContext) || PhoneStateScanner.forceStart) {
+                    if (ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext) || PhoneStateScanner.forceStart) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
@@ -2045,7 +2045,7 @@ public class PhoneProfilesService extends Service
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext) ==
                         PPApplication.PREFERENCE_ALLOWED;
                 if (eventAllowed) {
-                    if (ApplicationPreferences.applicationEventOrientationEnableScannig(appContext)) {
+                    if (ApplicationPreferences.applicationEventOrientationEnableScanning(appContext)) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
@@ -2084,7 +2084,7 @@ public class PhoneProfilesService extends Service
 
         // get actual battery status
         Intent batteryStatus = null;
-        try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+        try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
             IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
             batteryStatus = registerReceiver(null, filter);
         } catch (Exception ignored) {}
@@ -2183,7 +2183,7 @@ public class PhoneProfilesService extends Service
         intentFilter16.addAction("com.motorola.blur.alarmclock.ALARM_ALERT");
         // LG
         intentFilter16.addAction("com.lge.clock.ALARM_ALERT");
-        // Thirdparty Alarms
+        // Third-party Alarms
         // Gentle Alarm
         intentFilter16.addAction("com.mobitobi.android.gentlealarm.ALARM_INFO");
         // Sleep As Android
@@ -2547,11 +2547,11 @@ public class PhoneProfilesService extends Service
                                 PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "screen on");
 
                                 if (ActivateProfileHelper.getLockScreenDisabled(appContext)) {
-                                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "Keyguard.disable(), START_STICKY");
+                                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "disableKeyguard(), START_STICKY");
                                     reenableKeyguard();
                                     disableKeyguard();
                                 } else {
-                                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "Keyguard.reenable(), stopSelf(), START_NOT_STICKY");
+                                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "reenableKeyguard(), stopSelf(), START_NOT_STICKY");
                                     reenableKeyguard();
                                 }
                             }
@@ -3161,7 +3161,7 @@ public class PhoneProfilesService extends Service
             Intent intent = new Intent(appContext, LauncherActivity.class);
             // clear all opened activities
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            // setup sturtupSource
+            // setup startupSource
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
             PendingIntent pIntent = PendingIntent.getActivity(appContext, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -3236,7 +3236,7 @@ public class PhoneProfilesService extends Service
             if (Build.VERSION.SDK_INT >= 26) {
                 PPApplication.createProfileNotificationChannel(/*profile, */appContext);
                 notificationBuilder.setChannelId(PPApplication.PROFILE_NOTIFICATION_CHANNEL);
-                //notificationBuilder.setSettingsText("Pokus");
+                //notificationBuilder.setSettingsText("Test");
             }
             else {
                 PPApplication.logE("PhoneProfilesService.showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
@@ -3547,14 +3547,14 @@ public class PhoneProfilesService extends Service
 
     private void disableKeyguard()
     {
-        PPApplication.logE("$$$ Keyguard.disable","keyguardLock="+keyguardLock);
+        PPApplication.logE("$$$ disableKeyguard","keyguardLock="+keyguardLock);
         if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD))
             keyguardLock.disableKeyguard();
     }
 
     private void reenableKeyguard()
     {
-        PPApplication.logE("$$$ Keyguard.reenable","keyguardLock="+keyguardLock);
+        PPApplication.logE("$$$ reenableKeyguard","keyguardLock="+keyguardLock);
         if ((keyguardLock != null) && Permissions.hasPermission(getApplicationContext(), Manifest.permission.DISABLE_KEYGUARD))
             keyguardLock.reenableKeyguard();
     }
@@ -4729,7 +4729,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onTaskRemoved(Intent rootIntent)
     {
-        PPApplication.logE("$$$ PhoneProfilesService.onTaskRemoved", "xxxxx");
+        PPApplication.logE("$$$ PhoneProfilesService.onTaskRemoved", "xxx");
 
         if (PPApplication.screenTimeoutHandler != null) {
             PPApplication.screenTimeoutHandler.post(new Runnable() {

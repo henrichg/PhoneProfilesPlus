@@ -27,10 +27,10 @@ public class TimePreference extends DialogPreference {
     private MaterialDialog mDialog;
     private TimePicker picker = null;
 
-    public TimePreference(Context ctxt, AttributeSet attrs) {
-        super(ctxt, attrs);
+    public TimePreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-        context = ctxt;
+        this.context = context;
         attributeSet = attrs;
         
         setPositiveButtonText(android.R.string.ok);

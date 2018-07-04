@@ -1644,7 +1644,7 @@ public class Profile {
     }
     */
 
-    static int convertPercentsToBrightnessManualValue(int perc, Context context)
+    static int convertPercentsToBrightnessManualValue(int percentage, Context context)
     {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
         int minimumValue;// = getMinimumScreenBrightnessSetting();
@@ -1659,52 +1659,52 @@ public class Profile {
 
         int value;
 
-        if (perc == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
+        if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
             // brightness is not set, change it to default manual brightness value
             value = Settings.System.getInt(context.getContentResolver(),
                                             Settings.System.SCREEN_BRIGHTNESS, 128);
         else
-            value = Math.round((float)(maximumValue - minimumValue) / 100 * perc) + minimumValue;
+            value = Math.round((float)(maximumValue - minimumValue) / 100 * percentage) + minimumValue;
 
         return value;
     }
 
     int getDeviceBrightnessManualValue(Context context)
     {
-        int perc = getDeviceBrightnessValue();
-        return convertPercentsToBrightnessManualValue(perc, context);
+        int percentage = getDeviceBrightnessValue();
+        return convertPercentsToBrightnessManualValue(percentage, context);
     }
 
-    static float convertPercentsToBrightnessAdaptiveValue(int perc, Context context)
+    static float convertPercentsToBrightnessAdaptiveValue(int percentage, Context context)
     {
         float value;
 
-        if (perc == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
+        if (percentage == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
             // brightness is not set, change it to default adaptive brightness value
             value = Settings.System.getFloat(context.getContentResolver(),
                                 ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
         else
-            value = (perc - 50) / 50f;
+            value = (percentage - 50) / 50f;
 
         return value;
     }
 
     float getDeviceBrightnessAdaptiveValue(Context context)
     {
-        int perc = getDeviceBrightnessValue();
-        return convertPercentsToBrightnessAdaptiveValue(perc, context);
+        int percentage = getDeviceBrightnessValue();
+        return convertPercentsToBrightnessAdaptiveValue(percentage, context);
     }
 
     @SuppressWarnings("SameParameterValue")
     static long convertBrightnessToPercents(int value, int maxValue, int minValue)
     {
-        long perc;
+        long percentage;
         if (value == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
-            perc = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
+            percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else
-            perc = Math.round((float)(value-minValue) / (maxValue - minValue) * 100.0);
+            percentage = Math.round((float)(value-minValue) / (maxValue - minValue) * 100.0);
 
-        return perc;
+        return percentage;
     }
 
     /*
@@ -1718,33 +1718,33 @@ public class Profile {
             maxValue = 65535;
         }
 
-        long perc = convertBrightnessToPercents(value, maxValue, minValue);
+        long percentage = convertBrightnessToPercents(value, maxValue, minValue);
 
         //value|noChange|automatic|sharedProfile
         String[] splits = _deviceBrightness.split("\\|");
         // hm, found brightness values without default profile :-/
         if (splits.length == 4)
-            _deviceBrightness = String.valueOf(perc)+"|"+splits[1]+"|"+splits[2]+"|"+ splits[3];
+            _deviceBrightness = String.valueOf(percentage)+"|"+splits[1]+"|"+splits[2]+"|"+ splits[3];
         else
-            _deviceBrightness = String.valueOf(perc)+"|"+splits[1]+"|"+splits[2]+"|0";
+            _deviceBrightness = String.valueOf(percentage)+"|"+splits[1]+"|"+splits[2]+"|0";
     }
     */
     /*
     public void setDeviceBrightnessAdaptiveValue(float value)
     {
-        long perc;
+        long percentage;
         if (value == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
-            perc = Math.round(value); // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
+            percentage = Math.round(value); // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else
-            perc = Math.round(value * 50 + 50);
+            percentage = Math.round(value * 50 + 50);
 
         //value|noChange|automatic|sharedProfile
         String[] splits = _deviceBrightness.split("\\|");
         // hm, found brightness values without default profile :-/
         if (splits.length == 4)
-            _deviceBrightness = String.valueOf(perc)+"|"+splits[1]+"|"+splits[2]+"|"+ splits[3];
+            _deviceBrightness = String.valueOf(percentage)+"|"+splits[1]+"|"+splits[2]+"|"+ splits[3];
         else
-            _deviceBrightness = String.valueOf(perc)+"|"+splits[1]+"|"+splits[2]+"|0";
+            _deviceBrightness = String.valueOf(percentage)+"|"+splits[1]+"|"+splits[2]+"|0";
     }
     */
 

@@ -86,7 +86,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                                 value = value + profile._id;
                             }
                         }
-                        PPApplication.logE("ProfileMutiSelectPreference.onPositive","value="+value);
+                        PPApplication.logE("ProfileMultiSelectPreference.onPositive","value="+value);
                     }
 
                     persistString(value);

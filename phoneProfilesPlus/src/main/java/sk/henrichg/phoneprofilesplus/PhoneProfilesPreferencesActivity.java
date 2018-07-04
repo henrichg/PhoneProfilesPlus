@@ -173,14 +173,14 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
             }
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScannig(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScannig(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.applicationEventBluetoothScanInterval(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScannig(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScanning(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.applicationEventLocationUpdateInterval(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScannig(appContext));
-            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScannig(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning(appContext));
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval(appContext));
         } catch (Exception ignored) {}
 
@@ -210,27 +210,27 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             invalidateEditor = true;
         }
 
-        if ((wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScannig(appContext)) ||
+        if ((wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) ||
                 (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval(appContext))) {
             PPApplication.restartWifiScanner(appContext, false);
         }
 
-        if ((bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScannig(appContext)) ||
+        if ((bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) ||
                 (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval(appContext))) {
             PPApplication.restartBluetoothScanner(appContext, false);
         }
 
-        if ((locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScannig(appContext)) ||
+        if ((locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) ||
                 (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(appContext))) {
             PPApplication.restartGeofenceScanner(appContext, false);
         }
 
-        if ((orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScannig(appContext)) ||
+        if ((orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning(appContext)) ||
                 orientationScanInterval != ApplicationPreferences.applicationEventOrientationScanInterval(appContext)) {
             PPApplication.restartOrientationScanner(appContext);
         }
 
-        if (mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScannig(appContext)) {
+        if (mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext)) {
             PPApplication.restartPhoneStateScanner(appContext, false);
         }
 

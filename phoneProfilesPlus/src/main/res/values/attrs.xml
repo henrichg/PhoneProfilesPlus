@@ -95,7 +95,7 @@
     <attr name="actionHelpIcon" format="reference" />
     <attr name="actionActivityLogPlayIcon" format="reference" />
     <attr name="actionActivityLogPauseIcon" format="reference" />
-    <attr name="actionProfileActivtionDuration" format="reference" />
+    <attr name="actionProfileActivationDuration" format="reference" />
     <attr name="fastScrollTrackPP" format="reference" />
     <attr name="fastScrollThumbPP" format="reference" />
     <attr name="fastScrollPopupBackgroundPP" format="reference" />

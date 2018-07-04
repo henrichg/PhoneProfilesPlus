@@ -27,7 +27,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";
     private static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";
     private static final String PREF_EVENT_BLUETOOTH_DEVICES_TYPE = "eventBluetoothDevicesType";
-    private static final String PREF_EVENT_BLUETOOTH_APP_SETTINGS = "eventEnableBluetoothScaningAppSettings";
+    private static final String PREF_EVENT_BLUETOOTH_APP_SETTINGS = "eventEnableBluetoothScanningAppSettings";
 
     private static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
 
@@ -142,7 +142,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         if (key.equals(PREF_EVENT_BLUETOOTH_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (!ApplicationPreferences.applicationEventBluetoothEnableScannig(context))
+                if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context))
                     preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
                             context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary));
                 else
@@ -153,7 +153,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                /*if (!ApplicationPreferences.applicationEventBluetoothEnableScannig(context.getApplicationContext())) {
+                /*if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context.getApplicationContext())) {
                     preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
                 }
@@ -285,7 +285,7 @@ class EventPreferencesBluetooth extends EventPreferences {
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        //final boolean enabled = ApplicationPreferences.applicationEventBluetoothEnableScannig(context.getApplicationContext());
+        //final boolean enabled = ApplicationPreferences.applicationEventBluetoothEnableScanning(context.getApplicationContext());
         //Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
         //if (preference != null) preference.setEnabled(enabled);
         SharedPreferences preferences = prefMng.getSharedPreferences();

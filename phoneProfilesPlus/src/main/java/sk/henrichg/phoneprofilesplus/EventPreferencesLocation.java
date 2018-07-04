@@ -111,7 +111,7 @@ class EventPreferencesLocation extends EventPreferences {
         if (key.equals(PREF_EVENT_LOCATION_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (!ApplicationPreferences.applicationEventLocationEnableScannig(context))
+                if (!ApplicationPreferences.applicationEventLocationEnableScanning(context))
                     preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
                             context.getResources().getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary));
                 else
@@ -126,7 +126,7 @@ class EventPreferencesLocation extends EventPreferences {
                             ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                 }
                 /*else
-                if (!ApplicationPreferences.applicationEventLocationEnableScannig(context.getApplicationContext())) {
+                if (!ApplicationPreferences.applicationEventLocationEnableScanning(context.getApplicationContext())) {
                     preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
                 }*/
@@ -204,7 +204,7 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         final boolean enabled = PhoneProfilesService.isLocationEnabled(context.getApplicationContext())/* &&
-                                ApplicationPreferences.applicationEventLocationEnableScannig(context.getApplicationContext())*/;
+                                ApplicationPreferences.applicationEventLocationEnableScanning(context.getApplicationContext())*/;
         Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
         if (preference != null) preference.setEnabled(enabled);
         preference = prefMng.findPreference(PREF_EVENT_LOCATION_WHEN_OUTSIDE);

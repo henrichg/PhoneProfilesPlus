@@ -460,7 +460,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             });
         }
 
-        InfoDialogPreference infoDialogPreference = (InfoDialogPreference)prefMng.findPreference("prf_pref_prefernceTypesInfo");
+        InfoDialogPreference infoDialogPreference = (InfoDialogPreference)prefMng.findPreference("prf_pref_preferenceTypesInfo");
         if (infoDialogPreference != null) {
             infoDialogPreference.setInfoText(
                     getString(R.string.important_info_profile_grant)+"\n"+

@@ -379,7 +379,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     /*
     // be sure to call this method by: DatabaseHandler.getInstance().closeConnection()
-    // when application is closed by somemeans most likely
+    // when application is closed by some means most likely
     // onDestroy method of application
     synchronized void closeConnection() {
         if (instance != null)
@@ -1181,14 +1181,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     //value|noChange|automatic|sharedProfile
                     String[] splits = brightness.split("\\|");
 
-                    int perc = Integer.parseInt(splits[0]);
-                    perc = (int)Profile.convertBrightnessToPercents(perc, 255, 1);
+                    int percentage = Integer.parseInt(splits[0]);
+                    percentage = (int)Profile.convertBrightnessToPercents(percentage, 255, 1);
 
                     // hm, found brightness values without default profile :-/
                     if (splits.length == 4)
-                        brightness = perc+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
+                        brightness = percentage+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
                     else
-                        brightness = perc+"|"+splits[1]+"|"+splits[2]+"|0";
+                        brightness = percentage+"|"+splits[1]+"|"+splits[2]+"|0";
 
                     db.execSQL("UPDATE " + TABLE_PROFILES +
                                  " SET " + KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\" " +
@@ -1244,13 +1244,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                         if (splits[2].equals("1")) // automatic is set
                         {
-                            int perc = 50;
+                            int percentage = 50;
 
                             // hm, found brightness values without default profile :-/
                             if (splits.length == 4)
-                                brightness = perc+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
+                                brightness = percentage+"|"+splits[1]+"|"+splits[2]+"|"+splits[3];
                             else
-                                brightness = perc+"|"+splits[1]+"|"+splits[2]+"|0";
+                                brightness = percentage+"|"+splits[1]+"|"+splits[2]+"|0";
 
                             db.execSQL("UPDATE " + TABLE_PROFILES +
                                          " SET " + KEY_DEVICE_BRIGHTNESS + "=\"" + brightness +"\"" +
@@ -7911,7 +7911,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         runningImportExport = false;
         runningImportExportCondition.signalAll();
         importExportLock.unlock();
-        PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "ulock");
+        PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
     }
 
     private boolean tableExists(String tableName, SQLiteDatabase db)
@@ -8032,14 +8032,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         //value|noChange|automatic|sharedProfile
                                                         String[] splits = value.split("\\|");
 
-                                                        int perc = Integer.parseInt(splits[0]);
-                                                        perc = (int) Profile.convertBrightnessToPercents(perc, 255, 1);
+                                                        int percentage = Integer.parseInt(splits[0]);
+                                                        percentage = (int) Profile.convertBrightnessToPercents(percentage, 255, 1);
 
                                                         // hm, found brightness values without default profile :-/
                                                         if (splits.length == 4)
-                                                            value = perc + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
+                                                            value = percentage + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
                                                         else
-                                                            value = perc + "|" + splits[1] + "|" + splits[2] + "|0";
+                                                            value = percentage + "|" + splits[1] + "|" + splits[2] + "|0";
                                                     }
                                                 }
                                                 if (exportedDBObj.getVersion() < 1175) {
@@ -8050,13 +8050,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                                             if (splits[2].equals("1")) // automatic is set
                                                             {
-                                                                int perc = 50;
+                                                                int percentage = 50;
 
                                                                 // hm, found brightness values without default profile :-/
                                                                 if (splits.length == 4)
-                                                                    value = perc + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
+                                                                    value = percentage + "|" + splits[1] + "|" + splits[2] + "|" + splits[3];
                                                                 else
-                                                                    value = perc + "|" + splits[1] + "|" + splits[2] + "|0";
+                                                                    value = percentage + "|" + splits[1] + "|" + splits[2] + "|0";
                                                             }
                                                         }
                                                     }

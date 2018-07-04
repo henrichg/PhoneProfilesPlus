@@ -90,7 +90,7 @@ class PhoneStateScanner extends PhoneStateListener {
         if ((telephonyManager != null) &&
                 PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) &&
                 Permissions.checkLocation(context.getApplicationContext())) {
-            PPApplication.logE("PhoneStateScanner.connect", "telelphonyManager.listen");
+            PPApplication.logE("PhoneStateScanner.connect", "telephonyManager.listen");
             telephonyManager.listen(this,
                     //  PhoneStateListener.LISTEN_CALL_STATE
                     PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
@@ -357,7 +357,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     void rescanMobileCells() {
         PPApplication.logE("PhoneStateScanner.rescanMobileCells", "xxx");
-        if (ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext()) || PhoneStateScanner.forceStart) {
+        if (ApplicationPreferences.applicationEventMobileCellEnableScanning(context.getApplicationContext()) || PhoneStateScanner.forceStart) {
             PPApplication.logE("PhoneStateScanner.rescanMobileCells", "-----");
             getRegisteredCell();
             handleEvents();
@@ -449,7 +449,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                         db.updateMobileCellsCells(event);
 
                                         // broadcast for event preferences
-                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEWCELLS);
+                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
                                         intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
                                         intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, cellIdToRegister);
                                         intent.setPackage(context.getPackageName());

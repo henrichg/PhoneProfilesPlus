@@ -472,7 +472,7 @@ public class PPApplication extends Application {
         try {
             ViewConfiguration config = ViewConfiguration.get(this);
             //TODO Android P - used reflections!!
-            F ield menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
+            F field menuKeyField = ViewConfiguration.class.getDeclaredField("sHasPermanentMenuKey");
             if(menuKeyField != null) {
                 menuKeyField.setAccessible(true);
                 menuKeyField.setBoolean(config, false);
@@ -1387,7 +1387,7 @@ public class PPApplication extends Application {
     static void commandWait(Command cmd) /*throws Exception*/ {
         int waitTill = 50;
         int waitTillMultiplier = 2;
-        int waitTillLimit = 3200; // 6350 msec (3200 * 2 - 50)
+        int waitTillLimit = 3200; // 6350 milliseconds (3200 * 2 - 50)
         // 1.              50
         // 2. 2 * 50 =    100
         // 3. 2 * 100 =   200

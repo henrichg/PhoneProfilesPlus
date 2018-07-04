@@ -40,7 +40,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         }
         else {
             Intent batteryStatus = null;
-            try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+            try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
                 IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                 batteryStatus = context.registerReceiver(null, iFilter);
             } catch (Exception ignored) {}
@@ -66,7 +66,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         }
         else {
             Intent batteryStatus = null;
-            try { // Huawei devices: java.lang.IllegalArgumentException: regist too many Broadcast Receivers
+            try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
                 IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
                 batteryStatus = context.registerReceiver(null, iFilter);
             } catch (Exception ignored) {}

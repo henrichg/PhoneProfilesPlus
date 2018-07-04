@@ -351,7 +351,7 @@ class WifiScanJob extends Job {
     {
         PPApplication.logE("$$$ WifiScanJob.startScanner", "xxx");
         DataWrapper dataWrapper = new DataWrapper(context, false, 0);
-        if (fromDialog || ApplicationPreferences.applicationEventWifiEnableScannig(context)) {
+        if (fromDialog || ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
             if (fromDialog)
                 setScanRequest(context, true);
 
