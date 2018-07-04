@@ -206,6 +206,10 @@ public class PhoneProfilesService extends Service
         serviceHasFirstStart = false;
         serviceRunning = false;
 
+        if (Build.VERSION.SDK_INT >= 26)
+            // show empty notification to avoid ANR
+            showProfileNotification();
+
         Context appContext = getApplicationContext();
 
         try {
