@@ -11,8 +11,8 @@
 // 4100 = Wi-Fi AP = Toggle is not supported fro Android 8+
 
 ext.ppVersions = [
-    publishVersion: '3.6.1.1b',
-    publishVersionCode: 4069,
+    publishVersion: '3.6.2b',
+    publishVersionCode: 4070,
 
     minSdk: 19,
     targetSdk: 27,
