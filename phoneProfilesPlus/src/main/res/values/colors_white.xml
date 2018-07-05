@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="primary_white">#F7F7F7</color>      <!-- 500 -->
-    <color name="primaryDark_white">#AFAFAF</color> <!-- 700 -->
+    <color name="primaryDark_white">#F7F7F7</color> <!-- 700 -->
     <color name="accent_white">#DC8160</color>       <!-- A400(A200) -->
     <color name="accent_white_disabled">#70DC8160</color>
 
@@ -21,8 +21,6 @@
 
     <!--<color name="tabTargetHelpCircleColor_white">#FFFFFFFF</color>-->
     <color name="tabTargetHelpTextColor_white">#FF000000</color>
-
-    <color name="popupMenuColor_white">#FFF0F0F0</color>
 
     <!--
     <color name="notificationBackground_white">#FFFFFFFF</color>

@@ -6,6 +6,5 @@
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu_white</item>
     </style>
 </resources>

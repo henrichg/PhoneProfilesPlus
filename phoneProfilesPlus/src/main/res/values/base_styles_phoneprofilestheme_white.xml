@@ -16,7 +16,6 @@
         <item name="activityBackgroundColor">@color/activityBackgroundColor_white</item>
         <item name="activityTextColor">@color/activityTextColor_white</item>
         <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor_white</item>
-        <item name="actionOverflowMenuStyle">@style/PopupMenu_white</item>
 
         <item name="md_background_color">@color/activityBackgroundColor_white</item>
         <item name="md_widget_color">?attr/colorAccent</item>

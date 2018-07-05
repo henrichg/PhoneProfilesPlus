@@ -2,6 +2,7 @@
   <dictionary name="henrisko">
     <words>
       <w>!permanent</w>
+      <w>actionoverflowmenu</w>
       <w>activateprofile</w>
       <w>activitylog</w>
       <w>afterduration</w>
@@ -105,6 +106,7 @@
       <w>phoneprofileshelper</w>
       <w>phoneprofilesplus</w>
       <w>phoneprofilesplusextender</w>
+      <w>popupmenu</w>
       <w>porder</w>
       <w>poweron</w>
       <w>pphelper</w>

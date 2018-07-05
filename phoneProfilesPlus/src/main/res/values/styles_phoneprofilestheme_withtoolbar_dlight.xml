@@ -3,6 +3,7 @@
 
     <style name="Theme.PhoneProfilesTheme_withToolbar_dlight" parent="@style/Base.Theme.PhoneProfilesTheme_withToolbar_dlight">
         <item name="android:popupMenuStyle">@style/PopupMenu_dlight</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu_dlight</item>
     </style>
 
 </resources>
