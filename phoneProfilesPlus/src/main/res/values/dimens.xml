@@ -13,6 +13,6 @@
     <dimen name="important_info_right_margin">15dp</dimen>
     <dimen name="important_info_bottom_margin">15dp</dimen>
 
-    <dimen name="bottomBar_dropShadow_height">2dp</dimen>
+    <dimen name="toolbar_dropShadow_height">2dp</dimen>
 
 </resources>

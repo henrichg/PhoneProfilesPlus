@@ -3,7 +3,7 @@
     <gradient
         android:endColor="@android:color/transparent"
         android:startColor="#44333333"
-        android:angle="90"/>
+        android:angle="270"/>
     <size
         android:height="@dimen/toolbar_dropShadow_height"
         android:width="0dp" />

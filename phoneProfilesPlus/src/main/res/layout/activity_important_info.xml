@@ -30,10 +30,23 @@
         android:theme="?attr/toolbarTheme"
         tools:ignore="UnusedAttribute"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/activity_important_info_pager"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/activity_important_info_tab_layout" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_important_info_tab_layout">
+
+        <View
+            android:id="@+id/activity_important_info_toolbar_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_dropShadow_height"
+            android:background="@drawable/topbar_dropshadow"
+            android:layout_gravity="top" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_important_info_pager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
+
+    </FrameLayout>
 
 </RelativeLayout>

@@ -29,9 +29,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/mp_toolbar">
 
+        <View
+            android:id="@+id/mp_activity_settings_toolbar_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_dropShadow_height"
+            android:background="@drawable/topbar_dropshadow"
+            android:layout_gravity="top" />
+
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </FrameLayout>
+
 </RelativeLayout>

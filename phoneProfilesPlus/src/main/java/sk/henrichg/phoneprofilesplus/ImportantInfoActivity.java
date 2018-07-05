@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -45,6 +46,12 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_white));
             else
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
+        }
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            View toolbarShadow = findViewById(R.id.activity_important_info_toolbar_shadow);
+            if (toolbarShadow != null)
+                toolbarShadow.setVisibility(View.GONE);
         }
 
         Toolbar toolbar = findViewById(R.id.activity_important_info_toolbar);

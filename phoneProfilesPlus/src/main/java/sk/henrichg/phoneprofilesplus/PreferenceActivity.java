@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 abstract class PreferenceActivity extends AppCompatPreferenceActivity
 {
@@ -35,13 +36,16 @@ abstract class PreferenceActivity extends AppCompatPreferenceActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Do not add custom layout for lollipop devices or we lose the widgets animation
-        // (app compat bug?)
-        //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            setContentView(R.layout.mp_activity_settings);
-            toolbar = findViewById(R.id.mp_toolbar);
-            setSupportActionBar(toolbar);
-        //}
+        setContentView(R.layout.mp_activity_settings);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            View toolbarShadow = findViewById(R.id.mp_activity_settings_toolbar_shadow);
+            if (toolbarShadow != null)
+                toolbarShadow.setVisibility(View.GONE);
+        }
+
+        toolbar = findViewById(R.id.mp_toolbar);
+        setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
