@@ -48,6 +48,7 @@
 
         <item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background</item>
         <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>
+        <item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg</item>
 
         <item name="dialogDivider">@color/dialog_divider</item>
 

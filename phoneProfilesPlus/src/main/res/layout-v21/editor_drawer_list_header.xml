@@ -9,7 +9,7 @@
         android:id="@+id/editor_drawer_list_header_background"
         android:background="?attr/editorDrawerListHeaderBackground"
         android:layout_width="match_parent"
-        android:layout_height="109dp"
+        android:layout_height="110dp"
         tools:ignore="UselessParent">
 
         <ImageView
@@ -23,7 +23,7 @@
             android:contentDescription="@string/empty_string"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_events_drawer_filter_header_bg" />
+            android:src="?attr/editorDrawerFilterHeaderBg" />
 
         <ImageView
             android:id="@+id/editor_drawer_list_header_icon"

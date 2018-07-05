@@ -22,7 +22,7 @@
             android:contentDescription="@string/empty_string"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_events_drawer_filter_header_bg" />
+            android:src="?attr/editorDrawerFilterHeaderBg" />
 
         <ImageView
             android:id="@+id/editor_drawer_list_header_icon"

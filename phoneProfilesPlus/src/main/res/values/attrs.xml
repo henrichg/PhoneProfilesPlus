@@ -106,5 +106,6 @@
     <attr name="bottomToolbarTheme" format="reference" />
     <attr name="editorFilterTitleColor" format="reference" />
     <attr name="runEventsIndicatorAll" format="reference" />
+    <attr name="editorDrawerFilterHeaderBg" format="reference" />
 
 </resources>

@@ -14,7 +14,7 @@
     <color name="navigationDrawerSubTextColor_white">#80000000</color>
     <color name="navigationDrawerBackground_white">#fffafafa</color>
     <color name="preferenceDialogBackground_white">#FFFFFFFF</color>
-    <color name="editorDrawerListHeaderTitleColor_white">#FFFFFFFF</color>
+    <color name="editorDrawerListHeaderTitleColor_white">#FF000000</color>
     <color name="dialog_divider_white">#10000000</color>
 
     <color name="editorFilterTitleColor_white">#FF000000</color>
