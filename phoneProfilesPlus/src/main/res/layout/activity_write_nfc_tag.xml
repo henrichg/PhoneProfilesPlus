@@ -36,6 +36,8 @@
         android:layout_gravity="center_horizontal"
         android:background="?attr/buttonBackground"
         android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@android:string/cancel"/>
 
 </LinearLayout>

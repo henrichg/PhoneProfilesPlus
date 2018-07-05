@@ -75,6 +75,8 @@
             android:text="@string/donation_google_android_market_donate_button"
             android:background="?attr/buttonBackground"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:enabled="false" />
 
     </LinearLayout>
@@ -105,6 +107,8 @@
             android:layout_weight="1"
             android:background="?attr/buttonBackground"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:text="@string/donation_google_android_market_donate_button" />
 
     </LinearLayout>

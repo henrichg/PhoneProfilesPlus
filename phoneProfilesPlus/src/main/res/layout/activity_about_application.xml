@@ -139,6 +139,8 @@
             android:layout_marginTop="20dp"
             android:background="?attr/buttonBackground"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
             android:text="@string/about_application_donate_button" />
 
     </LinearLayout>
