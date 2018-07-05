@@ -141,10 +141,10 @@
   <string name="alert_title_delete_all_events">모든 이벤트 삭제</string>
   <string name="alert_message_delete_all_events">그대로 진행해도 좋습니까?</string>
   <string name="phone_profiles_pref_applicationTheme">어플리케이션 테마</string>
-  <string name="phone_profiles_pref_applicationTheme_material">색상</string>
+  <string name="phone_profiles_pref_applicationTheme_color">Color</string>
   <string name="phone_profiles_pref_applicationTheme_dark">어두움</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">어두운 제목에 밝은</string>
-  <string name="array_pref_value_material">material</string>
+  <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionmode_save">저장</string>
@@ -1182,6 +1182,11 @@
   <string name="altype_allProfilesDeleted">All profiles deleted</string>
   <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
   <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
+  <string name="import_profiles_alert_error_database_bug">Error restoring the database.</string>
+  <string name="import_profiles_alert_error_appSettings_bug">Error restoring the application settings.</string>
+  <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>
+  <string name="phone_profiles_pref_applicationTheme_white">White</string>
+  <string name="array_pref_value_white">white</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>

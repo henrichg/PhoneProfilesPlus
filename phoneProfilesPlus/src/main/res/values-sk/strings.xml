@@ -141,10 +141,10 @@
   <string name="alert_title_delete_all_events">Vymazať všetky udalosti</string>
   <string name="alert_message_delete_all_events">Ste si istí?</string>
   <string name="phone_profiles_pref_applicationTheme">Téma aplikácie</string>
-  <string name="phone_profiles_pref_applicationTheme_material">Farebná téma</string>
+  <string name="phone_profiles_pref_applicationTheme_color">Farebná téma</string>
   <string name="phone_profiles_pref_applicationTheme_dark">Tmavá téma</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">Svetlá s tmavým titulkom</string>
-  <string name="array_pref_value_material">material</string>
+  <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionmode_save">Uložiť</string>
@@ -1182,6 +1182,11 @@
   <string name="altype_allProfilesDeleted">Vymazané všetky profily</string>
   <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) nakonfigurované v systéme, (S) vrátené skenerom.</string>
   <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) nakonfigurované v systéme, (S) vrátené skenerom.</string>
+  <string name="import_profiles_alert_error_database_bug">Chyba pri obnovovaní databázy.</string>
+  <string name="import_profiles_alert_error_appSettings_bug">Chyba pri obnovovaní nastavenia aplikácie.</string>
+  <string name="import_profiles_alert_error_sharedProfile_bug">Chyba pri obnovovaní parametrov zdieľaného profilu.</string>
+  <string name="phone_profiles_pref_applicationTheme_white">Biela téma</string>
+  <string name="array_pref_value_white">white</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\" and \"Senzor orientácie\".</string>

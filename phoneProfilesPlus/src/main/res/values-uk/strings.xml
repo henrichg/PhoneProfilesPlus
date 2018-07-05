@@ -123,14 +123,14 @@
   <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Не дозволено</string>
   <string name="menu_export">Резервування</string>
-  <string name="menu_import">Налаштування резервн. відновл.</string>
+  <string name="menu_import">Відновлення</string>
   <string name="toast_export_ok">Створено резервну копію налаштувань</string>
   <string name="toast_import_ok">Відновлено рез. копію налаштувань</string>
-  <string name="import_profiles_alert_title">Налаштування резервн. відновл.</string>
+  <string name="import_profiles_alert_title">Відновлення рез. копії</string>
   <string name="import_profiles_alert_message">Ви впевнені?</string>
   <string name="import_profiles_alert_error">Помилка в процесі відновлення</string>
-  <string name="export_profiles_alert_title">Резервування</string>
-  <string name="export_profiles_alert_error">Помилка в процесі резервного копіювання</string>
+  <string name="export_profiles_alert_title">Створення рез. копії</string>
+  <string name="export_profiles_alert_error">Помилка під час резервування</string>
   <string name="profile_preferences_deviceMobileData">Передача даних</string>
   <string name="profile_preferences_deviceMobileDataPrefs">(I) Налаштування передачі даних</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Кольорова</string>
@@ -141,10 +141,10 @@
   <string name="alert_title_delete_all_events">Видалити усі події</string>
   <string name="alert_message_delete_all_events">Ви впевнені?</string>
   <string name="phone_profiles_pref_applicationTheme">Тема додатку</string>
-  <string name="phone_profiles_pref_applicationTheme_material">Колір</string>
+  <string name="phone_profiles_pref_applicationTheme_color">Колір</string>
   <string name="phone_profiles_pref_applicationTheme_dark">Темний</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">Світла з темним заголовком</string>
-  <string name="array_pref_value_material">material</string>
+  <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionmode_save">Зберегти</string>
@@ -421,7 +421,7 @@
   <string name="info_notification_text">Натисніть тут щоб відобразити важливу інформацію</string>
   <string name="profile_preferences_deviceWiFiAP">Точка доступу Wi-Fi</string>
   <string name="array_pref_ringerModeArray_silentL">Режим пріоритету</string>
-  <string name="menu_import_export">Резервне копіювання/Відновлення</string>
+  <string name="menu_import_export">Резервування/Відновлення</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 хвилин</string>
   <string name="info_notification_event_not_started">Подія не розпочалась:\n1. Ви вимкнули запуск всіх подій (червоний індикатор) - в меню Редактора натисніть \"Дозволити запуск подій\".\n2. Ви вручну активували профіль (помаранчевий індикатор) - необхідно перезавантажити всі події. В меню Активатора, Редактора чи в сповіщенні натисніть \"Перезавантажити події\". Якщо профіль активовано вручну, то перед його назвою з\'являється буква \"[M]\" (Manual). Виняток: в налаштуваннях події увімкнено \"Ігнорувати ручну активацію\".\n3. Ви вимкнули запуск даної події в його налаштуваннях - увімкніть \"Дозволити запуск\" в налаштуваннях даної події.\nПримітка: \"колір індикатора\" відображено у назві події в меню Активатора та Редактора.</string>
   <string name="important_info_profiles">Профілі</string>
@@ -1158,7 +1158,7 @@
   <string name="not_saved_changes_alert_message">Зберегти зміни?</string>
   <string name="export_profiles_alert_message">Файли резевного копіювання будуть збережені у пам’ять пристрою до папки</string>
   <string name="export_profiles_alert_message_note">Примітка: Файли резервного копіювання містять особисті дані. Використовуйте пароль при збережені, наприклад у zip-файл.</string>
-  <string name="alert_button_backup">Зробити резервну копію</string>
+  <string name="alert_button_backup">Резервувати</string>
   <string name="important_info_privacy_policy_backup_files">Політику конфіденційності змінено, особливо щодо резервного копіювання файлів, згенерованих за допомогою функції резервного копіювання.</string>
   <string name="important_info_privacy_policy_backup_files_2">Натисніть тут, щоб переглянути політику конфіденційності.</string>
   <string name="phone_profiles_pref_notificationSystemSettings">Налаштування системи</string>
@@ -1183,6 +1183,11 @@
   <string name="altype_allProfilesDeleted">Всі профілі видалено</string>
   <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) налаштований в системі, (S), повернутий сканером.</string>
   <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) налаштований в системі, (S), повернутий сканером.</string>
+  <string name="import_profiles_alert_error_database_bug">Помилка відновлення бази даних.</string>
+  <string name="import_profiles_alert_error_appSettings_bug">Помилка відновлення налаштувань додатку.</string>
+  <string name="import_profiles_alert_error_sharedProfile_bug">Помилка відновлення налаштувань спільного профілю.</string>
+  <string name="phone_profiles_pref_applicationTheme_white">Білий</string>
+  <string name="array_pref_value_white">white</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Надайте дозвіл PhoneProfilesPlusExtender для:\n• параметру профіля \"Примусова зупинка додатків\"\n• датчиків подій \"Сенсор додатків\" і \"Сенсор орієнтації екрану\".</string>

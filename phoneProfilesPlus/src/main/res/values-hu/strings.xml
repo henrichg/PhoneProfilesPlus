@@ -141,10 +141,10 @@
   <string name="alert_title_delete_all_events">Összes esemény törlése</string>
   <string name="alert_message_delete_all_events">Biztos vagy benne?</string>
   <string name="phone_profiles_pref_applicationTheme">Alkalmazás téma</string>
-  <string name="phone_profiles_pref_applicationTheme_material">Szín</string>
+  <string name="phone_profiles_pref_applicationTheme_color">Szín</string>
   <string name="phone_profiles_pref_applicationTheme_dark">Sötét</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">Világos, sötét címsorral</string>
-  <string name="array_pref_value_material">material</string>
+  <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionmode_save">Mentés</string>
@@ -1182,6 +1182,11 @@
   <string name="altype_allProfilesDeleted">Minden profil törölve</string>
   <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) konfigurált a rendszerben, (S) visszaállítva a szkennerrel.</string>
   <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) konfigurált a rendszerben, (S) visszaállítva a szkennerrel.</string>
+  <string name="import_profiles_alert_error_database_bug">Adatbázis visszaigazolási hiba.</string>
+  <string name="import_profiles_alert_error_appSettings_bug">Hiba történt az alkalmazás-beállítások visszaállítása során.</string>
+  <string name="import_profiles_alert_error_sharedProfile_bug">Hiba történt a megosztott profil beállítások visszaállításánál.</string>
+  <string name="phone_profiles_pref_applicationTheme_white">Fehér</string>
+  <string name="array_pref_value_white">white</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>
