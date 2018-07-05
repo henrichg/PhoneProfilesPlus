@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#237e9f</color>      <!-- 700(500) -->
-    <color name="primaryDark">#237e9f</color> <!-- 900(700) -->
+    <color name="primary">#237e9f</color>
+    <color name="primaryDark">#237e9f</color>
     <!--<color name="primaryDark">#1d6681</color>--> <!-- 900(700) -->
-    <color name="accent">#DC8160</color>       <!-- A400(A200) -->
+    <color name="accent">#DC8160</color>
     <color name="accent_disabled">#70DC8160</color>
 
     <color name="activityBackgroundColor">#FFFFFFFF</color>

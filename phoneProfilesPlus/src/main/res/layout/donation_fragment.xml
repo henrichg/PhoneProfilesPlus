@@ -2,9 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:isScrollContainer="true"
     android:orientation="vertical"
     android:padding="15dp" >
+
+    <!--<View
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>-->
 
     <ProgressBar
         android:id="@+id/donation_google_android_market_loading"
@@ -19,21 +22,21 @@
         android:id="@+id/donation_google_android_market_error_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:paddingBottom="15dp"
         android:visibility="gone"
         android:textColor="#FFFF0000"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/donation_donation_description"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:text="@string/donation_description"
         android:textStyle="bold"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/donation_google_android_market_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
         android:text="@string/donation_google_android_market"
@@ -41,7 +44,7 @@
 
     <!--
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
@@ -51,7 +54,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="5dp" >
 

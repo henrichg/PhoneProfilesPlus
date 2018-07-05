@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -102,11 +103,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // must by called before super.onCreate() for PreferenceActivity
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
-            GlobalGUIRoutines.setTheme(this, false, true, false);
-        else
-            GlobalGUIRoutines.setTheme(this, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, false, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
         super.onCreate(savedInstanceState);

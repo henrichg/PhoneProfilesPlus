@@ -1,13 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +35,7 @@ public class DonationFragment extends Fragment {
 
     private List<SkuDetails> SKU_DETAILS = null;
 
-    private View mLoadingView;
+    private ProgressBar mLoadingView;
     private TextView mErrorTextView;
     private Spinner mGoogleSpinner;
     private Button btGoogle;
@@ -58,10 +63,19 @@ public class DonationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         PPApplication.logE(TAG, "onCreateView");
-        View root = inflater.inflate(R.layout.donation_fragment, container, false);
+        View root = inflater.inflate(R.layout.donation_fragment, container, true);
 
         //noinspection ConstantConditions
         mLoadingView = root.findViewById(R.id.donation_google_android_market_loading);
+
+        if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) && (getActivity() != null)) {
+            TypedValue typedValue = new TypedValue();
+            TypedArray a = getActivity().obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
+            int accentColor = a.getColor(0, 0);
+            a.recycle();
+            mLoadingView.getIndeterminateDrawable().setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
+        }
+
         mErrorTextView = root.findViewById(R.id.donation_google_android_market_error_textview);
 
         // choose donation amount

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_white">#F7F7F7</color>      <!-- 500 -->
-    <color name="primaryDark_white">#F7F7F7</color> <!-- 700 -->
-    <color name="accent_white">#DC8160</color>       <!-- A400(A200) -->
+    <color name="primary_white">#F7F7F7</color>
+    <color name="primaryDark_white">#A7A7A7</color>
+    <color name="accent_white">#DC8160</color>
     <color name="accent_white_disabled">#70DC8160</color>
 
     <color name="activityBackgroundColor_white">#FFFFFFFF</color>
