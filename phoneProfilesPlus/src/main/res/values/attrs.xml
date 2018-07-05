@@ -107,5 +107,6 @@
     <attr name="editorFilterTitleColor" format="reference" />
     <attr name="runEventsIndicatorAll" format="reference" />
     <attr name="editorDrawerFilterHeaderBg" format="reference" />
+    <attr name="buttonBackground" format="reference" />
 
 </resources>

@@ -41,46 +41,34 @@
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Light</item>
         <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="windowActionModeOverlay">true</item>
-
         <item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background_dark</item>
         <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>
         <item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg_dark</item>
-
         <item name="dialogDivider">@color/dialog_divider</item>
-
         <!--<item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item>-->
         <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
         <item name="actionActivityLogPlayIcon">@drawable/ic_action_activity_log_play</item>
         <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause</item>
-
         <item name="alertDialogTheme">@style/AlertDialogStyleDLight</item>
         <item name="dialogTheme">@style/DialogStyleDLight</item>
-
         <item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile</item>
         <item name="actionHelpIcon">@drawable/ic_action_help</item>
-
         <item name="actionProfileActivationDuration">@drawable/ic_action_profile_activation_duration</item>
-
         <item name="fastScrollTrackPP">@color/fastScrollTrackPP</item>
         <item name="fastScrollThumbPP">@color/fastScrollThumbPP</item>
         <item name="fastScrollPopupBackgroundPP">@color/fastScrollPopupBackgroundPP</item>
         <item name="fastScrollPopupTextPP">@color/fastScrollPopupTextPP</item>
-
         <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
-
         <item name="actionRunStopEventsIcon">@drawable/ic_action_run_stop_events_icon</item>
-
         <item name="editorDrawerSpinnerDropDownTextColor">@color/activityTextColor_dark</item>
-
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor_dark</item>
-
         <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all_white</item>
+        <item name="buttonBackground">@drawable/pp_button_background_dlight</item>
 
     </style>
 

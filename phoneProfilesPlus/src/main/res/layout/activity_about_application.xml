@@ -137,7 +137,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="@string/about_application_donate_button"/>
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:text="@string/about_application_donate_button" />
 
     </LinearLayout>
 

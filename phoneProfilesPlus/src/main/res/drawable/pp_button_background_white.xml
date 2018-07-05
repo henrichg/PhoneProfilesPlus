@@ -5,7 +5,7 @@
     <item>
         <shape>
 
-            <solid android:color="#00CCCCCC" />
+            <solid android:color="#00AAAAAA" />
 
             <corners android:radius="3dp" />
         </shape>
@@ -18,7 +18,7 @@
                 android:right="1dp"
                 android:top="1dp" />
 
-            <solid android:color="#FFCCCCCC" />
+            <solid android:color="#FFAAAAAA" />
 
             <corners android:radius="3dp" />
         </shape>
@@ -27,6 +27,10 @@
     <!-- Background -->
     <item>
         <shape>
+            <padding
+                android:left="10dp"
+                android:right="10dp" />
+
             <solid android:color="@color/activityBackgroundColor_white" />
 
             <corners android:radius="3dp" />

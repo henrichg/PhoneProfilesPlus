@@ -412,12 +412,24 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     R.layout.editor_drawer_spinner);
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_drawer_spinner_dropdown);
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark")) {
             orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
-            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
+            orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
+        }
         else
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white")) {
+            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
+            orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+        }
+        else
+        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dlight")) {
             orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+            orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+        }
+        else {
+            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+            orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+        }
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 

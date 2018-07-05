@@ -73,6 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/donation_google_android_market_donate_button"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:enabled="false" />
 
     </LinearLayout>
@@ -101,6 +103,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:text="@string/donation_google_android_market_donate_button" />
 
     </LinearLayout>

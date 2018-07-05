@@ -81,6 +81,16 @@ public class DonationFragment extends Fragment {
         // choose donation amount
         mGoogleSpinner = root.findViewById(
                 R.id.donation_google_android_market_spinner);
+        if (ApplicationPreferences.applicationTheme(getActivity()).equals("dark"))
+            mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
+        else
+        if (ApplicationPreferences.applicationTheme(getActivity()).equals("white"))
+            mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+        else
+        if (ApplicationPreferences.applicationTheme(getActivity()).equals("dlight"))
+            mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+        else
+            mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
 
         btGoogle = root.findViewById(
                 R.id.donation_google_android_market_donate_button);

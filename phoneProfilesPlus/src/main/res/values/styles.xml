@@ -35,13 +35,6 @@
         <item name="android:visibility">gone</item>
     </style>
 
-<!--     
-    <style name="editorDrawerSpinnerStyle" parent="@android:TextAppearance.Widget.TextView.SpinnerItem">
-        <item name="android:textColor">?attr/navigationDrawerText</item>
-        <item name="android:textSize">17sp</item>
-    </style>
- -->
-
     <style name="NavDrawer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginRight">@dimen/naw_drawer_margin_offset</item>
