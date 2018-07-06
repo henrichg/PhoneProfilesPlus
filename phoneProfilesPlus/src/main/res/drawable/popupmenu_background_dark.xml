@@ -7,7 +7,7 @@
 
             <solid android:color="#00505050" />
 
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
     </item>
     <item>
@@ -20,7 +20,7 @@
 
             <solid android:color="#FF505050" />
 
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
     </item>
 
@@ -29,7 +29,7 @@
         <shape>
             <solid android:color="@color/activityBackgroundColor_dark" />
 
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
     </item>
 

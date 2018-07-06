@@ -7,7 +7,7 @@
 
             <solid android:color="#00AAAAAA" />
 
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/button_corner_radius" />
         </shape>
     </item>
     <item>
@@ -20,7 +20,7 @@
 
             <solid android:color="#FFAAAAAA" />
 
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/button_corner_radius" />
         </shape>
     </item>
 
@@ -33,7 +33,7 @@
 
             <solid android:color="@color/activityBackgroundColor" />
 
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/button_corner_radius" />
         </shape>
     </item>
 
