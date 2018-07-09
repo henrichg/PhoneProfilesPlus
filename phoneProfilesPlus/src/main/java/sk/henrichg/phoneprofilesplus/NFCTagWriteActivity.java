@@ -135,7 +135,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         }
 
         Button button = findViewById(R.id.write_nfc_tag_button);
-        button.setAllCaps(false);
+        //button.setAllCaps(false);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

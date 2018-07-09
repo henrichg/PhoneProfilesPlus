@@ -35,7 +35,6 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
-import android.widget.Button;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -1604,7 +1603,7 @@ public class DataWrapper {
                     }
                 });
                 AlertDialog dialog = dialogBuilder.create();
-                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface dialog) {
                         Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -1612,7 +1611,7 @@ public class DataWrapper {
                         Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                         if (negative != null) negative.setAllCaps(false);
                     }
-                });
+                });*/
                 dialog.show();
             }
         }
@@ -3630,7 +3629,7 @@ public class DataWrapper {
                 }
             });
             AlertDialog dialog = dialogBuilder.create();
-            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(DialogInterface dialog) {
                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -3638,7 +3637,7 @@ public class DataWrapper {
                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                     if (negative != null) negative.setAllCaps(false);
                 }
-            });
+            });*/
             dialog.show();
         }
         else

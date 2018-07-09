@@ -24,7 +24,6 @@ import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
@@ -161,12 +160,14 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
         mDialog = mBuilder.build();
 
+        /*
         MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
         if (negative != null) negative.setAllCaps(false);
         MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
         if (neutral != null) neutral.setAllCaps(false);
         MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
         if (positive != null) positive.setAllCaps(false);
+        */
 
         View layout = mDialog.getCustomView();
 
@@ -192,7 +193,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         */
 
         final Button unselectAllButton = layout.findViewById(R.id.applications_multiselect_pref_dlg_unselect_all);
-        unselectAllButton.setAllCaps(false);
+        //unselectAllButton.setAllCaps(false);
         unselectAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

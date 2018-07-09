@@ -33,7 +33,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -1182,7 +1181,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
         AlertDialog dialog = dialogBuilder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -1190,7 +1189,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                 if (negative != null) negative.setAllCaps(false);
             }
-        });
+        });*/
         dialog.show();
     }
 
@@ -1440,7 +1439,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         });
         dialogBuilder2.setNegativeButton(R.string.alert_button_no, null);
         AlertDialog dialog = dialogBuilder2.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -1448,7 +1447,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                 if (negative != null) negative.setAllCaps(false);
             }
-        });
+        });*/
         dialog.show();
     }
 
@@ -1540,7 +1539,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         AlertDialog dialog = dialogBuilder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -1548,7 +1547,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                 if (negative != null) negative.setAllCaps(false);
             }
-        });
+        });*/
         dialog.show();
     }
 

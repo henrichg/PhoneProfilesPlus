@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -524,7 +523,7 @@ public class EditorProfileListFragment extends Fragment
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
         AlertDialog dialog = dialogBuilder.create();
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -532,7 +531,7 @@ public class EditorProfileListFragment extends Fragment
                 Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                 if (negative != null) negative.setAllCaps(false);
             }
-        });
+        });*/
         dialog.show();
     }
 
@@ -582,7 +581,7 @@ public class EditorProfileListFragment extends Fragment
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
-            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
                 public void onShow(DialogInterface dialog) {
                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -590,7 +589,7 @@ public class EditorProfileListFragment extends Fragment
                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                     if (negative != null) negative.setAllCaps(false);
                 }
-            });
+            });*/
             dialog.show();
         }
     }

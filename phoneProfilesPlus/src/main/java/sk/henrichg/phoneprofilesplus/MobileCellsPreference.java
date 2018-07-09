@@ -24,7 +24,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -151,12 +150,14 @@ public class MobileCellsPreference extends DialogPreference {
 
         mDialog = mBuilder.build();
 
+        /*
         MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
         if (negative != null) negative.setAllCaps(false);
         MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
         if (neutral != null) neutral.setAllCaps(false);
         MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
         if (positive != null) positive.setAllCaps(false);
+        */
 
         View layout = mDialog.getCustomView();
 
@@ -295,7 +296,7 @@ public class MobileCellsPreference extends DialogPreference {
         });
 
         final Button rescanButton = layout.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
-        rescanButton.setAllCaps(false);
+        //rescanButton.setAllCaps(false);
         rescanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

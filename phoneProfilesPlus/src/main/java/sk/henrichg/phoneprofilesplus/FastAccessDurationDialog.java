@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 
 import java.util.Arrays;
 import java.util.Timer;
@@ -123,12 +121,14 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mDialog = mBuilder.build();
 
+        /*
         MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
         if (negative != null) negative.setAllCaps(false);
         MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
         if (neutral != null) neutral.setAllCaps(false);
         MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
         if (positive != null) positive.setAllCaps(false);
+        */
 
         View layout = mDialog.getCustomView();
 
@@ -268,7 +268,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         }.init(activity), 250, 250);
 
         final Button activateWithoutButton = layout.findViewById(R.id.fast_access_duration_dlg_activate_without);
-        activateWithoutButton.setAllCaps(false);
+        //activateWithoutButton.setAllCaps(false);
         activateWithoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

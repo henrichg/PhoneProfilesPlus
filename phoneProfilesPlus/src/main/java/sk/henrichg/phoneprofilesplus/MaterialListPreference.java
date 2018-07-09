@@ -1,12 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.util.AttributeSet;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 
 class MaterialListPreference extends com.afollestad.materialdialogs.prefs.MaterialListPreference {
 
@@ -26,6 +21,7 @@ class MaterialListPreference extends com.afollestad.materialdialogs.prefs.Materi
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    /*
     @Override
     protected void showDialog(Bundle state) {
         super.showDialog(state);
@@ -37,5 +33,6 @@ class MaterialListPreference extends com.afollestad.materialdialogs.prefs.Materi
             if (negative != null) negative.setAllCaps(false);
         }
     }
+    */
 
 }

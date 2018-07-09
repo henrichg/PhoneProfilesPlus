@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -21,7 +20,6 @@ import android.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.widget.Button;
 
 import com.evernote.android.job.JobRequest;
 
@@ -194,7 +192,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                 @Override
                                 public void onShow(DialogInterface dialog) {
                                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -202,7 +200,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                     if (negative != null) negative.setAllCaps(false);
                                 }
-                            });
+                            });*/
                             dialog.show();
                         }
                         return false;
@@ -234,7 +232,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                 @Override
                                 public void onShow(DialogInterface dialog) {
                                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -242,7 +240,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                     if (negative != null) negative.setAllCaps(false);
                                 }
-                            });
+                            });*/
                             dialog.show();
                         }
                         return false;
@@ -267,7 +265,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                 @Override
                                 public void onShow(DialogInterface dialog) {
                                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -275,7 +273,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                     if (negative != null) negative.setAllCaps(false);
                                 }
-                            });
+                            });*/
                             dialog.show();
                         }
                         return false;
@@ -322,7 +320,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
-                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                     @Override
                                     public void onShow(DialogInterface dialog) {
                                         Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -330,7 +328,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                         Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                         if (negative != null) negative.setAllCaps(false);
                                     }
-                                });
+                                });*/
                                 dialog.show();
                             }
                             return false;
@@ -372,7 +370,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
-                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                     @Override
                                     public void onShow(DialogInterface dialog) {
                                         Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -380,7 +378,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                         Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                         if (negative != null) negative.setAllCaps(false);
                                     }
-                                });
+                                });*/
                                 dialog.show();
                             }
                             return false;
@@ -412,7 +410,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                 @Override
                                 public void onShow(DialogInterface dialog) {
                                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -420,7 +418,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                     if (negative != null) negative.setAllCaps(false);
                                 }
-                            });
+                            });*/
                             dialog.show();
                         }
                         return false;
@@ -446,7 +444,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                 dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                 AlertDialog dialog = dialogBuilder.create();
-                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                     @Override
                                     public void onShow(DialogInterface dialog) {
                                         Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -454,7 +452,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                         Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                         if (negative != null) negative.setAllCaps(false);
                                     }
-                                });
+                                });*/
                                 dialog.show();
                             }
                             return false;
@@ -487,7 +485,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                 @Override
                                 public void onShow(DialogInterface dialog) {
                                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -495,7 +493,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                     if (negative != null) negative.setAllCaps(false);
                                 }
-                            });
+                            });*/
                             dialog.show();
                         }
                         return false;
@@ -548,7 +546,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                             @Override
                             public void onShow(DialogInterface dialog) {
                                 Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -556,7 +554,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                 if (negative != null) negative.setAllCaps(false);
                             }
-                        });
+                        });*/
                         dialog.show();
                     }
                     return false;
@@ -593,7 +591,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                 @Override
                                 public void onShow(DialogInterface dialog) {
                                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -601,7 +599,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                     if (negative != null) negative.setAllCaps(false);
                                 }
-                            });
+                            });*/
                             dialog.show();
                         }
                         return false;
@@ -719,7 +717,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                                 @Override
                                 public void onShow(DialogInterface dialog) {
                                     Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -727,7 +725,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
                                     if (negative != null) negative.setAllCaps(false);
                                 }
-                            });
+                            });*/
                             dialog.show();
                         }
                         return false;

@@ -17,9 +17,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 
 public class ColorChooserPreference extends DialogPreference implements View.OnClickListener {
 
@@ -86,12 +84,14 @@ public class ColorChooserPreference extends DialogPreference implements View.OnC
 
         mDialog = mBuilder.build();
 
+        /*
         MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
         if (negative != null) negative.setAllCaps(false);
         MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
         if (neutral != null) neutral.setAllCaps(false);
         MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
         if (positive != null) positive.setAllCaps(false);
+        */
 
         View layout = mDialog.getCustomView();
 

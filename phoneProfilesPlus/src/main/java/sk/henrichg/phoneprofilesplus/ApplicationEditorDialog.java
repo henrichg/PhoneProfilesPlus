@@ -60,12 +60,14 @@ class ApplicationEditorDialog
 
         mDialog = dialogBuilder.build();
 
+        /*
         MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
         if (negative != null) negative.setAllCaps(false);
         MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
         if (neutral != null) neutral.setAllCaps(false);
         MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
         if (positive != null) positive.setAllCaps(false);
+        */
 
         View layout = mDialog.getCustomView();
 
@@ -126,7 +128,7 @@ class ApplicationEditorDialog
         }
 
         if (selectedPosition == -1) {
-            //View positive = mDialog.getActionButton(DialogAction.POSITIVE);
+            MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
             if (positive != null)
                 positive.setEnabled(false);
         }

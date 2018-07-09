@@ -27,7 +27,6 @@ import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -121,12 +120,14 @@ public class WifiSSIDPreference extends DialogPreference {
 
         mDialog = mBuilder.build();
 
+        /*
         MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
         if (negative != null) negative.setAllCaps(false);
         MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
         if (neutral != null) neutral.setAllCaps(false);
         MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
         if (positive != null) positive.setAllCaps(false);
+        */
 
         View layout = mDialog.getCustomView();
 
@@ -253,7 +254,7 @@ public class WifiSSIDPreference extends DialogPreference {
         });
 
         final Button rescanButton = layout.findViewById(R.id.wifi_ssid_pref_dlg_rescanButton);
-        rescanButton.setAllCaps(false);
+        //rescanButton.setAllCaps(false);
         rescanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
