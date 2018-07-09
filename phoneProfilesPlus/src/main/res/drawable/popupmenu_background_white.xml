@@ -11,11 +11,9 @@
         </shape>
     </item>
     <item>
-        <shape>
+        <shape android:shape="rectangle">
             <padding
-                android:bottom="2dp"
-                android:left="1dp"
-                android:right="1dp" />
+                android:bottom="3px" />
 
             <solid android:color="#80CCCCCC" />
 
