@@ -13,6 +13,18 @@
     <item>
         <shape>
             <padding
+                android:bottom="2dp"
+                android:left="1dp"
+                android:right="1dp" />
+
+            <solid android:color="#80CCCCCC" />
+
+            <corners android:radius="@dimen/popup_corner_radius" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <padding
                 android:bottom="1dp"
                 android:left="1dp"
                 android:right="1dp"

@@ -73,8 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/donation_google_android_market_donate_button"
-            android:background="?attr/buttonBackground"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:enabled="false" />
@@ -105,8 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="?attr/buttonBackground"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/donation_google_android_market_donate_button" />
