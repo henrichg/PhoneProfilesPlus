@@ -122,6 +122,10 @@ class SettingsContentObserver  extends ContentObserver {
             }
         }
         previousScreenTimeout = screenTimeout;
+
+        int value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128);
+        PPApplication.logE("SettingsContentObserver.onChange","brightness value="+value);
+
         /////////////
     }
 

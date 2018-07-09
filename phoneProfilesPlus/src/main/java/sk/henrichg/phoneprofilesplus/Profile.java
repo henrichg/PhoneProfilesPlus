@@ -1666,6 +1666,7 @@ public class Profile {
         else
             value = Math.round((float)(maximumValue - minimumValue) / 100 * percentage) + minimumValue;
 
+        PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value="+value);
         return value;
     }
 

@@ -1977,8 +1977,8 @@ class ActivateProfileHelper {
         // setup display brightness
         if (Permissions.checkProfileScreenBrightness(context, profile, null)) {
             if (profile.getDeviceBrightnessChange()) {
-                PPApplication.logE("ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
-                PPApplication.logE("ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
+                PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
+                PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
 
                 if (profile.getDeviceBrightnessAutomatic()) {
                     Settings.System.putInt(context.getContentResolver(),
@@ -2017,7 +2017,7 @@ class ActivateProfileHelper {
                     PPApplication.brightnessHandler.post(new Runnable() {
                         public void run() {
                             PPApplication.logE("ActivateProfileHelper.execute","brightnessHandler");
-                            createBrightnessView(context);
+                            createBrightnessView(profile, context);
                         }
                     });
                 }// else
@@ -2352,7 +2352,7 @@ class ActivateProfileHelper {
     }
 
     @SuppressLint("RtlHardcoded")
-    private static void createBrightnessView(Context context)
+    private static void createBrightnessView(Profile profile, Context context)
     {
         PPApplication.logE("ActivateProfileHelper.createBrightnessView", "xxx");
 
@@ -2381,6 +2381,10 @@ class ActivateProfileHelper {
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE /*| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE*/,
                         PixelFormat.TRANSLUCENT
                 );
+                if (profile.getDeviceBrightnessAutomatic())
+                    params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+                else
+                    params.screenBrightness = profile.getDeviceBrightnessManualValue(appContext) / (float) 255;
                 PhoneProfilesService.instance.brightnessView = new BrightnessView(appContext);
                 try {
                     windowManager.addView(PhoneProfilesService.instance.brightnessView, params);
