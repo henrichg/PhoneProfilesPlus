@@ -13,7 +13,7 @@
     <item>
         <shape android:shape="rectangle">
             <padding
-                android:bottom="3px" />
+                android:bottom="2dp" />
 
             <solid android:color="#80202020" />
 
