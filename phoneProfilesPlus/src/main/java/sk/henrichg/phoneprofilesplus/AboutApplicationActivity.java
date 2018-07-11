@@ -5,6 +5,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.graphics.drawable.AdaptiveIconDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,11 +18,13 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -63,6 +67,23 @@ public class AboutApplicationActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.about_application_title);
             getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
         }
+
+        /*
+        ImageView appIcon = findViewById(R.id.about_application_application_icon);
+        try {
+            Drawable drawable = getPackageManager().getApplicationIcon(getPackageName());
+            Log.e("AboutApplicationActivity.onCreate", "drawable.class="+drawable.getClass().getName());
+            if (Build.VERSION.SDK_INT >= 26) {
+                if (drawable instanceof AdaptiveIconDrawable) {
+                    Log.e("AboutApplicationActivity.onCreate", "AdaptiveIconDrawable");
+                    drawable = ((AdaptiveIconDrawable) drawable).getForeground();
+                }
+            }
+            appIcon.setImageDrawable(drawable);
+        } catch (Exception e) {
+            Log.e("AboutApplicationActivity.onCreate", Log.getStackTraceString(e));
+        }
+        */
 
         TextView text = findViewById(R.id.about_application_application_version);
         try {

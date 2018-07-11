@@ -98,9 +98,9 @@ public class PPApplication extends Application {
                                          */
 
                                          //+"|DataWrapper.activateProfileFromMainThread"
-                                         +"|ActivateProfileHelper.execute"
-                                         +"|Profile.convertPercentsToBrightnessManualValue"
-                                         +"|SettingsContentObserver.onChange"
+                                         //+"|ActivateProfileHelper.execute"
+                                         //+"|Profile.convertPercentsToBrightnessManualValue"
+                                         //+"|SettingsContentObserver.onChange"
 
                                          //+"|$$$ DataWrapper._activateProfile"
                                          //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
