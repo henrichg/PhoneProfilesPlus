@@ -216,4 +216,18 @@ Senzor polohy:
 
 -------------------
 
+Aktivacia profilu z Aktivatora - vraj sa nezatvara
+1. volane je DataWrapper.activateProfile() s startupSource = STARTUP_SOURCE_ACTIVATOR a s aktivitou = Aktivator
+2. ak profile_id je najdene, tak volane je DataWrapper.activateProfileWithAlert(profile, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
+3. ak profile_id nie je najdene, tak sa updatne vsetko v db, gui a zavola sa finishActivity(STARTUP_SOURCE_ACTIVATOR, true, activity (Aktivator)).
+4. DataWrapper.activateProfileWithAlert()
+   a) ak je nastavene, ze ma pytat potvrdenie aktivacie:
+      aa) vytvori sa AlertDialog.
+      ab) positive button vola Permissions.grantProfilePermissions().
+          aba) ak vrati false, vola sa finishActivity(STARTUP_SOURCE_ACTIVATOR, false, activity (Aktivator))
+          abb) ak vrati true, vola sa _dataWrapper.activateProfileFromMainThread(profile, false, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
+   b) ak je nastavene, ze nema pytat potvrdenie aktivacie:
+      aa) positive button vola Permissions.grantProfilePermissions().
+          aa) ak vrati false, NEVOLA SA NIC!!!! Tu je chyba, nema prava nahodene, nic sa neaktivuje a Aktivator sa nezavrie!!!!
+          ab) ak vrati true, vola sa _dataWrapper.activateProfileFromMainThread(profile, false, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
 
