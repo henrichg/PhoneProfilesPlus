@@ -141,7 +141,7 @@
   <string name="alert_title_delete_all_events">Durumların tamamını sil</string>
   <string name="alert_message_delete_all_events">Emin misiniz?</string>
   <string name="phone_profiles_pref_applicationTheme">Uygulama Teması</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Color</string>
+  <string name="phone_profiles_pref_applicationTheme_color">Renk</string>
   <string name="phone_profiles_pref_applicationTheme_dark">Koyu</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">Koyu başlık ile açık renkli tema</string>
   <string name="array_pref_value_color">color</string>
@@ -243,11 +243,11 @@
   <string name="event_preferences_battery_charging">Şarj olurken</string>
   <string name="pref_event_battery_level">Seviye</string>
   <string name="pref_event_battery_charging">Şarj olurken</string>
-  <string name="event_preferences_category_eventTimeParameters">Time sensor</string>
-  <string name="event_preferences_category_eventBatteryParameters">Battery sensor</string>
+  <string name="event_preferences_category_eventTimeParameters">Zaman sensörü</string>
+  <string name="event_preferences_category_eventBatteryParameters">Pil sensörü</string>
   <string name="contacts_multiselect_summary_text_selected">Seçildi</string>
   <string name="contacts_multiselect_summary_text_not_selected">Seçilmedi</string>
-  <string name="event_preferences_category_eventCallParameters">Call sensor</string>
+  <string name="event_preferences_category_eventCallParameters">Çağrı sensörü</string>
   <string name="event_preferences_call_contacts">Kişiler</string>
   <string name="event_preferences_call_event">Çağrı durumu</string>
   <string name="array_event_pref_ringing">Çalarken</string>
@@ -280,7 +280,7 @@
   <string name="event_type_peripheral">Aksesuarlar</string>
   <string name="array_event_pref_peripheralType_deskDock">Masaüstü seti</string>
   <string name="array_event_pref_peripheralType_carDock">Araç seti</string>
-  <string name="event_preferences_category_eventPeripheralParameters">Accessories sensor</string>
+  <string name="event_preferences_category_eventPeripheralParameters">Aksesuar sensörü</string>
   <string name="event_preferences_peripheral_type">Aksesuar türü</string>
   <string name="array_event_pref_peripheralType_wired_headset">Kablolu mikrofonlu kulaklık</string>
   <string name="array_event_pref_peripheralType_bluetooth_headset">Bluetooth kulaklık</string>
@@ -294,7 +294,7 @@
   <string name="default_profile_name_battery_low">Zayıf seviye</string>
   <string name="calendars_multiselect_summary_text_selected">Seçildi</string>
   <string name="calendars_multiselect_summary_text_not_selected">Seçilmedi</string>
-  <string name="event_preferences_category_eventCalendarParameters">Calendar sensor</string>
+  <string name="event_preferences_category_eventCalendarParameters">Takvim sensörü</string>
   <string name="event_preferences_calendar_calendars">Takvimler</string>
   <string name="event_type_calendar">Takvim</string>
   <string name="event_preferences_calendar_search_field">Arama alanı</string>
@@ -309,7 +309,7 @@
   <string name="array_event_pref_priorityHigher">[P:8] Daha yüksek</string>
   <string name="array_event_pref_priorityHighest">[P:10] En yüksek</string>
   <string name="event_type_wifi">Wi-Fi</string>
-  <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensor</string>
+  <string name="event_preferences_category_eventWifiParameters">Wi-Fi sensörü</string>
   <string name="event_preferences_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_ssid">SSID</string>
   <string name="pref_event_wifi_connectionType">Wi-Fi Bağlantısı</string>
@@ -321,7 +321,7 @@
   <string name="profile_preference_profile_end_no_activate">Faaliyete geçmesin</string>
   <string name="profile_preference_profile_not_set">Tercih ayarlanmadı</string>
   <string name="event_type_screen">Ekran</string>
-  <string name="event_preferences_category_eventScreenParameters">Screen sensor</string>
+  <string name="event_preferences_category_eventScreenParameters">Ekran sensörü</string>
   <string name="event_preferences_screen_event_type">Durum türü</string>
   <string name="event_preferences_delayStart">Gecikme</string>
   <string name="profile_preferences_duration">Süre</string>
@@ -338,7 +338,7 @@
   <string name="event_preferences_screen_start_when_unlocked">Kilit açıldığında başlat</string>
   <string name="event_preferences_screen_end_when_unlocked">Kilitten sonra kapat</string>
   <string name="event_type_bluetooth">Bluetooth</string>
-  <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensor</string>
+  <string name="event_preferences_category_eventBluetoothParameters">Bluetooth sensörü</string>
   <string name="event_preferences_bluetooth_adapter_name">Bluetooth ismi</string>
   <string name="pref_event_bluetooth_adapterName">Bluetooth ismi</string>
   <string name="pref_event_bluetooth_connectionType">Bluetooth bağlantısı</string>
@@ -350,7 +350,7 @@
   <string name="wifi_ssid_pref_dlg_rescan_button">Tekrar tara</string>
   <string name="event_type_sms">SMS</string>
   <string name="pref_event_sms_contactListType">Liste</string>
-  <string name="event_preferences_category_eventSMSParameters">SMS/MMS sensor</string>
+  <string name="event_preferences_category_eventSMSParameters">SMS/MMS sensörü</string>
   <string name="event_preferences_sms_contacts">Kişiler</string>
   <string name="toast_events_restarted">Durumlar tekrar başladı</string>
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Kalıcı bildirim</string>
@@ -452,9 +452,9 @@
   <string name="applications_multiselect_summary_text_selected">Seçilen</string>
   <string name="applications_multiselect_summary_text_not_selected">Seçilmedi</string>
   <string name="event_type_notifications">Bildirimler</string>
-  <string name="event_preferences_category_eventNotificationsParameters">Notification sensor</string>
+  <string name="event_preferences_category_eventNotificationsParameters">Bildirim sensörü</string>
   <string name="event_preferences_notifications_applications">Uygulamalar</string>
-  <string name="event_preferences_volumeNotificationsAccessSettings_summary">To enable Notification sensor, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
+  <string name="event_preferences_volumeNotificationsAccessSettings_summary">Bildirim sensörünü açmak için \"Sistem Ayarları\" → \"Bildirim Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin.</string>
   <string name="array_pref_zenModeArray_alarms">Sadece alarmlar</string>
   <string name="profile_preferences_zenMode_alarms_summary">Sadece alarm kesintileri</string>
   <string name="phone_profiles_pref_applicationShortcutEmblem">Amblem için kısayol ekle</string>
@@ -540,7 +540,7 @@
   <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
   <string name="array_pref_value_tr">tr</string>
   <string name="event_type_applications">Uygulamalar</string>
-  <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
+  <string name="event_preferences_category_eventApplicationsParameters">Uygulama sensörü</string>
   <string name="event_preferences_applications_applications">Uygulamalar</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Erişebilirlik ayarları</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Uyarlama seviyesini değiştirmek için kök izni lazımdır.</string>
@@ -567,7 +567,7 @@
   <string name="important_info_default_profile">Herhangi bir Durum çalışmadığı zaman, ayarlanmış ise \"Varsayılan tercih\" başlatılır. Varsayılan tercihi, uygulama ayarlarında \"Tercihi faaliyete geçir\" olarak ayarlayabilirsiniz. Ayarlamak için buraya dokunun.</string>
   <string name="important_info_how_does_volume_separation_work">\"Seviye ayırma\" nasıl çalışır: Tercih faaliyete geçince, zil ses seviyesi, tercih bildirim ses seviyesi olarak ayarlanır. Arama algılandığında, bildirim ses seviyesi, tercih tarafından otomatik olarak seçtiğiniz zil sesi seviyesine ayarlanır. Çağrı bitiminden sonra bildirim ses seviyesi, tekrar otomatik olarak tercih tarafından geri ayarlanır.</string>
   <string name="event_type_locations">Konum</string>
-  <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>
+  <string name="event_preferences_category_eventLocationsParameters">Konum sensörü</string>
   <string name="event_preferences_locations_location">Konum</string>
   <string name="event_preferences_locations_location_not_selected">Seçili değil</string>
   <string name="event_preferences_locations_cant_delete_location_title">Konumu sil</string>
@@ -622,7 +622,7 @@
   <string name="profile_preferences_notificationLed_23">(R) Bildirim ışığı</string>
   <string name="profile_preferences_notificationLedInfo_summary">Deneysel. Cihazınızda çalışmayabilir</string>
   <string name="event_type_orientation">Ekran Döndürme</string>
-  <string name="event_preferences_category_eventOrientationParameters">Orientation sensor</string>
+  <string name="event_preferences_category_eventOrientationParameters">Döndürme sensörü</string>
   <string name="event_preferences_orientation_display">Ekranı döndür</string>
   <string name="event_preferences_orientation_sides">Kenarlar</string>
   <string name="array_event_pref_orientationSides_displayUp">Yukarıya döndür</string>
@@ -639,12 +639,12 @@
   <string name="event_preferences_orientation_ignoreForApplications">Uygulamalar için ihmal et</string>
   <string name="applications_preference_applicationType_application">uygulama</string>
   <string name="applications_preference_applicationType_shortcut">kısayol</string>
-  <string name="phone_profiles_pref_eventWifiAppSettings_summary">Setup Wi-Fi scanning parameters in application settings.</string>
-  <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Setup Bluetooth scanning parameters in application settings.</string>
+  <string name="phone_profiles_pref_eventWifiAppSettings_summary">Uygulama ayarlarında Wi-Fi değerlerini ayarlayın.</string>
+  <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Uygulama ayarlarında Bluetooth değerlerini ayarlayın.</string>
   <string name="phone_profiles_pref_category_orientation_scanning">Döndürme sensörü taraması</string>
   <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Döndürme sensörü tarama aralığı (sn)</string>
   <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">\"Güç tasarrufu\"nda Döndürme Sensörü taraması</string>
-  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Setup Orientation scanning parameters in application settings.</string>
+  <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Uygulama ayarlarında Ekran Döndürme değerlerini ayarlayın.</string>
   <string name="array_pref_screenTimeoutArray_24hours">24 saat</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Her zaman Açık</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Cihazınızda 24 saat tercihi çalışmadığı zaman (LG), \"Her zaman açık\" ayarını kullanın. Bu tercih Samsung cihazlarda sorunlara sebep olabilir. Böyle bir sorun varsa \"24 saat\" ayarını kullanın.</string>
@@ -678,7 +678,7 @@
   <string name="array_pref_device_wallpaper_lockscreen">Kilit ekranı</string>
   <string name="array_pref_device_wallpaper_all">Ana ekran ve Kilit ekranı</string>
   <string name="event_type_mobile_cells">Şebeke hücreleri</string>
-  <string name="event_preferences_category_eventMobileCellsParameters">Mobile cell sensor</string>
+  <string name="event_preferences_category_eventMobileCellsParameters">Şebeke hücre sensörü</string>
   <string name="event_preferences_mobile_cells_cells">Hücreler (Baz istasyonları)</string>
   <string name="event_preferences_mobile_cells_when_outside_pref_name">Şebeke hücresi dışında iken başlat</string>
   <string name="event_preferences_mobile_cells_when_outside_description">Dışarıda iken</string>
@@ -688,7 +688,7 @@
   <string name="mobile_cells_pref_dlg_cell_name_hint">Hücre ismi</string>
   <string name="mobile_cells_pref_dlg_cell_rename_title">Hücrelere yeni isim ver</string>
   <string name="mobile_cells_pref_dlg_cell_rename_button">Yeni isim</string>
-  <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
+  <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Uygulama ayarlarında Şebeke hücreleri şartlarını ayarlayın.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">Şebeke hücreleri taraması</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Hücrelerin kaydı</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">\"Güç tasarrufu\" modunda Şebeke hücrelerini tara</string>
@@ -732,7 +732,7 @@
   <string name="phone_profiles_pref_eventRunUsePriority">\"Öncelik\" durum değeri kullan</string>
   <string name="event_preferences_priority_notUse">Kullanılmıyor</string>
   <string name="event_type_nfc">NFC</string>
-  <string name="event_preferences_category_eventNFCParameters">NFC sensor</string>
+  <string name="event_preferences_category_eventNFCParameters">NFC sensörü</string>
   <string name="event_preferences_nfc_nfcTags">NFC etiketleri</string>
   <string name="nfc_tag_pref_dlg_hint">Etiket ismi</string>
   <string name="nfc_tag_pref_dlg_help">NFC etiketi içine etiket ismi yazmalısınız. \"NFC İsmine Yaz\" her etiket ismindeki menüdedir.</string>
@@ -904,7 +904,7 @@
   <string name="lockDevice_screenOff_text">Hızlı ekran kapatma kilidi</string>
   <string name="event_preferences_calendar_start_before_event">Durumdan önce başlat</string>
   <string name="event_preferences_startBeforeEvent">Durumdan önce başlat</string>
-  <string name="event_preferences_category_eventRadioSwitchParameters">Radio sensor</string>
+  <string name="event_preferences_category_eventRadioSwitchParameters">Radyo sensörü</string>
   <string name="event_preference_sensor_radioSwitch_summary">Bu sensör, durumun radyoların (açık/kapalı) geçişi yaparken başlatılması içindir. Değerler: Wi-fi, Bluetooth, Şebeke interneti GPS, NFC, Uçak modu.</string>
   <string name="event_type_radioSwitch">Radyolar</string>
   <string name="array_pref_radioSwitch_notDetect">Kontrol edilmesin</string>
@@ -1185,7 +1185,7 @@
   <string name="import_profiles_alert_error_database_bug">Error restoring the database.</string>
   <string name="import_profiles_alert_error_appSettings_bug">Error restoring the application settings.</string>
   <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>
-  <string name="phone_profiles_pref_applicationTheme_white">White</string>
+  <string name="phone_profiles_pref_applicationTheme_white">Beyaz</string>
   <string name="array_pref_value_white">white</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1198,8 +1198,8 @@
   <string name="extender_accessibility_service_button">Aç/Kapat\nErişebilirlik hizmeti</string>
   <string name="extender_setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
   <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender erişilebilirlik hizmeti</string>
-  <string name="permission_ask_button">Ask</string>
-  <string name="permission_not_ask_button">Not ask</string>
+  <string name="permission_ask_button">Sor</string>
+  <string name="permission_not_ask_button">Sorma</string>
   <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
