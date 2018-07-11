@@ -14,6 +14,7 @@
         <item name="android:windowBackground">@color/activityBackgroundColor_dark</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor_dark</item>
         <item name="activityTextColor">@color/activityTextColor_dark</item>
+        <item name="activityDisabledTextColor">@color/activityDisabledTextColor_dark</item>
         <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor_dark</item>
 
         <item name="md_dark_theme">true</item>

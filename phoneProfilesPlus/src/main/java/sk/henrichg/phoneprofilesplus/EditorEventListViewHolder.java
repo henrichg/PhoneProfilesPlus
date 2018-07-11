@@ -110,6 +110,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
             }
+            else
+            if (_eventStatus == Event.ESTATUS_STOP) {
+                eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTextSize(15);
+                eventName.setTextColor(GlobalGUIRoutines.getThemeDisabledTextColor(editorFragment.getActivity()));
+            }
             else {
                 eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);

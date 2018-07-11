@@ -8,6 +8,7 @@
 
     <color name="activityBackgroundColor_white">#FFFFFFFF</color>
     <color name="activityTextColor_white">#FF000000</color>
+    <color name="activityDisabledTextColor_white">#4F000000</color>
     <color name="activityCommandBackgroundColor_white">#1F000000</color>
 
     <color name="activityPopupBackground_white">#FFd0d0d0</color>
