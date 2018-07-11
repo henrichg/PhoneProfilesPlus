@@ -993,13 +993,13 @@
   <string name="important_info_quick_guide_events_2">Události obsahují důležité konfigurační parametry senzorů, které se musí všechny splnit předtím, než se událost spustí. Pokud nějaký senzor není splněn, událost skončí (pozastaví).</string>
   <string name="important_info_quick_guide_sensors_1">Příklady senzorů:</string>
   <string name="important_info_quick_guide_sensors_2"><b>• Senzor času:</b> Začatek a konec v zadaný den v týdnu nebo určeném čase.</string>
-  <string name="important_info_quick_guide_sensors_3"><b>• Wi-Fi sensor:</b> Start and End by Wi-Fi SSID (connected, device nearby). The Nearby feature is useful to detect device location. For example: Start event when the device is within scanning range of your home Wi-Fi network.</string>
-  <string name="important_info_quick_guide_sensors_4"><b>• Bluetooth sensor:</b> Similar to Wi-Fi sensor. Useful for car Bluetooth.</string>
-  <string name="important_info_quick_guide_sensors_5"><b>• Location sensor:</b> Start and End by device location (GPS). You must enable Location Services in device system settings.</string>
-  <string name="important_info_quick_guide_sensors_6"><b>• Mobile cell sensor:</b> Start and End by connection to or disconnection from mobile cell towers.</string>
-  <string name="important_info_quick_guide_sensors_7"><b>• Call sensor:</b> Start and End via configured contacts. For example, when ringing.</string>
-  <string name="important_info_quick_guide_sensors_8"><b>• Accessories sensor:</b> Start an event when, for example, headphones are connected.</string>
-  <string name="important_info_quick_guide_sensors_9"><b>• NFC sensor:</b> Start an event via NFC tags.</string>
+  <string name="important_info_quick_guide_sensors_3"><b>• Senzor Wi-Fi:</b> Začátek a konec podle Wi-Fi SSID (připojené, zařízení v blízkosti). Funkce zařízení v blízkosti je užitečná pro zjištění polohy zařízení. Například: Start události, když se zařízení nachází ve skenovaném rozsahu domaci Wi-Fi sítě.</string>
+  <string name="important_info_quick_guide_sensors_4"><b>• Senzor bluetooth:</b> Podobné jako senzor Wi-Fi. Užitečné pro Bluetooth v autě.</string>
+  <string name="important_info_quick_guide_sensors_5"><b>• Senzor polohy:</b> Začátek a konec dle polohy (GPS). Musíte povolit lokalizační služby v nastavení zařízení systému.</string>
+  <string name="important_info_quick_guide_sensors_6"><b>• Senzor mobilních buněk:</b> Začátek a konec na připojení nebo odpojení od mobilních základnových stanic.</string>
+  <string name="important_info_quick_guide_sensors_7"><b>• Senzor hovoru:</b> Začátek a konec dle nakonfigurovaných kontaktů. Například při vyzvánění.</string>
+  <string name="important_info_quick_guide_sensors_8"><b>• Senzor příslušenství:</b> Start události, když například jsou připojena sluchátka.</string>
+  <string name="important_info_quick_guide_sensors_9"><b>• Senzor NFC:</b> Start události pomocí NFC tagů.</string>
   <string name="important_info_quick_guide_events_3">Pokud jste manuálně aktivovali profil (ne událost), všechny běžící události se ukončí (pozastaví). Události se nespustí během manuálně aktivovaného profilu. Nicméně můžete přepsat toto chování prostřednictvím parametru \"Ignoruj manuální aktivaci\" v nastaveních události.</string>
   <string name="important_info_quick_guide_editor_1">Profily a události jsou nakonfigurovány v Editoru, který si můžete vyvolat přes Aktivátor. V Editoru můžete přidat, duplikovat, aktualizovat a odstranit profily a události. Editor má levý boční panel, který vám umožní změnit pohled Editoru. Použijte ho na přepínání mezi seznamy profilů a událostí.</string>
   <string name="event_preferences_noPauseByManualActivation">Nezastav manuální aktivací</string>
@@ -1036,7 +1036,7 @@
   <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_orientation_PPPExtender_install_summary">Pro povolení parametru \"Ignorovat pro aplikace\", klikněte zde pro instalaci PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_applications_PPPExtender_upgrade_summary">Klikněte zde pro kontrolu změn a aktualizace PhoneProfilesPlusExtender.</string>
-  <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>
+  <string name="important_info_accessibility_service_text1">Vzhledem k tomu, že společnost Google změnila pravidla o používání služeb dostupnosti, musíte pro událostní senzor aplikací a událostní senzor orientace nainstalovat PhoneProfilesExtender. Podívejte se na parametry těchto senzorů pro více informací.</string>
   <string name="about_application_extender_source_code">Zdrojový kód - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">Můžete nakonfigurovat více řetězců. Oddělte je znakem \"|\".</string>
   <string name="profile_preferences_sourceProfileInfoX_title">Funkcionalita sdíleného profilu.</string>
@@ -1144,11 +1144,11 @@
   <string name="array_pref_do_not_close">Nezavírat</string>
   <string name="array_pref_close">Zavřít</string>
   <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simuluje stisk tlačítka Domů v navigačním panelu.</string>
-  <string name="phone_profiles_pref_applicationEventLocation_info">These settings are for Location event sensor.</string>
-  <string name="phone_profiles_pref_applicationEventWifi_info">These settings are for Wi-Fi event sensor.</string>
-  <string name="phone_profiles_pref_applicationEventBluetooth_info">These settings are for Bluetooth event sensor.</string>
-  <string name="phone_profiles_pref_applicationEventMobileCell_info">These settings are for event Mobile cell event sensor.</string>
-  <string name="phone_profiles_pref_applicationEventOrientation_info">These settings are for Orientation event sensor.</string>
+  <string name="phone_profiles_pref_applicationEventLocation_info">Tato nastavení jsou pro událostní senzor polohy.</string>
+  <string name="phone_profiles_pref_applicationEventWifi_info">Tato nastavení jsou pro událostní senzor Wi-Fi.</string>
+  <string name="phone_profiles_pref_applicationEventBluetooth_info">Tato nastavení jsou pro událostní senzor Bluetooth.</string>
+  <string name="phone_profiles_pref_applicationEventMobileCell_info">Tato nastavení jsou pro událostní senzor mobilních buněk.</string>
+  <string name="phone_profiles_pref_applicationEventOrientation_info">Tato nastavení jsou pro událostní senzor orientace.</string>
   <string name="profileicon_pref_dialog_custom_icon_image_too_large">Obrázek vlastní ikony je příliš velký. Povolené je max.</string>
   <string name="profile_preferences_category_touchEffects">Efekty klepnutí</string>
   <string name="profile_preferences_soundOnTouch">Tón při klepnutí</string>
@@ -1180,11 +1180,11 @@
   <string name="altype_sharedProfilePreferencesChanged">Parametry sdíleného profilu se změnily</string>
   <string name="altype_allEventsDeleted">Vymazány všechny události</string>
   <string name="altype_allProfilesDeleted">Vymazány všechny profily</string>
-  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
-  <string name="import_profiles_alert_error_database_bug">Error restoring the database.</string>
-  <string name="import_profiles_alert_error_appSettings_bug">Error restoring the application settings.</string>
-  <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>
+  <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) nakonfigurované v systému, (S) vráceny skenerem.</string>
+  <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) nakonfigurované v systému, (S) vráceny skenerem.</string>
+  <string name="import_profiles_alert_error_database_bug">Chyba při obnovování databáze.</string>
+  <string name="import_profiles_alert_error_appSettings_bug">Chyba při obnovování nastavení aplikace.</string>
+  <string name="import_profiles_alert_error_sharedProfile_bug">Chyba při obnovování parametrů sdíleného profilu.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Bílé</string>
   <string name="array_pref_value_white">white</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
