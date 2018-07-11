@@ -282,6 +282,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
     */
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -294,11 +295,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 if (activateProfile && (getDataWrapper() != null)) {
                     Profile profile = getDataWrapper().getProfileById(profileId, false, false, mergedProfile);
-                    getDataWrapper().activateProfileFromMainThread(profile, mergedProfile, startupSource, /*true,*/ this);
+                    getDataWrapper().activateProfileFromMainThread(profile, mergedProfile, startupSource, this);
                 }
             }
         }
     }
+    */
 
     public void refreshGUI(boolean refreshIcons)
     {

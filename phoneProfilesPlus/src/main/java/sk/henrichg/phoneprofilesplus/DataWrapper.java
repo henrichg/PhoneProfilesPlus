@@ -486,7 +486,7 @@ public class DataWrapper {
         Profile profile = getProfileById(profile_id, false, false, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 /*false, monochrome, monochromeValue,*/
-                startupSource, /*interactive,*/ null, true)) {
+                startupSource, false,true)) {
             _activateProfile(profile, merged, startupSource);
         }
     }
@@ -1474,7 +1474,7 @@ public class DataWrapper {
     }
 
     void activateProfileFromMainThread(final Profile _profile, final boolean merged, final int startupSource,
-                                    final Activity _activity)
+                                    final boolean interactive, final Activity _activity)
     {
         PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start");
         final DataWrapper dataWrapper = copyDataWrapper();
@@ -1493,7 +1493,7 @@ public class DataWrapper {
 
                 PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start in handler");
                 dataWrapper._activateProfile(_profile, merged, startupSource);
-                if (_activity != null) {
+                if (interactive) {
                     DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(_profile);
                     dataWrapper.setDynamicLauncherShortcuts();
                 }
@@ -1573,13 +1573,13 @@ public class DataWrapper {
                     public void onClick(DialogInterface dialog, int which) {
                             if (Permissions.grantProfilePermissions(context, _profile, false, false,
                                     /*false, monochrome, monochromeValue,*/
-                                    _startupSource, /*true,*/ _activity, true))
-                                _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, /*true,*/ _activity);
+                                    _startupSource, true, true))
+                                _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity);
                             else {
                                 Intent returnIntent = new Intent();
                                 _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
 
-                                finishActivity(_startupSource, false, _activity);
+                                finishActivity(_startupSource, true, _activity);
                             }
                         }
                 });
@@ -1632,25 +1632,25 @@ public class DataWrapper {
 
                     granted = Permissions.grantProfilePermissions(context, profile, false, false,
                             /*false, monochrome, monochromeValue,*/
-                            startupSource, /*true,*/ activity, true);
+                            startupSource, true, true);
                 /*}
                 else
                     granted = Permissions.grantProfilePermissions(context, profile, false, true,
                             forGUI, monochrome, monochromeValue,
                             startupSource, false, null, true);*/
                 if (granted)
-                    activateProfileFromMainThread(profile, false, startupSource, /*interactive,*/ activity);
+                    activateProfileFromMainThread(profile, false, startupSource, true, activity);
                 else {
                     Intent returnIntent = new Intent();
                     activity.setResult(Activity.RESULT_CANCELED, returnIntent);
 
-                    finishActivity(startupSource, false, activity);
+                    finishActivity(startupSource, true, activity);
                 }
             }
         }
     }
 
-    void finishActivity(int startupSource, boolean afterActivation, Activity _activity)
+    void finishActivity(int startupSource, boolean finishActivator, Activity _activity)
     {
         if (_activity == null)
             return;
@@ -1667,7 +1667,7 @@ public class DataWrapper {
                 // close of activity after profile activation is enabled
                 if (PPApplication.getApplicationStarted(context, false))
                     // application is already started and is possible to close activity
-                    finish = afterActivation;
+                    finish = finishActivator;
             }
         }
         else
@@ -1755,7 +1755,7 @@ public class DataWrapper {
             // profile activation
             if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
                 activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
-                                        /*boolean _interactive,*/ null);
+                                        false, null);
             else
                 activateProfileWithAlert(profile, startupSource, /*interactive,*/ activity);
         }
@@ -1795,7 +1795,7 @@ public class DataWrapper {
         }
         if (Permissions.grantProfilePermissions(context, profile, false, true,
                 /*false, monochrome, monochromeValue,*/
-                startupSource, /*true,*/ null, true)) {
+                startupSource, true,true)) {
             // activateProfileAfterDuration is already called from handlerThread
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
             _activateProfile(profile, false, startupSource);

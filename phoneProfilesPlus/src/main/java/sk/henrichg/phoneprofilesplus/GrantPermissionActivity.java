@@ -38,7 +38,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     //private boolean monochrome;
     //private int monochromeValue;
     private int startupSource;
-    //private boolean interactive;
+    private boolean interactive;
     private String applicationDataPath;
     private boolean activateProfile;
     private boolean grantAlsoContacts;
@@ -81,7 +81,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         //monochrome = intent.getBooleanExtra(Permissions.EXTRA_MONOCHROME, false);
         //monochromeValue = intent.getIntExtra(Permissions.EXTRA_MONOCHROME_VALUE, 0xFF);
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
-        //interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
+        interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != Profile.SHARED_PROFILE_ID);
         grantAlsoContacts = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, true);
@@ -536,7 +536,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
         intent.putExtra(Permissions.EXTRA_FORCE_GRANT, forceGrant);
         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
-        //intent.putExtra(Permissions.EXTRA_INTERACTIVE, interactive);
+        intent.putExtra(Permissions.EXTRA_INTERACTIVE, interactive);
 
         PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
@@ -995,20 +995,30 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PPApplication.logE("GrantPermissionActivity.finishGrant", "startupSource="+startupSource);
             //PPApplication.logE("GrantPermissionActivity.finishGrant", "interactive="+interactive);
 
-            Intent returnIntent = new Intent();
+            /*Intent returnIntent = new Intent();
             returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             returnIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
             returnIntent.putExtra(Permissions.EXTRA_MERGED_PROFILE, mergedProfile);
             returnIntent.putExtra(Permissions.EXTRA_ACTIVATE_PROFILE, activateProfile);
-            setResult(Activity.RESULT_OK,returnIntent);
+            setResult(Activity.RESULT_OK,returnIntent);*/
 
             //finishAffinity();
             finish();
             Permissions.removeProfileNotification(context);
-            /*if (activateProfile)
-                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, //interactive,
-                        Permissions.profileActivationActivity);*/
+            if (activateProfile)
+                dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, interactive,null);
         }
+
+        if (permissions != null) {
+            permissions = Permissions.recheckPermissions(context, permissions);
+            if (permissions.size() != 0) {
+                Toast msg = Toast.makeText(context,
+                        context.getResources().getString(R.string.toast_permissions_not_granted),
+                        Toast.LENGTH_SHORT);
+                msg.show();
+            }
+        }
+
         //Permissions.releaseReferences();
         if (mergedNotification)
             Permissions.clearMergedPermissions(context);

@@ -57,6 +57,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         dataWrapper = null;
     }
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -69,11 +70,12 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
                 if (activateProfile) {
                     Profile profile = dataWrapper.getProfileById(profileId, false, false, mergedProfile);
-                    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, /*true,*/ this);
+                    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, this);
                 }
             }
         }
     }
+    */
 
     @Override
     public void finish()

@@ -1763,7 +1763,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 {
                     Profile sharedProfile = Profile.getSharedProfile(context);
                     Permissions.grantProfilePermissions(context, sharedProfile, false, true,
-                            /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, /*true,*/ null, false);
+                            /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false);
 
                     Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);

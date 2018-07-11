@@ -103,9 +103,11 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     Profile profile = dataWrapper.getProfileById(profile_id, false, false, false);
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                     if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
-                            /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this, true)) {
-                        dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, /*true,*/ this);
+                            /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true)) {
+                        dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     }
+                    else
+                        dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                 } else {
                     showNotification(getString(R.string.action_for_external_application_notification_title),
                             getString(R.string.action_for_external_application_notification_no_profile_text));
@@ -215,6 +217,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
         }
     }
 
+    /*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -227,11 +230,12 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                 if (activateProfile) {
                     Profile profile = dataWrapper.getProfileById(profileId, false, false, mergedProfile);
-                    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, /*true,*/ this);
+                    dataWrapper.activateProfileFromMainThread(profile, mergedProfile, startupSource, this);
                 }
             }
         }
     }
+    */
 
     private void showNotification(String title, String text) {
         String nTitle = title;
