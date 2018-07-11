@@ -1571,16 +1571,16 @@ public class DataWrapper {
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if (Permissions.grantProfilePermissions(context, _profile, false, false,
-                                /*false, monochrome, monochromeValue,*/
-                                _startupSource, /*true,*/ _activity, true))
-                            _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, /*true,*/ _activity);
-                        else {
-                            Intent returnIntent = new Intent();
-                            _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
+                            if (Permissions.grantProfilePermissions(context, _profile, false, false,
+                                    /*false, monochrome, monochromeValue,*/
+                                    _startupSource, /*true,*/ _activity, true))
+                                _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, /*true,*/ _activity);
+                            else {
+                                Intent returnIntent = new Intent();
+                                _activity.setResult(Activity.RESULT_CANCELED, returnIntent);
 
-                            finishActivity(_startupSource, false, _activity);
-                        }
+                                finishActivity(_startupSource, false, _activity);
+                            }
                         }
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
