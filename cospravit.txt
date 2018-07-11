@@ -228,6 +228,6 @@ Aktivacia profilu z Aktivatora - vraj sa nezatvara
           abb) ak vrati true, vola sa _dataWrapper.activateProfileFromMainThread(profile, false, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
    b) ak je nastavene, ze nema pytat potvrdenie aktivacie:
       aa) positive button vola Permissions.grantProfilePermissions().
-          aa) ak vrati false, NEVOLA SA NIC!!!! Tu je chyba, nema prava nahodene, nic sa neaktivuje a Aktivator sa nezavrie!!!!
+          aa) ak vrati false, NEVOLA SA NIC!!!! Tu je chyba, nema prava nahodene, nic sa neaktivuje a Aktivator sa nezavrie!!!! - OPRAVENE
           ab) ak vrati true, vola sa _dataWrapper.activateProfileFromMainThread(profile, false, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
 
