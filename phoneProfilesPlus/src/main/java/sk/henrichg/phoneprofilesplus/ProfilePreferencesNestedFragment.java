@@ -1618,12 +1618,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
-            boolean enabled = !sValue.equals(ON);
-            ListPreference preference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
-            if (preference != null) {
-                if (!enabled)
-                    preference.setValue(Profile.NO_CHANGE_VALUE_STR);
-                preference.setEnabled(enabled);
+            if (Profile.isProfilePreferenceAllowed(key, context) == PPApplication.PREFERENCE_ALLOWED) {
+                boolean enabled = !sValue.equals(ON);
+                ListPreference preference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
+                if (preference != null) {
+                    if (!enabled)
+                        preference.setValue(Profile.NO_CHANGE_VALUE_STR);
+                    preference.setEnabled(enabled);
+                }
             }
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
