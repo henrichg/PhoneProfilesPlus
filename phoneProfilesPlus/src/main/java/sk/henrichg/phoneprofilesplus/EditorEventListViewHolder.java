@@ -115,7 +115,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
-                eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTypeface(null, Typeface.ITALIC);
                 eventName.setTextSize(15);
                 eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(editorFragment.getActivity()));
             }
@@ -128,6 +128,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //else
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
                 eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
+                //eventName.setUnderLineColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
             }
             else {
                 eventName.setTypeface(null, Typeface.NORMAL);

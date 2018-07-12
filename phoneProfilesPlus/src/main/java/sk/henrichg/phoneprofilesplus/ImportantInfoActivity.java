@@ -48,11 +48,11 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
         }
 
-        if (Build.VERSION.SDK_INT >= 21) {
+        /*if (Build.VERSION.SDK_INT >= 21) {
             View toolbarShadow = findViewById(R.id.activity_important_info_toolbar_shadow);
             if (toolbarShadow != null)
                 toolbarShadow.setVisibility(View.GONE);
-        }
+        }*/
 
         Toolbar toolbar = findViewById(R.id.activity_important_info_toolbar);
         setSupportActionBar(toolbar);
@@ -61,7 +61,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.important_info_activity_title);
-            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
+            getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(0));
         }
 
         TabLayout tabLayout = findViewById(R.id.activity_important_info_tab_layout);

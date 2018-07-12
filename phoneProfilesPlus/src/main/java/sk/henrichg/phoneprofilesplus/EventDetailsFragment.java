@@ -164,7 +164,7 @@ public class EventDetailsFragment extends Fragment {
             }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
-                eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTypeface(null, Typeface.ITALIC);
                 eventName.setTextSize(15);
                 eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(getActivity()));
             }
