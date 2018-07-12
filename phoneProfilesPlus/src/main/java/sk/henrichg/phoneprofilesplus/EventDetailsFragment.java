@@ -170,7 +170,7 @@ public class EventDetailsFragment extends Fragment {
             }
             else
             if (_eventStatus == Event.ESTATUS_PAUSE) {
-                eventName.setTypeface(null, Typeface.BOLD);
+                eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
                 //if (event._isInDelayEnd)
                 //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(getActivity()));
