@@ -48,5 +48,6 @@
 
     <color name="eventPauseTextColor">#FF00a7d8</color>
     <color name="eventStopTextColor">#FF6c6c6c</color>
+    <color name="eventInDelayTextColor">#FFffb000</color>
 
 </resources>

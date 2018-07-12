@@ -36,5 +36,6 @@
 
     <color name="eventPauseTextColor_dark">#FF00a7d8</color>
     <color name="eventStopTextColor_dark">#FFb5b5b5</color>
+    <color name="eventInDelayTextColor_dark">#FFffb000</color>
 
 </resources>

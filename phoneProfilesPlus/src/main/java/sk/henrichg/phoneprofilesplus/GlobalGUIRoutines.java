@@ -582,6 +582,12 @@ class GlobalGUIRoutines {
         return a.getResourceId(0, 0);
     }
 
+    static int getThemeEventInDelayColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.eventInDelayTextColor, value, true);
+        return value.data;
+    }
+
     /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)
     {

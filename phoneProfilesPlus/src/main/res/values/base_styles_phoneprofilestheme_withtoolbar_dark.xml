@@ -74,6 +74,7 @@
         <item name="eventPauseTextColor">@color/eventPauseTextColor_dark</item>
         <item name="eventStopTextColor">@color/eventStopTextColor_dark</item>
         <item name="eventStopStatusIndicator">@drawable/ic_event_status_stop_dark</item>
+        <item name="eventInDelayTextColor">@color/eventInDelayTextColor_dark</item>
 
     </style>
 

@@ -112,5 +112,6 @@
     <attr name="eventPauseTextColor" format="reference" />
     <attr name="eventStopStatusIndicator" format="reference" />
     <attr name="eventStopTextColor" format="reference" />
+    <attr name="eventInDelayTextColor" format="reference" />
 
 </resources>
