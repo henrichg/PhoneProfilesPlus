@@ -15,6 +15,8 @@ class EventPreferencesBluetooth extends EventPreferences {
     int _connectionType;
     int _devicesType;
 
+    boolean _sensorPassed;
+
     static final int CTYPE_CONNECTED = 0;
     static final int CTYPE_INFRONT = 1;
     static final int CTYPE_NOTCONNECTED = 2;
@@ -31,6 +33,7 @@ class EventPreferencesBluetooth extends EventPreferences {
 
     private static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
 
+
     static final String CONFIGURED_BLUETOOTH_NAMES_VALUE = "^configured_bluetooth_names^";
     static final String ALL_BLUETOOTH_NAMES_VALUE = "%";
 
@@ -45,6 +48,8 @@ class EventPreferencesBluetooth extends EventPreferences {
         this._adapterName = adapterName;
         this._connectionType = connectionType;
         this._devicesType = devicesType;
+
+        this._sensorPassed = false;
     }
 
     @Override
@@ -54,6 +59,8 @@ class EventPreferencesBluetooth extends EventPreferences {
         this._adapterName = fromEvent._eventPreferencesBluetooth._adapterName;
         this._connectionType = fromEvent._eventPreferencesBluetooth._connectionType;
         this._devicesType = fromEvent._eventPreferencesBluetooth._devicesType;
+
+        this._sensorPassed = false;
     }
 
     @Override

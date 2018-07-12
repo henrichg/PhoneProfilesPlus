@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2110;
+    private static final int DATABASE_VERSION = 2120;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -304,6 +304,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_NOTIFICATION_IN_CALL = "notificationRingingCall";
     private static final String KEY_E_NOTIFICATION_MISSED_CALL = "notificationMissedCall";
     private static final String KEY_E_START_WHEN_ACTIVATED_PROFILE = "startWhenActivatedProfile";
+    private static final String KEY_E_BLUETOOTH_SENSOR_PASSED = "bluetoothSensorPassed";
+    private static final String KEY_E_LOCATION_SENSOR_PASSED = "locationSensorPassed";
+    private static final String KEY_E_MOBILE_CELLS_SENSOR_PASSED = "mobileCellsSensorPassed";
+    private static final String KEY_E_ORIENTATION_SENSOR_PASSED = "orientationSensorPassed";
+    private static final String KEY_E_WIFI_SENSOR_PASSED = "wifiSensorPassed";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -585,7 +590,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_NOTIFICATION_SOUND_REPEAT_INTERVAL + " INTEGER,"
                 + KEY_E_NOTIFICATION_IN_CALL + " INTEGER,"
                 + KEY_E_NOTIFICATION_MISSED_CALL + " INTEGER,"
-                + KEY_E_START_WHEN_ACTIVATED_PROFILE + " TEXT"
+                + KEY_E_START_WHEN_ACTIVATED_PROFILE + " TEXT,"
+                + KEY_E_BLUETOOTH_SENSOR_PASSED + " INTEGER,"
+                + KEY_E_LOCATION_SENSOR_PASSED + " INTEGER,"
+                + KEY_E_MOBILE_CELLS_SENSOR_PASSED + " INTEGER,"
+                + KEY_E_ORIENTATION_SENSOR_PASSED + " INTEGER,"
+                + KEY_E_WIFI_SENSOR_PASSED + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2264,6 +2274,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             cursor.close();
+        }
+
+        if (oldVersion < 2120) {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BLUETOOTH_SENSOR_PASSED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_LOCATION_SENSOR_PASSED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_MOBILE_CELLS_SENSOR_PASSED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ORIENTATION_SENSOR_PASSED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_WIFI_SENSOR_PASSED + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BLUETOOTH_SENSOR_PASSED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_LOCATION_SENSOR_PASSED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_SENSOR_PASSED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_SENSOR_PASSED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_WIFI_SENSOR_PASSED + "=0");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -4412,7 +4436,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_EVENTS,
                                  new String[] { KEY_E_WIFI_ENABLED,
                                                 KEY_E_WIFI_SSID,
-                                                KEY_E_WIFI_CONNECTION_TYPE
+                                                KEY_E_WIFI_CONNECTION_TYPE,
+                                                KEY_E_WIFI_SENSOR_PASSED
                                                 },
                                  KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
@@ -4427,6 +4452,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_WIFI_ENABLED))) == 1);
                 eventPreferences._SSID = cursor.getString(cursor.getColumnIndex(KEY_E_WIFI_SSID));
                 eventPreferences._connectionType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_WIFI_CONNECTION_TYPE)));
+                eventPreferences._sensorPassed = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_WIFI_SENSOR_PASSED))) == 1);
             }
             cursor.close();
         }
@@ -4461,7 +4487,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                  new String[] { KEY_E_BLUETOOTH_ENABLED,
                                                 KEY_E_BLUETOOTH_ADAPTER_NAME,
                                                 KEY_E_BLUETOOTH_CONNECTION_TYPE,
-                                                KEY_E_BLUETOOTH_DEVICES_TYPE
+                                                KEY_E_BLUETOOTH_DEVICES_TYPE,
+                                                KEY_E_BLUETOOTH_SENSOR_PASSED
                                                 },
                                  KEY_E_ID + "=?",
                                  new String[] { String.valueOf(event._id) }, null, null, null, null);
@@ -4477,6 +4504,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._adapterName = cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_ADAPTER_NAME));
                 eventPreferences._connectionType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_CONNECTION_TYPE)));
                 eventPreferences._devicesType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_DEVICES_TYPE)));
+                eventPreferences._sensorPassed = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_BLUETOOTH_SENSOR_PASSED))) == 1);
             }
             cursor.close();
         }
@@ -4576,7 +4604,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_LOCATION_ENABLED,
                         KEY_E_LOCATION_GEOFENCES,
-                        KEY_E_LOCATION_WHEN_OUTSIDE
+                        KEY_E_LOCATION_WHEN_OUTSIDE,
+                        KEY_E_LOCATION_SENSOR_PASSED
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -4591,6 +4620,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_ENABLED))) == 1);
                 eventPreferences._geofences = cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_GEOFENCES));
                 eventPreferences._whenOutside = cursor.getInt(cursor.getColumnIndex(KEY_E_LOCATION_WHEN_OUTSIDE)) == 1;
+                eventPreferences._sensorPassed = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_LOCATION_SENSOR_PASSED))) == 1);
 
             }
             cursor.close();
@@ -4603,7 +4633,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_ORIENTATION_SIDES,
                         KEY_E_ORIENTATION_DISTANCE,
                         KEY_E_ORIENTATION_DISPLAY,
-                        KEY_E_ORIENTATION_IGNORE_APPLICATIONS
+                        KEY_E_ORIENTATION_IGNORE_APPLICATIONS,
+                        KEY_E_ORIENTATION_SENSOR_PASSED
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -4620,6 +4651,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._distance = cursor.getInt(cursor.getColumnIndex(KEY_E_ORIENTATION_DISTANCE));
                 eventPreferences._display = cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_DISPLAY));
                 eventPreferences._ignoredApplications = cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_IGNORE_APPLICATIONS));
+                eventPreferences._sensorPassed = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_ORIENTATION_SENSOR_PASSED))) == 1);
             }
             cursor.close();
         }
@@ -4629,7 +4661,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_MOBILE_CELLS_ENABLED,
                         KEY_E_MOBILE_CELLS_CELLS,
-                        KEY_E_MOBILE_CELLS_WHEN_OUTSIDE
+                        KEY_E_MOBILE_CELLS_WHEN_OUTSIDE,
+                        KEY_E_MOBILE_CELLS_SENSOR_PASSED
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -4644,6 +4677,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_ENABLED))) == 1);
                 eventPreferences._cells = cursor.getString(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_CELLS));
                 eventPreferences._whenOutside = cursor.getInt(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE)) == 1;
+                eventPreferences._sensorPassed = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_MOBILE_CELLS_SENSOR_PASSED))) == 1);
 
             }
             cursor.close();
@@ -4831,6 +4865,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_WIFI_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_WIFI_SSID, eventPreferences._SSID);
         values.put(KEY_E_WIFI_CONNECTION_TYPE, eventPreferences._connectionType);
+        values.put(KEY_E_WIFI_SENSOR_PASSED, (eventPreferences._sensorPassed) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4860,6 +4895,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_BLUETOOTH_ADAPTER_NAME, eventPreferences._adapterName);
         values.put(KEY_E_BLUETOOTH_CONNECTION_TYPE, eventPreferences._connectionType);
         values.put(KEY_E_BLUETOOTH_DEVICES_TYPE, eventPreferences._devicesType);
+        values.put(KEY_E_BLUETOOTH_SENSOR_PASSED, (eventPreferences._sensorPassed) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4927,6 +4963,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_LOCATION_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_LOCATION_GEOFENCES, eventPreferences._geofences);
         values.put(KEY_E_LOCATION_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
+        values.put(KEY_E_LOCATION_SENSOR_PASSED, (eventPreferences._sensorPassed) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4943,6 +4980,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_ORIENTATION_DISTANCE, eventPreferences._distance);
         values.put(KEY_E_ORIENTATION_DISPLAY, eventPreferences._display);
         values.put(KEY_E_ORIENTATION_IGNORE_APPLICATIONS, eventPreferences._ignoredApplications);
+        values.put(KEY_E_ORIENTATION_SENSOR_PASSED, (eventPreferences._sensorPassed) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -4957,6 +4995,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_MOBILE_CELLS_ENABLED, (eventPreferences._enabled) ? 1 : 0);
         values.put(KEY_E_MOBILE_CELLS_CELLS, eventPreferences._cells);
         values.put(KEY_E_MOBILE_CELLS_WHEN_OUTSIDE, (eventPreferences._whenOutside) ? 1 : 0);
+        values.put(KEY_E_MOBILE_CELLS_SENSOR_PASSED, (eventPreferences._sensorPassed) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -5171,6 +5210,109 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } catch (Exception e) {
                     //Error in between database transaction
                     Log.e("DatabaseHandler.updateAllEventsStatus", Log.getStackTraceString(e));
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateEventSensorPassed(Event event, int eventType)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                boolean sensorPassed = false;
+                String sensorPassedField = "";
+                switch (eventType) {
+                    case ETYPE_BLUETOOTHCONNECTED:
+                    case ETYPE_BLUETOOTHINFRONT:
+                        sensorPassed = event._eventPreferencesBluetooth._sensorPassed;
+                        sensorPassedField = KEY_E_BLUETOOTH_SENSOR_PASSED;
+                        break;
+                    case ETYPE_LOCATION:
+                        sensorPassed = event._eventPreferencesLocation._sensorPassed;
+                        sensorPassedField = KEY_E_LOCATION_SENSOR_PASSED;
+                        break;
+                    case ETYPE_MOBILE_CELLS:
+                        sensorPassed = event._eventPreferencesMobileCells._sensorPassed;
+                        sensorPassedField = KEY_E_MOBILE_CELLS_SENSOR_PASSED;
+                        break;
+                    case ETYPE_ORIENTATION:
+                        sensorPassed = event._eventPreferencesOrientation._sensorPassed;
+                        sensorPassedField = KEY_E_ORIENTATION_SENSOR_PASSED;
+                        break;
+                    case ETYPE_WIFICONNECTED:
+                    case ETYPE_WIFIINFRONT:
+                        sensorPassed = event._eventPreferencesWifi._sensorPassed;
+                        sensorPassedField = KEY_E_WIFI_SENSOR_PASSED;
+                        break;
+                }
+                ContentValues values = new ContentValues();
+                values.put(sensorPassedField, (sensorPassed) ? 1 : 0);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void clearAllEventsSensorPassed()
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_BLUETOOTH_SENSOR_PASSED, 0);
+                values.put(KEY_E_LOCATION_SENSOR_PASSED, 0);
+                values.put(KEY_E_MOBILE_CELLS_SENSOR_PASSED, 0);
+                values.put(KEY_E_ORIENTATION_SENSOR_PASSED, 0);
+                values.put(KEY_E_WIFI_SENSOR_PASSED, 0);
+
+                db.beginTransaction();
+
+                try {
+                    // updating rows
+                    db.update(TABLE_EVENTS, values, null, null);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.clearAllEventsSensorPassed", Log.getStackTraceString(e));
                 } finally {
                     db.endTransaction();
                 }
@@ -8690,6 +8832,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(fkProfileStartWhenActivated));
                                                 else
                                                     values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2120) {
+                                                values.put(KEY_E_BLUETOOTH_SENSOR_PASSED, 0);
+                                                values.put(KEY_E_LOCATION_SENSOR_PASSED, 0);
+                                                values.put(KEY_E_MOBILE_CELLS_SENSOR_PASSED, 0);
+                                                values.put(KEY_E_ORIENTATION_SENSOR_PASSED, 0);
+                                                values.put(KEY_E_WIFI_SENSOR_PASSED, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

@@ -2345,11 +2345,6 @@ public class PhoneProfilesService extends Service
         final Context appContext = getApplicationContext();
 
         if (onlyStart) {
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "startOnPackageReplace="+startOnPackageReplace);
-            //if (startOnPackageReplace) {
-            //  moved to PackageReplacedReceiver
-            //}
-
             /*
             registerReceiversAndJobs();
             AboutApplicationJob.scheduleJob(getApplicationContext(), true);
@@ -2436,6 +2431,7 @@ public class PhoneProfilesService extends Service
                     PPNotificationListenerService.clearNotifiedPackages(appContext);
 
                     DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
+                    DatabaseHandler.getInstance(appContext).clearAllEventsSensorPassed();
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     dataWrapper.setDynamicLauncherShortcuts();

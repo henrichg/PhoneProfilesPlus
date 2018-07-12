@@ -22,6 +22,8 @@ class EventPreferencesOrientation extends EventPreferences {
     int _distance;
     String _ignoredApplications;
 
+    boolean _sensorPassed;
+
     static final String PREF_EVENT_ORIENTATION_ENABLED = "eventOrientationEnabled";
     private static final String PREF_EVENT_ORIENTATION_DISPLAY = "eventOrientationDisplay";
     private static final String PREF_EVENT_ORIENTATION_SIDES = "eventOrientationSides";
@@ -31,6 +33,7 @@ class EventPreferencesOrientation extends EventPreferences {
     private static final String PREF_EVENT_ORIENTATION_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
 
     private static final String PREF_EVENT_ORIENTATION_CATEGORY = "eventOrientationCategory";
+
 
     EventPreferencesOrientation(Event event,
                                        boolean enabled,
@@ -45,6 +48,8 @@ class EventPreferencesOrientation extends EventPreferences {
         this._sides = sides;
         this._distance = distance;
         this._ignoredApplications = ignoredApplications;
+
+        this._sensorPassed = false;
     }
 
     @Override
@@ -55,6 +60,8 @@ class EventPreferencesOrientation extends EventPreferences {
         this._sides = fromEvent._eventPreferencesOrientation._sides;
         this._distance = fromEvent._eventPreferencesOrientation._distance;
         this._ignoredApplications = fromEvent._eventPreferencesOrientation._ignoredApplications;
+
+        this._sensorPassed = false;
     }
 
     @Override
@@ -73,6 +80,7 @@ class EventPreferencesOrientation extends EventPreferences {
 
         editor.putString(PREF_EVENT_ORIENTATION_DISTANCE, String.valueOf(this._distance));
         editor.putString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, this._ignoredApplications);
+
         editor.apply();
     }
 

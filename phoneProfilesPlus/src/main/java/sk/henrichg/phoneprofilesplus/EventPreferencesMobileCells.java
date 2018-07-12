@@ -11,6 +11,8 @@ class EventPreferencesMobileCells extends EventPreferences {
     String _cells;
     boolean _whenOutside;
 
+    boolean _sensorPassed;
+
     static final String PREF_EVENT_MOBILE_CELLS_ENABLED = "eventMobileCellsEnabled";
     static final String PREF_EVENT_MOBILE_CELLS_CELLS = "eventMobileCellsCells";
     private static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
@@ -30,6 +32,8 @@ class EventPreferencesMobileCells extends EventPreferences {
 
         this._cells = cells;
         this._whenOutside = _whenOutside;
+
+        this._sensorPassed = false;
     }
 
     @Override
@@ -38,6 +42,8 @@ class EventPreferencesMobileCells extends EventPreferences {
         this._enabled = fromEvent._eventPreferencesMobileCells._enabled;
         this._cells = fromEvent._eventPreferencesMobileCells._cells;
         this._whenOutside = fromEvent._eventPreferencesMobileCells._whenOutside;
+
+        this._sensorPassed = false;
     }
 
     @Override
