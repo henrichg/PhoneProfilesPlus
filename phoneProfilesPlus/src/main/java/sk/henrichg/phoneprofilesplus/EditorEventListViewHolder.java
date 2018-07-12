@@ -102,9 +102,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             if (_eventStatus == Event.ESTATUS_RUNNING) {
                 eventName.setTypeface(null, Typeface.BOLD);
                 eventName.setTextSize(16);
-                if (event._isInDelayEnd)
-                    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
-                else
+                //if (event._isInDelayEnd)
+                //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
+                //else
                     eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
             }
             else
@@ -123,10 +123,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             if (_eventStatus == Event.ESTATUS_PAUSE) {
                 eventName.setTypeface(null, Typeface.BOLD);
                 eventName.setTextSize(15);
-                if (event._isInDelayEnd)
-                    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
-                else
-                    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
+                //if (event._isInDelayEnd)
+                //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
+                //else
+                //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
+                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
             }
             else {
                 eventName.setTypeface(null, Typeface.NORMAL);

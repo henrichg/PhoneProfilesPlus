@@ -151,9 +151,9 @@ public class EventDetailsFragment extends Fragment {
             if (_eventStatus == Event.ESTATUS_RUNNING) {
                 eventName.setTypeface(null, Typeface.BOLD);
                 eventName.setTextSize(16);
-                if (event._isInDelayEnd)
-                    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(getActivity()));
-                else
+                //if (event._isInDelayEnd)
+                //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(getActivity()));
+                //else
                     eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(getActivity()));
             }
             else
@@ -172,10 +172,11 @@ public class EventDetailsFragment extends Fragment {
             if (_eventStatus == Event.ESTATUS_PAUSE) {
                 eventName.setTypeface(null, Typeface.BOLD);
                 eventName.setTextSize(15);
-                if (event._isInDelayEnd)
-                    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(getActivity()));
-                else
-                    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(getActivity()));
+                //if (event._isInDelayEnd)
+                //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(getActivity()));
+                //else
+                //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(getActivity()));
+                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(getActivity()));
             }
             else {
                 eventName.setTypeface(null, Typeface.NORMAL);
