@@ -71,6 +71,9 @@
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor_dark</item>
         <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all</item>
         <item name="buttonBackground">@drawable/pp_button_background_dark</item>
+        <item name="eventPauseTextColor">@color/eventPauseTextColor_dark</item>
+        <item name="eventStopTextColor">@color/eventStopTextColor_dark</item>
+        <item name="eventStopStatusIndicator">@drawable/ic_event_status_stop_dark</item>
 
     </style>
 

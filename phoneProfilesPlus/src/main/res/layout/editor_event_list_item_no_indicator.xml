@@ -49,7 +49,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/editor_event_list_item_event_status"
             android:scaleType="@integer/profilePrefIndicatorScaleType"
-            android:src="@drawable/ic_event_status_stop"
+            android:src="?attr/eventStopStatusIndicator"
             android:paddingStart="2dp"
             android:paddingEnd="2dp"
             android:paddingTop="2dp" />

@@ -141,7 +141,7 @@ public class EventDetailsFragment extends Fragment {
                     break;
                 case Event.ESTATUS_STOP:
                     if (isRunnable)
-                        statusRes = R.drawable.ic_event_status_stop;
+                        statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(getActivity());
                     else
                         statusRes = R.drawable.ic_event_status_stop_not_runnable;
                     break;
@@ -150,16 +150,31 @@ public class EventDetailsFragment extends Fragment {
 
             if (_eventStatus == Event.ESTATUS_RUNNING) {
                 eventName.setTypeface(null, Typeface.BOLD);
-                eventName.setTextColor(defaultColor);
+                eventName.setTextSize(16);
+                eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(getActivity()));
             }
             else
             if (!isRunnable) {
                 eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
+            }
+            else
+            if (_eventStatus == Event.ESTATUS_STOP) {
+                eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTextSize(15);
+                eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(getActivity()));
+            }
+            else
+            if (_eventStatus == Event.ESTATUS_PAUSE) {
+                eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTextSize(15);
+                eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(getActivity()));
             }
             else {
                 eventName.setTypeface(null, Typeface.NORMAL);
-                eventName.setTextColor(defaultColor);
+                eventName.setTextSize(15);
+                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(getActivity()));
             }
 
             String _eventName = event._name;

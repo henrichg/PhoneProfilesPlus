@@ -90,12 +90,14 @@ public class ActivityLogActivity extends AppCompatActivity {
         if (PPApplication.getActivityLogEnabled(getApplicationContext())) {
             TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false, false, getApplicationContext()), new int[]{R.attr.actionActivityLogPauseIcon});
             int attributeResourceId = a.getResourceId(0, 0);
+            a.recycle();
             menuItem.setIcon(attributeResourceId);
             menuItem.setTitle(R.string.menu_activity_log_pause);
         }
         else {
             TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false, false, getApplicationContext()), new int[] {R.attr.actionActivityLogPlayIcon});
             int attributeResourceId = a.getResourceId(0, 0);
+            a.recycle();
             menuItem.setIcon(attributeResourceId);
             menuItem.setTitle(R.string.menu_activity_log_play);
         }

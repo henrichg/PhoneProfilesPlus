@@ -46,4 +46,7 @@
     <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>
     <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
+    <color name="eventPauseTextColor">#FF00a7d8</color>
+    <color name="eventStopTextColor">#FF6c6c6c</color>
+
 </resources>

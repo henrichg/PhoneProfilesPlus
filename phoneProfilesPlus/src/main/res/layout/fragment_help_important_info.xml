@@ -483,7 +483,7 @@
             android:paddingBottom="10dp"
             android:text="@string/info_notification_event_states_stopped"
             android:id="@+id/activity_info_notification_dialog_info_text33"
-            android:drawableStart="@drawable/ic_event_status_stop"
+            android:drawableStart="?attr/eventStopStatusIndicator"
             android:drawablePadding="4dp" />
 
         <TextView

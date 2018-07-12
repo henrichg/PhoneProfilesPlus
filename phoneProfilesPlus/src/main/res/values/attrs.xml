@@ -109,5 +109,8 @@
     <attr name="runEventsIndicatorAll" format="reference" />
     <attr name="editorDrawerFilterHeaderBg" format="reference" />
     <attr name="buttonBackground" format="reference" />
+    <attr name="eventPauseTextColor" format="reference" />
+    <attr name="eventStopStatusIndicator" format="reference" />
+    <attr name="eventStopTextColor" format="reference" />
 
 </resources>

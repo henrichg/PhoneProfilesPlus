@@ -34,4 +34,7 @@
     <color name="fastScrollPopupBackgroundPP_dark">#FFDC8160</color>
     <color name="fastScrollPopupTextPP_dark">#FFFFFFFF</color>
 
+    <color name="eventPauseTextColor_dark">#FF00a7d8</color>
+    <color name="eventStopTextColor_dark">#FFb5b5b5</color>
+
 </resources>

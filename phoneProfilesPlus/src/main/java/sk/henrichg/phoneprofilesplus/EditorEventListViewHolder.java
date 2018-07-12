@@ -92,7 +92,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     break;
                 case Event.ESTATUS_STOP:
                     if (isRunnable)
-                        statusRes = R.drawable.ic_event_status_stop;
+                        statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
                     else
                         statusRes = R.drawable.ic_event_status_stop_not_runnable;
                     break;
@@ -114,7 +114,13 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             if (_eventStatus == Event.ESTATUS_STOP) {
                 eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
-                eventName.setTextColor(GlobalGUIRoutines.getThemeDisabledTextColor(editorFragment.getActivity()));
+                eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(editorFragment.getActivity()));
+            }
+            else
+            if (_eventStatus == Event.ESTATUS_PAUSE) {
+                eventName.setTypeface(null, Typeface.NORMAL);
+                eventName.setTextSize(15);
+                eventName.setTextColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
             }
             else {
                 eventName.setTypeface(null, Typeface.NORMAL);

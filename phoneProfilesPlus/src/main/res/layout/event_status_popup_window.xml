@@ -77,7 +77,7 @@
                     android:paddingBottom="10dp"
                     android:text="@string/info_notification_event_states_stopped"
                     android:id="@+id/event_status_popup_window_text6"
-                    android:drawableStart="@drawable/ic_event_status_stop"
+                    android:drawableStart="?attr/eventStopStatusIndicator"
                     android:drawablePadding="4dp" />
                 <TextView
                     android:layout_width="wrap_content"

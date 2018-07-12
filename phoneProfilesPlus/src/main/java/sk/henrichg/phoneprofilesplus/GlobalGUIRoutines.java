@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
@@ -530,34 +531,55 @@ class GlobalGUIRoutines {
             return null;
     }
 
-    static int getThemeAccentColor (final Context context) {
-        final TypedValue value = new TypedValue ();
-        context.getTheme ().resolveAttribute (R.attr.colorAccent, value, true);
+    static int getThemeAccentColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorAccent, value, true);
         return value.data;
     }
 
-    static int getThemeTextColor (final Context context) {
-        final TypedValue value = new TypedValue ();
-        context.getTheme ().resolveAttribute (R.attr.activityTextColor, value, true);
+    static int getThemeTextColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.activityTextColor, value, true);
         return value.data;
     }
 
-    static int getThemeDisabledTextColor (final Context context) {
-        final TypedValue value = new TypedValue ();
-        context.getTheme ().resolveAttribute (R.attr.activityDisabledTextColor, value, true);
+    static int getThemeDisabledTextColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.activityDisabledTextColor, value, true);
         return value.data;
     }
 
-    static int getThemeCommandBackgroundColor (final Context context) {
-        final TypedValue value = new TypedValue ();
-        context.getTheme ().resolveAttribute (R.attr.activityCommandBackgroundColor, value, true);
+    static int getThemeCommandBackgroundColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.activityCommandBackgroundColor, value, true);
         return value.data;
     }
 
-    static int getThemeColorControlHighlight (final Context context) {
-        final TypedValue value = new TypedValue ();
-        context.getTheme ().resolveAttribute (R.attr.colorControlHighlight, value, true);
+    static int getThemeColorControlHighlight(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorControlHighlight, value, true);
         return value.data;
+    }
+
+    static int getThemeEventPauseColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.eventPauseTextColor, value, true);
+        return value.data;
+    }
+
+    static int getThemeEventStopColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.eventStopTextColor, value, true);
+        return value.data;
+    }
+
+    static int getThemeEventStopStatusIndicator(final Context context) {
+        //final TypedValue value = new TypedValue();
+        //context.getTheme().resolveAttribute(R.attr.eventStopStatusIndicator, value, true);
+        //return value.data;
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+                GlobalGUIRoutines.getTheme(false, false, false, context), new int[] {R.attr.eventStopStatusIndicator});
+        return a.getResourceId(0, 0);
     }
 
     /*
