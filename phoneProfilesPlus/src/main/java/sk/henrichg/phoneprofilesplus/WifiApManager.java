@@ -138,6 +138,12 @@ final class WifiApManager {
     }
 
     void startTethering() {
+        if (mWifiManager != null) {
+            int wifiState = mWifiManager.getWifiState();
+            boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+            if (isWifiEnabled)
+                mWifiManager.setWifiEnabled(false);
+        }
         if (mConnectivityManager != null) {
             try {
                 Field internalConnectivityManagerField = ConnectivityManager.class.getDeclaredField("mService");

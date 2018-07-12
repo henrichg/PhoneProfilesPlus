@@ -1616,7 +1616,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        /*if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
             if (Profile.isProfilePreferenceAllowed(key, context) == PPApplication.PREFERENCE_ALLOWED) {
                 boolean enabled = !sValue.equals(ON);
@@ -1627,7 +1627,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     preference.setEnabled(enabled);
                 }
             }
-        }*/
+        }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE)) {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
