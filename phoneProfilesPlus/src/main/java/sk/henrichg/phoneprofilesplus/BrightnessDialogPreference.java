@@ -118,7 +118,8 @@ public class BrightnessDialogPreference extends
                             persistString(Integer.toString(value + minimumValue)
                                     + "|" + Integer.toString(noChange)
                                     + "|" + Integer.toString(automatic)
-                                    + "|" + Integer.toString(sharedProfile));
+                                    + "|" + Integer.toString(sharedProfile)
+                                    + "|" + Integer.toString(changeLevel));
                             setSummaryBDP();
                         }
                     }
