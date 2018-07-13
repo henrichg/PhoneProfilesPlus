@@ -18,6 +18,7 @@
         <attr name="bAutomatic" format="integer" />
         <attr name="bSharedProfile" format="integer" />
         <attr name="bDisableSharedProfile" format="integer" />
+        <attr name="bChangeLevel" format="integer" />
     </declare-styleable>
     <declare-styleable name="EventTypePreference">
     </declare-styleable>

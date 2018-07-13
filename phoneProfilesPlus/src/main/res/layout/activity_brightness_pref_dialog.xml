@@ -25,6 +25,20 @@
         android:layout_height="wrap_content"
         android:text="@string/brightness_pref_dialog_automatic_chb" />
 
+    <View
+        android:id="@+id/nfc_tag_pref_dlg_buttonBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="?attr/dialogDivider" />
+
+    <CheckBox
+        android:id="@+id/brightnessPrefDialogLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/brightness_pref_dialog_level_chb" />
+
     <TextView
         android:id="@+id/brightnessPrefDialogValueText"
         android:layout_width="fill_parent"

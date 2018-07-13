@@ -29,7 +29,7 @@
   <string name="menu_exit">Ukončiť</string>
   <string name="activate_profile_alert_message">Aktivovať profil?</string>
   <string name="brightness_pref_dialog_no_change_chb">Nemeniť</string>
-  <string name="brightness_pref_dialog_automatic_chb">Automaticky</string>
+  <string name="brightness_pref_dialog_automatic_chb">Automatický</string>
   <string name="volume_pref_dialog_no_change_chb">Nemeniť</string>
   <string name="phone_profiles_pref_category_activator">Aktivátor</string>
   <string name="phone_profiles_pref_category_editor">Editor</string>
@@ -366,7 +366,7 @@
   <string name="array_pref_zenModeArray_priority">Prioritné</string>
   <string name="array_pref_zenModeArray_none">Žiadne</string>
   <string name="profile_preferences_deviceMobileData_21">(R) Mobilné dáta</string>
-  <string name="preference_profile_adaptiveBrightness">Prispôsobenie</string>
+  <string name="preference_profile_adaptiveBrightness">Adaptívny</string>
   <string name="profile_preferences_deviceKeyguard">Zámok obrazovky</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skryť názov profilu (miniapl.)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Reštart udalostí</string>

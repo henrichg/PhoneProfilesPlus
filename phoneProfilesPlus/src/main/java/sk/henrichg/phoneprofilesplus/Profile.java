@@ -1605,6 +1605,18 @@ public class Profile {
         return value == 1;
     }
 
+    boolean getDeviceBrightnessChangeLevel()
+    {
+        int value;
+        try {
+            String[] splits = _deviceBrightness.split("\\|");
+            value = Integer.parseInt(splits[4]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value == 1;
+    }
+
     /*
     private static int getMinimumScreenBrightnessSetting ()
     {

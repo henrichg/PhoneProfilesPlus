@@ -29,7 +29,7 @@
   <string name="menu_exit">Ukončit</string>
   <string name="activate_profile_alert_message">Aktivovat profil</string>
   <string name="brightness_pref_dialog_no_change_chb">Neměnit</string>
-  <string name="brightness_pref_dialog_automatic_chb">Automaticky</string>
+  <string name="brightness_pref_dialog_automatic_chb">Automatický</string>
   <string name="volume_pref_dialog_no_change_chb">Neměnit</string>
   <string name="phone_profiles_pref_category_activator">Aktivátor</string>
   <string name="phone_profiles_pref_category_editor">Editor</string>
