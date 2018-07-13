@@ -316,7 +316,7 @@ public class BrightnessDialogPreference extends
             _automatic = (_sharedProfile.getDeviceBrightnessAutomatic()) ? 1 : 0;
             _noChange = (_sharedProfile.getDeviceBrightnessChange()) ? 0 : 1;
             _value = _sharedProfile.getDeviceBrightnessValue();
-            _changeLevel = (_sharedProfile.getDeviceBrightnessChangeLevel()) ? 0 : 1;
+            _changeLevel = (_sharedProfile.getDeviceBrightnessChangeLevel()) ? 1 : 0;
         }
 
         if (_noChange == 1)
@@ -359,7 +359,7 @@ public class BrightnessDialogPreference extends
                 if (_changeLevel == 1)
                     layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(_value + minimumValue, _context) / (float) 255;
                 else
-                    layoutParams.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+                    layoutParams.screenBrightness = savedBrightness / (float) 255;
             }
             win.setAttributes(layoutParams);
         }
@@ -388,7 +388,7 @@ public class BrightnessDialogPreference extends
             if (changeLevel == 1)
                 layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(value + minimumValue, _context) / (float) 255;
             else
-                layoutParams.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+                layoutParams.screenBrightness = savedBrightness / (float) 255;
         }
         win.setAttributes(layoutParams);
     }
