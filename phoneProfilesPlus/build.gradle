@@ -87,7 +87,7 @@ dependencies {
     //implementation(name:'RootTools', ext:'aar')
     implementation project(':RootShell')
     implementation project(':RootTools')
-    //implementation 'com.github.stericson:roottools:master-SNAPSHOT'
+    //implementation 'com.github.stericson:roottools:5.0'
 
     //compileOnly files('libs/hidden-apis.jar')
     //compileOnly files('libs/hidden-apis_2.jar')
