@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Tercih</string>
   <string name="toast_profile_activated_1">faaliyette</string>
   <string name="preference_profile_no_change">Değiştirilmesin</string>
-  <string name="preference_profile_autobrightness">Otomatik parlaklık</string>
+  <string name="preference_profile_autoBrightness">Otomatik parlaklık</string>
   <string name="title_activity_phone_profiles_preferences">Uygulama Ayarları</string>
   <string name="menu_exit">Çıkış</string>
   <string name="activate_profile_alert_message">Tercih faaliyete geçsin mi?</string>
@@ -45,7 +45,7 @@
   <string name="phone_profiles_pref_notificationsToast">Tost uyarısı göster</string>
   <string name="phone_profiles_pref_notificationStatusBar">Durum çubuğu uyarısı göster</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Bildirim simgesi tarzı</string>
-  <string name="profile_preferences_category_profileidenification">Tercih kimliği</string>
+  <string name="profile_preferences_category_profileIdentification">Tercih kimliği</string>
   <string name="profile_preferences_category_volumes">Ses seviyeleri</string>
   <string name="profile_preferences_category_sounds">Sesler</string>
   <string name="profile_preferences_profileName">Tercih ismi</string>
@@ -147,10 +147,10 @@
   <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
-  <string name="phone_preferences_actionmode_save">Kaydet</string>
+  <string name="phone_preferences_actionMode_save">Kaydet</string>
   <string name="profile_preferences_showInActivator">\"Muharrik\" içinde göster</string>
   <string name="event_type_time">Zaman</string>
-  <string name="event_preferences_category_eventidentification">Durum kimliği</string>
+  <string name="event_preferences_category_eventIdentification">Durum kimliği</string>
   <string name="event_preferences_eventEnabled">Çalışmaya izin ver</string>
   <string name="event_preferences_eventName">Durum ismi</string>
   <string name="event_preferences_eventProfileStart">Tercihi faal yap</string>
@@ -253,7 +253,7 @@
   <string name="array_event_pref_ringing">Çalarken</string>
   <string name="array_event_pref_incall_started">Gelen arama cevaplanınca</string>
   <string name="array_event_pref_outcall_answered">Giden çağrı başlayınca</string>
-  <string name="event_preferences_ccontactListType">Kişi listesi türü</string>
+  <string name="event_preferences_contactListType">Kişi listesi türü</string>
   <string name="array_event_pref_contact_list_type_white_list">Beyaz liste</string>
   <string name="array_event_pref_contact_list_type_black_list">Kara liste</string>
   <string name="array_event_pref_contact_list_type_not_use">Kullanılmasın</string>
@@ -267,9 +267,9 @@
   <string name="restart_events_alert_title">Durumları tekrar başlat</string>
   <string name="restart_events_alert_message">Emin misiniz?</string>
   <string name="event_preferences_ForceRun_summary">El ile faaliyete geçmiş bir tercih olmasına rağmen Durumu başlat</string>
-  <string name="event_preferences_category_startofevent">Durum başlangıcı</string>
-  <string name="event_preferences_category_endofevent">Durum sonu</string>
-  <string name="event_prefernce_profile_undone">Geri al</string>
+  <string name="event_preferences_category_startOfEvent">Durum başlangıcı</string>
+  <string name="event_preferences_category_endOfEvent">Durum sonu</string>
+  <string name="event_preference_profile_undone">Geri al</string>
   <string name="event_preferences_priority">Öncelik</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Çok yüksek</string>
   <string name="array_event_pref_priorityHigh">[P:7] Yüksek</string>
@@ -534,7 +534,7 @@
   <string name="profile_preferences_category_radios">Radyolar</string>
   <string name="profile_preferences_category_screen">Ekran</string>
   <string name="profile_preferences_category_others">Diğerleri</string>
-  <string name="event_preferences_category_startofeventOthers">Diğer değerler</string>
+  <string name="event_preferences_category_startOfEventOthers">Diğer değerler</string>
   <string name="phone_profiles_pref_applicationLanguage_iw">עִברִית</string>
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
@@ -665,8 +665,8 @@
   <string name="about_application_author">Yazar:</string>
   <string name="about_application_email">E-posta:</string>
   <string name="about_application_source_code">Kaynak kodu:</string>
-  <string name="about_application_transaltions">Tercümeler:</string>
-  <string name="about_application_rate_in_gplay">Lütfen bu uygulamaya Google Play\'de puan veriniz</string>
+  <string name="about_application_translations">Tercümeler:</string>
+  <string name="about_application_rate_in_googlePlay">Lütfen bu uygulamaya Google Play\'de puan veriniz</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Uygulama, sistemde ayarlanmış dili kullanır.</string>
   <string name="permission_group_name_access_notification_policy">Rahatsız Etmeyin Modu\'na erişim</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">\"Rahatsız Etmeyin Modu\'na erişim\"e izin vermediniz. Bunun için tekrar sorulmasın mı?</string>
@@ -740,9 +740,9 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Telefonunuzu bir NFC etiketine ekleyin. Yazma başlayacak.</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC açılmalı. Lütfen açın sonra tekrar deneyin.</string>
   <string name="nfc_tag_pref_dlg_writeTagTitle">NFC etiketine yaz</string>
-  <string name="write_nfc_tag_writed">Etiket yazıldı</string>
+  <string name="write_nfc_tag_written">Etiket yazıldı</string>
   <string name="write_nfc_tag_error">Etiket yazma hatalı</string>
-  <string name="read_nfc_tag_readed">Etiket okundu</string>
+  <string name="read_nfc_tag_read">Etiket okundu</string>
   <string name="read_nfc_tag_error">Etiket okuma hatalı</string>
   <string name="pref_event_permanentRun">Kalıcı çalıştırma</string>
   <string name="pref_event_permanentRun_summary">Tercihi, el ile faaliyete geçirdikten sonra duruma fasıla ver ve Durumları tekrar başlat</string>
@@ -767,7 +767,7 @@
   <string name="array_pref_value_ro">ro</string>
   <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Sürümler</string>
-  <string name="permission_group_name_draw_overalys">Diğer uygulamaların üzerinde çalış</string>
+  <string name="permission_group_name_draw_overlays">Diğer uygulamaların üzerinde çalışsın</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">\"Diğer uygulamaların üzerinde çalış\"a izin vermediniz. Bunun için tekrar sorulmasın mı?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Diğer uygulamaların üzerinde çalış</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Lütfen \"PhoneProfilesPlus\" uygulamasını bulup izin verin.</string>
@@ -790,8 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Durum tercih bitirme simgesi</string>
   <string name="profile_preferences_sourceProfileInfo_summary">Herbir tercih şartını, \"Paylaşılan Tercih\"i kullanmak için ayarlayabilirsiniz. faaliyete geçirme sırasında değerler, paylaşılan tercihten kullanılacaktır. Paylaşılan tercih şartlarını ayarlamak için buraya dokunun.</string>
   <string name="run_stop_events_indicator">Durumları Çalıştır/Durdur başlatma göstergesi</string>
-  <string name="run_stop_indicator_popup_window_important_infos">Daha fazla malumat için \"Mühim malumat\"a bakın (Düzenleyici alt araç çubuğundaki soru işareti simgesine dokunun).</string>
-  <string name="important_info_how_to_show_ppp">Bu mühim malumat, Düzenleyici üzerinde araç çubuğundaki soru işareti simgesi vasıtasıyla da görüntülenebilir.</string>
+  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">Bu mühim malumat, Düzenleyici üzerinde araç çubuğundaki soru işareti simgesi vasıtasıyla da görüntülenebilir.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">uygulama tarafından imkân verilmiyor</string>
   <string name="preference_not_allowed_reason_detail_old_android">eski Android sürümü</string>
@@ -1069,7 +1068,7 @@
   <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Konum ve Wi-Fi taramasını Sistem Ayarları\'nda açın. Bu, Wi-Fi taraması için gereklidir.</string>
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Konum ve Bluetooth taramasını Sistem Ayarları\'nda açın. Bluetooth taraması için bu gereklidir.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Wi-Fi açık tut\" Sistem ayarı</string>
-  <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">\"Wi-Fi\'yi uyku modunda bırak\" seçeneğini \"her zaman\" olarak yapılandırın. Uyku esnasında Wi-Fi taramasının çalışması için bu gereklidir.</string>
+  <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">\"Wi-Fi\'yi uyku modunda bırak\" seçeneğini \"her zaman\" olarak yapılandırın. Uyku esnasında Wi-Fi taramasının çalışması için bu gereklidir.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Lütfen aralık değerini şundan daha az olarak ayarlamayın:</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">dakika. Bu pil tüketimini gayet artırır.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">saniye. Bu pil tüketimini gayet artırır.</string>

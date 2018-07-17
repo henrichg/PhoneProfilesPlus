@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktiválva</string>
   <string name="preference_profile_no_change">Nem változik</string>
-  <string name="preference_profile_autobrightness">Automatikus</string>
+  <string name="preference_profile_autoBrightness">Automatikus</string>
   <string name="title_activity_phone_profiles_preferences">Alkalmazás beállításai</string>
   <string name="menu_exit">Kilépés</string>
   <string name="activate_profile_alert_message">Aktiválod a profilt?</string>
@@ -45,7 +45,7 @@
   <string name="phone_profiles_pref_notificationsToast">Felugró értesítések megjelenítése</string>
   <string name="phone_profiles_pref_notificationStatusBar">Állapotsáv-értesítések megjelenítése</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Értesítési ikon stílusa</string>
-  <string name="profile_preferences_category_profileidenification">Profil azonosítása</string>
+  <string name="profile_preferences_category_profileIdentification">Profil azonosítása</string>
   <string name="profile_preferences_category_volumes">Hangerő</string>
   <string name="profile_preferences_category_sounds">Hangok</string>
   <string name="profile_preferences_profileName">Profil neve</string>
@@ -147,10 +147,10 @@
   <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
-  <string name="phone_preferences_actionmode_save">Mentés</string>
+  <string name="phone_preferences_actionMode_save">Mentés</string>
   <string name="profile_preferences_showInActivator">Jelenjen meg a profilok között</string>
   <string name="event_type_time">Idő</string>
-  <string name="event_preferences_category_eventidentification">Esemény azonosító</string>
+  <string name="event_preferences_category_eventIdentification">Esemény azonosító</string>
   <string name="event_preferences_eventEnabled">Futtatás engedélyezése</string>
   <string name="event_preferences_eventName">Esemény neve</string>
   <string name="event_preferences_eventProfileStart">Profil aktiválása</string>
@@ -253,7 +253,7 @@
   <string name="array_event_pref_ringing">Csörgés</string>
   <string name="array_event_pref_incall_started">Bejövő hívásra válasz</string>
   <string name="array_event_pref_outcall_answered">Kimenő hívást kezd</string>
-  <string name="event_preferences_ccontactListType">Névjegyek típusa</string>
+  <string name="event_preferences_contactListType">Névjegyek típusa</string>
   <string name="array_event_pref_contact_list_type_white_list">Engedélyezett lista</string>
   <string name="array_event_pref_contact_list_type_black_list">Tíltott lista</string>
   <string name="array_event_pref_contact_list_type_not_use">Ne használja</string>
@@ -267,9 +267,9 @@
   <string name="restart_events_alert_title">Eseményt újra indít</string>
   <string name="restart_events_alert_message">Biztos vagy benne?</string>
   <string name="event_preferences_ForceRun_summary">Eseményt indít annak ellenére, hogy kézzel aktivál egy profilt</string>
-  <string name="event_preferences_category_startofevent">Esemény kezdete</string>
-  <string name="event_preferences_category_endofevent">Esemény vége</string>
-  <string name="event_prefernce_profile_undone">Visszavonás</string>
+  <string name="event_preferences_category_startOfEvent">Esemény kezdete</string>
+  <string name="event_preferences_category_endOfEvent">Esemény vége</string>
+  <string name="event_preference_profile_undone">Visszavonás</string>
   <string name="event_preferences_priority">Elsőbbség</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Nagyon magas</string>
   <string name="array_event_pref_priorityHigh">[P:7] Magas</string>
@@ -534,7 +534,7 @@
   <string name="profile_preferences_category_radios">Vezeték nélküli kapcsolatok</string>
   <string name="profile_preferences_category_screen">Kijelző</string>
   <string name="profile_preferences_category_others">Egyebek</string>
-  <string name="event_preferences_category_startofeventOthers">Egyéb paraméterek</string>
+  <string name="event_preferences_category_startOfEventOthers">Egyéb paraméterek</string>
   <string name="phone_profiles_pref_applicationLanguage_iw">עִברִית</string>
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Török</string>
@@ -665,8 +665,8 @@
   <string name="about_application_author">Szerző:</string>
   <string name="about_application_email">E-mail:</string>
   <string name="about_application_source_code">Forráskód:</string>
-  <string name="about_application_transaltions">Fordítások:</string>
-  <string name="about_application_rate_in_gplay">Kérjük, értékelje ezt az alkalmazást a Google Playen</string>
+  <string name="about_application_translations">Fordítások:</string>
+  <string name="about_application_rate_in_googlePlay">Kérjük, értékelje ezt az alkalmazást a Google Playen</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Az alkalmazás a rendszer által konfigurált nyelvet használja.</string>
   <string name="permission_group_name_access_notification_policy">Ne zavarjanak mód</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Nincs engedélyezve \"Ne zavarjanak mód\". Ne kérdezze újra?</string>
@@ -740,9 +740,9 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Csatlakoztassa a telefonhoz NFC-címkét. Írás el fog elindulni.</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC-nek engedélyezve kell lennie. Kérem engedélyezze, és próbálja újra.</string>
   <string name="nfc_tag_pref_dlg_writeTagTitle">NFC tag írása</string>
-  <string name="write_nfc_tag_writed">Címke írva</string>
+  <string name="write_nfc_tag_written">Címke írva</string>
   <string name="write_nfc_tag_error">Címke írási HIBA</string>
-  <string name="read_nfc_tag_readed">Címke olvasva</string>
+  <string name="read_nfc_tag_read">Címke olvasva</string>
   <string name="read_nfc_tag_error">Címke olvasási HIBA</string>
   <string name="pref_event_permanentRun">Állandó futtatás</string>
   <string name="pref_event_permanentRun_summary">Esemény szüneteltetés kézi aktiválás után, és indítsa újra az eseményeket</string>
@@ -767,7 +767,7 @@
   <string name="array_pref_value_ro">ro</string>
   <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Kiadások</string>
-  <string name="permission_group_name_draw_overalys">Más alkalmazások eltakarására képes alkalmazások</string>
+  <string name="permission_group_name_draw_overlays">Draw over apps</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Nincs engedélyezve \"Más alkalmazások eltakarására képes alkalmazások\". Ne kérdezze újra?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Más alkalmazások eltakarására képes alkalmazások</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Keresse a meg a \"PhoneProfilesPlus\"-t a következő alkalmazáslistából, és engedélyezze.</string>
@@ -790,8 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Esemény végződés ikon</string>
   <string name="profile_preferences_sourceProfileInfo_summary">A profil paramétereket megoszthatja a megosztandó paramétereket jelölheti \"Megosztott profil\" Az aktiválás során használt értékek, közös profil lesz és konfigurálható minden profil paraméter. Kattintson ide, hogy a Megosztott profil paramétereket beállítása.</string>
   <string name="run_stop_events_indicator">Endegélyezet/álló esemény futási visszajelzését</string>
-  <string name="run_stop_indicator_popup_window_important_infos">További információért tekintse meg \"Fontos információk\" (kérdőjel ikon szerkesztő alsó eszköztár).</string>
-  <string name="important_info_how_to_show_ppp">Ez a fontos információ megtekinthető a szerkesztőn keresztül ezt a kérdőjel ikon jelzi a felső eszköztáron.</string>
+  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">Fontos információ megtekinthető a szerkesztőn keresztül, ha a kérdőjel ikonra kattintasz az eszköztáron.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">alkalmazás által nem támogatott</string>
   <string name="preference_not_allowed_reason_detail_old_android">régi Android verzió</string>
@@ -1069,7 +1068,7 @@
   <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Kérem, engedélyezze a helyzet és a Wi-Fi keresést rendszer beállításaiban. E nélkül, a Wi-Fi keresés nem működik.</string>
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Kérjük, engedélyezze a helyzet és Bluetooth keresés rendszer beállításait. E nélkül a Bluetooth, keresés nem működik.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Tartsd Wi-Fi-t bekapcsolva\" Rendszerbeállítás</string>
-  <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Állítsa be a \"Wi-Fi, alvás közben\"-t a \"Mindig\"-re. E nélkül a Wi-Fi keresés nem fog működni az eszköz alvása közben.</string>
+  <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">Please configure \"Keep Wi-Fi on during sleep\" to \"Always\". Without this, Wi-Fi scanning will not work during device sleep.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Kérem ne állítson be kisebb időközt, mint</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">perc. Ez jelentősen megnöveli az akkumulátor fogyasztás.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">másodperc. Ez jelentősen megnöveli az akkumulátor fogyasztás.</string>

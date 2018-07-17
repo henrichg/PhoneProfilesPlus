@@ -24,7 +24,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
             @Override
             public void onTagRead(String tagRead) {
-                Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_readed)+": "+tagRead, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+tagRead, Toast.LENGTH_LONG).show();
 
                 final String _tagRead = tagRead;
 

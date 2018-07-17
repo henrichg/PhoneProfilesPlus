@@ -543,11 +543,13 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getThemeDisabledTextColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityDisabledTextColor, value, true);
         return value.data;
     }
+    */
 
     static int getThemeCommandBackgroundColor(final Context context) {
         final TypedValue value = new TypedValue();
@@ -561,11 +563,13 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getThemeEventPauseColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.eventPauseTextColor, value, true);
         return value.data;
     }
+    */
 
     static int getThemeEventStopColor(final Context context) {
         final TypedValue value = new TypedValue();
@@ -582,11 +586,13 @@ class GlobalGUIRoutines {
         return a.getResourceId(0, 0);
     }
 
+    /*
     static int getThemeEventInDelayColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.eventInDelayTextColor, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)

@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktivovaný</string>
   <string name="preference_profile_no_change">Neměnit</string>
-  <string name="preference_profile_autobrightness">Automaticky</string>
+  <string name="preference_profile_autoBrightness">Automaticky</string>
   <string name="title_activity_phone_profiles_preferences">Nastavení aplikace</string>
   <string name="menu_exit">Ukončit</string>
   <string name="activate_profile_alert_message">Aktivovat profil</string>
@@ -45,7 +45,7 @@
   <string name="phone_profiles_pref_notificationsToast">Oznamovat bublinou</string>
   <string name="phone_profiles_pref_notificationStatusBar">Oznamovat ve stavové liště</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Styl oznamovací ikony</string>
-  <string name="profile_preferences_category_profileidenification">Identifikace profilu</string>
+  <string name="profile_preferences_category_profileIdentification">Identifikace profilu</string>
   <string name="profile_preferences_category_volumes">Hlasitosti</string>
   <string name="profile_preferences_category_sounds">Zvuky</string>
   <string name="profile_preferences_profileName">Název profilu</string>
@@ -147,10 +147,10 @@
   <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
-  <string name="phone_preferences_actionmode_save">Uložit</string>
+  <string name="phone_preferences_actionMode_save">Uložit</string>
   <string name="profile_preferences_showInActivator">Zobrazit v aktivátoru</string>
   <string name="event_type_time">Čas</string>
-  <string name="event_preferences_category_eventidentification">Identifikace události</string>
+  <string name="event_preferences_category_eventIdentification">Identifikace události</string>
   <string name="event_preferences_eventEnabled">Povol běh</string>
   <string name="event_preferences_eventName">Název události</string>
   <string name="event_preferences_eventProfileStart">Aktivovat profil</string>
@@ -253,7 +253,7 @@
   <string name="array_event_pref_ringing">Zvoní</string>
   <string name="array_event_pref_incall_started">Příchozí hovor zvednutý</string>
   <string name="array_event_pref_outcall_answered">Odchozí hovor započatý</string>
-  <string name="event_preferences_ccontactListType">Typ seznamu kontaktů</string>
+  <string name="event_preferences_contactListType">Typ seznamu kontaktů</string>
   <string name="array_event_pref_contact_list_type_white_list">Bílá listina</string>
   <string name="array_event_pref_contact_list_type_black_list">Černá listina</string>
   <string name="array_event_pref_contact_list_type_not_use">Nepoužij</string>
@@ -267,9 +267,9 @@
   <string name="restart_events_alert_title">Restartovat události</string>
   <string name="restart_events_alert_message">Jste si jistý?</string>
   <string name="event_preferences_ForceRun_summary">Spustit událost přesto, že byl manuálně aktivovaný profil</string>
-  <string name="event_preferences_category_startofevent">Start události</string>
-  <string name="event_preferences_category_endofevent">Konec události</string>
-  <string name="event_prefernce_profile_undone">Vrať zpět</string>
+  <string name="event_preferences_category_startOfEvent">Start události</string>
+  <string name="event_preferences_category_endOfEvent">Konec události</string>
+  <string name="event_preference_profile_undone">Vrať zpět</string>
   <string name="event_preferences_priority">Priorita</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Velmi vysoká</string>
   <string name="array_event_pref_priorityHigh">[P:7] Vysoká</string>
@@ -534,7 +534,7 @@
   <string name="profile_preferences_category_radios">Rádia</string>
   <string name="profile_preferences_category_screen">Obrazovka</string>
   <string name="profile_preferences_category_others">Ostatní</string>
-  <string name="event_preferences_category_startofeventOthers">Ostatní parametry</string>
+  <string name="event_preferences_category_startOfEventOthers">Ostatní parametry</string>
   <string name="phone_profiles_pref_applicationLanguage_iw">עִברִית</string>
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
@@ -665,8 +665,8 @@
   <string name="about_application_author">Autor:</string>
   <string name="about_application_email">E-mail:</string>
   <string name="about_application_source_code">Zdrojový kód:</string>
-  <string name="about_application_transaltions">Překlady:</string>
-  <string name="about_application_rate_in_gplay">Ohodnoťte prosím tuto aplikaci v Google Play</string>
+  <string name="about_application_translations">Překlady:</string>
+  <string name="about_application_rate_in_googlePlay">Ohodnoťte prosím tuto aplikaci v Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Aplikace používá jazyky nakonfigurovány v systému.</string>
   <string name="permission_group_name_access_notification_policy">Přístup k nastavení Nerušit</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Nedovolili jste \"Přístup k nastavení Nerušit\". Už se nikdy na toto neptat?</string>
@@ -740,9 +740,9 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Přiložte váš mobil k NFC tagu. Zápis začne.</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC musí být povoleno. Prosím povolte ho a zkuste to znovu.</string>
   <string name="nfc_tag_pref_dlg_writeTagTitle">Zápis do NFC Tagu</string>
-  <string name="write_nfc_tag_writed">Tag zapsán</string>
+  <string name="write_nfc_tag_written">Tag zapsán</string>
   <string name="write_nfc_tag_error">CHYBA při zápisu tagu</string>
-  <string name="read_nfc_tag_readed">Tag přečten</string>
+  <string name="read_nfc_tag_read">Tag přečten</string>
   <string name="read_nfc_tag_error">CHYBA při čtení tagu</string>
   <string name="pref_event_permanentRun">Trvalý běh</string>
   <string name="pref_event_permanentRun_summary">Pozastav událost po manuálním aktivaci profilu a po restartu událostí</string>
@@ -767,7 +767,7 @@
   <string name="array_pref_value_ro">ro</string>
   <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Vydání</string>
-  <string name="permission_group_name_draw_overalys">Vykreslit přes další aplikace</string>
+  <string name="permission_group_name_draw_overlays">Vykreslit přes další aplikace</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Nepovolily jste \"Vykreslit přes další aplikace\". Už se nikdy na toto neptat?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Vykreslit přes další aplikace</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Prosím najděte aplikaci \"Phone Profile Plus\" a povolte ji.</string>
@@ -790,8 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Ikona profilu konce události</string>
   <string name="profile_preferences_sourceProfileInfo_summary">Každý parametr profilu můžete nakonfigurovat tak, abyste použili \"Sdílený profil\" a během aktivace se použijí hodnoty ze sdíleného profilu. Klikněte sem pro nakonfigurování parametrů Sdíleného profilu.</string>
   <string name="run_stop_events_indicator">Povol/zastav běh událostí</string>
-  <string name="run_stop_indicator_popup_window_important_infos">Pro více informací se podívejte \"Důležité informace\" (ikona otazníku na spodní nástrojové liště editoru).</string>
-  <string name="important_info_how_to_show_ppp">Tyto důležité informace lze zobrazit v Editoru přes ikonu otazníku v horní nástrojové liště.</string>
+  <string name="run_stop_indicator_popup_window_important_info">Pro více informací podívejte na obrazovku \"Důležité informace\" v Editoru přes ikonu otazníku v nástrojové liště.</string>
   <string name="important_info_how_to_show">Tyto důležité informace lze zobrazit v editoru pomocí ikony otazníku v panelu nástrojů.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">není podporováno aplikací</string>
   <string name="preference_not_allowed_reason_detail_old_android">stará verze Androidu</string>
@@ -1069,7 +1068,7 @@
   <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Prosím, zapněte Polohu a Vyhledávání Wi-Fi v nastavení systému. Bez toho Wi-fi skenování nebude fungovat.</string>
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Prosím, zapněte Polohu a skenování Bluetooth v nastavení systému. Bez toho skenování Bluetooth nebude fungovat.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Systémové nastavení \"Ponechat Wi-Fi zapnuto\"</string>
-  <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Nakonfigurujte \"Ponechat Wi-Fi zapnuto během spánku\" na \"Vždy\". Bez toho skenování Wi-Fi nebude fungovat během spánku zařízení.</string>
+  <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">Nakonfigurujte \"Ponechat Wi-Fi zapnuto během spánku\" na \"Vždy\". Bez toho skenování Wi-Fi nebude fungovat během spánku zařízení.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Prosím nenastavujte interval na menší hodnotu než</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minut. Výrazně to zvyšuje spotřebu baterie.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">sekund. Výrazně to zvyšuje spotřebu baterie.</string>

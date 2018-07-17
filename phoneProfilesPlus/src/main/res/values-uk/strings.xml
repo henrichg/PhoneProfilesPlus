@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Профіль</string>
   <string name="toast_profile_activated_1">активований</string>
   <string name="preference_profile_no_change">Не змінювати</string>
-  <string name="preference_profile_autobrightness">Автоматично</string>
+  <string name="preference_profile_autoBrightness">Автоматичний</string>
   <string name="title_activity_phone_profiles_preferences">Налаштування додатку</string>
   <string name="menu_exit">Вийти</string>
   <string name="activate_profile_alert_message">Активувати профіль?</string>
@@ -45,7 +45,7 @@
   <string name="phone_profiles_pref_notificationsToast">Показувати спливаюче сповіщення</string>
   <string name="phone_profiles_pref_notificationStatusBar">Показувати сповіщення в статус барі</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Стиль іконки сповіщення</string>
-  <string name="profile_preferences_category_profileidenification">Ідентифікація профілю</string>
+  <string name="profile_preferences_category_profileIdentification">Ідентифікація профілю</string>
   <string name="profile_preferences_category_volumes">Гучність</string>
   <string name="profile_preferences_category_sounds">Звуки</string>
   <string name="profile_preferences_profileName">Назва профілю</string>
@@ -147,10 +147,10 @@
   <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
-  <string name="phone_preferences_actionmode_save">Зберегти</string>
+  <string name="phone_preferences_actionMode_save">Зберегти</string>
   <string name="profile_preferences_showInActivator">Показувати в активаторі</string>
   <string name="event_type_time">Час</string>
-  <string name="event_preferences_category_eventidentification">Ідентифікація події</string>
+  <string name="event_preferences_category_eventIdentification">Ідентифікація події</string>
   <string name="event_preferences_eventEnabled">Активувати</string>
   <string name="event_preferences_eventName">Назва події</string>
   <string name="event_preferences_eventProfileStart">Активувати профіль</string>
@@ -253,7 +253,7 @@
   <string name="array_event_pref_ringing">Дзвінок</string>
   <string name="array_event_pref_incall_started">Вхідний виклик прийнято</string>
   <string name="array_event_pref_outcall_answered">Вихідний дзвінок розпочато</string>
-  <string name="event_preferences_ccontactListType">Тип списку контактів</string>
+  <string name="event_preferences_contactListType">Тип списку контактів</string>
   <string name="array_event_pref_contact_list_type_white_list">Білий список</string>
   <string name="array_event_pref_contact_list_type_black_list">Чорний список</string>
   <string name="array_event_pref_contact_list_type_not_use">Не використовувати</string>
@@ -267,9 +267,9 @@
   <string name="restart_events_alert_title">Перезавантаження подій</string>
   <string name="restart_events_alert_message">Ви впевнені?</string>
   <string name="event_preferences_ForceRun_summary">Розпочати подію, незважаючи на те, що діє вручну активований профіль</string>
-  <string name="event_preferences_category_startofevent">Початок події</string>
-  <string name="event_preferences_category_endofevent">Завершення події</string>
-  <string name="event_prefernce_profile_undone">Скасувати</string>
+  <string name="event_preferences_category_startOfEvent">Початок події</string>
+  <string name="event_preferences_category_endOfEvent">Завершення події</string>
+  <string name="event_preference_profile_undone">Скасувати</string>
   <string name="event_preferences_priority">Пріоритет</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Дуже високий</string>
   <string name="array_event_pref_priorityHigh">[P:7] Високий</string>
@@ -534,7 +534,7 @@
   <string name="profile_preferences_category_radios">Радіомодулі</string>
   <string name="profile_preferences_category_screen">Екран</string>
   <string name="profile_preferences_category_others">Інше</string>
-  <string name="event_preferences_category_startofeventOthers">Інші параметри</string>
+  <string name="event_preferences_category_startOfEventOthers">Інші параметри</string>
   <string name="phone_profiles_pref_applicationLanguage_iw">עִברִית</string>
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türkçe</string>
@@ -665,8 +665,8 @@
   <string name="about_application_author">Автор:</string>
   <string name="about_application_email">Email:</string>
   <string name="about_application_source_code">Початковий код:</string>
-  <string name="about_application_transaltions">Переклади:</string>
-  <string name="about_application_rate_in_gplay">Будь ласка, оцініть цей додаток в Google Play</string>
+  <string name="about_application_translations">Переклади:</string>
+  <string name="about_application_rate_in_googlePlay">Будь ласка, оцініть цей додаток в Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Додаток використовує мови, встановлені в системі.</string>
   <string name="permission_group_name_access_notification_policy">Не запитувати доступ</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Ви не дозволили «Не запитувати доступ». Більше не питати?</string>
@@ -740,9 +740,9 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Прикладіть ваш телефон до NFC мітки. Запис буде почато.</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC вимкнено. Будь ласка, увімкніть NFC і спробуйте ще раз.</string>
   <string name="nfc_tag_pref_dlg_writeTagTitle">Запис NFC мітки</string>
-  <string name="write_nfc_tag_writed">Мітку записано</string>
+  <string name="write_nfc_tag_written">Мітку записано</string>
   <string name="write_nfc_tag_error">Помилка запису мітки</string>
-  <string name="read_nfc_tag_readed">Мітку прочитано</string>
+  <string name="read_nfc_tag_read">Мітку прочитано</string>
   <string name="read_nfc_tag_error">Помилка зчитування мітки</string>
   <string name="pref_event_permanentRun">Постійний запуск</string>
   <string name="pref_event_permanentRun_summary">Призупинити подію після ручної активації профілю, після цього перезавантажити події</string>
@@ -767,7 +767,7 @@
   <string name="array_pref_value_ro">ro</string>
   <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Релізи:</string>
-  <string name="permission_group_name_draw_overalys">Відображати поверх інших додатків</string>
+  <string name="permission_group_name_draw_overlays">Відображати поверх інших додатків</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Відображення поверх інших додатків вимкнуто. Більше не питати?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Відображати поверх інших додатків</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Знайдіть додаток «PhoneProfilesPlus» і дозвольте його.</string>
@@ -790,8 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Іконка завершення події</string>
   <string name="profile_preferences_sourceProfileInfo_summary">При налаштуванні кожного параметру профілю ви можете вибрати значення \"Спільний профіль\", і тоді при активації будуть використані значення цього параметра із Спільного профілю. Натисніть сюди, щоб налаштувати параметри Спільного профілю.</string>
   <string name="run_stop_events_indicator">Увімкнути/зупинити індикатор запуску подій</string>
-  <string name="run_stop_indicator_popup_window_important_infos">Для отримання додаткової інформації перейдіть у розділ «Важлива інформація» (знак питання в нижній панелі редактора).</string>
-  <string name="important_info_how_to_show_ppp">Цю важливу інформацію можна переглянути в Редакторі якщо натиснути на знак питання в верхній панелі інструментів.</string>
+  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">Цю важливу інформацію можна переглядати в редакторі через іконку \"знак питання\" в панелі інструментів.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">не підтримуються додатком</string>
   <string name="preference_not_allowed_reason_detail_old_android">стара версія Android</string>
@@ -1070,7 +1069,7 @@
   <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Будь ласка, увімкніть Місцезнаходження і сканування Wi-Fi в Налаштуваннях пристрою. Без цього сканування Wi-Fi не працюватиме.</string>
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Будь ласка, увімкніть Місцезнаходження і сканування Bluetooth в Налаштуваннях пристрою. Без цього сканування Bluetooth не працюватиме.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Системне налаштування \"Робота Wi-Fi в режимі сну\"</string>
-  <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Параметр \"Робота Wi-Fi в режимі сну\" позначте на \"Завжди працює\". Без цього сканування Wi-Fi не буде працювати у режимі сну.</string>
+  <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">Параметр \"Робота Wi-Fi в режимі сну\" позначте на \"Завжди працює\". Без цього сканування Wi-Fi не буде працювати у режимі сну.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Будь ласка, не встановлюйте інтервал для значення менше, ніж</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">хвилин. Це значно збільшує витрату заряду батареї.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">секунд. Це значно збільшить витрату заряду батареї.</string>

@@ -108,7 +108,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             nfcManager.setOnTagWriteListener(new NFCTagReadWriteManager.TagWriteListener() {
                 @Override
                 public void onTagWritten() {
-                    Toast.makeText(getApplicationContext(), R.string.write_nfc_tag_writed, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), R.string.write_nfc_tag_written, Toast.LENGTH_LONG).show();
                     NFCTagWriteActivity.this.finish();
                 }
             });

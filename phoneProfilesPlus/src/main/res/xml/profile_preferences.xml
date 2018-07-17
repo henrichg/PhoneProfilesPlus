@@ -7,8 +7,8 @@
     android:title="@string/title_activity_profile_preferences" >
 
     <PreferenceCategory
-        android:summary="@string/profile_preferences_category_profileidenification"
-        android:title="@string/profile_preferences_category_profileidenification"
+        android:summary="@string/profile_preferences_category_profileIdentification"
+        android:title="@string/profile_preferences_category_profileIdentification"
         android:layout="@layout/mp_preference_category" >
         <sk.henrichg.phoneprofilesplus.MaterialEditTextPreference
             android:key="prf_pref_profileName"

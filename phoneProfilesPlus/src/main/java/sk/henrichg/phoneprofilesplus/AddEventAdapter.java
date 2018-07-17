@@ -222,7 +222,7 @@ class AddEventAdapter extends BaseAdapter {
                 if (profile != null) {
                     String profileName = profile._name;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + " + " + vi.getResources().getString(R.string.event_prefernce_profile_undone);
+                        profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + " + " + vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                     holder.profileEndName.setText(profileName);
@@ -255,7 +255,7 @@ class AddEventAdapter extends BaseAdapter {
                 } else {
                     String profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = vi.getResources().getString(R.string.event_prefernce_profile_undone);
+                        profileName = vi.getResources().getString(R.string.event_preference_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = vi.getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {

@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profiel</string>
   <string name="toast_profile_activated_1">geactiveerd</string>
   <string name="preference_profile_no_change">Niet wijzigen</string>
-  <string name="preference_profile_autobrightness">Automatisch</string>
+  <string name="preference_profile_autoBrightness">Automatisch</string>
   <string name="title_activity_phone_profiles_preferences">Programmainstellingen</string>
   <string name="menu_exit">Afsluiten</string>
   <string name="activate_profile_alert_message">Profiel activeren?</string>
@@ -45,7 +45,7 @@
   <string name="phone_profiles_pref_notificationsToast">Toon toastmeldingen</string>
   <string name="phone_profiles_pref_notificationStatusBar">Toon statusbalknotificatie</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Notificatie-icoonstijl</string>
-  <string name="profile_preferences_category_profileidenification">Profielidentificatie</string>
+  <string name="profile_preferences_category_profileIdentification">Profielidentificatie</string>
   <string name="profile_preferences_category_volumes">Volumes</string>
   <string name="profile_preferences_category_sounds">Geluiden</string>
   <string name="profile_preferences_profileName">Profielnaam</string>
@@ -147,10 +147,10 @@
   <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
-  <string name="phone_preferences_actionmode_save">Opslaan</string>
+  <string name="phone_preferences_actionMode_save">Opslaan</string>
   <string name="profile_preferences_showInActivator">Zichtbaar in Activator</string>
   <string name="event_type_time">Tijd</string>
-  <string name="event_preferences_category_eventidentification">Event-identificatie</string>
+  <string name="event_preferences_category_eventIdentification">Event-identificatie</string>
   <string name="event_preferences_eventEnabled">Uitvoeren inschakelen</string>
   <string name="event_preferences_eventName">Eventnaam</string>
   <string name="event_preferences_eventProfileStart">Profiel activeren</string>
@@ -253,7 +253,7 @@
   <string name="array_event_pref_ringing">Bellen</string>
   <string name="array_event_pref_incall_started">Inkomende oproep beantwoordt</string>
   <string name="array_event_pref_outcall_answered">Uitgaande oproep gestart</string>
-  <string name="event_preferences_ccontactListType">Type contact lijst</string>
+  <string name="event_preferences_contactListType">Type contact lijst</string>
   <string name="array_event_pref_contact_list_type_white_list">White list</string>
   <string name="array_event_pref_contact_list_type_black_list">Black list</string>
   <string name="array_event_pref_contact_list_type_not_use">Niet gebruiken</string>
@@ -267,9 +267,9 @@
   <string name="restart_events_alert_title">Events herstarten</string>
   <string name="restart_events_alert_message">Weet je het zeker?</string>
   <string name="event_preferences_ForceRun_summary">Start event ook wanneer er handmatig een profiel geselecteerd is</string>
-  <string name="event_preferences_category_startofevent">Start van event</string>
-  <string name="event_preferences_category_endofevent">Einde van event</string>
-  <string name="event_prefernce_profile_undone">Ongedaan maken</string>
+  <string name="event_preferences_category_startOfEvent">Start van event</string>
+  <string name="event_preferences_category_endOfEvent">Einde van event</string>
+  <string name="event_preference_profile_undone">Ongedaan maken</string>
   <string name="event_preferences_priority">Prioriteit</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Heel hoog</string>
   <string name="array_event_pref_priorityHigh">[P:7] Hoog</string>
@@ -534,7 +534,7 @@
   <string name="profile_preferences_category_radios">Radio\'s</string>
   <string name="profile_preferences_category_screen">Scherm</string>
   <string name="profile_preferences_category_others">Overige</string>
-  <string name="event_preferences_category_startofeventOthers">Andere parameters</string>
+  <string name="event_preferences_category_startOfEventOthers">Andere parameters</string>
   <string name="phone_profiles_pref_applicationLanguage_iw">עִברִית</string>
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türk</string>
@@ -665,8 +665,8 @@
   <string name="about_application_author">Auteur:</string>
   <string name="about_application_email">E-mail:</string>
   <string name="about_application_source_code">Broncode:</string>
-  <string name="about_application_transaltions">Vertalingen:</string>
-  <string name="about_application_rate_in_gplay">Beoordeel dit programma in Google Play</string>
+  <string name="about_application_translations">Vertalingen:</string>
+  <string name="about_application_rate_in_googlePlay">Beoordeel dit programma in Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Programma maakt gebruik van talen in het systeem.</string>
   <string name="permission_group_name_access_notification_policy">Toegang niet storen</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">U hebt niet \"Toegang niet storen\" ingeschakeld. Niet opnieuw vragen?</string>
@@ -740,9 +740,9 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Houdt je telefoon bij de NFC tag. Schrijven zal starten.</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC moet je aanzetten. Set het aan en probeer opnieuw.</string>
   <string name="nfc_tag_pref_dlg_writeTagTitle">Bewaar op NFC tag</string>
-  <string name="write_nfc_tag_writed">Tag bewaard</string>
+  <string name="write_nfc_tag_written">Tag bewaard</string>
   <string name="write_nfc_tag_error">Tag bewaarFOUT</string>
-  <string name="read_nfc_tag_readed">Tag gelezen</string>
+  <string name="read_nfc_tag_read">Tag gelezen</string>
   <string name="read_nfc_tag_error">Tag leesFOUT</string>
   <string name="pref_event_permanentRun">Permanent uitvoeren</string>
   <string name="pref_event_permanentRun_summary">Pauzeer event na handmatige profiel activatie en start events opnieuw</string>
@@ -767,7 +767,7 @@
   <string name="array_pref_value_ro">ro</string>
   <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Releases</string>
-  <string name="permission_group_name_draw_overalys">Weergeven over andere apps</string>
+  <string name="permission_group_name_draw_overlays">Weergeven over andere apps</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">U hebt niet \"Weergeven over andere apps\" ingeschakeld. Niet opnieuw vragen?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Weergeven over andere apps</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Zoek naar \"PhoneProfilesPlus\" programma en schakel die in.</string>
@@ -790,8 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Einde van de event profiel icoon</string>
   <string name="profile_preferences_sourceProfileInfo_summary">Je kunt elke profiel parameter instellen om het \"Gedeeld profiel\" te gebruiken. Bij activering worden de waarden gebruikt vanuit het \"Gedeeld profiel\". Klik hier om de Gedeelde profielparameters te configureren.</string>
   <string name="run_stop_events_indicator">Inschakelen/stop event uitvoeren indicator</string>
-  <string name="run_stop_indicator_popup_window_important_infos">Voor meer informatie kijk bij de \"Belangrijke informatie\" (vraagteken icoon in de onder werkbalk van de Editor).</string>
-  <string name="important_info_how_to_show_ppp">Deze belangrijke informatie kun je bekijken door op het vraagteken te tikken in de werkbalk.</string>
+  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">Deze belangrijke informatie kan worden bekeken in the ditor via het vraagteken-pictogram in de werkbalk.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">niet ondersteund door programma</string>
   <string name="preference_not_allowed_reason_detail_old_android">oude Android versie</string>
@@ -1069,7 +1068,7 @@
   <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Zet locatie en Wi-Fi scanning aan bij de Systeeminstellingen. Dit is nodig voor Wi-Fi scannen.</string>
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Zet locatie en Bluetooth scanning aan bij de Systeeminstellingen. Dit is nodig voor Bluetooth scannen.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Wi-Fi ingeschakeld laten\" Systeeminstelling</string>
-  <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Configureer \"Wi-Fi ingeschakeld laten in slaapstand\" naar \"altijd\". Dit is nodig om Wi-Fi scannen te laten werken tijdens de slaapstand.</string>
+  <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">Configureer \"Wi-Fi ingeschakeld laten in slaapstand\" naar \"altijd\". Dit is nodig om Wi-Fi scannen te laten werken tijdens de slaapstand.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Configureer de interval waarde niet minder dan</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minuten. Dit vergroot het batterijverbruik aanzienlijk.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">seconden. Dit vergroot het batterijverbruik aanzienlijk.</string>

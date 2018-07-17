@@ -249,7 +249,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     if (event._delayEnd > 0)
                         profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + " + " + context.getResources().getString(R.string.event_prefernce_profile_undone);
+                        profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_restartEvents);
                     profileEndName.setText(profileName);
@@ -283,7 +283,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     if (event._delayEnd > 0)
                         profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] ";
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + context.getResources().getString(R.string.event_prefernce_profile_undone);
+                        profileName = profileName + context.getResources().getString(R.string.event_preference_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + context.getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {

@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktiviert</string>
   <string name="preference_profile_no_change">Nicht ändern</string>
-  <string name="preference_profile_autobrightness">Automatisch</string>
+  <string name="preference_profile_autoBrightness">Automatisch</string>
   <string name="title_activity_phone_profiles_preferences">App-Einstellungen</string>
   <string name="menu_exit">Beenden</string>
   <string name="activate_profile_alert_message">Profil aktivieren?</string>
@@ -45,7 +45,7 @@
   <string name="phone_profiles_pref_notificationsToast">Toast-Nachricht anzeigen</string>
   <string name="phone_profiles_pref_notificationStatusBar">Benachrichtigung anzeigen</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Symbol-Stil</string>
-  <string name="profile_preferences_category_profileidenification">Allgemein</string>
+  <string name="profile_preferences_category_profileIdentification">Allgemein</string>
   <string name="profile_preferences_category_volumes">Lautstärke</string>
   <string name="profile_preferences_category_sounds">Töne</string>
   <string name="profile_preferences_profileName">Profil-Name</string>
@@ -147,10 +147,10 @@
   <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
-  <string name="phone_preferences_actionmode_save">Speichern</string>
+  <string name="phone_preferences_actionMode_save">Speichern</string>
   <string name="profile_preferences_showInActivator">Im Starter anzeigen</string>
   <string name="event_type_time">Zeit</string>
-  <string name="event_preferences_category_eventidentification">Ereignis Beschreibung </string>
+  <string name="event_preferences_category_eventIdentification">Ereignis Beschreibung</string>
   <string name="event_preferences_eventEnabled">Aktivieren</string>
   <string name="event_preferences_eventName">Ereignis-Name</string>
   <string name="event_preferences_eventProfileStart">Profil aktivieren</string>
@@ -253,7 +253,7 @@
   <string name="array_event_pref_ringing">Klingeln</string>
   <string name="array_event_pref_incall_started">Eingehender Anruf beantwortet</string>
   <string name="array_event_pref_outcall_answered">Ausgehender Anruf gestartet</string>
-  <string name="event_preferences_ccontactListType">Listentyp</string>
+  <string name="event_preferences_contactListType">Listentyp</string>
   <string name="array_event_pref_contact_list_type_white_list">Weiße Liste</string>
   <string name="array_event_pref_contact_list_type_black_list">Schwarze Liste</string>
   <string name="array_event_pref_contact_list_type_not_use">Nicht verwenden</string>
@@ -267,9 +267,9 @@
   <string name="restart_events_alert_title">Ereignisse neu starten</string>
   <string name="restart_events_alert_message">Sicher?</string>
   <string name="event_preferences_ForceRun_summary">Ereignis auch nach manuell aktiviertem Profil starten</string>
-  <string name="event_preferences_category_startofevent">Ereignisstart</string>
-  <string name="event_preferences_category_endofevent">Ereignisende</string>
-  <string name="event_prefernce_profile_undone">Vorheriges</string>
+  <string name="event_preferences_category_startOfEvent">Ereignisstart</string>
+  <string name="event_preferences_category_endOfEvent">Ereignisende</string>
+  <string name="event_preference_profile_undone">Vorheriges</string>
   <string name="event_preferences_priority">Priorität</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Sehr hoch</string>
   <string name="array_event_pref_priorityHigh">[P:7] Hoch</string>
@@ -534,7 +534,7 @@
   <string name="profile_preferences_category_radios">Verbindungen</string>
   <string name="profile_preferences_category_screen">Bildschirm</string>
   <string name="profile_preferences_category_others">Andere</string>
-  <string name="event_preferences_category_startofeventOthers">Andere Parameter</string>
+  <string name="event_preferences_category_startOfEventOthers">Andere Parameter</string>
   <string name="phone_profiles_pref_applicationLanguage_iw">עִברִית</string>
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türkisch</string>
@@ -665,8 +665,8 @@
   <string name="about_application_author">Autor:</string>
   <string name="about_application_email">E-Mail:</string>
   <string name="about_application_source_code">Quellcode:</string>
-  <string name="about_application_transaltions">Übersetzungen:</string>
-  <string name="about_application_rate_in_gplay">Bitte bewerten Sie diese App im Google Play-Store</string>
+  <string name="about_application_translations">Übersetzungen:</string>
+  <string name="about_application_rate_in_googlePlay">Bitte bewerten Sie diese App im Google Play-Store</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Diese App nutzt die Systemsprache.</string>
   <string name="permission_group_name_access_notification_policy">Systemeinstellungen nicht ändern</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Sie haben \"PhoneProfilesPlus\" nicht erlaubt, Systemeinstellungen zu ändern. Diese Nachricht nicht mehr anzeigen?</string>
@@ -740,9 +740,9 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Halten sie ihr Handy an einen NFC-Tag. Sobald eine Verbindung bestehet, wird der Tag beschrieben.</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC muss aktiviert sein. Bitte aktivieren Sie es und versuchen Sie es erneut.</string>
   <string name="nfc_tag_pref_dlg_writeTagTitle">NFC-Tag beschreiben</string>
-  <string name="write_nfc_tag_writed">Tag geschrieben</string>
+  <string name="write_nfc_tag_written">Tag geschrieben</string>
   <string name="write_nfc_tag_error">Tag-Schreibfehler</string>
-  <string name="read_nfc_tag_readed">Tag gelesen</string>
+  <string name="read_nfc_tag_read">Tag gelesen</string>
   <string name="read_nfc_tag_error">Fehler beim Lesen des Tags</string>
   <string name="pref_event_permanentRun">Permanent laufen</string>
   <string name="pref_event_permanentRun_summary">Ereignis nach manueller Aktivierung und Neustart des Ereignisses anhalten</string>
@@ -767,7 +767,7 @@
   <string name="array_pref_value_ro">ro</string>
   <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Versionen</string>
-  <string name="permission_group_name_draw_overalys">Über andere Apps zeichnen</string>
+  <string name="permission_group_name_draw_overlays">Über andere Apps zeichnen</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Sie haben \"Über andere Apps zeichnen\" nicht erlaubt. Nicht mehr nachfragen?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Über andere Apps zeichnen</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Bitte suche nach der App \"PhoneProfilesPlus\" und aktiviere sie.</string>
@@ -790,8 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Beende Ereignis-Profil</string>
   <string name="profile_preferences_sourceProfileInfo_summary">Jeder Profilparameter kann über das \"globale Profil\" eingestellt werden, beim Starten der App werden diese als Voreinstellung geladen. Klicken sie hier um das \"globale Profil\" einzustellen.</string>
   <string name="run_stop_events_indicator">Indikator für Ereignisse laufend/angehalten</string>
-  <string name="run_stop_indicator_popup_window_important_infos">Für mehr Informationen siehe \"Wichtige Informationen\" (Fragezeichen unten im Editor).</string>
-  <string name="important_info_how_to_show_ppp">Diese wichtigen Informationen können im Editor über das Fragezeichen-Symbol in der Symbolleiste angezeigt werden.</string>
+  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">Diese wichtigen Informationen können im Editor über das Fragezeichen-Symbol in der Symbolleiste angezeigt werden.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">nicht von der Anwendung unterstützt</string>
   <string name="preference_not_allowed_reason_detail_old_android">alte Android-Version</string>
@@ -1069,7 +1068,7 @@
   <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Bitte Lokalisierung und WLAN-Suche in den System Einstellungen aktivieren. Ansonsten funktioniert die WLAN-Suche nicht.</string>
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Bitte Lokalisierung und Bluetooth-Suche in den System Einstellungen aktivieren. Ansonsten funktioniert die Bluetooth-Suche nicht.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"WLAN aktiviert lassen\" Systemeinstellung</string>
-  <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Bitte \"WLAN im Ruhemodus aktiviert lassen\" auf \"immer\" setzten. Ansonsten funktioniert die \"WLAN-Suche\" nicht im Ruhemodus.</string>
+  <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">Bitte \"WLAN im Ruhemodus aktiviert lassen\" auf \"immer\" setzten. Ansonsten funktioniert die \"WLAN-Suche\" nicht im Ruhemodus.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Bitte kein Intervall konfigurieren, dass kleiner ist als</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">Minuten. Dies würde den Batterieverbrauch deutlich erhöhen.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">Sekunden. Dies würde den Batterieverbrauch deutlich erhöhen.</string>

@@ -10,6 +10,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Layout;
 import android.util.AttributeSet;
 
+@SuppressWarnings("unused")
 public class UnderlinedTextView extends AppCompatTextView {
     private float mStrokeWidth;
 

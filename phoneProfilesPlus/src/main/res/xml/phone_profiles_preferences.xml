@@ -473,7 +473,7 @@
         <Preference
             android:key="applicationEventWiFiKeepOnSystemSettings"
             android:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
-            android:summary="@string/phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary"
+            android:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
             android:widgetLayout="@layout/start_activity_preference"
             android:dependency="applicationEventWifiEnableScannig"
             android:layout="@layout/mp_preference_material_widget" >

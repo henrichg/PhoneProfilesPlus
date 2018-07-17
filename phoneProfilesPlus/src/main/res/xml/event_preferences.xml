@@ -7,8 +7,8 @@
     android:title="@string/title_activity_event_preferences">
 
     <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventidentification"
-        android:title="@string/event_preferences_category_eventidentification"
+        android:summary="@string/event_preferences_category_eventIdentification"
+        android:title="@string/event_preferences_category_eventIdentification"
         android:layout="@layout/mp_preference_category" >
         <CheckBoxPreference
             android:key="eventEnabled"
@@ -40,7 +40,7 @@
             app:useStockLayout="true" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/event_preferences_category_startofevent"
+        android:title="@string/event_preferences_category_startOfEvent"
         android:key="eventStartCategory"
         android:layout="@layout/mp_preference_category" >
         <sk.henrichg.phoneprofilesplus.ProfilePreference
@@ -65,7 +65,7 @@
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <PreferenceScreen
-            android:title="@string/event_preferences_category_startofeventOthers"
+            android:title="@string/event_preferences_category_startOfEventOthers"
             android:key="eventStartOthersCategory"
             android:widgetLayout="@layout/start_activity_preference"
             android:layout="@layout/mp_preference_material_widget" >
@@ -127,7 +127,7 @@
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/event_preferences_category_endofevent"
+        android:title="@string/event_preferences_category_endOfEvent"
         android:key="eventEndCategory"
         android:dependency="manualProfileActivation"
         android:layout="@layout/mp_preference_category">
@@ -147,7 +147,7 @@
             android:layout="@layout/mp_preference_material_widget"
             app:useStockLayout="true" />
         <PreferenceScreen
-            android:title="@string/event_preferences_category_startofeventOthers"
+            android:title="@string/event_preferences_category_startOfEventOthers"
             android:key="eventEndOthersCategory"
             android:widgetLayout="@layout/start_activity_preference"
             android:layout="@layout/mp_preference_material_widget" >
@@ -364,7 +364,7 @@
                 android:dependency="eventCallEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/event_preferences_ccontactListType"
+                android:title="@string/event_preferences_contactListType"
                 android:summary="@string/array_event_pref_contact_list_type_white_list"
                 android:key="eventCallContactListType"
                 android:defaultValue="0"
@@ -424,7 +424,7 @@
                 android:dependency="eventSMSEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/event_preferences_ccontactListType"
+                android:title="@string/event_preferences_contactListType"
                 android:summary="@string/array_event_pref_contact_list_type_white_list"
                 android:key="eventSMSContactListType"
                 android:defaultValue="0"

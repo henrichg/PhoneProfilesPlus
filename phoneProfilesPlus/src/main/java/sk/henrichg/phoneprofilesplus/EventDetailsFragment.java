@@ -114,7 +114,7 @@ public class EventDetailsFragment extends Fragment {
             profileStartIndicator = view.findViewById(R.id.event_detail_profile_start_pref_indicator);
             profileEndIndicator = view.findViewById(R.id.event_detail_profile_end_pref_indicator);
         //}
-        int defaultColor = eventName.getTextColors().getDefaultColor();
+        //int defaultColor = eventName.getTextColors().getDefaultColor();
 
         DataWrapper dataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
 
@@ -292,7 +292,7 @@ public class EventDetailsFragment extends Fragment {
                     if (event._delayStart > 0)
                         profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayStart) + "] " + profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + " + " + getResources().getString(R.string.event_prefernce_profile_undone);
+                        profileName = profileName + " + " + getResources().getString(R.string.event_preference_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + " + " + getResources().getString(R.string.event_preference_profile_restartEvents);
                     profileEndName.setText(profileName);
@@ -326,7 +326,7 @@ public class EventDetailsFragment extends Fragment {
                     if (event._delayEnd > 0)
                         profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                        profileName = profileName + getResources().getString(R.string.event_prefernce_profile_undone);
+                        profileName = profileName + getResources().getString(R.string.event_preference_profile_undone);
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
                         profileName = profileName + getResources().getString(R.string.event_preference_profile_restartEvents);
                     else {

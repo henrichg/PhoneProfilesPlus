@@ -506,7 +506,7 @@ public class BrightnessDialogPreference extends
                 if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
                     prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_adaptiveBrightness);
                 else
-                    prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_autobrightness);
+                    prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_autoBrightness);
             }
             else
                 prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_manual_brightness);

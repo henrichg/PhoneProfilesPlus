@@ -183,7 +183,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
         text = findViewById(R.id.about_application_translations);
-        str1 = getString(R.string.about_application_transaltions);
+        str1 = getString(R.string.about_application_translations);
         str2 = str1 + " https://crowdin.com/project/phoneprofilesplus";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -246,7 +246,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
         text = findViewById(R.id.about_application_rate_application);
-        str1 = getString(R.string.about_application_rate_in_gplay);
+        str1 = getString(R.string.about_application_rate_in_googlePlay);
         sbt = new SpannableString(str1);
         clickableSpan = new ClickableSpan() {
             @Override

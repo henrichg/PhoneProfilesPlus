@@ -322,7 +322,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestDrawOverlays) {
-                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overalys) + "</b>";
+                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
 

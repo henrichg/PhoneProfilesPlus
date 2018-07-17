@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:text="@string/about_application_rate_in_gplay"
+            android:text="@string/about_application_rate_in_googlePlay"
             android:textSize="15sp"
             android:textStyle="bold"/>
 
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
-            android:text="@string/about_application_transaltions"
+            android:text="@string/about_application_translations"
             android:textSize="15sp"/>
 
         <TextView

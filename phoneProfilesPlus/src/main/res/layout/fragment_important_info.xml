@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="@string/important_info_how_to_show_ppp"
+            android:text="@string/important_info_how_to_show"
             android:id="@+id/activity_info_notification_dialog_info_text0"
             android:textStyle="bold" />
 

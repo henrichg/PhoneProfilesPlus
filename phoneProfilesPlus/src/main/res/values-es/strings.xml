@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Perfil</string>
   <string name="toast_profile_activated_1">activado</string>
   <string name="preference_profile_no_change">No cambiar</string>
-  <string name="preference_profile_autobrightness">Automático</string>
+  <string name="preference_profile_autoBrightness">Automático</string>
   <string name="title_activity_phone_profiles_preferences">Ajustes de aplicación</string>
   <string name="menu_exit">Salir</string>
   <string name="activate_profile_alert_message">¿Activar perfil?</string>
@@ -45,7 +45,7 @@
   <string name="phone_profiles_pref_notificationsToast">Mostrar notificación emergente</string>
   <string name="phone_profiles_pref_notificationStatusBar">Mostrar notificación en la barra de estado</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle">Estilo del icono de notificación</string>
-  <string name="profile_preferences_category_profileidenification">Identificación de perfil</string>
+  <string name="profile_preferences_category_profileIdentification">Identificación de perfil</string>
   <string name="profile_preferences_category_volumes">Volúmenes</string>
   <string name="profile_preferences_category_sounds">Sonidos</string>
   <string name="profile_preferences_profileName">Nombre de perfil</string>
@@ -147,10 +147,10 @@
   <string name="array_pref_value_color">color</string>
   <string name="array_pref_value_dark">dark</string>
   <string name="array_pref_value_dlight">dlight</string>
-  <string name="phone_preferences_actionmode_save">Guardar</string>
+  <string name="phone_preferences_actionMode_save">Guardar</string>
   <string name="profile_preferences_showInActivator">Mostrar en el Activador</string>
   <string name="event_type_time">Hora</string>
-  <string name="event_preferences_category_eventidentification">Identificación de evento</string>
+  <string name="event_preferences_category_eventIdentification">Identificación de evento</string>
   <string name="event_preferences_eventEnabled">Activar ejecución</string>
   <string name="event_preferences_eventName">Nombre de evento</string>
   <string name="event_preferences_eventProfileStart">Activar perfil</string>
@@ -253,7 +253,7 @@
   <string name="array_event_pref_ringing">Sonando</string>
   <string name="array_event_pref_incall_started">Llamada entrante contestada</string>
   <string name="array_event_pref_outcall_answered">Iniciada llamada saliente</string>
-  <string name="event_preferences_ccontactListType">Tipo de listo de contactos</string>
+  <string name="event_preferences_contactListType">Tipo de listo de contactos</string>
   <string name="array_event_pref_contact_list_type_white_list">Lista blanca</string>
   <string name="array_event_pref_contact_list_type_black_list">Lista negra</string>
   <string name="array_event_pref_contact_list_type_not_use">No usar</string>
@@ -267,9 +267,9 @@
   <string name="restart_events_alert_title">Reiniciar eventos</string>
   <string name="restart_events_alert_message">¿Estás seguro?</string>
   <string name="event_preferences_ForceRun_summary">Iniciar el evento a pesar de que ha activado manualmente el perfil</string>
-  <string name="event_preferences_category_startofevent">Inicio de evento</string>
-  <string name="event_preferences_category_endofevent">Fin de evento</string>
-  <string name="event_prefernce_profile_undone">Deshacer</string>
+  <string name="event_preferences_category_startOfEvent">Inicio de evento</string>
+  <string name="event_preferences_category_endOfEvent">Fin de evento</string>
+  <string name="event_preference_profile_undone">Deshacer</string>
   <string name="event_preferences_priority">Prioridad</string>
   <string name="array_event_pref_priorityVeryHigh">[P:9] Muy alta</string>
   <string name="array_event_pref_priorityHigh">[P:7] Alta</string>
@@ -534,7 +534,7 @@
   <string name="profile_preferences_category_radios">Radios</string>
   <string name="profile_preferences_category_screen">Pantalla</string>
   <string name="profile_preferences_category_others">Otros</string>
-  <string name="event_preferences_category_startofeventOthers">Otros parámetros</string>
+  <string name="event_preferences_category_startOfEventOthers">Otros parámetros</string>
   <string name="phone_profiles_pref_applicationLanguage_iw">עִברִית</string>
   <string name="array_pref_value_iw">iw</string>
   <string name="phone_profiles_pref_applicationLanguage_tr">Türkçe</string>
@@ -665,8 +665,8 @@
   <string name="about_application_author">Autor:</string>
   <string name="about_application_email">Correo electrónico:</string>
   <string name="about_application_source_code">Código fuente:</string>
-  <string name="about_application_transaltions">Traducciones:</string>
-  <string name="about_application_rate_in_gplay">Por favor califique esta aplicación en Google Play</string>
+  <string name="about_application_translations">Traducciones:</string>
+  <string name="about_application_rate_in_googlePlay">Por favor califique esta aplicación en Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">La aplicación utiliza idiomas configurados en el sistema.</string>
   <string name="permission_group_name_access_notification_policy">No molestar el acceso</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Usted no ha habilitado \"No molestar el acceso\". ¿Nunca volverlo a preguntar?</string>
@@ -740,9 +740,9 @@
   <string name="nfc_tag_pref_dlg_writeToNfcTag_touch">Conecte su dispositivo a una etiqueta NFC. La escritura será iniciada.</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled">NFC debe estar habilitado. Por favor habilite y vuelva a intentar.</string>
   <string name="nfc_tag_pref_dlg_writeTagTitle">Escribir a la etiqueta NFC</string>
-  <string name="write_nfc_tag_writed">Etiqueta escrita</string>
+  <string name="write_nfc_tag_written">Etiqueta escrita</string>
   <string name="write_nfc_tag_error">Escritura de etiqueta ERROR</string>
-  <string name="read_nfc_tag_readed">Lectura de etiqueta</string>
+  <string name="read_nfc_tag_read">Lectura de etiqueta</string>
   <string name="read_nfc_tag_error">Lectura de etiqueta ERROR</string>
   <string name="pref_event_permanentRun">Ejecución permanente</string>
   <string name="pref_event_permanentRun_summary">Pausar evento después de la activación manual del perfil luego reinicie los eventos</string>
@@ -767,7 +767,7 @@
   <string name="array_pref_value_ro">ro</string>
   <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Lanzamientos</string>
-  <string name="permission_group_name_draw_overalys">Dibujar sobre aplicaciones</string>
+  <string name="permission_group_name_draw_overlays">Dibujar sobre aplicaciones</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Usted no tiene habilitado \"Dibujar sobre aplicaciones\". ¿Nunca volverlo a preguntar?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Dibujar sobre aplicaciones</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Por favor busque la aplicación \"PhoneProfilesPlus\" y actívela.</string>
@@ -790,8 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Icono del perfil del fin del evento</string>
   <string name="profile_preferences_sourceProfileInfo_summary">Puede configurar cada parámetro del perfil para utilizar \"Perfil compartido\" y durante la activación se utilizarán valores de perfiles compartidos. Haga click aquí para configurar los parámetros del perfil compartido.</string>
   <string name="run_stop_events_indicator">Activar/desactivar indicador de ejecución de eventos</string>
-  <string name="run_stop_indicator_popup_window_important_infos">Para mas información, revise la pantalla \"información importante\" en Editor a través del icono de signo de interrogación en la barra de herramientas del fondo.</string>
-  <string name="important_info_how_to_show_ppp">Esta información importante puede ser vista en Editor a través del icono del signo de interrogación en la barra de herramientas arriba.</string>
+  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">Esta información importante puede ser vista en el Editor mediante el icono del signo de interrogación en la barra de herramientas.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">no compatible con la aplicación</string>
   <string name="preference_not_allowed_reason_detail_old_android">versión vieja de Android</string>
@@ -1069,7 +1068,7 @@
   <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Por favor habilite la ubicación y el escaneo de Wi-Fi en la configuración del sistema. Sin esto, el escaneo de Wi-Fi no funcionará.</string>
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Por favor habilite la ubicación y el escaneo de Bluetooth en la configuración del sistema. Sin esto, el escaneo de Bluetooth no funcionará.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Mantener la red Wi-Fi encendida\" configuración del sistema</string>
-  <string name="phone_profiles_pref_eventWiFiKeppOnSystemSettings_summary">Por favor configure \"Mantener red Wi-Fi durante el modo en reposo\" a \"Siempre\". Sin esto, el escaneo de Wi-Fi no funcionará mientras el dispositivo esté en reposo.</string>
+  <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary">Please configure \"Keep Wi-Fi on during sleep\" to \"Always\". Without this, Wi-Fi scanning will not work during device sleep.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">Por favor no configurar el intervalo por un valor menor a</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">minutos. Esto aumenta considerablemente el consumo de batería.</string>
   <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">segundos. Esto aumenta considerablemente el consumo de batería.</string>
