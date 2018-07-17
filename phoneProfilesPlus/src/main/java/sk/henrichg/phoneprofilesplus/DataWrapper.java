@@ -1119,7 +1119,7 @@ public class DataWrapper {
     private void startEventsOnBoot(boolean startedFromService)
     {
         if (startedFromService) {
-            if (ApplicationPreferences.applicationActivate(context) &&
+            if (/*ApplicationPreferences.applicationActivate(context) &&*/
                     ApplicationPreferences.applicationStartEvents(context)) {
                 restartEvents(false, false/*, false*/, false);
             }
