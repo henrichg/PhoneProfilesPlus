@@ -1188,6 +1188,10 @@
   <string name="import_profiles_alert_error_sharedProfile_bug">Ошибка при восстановлении настроек Исходного профиля.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Белая</string>
   <string name="array_pref_value_white">white</string>
+  <string name="permission_ask_button">Спрашивать</string>
+  <string name="permission_not_ask_button">Не спрашивать</string>
+  <string name="brightness_pref_dialog_level_chb">Изменить уровень</string>
+  <string name="preference_profile_manual_brightness">Ручная</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Разрешите PhoneProfilesPlusExtender доступ для:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров событий \"Датчик приложений\" и \"Датчик ориентации\".</string>
@@ -1199,8 +1203,6 @@
   <string name="extender_accessibility_service_button">Включить/Отключить\nслужбу спец. возможностей</string>
   <string name="extender_setting_screen_not_found_alert">Настройки экрана не найдены.</string>
   <string name="extender_accessibility_service_permission">Служба спец. возможностей PhoneProfilesPlusExtender</string>
-  <string name="permission_ask_button">Спрашивать</string>
-  <string name="permission_not_ask_button">Не спрашивать</string>
   <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>

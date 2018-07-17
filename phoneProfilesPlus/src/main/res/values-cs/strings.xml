@@ -1187,6 +1187,10 @@
   <string name="import_profiles_alert_error_sharedProfile_bug">Chyba při obnovování parametrů sdíleného profilu.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Bílé</string>
   <string name="array_pref_value_white">white</string>
+  <string name="permission_ask_button">Zeptat se</string>
+  <string name="permission_not_ask_button">Neptat se</string>
+  <string name="brightness_pref_dialog_level_chb">Změnit úroveň</string>
+  <string name="preference_profile_manual_brightness">Manuální</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací\"\n• parametry události \"Senzor aplikací\" and \"Senzor orientace\".</string>
@@ -1198,8 +1202,6 @@
   <string name="extender_accessibility_service_button">Povolit/Zakázat\nslužbu Dostupnost</string>
   <string name="extender_setting_screen_not_found_alert">Obrazovka nastavení nebyla nalezena.</string>
   <string name="extender_accessibility_service_permission">Služba dostupnosti PhoneProfilesPlusExtender</string>
-  <string name="permission_ask_button">Zeptat se</string>
-  <string name="permission_not_ask_button">Neptat se</string>
   <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>

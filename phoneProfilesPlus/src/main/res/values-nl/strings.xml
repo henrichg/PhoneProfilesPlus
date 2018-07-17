@@ -1187,6 +1187,10 @@
   <string name="import_profiles_alert_error_sharedProfile_bug">Fout bij het terugzetten voorkeuren van het gedeelde profiel.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Wit</string>
   <string name="array_pref_value_white">white</string>
+  <string name="permission_ask_button">Vraag</string>
+  <string name="permission_not_ask_button">Niet vragen</string>
+  <string name="brightness_pref_dialog_level_chb">Niveau wijzigen</string>
+  <string name="preference_profile_manual_brightness">Handmatig</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Toestaan van PhoneProfilesPlusExtender voor: \n• profiel parameter \"Stoppen forceren applicaties\" \n• van event parameters \"Applicatie sensor\" en \"Oriëntatie-sensor\".</string>
@@ -1198,8 +1202,6 @@
   <string name="extender_accessibility_service_button">Inschakelen/Uitschakelen\nToegankelijkheids service</string>
   <string name="extender_setting_screen_not_found_alert">Instellen scherm niet gevonden.</string>
   <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender toegankelijkheid service</string>
-  <string name="permission_ask_button">Vraag</string>
-  <string name="permission_not_ask_button">Niet vragen</string>
   <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>

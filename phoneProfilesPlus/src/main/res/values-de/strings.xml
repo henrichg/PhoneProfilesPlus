@@ -1187,6 +1187,10 @@
   <string name="import_profiles_alert_error_sharedProfile_bug">Fehler bei der Wiederherstellung der gemeinsamen Profileinstellungen.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Weiß</string>
   <string name="array_pref_value_white">white</string>
+  <string name="permission_ask_button">Frage</string>
+  <string name="permission_not_ask_button">Nicht fragen</string>
+  <string name="brightness_pref_dialog_level_chb">Change level</string>
+  <string name="preference_profile_manual_brightness">Manual</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben, für: \n• Profil Parameter \"Anwendungen sofort stoppen\" \n• für die Ereignis Sensoren \"Anwendungsparameter\" und \"Ausrichtung\".</string>
@@ -1198,8 +1202,6 @@
   <string name="extender_accessibility_service_button">Aktiviere/Deaktiviere Bedienungshilfe-Dienst</string>
   <string name="extender_setting_screen_not_found_alert">Einstellungs Dialog nicht gefunden.</string>
   <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender Bedienungshilfe-Dienst</string>
-  <string name="permission_ask_button">Frage</string>
-  <string name="permission_not_ask_button">Nicht fragen</string>
   <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>

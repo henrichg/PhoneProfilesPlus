@@ -366,7 +366,7 @@
   <string name="array_pref_zenModeArray_priority">Prioritné</string>
   <string name="array_pref_zenModeArray_none">Žiadne</string>
   <string name="profile_preferences_deviceMobileData_21">(R) Mobilné dáta</string>
-  <string name="preference_profile_adaptiveBrightness">Adaptívny</string>
+  <string name="preference_profile_adaptiveBrightness">Prispôsobenie</string>
   <string name="profile_preferences_deviceKeyguard">Zámok obrazovky</string>
   <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skryť názov profilu (miniapl.)</string>
   <string name="array_pref_afterProfileDurationDo_restartEvents">Reštart udalostí</string>
@@ -1187,6 +1187,10 @@
   <string name="import_profiles_alert_error_sharedProfile_bug">Chyba pri obnovovaní parametrov zdieľaného profilu.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Biela téma</string>
   <string name="array_pref_value_white">white</string>
+  <string name="permission_ask_button">Pýtať sa</string>
+  <string name="permission_not_ask_button">Nepýtať sa</string>
+  <string name="brightness_pref_dialog_level_chb">Zmeniť úroveň</string>
+  <string name="preference_profile_manual_brightness">Manuálny</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\" and \"Senzor orientácie\".</string>
@@ -1198,8 +1202,6 @@
   <string name="extender_accessibility_service_button">Povoliť/Zakázať\nslužbu Dostupnosť</string>
   <string name="extender_setting_screen_not_found_alert">Obrazovka nastavenia nebola nájdená.</string>
   <string name="extender_accessibility_service_permission">Služba dostupnosti PhoneProfilesPlusExtender</string>
-  <string name="permission_ask_button">Pýtať sa</string>
-  <string name="permission_not_ask_button">Nepýtať sa</string>
   <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
   <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
