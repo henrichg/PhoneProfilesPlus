@@ -151,7 +151,7 @@
   <string name="profile_preferences_showInActivator">Im Starter anzeigen</string>
   <string name="event_type_time">Zeit</string>
   <string name="event_preferences_category_eventIdentification">Ereignis Beschreibung</string>
-  <string name="event_preferences_eventEnabled">Aktivieren</string>
+  <string name="event_preferences_eventEnabled">Lauf aktivieren</string>
   <string name="event_preferences_eventName">Ereignis-Name</string>
   <string name="event_preferences_eventProfileStart">Profil aktivieren</string>
   <string name="widget_label_icon">PhoneProfilesPlus-Icon</string>
