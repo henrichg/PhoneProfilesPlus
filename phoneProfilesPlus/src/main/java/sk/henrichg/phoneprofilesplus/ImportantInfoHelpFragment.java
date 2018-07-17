@@ -31,7 +31,7 @@ public class ImportantInfoHelpFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_help_important_info, container, false);
+        return inflater.inflate(R.layout.fragment_important_info, container, false);
     }
 
     @Override
@@ -57,6 +57,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news = false;
         boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
+        boolean news3985 = (versionCode >= 3985) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3670="+news3985);
         boolean news3670 = (versionCode >= 3670); // news for PhoneProfilesPlusExtender - show it when not activated
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3670="+news3670);
         boolean news3640 = ((versionCode >= 3640) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -79,6 +81,12 @@ public class ImportantInfoHelpFragment extends Fragment {
         //noinspection StatementWithEmptyBody
         if (newsLatest) {
             // move this to newXXX, for switch off news
+        }
+        else {
+            // move this to newXXX, for switch off news
+        }
+
+        if (news3985) {
             news = true;
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2);
             infoText1.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +102,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             });
         }
         else {
-            // move this to newXXX, for switch off news
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files);
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2);
