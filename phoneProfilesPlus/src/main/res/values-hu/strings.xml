@@ -540,7 +540,7 @@
   <string name="phone_profiles_pref_applicationLanguage_tr">Török</string>
   <string name="array_pref_value_tr">tr</string>
   <string name="event_type_applications">Alkalmazások</string>
-  <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
+  <string name="event_preferences_category_eventApplicationsParameters">Alkalmazás-érzékelő</string>
   <string name="event_preferences_applications_applications">Alkalmazások</string>
   <string name="event_preferences_applications_AccessibilitySettings_title">Kisegítő lehetőségek beállításai</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Adaptív szint változtatáshoz, ROOT jogosultság kell.</string>
@@ -567,7 +567,7 @@
   <string name="important_info_default_profile">Nem minden esetben működik, ha aktiválva van \"Alapértelmezett profil\", ha be van állítva. Beállíthatja az alapértelmezett profilt, az alkalmazás beállításaiban \"Profil aktiválás\". Kattintson ide, hogy beállítsd.</string>
   <string name="important_info_how_does_volume_separation_work">Hogyan működik a \"hangerő szétválasztása\": profil aktiválás a hangerőt eszköz által profil értesítések hangerejét. Hívás csengetés észlelésekor igazítja a csengetés hangerejét a profilból. Után a hívás befejeztével értesítés hangerő profilból vissza kell állítani.</string>
   <string name="event_type_locations">Helyszín</string>
-  <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>
+  <string name="event_preferences_category_eventLocationsParameters">Helyérzékelő</string>
   <string name="event_preferences_locations_location">Helyszín</string>
   <string name="event_preferences_locations_location_not_selected">Nem kijelölt</string>
   <string name="event_preferences_locations_cant_delete_location_title">Helyszín törlése</string>
@@ -622,7 +622,7 @@
   <string name="profile_preferences_notificationLed_23">(R) LED értesítés</string>
   <string name="profile_preferences_notificationLedInfo_summary">Kísérleti. Ez talán még nem működik a készüléken</string>
   <string name="event_type_orientation">Tájolás</string>
-  <string name="event_preferences_category_eventOrientationParameters">Orientation sensor</string>
+  <string name="event_preferences_category_eventOrientationParameters">Betájolás érzékelő</string>
   <string name="event_preferences_orientation_display">Kijelző</string>
   <string name="event_preferences_orientation_sides">Oldalán</string>
   <string name="array_event_pref_orientationSides_displayUp">Kijelző fel</string>

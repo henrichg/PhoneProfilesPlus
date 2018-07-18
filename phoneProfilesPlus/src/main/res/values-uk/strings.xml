@@ -790,7 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Іконка завершення події</string>
   <string name="profile_preferences_sourceProfileInfo_summary">При налаштуванні кожного параметру профілю ви можете вибрати значення \"Спільний профіль\", і тоді при активації будуть використані значення цього параметра із Спільного профілю. Натисніть сюди, щоб налаштувати параметри Спільного профілю.</string>
   <string name="run_stop_events_indicator">Увімкнути/зупинити індикатор запуску подій</string>
-  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
+  <string name="run_stop_indicator_popup_window_important_info">Ви отримаєте більше відомостей на сторінці \"Важлива інформація\" натиснувши на знак питання в верхній панелі інструментів Редактора.</string>
   <string name="important_info_how_to_show">Цю важливу інформацію можна переглядати в редакторі через іконку \"знак питання\" в панелі інструментів.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">не підтримуються додатком</string>
   <string name="preference_not_allowed_reason_detail_old_android">стара версія Android</string>
