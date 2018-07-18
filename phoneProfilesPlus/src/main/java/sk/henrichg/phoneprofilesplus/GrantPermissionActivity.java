@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -50,7 +49,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private boolean started = false;
 
-    private AsyncTask geofenceEditorAsyncTask = null;
+    //private AsyncTask geofenceEditorAsyncTask = null;
 
     private static final int WRITE_SETTINGS_REQUEST_CODE = 9090;
     private static final int PERMISSIONS_REQUEST_CODE = 9091;
@@ -410,6 +409,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
     }
 
+    /*
     @Override
     protected void onDestroy()
     {
@@ -419,6 +419,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         super.onDestroy();
     }
+    */
 
     private void showNotification(Context context) {
         int notificationID;

@@ -1705,12 +1705,12 @@ public class PhoneProfilesService extends Service
 
     void scheduleWifiJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
                          //final boolean forScreenOn, final boolean afterEnableWifi,
-                         final boolean forceStart, final boolean rescan) {
+                         /*final boolean forceStart,*/ final boolean rescan) {
         final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleWifiJob", "PhoneProfilesService_scheduleWifiJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "xxx");
 
-        if (!forceStart && WifiSSIDPreference.forceRegister)
+        if (/*!forceStart &&*/ WifiSSIDPreference.forceRegister)
             return;
 
         PPApplication.startHandlerThread("PhoneProfilesService.scheduleWifiJob");
@@ -1768,12 +1768,12 @@ public class PhoneProfilesService extends Service
     }
 
     void scheduleBluetoothJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
-                              /*final boolean forScreenOn,*/ final boolean forceStart, final boolean rescan) {
+                              /*final boolean forScreenOn, final boolean forceStart,*/ final boolean rescan) {
         final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothJob", "PhoneProfilesService_scheduleBluetoothJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "xxx");
 
-        if (!forceStart && BluetoothNamePreference.forceRegister)
+        if (/*!forceStart &&*/ BluetoothNamePreference.forceRegister)
             return;
 
         PPApplication.startHandlerThread("PhoneProfilesService.scheduleBluetoothJob");
@@ -2223,8 +2223,8 @@ public class PhoneProfilesService extends Service
         }
         */
 
-        scheduleWifiJob(true,  true, /*false, false,*/ false, false);
-        scheduleBluetoothJob(true,  true, /*false,*/ false, false);
+        scheduleWifiJob(true,  true, /*false, false, false,*/ false);
+        scheduleBluetoothJob(true,  true, /*false, false,*/ false);
         scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
         scheduleSearchCalendarEventsJob(true, true, true);
 
@@ -2262,8 +2262,8 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
-        scheduleWifiJob(false,  false, /*false, false,*/ false, false);
-        scheduleBluetoothJob(false,  false, /*false,*/ false, false);
+        scheduleWifiJob(false,  false, /*false, false, false,*/ false);
+        scheduleBluetoothJob(false,  false, /*false, false,*/ false);
         scheduleGeofenceScannerJob(false,  false, /*false,*/ false);
         scheduleSearchCalendarEventsJob(false, true, false);
 
@@ -2294,8 +2294,8 @@ public class PhoneProfilesService extends Service
         registerWifiConnectionBroadcastReceiver(true, true, false);
         registerWifiScannerReceiver(true, true, false);
 
-        scheduleWifiJob(true,  true, /*false, false,*/ false, false);
-        scheduleBluetoothJob(true,  true, /*false,*/ false, false);
+        scheduleWifiJob(true,  true, /*false, false, false,*/ false);
+        scheduleBluetoothJob(true,  true, /*false, false,*/ false);
         scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
         scheduleSearchCalendarEventsJob(true, false, true);
 
@@ -2938,7 +2938,7 @@ public class PhoneProfilesService extends Service
                                     registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     registerWifiAPStateChangeBroadcastReceiver(true, true, false);
                                     registerWifiScannerReceiver(true, true, false);
-                                    scheduleWifiJob(true,  true, /*forScreenOn, false,*/ false, true);
+                                    scheduleWifiJob(true,  true, /*forScreenOn, false, false,*/ true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2965,7 +2965,7 @@ public class PhoneProfilesService extends Service
                                     //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                                     registerBluetoothStateChangedBroadcastReceiver(true, true, false);
                                     registerBluetoothScannerReceivers(true, true, false);
-                                    scheduleBluetoothJob(true,  true, /*forScreenOn,*/ false, true);
+                                    scheduleBluetoothJob(true,  true, /*forScreenOn, false,*/ true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -3096,12 +3096,12 @@ public class PhoneProfilesService extends Service
                                     registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     registerWifiAPStateChangeBroadcastReceiver(true, true, false);
                                     registerWifiScannerReceiver(true, true, false);
-                                    scheduleWifiJob(true,  true, /*forScreenOn, false,*/ false, true);
+                                    scheduleWifiJob(true,  true, /*forScreenOn, false, false,*/ true);
 
                                     //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                                     registerBluetoothStateChangedBroadcastReceiver(true, true, false);
                                     registerBluetoothScannerReceivers(true, true, false);
-                                    scheduleBluetoothJob(true,  true, /*forScreenOn,*/ false, true);
+                                    scheduleBluetoothJob(true,  true, /*forScreenOn, false,*/ true);
 
                                     PhoneStateScanner.forceStart = false;
                                     startPhoneStateScanner(true, true, true, false, true);
