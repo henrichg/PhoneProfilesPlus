@@ -184,7 +184,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval(appContext));
         } catch (Exception ignored) {}
 
-        if (Permissions.getPermissionsChanged(appContext)) {
+        boolean permissionsChanged = Permissions.getPermissionsChanged(appContext);
+        if (permissionsChanged) {
             invalidateEditor = true;
         }
 
@@ -210,27 +211,32 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             invalidateEditor = true;
         }
 
-        if ((wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) ||
+        if (permissionsChanged ||
+                (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) ||
                 (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval(appContext))) {
             PPApplication.restartWifiScanner(appContext, false);
         }
 
-        if ((bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) ||
+        if (permissionsChanged ||
+                (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) ||
                 (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval(appContext))) {
             PPApplication.restartBluetoothScanner(appContext, false);
         }
 
-        if ((locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) ||
+        if (permissionsChanged ||
+                (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) ||
                 (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(appContext))) {
             PPApplication.restartGeofenceScanner(appContext, false);
         }
 
-        if ((orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning(appContext)) ||
+        if (permissionsChanged ||
+                (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning(appContext)) ||
                 orientationScanInterval != ApplicationPreferences.applicationEventOrientationScanInterval(appContext)) {
             PPApplication.restartOrientationScanner(appContext);
         }
 
-        if (mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext)) {
+        if (permissionsChanged ||
+                mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext)) {
             PPApplication.restartPhoneStateScanner(appContext, false);
         }
 

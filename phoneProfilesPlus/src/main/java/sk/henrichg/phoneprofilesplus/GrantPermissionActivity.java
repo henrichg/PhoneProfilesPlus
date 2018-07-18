@@ -878,11 +878,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.wifiSSIDPreference.refreshListView(true, "");*/
             /*if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");*/
+
+            /*
             if (PhoneProfilesService.instance != null) {
-                PhoneProfilesService.instance.scheduleWifiJob(true, true, /*false, false,*/ forceStartScanner, false);
-                PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, /*false,*/ forceStartScanner, false);
-                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
+                PhoneProfilesService.instance.scheduleWifiJob(true, true, forceStartScanner, false);
+                PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, forceStartScanner, false);
             }
+            */
+            PPApplication.restartWifiScanner(context, false);
+            PPApplication.restartBluetoothScanner(context, false);
+
             //dataWrapper.restartEvents(false, true/*, false*/, false);
             dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
@@ -914,11 +919,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    if (PhoneProfilesService.instance != null) {
-                        PhoneProfilesService.instance.scheduleWifiJob(true, true, /*false, false,*/ false, false);
-                        PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, /*false,*/ false, false);
-                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
-                    }
+                    /*if (PhoneProfilesService.instance != null) {
+                        PhoneProfilesService.instance.scheduleWifiJob(true, true, false, false);
+                        PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, false, false);
+                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, false);
+                    }*/
+                    PPApplication.restartWifiScanner(context, false);
+                    PPApplication.restartBluetoothScanner(context, false);
+                    PPApplication.restartGeofenceScanner(context, false);
                     break;
                 }
             }
@@ -927,36 +935,15 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            geofenceEditorAsyncTask = new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    synchronized (PPApplication.geofenceScannerMutex) {
-                        if ((PhoneProfilesService.instance == null) || !PhoneProfilesService.instance.isGeofenceScannerStarted()) {
-                            PPApplication.restartGeofenceScanner(context, false);
-                            PPApplication.sleep(1000);
-                        }
-                        return null;
-                    }
-                }
+            PPApplication.restartGeofenceScanner(context, false);
 
-                @Override
-                protected void onPostExecute(Void response) {
-                    super.onPostExecute(response);
+            setResult(Activity.RESULT_OK);
+            finish();
+            /*if (Permissions.locationGeofenceEditorActivity != null)
+                Permissions.locationGeofenceEditorActivity.getLastLocation();*/
 
-                    if (PhoneProfilesService.instance != null) {
-                        //PhoneProfilesService.instance.scheduleWifiJob(true, true, true, false, false);
-                        //PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, false);
-                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
-                    }
-                    setResult(Activity.RESULT_OK);
-                    finish();
-                    /*if (Permissions.locationGeofenceEditorActivity != null)
-                        Permissions.locationGeofenceEditorActivity.getLastLocation();*/
-
-                    //dataWrapper.restartEvents(false, true/*, false*/, false);
-                    dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
-                }
-            }.execute();
+            //dataWrapper.restartEvents(false, true/*, false*/, false);
+            dataWrapper.restartEventsWithDelay(5, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
