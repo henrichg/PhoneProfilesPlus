@@ -790,7 +790,7 @@
   <string name="editor_event_list_item_profile_end_icon">Beende Ereignis-Profil</string>
   <string name="profile_preferences_sourceProfileInfo_summary">Jeder Profilparameter kann über das \"globale Profil\" eingestellt werden, beim Starten der App werden diese als Voreinstellung geladen. Klicken sie hier um das \"globale Profil\" einzustellen.</string>
   <string name="run_stop_events_indicator">Indikator für Ereignisse laufend/angehalten</string>
-  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
+  <string name="run_stop_indicator_popup_window_important_info">Um weitere Informationen zu erhalten, schauen sie im Menü Hilfe (?) den Eintrag \"wichtige Informationen\" an.</string>
   <string name="important_info_how_to_show">Diese wichtigen Informationen können im Editor über das Fragezeichen-Symbol in der Symbolleiste angezeigt werden.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">nicht von der Anwendung unterstützt</string>
   <string name="preference_not_allowed_reason_detail_old_android">alte Android-Version</string>
@@ -1188,8 +1188,8 @@
   <string name="array_pref_value_white">white</string>
   <string name="permission_ask_button">Frage</string>
   <string name="permission_not_ask_button">Nicht fragen</string>
-  <string name="brightness_pref_dialog_level_chb">Change level</string>
-  <string name="preference_profile_manual_brightness">Manual</string>
+  <string name="brightness_pref_dialog_level_chb">Helligkeit ändern</string>
+  <string name="preference_profile_manual_brightness">Benutzerdefinierte Helligkeit</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben, für: \n• Profil Parameter \"Anwendungen sofort stoppen\" \n• für die Ereignis Sensoren \"Anwendungsparameter\" und \"Ausrichtung\".</string>
