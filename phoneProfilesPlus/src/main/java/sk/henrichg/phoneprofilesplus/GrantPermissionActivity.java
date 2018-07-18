@@ -42,7 +42,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private String applicationDataPath;
     private boolean activateProfile;
     private boolean grantAlsoContacts;
-    private boolean forceStartScanner;
+    //private boolean forceStartScanner;
 
     private Profile profile;
     private Event event;
@@ -85,7 +85,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != Profile.SHARED_PROFILE_ID);
         grantAlsoContacts = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, true);
-        forceStartScanner = intent.getBooleanExtra(Permissions.EXTRA_FORCE_START_SCANNER, false);
+        //forceStartScanner = intent.getBooleanExtra(Permissions.EXTRA_FORCE_START_SCANNER, false);
 
         long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 

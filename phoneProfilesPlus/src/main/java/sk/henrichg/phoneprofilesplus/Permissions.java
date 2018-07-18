@@ -82,7 +82,7 @@ class Permissions {
     static final String EXTRA_APPLICATION_DATA_PATH = "application_data_path";
     static final String EXTRA_ACTIVATE_PROFILE = "activate_profile";
     static final String EXTRA_GRANT_ALSO_CONTACTS = "grant_also_contacts";
-    static final String EXTRA_FORCE_START_SCANNER = "force_start_scanner";
+    //static final String EXTRA_FORCE_START_SCANNER = "force_start_scanner";
 
     //static Activity profileActivationActivity = null;
     //static WallpaperViewPreference wallpaperViewPreference = null;
@@ -1450,7 +1450,7 @@ class Permissions {
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
+                    //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
                     //wifiSSIDPreference = preference;
                     //bluetoothNamePreference = null;
@@ -1484,7 +1484,7 @@ class Permissions {
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
+                    //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
                     //bluetoothNamePreference = preference;
                     //wifiSSIDPreference = null;
