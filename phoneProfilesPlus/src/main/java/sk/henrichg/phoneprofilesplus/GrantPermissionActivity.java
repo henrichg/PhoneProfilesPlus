@@ -879,12 +879,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             /*if (Permissions.bluetoothNamePreference != null)
                 Permissions.bluetoothNamePreference.refreshListView(true, "");*/
 
-            /*
-            if (PhoneProfilesService.instance != null) {
-                PhoneProfilesService.instance.scheduleWifiJob(true, true, forceStartScanner, false);
-                PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, forceStartScanner, false);
-            }
-            */
             PPApplication.restartWifiScanner(context, false);
             PPApplication.restartBluetoothScanner(context, false);
 
@@ -919,11 +913,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
                     permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    /*if (PhoneProfilesService.instance != null) {
-                        PhoneProfilesService.instance.scheduleWifiJob(true, true, false, false);
-                        PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, false, false);
-                        PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, false);
-                    }*/
                     PPApplication.restartWifiScanner(context, false);
                     PPApplication.restartBluetoothScanner(context, false);
                     PPApplication.restartGeofenceScanner(context, false);
