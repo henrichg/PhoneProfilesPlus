@@ -203,8 +203,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         // setSpeakerphoneOn() moved to ActivateProfileHelper.executeForVolumes
 
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.stopSimulatingRingingCall(/*true*/);
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().stopSimulatingRingingCall(/*true*/);
 
         if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, eventTime, context);
@@ -217,8 +217,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        if (PhoneProfilesService.instance != null)
-            PhoneProfilesService.instance.stopSimulatingRingingCall(/*true*/);
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().stopSimulatingRingingCall(/*true*/);
 
         // audio mode is set to MODE_IN_CALL by system
 

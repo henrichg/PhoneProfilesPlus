@@ -52,9 +52,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     // alarm is from activated profile
 
                                     if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
-                                        if (PhoneProfilesService.instance != null) {
+                                        if (PhoneProfilesService.getInstance() != null) {
                                             PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "play notification");
-                                            PhoneProfilesService.instance.playNotificationSound(profile._durationNotificationSound, profile._durationNotificationVibrate);
+                                            PhoneProfilesService.getInstance().playNotificationSound(profile._durationNotificationSound, profile._durationNotificationVibrate);
                                             //PPApplication.sleep(500);
                                         }
                                     }

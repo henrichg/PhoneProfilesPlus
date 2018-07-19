@@ -43,12 +43,12 @@ class GeofenceScannerJob extends Job {
 
                 boolean geofenceScannerUpdatesStarted = false;
                 synchronized (PPApplication.geofenceScannerMutex) {
-                    if ((PhoneProfilesService.instance != null) && (PhoneProfilesService.instance.getGeofencesScanner() != null)) {
-                        if (PhoneProfilesService.instance.getGeofencesScanner().mUpdatesStarted) {
+                    if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().getGeofencesScanner() != null)) {
+                        if (PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted) {
                             PPApplication.logE("GeofenceScannerJob.onRunJob", "location updates started - save to DB");
 
-                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted())
-                                PhoneProfilesService.instance.getGeofencesScanner().updateGeofencesInDB();
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                                PhoneProfilesService.getInstance().getGeofencesScanner().updateGeofencesInDB();
 
                             geofenceScannerUpdatesStarted = true;
                         }
@@ -91,16 +91,18 @@ class GeofenceScannerJob extends Job {
 
             int interval;
             synchronized (PPApplication.geofenceScannerMutex) {
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted())
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.instance.getGeofencesScanner().mUpdatesStarted);
-                else
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=false");
+                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted);
+                else {
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");
+                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+                }
 
                 // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
                 //int updateDuration = 30;
 
-                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted() &&
-                        PhoneProfilesService.instance.getGeofencesScanner().mUpdatesStarted) {
+                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
+                        PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted) {
                     interval = ApplicationPreferences.applicationEventLocationUpdateInterval(context) * 60;
                     PPApplication.logE("GeofenceScannerJob.scheduleJob", "interval=" + interval);
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
@@ -167,7 +169,7 @@ class GeofenceScannerJob extends Job {
                             final Handler _handler, final boolean startScanning/*, final boolean forScreenOn*/) {
         PPApplication.logE("GeofenceScannerJob.scheduleJob", "startScanning="+startScanning);
 
-        //if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
+        //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
             if (useHandler && (_handler == null)) {
                 PPApplication.startHandlerThread("GeofenceScannerJob.scheduleJob");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

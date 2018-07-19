@@ -22,8 +22,8 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         PPApplication.logE("LockDeviceActivity.onCreate", "xxx");
 
-        if (PhoneProfilesService.instance != null) {
-            PhoneProfilesService.instance.lockDeviceActivity = this;
+        if (PhoneProfilesService.getInstance() != null) {
+            PhoneProfilesService.getInstance().lockDeviceActivity = this;
 
             /*
             View decorView = getWindow().getDecorView();
@@ -37,7 +37,7 @@ public class LockDeviceActivity extends AppCompatActivity {
             getWindow().setAttributes(lp);
             */
 
-            PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+            PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
             ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
             Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
@@ -87,7 +87,7 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         PPApplication.logE("LockDeviceActivity.onDestroy", "xxx");
 
-        if (PhoneProfilesService.instance != null) {
+        if (PhoneProfilesService.getInstance() != null) {
             if (view != null)
                 try {
                     WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -100,13 +100,13 @@ public class LockDeviceActivity extends AppCompatActivity {
 
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 
-            PhoneProfilesService.instance.lockDeviceActivity = null;
+            PhoneProfilesService.getInstance().lockDeviceActivity = null;
 
             boolean canWriteSettings = true;
             if (android.os.Build.VERSION.SDK_INT >= 23)
                 canWriteSettings = Settings.System.canWrite(appContext);
             if (canWriteSettings)
-                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PhoneProfilesService.instance.screenTimeoutBeforeDeviceLock);
+                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock);
 
             // change screen timeout
             final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);

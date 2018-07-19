@@ -140,7 +140,7 @@ class EventsHandler {
             */
 
             /*
-            if (PhoneProfilesService.instance != null) {
+            if (PhoneProfilesService.getInstance() != null) {
                 // start of GeofenceScanner
                 if (!PhoneProfilesService.isGeofenceScannerStarted())
                     PPApplication.startGeofenceScanner(context);
@@ -166,7 +166,7 @@ class EventsHandler {
 
             /*
             // start orientation listener only when events exists
-            if (PhoneProfilesService.instance != null) {
+            if (PhoneProfilesService.getInstance() != null) {
                 if (!PhoneProfilesService.isOrientationScannerStarted()) {
                     if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION) > 0)
                         PPApplication.startOrientationScanner(context);
@@ -457,8 +457,8 @@ class EventsHandler {
 
                 if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
                     if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                        if (PhoneProfilesService.instance != null)
-                            PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                        if (PhoneProfilesService.getInstance() != null)
+                            PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
                     }
                 }
 
@@ -474,8 +474,8 @@ class EventsHandler {
                     /*
                     if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
                         if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                            if (PhoneProfilesService.instance != null)
-                                PhoneProfilesService.instance.playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
                         }
                     }
                     */

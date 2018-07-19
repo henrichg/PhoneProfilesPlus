@@ -48,22 +48,22 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE/*, false*/);
 
                         // rescan
-                        if (PhoneProfilesService.instance != null) {
+                        if (PhoneProfilesService.getInstance() != null) {
                             PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule jobs");
 
                             // schedule job for one wifi scan
-                            PhoneProfilesService.instance.scheduleWifiJob(true,  true, /*true, false, false,*/ false);
+                            PhoneProfilesService.getInstance().scheduleWifiJob(true,  true, /*true, false, false,*/ false);
                             // schedule job for one bluetooth scan
-                            PhoneProfilesService.instance.scheduleBluetoothJob(true,  true, /*true, false,*/ false);
+                            PhoneProfilesService.getInstance().scheduleBluetoothJob(true,  true, /*true, false,*/ false);
                             // schedule job for location scan
-                            PhoneProfilesService.instance.scheduleGeofenceScannerJob(true,  true, /*true,*/ false);
+                            PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true,  true, /*true,*/ false);
                         }
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                             // rescan mobile cells
                             synchronized (PPApplication.phoneStateScannerMutex) {
-                                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isPhoneStateScannerStarted()) {
-                                    PhoneProfilesService.instance.getPhoneStateScanner().rescanMobileCells();
+                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
+                                    PhoneProfilesService.getInstance().getPhoneStateScanner().rescanMobileCells();
                                 }
                             }
                         }

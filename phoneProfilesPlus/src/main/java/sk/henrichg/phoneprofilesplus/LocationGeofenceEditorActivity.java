@@ -210,7 +210,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                         DatabaseHandler.getInstance(getApplicationContext()).addGeofence(geofence);
                         /*synchronized (PPApplication.geofenceScannerMutex) {
                             // start location updates
-                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
                                 PhoneProfilesService.getGeofencesScanner().connectForResolve();
                         }*/
                     }

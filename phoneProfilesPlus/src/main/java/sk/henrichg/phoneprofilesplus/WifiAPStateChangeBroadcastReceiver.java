@@ -27,8 +27,8 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
             else {
                 PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP disabled");
                 // send broadcast for one wifi scan
-                if (PhoneProfilesService.instance != null)
-                    PhoneProfilesService.instance.scheduleWifiJob(true,  true, /*false, true, false,*/ false);
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().scheduleWifiJob(true,  true, /*false, true, false,*/ false);
             }
         }
     }

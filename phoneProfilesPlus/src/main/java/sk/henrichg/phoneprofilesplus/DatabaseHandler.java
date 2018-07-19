@@ -357,13 +357,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public static DatabaseHandler getInstance(Context context) {
         //Double check locking pattern
-        if (DatabaseHandler.instance == null) { //Check for the first time
+        if (instance == null) { //Check for the first time
             synchronized (DatabaseHandler.class) {   //Check for the second time.
                 //if there is no instance available... create new one
-                if (DatabaseHandler.instance == null) DatabaseHandler.instance = new DatabaseHandler(context);
+                if (instance == null) instance = new DatabaseHandler(context);
             }
         }
-        return DatabaseHandler.instance;
+        return instance;
     }
     
     private SQLiteDatabase getMyWritableDatabase() {

@@ -330,7 +330,7 @@ public class LocationGeofencePreference extends DialogPreference {
                                 //updateGUIWithGeofence(0);
                                 /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                     // stop location updates
-                                    if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
                                         PhoneProfilesService.getGeofencesScanner().disconnect();
                                 }*/
                             }

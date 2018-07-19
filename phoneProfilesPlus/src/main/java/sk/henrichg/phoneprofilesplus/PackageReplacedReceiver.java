@@ -214,7 +214,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        if (PhoneProfilesService.instance != null) {
+                        if (PhoneProfilesService.getInstance() != null) {
                             PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "instance != null");
                             // stop PhoneProfilesService
                             PPApplication.sleep(2000);

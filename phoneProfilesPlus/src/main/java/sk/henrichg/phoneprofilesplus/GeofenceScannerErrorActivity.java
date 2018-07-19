@@ -33,13 +33,13 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == GeofencesScanner.REQUEST_RESOLVE_ERROR) {
             synchronized (PPApplication.geofenceScannerMutex) {
-                if (PhoneProfilesService.instance != null) {
-                    if (PhoneProfilesService.instance.isGeofenceScannerStarted())
-                        PhoneProfilesService.instance.getGeofencesScanner().mResolvingError = false;
+                if (PhoneProfilesService.getInstance() != null) {
+                    if (PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                        PhoneProfilesService.getInstance().getGeofencesScanner().mResolvingError = false;
                     if (resultCode == RESULT_OK) {
                         // Make sure the app is not already connected or attempting to connect
-                        if (PhoneProfilesService.instance.isGeofenceScannerStarted())
-                            PhoneProfilesService.instance.getGeofencesScanner().connectForResolve();
+                        if (PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                            PhoneProfilesService.getInstance().getGeofencesScanner().connectForResolve();
                     }
                 }
             }
@@ -62,8 +62,8 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     /* Called from ErrorDialogFragment when the dialog is dismissed. */
     private void onDialogDismissed() {
         synchronized (PPApplication.geofenceScannerMutex) {
-            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted())
-                PhoneProfilesService.instance.getGeofencesScanner().mResolvingError = false;
+            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                PhoneProfilesService.getInstance().getGeofencesScanner().mResolvingError = false;
             finish();
             activity = null;
         }

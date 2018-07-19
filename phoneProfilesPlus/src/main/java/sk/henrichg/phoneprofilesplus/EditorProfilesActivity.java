@@ -160,7 +160,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, false, true, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
-        EditorProfilesActivity.instance = this;
+        instance = this;
 
         savedInstanceStateChanged = (savedInstanceState != null);
 
@@ -493,7 +493,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     public static EditorProfilesActivity getInstance()
     {
-        return EditorProfilesActivity.instance;
+        return instance;
     }
 
     @Override
@@ -506,8 +506,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
             addEventDialog.mDialog.dismiss();
 
-        if (EditorProfilesActivity.instance == this)
-            EditorProfilesActivity.instance = null;
+        if (instance == this)
+            instance = null;
     }
 
     @Override
@@ -516,9 +516,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         //Debug.stopMethodTracing();
         super.onResume();
 
-        if (EditorProfilesActivity.instance == null)
+        if (instance == null)
         {
-            EditorProfilesActivity.instance = this;
+            instance = this;
             refreshGUI(false, false);
         }
 
@@ -1061,13 +1061,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 PPApplication.startPPService(this, serviceIntent);
 
-                //if (PhoneProfilesService.instance != null) {
+                //if (PhoneProfilesService.getInstance() != null) {
                     /*
                     boolean powerSaveMode = PPApplication.isPowerSaveMode;
                     if ((PhoneProfilesService.isGeofenceScannerStarted())) {
                         PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(powerSaveMode, true);
                     }
-                    PhoneProfilesService.instance.resetListeningOrientationSensors(powerSaveMode, true);
+                    PhoneProfilesService.getInstance().resetListeningOrientationSensors(powerSaveMode, true);
                     if (PhoneProfilesService.isPhoneStateScannerStarted())
                         PhoneProfilesService.phoneStateScanner.resetListening(powerSaveMode, true);
                     */
@@ -1288,8 +1288,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     importProgressDialog.setCanceledOnTouchOutside(false);
                     importProgressDialog.show();
 
-                    if (PhoneProfilesService.instance != null)
-                        PhoneProfilesService.instance.stopSelf();
+                    if (PhoneProfilesService.getInstance() != null)
+                        PhoneProfilesService.getInstance().stopSelf();
 
                     Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
                     if (fragment != null) {

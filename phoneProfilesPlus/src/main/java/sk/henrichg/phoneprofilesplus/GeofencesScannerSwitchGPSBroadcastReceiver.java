@@ -17,9 +17,9 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
         PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "xxx");
         CallsCounter.logCounter(context, "GeofencesScannerSwitchGPSBroadcastReceiver.onReceive", "GeofencesScannerSwitchGPSBroadcastReceiver_onReceive");
 
-        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted()) {
+        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
             GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
-            GeofencesScanner geofencesScanner = PhoneProfilesService.instance.getGeofencesScanner();
+            GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
             if (geofencesScanner != null) {
                 geofencesScanner.stopLocationUpdates();
                 geofencesScanner.startLocationUpdates();

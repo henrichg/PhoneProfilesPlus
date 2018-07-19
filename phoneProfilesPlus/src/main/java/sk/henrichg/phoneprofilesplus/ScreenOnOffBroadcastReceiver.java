@@ -65,11 +65,11 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     PPApplication.restartPhoneStateScanner(appContext, true);
                     PPApplication.restartOrientationScanner(appContext);*/
 
-                    if (PhoneProfilesService.instance != null) {
+                    if (PhoneProfilesService.getInstance() != null) {
                         //boolean lockDeviceEnabled = false;
-                        if (PhoneProfilesService.instance.lockDeviceActivity != null) {
+                        if (PhoneProfilesService.getInstance().lockDeviceActivity != null) {
                             //lockDeviceEnabled = true;
-                            PhoneProfilesService.instance.lockDeviceActivity.finish();
+                            PhoneProfilesService.getInstance().lockDeviceActivity.finish();
                         }
                     }
 
@@ -153,27 +153,27 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         if (ApplicationPreferences.applicationEventWifiRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventWifiRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of wifi scanner");
-                            if (PhoneProfilesService.instance != null)
-                                PhoneProfilesService.instance.scheduleWifiJob(true, true, true, true, false);
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().scheduleWifiJob(true, true, true, true, false);
                         }
                         if (ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventBluetoothRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of bluetooth scanner");
-                            if (PhoneProfilesService.instance != null)
-                                PhoneProfilesService.instance.scheduleBluetoothJob(true, true, true, true);
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, true, true);
                         }
                         if (ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventLocationRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of location scanner");
-                            if (PhoneProfilesService.instance != null)
-                                PhoneProfilesService.instance.scheduleGeofenceScannerJob(true, true, true, true);
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, true, true);
                         }
                         if (ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON) ||
                                 ApplicationPreferences.applicationEventMobileCellsRescan(appContext).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                             if (dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS) > 0) {
                                 // rescan mobile cells
-                                if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
+                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isPhoneStateScannerStarted()) {
                                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of mobile cells scanner");
                                     PhoneProfilesService.phoneStateScanner.rescanMobileCells();
                                 }

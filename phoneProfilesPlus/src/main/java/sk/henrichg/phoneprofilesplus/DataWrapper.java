@@ -2872,8 +2872,8 @@ public class DataWrapper {
                         }
                     } else {
                         synchronized (PPApplication.geofenceScannerMutex) {
-                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isGeofenceScannerStarted() &&
-                                    PhoneProfilesService.instance.getGeofencesScanner().mTransitionsUpdated) {
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
+                                    PhoneProfilesService.getInstance().getGeofencesScanner().mTransitionsUpdated) {
                                 locationPassed = false;
 
                                 String[] splits = event._eventPreferencesLocation._geofences.split("\\|");
@@ -2945,7 +2945,7 @@ public class DataWrapper {
                 else
                 {
                     synchronized (PPApplication.orientationScannerMutex) {
-                        if ((PhoneProfilesService.instance != null) && PhoneProfilesService.isOrientationScannerStarted()) {
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isOrientationScannerStarted()) {
                             boolean lApplicationPassed = false;
                             if (!event._eventPreferencesOrientation._ignoredApplications.isEmpty()) {
                                 if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0)) {
@@ -3064,7 +3064,7 @@ public class DataWrapper {
                             notAllowedMobileCell = true;
                     } else {
                         synchronized (PPApplication.phoneStateScannerMutex) {
-                            if ((PhoneProfilesService.instance != null) && PhoneProfilesService.instance.isPhoneStateScannerStarted()) {
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
                                 String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
                                 if (PhoneStateScanner.registeredCell != Integer.MAX_VALUE) {
                                     String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);

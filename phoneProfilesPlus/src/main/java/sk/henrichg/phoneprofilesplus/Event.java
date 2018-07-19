@@ -2007,8 +2007,8 @@ class Event {
                 StartEventNotificationBroadcastReceiver.setAlarm(this, context);
             }
 
-            if (PhoneProfilesService.instance != null)
-                PhoneProfilesService.instance.playNotificationSound(notificationSound, notificationVibrate);
+            if (PhoneProfilesService.getInstance() != null)
+                PhoneProfilesService.getInstance().playNotificationSound(notificationSound, notificationVibrate);
 
             return true;
         }
