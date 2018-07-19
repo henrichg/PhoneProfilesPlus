@@ -2506,8 +2506,8 @@ public class PhoneProfilesService extends Service
             return START_NOT_STICKY;
         }
 
-        if ((intent != null) && (!doForFirstStart(intent/*, flags, startId*/))) {
-            //if (intent != null) {
+        if (!doForFirstStart(intent/*, flags, startId*/)) {
+            if (intent != null) {
                 if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
                     showProfileNotification();
@@ -2537,7 +2537,7 @@ public class PhoneProfilesService extends Service
 
                     boolean secureKeyguard;
                     if (keyguardManager == null)
-                        keyguardManager = (KeyguardManager)appContext.getSystemService(Activity.KEYGUARD_SERVICE);
+                        keyguardManager = (KeyguardManager) appContext.getSystemService(Activity.KEYGUARD_SERVICE);
                     if (keyguardManager != null) {
                         secureKeyguard = keyguardManager.isKeyguardSecure();
                         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "secureKeyguard=" + secureKeyguard);
@@ -2599,7 +2599,8 @@ public class PhoneProfilesService extends Service
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
                                     wakeLock.release();
-                                } catch (Exception ignored) {}
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     });
@@ -2624,7 +2625,8 @@ public class PhoneProfilesService extends Service
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
                                     wakeLock.release();
-                                } catch (Exception ignored) {}
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     });
@@ -2649,7 +2651,8 @@ public class PhoneProfilesService extends Service
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
                                     wakeLock.release();
-                                } catch (Exception ignored) {}
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     });
@@ -2682,12 +2685,13 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     startGeofenceScanner(true, true, true, false);
-                                    scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
+                                    scheduleGeofenceScannerJob(true, true, /*false,*/ false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2707,12 +2711,13 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     startGeofenceScanner(false, true, false, false);
-                                    scheduleGeofenceScannerJob(false,  false, /*false,*/ false);
+                                    scheduleGeofenceScannerJob(false, false, /*false,*/ false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2736,7 +2741,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2760,7 +2766,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2785,7 +2792,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2809,7 +2817,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2836,7 +2845,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2863,7 +2873,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2889,7 +2900,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2915,7 +2927,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2938,12 +2951,13 @@ public class PhoneProfilesService extends Service
                                     registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     registerWifiAPStateChangeBroadcastReceiver(true, true, false);
                                     registerWifiScannerReceiver(true, true, false);
-                                    scheduleWifiJob(true,  true, /*forScreenOn, false, false,*/ true);
+                                    scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -2965,12 +2979,13 @@ public class PhoneProfilesService extends Service
                                     //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                                     registerBluetoothStateChangedBroadcastReceiver(true, true, false);
                                     registerBluetoothScannerReceivers(true, true, false);
-                                    scheduleBluetoothJob(true,  true, /*forScreenOn, false,*/ true);
+                                    scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -3023,7 +3038,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -3044,12 +3060,13 @@ public class PhoneProfilesService extends Service
 
                                     registerLocationModeChangedBroadcastReceiver(true, true);
                                     startGeofenceScanner(true, true, true, forScreenOn);
-                                    scheduleGeofenceScannerJob(true,  true, /*forScreenOn,*/ true);
+                                    scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -3073,7 +3090,8 @@ public class PhoneProfilesService extends Service
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
@@ -3096,33 +3114,34 @@ public class PhoneProfilesService extends Service
                                     registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     registerWifiAPStateChangeBroadcastReceiver(true, true, false);
                                     registerWifiScannerReceiver(true, true, false);
-                                    scheduleWifiJob(true,  true, /*forScreenOn, false, false,*/ true);
+                                    scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
 
                                     //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                                     registerBluetoothStateChangedBroadcastReceiver(true, true, false);
                                     registerBluetoothScannerReceivers(true, true, false);
-                                    scheduleBluetoothJob(true,  true, /*forScreenOn, false,*/ true);
+                                    scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
 
                                     PhoneStateScanner.forceStart = false;
                                     startPhoneStateScanner(true, true, true, false, true);
 
                                     registerLocationModeChangedBroadcastReceiver(true, true);
                                     startGeofenceScanner(true, false, true, forScreenOn);
-                                    scheduleGeofenceScannerJob(true,  true, /*forScreenOn,*/ true);
+                                    scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
 
                                     startOrientationScanner(true, false, true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
                                             wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        } catch (Exception ignored) {
+                                        }
                                     }
                                 }
                             });
                             break;
                     }
                 }
-            //}
+            }
         }
 
         // We want this service to continue running until it is explicitly
@@ -3482,7 +3501,8 @@ public class PhoneProfilesService extends Service
                 if (instance != null) {
                     DataWrapper dataWrapper = new DataWrapper(instance.getApplicationContext(), false, 0);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                    instance._showProfileNotification(profile, true, dataWrapper);
+                    if (instance != null)
+                        instance._showProfileNotification(profile, true, dataWrapper);
                     dataWrapper.invalidateDataWrapper();
                 }
             }
