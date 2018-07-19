@@ -99,10 +99,10 @@ class AddEventDialog
             @Override
             protected Void doInBackground(Void... params) {
                 Event event;
-                event = eventListFragment.activityDataWrapper.getNonInitializedEvent(context.getResources().getString(R.string.event_name_default), 0);
+                event = DataWrapper.getNonInitializedEvent(context.getResources().getString(R.string.event_name_default), 0);
                 eventList.add(event);
                 for (int index = 0; index < 6; index++) {
-                    event = eventListFragment.activityDataWrapper.getPredefinedEvent(index, false);
+                    event = eventListFragment.activityDataWrapper.getPredefinedEvent(index, false, context);
                     if (event._fkProfileStart == 0)
                         profileNotExists = true;
                     eventList.add(event);

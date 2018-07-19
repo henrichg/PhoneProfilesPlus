@@ -274,10 +274,10 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             ((ProfilePreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
-    private Profile createProfile(int startupSource, Context context, long profile_id,
+    private Profile createProfile(int startupSource, long profile_id,
                                   int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
             // no change this in shared profile
@@ -289,7 +289,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         {
-            profile = Profile.getSharedProfile(context);
+            profile = Profile.getSharedProfile(getApplicationContext());
         }
         else
         if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)
@@ -297,11 +297,11 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             // create new profile
             if (predefinedProfileIndex == 0) {
                 profile = DataWrapper.getNonInitializedProfile(
-                        context.getResources().getString(R.string.profile_name_default),
+                        getBaseContext().getResources().getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
             }
             else {
-                profile = dataWrapper.getPredefinedProfile(predefinedProfileIndex-1, false);
+                profile = dataWrapper.getPredefinedProfile(predefinedProfileIndex-1, false, getBaseContext());
             }
             profile._showInActivator = true;
             showSaveMenu = true;
@@ -398,9 +398,9 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
-        Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, false);
+        Profile profile = createProfile(startupSource, profile_id, new_profile_mode, predefinedProfileIndex, false);
         if (profile == null)
-            profile = createProfile(startupSource, getApplicationContext(), profile_id, EditorProfileListFragment.EDIT_MODE_INSERT, predefinedProfileIndex, false);
+            profile = createProfile(startupSource, profile_id, EditorProfileListFragment.EDIT_MODE_INSERT, predefinedProfileIndex, false);
 
         if (profile != null)
         {
@@ -501,7 +501,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
-        Profile profile = createProfile(startupSource, getApplicationContext(), profile_id, new_profile_mode, predefinedProfileIndex, true);
+        Profile profile = createProfile(startupSource, profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         if (profile != null) {
             String PREFS_NAME = ProfilePreferencesNestedFragment.getPreferenceName(startupSource);

@@ -98,7 +98,7 @@ class AddProfileDialog
                     profile.generatePreferencesIndicator(context, false, 0xFF);
                 profileList.add(profile);
                 for (int index = 0; index < 6; index++) {
-                    profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false);
+                    profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false, context);
                     profile.generateIconBitmap(context, false, 0xFF);
                     if (ApplicationPreferences.applicationEditorPrefIndicator(context))
                         profile.generatePreferencesIndicator(context, false, 0xFF);

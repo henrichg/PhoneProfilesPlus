@@ -243,6 +243,7 @@ public class EditorProfileListFragment extends Fragment
 
         private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
         private final DataWrapper _dataWrapper;
+        private final Context _baseContext;
         private final int _filterType;
         boolean defaultProfilesGenerated = false;
         boolean defaultEventsGenerated = false;
@@ -251,6 +252,7 @@ public class EditorProfileListFragment extends Fragment
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
+            _baseContext = fragment.getActivity();
         }
 
         @Override
@@ -273,10 +275,10 @@ public class EditorProfileListFragment extends Fragment
             {
                 // no profiles in DB, generate default profiles and events
 
-                _dataWrapper.fillPredefinedProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
+                _dataWrapper.fillPredefinedProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context), _baseContext);
                 defaultProfilesGenerated = true;
 
-                _dataWrapper.generatePredefinedEventList();
+                _dataWrapper.generatePredefinedEventList(_baseContext);
                 defaultEventsGenerated = true;
             }
             // sort list
