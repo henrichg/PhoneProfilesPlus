@@ -153,7 +153,7 @@ class EventPreferencesNotification extends EventPreferences {
             }
             if (this._inCall || this._missedCall)
                 descr = descr + "; ";
-            descr = descr + "(S) "+context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
+            descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
             /*if (this._endWhenRemoved)
                 descr = descr + context.getString(R.string.event_preferences_notifications_end_when_removed);
             else {

@@ -213,7 +213,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 else
                     selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
             }
-            descr = descr + "; " + "(S) "+context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": " + selectedApplications;
+            descr = descr + "; " + /*"(S) "+*/context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": " + selectedApplications;
 
         }
 
