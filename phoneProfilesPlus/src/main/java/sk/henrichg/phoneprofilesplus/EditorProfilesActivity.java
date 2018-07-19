@@ -160,7 +160,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, false, true, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
-        instance = this;
+        EditorProfilesActivity.instance = this;
 
         savedInstanceStateChanged = (savedInstanceState != null);
 
@@ -493,7 +493,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     public static EditorProfilesActivity getInstance()
     {
-        return instance;
+        return EditorProfilesActivity.instance;
     }
 
     @Override
@@ -506,8 +506,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
             addEventDialog.mDialog.dismiss();
 
-        if (instance == this)
-            instance = null;
+        if (EditorProfilesActivity.instance == this)
+            EditorProfilesActivity.instance = null;
     }
 
     @Override
@@ -516,9 +516,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         //Debug.stopMethodTracing();
         super.onResume();
 
-        if (instance == null)
+        if (EditorProfilesActivity.instance == null)
         {
-            instance = this;
+            EditorProfilesActivity.instance = this;
             refreshGUI(false, false);
         }
 

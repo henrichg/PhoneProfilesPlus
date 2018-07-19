@@ -202,7 +202,7 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
 
-        instance = this;
+        PhoneProfilesService.instance = this;
         serviceHasFirstStart = false;
         serviceRunning = false;
         runningInForeground = false;
@@ -281,7 +281,7 @@ public class PhoneProfilesService extends Service
 
         removeProfileNotification(this);
 
-        instance = null;
+        PhoneProfilesService.instance = null;
         serviceHasFirstStart = false;
         serviceRunning = false;
         runningInForeground = false;
@@ -3170,7 +3170,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        if ((instance != null) && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
+        if ((PhoneProfilesService.instance != null) && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
         {
             PPApplication.logE("PhoneProfilesService.showProfileNotification", "show");
 
@@ -3455,8 +3455,8 @@ public class PhoneProfilesService extends Service
                 }
 
                 if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent)
-                    if (instance != null)
-                        instance.startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance.startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null)
@@ -3498,11 +3498,11 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (instance != null) {
-                    DataWrapper dataWrapper = new DataWrapper(instance.getApplicationContext(), false, 0);
+                if (PhoneProfilesService.instance != null) {
+                    DataWrapper dataWrapper = new DataWrapper(PhoneProfilesService.instance.getApplicationContext(), false, 0);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                    if (instance != null)
-                        instance._showProfileNotification(profile, true, dataWrapper);
+                    if (PhoneProfilesService.instance != null)
+                        PhoneProfilesService.instance._showProfileNotification(profile, true, dataWrapper);
                     dataWrapper.invalidateDataWrapper();
                 }
             }
