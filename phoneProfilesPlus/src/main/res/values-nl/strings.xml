@@ -790,8 +790,8 @@
   <string name="editor_event_list_item_profile_end_icon">Einde van de event profiel icoon</string>
   <string name="profile_preferences_sourceProfileInfo_summary">Je kunt elke profiel parameter instellen om het \"Gedeeld profiel\" te gebruiken. Bij activering worden de waarden gebruikt vanuit het \"Gedeeld profiel\". Klik hier om de Gedeelde profielparameters te configureren.</string>
   <string name="run_stop_events_indicator">Inschakelen/stop event uitvoeren indicator</string>
-  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
-  <string name="important_info_how_to_show">Deze belangrijke informatie kan worden bekeken in the ditor via het vraagteken-pictogram in de werkbalk.</string>
+  <string name="run_stop_indicator_popup_window_important_info">Voor meer informatie ga je naar het ”belangrijke informatie” scherm. Tik op het vraagteken-pictogram in de menubalk.</string>
+  <string name="important_info_how_to_show">Deze belangrijke informatie kan worden bekeken in de Editor via het vraagteken-pictogram in de werkbalk.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">niet ondersteund door programma</string>
   <string name="preference_not_allowed_reason_detail_old_android">oude Android versie</string>
   <string name="preference_not_allowed_reason_detail_network_type">niet-ondersteund netwerktype of kan niet worden gewijzigd</string>
