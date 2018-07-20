@@ -218,7 +218,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void addConnectedDevice(BluetoothDevice device)
+    private static void addConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             PPApplication.logE("BluetoothConnectionBroadcastReceiver.addConnectedDevice","device.name="+device.getName());
@@ -249,7 +249,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void removeConnectedDevice(BluetoothDevice device)
+    private static void removeConnectedDevice(BluetoothDevice device)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice","device.name="+device.getName());
@@ -314,7 +314,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private void changeDeviceName(BluetoothDevice device, String deviceName)
+    private static void changeDeviceName(BluetoothDevice device, String deviceName)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             boolean found = false;

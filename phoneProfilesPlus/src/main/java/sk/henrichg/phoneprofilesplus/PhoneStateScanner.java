@@ -382,14 +382,12 @@ class PhoneStateScanner extends PhoneStateListener {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                         PPApplication.logE("PhoneStateScanner.handleEvents", "start events handler");
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE/*, false*/);
                     }
-                    dataWrapper.invalidateDataWrapper();
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

@@ -75,11 +75,11 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                     //ActivateProfileHelper.setScreenUnlocked(appContext, false);
                     if (!Event.getGlobalEventsRunning(appContext)) {
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                        //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                         PPApplication.showProfileNotification(appContext);
-                        dataWrapper.invalidateDataWrapper();
+                        //dataWrapper.invalidateDataWrapper();
                     }
                 } else if ((action != null) && action.equals(Intent.ACTION_USER_PRESENT)) {
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
@@ -93,7 +93,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     // change screen timeout
-                    final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                    //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     /*if (lockDeviceEnabled && Permissions.checkLockDevice(appContext))
                         Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);*/
                     final int screenTimeout = ActivateProfileHelper.getActivatedProfileScreenTimeout(appContext);
@@ -109,7 +109,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
                         }*/
                     }
-                    dataWrapper.invalidateDataWrapper();
+                    //dataWrapper.invalidateDataWrapper();
 
                     // enable/disable keyguard
                     try {
@@ -188,11 +188,11 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
                     if (ApplicationPreferences.notificationShowInStatusBar(appContext) &&
                             ApplicationPreferences.notificationHideInLockScreen(appContext)) {
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                        //DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         //dataWrapper.getActivateProfileHelper().removeNotification();
                         //dataWrapper.getActivateProfileHelper().setAlarmForRecreateNotification();
                         PPApplication.showProfileNotification(appContext);
-                        dataWrapper.invalidateDataWrapper();
+                        //dataWrapper.invalidateDataWrapper();
                     }
                 }
 

@@ -3718,12 +3718,11 @@ public class DataWrapper {
 
     @SuppressLint("NewApi")
     // delay is in seconds, max 5
-    void restartEventsWithDelay(int delay, boolean unblockEventsRun, boolean clearOld, final int logType)
+    void restartEventsWithDelay(int delay, final boolean unblockEventsRun, boolean clearOld, final int logType)
     {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
 
-        final boolean _unblockEventsRun = unblockEventsRun;
-        //final boolean _interactive = false/*interactive*/;
+        final DataWrapper dataWrapper = copyDataWrapper();
 
         if (clearOld) {
             PPApplication.startHandlerThreadRestartEventsWithDelay();
@@ -3733,8 +3732,8 @@ public class DataWrapper {
                 public void run() {
                     PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
                     if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
-                        addActivityLog(logType, null, null, null, 0);
-                    restartEvents(_unblockEventsRun, true/*, _interactive*/, true);
+                        dataWrapper.addActivityLog(logType, null, null, null, 0);
+                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true);
                 }
             }, delay * 1000);
         }
@@ -3745,7 +3744,7 @@ public class DataWrapper {
                 @Override
                 public void run() {
                     PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
-                    restartEvents(_unblockEventsRun, true/*, _interactive*/, true);
+                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true);
                 }
             }, delay * 1000);
         }

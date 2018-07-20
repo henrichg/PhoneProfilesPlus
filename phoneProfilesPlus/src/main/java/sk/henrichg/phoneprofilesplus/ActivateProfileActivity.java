@@ -506,10 +506,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
-                        if (fragment != null)
-                        {
-                            ((ActivateProfileListFragment)fragment).showTargetHelps();
+                        if (instance != null) {
+                            Fragment fragment = instance.getFragmentManager().findFragmentById(R.id.activate_profile_list);
+                            if (fragment != null) {
+                                ((ActivateProfileListFragment) fragment).showTargetHelps();
+                            }
                         }
                     }
                 }, 500);

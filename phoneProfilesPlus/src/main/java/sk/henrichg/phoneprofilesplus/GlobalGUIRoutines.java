@@ -220,23 +220,22 @@ class GlobalGUIRoutines {
         return 0;
     }
 
-    static void reloadActivity(Activity activity, boolean newIntent)
+    static void reloadActivity(final Activity activity, boolean newIntent)
     {
         if (newIntent)
         {
-            final Activity _activity = activity;
             new Handler(activity.getMainLooper()).post(new Runnable() {
 
                 @Override
                 public void run() {
                     try {
-                        Intent intent = _activity.getIntent();
+                        Intent intent = activity.getIntent();
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        _activity.finish();
-                        _activity.overridePendingTransition(0, 0);
+                        activity.finish();
+                        activity.overridePendingTransition(0, 0);
 
-                        _activity.startActivity(intent);
-                        _activity.overridePendingTransition(0, 0);
+                        activity.startActivity(intent);
+                        activity.overridePendingTransition(0, 0);
                     } catch (Exception ignored) {}
                 }
             });

@@ -122,21 +122,22 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     final Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_RUNNING) {
                         final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+                        final DataWrapper _dataWrapper = dataWrapper;
                         PPApplication.startHandlerThread("ActionForExternalApplicationActivity.onStart.1");
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                                PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 if (powerManager != null) {
                                     wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActionForExternalApplicationActivity.ACTION_ENABLE_RUN_FOR_EVENT");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
                                         false, /*true,*/ null, false); // activate return profile
-                                dataWrapper.restartEvents(false, true/*, true*/, true);
+                                _dataWrapper.restartEvents(false, true/*, true*/, true);
 
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -173,21 +174,22 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
                     final Event event = dataWrapper.getEventById(event_id);
                     if (event.getStatus() != Event.ESTATUS_STOP) {
+                        final DataWrapper _dataWrapper = dataWrapper;
                         PPApplication.startHandlerThread("ActionForExternalApplicationActivity.onStart.2");
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
+                                PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 if (powerManager != null) {
                                     wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActionForExternalApplicationActivity.ACTION_STOP_EVENT");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                                event.stopEvent(_dataWrapper, eventTimelineList, true, false,
                                         true/*, true*/); // activate return profile
-                                dataWrapper.restartEvents(false, true/*, true*/, true);
+                                _dataWrapper.restartEvents(false, true/*, true*/, true);
 
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

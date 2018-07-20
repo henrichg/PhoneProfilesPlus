@@ -416,6 +416,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             if (event.getStatus() == Event.ESTATUS_STOP)
             {
+                final int _old_event_status = old_event_status;
                 PPApplication.startHandlerThread("EventPreferencesActivity.savePreferences.1");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
@@ -428,7 +429,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        if (old_event_status != Event.ESTATUS_STOP) {
+                        if (_old_event_status != Event.ESTATUS_STOP) {
                             // pause event - must be called, because status is ESTATUS_STOP
                             event.pauseEvent(dataWrapper, eventTimelineList, true, false,
                                     false, /*false,*/ null, false);

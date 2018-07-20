@@ -116,7 +116,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         });
     }
 
-    private void doCallEvent(int eventType, String phoneNumber, Date eventTime, Context context)
+    private static void doCallEvent(int eventType, String phoneNumber, Date eventTime, Context context)
     {
         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         PowerManager.WakeLock wakeLock = null;
@@ -147,7 +147,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         }
     }
 
-    private void callStarted(boolean incoming, String phoneNumber, Date eventTime, Context context)
+    private static void callStarted(boolean incoming, String phoneNumber, Date eventTime, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -184,7 +184,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         }
     }
 
-    private void callAnswered(boolean incoming, String phoneNumber, Date eventTime, Context context)
+    private static void callAnswered(boolean incoming, String phoneNumber, Date eventTime, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
@@ -212,7 +212,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, eventTime, context);
     }
 
-    private void callEnded(boolean incoming, boolean missed, String phoneNumber, Date eventTime, Context context)
+    private static void callEnded(boolean incoming, boolean missed, String phoneNumber, Date eventTime, Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);

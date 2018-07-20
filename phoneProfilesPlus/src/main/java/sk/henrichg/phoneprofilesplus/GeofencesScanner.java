@@ -150,10 +150,13 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        clearAllEventGeofences();
-                        PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
-                        startLocationUpdates();
-                        updateTransitionsByLastKnownLocation(false);
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                            GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                            scanner.clearAllEventGeofences();
+                            PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
+                            scanner.startLocationUpdates();
+                            scanner.updateTransitionsByLastKnownLocation(false);
+                        }
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -444,7 +447,11 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
-                                    updateGeofencesInDB();
+                                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                                        GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                                        scanner.updateGeofencesInDB();
+                                    }
+
                                     if (startEventsHandler) {
                                         // start job
                                         //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);

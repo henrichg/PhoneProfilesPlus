@@ -58,7 +58,6 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             // schedule job for location scan
                             PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true,  true, /*true,*/ false);
                         }
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                             // rescan mobile cells
                             synchronized (PPApplication.phoneStateScannerMutex) {
@@ -67,7 +66,6 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                        dataWrapper.invalidateDataWrapper();
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
