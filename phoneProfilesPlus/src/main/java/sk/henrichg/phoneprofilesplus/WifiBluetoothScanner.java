@@ -113,7 +113,7 @@ class WifiBluetoothScanner {
 
                     WifiScanJob.fillWifiConfigurationList(context);
 
-                    boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED;
+                    boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (canScan) {
                         canScan = !WifiApManager.isWifiAPEnabled(context);
                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "canScan=" + canScan);
@@ -253,7 +253,7 @@ class WifiBluetoothScanner {
 
                 } else if (scannerType.equals(SCANNER_TYPE_BLUETOOTH)) {
 
-                    if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED) {
+                    if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                         PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "start bt scan");
 

@@ -246,7 +246,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
-                != PPApplication.PREFERENCE_ALLOWED)
+                != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference;
             preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
@@ -264,7 +264,7 @@ class EventPreferencesBluetooth extends EventPreferences {
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_BLUETOOTH_ENABLED, context);
-        if (preferenceAllowed.allowed == PPApplication.PREFERENCE_ALLOWED) {
+        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesBluetooth tmp = new EventPreferencesBluetooth(this._event, this._enabled, this._adapterName, this._connectionType, this._devicesType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -279,7 +279,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                        ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                 preference.setEnabled(false);
             }
         }

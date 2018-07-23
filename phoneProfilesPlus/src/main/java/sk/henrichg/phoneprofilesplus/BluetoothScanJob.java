@@ -55,7 +55,7 @@ class BluetoothScanJob extends Job {
         //countDownLatch = new CountDownLatch(1);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
-                PPApplication.PREFERENCE_ALLOWED) {
+                PreferenceAllowed.PREFERENCE_ALLOWED) {
             BluetoothScanJob.cancelJob(context, false, null);
             return Result.SUCCESS;
         }
@@ -155,7 +155,7 @@ class BluetoothScanJob extends Job {
         PPApplication.logE("BluetoothScanJob.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
-                == PPApplication.PREFERENCE_ALLOWED) {
+                == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (useHandler && (_handler == null)) {
                 PPApplication.startHandlerThread("BluetoothScanJob.scheduleJob");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -253,7 +253,7 @@ class BluetoothScanJob extends Job {
         setBluetoothEnabledForScan(context, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
-                PPApplication.PREFERENCE_ALLOWED)
+                PreferenceAllowed.PREFERENCE_ALLOWED)
             return;
 
         if (bluetooth == null)

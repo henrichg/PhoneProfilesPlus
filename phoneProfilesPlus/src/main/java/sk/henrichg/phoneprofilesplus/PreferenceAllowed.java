@@ -16,7 +16,8 @@ class PreferenceAllowed {
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM = 4;
     private static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
     public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 6;
-    private static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION = 7;
+    private static final int PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED = 7;
+    private static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION = 8;
 
     public static String getNotAllowedPreferenceReasonString(Context context, PreferenceAllowed preferenceAllowed) {
         switch (preferenceAllowed.notAllowedReason) {
@@ -29,6 +30,8 @@ class PreferenceAllowed {
                 return context.getString(R.string.preference_not_allowed_reason_not_supported) + " (" + preferenceAllowed.notAllowedReasonDetail + ")";
             case PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION:
                 return context.getString(R.string.preference_not_allowed_reason_not_supported_by_application) + " (" + preferenceAllowed.notAllowedReasonDetail + ")";
+            case PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED:
+                return context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
             case PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION:
                 return context.getString(R.string.preference_not_allowed_reason_not_supported_android_version) + " (" + preferenceAllowed.notAllowedReasonDetail + ")";
             default: return context.getString(R.string.empty_string);

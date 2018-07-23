@@ -92,7 +92,7 @@ public class BrightnessDialogPreference extends
 
         adaptiveAllowed = (android.os.Build.VERSION.SDK_INT <= 21) ||
                 (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, _context).allowed
-                        == PPApplication.PREFERENCE_ALLOWED);
+                        == PreferenceAllowed.PREFERENCE_ALLOWED);
 
         savedBrightness = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128);
         savedBrightnessMode = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);

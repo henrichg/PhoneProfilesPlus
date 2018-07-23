@@ -542,17 +542,17 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 int eventCount = 1;
                 if (checkDatabase/* || (powerSaveModeReceiver == null)*/) {
@@ -606,17 +606,17 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 int eventCount = 1;
                 int batteryLevelCount = 1;
@@ -684,7 +684,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED) {
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int eventCount = 1;
                 if (checkDatabase/* || (headsetPlugReceiver == null) || (dockConnectionBroadcastReceiver == null)*/)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL, false);
@@ -753,7 +753,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED) {
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int eventCount = 1;
                 if (checkDatabase/* || (smsBroadcastReceiver == null) || (mmsBroadcastReceiver == null)*/)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
@@ -815,7 +815,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED) {
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int eventCount = 1;
                 if (checkDatabase/* || (calendarProviderChangedBroadcastReceiver == null)*/)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR, false);
@@ -862,7 +862,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED) {
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int eventCount = 1;
                 if (checkDatabase/* || (airplaneModeStateChangedBroadcastReceiver == null)*/)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_AIRPLANE_MODE, false);
@@ -908,7 +908,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED) {
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int eventCount = 1;
                 if (checkDatabase/* || (nfcStateChangedBroadcastReceiver == null)*/)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_NFC, false);
@@ -955,7 +955,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED) {
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int eventCount = 1;
                 if (checkDatabase/* || (mobileDataStateChangedContentObserver == null)*/)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA, false);
@@ -1000,11 +1000,11 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, appContext).allowed ==
-                                        PPApplication.PREFERENCE_ALLOWED;
+                                        PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
-                                        PPApplication.PREFERENCE_ALLOWED) ||
+                                        PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                    (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                        PPApplication.PREFERENCE_ALLOWED);
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
             if (profileAllowed || eventAllowed) {
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "profile or event allowed");
                 int profileCount = 1;
@@ -1070,9 +1070,9 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || (Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED);
+                    PreferenceAllowed.PREFERENCE_ALLOWED);
             if (allowed) {
                 int eventCount = 1;
                 int eventScannerCount = 1;
@@ -1138,9 +1138,9 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED);
+                    PreferenceAllowed.PREFERENCE_ALLOWED);
             if (allowed) {
                 int eventCount = 1;
                 int eventScannerCount = 1;
@@ -1205,7 +1205,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext) ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 int eventCount = 1;
                 int eventScannerCount = 1;
@@ -1303,7 +1303,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 int eventCount = 1;
                 if (checkDatabase) {
@@ -1369,7 +1369,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
                     PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -1421,17 +1421,17 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             allowed = allowed || Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 int eventCount = 1;
                 if (checkDatabase/* || (powerSaveModeReceiver == null)*/) {
@@ -1486,9 +1486,9 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (profileAllowed || eventAllowed) {
                 int profileCount = 1;
                 int eventCount = 1;
@@ -1565,9 +1565,9 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (profileAllowed || eventAllowed) {
                 int profileCount = 1;
                 int eventCount = 1;
@@ -1643,7 +1643,7 @@ public class PhoneProfilesService extends Service
         }
         if (register) {
             boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                    PPApplication.PREFERENCE_ALLOWED;
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 int eventCount = 1;
                 if (checkDatabase) {
@@ -1708,7 +1708,7 @@ public class PhoneProfilesService extends Service
                 //}
                 if (schedule) {
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
-                            PPApplication.PREFERENCE_ALLOWED;
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
                             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -1771,7 +1771,7 @@ public class PhoneProfilesService extends Service
                 //}
                 if (schedule) {
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, appContext).allowed ==
-                            PPApplication.PREFERENCE_ALLOWED;
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) {
                             PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -1831,7 +1831,7 @@ public class PhoneProfilesService extends Service
                 //}
                 if (schedule) {
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                            PPApplication.PREFERENCE_ALLOWED;
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                             // location scanner is enabled
@@ -1893,7 +1893,7 @@ public class PhoneProfilesService extends Service
                 }
                 if (schedule) {
                     boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
-                            PPApplication.PREFERENCE_ALLOWED;
+                            PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         int eventCount = 1;
                         if (checkDatabase/* || (!SearchCalendarEventsJob.isJobScheduled())*/) {
@@ -1933,7 +1933,7 @@ public class PhoneProfilesService extends Service
             }
             if (start) {
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
-                        PPApplication.PREFERENCE_ALLOWED;
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (eventAllowed) {
                     if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                         // location scanner is enabled
@@ -1986,7 +1986,7 @@ public class PhoneProfilesService extends Service
             }
             if (start) {
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
-                        PPApplication.PREFERENCE_ALLOWED;
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (eventAllowed) {
                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext) || PhoneStateScanner.forceStart) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -2033,7 +2033,7 @@ public class PhoneProfilesService extends Service
             }
             if (start) {
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                        PPApplication.PREFERENCE_ALLOWED;
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (eventAllowed) {
                     if (ApplicationPreferences.applicationEventOrientationEnableScanning(appContext)) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);

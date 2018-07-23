@@ -197,7 +197,7 @@ class EventPreferencesWifi extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
-                != PPApplication.PREFERENCE_ALLOWED)
+                != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_ENABLED);
             if (preference != null) preference.setEnabled(false);
@@ -212,7 +212,7 @@ class EventPreferencesWifi extends EventPreferences {
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context);
-        if (preferenceAllowed.allowed == PPApplication.PREFERENCE_ALLOWED) {
+        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesWifi tmp = new EventPreferencesWifi(this._event, this._enabled, this._SSID, this._connectionType);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -227,7 +227,7 @@ class EventPreferencesWifi extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                        ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                 preference.setEnabled(false);
             }
         }

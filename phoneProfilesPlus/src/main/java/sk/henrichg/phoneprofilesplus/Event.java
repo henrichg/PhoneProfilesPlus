@@ -1840,32 +1840,32 @@ class Event {
     {
         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
 
-        preferenceAllowed.allowed = PPApplication.PREFERENCE_NOT_ALLOWED;
+        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
                 // device has Wifi
-                preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
-                preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH))
                 // device has bluetooth
-                preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
-                preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED))
         {
             //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
-                preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             /*else {
-                PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                PPApplication.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }*/
         }
@@ -1873,7 +1873,7 @@ class Event {
         if (preferenceKey.equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED))
         {
             //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
-                preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
         }
@@ -1885,33 +1885,33 @@ class Event {
                     (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
             if (enabled) {
                 //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
-                    preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 //else
                 //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
             }
             else
-                preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
                 // device has telephony
-                preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
-                preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
         if (preferenceKey.equals(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_NFC))
                 // device has nfc
-                preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
-                preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
         }
         else
-            preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 
         return preferenceAllowed;
     }

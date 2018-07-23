@@ -178,7 +178,7 @@ class EventPreferencesApplication extends EventPreferences {
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context);
-        if (preferenceAllowed.allowed == PPApplication.PREFERENCE_ALLOWED) {
+        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesApplication tmp = new EventPreferencesApplication(this._event, this._enabled, this._applications);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -193,7 +193,7 @@ class EventPreferencesApplication extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                        ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                 preference.setEnabled(false);
             }
         }
