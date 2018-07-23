@@ -27,7 +27,7 @@ import java.util.List;
 
 public class ActivateProfileActivity extends AppCompatActivity {
 
-    private static ActivateProfileActivity instance;
+    private static volatile ActivateProfileActivity instance;
 
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
@@ -40,7 +40,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        instance = this;
+        synchronized (ActivateProfileActivity.class) {
+            instance = this;
+        }
 
         GlobalGUIRoutines.setTheme(this, true, true, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
@@ -201,8 +203,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     protected void onStop()
     {
         super.onStop();
-        if (instance == this)
+        synchronized (ActivateProfileActivity.class) {
             instance = null;
+        }
         //ActivatorTargetHelpsActivity.activatorActivity = null;
     }
 
@@ -214,9 +217,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         //Log.d("ActivateProfilesActivity.onResume", "xxx");
 
-        if (instance == null)
+        if (ActivateProfileActivity.getInstance() == null)
         {
-            instance = this;
+            synchronized (ActivateProfileActivity.class) {
+                instance = this;
+            }
             refreshGUI(false);
         }
     }
@@ -506,8 +511,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (instance != null) {
-                            Fragment fragment = instance.getFragmentManager().findFragmentById(R.id.activate_profile_list);
+                        if (ActivateProfileActivity.getInstance() != null) {
+                            Fragment fragment = ActivateProfileActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
                             if (fragment != null) {
                                 ((ActivateProfileListFragment) fragment).showTargetHelps();
                             }

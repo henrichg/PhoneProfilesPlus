@@ -62,14 +62,14 @@ public class PhoneProfilesService extends Service
                                     implements SensorEventListener/*,
                                     AudioManager.OnAudioFocusChangeListener*/
 {
-    private static PhoneProfilesService instance = null;
-    private static boolean serviceHasFirstStart = false;
-    private static boolean serviceRunning = false;
-    private static boolean runningInForeground = false;
+    private static volatile PhoneProfilesService instance = null;
+    private boolean serviceHasFirstStart = false;
+    private boolean serviceRunning = false;
+    private boolean runningInForeground = false;
 
-    private static KeyguardManager keyguardManager = null;
+    private KeyguardManager keyguardManager = null;
     @SuppressWarnings("deprecation")
-    private static KeyguardManager.KeyguardLock keyguardLock = null;
+    private KeyguardManager.KeyguardLock keyguardLock = null;
 
     BrightnessView brightnessView = null;
     BrightnessView keepScreenOnView = null;
@@ -202,7 +202,10 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
 
-        instance = this;
+        synchronized (PhoneProfilesService.class) {
+            instance = this;
+        }
+
         serviceHasFirstStart = false;
         serviceRunning = false;
         runningInForeground = false;
@@ -281,7 +284,10 @@ public class PhoneProfilesService extends Service
 
         removeProfileNotification(this);
 
-        instance = null;
+        synchronized (PhoneProfilesService.class) {
+            instance = null;
+        }
+
         serviceHasFirstStart = false;
         serviceRunning = false;
         runningInForeground = false;
@@ -293,7 +299,7 @@ public class PhoneProfilesService extends Service
         return instance;
     }
 
-    static boolean getServiceHasFirstStart() {
+    boolean getServiceHasFirstStart() {
         return serviceHasFirstStart;
     }
 
@@ -2424,7 +2430,7 @@ public class PhoneProfilesService extends Service
                     BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
 
                     if (instance != null)
-                        instance.registerReceiversAndJobs();
+                        PhoneProfilesService.getInstance().registerReceiversAndJobs();
                     AboutApplicationJob.scheduleJob(getApplicationContext(), true);
 
                     serviceHasFirstStart = true;
@@ -2575,7 +2581,7 @@ public class PhoneProfilesService extends Service
                             }
 
                             if (instance != null)
-                                instance.registerReceiversAndJobs();
+                                PhoneProfilesService.getInstance().registerReceiversAndJobs();
 
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -2602,7 +2608,7 @@ public class PhoneProfilesService extends Service
                             }
 
                             if (instance != null)
-                                instance.unregisterReceiversAndJobs();
+                                PhoneProfilesService.getInstance().unregisterReceiversAndJobs();
 
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -2629,7 +2635,7 @@ public class PhoneProfilesService extends Service
                             }
 
                             if (instance != null)
-                                instance.reregisterReceiversAndJobs();
+                                PhoneProfilesService.getInstance().reregisterReceiversAndJobs();
 
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -2668,9 +2674,9 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.startGeofenceScanner(true, true, true, false);
+                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, true, true, false);
                                     if (instance != null)
-                                        instance.scheduleGeofenceScannerJob(true, true, /*false,*/ false);
+                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*false,*/ false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2696,9 +2702,9 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.startGeofenceScanner(false, true, false, false);
+                                        PhoneProfilesService.getInstance().startGeofenceScanner(false, true, false, false);
                                     if (instance != null)
-                                        instance.scheduleGeofenceScannerJob(false, false, /*false,*/ false);
+                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(false, false, /*false,*/ false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2724,7 +2730,7 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.startOrientationScanner(true, true, true);
+                                        PhoneProfilesService.getInstance().startOrientationScanner(true, true, true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2750,7 +2756,7 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.startOrientationScanner(false, true, false);
+                                        PhoneProfilesService.getInstance().startOrientationScanner(false, true, false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2777,7 +2783,7 @@ public class PhoneProfilesService extends Service
 
                                     if (instance != null) {
                                         PhoneStateScanner.forceStart = false;
-                                        instance.startPhoneStateScanner(true, true, true, false, false);
+                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, false);
                                     }
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2804,7 +2810,7 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.startPhoneStateScanner(false, true, false, false, false);
+                                        PhoneProfilesService.getInstance().startPhoneStateScanner(false, true, false, false, false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2830,13 +2836,13 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.registerWifiConnectionBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiScannerReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2862,13 +2868,13 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.registerWifiConnectionBroadcastReceiver(true, false, true);
+                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, false, true);
                                     if (instance != null)
-                                        instance.registerWifiStateChangedBroadcastReceiver(true, false, true);
+                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, false, true);
                                     if (instance != null)
-                                        instance.registerWifiAPStateChangeBroadcastReceiver(true, false, true);
+                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, false, true);
                                     if (instance != null)
-                                        instance.registerWifiScannerReceiver(true, false, true);
+                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, false, true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2894,11 +2900,11 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     //if (instance != null)
-                                    //    instance.registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                                     if (instance != null)
-                                        instance.registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerBluetoothScannerReceivers(true, true, false);
+                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2924,11 +2930,11 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     //if (instance != null)
-                                    //    instance.registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
+                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
                                     if (instance != null)
-                                        instance.registerBluetoothStateChangedBroadcastReceiver(true, false, true);
+                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, false, true);
                                     if (instance != null)
-                                        instance.registerBluetoothScannerReceivers(true, false, true);
+                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, false, true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2954,15 +2960,15 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.registerWifiConnectionBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiScannerReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
+                                        PhoneProfilesService.getInstance().scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -2988,13 +2994,13 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     //if (instance != null)
-                                    //    instance.registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                                     if (instance != null)
-                                        instance.registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerBluetoothScannerReceivers(true, true, false);
+                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
                                     if (instance != null)
-                                        instance.scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
+                                        PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -3022,7 +3028,7 @@ public class PhoneProfilesService extends Service
 
                                         if (instance != null) {
                                             PhoneStateScanner.forceStart = false;
-                                            instance.startPhoneStateScanner(true, true, true, false, true);
+                                            PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, true);
                                         }
 
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -3051,7 +3057,7 @@ public class PhoneProfilesService extends Service
 
                                     if (instance != null) {
                                         PhoneStateScanner.forceStart = true;
-                                        instance.startPhoneStateScanner(true, false, false, true, false);
+                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, false, false, true, false);
                                     }
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -3078,11 +3084,11 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.registerLocationModeChangedBroadcastReceiver(true, true);
+                                        PhoneProfilesService.getInstance().registerLocationModeChangedBroadcastReceiver(true, true);
                                     if (instance != null)
-                                        instance.startGeofenceScanner(true, true, true, forScreenOn);
+                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, true, true, forScreenOn);
                                     if (instance != null)
-                                        instance.scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
+                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -3108,7 +3114,7 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.startOrientationScanner(true, false, true);
+                                        PhoneProfilesService.getInstance().startOrientationScanner(true, false, true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -3134,38 +3140,38 @@ public class PhoneProfilesService extends Service
                                     }
 
                                     if (instance != null)
-                                        instance.registerWifiConnectionBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerWifiScannerReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
+                                        PhoneProfilesService.getInstance().scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
 
                                     //if (instance != null)
-                                    //    instance.registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
                                     if (instance != null)
-                                        instance.registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
                                     if (instance != null)
-                                        instance.registerBluetoothScannerReceivers(true, true, false);
+                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
                                     if (instance != null)
-                                        instance.scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
+                                        PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
 
                                     PhoneStateScanner.forceStart = false;
                                     if (instance != null)
-                                        instance.startPhoneStateScanner(true, true, true, false, true);
+                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, true);
 
                                     if (instance != null)
-                                        instance.registerLocationModeChangedBroadcastReceiver(true, true);
+                                        PhoneProfilesService.getInstance().registerLocationModeChangedBroadcastReceiver(true, true);
                                     if (instance != null)
-                                        instance.startGeofenceScanner(true, false, true, forScreenOn);
+                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, false, true, forScreenOn);
                                     if (instance != null)
-                                        instance.scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
+                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
 
                                     if (instance != null)
-                                        instance.startOrientationScanner(true, false, true);
+                                        PhoneProfilesService.getInstance().startOrientationScanner(true, false, true);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -3493,7 +3499,7 @@ public class PhoneProfilesService extends Service
 
                 if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent)
                     if (instance != null)
-                        instance.startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                        PhoneProfilesService.getInstance().startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null)
@@ -3536,10 +3542,10 @@ public class PhoneProfilesService extends Service
             @Override
             public void run() {
                 if (instance != null) {
-                    DataWrapper dataWrapper = new DataWrapper(instance.getApplicationContext(), false, 0);
+                    DataWrapper dataWrapper = new DataWrapper(PhoneProfilesService.getInstance().getApplicationContext(), false, 0);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                     if (instance != null)
-                        instance._showProfileNotification(profile, true, dataWrapper);
+                        PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper);
                     dataWrapper.invalidateDataWrapper();
                 }
             }
@@ -3656,8 +3662,8 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "geofencesScanner="+geofencesScanner);
         /*if (instance != null) {
             PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "instance==this? " + (instance == this));
-            PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.isGeofenceScannerStarted()=" + instance.isGeofenceScannerStarted());
-            PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.getGeofencesScanner()=" + instance.getGeofencesScanner());
+            PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+            PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.getGeofencesScanner()=" + PhoneProfilesService.getInstance().getGeofencesScanner());
         }*/
         geofencesScanner.connect(resetUseGPS);
     }

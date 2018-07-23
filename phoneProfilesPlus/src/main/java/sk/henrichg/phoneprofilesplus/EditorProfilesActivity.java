@@ -68,7 +68,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                OnStartEventPreferencesFromDetail
 {
 
-    private static EditorProfilesActivity instance;
+    private static volatile EditorProfilesActivity instance;
 
     private ImageView eventsRunStopIndicator;
 
@@ -160,7 +160,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, false, true, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
-        instance = this;
+        synchronized (EditorProfilesActivity.class) {
+            instance = this;
+        }
 
         savedInstanceStateChanged = (savedInstanceState != null);
 
@@ -506,8 +508,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
             addEventDialog.mDialog.dismiss();
 
-        if (instance == this)
+        synchronized (EditorProfilesActivity.class) {
             instance = null;
+        }
     }
 
     @Override
@@ -516,9 +519,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         //Debug.stopMethodTracing();
         super.onResume();
 
-        if (instance == null)
+        if (EditorProfilesActivity.getInstance() == null)
         {
-            instance = this;
+            synchronized (EditorProfilesActivity.class) {
+                instance = this;
+            }
             refreshGUI(false, false);
         }
 
@@ -528,7 +533,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             @Override
             public void run() {
                 if (instance != null)
-                    instance.showTargetHelps();
+                    EditorProfilesActivity.getInstance().showTargetHelps();
             }
         }, 1000);
         */
@@ -2248,8 +2253,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (instance != null) {
-                            Fragment fragment = instance.getFragmentManager().findFragmentById(R.id.editor_list_container);
+                        if (EditorProfilesActivity.getInstance() != null) {
+                            Fragment fragment = EditorProfilesActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
                             if (fragment != null) {
                                 if (fragment instanceof EditorProfileListFragment)
                                     ((EditorProfileListFragment) fragment).showTargetHelps();

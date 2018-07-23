@@ -38,7 +38,7 @@ public class LauncherActivity extends AppCompatActivity {
         }
         else
         {
-            if (!PhoneProfilesService.getServiceHasFirstStart()) {
+            if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
