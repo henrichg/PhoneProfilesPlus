@@ -58,7 +58,8 @@ class SettingsContentObserver  extends ContentObserver {
             if (!RingerModeChangeReceiver.internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING) {
                     ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                    PhoneProfilesService.ringingVolume = currentVolume;
+                    if (PhoneProfilesService.getInstance() != null)
+                        PhoneProfilesService.getInstance().ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                     ActivateProfileHelper.setNotificationVolume(context, currentVolume);
@@ -71,7 +72,8 @@ class SettingsContentObserver  extends ContentObserver {
             if (!RingerModeChangeReceiver.internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING) {
                     ActivateProfileHelper.setRingerVolume(context, currentVolume);
-                    PhoneProfilesService.ringingVolume = currentVolume;
+                    if (PhoneProfilesService.getInstance() != null)
+                        PhoneProfilesService.getInstance().ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
                     ActivateProfileHelper.setNotificationVolume(context, currentVolume);

@@ -272,7 +272,8 @@ class ActivateProfileHelper {
                                                 if (wifiConnected) {
                                                     if (!wifiInfo.getSSID().equals(i.SSID)) {
 
-                                                        PhoneProfilesService.connectToSSIDStarted = true;
+                                                        if (PhoneProfilesService.getInstance() != null)
+                                                            PhoneProfilesService.getInstance().connectToSSIDStarted = true;
 
                                                         // connected to another SSID
                                                         wifiManager.disconnect();
@@ -298,7 +299,8 @@ class ActivateProfileHelper {
                 //        wifiManager.reconnect();
                 //    }
                 //}
-                PhoneProfilesService.connectToSSID = profile._deviceConnectToSSID;
+                if (PhoneProfilesService.getInstance() != null)
+                    PhoneProfilesService.getInstance().connectToSSID = profile._deviceConnectToSSID;
             }
         }
 
@@ -644,7 +646,8 @@ class ActivateProfileHelper {
                         if (volume != -999) {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-                                PhoneProfilesService.ringingVolume = volume;
+                                if (PhoneProfilesService.getInstance() != null)
+                                    PhoneProfilesService.getInstance().ringingVolume = volume;
                                 //PhoneProfilesService.notificationVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                                 audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, volume, 0);
@@ -661,7 +664,8 @@ class ActivateProfileHelper {
                         if (volume != -999) {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-                                PhoneProfilesService.ringingVolume = volume;
+                                if (PhoneProfilesService.getInstance() != null)
+                                    PhoneProfilesService.getInstance().ringingVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, profile.getVolumeRingtoneValue());
                             } catch (Exception ignored) { }
                         }
@@ -682,7 +686,8 @@ class ActivateProfileHelper {
                         if (volume != -999) {
                             try {
                                 audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-                                PhoneProfilesService.ringingVolume = volume;
+                                if (PhoneProfilesService.getInstance() != null)
+                                    PhoneProfilesService.getInstance().ringingVolume = volume;
                                 //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                                 //correctVolume0(audioManager);
                             } catch (Exception ignored) { }
@@ -730,7 +735,8 @@ class ActivateProfileHelper {
                     if (volume != -999) {
                         try {
                             audioManager.setStreamVolume(AudioManager.STREAM_RING, volume, 0);
-                            PhoneProfilesService.ringingVolume = volume;
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().ringingVolume = volume;
                             //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_RING, volume);
                             //correctVolume0(audioManager);
                             PPApplication.logE("ActivateProfileHelper.setVolumes", "ringer volume set");

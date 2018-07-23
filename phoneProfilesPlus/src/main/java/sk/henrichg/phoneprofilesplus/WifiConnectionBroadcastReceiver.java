@@ -48,17 +48,19 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
                             PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "state=" + info.getState());
 
-                            if (PhoneProfilesService.connectToSSIDStarted) {
-                                // connect to SSID is started
+                            if (PhoneProfilesService.getInstance() != null) {
+                                if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
+                                    // connect to SSID is started
 
-                                if (info.getState() == NetworkInfo.State.CONNECTED) {
-                                    //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                                    //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                                    //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
-                                    //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
-                                    //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
-                                    //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
-                                    PhoneProfilesService.connectToSSIDStarted = false;
+                                    if (info.getState() == NetworkInfo.State.CONNECTED) {
+                                        //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                                        //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                                        //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
+                                        //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
+                                        //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
+                                        //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
+                                        PhoneProfilesService.getInstance().connectToSSIDStarted = false;
+                                    }
                                 }
                             }
 
@@ -72,7 +74,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
                                         PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
 
-                                        if (!PhoneProfilesService.connectToSSIDStarted) {
+                                        if ((PhoneProfilesService.getInstance() != null) && (!PhoneProfilesService.getInstance().connectToSSIDStarted)) {
                                             // connect to SSID is not started
 
                                             // start events handler

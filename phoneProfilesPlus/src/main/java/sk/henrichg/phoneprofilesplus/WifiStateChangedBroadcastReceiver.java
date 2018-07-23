@@ -57,27 +57,29 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     (WifiScanJob.getWifiEnabledForScan(appContext)))) {
                                 // ignore for wifi scanning
 
-                                if (!PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
-                                    WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                                    if (wifiManager != null) {
-                                        List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
-                                        if (list != null) {
-                                            for (WifiConfiguration i : list) {
-                                                if (i.SSID != null && i.SSID.equals(PhoneProfilesService.connectToSSID)) {
-                                                    //wifiManager.disconnect();
-                                                    wifiManager.enableNetwork(i.networkId, true);
-                                                    //wifiManager.reconnect();
-                                                    break;
+                                if (PhoneProfilesService.getInstance() != null) {
+                                    if (!PhoneProfilesService.getInstance().connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                                        WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                                        if (wifiManager != null) {
+                                            List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                            if (list != null) {
+                                                for (WifiConfiguration i : list) {
+                                                    if (i.SSID != null && i.SSID.equals(PhoneProfilesService.getInstance().connectToSSID)) {
+                                                        //wifiManager.disconnect();
+                                                        wifiManager.enableNetwork(i.networkId, true);
+                                                        //wifiManager.reconnect();
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }
                                     }
+                                    //else {
+                                    //    WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                                    //    wifiManager.disconnect();
+                                    //    wifiManager.reconnect();
+                                    //}
                                 }
-                                //else {
-                                //    WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                                //    wifiManager.disconnect();
-                                //    wifiManager.reconnect();
-                                //}
                             }
                         }
 

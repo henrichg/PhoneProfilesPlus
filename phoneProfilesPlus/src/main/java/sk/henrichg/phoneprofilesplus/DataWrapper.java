@@ -2979,7 +2979,7 @@ public class DataWrapper {
                                             for (String split : splits) {
                                                 try {
                                                     int side = Integer.valueOf(split);
-                                                    if (side == PhoneProfilesService.mDisplayUp) {
+                                                    if (side == PhoneProfilesService.getInstance().mDisplayUp) {
                                                         lDisplayPassed = true;
                                                         break;
                                                     }
@@ -2999,12 +2999,12 @@ public class DataWrapper {
                                                 try {
                                                     int side = Integer.valueOf(split);
                                                     if (side == PhoneProfilesService.DEVICE_ORIENTATION_HORIZONTAL) {
-                                                        if (PhoneProfilesService.mSideUp == PhoneProfilesService.mDisplayUp) {
+                                                        if (PhoneProfilesService.getInstance().mSideUp == PhoneProfilesService.getInstance().mDisplayUp) {
                                                             lSidePassed = true;
                                                             break;
                                                         }
                                                     } else {
-                                                        if (side == PhoneProfilesService.mSideUp) {
+                                                        if (side == PhoneProfilesService.getInstance().mSideUp) {
                                                             lSidePassed = true;
                                                             break;
                                                         }
@@ -3020,7 +3020,7 @@ public class DataWrapper {
                                 boolean enabled = PhoneProfilesService.getProximitySensor(context) != null;
                                 if (enabled) {
                                     if (event._eventPreferencesOrientation._distance != 0) {
-                                        lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.mDeviceDistance;
+                                        lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.getInstance().mDeviceDistance;
                                     }
                                 }
 
