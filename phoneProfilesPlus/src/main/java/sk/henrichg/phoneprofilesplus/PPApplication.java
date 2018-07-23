@@ -361,9 +361,6 @@ public class PPApplication extends Application {
     public static Handler brightnessHandler;
     public static Handler screenTimeoutHandler;
 
-    public static int notAllowedReason;
-    public static String notAllowedReasonDetail;
-
     public static final RootMutex rootMutex = new RootMutex();
     private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
@@ -848,21 +845,21 @@ public class PPApplication extends Application {
         editor.apply();
     }
 
-    public static String getNotAllowedPreferenceReasonString(Context context) {
-        switch (notAllowedReason) {
+    public static String getNotAllowedPreferenceReasonString(Context context, PreferenceAllowed preferenceAllowed) {
+        switch (preferenceAllowed.notAllowedReason) {
             case PREFERENCE_NOT_ALLOWED_NO_HARDWARE: return context.getString(R.string.preference_not_allowed_reason_no_hardware);
             case PREFERENCE_NOT_ALLOWED_NOT_ROOTED: return context.getString(R.string.preference_not_allowed_reason_not_rooted);
             case PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND: return context.getString(R.string.preference_not_allowed_reason_settings_not_found);
             case PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND: return context.getString(R.string.preference_not_allowed_reason_service_not_found);
             case PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS: return context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             case PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM:
-                return context.getString(R.string.preference_not_allowed_reason_not_supported) + " (" + notAllowedReasonDetail + ")";
+                return context.getString(R.string.preference_not_allowed_reason_not_supported) + " (" + preferenceAllowed.notAllowedReasonDetail + ")";
             case PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION:
-                return context.getString(R.string.preference_not_allowed_reason_not_supported_by_application) + " (" + notAllowedReasonDetail + ")";
+                return context.getString(R.string.preference_not_allowed_reason_not_supported_by_application) + " (" + preferenceAllowed.notAllowedReasonDetail + ")";
             case PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED:
                 return context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
             case PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION:
-                return context.getString(R.string.preference_not_allowed_reason_not_supported_android_version) + " (" + notAllowedReasonDetail + ")";
+                return context.getString(R.string.preference_not_allowed_reason_not_supported_android_version) + " (" + preferenceAllowed.notAllowedReasonDetail + ")";
             default: return context.getString(R.string.empty_string);
         }
     }

@@ -1138,15 +1138,15 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     }
                 }
             }
-            int canChange = Profile.isProfilePreferenceAllowed(key, context);
-            if (canChange != PPApplication.PREFERENCE_ALLOWED)
+            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, context);
+            if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED)
             {
                 Preference preference = prefMng.findPreference(key);
                 if (preference != null) {
                     preference.setEnabled(false);
-                    if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.allowed == PPApplication.PREFERENCE_NOT_ALLOWED)
                         preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
+                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                     GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, false);
                     setCategorySummary(preference, false);
                 }
@@ -1179,12 +1179,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
             if (listPreference != null) {
-                int canChange = Profile.isProfilePreferenceAllowed(key, context);
-                if (canChange != PPApplication.PREFERENCE_ALLOWED) {
+                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, context);
+                if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED) {
                     listPreference.setEnabled(false);
-                    if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.allowed == PPApplication.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
+                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
@@ -1236,17 +1236,21 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
             key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH))
         {
-            int canChange = PPApplication.PREFERENCE_ALLOWED;
+            PreferenceAllowed preferenceAllowed;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
-                canChange = Profile.isProfilePreferenceAllowed(key, context);
-            if (canChange != PPApplication.PREFERENCE_ALLOWED)
+                preferenceAllowed = Profile.isProfilePreferenceAllowed(key, context);
+            else {
+                preferenceAllowed = new PreferenceAllowed();
+                preferenceAllowed.allowed = PPApplication.PREFERENCE_ALLOWED;
+            }
+            if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED)
             {
                 ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
                 if (listPreference != null) {
                     listPreference.setEnabled(false);
-                    if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.allowed == PPApplication.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
+                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
@@ -1275,12 +1279,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setTitle(R.string.profile_preferences_notificationLed);
                     listPreference.setDialogTitle(R.string.profile_preferences_notificationLed);
                 }
-                int canChange = Profile.isProfilePreferenceAllowed(key, context);
-                if (canChange != PPApplication.PREFERENCE_ALLOWED) {
+                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, context);
+                if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED) {
                     listPreference.setEnabled(false);
-                    if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.allowed == PPApplication.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
+                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 } else {
@@ -1298,12 +1302,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
             if (listPreference != null) {
-                int canChange = Profile.isProfilePreferenceAllowed(key, context);
-                if (canChange != PPApplication.PREFERENCE_ALLOWED) {
+                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, context);
+                if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED) {
                     listPreference.setEnabled(false);
-                    if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.allowed == PPApplication.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
+                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 } else {
@@ -1421,12 +1425,12 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
             if (listPreference != null) {
-                int canChange = Profile.isProfilePreferenceAllowed(key, context);
-                if (canChange != PPApplication.PREFERENCE_ALLOWED) {
+                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, context);
+                if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED) {
                     listPreference.setEnabled(false);
-                    if (canChange == PPApplication.PREFERENCE_NOT_ALLOWED)
+                    if (preferenceAllowed.allowed == PPApplication.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context));
+                                ": "+ PPApplication.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
@@ -1618,7 +1622,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
         {
-            if (Profile.isProfilePreferenceAllowed(key, context) == PPApplication.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(key, context).allowed == PPApplication.PREFERENCE_ALLOWED) {
                 boolean enabled = !sValue.equals(ON);
                 ListPreference preference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI);
                 if (preference != null) {
@@ -1634,7 +1638,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
                 String zenMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
                 boolean enabled = false;
-                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context) == PPApplication.PREFERENCE_ALLOWED) &&
+                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context).allowed == PPApplication.PREFERENCE_ALLOWED) &&
                         ringerMode.equals("5")) {
                     if (zenMode.equals("1") || zenMode.equals("2"))
                         enabled = true;

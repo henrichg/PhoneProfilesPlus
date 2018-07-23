@@ -7754,7 +7754,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if (profilesCursor.moveToFirst()) {
                         do {
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_AIRPLANE_MODE, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7762,7 +7762,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_WIFI, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7770,7 +7770,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_BLUETOOTH))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_BLUETOOTH, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7778,7 +7778,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_MOBILE_DATA, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7786,7 +7786,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_MOBILE_DATA_PREFS, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7794,7 +7794,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_GPS))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_GPS, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7802,7 +7802,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7810,7 +7810,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_NFC))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_NFC, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7818,7 +7818,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI_AP))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_WIFI_AP, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7858,7 +7858,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context)
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, context).allowed
                                             == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_POWER_SAVE_MODE, 0);
@@ -7867,7 +7867,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context)
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context).allowed
                                             == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_NETWORK_TYPE, 0);
@@ -7876,7 +7876,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_NOTIFICATION_LED))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, context)
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, context).allowed
                                             == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_NOTIFICATION_LED, 0);
@@ -7885,7 +7885,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context)
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context).allowed
                                             == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_VIBRATE_WHEN_RINGING, 0);
@@ -7893,7 +7893,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         new String[]{String.valueOf(Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_ID))))});
                             }
 
-                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context) == PPApplication.PREFERENCE_NOT_ALLOWED) {
+                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED) {
                                 values.clear();
                                 values.put(KEY_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7901,7 +7901,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7909,7 +7909,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7917,7 +7917,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_WIFI_AP_PREFS))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_WIFI_AP_PREFS, 0);
                                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -7925,7 +7925,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, context)
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, context).allowed
                                             == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_HEADS_UP_NOTIFICATIONS, 0);
@@ -7934,7 +7934,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(profilesCursor.getString(profilesCursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS))) != 0) &&
-                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, context)
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, context).allowed
                                             == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, 0);
@@ -7950,21 +7950,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     if (eventsCursor.moveToFirst()) {
                         do {
                             if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_WIFI_ENABLED))) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_E_WIFI_ENABLED, 0);
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                                         new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                             }
                             if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_BLUETOOTH_ENABLED))) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_E_BLUETOOTH_ENABLED, 0);
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                                         new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                             }
                             if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_NOTIFICATION_ENABLED))) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_E_NOTIFICATION_ENABLED, 0);
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -7996,7 +7996,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 }
                             }
                             if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_MOBILE_CELLS_ENABLED))) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -8004,7 +8004,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_NFC_ENABLED))) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_E_NFC_ENABLED, 0);
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -8012,7 +8012,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             }
 
                             if ((Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_RADIO_SWITCH_ENABLED))) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_NOT_ALLOWED)) {
+                                    (Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PPApplication.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_E_RADIO_SWITCH_ENABLED, 0);
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",

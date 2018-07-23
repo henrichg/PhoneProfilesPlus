@@ -46,7 +46,7 @@ class WifiScanJob extends Job {
 
         //countDownLatch = new CountDownLatch(1);
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
+        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                 PPApplication.PREFERENCE_ALLOWED) {
             WifiScanJob.cancelJob(context, false, null);
             return Result.SUCCESS;
@@ -151,7 +151,7 @@ class WifiScanJob extends Job {
     static void scheduleJob(final Context context, final boolean useHandler, final Handler _handler, final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
         PPApplication.logE("WifiScanJob.scheduleJob", "shortInterval="+shortInterval);
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context)
+        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PPApplication.PREFERENCE_ALLOWED) {
             if (useHandler && (_handler == null)) {
                 PPApplication.startHandlerThread("WifiScanJob.scheduleJob");
@@ -230,7 +230,7 @@ class WifiScanJob extends Job {
         setWaitForResults(context, false);
         setWifiEnabledForScan(context, false);
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) !=
+        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                 PPApplication.PREFERENCE_ALLOWED)
             return;
 

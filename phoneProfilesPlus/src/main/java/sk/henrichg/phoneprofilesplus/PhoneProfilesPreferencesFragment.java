@@ -134,7 +134,8 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             //setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_GRID_LAYOUT);
         }
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext())
+        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
+        if (preferenceAllowed.allowed
                     != PPApplication.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
@@ -147,13 +148,13 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             Preference preference = prefMng.findPreference("wifiScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity()));
+                        ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity(), preferenceAllowed));
                 preference.setEnabled(false);
             }
         }
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext())
-                != PPApplication.PREFERENCE_ALLOWED)
+        preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext());
+        if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH).setEnabled(false);
@@ -167,28 +168,29 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             Preference preference = prefMng.findPreference("bluetoothScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity()));
+                        ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity(), preferenceAllowed));
                 preference.setEnabled(false);
             }
         }
 
-        if (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext())
-                != PPApplication.PREFERENCE_ALLOWED)
+        preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext());
+        if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference("orientationScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity()));
+                        ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity(), preferenceAllowed));
                 preference.setEnabled(false);
             }
         }
-        if (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext())
-                != PPApplication.PREFERENCE_ALLOWED)
+
+        preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext());
+        if (preferenceAllowed.allowed != PPApplication.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity()));
+                        ": " + PPApplication.getNotAllowedPreferenceReasonString(getActivity(), preferenceAllowed));
                 preference.setEnabled(false);
             }
         }

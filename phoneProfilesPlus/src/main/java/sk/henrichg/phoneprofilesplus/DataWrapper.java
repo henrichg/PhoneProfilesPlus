@@ -1855,7 +1855,7 @@ public class DataWrapper {
         PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- sensorType="+sensorType);
 
         if (event._eventPreferencesTime._enabled)
-            if (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+            if (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)
             {
                 // compute start datetime
                 long startAlarmTime;
@@ -1889,7 +1889,7 @@ public class DataWrapper {
                 notAllowedTime = true;
 
         if (event._eventPreferencesBattery._enabled)
-            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)
             {
                 boolean isPowerSaveMode = isPowerSaveMode(context);
                 PPApplication.logE("*** DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
@@ -1942,7 +1942,7 @@ public class DataWrapper {
                 notAllowedBattery = true;
 
         if (event._eventPreferencesCall._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)&&
+            if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)&&
                 Permissions.checkEventCallContacts(context, event, null) &&
                 Permissions.checkEventPhoneBroadcast(context, event, null))
             {
@@ -2145,7 +2145,7 @@ public class DataWrapper {
                 notAllowedCall = true;
 
         if (event._eventPreferencesPeripherals._enabled)
-            if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+            if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)
             {
                 if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK) ||
                     (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK))
@@ -2211,7 +2211,7 @@ public class DataWrapper {
                 notAllowedPeripheral = true;
 
         if (event._eventPreferencesCalendar._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED) &&
+            if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED) &&
                 (Permissions.checkEventCalendar(context, event, null)))
             {
                 // compute start datetime
@@ -2250,7 +2250,7 @@ public class DataWrapper {
         
 
         if (event._eventPreferencesWifi._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+            if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
             {
                 PPApplication.logE("----- DataWrapper.doHandleEvents","-------- eventSSID="+event._eventPreferencesWifi._SSID);
@@ -2471,7 +2471,7 @@ public class DataWrapper {
 
 
         if (event._eventPreferencesScreen._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+            if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED))
             {
                 boolean isScreenOn;
                 //if (android.os.Build.VERSION.SDK_INT >= 20)
@@ -2516,7 +2516,7 @@ public class DataWrapper {
 
 
         if (event._eventPreferencesBluetooth._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+            if ((Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
             {
                 bluetoothPassed = false;
@@ -2708,7 +2708,7 @@ public class DataWrapper {
                 notAllowedBluetooth = true;
 
         if (event._eventPreferencesSMS._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+            if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventSMSContacts(context, event, null) &&
                 Permissions.checkEventSMSBroadcast(context, event, null))
             {
@@ -2764,7 +2764,7 @@ public class DataWrapper {
                 notAllowedSms = true;
 
         if (event._eventPreferencesNotification._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+            if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED))
             {
                 //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     /*if (!event._eventPreferencesNotification._endWhenRemoved) {
@@ -2821,7 +2821,7 @@ public class DataWrapper {
 
 
         if (event._eventPreferencesApplication._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+            if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED))
             {
                 applicationPassed = false;
 
@@ -2848,7 +2848,7 @@ public class DataWrapper {
                 notAllowedApplication = true;
 
         if (event._eventPreferencesLocation._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+            if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
             {
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
@@ -2913,7 +2913,7 @@ public class DataWrapper {
                 notAllowedLocation = true;
 
         if (event._eventPreferencesOrientation._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+            if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED))
             {
                 ApplicationPreferences.getSharedPreferences(context);
                 int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
@@ -3044,7 +3044,7 @@ public class DataWrapper {
                 notAllowedOrientation = true;
 
         if (event._eventPreferencesMobileCells._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED)
+            if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED)
                 && Permissions.checkEventLocation(context, event, null))
             {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
@@ -3094,7 +3094,7 @@ public class DataWrapper {
                 notAllowedMobileCell = true;
 
         if (event._eventPreferencesNFC._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+            if ((Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED))
             {
                 // compute start time
 
@@ -3147,7 +3147,7 @@ public class DataWrapper {
                 notAllowedNfc = true;
 
         if (event._eventPreferencesRadioSwitch._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context) == PPApplication.PREFERENCE_ALLOWED))
+            if ((Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PPApplication.PREFERENCE_ALLOWED))
             {
                 radioSwitchPassed = true;
                 boolean tested = false;
