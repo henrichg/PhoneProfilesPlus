@@ -15,12 +15,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -42,6 +44,8 @@ public class EditorEventListFragment extends Fragment
     public DataWrapper activityDataWrapper;
 
     RecyclerView listView;
+    private TextView activeProfileName;
+    private ImageView activeProfileIcon;
     private Toolbar bottomToolbar;
     TextView textViewNoData;
     private LinearLayout progressBar;
@@ -156,7 +160,14 @@ public class EditorEventListFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        rootView = inflater.inflate(R.layout.editor_event_list, container, false);
+        //rootView = inflater.inflate(R.layout.editor_event_list, container, false);
+        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+            rootView = inflater.inflate(R.layout.editor_event_list, container, false);
+        else
+        if (ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+            rootView = inflater.inflate(R.layout.editor_event_list_no_indicator, container, false);
+        else
+            rootView = inflater.inflate(R.layout.editor_event_list_no_header, container, false);
 
         return rootView;
     }
@@ -174,6 +185,9 @@ public class EditorEventListFragment extends Fragment
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         //super.onActivityCreated(savedInstanceState);
+
+        activeProfileName = view.findViewById(R.id.activated_profile_name);
+        activeProfileIcon = view.findViewById(R.id.activated_profile_icon);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
@@ -232,6 +246,11 @@ public class EditorEventListFragment extends Fragment
                 asyncTask.execute();
             } else {
                 listView.setAdapter(eventListAdapter);
+                synchronized (activityDataWrapper.profileList) {
+                    Profile profile = activityDataWrapper.getActivatedProfileFromDB(true,
+                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                    updateHeader(profile);
+                }
             }
         }
     }
@@ -303,6 +322,10 @@ public class EditorEventListFragment extends Fragment
                 fragment.itemTouchHelper.attachToRecyclerView(fragment.listView);
 
                 fragment.listView.setAdapter(fragment.eventListAdapter);
+
+                Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
+                        ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
+                fragment.updateHeader(profile);
 
             }
         }
@@ -610,6 +633,60 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
+    public void updateHeader(Profile profile)
+    {
+        if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+            return;
+
+        Log.e("***** EditorEventListFragment.updateHeader", "xxx");
+
+        if ((activeProfileName == null) || (activeProfileIcon == null))
+            return;
+
+        Log.e("***** EditorEventListFragment.updateHeader", "profile="+profile);
+
+        if (profile == null)
+        {
+            activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
+            activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
+        }
+        else
+        {
+            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, activityDataWrapper, true));
+            if (profile.getIsIconResourceID())
+            {
+                if (profile._iconBitmap != null)
+                    activeProfileIcon.setImageBitmap(profile._iconBitmap);
+                else {
+                    //int res = getResources().getIdentifier(profile.getIconIdentifier(), "drawable", getActivity().getPackageName());
+                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                    activeProfileIcon.setImageResource(res); // icon resource
+                }
+            }
+            else
+            {
+                activeProfileIcon.setImageBitmap(profile._iconBitmap);
+            }
+        }
+
+        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
+        {
+            ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.activated_profile_pref_indicator);
+            if (profilePrefIndicatorImageView != null)
+            {
+                //profilePrefIndicatorImageView.setImageBitmap(ProfilePreferencesIndicator.paint(profile, getActivity().getBaseContext()));
+                if (profile == null)
+                    profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+                else {
+                    if (profile._preferencesIndicator != null)
+                        profilePrefIndicatorImageView.setImageBitmap(profile._preferencesIndicator);
+                    else
+                        profilePrefIndicatorImageView.setImageResource(R.drawable.ic_empty);
+                }
+            }
+        }
+    }
+
     public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition)
     {
         /*if (listView != null)
@@ -764,6 +841,18 @@ public class EditorEventListFragment extends Fragment
                 DatabaseHandler.getInstance(activityDataWrapper.context).getNFCStartTime(event);
                 DatabaseHandler.getInstance(activityDataWrapper.context).getCallStartTime(event);
             }
+        }
+        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+        if (profileFromDB != null) {
+            PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
+            Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
+                    ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
+            if (profileFromDataWrapper != null)
+                profileFromDataWrapper._checked = true;
+            updateHeader(profileFromDataWrapper);
+        } else {
+            PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
+            updateHeader(null);
         }
         updateListView(null, false, refreshIcons, setPosition);
     }

@@ -1894,6 +1894,10 @@ public class EditorProfilesActivity extends AppCompatActivity
             boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                     (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
             fragment.updateListView(event, newEvent, false, false);
+
+            Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
+                    ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
+            fragment.updateHeader(activeProfile);
         }
         redrawEventPreferences(event, newEventMode, predefinedEventIndex, true/*startTargetHelps*/);
     }

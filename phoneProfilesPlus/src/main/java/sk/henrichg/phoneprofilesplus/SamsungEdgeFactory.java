@@ -153,7 +153,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             if ((!ApplicationPreferences.applicationSamsungEdgeHeader(context)) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
                 //String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !ApplicationPreferences.applicationSamsungEdgeGridLayout(context), true, ApplicationPreferences.applicationSamsungEdgeGridLayout(context));
-                String profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, true, true, dataWrapper);
+                String profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, true, true, dataWrapper, false);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);

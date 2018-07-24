@@ -67,7 +67,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         String _profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
                                     profile._checked &&
                                     (!ApplicationPreferences.applicationEditorHeader(context)), true, false,
-                                    editorFragment.activityDataWrapper);
+                                    editorFragment.activityDataWrapper, false);
         //Log.d("EditorProfileListViewHolder.bindProfile","_profileName="+_profileName);
         if (profile._showInActivator)
             _profileName = "[A] " + _profileName;

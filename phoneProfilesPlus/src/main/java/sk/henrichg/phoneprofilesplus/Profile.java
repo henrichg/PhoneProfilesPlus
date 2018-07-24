@@ -1242,7 +1242,7 @@ public class Profile {
 
             String profileIcon = withProfile._icon;
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                                    DataWrapper.getProfileNameWithManualIndicator(withProfile, true, false, false, dataWrapper),
+                                    DataWrapper.getProfileNameWithManualIndicator(withProfile, true, false, false, dataWrapper, false),
                                     profileIcon, 0);
         }
     }

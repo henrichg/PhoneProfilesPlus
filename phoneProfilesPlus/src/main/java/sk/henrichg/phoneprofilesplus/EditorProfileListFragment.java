@@ -227,8 +227,7 @@ public class EditorProfileListFragment extends Fragment
 
                 // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
-                Profile profile;
-                profile = activityDataWrapper.getActivatedProfile(true,
+                Profile profile = activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                 updateHeader(profile);
                 profileListAdapter.notifyDataSetChanged(false);
@@ -315,8 +314,7 @@ public class EditorProfileListFragment extends Fragment
 
                 // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
-                Profile profile;
-                profile = fragment.activityDataWrapper.getActivatedProfile(true,
+                Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
                                 ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 fragment.updateHeader(profile);
                 fragment.profileListAdapter.notifyDataSetChanged(false);
@@ -611,7 +609,7 @@ public class EditorProfileListFragment extends Fragment
         }
         else
         {
-            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, activityDataWrapper));
+            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, activityDataWrapper, false));
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)

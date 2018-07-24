@@ -66,19 +66,19 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                             activateProfileId = 0;
 
                                         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
-                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
+                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper, false),
                                                 profile._icon, 0);
                                     }
                                     if (profile._afterDurationDo == Profile.AFTERDURATIONDO_UNDOPROFILE) {
                                         activateProfileId = Profile.getActivatedProfileForDuration(appContext);
 
                                         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
-                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
+                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper, false),
                                                 profile._icon, 0);
                                     }
                                     if (profile._afterDurationDo == Profile.AFTERDURATIONDO_RESTARTEVENTS) {
                                         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
-                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper),
+                                                DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper, false),
                                                 profile._icon, 0);
 
                                         PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "restart events");

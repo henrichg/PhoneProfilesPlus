@@ -108,7 +108,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper);
+                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper, false);
             }
             else
             {

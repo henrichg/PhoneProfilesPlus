@@ -35,6 +35,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -1452,7 +1453,7 @@ public class DataWrapper {
 
         if ((profile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false, this),
+                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false, this, false),
                     profileIcon, profileDuration);
         }
 
@@ -1531,7 +1532,7 @@ public class DataWrapper {
     {
         //Log.d("DataWrapper.showToastAfterActivation", "xxx");
         try {
-            String profileName = getProfileNameWithManualIndicator(profile, true, false, false, this);
+            String profileName = getProfileNameWithManualIndicator(profile, true, false, false, this, false);
             Toast msg = Toast.makeText(context,
                     context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
                             context.getResources().getString(R.string.toast_profile_activated_1),
@@ -3769,7 +3770,7 @@ public class DataWrapper {
 
     static private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList,
                                                             boolean addIndicators, boolean addDuration, boolean multiLine,
-                                                            DataWrapper dataWrapper)
+                                                            DataWrapper dataWrapper, boolean fromDB)
     {
         if (profile == null)
             return "";
@@ -3797,7 +3798,8 @@ public class DataWrapper {
 
         if (addIndicators)
         {
-            String eventName = getLastStartedEventName(eventTimelineList, dataWrapper);
+            String eventName = getLastStartedEventName(eventTimelineList, dataWrapper, fromDB);
+            Log.e("***** DataWrapper.getProfileNameWithManualIndicator", "eventName="+eventName);
             if (!eventName.isEmpty())
                 name = name + " [" + eventName + "]";
         }
@@ -3806,13 +3808,12 @@ public class DataWrapper {
     }
 
     static String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration, boolean multiLine,
-                                                    DataWrapper dataWrapper) {
+                                                    DataWrapper dataWrapper, boolean fromDB) {
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-
-        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multiLine, dataWrapper);
+        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multiLine, dataWrapper, fromDB);
     }
 
-    static private String getLastStartedEventName(List<EventTimeline> eventTimelineList, DataWrapper dataWrapper)
+    static private String getLastStartedEventName(List<EventTimeline> eventTimelineList, DataWrapper dataWrapper, boolean fromDB)
     {
 
         if (Event.getGlobalEventsRunning(dataWrapper.context) && PPApplication.getApplicationStarted(dataWrapper.context, false))
@@ -3826,7 +3827,11 @@ public class DataWrapper {
                 {
                     if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._forceRun))
                     {
-                        Profile profile = dataWrapper.getActivatedProfile(false, false);
+                        Profile profile = null;
+                        if (fromDB)
+                            profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                        else
+                            profile = dataWrapper.getActivatedProfile(false, false);
                         if ((profile != null) && (event._fkProfileStart == profile._id))
                             // last started event activates activated profile
                             return event._name;
