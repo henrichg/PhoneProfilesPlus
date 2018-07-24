@@ -282,7 +282,7 @@ public class PhoneProfilesService extends Service
 
         reenableKeyguard();
 
-        removeProfileNotification(this);
+        removeProfileNotification(this, false);
 
         synchronized (PhoneProfilesService.class) {
             instance = null;
@@ -2496,14 +2496,15 @@ public class PhoneProfilesService extends Service
             if (intent != null) {
                 if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
-                    showProfileNotification();
+                    // not needed, is called in doForFirstStart
+                    //showProfileNotification();
                 }
-
+                else
                 if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
-                    removeProfileNotification(this);
+                    removeProfileNotification(this, true);
                 }
-
+                else
                 if (intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SWITCH_KEYGUARD");
 
@@ -2547,6 +2548,7 @@ public class PhoneProfilesService extends Service
                 }
 
                 /*
+                else
                 if (intent.getBooleanExtra(EXTRA_START_LOCATION_UPDATES, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_LOCATION_UPDATES");
                     //synchronized (PPApplication.geofenceScannerMutex) {
@@ -2556,6 +2558,7 @@ public class PhoneProfilesService extends Service
                         }
                     //}
                 }
+                else
                 if (intent.getBooleanExtra(EXTRA_STOP_LOCATION_UPDATES, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_STOP_LOCATION_UPDATES");
                     //synchronized (PPApplication.geofenceScannerMutex) {
@@ -2565,6 +2568,7 @@ public class PhoneProfilesService extends Service
                 }
                 */
 
+                else
                 if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_JOBS, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REGISTER_RECEIVERS_AND_JOBS");
                     final Context appContext = getApplicationContext();
@@ -2592,6 +2596,7 @@ public class PhoneProfilesService extends Service
                         }
                     });
                 }
+                else
                 if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
                     final Context appContext = getApplicationContext();
@@ -2619,6 +2624,7 @@ public class PhoneProfilesService extends Service
                         }
                     });
                 }
+                else
                 if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_JOBS, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
                     final Context appContext = getApplicationContext();
@@ -2646,14 +2652,15 @@ public class PhoneProfilesService extends Service
                         }
                     });
                 }
-
+                else
                 if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SIMULATE_RINGING_CALL");
                     doSimulatingRingingCall(intent);
                 }
+                //else
                 //if (intent.getBooleanExtra(EventsHandler.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
                 //    doSimulatingNotificationTone(intent);
-
+                else
                 if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_STOP_SCANNER");
                     final boolean forScreenOn = intent.getBooleanExtra(EXTRA_FOR_SCREEN_ON, false);
@@ -3552,18 +3559,26 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    private void removeProfileNotification(Context context)
+    private void removeProfileNotification(Context context, boolean onlyEmpty)
     {
-        try {
-            if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(context))
-                stopForeground(true);
-            else {
-                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (notificationManager != null)
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+        if (onlyEmpty) {
+            DataWrapper dataWrapper = new DataWrapper(context, false, 0);
+            _showProfileNotification(null, false, dataWrapper);
+            dataWrapper.invalidateDataWrapper();
+        }
+        else {
+            try {
+                if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(context))
+                    stopForeground(true);
+                else {
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (notificationManager != null)
+                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                }
+            } catch (Exception ignored) {
             }
-        } catch (Exception ignored) {}
-        runningInForeground = false;
+            runningInForeground = false;
+        }
     }
 
     /*
