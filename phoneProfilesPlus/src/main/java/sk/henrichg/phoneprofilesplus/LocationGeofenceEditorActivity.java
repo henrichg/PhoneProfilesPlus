@@ -259,6 +259,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        GlobalGUIRoutines.lockScreenOrientation(this);
         if (!mResolvingError) {
             mGoogleApiClient.connect();
         }
@@ -268,6 +269,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
+        GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
     @Override

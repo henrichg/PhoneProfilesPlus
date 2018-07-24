@@ -165,6 +165,18 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        GlobalGUIRoutines.lockScreenOrientation(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        GlobalGUIRoutines.unlockScreenOrientation(this);
+    }
+
+    @Override
     public void onNewIntent(Intent intent){
         super.onNewIntent(intent);
         if (nfcManager != null)

@@ -36,6 +36,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
     private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
     private static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
+    private static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
+    private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
+    private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
+    private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
+
     private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
     private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
     private static final int RESULT_WIFI_BLUETOOTH_LOCATION_SETTINGS = 1992;
@@ -49,10 +54,6 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
     private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     //static final int RESULT_LOCALE_SETTINGS = 1996;
-    private static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
-    private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
-    private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
-    private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
     private static final String PREF_AUTOSTART_PERMISSION_MIUI = "applicationAutoStartMIUI";
     private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
@@ -71,11 +72,17 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         // must by false to avoid FC when rotation changes and preference dialogs are shown
         setRetainInstance(false);
 
+        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onCreate", "xxx");
+
+        prefMng = getPreferenceManager();
+        preferences = prefMng.getSharedPreferences();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", "xxx");
 
         Toolbar toolbar = getActivity().findViewById(R.id.mp_toolbar);
         Bundle bundle = getArguments();
@@ -969,10 +976,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
     public void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/)
     {
-        if ((requestCode == RESULT_APPLICATION_PERMISSIONS) ||
-            (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
-            (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
-            (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
+        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "xxx");
+
+        if ((requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_APPLICATION_PERMISSIONS) ||
+                (requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
+                (requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
+                (requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Context context = getActivity().getApplicationContext();
@@ -980,26 +989,26 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 boolean finishActivity = false;
                 boolean permissionsChanged = Permissions.getPermissionsChanged(context);
 
-                if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
+                if (requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
                     boolean canWrite = Settings.System.canWrite(context);
                     permissionsChanged = Permissions.getWriteSystemSettingsPermission(context) != canWrite;
                     if (canWrite)
                         Permissions.setShowRequestWriteSettingsPermission(context, true);
                 }
-                if (requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
+                if (requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     boolean notificationPolicyGranted = (mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted());
                     permissionsChanged = Permissions.getNotificationPolicyPermission(context) != notificationPolicyGranted;
                     if (notificationPolicyGranted)
                         Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
                 }
-                if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
+                if (requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
                     boolean canDrawOverlays = Settings.canDrawOverlays(context);
                     permissionsChanged = Permissions.getDrawOverlayPermission(context) != canDrawOverlays;
                     if (canDrawOverlays)
                         Permissions.setShowRequestDrawOverlaysPermission(context, true);
                 }
-                if (requestCode == RESULT_APPLICATION_PERMISSIONS) {
+                if (requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_APPLICATION_PERMISSIONS) {
                     boolean calendarPermission = Permissions.checkCalendar(context);
                     permissionsChanged = Permissions.getCalendarPermission(context) != calendarPermission;
                     // finish Editor when permission is disabled

@@ -1,12 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.view.MenuItem;
 import android.view.Window;
@@ -37,8 +40,6 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     //private String activeBackgroundProfile;
 
     private boolean invalidateEditor = false;
-
-    private PhoneProfilesPreferencesNestedFragment fragment;
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
     public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
@@ -100,7 +101,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         Permissions.disablePermissionsChanged(this);
 
-        fragment = createFragment(false);
+        PhoneProfilesPreferencesNestedFragment fragment = createFragment(false);
 
         setPreferenceFragment(fragment);
     }
@@ -135,8 +136,9 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        PreferenceFragment fragment = getFragment();
         if (fragment != null)
-            fragment.doOnActivityResult(requestCode, resultCode);
+            ((PhoneProfilesPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode);
     }
 
     @Override
