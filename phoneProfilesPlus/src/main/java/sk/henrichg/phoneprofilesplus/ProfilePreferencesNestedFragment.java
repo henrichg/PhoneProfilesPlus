@@ -1146,7 +1146,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     preference.setEnabled(false);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, false);
                     setCategorySummary(preference, false);
                 }
@@ -1184,7 +1184,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setEnabled(false);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
@@ -1250,7 +1250,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setEnabled(false);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
@@ -1284,7 +1284,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setEnabled(false);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 } else {
@@ -1307,7 +1307,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setEnabled(false);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 } else {
@@ -1430,7 +1430,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     listPreference.setEnabled(false);
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                                ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }

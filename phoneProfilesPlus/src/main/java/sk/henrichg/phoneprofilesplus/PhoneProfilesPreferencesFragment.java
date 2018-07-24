@@ -145,7 +145,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             Preference preference = prefMng.findPreference("wifiScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + PreferenceAllowed.getNotAllowedPreferenceReasonString(getActivity(), preferenceAllowed));
+                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity()));
                 preference.setEnabled(false);
             }
         }
@@ -165,7 +165,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             Preference preference = prefMng.findPreference("bluetoothScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + PreferenceAllowed.getNotAllowedPreferenceReasonString(getActivity(), preferenceAllowed));
+                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity()));
                 preference.setEnabled(false);
             }
         }
@@ -176,7 +176,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             Preference preference = prefMng.findPreference("orientationScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + PreferenceAllowed.getNotAllowedPreferenceReasonString(getActivity(), preferenceAllowed));
+                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity()));
                 preference.setEnabled(false);
             }
         }
@@ -187,7 +187,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + PreferenceAllowed.getNotAllowedPreferenceReasonString(getActivity(), preferenceAllowed));
+                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity()));
                 preference.setEnabled(false);
             }
         }

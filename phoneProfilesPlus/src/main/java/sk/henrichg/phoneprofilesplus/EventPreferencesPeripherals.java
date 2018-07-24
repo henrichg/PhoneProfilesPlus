@@ -124,7 +124,7 @@ class EventPreferencesPeripherals extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_PERIPHERAL_CATEGORY);
             if (preference != null) {
                 preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+ PreferenceAllowed.getNotAllowedPreferenceReasonString(context, preferenceAllowed));
+                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
         }
