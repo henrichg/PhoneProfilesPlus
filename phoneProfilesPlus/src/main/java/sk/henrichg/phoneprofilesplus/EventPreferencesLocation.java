@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 
 import com.android.internal.graphics.ColorUtils;
 
@@ -122,8 +125,9 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        if (key.equals(PREF_EVENT_LOCATION_APP_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
+        if (key.equals(PREF_EVENT_LOCATION_ENABLED) ||
+            key.equals(PREF_EVENT_LOCATION_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_APP_SETTINGS);
             if (preference != null) {
                 String summary;
                 int titleColor;
@@ -134,11 +138,24 @@ class EventPreferencesLocation extends EventPreferences {
                 }
                 else {
                     summary = context.getResources().getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary);
-                    titleColor = ColorUtils.setAlphaComponent(GlobalGUIRoutines.getThemeTextColor(context), 0xFF);
+                    titleColor = 0;
                 }
-                Spannable title = new SpannableString(context.getResources().getString(R.string.phone_profiles_pref_category_location));
-                title.setSpan(new ForegroundColorSpan(titleColor), 0, title.length(), 0);
-                preference.setTitle(title);
+                CharSequence sTitle = preference.getTitle();
+                Spannable sbt = new SpannableString(sTitle);
+                Object spansToRemove[] = sbt.getSpans(0, sTitle.length(), Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
+                if ((enabledPreference != null) && enabledPreference.isChecked()) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    preference.setTitle(sbt);
+                }
+                else {
+                    preference.setTitle(sbt);
+                }
                 preference.setSummary(summary);
             }
         }
@@ -177,6 +194,8 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_LOCATION_ENABLED))
+            setSummary(prefMng, key, "", context);
         if (key.equals(PREF_EVENT_LOCATION_GEOFENCES) ||
             key.equals(PREF_EVENT_LOCATION_APP_SETTINGS) ||
             key.equals(PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS))
@@ -188,6 +207,7 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_LOCATION_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
         setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS, preferences, context);

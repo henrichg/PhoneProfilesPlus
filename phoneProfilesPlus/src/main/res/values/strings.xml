@@ -592,7 +592,7 @@
     <string name="menu_activity_log_clear">Clear log</string>
     <string name="activity_log_clear_alert_title">Clear activity log</string>
     <string name="activity_log_clear_alert_message">Are you sure?</string>
-    <string name="phone_profiles_pref_category_location">Location</string>
+    <string name="phone_profiles_pref_category_location">Location scanning</string>
     <string name="phone_profiles_pref_eventLocationAppSettings_summary">Setup location parameters in application settings.</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInterval">Location scan interval (minutes)</string>
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Location scan in Power Save mode</string>
