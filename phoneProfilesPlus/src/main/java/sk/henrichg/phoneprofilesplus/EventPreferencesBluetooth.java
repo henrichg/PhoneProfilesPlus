@@ -3,9 +3,15 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+
+import com.android.internal.graphics.ColorUtils;
 
 import java.util.Arrays;
 
@@ -150,11 +156,21 @@ class EventPreferencesBluetooth extends EventPreferences {
         if (key.equals(PREF_EVENT_BLUETOOTH_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context))
-                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary));
-                else
-                    preference.setSummary(context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary));
+                String summary;
+                int titleColor;
+                if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
+                    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                    titleColor = Color.RED; //0xFFffb000;
+                }
+                else {
+                    summary = context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                    titleColor = ColorUtils.setAlphaComponent(GlobalGUIRoutines.getThemeTextColor(context), 0xFF);
+                }
+                Spannable title = new SpannableString(context.getResources().getString(R.string.phone_profiles_pref_category_location));
+                title.setSpan(new ForegroundColorSpan(titleColor), 0, title.length(), 0);
+                preference.setTitle(title);
+                preference.setSummary(summary);
             }
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME))
