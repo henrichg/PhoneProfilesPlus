@@ -124,6 +124,7 @@ public class EventDetailsFragment extends Fragment {
         {
             int _eventStatus = event.getStatusFromDB(dataWrapper);
             boolean isRunnable = event.isRunnable(dataWrapper.context, true);
+            boolean isPermissionGranted = Permissions.checkEventPermissions(dataWrapper.context, event).size() == 0;
             int statusRes = R.drawable.ic_event_status_stop_not_runnable;
             switch (_eventStatus)
             {
@@ -140,10 +141,10 @@ public class EventDetailsFragment extends Fragment {
                         statusRes = R.drawable.ic_event_status_pause;
                     break;
                 case Event.ESTATUS_STOP:
-                    if (isRunnable)
+                    //if (isRunnable)
                         statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(getActivity());
-                    else
-                        statusRes = R.drawable.ic_event_status_stop_not_runnable;
+                    //else
+                    //    statusRes = R.drawable.ic_event_status_stop_not_runnable;
                     break;
             }
             eventStatus.setImageResource(statusRes);
@@ -157,7 +158,7 @@ public class EventDetailsFragment extends Fragment {
                     eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(getActivity()));
             }
             else
-            if (!isRunnable) {
+            if (!(isRunnable && isPermissionGranted)) {
                 eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
@@ -207,8 +208,8 @@ public class EventDetailsFragment extends Fragment {
                 }
             }
 
-            if (!isRunnable)
-                _eventName = _eventName + "\n\n" + getResources().getString(R.string.event_preferences_error);
+            //if (!isRunnable)
+            //    _eventName = _eventName + "\n\n" + getResources().getString(R.string.event_preferences_error);
             eventName.setText(_eventName);
 
             //if (PPApplication.applicationEditorPrefIndicator)

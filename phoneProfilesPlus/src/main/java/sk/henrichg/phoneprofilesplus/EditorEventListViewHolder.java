@@ -74,7 +74,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         {
             int _eventStatus = event.getStatusFromDB(editorFragment.activityDataWrapper);
 
-            //boolean isRunnable = event.isRunnable(context);
+            boolean isRunnable = event.isRunnable(context, true);
+            boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;
+
             int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
             switch (_eventStatus)
             {
@@ -107,12 +109,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //else
                     eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
             }
-            /*else
-            if (!isRunnable) {
+            else
+            if (!(isRunnable && isPermissionGranted)) {
                 eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
-            }*/
+            }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
                 eventName.setTypeface(null, Typeface.ITALIC);
