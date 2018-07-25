@@ -39,6 +39,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     //static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
 
     private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
+    private static final String PRF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
     private static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
@@ -129,7 +130,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         //RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
         //notificationSoundPreference.setEnabled(PPApplication.notificationStatusBar);
 
-        setPermissionsPreference();
+        setPreferencesStatusPreference();
 
         event.checkPreferences(prefMng, context);
 
@@ -362,20 +363,53 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         */
     }
 
-    private void setPermissionsPreference() {
+    private void setPreferencesStatusPreference() {
         Bundle bundle = this.getArguments();
 
         if (bundle.getBoolean(EXTRA_NESTED, true))
             return;
 
-        Log.e("***** EventPreferencesNestedFragment.setPermissionPreference","xxx");
+        Log.e("***** EventPreferencesNestedFragment.setPreferencesStatusPreference","xxx");
 
         long event_id = bundle.getLong(PPApplication.EXTRA_EVENT_ID, 0);
-        if (event_id != 0) {
-            int newEventMode = bundle.getInt(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-            int predefinedEventIndex = bundle.getInt(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
-            final Event event = ((EventPreferencesActivity) getActivity())
-                    .getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
+        int newEventMode = bundle.getInt(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+        int predefinedEventIndex = bundle.getInt(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+        final Event event = ((EventPreferencesActivity) getActivity())
+                .getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
+
+        if (event != null) {
+            // isRunnable
+            boolean isRunnable = event.isRunnable(context, false);
+            boolean isEnabledSomeSensor = event.isEnabledSomeSensor();
+            if (isRunnable && isEnabledSomeSensor) {
+                Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                    preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                    preference = new Preference(context);
+                    preference.setKey(PRF_NOT_IS_RUNNABLE);
+                    preference.setWidgetLayoutResource(R.layout.exclamation_preference);
+                    preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                    preference.setOrder(-100);
+                    preferenceCategory.addPreference(preference);
+                }
+
+                int titleResource = R.string.event_preferences_no_sensor_is_enabled;
+                if (!isRunnable)
+                    titleResource = R.string.event_preferences_error;
+                Spannable title = new SpannableString(getString(titleResource));
+                title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                preference.setTitle(title);
+                //preference.setSummary(R.string.empty_string);
+            }
+
+            // permissions
             if (Permissions.checkEventPermissions(context, event).size() == 0) {
                 Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                 if (preference != null) {
@@ -391,7 +425,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     preference.setKey(PRF_GRANT_PERMISSIONS);
                     preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                     preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                    preference.setOrder(-100);
+                    preference.setOrder(-99);
                     preferenceCategory.addPreference(preference);
                 }
 
@@ -413,7 +447,12 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             }
         }
         else {
-            Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+            Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                preferenceCategory.removePreference(preference);
+            }
+            preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
                 preferenceCategory.removePreference(preference);
@@ -453,7 +492,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         //Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
 
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EVENT) {
-            setPermissionsPreference();
+            setPreferencesStatusPreference();
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
@@ -559,7 +598,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         event.setSummary(prefMng, key, sharedPreferences, context);
 
-        setPermissionsPreference();
+        setPreferencesStatusPreference();
 
         //Activity activity = getActivity();
         //boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);

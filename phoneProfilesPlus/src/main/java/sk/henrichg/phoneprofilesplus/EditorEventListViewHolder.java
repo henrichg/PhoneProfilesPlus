@@ -74,8 +74,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         {
             int _eventStatus = event.getStatusFromDB(editorFragment.activityDataWrapper);
 
-            boolean isRunnable = event.isRunnable(context);
-            int statusRes = R.drawable.ic_event_status_stop_not_runnable;
+            //boolean isRunnable = event.isRunnable(context);
+            int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
             switch (_eventStatus)
             {
                 case Event.ESTATUS_RUNNING:
@@ -91,10 +91,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         statusRes = R.drawable.ic_event_status_pause;
                     break;
                 case Event.ESTATUS_STOP:
-                    if (isRunnable)
+                    //if (isRunnable)
                         statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
-                    else
-                        statusRes = R.drawable.ic_event_status_stop_not_runnable;
+                    //else
+                    //    statusRes = R.drawable.ic_event_status_stop_not_runnable;
                     break;
             }
             eventStatus.setImageResource(statusRes);
@@ -107,12 +107,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //else
                     eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
             }
-            else
+            /*else
             if (!isRunnable) {
                 eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
-            }
+            }*/
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
                 eventName.setTypeface(null, Typeface.ITALIC);
@@ -162,8 +162,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             }
 
-            if (!isRunnable)
-                _eventName = _eventName + "\n\n" + context.getResources().getString(R.string.event_preferences_error);
+            //if (!isRunnable)
+            //    _eventName = _eventName + "\n\n" + context.getResources().getString(R.string.event_preferences_error);
             eventName.setText(_eventName);
 
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))

@@ -405,26 +405,46 @@ class Event {
         this._eventPreferencesRadioSwitch.copyPreferences(fromEvent);
     }
 
-    public boolean isRunnable(Context context)
+    public boolean isEnabledSomeSensor() {
+        return this._eventPreferencesTime._enabled ||
+                this._eventPreferencesBattery._enabled ||
+                this._eventPreferencesCall._enabled ||
+                this._eventPreferencesPeripherals._enabled ||
+                this._eventPreferencesCalendar._enabled ||
+                this._eventPreferencesWifi._enabled ||
+                this._eventPreferencesScreen._enabled ||
+                this._eventPreferencesBluetooth._enabled ||
+                this._eventPreferencesSMS._enabled ||
+                this._eventPreferencesNotification._enabled ||
+                this._eventPreferencesApplication._enabled ||
+                this._eventPreferencesLocation._enabled ||
+                this._eventPreferencesOrientation._enabled ||
+                this._eventPreferencesMobileCells._enabled ||
+                this._eventPreferencesNFC._enabled ||
+                this._eventPreferencesRadioSwitch._enabled;
+    }
+
+    public boolean isRunnable(Context context, boolean checkSomeSensorEnabled)
     {
         boolean runnable = (this._fkProfileStart != 0);
-        if (!(this._eventPreferencesTime._enabled ||
-              this._eventPreferencesBattery._enabled ||
-              this._eventPreferencesCall._enabled ||
-              this._eventPreferencesPeripherals._enabled ||
-              this._eventPreferencesCalendar._enabled ||
-              this._eventPreferencesWifi._enabled ||
-              this._eventPreferencesScreen._enabled ||
-              this._eventPreferencesBluetooth._enabled ||
-              this._eventPreferencesSMS._enabled ||
-              this._eventPreferencesNotification._enabled ||
-              this._eventPreferencesApplication._enabled ||
-              this._eventPreferencesLocation._enabled ||
-              this._eventPreferencesOrientation._enabled ||
-              this._eventPreferencesMobileCells._enabled ||
-              this._eventPreferencesNFC._enabled ||
-              this._eventPreferencesRadioSwitch._enabled))
-            runnable = false;
+        if (checkSomeSensorEnabled)
+            if (!(this._eventPreferencesTime._enabled ||
+                  this._eventPreferencesBattery._enabled ||
+                  this._eventPreferencesCall._enabled ||
+                  this._eventPreferencesPeripherals._enabled ||
+                  this._eventPreferencesCalendar._enabled ||
+                  this._eventPreferencesWifi._enabled ||
+                  this._eventPreferencesScreen._enabled ||
+                  this._eventPreferencesBluetooth._enabled ||
+                  this._eventPreferencesSMS._enabled ||
+                  this._eventPreferencesNotification._enabled ||
+                  this._eventPreferencesApplication._enabled ||
+                  this._eventPreferencesLocation._enabled ||
+                  this._eventPreferencesOrientation._enabled ||
+                  this._eventPreferencesMobileCells._enabled ||
+                  this._eventPreferencesNFC._enabled ||
+                  this._eventPreferencesRadioSwitch._enabled))
+                runnable = false;
         if (this._eventPreferencesTime._enabled)
             runnable = runnable && this._eventPreferencesTime.isRunnable(context);
         if (this._eventPreferencesBattery._enabled)
@@ -548,7 +568,7 @@ class Event {
         this._eventPreferencesNFC.saveSharedPreferences(preferences);
         this._eventPreferencesRadioSwitch.saveSharedPreferences(preferences);
 
-        if (!this.isRunnable(context))
+        if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
     }
 
@@ -1051,7 +1071,7 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context))
+        if (!this.isRunnable(dataWrapper.context, true))
             // event is not runnable, no pause it
             return;
 
@@ -1302,7 +1322,7 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context))
+        if (!this.isRunnable(dataWrapper.context, true))
             // event is not runnable, no pause it
             return;
 
@@ -1580,7 +1600,7 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context))
+        if (!this.isRunnable(dataWrapper.context, true))
             // event is not runnable, no pause it
             return;
 
@@ -1704,7 +1724,7 @@ class Event {
             // events are globally stopped
             return;
 
-        if (!this.isRunnable(dataWrapper.context))
+        if (!this.isRunnable(dataWrapper.context, true))
             // event is not runnable, no pause it
             return;
 

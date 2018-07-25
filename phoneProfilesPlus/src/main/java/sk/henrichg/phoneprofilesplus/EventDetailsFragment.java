@@ -123,7 +123,7 @@ public class EventDetailsFragment extends Fragment {
         if (event != null)
         {
             int _eventStatus = event.getStatusFromDB(dataWrapper);
-            boolean isRunnable = event.isRunnable(dataWrapper.context);
+            boolean isRunnable = event.isRunnable(dataWrapper.context, true);
             int statusRes = R.drawable.ic_event_status_stop_not_runnable;
             switch (_eventStatus)
             {
