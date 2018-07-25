@@ -159,7 +159,10 @@ public class EventDetailsFragment extends Fragment {
             }
             else
             if (!(isRunnable && isPermissionGranted)) {
-                eventName.setTypeface(null, Typeface.NORMAL);
+                if (!isRunnable)
+                    eventName.setTypeface(null, Typeface.ITALIC);
+                else
+                    eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
             }
