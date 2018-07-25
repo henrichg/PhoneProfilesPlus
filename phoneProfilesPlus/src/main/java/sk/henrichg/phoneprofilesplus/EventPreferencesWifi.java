@@ -24,7 +24,9 @@ class EventPreferencesWifi extends EventPreferences {
     static final String PREF_EVENT_WIFI_ENABLED = "eventWiFiEnabled";
     static final String PREF_EVENT_WIFI_SSID = "eventWiFiSSID";
     private static final String PREF_EVENT_WIFI_CONNECTION_TYPE = "eventWiFiConnectionType";
-    private static final String PREF_EVENT_WIFI_APP_SETTINGS = "eventEnableWiFiScanningAppSettings";
+    static final String PREF_EVENT_WIFI_APP_SETTINGS = "eventEnableWiFiScanningAppSettings";
+    static final String PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS = "eventWiFiLocationSystemSettings";
+    static final String PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS = "eventWiFiKeepOnSystemSettings";
 
     private static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
 
@@ -183,7 +185,9 @@ class EventPreferencesWifi extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_WIFI_SSID) ||
             key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE) ||
-            key.equals(PREF_EVENT_WIFI_APP_SETTINGS))
+            key.equals(PREF_EVENT_WIFI_APP_SETTINGS) ||
+            key.equals(PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS) ||
+            key.equals(PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -195,6 +199,8 @@ class EventPreferencesWifi extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
         setSummary(prefMng, PREF_EVENT_WIFI_CONNECTION_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS, preferences, context);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 != PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -247,6 +253,8 @@ class EventPreferencesWifi extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         //setSummary(prefMng, PREF_EVENT_WIFI_SSID, preferences, context);
         setSummary(prefMng, PREF_EVENT_WIFI_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 

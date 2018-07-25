@@ -16,7 +16,8 @@ class EventPreferencesLocation extends EventPreferences {
     static final String PREF_EVENT_LOCATION_ENABLED = "eventLocationEnabled";
     static final String PREF_EVENT_LOCATION_GEOFENCES = "eventLocationGeofences";
     private static final String PREF_EVENT_LOCATION_WHEN_OUTSIDE = "eventLocationStartWhenOutside";
-    private static final String PREF_EVENT_LOCATION_APP_SETTINGS = "eventLocationScanningSystemSettings";
+    static final String PREF_EVENT_LOCATION_APP_SETTINGS = "eventLocationScanningAppSettings";
+    static final String PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS = "eventLocationLocationSystemSettings";
 
     private static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategory";
 
@@ -160,7 +161,8 @@ class EventPreferencesLocation extends EventPreferences {
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_LOCATION_GEOFENCES) ||
-            key.equals(PREF_EVENT_LOCATION_APP_SETTINGS))
+            key.equals(PREF_EVENT_LOCATION_APP_SETTINGS) ||
+            key.equals(PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -171,6 +173,7 @@ class EventPreferencesLocation extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
         setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS, preferences, context);
     }
 
     @Override
@@ -219,6 +222,7 @@ class EventPreferencesLocation extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
         setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 

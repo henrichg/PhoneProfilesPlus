@@ -44,12 +44,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
-    private static final String PREF_LOCATION_SETTINGS = "eventLocationScanningSystemSettings";
-    private static final int RESULT_LOCATION_SETTINGS = 1983;
-    private static final String PREF_WIFI_SCANNING_APP_SETTINGS = "eventEnableWiFiScanningAppSettings";
-    private static final int RESULT_WIFI_SCANNING_SETTINGS = 1984;
-    private static final String PREF_BLUETOOTH_SCANNING_APP_SETTINGS = "eventEnableBluetoothScanningAppSettings";
-    private static final int RESULT_BLUETOOTH_SCANNING_SETTINGS = 1985;
+    private static final int RESULT_LOCATION_APP_SETTINGS = 1983;
+    private static final int RESULT_WIFI_SCANNING_APP_SETTINGS = 1984;
+    private static final int RESULT_BLUETOOTH_SCANNING_APP_SETTINGS = 1985;
     private static final String PREF_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
     private static final String PREF_ORIENTATION_SCANNING_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
     private static final int RESULT_ORIENTATION_SCANNING_SETTINGS = 1986;
@@ -58,6 +55,10 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
     private static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
     private static final String PREF_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
+    private static final int RESULT_WIFI_LOCATION_SYSTEM_SETTINGS = 1989;
+    private static final int RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = 1990;
+    private static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
+    private static final int RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS = 1992;
 
     @Override
     public int addPreferencesFromResource() {
@@ -211,7 +212,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        Preference preference = prefMng.findPreference(PREF_LOCATION_SETTINGS);
+        Preference preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -221,12 +222,35 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "locationScanningCategory");
                     //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_LOCATION_SETTINGS);
+                    startActivityForResult(intent, RESULT_LOCATION_APP_SETTINGS);
                     return false;
                 }
             });
         }
-        preference = prefMng.findPreference(PREF_WIFI_SCANNING_APP_SETTINGS);
+        preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS);
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -236,12 +260,58 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "wifiScanningCategory");
                     //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_WIFI_SCANNING_SETTINGS);
+                    startActivityForResult(intent, RESULT_WIFI_SCANNING_APP_SETTINGS);
                     return false;
                 }
             });
         }
-        preference = prefMng.findPreference(PREF_BLUETOOTH_SCANNING_APP_SETTINGS);
+        preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    //Intent intent = new Intent(WifiManager.ACTION_REQUEST_SCAN_ALWAYS_AVAILABLE);
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_WIFI_IP_SETTINGS, getActivity().getApplicationContext())) {
+                        Intent intent = new Intent(Settings.ACTION_WIFI_IP_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS);
+                    } else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_APP_SETTINGS);
         if (preference != null) {
             //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -251,7 +321,30 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "bluetoothScanningCategory");
                     //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-                    startActivityForResult(intent, RESULT_BLUETOOTH_SCANNING_SETTINGS);
+                    startActivityForResult(intent, RESULT_BLUETOOTH_SCANNING_APP_SETTINGS);
+                    return false;
+                }
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.show();
+                    }
                     return false;
                 }
             });
@@ -501,13 +594,25 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             event._eventPreferencesApplication.checkPreferences(prefMng, context);
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);
         }
-        if (requestCode == RESULT_WIFI_SCANNING_SETTINGS) {
+        if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
         }
-        if (requestCode == RESULT_BLUETOOTH_SCANNING_SETTINGS) {
+        if (requestCode == RESULT_BLUETOOTH_SCANNING_APP_SETTINGS) {
             event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
         }
-        if (requestCode == RESULT_LOCATION_SETTINGS) {
+        if (requestCode == RESULT_LOCATION_APP_SETTINGS) {
+            event._eventPreferencesLocation.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_WIFI_LOCATION_SYSTEM_SETTINGS) {
+            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS) {
+            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
+            event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
         }
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {

@@ -29,7 +29,8 @@ class EventPreferencesBluetooth extends EventPreferences {
     static final String PREF_EVENT_BLUETOOTH_ADAPTER_NAME = "eventBluetoothAdapterNAME";
     private static final String PREF_EVENT_BLUETOOTH_CONNECTION_TYPE = "eventBluetoothConnectionType";
     private static final String PREF_EVENT_BLUETOOTH_DEVICES_TYPE = "eventBluetoothDevicesType";
-    private static final String PREF_EVENT_BLUETOOTH_APP_SETTINGS = "eventEnableBluetoothScanningAppSettings";
+    static final String PREF_EVENT_BLUETOOTH_APP_SETTINGS = "eventEnableBluetoothScanningAppSettings";
+    static final String PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "eventBluetoothLocationSystemSettings";
 
     private static final String PREF_EVENT_BLUETOOTH_CATEGORY = "eventBluetoothCategory";
 
@@ -230,7 +231,8 @@ class EventPreferencesBluetooth extends EventPreferences {
         if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME) ||
             key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE)||
             key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE) ||
-            key.equals(PREF_EVENT_BLUETOOTH_APP_SETTINGS))
+            key.equals(PREF_EVENT_BLUETOOTH_APP_SETTINGS) ||
+            key.equals(PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -244,6 +246,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_DEVICES_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS, preferences, context);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 != PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -299,6 +302,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         //setSummary(prefMng, PREF_EVENT_BLUETOOTH_ADAPTER_NAME, preferences, context);
         setSummary(prefMng, PREF_EVENT_BLUETOOTH_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 

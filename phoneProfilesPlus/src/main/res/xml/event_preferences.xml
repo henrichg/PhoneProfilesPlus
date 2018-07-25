@@ -543,12 +543,20 @@
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
-                android:key="eventLocationScanningSystemSettings"
+                android:key="eventLocationScanningAppSettings"
                 android:title="@string/phone_profiles_pref_category_location"
                 android:summary="@string/phone_profiles_pref_eventLocationAppSettings_summary"
                 android:dependency="eventLocationEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
                 android:layout="@layout/mp_preference_material_widget" />
+            <Preference
+                android:key="eventLocationLocationSystemSettings"
+                android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+                android:summary="@string/phone_profiles_pref_eventLocationSystemSettings_summary"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:dependency="eventLocationEnabled"
+                android:layout="@layout/mp_preference_material_widget" >
+            </Preference>
             <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
                 android:defaultValue="0"
                 android:key="eventLocationGeofences"
@@ -582,6 +590,22 @@
                 android:summary="@string/phone_profiles_pref_eventWifiAppSettings_summary"
                 android:dependency="eventWiFiEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
+            </Preference>
+            <Preference
+                android:key="eventWiFiLocationSystemSettings"
+                android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+                android:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:dependency="eventWiFiEnabled"
+                android:layout="@layout/mp_preference_material_widget" >
+            </Preference>
+            <Preference
+                android:key="eventWiFiKeepOnSystemSettings"
+                android:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
+                android:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:dependency="eventWiFiEnabled"
                 android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -619,6 +643,14 @@
                 android:summary="@string/phone_profiles_pref_eventBluetoothAppSettings_summary"
                 android:dependency="eventBluetoothEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
+            </Preference>
+            <Preference
+                android:key="eventBluetoothLocationSystemSettings"
+                android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+                android:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:dependency="eventBluetoothEnabled"
                 android:layout="@layout/mp_preference_material_widget" >
             </Preference>
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
