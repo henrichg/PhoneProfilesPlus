@@ -882,7 +882,7 @@ class Permissions {
             return true;
     }
 
-    private static List<PermissionType> checkEventPermissions(Context context, Event event) {
+    static List<PermissionType> checkEventPermissions(Context context, Event event) {
         List<PermissionType>  permissions = new ArrayList<>();
         if (event == null) return permissions;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -1413,13 +1413,15 @@ class Permissions {
     }
 
     static boolean grantEventPermissions(Context context, Event event,
-                                                  boolean onlyNotification) {
+                                                  boolean onlyNotification,
+                                                  boolean fromPreferences) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             List<PermissionType> permissions = checkEventPermissions(context, event);
             if (permissions.size() > 0) {
                 try {
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (!fromPreferences)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EVENT);
                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
@@ -1428,7 +1430,10 @@ class Permissions {
                     else
                         intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
-                    context.startActivity(intent);
+                    if (fromPreferences)
+                        ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EVENT);
+                    else
+                        context.startActivity(intent);
                 } catch (Exception e) {
                     return false;
                 }

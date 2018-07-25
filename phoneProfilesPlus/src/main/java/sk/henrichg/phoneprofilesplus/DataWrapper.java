@@ -1811,7 +1811,7 @@ public class DataWrapper {
                                     boolean reactivate, Profile mergedProfile,
                                     String sensorType)
     {
-        if (!Permissions.grantEventPermissions(context, event, true))
+        if (!Permissions.grantEventPermissions(context, event, true, false))
             return;
 
         int newEventStatus;// = Event.ESTATUS_NONE;

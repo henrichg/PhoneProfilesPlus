@@ -5,12 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="rootScreen"
     android:title="@string/title_activity_default_profile_preferences" >
-    <!--<Preference
-        android:key="prf_pref_grantPermissions"
-        android:title="@string/profile_preferences_grantPermissions_title"
-        android:summary="@string/profile_preferences_grantPermissions_summary"
-        android:widgetLayout="@layout/start_activity_preference"
-        android:layout="@layout/mp_preference_material_widget" />-->
     <Preference
         android:key="prf_pref_sharedProfileInfo"
         android:title="@string/profile_preferences_sourceProfileInfoX_title"

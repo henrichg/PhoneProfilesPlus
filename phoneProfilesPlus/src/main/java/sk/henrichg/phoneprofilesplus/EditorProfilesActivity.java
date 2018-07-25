@@ -1048,7 +1048,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // redraw list fragment , notifications, widgets after finish EventPreferencesActivity
                     redrawEventListFragment(event, newEventMode, predefinedEventIndex);
 
-                    Permissions.grantEventPermissions(getApplicationContext(), event, false);
+                    Permissions.grantEventPermissions(getApplicationContext(), event, false, false);
                 }
 
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);

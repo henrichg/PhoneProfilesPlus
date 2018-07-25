@@ -377,18 +377,25 @@ public class EventPreferencesActivity extends PreferenceActivity
         return true;
     }
 
+    Event getEventFromPreferences(long event_id, int new_event_mode, int predefinedEventIndex) {
+        final Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        if (event != null) {
+            String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+            SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+            event.saveSharedPreferences(preferences, getApplicationContext());
+        }
+        return event;
+    }
+
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
-        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
-        final Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
+        final Event event = getEventFromPreferences(event_id, new_event_mode, predefinedEventIndex);
         if (event == null)
             return;
 
+        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTPREFERENCESCHANGED, event._name, null, null, 0);
-
-        String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
-
-        SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
         // save preferences into profile
         final List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
@@ -396,8 +403,6 @@ public class EventPreferencesActivity extends PreferenceActivity
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
         {
-            event.saveSharedPreferences(preferences, dataWrapper.context);
-
             // add event into DB
             DatabaseHandler.getInstance(dataWrapper.context).addEvent(event);
             event_id = event._id;
@@ -409,8 +414,6 @@ public class EventPreferencesActivity extends PreferenceActivity
         else
         if (event_id > 0)
         {
-            event.saveSharedPreferences(preferences, dataWrapper.context);
-
             // update event in DB
             DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
 

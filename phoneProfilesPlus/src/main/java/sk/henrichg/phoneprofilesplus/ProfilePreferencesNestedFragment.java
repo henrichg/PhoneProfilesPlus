@@ -557,14 +557,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     preference.setKey(PRF_GRANT_PERMISSIONS);
                     preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                     preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                    preference.setOrder(0);
+                    preference.setOrder(-100);
                     preferenceCategory.addPreference(preference);
                 }
 
-                Spannable title = new SpannableString(getString(R.string.profile_preferences_grantPermissions_title));
+                Spannable title = new SpannableString(getString(R.string.preferences_grantPermissions_title));
                 title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                 preference.setTitle(title);
-                Spannable summary = new SpannableString(getString(R.string.profile_preferences_grantPermissions_summary));
+                Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
                 summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
                 preference.setSummary(summary);
 

@@ -1194,8 +1194,8 @@
     <string name="brightness_pref_dialog_level_chb">Change level</string>
     <string name="preference_profile_manual_brightness">Manual</string>
     <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>
-    <string name="profile_preferences_grantPermissions_title">Not granted permissions</string>
-    <string name="profile_preferences_grantPermissions_summary">Some permissions are not granted. Click here to grant it.</string>
+    <string name="preferences_grantPermissions_title">Not granted permissions</string>
+    <string name="preferences_grantPermissions_summary">Some permissions are not granted. Click here to grant it.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

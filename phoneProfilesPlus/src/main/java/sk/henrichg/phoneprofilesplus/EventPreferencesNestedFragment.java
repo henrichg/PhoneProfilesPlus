@@ -6,13 +6,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.preference.PreferenceScreen;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -32,6 +38,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
 
+    private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
@@ -121,6 +128,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         //RingtonePreference notificationSoundPreference = (RingtonePreference)prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
         //notificationSoundPreference.setEnabled(PPApplication.notificationStatusBar);
+
+        setPermissionsPreference();
 
         event.checkPreferences(prefMng, context);
 
@@ -353,6 +362,65 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         */
     }
 
+    private void setPermissionsPreference() {
+        Bundle bundle = this.getArguments();
+
+        if (bundle.getBoolean(EXTRA_NESTED, true))
+            return;
+
+        Log.e("***** EventPreferencesNestedFragment.setPermissionPreference","xxx");
+
+        long event_id = bundle.getLong(PPApplication.EXTRA_EVENT_ID, 0);
+        if (event_id != 0) {
+            int newEventMode = bundle.getInt(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+            int predefinedEventIndex = bundle.getInt(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, 0);
+            final Event event = ((EventPreferencesActivity) getActivity())
+                    .getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
+            if (Permissions.checkEventPermissions(context, event).size() == 0) {
+                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                    preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                    preference = new Preference(context);
+                    preference.setKey(PRF_GRANT_PERMISSIONS);
+                    preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                    preference.setOrder(-100);
+                    preferenceCategory.addPreference(preference);
+                }
+
+                Spannable title = new SpannableString(getString(R.string.preferences_grantPermissions_title));
+                title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                preference.setTitle(title);
+                Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
+                summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                preference.setSummary(summary);
+
+                final Activity activity = getActivity();
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Permissions.grantEventPermissions(activity, event, false, true);
+                        return false;
+                    }
+                });
+            }
+        }
+        else {
+            Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                preferenceCategory.removePreference(preference);
+            }
+        }
+    }
+
     @Override
     public void onDestroy()
     {
@@ -384,6 +452,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     {
         //Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
 
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EVENT) {
+            setPermissionsPreference();
+        }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
         }
@@ -487,6 +558,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         //eventTypeChanged = false;
 
         event.setSummary(prefMng, key, sharedPreferences, context);
+
+        setPermissionsPreference();
 
         //Activity activity = getActivity();
         //boolean canShow = (EditorProfilesActivity.mTwoPane) && (activity instanceof EditorProfilesActivity);
