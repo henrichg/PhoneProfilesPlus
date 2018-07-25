@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
@@ -25,6 +26,9 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -53,6 +57,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     static final String PREF_DEVICE_ADMINISTRATOR_SETTINGS = "prf_pref_lockDevice_deviceAdminSettings";
     private static final int RESULT_DEVICE_ADMINISTRATOR_SETTINGS = 1982;
 
+    private static final String PRF_GRANT_PERMISSIONS = "prf_pref_grantPermissions";
     private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategory";
     static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
     private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
@@ -129,6 +134,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         //Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "this="+this);
         //Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "prefMng="+prefMng);
         //Log.d("------ ProfilePreferencesNestedFragment.onActivityCreated", "preferences="+preferences);
+
+        setPermissionsPreference();
 
         if (android.os.Build.VERSION.SDK_INT >= 21)
         {
@@ -519,6 +526,67 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             });
         }
 
+    }
+
+    private void setPermissionsPreference() {
+        Bundle bundle = this.getArguments();
+
+        if (bundle.getBoolean(EXTRA_NESTED, true))
+            return;
+
+        Log.e("***** ProfilePreferencesNestedFragment.setPermissionPreference","xxx");
+
+        long profile_id = bundle.getLong(PPApplication.EXTRA_PROFILE_ID, 0);
+        if (profile_id != 0) {
+            int newProfileMode = bundle.getInt(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+            int predefinedProfileIndex = bundle.getInt(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
+            final Profile profile = ((ProfilePreferencesActivity) getActivity())
+                    .getProfileFromPreferences(profile_id, newProfileMode, predefinedProfileIndex);
+            if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
+                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("rootScreen");
+                    preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("rootScreen");
+                    preference = new Preference(context);
+                    preference.setKey(PRF_GRANT_PERMISSIONS);
+                    preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                    preference.setOrder(0);
+                    preferenceCategory.addPreference(preference);
+                }
+
+                Spannable title = new SpannableString(getString(R.string.profile_preferences_grantPermissions_title));
+                title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                preference.setTitle(title);
+                Spannable summary = new SpannableString(getString(R.string.profile_preferences_grantPermissions_summary));
+                summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                preference.setSummary(summary);
+
+                final Activity activity = getActivity();
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        //Profile mappedProfile = Profile.getMappedProfile(profile, appContext);
+                        Permissions.grantProfilePermissions(activity, profile, false, false,
+                                /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, true);
+                        return false;
+                    }
+                });
+            }
+        }
+        else {
+            Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("rootScreen");
+                preferenceCategory.removePreference(preference);
+            }
+        }
     }
 
     @Override
@@ -1743,6 +1811,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         // disable depended preferences
         disableDependedPref(key, value);
 
+        setPermissionsPreference();
+
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
             // no save menu for shared profile
             ProfilePreferencesActivity activity = (ProfilePreferencesActivity)getActivity();
@@ -1757,6 +1827,9 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         //Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "prefMng="+prefMng);
         //Log.d("------ ProfilePreferencesFragment.doOnActivityResult", "preferences="+preferences);
 
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
+            setPermissionsPreference();
+        }
         if (requestCode == EditorProfilesActivity.REQUEST_CODE_PROFILE_PREFERENCES)
         {
             if ((resultCode == Activity.RESULT_OK) && (data != null))
@@ -1769,7 +1842,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 {
                     Profile sharedProfile = Profile.getSharedProfile(context);
                     Permissions.grantProfilePermissions(context, sharedProfile, false, true,
-                            /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false);
+                            /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, false);
 
                     Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);

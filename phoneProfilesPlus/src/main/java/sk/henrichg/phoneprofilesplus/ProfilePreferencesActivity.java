@@ -491,15 +491,13 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         }
     }
 
-    private void savePreferences(int new_profile_mode, int predefinedProfileIndex)
-    {
+    Profile getProfileFromPreferences(long profile_id, int new_profile_mode, int predefinedProfileIndex) {
         int startupSource;
         if (profile_id == Profile.SHARED_PROFILE_ID)
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE;
         else
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
         Profile profile = createProfile(startupSource, profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         if (profile != null) {
@@ -520,13 +518,6 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 profile._durationNotificationVibrate = preferences.getBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
 
                 profile._hideStatusBarIcon = preferences.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
-
-                Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-                if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                    // set alarm for profile duration
-                    ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, getApplicationContext());
-                    Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
-                }
             }
             profile._volumeRingerMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, ""));
             profile._volumeZenMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, ""));
@@ -597,8 +588,30 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             profile._screenNightMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, ""));
             profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, ""));
             profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, ""));
+        }
+
+        return profile;
+    }
+
+    private void savePreferences(int new_profile_mode, int predefinedProfileIndex)
+    {
+        Profile profile = getProfileFromPreferences(profile_id, new_profile_mode, predefinedProfileIndex);
+        if (profile != null) {
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+
+            int startupSource;
+            if (profile_id == Profile.SHARED_PROFILE_ID)
+                startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE;
+            else
+                startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
             if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+                Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+                if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                    // set alarm for profile duration
+                    ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, getApplicationContext());
+                    Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
+                }
 
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEPREFERENCESCHANGED, null, profile._name, profile._icon, 0);
 

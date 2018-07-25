@@ -488,7 +488,7 @@ public class DataWrapper {
         Profile profile = getProfileById(profile_id, false, false, merged);
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 /*false, monochrome, monochromeValue,*/
-                startupSource, false,true)) {
+                startupSource, false,true, false)) {
             _activateProfile(profile, merged, startupSource);
         }
     }
@@ -1575,7 +1575,7 @@ public class DataWrapper {
                     public void onClick(DialogInterface dialog, int which) {
                             if (Permissions.grantProfilePermissions(context, _profile, false, false,
                                     /*false, monochrome, monochromeValue,*/
-                                    _startupSource, true, true))
+                                    _startupSource, true, true, false))
                                 _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity);
                             else {
                                 Intent returnIntent = new Intent();
@@ -1634,7 +1634,7 @@ public class DataWrapper {
 
                     granted = Permissions.grantProfilePermissions(context, profile, false, false,
                             /*false, monochrome, monochromeValue,*/
-                            startupSource, true, true);
+                            startupSource, true, true, false);
                 /*}
                 else
                     granted = Permissions.grantProfilePermissions(context, profile, false, true,
@@ -1797,7 +1797,7 @@ public class DataWrapper {
         }
         if (Permissions.grantProfilePermissions(context, profile, false, true,
                 /*false, monochrome, monochromeValue,*/
-                startupSource, true,true)) {
+                startupSource, true,true, false)) {
             // activateProfileAfterDuration is already called from handlerThread
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "activate");
             _activateProfile(profile, false, startupSource);

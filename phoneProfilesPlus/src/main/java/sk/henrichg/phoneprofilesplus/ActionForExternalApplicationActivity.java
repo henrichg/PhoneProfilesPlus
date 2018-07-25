@@ -103,7 +103,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     Profile profile = dataWrapper.getProfileById(profile_id, false, false, false);
                     //Log.d("ActionForExternalApplicationActivity.onCreate", "profile="+profile);
                     if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
-                            /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true)) {
+                            /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
                         dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     }
                     else
