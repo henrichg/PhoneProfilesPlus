@@ -449,6 +449,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
+            android:text="@string/info_notification_event_states_manual_profile_activation"
+            android:id="@+id/activity_info_notification_dialog_info_text90"
+            android:drawableStart="@drawable/ic_event_status_pause_manual_activation"
+            android:drawablePadding="4dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="@string/info_notification_event_states_running"
             android:id="@+id/activity_info_notification_dialog_info_text31"
             android:drawableStart="@drawable/ic_event_status_running"

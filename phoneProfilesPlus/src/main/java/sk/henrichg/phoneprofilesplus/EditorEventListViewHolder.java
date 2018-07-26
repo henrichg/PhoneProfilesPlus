@@ -77,6 +77,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             boolean isRunnable = event.isRunnable(context, true);
             boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;
 
+            DataWrapper dataWrapper = new DataWrapper(context, false, 0);
+            boolean manualProfileActivation = dataWrapper.getIsManualProfileActivation();
+            dataWrapper.invalidateDataWrapper();
+
             int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
             switch (_eventStatus)
             {
@@ -89,6 +93,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 case Event.ESTATUS_PAUSE:
                     if (event._isInDelayStart)
                         statusRes = R.drawable.ic_event_status_pause_delay;
+                    else
+                    if (manualProfileActivation && !event._forceRun)
+                        statusRes = R.drawable.ic_event_status_pause_manual_activation;
                     else
                         statusRes = R.drawable.ic_event_status_pause;
                     break;
@@ -117,6 +124,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
+            }
+            else
+            if (manualProfileActivation && !event._forceRun) {
+                eventName.setTypeface(null, Typeface.ITALIC);
+                eventName.setTextSize(15);
+                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
             }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
