@@ -138,14 +138,21 @@ class EventPreferencesWifi extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_WIFI_ENABLED) ||
             key.equals(PREF_EVENT_WIFI_APP_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
+            Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_APP_SETTINGS);
             if (preference != null) {
                 String summary;
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
-                    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
-                    titleColor = Color.RED; //0xFFffb000;
+                    if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context)) {
+                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                                context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
+                        titleColor = Color.RED; //0xFFffb000;
+                    }
+                    else {
+                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n" +
+                                context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
+                        titleColor = 0;
+                    }
                 }
                 else {
                     summary = context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);

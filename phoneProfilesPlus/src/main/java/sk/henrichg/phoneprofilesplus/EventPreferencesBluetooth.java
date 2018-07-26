@@ -157,14 +157,21 @@ class EventPreferencesBluetooth extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED) ||
             key.equals(PREF_EVENT_BLUETOOTH_APP_SETTINGS)) {
-            Preference preference = prefMng.findPreference(key);
+            Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_APP_SETTINGS);
             if (preference != null) {
                 String summary;
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
-                    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
-                    titleColor = Color.RED; //0xFFffb000;
+                    if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context)) {
+                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                                context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                        titleColor = Color.RED; //0xFFffb000;
+                    }
+                    else {
+                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n" +
+                                context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                        titleColor = 0;
+                    }
                 }
                 else {
                     summary = context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);

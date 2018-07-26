@@ -2113,10 +2113,13 @@ class ActivateProfileHelper {
             }
         }
 
+        // enable/disable scanners
         if (profile._applicationDisableWifiScanning != 0) {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, profile._applicationDisableWifiScanning == 2);
+            if (profile._applicationDisableWifiScanning == 1)
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, true);
             editor.apply();
             PPApplication.restartWifiScanner(context, false);
         }
@@ -2124,6 +2127,8 @@ class ActivateProfileHelper {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, profile._applicationDisableBluetoothScanning == 2);
+            if (profile._applicationDisableBluetoothScanning == 1)
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, true);
             editor.apply();
             PPApplication.restartBluetoothScanner(context, false);
         }
@@ -2131,6 +2136,8 @@ class ActivateProfileHelper {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, profile._applicationDisableLocationScanning == 2);
+            if (profile._applicationDisableLocationScanning == 1)
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, true);
             editor.apply();
             PPApplication.restartGeofenceScanner(context, false);
         }
@@ -2138,6 +2145,8 @@ class ActivateProfileHelper {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, profile._applicationDisableMobileCellScanning == 2);
+            if (profile._applicationDisableMobileCellScanning == 1)
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, true);
             editor.apply();
             PPApplication.restartPhoneStateScanner(context, false);
         }
@@ -2145,6 +2154,8 @@ class ActivateProfileHelper {
             ApplicationPreferences.getSharedPreferences(context);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, profile._applicationDisableOrientationScanning == 2);
+            if (profile._applicationDisableOrientationScanning == 1)
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, true);
             editor.apply();
             PPApplication.restartOrientationScanner(context);
         }
