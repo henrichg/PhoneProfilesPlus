@@ -448,14 +448,17 @@ class EventPreferencesTime extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-        //removeAlarm(true, context);
-        removeAlarm(/*false, */context);
+        //removeAlarm(true, _context);
+        removeAlarm(/*false, */_context);
 
-        if (!(isRunnable(context) && _enabled))
+        if (!(isRunnable(_context) && _enabled))
             return;
 
-        setAlarm(true, computeAlarm(true), context);
+        setAlarm(true, computeAlarm(true), _context);
     }
 
     @Override
@@ -466,13 +469,17 @@ class EventPreferencesTime extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        //removeAlarm(true, context);
-        removeAlarm(/*false, */context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-        if (!(isRunnable(context) && _enabled))
+        //removeAlarm(true, _context);
+        removeAlarm(/*false, */_context);
+
+        if (!(isRunnable(_context) && _enabled))
             return;
 
-        setAlarm(false, computeAlarm(false), context);
+        setAlarm(false, computeAlarm(false), _context);
     }
 
     @Override
@@ -480,8 +487,12 @@ class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        //removeAlarm(true, context);
-        removeAlarm(/*false, */context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        //removeAlarm(true, _context);
+        removeAlarm(/*false, */_context);
 
         PPApplication.logE("EventPreferencesTime.removeSystemEvent","xxx");
     }
@@ -492,7 +503,7 @@ class EventPreferencesTime extends EventPreferences {
         if (alarmManager != null) {
             Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("EventPreferencesTime.removeAlarm", "alarm found");
 
@@ -523,7 +534,7 @@ class EventPreferencesTime extends EventPreferences {
 
         //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
