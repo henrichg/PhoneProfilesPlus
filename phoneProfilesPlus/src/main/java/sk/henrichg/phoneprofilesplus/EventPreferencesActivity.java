@@ -341,11 +341,11 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
     {
-        if (!ApplicationPreferences.applicationEventNeverAskForEnableRun(this)) {
-            //if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
-            final SharedPreferences preferences = getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
-            boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
-            if (!enabled) {
+        final SharedPreferences preferences = getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
+        boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
+        if (!enabled) {
+            if (!ApplicationPreferences.applicationEventNeverAskForEnableRun(this)) {
+                //if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
                 final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(this);
 
                 FrameLayout container = new FrameLayout(this);
