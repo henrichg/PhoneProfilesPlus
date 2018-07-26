@@ -91,11 +91,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         statusRes = R.drawable.ic_event_status_running;
                     break;
                 case Event.ESTATUS_PAUSE:
+                    if (!Event.getGlobalEventsRunning(editorFragment.getActivity()) || (manualProfileActivation && !event._forceRun))
+                        statusRes = R.drawable.ic_event_status_pause_manual_activation;
+                    else
                     if (event._isInDelayStart)
                         statusRes = R.drawable.ic_event_status_pause_delay;
-                    else
-                    if (manualProfileActivation && !event._forceRun)
-                        statusRes = R.drawable.ic_event_status_pause_manual_activation;
                     else
                         statusRes = R.drawable.ic_event_status_pause;
                     break;
@@ -108,6 +108,12 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             eventStatus.setImageResource(statusRes);
 
+            if (!Event.getGlobalEventsRunning(editorFragment.getActivity()) || (manualProfileActivation && !event._forceRun)) {
+                eventName.setTypeface(null, Typeface.ITALIC);
+                eventName.setTextSize(15);
+                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
+            }
+            else
             if (_eventStatus == Event.ESTATUS_RUNNING) {
                 eventName.setTypeface(null, Typeface.BOLD);
                 eventName.setTextSize(16);
@@ -124,12 +130,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
-            }
-            else
-            if (manualProfileActivation && !event._forceRun) {
-                eventName.setTypeface(null, Typeface.ITALIC);
-                eventName.setTextSize(15);
-                eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
             }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
