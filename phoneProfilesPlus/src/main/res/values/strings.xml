@@ -1199,6 +1199,7 @@
     <string name="event_preferences_no_sensor_is_enabled">No sensor is enabled!</string>
     <string name="info_notification_event_states_manual_profile_activation">Paused: some profile is manually activated and event has not enabled parameter \"Ignore manual activation\".</string>
     <string name="phone_profiles_pref_applicationEventScanningDisabledByProfile">Scanning disabled by profile.</string>
+    <string name="alert_message_enable_event_check_box">Never ask again</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

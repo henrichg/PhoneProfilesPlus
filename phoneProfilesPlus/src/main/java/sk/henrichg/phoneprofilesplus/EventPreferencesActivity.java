@@ -12,13 +12,19 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
@@ -335,14 +341,41 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
     {
-        if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
+        if (!ApplicationPreferences.applicationEventNeverAskForEnableRun(this)) {
+            //if (new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) {
             final SharedPreferences preferences = getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
             boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
             if (!enabled) {
+                final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(this);
+
+                FrameLayout container = new FrameLayout(this);
+                container.addView(doNotShowAgain);
+                FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT);
+                containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
+                container.setLayoutParams(containerParams);
+
+                FrameLayout superContainer = new FrameLayout(this);
+                superContainer.addView(container);
+
+                doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+                doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventPreferencesActivity.this);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, isChecked);
+                        editor.apply();
+                    }
+                });
+
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-                dialogBuilder.setTitle(getResources().getString(R.string.menu_new_event));
-                dialogBuilder.setMessage(getResources().getString(R.string.alert_message_enable_event));
+                dialogBuilder.setTitle(R.string.phone_preferences_actionMode_save);
+                dialogBuilder.setMessage(R.string.alert_message_enable_event);
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                //dialogBuilder.setView(doNotShowAgain);
+                dialogBuilder.setView(superContainer);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         SharedPreferences.Editor editor = preferences.edit();
@@ -373,6 +406,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                 dialog.show();
                 return false;
             }
+            //}
         }
         return true;
     }

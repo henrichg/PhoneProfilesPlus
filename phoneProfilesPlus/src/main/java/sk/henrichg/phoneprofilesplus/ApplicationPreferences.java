@@ -111,6 +111,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE = "applicationEventMobileCellDisabledScannigByProfile";
     static final String PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING = "applicationEventOrientationEnableScannig";
     static final String PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE = "applicationEventOrientationDisabledScannigByProfile";
+    static final String PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN = "applicationEventNeverAskForEnableRun";
 
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)
@@ -549,6 +550,10 @@ class ApplicationPreferences {
 
     static boolean applicationEventOrientationDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+    }
+
+    static boolean applicationEventNeverAskForEnableRun(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
     }
 
 }
