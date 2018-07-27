@@ -29,11 +29,18 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
     static void removeAlarm(Context context)
     {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-        if (alarmManager != null) {
-            Intent intent = new Intent(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
+        if (alarmManager != null) {
+            //Intent intent = new Intent(_context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
+            //intent.setClass(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "alarm found");
 
@@ -60,9 +67,16 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
             PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm", "alarmTime=" + result);
         }
 
-        Intent intent = new Intent(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //Intent intent = new Intent(_context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
+        //intent.setClass(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {

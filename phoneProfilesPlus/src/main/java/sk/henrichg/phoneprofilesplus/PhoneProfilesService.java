@@ -114,6 +114,8 @@ public class PhoneProfilesService extends Service
     private RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
     private MissedCallEventEndBroadcastReceiver missedCallEventEndBroadcastReceiver = null;
     private StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
+    private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
+    private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -501,6 +503,18 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered startEventNotificationBroadcastReceiver");
+            if (lockDeviceActivityFinishBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER lockDeviceActivityFinishBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER lockDeviceActivityFinishBroadcastReceiver");
+                try {
+                    unregisterReceiver(lockDeviceActivityFinishBroadcastReceiver);
+                    lockDeviceActivityFinishBroadcastReceiver = null;
+                } catch (Exception e) {
+                    lockDeviceActivityFinishBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered lockDeviceActivityFinishBroadcastReceiver");
         }
         if (register) {
             if (shutdownBroadcastReceiver == null) {
@@ -682,6 +696,17 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered startEventNotificationBroadcastReceiver");
+
+            if (lockDeviceActivityFinishBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER lockDeviceActivityFinishBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER lockDeviceActivityFinishBroadcastReceiver");
+
+                lockDeviceActivityFinishBroadcastReceiver = new LockDeviceActivityFinishBroadcastReceiver();
+                IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);
+                registerReceiver(lockDeviceActivityFinishBroadcastReceiver, intentFilter14);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered lockDeviceActivityFinishBroadcastReceiver");
         }
     }
 
@@ -2012,6 +2037,60 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    private void registerGeofencesScannerReceiver(boolean register, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver", "PhoneProfilesService_registerGeofencesScannerReceiver");
+        PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "xxx");
+        if (!register) {
+            if (geofencesScannerSwitchGPSBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver->UNREGISTER", "PhoneProfilesService_registerGeofencesScannerReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "UNREGISTER");
+                try {
+                    unregisterReceiver(geofencesScannerSwitchGPSBroadcastReceiver);
+                    geofencesScannerSwitchGPSBroadcastReceiver = null;
+                } catch (Exception e) {
+                    geofencesScannerSwitchGPSBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "not registered");
+        }
+        if (register) {
+            boolean allowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                int eventCount = 1;
+                if (checkDatabase) {
+                    if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
+                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                            // start only for screen On
+                            eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION, false);
+                        } else
+                            eventCount = 0;
+                    } else
+                        eventCount = 0;
+                }
+                PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "eventCount="+eventCount);
+                if (eventCount > 0) {
+                    if (geofencesScannerSwitchGPSBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver->REGISTER", "PhoneProfilesService_registerGeofencesScannerReceiver");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "REGISTER");
+                        geofencesScannerSwitchGPSBroadcastReceiver = new GeofencesScannerSwitchGPSBroadcastReceiver();
+                        IntentFilter intentFilter4 = new IntentFilter(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
+                        registerReceiver(geofencesScannerSwitchGPSBroadcastReceiver, intentFilter4);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "registered");
+                } else {
+                    registerGeofencesScannerReceiver(false, false);
+                }
+            }
+            else
+                registerGeofencesScannerReceiver(false, false);
+        }
+    }
+
     private void cancelWifiJob(final Context context, final Handler _handler) {
         if (WifiScanJob.isJobScheduled()) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleWifiJob->CANCEL", "PhoneProfilesService_scheduleWifiJob");
@@ -2551,6 +2630,9 @@ public class PhoneProfilesService extends Service
         // register receiver for call event
         registerReceiverForCallSensor(true, true);
 
+        // register receiver for geofences scanner
+        registerGeofencesScannerReceiver(true, true);
+
         scheduleWifiJob(true,  true, /*false, false, false,*/ false);
         scheduleBluetoothJob(true,  true, /*false, false,*/ false);
         scheduleGeofenceScannerJob(true,  true, /*false,*/ false);
@@ -2586,6 +2668,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForTimeSensor(false, false);
         registerReceiverForNFCSensor(false, false);
         registerReceiverForCallSensor(false, false);
+        registerGeofencesScannerReceiver(false, false);
 
         //if (alarmClockBroadcastReceiver != null)
         //    appContext.unregisterReceiver(alarmClockBroadcastReceiver);
@@ -2627,6 +2710,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForTimeSensor(true, true);
         registerReceiverForNFCSensor(true, true);
         registerReceiverForCallSensor(true, true);
+        registerGeofencesScannerReceiver(true, true);
 
         scheduleWifiJob(true,  true, /*false, false, false,*/ false);
         scheduleBluetoothJob(true,  true, /*false, false,*/ false);
