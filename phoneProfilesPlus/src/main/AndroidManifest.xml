@@ -479,16 +479,16 @@
             android:enabled="true"
             android:exported="false">
         </receiver>-->
-        <receiver
+        <!--<receiver
             android:name=".MissedCallEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
+        </receiver>-->
+        <!--<receiver
             android:name=".StartEventNotificationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
+        </receiver>-->
         <receiver
             android:name=".GeofencesScannerSwitchGPSBroadcastReceiver"
             android:enabled="true"

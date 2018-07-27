@@ -33,7 +33,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
         if (alarmManager != null) {
             Intent intent = new Intent(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm", "alarm found");
 
@@ -62,7 +62,7 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
         Intent intent = new Intent(context, GeofencesScannerSwitchGPSBroadcastReceiver.class);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {

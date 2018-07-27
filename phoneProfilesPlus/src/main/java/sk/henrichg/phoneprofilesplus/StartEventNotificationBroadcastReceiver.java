@@ -54,11 +54,18 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
     static void removeAlarm(Context context)
     {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
-        if (alarmManager != null) {
-            Intent intent = new Intent(context, StartEventNotificationBroadcastReceiver.class);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
+        if (alarmManager != null) {
+            //Intent intent = new Intent(_context, StartEventNotificationBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER);
+            //intent.setClass(context, StartEventNotificationBroadcastReceiver.class);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("StartEventNotificationBroadcastReceiver.removeAlarm", "alarm found");
 
@@ -83,12 +90,20 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
             }
 
-            Intent intent = new Intent(context, StartEventNotificationBroadcastReceiver.class);
+            Context _context = context;
+            if (PhoneProfilesService.getInstance() != null)
+                _context = PhoneProfilesService.getInstance();
+
+            //Intent intent = new Intent(_context, StartEventNotificationBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER);
+            //intent.setClass(context, StartEventNotificationBroadcastReceiver.class);
+
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);

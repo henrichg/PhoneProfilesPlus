@@ -30,7 +30,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         if (alarmManager != null) {
             Intent intent = new Intent(context, LockDeviceActivityFinishBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "alarm found");
 
@@ -59,7 +59,7 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
         Intent intent = new Intent(context, LockDeviceActivityFinishBroadcastReceiver.class);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {

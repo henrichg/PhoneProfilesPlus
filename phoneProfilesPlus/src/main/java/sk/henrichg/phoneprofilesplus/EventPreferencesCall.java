@@ -271,7 +271,11 @@ class EventPreferencesCall extends EventPreferences {
 
         PPApplication.logE("EventPreferencesCall.setSystemRunningEvent", "xxx");
 
-        removeAlarm(context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        removeAlarm(_context);
     }
 
     @Override
@@ -283,18 +287,26 @@ class EventPreferencesCall extends EventPreferences {
 
         PPApplication.logE("EventPreferencesCall.setSystemPauseEvent", "xxx");
 
-        removeAlarm(context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-        if (!(isRunnable(context) && _enabled))
+        removeAlarm(_context);
+
+        if (!(isRunnable(_context) && _enabled))
             return;
 
         if (_callEvent == CALL_EVENT_MISSED_CALL)
-            setAlarm(computeAlarm(), context);
+            setAlarm(computeAlarm(), _context);
     }
 
     @Override
     public void removeSystemEvent(Context context) {
-        removeAlarm(context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        removeAlarm(_context);
 
         PPApplication.logE("EventPreferencesCall.removeSystemEvent", "xxx");
     }
@@ -302,9 +314,12 @@ class EventPreferencesCall extends EventPreferences {
     private void removeAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
-            Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+            //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
+            //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("EventPreferencesCall.removeAlarm", "alarm found");
 
@@ -324,10 +339,14 @@ class EventPreferencesCall extends EventPreferences {
                     PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
                 }
 
-                Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+                //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER);
+                //intent.setClass(context, MissedCallEventEndBroadcastReceiver.class);
+
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
                 if (alarmManager != null) {
