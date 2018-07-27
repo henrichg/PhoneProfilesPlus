@@ -231,3 +231,34 @@ Aktivacia profilu z Aktivatora - vraj sa nezatvara
           aa) ak vrati false, NEVOLA SA NIC!!!! Tu je chyba, nema prava nahodene, nic sa neaktivuje a Aktivator sa nezavrie!!!! - OPRAVENE
           ab) ak vrati true, vola sa _dataWrapper.activateProfileFromMainThread(profile, false, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
 
+---------------------
+
+Obcas to spadne na chybe (aj na mojom S8 to raz spadlo):
+
+07-27 12:54:48.976 7857-7857/? E/Zygote: isWhitelistProcess - Process is Whitelisted
+07-27 12:54:48.987 7857-7857/? E/libpersona: scanKnoxPersonas
+    Couldn't open the File - /data/system/users/0/personalist.xml - No such file or directory
+07-27 12:54:48.998 7857-7857/? W/SELinux: SELinux selinux_android_compute_policy_index : Policy Index[2],  Con:u:r:zygote:s0 RAM:SEPF_SM-G950F_8.0.0_0010, [-1 -1 -1 -1 0 1]
+07-27 12:54:49.313 7857-7857/sk.henrichg.phoneprofilesplus E/##### PPApplication.onCreate: romManufacturer=samsung
+07-27 12:54:49.404 7857-7901/sk.henrichg.phoneprofilesplus W/Fabric: Could not call getId on com.google.android.gms.ads.identifier.AdvertisingIdClient$Info
+07-27 12:54:49.406 7857-7901/sk.henrichg.phoneprofilesplus W/Fabric: Could not call isLimitAdTrackingEnabled on com.google.android.gms.ads.identifier.AdvertisingIdClient$Info
+07-27 12:54:49.578 7857-7857/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.onCreate: android.os.Build.VERSION.SDK_INT=26
+07-27 12:54:49.601 7857-7857/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.onCreate: OK created
+07-27 12:54:49.603 7857-7857/sk.henrichg.phoneprofilesplus E/PhoneProfilesService.doForFirstStart: EXTRA_ONLY_START
+07-27 12:54:49.604 7857-7898/sk.henrichg.phoneprofilesplus E/PhoneProfilesService.doForFirstStart: PhoneProfilesService.doForFirstStart.2
+07-27 12:54:49.607 7857-7857/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.onStartCommand: intent=Intent { cmp=sk.henrichg.phoneprofilesplus/.PhoneProfilesService (has extras) }
+07-27 12:54:49.607 7857-7857/sk.henrichg.phoneprofilesplus E/PhoneProfilesService.doForFirstStart: EXTRA_ONLY_START already running
+07-27 12:54:50.310 7857-7898/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.doForFirstStart: application not started, start it
+07-27 12:54:53.844 7857-7898/sk.henrichg.phoneprofilesplus E/BluetoothHeadset: BTStateChangeCB is unregisted
+07-27 12:54:53.853 7857-7857/sk.henrichg.phoneprofilesplus E/AndroidRuntime: FATAL EXCEPTION: main
+    Process: sk.henrichg.phoneprofilesplus, PID: 7857
+    java.lang.NullPointerException: Attempt to invoke interface method 'void android.bluetooth.BluetoothProfile$ServiceListener.onServiceDisconnected(int)' on a null object reference
+        at android.bluetooth.BluetoothHeadset$3.handleMessage(BluetoothHeadset.java:1221)
+        at android.os.Handler.dispatchMessage(Handler.java:105)
+        at android.os.Looper.loop(Looper.java:164)
+        at android.app.ActivityThread.main(ActivityThread.java:6938)
+        at java.lang.reflect.Method.invoke(Native Method)
+        at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:327)
+        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1374)
+07-27 12:55:01.033 7857-7898/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.doForFirstStart: application started
+07-27 12:55:01.034 7857-7898/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.doForFirstStart: global event run is enabled, first start events
