@@ -62,6 +62,7 @@ class BluetoothConnectedDevices {
                 List<BluetoothDevice> devices;
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP start");
+                mBluetoothA2dp = null;
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
                 int i = 30;
                 while ((mBluetoothA2dp == null) && (i > 0)) {
@@ -78,10 +79,10 @@ class BluetoothConnectedDevices {
                         PPApplication.sleep(100);
                         --i;
                     }
-                    mBluetoothA2dp = null;
                 }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start");
+                mBluetoothHeadset = null;
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
                 i = 30;
                 while ((mBluetoothHeadset == null) && (i > 0)) {
@@ -98,10 +99,10 @@ class BluetoothConnectedDevices {
                         PPApplication.sleep(100);
                         --i;
                     }
-                    mBluetoothHeadset = null;
                 }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start");
+                mBluetoothHealth = null;
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
                 i = 30;
                 while ((mBluetoothHealth == null) && (i > 0)) {
@@ -118,7 +119,6 @@ class BluetoothConnectedDevices {
                         PPApplication.sleep(100);
                         --i;
                     }
-                    mBluetoothHealth = null;
                 }
 
                 //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
