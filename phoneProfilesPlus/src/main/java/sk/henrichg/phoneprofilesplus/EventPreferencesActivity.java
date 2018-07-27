@@ -251,7 +251,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                 dialog.show();
             }
             else
-                EventPreferencesActivity.super.onBackPressed();
+                super.onBackPressed();
         }
     }
 
