@@ -119,7 +119,7 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
-                                         +"|PhoneProfilesPreferencesNestedFragment"
+                                         //+"|PhoneProfilesPreferencesNestedFragment"
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
                                          //+"|Event.notifyEventStart"
@@ -215,6 +215,12 @@ public class PPApplication extends Application {
 
                                         //+"|@@@ Event.pauseEvent"
                                         //+"|@@@ Event.stopEvent"
+
+                                        //+"|[RJS] PhoneProfilesService.registerReceiversAndJobs"
+                                        //+"|[RJS] PhoneProfilesService.unregisterReceiversAndJobs"
+                                        //+"|[RJS] PhoneProfilesService.reregisterReceiversAndJobs"
+                                        //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
+                                        +"|EventTimeBroadcastReceiver.onReceive"
             ;
 
 

@@ -1624,6 +1624,10 @@ class Event {
 
         if (this._delayStart > 0)
         {
+            Context _context = dataWrapper.context;
+            if (PhoneProfilesService.getInstance() != null)
+                _context = PhoneProfilesService.getInstance();
+
             // delay for start is > 0
             // set alarm
 
@@ -1637,12 +1641,16 @@ class Event {
                 PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
             }
 
-            Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
+            //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction("EventDelayStartBroadcastReceiver");
+            //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
+
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
 
                 if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -1697,12 +1705,19 @@ class Event {
 
     void removeDelayStartAlarm(DataWrapper dataWrapper)
     {
-        AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
+        Context _context = dataWrapper.context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
 
-            Intent intent = new Intent(dataWrapper.context, EventDelayStartBroadcastReceiver.class);
+            //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction("EventDelayStartBroadcastReceiver");
+            //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("Event.removeDelayStartAlarm", "alarm found");
 
@@ -1748,6 +1763,10 @@ class Event {
 
         if (this._delayEnd > 0)
         {
+            Context _context = dataWrapper.context;
+            if (PhoneProfilesService.getInstance() != null)
+                _context = PhoneProfilesService.getInstance();
+
             // delay for end is > 0
             // set alarm
 
@@ -1761,12 +1780,16 @@ class Event {
                 PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
             }
 
-            Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
+            //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction("EventDelayEndBroadcastReceiver");
+            //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
+
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
 
             if (alarmManager != null) {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -1840,11 +1863,18 @@ class Event {
 
     void removeDelayEndAlarm(DataWrapper dataWrapper)
     {
-        AlarmManager alarmManager = (AlarmManager) dataWrapper.context.getSystemService(Activity.ALARM_SERVICE);
-        if (alarmManager != null) {
-            Intent intent = new Intent(dataWrapper.context, EventDelayEndBroadcastReceiver.class);
+        Context _context = dataWrapper.context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(dataWrapper.context.getApplicationContext(), (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
+        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
+        if (alarmManager != null) {
+            //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction("EventDelayEndBroadcastReceiver");
+            //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("Event.removeDelayEndAlarm", "alarm found");
 

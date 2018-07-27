@@ -462,7 +462,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         if (bundle.getBoolean(EXTRA_NESTED, true))
             return;
 
-        Log.e("***** EventPreferencesNestedFragment.setPreferencesStatusPreference","xxx");
+        //Log.e("***** EventPreferencesNestedFragment.setPreferencesStatusPreference","xxx");
 
         long event_id = bundle.getLong(PPApplication.EXTRA_EVENT_ID, 0);
         int newEventMode = bundle.getInt(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);

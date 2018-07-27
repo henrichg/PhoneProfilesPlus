@@ -434,31 +434,31 @@
         </receiver>
 
         <!-- alarms -->
-        <receiver
+        <!--<receiver
             android:name=".EventTimeBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
+        </receiver>-->
+        <!--<receiver
             android:name=".EventCalendarBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
+        </receiver>-->
+        <!--<receiver
             android:name=".EventDelayStartBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
+        </receiver>-->
+        <!--<receiver
             android:name=".EventDelayEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
+        </receiver>-->
+        <!--<receiver
             android:name=".ProfileDurationAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
+        </receiver>-->
         <receiver
             android:name=".SMSEventEndBroadcastReceiver"
             android:enabled="true"

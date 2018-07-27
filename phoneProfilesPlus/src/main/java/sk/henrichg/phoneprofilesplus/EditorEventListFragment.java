@@ -638,12 +638,12 @@ public class EditorEventListFragment extends Fragment
         if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
             return;
 
-        Log.e("***** EditorEventListFragment.updateHeader", "xxx");
+        //Log.e("***** EditorEventListFragment.updateHeader", "xxx");
 
         if ((activeProfileName == null) || (activeProfileIcon == null))
             return;
 
-        Log.e("***** EditorEventListFragment.updateHeader", "profile="+profile);
+        //Log.e("***** EditorEventListFragment.updateHeader", "profile="+profile);
 
         if (profile == null)
         {

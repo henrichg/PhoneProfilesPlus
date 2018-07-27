@@ -534,7 +534,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (bundle.getBoolean(EXTRA_NESTED, true))
             return;
 
-        Log.e("***** ProfilePreferencesNestedFragment.setPermissionPreference","xxx");
+        //Log.e("***** ProfilePreferencesNestedFragment.setPermissionPreference","xxx");
 
         long profile_id = bundle.getLong(PPApplication.EXTRA_PROFILE_ID, 0);
         if (profile_id != 0) {

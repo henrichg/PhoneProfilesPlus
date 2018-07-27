@@ -3799,7 +3799,7 @@ public class DataWrapper {
         if (addIndicators)
         {
             String eventName = getLastStartedEventName(eventTimelineList, dataWrapper, fromDB);
-            Log.e("***** DataWrapper.getProfileNameWithManualIndicator", "eventName="+eventName);
+            //Log.e("***** DataWrapper.getProfileNameWithManualIndicator", "eventName="+eventName);
             if (!eventName.isEmpty())
                 name = name + " [" + eventName + "]";
         }

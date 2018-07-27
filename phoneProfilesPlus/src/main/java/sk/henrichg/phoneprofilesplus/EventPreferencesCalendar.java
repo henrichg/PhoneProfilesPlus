@@ -320,16 +320,19 @@ class EventPreferencesCalendar extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-        //removeAlarm(true, context);
-        removeAlarm(/*false, */context);
+        //removeAlarm(true, _context);
+        removeAlarm(/*false, */_context);
 
-        searchEvent(context);
+        searchEvent(_context);
 
-        if (!(isRunnable(context) && _enabled && _eventFound))
+        if (!(isRunnable(_context) && _enabled && _eventFound))
             return;
 
-        setAlarm(true, computeAlarm(true), context);
+        setAlarm(true, computeAlarm(true), _context);
     }
 
     @Override
@@ -340,15 +343,19 @@ class EventPreferencesCalendar extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        //removeAlarm(true, context);
-        removeAlarm(/*false, */context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-        searchEvent(context);
+        //removeAlarm(true, _context);
+        removeAlarm(/*false, */_context);
 
-        if (!(isRunnable(context) && _enabled && _eventFound))
+        searchEvent(_context);
+
+        if (!(isRunnable(_context) && _enabled && _eventFound))
             return;
 
-        setAlarm(false, computeAlarm(false), context);
+        setAlarm(false, computeAlarm(false), _context);
     }
 
     @Override
@@ -356,8 +363,12 @@ class EventPreferencesCalendar extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        //removeAlarm(true, context);
-        removeAlarm(/*false, */context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        //removeAlarm(true, _context);
+        removeAlarm(/*false, */_context);
 
         _eventFound = false;
 
@@ -397,7 +408,10 @@ class EventPreferencesCalendar extends EventPreferences {
         if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_OFFSET))
             return;
 
-        Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
+        //Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction("EventCalendarBroadcastReceiver");
+        //intent.setClass(context, EventCalendarBroadcastReceiver.class);
 
         //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
