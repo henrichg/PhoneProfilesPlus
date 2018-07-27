@@ -166,7 +166,7 @@ public class PPApplication extends Application {
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
-                                         //+"|BluetoothConnectedDevices"
+                                         +"|BluetoothConnectedDevices"
                                          //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
@@ -220,7 +220,7 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.unregisterReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.reregisterReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
-                                        +"|EventTimeBroadcastReceiver.onReceive"
+                                        //+"|EventTimeBroadcastReceiver.onReceive"
             ;
 
 
