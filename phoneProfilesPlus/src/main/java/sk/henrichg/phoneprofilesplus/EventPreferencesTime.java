@@ -501,7 +501,10 @@ class EventPreferencesTime extends EventPreferences {
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
-            Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
+            //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
+            //intent.setClass(context, EventPreferencesTime.class);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
@@ -532,7 +535,7 @@ class EventPreferencesTime extends EventPreferences {
 
         //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
         Intent intent = new Intent();
-        intent.setAction("EventTimeBroadcastReceiver");
+        intent.setAction(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
         //intent.setClass(context, EventPreferencesTime.class);
 
         //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);

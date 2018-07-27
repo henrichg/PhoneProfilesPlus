@@ -115,6 +115,21 @@ public class PhoneProfilesService extends Service
     private SettingsContentObserver settingsContentObserver = null;
     private MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
 
+    static final String ACTION_EVENT_TIME_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventTimeBroadcastReceiver";
+    static final String ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventCalendarBroadcastReceiver";
+    static final String ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventDelayStartBroadcastReceiver";
+    static final String ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventDelayEndBroadcastReceiver";
+    static final String ACTION_PROFILE_DURATION_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver";
+    static final String ACTION_SMS_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.SMSEventEndBroadcastReceiver";
+    static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NotificationCancelAlarmBroadcastReceiver";
+    static final String ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NotificationEventEndBroadcastReceiver";
+    static final String ACTION_NFC_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NFCEventEndBroadcastReceiver";
+    static final String ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.RunApplicationWithDelayBroadcastReceiver";
+    static final String ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.MissedCallEventEndBroadcastReceiver";
+    static final String ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.StartEventNotificationBroadcastReceiver";
+    static final String ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.GeofencesScannerSwitchGPSBroadcastReceiver";
+    static final String ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.LockDeviceActivityFinishBroadcastReceiver";
+
     static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
@@ -566,7 +581,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER eventDelayStartBroadcastReceiver");
 
                 eventDelayStartBroadcastReceiver = new EventDelayStartBroadcastReceiver();
-                IntentFilter intentFilter14 = new IntentFilter("EventDelayStartBroadcastReceiver");
+                IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
                 registerReceiver(eventDelayStartBroadcastReceiver, intentFilter14);
             }
             else
@@ -577,7 +592,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER eventDelayEndBroadcastReceiver");
 
                 eventDelayEndBroadcastReceiver = new EventDelayEndBroadcastReceiver();
-                IntentFilter intentFilter14 = new IntentFilter("EventDelayEndBroadcastReceiver");
+                IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
                 registerReceiver(eventDelayEndBroadcastReceiver, intentFilter14);
             }
             else
@@ -588,7 +603,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER profileDurationAlarmBroadcastReceiver");
 
                 profileDurationAlarmBroadcastReceiver = new ProfileDurationAlarmBroadcastReceiver();
-                IntentFilter intentFilter14 = new IntentFilter("ProfileDurationAlarmBroadcastReceiver");
+                IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
                 registerReceiver(profileDurationAlarmBroadcastReceiver, intentFilter14);
             }
             else
@@ -923,7 +938,7 @@ public class PhoneProfilesService extends Service
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->REGISTER eventCalendarBroadcastReceiver", "PhoneProfilesService_registerReceiverForCalendarSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "REGISTER eventCalendarBroadcastReceiver");
                         eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
-                        IntentFilter intentFilter23 = new IntentFilter("EventCalendarBroadcastReceiver");
+                        IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
                         registerReceiver(eventCalendarBroadcastReceiver, intentFilter23);
                     }
                     else
@@ -1802,7 +1817,7 @@ public class PhoneProfilesService extends Service
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForTimeSensor->REGISTER", "PhoneProfilesService_registerReceiverForCalendarSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForTimeSensor", "REGISTER");
                         eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
-                        IntentFilter intentFilter23 = new IntentFilter("EventTimeBroadcastReceiver");
+                        IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
                         registerReceiver(eventTimeBroadcastReceiver, intentFilter23);
                     }
                     else

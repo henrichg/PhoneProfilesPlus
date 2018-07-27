@@ -130,7 +130,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
             Intent intent = new Intent();
-            intent.setAction("ProfileDurationAlarmBroadcastReceiver");
+            intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
             //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
@@ -168,7 +168,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         if (alarmManager != null) {
             //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
             Intent intent = new Intent();
-            intent.setAction("ProfileDurationAlarmBroadcastReceiver");
+            intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
             //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_NO_CREATE);

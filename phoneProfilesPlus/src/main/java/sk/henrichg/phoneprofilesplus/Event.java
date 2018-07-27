@@ -1643,7 +1643,7 @@ class Event {
 
             //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
             Intent intent = new Intent();
-            intent.setAction("EventDelayStartBroadcastReceiver");
+            intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
             //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
 
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
@@ -1714,7 +1714,7 @@ class Event {
 
             //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
             Intent intent = new Intent();
-            intent.setAction("EventDelayStartBroadcastReceiver");
+            intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
             //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
@@ -1782,7 +1782,7 @@ class Event {
 
             //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
             Intent intent = new Intent();
-            intent.setAction("EventDelayEndBroadcastReceiver");
+            intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
             //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
 
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
@@ -1871,7 +1871,7 @@ class Event {
         if (alarmManager != null) {
             //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
             Intent intent = new Intent();
-            intent.setAction("EventDelayEndBroadcastReceiver");
+            intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
             //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);

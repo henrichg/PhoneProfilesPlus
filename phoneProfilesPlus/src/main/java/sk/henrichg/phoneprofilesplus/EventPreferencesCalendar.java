@@ -379,7 +379,10 @@ class EventPreferencesCalendar extends EventPreferences {
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
-            Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
+            //Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
+            //intent.setClass(context, EventCalendarBroadcastReceiver.class);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
@@ -410,7 +413,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         //Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
         Intent intent = new Intent();
-        intent.setAction("EventCalendarBroadcastReceiver");
+        intent.setAction(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
         //intent.setClass(context, EventCalendarBroadcastReceiver.class);
 
         //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
