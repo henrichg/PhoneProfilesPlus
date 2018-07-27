@@ -459,31 +459,26 @@
             android:enabled="true"
             android:exported="false">
         </receiver>-->
-        <receiver
+        <!--<receiver
             android:name=".SMSEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
+        </receiver>-->
+        <!--<receiver
             android:name=".NotificationCancelAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
-            android:name=".NotificationEventEndBroadcastReceiver"
-            android:enabled="true"
-            android:exported="false">
-        </receiver>
-        <receiver
+        </receiver>-->
+        <!--<receiver
             android:name=".NFCEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
-        <receiver
+        </receiver>-->
+        <!--<receiver
             android:name=".RunApplicationWithDelayBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>
+        </receiver>-->
         <receiver
             android:name=".MissedCallEventEndBroadcastReceiver"
             android:enabled="true"

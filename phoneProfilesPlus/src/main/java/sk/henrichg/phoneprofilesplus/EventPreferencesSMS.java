@@ -265,7 +265,11 @@ class EventPreferencesSMS extends EventPreferences {
 
         PPApplication.logE("EventPreferencesSMS.setSystemRunningEvent","xxx");
 
-        removeAlarm(context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        removeAlarm(_context);
     }
 
     @Override
@@ -278,18 +282,26 @@ class EventPreferencesSMS extends EventPreferences {
 
         PPApplication.logE("EventPreferencesSMS.setSystemPauseEvent","xxx");
 
-        removeAlarm(context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        removeAlarm(_context);
 
         if (!(isRunnable(context) && _enabled))
             return;
 
-        setAlarm(computeAlarm(), context);
+        setAlarm(computeAlarm(), _context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        removeAlarm(context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        removeAlarm(_context);
 
         PPApplication.logE("EventPreferencesSMS.removeSystemEvent", "xxx");
     }
@@ -298,9 +310,12 @@ class EventPreferencesSMS extends EventPreferences {
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
-            Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+            //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
+            //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
 
@@ -321,10 +336,14 @@ class EventPreferencesSMS extends EventPreferences {
                     PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
                 }
 
-                Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+                //Intent intent = new Intent(context, SMSEventEndBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
+                //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
+
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
                 if (alarmManager != null) {

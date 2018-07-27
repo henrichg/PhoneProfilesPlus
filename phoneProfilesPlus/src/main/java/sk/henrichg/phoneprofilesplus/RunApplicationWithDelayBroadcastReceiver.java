@@ -84,13 +84,21 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
             }
 
-            Intent intent = new Intent(context, RunApplicationWithDelayBroadcastReceiver.class);
+            Context _context = context;
+            if (PhoneProfilesService.getInstance() != null)
+                _context = PhoneProfilesService.getInstance();
+
+            //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
+            //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
+
             intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(),
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context,
                     PPApplication.requestCodeForAlarm.nextInt(), intent, 0);
 
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
@@ -109,9 +117,16 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
-            Intent intent = new Intent(context, RunApplicationWithDelayBroadcastReceiver.class);
+            Context _context = context;
+            if (PhoneProfilesService.getInstance() != null)
+                _context = PhoneProfilesService.getInstance();
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+            //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
+            //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm", "alarm found");
 

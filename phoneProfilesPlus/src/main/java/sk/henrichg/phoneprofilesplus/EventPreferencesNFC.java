@@ -265,9 +265,13 @@ class EventPreferencesNFC extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
         PPApplication.logE("EventPreferencesNFC.setSystemRunningEvent","xxx");
 
-        removeAlarm(context);
+        removeAlarm(_context);
     }
 
     @Override
@@ -280,18 +284,26 @@ class EventPreferencesNFC extends EventPreferences {
 
         PPApplication.logE("EventPreferencesNFC.setSystemPauseEvent","xxx");
 
-        removeAlarm(context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-        if (!(isRunnable(context) && _enabled))
+        removeAlarm(_context);
+
+        if (!(isRunnable(_context) && _enabled))
             return;
 
-        setAlarm(computeAlarm(), context);
+        setAlarm(computeAlarm(), _context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        removeAlarm(context);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
+
+        removeAlarm(_context);
 
         PPApplication.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
     }
@@ -300,7 +312,10 @@ class EventPreferencesNFC extends EventPreferences {
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
-            Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+            //Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
+            //intent.setClass(context, NFCEventEndBroadcastReceiver.class);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
@@ -323,7 +338,11 @@ class EventPreferencesNFC extends EventPreferences {
                     PPApplication.logE("EventPreferencesNFC.setAlarm", "endTime=" + result);
                 }
 
-                Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+                //Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
+                //intent.setClass(context, NFCEventEndBroadcastReceiver.class);
+
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);

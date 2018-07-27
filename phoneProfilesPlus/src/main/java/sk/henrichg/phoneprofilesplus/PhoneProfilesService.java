@@ -108,6 +108,10 @@ public class PhoneProfilesService extends Service
     private EventDelayStartBroadcastReceiver eventDelayStartBroadcastReceiver = null;
     private EventDelayEndBroadcastReceiver eventDelayEndBroadcastReceiver = null;
     private ProfileDurationAlarmBroadcastReceiver profileDurationAlarmBroadcastReceiver = null;
+    private SMSEventEndBroadcastReceiver smsEventEndBroadcastReceiver = null;
+    private NotificationCancelAlarmBroadcastReceiver notificationCancelAlarmBroadcastReceiver = null;
+    private NFCEventEndBroadcastReceiver nfcEventEndBroadcastReceiver = null;
+    private RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -122,7 +126,6 @@ public class PhoneProfilesService extends Service
     static final String ACTION_PROFILE_DURATION_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver";
     static final String ACTION_SMS_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.SMSEventEndBroadcastReceiver";
     static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NotificationCancelAlarmBroadcastReceiver";
-    static final String ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NotificationEventEndBroadcastReceiver";
     static final String ACTION_NFC_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NFCEventEndBroadcastReceiver";
     static final String ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.RunApplicationWithDelayBroadcastReceiver";
     static final String ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.MissedCallEventEndBroadcastReceiver";
@@ -460,6 +463,30 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered profileDurationAlarmBroadcastReceiver");
+            if (notificationCancelAlarmBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER notificationCancelAlarmBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER notificationCancelAlarmBroadcastReceiver");
+                try {
+                    unregisterReceiver(notificationCancelAlarmBroadcastReceiver);
+                    notificationCancelAlarmBroadcastReceiver = null;
+                } catch (Exception e) {
+                    notificationCancelAlarmBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered notificationCancelAlarmBroadcastReceiver");
+            if (runApplicationWithDelayBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER runApplicationWithDelayBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER runApplicationWithDelayBroadcastReceiver");
+                try {
+                    unregisterReceiver(runApplicationWithDelayBroadcastReceiver);
+                    runApplicationWithDelayBroadcastReceiver = null;
+                } catch (Exception e) {
+                    runApplicationWithDelayBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered runApplicationWithDelayBroadcastReceiver");
         }
         if (register) {
             if (shutdownBroadcastReceiver == null) {
@@ -608,6 +635,28 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered profileDurationAlarmBroadcastReceiver");
+
+            if (notificationCancelAlarmBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER notificationCancelAlarmBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER notificationCancelAlarmBroadcastReceiver");
+
+                notificationCancelAlarmBroadcastReceiver = new NotificationCancelAlarmBroadcastReceiver();
+                IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER);
+                registerReceiver(notificationCancelAlarmBroadcastReceiver, intentFilter14);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered notificationCancelAlarmBroadcastReceiver");
+
+            if (runApplicationWithDelayBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER runApplicationWithDelayBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER runApplicationWithDelayBroadcastReceiver");
+
+                runApplicationWithDelayBroadcastReceiver = new RunApplicationWithDelayBroadcastReceiver();
+                IntentFilter intentFilter14 = new IntentFilter(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
+                registerReceiver(runApplicationWithDelayBroadcastReceiver, intentFilter14);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered runApplicationWithDelayBroadcastReceiver");
         }
     }
 
@@ -839,6 +888,18 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "not registered MMS");
+            if (smsEventEndBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->UNREGISTER smsEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "UNREGISTER smsEventEndBroadcastReceiver");
+                try {
+                    unregisterReceiver(smsEventEndBroadcastReceiver);
+                    smsEventEndBroadcastReceiver = null;
+                } catch (Exception e) {
+                    smsEventEndBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "not registered smsEventEndBroadcastReceiver");
         }
         if (register) {
             if (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
@@ -875,6 +936,15 @@ public class PhoneProfilesService extends Service
                     }
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "registered MMS");
+                    if (smsEventEndBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->REGISTER smsEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "REGISTER smsEventEndBroadcastReceiver");
+                        smsEventEndBroadcastReceiver = new SMSEventEndBroadcastReceiver();
+                        IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
+                        registerReceiver(smsEventEndBroadcastReceiver, intentFilter22);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "registered smsEventEndBroadcastReceiver");
                 } else {
                     registerReceiverForSMSSensor(false, false);
                 }
@@ -1814,7 +1884,7 @@ public class PhoneProfilesService extends Service
                     eventCount = DatabaseHandler.getInstance(getBaseContext()).getTypeEventsCount(DatabaseHandler.ETYPE_TIME, false);
                 if (eventCount > 0) {
                     if (eventTimeBroadcastReceiver == null) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForTimeSensor->REGISTER", "PhoneProfilesService_registerReceiverForCalendarSensor");
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForTimeSensor->REGISTER", "PhoneProfilesService_registerReceiverForTimeSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForTimeSensor", "REGISTER");
                         eventTimeBroadcastReceiver = new EventTimeBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_EVENT_TIME_BROADCAST_RECEIVER);
@@ -1828,6 +1898,49 @@ public class PhoneProfilesService extends Service
             }
             else
                 registerReceiverForTimeSensor(false, false);
+        }
+    }
+
+    private void registerReceiverForNFCSensor(boolean register, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForNFCSensor", "PhoneProfilesService_registerReceiverForNFCSensor");
+        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "xxx");
+        if (!register) {
+            if (nfcEventEndBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForTimeSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForNFCSensor");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "UNREGISTER");
+                try {
+                    unregisterReceiver(nfcEventEndBroadcastReceiver);
+                    nfcEventEndBroadcastReceiver = null;
+                } catch (Exception e) {
+                    nfcEventEndBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "not registered");
+        }
+        if (register) {
+            if (Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, getApplicationContext()).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
+                int eventCount = 1;
+                if (checkDatabase)
+                    eventCount = DatabaseHandler.getInstance(getBaseContext()).getTypeEventsCount(DatabaseHandler.ETYPE_NFC, false);
+                if (eventCount > 0) {
+                    if (nfcEventEndBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForNFCSensor->REGISTER", "PhoneProfilesService_registerReceiverForNFCSensor");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "REGISTER");
+                        nfcEventEndBroadcastReceiver = new NFCEventEndBroadcastReceiver();
+                        IntentFilter intentFilter23 = new IntentFilter(PhoneProfilesService.ACTION_NFC_EVENT_END_BROADCAST_RECEIVER);
+                        registerReceiver(nfcEventEndBroadcastReceiver, intentFilter23);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForNFCSensor", "registered");
+                } else {
+                    registerReceiverForNFCSensor(false, false);
+                }
+            }
+            else
+                registerReceiverForNFCSensor(false, false);
         }
     }
 
@@ -2361,8 +2474,11 @@ public class PhoneProfilesService extends Service
         }
         */
 
-        // register receiver for time event
+        // register receiver for time sensor
         registerReceiverForTimeSensor(true, true);
+
+        // register receiver for nfc sensor
+        registerReceiverForNFCSensor(true, true);
 
         scheduleWifiJob(true,  true, /*false, false, false,*/ false);
         scheduleBluetoothJob(true,  true, /*false, false,*/ false);
@@ -2397,6 +2513,7 @@ public class PhoneProfilesService extends Service
         registerWifiConnectionBroadcastReceiver(false, false, false);
         registerWifiScannerReceiver(false, false, false);
         registerReceiverForTimeSensor(false, false);
+        registerReceiverForNFCSensor(false, false);
 
         //if (alarmClockBroadcastReceiver != null)
         //    appContext.unregisterReceiver(alarmClockBroadcastReceiver);
@@ -2436,6 +2553,7 @@ public class PhoneProfilesService extends Service
         registerWifiConnectionBroadcastReceiver(true, true, false);
         registerWifiScannerReceiver(true, true, false);
         registerReceiverForTimeSensor(true, true);
+        registerReceiverForNFCSensor(true, true);
 
         scheduleWifiJob(true,  true, /*false, false, false,*/ false);
         scheduleBluetoothJob(true,  true, /*false, false,*/ false);
@@ -3765,11 +3883,18 @@ public class PhoneProfilesService extends Service
 
         int notificationStatusBarCancel = Integer.valueOf(ApplicationPreferences.notificationStatusBarCancel(context));
 
-        Intent intent = new Intent(context, NotificationCancelAlarmBroadcastReceiver.class);
+        Context _context = context;
+        if (PhoneProfilesService.getInstance() != null)
+            _context = PhoneProfilesService.getInstance();
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //Intent intent = new Intent(_context, NotificationCancelAlarmBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(PhoneProfilesService.ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER);
+        //intent.setClass(context, NotificationCancelAlarmBroadcastReceiver.class);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
         if (alarmManager != null) {
             Calendar now = Calendar.getInstance();
             long time = now.getTimeInMillis() + notificationStatusBarCancel * 1000;
