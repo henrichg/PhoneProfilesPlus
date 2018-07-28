@@ -443,7 +443,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             // restart Events
             PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-            dataWrapper.restartEvents(false, true/*, false*/, true);
+            dataWrapper.restartEvents(false, true/*, false*/, true, true);
         }
         else
         if (event_id > 0)
@@ -476,7 +476,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
                             // restart Events
                             PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-                            dataWrapper.restartEvents(false, true/*, false*/, true);
+                            dataWrapper.restartEvents(false, true/*, false*/, true, false);
                         }
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -508,7 +508,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
                         // restart Events
                         PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-                        dataWrapper.restartEvents(false, true/*, false*/, true);
+                        dataWrapper.restartEvents(false, true/*, false*/, true, false);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

@@ -909,7 +909,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).unlinkEventsFromProfile(profile);
         }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
-        restartEvents(false, true/*, false*/, true);
+        restartEvents(false, true/*, false*/, true, true);
     }
 
     void stopEventsForProfileFromMainThread(final Profile profile,
@@ -1123,7 +1123,7 @@ public class DataWrapper {
         if (startedFromService) {
             if (/*ApplicationPreferences.applicationActivate(context) &&*/
                     ApplicationPreferences.applicationStartEvents(context)) {
-                restartEvents(false, false/*, false*/, false);
+                restartEvents(false, false/*, false*/, false, true);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
@@ -1131,7 +1131,7 @@ public class DataWrapper {
             }
         }
         else {
-            restartEvents(false, false/*, false*/, false);
+            restartEvents(false, false/*, false*/, false, true);
         }
     }
 
@@ -3484,46 +3484,20 @@ public class DataWrapper {
         PPApplication.logE("%%% DataWrapper.doHandleEvents","--- end --------------------------");
     }
 
-    void restartEvents(boolean unblockEventsRun, boolean keepActivatedProfile/*, final boolean interactive*/, boolean log)
+    private void _restartEvents(final boolean unblockEventsRun, final boolean keepActivatedProfile, final boolean log)
     {
-        if (!Event.getGlobalEventsRunning(context))
-            // events are globally stopped
-            return;
-
-        PPApplication.logE("$$$ restartEvents", "in DataWrapper.restartEvents");
+        PPApplication.logE("DataWrapper._restartEvents", "xxx");
 
         if (log)
             addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
-            //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE);
-            final Context appContext = context.getApplicationContext();
-            PPApplication.startHandlerThread("DataWrapper.restartEvents.1");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.1");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE/*, false*/);
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
-                    }
-                }
-            });
+            EventsHandler eventsHandler = new EventsHandler(context);
+            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_START_EVENTS_SERVICE/*, false*/);
             return;
         }
 
-        PPApplication.logE("DataWrapper.restartEvents", "events are not blocked");
+        PPApplication.logE("DataWrapper._restartEvents", "events are not blocked");
 
         //Profile activatedProfile = getActivatedProfile();
 
@@ -3552,30 +3526,45 @@ public class DataWrapper {
             setProfileActive(null);
         }
 
-        //EventsHandlerJob.startForRestartEvents(context, interactive);
-        final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread("DataWrapper.restartEvents.2");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents.2");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+        EventsHandler eventsHandler = new EventsHandler(context);
+        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS/*, interactive*/);
+    }
 
-                EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS/*, interactive*/);
+    void restartEvents(final boolean unblockEventsRun, final boolean keepActivatedProfile, final boolean log, final boolean useHandler)
+    {
+        if (!Event.getGlobalEventsRunning(context))
+            // events are globally stopped
+            return;
 
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
+        PPApplication.logE("DataWrapper.restartEvents", "useHandler="+useHandler);
+
+        if (useHandler) {
+            final Context appContext = context.getApplicationContext();
+            PPApplication.startHandlerThread("DataWrapper.restartEvents");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    _restartEvents(unblockEventsRun, keepActivatedProfile, log);
+
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
                 }
-            }
-        });
+            });
+        }
+        else
+            _restartEvents(unblockEventsRun, keepActivatedProfile, log);
     }
 
     void restartEventsWithRescan(/*boolean showToast, boolean interactive*/)
@@ -3601,7 +3590,7 @@ public class DataWrapper {
                 dataWrapper.resetAllEventsInDelayEnd(false);
                 // ignore manual profile activation
                 // and unblock forceRun events
-                dataWrapper.restartEvents(true, true/*, true/*interactive*/, true);
+                dataWrapper.restartEvents(true, true/*, true/*interactive*/, true, false);
 
                 if (ApplicationPreferences.applicationEventWifiRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
                 {
@@ -3740,7 +3729,7 @@ public class DataWrapper {
                     PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
                     if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
                         dataWrapper.addActivityLog(logType, null, null, null, 0);
-                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true);
+                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true, false);
                 }
             }, delay * 1000);
         }
@@ -3751,7 +3740,7 @@ public class DataWrapper {
                 @Override
                 public void run() {
                     PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
-                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true);
+                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true, false);
                 }
             }, delay * 1000);
         }
@@ -3833,7 +3822,7 @@ public class DataWrapper {
                 {
                     if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._forceRun))
                     {
-                        Profile profile = null;
+                        Profile profile;
                         if (fromDB)
                             profile = dataWrapper.getActivatedProfileFromDB(false, false);
                         else
