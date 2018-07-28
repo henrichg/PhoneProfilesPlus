@@ -1033,6 +1033,7 @@ class ActivateProfileHelper {
                         //SystemClock.sleep(500);
                         PPApplication.sleep(500);
 
+                        /*
                         PPApplication.startHandlerThread("ActivateProfileHelper.executeForVolumes");
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.postDelayed(new Runnable() {
@@ -1042,7 +1043,9 @@ class ActivateProfileHelper {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
                         }, 3000);
-
+                        */
+                        PostDelayedBroadcastReceiver.setAlarm(
+                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
                     }
 
                     setTones(context, profile);
@@ -2305,6 +2308,7 @@ class ActivateProfileHelper {
                 break;
         }
         setActivatedProfileScreenTimeout(context, 0);
+        /*
         PPApplication.startHandlerThread("ActivateProfileHelper.setScreenTimeout");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.postDelayed(new Runnable() {
@@ -2314,6 +2318,9 @@ class ActivateProfileHelper {
                 disableScreenTimeoutInternalChange = false;
             }
         }, 3000);
+        */
+        PostDelayedBroadcastReceiver.setAlarm(
+                PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE, 3);
     }
 
     private static void createScreenTimeoutAlwaysOnView(Context context)
@@ -2413,6 +2420,7 @@ class ActivateProfileHelper {
                     PhoneProfilesService.getInstance().brightnessView = null;
                 }
 
+                /*
                 final Handler handler = new Handler(appContext.getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -2431,6 +2439,9 @@ class ActivateProfileHelper {
                         }
                     }
                 }, 5000);
+                */
+                PostDelayedBroadcastReceiver.setAlarm(
+                        PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5);
             }
         }
     }

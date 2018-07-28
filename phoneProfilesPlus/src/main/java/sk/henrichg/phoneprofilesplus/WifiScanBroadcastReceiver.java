@@ -84,7 +84,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                 if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                 {
                                     PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "start EventsHandler (1)");
-                                    // start job
+                                    /*// start job
                                     PPApplication.startHandlerThread("WifiScanBroadcastReceiver.onReceive.2");
                                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                     handler.postDelayed(new Runnable() {
@@ -100,7 +100,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                             PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "start EventsHandler (2)");
                                             //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER/*, false*/);
+                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
 
                                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                                 try {
@@ -108,7 +108,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                                 } catch (Exception ignored) {}
                                             }
                                         }
-                                    }, 5000);
+                                    }, 5000);*/
+                                    PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5);
                                 }
                             }
 

@@ -94,7 +94,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     // start scan
                                     if (WifiScanJob.getScanRequest(appContext)) {
                                         //final Context _context = appContext;
-                                        PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");
+                                        /*PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");
                                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                         handler.postDelayed(new Runnable() {
                                             @Override
@@ -115,7 +115,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     } catch (Exception ignored) {}
                                                 }
                                             }
-                                        }, 5000);
+                                        }, 5000);*/
+                                        PostDelayedBroadcastReceiver.setAlarm(
+                                                PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN, 5);
 
                                         /*
                                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");

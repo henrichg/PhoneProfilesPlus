@@ -55,10 +55,12 @@
     <uses-permission android:name="com.android.vending.BILLING"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
-    <!-- <uses-permission android:name="android.permission.OVERRIDE_WIFI_CONFIG"
-                     tools:ignore="ProtectedPermissions"/> -->
+    <!--
+         <uses-permission android:name="android.permission.OVERRIDE_WIFI_CONFIG"
+                     tools:ignore="ProtectedPermissions"/>
+    -->
 
-    <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION" />
+    <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
 
     <!-- for Samsung SLook -->
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
@@ -108,9 +110,9 @@
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <!-- support for 18.5:9 display (Samsung Galaxy S8, LG G6) -->
@@ -434,71 +436,98 @@
         </receiver>
 
         <!-- alarms -->
-        <!--<receiver
+        <!--
+        <receiver
             android:name=".EventTimeBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".EventCalendarBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".EventDelayStartBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".EventDelayEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".ProfileDurationAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".SMSEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".NotificationCancelAlarmBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".NFCEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".RunApplicationWithDelayBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".MissedCallEventEndBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".StartEventNotificationBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".GeofencesScannerSwitchGPSBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
-        <!--<receiver
+        </receiver>
+        -->
+        <!--
+        <receiver
             android:name=".LockDeviceActivityFinishBroadcastReceiver"
             android:enabled="true"
             android:exported="false">
-        </receiver>-->
+        </receiver>
+        -->
+
 
         <!-- pending intents -->
         <receiver

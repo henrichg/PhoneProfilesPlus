@@ -11,7 +11,7 @@ import static android.content.Context.POWER_SERVICE;
 public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
         PPApplication.logE("##### BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
         CallsCounter.logCounter(context, "BluetoothLEScanBroadcastReceiver.onReceive", "BluetoothLEScanBroadcastReceiver_onReceive");
@@ -56,7 +56,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                         if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                         {
-                            // start job
+                            /*// start job
                             PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive.2");
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.postDelayed(new Runnable() {
@@ -72,7 +72,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                     //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
                                     // start events handler
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER/*, false*/);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -80,7 +80,8 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                         } catch (Exception ignored) {}
                                     }
                                 }
-                            }, 5000);
+                            }, 5000);*/
+                            PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
                         }
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {

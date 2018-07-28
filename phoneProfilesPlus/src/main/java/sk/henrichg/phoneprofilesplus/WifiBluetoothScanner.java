@@ -204,7 +204,7 @@ class WifiBluetoothScanner {
                                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "no data received from scanner");
                                         if (getForceOneWifiScan(context) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
-                                            // start job
+                                            /*// start job
                                             final Context appContext = context.getApplicationContext();
                                             PPApplication.startHandlerThread("WifiBluetoothScanner.doScan.2");
                                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -213,10 +213,11 @@ class WifiBluetoothScanner {
                                                 public void run() {
                                                     //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER/*, false*/);
+                                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                                 }
-                                            }, 5000);
+                                            }, 5000);*/
                                             //WifiScanBroadcastReceiver.setAlarm(context);
+                                            PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5);
                                         }
                                     }
                                 }

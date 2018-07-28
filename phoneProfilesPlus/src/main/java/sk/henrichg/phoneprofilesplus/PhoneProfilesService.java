@@ -116,6 +116,7 @@ public class PhoneProfilesService extends Service
     private StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
     private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
     private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
+    private PostDelayedBroadcastReceiver postDelayedBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -514,7 +515,19 @@ public class PhoneProfilesService extends Service
                 }
             }
             else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered lockDeviceActivityFinishBroadcastReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered postDelayedBroadcastReceiver");
+            if (postDelayedBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER postDelayedBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER postDelayedBroadcastReceiver");
+                try {
+                    unregisterReceiver(postDelayedBroadcastReceiver);
+                    postDelayedBroadcastReceiver = null;
+                } catch (Exception e) {
+                    postDelayedBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered postDelayedBroadcastReceiver");
         }
         if (register) {
             if (shutdownBroadcastReceiver == null) {
@@ -707,6 +720,23 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered lockDeviceActivityFinishBroadcastReceiver");
+
+            if (postDelayedBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER postDelayedBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER postDelayedBroadcastReceiver");
+
+                postDelayedBroadcastReceiver = new PostDelayedBroadcastReceiver();
+                IntentFilter intentFilter14 = new IntentFilter();
+                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW);
+                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE);
+                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE);
+                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_HANDLE_EVENTS);
+                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_RESTART_EVENTS);
+                intentFilter14.addAction(PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN);
+                registerReceiver(postDelayedBroadcastReceiver, intentFilter14);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered postDelayedBroadcastReceiver");
         }
     }
 
@@ -4804,7 +4834,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
                     Permissions.grantPlayRingtoneNotificationPermissions(this, true);
                     ringingMediaPlayer = null;
-                    PPApplication.startHandlerThread("PhoneProfilesService.startSimulatingRingingCall.1");
+                    /*PPApplication.startHandlerThread("PhoneProfilesService.startSimulatingRingingCall.1");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -4812,11 +4842,13 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "disable ringer mode change internal change");
                             RingerModeChangeReceiver.internalChange = false;
                         }
-                    }, 3000);
+                    }, 3000);*/
+                    PostDelayedBroadcastReceiver.setAlarm(
+                            PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
-                    PPApplication.startHandlerThread("PhoneProfilesService.startSimulatingRingingCall.2");
+                    /*PPApplication.startHandlerThread("PhoneProfilesService.startSimulatingRingingCall.2");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -4824,7 +4856,9 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "disable ringer mode change internal change");
                             RingerModeChangeReceiver.internalChange = false;
                         }
-                    }, 3000);
+                    }, 3000);*/
+                    PostDelayedBroadcastReceiver.setAlarm(
+                            PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
                 }
             }
         }
@@ -4857,7 +4891,7 @@ public class PhoneProfilesService extends Service
             }*/
         //}
         ringingCallIsSimulating = false;
-        PPApplication.startHandlerThread("PhoneProfilesService.stopSimulatingRingingCall");
+        /*PPApplication.startHandlerThread("PhoneProfilesService.stopSimulatingRingingCall");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
@@ -4865,7 +4899,9 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "disable ringer mode change internal change");
                 RingerModeChangeReceiver.internalChange = false;
             }
-        }, 3000);
+        }, 3000);*/
+        PostDelayedBroadcastReceiver.setAlarm(
+                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
     }
 
     /*private void doSimulatingNotificationTone(Intent intent) {
@@ -5230,14 +5266,16 @@ public class PhoneProfilesService extends Service
                                 notificationIsPlayed = false;
                                 notificationMediaPlayer = null;
 
-                                PPApplication.startHandlerThread("PhoneProfilesService.playNotificationSound.1");
+                                /*PPApplication.startHandlerThread("PhoneProfilesService.playNotificationSound.1");
                                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         RingerModeChangeReceiver.internalChange = false;
                                     }
-                                }, 3000);
+                                }, 3000);*/
+                                PostDelayedBroadcastReceiver.setAlarm(
+                                        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
 
                                 notificationPlayTimer = null;
                             }
@@ -5246,26 +5284,30 @@ public class PhoneProfilesService extends Service
                     } catch (SecurityException e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "security exception");
                         stopPlayNotificationSound();
-                        PPApplication.startHandlerThread("PhoneProfilesService.playNotificationSound.2");
+                        /*PPApplication.startHandlerThread("PhoneProfilesService.playNotificationSound.2");
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
-                        }, 3000);
+                        }, 3000);*/
+                        PostDelayedBroadcastReceiver.setAlarm(
+                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
                         Permissions.grantPlayRingtoneNotificationPermissions(this, false);
                     } catch (Exception e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "exception");
                         stopPlayNotificationSound();
-                        PPApplication.startHandlerThread("PhoneProfilesService.playNotificationSound.3");
+                        /*PPApplication.startHandlerThread("PhoneProfilesService.playNotificationSound.3");
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
-                        }, 3000);
+                        }, 3000);*/
+                        PostDelayedBroadcastReceiver.setAlarm(
+                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
                     }
                 }
             }

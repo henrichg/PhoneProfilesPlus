@@ -816,6 +816,7 @@ class BluetoothScanJob extends Job {
 
                 if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
+                    /*
                     // start job
                     final Context appContext = context.getApplicationContext();
                     PPApplication.startHandlerThread("BluetoothScanJob.finishScan");
@@ -832,7 +833,7 @@ class BluetoothScanJob extends Job {
 
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE/*, false*/);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
 
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -840,7 +841,8 @@ class BluetoothScanJob extends Job {
                                 } catch (Exception ignored) {}
                             }
                         }
-                    }, 5000);
+                    }, 5000);*/
+                    PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
                 }
 
                 WifiBluetoothScanner.tmpBluetoothScanResults = null;

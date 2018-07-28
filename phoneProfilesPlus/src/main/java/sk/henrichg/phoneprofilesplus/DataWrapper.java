@@ -3721,7 +3721,7 @@ public class DataWrapper {
         final DataWrapper dataWrapper = copyDataWrapper();
 
         if (clearOld) {
-            PPApplication.startHandlerThreadRestartEventsWithDelay();
+            /*PPApplication.startHandlerThreadRestartEventsWithDelay();
             PPApplication.restartEventsWithDelayHandler.removeCallbacksAndMessages(null);
             PPApplication.restartEventsWithDelayHandler.postDelayed(new Runnable() {
                 @Override
@@ -3729,20 +3729,22 @@ public class DataWrapper {
                     PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
                     if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
                         dataWrapper.addActivityLog(logType, null, null, null, 0);
-                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true, false);
+                    dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                 }
-            }, delay * 1000);
+            }, delay * 1000);*/
+            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, unblockEventsRun, logType);
         }
         else {
-            PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
+            /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     PPApplication.logE("DataWrapper.restartEventsWithDelay", "restart");
-                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true, false);
+                    dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                 }
-            }, delay * 1000);
+            }, delay * 1000);*/
+            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, unblockEventsRun, logType);
         }
     }
 
