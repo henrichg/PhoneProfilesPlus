@@ -123,9 +123,9 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                 final boolean unblockEventsRun = intent.getBooleanExtra(EXTRA_UNBLOCK_EVENTS_RUN, false);
                 final int logType = intent.getIntExtra(EXTRA_LOG_TYPE, DatabaseHandler.ALTYPE_UNDEFINED);
 
-                PPApplication.startHandlerThread("PostDelayedBroadcastReceiver.onReceive");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
+                PPApplication.startHandlerThreadRestartEventsWithDelay();
+                PPApplication.restartEventsWithDelayHandler.removeCallbacksAndMessages(null);
+                PPApplication.restartEventsWithDelayHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
@@ -187,6 +187,13 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             long delayTime = now.getTimeInMillis() - gmtOffset;
 
+            if (PPApplication.logEnabled()) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(delayTime);
+                PPApplication.logE("PostDelayedBroadcastReceiver.setAlarm", action + " -> delayTime=" + result);
+            }
+
             //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(action);
@@ -207,13 +214,21 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static void setAlarmForHandleEvents(String sensorType, int delaySeconds)
+    static void setAlarmForHandleEvents(String sensorType,
+                                        @SuppressWarnings("SameParameterValue") int delaySeconds)
     {
         if (PhoneProfilesService.getInstance() != null) {
             Calendar now = Calendar.getInstance();
             now.add(Calendar.SECOND, delaySeconds);
             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             long delayTime = now.getTimeInMillis() - gmtOffset;
+
+            if (PPApplication.logEnabled()) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(delayTime);
+                PPApplication.logE("PostDelayedBroadcastReceiver.setAlarm", ACTION_HANDLE_EVENTS + " -> delayTime=" + result);
+            }
 
             //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
             Intent intent = new Intent();
@@ -244,6 +259,13 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
             now.add(Calendar.SECOND, delaySeconds);
             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
             long delayTime = now.getTimeInMillis() - gmtOffset;
+
+            if (PPApplication.logEnabled()) {
+                @SuppressLint("SimpleDateFormat")
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(delayTime);
+                PPApplication.logE("PostDelayedBroadcastReceiver.setAlarm", ACTION_RESTART_EVENTS + " -> delayTime=" + result);
+            }
 
             //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
             Intent intent = new Intent();

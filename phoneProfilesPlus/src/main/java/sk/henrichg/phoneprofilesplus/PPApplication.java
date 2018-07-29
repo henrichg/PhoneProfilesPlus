@@ -79,6 +79,8 @@ public class PPApplication extends Application {
 
                                          +"|EditorProfilesActivity.doImportData"
 
+                                         +"|PostDelayedBroadcastReceiver"
+
                                          //+"|#### EventsHandler.handleEvents"
 
                                          +"|DataWrapper.restartEventsWithDelay"
