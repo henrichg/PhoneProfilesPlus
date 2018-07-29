@@ -7,8 +7,10 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.support.annotation.RequiresApi;
 import android.view.WindowManager;
 
 import java.text.SimpleDateFormat;
@@ -179,6 +181,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    @SuppressLint("NewApi")
     static void setAlarm(String action, int delaySeconds)
     {
         if (PhoneProfilesService.getInstance() != null) {
@@ -203,17 +206,26 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
             AlarmManager alarmManager = (AlarmManager) PhoneProfilesService.getInstance().getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
-                //
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                        ApplicationPreferences.applicationUseAlarmClock(PhoneProfilesService.getInstance())) {
+                    Intent editorIntent = new Intent(PhoneProfilesService.getInstance(), EditorProfilesActivity.class);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(PhoneProfilesService.getInstance(), 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(delayTime, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+                else {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                    else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                    //else
+                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                }
             }
         }
     }
 
+    @SuppressLint("NewApi")
     static void setAlarmForHandleEvents(String sensorType,
                                         @SuppressWarnings("SameParameterValue") int delaySeconds)
     {
@@ -241,51 +253,83 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
             AlarmManager alarmManager = (AlarmManager) PhoneProfilesService.getInstance().getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
-                //
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                        ApplicationPreferences.applicationUseAlarmClock(PhoneProfilesService.getInstance())) {
+                    Intent editorIntent = new Intent(PhoneProfilesService.getInstance(), EditorProfilesActivity.class);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(PhoneProfilesService.getInstance(), 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(delayTime, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+                else {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                    else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                    //else
+                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                }
             }
         }
     }
 
-    static void setAlarmForRestartEvents(int delaySeconds, final boolean unblockEventsRun, final int logType)
+    @SuppressLint("NewApi")
+    static void setAlarmForRestartEvents(int delaySeconds, boolean clearOld, final boolean unblockEventsRun, final int logType)
     {
         if (PhoneProfilesService.getInstance() != null) {
-            Calendar now = Calendar.getInstance();
-            now.add(Calendar.SECOND, delaySeconds);
-            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-            long delayTime = now.getTimeInMillis() - gmtOffset;
-
-            if (PPApplication.logEnabled()) {
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(delayTime);
-                PPApplication.logE("PostDelayedBroadcastReceiver.setAlarm", ACTION_RESTART_EVENTS + " -> delayTime=" + result);
-            }
-
-            //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(ACTION_RESTART_EVENTS);
-            //intent.setClass(context, PostDelayedBroadcastReceiver.class);
-
-            intent.putExtra(EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
-            intent.putExtra(EXTRA_LOG_TYPE, logType);
-
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(PhoneProfilesService.getInstance(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
             AlarmManager alarmManager = (AlarmManager) PhoneProfilesService.getInstance().getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
-                //
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                if (clearOld) {
+                    //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
+                    Intent intent = new Intent();
+                    intent.setAction(ACTION_RESTART_EVENTS);
+                    //intent.setClass(context, PostDelayedBroadcastReceiver.class);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(PhoneProfilesService.getInstance(), 0, intent, PendingIntent.FLAG_NO_CREATE);
+                    if (pendingIntent != null) {
+                        PPApplication.logE("PostDelayedBroadcastReceiver.removeAlarm", "alarm found");
+
+                        alarmManager.cancel(pendingIntent);
+                        pendingIntent.cancel();
+                    }
+                }
+
+                Calendar now = Calendar.getInstance();
+                now.add(Calendar.SECOND, delaySeconds);
+                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                long delayTime = now.getTimeInMillis() - gmtOffset;
+
+                if (PPApplication.logEnabled()) {
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String result = sdf.format(delayTime);
+                    PPApplication.logE("PostDelayedBroadcastReceiver.setAlarm", ACTION_RESTART_EVENTS + " -> delayTime=" + result);
+                }
+
+                //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(ACTION_RESTART_EVENTS);
+                //intent.setClass(context, PostDelayedBroadcastReceiver.class);
+
+                intent.putExtra(EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
+                intent.putExtra(EXTRA_LOG_TYPE, logType);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(PhoneProfilesService.getInstance(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                        ApplicationPreferences.applicationUseAlarmClock(PhoneProfilesService.getInstance())) {
+                    Intent editorIntent = new Intent(PhoneProfilesService.getInstance(), EditorProfilesActivity.class);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(PhoneProfilesService.getInstance(), 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(delayTime, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+                else {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                    else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                    //else
+                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, delayTime, pendingIntent);
+                }
             }
         }
     }

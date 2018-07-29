@@ -161,6 +161,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_FOR_SCREEN_ON = "for_screen_on";
     //static final String EXTRA_START_LOCATION_UPDATES = "start_location_updates";
     //private static final String EXTRA_STOP_LOCATION_UPDATES = "stop_location_updates";
+    static final String EXTRA_RESTART_EVENTS = "restart_events";
 
     //-----------------------
 
@@ -3655,6 +3656,39 @@ public class PhoneProfilesService extends Service
                             });
                             break;
                     }
+                }
+                else
+                if (intent.getBooleanExtra(EXTRA_RESTART_EVENTS, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_RESTART_EVENTS");
+                    final Context appContext = getApplicationContext();
+                    PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+                    final Handler handler13 = new Handler(PPApplication.handlerThread.getLooper());
+                    handler13.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!MobileCellsRegistrationService.serviceStarted) {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                if (instance != null) {
+                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                                    dataWrapper.restartEvents(false, true/*, _interactive*/, false, false);
+                                    dataWrapper.invalidateDataWrapper();
+                                }
+
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
             }
         }

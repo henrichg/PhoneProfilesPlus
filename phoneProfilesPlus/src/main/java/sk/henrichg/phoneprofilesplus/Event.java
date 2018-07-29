@@ -1652,15 +1652,21 @@ class Event {
 
             AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
             if (alarmManager != null) {
-
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                else /*if (android.os.Build.VERSION.SDK_INT >= 19)*/
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-                //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
+                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                        ApplicationPreferences.applicationUseAlarmClock(_context)) {
+                    Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+                else {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    else /*if (android.os.Build.VERSION.SDK_INT >= 19)*/
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    //else
+                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                }
 
                 now = Calendar.getInstance();
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
@@ -1792,14 +1798,21 @@ class Event {
             AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
 
             if (alarmManager != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                else /*if (android.os.Build.VERSION.SDK_INT >= 19)*/
-                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
-                //alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
-                //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000 , pendingIntent);
+                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                        ApplicationPreferences.applicationUseAlarmClock(_context)) {
+                    Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                    alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                }
+                else {
+                    if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    else /*if (android.os.Build.VERSION.SDK_INT >= 19)*/
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    //else
+                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                }
 
                 now = Calendar.getInstance();
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();

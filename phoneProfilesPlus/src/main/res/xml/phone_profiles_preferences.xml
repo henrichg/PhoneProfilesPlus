@@ -131,6 +131,13 @@
             android:entryValues="@array/forceSetMergeRingNotificationVolumesValues"
             android:layout="@layout/mp_preference_material_widget"
             app:useStockLayout="true" />
+        <CheckBoxPreference
+            android:key="applicationUseAlarmClock"
+            android:title="@string/phone_profiles_pref_applicationUseAlarmClock"
+            android:summary="@string/phone_profiles_pref_applicationUseAlarmClock_summary"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget" />
         <Preference
             android:key="applicationBatteryOptimization"
             android:title="@string/phone_profiles_pref_applicationBatteryOptimization"

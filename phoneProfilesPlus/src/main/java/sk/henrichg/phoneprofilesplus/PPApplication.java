@@ -1629,6 +1629,17 @@ public class PPApplication extends Application {
         } catch (Exception ignored) {}
     }
 
+    public static void restartEvents(Context context) {
+        try {
+            PPApplication.logE("[RJS] PPApplication.restarEvents", "xxx");
+            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
+            PPApplication.startPPService(context, serviceIntent);
+        } catch (Exception ignored) {}
+    }
+
     //---------------------------------------------------------------
 
     // others ------------------------------------------------------------------

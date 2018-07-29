@@ -219,6 +219,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             Preference preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
+            preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
+            if (preference != null)
+                preferenceCategory.removePreference(preference);
         }
         if (Build.VERSION.SDK_INT >= 23) {
             Preference preference = prefMng.findPreference(PREF_APPLICATION_PERMISSIONS);

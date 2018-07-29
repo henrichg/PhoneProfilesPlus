@@ -39,6 +39,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     private int locationScanInterval;
     private int orientationScanInterval;
     //private String activeBackgroundProfile;
+    private boolean useAlarmClockEnabled;
 
     private boolean invalidateEditor = false;
 
@@ -99,6 +100,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         bluetoothScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "15"));
         locationScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "15"));
         orientationScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "10"));
+
+        useAlarmClockEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
         Permissions.disablePermissionsChanged(this);
 
@@ -254,6 +257,10 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         if (permissionsChanged ||
                 mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext)) {
             PPApplication.restartPhoneStateScanner(appContext, false);
+        }
+
+        if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock(appContext)) {
+            PPApplication.restartEvents(appContext);
         }
 
         /*
