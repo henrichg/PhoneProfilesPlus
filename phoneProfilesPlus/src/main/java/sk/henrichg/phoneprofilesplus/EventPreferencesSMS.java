@@ -351,7 +351,7 @@ class EventPreferencesSMS extends EventPreferences {
                             ApplicationPreferences.applicationUseAlarmClock(context)) {
                         Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_OFFSET, infoPendingIntent);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     }
                     else {

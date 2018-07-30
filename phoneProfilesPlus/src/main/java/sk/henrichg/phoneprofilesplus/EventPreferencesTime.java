@@ -530,8 +530,15 @@ class EventPreferencesTime extends EventPreferences {
 
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();
-        if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_OFFSET))
-            return;
+        if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                ApplicationPreferences.applicationUseAlarmClock(context)) {
+            if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET))
+                return;
+        }
+        else {
+            if (now.getTimeInMillis() > (alarmTime + Event.EVENT_ALARM_TIME_OFFSET))
+                return;
+        }
 
         //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
         Intent intent = new Intent();
@@ -548,7 +555,7 @@ class EventPreferencesTime extends EventPreferences {
                     ApplicationPreferences.applicationUseAlarmClock(context)) {
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_OFFSET, infoPendingIntent);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }
             else {

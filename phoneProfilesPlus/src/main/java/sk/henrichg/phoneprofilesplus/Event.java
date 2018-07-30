@@ -111,6 +111,7 @@ class Event {
 
     // alarm time offset (milliseconds) for events with generated alarms
     static final int EVENT_ALARM_TIME_OFFSET = 15000;
+    static final int EVENT_ALARM_TIME_SOFT_OFFSET = 5000;
 
     // Empty constructor
     Event(){
