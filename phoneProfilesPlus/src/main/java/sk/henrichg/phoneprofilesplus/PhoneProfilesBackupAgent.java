@@ -41,6 +41,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
         }
         */
 
+        PPApplication.setSavedVersionCode(getApplicationContext(), 0);
         Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
         Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
         WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);

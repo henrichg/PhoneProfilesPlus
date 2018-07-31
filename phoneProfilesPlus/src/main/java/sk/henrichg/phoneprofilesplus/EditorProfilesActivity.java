@@ -1279,7 +1279,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME))
                         {
                             if (v.equals("light"))
-                                prefEdit.putString(key, "color");
+                                prefEdit.putString(key, "white");
                             if (v.equals("material"))
                                 prefEdit.putString(key, "color");
                         }
@@ -1288,6 +1288,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }
                 }
                 prefEdit.apply();
+                if (what == 1) {
+                    PPApplication.setSavedVersionCode(getApplicationContext(), 0);
+                }
             }/* catch (FileNotFoundException ignored) {
                 // no error, this is OK
             }*/ catch (Exception e) {
