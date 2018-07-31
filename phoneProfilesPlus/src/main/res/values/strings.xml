@@ -1201,7 +1201,8 @@
     <string name="phone_profiles_pref_applicationEventScanningDisabledByProfile">Scanning disabled by profile.</string>
     <string name="alert_message_enable_event_check_box">Never ask again</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock">Use alarm clock</string>
-    <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable this parameter, to set it exact. Alarm icon will be displayed in status bar.</string>
+    <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable this parameter, to set it exact. Alarm clock icon will be displayed in status bar.</string>
+    <string name="important_info_useAlarmClock">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable in Settings parameter \"System\"→\"Use alarm clock\", to set it exact. Alarm clock icon will be displayed in status bar.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

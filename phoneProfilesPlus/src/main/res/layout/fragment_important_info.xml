@@ -195,6 +195,13 @@
             android:id="@+id/activity_info_notification_dialog_info_text10e"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_useAlarmClock"
+            android:id="@+id/activity_info_notification_dialog_info_text11" />
+
         <!-- PROFILES -->
 
         <TextView
