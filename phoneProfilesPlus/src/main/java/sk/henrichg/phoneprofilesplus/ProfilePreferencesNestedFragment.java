@@ -1857,7 +1857,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             String  d = data.getDataString();
             if (d != null) {
                 Uri selectedImage = Uri.parse(d);
-                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                /*//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     try {
                         final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
                         ContentResolver resolver = getActivity().getContentResolver();
@@ -1865,7 +1865,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     } catch (Exception e) {
                         Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", Log.getStackTraceString(e));
                     }
-                //}
+                //}*/
                 WallpaperViewPreference preference = (WallpaperViewPreference)prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
                 if (preference != null)
                     preference.setImageIdentifier(selectedImage.toString());
@@ -1884,7 +1884,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             String  d = data.getDataString();
             if (d != null) {
                 Uri selectedImage = Uri.parse(d);
-                //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                /*//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     try {
                         final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
                         ContentResolver resolver = getActivity().getContentResolver();
@@ -1892,7 +1892,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     } catch (Exception e) {
                         Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", Log.getStackTraceString(e));
                     }
-                //}
+                //}*/
 
                 Resources resources = context.getResources();
                 int height = (int) resources.getDimension(android.R.dimen.app_icon_size);

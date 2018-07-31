@@ -267,11 +267,6 @@ public class WallpaperViewPreference extends Preference {
             int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
             cursor.close();
             Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
-            /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
-                ContentResolver resolver = context.getApplicationContext().getContentResolver();
-                resolver.takePersistableUriPermission(uri, takeFlags);
-            }*/
             PPApplication.logE("WallpaperViewPreference.getImageContentUri","uri1="+uri);
             return uri;
         } else {
