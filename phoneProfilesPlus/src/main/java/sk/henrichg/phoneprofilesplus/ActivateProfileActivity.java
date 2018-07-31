@@ -2,11 +2,16 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -27,7 +32,7 @@ import java.util.List;
 
 public class ActivateProfileActivity extends AppCompatActivity {
 
-    private static volatile ActivateProfileActivity instance;
+    //private static volatile ActivateProfileActivity instance;
 
     private Toolbar toolbar;
     private ImageView eventsRunStopIndicator;
@@ -35,14 +40,45 @@ public class ActivateProfileActivity extends AppCompatActivity {
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profiles_activity_start_target_helps";
 
+    private BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            boolean refreshIcons = intent.getBooleanExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+            ActivateProfileActivity.this.refreshGUI(refreshIcons);
+        }
+    };
+
+    static final String EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY = "show_target_helps_for_activity";
+    private BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
+            if (forActivity)
+                ActivateProfileActivity.this.showTargetHelps();
+            else {
+                Fragment fragment = ActivateProfileActivity.this.getFragmentManager().findFragmentById(R.id.activate_profile_list);
+                if (fragment != null) {
+                    ((ActivateProfileListFragment) fragment).showTargetHelps();
+                }
+            }
+        }
+    };
+
+    private BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            ActivateProfileActivity.this.finish();
+        }
+    };
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        synchronized (ActivateProfileActivity.class) {
+        /*synchronized (ActivateProfileActivity.class) {
             instance = this;
-        }
+        }*/
 
         GlobalGUIRoutines.setTheme(this, true, true, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
@@ -188,17 +224,25 @@ public class ActivateProfileActivity extends AppCompatActivity {
             }
         });
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
+                new IntentFilter("RefreshActivatorGUIBroadcastReceiver"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
+                new IntentFilter("ShowActivatorTargetHelpsBroadcastReceiver"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
+                new IntentFilter("FinishActivatorBroadcastReceiver"));
+
         refreshGUI(false);
 
     //-----------------------------------------------------------------------------------------		
 
     }
 
-    public static ActivateProfileActivity getInstance()
+    /*public static ActivateProfileActivity getInstance()
     {
         return instance;
-    }
+    }*/
 
+    /*
     @Override
     protected void onStop()
     {
@@ -207,8 +251,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
             instance = null;
         }
         //ActivatorTargetHelpsActivity.activatorActivity = null;
-    }
+    }*/
 
+    /*
     @Override
     protected void onResume()
     {
@@ -224,6 +269,17 @@ public class ActivateProfileActivity extends AppCompatActivity {
             }
             refreshGUI(false);
         }
+    }
+    */
+
+    @Override
+    protected void onDestroy()
+    {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(finishBroadcastReceiver);
+
+        super.onDestroy();
     }
 
     @Override
@@ -507,16 +563,20 @@ public class ActivateProfileActivity extends AppCompatActivity {
             }
             else {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                final Context context = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (ActivateProfileActivity.getInstance() != null) {
+                        Intent intent = new Intent("ShowActivatorTargetHelpsBroadcastReceiver");
+                        intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
+                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                        /*if (ActivateProfileActivity.getInstance() != null) {
                             Fragment fragment = ActivateProfileActivity.getInstance().getFragmentManager().findFragmentById(R.id.activate_profile_list);
                             if (fragment != null) {
                                 ((ActivateProfileListFragment) fragment).showTargetHelps();
                             }
-                        }
+                        }*/
                     }
                 }, 500);
             }

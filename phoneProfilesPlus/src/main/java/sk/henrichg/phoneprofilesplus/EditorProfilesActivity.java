@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -68,7 +71,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                OnStartEventPreferencesFromDetail
 {
 
-    private static volatile EditorProfilesActivity instance;
+    //private static volatile EditorProfilesActivity instance;
 
     private ImageView eventsRunStopIndicator;
 
@@ -152,6 +155,35 @@ public class EditorProfilesActivity extends AppCompatActivity
     AddProfileDialog addProfileDialog;
     AddEventDialog addEventDialog;
 
+    private BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            boolean refreshIcons = intent.getBooleanExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+            // not change selection in editor if refresh is outside editor
+            EditorProfilesActivity.this.refreshGUI(refreshIcons, false);
+        }
+    };
+
+    private BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            Fragment fragment = EditorProfilesActivity.this.getFragmentManager().findFragmentById(R.id.editor_list_container);
+            if (fragment != null) {
+                if (fragment instanceof EditorProfileListFragment)
+                    ((EditorProfileListFragment) fragment).showTargetHelps();
+                else
+                    ((EditorEventListFragment) fragment).showTargetHelps();
+            }
+        }
+    };
+
+    private BroadcastReceiver finishBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            EditorProfilesActivity.this.finish();
+        }
+    };
+
     @SuppressLint({"NewApi", "RestrictedApi"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,9 +192,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, false, true, true);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
-        synchronized (EditorProfilesActivity.class) {
+        /*synchronized (EditorProfilesActivity.class) {
+            PPApplication.logE("$$$$$ EditorProfilesActivity.onCreate", "instance set");
             instance = this;
-        }
+        }*/
 
         savedInstanceStateChanged = (savedInstanceState != null);
 
@@ -490,13 +523,20 @@ public class EditorProfilesActivity extends AppCompatActivity
         changeEventOrder(orderSelectedItem, savedInstanceState != null);
         selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null, false);
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
+                new IntentFilter("RefreshEditorGUIBroadcastReceiver"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
+                new IntentFilter("ShowEditorTargetHelpsBroadcastReceiver"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
+                new IntentFilter("FinishEditorBroadcastReceiver"));
+
         refreshGUI(false, true);
     }
 
-    public static EditorProfilesActivity getInstance()
+    /*public static EditorProfilesActivity getInstance()
     {
         return instance;
-    }
+    }*/
 
     @Override
     protected void onStop()
@@ -508,9 +548,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
             addEventDialog.mDialog.dismiss();
 
-        synchronized (EditorProfilesActivity.class) {
+        /*synchronized (EditorProfilesActivity.class) {
+            PPApplication.logE("$$$$$ EditorProfilesActivity.onStop", "instance clear");
             instance = null;
-        }
+        }*/
     }
 
     @Override
@@ -519,13 +560,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         //Debug.stopMethodTracing();
         super.onResume();
 
-        if (EditorProfilesActivity.getInstance() == null)
+        /*if (EditorProfilesActivity.getInstance() == null)
         {
             synchronized (EditorProfilesActivity.class) {
+                PPApplication.logE("$$$$$ EditorProfilesActivity.onResume", "instance set");
                 instance = this;
             }
             refreshGUI(false, false);
-        }
+        }*/
 
         /*
         final Handler handler = new Handler(getMainLooper());
@@ -570,8 +612,11 @@ public class EditorProfilesActivity extends AppCompatActivity
             contactsCache = null;
         }
 
-        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(finishBroadcastReceiver);
 
+        super.onDestroy();
     }
 
     @Override
@@ -2253,11 +2298,14 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             else {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=false");
+                final Context context = getApplicationContext();
                 final Handler handler = new Handler(getMainLooper());
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (EditorProfilesActivity.getInstance() != null) {
+                        Intent intent = new Intent("ShowEditorTargetHelpsBroadcastReceiver");
+                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+                        /*if (EditorProfilesActivity.getInstance() != null) {
                             Fragment fragment = EditorProfilesActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);
                             if (fragment != null) {
                                 if (fragment instanceof EditorProfileListFragment)
@@ -2265,7 +2313,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 else
                                     ((EditorEventListFragment) fragment).showTargetHelps();
                             }
-                        }
+                        }*/
                     }
                 }, 500);
             }

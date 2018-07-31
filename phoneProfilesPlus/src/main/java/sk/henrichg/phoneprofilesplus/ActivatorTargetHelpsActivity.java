@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 
 public class ActivatorTargetHelpsActivity extends AppCompatActivity {
@@ -21,15 +23,18 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
     {
         super.onResume();
 
-        if (ActivateProfileActivity.getInstance() == null) {
+        /*if (ActivateProfileActivity.getInstance() == null) {
             finish();
             return;
-        }
+        }*/
 
         GlobalGUIRoutines.setTheme(this, true, true, false);
         GlobalGUIRoutines.setLanguage(getBaseContext());
 
-        ActivateProfileActivity.getInstance().showTargetHelps();
+        Intent intent = new Intent("ShowActivatorTargetHelpsBroadcastReceiver");
+        intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, true);
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        //ActivateProfileActivity.getInstance().showTargetHelps();
     }
 
     @Override

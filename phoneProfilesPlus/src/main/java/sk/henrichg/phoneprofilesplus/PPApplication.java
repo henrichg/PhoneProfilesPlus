@@ -86,6 +86,8 @@ public class PPApplication extends Application {
                                          +"|DataWrapper.restartEventsWithDelay"
                                          +"|DataWrapper.restartEvents"
                                          +"|DataWrapper._restartEvents"
+                                         +"|RefreshGUIBroadcastReceiver"
+                                         +"|$$$$$ EditorProfilesActivity"
 
                                          //+"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"

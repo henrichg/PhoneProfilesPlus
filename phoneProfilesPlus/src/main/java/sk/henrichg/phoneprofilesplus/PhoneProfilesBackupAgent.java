@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.backup.BackupAgentHelper;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
@@ -19,6 +21,11 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         PPApplication.exitApp(getApplicationContext(), dataWrapper, null, false);
 
+        Intent intent = new Intent("FinishActivatorBroadcastReceiver");
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        intent = new Intent("FinishEditorBroadcastReceiver");
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        /*
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)
         {
@@ -32,6 +39,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
             PPApplication.logE("PhoneProfilesBackupAgent","close EditorProfilesActivity");
             editorProfilesActivity.finish();
         }
+        */
 
         Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
         Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
