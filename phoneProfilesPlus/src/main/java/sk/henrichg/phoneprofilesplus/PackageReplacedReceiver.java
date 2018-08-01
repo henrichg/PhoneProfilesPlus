@@ -200,7 +200,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             {
                 PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
 
-                PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.3");
+                startService(appContext);
+                /*PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.3");
                 final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
                 handler3.post(new Runnable() {
                     @Override
@@ -232,7 +233,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             } catch (Exception ignored) {}
                         }
                     }
-                });
+                });*/
             }
         }
     }

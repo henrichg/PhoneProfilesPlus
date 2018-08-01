@@ -2766,12 +2766,6 @@ public class PhoneProfilesService extends Service
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
 
-        if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
-            // do not call this from handlerThread. In Android 8 handlerThread is not called
-            // when for service is not displayed foreground notification
-            showProfileNotification();
-        }
-
         if (serviceRunning && onlyStart && !startOnBoot && !startOnPackageReplace) {
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START already running");
             return true;
@@ -2953,9 +2947,30 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
+        if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
+            // do not call this from handlerThread. In Android 8 handlerThread is not called
+            // when for service is not displayed foreground notification
+            showProfileNotification();
+        }
+
         if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
             stopSelf();
             return START_NOT_STICKY;
+        }
+
+        if (intent != null) {
+            if (intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false)) {
+                unregisterReceiversAndJobs();
+
+                stopSimulatingRingingCall(/*true*/);
+                //stopSimulatingNotificationTone(true);
+
+                reenableKeyguard();
+
+                serviceHasFirstStart = false;
+                serviceRunning = false;
+                runningInForeground = false;
+            }
         }
 
         if (!doForFirstStart(intent/*, flags, startId*/)) {
