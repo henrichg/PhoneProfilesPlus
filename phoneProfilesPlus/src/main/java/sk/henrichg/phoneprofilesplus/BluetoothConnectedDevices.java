@@ -29,7 +29,6 @@ class BluetoothConnectedDevices {
 
             BluetoothProfile.ServiceListener profileListener = new BluetoothProfile.ServiceListener() {
                 public void onServiceConnected(int profile, BluetoothProfile proxy) {
-                    List<BluetoothDevice> devices;
                     if (profile == BluetoothProfile.HEADSET) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEADSET service connected");
                         mBluetoothHeadset = (BluetoothHeadset) proxy;

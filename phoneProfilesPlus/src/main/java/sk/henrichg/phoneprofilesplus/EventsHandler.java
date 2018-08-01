@@ -49,7 +49,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_TIME = "time";
     static final String SENSOR_TYPE_APPLICATION = "application";
     static final String SENSOR_TYPE_HEADSET_CONNECTION = "headsetConnection";
-    static final String SENSOR_TYPE_NOTIFICATION_EVENT_END = "notificationEventEnd";
+    //static final String SENSOR_TYPE_NOTIFICATION_EVENT_END = "notificationEventEnd";
     static final String SENSOR_TYPE_SMS_EVENT_END = "smsEventEnd";
     static final String SENSOR_TYPE_WIFI_CONNECTION = "wifiConnection";
     static final String SENSOR_TYPE_WIFI_STATE = "wifiState";
@@ -543,9 +543,9 @@ class EventsHandler {
         if (broadcastReceiverType.equals(SENSOR_TYPE_NOTIFICATION))
             eventType = DatabaseHandler.ETYPE_NOTIFICATION;
         else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_NOTIFICATION_EVENT_END))
+        /*if (broadcastReceiverType.equals(SENSOR_TYPE_NOTIFICATION_EVENT_END))
             eventType = DatabaseHandler.ETYPE_NOTIFICATION;
-        else
+        else*/
         if (broadcastReceiverType.equals(SENSOR_TYPE_PHONE_CALL))
             eventType = DatabaseHandler.ETYPE_CALL;
         else

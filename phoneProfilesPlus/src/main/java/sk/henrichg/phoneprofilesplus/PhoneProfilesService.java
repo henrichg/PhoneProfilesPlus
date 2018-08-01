@@ -130,7 +130,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventDelayEndBroadcastReceiver";
     static final String ACTION_PROFILE_DURATION_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver";
     static final String ACTION_SMS_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.SMSEventEndBroadcastReceiver";
-    static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NotificationCancelAlarmBroadcastReceiver";
+    private static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NotificationCancelAlarmBroadcastReceiver";
     static final String ACTION_NFC_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NFCEventEndBroadcastReceiver";
     static final String ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.RunApplicationWithDelayBroadcastReceiver";
     static final String ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.MissedCallEventEndBroadcastReceiver";

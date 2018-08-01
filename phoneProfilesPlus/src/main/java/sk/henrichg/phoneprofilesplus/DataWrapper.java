@@ -3717,7 +3717,7 @@ public class DataWrapper {
     {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
 
-        final DataWrapper dataWrapper = copyDataWrapper();
+        //final DataWrapper dataWrapper = copyDataWrapper();
 
         if (clearOld) {
             /*PPApplication.startHandlerThreadRestartEventsWithDelay();

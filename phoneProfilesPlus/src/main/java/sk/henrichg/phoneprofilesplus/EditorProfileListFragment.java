@@ -242,7 +242,7 @@ public class EditorProfileListFragment extends Fragment
 
         private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
         private final DataWrapper _dataWrapper;
-        private final Context _baseContext;
+        //private final Context _baseContext;
         private final int _filterType;
         boolean defaultProfilesGenerated = false;
         boolean defaultEventsGenerated = false;
@@ -251,7 +251,7 @@ public class EditorProfileListFragment extends Fragment
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
-            _baseContext = fragment.getActivity();
+            //_baseContext = fragment.getActivity();
         }
 
         @Override
@@ -273,12 +273,14 @@ public class EditorProfileListFragment extends Fragment
             if (_dataWrapper.profileList.size() == 0)
             {
                 // no profiles in DB, generate default profiles and events
+                EditorProfileListFragment fragment = this.fragmentWeakRef.get();
+                if ((fragment != null) && (fragment.getActivity() != null)) {
+                    _dataWrapper.fillPredefinedProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context), fragment.getActivity());
+                    defaultProfilesGenerated = true;
 
-                _dataWrapper.fillPredefinedProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context), _baseContext);
-                defaultProfilesGenerated = true;
-
-                _dataWrapper.generatePredefinedEventList(_baseContext);
-                defaultEventsGenerated = true;
+                    _dataWrapper.generatePredefinedEventList(fragment.getActivity());
+                    defaultEventsGenerated = true;
+                }
             }
             // sort list
             if (_filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)

@@ -1633,7 +1633,7 @@ public class PPApplication extends Application {
 
     public static void restartEvents(Context context) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restarEvents", "xxx");
+            PPApplication.logE("[RJS] PPApplication.restartEvents", "xxx");
             Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
