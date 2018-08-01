@@ -17,8 +17,6 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import com.android.internal.graphics.ColorUtils;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

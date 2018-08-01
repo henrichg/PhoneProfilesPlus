@@ -12,8 +12,6 @@ import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
-import com.android.internal.graphics.ColorUtils;
-
 class EventPreferencesMobileCells extends EventPreferences {
 
     String _cells;

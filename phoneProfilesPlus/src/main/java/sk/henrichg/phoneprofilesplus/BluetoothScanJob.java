@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -23,8 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
-import static android.content.Context.POWER_SERVICE;
 
 class BluetoothScanJob extends Job {
 

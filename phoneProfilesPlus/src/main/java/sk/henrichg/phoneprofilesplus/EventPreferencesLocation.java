@@ -7,14 +7,10 @@ import android.graphics.Color;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-
-import com.android.internal.graphics.ColorUtils;
 
 class EventPreferencesLocation extends EventPreferences {
 
