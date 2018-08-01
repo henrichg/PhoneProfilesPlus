@@ -79,15 +79,17 @@ public class PPApplication extends Application {
 
                                          +"|EditorProfilesActivity.doImportData"
 
-                                         +"|PostDelayedBroadcastReceiver"
+                                         //+"|PostDelayedBroadcastReceiver"
 
                                          //+"|#### EventsHandler.handleEvents"
 
+                                         /*
                                          +"|DataWrapper.restartEventsWithDelay"
                                          +"|DataWrapper.restartEvents"
                                          +"|DataWrapper._restartEvents"
                                          +"|RefreshGUIBroadcastReceiver"
                                          +"|$$$$$ EditorProfilesActivity"
+                                         */
 
                                          //+"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
