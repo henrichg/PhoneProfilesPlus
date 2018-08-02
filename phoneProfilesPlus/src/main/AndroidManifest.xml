@@ -293,9 +293,12 @@
             android:label="@string/nfc_tag_pref_dlg_read_tag_editor_title">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED"/>
+                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                       android:resource="@xml/filter_nfc" />
         </activity>
         <activity
             android:name=".NFCTagReadActivity"
@@ -309,8 +312,12 @@
 
                 <action android:name="android.nfc.action.TAG_DISCOVERED"/>
 
+                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                       android:resource="@xml/filter_nfc" />
         </activity>
         <activity
             android:name=".DonationActivity"

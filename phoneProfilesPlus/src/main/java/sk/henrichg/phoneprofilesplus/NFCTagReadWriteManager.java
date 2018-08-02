@@ -10,8 +10,16 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.TagLostException;
+import android.nfc.tech.IsoDep;
+import android.nfc.tech.MifareClassic;
+import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
+import android.nfc.tech.NfcA;
+import android.nfc.tech.NfcB;
+import android.nfc.tech.NfcBarcode;
+import android.nfc.tech.NfcF;
+import android.nfc.tech.NfcV;
 import android.os.Parcelable;
 
 import java.io.IOException;
@@ -34,6 +42,21 @@ class NFCTagReadWriteManager {
 
     private String writeText = null;
 
+    // list of NFC technologies detected:
+    private final String[][] techList = new String[][] {
+            new String[] {
+                    NfcA.class.getName(),
+                    NfcB.class.getName(),
+                    NfcF.class.getName(),
+                    NfcV.class.getName(),
+                    IsoDep.class.getName(),
+                    MifareClassic.class.getName(),
+                    MifareUltralight.class.getName(),
+                    NfcBarcode.class.getName(),
+                    Ndef.class.getName(),
+                    NdefFormatable.class.getName()
+            }
+    };
 
     NFCTagReadWriteManager(Activity activity) {
         this.activity = activity;
@@ -92,8 +115,8 @@ class NFCTagReadWriteManager {
             IntentFilter filter = new IntentFilter();
             filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
             filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
-            //filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
-            nfcAdapter.enableForegroundDispatch(activity, pendingIntent, new IntentFilter[]{filter}, null);
+            filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
+            nfcAdapter.enableForegroundDispatch(activity, pendingIntent, new IntentFilter[]{filter}, techList);
             //if (writeText == null)
             readTagFromIntent(activity.getIntent());
         }
