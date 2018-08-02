@@ -2,10 +2,12 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
@@ -14,7 +16,6 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.View;
@@ -51,7 +52,8 @@ public class NFCTagPreference extends DialogPreference {
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
-    static final int RESULT_NFC_TAG_READ_EDITOR = 3500;
+    //static final int RESULT_NFC_TAG_READ_EDITOR = 3500;
+    static final int RESULT_NFC_TAG_WRITE = 3501;
 
     //private static final String PREF_SHOW_HELP = "nfc_tag_pref_show_help";
 
@@ -125,10 +127,18 @@ public class NFCTagPreference extends DialogPreference {
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tag = nfcTagName.getText().toString();
-                Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagReadEditorActivity.class);
+                String tagName = nfcTagName.getText().toString();
+
+                /*addNfcTag(tagName);
+                NFCTag tag = new NFCTag(0, tagName, "");
+                DatabaseHandler.getInstance(context).addNFCTag(tag);
+                refreshListView(tagName);*/
+
+                /*Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagReadEditorActivity.class);
                 nfcTagIntent.putExtra(NFCTagReadEditorActivity.EXTRA_TAG_NAME, tag);
-                ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_READ_EDITOR);
+                ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_READ_EDITOR);*/
+
+                writeToNFCTag(0, tagName);
             }
         });
 
@@ -455,17 +465,17 @@ public class NFCTagPreference extends DialogPreference {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
-                    /*case R.id.nfc_tag_pref_dlg_item_menu_writeToNfcTag:
-                        writeToNFCTag(tagInItem.name);
-                        return true;*/
-                    case R.id.nfc_tag_pref_item_menu_readNfcUid:
+                    case R.id.nfc_tag_pref_dlg_item_menu_writeToNfcTag:
+                        writeToNFCTag(tagInItem._id, tagInItem._name);
+                        return true;
+                    /*case R.id.nfc_tag_pref_item_menu_readNfcUid:
                         Log.e("NFCTagPreference.showEditMenu.readNfcUid", "tagInItem._name="+tagInItem._name);
                         Log.e("NFCTagPreference.showEditMenu.readNfcUid", "tagInItem._id="+tagInItem._id);
                         Intent nfcTagIntent = new Intent(context, NFCTagReadEditorActivity.class);
                         nfcTagIntent.putExtra(NFCTagReadEditorActivity.EXTRA_TAG_NAME, tagInItem._name);
                         nfcTagIntent.putExtra(NFCTagReadEditorActivity.EXTRA_TAG_DB_ID, tagInItem._id);
                         ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_READ_EDITOR);
-                        return true;
+                        return true;*/
                     case R.id.nfc_tag_pref_dlg_item_menu_change:
                         if (!nfcTagName.getText().toString().isEmpty()) {
                             String[] splits = value.split("\\|");
@@ -510,8 +520,7 @@ public class NFCTagPreference extends DialogPreference {
         popup.show();
     }
 
-    /*
-    private void writeToNFCTag(String tag) {
+    private void writeToNFCTag(long id, String tag) {
 
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
         if (!nfcAdapter.isEnabled()) {
@@ -535,9 +544,9 @@ public class NFCTagPreference extends DialogPreference {
 
         Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagWriteActivity.class);
         nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, tag);
-        context.startActivity(nfcTagIntent);
+        nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_DB_ID, id);
+        ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_WRITE);
     }
-    */
 
     void setNFCTagFromEditor(String tagName, String tagUid, long tagDbId) {
         addNfcTag(tagName);

@@ -682,7 +682,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             if (preference2 != null)
                 preference2.refreshListView(true);
         }
-        if (requestCode == NFCTagPreference.RESULT_NFC_TAG_READ_EDITOR) {
+        /*if (requestCode == NFCTagPreference.RESULT_NFC_TAG_READ_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
                 NFCTagPreference preference = (NFCTagPreference) prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
                 if (preference != null) {
@@ -693,6 +693,20 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagUid="+tagUid);
                     Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagDbId="+tagDbId);
                     preference.setNFCTagFromEditor(tagName, tagUid, tagDbId);
+                }
+            }
+        }*/
+        if (requestCode == NFCTagPreference.RESULT_NFC_TAG_WRITE) {
+            if (resultCode == Activity.RESULT_OK) {
+                NFCTagPreference preference = (NFCTagPreference) prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
+                if (preference != null) {
+                    String tagName = data.getStringExtra(NFCTagWriteActivity.EXTRA_TAG_NAME);
+                    //String tagUid = data.getStringExtra(NFCTagWriteActivity.EXTRA_TAG_UID);
+                    long tagDbId = data.getLongExtra(NFCTagWriteActivity.EXTRA_TAG_DB_ID, 0);
+                    Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagName=" + tagName);
+                    //Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagUid=" + tagUid);
+                    Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagDbId=" + tagDbId);
+                    preference.setNFCTagFromEditor(tagName, "", tagDbId);
                 }
             }
         }

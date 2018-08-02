@@ -280,7 +280,7 @@
             android:name=".AboutApplicationActivity"
             android:label="@string/about_application_title">
         </activity>
-        <!--<activity
+        <activity
             android:name=".NFCTagWriteActivity"
             android:label="@string/nfc_tag_pref_dlg_writeTagTitle">
             <intent-filter>
@@ -288,8 +288,8 @@
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-        </activity>-->
-        <activity android:name=".NFCTagReadEditorActivity"
+        </activity>
+        <!--<activity android:name=".NFCTagReadEditorActivity"
             android:label="@string/nfc_tag_pref_dlg_read_tag_editor_title">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED"/>
@@ -299,7 +299,7 @@
             </intent-filter>
             <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
                        android:resource="@xml/filter_nfc" />
-        </activity>
+        </activity>-->
         <activity
             android:name=".NFCTagReadActivity"
             android:excludeFromRecents="true"
@@ -307,17 +307,16 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
+                <!--<action android:name="android.nfc.action.TECH_DISCOVERED"/>
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>-->
+
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
 
-                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
-
-                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
-
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
-            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
-                       android:resource="@xml/filter_nfc" />
+            <!--<meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                       android:resource="@xml/filter_nfc" />-->
         </activity>
         <activity
             android:name=".DonationActivity"

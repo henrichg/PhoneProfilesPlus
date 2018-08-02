@@ -41,7 +41,7 @@ class NFCTagPreferenceAdapter extends BaseAdapter
     
     static class ViewHolder {
         TextView tagName;
-        TextView tagUid;
+        //TextView tagUid;
         CheckBox checkBox;
         ImageView itemEditMenu;
         //int position;
@@ -61,7 +61,7 @@ class NFCTagPreferenceAdapter extends BaseAdapter
             vi = inflater.inflate(R.layout.nfc_tag_preference_list_item, parent, false);
             holder = new ViewHolder();
             holder.tagName = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagName);
-            holder.tagUid = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagUid);
+            //holder.tagUid = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagUid);
             holder.checkBox = vi.findViewById(R.id.nfc_tag_pref_dlg_item_checkbox);
             holder.itemEditMenu = vi.findViewById(R.id.nfc_tag_pref_dlg_item_edit_menu);
             vi.setTag(holder);
@@ -72,10 +72,10 @@ class NFCTagPreferenceAdapter extends BaseAdapter
         }
 
         holder.tagName.setText(nfcTag._name);
-        if (nfcTag._uid.isEmpty())
+        /*if (nfcTag._uid.isEmpty())
             holder.tagUid.setText(R.string.nfc_tag_pref_dlg_tag_uid_empty);
         else
-            holder.tagUid.setText(nfcTag._uid);
+            holder.tagUid.setText(nfcTag._uid);*/
 
         holder.checkBox.setTag(position);
         holder.checkBox.setChecked(preference.isNfcTagSelected(nfcTag._name));

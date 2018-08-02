@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -20,12 +21,14 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 public class NFCTagWriteActivity extends AppCompatActivity {
 
     private String tagName;
+    private long tagDbId;
 
     private NFCTagReadWriteManager nfcManager;
 
     private TextView writableTextView;
 
     public static final String EXTRA_TAG_NAME = "tag_name";
+    public static final String EXTRA_TAG_DB_ID = "tag_db_id";
 
     @SuppressLint("InlinedApi")
     @Override
@@ -65,6 +68,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         tagName = intent.getStringExtra(EXTRA_TAG_NAME);
+        tagDbId = intent.getLongExtra(EXTRA_TAG_DB_ID, 0);
 
         if ((tagName == null) || tagName.isEmpty()) {
             nfcManager = null;
@@ -114,6 +118,10 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 @Override
                 public void onTagWritten() {
                     Toast.makeText(getApplicationContext(), R.string.write_nfc_tag_written, Toast.LENGTH_LONG).show();
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(EXTRA_TAG_NAME, tagName);
+                    returnIntent.putExtra(EXTRA_TAG_DB_ID, tagDbId);
+                    NFCTagWriteActivity.this.setResult(Activity.RESULT_OK, returnIntent);
                     NFCTagWriteActivity.this.finish();
                 }
             });
@@ -144,6 +152,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                NFCTagWriteActivity.this.setResult(Activity.RESULT_CANCELED);
                 NFCTagWriteActivity.this.finish();
             }
         });
