@@ -1,8 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 class NFCTag {
-    long _id;
-    String _uid;
+    final long _id;
+    final String _uid;
     String _name;
 
     NFCTag(long id, String name, String uid)

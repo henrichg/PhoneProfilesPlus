@@ -87,10 +87,6 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             writableTextView.setText(R.string.empty_string);
 
             nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
-                @Override
-                public void onUidRead(String uid) {
-
-                }
 
                 @Override
                 public void onTagRead(String tagData) {

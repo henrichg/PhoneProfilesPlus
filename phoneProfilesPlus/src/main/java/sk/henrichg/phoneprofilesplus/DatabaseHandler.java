@@ -7694,6 +7694,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     String getNFCTagNameByUid(String uid){
         importExportLock.lock();
         try {
@@ -7726,6 +7727,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
 // OTHERS -------------------------------------------------------------------------
 

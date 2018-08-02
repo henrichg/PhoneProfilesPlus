@@ -23,6 +23,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
         nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
 
+            /*
             @Override
             public void onUidRead(String uid) {
                 Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+uid, Toast.LENGTH_LONG).show();
@@ -45,13 +46,14 @@ public class NFCTagReadActivity extends AppCompatActivity {
                         if (!tagName.isEmpty()) {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.setEventNFCParameters(tagName, _time);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG/*, false*/);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG);
                         }
                     }
                 });
 
                 NFCTagReadActivity.this.finish();
             }
+            */
 
             @Override
             public void onTagRead(String tagData) {

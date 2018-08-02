@@ -548,7 +548,9 @@ public class NFCTagPreference extends DialogPreference {
         ((Activity)context).startActivityForResult(nfcTagIntent, RESULT_NFC_TAG_WRITE);
     }
 
-    void setNFCTagFromEditor(String tagName, String tagUid, long tagDbId) {
+    void setNFCTagFromEditor(String tagName,
+                             @SuppressWarnings("SameParameterValue") String tagUid,
+                             long tagDbId) {
         addNfcTag(tagName);
         NFCTag tag = new NFCTag(tagDbId, tagName, tagUid);
         if (tagDbId == 0)
