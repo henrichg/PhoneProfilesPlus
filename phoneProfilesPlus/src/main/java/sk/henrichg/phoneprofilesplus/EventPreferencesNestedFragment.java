@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 
 public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -688,6 +689,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     String tagName = data.getStringExtra(NFCTagReadEditorActivity.EXTRA_TAG_NAME);
                     String tagUid = data.getStringExtra(NFCTagReadEditorActivity.EXTRA_TAG_UID);
                     long tagDbId = data.getLongExtra(NFCTagReadEditorActivity.EXTRA_TAG_DB_ID, 0);
+                    Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagName="+tagName);
+                    Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagUid="+tagUid);
+                    Log.e("EventPreferencesNestedFragment.doOnActivityResult", "tagDbId="+tagDbId);
                     preference.setNFCTagFromEditor(tagName, tagUid, tagDbId);
                 }
             }

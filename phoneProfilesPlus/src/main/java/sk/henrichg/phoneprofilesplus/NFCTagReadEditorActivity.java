@@ -6,8 +6,10 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,7 +58,7 @@ public class NFCTagReadEditorActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setTitle(R.string.nfc_tag_pref_dlg_writeTagTitle);
+            getSupportActionBar().setTitle(R.string.nfc_tag_pref_dlg_read_tag_editor_title);
             getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
         }
 
@@ -64,10 +66,11 @@ public class NFCTagReadEditorActivity extends AppCompatActivity {
         tagDbId = intent.getLongExtra(EXTRA_TAG_DB_ID, 0);
         tagName = intent.getStringExtra(EXTRA_TAG_NAME);
 
+        descriptionTextView = findViewById(R.id.read_nfc_tag_editor_description);
+
         if ((tagName == null) || tagName.isEmpty()) {
             nfcManager = null;
 
-            descriptionTextView = findViewById(R.id.read_nfc_tag_editor_description);
             descriptionTextView.setText(R.string.nfc_tag_pref_dlg_writeToNfcTag_emptyTagName);
         }
         else {
@@ -116,7 +119,19 @@ public class NFCTagReadEditorActivity extends AppCompatActivity {
                 }
             });*/
 
+            descriptionTextView.setText(R.string.empty_string);
+
         }
+
+        Button button = findViewById(R.id.read_nfc_tag_editor_button);
+        //button.setAllCaps(false);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NFCTagReadEditorActivity.this.setResult(Activity.RESULT_CANCELED);
+                NFCTagReadEditorActivity.this.finish();
+            }
+        });
     }
 
     @Override

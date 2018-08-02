@@ -1207,6 +1207,7 @@
     <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
     <string name="nfc_tag_pref_dlg_tag_uid_empty">Tag UID is not read from tag.</string>
     <string name="nfc_tag_pref_dlg_change_tag_name">Change name</string>
+    <string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -88,7 +89,11 @@ class NFCTagReadWriteManager {
      */
     void onActivityResume() {
         if (nfcAdapter != null) {
-            nfcAdapter.enableForegroundDispatch(activity, pendingIntent, null, null);
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(NfcAdapter.ACTION_TAG_DISCOVERED);
+            filter.addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
+            //filter.addAction(NfcAdapter.ACTION_TECH_DISCOVERED);
+            nfcAdapter.enableForegroundDispatch(activity, pendingIntent, new IntentFilter[]{filter}, null);
             //if (writeText == null)
             readTagFromIntent(activity.getIntent());
         }
@@ -135,6 +140,7 @@ class NFCTagReadWriteManager {
     private void readTagFromIntent(Intent intent) {
         if (intent != null){
             String action = intent.getAction();
+
             if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
                 uidRead = true;
 

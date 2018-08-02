@@ -2,6 +2,9 @@
     <!--<item android:id="@+id/nfc_tag_pref_dlg_item_menu_writeToNfcTag"
         android:title="@string/nfc_tag_pref_dlg_menu_writeToNfcTag"
         android:orderInCategory="100" />-->
+    <item android:id="@+id/nfc_tag_pref_item_menu_readNfcUid"
+        android:title="@string/nfc_tag_pref_dlg_read_tag_uid"
+        android:orderInCategory="100" />
     <item android:id="@+id/nfc_tag_pref_dlg_item_menu_change"
         android:title="@string/nfc_tag_pref_dlg_change_tag_name"
         android:orderInCategory="101" />
