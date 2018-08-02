@@ -264,7 +264,11 @@ Obcas to spadne na chybe (aj na mojom S8 to raz spadlo):
 07-27 12:55:01.034 7857-7898/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.doForFirstStart: global event run is enabled, first start events
 
 ---------------
+
 NFC tag senzor
+
+Tu mas ako sa to id cita: https://gist.github.com/luixal/5768921.
+
 - Sprav aby to len citalo UID a to pouzivaj na identifikaciu tagu.
   Takto precitas UID: https://gist.github.com/luixal/5768921
 - Na nacitanie tagu v NFCTagPreference sa vytvori nova aktivita NFCTagReadEditorActivity.
