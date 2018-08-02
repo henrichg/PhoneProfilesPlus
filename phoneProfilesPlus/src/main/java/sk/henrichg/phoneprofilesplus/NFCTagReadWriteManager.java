@@ -250,7 +250,7 @@ class NFCTagReadWriteManager {
 
     interface TagReadListener {
         void onUidRead(String uid);
-        void onTagRead(String tagRead);
+        void onTagRead(String tagData);
     }
 
     interface TagWriteListener {

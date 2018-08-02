@@ -93,7 +93,7 @@ public class NFCTagReadEditorActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onTagRead(String tagRead) {
+                public void onTagRead(String tagData) {
                     /*Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+tagRead, Toast.LENGTH_LONG).show();
 
                     NFCTagReadEditorActivity.this.finish();*/

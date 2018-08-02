@@ -89,8 +89,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onTagRead(String tagRead) {
-                    //Toast.makeText(getApplicationContext(), "tag read:"+tagRead, Toast.LENGTH_LONG).show();
+                public void onTagRead(String tagData) {
+                    //Toast.makeText(getApplicationContext(), "tag read:"+tagData, Toast.LENGTH_LONG).show();
 
                     int[] attrs = {R.attr.activityTextColor};
                     TypedArray ta = obtainStyledAttributes(attrs);

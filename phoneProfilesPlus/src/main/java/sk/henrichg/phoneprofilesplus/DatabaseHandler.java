@@ -7673,7 +7673,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 db.beginTransaction();
 
                 try {
-
                     // delete geofence
                     db.delete(TABLE_NFC_TAGS, KEY_NT_ID + " = ?",
                             new String[]{String.valueOf(tag._id)});
@@ -7690,6 +7689,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //db.close();
             } catch (Exception ignored) {
             }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    String getNFCTagNameByUid(String uid){
+        importExportLock.lock();
+        try {
+            String tagName = "";
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_NT_NAME +
+                        " FROM " + TABLE_NFC_TAGS +
+                        " WHERE " + KEY_NT_UID + "=" + uid;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    tagName = cursor.getString(cursor.getColumnIndex(KEY_NT_NAME));
+                }
+
+                cursor.close();
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+            return tagName;
         } finally {
             stopRunningCommand();
         }
