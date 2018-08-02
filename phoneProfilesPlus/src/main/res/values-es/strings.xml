@@ -743,8 +743,7 @@
   <string name="write_nfc_tag_written">Etiqueta escrita</string>
   <string name="write_nfc_tag_error">Escritura de etiqueta ERROR</string>
   <string name="read_nfc_tag_read">Lectura de etiqueta</string>
-  <string name="read_nfc_tag_error">Lectura de etiqueta ERROR</string>
-  <string name="pref_event_permanentRun">Ejecución permanente</string>
+    <string name="pref_event_permanentRun">Ejecución permanente</string>
   <string name="pref_event_permanentRun_summary">Pausar evento después de la activación manual del perfil luego reinicie los eventos</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Etiqueta es modificable</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">La etiqueta no es modificable</string>

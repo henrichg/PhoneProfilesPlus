@@ -743,8 +743,7 @@
   <string name="write_nfc_tag_written">Tag written</string>
   <string name="write_nfc_tag_error">标签写入错误</string>
   <string name="read_nfc_tag_read">Tag read</string>
-  <string name="read_nfc_tag_error">标签读取错误</string>
-  <string name="pref_event_permanentRun">常驻运行</string>
+    <string name="pref_event_permanentRun">常驻运行</string>
   <string name="pref_event_permanentRun_summary">手动激活情景并重启事件后暂停事件。</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">标签可写</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">标签不可写</string>

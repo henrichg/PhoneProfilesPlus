@@ -743,8 +743,7 @@
   <string name="write_nfc_tag_written">Tag written</string>
   <string name="write_nfc_tag_error">שגיאה בכתיבת התגית</string>
   <string name="read_nfc_tag_read">Tag read</string>
-  <string name="read_nfc_tag_error">שגיאה בקריאת התגית</string>
-  <string name="pref_event_permanentRun">הפעלה קבועה</string>
+    <string name="pref_event_permanentRun">הפעלה קבועה</string>
   <string name="pref_event_permanentRun_summary">השהיית אירוע לאחר הפעלת פרופיל ידנית והפעלה מחדש של אירועים</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">התגית ניתנת לכתיבה</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">התגית אינה ניתנת לכתיבה</string>

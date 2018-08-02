@@ -743,8 +743,7 @@
   <string name="write_nfc_tag_written">Мітку записано</string>
   <string name="write_nfc_tag_error">Помилка запису мітки</string>
   <string name="read_nfc_tag_read">Мітку прочитано</string>
-  <string name="read_nfc_tag_error">Помилка зчитування мітки</string>
-  <string name="pref_event_permanentRun">Постійний запуск</string>
+    <string name="pref_event_permanentRun">Постійний запуск</string>
   <string name="pref_event_permanentRun_summary">Призупинити подію після ручної активації профілю, після цього перезавантажити події</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Мітку можна перезаписувати</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Мітку не можна перезаписати</string>

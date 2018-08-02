@@ -744,8 +744,7 @@ Non chiedere nuovamente?</string>
   <string name="write_nfc_tag_written">Tag scritto</string>
   <string name="write_nfc_tag_error">ERRORE in scrittura del Tag</string>
   <string name="read_nfc_tag_read">Tag letto</string>
-  <string name="read_nfc_tag_error">ERRORE in lettura del Tag</string>
-  <string name="pref_event_permanentRun">Esecuzione permanente</string>
+    <string name="pref_event_permanentRun">Esecuzione permanente</string>
   <string name="pref_event_permanentRun_summary">Sospende l\'evento dopo l\'attivazione manuale del profilo e quindi riavvia gli eventi</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Il Tag è scrivibile</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Il Tag non è scrivibile</string>

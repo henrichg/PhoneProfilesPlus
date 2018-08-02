@@ -743,8 +743,7 @@
   <string name="write_nfc_tag_written">Tag geschrieben</string>
   <string name="write_nfc_tag_error">Tag-Schreibfehler</string>
   <string name="read_nfc_tag_read">Tag gelesen</string>
-  <string name="read_nfc_tag_error">Fehler beim Lesen des Tags</string>
-  <string name="pref_event_permanentRun">Permanent laufen</string>
+    <string name="pref_event_permanentRun">Permanent laufen</string>
   <string name="pref_event_permanentRun_summary">Ereignis nach manueller Aktivierung und Neustart des Ereignisses anhalten</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Tag ist beschreibbar</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag ist nicht beschreibbar</string>

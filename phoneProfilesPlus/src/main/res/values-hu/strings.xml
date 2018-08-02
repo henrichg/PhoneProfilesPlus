@@ -743,8 +743,7 @@
   <string name="write_nfc_tag_written">Címke írva</string>
   <string name="write_nfc_tag_error">Címke írási HIBA</string>
   <string name="read_nfc_tag_read">Címke olvasva</string>
-  <string name="read_nfc_tag_error">Címke olvasási HIBA</string>
-  <string name="pref_event_permanentRun">Állandó futtatás</string>
+    <string name="pref_event_permanentRun">Állandó futtatás</string>
   <string name="pref_event_permanentRun_summary">Esemény szüneteltetés kézi aktiválás után, és indítsa újra az eseményeket</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Címke írható</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Címke nem írható</string>

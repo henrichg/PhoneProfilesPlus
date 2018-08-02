@@ -743,8 +743,7 @@
   <string name="write_nfc_tag_written">Tag bewaard</string>
   <string name="write_nfc_tag_error">Tag bewaarFOUT</string>
   <string name="read_nfc_tag_read">Tag gelezen</string>
-  <string name="read_nfc_tag_error">Tag leesFOUT</string>
-  <string name="pref_event_permanentRun">Permanent uitvoeren</string>
+    <string name="pref_event_permanentRun">Permanent uitvoeren</string>
   <string name="pref_event_permanentRun_summary">Pauzeer event na handmatige profiel activatie en start events opnieuw</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Tag is beschrijfbaar</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag is niet beschrijfbaar</string>
