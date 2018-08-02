@@ -22,6 +22,12 @@ public class NFCTagReadActivity extends AppCompatActivity {
         nfcManager.onActivityCreate();
 
         nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
+
+            @Override
+            public void onUidRead(String uid) {
+
+            }
+
             @Override
             public void onTagRead(String tagRead) {
                 Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+tagRead, Toast.LENGTH_LONG).show();
@@ -55,7 +61,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "tag write finished", Toast.LENGTH_LONG).show();
                 NFCTagReadActivity.this.finish();
             }
-        });*/
+        });
 
         nfcManager.setOnTagWriteErrorListener(new NFCTagReadWriteManager.TagWriteErrorListener() {
             @Override
@@ -64,7 +70,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_error), Toast.LENGTH_LONG).show();
                 NFCTagReadActivity.this.finish();
             }
-        });
+        });*/
 
     }
 

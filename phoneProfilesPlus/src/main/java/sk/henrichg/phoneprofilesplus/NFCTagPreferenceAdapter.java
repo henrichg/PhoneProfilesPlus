@@ -41,6 +41,7 @@ class NFCTagPreferenceAdapter extends BaseAdapter
     
     static class ViewHolder {
         TextView tagName;
+        TextView tagUid;
         CheckBox checkBox;
         ImageView itemEditMenu;
         //int position;
@@ -49,7 +50,7 @@ class NFCTagPreferenceAdapter extends BaseAdapter
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         // NFC tag to display
-        NFCTagData nfcTag = preference.nfcTagList.get(position);
+        NFCTag nfcTag = preference.nfcTagList.get(position);
         //System.out.println(String.valueOf(position));
 
         ViewHolder holder;
@@ -59,7 +60,8 @@ class NFCTagPreferenceAdapter extends BaseAdapter
         {
             vi = inflater.inflate(R.layout.nfc_tag_preference_list_item, parent, false);
             holder = new ViewHolder();
-            holder.tagName = vi.findViewById(R.id.nfc_tag_pref_dlg_item_label);
+            holder.tagName = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagName);
+            holder.tagUid = vi.findViewById(R.id.nfc_tag_pref_dlg_item_tagUid);
             holder.checkBox = vi.findViewById(R.id.nfc_tag_pref_dlg_item_checkbox);
             holder.itemEditMenu = vi.findViewById(R.id.nfc_tag_pref_dlg_item_edit_menu);
             vi.setTag(holder);
@@ -69,16 +71,20 @@ class NFCTagPreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        holder.tagName.setText(nfcTag.name);
+        holder.tagName.setText(nfcTag._name);
+        if (nfcTag._uid.isEmpty())
+            holder.tagUid.setText(R.string.nfc_tag_pref_dlg_tag_uid_empty);
+        else
+            holder.tagUid.setText(nfcTag._uid);
 
         holder.checkBox.setTag(position);
-        holder.checkBox.setChecked(preference.isNfcTagSelected(nfcTag.name));
+        holder.checkBox.setChecked(preference.isNfcTagSelected(nfcTag._name));
         holder.checkBox.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v) {
                 CheckBox chb = (CheckBox) v;
 
-                String tag = preference.nfcTagList.get((Integer)chb.getTag()).name;
+                String tag = preference.nfcTagList.get((Integer)chb.getTag())._name;
 
                 if (chb.isChecked())
                     preference.addNfcTag(tag);

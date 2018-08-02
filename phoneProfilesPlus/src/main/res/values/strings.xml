@@ -1103,7 +1103,7 @@
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
     <string name="event_preferences_PPPExtenderInstallInfo_text">How to install PhoneProfilesPlusExtender</string>
     <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>
-    <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate it.</string>-->
+    <string name="donation_thanks_dialog">Thank you for donating.\nI really appreciate it.</string>
     <string name="donation_google_android_market_not_supported">In-App Donations are not supported. Is Google Play Store installed correctly?</string>
     <string name="donation_google_error">Error.</string>
     <string name="button_close">Close</string>
@@ -1203,6 +1203,10 @@
     <string name="phone_profiles_pref_applicationUseAlarmClock">Use alarm clock</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable this parameter, to set it exact. Alarm clock icon will be displayed in status bar.</string>
     <string name="important_info_useAlarmClock">Profile and event duration, time sensor, calendar sensor, events delay start and end are not exact, when screen is off. Enable in Settings parameter \"System\"→\"Use alarm clock\", to set it exact. Alarm clock icon will be displayed in status bar.</string>
+    <string name="nfc_tag_pref_dlg_read_tag_editor_title">Read NFC Tag</string>
+    <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
+    <string name="nfc_tag_pref_dlg_tag_uid_empty">Tag UID is not read from tag.</string>
+    <string name="nfc_tag_pref_dlg_change_tag_name">Change name</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1216,7 +1220,7 @@
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
 
-<!--    <string name="profile_preferences_screenNightMode">Night mode</string>
+    <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
     <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
 
     <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>

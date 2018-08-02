@@ -22,7 +22,7 @@ class EventPreferencesNFC extends EventPreferences {
     int _duration;
 
     static final String PREF_EVENT_NFC_ENABLED = "eventNFCEnabled";
-    private static final String PREF_EVENT_NFC_NFC_TAGS = "eventNFCTags";
+    static final String PREF_EVENT_NFC_NFC_TAGS = "eventNFCTags";
     private static final String PREF_EVENT_NFC_PERMANENT_RUN = "eventNFCPermanentRun";
     private static final String PREF_EVENT_NFC_DURATION = "eventNFCDuration";
 

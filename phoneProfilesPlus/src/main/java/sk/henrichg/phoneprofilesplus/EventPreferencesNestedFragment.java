@@ -579,7 +579,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         super.onDestroy();
     }
 
-    public void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/)
+    public void doOnActivityResult(int requestCode, int resultCode, Intent data)
     {
         //Log.d("EventPreferencesFragment.doOnActivityResult", "requestCode="+requestCode);
 
@@ -681,13 +681,25 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             if (preference2 != null)
                 preference2.refreshListView(true);
         }
+        if (requestCode == NFCTagPreference.RESULT_NFC_TAG_READ_EDITOR) {
+            if (resultCode == Activity.RESULT_OK) {
+                NFCTagPreference preference = (NFCTagPreference) prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
+                if (preference != null) {
+                    String tagName = data.getStringExtra(NFCTagReadEditorActivity.EXTRA_TAG_NAME);
+                    String tagUid = data.getStringExtra(NFCTagReadEditorActivity.EXTRA_TAG_UID);
+                    long tagDbId = data.getLongExtra(NFCTagReadEditorActivity.EXTRA_TAG_DB_ID, 0);
+                    preference.setNFCTagFromEditor(tagName, tagUid, tagDbId);
+                }
+            }
+        }
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        doOnActivityResult(requestCode, resultCode);
+        doOnActivityResult(requestCode, resultCode, data);
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)

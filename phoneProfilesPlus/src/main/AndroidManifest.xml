@@ -280,11 +280,19 @@
             android:name=".AboutApplicationActivity"
             android:label="@string/about_application_title">
         </activity>
-        <activity
+        <!--<activity
             android:name=".NFCTagWriteActivity"
             android:label="@string/nfc_tag_pref_dlg_writeTagTitle">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>-->
+        <activity android:name=".NFCTagReadEditorActivity"
+            android:label="@string/nfc_tag_pref_dlg_read_tag_editor_title">
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
@@ -297,8 +305,9 @@
             android:theme="@style/EmptyAppCompatActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
-
                 <data android:mimeType="application/vnd.phoneprofilesplus.events"/>
+
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>

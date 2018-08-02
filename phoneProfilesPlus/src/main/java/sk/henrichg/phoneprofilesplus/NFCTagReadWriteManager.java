@@ -22,6 +22,7 @@ class NFCTagReadWriteManager {
     private final Activity activity;
     private PendingIntent pendingIntent;
 
+    boolean uidRead = false;
     boolean tagRead = false;
 
     boolean tagIsWritable;  // is tag writable?
@@ -134,6 +135,12 @@ class NFCTagReadWriteManager {
     private void readTagFromIntent(Intent intent) {
         if (intent != null){
             String action = intent.getAction();
+            if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)) {
+                uidRead = true;
+
+                String uid = ByteArrayToHexString(intent.getByteArrayExtra(NfcAdapter.EXTRA_ID));
+                onTagReadListener.onUidRead(uid);
+            }
             if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
                 tagRead = true;
 
@@ -154,6 +161,22 @@ class NFCTagReadWriteManager {
                 }
             }
         }
+    }
+
+    private String ByteArrayToHexString(byte [] inArray) {
+        int i, j, in;
+        String [] hex = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"};
+        StringBuilder out= new StringBuilder();
+
+        for(j = 0 ; j < inArray.length ; ++j)
+        {
+            in = (int) inArray[j] & 0xff;
+            i = (in >> 4) & 0x0f;
+            out.append(hex[i]);
+            i = in & 0x0f;
+            out.append(hex[i]);
+        }
+        return out.toString();
     }
 
     private String ndefRecordToString(NdefRecord record) {
@@ -226,6 +249,7 @@ class NFCTagReadWriteManager {
     }
 
     interface TagReadListener {
+        void onUidRead(String uid);
         void onTagRead(String tagRead);
     }
 

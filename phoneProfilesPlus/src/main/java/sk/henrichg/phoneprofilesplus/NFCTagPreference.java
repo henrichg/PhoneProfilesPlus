@@ -36,7 +36,7 @@ import java.util.List;
 public class NFCTagPreference extends DialogPreference {
 
     private String value;
-    List<NFCTagData> nfcTagList;
+    List<NFCTag> nfcTagList;
 
     private final Context context;
 
@@ -50,6 +50,8 @@ public class NFCTagPreference extends DialogPreference {
     private NFCTagPreferenceAdapter listAdapter;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
+
+    static final int RESULT_NFC_TAG_READ_EDITOR = 3500;
 
     //private static final String PREF_SHOW_HELP = "nfc_tag_pref_show_help";
 
@@ -124,9 +126,9 @@ public class NFCTagPreference extends DialogPreference {
             @Override
             public void onClick(View v) {
                 String tag = nfcTagName.getText().toString();
-                addNfcTag(tag);
-                DatabaseHandler.getInstance(context).addNFCTag(tag);
-                refreshListView(tag);
+                Intent nfcTagIntent = new Intent(context.getApplicationContext(), NFCTagReadEditorActivity.class);
+                nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, tag);
+                context.startActivity(nfcTagIntent);
             }
         });
 
@@ -161,7 +163,7 @@ public class NFCTagPreference extends DialogPreference {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 //NFCTagPreferenceAdapter.ViewHolder viewHolder =
                 //        (NFCTagPreferenceAdapter.ViewHolder) v.getTag();
-                String nfcTag = nfcTagList.get(position).name;
+                String nfcTag = nfcTagList.get(position)._name;
                 nfcTagName.setText(nfcTag);
             }
 
@@ -224,9 +226,9 @@ public class NFCTagPreference extends DialogPreference {
                                         value = "";
                                         break;
                                     case 1:
-                                        for (NFCTagData nfcTag : nfcTagList) {
-                                            if (nfcTag.name.equals(nfcTagName.getText().toString()))
-                                                addNfcTag(nfcTag.name);
+                                        for (NFCTag nfcTag : nfcTagList) {
+                                            if (nfcTag._name.equals(nfcTagName.getText().toString()))
+                                                addNfcTag(nfcTag._name);
                                         }
                                         break;
                                     default:
@@ -294,41 +296,39 @@ public class NFCTagPreference extends DialogPreference {
         return value;
     }*/
 
-    void addNfcTag(String tag) {
+    void addNfcTag(String tagName) {
         String[] splits = value.split("\\|");
         boolean found = false;
-        for (String _tag : splits) {
-            if (_tag.equals(tag))
+        for (String tag : splits) {
+            if (tag.equals(tagName))
                 found = true;
         }
         if (!found) {
             if (!value.isEmpty())
                 value = value + "|";
-            value = value + tag;
+            value = value + tagName;
         }
-        //Log.d("WifiSSIDPreference.addSSID","value="+value);
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    void removeNfcTag(String tag) {
+    void removeNfcTag(String tagName) {
         String[] splits = value.split("\\|");
         value = "";
-        for (String _tag : splits) {
-            if (!_tag.isEmpty()) {
-                if (!_tag.equals(tag)) {
+        for (String tag : splits) {
+            if (!tag.isEmpty()) {
+                if (!tag.equals(tagName)) {
                     if (!value.isEmpty())
                         value = value + "|";
-                    value = value + _tag;
+                    value = value + tag;
                 }
             }
         }
-        //Log.d("WifiSSIDPreference.removeSSID","value="+value);
     }
 
-    boolean isNfcTagSelected(String tag) {
+    boolean isNfcTagSelected(String tagName) {
         String[] splits = value.split("\\|");
-        for (String _tag : splits) {
-            if (_tag.equals(tag))
+        for (String tag : splits) {
+            if (tag.equals(tagName))
                 return true;
         }
         return false;
@@ -341,7 +341,7 @@ public class NFCTagPreference extends DialogPreference {
 
         rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
 
-            List<NFCTagData> _nfcTagList = null;
+            List<NFCTag> _nfcTagList = null;
 
             @Override
             protected void onPreExecute()
@@ -366,24 +366,27 @@ public class NFCTagPreference extends DialogPreference {
                 //}
 
                 // add all from db
-                List<NFCTag> tags = DatabaseHandler.getInstance(context).getAllNFCTags();
-                for (NFCTag tag : tags)
-                    _nfcTagList.add(new NFCTagData(tag._name));
+                List<NFCTag> tagsFromDb = DatabaseHandler.getInstance(context).getAllNFCTags();
+                for (NFCTag tag : tagsFromDb)
+                    _nfcTagList.add(new NFCTag(tag._id, tag._name, tag._uid));
 
                 // add all from value
                 boolean found;
                 String[] splits = value.split("\\|");
-                for (String _tag : splits) {
-                    if (!_tag.isEmpty()) {
+                for (String tag : splits) {
+                    if (!tag.isEmpty()) {
                         found = false;
-                        for (NFCTagData tag : _nfcTagList) {
-                            if (_tag.equals(tag.name)) {
+                        for (NFCTag tagData : _nfcTagList) {
+                            if (tag.equals(tagData._name)) {
                                 found = true;
                                 break;
                             }
                         }
                         if (!found) {
-                            _nfcTagList.add(new NFCTagData(_tag));
+                            for (NFCTag tagFromDb : tagsFromDb) {
+                                if (tagFromDb._name.equals(tag))
+                                    _nfcTagList.add(new NFCTag(tagFromDb._id, tag, tagFromDb._uid));
+                            }
                         }
                     }
                 }
@@ -410,7 +413,7 @@ public class NFCTagPreference extends DialogPreference {
 
                 if (!scrollToTag.isEmpty()) {
                     for (int position = 0; position < nfcTagList.size() - 1; position++) {
-                        if (nfcTagList.get(position).name.equals(scrollToTag)) {
+                        if (nfcTagList.get(position)._name.equals(scrollToTag)) {
                             nfcTagListView.setSelection(position);
                             break;
                         }
@@ -423,11 +426,11 @@ public class NFCTagPreference extends DialogPreference {
         rescanAsyncTask.execute();
     }
 
-    private class SortList implements Comparator<NFCTagData> {
+    private class SortList implements Comparator<NFCTag> {
 
-        public int compare(NFCTagData lhs, NFCTagData rhs) {
+        public int compare(NFCTag lhs, NFCTag rhs) {
             if (GlobalGUIRoutines.collator != null)
-                return GlobalGUIRoutines.collator.compare(lhs.name, rhs.name);
+                return GlobalGUIRoutines.collator.compare(lhs._name, rhs._name);
             else
                 return 0;
         }
@@ -446,44 +449,47 @@ public class NFCTagPreference extends DialogPreference {
         new MenuInflater(context).inflate(R.menu.nfc_tag_pref_dlg_item_edit, popup.getMenu());
 
         int tagPos = (int)view.getTag();
-        final String tag = nfcTagList.get(tagPos).name;
+        final NFCTag tagInItem = nfcTagList.get(tagPos);
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.nfc_tag_pref_dlg_item_menu_writeToNfcTag:
-                        writeToNFCTag(tag);
-                        return true;
+                    /*case R.id.nfc_tag_pref_dlg_item_menu_writeToNfcTag:
+                        writeToNFCTag(tagInItem.name);
+                        return true;*/
                     case R.id.nfc_tag_pref_dlg_item_menu_change:
                         if (!nfcTagName.getText().toString().isEmpty()) {
                             String[] splits = value.split("\\|");
                             value = "";
                             boolean found = false;
-                            for (String _tag : splits) {
-                                if (!_tag.isEmpty()) {
-                                    if (!_tag.equals(tag)) {
+                            // add all tags without item tag
+                            for (String tag : splits) {
+                                if (!tag.isEmpty()) {
+                                    if (!tag.equals(tagInItem._name)) {
                                         if (!value.isEmpty())
                                             //noinspection StringConcatenationInLoop
                                             value = value + "|";
                                         //noinspection StringConcatenationInLoop
-                                        value = value + _tag;
+                                        value = value + tag;
                                     } else
                                         found = true;
                                 }
                             }
                             if (found) {
+                                // add item tag with new name
                                 if (!value.isEmpty())
                                     value = value + "|";
                                 value = value + nfcTagName.getText().toString();
-                                DatabaseHandler.getInstance(context).updateNFCTag(tag, nfcTagName.getText().toString());
+                                tagInItem._name = nfcTagName.getText().toString();
+                                DatabaseHandler.getInstance(context).updateNFCTag(tagInItem);
                             }
                             refreshListView("");
                         }
                         return true;
                     case R.id.nfc_tag_pref_dlg_item_menu_delete:
-                        removeNfcTag(tag);
-                        DatabaseHandler.getInstance(context).deleteNFCTag(tag);
+                        removeNfcTag(tagInItem._name);
+                        DatabaseHandler.getInstance(context).deleteNFCTag(tagInItem);
                         refreshListView("");
                         return true;
                     default:
@@ -496,6 +502,7 @@ public class NFCTagPreference extends DialogPreference {
         popup.show();
     }
 
+    /*
     private void writeToNFCTag(String tag) {
 
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
@@ -505,15 +512,15 @@ public class NFCTagPreference extends DialogPreference {
             dialogBuilder.setMessage(R.string.nfc_tag_pref_dlg_writeToNfcTag_nfcNotEnabled);
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
             AlertDialog dialog = dialogBuilder.create();
-            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                    if (positive != null) positive.setAllCaps(false);
-                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                    if (negative != null) negative.setAllCaps(false);
-                }
-            });*/
+            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            //    @Override
+            //    public void onShow(DialogInterface dialog) {
+            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+            //        if (positive != null) positive.setAllCaps(false);
+            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+            //        if (negative != null) negative.setAllCaps(false);
+            //    }
+            //});
             dialog.show();
             return;
         }
@@ -522,5 +529,15 @@ public class NFCTagPreference extends DialogPreference {
         nfcTagIntent.putExtra(NFCTagWriteActivity.EXTRA_TAG_NAME, tag);
         context.startActivity(nfcTagIntent);
     }
+    */
 
+    void setNFCTagFromEditor(String tagName, String tagUid, long tagDbId) {
+        addNfcTag(tagName);
+        NFCTag tag = new NFCTag(tagDbId, tagName, tagUid);
+        if (tagDbId == 0)
+            DatabaseHandler.getInstance(context).addNFCTag(tag);
+        else
+            DatabaseHandler.getInstance(context).updateNFCTag(tag);
+        refreshListView(tagName);
+    }
 }

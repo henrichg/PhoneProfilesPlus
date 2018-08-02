@@ -84,10 +84,15 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
             nfcManager.setOnTagReadListener(new NFCTagReadWriteManager.TagReadListener() {
                 @Override
+                public void onUidRead(String uid) {
+
+                }
+
+                @Override
                 public void onTagRead(String tagRead) {
                     //Toast.makeText(getApplicationContext(), "tag read:"+tagRead, Toast.LENGTH_LONG).show();
 
-                    int[] attrs = {R.attr.navigationDrawerText};
+                    int[] attrs = {R.attr.activityTextColor};
                     TypedArray ta = obtainStyledAttributes(attrs);
                     int color = ta.getResourceId(0, android.R.color.black);
                     writableTextView.setTextColor(getResources().getColor(color));

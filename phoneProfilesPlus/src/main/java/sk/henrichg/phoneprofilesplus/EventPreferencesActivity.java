@@ -257,7 +257,7 @@ public class EventPreferencesActivity extends PreferenceActivity
     {
         PreferenceFragment fragment = getFragment();
         if (fragment != null)
-            ((EventPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode);
+            ((EventPreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
     private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,

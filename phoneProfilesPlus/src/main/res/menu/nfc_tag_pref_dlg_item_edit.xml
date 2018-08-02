@@ -1,9 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nfc_tag_pref_dlg_item_menu_writeToNfcTag"
+    <!--<item android:id="@+id/nfc_tag_pref_dlg_item_menu_writeToNfcTag"
         android:title="@string/nfc_tag_pref_dlg_menu_writeToNfcTag"
-        android:orderInCategory="100" />
+        android:orderInCategory="100" />-->
     <item android:id="@+id/nfc_tag_pref_dlg_item_menu_change"
-        android:title="@string/array_pref_change"
+        android:title="@string/nfc_tag_pref_dlg_change_tag_name"
         android:orderInCategory="101" />
     <item android:id="@+id/nfc_tag_pref_dlg_item_menu_delete"
         android:title="@string/profile_context_item_delete"

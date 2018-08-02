@@ -1,7 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 class NFCTag {
-    @SuppressWarnings("unused")
-    long _id; // is required, used is in DatabaseHandler as field KEY_NT_ID
+    long _id;
+    String _uid;
     String _name;
+
+    NFCTag(long id, String name, String uid)
+    {
+        this._id = id;
+        this._uid = uid;
+        this._name = name;
+    }
+
 }

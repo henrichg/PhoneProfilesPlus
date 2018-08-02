@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2120;
+    private static final int DATABASE_VERSION = 2130;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -349,6 +349,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // NFC tags Columns names
     private static final String KEY_NT_ID = "_id";
     private static final String KEY_NT_NAME = "name";
+    private static final String KEY_NT_UID = "uid";
 
     private DatabaseHandler(Context context) {
         super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
@@ -657,7 +658,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         final String CREATE_NFC_TAGS_TABLE = "CREATE TABLE " + TABLE_NFC_TAGS + "("
                 + KEY_NT_ID + " INTEGER PRIMARY KEY,"
-                + KEY_NT_NAME + " TEXT"
+                + KEY_NT_NAME + " TEXT,"
+                + KEY_NT_UID + " TEXT"
                 + ")";
         db.execSQL(CREATE_NFC_TAGS_TABLE);
 
@@ -2288,6 +2290,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ORIENTATION_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_WIFI_SENSOR_PASSED + "=0");
+        }
+
+        if (oldVersion < 2130) {
+            db.execSQL("ALTER TABLE " + TABLE_NFC_TAGS + " ADD COLUMN " + KEY_NT_UID + " TEXT");
+
+            db.execSQL("UPDATE " + TABLE_NFC_TAGS + " SET " + KEY_NT_UID + "=\"\"");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -7537,7 +7545,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // NFC_TAGS ----------------------------------------------------------------------
 
     // Adding new nfc tag
-    void addNFCTag(String nfcTag) {
+    void addNFCTag(NFCTag tag) {
         importExportLock.lock();
         try {
             try {
@@ -7546,35 +7554,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //SQLiteDatabase db = this.getWritableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
 
-                Cursor cursor = db.query(TABLE_NFC_TAGS,
-                        new String[]{KEY_NT_NAME},
-                        KEY_NT_NAME + "=?",
-                        new String[]{nfcTag}, null, null, null, null);
+                ContentValues values = new ContentValues();
+                values.put(KEY_NT_UID, tag._uid);
+                values.put(KEY_NT_NAME, tag._name);
 
-                boolean found = false;
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    found = cursor.getCount() > 0;
-                    cursor.close();
-                }
+                db.beginTransaction();
 
-                if (!found) {
-                    ContentValues values = new ContentValues();
-                    values.put(KEY_NT_NAME, nfcTag);
+                try {
+                    // Inserting Row
+                    db.insert(TABLE_NFC_TAGS, null, values);
 
-                    db.beginTransaction();
+                    db.setTransactionSuccessful();
 
-                    try {
-                        // Inserting Row
-                        db.insert(TABLE_NFC_TAGS, null, values);
-
-                        db.setTransactionSuccessful();
-
-                    } catch (Exception e) {
-                        //Error in between database transaction
-                    } finally {
-                        db.endTransaction();
-                    }
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
                 }
 
                 //db.close(); // Closing database connection
@@ -7595,6 +7590,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 // Select All Query
                 final String selectQuery = "SELECT " + KEY_NT_ID + "," +
+                        KEY_NT_UID + ", " +
                         KEY_NT_NAME +
                         " FROM " + TABLE_NFC_TAGS +
                         " ORDER BY " + KEY_NT_NAME;
@@ -7607,9 +7603,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 // looping through all rows and adding to list
                 if (cursor.moveToFirst()) {
                     do {
-                        NFCTag nfcTag = new NFCTag();
-                        nfcTag._id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_NT_ID)));
-                        nfcTag._name = cursor.getString(cursor.getColumnIndex(KEY_NT_NAME));
+                        NFCTag nfcTag = new NFCTag(
+                            Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_NT_ID))),
+                            cursor.getString(cursor.getColumnIndex(KEY_NT_NAME)),
+                            cursor.getString(cursor.getColumnIndex(KEY_NT_UID)));
                         nfcTagList.add(nfcTag);
                     } while (cursor.moveToNext());
                 }
@@ -7626,7 +7623,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Updating single nfc tag
-    void updateNFCTag(String oldNfcTag, String newNfcTag) {
+    void updateNFCTag(NFCTag tag) {
         importExportLock.lock();
         try {
             try {
@@ -7636,14 +7633,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 SQLiteDatabase db = getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_NT_NAME, newNfcTag);
+                values.put(KEY_NT_UID, tag._uid);
+                values.put(KEY_NT_NAME, tag._name);
 
                 db.beginTransaction();
 
                 try {
                     // updating row
-                    db.update(TABLE_NFC_TAGS, values, KEY_NT_NAME + " = ?",
-                            new String[]{oldNfcTag});
+                    db.update(TABLE_NFC_TAGS, values, KEY_NT_ID + " = ?",
+                            new String[]{String.valueOf(tag._id)});
 
                     db.setTransactionSuccessful();
 
@@ -7663,7 +7661,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Deleting single nfc tag
-    void deleteNFCTag(String nfcTag) {
+    void deleteNFCTag(NFCTag tag) {
         importExportLock.lock();
         try {
             try {
@@ -7677,8 +7675,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 try {
 
                     // delete geofence
-                    db.delete(TABLE_NFC_TAGS, KEY_NT_NAME + " = ?",
-                            new String[]{nfcTag});
+                    db.delete(TABLE_NFC_TAGS, KEY_NT_ID + " = ?",
+                            new String[]{String.valueOf(tag._id)});
 
                     db.setTransactionSuccessful();
 
@@ -9048,12 +9046,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             }
 
                                             // for non existent fields set default value
-                                    /*if (exportedDBObj.getVersion() < 1480) {
-                                        values.put(KEY_G_CHECKED, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1510) {
-                                        values.put(KEY_G_TRANSITION, 0);
-                                    }*/
+                                            if (exportedDBObj.getVersion() < 2130) {
+                                                values.put(KEY_NT_UID, "");
+                                            }
 
                                             // Inserting Row do db z SQLiteOpenHelper
                                             db.insert(TABLE_NFC_TAGS, null, values);
