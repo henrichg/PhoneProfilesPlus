@@ -189,9 +189,16 @@ class EventPreferencesLocation extends EventPreferences {
                         }
                     }
                 }
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
             }
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesLocation.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesLocation.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, true);
     }
 
     @Override

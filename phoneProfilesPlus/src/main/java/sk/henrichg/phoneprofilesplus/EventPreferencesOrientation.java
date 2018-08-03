@@ -274,14 +274,14 @@ class EventPreferencesOrientation extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
             }
         }
         if (key.equals(PREF_EVENT_ORIENTATION_SIDES)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
             }
         }
         if (key.equals(PREF_EVENT_ORIENTATION_DISTANCE))
@@ -292,7 +292,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
             }
-            //GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, true, false);
+            //GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, true, !isRunnable, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
@@ -311,6 +311,21 @@ class EventPreferencesOrientation extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, true);
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesOrientation.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesOrientation.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+
     }
 
     @SuppressWarnings("StringConcatenationInLoop")

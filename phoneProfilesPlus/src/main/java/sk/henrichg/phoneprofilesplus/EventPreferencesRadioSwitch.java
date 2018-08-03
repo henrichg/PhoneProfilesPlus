@@ -164,6 +164,29 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 listPreference.setSummary(summary);
             }
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesRadioSwitch.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesRadioSwitch.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
     }
 
     @Override

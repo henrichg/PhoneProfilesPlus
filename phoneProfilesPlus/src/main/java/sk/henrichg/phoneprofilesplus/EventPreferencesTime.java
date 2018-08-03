@@ -258,13 +258,13 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        if (key.equals(PREF_EVENT_TIME_DAYS))
-        {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesTime.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesTime.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_TIME_DAYS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
     }
 
     @Override

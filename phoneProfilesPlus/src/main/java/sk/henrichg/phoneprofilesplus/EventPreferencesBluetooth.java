@@ -222,7 +222,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                         }
                     }
                 //}
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE))
@@ -260,6 +260,12 @@ class EventPreferencesBluetooth extends EventPreferences {
             }
         }
 
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesBluetooth.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesBluetooth.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
     }
 
     @Override

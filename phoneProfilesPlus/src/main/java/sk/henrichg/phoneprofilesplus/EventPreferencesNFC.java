@@ -139,7 +139,7 @@ class EventPreferencesNFC extends EventPreferences {
                         break;
                     }
                 }
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
@@ -148,6 +148,13 @@ class EventPreferencesNFC extends EventPreferences {
                 preference.setEnabled(value.equals("false"));
             }
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesNFC.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesNFC.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
     }
 
     @Override

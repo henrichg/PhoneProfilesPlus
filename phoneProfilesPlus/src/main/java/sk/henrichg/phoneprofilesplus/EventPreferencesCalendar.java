@@ -190,13 +190,6 @@ class EventPreferencesCalendar extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        if (key.equals(PREF_EVENT_CALENDAR_CALENDARS))
-        {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
         if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
             key.equals(PREF_EVENT_CALENDAR_AVAILABILITY))
         {
@@ -219,9 +212,20 @@ class EventPreferencesCalendar extends EventPreferences {
                         context.getString(R.string.pref_dlg_info_about_wildcards_4)
                         ;
                 ((EditTextPreference) preference).setDialogMessage(helpString);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesCalendar.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesCalendar.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CALENDARS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_STRING);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
     }
 
     @Override

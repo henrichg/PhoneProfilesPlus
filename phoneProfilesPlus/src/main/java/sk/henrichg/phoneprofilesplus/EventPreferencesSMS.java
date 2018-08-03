@@ -150,26 +150,27 @@ class EventPreferencesSMS extends EventPreferences {
                 listPreference.setSummary(summary);
             }
         }
-        if (key.equals(PREF_EVENT_SMS_CONTACTS))
-        {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
-        if (key.equals(PREF_EVENT_SMS_CONTACT_GROUPS))
-        {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
         if (key.equals(PREF_EVENT_SMS_PERMANENT_RUN)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_DURATION);
             if (preference != null) {
                 preference.setEnabled(value.equals("false"));
             }
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesSMS.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesSMS.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_GROUPS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACTS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_LIST_TYPE);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+
     }
 
     @Override

@@ -142,18 +142,6 @@ class EventPreferencesCall extends EventPreferences {
                 listPreference.setSummary(summary);
             }
         }
-        if (key.equals(PREF_EVENT_CALL_CONTACTS)) {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
-        if (key.equals(PREF_EVENT_CALL_CONTACT_GROUPS)) {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
         if (key.equals(PREF_EVENT_CALL_EVENT)) {
             ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
             if (listPreference != null) {
@@ -183,6 +171,20 @@ class EventPreferencesCall extends EventPreferences {
                 }
             }
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesCall.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesCall.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_GROUPS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACTS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_LIST_TYPE);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
     }
 
     @Override

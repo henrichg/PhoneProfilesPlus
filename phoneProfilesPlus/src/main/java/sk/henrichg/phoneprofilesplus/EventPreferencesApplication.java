@@ -139,10 +139,6 @@ class EventPreferencesApplication extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        if (key.equals(PREF_EVENT_APPLICATION_APPLICATIONS)) {
-            Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
-        }
         if (key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -156,6 +152,13 @@ class EventPreferencesApplication extends EventPreferences {
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
             }
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesApplication.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesApplication.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, true);
     }
 
     @Override
@@ -202,7 +205,6 @@ class EventPreferencesApplication extends EventPreferences {
     @Override
     public boolean isRunnable(Context context)
     {
-
         boolean runnable = super.isRunnable(context);
 
         runnable = runnable && (!_applications.isEmpty());

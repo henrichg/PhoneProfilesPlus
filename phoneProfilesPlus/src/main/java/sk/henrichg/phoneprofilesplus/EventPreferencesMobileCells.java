@@ -162,9 +162,16 @@ class EventPreferencesMobileCells extends EventPreferences {
                         preference.setSummary(selectedCells);
                     }
                 //}
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesMobileCells.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesMobileCells.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
     }
 
     @Override

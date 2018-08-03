@@ -136,21 +136,19 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
-        //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            if (key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
-                key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL)) {
-                Preference preference = prefMng.findPreference(key);
-                if (preference != null) {
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, value.equals("true"), false, false, false);
-                }
-            }
-            if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)) {
-                Preference preference = prefMng.findPreference(key);
-                if (preference != null) {
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, true);
-                }
-            }
-        //}
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesNotification.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesNotification.isRunnable(context);
+        Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
     }
 
     @Override
