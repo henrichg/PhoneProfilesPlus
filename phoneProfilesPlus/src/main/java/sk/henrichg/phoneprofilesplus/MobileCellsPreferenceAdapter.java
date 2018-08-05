@@ -117,6 +117,7 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
                     preference.addCellId(cellId);
                 else
                     preference.removeCellId(cellId);
+                preference.refreshListView(false);
             }
         });
 

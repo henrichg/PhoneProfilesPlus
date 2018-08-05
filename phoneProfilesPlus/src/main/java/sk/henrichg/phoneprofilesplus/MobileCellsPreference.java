@@ -237,7 +237,7 @@ public class MobileCellsPreference extends DialogPreference {
                                         db.renameMobileCellsList(filteredCellsList, cellName.getText().toString(), which == 0, value);
                                         break;
                                     case 2:
-                                        db.renameMobileCellsList(filteredCellsList, cellName.getText().toString(), false, value);
+                                        db.renameMobileCellsList(filteredCellsList, cellName.getText().toString(), false, null);
                                         break;
                                 }
                                 refreshListView(false);

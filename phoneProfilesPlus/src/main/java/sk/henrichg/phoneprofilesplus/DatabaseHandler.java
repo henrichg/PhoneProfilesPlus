@@ -7294,6 +7294,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     }
                     if (found) {
                         if (_new) {
+                            // change news
                             if (cell._new) {
                                 cell.name = name;
                                 MobileCell mobileCell = new MobileCell();
@@ -7305,18 +7306,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 updateMobileCell(mobileCell);
                             }
                         } else {
-                            String[] splits = value.split("\\|");
-                            for (String valueCell : splits) {
-                                if (valueCell.equals(Integer.toString(cell.cellId))) {
-                                    cell.name = name;
-                                    MobileCell mobileCell = new MobileCell();
-                                    mobileCell._id = foundedDbId;
-                                    mobileCell._cellId = cell.cellId;
-                                    mobileCell._name = cell.name;
-                                    mobileCell._new = cell._new;
-                                    mobileCell._lastConnectedTime = cell.lastConnectedTime;
-                                    updateMobileCell(mobileCell);
+                            if (value != null) {
+                                // change selected
+                                String[] splits = value.split("\\|");
+                                for (String valueCell : splits) {
+                                    if (valueCell.equals(Integer.toString(cell.cellId))) {
+                                        cell.name = name;
+                                        MobileCell mobileCell = new MobileCell();
+                                        mobileCell._id = foundedDbId;
+                                        mobileCell._cellId = cell.cellId;
+                                        mobileCell._name = cell.name;
+                                        mobileCell._new = cell._new;
+                                        mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                                        updateMobileCell(mobileCell);
+                                    }
                                 }
+                            }
+                            else {
+                                // change all
+                                cell.name = name;
+                                MobileCell mobileCell = new MobileCell();
+                                mobileCell._id = foundedDbId;
+                                mobileCell._cellId = cell.cellId;
+                                mobileCell._name = cell.name;
+                                mobileCell._new = cell._new;
+                                mobileCell._lastConnectedTime = cell.lastConnectedTime;
+                                updateMobileCell(mobileCell);
                             }
                         }
                     }
