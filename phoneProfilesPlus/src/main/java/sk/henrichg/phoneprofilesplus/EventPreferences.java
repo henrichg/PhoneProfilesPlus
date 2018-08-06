@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 class EventPreferences {
 
@@ -70,14 +69,14 @@ class EventPreferences {
         _sensorPassed = sensorPassed;
     }
 
-    int getSensorPassedFromDB(int eventType, Context context)
+    private int getSensorPassedFromDB(int eventType, Context context)
     {
         return DatabaseHandler.getInstance(context).getEventSensorPassed(this, eventType);
     }
 
     String getPassStatusString(String sensorTitle, boolean addPassStatus, int eventType, Context context) {
         if (addPassStatus && (this._event != null) && (this._event.getStatusFromDB(context) != Event.ESTATUS_STOP)) {
-            Log.e("EventPreferences.getPassStatusString", "_event="+_event._name + "->_sensorPassed="+this._sensorPassed);
+            //Log.e("EventPreferences.getPassStatusString", "_event="+_event._name + "->_sensorPassed="+this._sensorPassed);
             int sensorPassed = getSensorPassedFromDB(eventType, context);
             if ((sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
                 int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
