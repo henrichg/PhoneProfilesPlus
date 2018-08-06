@@ -164,9 +164,8 @@ class EventPreferencesTime extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                if (addPassStatus && (this._event != null) && (this._event.getStatus() != Event.ESTATUS_STOP))
-                    descr = descr + getPassStatusString(context);
-                descr = descr + context.getString(R.string.event_type_time) + ": </b>";
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, context);
+                descr = descr + ": </b>";
             }
 
             boolean[] daySet = new boolean[7];

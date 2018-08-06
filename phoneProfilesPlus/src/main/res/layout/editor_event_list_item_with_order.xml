@@ -99,7 +99,7 @@
                 android:layout_toEndOf="@id/event_list_item_status"
                 android:paddingStart="11dp"
                 android:paddingEnd="11dp"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:scrollHorizontally="true"
                 tools:ignore="SmallSp"/>
 

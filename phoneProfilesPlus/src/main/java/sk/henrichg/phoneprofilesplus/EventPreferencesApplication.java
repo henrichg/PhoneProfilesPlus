@@ -82,9 +82,8 @@ class EventPreferencesApplication extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                if (addPassStatus && (this._event != null) && (this._event.getStatus() != Event.ESTATUS_STOP))
-                    descr = descr + getPassStatusString(context);
-                descr = descr + context.getString(R.string.event_type_applications) + ": </b>";
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, context);
+                descr = descr + ": </b>";
             }
 
             String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);

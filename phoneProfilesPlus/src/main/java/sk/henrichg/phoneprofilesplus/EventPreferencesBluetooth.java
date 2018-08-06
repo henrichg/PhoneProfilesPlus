@@ -99,9 +99,8 @@ class EventPreferencesBluetooth extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                if (addPassStatus && (this._event != null) && (this._event.getStatus() != Event.ESTATUS_STOP))
-                    descr = descr + getPassStatusString(context);
-                descr = descr + context.getString(R.string.event_type_bluetooth) + ": </b>";
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_bluetooth), addPassStatus, context);
+                descr = descr + ": </b>";
             }
 
             descr = descr + context.getString(R.string.pref_event_bluetooth_connectionType);

@@ -71,6 +71,9 @@
         <item name="eventStopTextColor">@color/eventStopTextColor_dark</item>
         <item name="eventStopStatusIndicator">@drawable/ic_event_status_stop_dark</item>
         <item name="eventInDelayTextColor">@color/eventInDelayTextColor_dark</item>
+        <item name="sensorPassStatusPassed">@color/sensor_pass_status_passed_dark</item>
+        <item name="sensorPassStatusNotPassed">@color/sensor_pass_status_not_passed_dark</item>
+        <item name="sensorPassStatusWaiting">@color/sensor_pass_status_waiting_dark</item>
 
     </style>
 

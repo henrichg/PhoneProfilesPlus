@@ -59,30 +59,34 @@ class EventPreferences {
         return "";
     }
 
-    String getPassStatusString(Context context) {
+    String getPassStatusString(String sensorTitle, boolean addPassStatus, Context context) {
 
         //int labelColor = context.getResources().getColor(R.color.label_color);
         //String сolorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
         //Html.fromHtml(String.format("<font color=\"#%s\">text</font>", сolorString), TextView.BufferType.SPANNABLE);
 
-        if ((this._sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
-            int labelColor = context.getResources().getColor(R.color.sensor_pass_status_waiting);
-            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-            return String.format("<font color=\"#%s\">WAITING</font> ", colorString);
-        }
-        if ((this._sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
-            int labelColor = context.getResources().getColor(R.color.sensor_pass_status_passed);
-            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-            return String.format("<font color=\"#%s\">PASSED</font> ", colorString);
+        if (addPassStatus && (this._event != null) && (this._event.getStatus() != Event.ESTATUS_STOP)) {
+            if ((this._sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
+                //int labelColor = context.getResources().getColor(R.color.sensor_pass_status_waiting);
+                int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_WAITING, context);
+                String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+                return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
+            }
+            if ((this._sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
+                //int labelColor = context.getResources().getColor(R.color.sensor_pass_status_passed);
+                int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_PASSED, context);
+                String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+                return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
+            } else if ((this._sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_NOT_PASSED) {
+                //int labelColor = context.getResources().getColor(R.color.sensor_pass_status_not_passed);
+                int labelColor = GlobalGUIRoutines.getThemeSensorPassStatusColor(SENSOR_PASSED_NOT_PASSED, context);
+                String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+                return String.format("<font color=\"#%s\">%s</font> ", colorString, sensorTitle);
+            } else
+                return sensorTitle;
         }
         else
-        if ((this._sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_NOT_PASSED) {
-            int labelColor = context.getResources().getColor(R.color.sensor_pass_status_not_passed);
-            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
-            return String.format("<font color=\"#%s\">NOT PASSED</font> ", colorString);
-        }
-        else
-            return "";
+            return sensorTitle;
     }
 
     @SuppressWarnings("unused")

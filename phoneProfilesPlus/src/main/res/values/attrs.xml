@@ -119,5 +119,8 @@
     <attr name="eventStopStatusIndicator" format="reference" />
     <attr name="eventStopTextColor" format="reference" />
     <attr name="eventInDelayTextColor" format="reference" />
+    <attr name="sensorPassStatusPassed" format="reference" />
+    <attr name="sensorPassStatusNotPassed" format="reference" />
+    <attr name="sensorPassStatusWaiting" format="reference" />
 
 </resources>

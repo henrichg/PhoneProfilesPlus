@@ -593,6 +593,18 @@ class GlobalGUIRoutines {
     }
     */
 
+    static int getThemeSensorPassStatusColor(final int passStatus, final Context context) {
+        final TypedValue value = new TypedValue();
+        if (passStatus == EventPreferences.SENSOR_PASSED_PASSED)
+            context.getTheme().resolveAttribute(R.attr.sensorPassStatusPassed, value, true);
+        else
+        if (passStatus == EventPreferences.SENSOR_PASSED_NOT_PASSED)
+            context.getTheme().resolveAttribute(R.attr.sensorPassStatusNotPassed, value, true);
+        else
+            context.getTheme().resolveAttribute(R.attr.sensorPassStatusWaiting, value, true);
+        return value.data;
+    }
+
     /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)
     {

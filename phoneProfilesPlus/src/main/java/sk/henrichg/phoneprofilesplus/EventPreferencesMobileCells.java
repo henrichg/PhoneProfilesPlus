@@ -80,9 +80,8 @@ class EventPreferencesMobileCells extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                if (addPassStatus && (this._event != null) && (this._event.getStatus() != Event.ESTATUS_STOP))
-                    descr = descr + getPassStatusString(context);
-                descr = descr + context.getString(R.string.event_type_mobile_cells) + ": </b>";
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, context);
+                descr = descr + ": </b>";
             }
 
             String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
