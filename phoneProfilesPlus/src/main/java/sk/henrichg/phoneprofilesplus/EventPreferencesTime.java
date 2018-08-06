@@ -69,8 +69,6 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesTime._enabled;
         this._sunday = fromEvent._eventPreferencesTime._sunday;
         this._monday = fromEvent._eventPreferencesTime._monday;
@@ -82,6 +80,7 @@ class EventPreferencesTime extends EventPreferences {
         this._startTime = fromEvent._eventPreferencesTime._startTime;
         this._endTime = fromEvent._eventPreferencesTime._endTime;
         //this._useEndTime = fromEvent._eventPreferencesTime._useEndTime;
+        this.setSensorPassed(fromEvent._eventPreferencesTime.getSensorPassed());
     }
 
     @Override
@@ -164,7 +163,7 @@ class EventPreferencesTime extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
                 descr = descr + ": </b>";
             }
 

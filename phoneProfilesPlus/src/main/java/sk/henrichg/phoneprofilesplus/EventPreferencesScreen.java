@@ -39,11 +39,10 @@ class EventPreferencesScreen extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesScreen._enabled;
         this._eventType = fromEvent._eventPreferencesScreen._eventType;
         this._whenUnlocked = fromEvent._eventPreferencesScreen._whenUnlocked;
+        this.setSensorPassed(fromEvent._eventPreferencesScreen.getSensorPassed());
     }
 
     @Override
@@ -77,7 +76,7 @@ class EventPreferencesScreen extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_screen), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_screen), addPassStatus, DatabaseHandler.ETYPE_SCREEN, context);
                 descr = descr + ": </b>";
             }
 

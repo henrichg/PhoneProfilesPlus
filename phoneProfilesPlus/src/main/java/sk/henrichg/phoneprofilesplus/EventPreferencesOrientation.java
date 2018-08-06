@@ -57,13 +57,12 @@ class EventPreferencesOrientation extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesOrientation._enabled;
         this._display = fromEvent._eventPreferencesOrientation._display;
         this._sides = fromEvent._eventPreferencesOrientation._sides;
         this._distance = fromEvent._eventPreferencesOrientation._distance;
         this._ignoredApplications = fromEvent._eventPreferencesOrientation._ignoredApplications;
+        this.setSensorPassed(fromEvent._eventPreferencesOrientation.getSensorPassed());
     }
 
     @Override
@@ -132,7 +131,7 @@ class EventPreferencesOrientation extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context);
                 descr = descr + ": </b>";
             }
 

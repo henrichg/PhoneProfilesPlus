@@ -38,11 +38,10 @@ class EventPreferencesApplication extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesApplication._enabled;
         this._applications = fromEvent._eventPreferencesApplication._applications;
         //this._duration = fromEvent._eventPreferencesNotification._duration;
+        this.setSensorPassed(fromEvent._eventPreferencesApplication.getSensorPassed());
 
         //this._startTime = 0;
     }
@@ -82,7 +81,7 @@ class EventPreferencesApplication extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, DatabaseHandler.ETYPE_APPLICATION, context);
                 descr = descr + ": </b>";
             }
 

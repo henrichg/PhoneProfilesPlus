@@ -424,6 +424,23 @@ public class EventPreferencesActivity extends PreferenceActivity
         if (event == null)
             return;
 
+        event._eventPreferencesApplication.setSensorPassed(event._eventPreferencesApplication.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesBattery.setSensorPassed(event._eventPreferencesBattery.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesBluetooth.setSensorPassed(event._eventPreferencesBluetooth.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesCalendar.setSensorPassed(event._eventPreferencesCalendar.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesCall.setSensorPassed(event._eventPreferencesCall.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesLocation.setSensorPassed(event._eventPreferencesLocation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesMobileCells.setSensorPassed(event._eventPreferencesMobileCells.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesNFC.setSensorPassed(event._eventPreferencesNFC.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesNotification.setSensorPassed(event._eventPreferencesNotification.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesOrientation.setSensorPassed(event._eventPreferencesOrientation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesPeripherals.setSensorPassed(event._eventPreferencesPeripherals.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesRadioSwitch.setSensorPassed(event._eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesScreen.setSensorPassed(event._eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesSMS.setSensorPassed(event._eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesTime.setSensorPassed(event._eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event._eventPreferencesWifi.setSensorPassed(event._eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
 
         dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTPREFERENCESCHANGED, event._name, null, null, 0);

@@ -1513,9 +1513,9 @@ class Event {
         return _status;
     }
 
-    int getStatusFromDB(DataWrapper dataWrapper)
+    int getStatusFromDB(Context context)
     {
-        return DatabaseHandler.getInstance(dataWrapper.context).getEventStatus(this);
+        return DatabaseHandler.getInstance(context).getEventStatus(this);
     }
 
     public void setStatus(int status)

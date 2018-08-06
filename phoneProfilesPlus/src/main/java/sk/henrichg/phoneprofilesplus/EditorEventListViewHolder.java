@@ -72,7 +72,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
         if (event != null)
         {
-            int _eventStatus = event.getStatusFromDB(editorFragment.activityDataWrapper);
+            int _eventStatus = event.getStatusFromDB(context);
 
             boolean isRunnable = event.isRunnable(context, true);
             boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;

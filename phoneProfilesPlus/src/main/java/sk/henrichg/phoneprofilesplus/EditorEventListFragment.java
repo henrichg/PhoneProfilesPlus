@@ -408,7 +408,7 @@ public class EditorEventListFragment extends Fragment
             // events are not globally stopped
 
             List<EventTimeline> eventTimelineList = activityDataWrapper.getEventTimelineList();
-            if (event.getStatusFromDB(activityDataWrapper) == Event.ESTATUS_STOP) {
+            if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
                 // pause event
                 // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                 event.pauseEvent(activityDataWrapper, eventTimelineList, false, false,
@@ -434,7 +434,7 @@ public class EditorEventListFragment extends Fragment
         }
         else
         {
-            if (event.getStatusFromDB(activityDataWrapper) == Event.ESTATUS_STOP) {
+            if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP) {
                 // pause event
                 event.setStatus(Event.ESTATUS_PAUSE);
             } else {
@@ -527,7 +527,7 @@ public class EditorEventListFragment extends Fragment
         //{
             //menuItem.setVisible(true);
 
-            if (event.getStatusFromDB(activityDataWrapper) == Event.ESTATUS_STOP)
+            if (event.getStatusFromDB(activityDataWrapper.context) == Event.ESTATUS_STOP)
             {
                 menuItem.setTitle(R.string.event_list_item_menu_run);
             }

@@ -34,10 +34,9 @@ class EventPreferencesPeripherals extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesPeripherals._enabled;
         this._peripheralType = fromEvent._eventPreferencesPeripherals._peripheralType;
+        this.setSensorPassed(fromEvent._eventPreferencesPeripherals.getSensorPassed());
     }
 
     @Override
@@ -69,7 +68,7 @@ class EventPreferencesPeripherals extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_PERIPHERAL, context);
                 descr = descr + ": </b>";
             }
 

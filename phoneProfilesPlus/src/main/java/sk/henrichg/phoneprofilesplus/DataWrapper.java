@@ -951,7 +951,7 @@ public class DataWrapper {
             for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                 Event event = it.next();
                 if (event != null) {
-                    int status = event.getStatusFromDB(this);
+                    int status = event.getStatusFromDB(context);
                     PPApplication.logE("DataWrapper.pauseAllEvents", "event._name=" + event._name);
                     PPApplication.logE("DataWrapper.pauseAllEvents", "status=" + status);
 
@@ -1885,9 +1885,9 @@ public class DataWrapper {
 
                 if (!notAllowedTime) {
                     if (timePassed)
-                        event._eventPreferencesTime._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesTime.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesTime._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesTime.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_TIME);
                 }
             }
@@ -1949,9 +1949,9 @@ public class DataWrapper {
 
                 if (!notAllowedBattery) {
                     if (batteryPassed)
-                        event._eventPreferencesBattery._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesBattery.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesBattery._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesBattery.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BATTERY);
                 }
             }
@@ -2160,9 +2160,9 @@ public class DataWrapper {
 
                 if (!notAllowedCall) {
                     if (callPassed)
-                        event._eventPreferencesCall._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesCall.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesCall._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesCall.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALL);
                 }
             }
@@ -2237,9 +2237,9 @@ public class DataWrapper {
 
                 if (!notAllowedPeripheral) {
                     if (peripheralPassed)
-                        event._eventPreferencesPeripherals._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesPeripherals.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesPeripherals._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesPeripherals.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_PERIPHERAL);
                 }
             }
@@ -2281,9 +2281,9 @@ public class DataWrapper {
 
                 if (!notAllowedCalendar) {
                     if (calendarPassed)
-                        event._eventPreferencesCalendar._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesCalendar.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesCalendar._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesCalendar.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALENDAR);
                 }
             }
@@ -2426,7 +2426,7 @@ public class DataWrapper {
                     if (!done) {
                         if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
                             if (forRestartEvents)
-                                wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                                wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                             else
                                 // not allowed for disabled scanning
                                 notAllowedWifi = true;
@@ -2434,7 +2434,7 @@ public class DataWrapper {
                             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
                                 if (forRestartEvents)
-                                    wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                                    wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                                 else
                                     // not allowed for screen Off
                                     notAllowedWifi = true;
@@ -2504,9 +2504,9 @@ public class DataWrapper {
 
                 if (!notAllowedWifi) {
                     if (wifiPassed)
-                        event._eventPreferencesWifi._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesWifi.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesWifi._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesWifi.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_WIFI);
                 }
             }
@@ -2555,9 +2555,9 @@ public class DataWrapper {
 
                 if (!notAllowedScreen) {
                     if (screenPassed)
-                        event._eventPreferencesScreen._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesScreen.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesScreen._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesScreen.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SCREEN);
                 }
             }
@@ -2661,7 +2661,7 @@ public class DataWrapper {
                     if (!done) {
                         if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
                             if (forRestartEvents)
-                                bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                                bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                             else
                                 // not allowed for disabled scanning
                                 notAllowedBluetooth = true;
@@ -2670,7 +2670,7 @@ public class DataWrapper {
                             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
                                 if (forRestartEvents)
-                                    bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                                    bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                                 else
                                     // not allowed for screen Off
                                     notAllowedBluetooth = true;
@@ -2752,9 +2752,9 @@ public class DataWrapper {
 
                 if (!notAllowedBluetooth) {
                     if (bluetoothPassed)
-                        event._eventPreferencesBluetooth._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesBluetooth.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesBluetooth._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesBluetooth.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BLUETOOTH);
                 }
             }
@@ -2816,9 +2816,9 @@ public class DataWrapper {
 
                 if (!notAllowedSms) {
                     if (smsPassed)
-                        event._eventPreferencesSMS._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesSMS.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesSMS._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesSMS.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SMS);
                 }
             }
@@ -2880,9 +2880,9 @@ public class DataWrapper {
 
                 if (!notAllowedNotification) {
                     if (notificationPassed)
-                        event._eventPreferencesNotification._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesNotification.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesNotification._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesNotification.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NOTIFICATION);
                 }
             }
@@ -2916,9 +2916,9 @@ public class DataWrapper {
 
                 if (!notAllowedApplication) {
                     if (applicationPassed)
-                        event._eventPreferencesApplication._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesApplication.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesApplication._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesApplication.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_APPLICATION);
                 }
             }
@@ -2931,7 +2931,7 @@ public class DataWrapper {
             {
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
                     if (forRestartEvents)
-                        locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                        locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else {
                         // not allowed for disabled location scanner
                         PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for disabled scanner");
@@ -2942,7 +2942,7 @@ public class DataWrapper {
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (!pm.isScreenOn() && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
                         if (forRestartEvents)
-                            locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                            locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                         else {
                             // not allowed for screen Off
                             PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for screen off");
@@ -2987,9 +2987,9 @@ public class DataWrapper {
 
                 if (!notAllowedLocation) {
                     if (locationPassed)
-                        event._eventPreferencesLocation._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesLocation.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesLocation._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesLocation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_LOCATION);
                 }
             }
@@ -3013,7 +3013,7 @@ public class DataWrapper {
                 else
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
                     if (forRestartEvents)
-                        orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                        orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
                         // not allowed for disabled orientation scanner
                         notAllowedOrientation = true;
@@ -3021,7 +3021,7 @@ public class DataWrapper {
                 else
                 if (!pm.isScreenOn() && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
                     if (forRestartEvents)
-                        orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                        orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
                         // not allowed for screen Off
                         notAllowedOrientation = true;
@@ -3123,9 +3123,9 @@ public class DataWrapper {
 
                 if (!notAllowedOrientation) {
                     if (orientationPassed)
-                        event._eventPreferencesOrientation._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesOrientation.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesOrientation._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesOrientation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ORIENTATION);
                 }
             }
@@ -3138,7 +3138,7 @@ public class DataWrapper {
             {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
                     if (forRestartEvents)
-                        mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                        mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
                         // not allowed for disabled mobile cells scanner
                         notAllowedMobileCell = true;
@@ -3147,7 +3147,7 @@ public class DataWrapper {
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (!pm.isScreenOn() && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
                         if (forRestartEvents)
-                            mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells._sensorPassed) == EventPreferences.SENSOR_PASSED_PASSED;
+                            mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                         else
                             // not allowed for screen Off
                             notAllowedMobileCell = true;
@@ -3178,9 +3178,9 @@ public class DataWrapper {
 
                 if (!notAllowedMobileCell) {
                     if (mobileCellPassed)
-                        event._eventPreferencesMobileCells._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesMobileCells.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesMobileCells._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesMobileCells.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_MOBILE_CELLS);
                 }
             }
@@ -3239,9 +3239,9 @@ public class DataWrapper {
 
                 if (!notAllowedNfc) {
                     if (nfcPassed)
-                        event._eventPreferencesNFC._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesNFC.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesNFC._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesNFC.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NFC);
                 }
 
@@ -3363,9 +3363,9 @@ public class DataWrapper {
 
                 if (!notAllowedRadioSwitch) {
                     if (radioSwitchPassed)
-                        event._eventPreferencesRadioSwitch._sensorPassed = EventPreferences.SENSOR_PASSED_PASSED;
+                        event._eventPreferencesRadioSwitch.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
                     else
-                        event._eventPreferencesRadioSwitch._sensorPassed = EventPreferences.SENSOR_PASSED_NOT_PASSED;
+                        event._eventPreferencesRadioSwitch.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_RADIO_SWITCH);
                 }
             }

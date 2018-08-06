@@ -58,12 +58,11 @@ class EventPreferencesBluetooth extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesBluetooth._enabled;
         this._adapterName = fromEvent._eventPreferencesBluetooth._adapterName;
         this._connectionType = fromEvent._eventPreferencesBluetooth._connectionType;
         this._devicesType = fromEvent._eventPreferencesBluetooth._devicesType;
+        this.setSensorPassed(fromEvent._eventPreferencesBluetooth.getSensorPassed());
     }
 
     @Override
@@ -99,7 +98,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_bluetooth), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_bluetooth), addPassStatus, DatabaseHandler.ETYPE_BLUETOOTH, context);
                 descr = descr + ": </b>";
             }
 

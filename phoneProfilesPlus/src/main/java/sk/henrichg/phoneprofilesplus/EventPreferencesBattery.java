@@ -43,13 +43,12 @@ class EventPreferencesBattery extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesBattery._enabled;
         this._levelLow = fromEvent._eventPreferencesBattery._levelLow;
         this._levelHight = fromEvent._eventPreferencesBattery._levelHight;
         this._charging = fromEvent._eventPreferencesBattery._charging;
         this._powerSaveMode = fromEvent._eventPreferencesBattery._powerSaveMode;
+        this.setSensorPassed(fromEvent._eventPreferencesBattery.getSensorPassed());
     }
 
     @Override
@@ -103,7 +102,7 @@ class EventPreferencesBattery extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context);
                 descr = descr + ": </b>";
             }
 

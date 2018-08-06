@@ -70,8 +70,6 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesSMS._enabled;
         //this._smsEvent = fromEvent._eventPreferencesSMS._smsEvent;
         this._contacts = fromEvent._eventPreferencesSMS._contacts;
@@ -79,6 +77,7 @@ class EventPreferencesSMS extends EventPreferences {
         this._contactListType = fromEvent._eventPreferencesSMS._contactListType;
         this._permanentRun = fromEvent._eventPreferencesSMS._permanentRun;
         this._duration = fromEvent._eventPreferencesSMS._duration;
+        this.setSensorPassed(fromEvent._eventPreferencesSMS.getSensorPassed());
 
         this._startTime = 0;
     }
@@ -122,7 +121,7 @@ class EventPreferencesSMS extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_sms), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_sms), addPassStatus, DatabaseHandler.ETYPE_SMS, context);
                 descr = descr + ": </b>";
             }
 

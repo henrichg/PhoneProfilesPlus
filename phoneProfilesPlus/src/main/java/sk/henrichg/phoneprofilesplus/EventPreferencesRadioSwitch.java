@@ -57,8 +57,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesRadioSwitch._enabled;
         this._wifi = fromEvent._eventPreferencesRadioSwitch._wifi;
         this._bluetooth = fromEvent._eventPreferencesRadioSwitch._bluetooth;
@@ -66,6 +64,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._gps = fromEvent._eventPreferencesRadioSwitch._gps;
         this._nfc = fromEvent._eventPreferencesRadioSwitch._nfc;
         this._airplaneMode = fromEvent._eventPreferencesRadioSwitch._airplaneMode;
+        this.setSensorPassed(fromEvent._eventPreferencesRadioSwitch.getSensorPassed());
     }
 
     @Override
@@ -107,7 +106,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, DatabaseHandler.ETYPE_RADIO_SWITCH, context);
                 descr = descr + ": </b>";
             }
 

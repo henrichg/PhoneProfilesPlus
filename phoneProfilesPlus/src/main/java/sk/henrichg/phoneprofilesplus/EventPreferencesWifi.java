@@ -51,11 +51,10 @@ class EventPreferencesWifi extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesWifi._enabled;
         this._SSID = fromEvent._eventPreferencesWifi._SSID;
         this._connectionType = fromEvent._eventPreferencesWifi._connectionType;
+        this.setSensorPassed(fromEvent._eventPreferencesWifi.getSensorPassed());
     }
 
     @Override
@@ -89,7 +88,7 @@ class EventPreferencesWifi extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context);
                 descr = descr + ": </b>";
             }
 

@@ -66,8 +66,6 @@ class EventPreferencesCall extends EventPreferences {
 
     @Override
     public void copyPreferences(Event fromEvent) {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesCall._enabled;
         this._callEvent = fromEvent._eventPreferencesCall._callEvent;
         this._contacts = fromEvent._eventPreferencesCall._contacts;
@@ -75,6 +73,7 @@ class EventPreferencesCall extends EventPreferences {
         this._contactListType = fromEvent._eventPreferencesCall._contactListType;
         this._permanentRun = fromEvent._eventPreferencesCall._permanentRun;
         this._duration = fromEvent._eventPreferencesCall._duration;
+        this.setSensorPassed(fromEvent._eventPreferencesCall.getSensorPassed());
 
         this._startTime = 0;
     }
@@ -113,7 +112,7 @@ class EventPreferencesCall extends EventPreferences {
         } else {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, DatabaseHandler.ETYPE_CALL, context);
                 descr = descr + ": </b>";
             }
 

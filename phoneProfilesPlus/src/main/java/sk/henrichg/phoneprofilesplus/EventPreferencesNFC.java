@@ -45,12 +45,11 @@ class EventPreferencesNFC extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesNFC._enabled;
         this._nfcTags = fromEvent._eventPreferencesNFC._nfcTags;
         this._permanentRun = fromEvent._eventPreferencesNFC._permanentRun;
         this._duration = fromEvent._eventPreferencesNFC._duration;
+        this.setSensorPassed(fromEvent._eventPreferencesNFC.getSensorPassed());
 
         this._startTime = 0;
     }
@@ -88,7 +87,7 @@ class EventPreferencesNFC extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, DatabaseHandler.ETYPE_NFC, context);
                 descr = descr + ": </b>";
             }
 

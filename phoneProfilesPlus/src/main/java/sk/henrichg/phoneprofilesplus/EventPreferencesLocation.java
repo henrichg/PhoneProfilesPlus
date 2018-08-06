@@ -41,11 +41,10 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesLocation._enabled;
         this._geofences = fromEvent._eventPreferencesLocation._geofences;
         this._whenOutside = fromEvent._eventPreferencesLocation._whenOutside;
+        this.setSensorPassed(fromEvent._eventPreferencesLocation.getSensorPassed());
     }
 
     @Override
@@ -83,7 +82,7 @@ class EventPreferencesLocation extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_locations), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_locations), addPassStatus, DatabaseHandler.ETYPE_LOCATION, context);
                 descr = descr + ": </b>";
             }
 

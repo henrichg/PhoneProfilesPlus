@@ -41,11 +41,10 @@ class EventPreferencesMobileCells extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesMobileCells._enabled;
         this._cells = fromEvent._eventPreferencesMobileCells._cells;
         this._whenOutside = fromEvent._eventPreferencesMobileCells._whenOutside;
+        this.setSensorPassed(fromEvent._eventPreferencesMobileCells.getSensorPassed());
     }
 
     @Override
@@ -80,7 +79,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, DatabaseHandler.ETYPE_MOBILE_CELLS, context);
                 descr = descr + ": </b>";
             }
 

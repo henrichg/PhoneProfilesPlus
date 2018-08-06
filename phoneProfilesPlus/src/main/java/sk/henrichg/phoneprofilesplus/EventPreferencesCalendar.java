@@ -82,8 +82,6 @@ class EventPreferencesCalendar extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesCalendar._enabled;
         this._calendars = fromEvent._eventPreferencesCalendar._calendars;
         this._searchField = fromEvent._eventPreferencesCalendar._searchField;
@@ -91,6 +89,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._availability = fromEvent._eventPreferencesCalendar._availability;
         this._ignoreAllDayEvents = fromEvent._eventPreferencesCalendar._ignoreAllDayEvents;
         this._startBeforeEvent = fromEvent._eventPreferencesCalendar._startBeforeEvent;
+        this.setSensorPassed(fromEvent._eventPreferencesCalendar.getSensorPassed());
 
         this._startTime = 0;
         this._endTime = 0;
@@ -140,7 +139,7 @@ class EventPreferencesCalendar extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_calendar), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_calendar), addPassStatus, DatabaseHandler.ETYPE_CALENDAR, context);
                 descr = descr + ": </b>";
             }
 

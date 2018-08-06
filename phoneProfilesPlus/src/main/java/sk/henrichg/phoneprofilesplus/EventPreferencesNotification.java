@@ -39,12 +39,11 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
-        super.copyPreferences(fromEvent);
-
         this._enabled = fromEvent._eventPreferencesNotification._enabled;
         this._applications = fromEvent._eventPreferencesNotification._applications;
         this._inCall = fromEvent._eventPreferencesNotification._inCall;
         this._missedCall = fromEvent._eventPreferencesNotification._missedCall;
+        this.setSensorPassed(fromEvent._eventPreferencesNotification.getSensorPassed());
     }
 
     @Override
@@ -84,7 +83,7 @@ class EventPreferencesNotification extends EventPreferences {
         {
             if (addBullet) {
                 descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, context);
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context);
                 descr = descr + ": </b>";
             }
 
