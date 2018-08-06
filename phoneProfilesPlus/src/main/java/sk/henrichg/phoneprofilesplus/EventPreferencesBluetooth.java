@@ -21,8 +21,6 @@ class EventPreferencesBluetooth extends EventPreferences {
     int _connectionType;
     int _devicesType;
 
-    boolean _sensorPassed;
-
     static final int CTYPE_CONNECTED = 0;
     static final int CTYPE_INFRONT = 1;
     static final int CTYPE_NOTCONNECTED = 2;
@@ -55,19 +53,17 @@ class EventPreferencesBluetooth extends EventPreferences {
         this._adapterName = adapterName;
         this._connectionType = connectionType;
         this._devicesType = devicesType;
-
-        this._sensorPassed = false;
     }
 
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesBluetooth._enabled;
         this._adapterName = fromEvent._eventPreferencesBluetooth._adapterName;
         this._connectionType = fromEvent._eventPreferencesBluetooth._connectionType;
         this._devicesType = fromEvent._eventPreferencesBluetooth._devicesType;
-
-        this._sensorPassed = false;
     }
 
     @Override

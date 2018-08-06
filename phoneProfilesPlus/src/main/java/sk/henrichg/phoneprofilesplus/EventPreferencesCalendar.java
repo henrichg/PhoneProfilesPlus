@@ -82,6 +82,8 @@ class EventPreferencesCalendar extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesCalendar._enabled;
         this._calendars = fromEvent._eventPreferencesCalendar._calendars;
         this._searchField = fromEvent._eventPreferencesCalendar._searchField;

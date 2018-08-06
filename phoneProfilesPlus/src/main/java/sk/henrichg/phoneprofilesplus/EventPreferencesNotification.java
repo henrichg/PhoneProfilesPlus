@@ -39,6 +39,8 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesNotification._enabled;
         this._applications = fromEvent._eventPreferencesNotification._applications;
         this._inCall = fromEvent._eventPreferencesNotification._inCall;

@@ -69,6 +69,8 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesTime._enabled;
         this._sunday = fromEvent._eventPreferencesTime._sunday;
         this._monday = fromEvent._eventPreferencesTime._monday;

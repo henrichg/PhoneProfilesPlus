@@ -66,6 +66,8 @@ class EventPreferencesCall extends EventPreferences {
 
     @Override
     public void copyPreferences(Event fromEvent) {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesCall._enabled;
         this._callEvent = fromEvent._eventPreferencesCall._callEvent;
         this._contacts = fromEvent._eventPreferencesCall._contacts;

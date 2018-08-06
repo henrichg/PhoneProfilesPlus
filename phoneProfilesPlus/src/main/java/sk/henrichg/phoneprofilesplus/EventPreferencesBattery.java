@@ -43,6 +43,8 @@ class EventPreferencesBattery extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesBattery._enabled;
         this._levelLow = fromEvent._eventPreferencesBattery._levelLow;
         this._levelHight = fromEvent._eventPreferencesBattery._levelHight;

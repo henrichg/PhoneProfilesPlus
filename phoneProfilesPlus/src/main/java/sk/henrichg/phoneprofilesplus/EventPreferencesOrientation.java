@@ -28,8 +28,6 @@ class EventPreferencesOrientation extends EventPreferences {
     int _distance;
     String _ignoredApplications;
 
-    boolean _sensorPassed;
-
     static final String PREF_EVENT_ORIENTATION_ENABLED = "eventOrientationEnabled";
     private static final String PREF_EVENT_ORIENTATION_DISPLAY = "eventOrientationDisplay";
     private static final String PREF_EVENT_ORIENTATION_SIDES = "eventOrientationSides";
@@ -54,20 +52,18 @@ class EventPreferencesOrientation extends EventPreferences {
         this._sides = sides;
         this._distance = distance;
         this._ignoredApplications = ignoredApplications;
-
-        this._sensorPassed = false;
     }
 
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesOrientation._enabled;
         this._display = fromEvent._eventPreferencesOrientation._display;
         this._sides = fromEvent._eventPreferencesOrientation._sides;
         this._distance = fromEvent._eventPreferencesOrientation._distance;
         this._ignoredApplications = fromEvent._eventPreferencesOrientation._ignoredApplications;
-
-        this._sensorPassed = false;
     }
 
     @Override

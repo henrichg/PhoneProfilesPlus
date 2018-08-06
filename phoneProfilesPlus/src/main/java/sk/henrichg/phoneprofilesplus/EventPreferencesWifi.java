@@ -20,8 +20,6 @@ class EventPreferencesWifi extends EventPreferences {
     String _SSID;
     int _connectionType;
 
-    boolean _sensorPassed;
-
     static final int CTYPE_CONNECTED = 0;
     static final int CTYPE_INFRONT = 1;
     static final int CTYPE_NOTCONNECTED = 2;
@@ -48,18 +46,16 @@ class EventPreferencesWifi extends EventPreferences {
 
         this._SSID = SSID;
         this._connectionType = connectionType;
-
-        this._sensorPassed = false;
     }
 
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesWifi._enabled;
         this._SSID = fromEvent._eventPreferencesWifi._SSID;
         this._connectionType = fromEvent._eventPreferencesWifi._connectionType;
-
-        this._sensorPassed = false;
     }
 
     @Override

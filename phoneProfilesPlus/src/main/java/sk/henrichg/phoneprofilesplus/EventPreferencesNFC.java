@@ -45,6 +45,8 @@ class EventPreferencesNFC extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesNFC._enabled;
         this._nfcTags = fromEvent._eventPreferencesNFC._nfcTags;
         this._permanentRun = fromEvent._eventPreferencesNFC._permanentRun;

@@ -45,6 +45,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 int airplaneMode)
     {
         super(event, enabled);
+
         this._wifi = wifi;
         this._bluetooth = bluetooth;
         this._mobileData = mobileData;
@@ -56,6 +57,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesRadioSwitch._enabled;
         this._wifi = fromEvent._eventPreferencesRadioSwitch._wifi;
         this._bluetooth = fromEvent._eventPreferencesRadioSwitch._bluetooth;

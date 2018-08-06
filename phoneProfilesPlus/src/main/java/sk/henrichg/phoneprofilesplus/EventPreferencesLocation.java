@@ -17,8 +17,6 @@ class EventPreferencesLocation extends EventPreferences {
     String _geofences;
     boolean _whenOutside;
 
-    boolean _sensorPassed;
-
     static final String PREF_EVENT_LOCATION_ENABLED = "eventLocationEnabled";
     static final String PREF_EVENT_LOCATION_GEOFENCES = "eventLocationGeofences";
     private static final String PREF_EVENT_LOCATION_WHEN_OUTSIDE = "eventLocationStartWhenOutside";
@@ -38,18 +36,16 @@ class EventPreferencesLocation extends EventPreferences {
 
         this._geofences = geofences;
         this._whenOutside = _whenOutside;
-
-        this._sensorPassed = false;
     }
 
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesLocation._enabled;
         this._geofences = fromEvent._eventPreferencesLocation._geofences;
         this._whenOutside = fromEvent._eventPreferencesLocation._whenOutside;
-
-        this._sensorPassed = false;
     }
 
     @Override

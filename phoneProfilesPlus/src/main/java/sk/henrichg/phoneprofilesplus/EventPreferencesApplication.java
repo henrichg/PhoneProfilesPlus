@@ -38,6 +38,8 @@ class EventPreferencesApplication extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesApplication._enabled;
         this._applications = fromEvent._eventPreferencesApplication._applications;
         //this._duration = fromEvent._eventPreferencesNotification._duration;

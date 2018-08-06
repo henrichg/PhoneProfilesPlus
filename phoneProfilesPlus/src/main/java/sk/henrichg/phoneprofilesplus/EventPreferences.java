@@ -8,6 +8,11 @@ class EventPreferences {
 
     Event _event;
     boolean _enabled;
+    int _sensorPassed;
+
+    static final int SENSOR_PASSED_NOT_PASSED = 0x0;
+    static final int SENSOR_PASSED_PASSED = 0x1;
+    static final int SENSOR_PASSED_WAITING = 0x2;
 
     EventPreferences()
     {
@@ -18,11 +23,12 @@ class EventPreferences {
     {
         _event = event;
         _enabled = enabled;
+        _sensorPassed = SENSOR_PASSED_NOT_PASSED;
     }
 
-    @SuppressWarnings("unused")
     void copyPreferences(Event fromEvent)
     {
+        _sensorPassed = SENSOR_PASSED_NOT_PASSED;
     }
 
     boolean isRunnable(Context context)

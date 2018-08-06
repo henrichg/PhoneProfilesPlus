@@ -39,6 +39,8 @@ class EventPreferencesScreen extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesScreen._enabled;
         this._eventType = fromEvent._eventPreferencesScreen._eventType;
         this._whenUnlocked = fromEvent._eventPreferencesScreen._whenUnlocked;

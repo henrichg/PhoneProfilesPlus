@@ -34,6 +34,8 @@ class EventPreferencesPeripherals extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesPeripherals._enabled;
         this._peripheralType = fromEvent._eventPreferencesPeripherals._peripheralType;
     }

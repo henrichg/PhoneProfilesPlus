@@ -70,6 +70,8 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     public void copyPreferences(Event fromEvent)
     {
+        super.copyPreferences(fromEvent);
+
         this._enabled = fromEvent._eventPreferencesSMS._enabled;
         //this._smsEvent = fromEvent._eventPreferencesSMS._smsEvent;
         this._contacts = fromEvent._eventPreferencesSMS._contacts;
