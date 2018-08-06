@@ -3748,7 +3748,7 @@ public class PhoneProfilesService extends Service
             // setup startupSource
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
             int requestCode = 0;
-            if (inHandlerThread)
+            if (inHandlerThread && (profile != null))
                 requestCode = (int)profile._id;
             PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
