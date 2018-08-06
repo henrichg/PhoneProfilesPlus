@@ -494,7 +494,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
                 int titleResource = R.string.event_preferences_no_sensor_is_enabled;
                 if (!isRunnable)
-                    titleResource = R.string.event_preferences_error;
+                    titleResource = R.string.event_preferences_not_set_underlined_parameters;
                 Spannable title = new SpannableString(getString(titleResource));
                 title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                 preference.setTitle(title);

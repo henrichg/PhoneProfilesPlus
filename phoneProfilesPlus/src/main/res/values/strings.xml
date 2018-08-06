@@ -379,7 +379,6 @@
     <string name="array_event_pref_bluetoothConnectionType_notInFront">Not nearby (not within scanning range)</string>
     <string name="event_preferences_call_contact_groups">Contact groups</string>
     <string name="event_preferences_sms_contact_groups">Contact groups</string>
-    <string name="event_preferences_error">Not all underlined parameters are set!</string>
     <string name="title_activity_activity_log">Activity Log</string>
     <string name="menu_activity_log">Activity Log</string>
     <string name="altype_profileActivation">profile activation</string>
@@ -1207,6 +1206,7 @@
     <string name="nfc_tag_pref_dlg_tag_uid_empty">Tag UID is not read from tag.</string>-->
     <string name="nfc_tag_pref_dlg_change_tag_name">Change name</string>
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
+    <string name="event_preferences_not_set_underlined_parameters">Some underlined parameters are not configured!</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
