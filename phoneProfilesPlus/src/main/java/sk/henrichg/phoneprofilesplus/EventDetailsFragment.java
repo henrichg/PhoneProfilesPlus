@@ -218,7 +218,7 @@ public class EventDetailsFragment extends Fragment {
             //if (PPApplication.applicationEditorPrefIndicator)
             //{
                 if (eventPreferencesDescription != null) {
-                    String eventPrefDescription = event.getPreferencesDescription(getActivity().getApplicationContext());
+                    String eventPrefDescription = event.getPreferencesDescription(getActivity().getApplicationContext(), false);
                     eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription));
                 }
             //}

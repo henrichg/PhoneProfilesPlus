@@ -139,7 +139,7 @@ class AddEventAdapter extends BaseAdapter {
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))
             {
                 if (holder.eventPreferencesDescription != null) {
-                    String eventPrefDescription = event.getPreferencesDescription(vi.getContext());
+                    String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
                     holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription));
                 }
             }

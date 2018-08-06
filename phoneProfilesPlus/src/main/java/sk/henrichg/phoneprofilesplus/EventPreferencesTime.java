@@ -151,7 +151,7 @@ class EventPreferencesTime extends EventPreferences {
     }
 
     @Override
-    public String getPreferencesDescription(boolean addBullet, Context context)
+    public String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
 
@@ -163,8 +163,10 @@ class EventPreferencesTime extends EventPreferences {
         else
         {
             if (addBullet) {
-                descr = descr + "<b>\u2022 </b>";
-                descr = descr + "<b>" + context.getString(R.string.event_type_time) + ": " + "</b>";
+                descr = descr + "<b>\u2022 ";
+                if (addPassStatus && (this._event != null) && (this._event.getStatus() != Event.ESTATUS_STOP))
+                    descr = descr + getPassStatusString(context);
+                descr = descr + context.getString(R.string.event_type_time) + ": </b>";
             }
 
             boolean[] daySet = new boolean[7];
@@ -296,7 +298,7 @@ class EventPreferencesTime extends EventPreferences {
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
             if (preference != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, context)));
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
         else {

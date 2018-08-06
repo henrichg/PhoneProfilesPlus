@@ -54,9 +54,35 @@ class EventPreferences {
     }
 
     @SuppressWarnings("unused")
-    String getPreferencesDescription(boolean addBullet, Context context)
+    String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         return "";
+    }
+
+    String getPassStatusString(Context context) {
+
+        //int labelColor = context.getResources().getColor(R.color.label_color);
+        //String сolorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+        //Html.fromHtml(String.format("<font color=\"#%s\">text</font>", сolorString), TextView.BufferType.SPANNABLE);
+
+        if ((this._sensorPassed & SENSOR_PASSED_WAITING) == SENSOR_PASSED_WAITING) {
+            int labelColor = context.getResources().getColor(R.color.sensor_pass_status_waiting);
+            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            return String.format("<font color=\"#%s\">WAITING</font> ", colorString);
+        }
+        if ((this._sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_PASSED) {
+            int labelColor = context.getResources().getColor(R.color.sensor_pass_status_passed);
+            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            return String.format("<font color=\"#%s\">PASSED</font> ", colorString);
+        }
+        else
+        if ((this._sensorPassed & SENSOR_PASSED_PASSED) == SENSOR_PASSED_NOT_PASSED) {
+            int labelColor = context.getResources().getColor(R.color.sensor_pass_status_not_passed);
+            String colorString = String.format("%X", labelColor).substring(2); // !!strip alpha value!!
+            return String.format("<font color=\"#%s\">NOT PASSED</font> ", colorString);
+        }
+        else
+            return "";
     }
 
     @SuppressWarnings("unused")
