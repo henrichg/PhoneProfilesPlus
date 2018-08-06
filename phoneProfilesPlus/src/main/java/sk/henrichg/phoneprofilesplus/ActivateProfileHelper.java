@@ -2185,10 +2185,14 @@ class ActivateProfileHelper {
         // close all applications
         if (profile._deviceCloseAllApplications == 1) {
             if (!PPApplication.startedOnBoot) {
-                Intent startMain = new Intent(Intent.ACTION_MAIN);
-                startMain.addCategory(Intent.CATEGORY_HOME);
-                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(startMain);
+                try {
+                    Intent startMain = new Intent(Intent.ACTION_MAIN);
+                    startMain.addCategory(Intent.CATEGORY_HOME);
+                    startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(startMain);
+                } catch (Exception e) {
+                    Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
+                }
             }
         }
 
