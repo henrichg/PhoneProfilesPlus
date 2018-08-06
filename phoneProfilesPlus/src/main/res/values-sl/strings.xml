@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Ni v bližini (ni v obsegu iskanja)</string>
   <string name="event_preferences_call_contact_groups">Skupine stikov</string>
   <string name="event_preferences_sms_contact_groups">Skupine stikov</string>
-  <string name="event_preferences_error">Vsi podčrtani parametri niso nastavljeni!</string>
   <string name="title_activity_activity_log">Zgodovina aktivnosti</string>
   <string name="menu_activity_log">Zgodovina aktivnosti</string>
   <string name="altype_profileActivation">aktivacija profila</string>

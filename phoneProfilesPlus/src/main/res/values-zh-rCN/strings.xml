@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Not nearby (not within scanning range)</string>
   <string name="event_preferences_call_contact_groups">联系人组</string>
   <string name="event_preferences_sms_contact_groups">联系人组</string>
-  <string name="event_preferences_error">有些带下划线的参数未设置！</string>
   <string name="title_activity_activity_log">活动日志</string>
   <string name="menu_activity_log">活动日志</string>
   <string name="altype_profileActivation">激活情景</string>

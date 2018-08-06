@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Není v blízkosti (není v rozsahu skenování)</string>
   <string name="event_preferences_call_contact_groups">Skupiny kontaktů</string>
   <string name="event_preferences_sms_contact_groups">Skupiny kontaktů</string>
-  <string name="event_preferences_error">Ne všechny podtržené parametry jsou nastaveny!</string>
   <string name="title_activity_activity_log">Záznam aktivity</string>
   <string name="menu_activity_log">Záznam aktivity</string>
   <string name="altype_profileActivation">aktivace profilu</string>

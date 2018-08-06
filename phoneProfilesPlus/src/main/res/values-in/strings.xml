@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Tidak dekat (tidak dalam rentang pemindaian)</string>
   <string name="event_preferences_call_contact_groups">Kelompok kontak</string>
   <string name="event_preferences_sms_contact_groups">Kelompok kontak</string>
-  <string name="event_preferences_error">Tidak semua parameter yang digarisbawahi sudah diatur!</string>
   <string name="title_activity_activity_log">Log aktivitas</string>
   <string name="menu_activity_log">Log aktivitas</string>
   <string name="altype_profileActivation">aktivasi profil</string>

@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">पास नहीं (स्कैनिंग रेंज के भीतर नहीं)</string>
   <string name="event_preferences_call_contact_groups">संपर्क समूह</string>
   <string name="event_preferences_sms_contact_groups">संपर्क समूह</string>
-  <string name="event_preferences_error">नहीं सभी रेखांकित मापदंडों सेट कर रहे हैं!</string>
   <string name="title_activity_activity_log">गतिविधि लॉग</string>
   <string name="menu_activity_log">गतिविधि लॉग</string>
   <string name="altype_profileActivation">प्रोफ़ाइल ऐक्टिवेशन</string>

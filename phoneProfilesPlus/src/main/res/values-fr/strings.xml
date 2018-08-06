@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Éloigné (hors de la zone de balayage)</string>
   <string name="event_preferences_call_contact_groups">Groupes de contacts</string>
   <string name="event_preferences_sms_contact_groups">Groupes de contacts</string>
-  <string name="event_preferences_error">Tous les paramètres soulignés ne sont pas définis !</string>
   <string name="title_activity_activity_log">Journal d\'activité</string>
   <string name="menu_activity_log">Journal d\'activité</string>
   <string name="altype_profileActivation">Activation du profil</string>

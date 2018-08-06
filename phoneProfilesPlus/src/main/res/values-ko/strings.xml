@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Not nearby (not within scanning range)</string>
   <string name="event_preferences_call_contact_groups">Contact groups</string>
   <string name="event_preferences_sms_contact_groups">Contact groups</string>
-  <string name="event_preferences_error">Not all underlined parameters are set!</string>
   <string name="title_activity_activity_log">Activity Log</string>
   <string name="menu_activity_log">Activity Log</string>
   <string name="altype_profileActivation">profile activation</string>

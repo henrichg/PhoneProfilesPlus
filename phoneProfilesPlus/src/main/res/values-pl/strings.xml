@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Nie pobliski (poza zasięgiem skanowania)</string>
   <string name="event_preferences_call_contact_groups">Grupy kontaktów</string>
   <string name="event_preferences_sms_contact_groups">Grupy kontaktów</string>
-  <string name="event_preferences_error">Nie wszystkie podkreślone parametry są ustawione!</string>
   <string name="title_activity_activity_log">Dziennik Aktywności</string>
   <string name="menu_activity_log">Dziennik Aktywności</string>
   <string name="altype_profileActivation">aktywacja profilu</string>

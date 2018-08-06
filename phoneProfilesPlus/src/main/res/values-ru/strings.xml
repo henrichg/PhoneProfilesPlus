@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Далеко (вне диапазона сканирования)</string>
   <string name="event_preferences_call_contact_groups">Группы контактов</string>
   <string name="event_preferences_sms_contact_groups">Группы контактов</string>
-  <string name="event_preferences_error">Указаны не все параметры!</string>
   <string name="title_activity_activity_log">Журнал событий</string>
   <string name="menu_activity_log">Журнал событий</string>
   <string name="altype_profileActivation">Активация профиля</string>

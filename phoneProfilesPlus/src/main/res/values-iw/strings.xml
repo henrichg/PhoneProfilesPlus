@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">לא קרוב (לא בטווח סריקה)</string>
   <string name="event_preferences_call_contact_groups">קבוצות אנשי קשר</string>
   <string name="event_preferences_sms_contact_groups">קבוצות אנשי קשר</string>
-  <string name="event_preferences_error">לא כל המאפיינים המסומנים בקו תחתון מוגדרים!</string>
   <string name="title_activity_activity_log">יומן פעילות</string>
   <string name="menu_activity_log">יומן פעילות</string>
   <string name="altype_profileActivation">הפעלת פרופיל</string>

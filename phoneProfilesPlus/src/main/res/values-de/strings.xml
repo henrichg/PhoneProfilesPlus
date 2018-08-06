@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Außerhalb (außerhalb Scan-Reichweite)</string>
   <string name="event_preferences_call_contact_groups">Kontaktgruppen</string>
   <string name="event_preferences_sms_contact_groups">Kontaktgruppen</string>
-  <string name="event_preferences_error">Nicht alle unterstrichenen Parameter sind eingestellt!</string>
   <string name="title_activity_activity_log">Aktivitätsprotokoll</string>
   <string name="menu_activity_log">Aktivitätsprotokoll</string>
   <string name="altype_profileActivation">Profil-Aktivierung</string>

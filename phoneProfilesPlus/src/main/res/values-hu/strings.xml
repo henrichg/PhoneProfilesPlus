@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Nem közeli (hatósugaron kívüli keresés)</string>
   <string name="event_preferences_call_contact_groups">Kapcsolattartó csoportok</string>
   <string name="event_preferences_sms_contact_groups">Névjegy csoportok</string>
-  <string name="event_preferences_error">Nem minden aláhúzott paramétert!</string>
   <string name="title_activity_activity_log">Tevékenységnapló</string>
   <string name="menu_activity_log">Tevékenységnapló</string>
   <string name="altype_profileActivation">Profil aktiválása</string>

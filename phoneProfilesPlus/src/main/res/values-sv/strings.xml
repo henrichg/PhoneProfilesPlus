@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Not nearby (not within scanning range)</string>
   <string name="event_preferences_call_contact_groups">Kontaktgrupper</string>
   <string name="event_preferences_sms_contact_groups">Kontaktgrupper</string>
-  <string name="event_preferences_error">Alla understrukna parametrar är inte inställda!</string>
   <string name="title_activity_activity_log">Händelselogg</string>
   <string name="menu_activity_log">Händelselogg</string>
   <string name="altype_profileActivation">Profilaktivering</string>

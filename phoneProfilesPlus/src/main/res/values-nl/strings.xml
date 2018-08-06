@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Niet in de buurt (niet binnen scanbereik)</string>
   <string name="event_preferences_call_contact_groups">Contactgroepen</string>
   <string name="event_preferences_sms_contact_groups">Contactgroepen</string>
-  <string name="event_preferences_error">Niet alle onderstreepte parameters zijn ingesteld!</string>
   <string name="title_activity_activity_log">Activiteitenlog</string>
   <string name="menu_activity_log">Activiteitenlog</string>
   <string name="altype_profileActivation">profiel activeren</string>

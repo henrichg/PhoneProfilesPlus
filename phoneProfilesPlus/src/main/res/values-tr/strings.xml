@@ -376,7 +376,6 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Yakındaki değil (tarama aralığı içinde değil)</string>
   <string name="event_preferences_call_contact_groups">Kişi çağrı grupları</string>
   <string name="event_preferences_sms_contact_groups">Kişi mesaj grupları</string>
-  <string name="event_preferences_error">Kırmızı ile boyanmış değerlerin tamamı ayarlanmış değil!</string>
   <string name="title_activity_activity_log">Faaliyet kütüğü</string>
   <string name="menu_activity_log">Faaliyet kütüğü</string>
   <string name="altype_profileActivation">Tercih faaliyete geçti</string>
