@@ -3747,7 +3747,10 @@ public class PhoneProfilesService extends Service
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
             // setup startupSource
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-            PendingIntent pIntent = PendingIntent.getActivity(appContext, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            int requestCode = 0;
+            if (inHandlerThread)
+                requestCode = (int)profile._id;
+            PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             // intent for restart events
             Intent intentRE = new Intent(appContext, RestartEventsFromNotificationActivity.class);
