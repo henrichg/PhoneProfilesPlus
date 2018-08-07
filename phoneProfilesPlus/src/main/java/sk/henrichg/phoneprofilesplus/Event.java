@@ -636,6 +636,7 @@ class Event {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_DELAY_START))
