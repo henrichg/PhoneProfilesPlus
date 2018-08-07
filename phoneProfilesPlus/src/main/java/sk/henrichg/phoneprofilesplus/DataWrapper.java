@@ -1854,9 +1854,8 @@ public class DataWrapper {
         PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- event._name="+event._name);
         PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- sensorType="+sensorType);
 
-        if (event._eventPreferencesTime._enabled)
-            if (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-            {
+        if (event._eventPreferencesTime._enabled) {
+            if (Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 // compute start datetime
                 long startAlarmTime;
                 long endAlarmTime;
@@ -1864,24 +1863,24 @@ public class DataWrapper {
                 startAlarmTime = event._eventPreferencesTime.computeAlarm(true);
 
                 String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
-                                    " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
-                PPApplication.logE("%%% DataWrapper.doHandleEvents","startAlarmTime="+alarmTimeS);
+                        " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
+                PPApplication.logE("%%% DataWrapper.doHandleEvents", "startAlarmTime=" + alarmTimeS);
 
                 endAlarmTime = event._eventPreferencesTime.computeAlarm(false);
 
                 alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
-                             " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
-                PPApplication.logE("%%% DataWrapper.doHandleEvents","endAlarmTime="+alarmTimeS);
+                        " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
+                PPApplication.logE("%%% DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
                 alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
-                     " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
-                PPApplication.logE("%%% DataWrapper.doHandleEvents","nowAlarmTime="+alarmTimeS);
+                        " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
+                PPApplication.logE("%%% DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
 
                 timePassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
 
-                PPApplication.logE("%%% DataWrapper.doHandleEvents","timePassed="+timePassed);
+                PPApplication.logE("%%% DataWrapper.doHandleEvents", "timePassed=" + timePassed);
 
                 if (!notAllowedTime) {
                     if (timePassed)
@@ -1890,13 +1889,13 @@ public class DataWrapper {
                         event._eventPreferencesTime.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_TIME);
                 }
-            }
-            else
+            } else
                 notAllowedTime = true;
+            event._eventPreferencesTime.setSensorPassed(event._eventPreferencesTime.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesBattery._enabled)
-            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-            {
+        if (event._eventPreferencesBattery._enabled) {
+            if (Event.isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 boolean isPowerSaveMode = isPowerSaveMode(context);
                 PPApplication.logE("*** DataWrapper.doHandleEvents", "isPowerSaveMode=" + isPowerSaveMode);
 
@@ -1911,7 +1910,8 @@ public class DataWrapper {
                     if (PhoneProfilesService.getInstance() != null)
                         _context = PhoneProfilesService.getInstance();
                     batteryStatus = _context.registerReceiver(null, filter);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
 
                 if (batteryStatus != null) {
                     batteryPassed = false;
@@ -1939,12 +1939,9 @@ public class DataWrapper {
                             batteryPassed = batteryPassed && isCharging;
                         else
                             batteryPassed = batteryPassed && (!isCharging);
-                    }
-                    else
-                    if (event._eventPreferencesBattery._powerSaveMode)
+                    } else if (event._eventPreferencesBattery._powerSaveMode)
                         batteryPassed = batteryPassed && isPowerSaveMode;
-                }
-                else
+                } else
                     notAllowedBattery = true;
 
                 if (!notAllowedBattery) {
@@ -1954,28 +1951,26 @@ public class DataWrapper {
                         event._eventPreferencesBattery.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BATTERY);
                 }
-            }
-            else
+            } else
                 notAllowedBattery = true;
+            event._eventPreferencesBattery.setSensorPassed(event._eventPreferencesBattery.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesCall._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)&&
-                Permissions.checkEventCallContacts(context, event, null) &&
-                Permissions.checkEventPhoneBroadcast(context, event, null))
-            {
+        if (event._eventPreferencesCall._enabled) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
+                    Permissions.checkEventCallContacts(context, event, null) &&
+                    Permissions.checkEventPhoneBroadcast(context, event, null)) {
                 ApplicationPreferences.getSharedPreferences(context);
                 int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                 String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
-                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callEventType="+callEventType);
-                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "phoneNumber="+phoneNumber);
+                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callEventType=" + callEventType);
+                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "phoneNumber=" + phoneNumber);
 
                 boolean phoneNumberFound = false;
 
-                if (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED)
-                {
-                    if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE)
-                    {
+                if (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) {
+                    if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
                         PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "search in groups");
                         // find phone number in groups
                         String[] splits = event._eventPreferencesCall._contactGroups.split("\\|");
@@ -2035,7 +2030,7 @@ public class DataWrapper {
                                         if (phones != null) {
                                             while (phones.moveToNext()) {
                                                 String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "_phoneNumber="+_phoneNumber);
+                                                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "_phoneNumber=" + _phoneNumber);
                                                 if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                                     phoneNumberFound = true;
                                                     break;
@@ -2055,44 +2050,32 @@ public class DataWrapper {
 
                         if (event._eventPreferencesCall._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
                             phoneNumberFound = !phoneNumberFound;
-                    }
-                    else
+                    } else
                         phoneNumberFound = true;
 
-                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "phoneNumberFound="+phoneNumberFound);
+                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "phoneNumberFound=" + phoneNumberFound);
 
-                    if (phoneNumberFound)
-                    {
-                        if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING)
-                        {
+                    if (phoneNumberFound) {
+                        if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
                             //noinspection StatementWithEmptyBody
                             if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                                ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                                    ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)))
                                 ;//eventStart = eventStart && true;
                             else
                                 callPassed = false;
-                        }
-                        else
-                        if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)
-                        {
+                        } else if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) {
                             //noinspection StatementWithEmptyBody
                             if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)
                                 ;//eventStart = eventStart && true;
                             else
                                 callPassed = false;
-                        }
-                        else
-                        if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED)
-                        {
+                        } else if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED) {
                             //noinspection StatementWithEmptyBody
                             if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)
                                 ;//eventStart = eventStart && true;
                             else
                                 callPassed = false;
-                        }
-                        else
-                        if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)
-                        {
+                        } else if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) {
                             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                             long startTime = event._eventPreferencesCall._startTime - gmtOffset;
 
@@ -2124,34 +2107,29 @@ public class DataWrapper {
                                     ;//eventStart = eventStart && true;
                                 else
                                     callPassed = false;
-                            }
-                            else if (!event._eventPreferencesCall._permanentRun) {
+                            } else if (!event._eventPreferencesCall._permanentRun) {
                                 if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
                                     callPassed = false;
                                 else
                                     callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                            }
-                            else {
+                            } else {
                                 callPassed = nowAlarmTime >= startTime;
                             }
                         }
 
                         if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                            (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))
-                        {
+                                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                             //callPassed = true;
                             //eventStart = eventStart && false;
                             callPassed = false;
                         }
-                    }
-                    else
+                    } else
                         callPassed = false;
 
-                }
-                else
+                } else
                     callPassed = false;
 
-                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callPassed="+callPassed);
+                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callPassed=" + callPassed);
 
                 if (!callPassed) {
                     event._eventPreferencesCall._startTime = 0;
@@ -2165,16 +2143,15 @@ public class DataWrapper {
                         event._eventPreferencesCall.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALL);
                 }
-            }
-            else
+            } else
                 notAllowedCall = true;
+            event._eventPreferencesCall.setSensorPassed(event._eventPreferencesCall.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesPeripherals._enabled)
-            if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-            {
+        if (event._eventPreferencesPeripherals._enabled) {
+            if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK) ||
-                    (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK))
-                {
+                        (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK)) {
                     // get dock status
                     IntentFilter iFilter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
                     Context _context = context;
@@ -2182,55 +2159,45 @@ public class DataWrapper {
                         _context = PhoneProfilesService.getInstance();
                     Intent dockStatus = _context.registerReceiver(null, iFilter);
 
-                    if (dockStatus != null)
-                    {
+                    if (dockStatus != null) {
                         int dockState = dockStatus.getIntExtra(Intent.EXTRA_DOCK_STATE, -1);
                         boolean isDocked = dockState != Intent.EXTRA_DOCK_STATE_UNDOCKED;
                         boolean isCar = dockState == Intent.EXTRA_DOCK_STATE_CAR;
                         boolean isDesk = dockState == Intent.EXTRA_DOCK_STATE_DESK ||
-                                         dockState == Intent.EXTRA_DOCK_STATE_LE_DESK ||
-                                         dockState == Intent.EXTRA_DOCK_STATE_HE_DESK;
+                                dockState == Intent.EXTRA_DOCK_STATE_LE_DESK ||
+                                dockState == Intent.EXTRA_DOCK_STATE_HE_DESK;
 
-                        if (isDocked)
-                        {
+                        if (isDocked) {
                             if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_DESK_DOCK)
                                     && isDesk)
                                 peripheralPassed = true;
                             else
                                 peripheralPassed = (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK)
                                         && isCar;
-                        }
-                        else
+                        } else
                             peripheralPassed = false;
                         //eventStart = eventStart && peripheralPassed;
-                    }
-                    else
+                    } else
                         notAllowedPeripheral = true;
-                }
-                else
-                if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_WIRED_HEADSET) ||
-                    (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_BLUETOOTH_HEADSET) ||
-                    (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES))
-                {
+                } else if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_WIRED_HEADSET) ||
+                        (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_BLUETOOTH_HEADSET) ||
+                        (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES)) {
                     ApplicationPreferences.getSharedPreferences(context);
                     boolean headsetConnected = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_CONNECTED, false);
                     boolean headsetMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_MICROPHONE, false);
                     boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_BLUETOOTH, false);
 
-                    if (headsetConnected)
-                    {
+                    if (headsetConnected) {
                         if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_WIRED_HEADSET)
                                 && headsetMicrophone && (!bluetoothHeadset))
                             peripheralPassed = true;
-                        else
-                        if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_BLUETOOTH_HEADSET)
+                        else if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_BLUETOOTH_HEADSET)
                                 && headsetMicrophone && bluetoothHeadset)
                             peripheralPassed = true;
                         else
                             peripheralPassed = (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES)
                                     && (!headsetMicrophone) && (!bluetoothHeadset);
-                    }
-                    else
+                    } else
                         peripheralPassed = false;
                     //eventStart = eventStart && peripheralPassed;
                 }
@@ -2242,41 +2209,39 @@ public class DataWrapper {
                         event._eventPreferencesPeripherals.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_PERIPHERAL);
                 }
-            }
-            else
+            } else
                 notAllowedPeripheral = true;
+            event._eventPreferencesPeripherals.setSensorPassed(event._eventPreferencesPeripherals.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesCalendar._enabled)
+        if (event._eventPreferencesCalendar._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                (Permissions.checkEventCalendar(context, event, null)))
-            {
+                    (Permissions.checkEventCalendar(context, event, null))) {
                 // compute start datetime
                 long startAlarmTime;
                 long endAlarmTime;
 
-                if (event._eventPreferencesCalendar._eventFound)
-                {
+                if (event._eventPreferencesCalendar._eventFound) {
                     startAlarmTime = event._eventPreferencesCalendar.computeAlarm(true);
 
                     String alarmTimeS = DateFormat.getDateFormat(context).format(startAlarmTime) +
-                                        " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
-                    PPApplication.logE("DataWrapper.doHandleEvents","startAlarmTime="+alarmTimeS);
+                            " " + DateFormat.getTimeFormat(context).format(startAlarmTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "startAlarmTime=" + alarmTimeS);
 
                     endAlarmTime = event._eventPreferencesCalendar.computeAlarm(false);
 
                     alarmTimeS = DateFormat.getDateFormat(context).format(endAlarmTime) +
-                                 " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
-                    PPApplication.logE("DataWrapper.doHandleEvents","endAlarmTime="+alarmTimeS);
+                            " " + DateFormat.getTimeFormat(context).format(endAlarmTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
 
                     Calendar now = Calendar.getInstance();
                     long nowAlarmTime = now.getTimeInMillis();
                     alarmTimeS = DateFormat.getDateFormat(context).format(nowAlarmTime) +
-                         " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
-                    PPApplication.logE("DataWrapper.doHandleEvents","nowAlarmTime="+alarmTimeS);
+                            " " + DateFormat.getTimeFormat(context).format(nowAlarmTime);
+                    PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
 
                     calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
-                }
-                else
+                } else
                     calendarPassed = false;
 
                 if (!notAllowedCalendar) {
@@ -2286,16 +2251,16 @@ public class DataWrapper {
                         event._eventPreferencesCalendar.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALENDAR);
                 }
-            }
-            else
+            } else
                 notAllowedCalendar = true;
+            event._eventPreferencesCalendar.setSensorPassed(event._eventPreferencesCalendar.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
         
 
-        if (event._eventPreferencesWifi._enabled)
+        if (event._eventPreferencesWifi._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                && Permissions.checkEventLocation(context, event, null))
-            {
-                PPApplication.logE("----- DataWrapper.doHandleEvents","-------- eventSSID="+event._eventPreferencesWifi._SSID);
+                    && Permissions.checkEventLocation(context, event, null)) {
+                PPApplication.logE("----- DataWrapper.doHandleEvents", "-------- eventSSID=" + event._eventPreferencesWifi._SSID);
 
                 wifiPassed = false;
 
@@ -2306,9 +2271,8 @@ public class DataWrapper {
 
                 boolean done = false;
 
-                if (isWifiEnabled)
-                {
-                    PPApplication.logE("----- DataWrapper.doHandleEvents","wifiStateEnabled=true");
+                if (isWifiEnabled) {
+                    PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiStateEnabled=true");
 
                     //PPApplication.logE("----- DataWrapper.doHandleEvents","-- eventSSID="+event._eventPreferencesWifi._SSID);
 
@@ -2348,29 +2312,25 @@ public class DataWrapper {
                         }
                     }
 
-                    if (wifiConnected)
-                    {
-                        PPApplication.logE("----- DataWrapper.doHandleEvents","wifi connected");
+                    if (wifiConnected) {
+                        PPApplication.logE("----- DataWrapper.doHandleEvents", "wifi connected");
 
-                        PPApplication.logE("----- DataWrapper.doHandleEvents","wifiSSID="+ WifiScanJob.getSSID(wifiInfo, wifiConfigurationList));
-                        PPApplication.logE("----- DataWrapper.doHandleEvents","wifiBSSID="+wifiInfo.getBSSID());
+                        PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanJob.getSSID(wifiInfo, wifiConfigurationList));
+                        PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
 
                         //PPApplication.logE("----- DataWrapper.doHandleEvents","SSID="+event._eventPreferencesWifi._SSID);
 
                         String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
                         for (String _ssid : splits) {
-                            if (_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)){
+                            if (_ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE)) {
                                 wifiPassed = true;
-                            }
-                            else
-                            if (_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)){
+                            } else if (_ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE)) {
                                 for (WifiSSIDData data : wifiConfigurationList) {
                                     wifiPassed = WifiScanJob.compareSSID(wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
                                     if (wifiPassed)
                                         break;
                                 }
-                            }
-                            else
+                            } else
                                 wifiPassed = WifiScanJob.compareSSID(wifiInfo, _ssid, wifiConfigurationList);
                             if (wifiPassed)
                                 break;
@@ -2378,27 +2338,23 @@ public class DataWrapper {
 
                         //PPApplication.logE("----- DataWrapper.doHandleEvents","wifiPassed="+wifiPassed);
 
-                        if (wifiPassed)
-                        {
+                        if (wifiPassed) {
                             // event SSID is connected
                             done = true;
 
                             if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) ||
-                                (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
+                                    (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
                                 // for this connectionTypes, wifi must not be connected to event SSID
                                 wifiPassed = false;
                             //PPApplication.logE("----- DataWrapper.doHandleEvents","wifiPassed="+wifiPassed);
-                        }
-                        else {
+                        } else {
                             if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) {
                                 // for this connectionTypes, wifi must not be connected to event SSID
                                 done = true;
                                 wifiPassed = true;
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         PPApplication.logE("----- DataWrapper.doHandleEvents", "wifi not connected");
 
                         if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) {
@@ -2407,22 +2363,20 @@ public class DataWrapper {
                             wifiPassed = true;
                         }
                     }
-                }
-                else {
+                } else {
                     PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiStateEnabled=false");
                     if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
-                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
+                            (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
                         // for this connectionTypes, wifi must not be connected to event SSID
                         done = true;
                         wifiPassed = (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED);
                     }
                 }
 
-                PPApplication.logE("----- DataWrapper.doHandleEvents","wifiPassed="+wifiPassed);
+                PPApplication.logE("----- DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
 
                 if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
-                    (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))
-                {
+                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)) {
                     if (!done) {
                         if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
                             if (forRestartEvents)
@@ -2500,7 +2454,7 @@ public class DataWrapper {
                     }
                 }
 
-                PPApplication.logE("----- DataWrapper.doHandleEvents","------- wifiPassed="+wifiPassed);
+                PPApplication.logE("----- DataWrapper.doHandleEvents", "------- wifiPassed=" + wifiPassed);
 
                 if (!notAllowedWifi) {
                     if (wifiPassed)
@@ -2509,14 +2463,14 @@ public class DataWrapper {
                         event._eventPreferencesWifi.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_WIFI);
                 }
-            }
-            else
+            } else
                 notAllowedWifi = true;
+            event._eventPreferencesWifi.setSensorPassed(event._eventPreferencesWifi.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
 
-        if (event._eventPreferencesScreen._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-            {
+        if (event._eventPreferencesScreen._enabled) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 boolean isScreenOn;
                 //if (android.os.Build.VERSION.SDK_INT >= 20)
                 //{
@@ -2525,27 +2479,23 @@ public class DataWrapper {
                 //}
                 //else
                 //{
-                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    isScreenOn = pm.isScreenOn();
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                isScreenOn = pm.isScreenOn();
                 //}
                 boolean keyguardShowing = false;
 
-                if (event._eventPreferencesScreen._whenUnlocked)
-                {
+                if (event._eventPreferencesScreen._whenUnlocked) {
                     KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                     keyguardShowing = kgMgr.isKeyguardLocked();
                 }
 
-                if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON)
-                {
+                if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON) {
                     if (event._eventPreferencesScreen._whenUnlocked)
                         // passed if screen is on and unlocked => start only when unlocked
                         screenPassed = isScreenOn && (!keyguardShowing);
                     else
                         screenPassed = isScreenOn;
-                }
-                else
-                {
+                } else {
                     if (event._eventPreferencesScreen._whenUnlocked)
                         // passed if screen is off or locked => locked is the same as screen off
                         screenPassed = (!isScreenOn) || keyguardShowing;
@@ -2560,15 +2510,15 @@ public class DataWrapper {
                         event._eventPreferencesScreen.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SCREEN);
                 }
-            }
-            else
+            } else
                 notAllowedScreen = true;
+            event._eventPreferencesScreen.setSensorPassed(event._eventPreferencesScreen.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
 
-        if (event._eventPreferencesBluetooth._enabled)
+        if (event._eventPreferencesBluetooth._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                && Permissions.checkEventLocation(context, event, null))
-            {
+                    && Permissions.checkEventLocation(context, event, null)) {
                 bluetoothPassed = false;
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(context);
@@ -2589,7 +2539,7 @@ public class DataWrapper {
                         BluetoothConnectionBroadcastReceiver.getConnectedDevices(context);
 
                         if (BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "")) {
-                        //if (BluetoothConnectedDevices.isBluetoothConnected(connectedDevices,null, "")) {
+                            //if (BluetoothConnectedDevices.isBluetoothConnected(connectedDevices,null, "")) {
 
                             PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "any device connected");
 
@@ -2602,18 +2552,18 @@ public class DataWrapper {
                                     break;
                                 } else if (_bluetoothName.equals(EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE)) {
                                     for (BluetoothDeviceData data : boundedDevicesList) {
-                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.name="+data.getName());
-                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.address="+data.getAddress());
+                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.name=" + data.getName());
+                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "boundedDevice.address=" + data.getAddress());
                                         connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(data, "");
                                         //connected = BluetoothConnectedDevices.isBluetoothConnected(connectedDevices, data, "");
                                         if (connected)
                                             break;
                                     }
-                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "paired device connected="+connected);
+                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "paired device connected=" + connected);
                                 } else {
                                     connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, _bluetoothName);
                                     //connected = BluetoothConnectedDevices.isBluetoothConnected(connectedDevices,null, _bluetoothName);
-                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "event sensor device connected="+connected);
+                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "event sensor device connected=" + connected);
                                 }
                                 if (connected)
                                     break;
@@ -2653,11 +2603,10 @@ public class DataWrapper {
                     }
                 }
 
-                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents","bluetoothPassed="+bluetoothPassed);
+                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
 
                 if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
-                    (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))
-                {
+                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)) {
                     if (!done) {
                         if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
                             if (forRestartEvents)
@@ -2665,8 +2614,7 @@ public class DataWrapper {
                             else
                                 // not allowed for disabled scanning
                                 notAllowedBluetooth = true;
-                        }
-                        else {
+                        } else {
                             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                             if (!pm.isScreenOn() && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
                                 if (forRestartEvents)
@@ -2748,7 +2696,7 @@ public class DataWrapper {
                     }
                 }
 
-                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents","bluetoothPassed="+bluetoothPassed);
+                PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
 
                 if (!notAllowedBluetooth) {
                     if (bluetoothPassed)
@@ -2757,15 +2705,15 @@ public class DataWrapper {
                         event._eventPreferencesBluetooth.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BLUETOOTH);
                 }
-            }
-            else
+            } else
                 notAllowedBluetooth = true;
+            event._eventPreferencesBluetooth.setSensorPassed(event._eventPreferencesBluetooth.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesSMS._enabled)
+        if (event._eventPreferencesSMS._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                && Permissions.checkEventSMSContacts(context, event, null) &&
-                Permissions.checkEventSMSBroadcast(context, event, null))
-            {
+                    && Permissions.checkEventSMSContacts(context, event, null) &&
+                    Permissions.checkEventSMSBroadcast(context, event, null)) {
                 // compute start time
 
                 if (event._eventPreferencesSMS._startTime > 0) {
@@ -2801,12 +2749,10 @@ public class DataWrapper {
                             smsPassed = false;
                         else
                             smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                    }
-                    else {
+                    } else {
                         smsPassed = nowAlarmTime >= startTime;
                     }
-                }
-                else
+                } else
                     smsPassed = false;
 
                 if (!smsPassed) {
@@ -2821,13 +2767,13 @@ public class DataWrapper {
                         event._eventPreferencesSMS.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_SMS);
                 }
-            }
-            else
+            } else
                 notAllowedSms = true;
+            event._eventPreferencesSMS.setSensorPassed(event._eventPreferencesSMS.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesNotification._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-            {
+        if (event._eventPreferencesNotification._enabled) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     /*if (!event._eventPreferencesNotification._endWhenRemoved) {
 
@@ -2864,10 +2810,10 @@ public class DataWrapper {
                         } else
                             notificationPassed = false;
                     } else {*/
-                        notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
-                    //}
+                notificationPassed = event._eventPreferencesNotification.isNotificationVisible(this);
+                //}
 
-                    PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);
+                PPApplication.logE("[NOTIF] DataWrapper.doHandleEvents", "notificationPassed=" + notificationPassed);
 
                     /*if (!notificationPassed) {
                         event._eventPreferencesNotification._startTime = 0;
@@ -2885,14 +2831,14 @@ public class DataWrapper {
                         event._eventPreferencesNotification.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NOTIFICATION);
                 }
-            }
-            else
+            } else
                 notAllowedNotification = true;
+            event._eventPreferencesNotification.setSensorPassed(event._eventPreferencesNotification.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
 
-        if (event._eventPreferencesApplication._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-            {
+        if (event._eventPreferencesApplication._enabled) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 applicationPassed = false;
 
                 if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0)) {
@@ -2910,8 +2856,7 @@ public class DataWrapper {
                         }
                     } else
                         notAllowedApplication = true;
-                }
-                else
+                } else
                     notAllowedApplication = true;
 
                 if (!notAllowedApplication) {
@@ -2921,14 +2866,14 @@ public class DataWrapper {
                         event._eventPreferencesApplication.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_APPLICATION);
                 }
-            }
-            else
+            } else
                 notAllowedApplication = true;
+            event._eventPreferencesApplication.setSensorPassed(event._eventPreferencesApplication.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesLocation._enabled)
+        if (event._eventPreferencesLocation._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                && Permissions.checkEventLocation(context, event, null))
-            {
+                    && Permissions.checkEventLocation(context, event, null)) {
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
                     if (forRestartEvents)
                         locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
@@ -2937,8 +2882,7 @@ public class DataWrapper {
                         PPApplication.logE("[GeoSensor] DataWrapper.doHandleEvents", "ignore for disabled scanner");
                         notAllowedLocation = true;
                     }
-                }
-                else{
+                } else {
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (!pm.isScreenOn() && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
                         if (forRestartEvents)
@@ -2992,42 +2936,36 @@ public class DataWrapper {
                         event._eventPreferencesLocation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_LOCATION);
                 }
-            }
-            else
+            } else
                 notAllowedLocation = true;
+            event._eventPreferencesLocation.setSensorPassed(event._eventPreferencesLocation.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesOrientation._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-            {
+        if (event._eventPreferencesOrientation._enabled) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 ApplicationPreferences.getSharedPreferences(context);
                 int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
                 PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 if (/*Permissions.checkEventPhoneBroadcast(context, event) &&*/
-                    (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) &&
-                    (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) &&
-                    (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                        (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) &&
+                                (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) &&
+                                (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                     // not allowed changes during call
                     notAllowedOrientation = true;
-                }
-                else
-                if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
+                } else if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
                     if (forRestartEvents)
                         orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
                         // not allowed for disabled orientation scanner
                         notAllowedOrientation = true;
-                }
-                else
-                if (!pm.isScreenOn() && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
+                } else if (!pm.isScreenOn() && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
                     if (forRestartEvents)
                         orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
                         // not allowed for screen Off
                         notAllowedOrientation = true;
-                }
-                else
-                {
+                } else {
                     synchronized (PPApplication.orientationScannerMutex) {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isOrientationScannerStarted()) {
                             boolean lApplicationPassed = false;
@@ -3128,22 +3066,21 @@ public class DataWrapper {
                         event._eventPreferencesOrientation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ORIENTATION);
                 }
-            }
-            else
+            } else
                 notAllowedOrientation = true;
+            event._eventPreferencesOrientation.setSensorPassed(event._eventPreferencesOrientation.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesMobileCells._enabled)
+        if (event._eventPreferencesMobileCells._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                && Permissions.checkEventLocation(context, event, null))
-            {
+                    && Permissions.checkEventLocation(context, event, null)) {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
                     if (forRestartEvents)
                         mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
                         // not allowed for disabled mobile cells scanner
                         notAllowedMobileCell = true;
-                }
-                else {
+                } else {
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     if (!pm.isScreenOn() && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
                         if (forRestartEvents)
@@ -3183,13 +3120,13 @@ public class DataWrapper {
                         event._eventPreferencesMobileCells.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_MOBILE_CELLS);
                 }
-            }
-            else
+            } else
                 notAllowedMobileCell = true;
+            event._eventPreferencesMobileCells.setSensorPassed(event._eventPreferencesMobileCells.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesNFC._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-            {
+        if (event._eventPreferencesNFC._enabled) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 // compute start time
 
                 if (event._eventPreferencesNFC._startTime > 0) {
@@ -3225,11 +3162,9 @@ public class DataWrapper {
                             nfcPassed = false;
                         else
                             nfcPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                    }
-                    else
+                    } else
                         nfcPassed = nowAlarmTime >= startTime;
-                }
-                else
+                } else
                     nfcPassed = false;
 
                 if (!nfcPassed) {
@@ -3245,13 +3180,13 @@ public class DataWrapper {
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_NFC);
                 }
 
-            }
-            else
+            } else
                 notAllowedNfc = true;
+            event._eventPreferencesNFC.setSensorPassed(event._eventPreferencesNFC.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
-        if (event._eventPreferencesRadioSwitch._enabled)
-            if ((Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
-            {
+        if (event._eventPreferencesRadioSwitch._enabled) {
+            if ((Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 radioSwitchPassed = true;
                 boolean tested = false;
 
@@ -3272,8 +3207,7 @@ public class DataWrapper {
                             radioSwitchPassed = radioSwitchPassed && enabled;
                         else
                             radioSwitchPassed = radioSwitchPassed && !enabled;
-                    }
-                    else
+                    } else
                         notAllowedRadioSwitch = true;
                 }
 
@@ -3298,8 +3232,7 @@ public class DataWrapper {
                             else
                                 radioSwitchPassed = radioSwitchPassed && !enabled;
                         }
-                    }
-                    else
+                    } else
                         notAllowedRadioSwitch = true;
                 }
 
@@ -3322,8 +3255,8 @@ public class DataWrapper {
                     /*if (android.os.Build.VERSION.SDK_INT < 19)
                         enabled = Settings.Secure.isLocationProviderEnabled(context.getContentResolver(), LocationManager.GPS_PROVIDER);
                     else {*/
-                        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-                        enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                    enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
                     //}
                     PPApplication.logE("-###- DataWrapper.doHandleEvents", "gpsState=" + enabled);
                     tested = true;
@@ -3368,9 +3301,10 @@ public class DataWrapper {
                         event._eventPreferencesRadioSwitch.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_RADIO_SWITCH);
                 }
-            }
-            else
+            } else
                 notAllowedRadioSwitch = true;
+            event._eventPreferencesRadioSwitch.setSensorPassed(event._eventPreferencesRadioSwitch.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
 
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
