@@ -583,7 +583,7 @@ class Event {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, !value.isEmpty(), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END))
@@ -598,7 +598,9 @@ class Event {
                 }
                 preference.setSummary(lProfileId);
                 if (key.equals(PREF_EVENT_PROFILE_START))
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
+                else
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))

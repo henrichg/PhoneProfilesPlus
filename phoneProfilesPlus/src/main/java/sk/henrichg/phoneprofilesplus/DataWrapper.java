@@ -3835,7 +3835,7 @@ public class DataWrapper {
         {
             String eventName = getLastStartedEventName(eventTimelineList, dataWrapper, fromDB);
             //Log.e("***** DataWrapper.getProfileNameWithManualIndicator", "eventName="+eventName);
-            if (!eventName.isEmpty())
+            if (!eventName.equals("?"))
                 name = name + " [" + eventName + "]";
         }
 
@@ -3871,13 +3871,13 @@ public class DataWrapper {
                             // last started event activates activated profile
                             return event._name;
                         else
-                            return "";
+                            return "?";
                     }
                     else
-                        return "";
+                        return "?";
                 }
                 else
-                    return "";
+                    return "?";
             }
             else
             {
@@ -3888,14 +3888,14 @@ public class DataWrapper {
                     if ((profile != null) && (profile._id == profileId))
                         return dataWrapper.context.getString(R.string.event_name_background_profile);
                     else
-                        return "";
+                        return "?";
                 }
                 else
-                    return "";
+                    return "?";
             }
         }
         else
-            return "";
+            return "?";
     }
 
     private void resetAllEventsInDelayStart(boolean onlyFromDb)

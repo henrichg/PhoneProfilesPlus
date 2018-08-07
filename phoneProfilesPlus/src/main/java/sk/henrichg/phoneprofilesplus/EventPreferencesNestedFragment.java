@@ -39,6 +39,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
     private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PRF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
+    private static final String PRF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
     private static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
@@ -470,10 +471,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 .getEventFromPreferences(event_id, newEventMode, predefinedEventIndex);
 
         if (event != null) {
-            // isRunnable
-            boolean isRunnable = event.isRunnable(context, false);
-            boolean isEnabledSomeSensor = event.isEnabledSomeSensor();
-            if (isRunnable && isEnabledSomeSensor) {
+            // not is runnable
+            if (event.isRunnable(context, false)) {
                 Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
@@ -491,17 +490,36 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     preference.setOrder(-100);
                     preferenceCategory.addPreference(preference);
                 }
-
-                int titleResource = R.string.event_preferences_no_sensor_is_enabled;
-                if (!isRunnable)
-                    titleResource = R.string.event_preferences_not_set_underlined_parameters;
-                Spannable title = new SpannableString(getString(titleResource));
+                Spannable title = new SpannableString(getString(R.string.event_preferences_not_set_underlined_parameters));
                 title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                 preference.setTitle(title);
-                //preference.setSummary(R.string.empty_string);
             }
 
-            // permissions
+            // not enabled some sensor
+            if (event.isEnabledSomeSensor()) {
+                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_SOME_SENSOR);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                    preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_SOME_SENSOR);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                    preference = new Preference(context);
+                    preference.setKey(PRF_NOT_ENABLED_SOME_SENSOR);
+                    preference.setWidgetLayoutResource(R.layout.exclamation_preference);
+                    preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                    preference.setOrder(-99);
+                    preferenceCategory.addPreference(preference);
+                }
+                Spannable title = new SpannableString(getString(R.string.event_preferences_no_sensor_is_enabled));
+                title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                preference.setTitle(title);
+            }
+
+            // not some permissions
             if (Permissions.checkEventPermissions(context, event).size() == 0) {
                 Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                 if (preference != null) {
@@ -517,7 +535,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     preference.setKey(PRF_GRANT_PERMISSIONS);
                     preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                     preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                    preference.setOrder(-99);
+                    preference.setOrder(-98);
                     preferenceCategory.addPreference(preference);
                 }
 
@@ -540,6 +558,11 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
         else {
             Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                preferenceCategory.removePreference(preference);
+            }
+            preference = prefMng.findPreference(PRF_NOT_ENABLED_SOME_SENSOR);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
                 preferenceCategory.removePreference(preference);

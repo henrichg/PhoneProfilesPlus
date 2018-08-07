@@ -72,6 +72,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         {
             setSummary(Profile.PREF_PROFILE_NAME);
+            setSummary(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
             setSummary(Profile.PREF_PROFILE_DURATION);
             setSummary(Profile.PREF_PROFILE_AFTER_DURATION_DO);
             setSummary(Profile.PREF_PROFILE_ASK_FOR_DURATION);

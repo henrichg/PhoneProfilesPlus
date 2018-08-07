@@ -28,6 +28,7 @@ import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.widget.Toast;
 
 import static android.content.Context.DEVICE_POLICY_SERVICE;
@@ -474,8 +475,11 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
 
         Preference showInActivatorPreference = prefMng.findPreference(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
-        if (showInActivatorPreference != null)
+        if (showInActivatorPreference != null) {
             showInActivatorPreference.setTitle("[A] " + getResources().getString(R.string.profile_preferences_showInActivator));
+            boolean value = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
+            setSummary(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, value);
+        }
 
         Preference extenderPreference = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
         if (extenderPreference != null) {
@@ -601,7 +605,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         Preference preference = prefMng.findPreference(key);
         String title = "";
         if ((preference != null) && (preference.isEnabled())) {
-            if (key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            if (//key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
+                key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
                 key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {
                 /*boolean defaultValue =
                         getResources().getBoolean(
@@ -1077,8 +1082,19 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value.toString());
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-                setCategorySummary(preference, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, !value.toString().isEmpty(), false, false, false);
+                setCategorySummary(preference, !value.toString().isEmpty());
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR)) {
+            String sValue = value.toString();
+            //Log.e("ProfilePreferencesNestedFragment.setSummary","PREF_PROFILE_SHOW_IN_ACTIVATOR sValue="+sValue);
+            CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
+            if (checkBoxPreference != null) {
+                boolean show = sValue.equals("true");
+                //Log.e("ProfilePreferencesNestedFragment.setSummary","PREF_PROFILE_SHOW_IN_ACTIVATOR show="+show);
+                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, show, false, false, false);
+                setCategorySummary(checkBoxPreference, show);
             }
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE))
