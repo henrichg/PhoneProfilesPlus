@@ -1212,6 +1212,8 @@
     <string name="phone_profiles_pref_drawOverlaysPermissions_miui">Display pop-up window</string>
     <string name="phone_profiles_pref_writeSystemSettingPermissions_summary_miui">Please enable it.</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions_summary_miui">Please enable it.</string>
+    <string name="stop_events_alert_title">Stop events</string>
+    <string name="stop_events_alert_message">Are you sure?</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

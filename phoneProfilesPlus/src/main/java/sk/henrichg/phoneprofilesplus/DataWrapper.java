@@ -33,6 +33,7 @@ import android.os.PowerManager;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SwitchCompat;
 import android.telephony.PhoneNumberUtils;
 import android.text.format.DateFormat;
 import android.widget.Toast;
@@ -3941,39 +3942,103 @@ public class DataWrapper {
         }
     }
 
-    void runStopEvents() {
-        if (Event.getGlobalEventsRunning(context))
-        {
-            //noinspection ConstantConditions
-            addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
-
-            // no setup for next start
-            resetAllEventsInDelayStart(false);
-            resetAllEventsInDelayEnd(false);
-            // no set system events, unblock all events, no activate return profile
-            pauseAllEventsFromMainThread(true, false/*, false*/);
-            Event.setGlobalEventsRunning(context, false);
-
-            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            PPApplication.startPPService(context, serviceIntent);
+    void runStopEventsWithAlert(final Activity activity, final SwitchCompat checkBox, boolean isChecked) {
+        boolean eventRunningEnabled = Event.getGlobalEventsRunning(context);
+        if (checkBox != null) {
+            if (isChecked && eventRunningEnabled)
+                // already enabled
+                return;
+            if (!isChecked && !eventRunningEnabled)
+                // already disabled
+                return;
         }
-        else
-        {
-            //noinspection ConstantConditions
-            addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
-
-            Event.setGlobalEventsRunning(context, true);
-
-            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_JOBS, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            PPApplication.startPPService(context, serviceIntent);
-
-            // setup for next start
-            firstStartEvents(false);
+        if (eventRunningEnabled) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setTitle(R.string.stop_events_alert_title);
+            dialogBuilder.setMessage(R.string.stop_events_alert_message);
+            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+            dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    PPApplication.logE("DataWrapper.runStopEventsWithAlert", "stop");
+                    if (runStopEvents(true)) {
+                        PPApplication.showProfileNotification(activity.getApplicationContext());
+                        if (activity instanceof EditorProfilesActivity)
+                            ((EditorProfilesActivity) activity).refreshGUI(false, true);
+                        else if (activity instanceof ActivateProfileActivity)
+                            ((ActivateProfileActivity) activity).refreshGUI(false);
+                        ActivateProfileHelper.updateGUI(activity, false);
+                    }
+                }
+            });
+            dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    PPApplication.logE("DataWrapper.runStopEventsWithAlert", "no stop");
+                    if (checkBox != null)
+                        checkBox.setChecked(true);
+                }
+            });
+            AlertDialog dialog = dialogBuilder.create();
+            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    if (positive != null) positive.setAllCaps(false);
+                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    if (negative != null) negative.setAllCaps(false);
+                }
+            });*/
+            dialog.show();
         }
+        else {
+            if (runStopEvents(false)) {
+                PPApplication.showProfileNotification(activity.getApplicationContext());
+                if (activity instanceof EditorProfilesActivity)
+                    ((EditorProfilesActivity) activity).refreshGUI(false, true);
+                else if (activity instanceof ActivateProfileActivity)
+                    ((ActivateProfileActivity) activity).refreshGUI(false);
+                ActivateProfileHelper.updateGUI(activity, false);
+            }
+        }
+    }
+
+    private boolean runStopEvents(boolean stop) {
+        if (stop) {
+            if (Event.getGlobalEventsRunning(context)) {
+                //noinspection ConstantConditions
+                addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
+
+                // no setup for next start
+                resetAllEventsInDelayStart(false);
+                resetAllEventsInDelayEnd(false);
+                // no set system events, unblock all events, no activate return profile
+                pauseAllEventsFromMainThread(true, false/*, false*/);
+                Event.setGlobalEventsRunning(context, false);
+
+                Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                PPApplication.startPPService(context, serviceIntent);
+                return true;
+            }
+        }
+        else {
+            if (!Event.getGlobalEventsRunning(context)) {
+                //noinspection ConstantConditions
+                addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
+
+                Event.setGlobalEventsRunning(context, true);
+
+                Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_JOBS, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                PPApplication.startPPService(context, serviceIntent);
+
+                // setup for next start
+                firstStartEvents(false);
+                return true;
+            }
+        }
+        return false;
     }
 
     static boolean isPowerSaveMode(Context context) {

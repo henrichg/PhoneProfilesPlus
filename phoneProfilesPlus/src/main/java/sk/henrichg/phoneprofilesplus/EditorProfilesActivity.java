@@ -693,74 +693,70 @@ public class EditorProfilesActivity extends AppCompatActivity
         DataWrapper dataWrapper = getDataWrapper();
 
         switch (item.getItemId()) {
-        case android.R.id.home:
-            if (drawerLayout.isDrawerOpen(drawerRoot)) {
-                drawerLayout.closeDrawer(drawerRoot);
-            } else {
-                drawerLayout.openDrawer(drawerRoot);
-            }
-            return super.onOptionsItemSelected(item);
-        case R.id.menu_restart_events:
-            //noinspection ConstantConditions
-            //getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
+            case android.R.id.home:
+                if (drawerLayout.isDrawerOpen(drawerRoot)) {
+                    drawerLayout.closeDrawer(drawerRoot);
+                } else {
+                    drawerLayout.openDrawer(drawerRoot);
+                }
+                return super.onOptionsItemSelected(item);
+            case R.id.menu_restart_events:
+                //noinspection ConstantConditions
+                //getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-            // ignore manual profile activation
-            // and unblock forceRun events
-            PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
-            if (dataWrapper != null)
-                dataWrapper.restartEventsWithAlert(this);
-            return true;
-        case R.id.menu_run_stop_events:
-            if (dataWrapper != null) {
-                dataWrapper.runStopEvents();
-                PPApplication.showProfileNotification(getApplicationContext());
-            }
-            refreshGUI(false, true);
-            ActivateProfileHelper.updateGUI(this, false);
-            return true;
-        case R.id.menu_activity_log:
-            intent = new Intent(getBaseContext(), ActivityLogActivity.class);
-            startActivity(intent);
-            return true;
-        case R.id.important_info:
-            intent = new Intent(getBaseContext(), ImportantInfoActivity.class);
-            startActivity(intent);
-            return true;
-        case R.id.menu_settings:
-            intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
+                // ignore manual profile activation
+                // and unblock forceRun events
+                PPApplication.logE("$$$ restartEvents","from EditorProfilesActivity.onOptionsItemSelected menu_restart_events");
+                if (dataWrapper != null)
+                    dataWrapper.restartEventsWithAlert(this);
+                return true;
+            case R.id.menu_run_stop_events:
+                if (dataWrapper != null)
+                    dataWrapper.runStopEventsWithAlert(this, null, false);
+                return true;
+            case R.id.menu_activity_log:
+                intent = new Intent(getBaseContext(), ActivityLogActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.important_info:
+                intent = new Intent(getBaseContext(), ImportantInfoActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_settings:
+                intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
 
-            startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
+                startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
 
-            return true;
-        case R.id.menu_install_tone:
-            TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getApplicationContext(), true);
-            return true;
-        case R.id.menu_export:
-            exportData();
+                return true;
+            case R.id.menu_install_tone:
+                TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getApplicationContext(), true);
+                return true;
+            case R.id.menu_export:
+                exportData();
 
-            return true;
-        case R.id.menu_import:
-            importData();
+                return true;
+            case R.id.menu_import:
+                importData();
 
-            return true;
-        /*case R.id.menu_help:
-            try {
-                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/henrichg/PhoneProfilesPlus/wiki"));
-                startActivity(myIntent);
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(getApplicationContext(), "No application can handle this request."
-                    + " Please install a web browser",  Toast.LENGTH_LONG).show();
-            }
-            return true;*/
-        case R.id.menu_about:
-            intent = new Intent(getBaseContext(), AboutApplicationActivity.class);
-            startActivity(intent);
-            return true;
-        case R.id.menu_exit:
-             PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, false);
-            return true;
-        default:
-            return super.onOptionsItemSelected(item);
+                return true;
+            /*case R.id.menu_help:
+                try {
+                    Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/henrichg/PhoneProfilesPlus/wiki"));
+                    startActivity(myIntent);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(getApplicationContext(), "No application can handle this request."
+                        + " Please install a web browser",  Toast.LENGTH_LONG).show();
+                }
+                return true;*/
+            case R.id.menu_about:
+                intent = new Intent(getBaseContext(), AboutApplicationActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.menu_exit:
+                 PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, false);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
