@@ -676,7 +676,8 @@ class Event {
             }
         }
         */
-        if (key.equals(PREF_EVENT_FORCE_RUN) ||
+        if (key.equals(PREF_EVENT_ENABLED) ||
+            key.equals(PREF_EVENT_FORCE_RUN) ||
             key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE) ||
             key.equals(PREF_EVENT_NOTIFICATION_REPEAT) ||
@@ -824,7 +825,8 @@ class Event {
             key.equals(PREF_EVENT_AT_END_DO) ||
             key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
             setSummary(prefMng, key, preferences.getString(key, ""), context);
-        if (key.equals(PREF_EVENT_FORCE_RUN) ||
+        if (key.equals(PREF_EVENT_ENABLED) ||
+            key.equals(PREF_EVENT_FORCE_RUN) ||
             key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION) ||
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE) ||
             key.equals(PREF_EVENT_NOTIFICATION_REPEAT) ||
@@ -874,6 +876,7 @@ class Event {
             preference.setTitle("[»] " + context.getString(R.string.event_preferences_ForceRun));
 
 
+        setSummary(prefMng, PREF_EVENT_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_NAME, preferences, context);
         setSummary(prefMng, PREF_EVENT_PROFILE_START, preferences, context);
         setSummary(prefMng, PREF_EVENT_PROFILE_END, preferences, context);
