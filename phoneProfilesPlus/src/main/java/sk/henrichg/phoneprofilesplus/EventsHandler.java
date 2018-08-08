@@ -264,7 +264,9 @@ class EventsHandler {
                     for (Event _event : this.dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesCall._enabled &&
-                                    (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) {
+                                    ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                     (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                     (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))) {
                                 PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                                 _event._eventPreferencesCall.saveStartTime(dataWrapper);
                             }

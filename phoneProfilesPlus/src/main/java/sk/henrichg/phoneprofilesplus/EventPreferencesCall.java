@@ -39,6 +39,8 @@ class EventPreferencesCall extends EventPreferences {
     static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 1;
     static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
     static final int CALL_EVENT_MISSED_CALL = 3;
+    static final int CALL_EVENT_INCOMING_CALL_ENDED = 4;
+    static final int CALL_EVENT_OUTGOING_CALL_ENDED = 5;
 
     static final int CONTACT_LIST_TYPE_WHITE_LIST = 0;
     static final int CONTACT_LIST_TYPE_BLACK_LIST = 1;
@@ -123,7 +125,9 @@ class EventPreferencesCall extends EventPreferences {
             String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
             descr = descr + ": " + contactListTypes[this._contactListType];
 
-            if (this._callEvent == CALL_EVENT_MISSED_CALL) {
+            if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
+                    (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
+                    (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
                 if (this._permanentRun)
                     descr = descr + "; " + context.getString(R.string.pref_event_permanentRun);
                 else
@@ -150,18 +154,26 @@ class EventPreferencesCall extends EventPreferences {
                 Preference preferenceDuration = prefMng.findPreference(PREF_EVENT_CALL_DURATION);
                 Preference preferencePermanentRun = prefMng.findPreference(PREF_EVENT_CALL_PERMANENT_RUN);
                 if (preferenceDuration != null) {
-                    boolean enabled = value.equals(String.valueOf(CALL_EVENT_MISSED_CALL));
+                    boolean enabled = value.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) ||
+                            value.equals(String.valueOf(CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                            value.equals(String.valueOf(CALL_EVENT_OUTGOING_CALL_ENDED));
                     SharedPreferences preferences = prefMng.getSharedPreferences();
                     enabled = enabled && !preferences.getBoolean(PREF_EVENT_CALL_PERMANENT_RUN, false);
                     preferenceDuration.setEnabled(enabled);
                 }
                 if (preferencePermanentRun != null)
-                    preferencePermanentRun.setEnabled(value.equals(String.valueOf(CALL_EVENT_MISSED_CALL)));
+                    preferencePermanentRun.setEnabled(value.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) ||
+                            value.equals(String.valueOf(CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                            value.equals(String.valueOf(CALL_EVENT_OUTGOING_CALL_ENDED))
+                    );
             }
         }
         if (key.equals(PREF_EVENT_CALL_PERMANENT_RUN)) {
             SharedPreferences preferences = prefMng.getSharedPreferences();
-            if (!preferences.getString(PREF_EVENT_CALL_EVENT, "-1").equals(String.valueOf(CALL_EVENT_MISSED_CALL))) {
+            String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
+            if (!callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) &&
+                    !callEvent.equals(String.valueOf(CALL_EVENT_INCOMING_CALL_ENDED)) &&
+                    !callEvent.equals(String.valueOf(CALL_EVENT_OUTGOING_CALL_ENDED))) {
                 Preference preference = prefMng.findPreference(PREF_EVENT_CALL_DURATION);
                 if (preference != null) {
                     preference.setEnabled(false);
@@ -300,7 +312,9 @@ class EventPreferencesCall extends EventPreferences {
         if (!(isRunnable(_context) && _enabled))
             return;
 
-        if (_callEvent == CALL_EVENT_MISSED_CALL)
+        if ((_callEvent == CALL_EVENT_MISSED_CALL) ||
+                (_callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
+                (_callEvent == CALL_EVENT_OUTGOING_CALL_ENDED))
             setAlarm(computeAlarm(), _context);
     }
 
@@ -382,7 +396,9 @@ class EventPreferencesCall extends EventPreferences {
                 ApplicationPreferences.getSharedPreferences(dataWrapper.context);
                 int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                 long callTime = ApplicationPreferences.preferences.getLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
-                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) {
+                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) ||
+                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                     _startTime = callTime;
 
                     DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);

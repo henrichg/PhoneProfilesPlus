@@ -2076,7 +2076,10 @@ public class DataWrapper {
                                 ;//eventStart = eventStart && true;
                             else
                                 callPassed = false;
-                        } else if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) {
+                        } else
+                        if ((event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                            (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                            (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                             long startTime = event._eventPreferencesCall._startTime - gmtOffset;
 
@@ -2104,7 +2107,9 @@ public class DataWrapper {
 
                             if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                                 //noinspection StatementWithEmptyBody
-                                if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)
+                                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) ||
+                                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))
                                     ;//eventStart = eventStart && true;
                                 else
                                     callPassed = false;
