@@ -3,9 +3,10 @@ buildscript {
     apply from: './dependencies.gradle'
 
     repositories {
+        google()
+        maven { url "https://maven.google.com" }
         jcenter()
         maven { url 'https://maven.fabric.io/public' }
-        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
@@ -15,14 +16,14 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
+        google()
         maven { url "https://maven.google.com" }
+        jcenter()
         maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://jitpack.io' }
         flatDir {
             dirs 'libs'
         }
-        google()
     }
     /*
     tasks.withType(JavaCompile) {
