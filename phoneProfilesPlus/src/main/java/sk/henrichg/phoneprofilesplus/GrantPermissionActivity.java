@@ -321,7 +321,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestDrawOverlays) {
-                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
+                    if (!PPApplication.romIsMIUI)
+                        showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
+                    else
+                        showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
                     showRequestString = showRequestString + "<br>";
                 }
 
@@ -700,7 +703,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 if (!forceGrant) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
                     dialogBuilder.setTitle(R.string.permissions_alert_title);
-                    dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm);
+                    if (!PPApplication.romIsMIUI)
+                        dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm);
+                    else
+                        dialogBuilder.setMessage(R.string.permissions_draw_overlays_not_allowed_confirm_miui);
                     dialogBuilder.setPositiveButton(R.string.permission_not_ask_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -749,12 +755,36 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (iteration == 1) {
             boolean writeSettingsFound = false;
             for (Permissions.PermissionType permissionType : permissions) {
-                if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS) &&
-                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS, getApplicationContext())) {
-                    writeSettingsFound = true;
-                    final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
-                    break;
+                if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
+                    if (!PPApplication.romIsMIUI) {
+                        if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS, getApplicationContext())) {
+                            writeSettingsFound = true;
+                            final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                            startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
+                            break;
+                        }
+                    }
+                    else {
+                        try {
+                            // MIUI 8
+                            Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                            localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                            localIntent.putExtra("extra_pkgname", getPackageName());
+                            startActivityForResult(localIntent, WRITE_SETTINGS_REQUEST_CODE);
+                            writeSettingsFound = true;
+                        } catch (Exception e) {
+                            try {
+                                // MIUI 5/6/7
+                                Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                                localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                                localIntent.putExtra("extra_pkgname", getPackageName());
+                                startActivityForResult(localIntent, WRITE_SETTINGS_REQUEST_CODE);
+                                writeSettingsFound = true;
+                            } catch (Exception e1) {
+                                writeSettingsFound = false;
+                            }
+                        }
+                    }
                 }
             }
             if (!writeSettingsFound)
@@ -781,12 +811,38 @@ public class GrantPermissionActivity extends AppCompatActivity {
             boolean drawOverlaysFound = false;
             //boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
             for (Permissions.PermissionType permissionType : permissions) {
-                if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW) &&
-                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
-                    drawOverlaysFound = true;
-                    final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                    startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
-                    break;
+                if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+                    if (!PPApplication.romIsMIUI) {
+                        if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
+                            drawOverlaysFound = true;
+                            final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                            startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
+                            break;
+                        }
+                    }
+                    else {
+                        try {
+                            // MIUI 8
+                            Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                            localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                            localIntent.putExtra("extra_pkgname", getPackageName());
+                            startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
+                            drawOverlaysFound = true;
+                            break;
+                        } catch (Exception e) {
+                            try {
+                                // MIUI 5/6/7
+                                Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                                localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                                localIntent.putExtra("extra_pkgname", getPackageName());
+                                startActivityForResult(localIntent, DRAW_OVERLAYS_REQUEST_CODE);
+                                drawOverlaysFound = true;
+                                break;
+                            } catch (Exception e1) {
+                                drawOverlaysFound = false;
+                            }
+                        }
+                    }
                 }
             }
             if (!drawOverlaysFound)

@@ -1207,6 +1207,11 @@
     <string name="nfc_tag_pref_dlg_change_tag_name">Change name</string>
     <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
     <string name="event_preferences_not_set_underlined_parameters">Some underlined parameters are not configured!</string>
+    <string name="permission_group_name_draw_overlays_miui">Display pop-up window</string>
+    <string name="permissions_draw_overlays_not_allowed_confirm_miui">You have not enabled \"Display pop-up window\". Never ask again?</string>
+    <string name="phone_profiles_pref_drawOverlaysPermissions_miui">Display pop-up window</string>
+    <string name="phone_profiles_pref_writeSystemSettingPermissions_summary_miui">Please enable it.</string>
+    <string name="phone_profiles_pref_drawOverlaysPermissions_summary_miui">Please enable it.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

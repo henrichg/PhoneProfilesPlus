@@ -260,31 +260,68 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             preference = prefMng.findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                if (PPApplication.romIsMIUI) {
+                    preference.setSummary(R.string.phone_profiles_pref_writeSystemSettingPermissions_summary_miui);
+                }
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
-                            @SuppressLint("InlinedApi")
-                            Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                        if (!PPApplication.romIsMIUI) {
+                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
+                                @SuppressLint("InlinedApi")
+                                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                            } else {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = dialogBuilder.create();
+                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    @Override
+                                    public void onShow(DialogInterface dialog) {
+                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                        if (positive != null) positive.setAllCaps(false);
+                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                        if (negative != null) negative.setAllCaps(false);
+                                    }
+                                });*/
+                                dialog.show();
+                            }
                         }
                         else {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
+                            try {
+                                // MIUI 8
+                                Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                                localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                                localIntent.putExtra("extra_pkgname", getActivity().getPackageName());
+                                startActivityForResult(localIntent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                            } catch (Exception e) {
+                                try {
+                                    // MIUI 5/6/7
+                                    Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                                    localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                                    localIntent.putExtra("extra_pkgname", getActivity().getPackageName());
+                                    startActivityForResult(localIntent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                                } catch (Exception e1) {
+                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = dialogBuilder.create();
+                                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                        @Override
+                                        public void onShow(DialogInterface dialog) {
+                                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                            if (positive != null) positive.setAllCaps(false);
+                                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                            if (negative != null) negative.setAllCaps(false);
+                                        }
+                                    });*/
+                                    dialog.show();
                                 }
-                            });*/
-                            dialog.show();
+                            }
                         }
                         return false;
                     }
@@ -315,31 +352,69 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null) {
                 //if (android.os.Build.VERSION.SDK_INT >= 25) {
                     //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    if (PPApplication.romIsMIUI) {
+                        preference.setTitle(R.string.phone_profiles_pref_drawOverlaysPermissions_miui);
+                        preference.setSummary(R.string.phone_profiles_pref_drawOverlaysPermissions_summary_miui);
+                    }
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
-                                @SuppressLint("InlinedApi")
-                                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                            if (!PPApplication.romIsMIUI) {
+                                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
+                                    @SuppressLint("InlinedApi")
+                                    Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                                } else {
+                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = dialogBuilder.create();
+                                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                        @Override
+                                        public void onShow(DialogInterface dialog) {
+                                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                            if (positive != null) positive.setAllCaps(false);
+                                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                            if (negative != null) negative.setAllCaps(false);
+                                        }
+                                    });*/
+                                    dialog.show();
+                                }
                             }
                             else {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
-                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    @Override
-                                    public void onShow(DialogInterface dialog) {
-                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                        if (positive != null) positive.setAllCaps(false);
-                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                        if (negative != null) negative.setAllCaps(false);
+                                try {
+                                    // MIUI 8
+                                    Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                                    localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                                    localIntent.putExtra("extra_pkgname", getActivity().getPackageName());
+                                    startActivityForResult(localIntent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                                } catch (Exception e) {
+                                    try {
+                                        // MIUI 5/6/7
+                                        Intent localIntent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                                        localIntent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                                        localIntent.putExtra("extra_pkgname", getActivity().getPackageName());
+                                        startActivityForResult(localIntent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
+                                    } catch (Exception e1) {
+                                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                        AlertDialog dialog = dialogBuilder.create();
+                                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                            @Override
+                                            public void onShow(DialogInterface dialog) {
+                                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                                if (positive != null) positive.setAllCaps(false);
+                                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                                if (negative != null) negative.setAllCaps(false);
+                                            }
+                                        });*/
+                                        dialog.show();
                                     }
-                                });*/
-                                dialog.show();
+                                }
                             }
                             return false;
                         }
@@ -585,8 +660,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         preference = prefMng.findPreference(PREF_AUTOSTART_PERMISSION_MIUI);
         if (preference != null) {
-            String manufacturer = "xiaomi";
-            if (manufacturer.equalsIgnoreCase(android.os.Build.MANUFACTURER)) {
+            if (PPApplication.romIsMIUI) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {

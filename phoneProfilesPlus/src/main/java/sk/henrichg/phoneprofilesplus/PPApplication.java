@@ -31,17 +31,17 @@ import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootTools.RootTools;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,7 +53,8 @@ import io.fabric.sdk.android.Fabric;
 
 public class PPApplication extends Application {
 
-    static final String romManufacturer = getROMManufacturer();
+    //static final String romManufacturer = getROMManufacturer();
+    static final boolean romIsMIUI = isMIUI();
     static String PACKAGE_NAME;
 
     //static final int VERSION_CODE_EXTENDER_1_0_4 = 60;
@@ -399,7 +400,8 @@ public class PPApplication extends Application {
     {
         super.onCreate();
 
-        PPApplication.logE("##### PPApplication.onCreate", "romManufacturer="+romManufacturer);
+        PPApplication.logE("##### PPApplication.onCreate", "romManufacturer="+Build.MANUFACTURER);
+        PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI="+romIsMIUI);
 
         if (checkAppReplacingState())
             return;
@@ -1657,6 +1659,7 @@ public class PPApplication extends Application {
         try{ Thread.sleep(ms); }catch(InterruptedException ignored){ }
     }
 
+    /*
     private static String getROMManufacturer() {
         String line;
         BufferedReader input = null;
@@ -1681,6 +1684,24 @@ public class PPApplication extends Application {
             }
         }
         return line;
+    }
+    */
+
+    static boolean isMIUI() {
+        String device = Build.MANUFACTURER;
+        if (device.equals("Xiaomi")) {
+            try {
+                Properties prop = new Properties();
+                prop.load(new FileInputStream(new File(Environment.getRootDirectory(), "build.prop")));
+                return prop.getProperty("ro.miui.ui.version.code", null) != null
+                        || prop.getProperty("ro.miui.ui.version.name", null) != null
+                        || prop.getProperty("ro.miui.internal.storage", null) != null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return false;
     }
 
     static boolean hasSystemFeature(Context context, String feature) {
