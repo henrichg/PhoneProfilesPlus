@@ -355,7 +355,7 @@ class EventPreferencesCall extends EventPreferences {
                     @SuppressLint("SimpleDateFormat")
                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                     String result = sdf.format(alarmTime);
-                    PPApplication.logE("EventPreferencesSMS.setAlarm", "endTime=" + result);
+                    PPApplication.logE("EventPreferencesCall.setAlarm", "endTime=" + result);
                 }
 
                 //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);
@@ -390,15 +390,22 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     void saveStartTime(DataWrapper dataWrapper) {
+        PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
         if (this._startTime == 0) {
             // alarm for end is not set
             if (Permissions.checkContacts(dataWrapper.context)) {
+                PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission granted");
                 ApplicationPreferences.getSharedPreferences(dataWrapper.context);
                 int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                 long callTime = ApplicationPreferences.preferences.getLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
+                PPApplication.logE("EventPreferencesCall.saveStartTime", "callEventType=" + callEventType);
+                PPApplication.logE("EventPreferencesCall.saveStartTime", "callTime=" + callTime);
                 if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) ||
                         (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
                         (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+
+                    PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime set");
+
                     _startTime = callTime;
 
                     DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
@@ -406,10 +413,14 @@ class EventPreferencesCall extends EventPreferences {
                     if (_event.getStatus() == Event.ESTATUS_RUNNING)
                         setSystemEventForPause(dataWrapper.context);
                 } else {
+                    PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime NOT set");
+
                     _startTime = 0;
                     DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
                 }
             } else {
+                PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission NOT granted");
+
                 _startTime = 0;
                 DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
             }

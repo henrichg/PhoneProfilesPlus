@@ -2123,12 +2123,12 @@ public class DataWrapper {
                             }
                         }
 
-                        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        /*if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
                                 (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                             //callPassed = true;
                             //eventStart = eventStart && false;
                             callPassed = false;
-                        }
+                        }*/
                     } else
                         callPassed = false;
 

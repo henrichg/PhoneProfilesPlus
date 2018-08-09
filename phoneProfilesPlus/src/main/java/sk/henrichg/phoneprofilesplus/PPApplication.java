@@ -69,7 +69,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.isServiceRunningInForeground"
-                                         +"|PhoneProfilesService.showProfileNotification"
+                                         //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|BootUpReceiver"
@@ -232,6 +232,14 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.reregisterReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
                                         //+"|EventTimeBroadcastReceiver.onReceive"
+
+                                        //+"|PhoneCallBroadcastReceiver"
+                                        //+"|#### EventsHandler.handleEvents"
+                                        //+"|[CALL] EventsHandler.handleEvents"
+                                        //+"|%%%%%%% DataWrapper.doHandleEvents"
+                                        //+"|[CALL] DataWrapper.doHandleEvents"
+                                        //+"|EventPreferencesCall"
+                                        //+"|MissedCallEventEndBroadcastReceiver"
             ;
 
 

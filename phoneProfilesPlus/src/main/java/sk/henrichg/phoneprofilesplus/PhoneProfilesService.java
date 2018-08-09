@@ -3741,7 +3741,7 @@ public class PhoneProfilesService extends Service
             return;
         */
 
-        PPApplication.logE("PhoneProfilesService.showProfileNotification", "no lockRefresh");
+        //PPApplication.logE("PhoneProfilesService.showProfileNotification", "no lockRefresh");
 
         final Context appContext = getApplicationContext();
 

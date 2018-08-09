@@ -156,7 +156,7 @@ class EventsHandler {
             if (!Event.getGlobalEventsRunning(context)) {
                 // events are globally stopped
 
-                doEndHandler();
+                doEndHandler(false);
                 dataWrapper.invalidateDataWrapper();
 
                 PPApplication.logE("#### EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
@@ -177,7 +177,7 @@ class EventsHandler {
             if (!eventsExists(sensorType, false)) {
                 // events not exists
 
-                doEndHandler();
+                doEndHandler(false);
                 dataWrapper.invalidateDataWrapper();
 
                 PPApplication.logE("#### EventsHandler.handleEvents", "-- end: not events found --------------------------------");
@@ -215,63 +215,6 @@ class EventsHandler {
                     DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCStartTime(_event);
                     _event._eventPreferencesCall._startTime = 0;
                     DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
-                }
-            } else {
-                // for no-restart events, stet startTime to actual time
-                if (sensorType.equals(SENSOR_TYPE_SMS)) {
-                    // search for sms events, save start time
-                    PPApplication.logE("EventsHandler.handleEvents", "search for sms events");
-                    for (Event _event : this.dataWrapper.eventList) {
-                        if (_event.getStatus() != Event.ESTATUS_STOP) {
-                            if (_event._eventPreferencesSMS._enabled) {
-                                PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                                _event._eventPreferencesSMS.saveStartTime(dataWrapper, eventSMSPhoneNumber, eventSMSDate);
-                            }
-                        }
-                    }
-                }
-                /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    if (sensorType.equals(SENSOR_TYPE_NOTIFICATION)) {
-                        // search for notification events, save start time
-                        PPApplication.logE("[NOTIF] EventsHandler.handleEvents", "search for notification events");
-                        for (Event _event : eventList) {
-                            if (_event.getStatus() != Event.ESTATUS_STOP) {
-                                if (_event._eventPreferencesNotification._enabled) {
-                                    PPApplication.logE("[NOTIF] EventsHandler.handleEvents", "event._id=" + _event._id);
-                                    if (eventNotificationPostedRemoved.equals("posted"))
-                                        _event._eventPreferencesNotification.saveStartTime(dataWrapper);
-
-                                }
-                            }
-                        }
-                    }
-                }*/
-                if (sensorType.equals(SENSOR_TYPE_NFC_TAG)) {
-                    // search for nfc events, save start time
-                    PPApplication.logE("EventsHandler.handleEvents", "search for nfc events");
-                    for (Event _event : this.dataWrapper.eventList) {
-                        if (_event.getStatus() != Event.ESTATUS_STOP) {
-                            if (_event._eventPreferencesNFC._enabled) {
-                                PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                                _event._eventPreferencesNFC.saveStartTime(dataWrapper, eventNFCTagName, eventNFCDate);
-                            }
-                        }
-                    }
-                }
-                if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
-                    // search for call events, save start time
-                    PPApplication.logE("EventsHandler.handleEvents", "search for call events");
-                    for (Event _event : this.dataWrapper.eventList) {
-                        if (_event.getStatus() != Event.ESTATUS_STOP) {
-                            if (_event._eventPreferencesCall._enabled &&
-                                    ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
-                                     (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                     (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))) {
-                                PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                                _event._eventPreferencesCall.saveStartTime(dataWrapper);
-                            }
-                        }
-                    }
                 }
             }
 
@@ -488,7 +431,7 @@ class EventsHandler {
 
             //restartAtEndOfEvent = false;
 
-            doEndHandler();
+            doEndHandler(!isRestart);
 
             // refresh GUI
             /*Intent refreshIntent = new Intent();
@@ -612,7 +555,7 @@ class EventsHandler {
             return true;
     }
 
-    private void doEndHandler() {
+    private void doEndHandler(boolean saveStartTime) {
         PPApplication.logE("EventsHandler.doEndService","sensorType="+sensorType);
         PPApplication.logE("EventsHandler.doEndService","callEventType="+callEventType);
 
@@ -731,6 +674,48 @@ class EventsHandler {
                 PPApplication.startPPService(context, serviceIntent);
             }
         }*/
+
+        if (saveStartTime) {
+            if (sensorType.equals(SENSOR_TYPE_SMS)) {
+                // search for sms events, save start time
+                PPApplication.logE("EventsHandler.handleEvents", "search for sms events");
+                for (Event _event : this.dataWrapper.eventList) {
+                    if (_event.getStatus() != Event.ESTATUS_STOP) {
+                        if (_event._eventPreferencesSMS._enabled) {
+                            PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                            _event._eventPreferencesSMS.saveStartTime(dataWrapper, eventSMSPhoneNumber, eventSMSDate);
+                        }
+                    }
+                }
+            }
+            if (sensorType.equals(SENSOR_TYPE_NFC_TAG)) {
+                // search for nfc events, save start time
+                PPApplication.logE("EventsHandler.handleEvents", "search for nfc events");
+                for (Event _event : this.dataWrapper.eventList) {
+                    if (_event.getStatus() != Event.ESTATUS_STOP) {
+                        if (_event._eventPreferencesNFC._enabled) {
+                            PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                            _event._eventPreferencesNFC.saveStartTime(dataWrapper, eventNFCTagName, eventNFCDate);
+                        }
+                    }
+                }
+            }
+            if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
+                // search for call events, save start time
+                PPApplication.logE("[CALL] EventsHandler.handleEvents", "search for call events");
+                for (Event _event : this.dataWrapper.eventList) {
+                    if (_event.getStatus() != Event.ESTATUS_STOP) {
+                        if (_event._eventPreferencesCall._enabled &&
+                                ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                        (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                        (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))) {
+                            PPApplication.logE("[CALL] EventsHandler.handleEvents", "event._id=" + _event._id);
+                            _event._eventPreferencesCall.saveStartTime(dataWrapper);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     void setEventSMSParameters(String phoneNumber, long date) {

@@ -242,6 +242,10 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         // audio mode is set to MODE_NORMAL by system
 
+        PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "incoming="+incoming);
+        PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "missed="+missed);
+        PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "phoneNumber="+phoneNumber);
+
         if (incoming) {
             if (missed)
                 doCallEvent(CALL_EVENT_MISSED_CALL, phoneNumber, eventTime, context);
