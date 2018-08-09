@@ -233,13 +233,14 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
                                         //+"|EventTimeBroadcastReceiver.onReceive"
 
-                                        //+"|PhoneCallBroadcastReceiver"
+                                        +"|PhoneCallBroadcastReceiver"
                                         //+"|#### EventsHandler.handleEvents"
-                                        //+"|[CALL] EventsHandler.handleEvents"
+                                        +"|[CALL] EventsHandler.handleEvents"
                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                        //+"|[CALL] DataWrapper.doHandleEvents"
-                                        //+"|EventPreferencesCall"
-                                        //+"|MissedCallEventEndBroadcastReceiver"
+                                        +"|[CALL] DataWrapper.doHandleEvents"
+                                        +"|DataWrapper.pauseAllEvents"
+                                        +"|EventPreferencesCall"
+                                        +"|MissedCallEventEndBroadcastReceiver"
             ;
 
 

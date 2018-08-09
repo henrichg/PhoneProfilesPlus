@@ -977,6 +977,7 @@ public class DataWrapper {
                         //DatabaseHandler.getInstance(context).updateNotificationStartTime(event);
                         event._eventPreferencesNFC._startTime = 0;
                         DatabaseHandler.getInstance(context).updateNFCStartTime(event);
+                        PPApplication.logE("DataWrapper.pauseAllEvents", "_startTime=0");
                         event._eventPreferencesCall._startTime = 0;
                         DatabaseHandler.getInstance(context).updateCallStartTime(event);
                     }
@@ -2138,6 +2139,7 @@ public class DataWrapper {
                 PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callPassed=" + callPassed);
 
                 if (!callPassed) {
+                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "startTime=0");
                     event._eventPreferencesCall._startTime = 0;
                     DatabaseHandler.getInstance(context).updateCallStartTime(event);
                 }
