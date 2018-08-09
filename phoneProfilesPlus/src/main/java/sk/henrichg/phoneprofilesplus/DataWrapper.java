@@ -2081,6 +2081,73 @@ public class DataWrapper {
                         if ((event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
                             (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                            if (event._eventPreferencesCall._startTime > 0) {
+                                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                long startTime = event._eventPreferencesCall._startTime - gmtOffset;
+
+                                if (PPApplication.logEnabled()) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                    String alarmTimeS = sdf.format(startTime);
+                                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                                }
+
+                                // compute end datetime
+                                long endAlarmTime = event._eventPreferencesCall.computeAlarm();
+                                if (PPApplication.logEnabled()) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                    String alarmTimeS = sdf.format(endAlarmTime);
+                                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                                }
+
+                                Calendar now = Calendar.getInstance();
+                                long nowAlarmTime = now.getTimeInMillis();
+                                if (PPApplication.logEnabled()) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                    String alarmTimeS = sdf.format(nowAlarmTime);
+                                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                                }
+
+                                if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+                                    //noinspection StatementWithEmptyBody
+                                    if (((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
+                                        ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                                        ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)))
+                                        ;//eventStart = eventStart && true;
+                                    else
+                                        callPassed = false;
+                                } else if (!event._eventPreferencesCall._permanentRun) {
+                                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
+                                        callPassed = false;
+                                    else
+                                        callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                                } else {
+                                    callPassed = nowAlarmTime >= startTime;
+                                }
+                            } else
+                                callPassed = false;
+                        }
+
+                        /*if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                            //callPassed = true;
+                            //eventStart = eventStart && false;
+                            callPassed = false;
+                        }*/
+                    } else
+                        callPassed = false;
+
+                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callPassed=" + callPassed);
+
+                    if (!callPassed) {
+                        PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "startTime=0");
+                        event._eventPreferencesCall._startTime = 0;
+                        DatabaseHandler.getInstance(context).updateCallStartTime(event);
+                    }
+                } else {
+                    if ((event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                        (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                        if (event._eventPreferencesCall._startTime > 0) {
                             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                             long startTime = event._eventPreferencesCall._startTime - gmtOffset;
 
@@ -2106,15 +2173,7 @@ public class DataWrapper {
                                 PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
                             }
 
-                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
-                                //noinspection StatementWithEmptyBody
-                                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) ||
-                                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))
-                                    ;//eventStart = eventStart && true;
-                                else
-                                    callPassed = false;
-                            } else if (!event._eventPreferencesCall._permanentRun) {
+                            if (!event._eventPreferencesCall._permanentRun) {
                                 if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
                                     callPassed = false;
                                 else
@@ -2123,25 +2182,17 @@ public class DataWrapper {
                                 callPassed = nowAlarmTime >= startTime;
                             }
                         }
-
-                        /*if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
-                            //callPassed = true;
-                            //eventStart = eventStart && false;
+                        else
                             callPassed = false;
-                        }*/
-                    } else
-                        callPassed = false;
 
-                } else
-                    callPassed = false;
-
-                PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callPassed=" + callPassed);
-
-                if (!callPassed) {
-                    PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "startTime=0");
-                    event._eventPreferencesCall._startTime = 0;
-                    DatabaseHandler.getInstance(context).updateCallStartTime(event);
+                        if (!callPassed) {
+                            PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "startTime=0");
+                            event._eventPreferencesCall._startTime = 0;
+                            DatabaseHandler.getInstance(context).updateCallStartTime(event);
+                        }
+                    }
+                    else
+                        notAllowedCall = true;
                 }
 
                 if (!notAllowedCall) {
@@ -2151,7 +2202,8 @@ public class DataWrapper {
                         event._eventPreferencesCall.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
                     DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALL);
                 }
-            } else
+            }
+            else
                 notAllowedCall = true;
             event._eventPreferencesCall.setSensorPassed(event._eventPreferencesCall.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
         }

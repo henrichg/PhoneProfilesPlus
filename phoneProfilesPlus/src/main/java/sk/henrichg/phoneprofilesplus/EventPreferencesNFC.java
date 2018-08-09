@@ -395,14 +395,14 @@ class EventPreferencesNFC extends EventPreferences {
             PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);
 
             if (tagFound)
-                this._startTime = startTime;
+                this._startTime = startTime  + (10 * 1000);
             else
                 this._startTime = 0;
 
             DatabaseHandler.getInstance(dataWrapper.context).updateNFCStartTime(_event);
 
             if (tagFound) {
-                if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                //if (_event.getStatus() == Event.ESTATUS_RUNNING)
                     setSystemEventForPause(dataWrapper.context);
             }
         }

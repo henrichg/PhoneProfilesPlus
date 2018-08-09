@@ -285,7 +285,7 @@ class EventPreferencesCall extends EventPreferences {
     public void setSystemEventForStart(Context context) {
         // set alarm for state PAUSE
 
-        // this alarm generates broadcast, that change state into RUNNING;
+        // this alarm generates broadcast, that will change state into RUNNING;
         // from broadcast will by called EventsHandler
 
         PPApplication.logE("EventPreferencesCall.setSystemRunningEvent", "xxx");
@@ -301,7 +301,7 @@ class EventPreferencesCall extends EventPreferences {
     public void setSystemEventForPause(Context context) {
         // set alarm for state RUNNING
 
-        // this alarm generates broadcast, that change state into PAUSE;
+        // this alarm generates broadcast, that will change state into PAUSE;
         // from broadcast will by called EventsHandler
 
         PPApplication.logE("EventPreferencesCall.setSystemPauseEvent", "xxx");
@@ -407,9 +407,9 @@ class EventPreferencesCall extends EventPreferences {
                 PPApplication.logE("EventPreferencesCall.saveStartTime", "callTime=" + callTime);
                 PPApplication.logE("EventPreferencesCall.saveStartTime", "phoneNumber=" + phoneNumber);
 
-                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                if (((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) ||
+                    ((_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                    ((_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))) {
 
                     boolean phoneNumberFound = false;
 
@@ -493,7 +493,7 @@ class EventPreferencesCall extends EventPreferences {
                         phoneNumberFound = true;
 
                     if (phoneNumberFound)
-                        this._startTime = callTime;
+                        this._startTime = callTime + (10 * 1000);
                     else
                         this._startTime = 0;
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
@@ -501,7 +501,7 @@ class EventPreferencesCall extends EventPreferences {
                     DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
 
                     if (phoneNumberFound) {
-                        if (_event.getStatus() == Event.ESTATUS_RUNNING)
+                        //if (_event.getStatus() == Event.ESTATUS_RUNNING)
                             setSystemEventForPause(dataWrapper.context);
                     }
                 }/* else {
