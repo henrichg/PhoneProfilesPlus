@@ -2948,6 +2948,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
 
         if ((intent == null) || (!intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false))) {
+            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "showProfileNotification()");
             // do not call this from handlerThread. In Android 8 handlerThread is not called
             // when for service is not displayed foreground notification
             showProfileNotification();
@@ -2977,13 +2978,19 @@ public class PhoneProfilesService extends Service
             if (intent != null) {
                 if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
-                    // not needed, is called in doForFirstStart
+                    // not needed, is already called in start of onStartCommand
                     //showProfileNotification();
                 }
                 else
                 if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
                     removeProfileNotification(this, true);
+                }
+                else
+                if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
+                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SET_SERVICE_FOREGROUND");
+                    // not needed, is already called in start of onStartCommand
+                    //showProfileNotification();
                 }
                 else
                 if (intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
@@ -3728,15 +3735,19 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("PhoneProfilesService.showProfileNotification", "xxx");
 
+        /*
         if (ActivateProfileHelper.lockRefresh)
             // no refresh notification
             return;
+        */
+
+        PPApplication.logE("PhoneProfilesService.showProfileNotification", "no lockRefresh");
 
         final Context appContext = getApplicationContext();
 
         if ((instance != null) && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
         {
-            PPApplication.logE("PhoneProfilesService.showProfileNotification", "show");
+            PPApplication.logE("PhoneProfilesService._showProfileNotification", "show");
 
             boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(appContext);
             boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
@@ -4051,6 +4062,8 @@ public class PhoneProfilesService extends Service
             //if (BuildConfig.DEBUG)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
+            PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
+
             if (!runningInForeground) {
             //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
@@ -4068,11 +4081,14 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","instance="+instance);
                 if (instance != null) {
                     DataWrapper dataWrapper = new DataWrapper(PhoneProfilesService.getInstance().getApplicationContext(), false, 0);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                    if (instance != null)
+                    if (instance != null) {
+                        PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","_showProfileNotification()");
                         PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper);
+                    }
                     dataWrapper.invalidateDataWrapper();
                 }
             }
