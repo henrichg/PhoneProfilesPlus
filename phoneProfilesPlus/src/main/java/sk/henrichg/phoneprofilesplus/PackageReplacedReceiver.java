@@ -184,6 +184,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.apply();
                                 }
                             }
+
+                            if (actualVersionCode <= 4200) {
+                                ApplicationPreferences.getSharedPreferences(appContext);
+                                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
+                                editor.apply();
+                            }
                         }
                     } catch (Exception ignored) {
                     }

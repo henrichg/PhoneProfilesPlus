@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,6 +17,8 @@ import android.view.WindowManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ImportantInfoActivity extends AppCompatActivity {
+
+    static final String EXTRA_SHOW_QUICK_GUIDE = "show_quick_guide";
 
     @SuppressLint("InlinedApi")
     @Override
@@ -88,6 +91,12 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
             }
         });
+
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra(EXTRA_SHOW_QUICK_GUIDE, false)) {
+            tabLayout.setScrollPosition(1,0f,true);
+            viewPager.setCurrentItem(1);
+        }
     }
 
     @Override

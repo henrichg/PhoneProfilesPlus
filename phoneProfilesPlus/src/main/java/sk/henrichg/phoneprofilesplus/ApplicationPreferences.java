@@ -8,6 +8,7 @@ class ApplicationPreferences {
 
     static SharedPreferences preferences = null;
 
+    static final String PREF_APPLICATION_FIRST_START = "applicationFirstStart";
     static final String PREF_APPLICATION_START_ON_BOOT = "applicationStartOnBoot";
     private  static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
     private  static final String PREF_APPLICATION_START_EVENTS = "applicationStartEvents";
@@ -118,6 +119,10 @@ class ApplicationPreferences {
         if (preferences == null)
             preferences = context.getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         return preferences;
+    }
+
+    static boolean applicationFirstStart(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_FIRST_START, true);
     }
 
     static boolean applicationStartOnBoot(Context context) {

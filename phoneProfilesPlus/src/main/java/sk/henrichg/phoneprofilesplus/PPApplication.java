@@ -76,9 +76,8 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
-                                         +"|ImportantInfoHelpFragment.onViewCreated"
-
                                          +"|EditorProfilesActivity.doImportData"
+                                         +"|ImportantInfoHelpFragment.onViewCreated"
 
                                          //+"|PostDelayedBroadcastReceiver"
 
@@ -177,7 +176,7 @@ public class PPApplication extends Application {
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
-                                         +"|BluetoothConnectedDevices"
+                                         //+"|BluetoothConnectedDevices"
                                          //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
@@ -241,6 +240,8 @@ public class PPApplication extends Application {
                                         //+"|DataWrapper.pauseAllEvents"
                                         //+"|EventPreferencesCall"
                                         //+"|MissedCallEventEndBroadcastReceiver"
+
+                                        +"|LauncherActivity"
             ;
 
 

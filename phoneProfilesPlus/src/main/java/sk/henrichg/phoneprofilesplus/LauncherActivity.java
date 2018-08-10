@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -8,6 +9,8 @@ public class LauncherActivity extends AppCompatActivity {
 
     private int startupSource;
     private DataWrapper dataWrapper;
+
+    static final int REQUEST_CODE_IMPORTANT_INFO = 1620;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,15 +97,27 @@ public class LauncherActivity extends AppCompatActivity {
                 break;
         }
 
-        finish();
+        PPApplication.logE("LauncherActivity.endOnStart", "applicationFirstStart="+ApplicationPreferences.applicationFirstStart(getApplicationContext()));
+        if (ApplicationPreferences.applicationFirstStart(getApplicationContext())) {
+            SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+            if (sharedPreferences != null) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
+                editor.apply();
+            }
+            intentLaunch = new Intent(getApplicationContext(), ImportantInfoActivity.class);
+            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, true);
+            startActivityForResult(intentLaunch, REQUEST_CODE_IMPORTANT_INFO);
+        }
+        else {
+            finish();
 
-        intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intentLaunch.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
-        getApplicationContext().startActivity(intentLaunch);
-
-        // reset startupSource
-        startupSource = 0;
-
+            intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intentLaunch.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
+            getApplicationContext().startActivity(intentLaunch);
+            // reset startupSource
+            startupSource = 0;
+        }
     }
 
     @Override
@@ -112,6 +127,28 @@ public class LauncherActivity extends AppCompatActivity {
         dataWrapper = null;
 
         super.onDestroy();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == REQUEST_CODE_IMPORTANT_INFO)
+        {
+            Intent intentLaunch;
+            if (ApplicationPreferences.applicationHomeLauncher(getApplicationContext()).equals("activator"))
+                intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
+            else
+                intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
+
+            intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            finish();
+
+            intentLaunch.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
+            getApplicationContext().startActivity(intentLaunch);
+            // reset startupSource
+            startupSource = 0;
+        }
     }
 
     @Override

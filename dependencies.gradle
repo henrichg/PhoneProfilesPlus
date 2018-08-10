@@ -9,10 +9,11 @@
 //        and applicationEventWifiScanIfWifiOff with applicationEventBluetoothScanIfBluetoothOff
 // 4000 = updated privacy policy
 // 4100 = Wi-Fi AP = Toggle is not supported fro Android 8+
+// 4200 = show Important info on first application start
 
 ext.ppVersions = [
     publishVersion: '3.6.3b',
-    publishVersionCode: 4127,
+    publishVersionCode: 4129,
 
     minSdk: 19,
     targetSdk: 27,
