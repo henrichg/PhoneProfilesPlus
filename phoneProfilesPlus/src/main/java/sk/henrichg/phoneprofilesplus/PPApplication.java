@@ -177,7 +177,7 @@ public class PPApplication extends Application {
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
-                                         //+"|BluetoothConnectedDevices"
+                                         +"|BluetoothConnectedDevices"
                                          //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
@@ -233,14 +233,14 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
                                         //+"|EventTimeBroadcastReceiver.onReceive"
 
-                                        +"|PhoneCallBroadcastReceiver"
+                                        //+"|PhoneCallBroadcastReceiver"
                                         //+"|#### EventsHandler.handleEvents"
-                                        +"|[CALL] EventsHandler.handleEvents"
+                                        //+"|[CALL] EventsHandler.handleEvents"
                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                        +"|[CALL] DataWrapper.doHandleEvents"
-                                        +"|DataWrapper.pauseAllEvents"
-                                        +"|EventPreferencesCall"
-                                        +"|MissedCallEventEndBroadcastReceiver"
+                                        //+"|[CALL] DataWrapper.doHandleEvents"
+                                        //+"|DataWrapper.pauseAllEvents"
+                                        //+"|EventPreferencesCall"
+                                        //+"|MissedCallEventEndBroadcastReceiver"
             ;
 
 
@@ -366,6 +366,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadRunApplication = null;
     public static HandlerThread handlerThreadHeadsUpNotifications = null;
     //public static HandlerThread handlerThreadMobileCells = null;
+    public static HandlerThread handlerThreadBluetoothConnectedDevices = null;
 
     private static HandlerThread handlerThreadRestartEventsWithDelay = null;
     public static Handler restartEventsWithDelayHandler = null;
@@ -475,6 +476,7 @@ public class PPApplication extends Application {
         startHandlerThreadHeadsUpNotifications();
         //startHandlerThreadMobileCells();
         startHandlerThreadRestartEventsWithDelay();
+        startHandlerThreadBluetoothConnectedDevices();
 
         toastHandler = new Handler(getMainLooper());
         brightnessHandler = new Handler(getMainLooper());
@@ -1911,4 +1913,10 @@ public class PPApplication extends Application {
         }
     }
 
+    static void startHandlerThreadBluetoothConnectedDevices() {
+        if (handlerThreadBluetoothConnectedDevices == null) {
+            handlerThreadBluetoothConnectedDevices = new HandlerThread("handlerThreadBluetoothConnectedDevices");
+            handlerThreadBluetoothConnectedDevices.start();
+        }
+    }
 }

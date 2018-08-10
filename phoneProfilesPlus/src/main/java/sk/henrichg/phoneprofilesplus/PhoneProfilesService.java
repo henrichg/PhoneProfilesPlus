@@ -2883,11 +2883,7 @@ public class PhoneProfilesService extends Service
 
                     BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
                     BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","before call of BluetoothConnectedDevices.getConnectedDevices");
-                    List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
-                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","after call of BluetoothConnectedDevices.getConnectedDevices");
-                    BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
-                    BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                    BluetoothConnectedDevices.getConnectedDevices(appContext);
 
                     if (instance != null)
                         PhoneProfilesService.getInstance().registerReceiversAndJobs();

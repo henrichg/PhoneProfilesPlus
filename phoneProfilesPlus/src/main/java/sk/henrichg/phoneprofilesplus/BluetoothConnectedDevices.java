@@ -8,137 +8,208 @@ import android.bluetooth.BluetoothHealth;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
 import android.content.Context;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static android.content.Context.POWER_SERVICE;
+
 class BluetoothConnectedDevices {
-    private static BluetoothHeadset mBluetoothHeadset;
-    private static BluetoothHealth mBluetoothHealth;
-    private static BluetoothA2dp mBluetoothA2dp;
 
-    static List<BluetoothDeviceData> getConnectedDevices(Context context) {
-        final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
-
-        BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
+    static void getConnectedDevices(final Context context) {
+        final BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
             if (!bluetoothAdapter.isEnabled())
-                return connectedDevices;
+                return;
 
-            BluetoothProfile.ServiceListener profileListener = new BluetoothProfile.ServiceListener() {
+            final BluetoothProfile.ServiceListener profileListener = new BluetoothProfile.ServiceListener() {
                 public void onServiceConnected(int profile, BluetoothProfile proxy) {
                     if (profile == BluetoothProfile.HEADSET) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEADSET service connected");
-                        mBluetoothHeadset = (BluetoothHeadset) proxy;
+
+                        final BluetoothHeadset bluetoothHeadset = (BluetoothHeadset) proxy;
+
+                        final Context appContext = context.getApplicationContext();
+                        PPApplication.startHandlerThreadBluetoothConnectedDevices();
+                        final Handler handler = new Handler(PPApplication.handlerThreadBluetoothConnectedDevices.getLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothConnectedDevices.getConnectedDevices.HEADSET");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                if (bluetoothHeadset != null) {
+                                    try {
+                                        List<BluetoothDevice> devices = bluetoothHeadset.getConnectedDevices();
+                                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET size=" + devices.size());
+                                        final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
+                                        addConnectedDevices(devices, connectedDevices);
+                                        BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
+                                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                                    } catch (Exception e) {
+                                        Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                    }
+                                    PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET started, close it");
+                                    bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, bluetoothHeadset);
+                                }
+
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {}
+                                }
+                            }
+                        });
                     }
                     if (profile == BluetoothProfile.HEALTH) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEALTH service connected");
-                        mBluetoothHealth = (BluetoothHealth) proxy;
+
+                        final BluetoothHealth bluetoothHealth = (BluetoothHealth) proxy;
+
+                        final Context appContext = context.getApplicationContext();
+                        PPApplication.startHandlerThreadBluetoothConnectedDevices();
+                        final Handler handler = new Handler(PPApplication.handlerThreadBluetoothConnectedDevices.getLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothConnectedDevices.getConnectedDevices.HEALTH");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                if (bluetoothHealth != null) {
+                                    try {
+                                        List<BluetoothDevice> devices = bluetoothHealth.getConnectedDevices();
+                                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH size=" + devices.size());
+                                        final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
+                                        addConnectedDevices(devices, connectedDevices);
+                                        BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
+                                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                                    } catch (Exception e) {
+                                        Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                    }
+                                    PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH started, close it");
+                                    bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, bluetoothHealth);
+                                }
+
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {}
+                                }
+                            }
+                        });
                     }
                     if (profile == BluetoothProfile.A2DP) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "A2DP service connected");
-                        mBluetoothA2dp = (BluetoothA2dp) proxy;
+
+                        final BluetoothA2dp bluetoothA2dp = (BluetoothA2dp) proxy;
+
+                        final Context appContext = context.getApplicationContext();
+                        PPApplication.startHandlerThreadBluetoothConnectedDevices();
+                        final Handler handler = new Handler(PPApplication.handlerThreadBluetoothConnectedDevices.getLooper());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothConnectedDevices.getConnectedDevices.A2DP");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                if (bluetoothA2dp != null) {
+                                    try {
+                                        List<BluetoothDevice> devices = bluetoothA2dp.getConnectedDevices();
+                                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP size=" + devices.size());
+                                        final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
+                                        addConnectedDevices(devices, connectedDevices);
+                                        BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
+                                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                                    } catch (Exception e) {
+                                        Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
+                                    }
+                                    PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP started, close it");
+                                    bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, bluetoothA2dp);
+                                }
+
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {}
+                                }
+                            }
+                        });
                     }
                 }
 
                 public void onServiceDisconnected(int profile) {
-                    if (profile == BluetoothProfile.HEADSET) {
-                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEADSET service disconnected");
-                        mBluetoothHeadset = null;
-                    }
-                    if (profile == BluetoothProfile.HEALTH) {
-                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEALTH service disconnected");
-                        mBluetoothHealth = null;
-                    }
-                    if (profile == BluetoothProfile.A2DP) {
-                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "A2DP service disconnected");
-                        mBluetoothA2dp = null;
-                    }
                 }
             };
 
             try {
-                List<BluetoothDevice> devices;
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP start");
-                mBluetoothA2dp = null;
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.A2DP);
-                int i = 30;
-                while ((mBluetoothA2dp == null) && (i > 0)) {
-                    PPApplication.sleep(100);
-                    --i;
-                }
-                if (mBluetoothA2dp != null) {
-                    try {
-                        devices = mBluetoothA2dp.getConnectedDevices();
-                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP size=" + devices.size());
-                        addConnectedDevices(devices, connectedDevices);
-                    } catch (Exception e) {
-                        Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                    }
-                    PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "A2DP started, close it");
-                    bluetoothAdapter.closeProfileProxy(BluetoothProfile.A2DP, mBluetoothA2dp);
-                }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET start");
-                mBluetoothHeadset = null;
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEADSET);
-                i = 30;
-                while ((mBluetoothHeadset == null) && (i > 0)) {
-                    PPApplication.sleep(100);
-                    --i;
-                }
-                if (mBluetoothHeadset != null) {
-                    try {
-                        devices = mBluetoothHeadset.getConnectedDevices();
-                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET size=" + devices.size());
-                        addConnectedDevices(devices, connectedDevices);
-                    } catch (Exception e) {
-                        Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                    }
-                    PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEADSET started, close it");
-                    bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEADSET, mBluetoothHeadset);
-                }
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start");
-                mBluetoothHealth = null;
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
-                i = 30;
-                while ((mBluetoothHealth == null) && (i > 0)) {
-                    PPApplication.sleep(100);
-                    --i;
-                }
-                if (mBluetoothHealth != null) {
-                    try {
-                        devices = mBluetoothHealth.getConnectedDevices();
-                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH size=" + devices.size());
-                        addConnectedDevices(devices, connectedDevices);
-                    } catch (Exception e) {
-                        Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
-                    }
-                    PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH started, close it");
-                    bluetoothAdapter.closeProfileProxy(BluetoothProfile.HEALTH, mBluetoothHealth);
-                }
 
-                //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                    final BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
-                    if (bluetoothManager != null) {
-                        devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT);
-                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "GATT size=" + devices.size());
-                        addConnectedDevices(devices, connectedDevices);
-                        devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT_SERVER);
-                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "GATT_SERVER size=" + devices.size());
-                        addConnectedDevices(devices, connectedDevices);
+                final Context appContext = context.getApplicationContext();
+                PPApplication.startHandlerThreadBluetoothConnectedDevices();
+                final Handler handler = new Handler(PPApplication.handlerThreadBluetoothConnectedDevices.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothConnectedDevices.getConnectedDevices.GATT");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        final BluetoothManager bluetoothManager = (BluetoothManager) context.getSystemService(Context.BLUETOOTH_SERVICE);
+                        if (bluetoothManager != null) {
+                            final List<BluetoothDeviceData> connectedDevices = new ArrayList<>();
+                            final Context appContext = context.getApplicationContext();
+                            List<BluetoothDevice> devices;
+
+                            devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT);
+                            PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "GATT size=" + devices.size());
+                            addConnectedDevices(devices, connectedDevices);
+
+                            devices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT_SERVER);
+                            PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "GATT_SERVER size=" + devices.size());
+                            addConnectedDevices(devices, connectedDevices);
+
+                            BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
+                            BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                        }
+
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
-                //}
+                });
             } catch (Exception e) {
                 Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
             }
         }
-
-        return connectedDevices;
     }
 
     private static void addConnectedDevices(List<BluetoothDevice> detectedDevices, List<BluetoothDeviceData> connectedDevices)
