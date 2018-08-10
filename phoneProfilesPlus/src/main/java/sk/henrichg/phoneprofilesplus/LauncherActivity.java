@@ -134,20 +134,7 @@ public class LauncherActivity extends AppCompatActivity {
     {
         if (requestCode == REQUEST_CODE_IMPORTANT_INFO)
         {
-            Intent intentLaunch;
-            if (ApplicationPreferences.applicationHomeLauncher(getApplicationContext()).equals("activator"))
-                intentLaunch = new Intent(getApplicationContext(), ActivateProfileActivity.class);
-            else
-                intentLaunch = new Intent(getApplicationContext(), EditorProfilesActivity.class);
-
-            intentLaunch.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            finish();
-
-            intentLaunch.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
-            getApplicationContext().startActivity(intentLaunch);
-            // reset startupSource
-            startupSource = 0;
+            endOnStart();
         }
     }
 
