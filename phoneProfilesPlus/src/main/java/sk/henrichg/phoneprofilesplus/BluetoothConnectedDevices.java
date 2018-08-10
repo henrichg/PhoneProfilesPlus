@@ -154,6 +154,15 @@ class BluetoothConnectedDevices {
                 }
 
                 public void onServiceDisconnected(int profile) {
+                    if (profile == BluetoothProfile.HEADSET) {
+                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEADSET service disconnected");
+                    }
+                    if (profile == BluetoothProfile.HEALTH) {
+                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEALTH service disconnected");
+                    }
+                    if (profile == BluetoothProfile.A2DP) {
+                        PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "A2DP service disconnected");
+                    }
                 }
             };
 
