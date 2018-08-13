@@ -1271,6 +1271,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         }
                         if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
                             ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);
+                        if (key.equals(ApplicationPreferences.PREF_APPLICATION_FIRST_START))
+                            prefEdit.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
                     }
 
                     if (what == 2) {
