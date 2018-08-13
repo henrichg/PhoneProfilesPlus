@@ -61,7 +61,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_2_0 = 100;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_2_0;
 
-    private static final boolean logIntoLogCat = true;
+    private static final boolean logIntoLogCat = false;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -77,7 +77,7 @@ public class PPApplication extends Application {
                                          +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"
-                                         +"|ImportantInfoHelpFragment.onViewCreated"
+                                         //+"|ImportantInfoHelpFragment.onViewCreated"
 
                                          //+"|PostDelayedBroadcastReceiver"
 
@@ -241,7 +241,7 @@ public class PPApplication extends Application {
                                         //+"|EventPreferencesCall"
                                         //+"|MissedCallEventEndBroadcastReceiver"
 
-                                        +"|LauncherActivity"
+                                        //+"|LauncherActivity"
             ;
 
 
