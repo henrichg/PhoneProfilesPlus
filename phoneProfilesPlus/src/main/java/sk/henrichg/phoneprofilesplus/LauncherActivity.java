@@ -10,7 +10,7 @@ public class LauncherActivity extends AppCompatActivity {
     private int startupSource;
     private DataWrapper dataWrapper;
 
-    static final int REQUEST_CODE_IMPORTANT_INFO = 1620;
+    private static final int REQUEST_CODE_IMPORTANT_INFO = 1620;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
