@@ -65,7 +65,6 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
         disableDependedPref(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
-        disableDependedPref(ProfilePreferencesNestedFragment.PREF_DEVICE_ADMINISTRATOR_SETTINGS);
 
         setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
 

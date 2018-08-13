@@ -190,6 +190,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
                                 editor.apply();
+
+                                SharedPreferences preferences = appContext.getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
+                                if (preferences.getInt(Profile.PREF_PROFILE_LOCK_DEVICE, 0) == 3) {
+                                    editor = preferences.edit();
+                                    editor.putInt(Profile.PREF_PROFILE_LOCK_DEVICE, 1);
+                                    editor.apply();
+                                }
                             }
                         }
                     } catch (Exception ignored) {

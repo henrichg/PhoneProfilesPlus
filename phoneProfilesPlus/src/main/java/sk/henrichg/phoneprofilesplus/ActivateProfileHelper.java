@@ -3513,14 +3513,6 @@ class ActivateProfileHelper {
                 }
 
                 switch (profile._lockDevice) {
-                    case 3:
-                        DevicePolicyManager manager = (DevicePolicyManager)context.getSystemService(DEVICE_POLICY_SERVICE);
-                        if (manager != null) {
-                            final ComponentName component = new ComponentName(context, PPDeviceAdminReceiver.class);
-                            if (manager.isAdminActive(component))
-                                manager.lockNow();
-                        }
-                        break;
                     case 2:
                         if (PPApplication.isRooted())
                         {
@@ -3564,6 +3556,7 @@ class ActivateProfileHelper {
                         */
                         break;
                     case 1:
+                    case 3:
                         if (PhoneProfilesService.getInstance() != null) {
                             if (Permissions.checkLockDevice(context) && (PhoneProfilesService.getInstance().lockDeviceActivity == null)) {
                                 try {

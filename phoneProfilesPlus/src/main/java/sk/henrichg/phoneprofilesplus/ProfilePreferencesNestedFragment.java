@@ -53,9 +53,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
     private static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
-    static final String PREF_DEVICE_ADMINISTRATOR_SETTINGS = "prf_pref_lockDevice_deviceAdminSettings";
-    private static final int RESULT_DEVICE_ADMINISTRATOR_SETTINGS = 1982;
-
     private static final String PRF_GRANT_PERMISSIONS = "prf_pref_grantPermissions";
     private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategory";
     static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
@@ -401,67 +398,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     }
                 });
             }
-        }
-
-        Preference deviceAdminSettings = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
-        if (deviceAdminSettings != null) {
-            deviceAdminSettings.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    DevicePolicyManager manager = (DevicePolicyManager)getActivity().getSystemService(DEVICE_POLICY_SERVICE);
-                    final ComponentName component = new ComponentName(getActivity(), PPDeviceAdminReceiver.class);
-                    if ((manager == null) || !manager.isAdminActive(component)) {
-                        if (GlobalGUIRoutines.activityActionExists(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN, context)) {
-                            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-                            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, component);
-                            getActivity().startActivityForResult(intent, RESULT_DEVICE_ADMINISTRATOR_SETTINGS);
-                        } else {
-                            Intent intent = new Intent().setComponent(new ComponentName("com.android.settings", "com.android.settings.DeviceAdminSettings"));
-                            if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
-                                getActivity().startActivityForResult(intent, RESULT_DEVICE_ADMINISTRATOR_SETTINGS);
-                            } else {
-                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = dialogBuilder.create();
-                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                    @Override
-                                    public void onShow(DialogInterface dialog) {
-                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                        if (positive != null) positive.setAllCaps(false);
-                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                        if (negative != null) negative.setAllCaps(false);
-                                    }
-                                });*/
-                                dialog.show();
-                            }
-                        }
-                    } else {
-                        Intent intent = new Intent().setComponent(new ComponentName("com.android.settings", "com.android.settings.DeviceAdminSettings"));
-                        if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
-                            getActivity().startActivityForResult(intent, RESULT_DEVICE_ADMINISTRATOR_SETTINGS);
-                        } else {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });*/
-                            dialog.show();
-                        }
-                    }
-                    return false;
-                }
-            });
         }
 
         InfoDialogPreference infoDialogPreference = (InfoDialogPreference)prefMng.findPreference("prf_pref_preferenceTypesInfo");
@@ -1734,47 +1670,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }
         }
 
-        DevicePolicyManager manager = (DevicePolicyManager) getActivity().getSystemService(DEVICE_POLICY_SERVICE);
-        final ComponentName component = new ComponentName(getActivity(), PPDeviceAdminReceiver.class);
-        /* THIS NOT WORKING - after enabling device admin, entries are not refreshed in dialog :-/
-        if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
-            ListPreference lockDevicePreference = (ListPreference) prefMng.findPreference(Profile.PREF_PROFILE_LOCK_DEVICE);
-            if (lockDevicePreference != null) {
-                CharSequence[] entries = lockDevicePreference.getEntries();
-                if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
-                    if (!manager.isAdminActive(component))
-                        entries[1] = getString(R.string.array_pref_lockDevice_deviceAdmin) + " (" +
-                                getString(R.string.array_pref_lockDevice_not_enabled) + ")";
-                    if (!PPApplication.isRooted())
-                        entries[2] = getString(R.string.array_pref_lockDevice_deviceAdmin) + " (" +
-                                getString(R.string.array_pref_lockDevice_not_rooted) + ")";
-                } else {
-                    if (!manager.isAdminActive(component))
-                        entries[2] = getString(R.string.array_pref_lockDevice_deviceAdmin) + " (" +
-                                getString(R.string.array_pref_lockDevice_not_enabled) + ")";
-                    if (!PPApplication.isRooted())
-                        entries[3] = getString(R.string.array_pref_lockDevice_deviceAdmin) + " (" +
-                                getString(R.string.array_pref_lockDevice_not_rooted) + ")";
-                }
-                lockDevicePreference.setEntries(entries);
-            }
-        }*/
-        if (key.equals(PREF_DEVICE_ADMINISTRATOR_SETTINGS)) {
-            if ((manager != null) && manager.isAdminActive(component)) {
-                Preference preference = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
-                if (preference != null) {
-                    preference.setSummary(R.string.profile_preferences_lockDevice_deviceAdminSettings_summary_activated);
-                    //preference.setEnabled(false);
-                }
-            }
-            else {
-                Preference preference = prefMng.findPreference(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
-                if (preference != null) {
-                    preference.setSummary(R.string.profile_preferences_lockDevice_deviceAdminSettings_summary);
-                    //preference.setEnabled(false);
-                }
-            }
-        }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
             setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean ok = AccessibilityServiceBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_2_0);
@@ -1967,9 +1862,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
-        }
-        if (requestCode == RESULT_DEVICE_ADMINISTRATOR_SETTINGS) {
-            disableDependedPref(PREF_DEVICE_ADMINISTRATOR_SETTINGS);
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
             disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);

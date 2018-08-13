@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2140;
+    private static final int DATABASE_VERSION = 2150;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2346,6 +2346,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SCREEN_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_TIME_SENSOR_PASSED + "=0");
+        }
+
+        if (oldVersion < 2150) {
+            final String selectQuery = "SELECT " + KEY_ID + "," +
+                        KEY_LOCK_DEVICE +
+                    " FROM " + TABLE_PROFILES;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_ID)));
+                    int lockDevice = cursor.getInt(cursor.getColumnIndex(KEY_LOCK_DEVICE));
+
+                    if (lockDevice == 3) {
+                        db.execSQL("UPDATE " + TABLE_PROFILES +
+                                " SET " + KEY_LOCK_DEVICE + "=1" + " " +
+                                "WHERE " + KEY_ID + "=" + id);
+                    }
+
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -8399,6 +8423,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                 int duration = 0;
                                 int zenMode = 0;
+                                int lockDevice = 0;
 
                                 if (cursorExportedDB.moveToFirst()) {
                                     do {
@@ -8486,6 +8511,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 duration = cursorExportedDB.getInt(i);
                                             if (columnNamesExportedDB[i].equals(KEY_VOLUME_ZEN_MODE))
                                                 zenMode = cursorExportedDB.getInt(i);
+                                            if (columnNamesExportedDB[i].equals(KEY_LOCK_DEVICE))
+                                                lockDevice = cursorExportedDB.getInt(i);
                                         }
 
                                         // for non existent fields set default value
@@ -8617,6 +8644,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         if (exportedDBObj.getVersion() < 2100) {
                                             values.put(KEY_DTMF_TONE_WHEN_DIALING, 0);
                                             values.put(KEY_SOUND_ON_TOUCH, 0);
+                                        }
+                                        if (exportedDBObj.getVersion() < 2150) {
+                                            if (lockDevice == 3)
+                                                values.put(KEY_LOCK_DEVICE, 1);
                                         }
 
                                         ///////////////////////////////////////////////////////

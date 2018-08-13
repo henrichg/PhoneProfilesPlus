@@ -713,12 +713,6 @@
                 android:entryValues="@array/wallpaperForValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
-            <Preference
-                android:key="prf_pref_lockDevice_deviceAdminSettings"
-                android:title="@string/profile_preferences_lockDevice_deviceAdminSettings_title"
-                android:summary="@string/profile_preferences_lockDevice_deviceAdminSettings_summary"
-                android:widgetLayout="@layout/start_activity_preference"
-                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_lockDevice"
                 android:summary="@string/array_pref_no_change"
