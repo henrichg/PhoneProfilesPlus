@@ -31,4 +31,3 @@ Required external libs
 - android-job - https://github.com/evernote/android-job
 - time-duration-picker - https://github.com/svenwiegand/time-duration-picker
 - android-betterpickers - https://github.com/code-troopers/android-betterpickers
-- ANR-WatchDog - https://github.com/SalomonBrys/ANR-WatchDog
