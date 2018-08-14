@@ -3717,12 +3717,13 @@ public class DataWrapper {
         });
 
         //if (showToast)
-        //{
-        Toast msg = Toast.makeText(context,
+        if (ApplicationPreferences.notificationsToast(context))
+        {
+            Toast msg = Toast.makeText(context,
                 context.getResources().getString(R.string.toast_events_restarted),
                 Toast.LENGTH_SHORT);
-        msg.show();
-        //}
+            msg.show();
+        }
 
     }
 
