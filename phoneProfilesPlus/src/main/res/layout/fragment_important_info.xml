@@ -175,6 +175,14 @@
             android:textStyle="bold"
             android:textColor="?attr/colorAccent" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_into_sony_stamina_mode"
+            android:id="@+id/activity_info_notification_sony_stamina_mode"
+            android:textStyle="bold" />
+
         <!--
         <TextView
             android:layout_width="wrap_content"

@@ -485,10 +485,19 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }
             });
+            /* currently not implemented in KillerManager
+            if (device instanceof Sony) {
+                infoText = view.findViewById(R.id.activity_info_notification_sony_stamina_mode);
+                infoText.setVisibility(View.GONE);
+            }*/
         }
         else {
             TextView infoText = view.findViewById(R.id.activity_info_notification_power_manager);
             infoText.setVisibility(View.GONE);
+            if (!Build.MANUFACTURER.equalsIgnoreCase("sony")) {
+                infoText = view.findViewById(R.id.activity_info_notification_sony_stamina_mode);
+                infoText.setVisibility(View.GONE);
+            }
         }
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
