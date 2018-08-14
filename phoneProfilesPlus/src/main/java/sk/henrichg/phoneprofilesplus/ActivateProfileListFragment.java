@@ -191,11 +191,11 @@ public class ActivateProfileListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context));
+            this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context));
 
-            if (!ApplicationPreferences.applicationActivatorHeader(dataWrapper.context))
+            if (!ApplicationPreferences.applicationActivatorHeader(this.dataWrapper.context))
             {
-                Profile profile = dataWrapper.getActivatedProfile(false, false);
+                Profile profile = this.dataWrapper.getActivatedProfile(false, false);
                 if ((profile != null) && (!profile._showInActivator))
                 {
                     profile._showInActivator = true;
@@ -203,9 +203,9 @@ public class ActivateProfileListFragment extends Fragment {
                 }
             }
 
-            if (ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context)) {
+            if (ApplicationPreferences.applicationActivatorGridLayout(this.dataWrapper.context)) {
                 int count = 0;
-                for (Profile profile : dataWrapper.profileList)
+                for (Profile profile : this.dataWrapper.profileList)
                 {
                     if (profile._showInActivator)
                         ++count;
@@ -217,12 +217,12 @@ public class ActivateProfileListFragment extends Fragment {
                                 dataWrapper.context.getResources().getString(R.string.profile_name_default),
                                 Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_IGNORED_PROFILE);
                         profile._showInActivator = true;
-                        dataWrapper.profileList.add(profile);
+                        this.dataWrapper.profileList.add(profile);
                     }
                 }
             }
 
-            Collections.sort(dataWrapper.profileList, new ProfileComparator());
+            Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
             return null;
         }
 
