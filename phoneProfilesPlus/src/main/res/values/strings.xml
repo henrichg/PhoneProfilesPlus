@@ -558,7 +558,7 @@
     <string name="important_info_profile_activation_text11">- Red: events are stopped - events run can be enabled through Editor menu item \"Enable events run\".</string>
     <string name="important_info_profile_activation_restart_events_icon">Restart events icon:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Traffic light\" icon:</string>
-    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, add PhoneProfilesPlus into \"Battery\"→\"Battery optimization\"→\"Not optimized\".</string>
+    <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfiles into \"Not optimized\".</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrate when ringing</string>
     <string name="info_notification_event_states">An event may be in one of 5 states:</string>
     <string name="info_notification_event_states_running">Running: event is started and running. Event parameters are satisfied.</string>
@@ -1209,6 +1209,11 @@
     <string name="stop_events_alert_message">Are you sure?</string>
     <string name="array_event_pref_incall_ended">Incoming call ended</string>
     <string name="array_event_pref_outcall_ended">Outgoing call ended</string>
+    <string name="phone_profiles_pref_applicationPowerManager">Power manager</string>
+    <string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>
+    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
+    <string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

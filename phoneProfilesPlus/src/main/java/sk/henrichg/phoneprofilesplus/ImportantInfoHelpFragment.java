@@ -20,6 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.thelittlefireman.appkillermanager.devices.DeviceBase;
+import com.thelittlefireman.appkillermanager.killerManager.KillerManager;
+import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
+
 public class ImportantInfoHelpFragment extends Fragment {
 
     public ImportantInfoHelpFragment() {
@@ -88,7 +92,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         if (news3985) {
             news = true;
-            TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2);
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2_news);
             infoText1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -102,9 +106,9 @@ public class ImportantInfoHelpFragment extends Fragment {
             });
         }
         else {
-            TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files);
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_news);
             infoText1.setVisibility(View.GONE);
-            infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2);
+            infoText1 = view.findViewById(R.id.activity_info_notification_privacy_policy_backup_files_2_news);
             infoText1.setVisibility(View.GONE);
         }
 
@@ -128,9 +132,9 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         else {
             // empty this, for switch off news
-            TextView infoText1 = view.findViewById(R.id.activity_info_notification_dialog_info_text50_news);
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_profile_grant_news);
             infoText1.setVisibility(View.GONE);
-            TextView infoText2 = view.findViewById(R.id.activity_info_notification_dialog_info_text50_profiles_news);
+            TextView infoText2 = view.findViewById(R.id.activity_info_notification_profile_grant_lookSectionProfiles_news);
             infoText2.setVisibility(View.GONE);
         }
 
@@ -150,11 +154,11 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         if (news1804) {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
-                TextView infoText16 = view.findViewById(R.id.activity_info_notification_dialog_info_text16);
+                TextView infoText16 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root);
                 infoText16.setVisibility(View.GONE);
-                TextView infoText18 = view.findViewById(R.id.activity_info_notification_dialog_info_text18);
+                TextView infoText18 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root);
                 infoText18.setVisibility(View.GONE);
-                TextView infoText19 = view.findViewById(R.id.activity_info_notification_dialog_info_text19);
+                TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
                 infoText19.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -182,9 +186,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                         }
                     }
                 });
-                TextView infoText20 = view.findViewById(R.id.activity_info_notification_dialog_info_text20);
+                TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
                 infoText20.setVisibility(View.GONE);
-                TextView infoText21 = view.findViewById(R.id.activity_info_notification_dialog_info_text21);
+                TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
                 infoText21.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -212,19 +216,19 @@ public class ImportantInfoHelpFragment extends Fragment {
                         }
                     }
                 });
-                TextView infoText22 = view.findViewById(R.id.activity_info_notification_dialog_info_text22);
+                TextView infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
                 infoText22.setVisibility(View.GONE);
                 news = true;
             }
         }
         else {
-            TextView infoText15 = view.findViewById(R.id.activity_info_notification_dialog_info_text15);
+            TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
             infoText15.setVisibility(View.GONE);
-            TextView infoText17 = view.findViewById(R.id.activity_info_notification_dialog_info_text17);
+            TextView infoText17 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root_news);
             infoText17.setVisibility(View.GONE);
-            TextView infoText19 = view.findViewById(R.id.activity_info_notification_dialog_info_text19);
+            TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
             infoText19.setVisibility(View.GONE);
-            TextView infoText20 = view.findViewById(R.id.activity_info_notification_dialog_info_text20);
+            TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
             infoText20.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -252,9 +256,9 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }
             });
-            TextView infoText21 = view.findViewById(R.id.activity_info_notification_dialog_info_text21);
+            TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
             infoText21.setVisibility(View.GONE);
-            TextView infoText22 = view.findViewById(R.id.activity_info_notification_dialog_info_text22);
+            TextView infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
             infoText22.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -282,7 +286,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 }
             });
-            TextView infoText10a = view.findViewById(R.id.activity_info_notification_dialog_info_text10a);
+            TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
             infoText10a.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -315,17 +319,17 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         if (news1772) {
             if (android.os.Build.VERSION.SDK_INT >= 21) {
-                TextView infoText14 = view.findViewById(R.id.activity_info_notification_dialog_info_text14);
+                TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
                 infoText14.setVisibility(View.GONE);
 
                 boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                 if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                         GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                    TextView infoText13 = view.findViewById(R.id.activity_info_notification_dialog_info_text13);
+                    TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
                     infoText13.setVisibility(View.GONE);
                 }
                 else {
-                    TextView infoText13 = view.findViewById(R.id.activity_info_notification_dialog_info_text13);
+                    TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
                     if (android.os.Build.VERSION.SDK_INT >= 23)
                         infoText13.setText(R.string.important_info_profile_zenModeM);
                     infoText13.setOnClickListener(new View.OnClickListener() {
@@ -359,17 +363,17 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         }
         else {
-            TextView infoText13 = view.findViewById(R.id.activity_info_notification_dialog_info_text13);
+            TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
             infoText13.setVisibility(View.GONE);
 
             boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
             if ((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                     GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                TextView infoText14 = view.findViewById(R.id.activity_info_notification_dialog_info_text14);
+                TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
                 infoText14.setVisibility(View.GONE);
             }
             else {
-                TextView infoText14 = view.findViewById(R.id.activity_info_notification_dialog_info_text14);
+                TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                     infoText14.setText(R.string.important_info_profile_zenModeM);
                 infoText14.setOnClickListener(new View.OnClickListener() {
@@ -402,35 +406,35 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         if (android.os.Build.VERSION.SDK_INT < 23) {
-            TextView infoText15 = view.findViewById(R.id.activity_info_notification_dialog_info_text15);
+            TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
             infoText15.setVisibility(View.GONE);
-            TextView infoText16 = view.findViewById(R.id.activity_info_notification_dialog_info_text16);
+            TextView infoText16 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root);
             infoText16.setVisibility(View.GONE);
-            TextView infoText17 = view.findViewById(R.id.activity_info_notification_dialog_info_text17);
+            TextView infoText17 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root_news);
             infoText17.setVisibility(View.GONE);
-            TextView infoText18 = view.findViewById(R.id.activity_info_notification_dialog_info_text18);
+            TextView infoText18 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root);
             infoText18.setVisibility(View.GONE);
-            TextView infoText19 = view.findViewById(R.id.activity_info_notification_dialog_info_text19);
+            TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
             infoText19.setVisibility(View.GONE);
-            TextView infoText20 = view.findViewById(R.id.activity_info_notification_dialog_info_text20);
+            TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
             infoText20.setVisibility(View.GONE);
-            TextView infoText21 = view.findViewById(R.id.activity_info_notification_dialog_info_text21);
+            TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
             infoText21.setVisibility(View.GONE);
-            TextView infoText22 = view.findViewById(R.id.activity_info_notification_dialog_info_text22);
+            TextView infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
             infoText22.setVisibility(View.GONE);
-            TextView infoText10a = view.findViewById(R.id.activity_info_notification_dialog_info_text10a);
+            TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
             infoText10a.setVisibility(View.GONE);
         }
 
         if (android.os.Build.VERSION.SDK_INT < 21) {
-            TextView infoText13 = view.findViewById(R.id.activity_info_notification_dialog_info_text13);
+            TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
             infoText13.setVisibility(View.GONE);
-            TextView infoText14 = view.findViewById(R.id.activity_info_notification_dialog_info_text14);
+            TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
             infoText14.setVisibility(View.GONE);
         }
 
         if (ActivateProfileHelper.getMergedRingNotificationVolumes(context)) {
-            TextView infoText3 = view.findViewById(R.id.activity_info_notification_dialog_info_text3);
+            TextView infoText3 = view.findViewById(R.id.activity_info_notification_unlink_ringer_notification_volumes);
             infoText3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -443,8 +447,48 @@ public class ImportantInfoHelpFragment extends Fragment {
             });
         }
         else {
-            TextView infoText3 = view.findViewById(R.id.activity_info_notification_dialog_info_text3);
+            TextView infoText3 = view.findViewById(R.id.activity_info_notification_unlink_ringer_notification_volumes);
             infoText3.setVisibility(View.GONE);
+        }
+
+        boolean intentFound = false;
+        KillerManager.init(getActivity());
+        DeviceBase device = KillerManager.getDevice();
+        if (device != null) {
+            Intent intent = device.getActionPowerSaving(getActivity());
+            if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
+                intentFound = true;
+        }
+        if (intentFound) {
+            TextView infoText = view.findViewById(R.id.activity_info_notification_power_manager);
+            infoText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        KillerManager.doActionPowerSaving(getActivity());
+                    }catch (Exception e) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });*/
+                        dialog.show();
+                    }
+                }
+            });
+        }
+        else {
+            TextView infoText = view.findViewById(R.id.activity_info_notification_power_manager);
+            infoText.setVisibility(View.GONE);
         }
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
@@ -509,7 +553,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText45.setText(spannable);
 
-        TextView infoTextADBDownload = view.findViewById(R.id.activity_info_notification_dialog_info_text61);
+        TextView infoTextADBDownload = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_11);
         str = getString(R.string.important_info_profile_grant_1_howTo_11);
         spannable = new SpannableString(str);
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
@@ -524,7 +568,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextGrant1Command.setText(spannable);
 
-        AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_dialog_contact),
+        AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_contact),
                 getString(R.string.important_info_contact), true, getActivity());
 
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
@@ -553,7 +597,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         if (!news) {
-            TextView infoTextNews = view.findViewById(R.id.activity_info_notification_dialog_news);
+            TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
             infoTextNews.setVisibility(View.GONE);
         }
 

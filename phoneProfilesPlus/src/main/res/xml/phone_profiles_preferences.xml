@@ -77,9 +77,9 @@
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <Preference
-            android:key="applicationAutoStartMIUI"
-            android:title="@string/phone_profiles_pref_systemAutoStartMIUI"
-            android:summary="@string/phone_profiles_pref_systemAutoStartMIUI_summary"
+            android:key="applicationAutoStartManager"
+            android:title="@string/phone_profiles_pref_systemAutoStartManager"
+            android:summary="@string/phone_profiles_pref_systemAutoStartManager_summary"
             android:widgetLayout="@layout/start_activity_preference"
             android:layout="@layout/mp_preference_material_widget">
         </Preference>
@@ -142,6 +142,13 @@
             android:key="applicationBatteryOptimization"
             android:title="@string/phone_profiles_pref_applicationBatteryOptimization"
             android:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget">
+        </Preference>
+        <Preference
+            android:key="applicationPowerManager"
+            android:title="@string/phone_profiles_pref_applicationPowerManager"
+            android:summary="@string/phone_profiles_pref_applicationPowerManager_summary"
             android:widgetLayout="@layout/start_activity_preference"
             android:layout="@layout/mp_preference_material_widget">
         </Preference>

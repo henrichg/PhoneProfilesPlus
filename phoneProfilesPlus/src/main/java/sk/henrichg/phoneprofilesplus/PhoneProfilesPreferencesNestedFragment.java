@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 
 import com.evernote.android.job.JobRequest;
+import com.thelittlefireman.appkillermanager.devices.DeviceBase;
+import com.thelittlefireman.appkillermanager.devices.DevicesManager;
+import com.thelittlefireman.appkillermanager.killerManager.KillerManager;
+import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -51,13 +56,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
     static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
     private static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
-    private static final int RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = 1995;
     private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     //static final int RESULT_LOCALE_SETTINGS = 1996;
-    private static final String PREF_AUTOSTART_PERMISSION_MIUI = "applicationAutoStartMIUI";
+    private static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
     private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
     private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
+    static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
 
     @Override
     public int addPreferencesFromResource() {
@@ -562,7 +567,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                             @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivityForResult(intent, RESULT_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
+                            startActivity(intent);
                         }
                         else {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
@@ -658,32 +663,37 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preferenceCategory != null)
                 preferenceScreen.removePreference(preferenceCategory);
         }
-        preference = prefMng.findPreference(PREF_AUTOSTART_PERMISSION_MIUI);
+        preference = prefMng.findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-            if (PPApplication.romIsMIUI) {
+            boolean intentFound = false;
+            KillerManager.init(getActivity());
+            DeviceBase device = KillerManager.getDevice();
+            if (device != null) {
+                Intent intent = device.getActionAutoStart(getActivity());
+                if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
+                    intentFound = true;
+            }
+            if (intentFound) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         try {
-                            //this will open auto start screen where user can enable permission for your app
-                            Intent intent = new Intent();
-                            intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
-                            startActivity(intent);
+                            KillerManager.doActionAutoStart(getActivity());
                         }catch (Exception e) {
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
-                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface dialog) {
-                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                    if (positive != null) positive.setAllCaps(false);
-                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                    if (negative != null) negative.setAllCaps(false);
-                                }
-                            });*/
+                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            //    @Override
+                            //    public void onShow(DialogInterface dialog) {
+                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            //        if (positive != null) positive.setAllCaps(false);
+                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            //        if (negative != null) negative.setAllCaps(false);
+                            //    }
+                            //});
                             dialog.show();
                         }
                         return false;
@@ -815,6 +825,47 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         return false;
                     }
                 });
+            }
+        }
+        preference = prefMng.findPreference(PREF_APPLICATION_POWER_MANAGER);
+        if (preference != null) {
+            boolean intentFound = false;
+            KillerManager.init(getActivity());
+            DeviceBase device = KillerManager.getDevice();
+            if (device != null) {
+                Intent intent = device.getActionPowerSaving(getActivity());
+                if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
+                    intentFound = true;
+            }
+            if (intentFound) {
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        try {
+                            KillerManager.doActionPowerSaving(getActivity());
+                        }catch (Exception e) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            //    @Override
+                            //    public void onShow(DialogInterface dialog) {
+                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                            //        if (positive != null) positive.setAllCaps(false);
+                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                            //        if (negative != null) negative.setAllCaps(false);
+                            //    }
+                            //});
+                            dialog.show();
+                        }
+                        return false;
+                    }
+                });
+            } else {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySystem");
+                preferenceCategory.removePreference(preference);
             }
         }
     }

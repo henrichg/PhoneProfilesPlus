@@ -3770,7 +3770,7 @@ public class PhoneProfilesService extends Service
                     (PPApplication.romManufacturer.compareToIgnoreCase("xiaomi") == 0)// &&
                     //(android.os.Build.VERSION.SDK_INT >= 24);
             */
-            boolean miui = PPApplication.romIsMIUI;
+            //boolean miui = PPApplication.romIsMIUI;
 
             //Log.e("****** PhoneProfilesService.showProfileNotification", "miui="+miui);
 
@@ -3781,7 +3781,7 @@ public class PhoneProfilesService extends Service
             if (ApplicationPreferences.notificationTheme(dataWrapper.context).equals("2"))
                 contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_light);
             else {*/
-            if (miui/* && (Build.VERSION.SDK_INT < 25)*/) {
+            if (PPApplication.romIsMIUI/* && (Build.VERSION.SDK_INT < 25)*/) {
                 contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
                 PPApplication.logE("PhoneProfilesService.showProfileNotification", "miui");
             }
@@ -4000,7 +4000,7 @@ public class PhoneProfilesService extends Service
 
             if (android.os.Build.VERSION.SDK_INT >= 24) {
                 // workaround for MIUI :-(
-                if ((!miui) || (Build.VERSION.SDK_INT >= 26))
+                if ((!PPApplication.romIsMIUI) || (Build.VERSION.SDK_INT >= 26))
                     notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
                 notificationBuilder.setCustomContentView(contentView);
             }
