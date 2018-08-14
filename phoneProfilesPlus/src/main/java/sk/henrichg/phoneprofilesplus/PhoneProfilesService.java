@@ -2841,6 +2841,8 @@ public class PhoneProfilesService extends Service
 
                     ActivateProfileHelper.setLockScreenDisabled(appContext, false);
 
+                    ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
+
                     AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
                     if (audioManager != null) {
                         ActivateProfileHelper.setRingerVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_RING));
@@ -2930,8 +2932,6 @@ public class PhoneProfilesService extends Service
                     }
                 }
             });
-
-            ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, false);
         }
 
         return onlyStart;

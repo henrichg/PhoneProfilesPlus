@@ -1,7 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.backup.BackupAgentHelper;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.PowerManager;
 import android.support.v4.content.LocalBroadcastManager;
 
 public class PhoneProfilesBackupAgent extends BackupAgentHelper {
@@ -17,14 +20,16 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         // Do NOT CLOSE APPLICATION AFTER RESTORE.
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+        final Context appContext = getApplicationContext();
 
-        PPApplication.exitApp(getApplicationContext(), dataWrapper, null, false);
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+
+        PPApplication.exitApp(appContext, dataWrapper, null, false);
 
         Intent intent = new Intent("FinishActivatorBroadcastReceiver");
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
         intent = new Intent("FinishEditorBroadcastReceiver");
-        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
         /*
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)
@@ -41,13 +46,34 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
         }
         */
 
-        PPApplication.setSavedVersionCode(getApplicationContext(), 0);
-        Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
-        Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
-        WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
-        //ActivateProfileHelper.setScreenUnlocked(getApplicationContext(), true);
-        ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true);
-    }
+        PPApplication.startHandlerThread("PhoneProfilesBackupAgent.onRestoreFinished");
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                PPApplication.logE("PhoneProfilesBackupAgent.onRestoreFinished", "in handler");
 
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneProfilesBackupAgent.onRestoreFinished");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                PPApplication.setSavedVersionCode(appContext, 0);
+                Permissions.setShowRequestAccessNotificationPolicyPermission(appContext, true);
+                Permissions.setShowRequestWriteSettingsPermission(appContext, true);
+                WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true);
+                //ActivateProfileHelper.setScreenUnlocked(appContext, true);
+                ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
+
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {}
+                }
+            }
+        });
+    }
 
 }
