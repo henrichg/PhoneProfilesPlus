@@ -21,6 +21,7 @@ import android.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
 import com.thelittlefireman.appkillermanager.devices.DeviceBase;
@@ -669,10 +670,15 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             KillerManager.init(getActivity());
             DeviceBase device = KillerManager.getDevice();
             if (device != null) {
+                PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", device.getExtraDebugInformations(getActivity()));
                 Intent intent = device.getActionAutoStart(getActivity());
+                PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", "intent="+intent);
                 if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
                     intentFound = true;
+                //if (intent != null && GlobalGUIRoutines.activityIntentExists(intent, getActivity()))
+                //    intentFound = true;
             }
+            PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", "intentFound="+intentFound);
             if (intentFound) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
@@ -680,6 +686,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         try {
                             KillerManager.doActionAutoStart(getActivity());
                         }catch (Exception e) {
+                            PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", Log.getStackTraceString(e));
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                             dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);

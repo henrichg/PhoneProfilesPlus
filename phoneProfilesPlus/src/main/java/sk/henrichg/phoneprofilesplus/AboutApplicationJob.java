@@ -63,7 +63,7 @@ class AboutApplicationJob extends Job {
                 PPApplication.createInformationNotificationChannel(context);
 
                 NotificationCompat.Builder mBuilder;
-                Intent _intent = new Intent(context, AboutApplicationActivity.class);
+                Intent _intent = new Intent(context, DonationActivity.class);
 
                 String nTitle = context.getString(R.string.about_application_donate_button);
                 String nText = context.getString(R.string.donation_description);

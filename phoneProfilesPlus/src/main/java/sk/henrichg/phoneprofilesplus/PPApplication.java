@@ -130,7 +130,7 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
-                                         //+"|PhoneProfilesPreferencesNestedFragment"
+                                         +"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
                                          //+"|Event.notifyEventStart"
