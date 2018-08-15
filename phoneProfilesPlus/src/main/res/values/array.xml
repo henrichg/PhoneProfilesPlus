@@ -41,6 +41,7 @@
         <item>@string/array_pref_screenTimeoutArray_2minutes</item>
         <item>@string/array_pref_screenTimeoutArray_5minutes</item>
         <item>@string/array_pref_screenTimeoutArray_10minutes</item>
+        <item>@string/array_pref_screenTimeoutArray_30minutes</item>
         <item>@string/array_pref_screenTimeoutArray_24hours</item>
         <item>@string/array_pref_screenTimeoutArray_alwaysOn</item>
     </string-array>
@@ -53,6 +54,7 @@
         <item>4</item>
         <item>7</item>
         <item>5</item>
+        <item>9</item>
         <item>6</item>
         <item>8</item>
     </string-array>
@@ -281,7 +283,9 @@
         <item>@string/array_pref_screenTimeoutArray_2minutes</item>
         <item>@string/array_pref_screenTimeoutArray_5minutes</item>
         <item>@string/array_pref_screenTimeoutArray_10minutes</item>
-        <item>@string/array_pref_screenTimeoutArray_never_timeout</item>
+        <item>@string/array_pref_screenTimeoutArray_30minutes</item>
+        <item>@string/array_pref_screenTimeoutArray_24hours</item>
+        <item>@string/array_pref_screenTimeoutArray_alwaysOn</item>
     </string-array>
     <string-array name="screenTimeoutDPValues">
         <item>0</item>
@@ -291,7 +295,9 @@
         <item>4</item>
         <item>7</item>
         <item>5</item>
+        <item>9</item>
         <item>6</item>
+        <item>8</item>
     </string-array>
     <string-array name="displayRotationDPArray">
         <item>@string/array_pref_no_change</item>
