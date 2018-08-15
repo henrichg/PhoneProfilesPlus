@@ -452,11 +452,11 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         boolean intentFound = false;
-        KillerManager.init(getActivity());
+        KillerManager.init(activity);
         DeviceBase device = KillerManager.getDevice();
         if (device != null) {
-            Intent intent = device.getActionPowerSaving(getActivity());
-            if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
+            Intent intent = device.getActionPowerSaving(activity);
+            if (intent != null && ActionsUtils.isIntentAvailable(activity, intent))
                 intentFound = true;
         }
         if (intentFound) {
@@ -465,7 +465,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     try {
-                        KillerManager.doActionPowerSaving(getActivity());
+                        KillerManager.doActionPowerSaving(activity);
                     }catch (Exception e) {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
@@ -516,6 +516,46 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         });
 
+
+        TextView infoText100 = view.findViewById(R.id.activity_info_profile_activation1);
+        String text =
+                getString(R.string.important_info_profile_activation_text1) + "\n" +
+                getString(R.string.important_info_profile_activation_text2) + "\n" +
+                getString(R.string.important_info_profile_activation_text3) + "\n" +
+                getString(R.string.important_info_profile_activation_text4) + "\n" +
+                getString(R.string.important_info_profile_activation_text5) + "\n\n" +
+                getString(R.string.important_info_profile_activation_text6)
+                ;
+        infoText100.setText(text);
+        infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
+        text =
+                getString(R.string.important_info_profile_activation_text9) + "\n" +
+                getString(R.string.important_info_profile_activation_text10) + "\n" +
+                getString(R.string.important_info_profile_activation_text11) + "\n"
+                ;
+        infoText100.setText(text);
+        infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
+        text =
+                getString(R.string.important_info_profile_grant) + "\n\n" +
+                getString(R.string.important_info_profile_root) + "\n\n" +
+                getString(R.string.important_info_profile_settings) + "\n\n" +
+                getString(R.string.important_info_profile_interactive)
+        ;
+        infoText100.setText(text);
+        infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
+        text =
+                getString(R.string.important_info_profile_grant_1_howTo_6) + "\n" +
+                getString(R.string.important_info_profile_grant_1_howTo_7) + "\n" +
+                getString(R.string.important_info_profile_grant_1_howTo_8)
+        ;
+        infoText100.setText(text);
+        infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started);
+        text =
+                getString(R.string.info_notification_event_not_started) + "\n" +
+                getString(R.string.info_notification_event_priority_new)
+        ;
+        infoText100.setText(text);
+
         TextView infoText41 = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
         String str = "Send Intent [\n" +  //↵
                 " Action:sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE\n" +
@@ -523,7 +563,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 " Target:Activity\n" +
                 "]";
         Spannable spannable = new SpannableString(str);
-        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
+        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText41.setText(spannable);
         TextView infoText42 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_restart_events);
@@ -532,7 +572,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 " Target:Activity\n" +
                 "]";
         spannable = new SpannableString(str);
-        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
+        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText42.setText(spannable);
         TextView infoText43 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_enable_run_for_event);
@@ -542,7 +582,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 " Target:Activity\n" +
                 "]";
         spannable = new SpannableString(str);
-        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
+        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText43.setText(spannable);
         TextView infoText44 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_pause_event);
@@ -552,7 +592,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 " Target:Activity\n" +
                 "]";
         spannable = new SpannableString(str);
-        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
+        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText44.setText(spannable);
         TextView infoText45 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_stop_event);
@@ -562,14 +602,14 @@ public class ImportantInfoHelpFragment extends Fragment {
                 " Target:Activity\n" +
                 "]";
         spannable = new SpannableString(str);
-        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
+        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoText45.setText(spannable);
 
         TextView infoTextADBDownload = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_11);
         str = getString(R.string.important_info_profile_grant_1_howTo_11);
         spannable = new SpannableString(str);
-        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
+        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextADBDownload.setText(spannable);
 
@@ -577,12 +617,12 @@ public class ImportantInfoHelpFragment extends Fragment {
         str = "adb\u00A0shell\u00A0pm\u00A0grant\u00A0"+context.getPackageName()+"\u00A0" +
                                 "android.permission.WRITE_SECURE_SETTINGS";
         spannable = new SpannableString(str);
-        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(getActivity())), 0, str.length(),
+        spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextGrant1Command.setText(spannable);
 
         AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_contact),
-                getString(R.string.important_info_contact), true, getActivity());
+                getString(R.string.important_info_contact), true, activity);
 
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
             news = true;

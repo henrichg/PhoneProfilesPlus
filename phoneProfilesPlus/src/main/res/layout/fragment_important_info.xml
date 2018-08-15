@@ -238,7 +238,7 @@
             android:text="@string/important_info_profile_activation_text1"
             android:id="@+id/activity_info_profile_activation1"
             android:textStyle="bold" />
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/important_info_profile_activation_text2"
@@ -268,7 +268,7 @@
             android:layout_height="wrap_content"
             android:text="@string/important_info_profile_activation_text6"
             android:id="@+id/activity_info_profile_activation6"
-            android:textStyle="bold" />
+            android:textStyle="bold" />-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -297,7 +297,7 @@
             android:text="@string/important_info_profile_activation_text9"
             android:id="@+id/activity_info_profile_activation9"
             android:textStyle="bold" />
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/important_info_profile_activation_text10"
@@ -309,15 +309,15 @@
             android:paddingBottom="10dp"
             android:text="@string/important_info_profile_activation_text11"
             android:id="@+id/activity_info_profile_activation11"
-            android:textStyle="bold" />
+            android:textStyle="bold" />-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:text="@string/important_info_profile_grant"
-            android:id="@+id/activity_info_notification_profile_grant" />
-        <TextView
+            android:id="@+id/activity_info_notification_profile_preference_types" />
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
@@ -334,7 +334,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
             android:text="@string/important_info_profile_interactive"
-            android:id="@+id/activity_info_notification_profile_interactive" />
+            android:id="@+id/activity_info_notification_profile_interactive" />-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -378,7 +378,7 @@
             android:layout_height="wrap_content"
             android:text="@string/important_info_profile_grant_1_howTo_6"
             android:id="@+id/activity_info_notification_profile_grant_1_howTo_6" />
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/important_info_profile_grant_1_howTo_7"
@@ -387,7 +387,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/important_info_profile_grant_1_howTo_8"
-            android:id="@+id/activity_info_notification_profile_grant_1_howTo_8" />
+            android:id="@+id/activity_info_notification_profile_grant_1_howTo_8" />-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -410,6 +410,7 @@
             android:text="@string/info_notification_unlink_ringer_notification_volumes"
             android:id="@+id/activity_info_notification_unlink_ringer_notification_volumes"
             android:textColor="?attr/colorAccent" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -538,13 +539,12 @@
             android:text="@string/info_notification_event_not_started"
             android:id="@+id/activity_info_notification_event_not_started"
             android:textStyle="bold" />
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/info_notification_event_priority_new"
             android:id="@+id/activity_info_notification_event_priority"
-            android:textStyle="bold" />
-
+            android:textStyle="bold" />-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
