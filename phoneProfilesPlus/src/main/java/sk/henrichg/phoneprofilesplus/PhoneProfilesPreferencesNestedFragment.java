@@ -670,7 +670,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             KillerManager.init(getActivity());
             DeviceBase device = KillerManager.getDevice();
             if (device != null) {
-                PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", device.getExtraDebugInformations(getActivity()));
+                if (PPApplication.logEnabled()) {
+                    String debugInfo = device.getExtraDebugInformations(getActivity());
+                    if (debugInfo != null)
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", debugInfo);
+                }
                 Intent intent = device.getActionAutoStart(getActivity());
                 PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", "intent="+intent);
                 if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
