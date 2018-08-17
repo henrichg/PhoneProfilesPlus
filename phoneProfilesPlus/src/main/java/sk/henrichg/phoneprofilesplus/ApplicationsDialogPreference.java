@@ -12,22 +12,20 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +39,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
     final List<Application> applicationsList;
 
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
     private ApplicationEditorDialog mEditorDialog;
 
     private RecyclerView applicationsListView;
@@ -104,21 +102,15 @@ public class ApplicationsDialogPreference  extends DialogPreference
     @Override
     protected void showDialog(Bundle state) {
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .autoDismiss(false)
-                .content(getDialogMessage())
-                .customView(R.layout.activity_applications_pref_dialog, false)
-                .dividerColor(0);
-
-        mBuilder.positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText());
-        mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
             @SuppressWarnings("StringConcatenationInLoop")
             @Override
-            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+            public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist())
                 {
                     // fill with application strings separated with |
@@ -144,35 +136,21 @@ public class ApplicationsDialogPreference  extends DialogPreference
                     setIcons();
                     setSummaryAMSDP();
                 }
-                mDialog.dismiss();
-            }
-        });
-        mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                mDialog.dismiss();
             }
         });
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_applications_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                ApplicationsDialogPreference.this.onShow(/*dialog*/);
+                ApplicationsDialogPreference.this.onShow();
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         AppCompatImageButton addButton = layout.findViewById(R.id.applications_pref_dlg_add);
