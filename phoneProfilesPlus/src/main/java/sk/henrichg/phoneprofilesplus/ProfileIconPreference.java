@@ -421,7 +421,7 @@ public class ProfileIconPreference extends DialogPreference {
     }
 
     private void showCustomColorChooser() {
-        mColorDialog = new ProfileIconColorChooserDialog(prefContext, this, useCustomColor, customColor,
+        mColorDialog = new ProfileIconColorChooserDialog((Activity)prefContext, this, useCustomColor, customColor,
                                        ProfileIconPreferenceAdapter.getIconColor(imageIdentifier/*, prefContext*/));
         mColorDialog.show();
 

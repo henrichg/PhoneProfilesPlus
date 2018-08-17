@@ -593,7 +593,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     }
 
     void startEditor(Application application) {
-        mEditorDialog = new ApplicationEditorDialog(context, this, application);
+        mEditorDialog = new ApplicationEditorDialog((Activity)context, this, application);
         mEditorDialog.show();
     }
 

@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -204,7 +205,7 @@ public class MobileCellsPreference extends DialogPreference {
         });
         */
 
-        mMobileCellsFilterDialog = new MobileCellNamesDialog(context, this, true);
+        mMobileCellsFilterDialog = new MobileCellNamesDialog((Activity)context, this, true);
         cellFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,7 +213,7 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
-        mMobileCellNamesDialog = new MobileCellNamesDialog(context, this, false);
+        mMobileCellNamesDialog = new MobileCellNamesDialog((Activity)context, this, false);
         cellName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

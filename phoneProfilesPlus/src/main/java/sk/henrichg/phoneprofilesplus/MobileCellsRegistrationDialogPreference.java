@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
@@ -230,7 +231,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
              }
         );
 
-        mMobileCellNamesDialog = new MobileCellNamesDialog(context, this, false);
+        mMobileCellNamesDialog = new MobileCellNamesDialog((Activity)context, this, false);
         mCellsName.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {

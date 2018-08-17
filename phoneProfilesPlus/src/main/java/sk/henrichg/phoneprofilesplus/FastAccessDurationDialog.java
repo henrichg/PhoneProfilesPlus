@@ -3,16 +3,14 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Arrays;
 import java.util.Timer;
@@ -38,7 +36,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     //Context mContext;
 
-    private final MaterialDialog mDialog;
+    private final AlertDialog mDialog;
     private final TextView mValue;
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
@@ -73,66 +71,56 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             mColor = DialogUtils.resolveColor(context, R.attr.colorAccent);
             */
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(mActivity)
-                .title(mActivity.getString(R.string.profile_preferences_duration) + " - " +
-                        mActivity.getString(R.string.profile_string_0) + ": " + profile._name)
-                .positiveText(android.R.string.ok)
-                .negativeText(android.R.string.cancel)
-                .customView(R.layout.activity_fast_access_duration_dialog, true)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        updateEndsTimer = null;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(mActivity.getString(R.string.profile_preferences_duration) + " - " +
+                               mActivity.getString(R.string.profile_string_0) + ": " + profile._name);
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                updateEndsTimer = null;
 
-                        int hours = mSeekBarHours.getProgress();
-                        int minutes = mSeekBarMinutes.getProgress();
-                        int seconds = mSeekBarSeconds.getProgress();
+                int hours = mSeekBarHours.getProgress();
+                int minutes = mSeekBarMinutes.getProgress();
+                int seconds = mSeekBarSeconds.getProgress();
 
-                        int iValue = (hours * 3600 + minutes * 60 + seconds);
-                        if (iValue < mMin) iValue = mMin;
-                        if (iValue > mMax) iValue = mMax;
+                int iValue = (hours * 3600 + minutes * 60 + seconds);
+                if (iValue < mMin) iValue = mMin;
+                if (iValue > mMax) iValue = mMax;
 
-                        mProfile._duration = iValue;
-                        if (mAfterDo != -1)
-                            mProfile._afterDurationDo = mAfterDo;
-                        DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
+                mProfile._duration = iValue;
+                if (mAfterDo != -1)
+                    mProfile._afterDurationDo = mAfterDo;
+                DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
-                        if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
-                                /*true, mMonochrome, mMonochromeValue,*/
-                                mStartupSource, true, true, false))
-                            mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity);
-                        else
-                            mDataWrapper.finishActivity(mStartupSource, true, mActivity);
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        updateEndsTimer = null;
-                        mDataWrapper.finishActivity(mStartupSource, false, mActivity);
-                    }
-                })
-                .dismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        updateEndsTimer = null;
-                        mDataWrapper.finishActivity(mStartupSource, false, mActivity);
-                    }
-                });
+                if (Permissions.grantProfilePermissions(mActivity, mProfile, false, false,
+                        /*true, mMonochrome, mMonochromeValue,*/
+                        mStartupSource, true, true, false))
+                    mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity);
+                else
+                    mDataWrapper.finishActivity(mStartupSource, true, mActivity);
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                updateEndsTimer = null;
+                mDataWrapper.finishActivity(mStartupSource, false, mActivity);
+            }
+        });
+        dialogBuilder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                updateEndsTimer = null;
+                mDataWrapper.finishActivity(mStartupSource, false, mActivity);
+            }
+        });
 
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_fast_access_duration_dialog, null);
+        dialogBuilder.setView(layout);
 
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
+        mDialog = dialogBuilder.create();
 
         //noinspection ConstantConditions
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
@@ -309,7 +297,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         if (iValue < mMin) iValue = mMin;
         if (iValue > mMax) iValue = mMax;
 
-        if(mDialog!=null && mDialog.getActionButton(DialogAction.POSITIVE).isEnabled()) {
+        if(mDialog!=null && mDialog.getButton(DialogInterface.BUTTON_POSITIVE).isEnabled()) {
             mEnds.setText(GlobalGUIRoutines.getEndsAtString(iValue));
         } else {
             mEnds.setText("--");

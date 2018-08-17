@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -9,46 +9,38 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 class ProfileIconColorChooserDialog implements View.OnClickListener {
 
     private final ProfileIconPreference profileIconPreference;
-    final MaterialDialog mDialog;
-    private final Context context;
+    final AlertDialog mDialog;
+    private final Activity activity;
 
     private final int[] mColors;
     private final int defaultColor;
 
-    ProfileIconColorChooserDialog(Context context, ProfileIconPreference preference, boolean useCustomColor, int selectedColor, int defaultColor)
+    ProfileIconColorChooserDialog(Activity activity, ProfileIconPreference preference, boolean useCustomColor, int selectedColor, int defaultColor)
     {
         profileIconPreference = preference;
-        this.context = context;
+        this.activity = activity;
 
-        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
-                .title(R.string.colorChooser_pref_dialog_title)
-                //.disableDefaultFonts()
-                .customView(R.layout.profile_icon_color_chooser, false)
-                .negativeText(android.R.string.cancel);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.colorChooser_pref_dialog_title);
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        mDialog = dialogBuilder.build();
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.profile_icon_color_chooser, null);
+        dialogBuilder.setView(layout);
 
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
+        mDialog = dialogBuilder.create();
 
-        View layout = mDialog.getCustomView();
-
-        final TypedArray ta = context.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
+        final TypedArray ta = activity.getResources().obtainTypedArray(R.array.colorChooserDialog_colors);
         mColors = new int[ta.length()];
         int preselect = -1;
         for (int i = 0; i < ta.length(); i++) {
@@ -149,7 +141,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        if (ApplicationPreferences.applicationTheme(context).equals("dark")) {
+        if (ApplicationPreferences.applicationTheme(activity).equals("dark")) {
             if (position == 2) // dark gray color
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }
@@ -160,7 +152,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        if (ApplicationPreferences.applicationTheme(context).equals("dark")) {
+        if (ApplicationPreferences.applicationTheme(activity).equals("dark")) {
             if (position == 2) // dark gray color
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }

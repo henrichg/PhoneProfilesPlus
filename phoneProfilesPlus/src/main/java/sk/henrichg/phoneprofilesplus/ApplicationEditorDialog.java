@@ -1,16 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.List;
@@ -24,7 +24,7 @@ class ApplicationEditorDialog
     private final ApplicationsDialogPreference preference;
     private final ApplicationEditorDialogAdapter listAdapter;
 
-    final MaterialDialog mDialog;
+    final AlertDialog mDialog;
     private final TextView mDelayValue;
     private final TimeDurationPickerDialog mDelayValueDialog;
 
@@ -34,7 +34,7 @@ class ApplicationEditorDialog
     int selectedPosition;
     private int startApplicationDelay = 0;
 
-    ApplicationEditorDialog(Context context, ApplicationsDialogPreference preference,
+    ApplicationEditorDialog(Activity activity, ApplicationsDialogPreference preference,
                             final Application application)
     {
         this.preference = preference;
@@ -42,41 +42,31 @@ class ApplicationEditorDialog
         if (mApplication != null)
             startApplicationDelay = mApplication.startApplicationDelay;
 
-        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
-                .title(R.string.applications_editor_dialog_title)
-                //.disableDefaultFonts()
-                .customView(R.layout.activity_applications_editor_dialog, false)
-                .dividerColor(0)
-                .positiveText(android.R.string.ok)
-                .negativeText(android.R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (cachedApplicationList != null) {
-                            ApplicationEditorDialog.this.preference.updateApplication(mApplication, selectedPosition, startApplicationDelay);
-                        }
-                    }
-                });
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.applications_editor_dialog_title);
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (cachedApplicationList != null) {
+                    ApplicationEditorDialog.this.preference.updateApplication(mApplication, selectedPosition, startApplicationDelay);
+                }
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        mDialog = dialogBuilder.build();
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_applications_editor_dialog, null);
+        dialogBuilder.setView(layout);
 
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
+        mDialog = dialogBuilder.create();
 
         //noinspection ConstantConditions
         mDelayValue = layout.findViewById(R.id.applications_editor_dialog_startApplicationDelay);
         mDelayValue.setText(GlobalGUIRoutines.getDurationString(startApplicationDelay));
 
         LinearLayout delayValueRoot = layout.findViewById(R.id.applications_editor_dialog_startApplicationDelay_root);
-        mDelayValueDialog = new TimeDurationPickerDialog(context, new TimeDurationPickerDialog.OnDurationSetListener() {
+        mDelayValueDialog = new TimeDurationPickerDialog(activity, new TimeDurationPickerDialog.OnDurationSetListener() {
             @Override
             public void onDurationSet(TimeDurationPicker view, long duration) {
                 int iValue = (int) duration / 1000;
@@ -100,7 +90,7 @@ class ApplicationEditorDialog
             }
         );
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         //noinspection ConstantConditions
         FastScrollRecyclerView listView = layout.findViewById(R.id.applications_editor_dialog_listview);
         listView.setLayoutManager(layoutManager);
@@ -128,12 +118,12 @@ class ApplicationEditorDialog
         }
 
         if (selectedPosition == -1) {
-            MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
+            Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             if (positive != null)
                 positive.setEnabled(false);
         }
 
-        listAdapter = new ApplicationEditorDialogAdapter(this, context);
+        listAdapter = new ApplicationEditorDialogAdapter(this, activity);
         listView.setAdapter(listAdapter);
 
         if (selectedPosition > -1) {
@@ -143,7 +133,7 @@ class ApplicationEditorDialog
 
     void doOnItemSelected(int position)
     {
-        View positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         positive.setEnabled(true);
 
         selectedPosition = position;
