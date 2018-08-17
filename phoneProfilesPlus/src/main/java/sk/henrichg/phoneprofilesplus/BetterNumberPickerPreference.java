@@ -1,16 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.codetroopers.betterpickers.numberpicker.NumberPicker;
 
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ class BetterNumberPickerPreference extends DialogPreference {
 
     private final String mMaxExternalKey, mMinExternalKey;
 
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
     private NumberPicker mNumberPicker;
 
     private final Context context;
@@ -47,64 +47,48 @@ class BetterNumberPickerPreference extends DialogPreference {
 
     @Override
     protected void showDialog(Bundle state) {
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .content(getDialogMessage())
-                .autoDismiss(false)
-                .customView(R.layout.activity_better_number_pref_dialog, true)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        BigDecimal number = mNumberPicker.getEnteredNumber();
-                        if (isSmaller(number) || isBigger(number)) {
-                            String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(mMin), String.valueOf(mMax));
-                            mNumberPicker.getErrorView().setText(errorText);
-                            mNumberPicker.getErrorView().show();
-                            return;
-                        } else if (isSmaller(number)) {
-                            String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(mMin));
-                            mNumberPicker.getErrorView().setText(errorText);
-                            mNumberPicker.getErrorView().show();
-                            return;
-                        } else if (isBigger(number)) {
-                            String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(mMax));
-                            mNumberPicker.getErrorView().setText(errorText);
-                            mNumberPicker.getErrorView().show();
-                            return;
-                        }
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                BigDecimal number = mNumberPicker.getEnteredNumber();
+                if (isSmaller(number) || isBigger(number)) {
+                    String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(mMin), String.valueOf(mMax));
+                    mNumberPicker.getErrorView().setText(errorText);
+                    mNumberPicker.getErrorView().show();
+                    return;
+                } else if (isSmaller(number)) {
+                    String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(mMin));
+                    mNumberPicker.getErrorView().setText(errorText);
+                    mNumberPicker.getErrorView().show();
+                    return;
+                } else if (isBigger(number)) {
+                    String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(mMax));
+                    mNumberPicker.getErrorView().setText(errorText);
+                    mNumberPicker.getErrorView().show();
+                    return;
+                }
 
-                        value = String.valueOf(mNumberPicker.getNumber());
+                value = String.valueOf(mNumberPicker.getNumber());
 
-                        if (callChangeListener(value))
-                        {
-                            persistString(value);
-                            mDialog.dismiss();
-                        }
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        mDialog.dismiss();
-                    }
-                });
+                if (callChangeListener(value))
+                {
+                    persistString(value);
+                    mDialog.dismiss();
+                }
+            }
+        });
 
-        mDialog = mBuilder.build();
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_better_number_pref_dialog, null);
+        dialogBuilder.setView(layout);
 
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
+        mDialog = dialogBuilder.create();
 
         // External values
         if (mMaxExternalKey != null) {
