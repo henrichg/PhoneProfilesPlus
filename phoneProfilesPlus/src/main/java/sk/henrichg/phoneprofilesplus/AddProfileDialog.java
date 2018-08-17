@@ -1,16 +1,16 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,43 +19,35 @@ class AddProfileDialog
 {
     private final EditorProfileListFragment profileListFragment;
 
-    final MaterialDialog mDialog;
-    private final Context context;
+    final AlertDialog mDialog;
+    private final Activity activity;
 
     private final LinearLayout linlaProgress;
     private final ListView listView;
 
-    AddProfileDialog(Context context, EditorProfileListFragment profileListFragment)
+    AddProfileDialog(Activity activity, EditorProfileListFragment profileListFragment)
     {
         this.profileListFragment = profileListFragment;
-        this.context = context;
+        this.activity = activity;
 
-        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(context)
-                .title(R.string.new_profile_predefined_profiles_dialog)
-                        //.disableDefaultFonts()
-                .negativeText(android.R.string.cancel)
-                .autoDismiss(true)
-                .customView(R.layout.activity_profile_pref_dialog, false);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.new_profile_predefined_profiles_dialog);
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-        dialogBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = activity.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_profile_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+
             @Override
             public void onShow(DialogInterface dialog) {
-                AddProfileDialog.this.onShow(/*dialog*/);
+                AddProfileDialog.this.onShow();
             }
         });
-
-        mDialog = dialogBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
@@ -91,17 +83,17 @@ class AddProfileDialog
 
                 Profile profile;
                 profile = DataWrapper.getNonInitializedProfile(
-                        context.getResources().getString(R.string.profile_name_default),
+                        activity.getResources().getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
-                profile.generateIconBitmap(context, false, 0xFF);
-                if (ApplicationPreferences.applicationEditorPrefIndicator(context))
-                    profile.generatePreferencesIndicator(context, false, 0xFF);
+                profile.generateIconBitmap(activity, false, 0xFF);
+                if (ApplicationPreferences.applicationEditorPrefIndicator(activity))
+                    profile.generatePreferencesIndicator(activity, false, 0xFF);
                 profileList.add(profile);
                 for (int index = 0; index < 6; index++) {
-                    profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false, context);
-                    profile.generateIconBitmap(context, false, 0xFF);
-                    if (ApplicationPreferences.applicationEditorPrefIndicator(context))
-                        profile.generatePreferencesIndicator(context, false, 0xFF);
+                    profile = profileListFragment.activityDataWrapper.getPredefinedProfile(index, false, activity);
+                    profile.generateIconBitmap(activity, false, 0xFF);
+                    if (ApplicationPreferences.applicationEditorPrefIndicator(activity))
+                        profile.generatePreferencesIndicator(activity, false, 0xFF);
                     profileList.add(profile);
                 }
 
@@ -116,7 +108,7 @@ class AddProfileDialog
                 listView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
 
-                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(context, profileList);
+                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(activity, profileList);
                 listView.setAdapter(addProfileAdapter);
             }
 

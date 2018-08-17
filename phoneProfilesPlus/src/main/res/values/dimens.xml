@@ -18,4 +18,6 @@
     <dimen name="popup_corner_radius">4dp</dimen>
     <dimen name="button_corner_radius">4dp</dimen>
 
+    <dimen name="alert_dialog_top_padding">10dp</dimen>
+
 </resources>
