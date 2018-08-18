@@ -1,18 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,9 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,8 +40,8 @@ public class WifiSSIDPreference extends DialogPreference {
 
     private final Context context;
 
-    private MaterialDialog mDialog;
-    private MaterialDialog mSelectorDialog;
+    private AlertDialog mDialog;
+    private AlertDialog mSelectorDialog;
     private LinearLayout progressLinearLayout;
     private RelativeLayout dataRelativeLayout;
     private ListView SSIDListView;
@@ -72,20 +71,16 @@ public class WifiSSIDPreference extends DialogPreference {
         PPApplication.forceRegisterReceiversForWifiScanner(context);
         forceRegister = true;
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .autoDismiss(false)
-                .content(getDialogMessage())
-                .customView(R.layout.activity_wifi_ssid_pref_dialog, false)
-                .dividerColor(0)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (shouldPersist()) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (shouldPersist()) {
                             /*
                             SSIDName.clearFocus();
 
@@ -96,39 +91,26 @@ public class WifiSSIDPreference extends DialogPreference {
                                 value = editText;
                             */
 
-                            if (callChangeListener(value))
-                            {
-                                persistString(value);
-                            }
-                        }
+                    if (callChangeListener(value))
+                    {
+                        persistString(value);
                     }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        mDialog.dismiss();
-                    }
-                });
+                }
+            }
+        });
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_wifi_ssid_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 refreshListView(false, "");
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         progressLinearLayout = layout.findViewById(R.id.wifi_ssid_pref_dlg_linla_progress);
@@ -224,12 +206,14 @@ public class WifiSSIDPreference extends DialogPreference {
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectorDialog = new MaterialDialog.Builder(context)
-                        .title(R.string.pref_dlg_change_selection_title)
-                        .items(R.array.wifiSSIDChangeSelectionArray)
-                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                mSelectorDialog = new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.pref_dlg_change_selection_title)
+                        .setCancelable(true)
+                        .setNegativeButton(getNegativeButtonText(), null)
+                        //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                        .setItems(R.array.wifiSSIDChangeSelectionArray, new DialogInterface.OnClickListener() {
                             @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
                                         value = "";
@@ -243,11 +227,9 @@ public class WifiSSIDPreference extends DialogPreference {
                                     default:
                                 }
                                 refreshListView(false, "");
-                                return true;
+                                //dialog.dismiss();
                             }
                         })
-                        .positiveText(R.string.pref_dlg_change_selection_button)
-                        .negativeText(getNegativeButtonText())
                         .show();
             }
         });

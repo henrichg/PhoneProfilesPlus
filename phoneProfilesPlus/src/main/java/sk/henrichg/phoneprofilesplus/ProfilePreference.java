@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
@@ -9,16 +10,14 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -31,7 +30,7 @@ public class ProfilePreference extends DialogPreference {
     int showDuration;
 
     private final Context prefContext;
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
 
     private LinearLayout linlaProgress;
     private ListView listView;
@@ -64,40 +63,24 @@ public class ProfilePreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         PPApplication.logE("ProfilePreference.showDialog", "xx");
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .negativeText(getNegativeButtonText())
-                .content(getDialogMessage())
-                .customView(R.layout.activity_profile_pref_dialog, false)
-                .autoDismiss(false)
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        mDialog.dismiss();
-                    }
-                });
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_profile_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 ProfilePreference.this.onShow(/*dialog*/);
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);

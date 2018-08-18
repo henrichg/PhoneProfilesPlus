@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
@@ -10,23 +11,21 @@ import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-
 public class VolumeDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
     // Layout widgets.
 
     private final Context _context;
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
     private SeekBar seekBar = null;
     private TextView valueText = null;
     private CheckBox noChangeChBox = null;
@@ -110,38 +109,29 @@ public class VolumeDialogPreference extends
 
     @Override
     protected void showDialog(Bundle state) {
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .content(getDialogMessage())
-                .customView(R.layout.activity_volume_pref_dialog, true)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (shouldPersist()) {
-                            persistString(Integer.toString(value + minimumValue)
-                                    + "|" + Integer.toString(noChange)
-                                    + "|" + Integer.toString(sharedProfile));
-                            setSummaryVDP();
-                        }
-                    }
-                });
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (shouldPersist()) {
+                    persistString(Integer.toString(value + minimumValue)
+                            + "|" + Integer.toString(noChange)
+                            + "|" + Integer.toString(sharedProfile));
+                    setSummaryVDP();
+                }
+            }
+        });
 
-        mDialog = mBuilder.build();
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_volume_pref_dialog, null);
+        dialogBuilder.setView(layout);
 
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
+        mDialog = dialogBuilder.create();
 
         //noinspection ConstantConditions
         seekBar = layout.findViewById(R.id.volumePrefDialogSeekbar);

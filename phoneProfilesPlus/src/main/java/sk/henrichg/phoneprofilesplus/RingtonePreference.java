@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,13 +19,12 @@ import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -42,7 +42,7 @@ public class RingtonePreference extends DialogPreference {
     private final boolean showDefault;
 
     private final Context prefContext;
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
     private ListView listView;
 
     private final Map<String, String> toneList = new LinkedHashMap<>();
@@ -82,58 +82,42 @@ public class RingtonePreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         PPApplication.logE("RingtonePreference.showDialog", "xx");
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .content(getDialogMessage())
-                .customView(R.layout.activity_ringtone_pref_dialog, false)
-                .autoDismiss(false)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (shouldPersist())
-                        {
-                            // set summary
-                            PPApplication.logE("RingtonePreference._setSummary", "OK button");
-                            _setSummary(ringtone);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (shouldPersist())
+                {
+                    // set summary
+                    PPApplication.logE("RingtonePreference._setSummary", "OK button");
+                    _setSummary(ringtone);
 
-                            // save to preferences
-                            persistString(ringtone);
+                    // save to preferences
+                    persistString(ringtone);
 
-                            // and notify
-                            notifyChanged();
-                        }
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        mDialog.dismiss();
-                    }
-                });
+                    // and notify
+                    notifyChanged();
+                }
+            }
+        });
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_ringtone_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 RingtonePreference.this.onShow(/*dialog*/);
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         listView = layout.findViewById(R.id.ringtone_pref_dlg_listview);
@@ -327,7 +311,7 @@ public class RingtonePreference extends DialogPreference {
     {
         ringtone = newRingtone;
 
-        View positive = mDialog.getActionButton(DialogAction.POSITIVE);
+        View positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
         positive.setEnabled(true);
 
         listAdapter.notifyDataSetChanged();
@@ -351,7 +335,7 @@ public class RingtonePreference extends DialogPreference {
             Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
             if (_ringtone == null) {
                 // ringtone not found
-                View positive = mDialog.getActionButton(DialogAction.POSITIVE);
+                View positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
                 positive.setEnabled(false);
             }
 
