@@ -135,7 +135,6 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
 
                     setIcons();
                     setSummaryAMSDP();
-                    mDialog.dismiss();
                 }
             }
         });
