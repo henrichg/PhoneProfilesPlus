@@ -12,9 +12,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,8 +25,6 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -34,7 +33,7 @@ public class BrightnessDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
 
     private final Context _context;
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
 
     // Layout widgets.
     private SeekBar seekBar = null;
@@ -103,47 +102,38 @@ public class BrightnessDialogPreference extends
     @Override
     protected void showDialog(Bundle state) {
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                        //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .content(getDialogMessage())
-                .customView(R.layout.activity_brightness_pref_dialog, true)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (shouldPersist()) {
-                            persistString(Integer.toString(value + minimumValue)
-                                    + "|" + Integer.toString(noChange)
-                                    + "|" + Integer.toString(automatic)
-                                    + "|" + Integer.toString(sharedProfile)
-                                    + "|" + Integer.toString(changeLevel));
-                            setSummaryBDP();
-                        }
-                    }
-                });
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (shouldPersist()) {
+                    persistString(Integer.toString(value + minimumValue)
+                            + "|" + Integer.toString(noChange)
+                            + "|" + Integer.toString(automatic)
+                            + "|" + Integer.toString(sharedProfile)
+                            + "|" + Integer.toString(changeLevel));
+                    setSummaryBDP();
+                }
+            }
+        });
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_brightness_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 BrightnessDialogPreference.this.onShow(/*dialog*/);
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         seekBar = layout.findViewById(R.id.brightnessPrefDialogSeekbar);

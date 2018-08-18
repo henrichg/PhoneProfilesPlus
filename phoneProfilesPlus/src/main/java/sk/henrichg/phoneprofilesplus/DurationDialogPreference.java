@@ -1,19 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
@@ -25,7 +24,7 @@ public class DurationDialogPreference extends DialogPreference
 
     private final int mMin, mMax;
 
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
     private TextView mValue;
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
@@ -54,47 +53,39 @@ public class DurationDialogPreference extends DialogPreference
     @SuppressLint("SetTextI18n")
     @Override
     protected void showDialog(Bundle state) {
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                //.disableDefaultFonts()
-                .icon(getDialogIcon())
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .content(getDialogMessage())
-                .customView(R.layout.activity_duration_pref_dialog, true)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        int hours = mSeekBarHours.getProgress();
-                        int minutes = mSeekBarMinutes.getProgress();
-                        int seconds = mSeekBarSeconds.getProgress();
 
-                        int iValue = (hours * 3600 + minutes * 60 + seconds);
-                        if (iValue < mMin) iValue = mMin;
-                        if (iValue > mMax) iValue = mMax;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                int hours = mSeekBarHours.getProgress();
+                int minutes = mSeekBarMinutes.getProgress();
+                int seconds = mSeekBarSeconds.getProgress();
 
-                        value = String.valueOf(iValue);
+                int iValue = (hours * 3600 + minutes * 60 + seconds);
+                if (iValue < mMin) iValue = mMin;
+                if (iValue > mMax) iValue = mMax;
 
-                        if (callChangeListener(value)) {
-                            //persistInt(mNumberPicker.getValue());
-                            persistString(value);
-                            setSummaryDDP();
-                        }
-                    }
-                });
+                value = String.valueOf(iValue);
 
-        mDialog = mBuilder.build();
+                if (callChangeListener(value)) {
+                    //persistInt(mNumberPicker.getValue());
+                    persistString(value);
+                    setSummaryDDP();
+                }
+            }
+        });
 
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_duration_pref_dialog, null);
+        dialogBuilder.setView(layout);
 
-        View layout = mDialog.getCustomView();
+        mDialog = dialogBuilder.create();
 
         //noinspection ConstantConditions
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);

@@ -20,7 +20,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,8 +27,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
-
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -238,33 +235,6 @@ public class BluetoothNamePreference extends DialogPreference {
                             }
                         })
                         .show();
-                /*
-                mSelectorDialog = new MaterialDialog.Builder(context)
-                        .title(R.string.pref_dlg_change_selection_title)
-                        .items(R.array.bluetoothNameDChangeSelectionArray)
-                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
-                            @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                                switch (which) {
-                                    case 0:
-                                        value = "";
-                                        break;
-                                    case 1:
-                                        for (BluetoothDeviceData bluetooth : bluetoothList) {
-                                            if (bluetooth.name.equals(bluetoothName.getText().toString()))
-                                                addBluetoothName(bluetooth.name);
-                                        }
-                                        break;
-                                    default:
-                                }
-                                refreshListView(false, "");
-                                return true;
-                            }
-                        })
-                        .positiveText(R.string.pref_dlg_change_selection_button)
-                        .negativeText(getNegativeButtonText())
-                        .show();
-                        */
             }
         });
 

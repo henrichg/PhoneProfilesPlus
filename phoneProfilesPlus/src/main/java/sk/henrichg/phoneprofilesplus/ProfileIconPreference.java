@@ -101,7 +101,6 @@ public class ProfileIconPreference extends DialogPreference {
                         if (shouldPersist()) {
                             setImageIdentifierAndType("", true, true);
                         }
-                        mDialog.dismiss();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {

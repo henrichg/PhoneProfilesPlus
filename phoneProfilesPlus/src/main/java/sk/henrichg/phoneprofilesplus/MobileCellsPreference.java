@@ -9,12 +9,13 @@ import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
@@ -22,9 +23,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,9 +43,9 @@ public class MobileCellsPreference extends DialogPreference {
 
     private final Context context;
 
-    private MaterialDialog mDialog;
-    private MaterialDialog mRenameDialog;
-    private MaterialDialog mSelectorDialog;
+    private AlertDialog mDialog;
+    private AlertDialog mRenameDialog;
+    private AlertDialog mSelectorDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     TextView cellFilter;
@@ -107,60 +105,41 @@ public class MobileCellsPreference extends DialogPreference {
         db.deleteMobileCell(2649613);
         */
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .autoDismiss(false)
-                .content(getDialogMessage())
-                .customView(R.layout.activity_mobile_cells_pref_dialog, false)
-                .dividerColor(0)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (shouldPersist()) {
-                            //Log.d("MobileCellsPreference.onPositive", "1");
-                            if (callChangeListener(value))
-                            {
-                                //Log.d("MobileCellsPreference.onPositive", "2");
-                                DatabaseHandler db = DatabaseHandler.getInstance(context);
-                                db.saveMobileCellsList(cellsList, false, false);
-                                persistString(value);
-                            }
-                        }
-                        //dialogCanceled = false;
-                        mDialog.dismiss();
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (shouldPersist()) {
+                    //Log.d("MobileCellsPreference.onPositive", "1");
+                    if (callChangeListener(value))
+                    {
+                        //Log.d("MobileCellsPreference.onPositive", "2");
+                        DatabaseHandler db = DatabaseHandler.getInstance(context);
+                        db.saveMobileCellsList(cellsList, false, false);
+                        persistString(value);
                     }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        //dialogCanceled = true;
-                        mDialog.dismiss();
-                    }
-                });
+                }
+                //dialogCanceled = false;
+            }
+        });
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_mobile_cells_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 refreshListView(false);
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //progressLinearLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
         //dataRelativeLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
@@ -225,12 +204,14 @@ public class MobileCellsPreference extends DialogPreference {
         editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRenameDialog = new MaterialDialog.Builder(context)
-                        .title(R.string.mobile_cells_pref_dlg_cell_rename_title)
-                        .items(R.array.mobileCellsRenameArray)
-                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                mRenameDialog = new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.mobile_cells_pref_dlg_cell_rename_title)
+                        .setCancelable(true)
+                        .setNegativeButton(getNegativeButtonText(), null)
+                        //.setSingleChoiceItems(R.array.mobileCellsRenameArray, 0, new DialogInterface.OnClickListener() {
+                        .setItems(R.array.mobileCellsRenameArray, new DialogInterface.OnClickListener() {
                             @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            public void onClick(DialogInterface dialog, int which) {
                                 final DatabaseHandler db = DatabaseHandler.getInstance(context);
                                 switch (which) {
                                     case 0:
@@ -242,11 +223,8 @@ public class MobileCellsPreference extends DialogPreference {
                                         break;
                                 }
                                 refreshListView(false);
-                                return true;
                             }
                         })
-                        .positiveText(R.string.mobile_cells_pref_dlg_cell_rename_button)
-                        .negativeText(getNegativeButtonText())
                         .show();
             }
         });
@@ -254,12 +232,14 @@ public class MobileCellsPreference extends DialogPreference {
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectorDialog = new MaterialDialog.Builder(context)
-                        .title(R.string.pref_dlg_change_selection_title)
-                        .items(R.array.mobileCellsChangeSelectionArray)
-                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                mSelectorDialog = new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.pref_dlg_change_selection_title)
+                        .setCancelable(true)
+                        .setNegativeButton(getNegativeButtonText(), null)
+                        //.setSingleChoiceItems(R.array.mobileCellsChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                        .setItems(R.array.mobileCellsChangeSelectionArray, new DialogInterface.OnClickListener() {
                             @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
                                         value = "";
@@ -279,11 +259,8 @@ public class MobileCellsPreference extends DialogPreference {
                                     default:
                                 }
                                 refreshListView(false);
-                                return true;
                             }
                         })
-                        .positiveText(R.string.pref_dlg_change_selection_button)
-                        .negativeText(getNegativeButtonText())
                         .show();
             }
         });

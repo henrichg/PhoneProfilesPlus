@@ -105,8 +105,6 @@ public class RingtonePreference extends DialogPreference {
 
                             // and notify
                             notifyChanged();
-
-                            mDialog.dismiss();
                         }
                     }
                 })

@@ -93,7 +93,6 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                     setIcons();
                     setSummaryPMSDP();
                 }
-                mDialog.dismiss();
             }
         });
         mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {

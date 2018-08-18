@@ -6,5 +6,6 @@
     android:gravity="center"
     android:clipToPadding="false"
     android:scrollbarStyle="outsideOverlay"
-    android:divider="@android:color/transparent" />
+    android:divider="@android:color/transparent"
+    android:paddingTop="@dimen/alert_dialog_top_padding" />
 

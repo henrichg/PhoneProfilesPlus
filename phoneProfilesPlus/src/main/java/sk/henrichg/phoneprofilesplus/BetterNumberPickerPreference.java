@@ -79,7 +79,6 @@ class BetterNumberPickerPreference extends DialogPreference {
                 if (callChangeListener(value))
                 {
                     persistString(value);
-                    mDialog.dismiss();
                 }
             }
         });

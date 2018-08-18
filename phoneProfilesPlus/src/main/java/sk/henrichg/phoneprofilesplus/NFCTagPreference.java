@@ -89,7 +89,6 @@ public class NFCTagPreference extends DialogPreference {
                                 persistString(value);
                             }
                         }
-                        mDialog.dismiss();
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {

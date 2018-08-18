@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -8,17 +9,15 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     private final Context _context;
     private String value = "";
 
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
 
     // Layout widgets.
     private LinearLayout linlaProgress;
@@ -49,70 +48,52 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
     }
 
     protected void showDialog(Bundle state) {
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                .content(getDialogMessage())
-                .customView(R.layout.activity_contact_groups_multiselect_pref_dialog, false)
-                .dividerColor(0)
-                .autoDismiss(false)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @SuppressWarnings("StringConcatenationInLoop")
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (shouldPersist())
-                        {
-                            // fill with strings of contact groups separated with |
-                            value = "";
-                            List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
-                            if (contactGroupList != null)
-                            {
-                                for (ContactGroup contactGroup : contactGroupList)
-                                {
-                                    if (contactGroup.checked)
-                                    {
-                                        if (!value.isEmpty())
-                                            value = value + "|";
-                                        value = value + contactGroup.groupId;
-                                    }
-                                }
-                            }
-                            persistString(value);
 
-                            setSummaryCMSDP();
-                            mDialog.dismiss();
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (shouldPersist())
+                {
+                    // fill with strings of contact groups separated with |
+                    value = "";
+                    List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
+                    if (contactGroupList != null)
+                    {
+                        for (ContactGroup contactGroup : contactGroupList)
+                        {
+                            if (contactGroup.checked)
+                            {
+                                if (!value.isEmpty())
+                                    value = value + "|";
+                                value = value + contactGroup.groupId;
+                            }
                         }
                     }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        mDialog.dismiss();
-                    }
-                });
+                    persistString(value);
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+                    setSummaryCMSDP();
+                }
+            }
+        });
+
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_contact_groups_multiselect_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 ContactGroupsMultiSelectDialogPreference.this.onShow(/*dialog*/);
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);

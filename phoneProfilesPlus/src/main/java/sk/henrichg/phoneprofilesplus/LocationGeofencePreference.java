@@ -8,11 +8,11 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,16 +21,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-
 public class LocationGeofencePreference extends DialogPreference {
 
     private final Context context;
 
     final int onlyEdit;
 
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     //private TextView geofenceName;
@@ -64,55 +61,30 @@ public class LocationGeofencePreference extends DialogPreference {
             DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
         }
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .autoDismiss(false)
-                .content(getDialogMessage())
-                .customView(R.layout.activity_location_pref_dialog, false)
-                .dividerColor(0);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
 
         if (onlyEdit == 0) {
-            mBuilder.positiveText(getPositiveButtonText())
-                    .negativeText(getNegativeButtonText());
-            mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+            dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+            dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+                @SuppressWarnings("StringConcatenationInLoop")
                 @Override
-                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+                public void onClick(DialogInterface dialog, int which) {
                     persistGeofence(false);
-                    mDialog.dismiss();
                 }
             });
-            mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
-                @Override
-                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                    mDialog.dismiss();
-                }
-            });
-
         }
         else {
-            mBuilder.positiveText(getPositiveButtonText());
-            mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
-                @Override
-                public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                    mDialog.dismiss();
-                }
-            });
+            dialogBuilder.setPositiveButton(getPositiveButtonText(), null);
         }
 
-        mDialog = mBuilder.build();
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_location_pref_dialog, null);
+        dialogBuilder.setView(layout);
 
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
+        mDialog = dialogBuilder.create();
 
         //progressLinearLayout = layout.findViewById(R.id.location_pref_dlg_linla_progress);
         //dataRelativeLayout = layout.findViewById(R.id.location_pref_dlg_rella_data);
@@ -190,14 +162,19 @@ public class LocationGeofencePreference extends DialogPreference {
         });
 
         final Button unselectAllButton = layout.findViewById(R.id.location_pref_dlg_unselectAll);
-        //unselectAllButton.setAllCaps(false);
-        unselectAllButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
-                refreshListView();
-            }
-        });
+        if (onlyEdit == 0) {
+            //unselectAllButton.setAllCaps(false);
+            unselectAllButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
+                    refreshListView();
+                }
+            });
+        }
+        else {
+            unselectAllButton.setVisibility(View.GONE);
+        }
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 

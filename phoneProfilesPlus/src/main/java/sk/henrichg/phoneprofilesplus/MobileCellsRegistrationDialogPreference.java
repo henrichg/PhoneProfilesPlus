@@ -8,19 +8,16 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.afollestad.materialdialogs.internal.MDButton;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
@@ -34,7 +31,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private final int mMin, mMax;
     long event_id;
 
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
     private TextView mValue;
     private SeekBar mSeekBarHours;
     private SeekBar mSeekBarMinutes;
@@ -43,7 +40,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     private TextView mStatus;
     private TextView mRemainingTime;
     private TimeDurationPickerDialog mValueDialog;
-    private MDButton startButton;
+    private Button startButton;
     private Button stopButton;
     private MobileCellNamesDialog mMobileCellNamesDialog;
 
@@ -71,60 +68,43 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
     @Override
     protected void showDialog(Bundle state) {
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                        //.disableDefaultFonts()
-                .icon(getDialogIcon())
-                .positiveText(R.string.mobile_cells_registration_pref_dlg_start_button)
-                .negativeText(getNegativeButtonText())
-                .autoDismiss(false)
-                .content(getDialogMessage())
-                .customView(R.layout.activity_mobile_cells_registration_pref_dialog, true)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (Permissions.grantMobileCellsRegistrationDialogPermissions(context)) {
-                            if (PhoneStateScanner.enabledAutoRegistration) {
-                                if (!PhoneStateScanner.isEventAdded(event_id))
-                                    PhoneStateScanner.addEvent(event_id);
-                                else
-                                    PhoneStateScanner.removeEvent(event_id);
-                                mDialog.dismiss();
-                            }
-                            else {
-                                if (!PhoneStateScanner.isEventAdded(event_id))
-                                    PhoneStateScanner.addEvent(event_id);
-                                startRegistration();
-                            }
-                        }
-                    }
-                });
-        mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(R.string.mobile_cells_registration_pref_dlg_start_button, new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
             @Override
-            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                mDialog.dismiss();
+            public void onClick(DialogInterface dialog, int which) {
+                if (Permissions.grantMobileCellsRegistrationDialogPermissions(context)) {
+                    if (PhoneStateScanner.enabledAutoRegistration) {
+                        if (!PhoneStateScanner.isEventAdded(event_id))
+                            PhoneStateScanner.addEvent(event_id);
+                        else
+                            PhoneStateScanner.removeEvent(event_id);
+                    }
+                    else {
+                        if (!PhoneStateScanner.isEventAdded(event_id))
+                            PhoneStateScanner.addEvent(event_id);
+                        startRegistration();
+                    }
+                }
             }
         });
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_mobile_cells_registration_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
                 updateInterface(0, false);
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
@@ -156,7 +136,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             @Override
             public void afterTextChanged(Editable s) {
                 String value = mCellsName.getText().toString();
-                startButton = mDialog.getActionButton(DialogAction.POSITIVE);
+                startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
                 startButton.setEnabled(!value.isEmpty());
             }
         });
@@ -246,7 +226,7 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        startButton = mDialog.getActionButton(DialogAction.POSITIVE);
+        startButton = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
 
         stopButton = layout.findViewById(R.id.mobile_cells_registration_stop_button);
         //stopButton.setAllCaps(false);
