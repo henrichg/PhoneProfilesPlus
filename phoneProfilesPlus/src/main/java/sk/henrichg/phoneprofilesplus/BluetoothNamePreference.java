@@ -231,7 +231,7 @@ public class BluetoothNamePreference extends DialogPreference {
                                     default:
                                 }
                                 refreshListView(false, "");
-                                dialog.dismiss();
+                                //dialog.dismiss();
                             }
                         })
                         .show();

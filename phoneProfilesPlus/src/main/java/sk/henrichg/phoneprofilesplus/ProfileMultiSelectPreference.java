@@ -1,23 +1,22 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,7 +26,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
     private String value;
 
     private final Context prefContext;
-    private MaterialDialog mDialog;
+    private AlertDialog mDialog;
 
     private LinearLayout linlaProgress;
     private ListView listView;
@@ -57,20 +56,15 @@ public class ProfileMultiSelectPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         PPApplication.logE("ProfilePreference.showDialog", "xx");
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .content(getDialogMessage())
-                .customView(R.layout.activity_profile_multiselect_pref_dialog, false)
-                .autoDismiss(false);
-
-        mBuilder.positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText());
-        mBuilder.onPositive(new MaterialDialog.SingleButtonCallback() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
             @SuppressWarnings("StringConcatenationInLoop")
             @Override
-            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
+            public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist())
                 {
                     // fill with profile id strings separated with |
@@ -95,32 +89,19 @@ public class ProfileMultiSelectPreference extends DialogPreference {
                 }
             }
         });
-        mBuilder.onNegative(new MaterialDialog.SingleButtonCallback() {
-            @Override
-            public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                mDialog.dismiss();
-            }
-        });
 
-        mBuilder.showListener(new DialogInterface.OnShowListener() {
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_profile_multiselect_pref_dialog, null);
+        dialogBuilder.setView(layout);
+
+        mDialog = dialogBuilder.create();
+
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                ProfileMultiSelectPreference.this.onShow();
+                ProfileMultiSelectPreference.this.onShow(/*dialog*/);
             }
         });
-
-        mDialog = mBuilder.build();
-
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
 
         //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.profile_multiselect_pref_dlg_linla_progress);

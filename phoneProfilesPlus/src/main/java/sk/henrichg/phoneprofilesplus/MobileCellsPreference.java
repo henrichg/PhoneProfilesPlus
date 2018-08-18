@@ -223,6 +223,7 @@ public class MobileCellsPreference extends DialogPreference {
                                         break;
                                 }
                                 refreshListView(false);
+                                //dialog.dismiss();
                             }
                         })
                         .show();
@@ -259,6 +260,7 @@ public class MobileCellsPreference extends DialogPreference {
                                     default:
                                 }
                                 refreshListView(false);
+                                //dialog.dismiss();
                             }
                         })
                         .show();

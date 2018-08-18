@@ -11,12 +11,12 @@ import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,9 +25,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,8 +38,8 @@ public class NFCTagPreference extends DialogPreference {
 
     private final Context context;
 
-    private MaterialDialog mDialog;
-    private MaterialDialog mSelectorDialog;
+    private AlertDialog mDialog;
+    private AlertDialog mSelectorDialog;
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     private ListView nfcTagListView;
@@ -69,54 +66,29 @@ public class NFCTagPreference extends DialogPreference {
     protected void showDialog(Bundle state) {
         value = getPersistedString(value);
 
-        MaterialDialog.Builder mBuilder = new MaterialDialog.Builder(getContext())
-                .title(getDialogTitle())
-                .icon(getDialogIcon())
-                //.disableDefaultFonts()
-                .positiveText(getPositiveButtonText())
-                .negativeText(getNegativeButtonText())
-                //.neutralText(R.string.wifi_ssid_pref_dlg_rescan_button)
-                .autoDismiss(false)
-                .content(getDialogMessage())
-                .customView(R.layout.activity_nfc_tag_pref_dialog, false)
-                .dividerColor(0)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        if (shouldPersist()) {
-                            if (callChangeListener(value))
-                            {
-                                persistString(value);
-                            }
-                        }
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+        dialogBuilder.setTitle(getDialogTitle());
+        dialogBuilder.setIcon(getDialogIcon());
+        dialogBuilder.setCancelable(true);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
+            @SuppressWarnings("StringConcatenationInLoop")
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (shouldPersist()) {
+                    if (callChangeListener(value))
+                    {
+                        persistString(value);
                     }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog materialDialog, @NonNull DialogAction dialogAction) {
-                        mDialog.dismiss();
-                    }
-                })
-                /*.onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(MaterialDialog materialDialog, DialogAction dialogAction) {
-                        if (Permissions.grantWifiScanDialogPermissions(context, NFCTagPreference.this))
-                            refreshListView(true);
-                    }
-                })*/;
+                }
+            }
+        });
 
-        mDialog = mBuilder.build();
+        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_nfc_tag_pref_dialog, null);
+        dialogBuilder.setView(layout);
 
-        /*
-        MDButton negative = mDialog.getActionButton(DialogAction.NEGATIVE);
-        if (negative != null) negative.setAllCaps(false);
-        MDButton  neutral = mDialog.getActionButton(DialogAction.NEUTRAL);
-        if (neutral != null) neutral.setAllCaps(false);
-        MDButton  positive = mDialog.getActionButton(DialogAction.POSITIVE);
-        if (positive != null) positive.setAllCaps(false);
-        */
-
-        View layout = mDialog.getCustomView();
+        mDialog = dialogBuilder.create();
 
         //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
         //dataRelativeLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
@@ -224,12 +196,14 @@ public class NFCTagPreference extends DialogPreference {
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectorDialog = new MaterialDialog.Builder(context)
-                        .title(R.string.pref_dlg_change_selection_title)
-                        .items(R.array.nfcTagsChangeSelectionArray)
-                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                mSelectorDialog = new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.pref_dlg_change_selection_title)
+                        .setCancelable(true)
+                        .setNegativeButton(getNegativeButtonText(), null)
+                        //.setSingleChoiceItems(R.array.bluetoothNameDChangeSelectionArray, 0, new DialogInterface.OnClickListener() {
+                        .setItems(R.array.nfcTagsChangeSelectionArray, new DialogInterface.OnClickListener() {
                             @Override
-                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                            public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
                                     case 0:
                                         value = "";
@@ -243,11 +217,9 @@ public class NFCTagPreference extends DialogPreference {
                                     default:
                                 }
                                 refreshListView("");
-                                return true;
+                                //dialog.dismiss();
                             }
                         })
-                        .positiveText(R.string.pref_dlg_change_selection_button)
-                        .negativeText(getNegativeButtonText())
                         .show();
             }
         });
