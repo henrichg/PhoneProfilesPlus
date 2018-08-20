@@ -169,7 +169,9 @@ class EventPreferencesBattery extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BATTERY_ENABLED);
+                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

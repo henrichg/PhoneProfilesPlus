@@ -244,7 +244,7 @@ class GlobalGUIRoutines {
             activity.recreate();
     }
 
-    public static void setPreferenceTitleStyle(Preference preference, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
+    public static void setPreferenceTitleStyle(Preference preference, boolean enabled, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
@@ -264,7 +264,7 @@ class GlobalGUIRoutines {
                     sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 if (underline)
                     sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                if (errorColor)
+                if (errorColor && enabled)
                     sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 preference.setTitle(sbt);
             } else {

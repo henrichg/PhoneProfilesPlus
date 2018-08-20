@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 
@@ -160,7 +161,9 @@ class EventPreferencesApplication extends EventPreferences {
         event._eventPreferencesApplication.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesApplication.isRunnable(context);
         Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, true);
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled,false, true, !isRunnable, true);
     }
 
     @Override
@@ -190,7 +193,9 @@ class EventPreferencesApplication extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
+                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

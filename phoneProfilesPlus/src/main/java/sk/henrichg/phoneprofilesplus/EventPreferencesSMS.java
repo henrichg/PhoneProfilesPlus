@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -163,15 +164,17 @@ class EventPreferencesSMS extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesSMS.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesSMS.isRunnable(context);
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_GROUPS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACTS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_LIST_TYPE);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
 
     }
 
@@ -214,7 +217,9 @@ class EventPreferencesSMS extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
+                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

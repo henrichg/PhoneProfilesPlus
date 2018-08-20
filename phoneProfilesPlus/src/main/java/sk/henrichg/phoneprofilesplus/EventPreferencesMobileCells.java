@@ -167,7 +167,9 @@ class EventPreferencesMobileCells extends EventPreferences {
         event._eventPreferencesMobileCells.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesMobileCells.isRunnable(context);
         Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
     }
 
     @Override
@@ -201,7 +203,9 @@ class EventPreferencesMobileCells extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CATEGORY);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_ENABLED);
+                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

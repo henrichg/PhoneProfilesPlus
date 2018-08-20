@@ -260,7 +260,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             @SuppressLint("InlinedApi")
                             boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                                     GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                            GlobalGUIRoutines.setPreferenceTitleStyle(zenModePreference, false, false, false, addS);
+                            GlobalGUIRoutines.setPreferenceTitleStyle(zenModePreference, true, false, false, false, addS);
                         }
 
                         return true;
@@ -985,7 +985,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
 
         if (preferenceScreen != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preferenceScreen, _bold, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preferenceScreen, true, _bold, false, false, false);
             if (_bold)
                 preferenceScreen.setSummary(summary);
             else
@@ -1013,7 +1013,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value.toString());
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, !value.toString().isEmpty(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.toString().isEmpty(), false, false, false);
                 setCategorySummary(preference, !value.toString().isEmpty());
             }
         }
@@ -1024,7 +1024,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (checkBoxPreference != null) {
                 boolean show = sValue.equals("true");
                 //Log.e("ProfilePreferencesNestedFragment.setSummary","PREF_PROFILE_SHOW_IN_ACTIVATOR show="+show);
-                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, show, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, true, show, false, false, false);
                 setCategorySummary(checkBoxPreference, show);
             }
         }
@@ -1036,7 +1036,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -1061,7 +1061,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         @SuppressLint("InlinedApi")
                         boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, addS);
+                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, false, false, addS);
                         setCategorySummary(listPreference, false);
                     }
                 }
@@ -1093,7 +1093,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                             @SuppressLint("InlinedApi")
                             boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
                                     GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                            GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, addS);
+                            GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, addS);
                             setCategorySummary(listPreference, index > 0);
                         }
                         listPreference.setEnabled(iRingerMode == 5);
@@ -1111,7 +1111,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
             setSummaryForNotificationVolume0();
@@ -1160,7 +1160,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, false, false, false, false);
                     setCategorySummary(preference, false);
                 }
             }
@@ -1170,7 +1170,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 if (preference != null) {
                     String sValue = value.toString();
                     boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, bold, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, bold, false, false, false);
                     setCategorySummary(preference, bold);
                 }
             }
@@ -1182,7 +1182,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -1198,7 +1198,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
                 else {
@@ -1206,7 +1206,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -1219,7 +1219,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -1231,7 +1231,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                 setCategorySummary(listPreference, index > 0);
             }
         }
@@ -1264,7 +1264,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
             }
@@ -1275,7 +1275,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -1298,14 +1298,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 } else {
                     String sValue = value.toString();
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -1321,14 +1321,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 } else {
                     String sValue = value.toString();
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -1342,7 +1342,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 if (!sValue.isEmpty())
                     iValue = Integer.valueOf(sValue);
                 //preference.setSummary(sValue);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, iValue > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, iValue > 0, false, false, false);
                 setCategorySummary(preference, iValue > 0);
             }
         }
@@ -1358,7 +1358,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         getResources().getString(
                                 GlobalGUIRoutines.getResourceId(key, "string", context));*/
                 String defaultValue = Profile.defaultValuesString.get(key);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, value != defaultValue, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, value != defaultValue, false, false, false);
                 setCategorySummary(listPreference, /*index > 0*/false);
             }
         }
@@ -1368,7 +1368,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
             if (checkBoxPreference != null) {
                 boolean show = sValue.equals("true");
-                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, show, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, true, show, false, false, false);
                 setCategorySummary(checkBoxPreference, show);
             }
         }
@@ -1378,7 +1378,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             RingtonePreference ringtonePreference = (RingtonePreference) prefMng.findPreference(key);
             if (ringtonePreference != null) {
                 boolean show = !sValue.isEmpty();
-                GlobalGUIRoutines.setPreferenceTitleStyle(ringtonePreference, show, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(ringtonePreference, true, show, false, false, false);
                 setCategorySummary(ringtonePreference, show);
             }
         }
@@ -1388,7 +1388,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
             if (checkBoxPreference != null) {
                 boolean show = sValue.equals("true");
-                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, show, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, true, show, false, false, false);
                 setCategorySummary(checkBoxPreference, show);
             }
         }
@@ -1398,7 +1398,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             CheckBoxPreference checkBoxPreference = (CheckBoxPreference)prefMng.findPreference(key);
             if (checkBoxPreference != null) {
                 boolean show = sValue.equals("true");
-                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, show, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(checkBoxPreference, true, show, false, false, false);
                 setCategorySummary(checkBoxPreference, show);
             }
         }
@@ -1413,7 +1413,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (preference != null) {
                 String sValue = value.toString();
                 boolean change = VolumeDialogPreference.changeEnabled(sValue);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, change, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, change, false, false, false);
                 setCategorySummary(preference, change);
             }
         }
@@ -1426,7 +1426,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             if (preference != null) {
                 String sValue = value.toString();
                 boolean change = BrightnessDialogPreference.changeEnabled(sValue);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, change, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, change, false, false, false);
                 setCategorySummary(preference, change);
             }
         }
@@ -1444,7 +1444,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
                         listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, false, false, false);
                     setCategorySummary(listPreference, false);
                 }
                 else {
@@ -1452,7 +1452,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                     setCategorySummary(listPreference, index > 0);
                 }
             }
@@ -1509,7 +1509,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     }
                     if (!ok) {
                         listPreference.setSummary(changeSummary);
-                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, false, false, false);
+                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, false, false, false);
                         setCategorySummary(listPreference, false);
                     }
                     else {
@@ -1518,7 +1518,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         changeSummary = (index >= 0) ? listPreference.getEntries()[index] : null;
                         categorySummary = changeSummary;
                         listPreference.setSummary(changeSummary);
-                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                        GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
                         setCategorySummary(listPreference, index > 0);
                     }
                 }
@@ -1530,7 +1530,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         categorySummary = categorySummary + " • " + appMultiSelectPreference.getSummaryAMSDP();
                 }
                 preferenceScreen.setSummary(categorySummary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preferenceScreen, (index > 0), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preferenceScreen, true, (index > 0), false, false, false);
             }
         }
 

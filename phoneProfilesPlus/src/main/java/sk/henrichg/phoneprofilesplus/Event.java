@@ -583,7 +583,7 @@ class Event {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, !value.isEmpty(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END))
@@ -598,22 +598,22 @@ class Event {
                 }
                 preference.setSummary(lProfileId);
                 if (key.equals(PREF_EVENT_PROFILE_START))
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
                 else
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
             ProfileMultiSelectPreference preference = (ProfileMultiSelectPreference)prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, !value.isEmpty(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND))
         {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, !value.isEmpty(), false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), false, false, false);
         }
         if (key.equals(PREF_EVENT_PRIORITY))
         {
@@ -636,7 +636,7 @@ class Event {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_DELAY_START))
@@ -648,7 +648,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, delay > 0, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 0, false, false, false);
         }
         if (key.equals(PREF_EVENT_DELAY_END))
         {
@@ -659,7 +659,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, delay > 0, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 0, false, false, false);
         }
         /*
         if (key.equals(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL)) {
@@ -683,7 +683,7 @@ class Event {
             key.equals(PREF_EVENT_NOTIFICATION_REPEAT) ||
             key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION)) {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, value.equals("true"), false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, value.equals("true"), false, false, false);
         }
 
     }
@@ -747,7 +747,7 @@ class Event {
                                 notificationSoundChanged ||
                                 notificationVibrateChanged ||
                                 notificationRepeatChanged);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, bold, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, bold, false, false, false);
                 if (bold) {
                     String summary = "";
                     //if (forceRunChanged)
@@ -796,7 +796,7 @@ class Event {
             preference = prefMng.findPreference("eventEndOthersCategory");
             if (preference != null) {
                 //boolean bold = (delayEndChanged);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, delayEndChanged, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delayEndChanged, false, false, false);
                 if (delayEndChanged) {
                     String summary = "";
                     //if (delayEndChanged) {

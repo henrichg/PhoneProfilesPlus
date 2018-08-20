@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -222,12 +223,14 @@ class EventPreferencesCalendar extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesCalendar.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesCalendar.isRunnable(context);
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALENDAR_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CALENDARS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled,false, true, !isRunnable, false);
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_STRING);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
     }
 
     @Override
@@ -264,7 +267,9 @@ class EventPreferencesCalendar extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALENDAR_ENABLED);
+                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

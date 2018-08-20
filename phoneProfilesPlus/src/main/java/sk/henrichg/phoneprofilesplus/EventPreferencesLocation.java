@@ -194,7 +194,9 @@ class EventPreferencesLocation extends EventPreferences {
         event._eventPreferencesLocation.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesLocation.isRunnable(context);
         Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, true);
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, true);
     }
 
     @Override
@@ -229,7 +231,9 @@ class EventPreferencesLocation extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_CATEGORY);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
+                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

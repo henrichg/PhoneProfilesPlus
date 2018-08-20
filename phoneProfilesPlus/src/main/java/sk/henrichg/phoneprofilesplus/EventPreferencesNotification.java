@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 
@@ -142,15 +143,17 @@ class EventPreferencesNotification extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesNotification.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNotification.isRunnable(context);
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled,false, true, !isRunnable, false);
         preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
         preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
     }
 
     @Override
@@ -188,7 +191,9 @@ class EventPreferencesNotification extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
+                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

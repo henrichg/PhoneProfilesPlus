@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 
@@ -156,7 +157,9 @@ class EventPreferencesNFC extends EventPreferences {
         event._eventPreferencesNFC.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNFC.isRunnable(context);
         Preference preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled,false, true, !isRunnable, false);
     }
 
     @Override
@@ -202,7 +205,9 @@ class EventPreferencesNFC extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_CATEGORY);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, tmp._enabled, false, !tmp.isRunnable(context), false);
+                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
+                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
