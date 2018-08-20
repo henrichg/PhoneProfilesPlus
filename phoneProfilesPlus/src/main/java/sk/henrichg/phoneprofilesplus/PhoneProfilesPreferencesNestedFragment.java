@@ -24,10 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.evernote.android.job.JobRequest;
-import com.thelittlefireman.appkillermanager.devices.DeviceBase;
-import com.thelittlefireman.appkillermanager.devices.DevicesManager;
-import com.thelittlefireman.appkillermanager.killerManager.KillerManager;
-import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
+import com.thelittlefireman.appkillermanager.managers.KillerManager;
 
 import java.util.concurrent.TimeUnit;
 
@@ -666,24 +663,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         preference = prefMng.findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-            boolean intentFound = false;
-            KillerManager.init(getActivity());
-            DeviceBase device = KillerManager.getDevice();
-            if (device != null) {
-                if (PPApplication.logEnabled()) {
-                    String debugInfo = device.getExtraDebugInformations(getActivity());
-                    if (debugInfo != null)
-                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", debugInfo);
-                }
-                Intent intent = device.getActionAutoStart(getActivity());
-                PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", "intent="+intent);
-                if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
-                    intentFound = true;
-                //if (intent != null && GlobalGUIRoutines.activityIntentExists(intent, getActivity()))
-                //    intentFound = true;
-            }
-            PPApplication.logE("PhoneProfilesPreferencesNestedFragment.onActivityCreated", "intentFound="+intentFound);
-            if (intentFound) {
+            if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_AUTOSTART)) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
@@ -840,15 +820,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         preference = prefMng.findPreference(PREF_APPLICATION_POWER_MANAGER);
         if (preference != null) {
-            boolean intentFound = false;
-            KillerManager.init(getActivity());
-            DeviceBase device = KillerManager.getDevice();
-            if (device != null) {
-                Intent intent = device.getActionPowerSaving(getActivity());
-                if (intent != null && ActionsUtils.isIntentAvailable(getActivity(), intent))
-                    intentFound = true;
-            }
-            if (intentFound) {
+            if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_POWERSAVING)) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {

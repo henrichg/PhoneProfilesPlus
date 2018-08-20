@@ -20,9 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.thelittlefireman.appkillermanager.devices.DeviceBase;
-import com.thelittlefireman.appkillermanager.killerManager.KillerManager;
-import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
+import com.thelittlefireman.appkillermanager.managers.KillerManager;
 
 public class ImportantInfoHelpFragment extends Fragment {
 
@@ -453,13 +451,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         boolean intentFound = false;
         KillerManager.init(activity);
-        DeviceBase device = KillerManager.getDevice();
-        if (device != null) {
-            Intent intent = device.getActionPowerSaving(activity);
-            if (intent != null && ActionsUtils.isIntentAvailable(activity, intent))
-                intentFound = true;
-        }
-        if (intentFound) {
+        if (KillerManager.isActionAvailable(activity, KillerManager.Actions.ACTION_POWERSAVING)) {
             TextView infoText = view.findViewById(R.id.activity_info_notification_power_manager);
             infoText.setOnClickListener(new View.OnClickListener() {
                 @Override
