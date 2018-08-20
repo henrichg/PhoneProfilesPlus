@@ -41,7 +41,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
@@ -84,8 +83,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     private AsyncTask importAsyncTask = null;
     private AsyncTask exportAsyncTask = null;
     static boolean doImport = false;
-    private MaterialDialog importProgressDialog = null;
-    private MaterialDialog exportProgressDialog = null;
+    private AlertDialog importProgressDialog = null;
+    private AlertDialog exportProgressDialog = null;
 
     private static final String SP_DATA_DETAILS_DATA_TYPE = "data_detail_data_type";
     private static final String SP_DATA_DETAILS_DATA_ID = "data_detail_data_id";
@@ -1318,11 +1317,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 private boolean sharedProfileError = false;
 
                 private ImportAsyncTask() {
-                    importProgressDialog = new MaterialDialog.Builder(activity)
-                            .content(R.string.import_profiles_alert_title)
-                                    //.disableDefaultFonts()
-                            .progress(true, 0)
-                            .build();
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                    dialogBuilder.setMessage(R.string.import_profiles_alert_title);
+
+                    LayoutInflater inflater = (activity.getLayoutInflater());
+                    View layout = inflater.inflate(R.layout.activity_progress_bar_dialog, null);
+                    dialogBuilder.setView(layout);
+
+                    importProgressDialog = dialogBuilder.create();
+
                     this.dataWrapper = getDataWrapper();
                 }
 
@@ -1611,11 +1614,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 private DataWrapper dataWrapper;
 
                 private ExportAsyncTask() {
-                    exportProgressDialog = new MaterialDialog.Builder(activity)
-                            .content(R.string.export_profiles_alert_title)
-                                    //.disableDefaultFonts()
-                            .progress(true, 0)
-                            .build();
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                    dialogBuilder.setMessage(R.string.export_profiles_alert_title);
+
+                    LayoutInflater inflater = (activity.getLayoutInflater());
+                    View layout = inflater.inflate(R.layout.activity_progress_bar_dialog, null);
+                    dialogBuilder.setView(layout);
+
+                    exportProgressDialog = dialogBuilder.create();
+
                     this.dataWrapper = getDataWrapper();
                 }
 
