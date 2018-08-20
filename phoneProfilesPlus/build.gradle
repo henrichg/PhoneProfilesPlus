@@ -75,8 +75,6 @@ dependencies {
     implementation 'com.evernote:android-job:1.2.6'
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
-    //implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
-    //implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     implementation 'com.labo.kaji:relativepopupwindow:0.3.1'
     implementation 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
     //implementation 'com.getkeepsafe.taptargetview:taptargetview:1.11.0'
