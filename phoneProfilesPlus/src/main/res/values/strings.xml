@@ -560,7 +560,7 @@
     <string name="important_info_profile_activation_traffic_light_icon">\"Traffic light\" icon:</string>
     <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfiles into \"Not optimized\".</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrate when ringing</string>
-    <string name="info_notification_event_states">An event may be in one of 5 states:</string>
+    <string name="info_notification_event_states">An event may be in one of 6 states:</string>
     <string name="info_notification_event_states_running">Running: event is started and running. Event parameters are satisfied.</string>
     <string name="info_notification_event_states_paused">Paused: event is not running. Event parameters are not satisfied. Event is waiting for parameters to be satisfied.</string>
     <string name="info_notification_event_states_stopped">Stopped: event is stopped and cannot be started. Event parameter \"Enable run\" is not checked.</string>
