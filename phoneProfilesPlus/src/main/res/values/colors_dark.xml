@@ -19,6 +19,8 @@
     <color name="editorDrawerListHeaderTitleColor_dark">#FFFFFFFF</color>
     <color name="dialog_divider_dark">#10FFFFFF</color>
 
+    <color name="altype_other_dark">#FF7F7F7F</color>
+
     <color name="editorFilterTitleColor_dark">#FFFFFFFF</color>
 
     <color name="tabTargetHelpCircleColor_dark">#FF7F7F7F</color>

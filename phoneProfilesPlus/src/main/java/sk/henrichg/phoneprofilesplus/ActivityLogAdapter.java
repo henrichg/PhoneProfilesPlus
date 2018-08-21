@@ -68,6 +68,15 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(DatabaseHandler.ALTYPE_ALLEVENTSDELETED, R.string.altype_allEventsDeleted);
         activityTypeStrings.put(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, R.string.altype_allProfilesDeleted);
 
+        int otherColor;
+        if (ApplicationPreferences.applicationTheme(context).equals("color"))
+            otherColor = R.color.altype_other;
+        else
+        if (ApplicationPreferences.applicationTheme(context).equals("white"))
+            otherColor = R.color.altype_other_white;
+        else
+            otherColor = R.color.altype_other_dark;
+
         activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEACTIVATION, R.color.altype_profile);
         activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, R.color.altype_profile);
         activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, R.color.altype_profile);
@@ -82,22 +91,22 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_RESTARTEVENTS, R.color.altype_eventEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_RESTARTEVENTS, R.color.altype_eventEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTSTOP, R.color.altype_eventEnd);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_RESTARTEVENTS, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONSTART, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONEXIT, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_DATAIMPORT, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_PAUSEDLOGGING, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_STARTEDLOGGING, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTPREFERENCESCHANGED, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTDELETED, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEDELETED, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEPREFERENCESCHANGED, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_SHAREDPROFILEPREFERENCESCHANGED, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_ALLEVENTSDELETED, R.color.altype_other);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, R.color.altype_other);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_RESTARTEVENTS, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONSTART, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_APPLICATIONEXIT, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_DATAIMPORT, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_PAUSEDLOGGING, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_STARTEDLOGGING, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTPREFERENCESCHANGED, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTDELETED, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEDELETED, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEPREFERENCESCHANGED, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_SHAREDPROFILEPREFERENCESCHANGED, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_ALLEVENTSDELETED, otherColor);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, otherColor);
 
     }
 

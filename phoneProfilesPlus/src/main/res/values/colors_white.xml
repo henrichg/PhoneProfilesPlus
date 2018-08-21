@@ -19,6 +19,8 @@
     <color name="editorDrawerListHeaderTitleColor_white">#FF000000</color>
     <color name="dialog_divider_white">#10000000</color>
 
+    <color name="altype_other_white">#FFD0D0D0</color>
+
     <color name="editorFilterTitleColor_white">#FF000000</color>
 
     <!--<color name="tabTargetHelpCircleColor_white">#FFFFFFFF</color>-->

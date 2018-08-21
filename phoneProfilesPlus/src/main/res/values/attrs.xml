@@ -122,5 +122,6 @@
     <attr name="sensorPassStatusPassed" format="reference" />
     <attr name="sensorPassStatusNotPassed" format="reference" />
     <attr name="sensorPassStatusWaiting" format="reference" />
+    <attr name="activityLogTypeOther" format="reference" />
 
 </resources>
