@@ -34,7 +34,8 @@
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/applications_multiselect_pref_dlg_item_icon"
         android:text="@string/empty_string"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="14sp"
+        android:textStyle="bold"
         android:maxLines="1"/>
 
 </RelativeLayout>

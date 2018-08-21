@@ -73,9 +73,9 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, R.color.altype_profile);
         activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, R.color.altype_profile);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTSTART, R.color.altype_eventStart);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, R.color.altype_eventStart);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTSTARTDELAY, R.color.altype_eventDelayStartEnd);
+        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTENDDELAY, R.color.altype_eventDelayStartEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_NONE, R.color.altype_eventEnd);
-        activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTENDDELAY, R.color.altype_eventEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE, R.color.altype_eventEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_UNDOPROFILE, R.color.altype_eventEnd);
         activityTypeColors.put(DatabaseHandler.ALTYPE_EVENTEND_ACTIVATEPROFILE_UNDOPROFILE, R.color.altype_eventEnd);

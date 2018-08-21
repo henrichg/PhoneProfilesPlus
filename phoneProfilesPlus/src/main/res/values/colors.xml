@@ -22,7 +22,8 @@
     <color name="altype_profile">#FF0000FF</color>
     <color name="altype_eventStart">#FF00C000</color>
     <color name="altype_eventEnd">#FFFF0000</color>
-    <color name="altype_other">#FFF0C000</color>
+    <color name="altype_eventDelayStartEnd">#FFFFB000</color>
+    <color name="altype_other">#FFD0D000</color>
 
     <color name="map_edited_location_marker_stroke">#FFDC8160</color>
     <color name="map_edited_location_marker_fill">#77DC8160</color>
