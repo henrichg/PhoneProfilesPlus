@@ -17,6 +17,9 @@
         <item name="activityDisabledTextColor">@color/activityDisabledTextColor</item>
         <item name="activityCommandBackgroundColor">@color/activityCommandBackgroundColor</item>
 
+        <item name="md_background_color">@color/activityBackgroundColor</item>
+        <item name="md_widget_color">?attr/colorAccent</item>
+
         <item name="actionNewProfileIcon">@drawable/ic_action_new_profile_dark</item>
         <item name="actionDeleteAllIcon">@drawable/ic_action_delete_all_dark</item>
         <item name="actionEditProfilesIcon">@drawable/ic_action_edit_profiles_dark</item>
