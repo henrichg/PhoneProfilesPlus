@@ -69,6 +69,8 @@
                 android:id="@+id/contacts_multiselect_pref_dlg_listview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginEnd="5dp"
                 app:fastScrollAutoHide="false"
                 app:fastScrollPopupTextSize="44sp"

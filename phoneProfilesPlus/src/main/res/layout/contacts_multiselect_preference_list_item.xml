@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:padding="3dp" >
+    android:layout_height="53dp" >
 
     <CheckBox
         android:id="@+id/contacts_multiselect_pref_dlg_item_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
         android:focusable="false"
@@ -18,7 +16,7 @@
         android:id="@+id/contacts_multiselect_pref_dlg_item_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_marginStart="3dp"
         android:layout_toEndOf="@id/contacts_multiselect_pref_dlg_item_checkbox"
         android:contentDescription="@string/contacts_multiselect_pref_dlg_contact_photo"
@@ -26,27 +24,31 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_empty" />
 
-    <TextView
-        android:id="@+id/contacts_multiselect_pref_dlg_item_display_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/contacts_multiselect_pref_dlg_item_icon"
-        android:text="@string/empty_string"
-        android:textSize="13sp"
-        android:textStyle="bold"
-        android:maxLines="1"/>
+        android:layout_toEndOf="@id/contacts_multiselect_pref_dlg_item_icon" >
 
-    <TextView
-        android:id="@+id/contacts_multiselect_pref_dlg_item_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_below="@id/contacts_multiselect_pref_dlg_item_display_name"
-        android:layout_toEndOf="@id/contacts_multiselect_pref_dlg_item_icon"
-        android:text="@string/empty_string"
-        android:textSize="13sp"
-        android:maxLines="1"/>
+        <TextView
+            android:id="@+id/contacts_multiselect_pref_dlg_item_display_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_string"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:maxLines="1"/>
+
+        <TextView
+            android:id="@+id/contacts_multiselect_pref_dlg_item_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_string"
+            android:textSize="13sp"
+            android:maxLines="1"/>
+
+    </LinearLayout>
     
 </RelativeLayout>

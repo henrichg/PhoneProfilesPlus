@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingLeft="16dip"
-              android:paddingRight="16dip"
+              android:layout_height="match_parent"
+              android:paddingStart="20dp"
+              android:paddingEnd="20dp"
               android:orientation="vertical"
               android:paddingTop="@dimen/alert_dialog_top_padding">
 
@@ -42,7 +42,7 @@
 
     <TextView
         android:id="@+id/brightnessPrefDialogValueText"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="0"
@@ -51,14 +51,14 @@
 
     <SeekBar
         android:id="@+id/brightnessPrefDialogSeekbar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:splitTrack="false"
         tools:ignore="UnusedAttribute"/>
 
     <TextView
         android:id="@+id/brightnessPrefDialogAdaptiveLevelRoot"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/brightness_pref_dialog_adaptive_level_root_required" />

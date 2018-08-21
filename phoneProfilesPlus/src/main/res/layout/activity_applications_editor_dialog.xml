@@ -10,7 +10,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:paddingStart="25dp"
+        android:paddingEnd="25dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:clickable="true"
         android:focusable="true" >
 
@@ -18,7 +21,6 @@
             android:id="@+id/applications_editor_dialog_startApplicationDelay_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:textSize="15sp"
             android:text="@string/applications_editor_dialog_startApplicationDelay" />
 
@@ -26,8 +28,6 @@
             android:id="@+id/applications_editor_dialog_startApplicationDelay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="5dp"
             android:textColor="?attr/colorAccent"
             android:textSize="18sp"/>
 
@@ -63,6 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:layout_marginEnd="5dp"
                 app:fastScrollAutoHide="false"
                 app:fastScrollPopupTextSize="44sp"

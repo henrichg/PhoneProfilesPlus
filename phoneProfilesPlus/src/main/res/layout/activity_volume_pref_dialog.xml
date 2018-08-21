@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:paddingLeft="16dip"
-              android:paddingRight="16dip"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="20dp"
+              android:paddingRight="20dp"
               android:orientation="vertical"
               android:paddingTop="@dimen/alert_dialog_top_padding">
 
@@ -22,7 +22,7 @@
     
     <TextView
         android:id="@+id/volumePrefDialogValueText"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="1"
@@ -31,7 +31,7 @@
 
     <SeekBar
         android:id="@+id/volumePrefDialogSeekbar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:splitTrack="false"
         tools:ignore="UnusedAttribute"/>
