@@ -15,7 +15,7 @@ Android application - manualy and event triggered change of device settings like
 Required external libs
 ----------------------
 
-- Android support library: core, appcomapt, gridlayout, cardview, recyclerview
+- Android support library: core, appcompat, gridlayout, cardview, recyclerview
 - Google Play services library (GMS): location, maps
 - Google Billing library: donations
 - Samsung Look - http://developer.samsung.com/galaxy/edge
