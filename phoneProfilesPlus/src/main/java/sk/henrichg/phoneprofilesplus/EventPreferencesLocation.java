@@ -117,6 +117,13 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_LOCATION_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_LOCATION_ENABLED) ||
             key.equals(PREF_EVENT_LOCATION_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_APP_SETTINGS);
@@ -188,21 +195,31 @@ class EventPreferencesLocation extends EventPreferences {
                 //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
             }
         }
+        if (key.equals(PREF_EVENT_LOCATION_WHEN_OUTSIDE)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
 
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesLocation.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesLocation.isRunnable(context);
-        Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, true);
+        Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_LOCATION_GEOFENCES, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, true);
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_LOCATION_ENABLED)) {
+        if (key.equals(PREF_EVENT_LOCATION_ENABLED) ||
+            key.equals(PREF_EVENT_LOCATION_WHEN_OUTSIDE)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true" : "false", context);
         }
@@ -221,6 +238,7 @@ class EventPreferencesLocation extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_LOCATION_GEOFENCES, preferences, context);
         setSummary(prefMng, PREF_EVENT_LOCATION_APP_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_LOCATION_WHEN_OUTSIDE, preferences, context);
     }
 
     @Override

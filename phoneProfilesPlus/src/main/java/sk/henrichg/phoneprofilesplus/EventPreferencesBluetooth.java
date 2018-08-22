@@ -149,6 +149,13 @@ class EventPreferencesBluetooth extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED) ||
             key.equals(PREF_EVENT_BLUETOOTH_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_APP_SETTINGS);
@@ -260,10 +267,13 @@ class EventPreferencesBluetooth extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesBluetooth.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesBluetooth.isRunnable(context);
-        Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled,false, true, !isRunnable, false);
+        Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_BLUETOOTH_ADAPTER_NAME, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
     }
 
     @Override

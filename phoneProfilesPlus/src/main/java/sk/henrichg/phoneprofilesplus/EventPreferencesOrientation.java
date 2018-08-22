@@ -85,33 +85,32 @@ class EventPreferencesOrientation extends EventPreferences {
         editor.apply();
     }
 
-    @SuppressWarnings("StringConcatenationInLoop")
     @Override
     public void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_ORIENTATION_ENABLED, false);
 
         Set<String> set = preferences.getStringSet(PREF_EVENT_ORIENTATION_DISPLAY, null);
-        String sides = "";
+        StringBuilder sides = new StringBuilder();
         if (set != null) {
             for (String s : set) {
-                if (!sides.isEmpty())
-                    sides = sides + "|";
-                sides = sides + s;
+                if (sides.length() > 0)
+                    sides.append("|");
+                sides.append(s);
             }
         }
-        this._display = sides;
+        this._display = sides.toString();
 
         set = preferences.getStringSet(PREF_EVENT_ORIENTATION_SIDES, null);
-        sides = "";
+        sides = new StringBuilder();
         if (set != null) {
             for (String s : set) {
-                if (!sides.isEmpty())
-                    sides = sides + "|";
-                sides = sides + s;
+                if (sides.length() > 0)
+                    sides.append("|");
+                sides.append(s);
             }
         }
-        this._sides = sides;
+        this._sides = sides.toString();
 
         this._distance = Integer.parseInt(preferences.getString(PREF_EVENT_ORIENTATION_DISTANCE, "0"));
         this._ignoredApplications = preferences.getString(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS, "");
@@ -225,6 +224,13 @@ class EventPreferencesOrientation extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_ORIENTATION_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED) ||
             key.equals(PREF_EVENT_ORIENTATION_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_APP_SETTINGS);
@@ -270,14 +276,12 @@ class EventPreferencesOrientation extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
             }
         }
         if (key.equals(PREF_EVENT_ORIENTATION_SIDES)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, !isRunnable, false);
             }
         }
         if (key.equals(PREF_EVENT_ORIENTATION_DISTANCE))
@@ -288,7 +292,6 @@ class EventPreferencesOrientation extends EventPreferences {
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
             }
-            //GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, false, true, !isRunnable, false);
         }
         if (key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
@@ -305,9 +308,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
-            CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
-            boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, false, false, true);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), false, false, true);
         }
 
         Event event = new Event();
@@ -317,15 +318,38 @@ class EventPreferencesOrientation extends EventPreferences {
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        if (preference != null) {
+            Set<String> set = prefMng.getSharedPreferences().getStringSet(PREF_EVENT_ORIENTATION_DISPLAY, null);
+            StringBuilder sides = new StringBuilder();
+            if (set != null) {
+                for (String s : set) {
+                    if (sides.length() > 0)
+                        sides.append("|");
+                    sides.append(s);
+                }
+            }
+            boolean bold = sides.length() > 0;
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-        preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-
+        if (preference != null) {
+            Set<String> set = prefMng.getSharedPreferences().getStringSet(PREF_EVENT_ORIENTATION_SIDES, null);
+            StringBuilder sides = new StringBuilder();
+            if (set != null) {
+                for (String s : set) {
+                    if (sides.length() > 0)
+                        sides.append("|");
+                    sides.append(s);
+                }
+            }
+            boolean bold = sides.length() > 0;
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
+        ListPreference distancePreference = (ListPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
+        if (distancePreference != null) {
+            int index = distancePreference.findIndexOfValue(distancePreference.getValue());
+            GlobalGUIRoutines.setPreferenceTitleStyle(distancePreference, enabled, index > 0, true, !isRunnable, false);
+        }
     }
 
     @SuppressWarnings("StringConcatenationInLoop")

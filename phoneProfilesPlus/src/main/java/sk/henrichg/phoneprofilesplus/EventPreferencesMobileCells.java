@@ -100,6 +100,13 @@ class EventPreferencesMobileCells extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED) ||
             key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS);
@@ -161,21 +168,31 @@ class EventPreferencesMobileCells extends EventPreferences {
                 //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
 
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesMobileCells.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesMobileCells.isRunnable(context);
-        Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CELLS);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_MOBILE_CELLS_CELLS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED)) {
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED) ||
+            key.equals(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true" : "false", context);
         }
@@ -192,6 +209,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, preferences, context);
     }
 
     @Override

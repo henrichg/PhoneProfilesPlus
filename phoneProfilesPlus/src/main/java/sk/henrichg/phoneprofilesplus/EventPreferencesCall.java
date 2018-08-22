@@ -144,6 +144,13 @@ class EventPreferencesCall extends EventPreferences {
 
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context) {
+        if (key.equals(PREF_EVENT_CALL_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_CALL_EVENT) || key.equals(PREF_EVENT_CALL_CONTACT_LIST_TYPE)) {
             ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
             if (listPreference != null) {
@@ -173,6 +180,10 @@ class EventPreferencesCall extends EventPreferences {
             }
         }
         if (key.equals(PREF_EVENT_CALL_PERMANENT_RUN)) {
+            CheckBoxPreference permanentRunPreference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (permanentRunPreference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), false, false, false);
+            }
             SharedPreferences preferences = prefMng.getSharedPreferences();
             String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
             if (!callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) &&
@@ -189,6 +200,16 @@ class EventPreferencesCall extends EventPreferences {
                 }
             }
         }
+        if (key.equals(PREF_EVENT_CALL_DURATION)) {
+            Preference preference = prefMng.findPreference(key);
+            int delay;
+            try {
+                delay = Integer.parseInt(value);
+            } catch (Exception e) {
+                delay = 0;
+            }
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, false, false, false);
+        }
 
         Event event = new Event();
         event.createEventPreferences();
@@ -197,11 +218,15 @@ class EventPreferencesCall extends EventPreferences {
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALL_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_GROUPS);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACT_GROUPS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACTS);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACTS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_LIST_TYPE);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);

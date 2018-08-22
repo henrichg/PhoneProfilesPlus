@@ -130,6 +130,13 @@ class EventPreferencesWifi extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_WIFI_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_WIFI_ENABLED) ||
             key.equals(PREF_EVENT_WIFI_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_APP_SETTINGS);
@@ -214,12 +221,15 @@ class EventPreferencesWifi extends EventPreferences {
 
         Event event = new Event();
         event.createEventPreferences();
-        event._eventPreferencesBluetooth.saveSharedPreferences(prefMng.getSharedPreferences());
-        boolean isRunnable = event._eventPreferencesBluetooth.isRunnable(context);
-        Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
+        event._eventPreferencesWifi.saveSharedPreferences(prefMng.getSharedPreferences());
+        boolean isRunnable = event._eventPreferencesWifi.isRunnable(context);
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_WIFI_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        Preference preference = prefMng.findPreference(PREF_EVENT_WIFI_SSID);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_WIFI_SSID, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
 
     }
 

@@ -261,6 +261,13 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_TIME_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesTime.saveSharedPreferences(prefMng.getSharedPreferences());
@@ -269,7 +276,8 @@ class EventPreferencesTime extends EventPreferences {
         if (preference != null) {
             CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_TIME_ENABLED);
             boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_TIME_DAYS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
         }
     }
 

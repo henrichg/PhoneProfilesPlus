@@ -142,6 +142,13 @@ class EventPreferencesApplication extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_APPLICATION_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_APPLICATION_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -160,10 +167,13 @@ class EventPreferencesApplication extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesApplication.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesApplication.isRunnable(context);
-        Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled,false, true, !isRunnable, true);
+        Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_APPLICATION_APPLICATIONS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, true);
+        }
     }
 
     @Override

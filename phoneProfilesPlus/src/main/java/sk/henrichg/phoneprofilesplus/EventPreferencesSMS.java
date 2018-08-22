@@ -144,6 +144,13 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_SMS_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (/*key.equals(PREF_EVENT_SMS_EVENT) ||*/ key.equals(PREF_EVENT_SMS_CONTACT_LIST_TYPE))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -154,10 +161,24 @@ class EventPreferencesSMS extends EventPreferences {
             }
         }
         if (key.equals(PREF_EVENT_SMS_PERMANENT_RUN)) {
+            CheckBoxPreference permanentRunPreference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (permanentRunPreference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), false, false, false);
+            }
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_DURATION);
             if (preference != null) {
                 preference.setEnabled(value.equals("false"));
             }
+        }
+        if (key.equals(PREF_EVENT_SMS_DURATION)) {
+            Preference preference = prefMng.findPreference(key);
+            int delay;
+            try {
+                delay = Integer.parseInt(value);
+            } catch (Exception e) {
+                delay = 0;
+            }
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, false, false, false);
         }
 
         Event event = new Event();
@@ -167,15 +188,18 @@ class EventPreferencesSMS extends EventPreferences {
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_GROUPS);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_SMS_CONTACT_GROUPS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACTS);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_SMS_CONTACTS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+        }
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_LIST_TYPE);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-
     }
 
     @Override

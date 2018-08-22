@@ -83,6 +83,13 @@ class EventPreferencesPeripherals extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_PERIPHERAL_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_PERIPHERAL_TYPE))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);

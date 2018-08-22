@@ -154,6 +154,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_RADIO_SWITCH_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_RADIO_SWITCH_WIFI) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_BLUETOOTH) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA) ||
@@ -175,24 +182,37 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         boolean isRunnable = event._eventPreferencesRadioSwitch.isRunnable(context);
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-        preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        ListPreference preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
+        if (preference != null) {
+            int index = preference.findIndexOfValue(preference.getValue());
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+        }
+        preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
+        if (preference != null) {
+            int index = preference.findIndexOfValue(preference.getValue());
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+        }
+        preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
+        if (preference != null) {
+            int index = preference.findIndexOfValue(preference.getValue());
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+        }
+        preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
+        if (preference != null) {
+            int index = preference.findIndexOfValue(preference.getValue());
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+        }
+        preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
+        if (preference != null) {
+            int index = preference.findIndexOfValue(preference.getValue());
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+        }
+        preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
+        if (preference != null) {
+            int index = preference.findIndexOfValue(preference.getValue());
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+        }
     }
 
     @Override

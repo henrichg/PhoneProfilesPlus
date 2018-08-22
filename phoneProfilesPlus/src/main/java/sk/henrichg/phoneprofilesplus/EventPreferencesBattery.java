@@ -124,6 +124,13 @@ class EventPreferencesBattery extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) || key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT))
         {
             Preference preference = prefMng.findPreference(key);
@@ -136,6 +143,13 @@ class EventPreferencesBattery extends EventPreferences {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
+            }
+        }
+        if (key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
             }
         }
     }
@@ -143,7 +157,8 @@ class EventPreferencesBattery extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
+        if (key.equals(PREF_EVENT_BATTERY_ENABLED) ||
+            key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true" : "false", context);
         }
@@ -162,6 +177,7 @@ class EventPreferencesBattery extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_LOW, preferences, context);
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_HIGHT, preferences, context);
         setSummary(prefMng, PREF_EVENT_BATTERY_CHARGING, preferences, context);
+        setSummary(prefMng, PREF_EVENT_BATTERY_POWER_SAVE_MODE, preferences, context);
     }
 
     @Override

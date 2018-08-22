@@ -99,6 +99,13 @@ class EventPreferencesScreen extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_SCREEN_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -108,12 +115,19 @@ class EventPreferencesScreen extends EventPreferences {
                 listPreference.setSummary(summary);
             }
         }
+        if (key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_SCREEN_ENABLED)) {
+        if (key.equals(PREF_EVENT_SCREEN_ENABLED) ||
+            key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
         }
@@ -128,6 +142,7 @@ class EventPreferencesScreen extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SCREEN_WHEN_UNLOCKED, preferences, context);
 
         setWhenUnlockedTitle(prefMng, _eventType);
     }

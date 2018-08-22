@@ -139,29 +139,40 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
+            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            if (preference != null) {
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesNotification.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNotification.isRunnable(context);
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled,false, true, !isRunnable, false);
-        preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
-        preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
-        if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        CheckBoxPreference preference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
+        if (preference != null) {
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, preference.isChecked(), true, !isRunnable, false);
+        }
+        preference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
+        if (preference != null) {
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, preference.isChecked(), true, !isRunnable, false);
+        }
+        Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+        if (preference != null) {
+            boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyle(applicationsPreference, enabled, bold, true, !isRunnable, false);
+        }
     }
 
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED) ||
-                key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
-                key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL)) {
+            key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
+            key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
         }
