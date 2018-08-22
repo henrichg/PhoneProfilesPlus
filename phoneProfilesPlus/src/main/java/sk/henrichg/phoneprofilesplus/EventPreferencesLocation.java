@@ -202,8 +202,10 @@ class EventPreferencesLocation extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_LOCATION_ENABLED))
-            setSummary(prefMng, key, "", context);
+        if (key.equals(PREF_EVENT_LOCATION_ENABLED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true" : "false", context);
+        }
         if (key.equals(PREF_EVENT_LOCATION_GEOFENCES) ||
             key.equals(PREF_EVENT_LOCATION_APP_SETTINGS) ||
             key.equals(PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS))

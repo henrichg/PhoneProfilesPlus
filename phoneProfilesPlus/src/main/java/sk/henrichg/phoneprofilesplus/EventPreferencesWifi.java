@@ -226,8 +226,10 @@ class EventPreferencesWifi extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_WIFI_ENABLED))
-            setSummary(prefMng, key, "", context);
+        if (key.equals(PREF_EVENT_WIFI_ENABLED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
         if (key.equals(PREF_EVENT_WIFI_SSID) ||
             key.equals(PREF_EVENT_WIFI_CONNECTION_TYPE) ||
             key.equals(PREF_EVENT_WIFI_APP_SETTINGS) ||

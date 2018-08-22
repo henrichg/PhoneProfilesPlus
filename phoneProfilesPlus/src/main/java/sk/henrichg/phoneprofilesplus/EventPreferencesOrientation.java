@@ -332,6 +332,11 @@ class EventPreferencesOrientation extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_ORIENTATION_ENABLED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
+
         if (key.equals(PREF_EVENT_ORIENTATION_DISPLAY)) {
             Set<String> set = preferences.getStringSet(key, null);
             String sides = "";
@@ -374,9 +379,6 @@ class EventPreferencesOrientation extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
-
-        if (key.equals(PREF_EVENT_ORIENTATION_ENABLED))
-            setSummary(prefMng, key, "", context);
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS) ||
             key.equals(PREF_EVENT_ORIENTATION_INSTALL_EXTENDER) ||
             key.equals(PREF_EVENT_ORIENTATION_APP_SETTINGS))

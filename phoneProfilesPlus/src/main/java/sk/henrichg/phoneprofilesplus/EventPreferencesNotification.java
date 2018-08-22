@@ -159,21 +159,23 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED) ||
+                key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
+                key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
         if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)/* ||
             key.equals(PREF_EVENT_NOTIFICATION_DURATION)*/)
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
-        }
-        if (key.equals(PREF_EVENT_NOTIFICATION_IN_CALL) ||
-            key.equals(PREF_EVENT_NOTIFICATION_MISSED_CALL)) {
-            boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
         }
     }
 
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_IN_CALL, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_MISSED_CALL, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);

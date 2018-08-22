@@ -198,6 +198,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_RADIO_SWITCH_ENABLED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
         if (key.equals(PREF_EVENT_RADIO_SWITCH_WIFI) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_BLUETOOTH) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA) ||
@@ -212,6 +216,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_WIFI, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_BLUETOOTH, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, preferences, context);

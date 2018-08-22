@@ -258,6 +258,13 @@ class EventPreferencesCalendar extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_CALENDAR_ENABLED) ||
+            key.equals(PREF_EVENT_CALENDAR_ALL_EVENTS)) {
+            boolean value = preferences.getBoolean(key, false);
+            String sValue = "false";
+            if (value) sValue = "true";
+            setSummary(prefMng, key, sValue, context);
+        }
         if (key.equals(PREF_EVENT_CALENDAR_CALENDARS) ||
             key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
             key.equals(PREF_EVENT_CALENDAR_SEARCH_STRING) ||
@@ -265,13 +272,6 @@ class EventPreferencesCalendar extends EventPreferences {
             key.equals(PREF_EVENT_CALENDAR_START_BEFORE_EVENT))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
-        }
-        if (key.equals(PREF_EVENT_CALENDAR_ENABLED) ||
-            key.equals(PREF_EVENT_CALENDAR_ALL_EVENTS)) {
-            boolean value = preferences.getBoolean(key, false);
-            String sValue = "false";
-            if (value) sValue = "true";
-            setSummary(prefMng, key, sValue, context);
         }
     }
 

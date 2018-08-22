@@ -113,6 +113,10 @@ class EventPreferencesScreen extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_SCREEN_ENABLED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
@@ -122,6 +126,7 @@ class EventPreferencesScreen extends EventPreferences {
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences, context);
 
         setWhenUnlockedTitle(prefMng, _eventType);

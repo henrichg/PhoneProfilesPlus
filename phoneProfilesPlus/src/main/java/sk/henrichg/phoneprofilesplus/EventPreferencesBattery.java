@@ -143,6 +143,10 @@ class EventPreferencesBattery extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true" : "false", context);
+        }
         if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) ||
             key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT) ||
             key.equals(PREF_EVENT_BATTERY_CHARGING))
@@ -154,6 +158,7 @@ class EventPreferencesBattery extends EventPreferences {
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_BATTERY_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_LOW, preferences, context);
         setSummary(prefMng, PREF_EVENT_BATTERY_LEVEL_HIGHT, preferences, context);
         setSummary(prefMng, PREF_EVENT_BATTERY_CHARGING, preferences, context);

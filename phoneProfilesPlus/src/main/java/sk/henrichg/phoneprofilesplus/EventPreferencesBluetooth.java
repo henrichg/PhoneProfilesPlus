@@ -269,8 +269,10 @@ class EventPreferencesBluetooth extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED))
-            setSummary(prefMng, key, "", context);
+        if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true" : "false", context);
+        }
         if (key.equals(PREF_EVENT_BLUETOOTH_ADAPTER_NAME) ||
             key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE)||
             key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE) ||

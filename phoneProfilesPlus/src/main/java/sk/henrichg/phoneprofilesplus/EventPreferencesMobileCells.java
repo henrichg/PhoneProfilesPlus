@@ -175,8 +175,10 @@ class EventPreferencesMobileCells extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
-        if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED))
-            setSummary(prefMng, key, "", context);
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_ENABLED)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true" : "false", context);
+        }
         if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS) ||
             key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS))
         {

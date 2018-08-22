@@ -165,20 +165,22 @@ class EventPreferencesNFC extends EventPreferences {
     @Override
     public void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
+        if (key.equals(PREF_EVENT_NFC_ENABLED) ||
+            key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
+            boolean value = preferences.getBoolean(key, false);
+            setSummary(prefMng, key, value ? "true": "false", context);
+        }
         if (key.equals(PREF_EVENT_NFC_NFC_TAGS) ||
             key.equals(PREF_EVENT_NFC_DURATION))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
-        }
-        if (key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
-            boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false", context);
         }
     }
 
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_NFC_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_NFC_NFC_TAGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_NFC_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_NFC_DURATION, preferences, context);
