@@ -507,39 +507,45 @@ class EventPreferencesCalendar extends EventPreferences {
 
         StringBuilder selection = new StringBuilder("(");
 
-        String[] searchStringSplits = _searchString.split("\\|");
-        String[] selectionArgs = new String[searchStringSplits.length];
-        int argsId = 0;
-        selection.append("(");
-        for (String split : searchStringSplits) {
-            if (!split.isEmpty()) {
-                String searchPattern = split;
+        String[] selectionArgs = null;
+        if (!_allEvents) {
+            String[] searchStringSplits = _searchString.split("\\|");
+            selectionArgs = new String[searchStringSplits.length];
+            int argsId = 0;
+            selection.append("(");
+            for (String split : searchStringSplits) {
+                if (!split.isEmpty()) {
+                    String searchPattern = split;
 
-                // when in searchPattern are not wildcards add %
-                if (!(searchPattern.contains("%") || searchPattern.contains("_")))
-                    searchPattern = "%"+searchPattern+"%";
+                    // when in searchPattern are not wildcards add %
+                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                        searchPattern = "%" + searchPattern + "%";
 
-                selectionArgs[argsId] = searchPattern;
+                    selectionArgs[argsId] = searchPattern;
 
-                if (argsId > 0)
-                    selection.append(" OR ");
+                    if (argsId > 0)
+                        selection.append(" OR ");
 
-                switch (_searchField) {
-                    case SEARCH_FIELD_TITLE:
-                        selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
-                        break;
-                    case SEARCH_FIELD_DESCRIPTION:
-                        selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
-                        break;
-                    case SEARCH_FIELD_LOCATION:
-                        selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
-                        break;
+                    switch (_searchField) {
+                        case SEARCH_FIELD_TITLE:
+                            selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            break;
+                        case SEARCH_FIELD_DESCRIPTION:
+                            selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            break;
+                        case SEARCH_FIELD_LOCATION:
+                            selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            break;
+                    }
+
+                    ++argsId;
                 }
-
-                ++argsId;
             }
+            selection.append(")");
         }
-        selection.append(")");
+        else {
+            selection.append("(1 = 1)");
+        }
 
         switch (_availability) {
             case AVAILABILITY_BUSY:
@@ -552,7 +558,14 @@ class EventPreferencesCalendar extends EventPreferences {
                 selection.append(" AND (" + Instances.AVAILABILITY + "=" + Instances.AVAILABILITY_TENTATIVE + ")");
                 break;
         }
+
         selection.append(")");
+
+        PPApplication.logE("EventPreferencesCalendar.searchEvent", "selection="+selection);
+        if (selectionArgs != null)
+            PPApplication.logE("EventPreferencesCalendar.searchEvent", "selectionArgs.length="+selectionArgs.length);
+        else
+            PPApplication.logE("EventPreferencesCalendar.searchEvent", "selectionArgs=null");
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();

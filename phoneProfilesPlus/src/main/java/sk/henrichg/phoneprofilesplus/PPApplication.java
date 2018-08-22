@@ -130,7 +130,7 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
-                                         +"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
+                                         //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
                                          //+"|Event.notifyEventStart"
@@ -243,6 +243,8 @@ public class PPApplication extends Application {
                                         //+"|MissedCallEventEndBroadcastReceiver"
 
                                         //+"|LauncherActivity"
+
+                                        +"|EventPreferencesCalendar.searchEvent"
             ;
 
 
