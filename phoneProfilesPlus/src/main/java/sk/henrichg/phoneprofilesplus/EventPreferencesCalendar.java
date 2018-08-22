@@ -244,15 +244,19 @@ class EventPreferencesCalendar extends EventPreferences {
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
 
-        //CheckBoxPreference allEventsPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALENDAR_ALL_EVENTS);
-        //enabled = enabled && ((allEventsPreference == null) || (!allEventsPreference.isChecked()));
+        CheckBoxPreference allEventsPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALENDAR_ALL_EVENTS);
+        boolean allEventsNotChecked = (allEventsPreference == null) || (!allEventsPreference.isChecked());
+        enabled = enabled && allEventsNotChecked;
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_FIELD);
         if (preference != null) {
+            preference.setEnabled(allEventsNotChecked);
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, false, false, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_STRING);
-        if (preference != null)
+        if (preference != null) {
+            preference.setEnabled(allEventsNotChecked);
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        }
     }
 
     @Override
@@ -499,6 +503,8 @@ class EventPreferencesCalendar extends EventPreferences {
             DatabaseHandler.getInstance(context).updateEventCalendarTimes(_event);
             return;
         }
+
+        PPApplication.logE("EventPreferencesCalendar.searchEvent", "xxx xxx");
 
         final String[] INSTANCE_PROJECTION = new String[] {
                 Instances.BEGIN,           // 0
