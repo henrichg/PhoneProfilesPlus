@@ -226,7 +226,7 @@ class EventPreferencesCalendar extends EventPreferences {
                         context.getString(R.string.pref_dlg_info_about_wildcards_3) + "\n" +
                         context.getString(R.string.pref_dlg_info_about_wildcards_4)
                         ;
-                ((EditTextPreference) preference).setDialogMessage(helpString);
+                ((MaterialEditTextPreference) preference).setDialogMessage(helpString);
                 //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
             }
         }
