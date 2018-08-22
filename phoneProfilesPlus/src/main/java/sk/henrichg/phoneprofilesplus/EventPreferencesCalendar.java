@@ -240,6 +240,16 @@ class EventPreferencesCalendar extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CALENDARS);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled,false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_CALENDAR_ALL_EVENTS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+
+        //CheckBoxPreference allEventsPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALENDAR_ALL_EVENTS);
+        //enabled = enabled && ((allEventsPreference == null) || (!allEventsPreference.isChecked()));
+        preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_FIELD);
+        if (preference != null) {
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, false, false, false);
+        }
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_STRING);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
@@ -256,16 +266,25 @@ class EventPreferencesCalendar extends EventPreferences {
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
+        if (key.equals(PREF_EVENT_CALENDAR_ENABLED) ||
+            key.equals(PREF_EVENT_CALENDAR_ALL_EVENTS)) {
+            boolean value = preferences.getBoolean(key, false);
+            String sValue = "false";
+            if (value) sValue = "true";
+            setSummary(prefMng, key, sValue, context);
+        }
     }
 
     @Override
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
+        setSummary(prefMng, PREF_EVENT_CALENDAR_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_CALENDARS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_FIELD, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_SEARCH_STRING, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_AVAILABILITY, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_START_BEFORE_EVENT, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_ALL_EVENTS, preferences, context);
     }
 
     @Override
