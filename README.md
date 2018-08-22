@@ -5,7 +5,7 @@ PhoneProfilesPlus
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/HenrichGron)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/HenrichGron) [![Join the chat at https://gitter.im/PhoneProfilesPlus/Lobby](https://badges.gitter.im/PhoneProfilesPlus/Lobby.svg)](https://gitter.im/PhoneProfilesPlus/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Android application - manualy and event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...
 
