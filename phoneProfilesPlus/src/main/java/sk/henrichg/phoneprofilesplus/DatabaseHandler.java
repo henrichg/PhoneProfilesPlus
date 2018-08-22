@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2150;
+    private static final int DATABASE_VERSION = 2160;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -322,6 +322,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_SCREEN_SENSOR_PASSED = "screenSensorPassed";
     private static final String KEY_E_SMS_SENSOR_PASSED = "smsSensorPassed";
     private static final String KEY_E_TIME_SENSOR_PASSED = "timeSensorPassed";
+    private static final String KEY_E_CALENDAR_ALL_EVENTS = "calendarAllEvents";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -620,7 +621,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_RADIO_SWITCH_SENSOR_PASSED + " INTEGER,"
                 + KEY_E_SCREEN_SENSOR_PASSED + " INTEGER,"
                 + KEY_E_SMS_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_TIME_SENSOR_PASSED + " INTEGER"
+                + KEY_E_TIME_SENSOR_PASSED + " INTEGER,"
+                + KEY_E_CALENDAR_ALL_EVENTS + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2371,6 +2373,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             cursor.close();
         }
+
+        if (oldVersion < 2160)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_CALENDAR_ALL_EVENTS + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_ALL_EVENTS + "=0");
+        }
+
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
@@ -4496,7 +4506,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_CALENDAR_AVAILABILITY,
                         KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS,
                         KEY_E_CALENDAR_START_BEFORE_EVENT,
-                        KEY_E_CALENDAR_SENSOR_PASSED
+                        KEY_E_CALENDAR_SENSOR_PASSED,
+                        KEY_E_CALENDAR_ALL_EVENTS
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -4518,6 +4529,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._availability = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_AVAILABILITY)));
                 eventPreferences._ignoreAllDayEvents = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS))) == 1);
                 eventPreferences._startBeforeEvent = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_START_BEFORE_EVENT)));
+                eventPreferences._allEvents = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_ALL_EVENTS))) == 1);
                 eventPreferences.setSensorPassed(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_SENSOR_PASSED))));
             }
             cursor.close();
@@ -4960,6 +4972,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, (eventPreferences._ignoreAllDayEvents) ? 1 : 0);
         values.put(KEY_E_CALENDAR_START_BEFORE_EVENT, eventPreferences._startBeforeEvent);
         values.put(KEY_E_CALENDAR_SENSOR_PASSED, eventPreferences.getSensorPassed());
+        values.put(KEY_E_CALENDAR_ALL_EVENTS, (eventPreferences._allEvents) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -9161,6 +9174,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 values.put(KEY_E_SCREEN_SENSOR_PASSED, 0);
                                                 values.put(KEY_E_SMS_SENSOR_PASSED, 0);
                                                 values.put(KEY_E_TIME_SENSOR_PASSED, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2160) {
+                                                values.put(KEY_E_CALENDAR_ALL_EVENTS, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

@@ -28,6 +28,7 @@ import java.util.TimeZone;
 class EventPreferencesCalendar extends EventPreferences {
 
     String _calendars;
+    boolean _allEvents;
     int _searchField;
     String _searchString;
     int _availability;
@@ -40,6 +41,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
     static final String PREF_EVENT_CALENDAR_ENABLED = "eventCalendarEnabled";
     static final String PREF_EVENT_CALENDAR_CALENDARS = "eventCalendarCalendars";
+    private static final String PREF_EVENT_CALENDAR_ALL_EVENTS = "eventCalendarAllEvents";
     private static final String PREF_EVENT_CALENDAR_SEARCH_FIELD = "eventCalendarSearchField";
     private static final String PREF_EVENT_CALENDAR_SEARCH_STRING = "eventCalendarSearchString";
     private static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
@@ -60,6 +62,7 @@ class EventPreferencesCalendar extends EventPreferences {
     EventPreferencesCalendar(Event event,
                                 boolean enabled,
                                 String calendars,
+                                boolean allEvents,
                                 int searchField,
                                 String searchString,
                                 int availability,
@@ -69,6 +72,7 @@ class EventPreferencesCalendar extends EventPreferences {
         super(event, enabled);
 
         this._calendars = calendars;
+        this._allEvents = allEvents;
         this._searchField = searchField;
         this._searchString = searchString;
         this._availability = availability;
@@ -85,6 +89,7 @@ class EventPreferencesCalendar extends EventPreferences {
     {
         this._enabled = fromEvent._eventPreferencesCalendar._enabled;
         this._calendars = fromEvent._eventPreferencesCalendar._calendars;
+        this._allEvents = fromEvent._eventPreferencesCalendar._allEvents;
         this._searchField = fromEvent._eventPreferencesCalendar._searchField;
         this._searchString = fromEvent._eventPreferencesCalendar._searchString;
         this._availability = fromEvent._eventPreferencesCalendar._availability;
@@ -103,6 +108,7 @@ class EventPreferencesCalendar extends EventPreferences {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_CALENDAR_ENABLED, _enabled);
         editor.putString(PREF_EVENT_CALENDAR_CALENDARS, _calendars);
+        editor.putBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, _allEvents);
         editor.putString(PREF_EVENT_CALENDAR_SEARCH_FIELD, String.valueOf(_searchField));
         editor.putString(PREF_EVENT_CALENDAR_SEARCH_STRING, _searchString);
         editor.putString(PREF_EVENT_CALENDAR_AVAILABILITY, String.valueOf(_availability));
@@ -116,6 +122,7 @@ class EventPreferencesCalendar extends EventPreferences {
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_CALENDAR_ENABLED, false);
         this._calendars = preferences.getString(PREF_EVENT_CALENDAR_CALENDARS, "");
+        this._allEvents = preferences.getBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, false);
         this._searchField = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_SEARCH_FIELD, "0"));
         this._searchString = preferences.getString(PREF_EVENT_CALENDAR_SEARCH_STRING, "");
         this._availability = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_AVAILABILITY, "0"));
@@ -144,10 +151,15 @@ class EventPreferencesCalendar extends EventPreferences {
                 descr = descr + ": </b>";
             }
 
-            String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
-            descr = descr + searchFields[this._searchField] + "; ";
+            if (this._allEvents) {
+                descr = descr + context.getString(R.string.event_preferences_calendar_all_events) + "; ";
+            }
+            else {
+                String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
+                descr = descr + searchFields[this._searchField] + "; ";
 
-            descr = descr + "\"" + this._searchString + "\""  + "; ";
+                descr = descr + "\"" + this._searchString + "\"" + "; ";
+            }
 
             if (this._ignoreAllDayEvents)
                 descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "; ";
@@ -260,7 +272,7 @@ class EventPreferencesCalendar extends EventPreferences {
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-            EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars,
+            EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._allEvents,
                     this._searchField, this._searchString, this._availability, this._ignoreAllDayEvents, this._startBeforeEvent);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
@@ -290,7 +302,7 @@ class EventPreferencesCalendar extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         runnable = runnable && (!_calendars.isEmpty());
-        runnable = runnable && (!_searchString.isEmpty());
+        runnable = runnable && (_allEvents || (!_searchString.isEmpty()));
 
         return runnable;
     }

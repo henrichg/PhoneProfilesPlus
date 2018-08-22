@@ -1215,6 +1215,7 @@
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
     <string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>
     <string name="array_pref_screenTimeoutArray_30minutes">30 minutes</string>
+    <string name="event_preferences_calendar_all_events">All calendar events</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

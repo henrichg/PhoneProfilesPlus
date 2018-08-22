@@ -235,6 +235,13 @@
                 android:title="@string/event_preferences_calendar_calendars"
                 android:dependency="eventCalendarEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
+            <CheckBoxPreference
+                android:key="eventCalendarAllEvents"
+                android:title="@string/event_preferences_calendar_all_events"
+                android:defaultValue="false"
+                android:dependency="eventCalendarEnabled"
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_calendar_search_field"
                 android:summary="@string/array_event_pref_calendarSearchField_eventName"
