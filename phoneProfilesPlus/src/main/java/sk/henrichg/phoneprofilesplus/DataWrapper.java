@@ -980,6 +980,8 @@ public class DataWrapper {
                         PPApplication.logE("DataWrapper.pauseAllEvents", "_startTime=0");
                         event._eventPreferencesCall._startTime = 0;
                         DatabaseHandler.getInstance(context).updateCallStartTime(event);
+                        event._eventPreferencesAlarmClock._startTime = 0;
+                        DatabaseHandler.getInstance(context).updateAlarmClockStartTime(event);
                     }
                 }
             }

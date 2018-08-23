@@ -64,6 +64,7 @@ class Event {
     EventPreferencesMobileCells _eventPreferencesMobileCells;
     EventPreferencesNFC _eventPreferencesNFC;
     EventPreferencesRadioSwitch _eventPreferencesRadioSwitch;
+    EventPreferencesAlarmClock _eventPreferencesAlarmClock;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -334,6 +335,11 @@ class Event {
         this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0);
     }
 
+    private void createEventPreferencesAlarmClock()
+    {
+        this._eventPreferencesAlarmClock = new EventPreferencesAlarmClock(this, false, false, 5);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -352,6 +358,7 @@ class Event {
         createEventPreferencesMobileCells();
         createEventPreferencesNFC();
         createEventPreferencesRadioSwitch();
+        createEventPreferencesAlarmClock();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -388,6 +395,8 @@ class Event {
             createEventPreferencesNFC();
         if (this._eventPreferencesRadioSwitch == null)
             createEventPreferencesRadioSwitch();
+        if (this._eventPreferencesAlarmClock == null)
+            createEventPreferencesAlarmClock();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -404,6 +413,7 @@ class Event {
         this._eventPreferencesMobileCells.copyPreferences(fromEvent);
         this._eventPreferencesNFC.copyPreferences(fromEvent);
         this._eventPreferencesRadioSwitch.copyPreferences(fromEvent);
+        this._eventPreferencesAlarmClock.copyPreferences(fromEvent);
     }
 
     public boolean isEnabledSomeSensor() {
@@ -422,7 +432,8 @@ class Event {
                 this._eventPreferencesOrientation._enabled ||
                 this._eventPreferencesMobileCells._enabled ||
                 this._eventPreferencesNFC._enabled ||
-                this._eventPreferencesRadioSwitch._enabled;
+                this._eventPreferencesRadioSwitch._enabled ||
+                this._eventPreferencesAlarmClock._enabled;
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled)
@@ -444,7 +455,8 @@ class Event {
                   this._eventPreferencesOrientation._enabled ||
                   this._eventPreferencesMobileCells._enabled ||
                   this._eventPreferencesNFC._enabled ||
-                  this._eventPreferencesRadioSwitch._enabled))
+                  this._eventPreferencesRadioSwitch._enabled ||
+                  this._eventPreferencesAlarmClock._enabled))
                 runnable = false;
         if (this._eventPreferencesTime._enabled)
             runnable = runnable && this._eventPreferencesTime.isRunnable(context);
@@ -478,6 +490,8 @@ class Event {
             runnable = runnable && this._eventPreferencesNFC.isRunnable(context);
         if (this._eventPreferencesRadioSwitch._enabled)
             runnable = runnable && this._eventPreferencesRadioSwitch.isRunnable(context);
+        if (this._eventPreferencesAlarmClock._enabled)
+            runnable = runnable && this._eventPreferencesAlarmClock.isRunnable(context);
         return runnable;
     }
 
@@ -518,6 +532,7 @@ class Event {
         this._eventPreferencesMobileCells.loadSharedPreferences(preferences);
         this._eventPreferencesNFC.loadSharedPreferences(preferences);
         this._eventPreferencesRadioSwitch.loadSharedPreferences(preferences);
+        this._eventPreferencesAlarmClock.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -568,6 +583,7 @@ class Event {
         this._eventPreferencesMobileCells.saveSharedPreferences(preferences);
         this._eventPreferencesNFC.saveSharedPreferences(preferences);
         this._eventPreferencesRadioSwitch.saveSharedPreferences(preferences);
+        this._eventPreferencesAlarmClock.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -867,6 +883,8 @@ class Event {
         _eventPreferencesNFC.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesRadioSwitch.setSummary(prefMng, key, preferences, context);
         _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesAlarmClock.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -925,6 +943,8 @@ class Event {
         _eventPreferencesNFC.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesRadioSwitch.setAllSummary(prefMng, preferences, context);
         _eventPreferencesRadioSwitch.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesAlarmClock.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -934,6 +954,9 @@ class Event {
         description = "";
 
         description = description + _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, context);
+
+        if (_eventPreferencesAlarmClock._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
+        description = description + _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);
 
         if (_eventPreferencesCalendar._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, context);
@@ -1002,6 +1025,7 @@ class Event {
         _eventPreferencesMobileCells.checkPreferences(prefMng, context);
         _eventPreferencesNFC.checkPreferences(prefMng, context);
         _eventPreferencesRadioSwitch.checkPreferences(prefMng, context);
+        _eventPreferencesAlarmClock.checkPreferences(prefMng, context);
     }
 
     /*
@@ -1551,6 +1575,7 @@ class Event {
             _eventPreferencesMobileCells.setSystemEventForStart(context);
             _eventPreferencesNFC.setSystemEventForStart(context);
             _eventPreferencesRadioSwitch.setSystemEventForStart(context);
+            _eventPreferencesAlarmClock.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -1573,6 +1598,7 @@ class Event {
             _eventPreferencesMobileCells.setSystemEventForPause(context);
             _eventPreferencesNFC.setSystemEventForPause(context);
             _eventPreferencesRadioSwitch.setSystemEventForPause(context);
+            _eventPreferencesAlarmClock.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -1595,6 +1621,7 @@ class Event {
             _eventPreferencesMobileCells.removeSystemEvent(context);
             _eventPreferencesNFC.removeSystemEvent(context);
             _eventPreferencesRadioSwitch.removeSystemEvent(context);
+            _eventPreferencesAlarmClock.removeSystemEvent(context);
         }
     }
 

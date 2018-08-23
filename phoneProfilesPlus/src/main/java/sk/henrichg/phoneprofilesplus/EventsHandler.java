@@ -29,6 +29,7 @@ class EventsHandler {
     //private String eventNotificationPostedRemoved;
     private String eventNFCTagName;
     private long eventNFCDate;
+    private long eventAlarmClockDate;
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
     static final String SENSOR_TYPE_RESTART_EVENTS = "restartEvents";
@@ -64,6 +65,8 @@ class EventsHandler {
     static final String SENSOR_TYPE_SCREEN = "screen";
     static final String SENSOR_TYPE_DEVICE_IDLE_MODE = "deviceIdleMode";
     static final String SENSOR_TYPE_PHONE_CALL_EVENT_END = "phoneCallEventEnd";
+    static final String SENSOR_TYPE_ALARM_CLOCK = "alarmClock";
+    static final String SENSOR_TYPE_ALARM_CLOCK_EVENT_END = "alarmClockEventEnd";
 
     public EventsHandler(Context context) {
         this.context = context;
@@ -223,6 +226,8 @@ class EventsHandler {
                     PPApplication.logE("[CALL] EventsHandler.handleEvents", "_startTime=0");
                     _event._eventPreferencesCall._startTime = 0;
                     DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
+                    _event._eventPreferencesAlarmClock._startTime = 0;
+                    DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
                 }
             }
             else {
@@ -261,6 +266,18 @@ class EventsHandler {
                                             (_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED))) {
                                 PPApplication.logE("[CALL] EventsHandler.handleEvents", "event._id=" + _event._id);
                                 _event._eventPreferencesCall.saveStartTime(dataWrapper);
+                            }
+                        }
+                    }
+                }
+                if (sensorType.equals(SENSOR_TYPE_ALARM_CLOCK)) {
+                    // search for alarm clock events, save start time
+                    PPApplication.logE("EventsHandler.handleEvents", "search for alarm clock events");
+                    for (Event _event : this.dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesAlarmClock._enabled) {
+                                PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                _event._eventPreferencesAlarmClock.saveStartTime(dataWrapper, eventAlarmClockDate);
                             }
                         }
                     }
@@ -597,6 +614,12 @@ class EventsHandler {
         else
         if (broadcastReceiverType.equals(SENSOR_TYPE_RADIO_SWITCH))
             eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
+        else
+        if (broadcastReceiverType.equals(SENSOR_TYPE_ALARM_CLOCK))
+            eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
+        else
+        if (broadcastReceiverType.equals(SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
+            eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
 
         if (eventType > 0)
             return DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType, onlyRunning) > 0;
@@ -739,6 +762,10 @@ class EventsHandler {
     void setEventNFCParameters(String tagName, long date) {
         eventNFCTagName = tagName;
         eventNFCDate = date;
+    }
+
+    void setEventAlarmClockParameters(long date) {
+        eventAlarmClockDate = date;
     }
 
 }

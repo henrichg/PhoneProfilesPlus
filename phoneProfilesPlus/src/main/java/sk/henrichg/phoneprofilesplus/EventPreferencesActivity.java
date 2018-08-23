@@ -456,6 +456,8 @@ public class EventPreferencesActivity extends PreferenceActivity
             event._eventPreferencesTime.setSensorPassed(event._eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         if (event._eventPreferencesWifi._enabled)
             event._eventPreferencesWifi.setSensorPassed(event._eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        if (event._eventPreferencesAlarmClock._enabled)
+            event._eventPreferencesAlarmClock.setSensorPassed(event._eventPreferencesAlarmClock.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
 
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
 

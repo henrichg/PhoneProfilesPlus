@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2160;
+    private static final int DATABASE_VERSION = 2170;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -91,6 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_RADIO_SWITCH_AIRPLANE_MODE = 24;
     static final int ETYPE_WIFI = 25;
     static final int ETYPE_BLUETOOTH = 26;
+    static final int ETYPE_ALARM_CLOCK = 27;
 
     // activity log types
     static final int ALTYPE_UNDEFINED = 0;
@@ -323,6 +324,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_SMS_SENSOR_PASSED = "smsSensorPassed";
     private static final String KEY_E_TIME_SENSOR_PASSED = "timeSensorPassed";
     private static final String KEY_E_CALENDAR_ALL_EVENTS = "calendarAllEvents";
+    private static final String KEY_E_ALARM_CLOCK_ENABLED = "alarmClockEnabled";
+    private static final String KEY_E_ALARM_CLOCK_PERMANENT_RUN = "alarmClockPermanentRun";
+    private static final String KEY_E_ALARM_CLOCK_DURATION = "alarmClockDuration";
+    private static final String KEY_E_ALARM_CLOCK_START_TIME = "alarmClockStartTime";
+    private static final String KEY_E_ALARM_CLOCK_SENSOR_PASSED = "alarmClockSensorPassed";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -622,7 +628,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_SCREEN_SENSOR_PASSED + " INTEGER,"
                 + KEY_E_SMS_SENSOR_PASSED + " INTEGER,"
                 + KEY_E_TIME_SENSOR_PASSED + " INTEGER,"
-                + KEY_E_CALENDAR_ALL_EVENTS + " INTEGER"
+                + KEY_E_CALENDAR_ALL_EVENTS + " INTEGER,"
+                + KEY_E_ALARM_CLOCK_ENABLED + " INTEGER,"
+                + KEY_E_ALARM_CLOCK_PERMANENT_RUN + " INTEGER,"
+                + KEY_E_ALARM_CLOCK_DURATION + " INTEGER,"
+                + KEY_E_ALARM_CLOCK_START_TIME + " INTEGER,"
+                + KEY_E_ALARM_CLOCK_SENSOR_PASSED + " INTEGER"
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -2381,6 +2392,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_ALL_EVENTS + "=0");
         }
 
+        if (oldVersion < 2170)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_ENABLED + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_START_TIME + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_DURATION + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_PERMANENT_RUN + " INTEGER");
+            db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_ALARM_CLOCK_SENSOR_PASSED + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_START_TIME + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_DURATION + "=5");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_PERMANENT_RUN + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ALARM_CLOCK_SENSOR_PASSED + "=0");
+        }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
 
@@ -4335,6 +4360,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesMobileCells(event, db);
         getEventPreferencesNFC(event, db);
         getEventPreferencesRadioSwitch(event, db);
+        getEventPreferencesAlarmClock(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -4860,6 +4886,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesAlarmClock(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_ALARM_CLOCK_ENABLED,
+                        KEY_E_ALARM_CLOCK_START_TIME,
+                        KEY_E_ALARM_CLOCK_DURATION,
+                        KEY_E_ALARM_CLOCK_PERMANENT_RUN,
+                        KEY_E_ALARM_CLOCK_SENSOR_PASSED
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesAlarmClock eventPreferences = event._eventPreferencesAlarmClock;
+
+                eventPreferences._enabled = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_ENABLED))) == 1);
+                eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_START_TIME)));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_DURATION));
+                eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_PERMANENT_RUN))) == 1);
+                eventPreferences.setSensorPassed(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_SENSOR_PASSED))));
+            }
+            cursor.close();
+        }
+    }
+
     private void updateEventPreferences(Event event, SQLiteDatabase db) {
         updateEventPreferencesTime(event, db);
         updateEventPreferencesBattery(event, db);
@@ -4877,6 +4931,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         updateEventPreferencesMobileCells(event, db);
         updateEventPreferencesNFC(event, db);
         updateEventPreferencesRadioSwitch(event, db);
+        updateEventPreferencesAlarmClock(event, db);
     }
 
     private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -5164,6 +5219,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(event._id) });
     }
 
+    private void updateEventPreferencesAlarmClock(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesAlarmClock eventPreferences = event._eventPreferencesAlarmClock;
+
+        values.put(KEY_E_ALARM_CLOCK_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_ALARM_CLOCK_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_ALARM_CLOCK_DURATION, eventPreferences._duration);
+        values.put(KEY_E_ALARM_CLOCK_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     int getEventStatus(Event event)
     {
         importExportLock.lock();
@@ -5412,6 +5483,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         case ETYPE_RADIO_SWITCH:
                             sensorPassedField = KEY_E_RADIO_SWITCH_SENSOR_PASSED;
                             break;
+                        case ETYPE_ALARM_CLOCK:
+                            sensorPassedField = KEY_E_ALARM_CLOCK_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(TABLE_EVENTS,
@@ -5520,6 +5594,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         sensorPassed = event._eventPreferencesRadioSwitch.getSensorPassed();
                         sensorPassedField = KEY_E_RADIO_SWITCH_SENSOR_PASSED;
                         break;
+                    case ETYPE_ALARM_CLOCK:
+                        sensorPassed = event._eventPreferencesAlarmClock.getSensorPassed();
+                        sensorPassedField = KEY_E_ALARM_CLOCK_SENSOR_PASSED;
+                        break;
                 }
                 ContentValues values = new ContentValues();
                 values.put(sensorPassedField, sensorPassed);
@@ -5575,6 +5653,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_SCREEN_SENSOR_PASSED, 0);
                 values.put(KEY_E_SMS_SENSOR_PASSED, 0);
                 values.put(KEY_E_TIME_SENSOR_PASSED, 0);
+                values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, 0);
 
                 db.beginTransaction();
 
@@ -5671,6 +5750,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 else if (eventType == ETYPE_RADIO_SWITCH_AIRPLANE_MODE)
                     eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
                             KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
+                else if (eventType == ETYPE_ALARM_CLOCK)
+                    eventTypeChecked = eventTypeChecked + KEY_E_ALARM_CLOCK_ENABLED + "=1";
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
                         " WHERE " + eventTypeChecked;
@@ -6318,6 +6399,77 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (cursor.getCount() > 0) {
                         event._eventPreferencesCall._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_CALL_START_TIME)));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateAlarmClockStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_ALARM_CLOCK_START_TIME, event._eventPreferencesAlarmClock._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateAlarmClockStartTime", Log.getStackTraceString(e));
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void getAlarmClockStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_ALARM_CLOCK_START_TIME
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesAlarmClock._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ALARM_CLOCK_START_TIME)));
                     }
 
                     cursor.close();
@@ -9178,6 +9330,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (exportedDBObj.getVersion() < 2160) {
                                                 values.put(KEY_E_CALENDAR_ALL_EVENTS, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2170) {
+                                                values.put(KEY_E_ALARM_CLOCK_ENABLED, 0);
+                                                values.put(KEY_E_ALARM_CLOCK_START_TIME, 0);
+                                                values.put(KEY_E_ALARM_CLOCK_DURATION, 5);
+                                                values.put(KEY_E_ALARM_CLOCK_PERMANENT_RUN, 0);
+                                                values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

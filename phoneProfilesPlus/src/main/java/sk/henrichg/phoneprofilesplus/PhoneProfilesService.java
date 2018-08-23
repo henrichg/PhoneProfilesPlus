@@ -116,6 +116,8 @@ public class PhoneProfilesService extends Service
     private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
     private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
     private PostDelayedBroadcastReceiver postDelayedBroadcastReceiver = null;
+    private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
+    private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     private DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
@@ -136,6 +138,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.StartEventNotificationBroadcastReceiver";
     static final String ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.GeofencesScannerSwitchGPSBroadcastReceiver";
     static final String ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.LockDeviceActivityFinishBroadcastReceiver";
+    static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.AlarmClockEventEndBroadcastReceiver";
 
     static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -1237,6 +1240,95 @@ public class PhoneProfilesService extends Service
             }
             else
                 registerReceiverForRadioSwitchMobileDataSensor(false, false);
+        }
+    }
+
+    private void registerReceiverForAlarmClockSensor(boolean register, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
+        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "xxx");
+        if (!register) {
+            if (alarmClockBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->UNREGISTER ALARM CLOCK", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "UNREGISTER ALARM CLOCK");
+                try {
+                    unregisterReceiver(alarmClockBroadcastReceiver);
+                    alarmClockBroadcastReceiver = null;
+                } catch (Exception e) {
+                    alarmClockBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "not registered ALARM CLOCK");
+            if (alarmClockEventEndBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->UNREGISTER alarmClockEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "UNREGISTER alarmClockEventEndBroadcastReceiver");
+                try {
+                    unregisterReceiver(alarmClockEventEndBroadcastReceiver);
+                    alarmClockEventEndBroadcastReceiver = null;
+                } catch (Exception e) {
+                    alarmClockEventEndBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "not registered alarmClockEventEndBroadcastReceiver");
+        }
+        if (register) {
+            if (Event.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, appContext).allowed ==
+                    PreferenceAllowed.PREFERENCE_ALLOWED) {
+                int eventCount = 1;
+                if (checkDatabase)
+                    eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ALARM_CLOCK, false);
+                if (eventCount > 0) {
+                    if (alarmClockBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER ALARM CLOCK", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER ALARM CLOCK");
+                        alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
+                        IntentFilter intentFilter21 = new IntentFilter();
+                        // AOSP
+                        intentFilter21.addAction("com.android.deskclock.ALARM_ALERT");
+                        intentFilter21.addAction("com.android.alarmclock.ALARM_ALERT");
+                        // Samsung
+                        intentFilter21.addAction("com.samsung.sec.android.clockpackage.alarm.ALARM_ALERT");
+                        // HTC
+                        intentFilter21.addAction("com.htc.android.worldclock.ALARM_ALERT");
+                        intentFilter21.addAction("com.htc.android.ALARM_ALERT");
+                        // Sony
+                        intentFilter21.addAction("com.sonyericsson.alarm.ALARM_ALERT");
+                        // ZTE
+                        intentFilter21.addAction("zte.com.cn.alarmclock.ALARM_ALERT");
+                        // Motorola
+                        intentFilter21.addAction("com.motorola.blur.alarmclock.ALARM_ALERT");
+                        // LG
+                        intentFilter21.addAction("com.lge.clock.ALARM_ALERT");
+
+                        // Gentle Alarm
+                        intentFilter21.addAction("com.mobitobi.android.gentlealarm.ALARM_INFO");
+                        // Sleep As Android
+                        intentFilter21.addAction("com.urbandroid.sleep.alarmclock.ALARM_ALERT");
+                        //  Alarmdroid (1.13.2)
+                        intentFilter21.addAction("com.splunchy.android.alarmclock.ALARM_ALERT");
+
+                        //intentFilter21.setPriority(Integer.MAX_VALUE);
+                        registerReceiver(alarmClockBroadcastReceiver, intentFilter21);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered ALARM CLOCK");
+                    if (alarmClockEventEndBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER alarmClockEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER alarmClockEventEndBroadcastReceiver");
+                        alarmClockEventEndBroadcastReceiver = new AlarmClockEventEndBroadcastReceiver();
+                        IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER);
+                        registerReceiver(alarmClockEventEndBroadcastReceiver, intentFilter22);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered alarmClockEventEndBroadcastReceiver");
+                } else {
+                    registerReceiverForAlarmClockSensor(false, false);
+                }
+            }
+            else
+                registerReceiverForAlarmClockSensor(false, false);
         }
     }
 
@@ -2550,6 +2642,9 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchNFCSensor(true, true);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, true);
 
+        // required for alarm clock event
+        registerReceiverForAlarmClockSensor(true, true);
+
         // required for force stop applications, applications event and orientation event
         registerAccessibilityServiceReceiver(true, true);
 
@@ -2685,6 +2780,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(false, false);
         registerReceiverForRadioSwitchNFCSensor(false, false);
         registerReceiverForRadioSwitchAirplaneModeSensor(false, false);
+        registerReceiverForAlarmClockSensor(false, false);
         registerAccessibilityServiceReceiver(false, false);
         registerLocationModeChangedBroadcastReceiver(false, false);
         registerBluetoothStateChangedBroadcastReceiver(false, false, false);
@@ -2727,6 +2823,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(true, true);
         registerReceiverForRadioSwitchNFCSensor(true, true);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, true);
+        registerReceiverForAlarmClockSensor(true, true);
         registerAccessibilityServiceReceiver(true, true);
         registerLocationModeChangedBroadcastReceiver(true, true);
         registerBluetoothStateChangedBroadcastReceiver(true, true, false);
