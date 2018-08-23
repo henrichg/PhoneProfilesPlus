@@ -8,13 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
 import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
-import android.telephony.PhoneNumberUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -955,11 +955,11 @@ class Event {
 
         description = description + _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, context);
 
-        if (_eventPreferencesAlarmClock._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);
-
         if (_eventPreferencesCalendar._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, context);
+
+        if (_eventPreferencesAlarmClock._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
+        description = description + _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);
 
         if (_eventPreferencesBattery._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesBattery.getPreferencesDescription(true, addPassStatus, context);

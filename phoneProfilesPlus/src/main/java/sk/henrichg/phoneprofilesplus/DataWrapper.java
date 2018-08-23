@@ -1835,6 +1835,7 @@ public class DataWrapper {
         boolean notAllowedMobileCell = false;
         boolean notAllowedNfc = false;
         boolean notAllowedRadioSwitch = false;
+        boolean notAllowedAlarmClock = false;
 
         boolean timePassed = true;
         boolean batteryPassed = true;
@@ -1852,6 +1853,7 @@ public class DataWrapper {
         boolean mobileCellPassed = true;
         boolean nfcPassed = true;
         boolean radioSwitchPassed = true;
+        boolean alarmClockPassed = true;
 
         PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","--- start --------------------------");
         PPApplication.logE("%%%%%%% DataWrapper.doHandleEvents","------- event._id="+event._id);
@@ -3368,6 +3370,66 @@ public class DataWrapper {
             event._eventPreferencesRadioSwitch.setSensorPassed(event._eventPreferencesRadioSwitch.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
         }
 
+        if (event._eventPreferencesAlarmClock._enabled) {
+            if (Event.isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                // compute start time
+
+                if (event._eventPreferencesAlarmClock._startTime > 0) {
+                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                    long startTime = event._eventPreferencesAlarmClock._startTime - gmtOffset;
+
+                    if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(startTime);
+                        PPApplication.logE("DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                    }
+
+                    // compute end datetime
+                    long endAlarmTime = event._eventPreferencesAlarmClock.computeAlarm();
+                    if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(endAlarmTime);
+                        PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                    }
+
+                    Calendar now = Calendar.getInstance();
+                    long nowAlarmTime = now.getTimeInMillis();
+                    if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String alarmTimeS = sdf.format(nowAlarmTime);
+                        PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                    }
+
+                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK))
+                        alarmClockPassed = true;
+                    else if (!event._eventPreferencesAlarmClock._permanentRun) {
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
+                            alarmClockPassed = false;
+                        else
+                            alarmClockPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                    } else {
+                        alarmClockPassed = nowAlarmTime >= startTime;
+                    }
+                } else
+                    alarmClockPassed = false;
+
+                if (!alarmClockPassed) {
+                    event._eventPreferencesAlarmClock._startTime = 0;
+                    DatabaseHandler.getInstance(context).updateAlarmClockStartTime(event);
+                }
+
+                if (!notAllowedAlarmClock) {
+                    if (alarmClockPassed)
+                        event._eventPreferencesAlarmClock.setSensorPassed(EventPreferences.SENSOR_PASSED_PASSED);
+                    else
+                        event._eventPreferencesAlarmClock.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+                    DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_ALARM_CLOCK);
+                }
+            } else
+                notAllowedAlarmClock = true;
+            event._eventPreferencesAlarmClock.setSensorPassed(event._eventPreferencesAlarmClock.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
+        }
+
         List<EventTimeline> eventTimelineList = getEventTimelineList();
 
         boolean allPassed = true;
@@ -3436,6 +3498,10 @@ public class DataWrapper {
             allPassed &= radioSwitchPassed;
         else
             someNotAllowed = true;
+        if (!notAllowedAlarmClock)
+            allPassed &= alarmClockPassed;
+        else
+            someNotAllowed = true;
 
         PPApplication.logE("DataWrapper.doHandleEvents","timePassed="+timePassed);
         PPApplication.logE("DataWrapper.doHandleEvents","batteryPassed="+batteryPassed);
@@ -3453,6 +3519,7 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.doHandleEvents","mobileCellPassed="+mobileCellPassed);
         PPApplication.logE("DataWrapper.doHandleEvents","nfcPassed="+nfcPassed);
         PPApplication.logE("DataWrapper.doHandleEvents","radioSwitchPassed="+radioSwitchPassed);
+        PPApplication.logE("DataWrapper.doHandleEvents","alarmClockPassed="+alarmClockPassed);
 
         PPApplication.logE("DataWrapper.doHandleEvents","notAllowedTime="+notAllowedTime);
         PPApplication.logE("DataWrapper.doHandleEvents","notAllowedBattery="+notAllowedBattery);
@@ -3470,6 +3537,7 @@ public class DataWrapper {
         PPApplication.logE("DataWrapper.doHandleEvents","notAllowedMobileCell="+notAllowedMobileCell);
         PPApplication.logE("DataWrapper.doHandleEvents","notAllowedNfc="+notAllowedNfc);
         PPApplication.logE("DataWrapper.doHandleEvents","notAllowedRadioSwitch="+notAllowedRadioSwitch);
+        PPApplication.logE("DataWrapper.doHandleEvents","notAllowedAlarmClock="+notAllowedAlarmClock);
 
         PPApplication.logE("DataWrapper.doHandleEvents","allPassed="+allPassed);
         PPApplication.logE("DataWrapper.doHandleEvents","someNotAllowed="+someNotAllowed);
