@@ -244,7 +244,7 @@ public class PPApplication extends Application {
 
                                         //+"|LauncherActivity"
 
-                                        +"|EventPreferencesCalendar.searchEvent"
+                                        +"|AlarmClockBroadcastReceiver.onReceive"
             ;
 
 

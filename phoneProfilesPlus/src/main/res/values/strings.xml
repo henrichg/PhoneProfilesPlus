@@ -1219,6 +1219,8 @@
     <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
     <string name="event_type_alarm_clock">Alarm clock</string>
     <string name="event_preferences_category_eventAlarmClockParameters">Alarm clock sensor</string>
+    <string name="event_preferences_alarmClock_info_title">Experimental sensor</string>
+    <string name="event_preferences_alarmClock_info_summary">This sensor is experimental, because not working with Google Clock application, LG phones, Xiaomi phones. Sorry.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

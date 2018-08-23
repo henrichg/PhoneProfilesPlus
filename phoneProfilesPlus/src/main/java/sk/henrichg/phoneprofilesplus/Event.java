@@ -958,9 +958,6 @@ class Event {
         if (_eventPreferencesCalendar._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, context);
 
-        if (_eventPreferencesAlarmClock._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);
-
         if (_eventPreferencesBattery._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesBattery.getPreferencesDescription(true, addPassStatus, context);
 
@@ -1002,6 +999,9 @@ class Event {
 
         if (_eventPreferencesNFC._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesNFC.getPreferencesDescription(true, addPassStatus, context);
+
+        if (_eventPreferencesAlarmClock._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
+        description = description + _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);
 
         //description = description.replace(' ', '\u00A0');
 
