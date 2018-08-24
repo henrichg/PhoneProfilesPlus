@@ -764,7 +764,6 @@ class ActivateProfileHelper {
                     }
                     else {
                         if (PPApplication.isRooted()) {
-                            // TODO call isRootGranted - handlerThreadVolumes
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put global audio_safe_volume_state 2";
                                 Command command = new Command(0, false, command1);
@@ -772,7 +771,9 @@ class ActivateProfileHelper {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
                                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
-                                } catch (Exception ignored) {
+                                    PPApplication.rootMutex.rootGranted = true;
+                                } catch (Exception ee) {
+                                    PPApplication.rootMutex.rootGranted = false;
                                 }
                             }
                         }
@@ -888,7 +889,9 @@ class ActivateProfileHelper {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command);
                                         PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                        PPApplication.rootMutex.rootGranted = true;
                                     } catch (Exception e) {
+                                        PPApplication.rootMutex.rootGranted = false;
                                         Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
                                     }
                                 }
@@ -1094,7 +1097,9 @@ class ActivateProfileHelper {
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
+                                    PPApplication.rootMutex.rootGranted = true;
                                 } catch (Exception e) {
+                                    PPApplication.rootMutex.rootGranted = false;
                                     Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
                                 }
                             }
@@ -1142,7 +1147,9 @@ class ActivateProfileHelper {
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
+                                    PPApplication.rootMutex.rootGranted = true;
                                 } catch (Exception e) {
+                                    PPApplication.rootMutex.rootGranted = false;
                                     Log.e("ActivateProfileHelper.setHeadsUpNotifications", Log.getStackTraceString(e));
                                 }
                             }
@@ -1689,7 +1696,9 @@ class ActivateProfileHelper {
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command);
+                            PPApplication.rootMutex.rootGranted = true;
                         } catch (Exception e) {
+                            PPApplication.rootMutex.rootGranted = false;
                             Log.e("ActivateProfileHelper.execute", Log.getStackTraceString(e));
                         }
                     }
@@ -2801,7 +2810,9 @@ class ActivateProfileHelper {
                         RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
                         PPApplication.commandWait(command);
                         PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
+                        PPApplication.rootMutex.rootGranted = true;
                     } catch (Exception e) {
+                        PPApplication.rootMutex.rootGranted = false;
                         Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                     }
 
@@ -2828,7 +2839,9 @@ class ActivateProfileHelper {
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         commandWait(command);
+                                        PPApplication.rootMutex.rootGranted = true;
                                     } catch (Exception e) {
+                                        PPApplication.rootMutex.rootGranted = false;
                                         Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                                     }
                                 }
@@ -2842,7 +2855,9 @@ class ActivateProfileHelper {
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     commandWait(command);
+                                    PPApplication.rootMutex.rootGranted = true;
                                 } catch (Exception e) {
+                                    PPApplication.rootMutex.rootGranted = false;
                                     Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                                 }
                             }
@@ -2935,7 +2950,9 @@ class ActivateProfileHelper {
                     try {
                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                         commandWait(command);
+                        PPApplication.rootMutex.rootGranted = true;
                     } catch (Exception e) {
+                        PPApplication.rootMutex.rootGranted = false;
                         Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                     }
                 }
@@ -3001,7 +3018,9 @@ class ActivateProfileHelper {
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                 PPApplication.commandWait(command);
+                                                PPApplication.rootMutex.rootGranted = true;
                                             } catch (Exception e) {
+                                                PPApplication.rootMutex.rootGranted = false;
                                                 Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                                             }
                                         }
@@ -3018,7 +3037,9 @@ class ActivateProfileHelper {
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
+                                    PPApplication.rootMutex.rootGranted = true;
                                 } catch (Exception e) {
+                                    PPApplication.rootMutex.rootGranted = false;
                                     Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
                                 }
                             }
@@ -3091,7 +3112,9 @@ class ActivateProfileHelper {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
                                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command end");
+                                    PPApplication.rootMutex.rootGranted = true;
                                 } catch (Exception e) {
+                                    PPApplication.rootMutex.rootGranted = false;
                                     Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
                                     PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-root command error");
                                 }
@@ -3132,7 +3155,9 @@ class ActivateProfileHelper {
                     try {
                         RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                         PPApplication.commandWait(command);
+                        PPApplication.rootMutex.rootGranted = true;
                     } catch (Exception e) {
+                        PPApplication.rootMutex.rootGranted = false;
                         Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
                     }
                 }
@@ -3241,7 +3266,9 @@ class ActivateProfileHelper {
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command);
+                            PPApplication.rootMutex.rootGranted = true;
                         } catch (Exception e) {
+                            PPApplication.rootMutex.rootGranted = false;
                             Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                             PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                         }
@@ -3359,7 +3386,9 @@ class ActivateProfileHelper {
                         try {
                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                             PPApplication.commandWait(command);
+                            PPApplication.rootMutex.rootGranted = true;
                         } catch (Exception e) {
+                            PPApplication.rootMutex.rootGranted = false;
                             Log.e("ActivateProfileHelper.setGPS", Log.getStackTraceString(e));
                             PPApplication.logE("ActivateProfileHelper.setGPS", "Error on run su: " + e.toString());
                         }
@@ -3438,7 +3467,9 @@ class ActivateProfileHelper {
                 try {
                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                     PPApplication.commandWait(command);
+                    PPApplication.rootMutex.rootGranted = true;
                 } catch (Exception e) {
+                    PPApplication.rootMutex.rootGranted = false;
                     Log.e("AirPlaneMode_SDK17.setAirplaneMode", Log.getStackTraceString(e));
                 }
                 PPApplication.logE("ActivateProfileHelper.setAirplaneMode_SDK17", "done");
@@ -3516,7 +3547,9 @@ class ActivateProfileHelper {
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                             PPApplication.commandWait(command);
+                                            PPApplication.rootMutex.rootGranted = true;
                                         } catch (Exception e) {
+                                            PPApplication.rootMutex.rootGranted = false;
                                             Log.e("ActivateProfileHelper.setPowerSaveMode", Log.getStackTraceString(e));
                                         }
                                     }
@@ -3564,7 +3597,9 @@ class ActivateProfileHelper {
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     commandWait(command);
+                                    PPApplication.rootMutex.rootGranted = true;
                                 } catch (Exception e) {
+                                    PPApplication.rootMutex.rootGranted = false;
                                     Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                                 }*/
                                 String command1 = PPApplication.getJavaCommandFile(CmdGoToSleep.class, "power", context, 0);
@@ -3573,7 +3608,9 @@ class ActivateProfileHelper {
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                                         PPApplication.commandWait(command);
+                                        PPApplication.rootMutex.rootGranted = true;
                                     } catch (Exception e) {
+                                        PPApplication.rootMutex.rootGranted = false;
                                         Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                                     }
                                 }
@@ -3589,7 +3626,9 @@ class ActivateProfileHelper {
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         commandWait(command);
+                                        PPApplication.rootMutex.rootGranted = true;
                                     } catch (Exception e) {
+                                        PPApplication.rootMutex.rootGranted = false;
                                         Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
                                     }
                                 } catch(Exception ignored) {

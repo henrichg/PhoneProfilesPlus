@@ -535,7 +535,9 @@ public class BrightnessDialogPreference extends
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command);
+                                        PPApplication.rootMutex.rootGranted = true;
                                     } catch (Exception e) {
+                                        PPApplication.rootMutex.rootGranted = false;
                                         Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));
                                     }
                                 }
