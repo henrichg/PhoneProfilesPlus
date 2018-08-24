@@ -1783,9 +1783,8 @@ public class PPApplication extends Application {
 
                     context.stopService(new Intent(context, PhoneProfilesService.class));
 
-                    Permissions.setShowRequestAccessNotificationPolicyPermission(context.getApplicationContext(), true);
-                    Permissions.setShowRequestWriteSettingsPermission(context.getApplicationContext(), true);
-                    Permissions.setShowRequestDrawOverlaysPermission(context.getApplicationContext(), true);
+                    Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
+
                     WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
                     //ActivateProfileHelper.setScreenUnlocked(context, true);
 

@@ -1386,9 +1386,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
                         editor.apply();
 
-                        Permissions.setShowRequestAccessNotificationPolicyPermission(getApplicationContext(), true);
-                        Permissions.setShowRequestWriteSettingsPermission(getApplicationContext(), true);
-                        Permissions.setShowRequestDrawOverlaysPermission(getApplicationContext(), true);
+                        Permissions.setAllShowRequestPermissions(getApplicationContext(), true);
+
                         WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
                     }
 

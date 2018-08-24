@@ -56,8 +56,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    Permissions.setShowRequestAccessNotificationPolicyPermission(appContext, true);
-                    Permissions.setShowRequestWriteSettingsPermission(appContext, true);
+                    Permissions.setAllShowRequestPermissions(appContext, true);
+
                     WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true);
                     //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
