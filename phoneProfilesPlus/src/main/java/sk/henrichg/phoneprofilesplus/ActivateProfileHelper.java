@@ -764,6 +764,7 @@ class ActivateProfileHelper {
                     }
                     else {
                         if (PPApplication.isRooted()) {
+                            // TODO call isRootGranted - handlerThreadVolumes
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put global audio_safe_volume_state 2";
                                 Command command = new Command(0, false, command1);
@@ -877,6 +878,7 @@ class ActivateProfileHelper {
                             Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
 
                             if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                                // TODO call isRootGranted - handlerThreadVolumes
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                     //if (PPApplication.isSELinuxEnforcing())
@@ -1058,7 +1060,7 @@ class ActivateProfileHelper {
         });
     }
 
-    private static void setNotificationLed(Context context, int value) {
+    private static void setNotificationLed(Context context, final int value) {
         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
@@ -1070,18 +1072,40 @@ class ActivateProfileHelper {
                 }
                 else*/
                 if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
-                    synchronized (PPApplication.rootMutex) {
-                        String command1 = "settings put system " + Settings.System.NOTIFICATION_LIGHT_PULSE + " " + value;
-                        //if (PPApplication.isSELinuxEnforcing())
-                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                        Command command = new Command(0, false, command1); //, command2);
-                        try {
-                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                            PPApplication.commandWait(command);
-                        } catch (Exception e) {
-                            Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
+                    final Context appContext = context.getApplicationContext();
+                    PPApplication.startHandlerThreadNotificationLed();
+                    final Handler handler = new Handler(PPApplication.handlerThreadNotificationLed.getLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.setHeadsUpNotifications");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            // TODO call isRootGranted - handlerThreadNotificationLed
+                            synchronized (PPApplication.rootMutex) {
+                                String command1 = "settings put system " + Settings.System.NOTIFICATION_LIGHT_PULSE + " " + value;
+                                //if (PPApplication.isSELinuxEnforcing())
+                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                Command command = new Command(0, false, command1); //, command2);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command);
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setNotificationLed", Log.getStackTraceString(e));
+                                }
+                            }
+
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
-                    }
+                    });
                 }
             }
         }
@@ -1109,6 +1133,7 @@ class ActivateProfileHelper {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            // TODO call isRootGranted - handlerThreadHeadsUpNotifications
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put global " + "heads_up_notifications_enabled" + " " + value;
                                 //if (PPApplication.isSELinuxEnforcing())
@@ -1654,6 +1679,7 @@ class ActivateProfileHelper {
                 }
 
                 if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                    // TODO call isRootGranted - handlerThreadAdaptiveBrightness
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
                                 Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
@@ -2748,6 +2774,7 @@ class ActivateProfileHelper {
             else
             if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
             {
+                // TODO call isRootGranted - handlerThreadRadios
                 synchronized (PPApplication.rootMutex) {
                     String command1 = "svc data " + (enable ? "enable" : "disable");
                     PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
@@ -2966,6 +2993,7 @@ class ActivateProfileHelper {
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if (subscriptionInfo != null) {
                                     int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                    // TODO call isRootGranted - handlerThreadRadios
                                     synchronized (PPApplication.rootMutex) {
                                         String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
                                         if (command1 != null) {
@@ -2982,6 +3010,7 @@ class ActivateProfileHelper {
                             }
                         }
                     } else {
+                        // TODO call isRootGranted - handlerThreadRadios
                         synchronized (PPApplication.rootMutex) {
                             String command1 = PPApplication.getServiceCommand("phone", transactionCode, networkType);
                             if (command1 != null) {
@@ -3051,6 +3080,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
+                        // TODO call isRootGranted - handlerThreadRadios
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-start root command");
                             String command1 = PPApplication.getServiceCommand("wifi", transactionCode, 0, (enable) ? 1 : 0);
@@ -3094,6 +3124,7 @@ class ActivateProfileHelper {
         }
         else
         if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/) {
+            // TODO call isRootGranted - handlerThreadRadios
             synchronized (PPApplication.rootMutex) {
                 String command1 = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
                 if (command1 != null) {
@@ -3199,6 +3230,7 @@ class ActivateProfileHelper {
                         newSet = String.format("%s,%s", provider, LocationManager.GPS_PROVIDER);
                     PPApplication.logE("ActivateProfileHelper.setGPS", "newSet="+newSet);
 
+                    // TODO call isRootGranted - handlerThreadRadios
                     synchronized (PPApplication.rootMutex) {
                         command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
                         //if (PPApplication.isSELinuxEnforcing())
@@ -3317,6 +3349,7 @@ class ActivateProfileHelper {
                     }
                     PPApplication.logE("ActivateProfileHelper.setGPS", "newSet="+newSet);
 
+                    // TODO call isRootGranted - handlerThreadRadios
                     synchronized (PPApplication.rootMutex) {
                         command1 = "settings put secure location_providers_allowed \"" + newSet + "\"";
                         //if (PPApplication.isSELinuxEnforcing())
@@ -3385,6 +3418,7 @@ class ActivateProfileHelper {
         if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
         {
             // device is rooted
+            // TODO call isRootGranted - handlerThreadRadios
             synchronized (PPApplication.rootMutex) {
                 String command1;
                 String command2;
@@ -3475,6 +3509,7 @@ class ActivateProfileHelper {
                                     if (android.os.Build.VERSION.SDK_INT >= 21)
                                         Settings.Global.putInt(context.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
                                 } else if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                                    // TODO call isRootGranted - handlerThreadPowerSaveMode
                                     synchronized (PPApplication.rootMutex) {
                                         String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
                                         Command command = new Command(0, false, command1);
@@ -3522,6 +3557,7 @@ class ActivateProfileHelper {
                     case 2:
                         if (PPApplication.isRooted())
                         {
+                            // TODO call isRootGranted - handlerThreadLockDevice
                             synchronized (PPApplication.rootMutex) {
                                 /*String command1 = "input keyevent 26";
                                 Command command = new Command(0, false, command1);

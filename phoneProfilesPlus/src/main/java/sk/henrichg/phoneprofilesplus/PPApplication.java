@@ -371,6 +371,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadHeadsUpNotifications = null;
     //public static HandlerThread handlerThreadMobileCells = null;
     public static HandlerThread handlerThreadBluetoothConnectedDevices = null;
+    public static HandlerThread handlerThreadNotificationLed = null;
 
     private static HandlerThread handlerThreadRestartEventsWithDelay = null;
     public static Handler restartEventsWithDelayHandler = null;
@@ -481,6 +482,7 @@ public class PPApplication extends Application {
         //startHandlerThreadMobileCells();
         startHandlerThreadRestartEventsWithDelay();
         startHandlerThreadBluetoothConnectedDevices();
+        startHandlerThreadNotificationLed();
 
         toastHandler = new Handler(getMainLooper());
         brightnessHandler = new Handler(getMainLooper());
@@ -1922,4 +1924,12 @@ public class PPApplication extends Application {
             handlerThreadBluetoothConnectedDevices.start();
         }
     }
+
+    static void startHandlerThreadNotificationLed() {
+        if (handlerThreadNotificationLed == null) {
+            handlerThreadNotificationLed = new HandlerThread("handlerThreadNotificationLed");
+            handlerThreadNotificationLed.start();
+        }
+    }
+
 }
