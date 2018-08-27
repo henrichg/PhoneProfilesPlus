@@ -6,10 +6,8 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,16 +19,11 @@ import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 
 import com.evernote.android.job.JobRequest;
-import com.thelittlefireman.appkillermanager.devices.DeviceBase;
 import com.thelittlefireman.appkillermanager.managers.KillerManager;
-import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -67,7 +60,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
     private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
-    static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
+    private static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
 
     @Override
     public int addPreferencesFromResource() {
@@ -644,101 +637,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(getActivity());
-
-                        FrameLayout container = new FrameLayout(getActivity());
-                        container.addView(doNotShowAgain);
-                        FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
-                                FrameLayout.LayoutParams.MATCH_PARENT,
-                                FrameLayout.LayoutParams.WRAP_CONTENT);
-                        containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
-                        container.setLayoutParams(containerParams);
-
-                        FrameLayout superContainer = new FrameLayout(getActivity());
-                        superContainer.addView(container);
-
-                        doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
-                        doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot(getActivity()));
-                        doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getActivity());
-                                SharedPreferences.Editor editor = settings.edit();
-                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
-                                editor.apply();
-                            }
-                        });
-
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                        dialogBuilder.setTitle(R.string.phone_profiles_pref_grantRootPermission);
-                        dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_summary);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        //dialogBuilder.setView(doNotShowAgain);
-                        dialogBuilder.setView(superContainer);
-                        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getActivity());
-                                SharedPreferences.Editor editor = settings.edit();
-                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                                editor.apply();
-
-                                boolean ok = false;
-                                PackageManager packageManager = getActivity().getPackageManager();
-                                // SuperSU
-                                Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
-                                if (intent != null) {
-                                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    try {
-                                        getActivity().startActivity(intent);
-                                        ok = true;
-                                    } catch (Exception ignore) {
-                                    }
-                                }
-                                if (!ok) {
-                                    // MAGISK
-                                    intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
-                                    if (intent != null) {
-                                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        try {
-                                            getActivity().startActivity(intent);
-                                            ok = true;
-                                        } catch (Exception ignore) {
-                                        }
-                                    }
-                                }
-                                if (!ok) {
-                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                                    dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
-                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog dialog2 = dialogBuilder.create();
-                                    /*dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
-                                        @Override
-                                        public void onShow(DialogInterface dialog) {
-                                            Button positive = ((AlertDialog)dialog2).getButton(DialogInterface.BUTTON_POSITIVE);
-                                            if (positive != null) positive.setAllCaps(false);
-                                            Button negative = ((AlertDialog)dialog2).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                            if (negative != null) negative.setAllCaps(false);
-                                        }
-                                    });*/
-                                    dialog2.show();
-                                }
-                            }
-                        });
-                        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                        AlertDialog dialog = dialogBuilder.create();
-                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface dialog) {
-                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                if (positive != null) positive.setAllCaps(false);
-                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                if (negative != null) negative.setAllCaps(false);
-                            }
-                        });*/
-                        dialog.show();
+                        Permissions.grantRoot(getActivity());
                         return false;
                     }
                 });

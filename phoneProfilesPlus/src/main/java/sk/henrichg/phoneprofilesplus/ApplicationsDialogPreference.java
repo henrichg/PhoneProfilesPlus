@@ -140,6 +140,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         });
 
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_applications_pref_dialog, null);
         dialogBuilder.setView(layout);
 

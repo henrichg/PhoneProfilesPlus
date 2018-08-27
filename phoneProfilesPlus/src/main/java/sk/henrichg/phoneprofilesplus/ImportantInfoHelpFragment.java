@@ -449,7 +449,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText3.setVisibility(View.GONE);
         }
 
-        boolean intentFound = false;
         KillerManager.init(activity);
         if (KillerManager.isActionAvailable(activity, KillerManager.Actions.ACTION_POWERSAVING)) {
             TextView infoText = view.findViewById(R.id.activity_info_notification_power_manager);

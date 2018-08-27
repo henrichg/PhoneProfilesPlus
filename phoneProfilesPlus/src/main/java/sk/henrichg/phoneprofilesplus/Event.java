@@ -1939,6 +1939,8 @@ class Event {
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
+        boolean checked = false;
+
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
@@ -1946,8 +1948,11 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
         }
-        else
+        if (checked)
+            return preferenceAllowed;
+
         if (preferenceKey.equals(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH))
@@ -1955,8 +1960,11 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
         }
-        else
+        if (checked)
+            return preferenceAllowed;
+
         if (preferenceKey.equals(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED))
         {
             //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
@@ -1965,16 +1973,22 @@ class Event {
                 PPApplication.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 PPApplication.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
             }*/
+            checked = true;
         }
-        else
+        if (checked)
+            return preferenceAllowed;
+
         if (preferenceKey.equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED))
         {
             //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
+            checked = true;
         }
-        else
+        if (checked)
+            return preferenceAllowed;
+
         if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))
         {
             boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
@@ -1988,8 +2002,11 @@ class Event {
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
         }
-        else
+        if (checked)
+            return preferenceAllowed;
+
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
@@ -1997,8 +2014,11 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
         }
-        else
+        if (checked)
+            return preferenceAllowed;
+
         if (preferenceKey.equals(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_NFC))
@@ -2006,14 +2026,15 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
         }
-        else
-            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+        if (checked)
+            return preferenceAllowed;
+
+        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 
         return preferenceAllowed;
     }
-
-
 
     static public boolean getGlobalEventsRunning(Context context)
     {

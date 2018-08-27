@@ -88,7 +88,6 @@
     <string name="array_pref_screenTimeoutArray_1minute">1 minute</string>
     <string name="array_pref_screenTimeoutArray_2minutes">2 minutes</string>
     <string name="array_pref_screenTimeoutArray_10minutes">10 minutes</string>
-    <string name="array_pref_screenTimeoutArray_never_timeout">Never timeout</string>
     <string name="phone_profiles_pref_applicationLanguage">Language</string>
     <string name="phone_profiles_pref_applicationLanguage_system">System</string>
     <string name="phone_profiles_pref_applicationLanguage_en" translatable="false">English</string>
@@ -689,7 +688,6 @@
     <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) new cell, (C) connected to cell.</string>
     <string name="mobile_cells_pref_dlg_cell_name_hint">Cell name</string>
     <string name="mobile_cells_pref_dlg_cell_rename_title">Rename cells</string>
-    <string name="mobile_cells_pref_dlg_cell_rename_button">Rename</string>
     <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
     <string name="phone_profiles_pref_category_mobile_cells_scanning">Mobile cell scanning</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Cell registration</string>
@@ -773,9 +771,6 @@
     <string name="phone_profiles_pref_drawOverlaysPermissions">Draw over apps</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
     <string name="preference_not_allowed_reason_not_configured_in_system_settings">not configured in System Settings</string>
-    <string name="important_into_huawei_protected_apps">For Huawei devices, please enable protection of PhoneProfilesPlus in \"Advanced settings\"→\"Battery manager\"→\"Protected apps\". Without this, the app will not work properly.</string>
-    <string name="important_into_xiaomi_no_restrictions">For Xiaomi devices, please set \"No restrictions\" for PhoneProfilesPlus in \"Settings\"→\"Battery &amp; performance\"→\"Manager apps battery usage\"→\"Choose apps\". Without this, the app will not work properly.</string>
-    <string name="important_into_samsung_no_save_power">For Samsung devices, please turn off \"App power saving\" for PhoneProfilesPlus in \"Settings\"→\"Battery\"→\"App power saving\"→\"Detail\". Without this, the app will not work properly.</string>
     <string name="mobile_cells_pref_dlg_last_connected">connected:</string>
     <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Add Bluetooth name</string>
     <string name="mobile_cells_pref_dlg_rename_icon">Rename cell</string>
@@ -803,7 +798,6 @@
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not support colorful icons in the status bar.</string>
     <string name="pref_dlg_change_selection_title">Change selection</string>
-    <string name="pref_dlg_change_selection_button">Change</string>
     <string name="array_pref_change_selection_unselect_all">Unselect all</string>
     <string name="array_pref_change_selection_mobile_cells_select_by_name">Select by cell name</string>
     <string name="pref_dlg_change_selection_button_unselect_all">Unselect all</string>
@@ -1009,8 +1003,6 @@
     <string name="phone_profiles_pref_applicationLanguage_sl" translatable="false">Slovenščina</string>
     <string name="array_pref_value_sl">sl</string>
     <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
-    <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart permission</string>
-    <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
     <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
     <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
     <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>

@@ -70,6 +70,7 @@ public class ProfilePreference extends DialogPreference {
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_profile_pref_dialog, null);
         dialogBuilder.setView(layout);
 

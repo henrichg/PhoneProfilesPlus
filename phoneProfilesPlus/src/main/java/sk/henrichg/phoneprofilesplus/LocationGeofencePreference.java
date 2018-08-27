@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -81,6 +82,7 @@ public class LocationGeofencePreference extends DialogPreference {
         }
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_location_pref_dialog, null);
         dialogBuilder.setView(layout);
 

@@ -40,6 +40,7 @@ class AddEventDialog
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_event_pref_dialog, null);
         dialogBuilder.setView(layout);
 

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -82,6 +83,7 @@ public class ColorChooserPreference extends DialogPreference implements View.OnC
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.dialog_color_chooser, null);
         dialogBuilder.setView(layout);
 

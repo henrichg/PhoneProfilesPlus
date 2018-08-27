@@ -101,6 +101,7 @@ public class BluetoothNamePreference extends DialogPreference {
         });
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_bluetooth_name_pref_dialog, null);
         dialogBuilder.setView(layout);
 

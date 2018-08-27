@@ -101,7 +101,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
                 <!-- // LG -->
                 <action android:name="com.lge.clock.ALARM_ALERT"/>
                 <!--
-                // Thirdparty Alarms
+                // Third-party Alarms
                 // Gentle Alarm
                 -->
                 <action android:name="com.mobitobi.android.gentlealarm.ALARM_INFO"/>

@@ -117,6 +117,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         });
 
         LayoutInflater inflater = activity.getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_fast_access_duration_dialog, null);
         dialogBuilder.setView(layout);
 

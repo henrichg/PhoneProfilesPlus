@@ -605,11 +605,13 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getThemeActivityLogTypeOtherColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.activityLogTypeOther, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)

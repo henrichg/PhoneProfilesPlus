@@ -78,6 +78,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         });
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_connect_to_ssid_pref_dialog, null);
         dialogBuilder.setView(layout);
 

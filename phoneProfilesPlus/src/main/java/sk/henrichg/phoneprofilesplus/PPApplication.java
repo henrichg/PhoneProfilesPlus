@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -1069,7 +1068,7 @@ public class PPApplication extends Application {
         synchronized (PPApplication.rootMutex) {
             rootMutex.rootChecked = false;
             rootMutex.rooted = false;
-            rootMutex.rootGranted = false;
+            //rootMutex.rootGranted = false;
             rootMutex.settingsBinaryChecked = false;
             rootMutex.settingsBinaryExists = false;
             //rootMutex.isSELinuxEnforcingChecked = false;
@@ -1125,6 +1124,7 @@ public class PPApplication extends Application {
         }
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     static boolean isRootGranted()
     {
         RootShell.debugMode = rootToolsDebug;
@@ -1136,23 +1136,23 @@ public class PPApplication extends Application {
                     if (RootTools.isAccessGiven()) {
                         // root is granted
                         PPApplication.logE("PPApplication.isRootGranted", "root granted");
-                        rootMutex.rootGranted = true;
+                        //rootMutex.rootGranted = true;
                         return true;
                     } else {
                         // grant denied
                         PPApplication.logE("PPApplication.isRootGranted", "root NOT granted");
-                        rootMutex.rootGranted = false;
+                        //rootMutex.rootGranted = false;
                         return false;
                     }
                 } catch (Exception e) {
                     Log.e("PPApplication.isRootGranted", Log.getStackTraceString(e));
-                    rootMutex.rootGranted = false;
+                    //rootMutex.rootGranted = false;
                     return false;
                 }
             }
         } else {
             PPApplication.logE("PPApplication.isRootGranted", "not rooted");
-            rootMutex.rootGranted = false;
+            //rootMutex.rootGranted = false;
             return false;
         }
     }

@@ -91,6 +91,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
         });
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_profile_multiselect_pref_dialog, null);
         dialogBuilder.setView(layout);
 

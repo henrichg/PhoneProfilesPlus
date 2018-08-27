@@ -82,6 +82,7 @@ public class DurationDialogPreference extends DialogPreference
         });
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_duration_pref_dialog, null);
         dialogBuilder.setView(layout);
 

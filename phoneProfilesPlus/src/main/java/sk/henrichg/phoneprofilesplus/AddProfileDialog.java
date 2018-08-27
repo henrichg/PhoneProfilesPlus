@@ -36,6 +36,7 @@ class AddProfileDialog
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_profile_pref_dialog, null);
         dialogBuilder.setView(layout);
 

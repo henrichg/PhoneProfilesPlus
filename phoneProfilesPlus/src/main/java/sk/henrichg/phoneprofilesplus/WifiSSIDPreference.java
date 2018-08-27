@@ -100,6 +100,7 @@ public class WifiSSIDPreference extends DialogPreference {
         });
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_wifi_ssid_pref_dialog, null);
         dialogBuilder.setView(layout);
 

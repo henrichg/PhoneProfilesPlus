@@ -140,6 +140,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         });
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_applications_multiselect_pref_dialog, null);
         dialogBuilder.setView(layout);
 

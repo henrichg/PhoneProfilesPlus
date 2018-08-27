@@ -48,6 +48,7 @@ public class MaterialListPreference extends ListPreference {
         this.context = context;
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public void setEntries(CharSequence[] entries) {
         super.setEntries(entries);

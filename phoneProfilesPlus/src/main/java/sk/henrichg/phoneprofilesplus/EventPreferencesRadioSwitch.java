@@ -182,7 +182,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         boolean isRunnable = event._eventPreferencesRadioSwitch.isRunnable(context);
         CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        SharedPreferences preferences = prefMng.getSharedPreferences();
         ListPreference preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
         if (preference != null) {
             int index = preference.findIndexOfValue(preference.getValue());

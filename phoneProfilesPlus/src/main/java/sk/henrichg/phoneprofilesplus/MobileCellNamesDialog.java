@@ -76,6 +76,7 @@ class MobileCellNamesDialog {
         });
 
         LayoutInflater inflater = activity.getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_mobile_cell_names_dialog, null);
         dialogBuilder.setView(layout);
 

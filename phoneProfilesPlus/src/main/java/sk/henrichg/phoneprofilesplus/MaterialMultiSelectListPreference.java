@@ -53,6 +53,7 @@ public class MaterialMultiSelectListPreference extends MultiSelectListPreference
         init(context/*, attrs*/);
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public void setEntries(CharSequence[] entries) {
         super.setEntries(entries);

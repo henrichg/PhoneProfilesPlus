@@ -97,6 +97,7 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
         });
 
         LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
+        @SuppressLint("InflateParams")
         View layout = inflater.inflate(R.layout.activity_calendars_multiselect_pref_dialog, null);
         dialogBuilder.setView(layout);
 
