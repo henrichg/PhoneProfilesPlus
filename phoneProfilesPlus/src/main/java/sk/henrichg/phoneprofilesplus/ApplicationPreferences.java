@@ -114,6 +114,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE = "applicationEventOrientationDisabledScannigByProfile";
     static final String PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN = "applicationEventNeverAskForEnableRun";
     static final String PREF_APPLICATION_USE_ALARM_CLOCK = "applicationUseAlarmClock";
+    static final String PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT = "applicationNeverAskForGrantRoot";
 
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)
@@ -564,6 +565,10 @@ class ApplicationPreferences {
 
     static boolean applicationUseAlarmClock(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_USE_ALARM_CLOCK, false);
+    }
+
+    static boolean applicationNeverAskForGrantRoot(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
     }
 
 }

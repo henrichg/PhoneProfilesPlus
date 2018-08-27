@@ -1152,6 +1152,7 @@ public class PPApplication extends Application {
             }
         } else {
             PPApplication.logE("PPApplication.isRootGranted", "not rooted");
+            rootMutex.rootGranted = false;
             return false;
         }
     }

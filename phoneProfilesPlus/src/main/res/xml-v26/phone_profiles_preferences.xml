@@ -176,6 +176,13 @@
         android:widgetLayout="@layout/start_activity_preference"
         android:layout="@layout/mp_preference_material_widget">
         <Preference
+            android:key="permissionsGrantRootPermission"
+            android:title="@string/phone_profiles_pref_grantRootPermission"
+            android:summary="@string/phone_profiles_pref_grantRootPermission_summary"
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget">
+        </Preference>
+        <Preference
             android:key="permissionsWriteSystemSettingsPermissions"
             android:title="@string/phone_profiles_pref_writeSystemSettingPermissions"
             android:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary"

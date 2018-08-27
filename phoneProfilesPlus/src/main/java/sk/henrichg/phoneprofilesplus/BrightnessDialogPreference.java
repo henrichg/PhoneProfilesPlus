@@ -25,6 +25,7 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.stericson.RootShell.exceptions.RootDeniedException;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
@@ -535,9 +536,10 @@ public class BrightnessDialogPreference extends
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command);
-                                        PPApplication.rootMutex.rootGranted = true;
-                                    } catch (Exception e) {
+                                    } catch (RootDeniedException e) {
                                         PPApplication.rootMutex.rootGranted = false;
+                                        Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));
+                                    } catch (Exception e) {
                                         Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));
                                     }
                                 }

@@ -2911,10 +2911,9 @@ public class PhoneProfilesService extends Service
                     }
 
                     PPApplication.initRoot();
-                    // grant root
-                    //noinspection StatementWithEmptyBody
-                    if (PPApplication.isRootGranted())
-                    {
+                    if (!ApplicationPreferences.applicationNeverAskForGrantRoot(appContext)) {
+                        // grant root
+                        PPApplication.isRootGranted();
                     }
                     //PPApplication.getSUVersion();
                     PPApplication.settingsBinaryExists();

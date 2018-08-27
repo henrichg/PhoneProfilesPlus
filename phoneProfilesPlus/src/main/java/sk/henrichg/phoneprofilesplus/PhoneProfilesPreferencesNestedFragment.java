@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -20,8 +21,11 @@ import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 
 import com.evernote.android.job.JobRequest;
 import com.thelittlefireman.appkillermanager.devices.DeviceBase;
@@ -45,6 +49,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
     private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
     private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
+    private static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
 
     private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
     private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
@@ -591,14 +596,33 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 });
             }
 
+            if (!PPApplication.isRooted()) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
+                preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
+                if ((preferenceCategory != null) && (preference != null))
+                    preferenceCategory.removePreference(preference);
+            }
         }
         else {
-            PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
-            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
-            if (preferenceCategory != null)
-                preferenceScreen.removePreference(preferenceCategory);
+            if (PPApplication.isRooted()) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
+                Preference preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                preferenceCategory.removePreference(preference);
+                preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+                preferenceCategory.removePreference(preference);
+                preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
+                preferenceCategory.removePreference(preference);
+                preference = findPreference(PREF_APPLICATION_PERMISSIONS);
+                preferenceCategory.removePreference(preference);
+            }
+            else {
+                PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
+                if (preferenceCategory != null)
+                    preferenceScreen.removePreference(preferenceCategory);
+            }
 
-            preferenceCategory = (PreferenceScreen) findPreference("wifiScanningCategory");
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("wifiScanningCategory");
             Preference preference = findPreference(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
@@ -613,6 +637,97 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
+
+        if (PPApplication.isRooted()) {
+            Preference preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
+            if (preference != null) {
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(getActivity());
+
+                        FrameLayout container = new FrameLayout(getActivity());
+                        container.addView(doNotShowAgain);
+                        FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
+                                FrameLayout.LayoutParams.MATCH_PARENT,
+                                FrameLayout.LayoutParams.WRAP_CONTENT);
+                        containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
+                        container.setLayoutParams(containerParams);
+
+                        FrameLayout superContainer = new FrameLayout(getActivity());
+                        superContainer.addView(container);
+
+                        doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+                        doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot(getActivity()));
+                        doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getActivity());
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
+                                editor.apply();
+                            }
+                        });
+
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setTitle(R.string.phone_profiles_pref_grantRootPermission);
+                        dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_summary);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        //dialogBuilder.setView(doNotShowAgain);
+                        dialogBuilder.setView(superContainer);
+                        dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(getActivity());
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                                editor.apply();
+
+                                boolean ok = false;
+                                PackageManager packageManager = getActivity().getPackageManager();
+                                // SuperSU
+                                Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
+                                if (intent != null) {
+                                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    try {
+                                        getActivity().startActivity(intent);
+                                        ok = true;
+                                    } catch (Exception ignore) {
+                                    }
+                                }
+                                if (!ok) {
+                                    // MAGISK
+                                    intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
+                                    if (intent != null) {
+                                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        try {
+                                            getActivity().startActivity(intent);
+                                            ok = true;
+                                        } catch (Exception ignore) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });*/
+                        dialog.show();
+                        return false;
+                    }
+                });
+            }
+        }
+
         if (!WifiBluetoothScanner.bluetoothLESupported(getActivity().getApplicationContext())) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("bluetoothScanningCategory");
             Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION);

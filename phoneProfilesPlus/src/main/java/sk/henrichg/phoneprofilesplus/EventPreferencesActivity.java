@@ -357,6 +357,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                 superContainer.addView(container);
 
                 doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+                doNotShowAgain.setChecked(ApplicationPreferences.applicationEventNeverAskForEnableRun(EventPreferencesActivity.this));
                 doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -375,7 +376,10 @@ public class EventPreferencesActivity extends PreferenceActivity
                 dialogBuilder.setView(superContainer);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences.Editor editor = preferences.edit();
+                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventPreferencesActivity.this);
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+
                         editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
                         editor.apply();
                         savePreferences(new_event_mode, predefinedEventIndex);
