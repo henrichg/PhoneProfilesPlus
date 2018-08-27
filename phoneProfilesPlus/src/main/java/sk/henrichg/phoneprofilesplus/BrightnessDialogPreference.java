@@ -526,7 +526,6 @@ public class BrightnessDialogPreference extends
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                // TODO call isRootGranted - handlerThread
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
                                             Float.toString(value);
