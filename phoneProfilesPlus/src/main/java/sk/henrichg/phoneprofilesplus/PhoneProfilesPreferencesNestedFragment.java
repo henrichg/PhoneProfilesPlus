@@ -708,6 +708,23 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                         }
                                     }
                                 }
+                                if (!ok) {
+                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                    dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
+                                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog2 = dialogBuilder.create();
+                                    /*dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+                                        @Override
+                                        public void onShow(DialogInterface dialog) {
+                                            Button positive = ((AlertDialog)dialog2).getButton(DialogInterface.BUTTON_POSITIVE);
+                                            if (positive != null) positive.setAllCaps(false);
+                                            Button negative = ((AlertDialog)dialog2).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                            if (negative != null) negative.setAllCaps(false);
+                                        }
+                                    });*/
+                                    dialog2.show();
+                                }
                             }
                         });
                         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
