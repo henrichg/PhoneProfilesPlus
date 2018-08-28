@@ -452,7 +452,7 @@ class ActivateProfileHelper {
 
                 if (_setAirplaneMode /*&& _isAirplaneMode*/) {
                     // switch ON airplane mode, set it before doExecuteForRadios
-                    setAirplaneMode(/*context, */_isAirplaneMode);
+                    setAirplaneMode(context, _isAirplaneMode);
                     PPApplication.sleep(2500);
                     PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                 }
@@ -764,7 +764,8 @@ class ActivateProfileHelper {
                         catch (Exception ignored) {}
                     }
                     else {
-                        if (PPApplication.isRooted()) {
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                                (PPApplication.isRooted())) {
                             synchronized (PPApplication.rootMutex) {
                                 String command1 = "settings put global audio_safe_volume_state 2";
                                 Command command = new Command(0, false, command1);
@@ -881,7 +882,8 @@ class ActivateProfileHelper {
                         } catch (Exception ee) {
                             Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
 
-                            if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                                    (PPApplication.isRooted() && PPApplication.settingsBinaryExists())) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
                                     //if (PPApplication.isSELinuxEnforcing())
@@ -1077,7 +1079,8 @@ class ActivateProfileHelper {
                     Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
                 }
                 else*/
-                if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                        (PPApplication.isRooted() && PPApplication.settingsBinaryExists())) {
                     final Context appContext = context.getApplicationContext();
                     PPApplication.startHandlerThreadNotificationLed();
                     final Handler handler = new Handler(PPApplication.handlerThreadNotificationLed.getLooper());
@@ -1127,7 +1130,8 @@ class ActivateProfileHelper {
                     Settings.Global.putInt(context.getContentResolver(), "heads_up_notifications_enabled", value);
                 }
                 else
-                if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                        (PPApplication.isRooted() && PPApplication.settingsBinaryExists())) {
                     final Context appContext = context.getApplicationContext();
                     PPApplication.startHandlerThreadHeadsUpNotifications();
                     final Handler handler = new Handler(PPApplication.handlerThreadHeadsUpNotifications.getLooper());
@@ -1160,7 +1164,8 @@ class ActivateProfileHelper {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
                                     wakeLock.release();
-                                } catch (Exception ignored) {}
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     });
@@ -1667,7 +1672,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void executeRootForAdaptiveBrightness(final Profile profile, final Context context) {
+    private static void executeRootForAdaptiveBrightness(final Profile profile, Context context) {
         /* not working (private secure settings) :-/
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             Settings.System.putFloat(appContext.getContentResolver(), ADAPTIVE_BRIGHTNESS_SETTING_NAME,
@@ -1688,10 +1693,11 @@ class ActivateProfileHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(appContext)) &&
+                        (PPApplication.isRooted() && PPApplication.settingsBinaryExists())) {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "settings put system " + ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
-                                Float.toString(profile.getDeviceBrightnessAdaptiveValue(context));
+                                Float.toString(profile.getDeviceBrightnessAdaptiveValue(appContext));
                         //if (PPApplication.isSELinuxEnforcing())
                         //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                         Command command = new Command(0, false, command1); //, command2);
@@ -2570,10 +2576,10 @@ class ActivateProfileHelper {
         //    return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     }
 
-    private static void setAirplaneMode(/*Context context, */boolean mode)
+    private static void setAirplaneMode(Context context, boolean mode)
     {
         //if (android.os.Build.VERSION.SDK_INT >= 17)
-            setAirplaneMode_SDK17(/*context, */mode);
+            setAirplaneMode_SDK17(context, mode);
         //else
         //    setAirplaneMode_SDK8(context, mode);
     }
@@ -2784,7 +2790,8 @@ class ActivateProfileHelper {
                 }
             }
             else
-            if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/)
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                    (PPApplication.isRooted()))
             {
                 synchronized (PPApplication.rootMutex) {
                     String command1 = "svc data " + (enable ? "enable" : "disable");
@@ -2923,7 +2930,8 @@ class ActivateProfileHelper {
 
     /*
     private int getPreferredNetworkType(Context context) {
-        if (PPApplication.isRooted())
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                (PPApplication.isRooted()))
         {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -2994,7 +3002,8 @@ class ActivateProfileHelper {
 
     private static void setPreferredNetworkType(Context context, int networkType)
     {
-        if (PPApplication.isRooted() && PPApplication.serviceBinaryExists())
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                (PPApplication.isRooted() && PPApplication.serviceBinaryExists()))
         {
             try {
                 // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
@@ -3082,7 +3091,8 @@ class ActivateProfileHelper {
         }
         else {
             PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API >= 26");
-            if (PPApplication.isRooted() && PPApplication.serviceBinaryExists()) {
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                    (PPApplication.isRooted() && PPApplication.serviceBinaryExists())) {
                 PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
                 try {
                     Object serviceManager = PPApplication.getServiceManager("wifi");
@@ -3152,7 +3162,8 @@ class ActivateProfileHelper {
             CmdNfc.run(enable);
         }
         else
-        if (PPApplication.isRooted()/*PPApplication.isRootGranted()*/) {
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                (PPApplication.isRooted())) {
             synchronized (PPApplication.rootMutex) {
                 String command1 = PPApplication.getJavaCommandFile(CmdNfc.class, "nfc", context, enable);
                 if (command1 != null) {
@@ -3242,7 +3253,8 @@ class ActivateProfileHelper {
                 Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
             else
-            if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                    (PPApplication.isRooted() && PPApplication.settingsBinaryExists()))
             {
                 // device is rooted
                 PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
@@ -3353,7 +3365,8 @@ class ActivateProfileHelper {
                 Settings.Secure.putString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED, newSet);
             }
             else
-            if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
+            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                    (PPApplication.isRooted() && PPApplication.settingsBinaryExists()))
             {
                 // device is rooted
                 PPApplication.logE("ActivateProfileHelper.setGPS", "rooted");
@@ -3448,10 +3461,10 @@ class ActivateProfileHelper {
         }	    	
     }
 
-    private static void setAirplaneMode_SDK17(/*Context context, */boolean mode)
+    private static void setAirplaneMode_SDK17(Context context, boolean mode)
     {
-        if (PPApplication.isRooted() && PPApplication.settingsBinaryExists())
-        {
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                (PPApplication.isRooted() && PPApplication.settingsBinaryExists())) {
             // device is rooted
             synchronized (PPApplication.rootMutex) {
                 String command1;
@@ -3481,13 +3494,6 @@ class ActivateProfileHelper {
                 PPApplication.logE("ActivateProfileHelper.setAirplaneMode_SDK17", "done");
             }
         }
-        //else
-        //{
-            // for normal apps it is only possible to open the system settings dialog
-        /*	Intent intent = new Intent(android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent); */
-        //}
     }
 
     /*
@@ -3545,7 +3551,9 @@ class ActivateProfileHelper {
                                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                                     if (android.os.Build.VERSION.SDK_INT >= 21)
                                         Settings.Global.putInt(context.getContentResolver(), "low_power", ((_isPowerSaveMode) ? 1 : 0));
-                                } else if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                                } else
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                                        (PPApplication.isRooted() && PPApplication.settingsBinaryExists())) {
                                     synchronized (PPApplication.rootMutex) {
                                         String command1 = "settings put global low_power " + ((_isPowerSaveMode) ? 1 : 0);
                                         Command command = new Command(0, false, command1);
@@ -3594,8 +3602,8 @@ class ActivateProfileHelper {
 
                 switch (profile._lockDevice) {
                     case 2:
-                        if (PPApplication.isRooted())
-                        {
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                                (PPApplication.isRooted())) {
                             synchronized (PPApplication.rootMutex) {
                                 /*String command1 = "input keyevent 26";
                                 Command command = new Command(0, false, command1);
@@ -3623,7 +3631,8 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        /*if (PPApplication.isRooted() && PPApplication.serviceBinaryExists()) {
+                        /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                                (PPApplication.isRooted() && PPApplication.serviceBinaryExists())) {
                             synchronized (PPApplication.rootMutex) {
                                 try {
                                     // Get the value of the "TRANSACTION_goToSleep" field.

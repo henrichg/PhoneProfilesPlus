@@ -520,7 +520,8 @@ public class BrightnessDialogPreference extends
                     Settings.System.putFloat(_context.getContentResolver(),
                             ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
                 } catch (Exception ee) {
-                    if (PPApplication.isRooted() && PPApplication.settingsBinaryExists()) {
+                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(_context)) &&
+                            (PPApplication.isRooted() && PPApplication.settingsBinaryExists())) {
                         PPApplication.startHandlerThread("BrightnessDialogPreference.setAdaptiveBrightness");
                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                         handler.post(new Runnable() {
