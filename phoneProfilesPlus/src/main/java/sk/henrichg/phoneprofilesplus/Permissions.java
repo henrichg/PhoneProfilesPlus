@@ -2064,6 +2064,7 @@ class Permissions {
                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         try {
+                            intent.putExtra("section", "superuser");
                             // startActivityForResult not working, it is external application
                             activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
                             ok = true;
