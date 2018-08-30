@@ -85,7 +85,6 @@
   <string name="array_pref_screenTimeoutArray_1minute">1 minuut</string>
   <string name="array_pref_screenTimeoutArray_2minutes">2 minuten</string>
   <string name="array_pref_screenTimeoutArray_10minutes">10 minuten</string>
-  <string name="array_pref_screenTimeoutArray_never_timeout">Geen time-out</string>
   <string name="phone_profiles_pref_applicationLanguage">Taal</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Systeem</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-snelkoppeling</string>
@@ -540,7 +539,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">\"Verkeerslicht\" icoon:</string>
   <string name="important_info_android_doze_mode">In Android 6+ is \"Doze mode\" en \"App standby\" geïmplementeerd. Je kunt problemen krijgen met profiel activering vanuit events wanneer je apparaat niet oplaadt en stil ligt voor een periode met het scherm uit. Los dit op door PhoneProfilesPlus in \"Batterij\"→\"Batterij optimalisatie\"→\"Niet optimaliseren\" toe te voegen.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Trillen bij bellen</string>
-  <string name="info_notification_event_states">Het event kan 5 statussen hebben:</string>
+  <string name="info_notification_event_states">Het event kan 6 statussen hebben:</string>
   <string name="info_notification_event_states_running">Uitvoeren: event is gestart en loopt. Event parameters zijn goed.</string>
   <string name="info_notification_event_states_paused">Gepauzeerd: event is gepauzeerd. Aan event parameters wordt niet voldaan. Het event wacht tot wordt voldaan aan de parameters.</string>
   <string name="info_notification_event_states_stopped">Gestopt: event is gestopt en kan niet worden gestart. De event parameter \"Uitvoeren inschakelen\" niet gecontroleerd.</string>
@@ -669,7 +668,6 @@
   <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) Nieuwe cel, (C) verbonden met cel.</string>
   <string name="mobile_cells_pref_dlg_cell_name_hint">Cel naam</string>
   <string name="mobile_cells_pref_dlg_cell_rename_title">Hernoem cellen</string>
-  <string name="mobile_cells_pref_dlg_cell_rename_button">Hernoem</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Stel Zendmast scan parameters in bij programma-instellingen.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">Zendmast cellen scannen</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Cel registratie</string>
@@ -747,9 +745,6 @@
   <string name="phone_profiles_pref_drawOverlaysPermissions">Weergeven over andere apps</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Zoek naar \"PhoneProfilesPlus\" programma en schakel die in.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">niet geconfigureerd in Systeeminstellingen</string>
-  <string name="important_into_huawei_protected_apps">Wanneer u een Huawei apparaat hebt, activeer dan de bescherming van PhoneProfilesPlus in \"Geavanceerde instellingen\" → \"Batterij manager\"→\"Protected apps\". Zonder deze instelling zal de app niet goed werken.</string>
-  <string name="important_into_xiaomi_no_restrictions">Wanneer u Xiaomi apparaat hebt, stel \'Geen beperkingen\' in voor PhoneProfilesPlus bij \"Instellingen\"→\"Batterij &amp; performance\" → \"Manager apps batterij gebruik\"→\"Kies apps\". Zonder deze instelling zal de app niet goed werken.</string>
-  <string name="important_into_samsung_no_save_power">Wanneer u Samsung apparaat hebt, schakel \"App stroombesparing\" uit voor PhoneProfilesPlus bij \"instellingen\"→\"batterij\"→\"App stroombesparing\" → \"Detail\". Zonder deze instelling zal de app niet goed werken.</string>
   <string name="mobile_cells_pref_dlg_last_connected">verbonden:</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Bluetooth-naam toevoegen</string>
   <string name="mobile_cells_pref_dlg_rename_icon">Hernoem cel</string>
@@ -777,7 +772,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Kleurrijk icoon</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Sommige apparaten ondersteunen geen kleurrijke iconen in de statusbalk.</string>
   <string name="pref_dlg_change_selection_title">Selectie wijzigen</string>
-  <string name="pref_dlg_change_selection_button">Wijzigen</string>
   <string name="array_pref_change_selection_unselect_all">Deselecteer alles</string>
   <string name="array_pref_change_selection_mobile_cells_select_by_name">Selecteer op celnaam</string>
   <string name="pref_dlg_change_selection_button_unselect_all">Deselecteer alles</string>
@@ -975,8 +969,6 @@
   <string name="array_pref_value_in">in</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Start events bij opstarten</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart toestemming</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Klik hier om de AutoStart toestemming voor PhoneProfilesPlus aan te zetten</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan alleen als het scherm aan is</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Bevestig herstart events</string>
   <string name="applications_editor_dialog_startApplicationDelay">Opstartvertraging:</string>
@@ -1175,6 +1167,24 @@
   <string name="stop_events_alert_message">Weet je het zeker?</string>
   <string name="array_event_pref_incall_ended">Inkomende oproep gestopt</string>
   <string name="array_event_pref_outcall_ended">Uitgaande oproep gestopt</string>
+  <string name="phone_profiles_pref_applicationPowerManager">Energiebeheer</string>
+  <string name="phone_profiles_pref_applicationPowerManager_summary">Om PhoneProfilesPlus op de achtergrond te laten werken voeg je het toe aan aan Niet Geoptimaliseerd bij batterijoptimalisatie. Zonder deze instelling zal PhoneProfilesPlus niet werken op de achtergrond.</string>
+  <string name="phone_profiles_pref_systemAutoStartManager">Automatische start manager</string>
+  <string name="phone_profiles_pref_systemAutoStartManager_summary">Klik hier om automatisch starten voor PhoneProfilesPlus te activeren</string>
+  <string name="important_info_power_manager">Bij problemen met de werking van PhoneProfilesPlus op de achtergrond: klik hier om PhoneProfilesPlus uit te voeren op de achtergrond door het toe te voegen aan Niet Geoptimaliseerde toepassingen.</string>
+  <string name="array_pref_screenTimeoutArray_30minutes">30 minuten</string>
+  <string name="event_preferences_calendar_all_events">All calendar events</string>
+  <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
+  <string name="event_type_alarm_clock">Alarm clock</string>
+  <string name="event_preferences_category_eventAlarmClockParameters">Alarm clock sensor</string>
+  <string name="event_preferences_alarmClock_info_title">Experimental sensor</string>
+  <string name="event_preferences_alarmClock_info_summary">This sensor is experimental. Tested applications: Working: Samsung Clock, Sony Clock, Huawei Clock; Not working: Google Clock, LG Clock, Xiaomi Clock.</string>
+  <string name="phone_profiles_pref_grantRootPermission">Grant root</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary">Please grant root for PhoneProfilesPlus. Is required for profile and event parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_otherManagers">Please open root manager installed in your device and grant root for PhoneProfilesPlus.</string>
+  <string name="preferences_grantRoot_title">Grant root not enabled</string>
+  <string name="preferences_grantRoot_summary">Grant root is not enabled. Click here to grant it.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Toestaan van PhoneProfilesPlusExtender voor: \n• profiel parameter \"Stoppen forceren applicaties\" \n• van event parameters \"Applicatie sensor\" en \"Oriëntatie-sensor\".</string>

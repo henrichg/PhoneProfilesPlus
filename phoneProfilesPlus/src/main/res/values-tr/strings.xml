@@ -85,7 +85,6 @@
   <string name="array_pref_screenTimeoutArray_1minute">1 dakika</string>
   <string name="array_pref_screenTimeoutArray_2minutes">2 dakika</string>
   <string name="array_pref_screenTimeoutArray_10minutes">10 dakika</string>
-  <string name="array_pref_screenTimeoutArray_never_timeout">Asla zaman aşımı olmasın</string>
   <string name="phone_profiles_pref_applicationLanguage">Dil</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Sistem</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-kısayol</string>
@@ -540,7 +539,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
   <string name="important_info_android_doze_mode">Android 6+\'da \"Doze modu\" ve \"Uygulama bekletme\" uygulanmaktadır. Durumlar vasıtasıyla tercihi faaliyete geçirmede sorun yaşanırsa șunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı eklemeniz lazımdır.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Çalarken titret</string>
-  <string name="info_notification_event_states">Durum, 5 vaziyette olabilir:</string>
+  <string name="info_notification_event_states">Durum, 6 vaziyette olabilir:</string>
   <string name="info_notification_event_states_running">Çalışıyor: Durum başlamış ve çalışır durumdadır. Durum değerleri karşılanmıştır.</string>
   <string name="info_notification_event_states_paused">Fasıla verildi: Durum çalışmıyor. Durum değerleri yerine gelmiş değildir. Durum, değerlerin yerine gelmesini bekliyor.</string>
   <string name="info_notification_event_states_stopped">Durdu: Durum durdurulmuş ve başlatılamaz. Durum değeri olan \"Çalışmaya izin ver\" seçilmemiş.</string>
@@ -669,7 +668,6 @@
   <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) yeni hücre, (C) hücreye bağlı.</string>
   <string name="mobile_cells_pref_dlg_cell_name_hint">Hücre ismi</string>
   <string name="mobile_cells_pref_dlg_cell_rename_title">Hücrelere yeni isim ver</string>
-  <string name="mobile_cells_pref_dlg_cell_rename_button">Yeni isim</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Uygulama ayarlarında Şebeke hücreleri şartlarını ayarlayın.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">Şebeke hücreleri taraması</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Hücrelerin kaydı</string>
@@ -747,9 +745,6 @@
   <string name="phone_profiles_pref_drawOverlaysPermissions">Diğer uygulamaların üzerinde çalış</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Lütfen \"PhoneProfilesPlus\" uygulamasını bulup izin verin.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">sistem ayarlarında ayarlanmamış</string>
-  <string name="important_into_huawei_protected_apps">Cihazınız Huawei ise, lütfen PhoneProfilesPlus korunmasını, \"Gelişmiş Ayarlar\" → \"Pil Yöneticisi\" → \"Korunan uygulamalar\"da etkinleştirin. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
-  <string name="important_into_xiaomi_no_restrictions">Cihazınız Xiaomi ise, lütfen \"Kısıtlama yok\" ayarında, PhoneProfilesPlus için \"Ayarlar\" → \"Pil &amp; performans\" → \"Uygulama pil kullanımı yöneticisi\" → \"Uygulamaları Seç\"te ayarlayın. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
-  <string name="important_into_samsung_no_save_power">Cihazınız Samsung ise, lütfen \"Uygulama güç tasarrufu\"nu PhoneProfilesPlus için \"Ayarlar\" → \"Pil\" → \"Uygulama güç tasarrufu\" → \"Ayrıntı\"dan kapatın. Bu olmadan, uygulamanız düzgün çalışmaz.</string>
   <string name="mobile_cells_pref_dlg_last_connected">bağlı:</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Bluetooth ismi ekle</string>
   <string name="mobile_cells_pref_dlg_rename_icon">Hücreye yeni isim ver</string>
@@ -777,7 +772,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Renkli simge</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Bazı cihazlar durum çubuğundaki renkli simgelere imkân vermez.</string>
   <string name="pref_dlg_change_selection_title">Seçimi değiştir</string>
-  <string name="pref_dlg_change_selection_button">Değiştir</string>
   <string name="array_pref_change_selection_unselect_all">Tamamını bırak</string>
   <string name="array_pref_change_selection_mobile_cells_select_by_name">Hücre ismine göre seç</string>
   <string name="pref_dlg_change_selection_button_unselect_all">Tamamını bırak</string>
@@ -975,8 +969,6 @@
   <string name="array_pref_value_in">in</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Başlangıçta Durumları başlat</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI">Otomatik başlatma izni</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">PhoneProfilesPlus\'ın otomatik başlamasına izin vermek için buraya dokunun</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Sadece ekran açıkken tarama yap</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Durumları yeniden başlatırken sor</string>
   <string name="applications_editor_dialog_startApplicationDelay">Başlangıç gecikmesi:</string>
@@ -1175,6 +1167,24 @@
   <string name="stop_events_alert_message">Are you sure?</string>
   <string name="array_event_pref_incall_ended">Incoming call ended</string>
   <string name="array_event_pref_outcall_ended">Outgoing call ended</string>
+  <string name="phone_profiles_pref_applicationPowerManager">Power manager</string>
+  <string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>
+  <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>
+  <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
+  <string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>
+  <string name="array_pref_screenTimeoutArray_30minutes">30 minutes</string>
+  <string name="event_preferences_calendar_all_events">All calendar events</string>
+  <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
+  <string name="event_type_alarm_clock">Alarm clock</string>
+  <string name="event_preferences_category_eventAlarmClockParameters">Alarm clock sensor</string>
+  <string name="event_preferences_alarmClock_info_title">Experimental sensor</string>
+  <string name="event_preferences_alarmClock_info_summary">This sensor is experimental. Tested applications: Working: Samsung Clock, Sony Clock, Huawei Clock; Not working: Google Clock, LG Clock, Xiaomi Clock.</string>
+  <string name="phone_profiles_pref_grantRootPermission">Grant root</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary">Please grant root for PhoneProfilesPlus. Is required for profile and event parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_otherManagers">Please open root manager installed in your device and grant root for PhoneProfilesPlus.</string>
+  <string name="preferences_grantRoot_title">Grant root not enabled</string>
+  <string name="preferences_grantRoot_summary">Grant root is not enabled. Click here to grant it.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• profil şartları \"Zorla durdurulan uygulamalar\"\n• durum sensörleri \"Uygulama şartları\" ve \"Ekran döndürme şartları\".</string>

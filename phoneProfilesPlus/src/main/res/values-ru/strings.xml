@@ -85,7 +85,6 @@
   <string name="array_pref_screenTimeoutArray_1minute">1 минута</string>
   <string name="array_pref_screenTimeoutArray_2minutes">2 минуты</string>
   <string name="array_pref_screenTimeoutArray_10minutes">10 минут</string>
-  <string name="array_pref_screenTimeoutArray_never_timeout">Никогда не истекает</string>
   <string name="phone_profiles_pref_applicationLanguage">Язык</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Системный</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-ярлык</string>
@@ -223,8 +222,8 @@
   <string name="event_type_battery">Батарея</string>
   <string name="profile_preferences_volumeSpeakerPhone">Динамик</string>
   <string name="event_preferences_notificationSound">Звук уведомлений</string>
-  <string name="event_preferences_battery_level_low">Низкий уровень</string>
-  <string name="event_preferences_battery_level_hight">Высокий уровень</string>
+  <string name="event_preferences_battery_level_low">Нижний уровень</string>
+  <string name="event_preferences_battery_level_hight">Верхний уровень</string>
   <string name="event_preferences_battery_charging">Зарядка</string>
   <string name="pref_event_battery_level">Уровень</string>
   <string name="pref_event_battery_charging">Зарядка</string>
@@ -540,7 +539,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">Значок «Светофор»:</string>
   <string name="important_info_android_doze_mode">В Android 6+ реализован режим \"Doze\" и \"App Standby\". Если вы столкнулись с проблемами с активацией профиля из событий, когда устройство отключилось после выключения экрана, добавьте PhoneProfilesPlus в список \"Батарея\"→\"Экономия заряда батареи\"→\"Не экономят заряд\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Вибрация при звонке</string>
-  <string name="info_notification_event_states">Событие может находиться в одном из 5 состояний:</string>
+  <string name="info_notification_event_states">Событие может находиться в одном из 6 состояний:</string>
   <string name="info_notification_event_states_running">Выполняется: событие запущено и работает. Параметры событий удовлетворены.</string>
   <string name="info_notification_event_states_paused">Приостановлено: событие не выполняется. Параметры события не удовлетворяютя. Событие ожидает удовлетворения параметров.</string>
   <string name="info_notification_event_states_stopped">Остановлено: событие остановлено и не может быть запущено. Параметр события \"Разрешить выполнение\" не отмечен.</string>
@@ -640,7 +639,7 @@
   <string name="important_info_profile_interactive">Некоторые параметры профиля являются интерактивными. Они показывают окно системных настроек. Эти параметры отмечены «(I)».</string>
   <string name="important_info_orange_text">Примечание: оранжевый текст в этой информации является активным. Нажмите на него, чтобы открыть соответствующие настройки.</string>
   <string name="default_event_name_night_call">Ночной звонок</string>
-  <string name="alert_message_enable_event">Запуск событий не разрешен. Разрешить?</string>
+  <string name="alert_message_enable_event">Запуск события не разрешён. Разрешить?</string>
   <string name="menu_about_application">О приложении</string>
   <string name="about_application_title">Сведения о приложении</string>
   <string name="about_application_version">версия:</string>
@@ -669,7 +668,6 @@
   <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) новая вышка, (C) подключённая вышка.</string>
   <string name="mobile_cells_pref_dlg_cell_name_hint">Имя вышки</string>
   <string name="mobile_cells_pref_dlg_cell_rename_title">Переименовать вышки</string>
-  <string name="mobile_cells_pref_dlg_cell_rename_button">Переименовать</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Установите параметры сканирования мобильных вышек в настройках приложения.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">Настройки мобильных вышек</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Регистрация вышек</string>
@@ -748,9 +746,6 @@
   <string name="phone_profiles_pref_drawOverlaysPermissions">Отображать поверх других приложений</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Найдите приложение «PhoneProfilesPlus» и разрешите доступ.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">не настроено в параметрах системы</string>
-  <string name="important_into_huawei_protected_apps">Если у Вас устройство Huawei, пожалуйста, включите защиту PhoneProfilesPlus в \"Расширенные настройки\" → \"Батарея\" → \"Защищенные приложения\". Без этого приложение не будет работать корректно.</string>
-  <string name="important_into_xiaomi_no_restrictions">Если у вас телефон Xiaomi, для корректной работы приложения, пожалуйста, выберите \"Без ограничений\" для PhoneProfilesPlus в настройках: \"Настройки\"→\"Батарея и производительность\" → \"Управление использованием батареи приложениями\"→\"Выберите приложение\".</string>
-  <string name="important_into_samsung_no_save_power">Если у вас телефон Samsung, для корректной работы приложения, пожалуйста, выключите \"Сохранение энергии\" для PhoneProfilesPlus в настройках: \"Настройки\"→\"Батарея\" → \"Сохранение энергии\" → \"Подробнее\".</string>
   <string name="mobile_cells_pref_dlg_last_connected">подключена:</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Добавить Bluetooth</string>
   <string name="mobile_cells_pref_dlg_rename_icon">Переименовать</string>
@@ -778,7 +773,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Цветной значок</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Некоторые устройства не поддерживают цветные иконки в панели уведомлений.</string>
   <string name="pref_dlg_change_selection_title">Изменить выбор</string>
-  <string name="pref_dlg_change_selection_button">Изменить</string>
   <string name="array_pref_change_selection_unselect_all">Снять все отметки</string>
   <string name="array_pref_change_selection_mobile_cells_select_by_name">Выбрать по имени вышки</string>
   <string name="pref_dlg_change_selection_button_unselect_all">Убрать все</string>
@@ -976,8 +970,6 @@
   <string name="array_pref_value_in">in</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Запуск событий при старте</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI">Разрешение автозапуска</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Нажмите здесь, чтобы включить автозапуск для PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Сканировать только когда экран включен</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Подтверждать перезапуск событий</string>
   <string name="applications_editor_dialog_startApplicationDelay">Задержка запуска:</string>
@@ -1176,6 +1168,24 @@
   <string name="stop_events_alert_message">Вы уверены?</string>
   <string name="array_event_pref_incall_ended">Входящий вызов завершён</string>
   <string name="array_event_pref_outcall_ended">Исходящий вызов завершён</string>
+  <string name="phone_profiles_pref_applicationPowerManager">Диспетчер питания</string>
+  <string name="phone_profiles_pref_applicationPowerManager_summary">Разрешите PhoneProfilesPlus работать в фоновом режиме, добавьте программу в неоптимизируемые/неотслеживаемые приложения. Без этого PhoneProfilesPlus в фоновом режиме работать не будет.</string>
+  <string name="phone_profiles_pref_systemAutoStartManager">Менеджер автозапуска</string>
+  <string name="phone_profiles_pref_systemAutoStartManager_summary">Нажмите сюда, чтобы включить автозапуск PhoneProfilesPlus</string>
+  <string name="important_info_power_manager">Если вы сталкиваетесь с проблемами при работе PhoneProfilesPlus в фоновом режиме, нажмите сюда, чтобы разрешить работу PhoneProfilesPlus в фоне, добавьте программу в неоптимизируемые/неотслеживаемые приложения.</string>
+  <string name="array_pref_screenTimeoutArray_30minutes">30 минут</string>
+  <string name="event_preferences_calendar_all_events">All calendar events</string>
+  <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
+  <string name="event_type_alarm_clock">Alarm clock</string>
+  <string name="event_preferences_category_eventAlarmClockParameters">Alarm clock sensor</string>
+  <string name="event_preferences_alarmClock_info_title">Experimental sensor</string>
+  <string name="event_preferences_alarmClock_info_summary">This sensor is experimental. Tested applications: Working: Samsung Clock, Sony Clock, Huawei Clock; Not working: Google Clock, LG Clock, Xiaomi Clock.</string>
+  <string name="phone_profiles_pref_grantRootPermission">Grant root</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary">Please grant root for PhoneProfilesPlus. Is required for profile and event parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_otherManagers">Please open root manager installed in your device and grant root for PhoneProfilesPlus.</string>
+  <string name="preferences_grantRoot_title">Grant root not enabled</string>
+  <string name="preferences_grantRoot_summary">Grant root is not enabled. Click here to grant it.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Разрешите PhoneProfilesPlusExtender доступ для:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров событий \"Датчик приложений\" и \"Датчик ориентации\".</string>

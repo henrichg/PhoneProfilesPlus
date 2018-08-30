@@ -85,7 +85,6 @@
   <string name="array_pref_screenTimeoutArray_1minute">1 menit</string>
   <string name="array_pref_screenTimeoutArray_2minutes">2 menit</string>
   <string name="array_pref_screenTimeoutArray_10minutes">10 menit</string>
-  <string name="array_pref_screenTimeoutArray_never_timeout">Tidak pernah waktu habis</string>
   <string name="phone_profiles_pref_applicationLanguage">Bahasa</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Sistem</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-cara pintas</string>
@@ -540,7 +539,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">Ikon \"lampu lalu lintas\":</string>
   <string name="important_info_android_doze_mode">Android 6+ menerapkan \"mode Doze\" dan \"Standby Aplikasi\". Mengenai masalah aktivasi profil acara, jika Anda membiarkan perangkat dicabut dan stasioner untuk jangka waktu tertentu dengan layar mati, tambahkan PhoneProfilesPlus ke \"Battery\" → \"Pengoptimalan baterai\" → \"Tidak dioptimalkan\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Getar saat berdering</string>
-  <string name="info_notification_event_states">Sebuah acara mungkin berada di salah satu dari 5 negara bagian:</string>
+  <string name="info_notification_event_states">Sebuah acara mungkin berada di salah satu dari 6 negara bagian:</string>
   <string name="info_notification_event_states_running">Menjalankan: acara dimulai dan berjalan. Parameter acara terpenuhi.</string>
   <string name="info_notification_event_states_paused">Dijeda: acara tidak berjalan Parameter acara tidak terpenuhi. Event menunggu parameter untuk dipuaskan.</string>
   <string name="info_notification_event_states_stopped">Berhenti: acara dihentikan dan tidak bisa dimulai. Parameter acara \"Aktifkan lari\" tidak dicentang.</string>
@@ -669,7 +668,6 @@
   <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) sel baru, (C) terhubung ke sel.</string>
   <string name="mobile_cells_pref_dlg_cell_name_hint">Nama sel</string>
   <string name="mobile_cells_pref_dlg_cell_rename_title">Ganti nama sel</string>
-  <string name="mobile_cells_pref_dlg_cell_rename_button">Ganti nama</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">Pemindaian sel seluler</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Pendaftaran sel</string>
@@ -747,9 +745,6 @@
   <string name="phone_profiles_pref_drawOverlaysPermissions">Menggambar aplikasi</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Silakan cari aplikasi \"PhoneProfilesPlus\" dan aktifkan.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">tidak dikonfigurasi dalam Pengaturan Sistem</string>
-  <string name="important_into_huawei_protected_apps">Untuk perangkat Huawei, aktifkan perlindungan PhoneProfilesPlus di \"Setelan lanjutan\" → \"Manajer baterai\" → \"Aplikasi yang dilindungi\". Tanpa ini, aplikasi tidak akan bekerja dengan baik.</string>
-  <string name="important_into_xiaomi_no_restrictions">Untuk perangkat Xiaomi, atur \"Tidak ada batasan\" untuk PhoneProfilesPlus di \"Settings\" → \"Battery &amp; amp; performance\" → \"Aplikasi Manager penggunaan baterai\" → \"Choose apps\". Tanpa ini, aplikasi tidak akan bekerja dengan baik.</string>
-  <string name="important_into_samsung_no_save_power">Untuk perangkat Samsung, matikan \"App power saving\" untuk PhoneProfilesPlus di \"Settings\" → \"Battery\" → \"App power saving\" → \"Detail\". Tanpa ini, aplikasi tidak akan bekerja dengan baik.</string>
   <string name="mobile_cells_pref_dlg_last_connected">terhubung:</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Tambahkan nama Bluetooth</string>
   <string name="mobile_cells_pref_dlg_rename_icon">Ganti nama sel</string>
@@ -777,7 +772,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Ikon warna-warni</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Beberapa perangkat tidak mendukung ikon warna-warni di status bar.</string>
   <string name="pref_dlg_change_selection_title">Ubah pilihan</string>
-  <string name="pref_dlg_change_selection_button">Perubahan</string>
   <string name="array_pref_change_selection_unselect_all">Batalkan pilihan semua</string>
   <string name="array_pref_change_selection_mobile_cells_select_by_name">Pilih dengan nama sel</string>
   <string name="pref_dlg_change_selection_button_unselect_all">Batalkan pilihan semua</string>
@@ -975,8 +969,6 @@
   <string name="array_pref_value_in">in</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Mulai acara saat startup</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI">Izin AutoStart</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Klik di sini untuk mengaktifkan izin AutoStart untuk PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan hanya saat layar aktif</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Konfirmasi acara restart</string>
   <string name="applications_editor_dialog_startApplicationDelay">Keterlambatan startup:</string>
@@ -1175,6 +1167,24 @@
   <string name="stop_events_alert_message">Are you sure?</string>
   <string name="array_event_pref_incall_ended">Incoming call ended</string>
   <string name="array_event_pref_outcall_ended">Outgoing call ended</string>
+  <string name="phone_profiles_pref_applicationPowerManager">Power manager</string>
+  <string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>
+  <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>
+  <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
+  <string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>
+  <string name="array_pref_screenTimeoutArray_30minutes">30 minutes</string>
+  <string name="event_preferences_calendar_all_events">All calendar events</string>
+  <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
+  <string name="event_type_alarm_clock">Alarm clock</string>
+  <string name="event_preferences_category_eventAlarmClockParameters">Alarm clock sensor</string>
+  <string name="event_preferences_alarmClock_info_title">Experimental sensor</string>
+  <string name="event_preferences_alarmClock_info_summary">This sensor is experimental. Tested applications: Working: Samsung Clock, Sony Clock, Huawei Clock; Not working: Google Clock, LG Clock, Xiaomi Clock.</string>
+  <string name="phone_profiles_pref_grantRootPermission">Grant root</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary">Please grant root for PhoneProfilesPlus. Is required for profile and event parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_otherManagers">Please open root manager installed in your device and grant root for PhoneProfilesPlus.</string>
+  <string name="preferences_grantRoot_title">Grant root not enabled</string>
+  <string name="preferences_grantRoot_summary">Grant root is not enabled. Click here to grant it.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>

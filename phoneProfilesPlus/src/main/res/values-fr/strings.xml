@@ -85,7 +85,6 @@
   <string name="array_pref_screenTimeoutArray_1minute">1 minute</string>
   <string name="array_pref_screenTimeoutArray_2minutes">2 minutes</string>
   <string name="array_pref_screenTimeoutArray_10minutes">10 minutes</string>
-  <string name="array_pref_screenTimeoutArray_never_timeout">Aucun délai</string>
   <string name="phone_profiles_pref_applicationLanguage">Langue</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Système</string>
   <string name="title_activity_shortcut_creator">Raccourci PhoneProfilesPlus</string>
@@ -540,7 +539,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">Icône « Feu » :</string>
   <string name="important_info_android_doze_mode">Dans Android 6+ il y a les mode « Veille » et « application en attente ». Lorsque vous rencontrez des problèmes avec l\'activation du profil par les événements, si vous laisse un appareil débranché et fixes pour une période de temps, avec l\'écran éteint, ajoutez PhoneProfilesPlus dans \"Battery\"→\"optimisation de batterie\"→\"pas optimisé\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrer quand sonne</string>
-  <string name="info_notification_event_states">L\'événement peut être dans 5 États :</string>
+  <string name="info_notification_event_states">L\'événement peut être dans 6 États :</string>
   <string name="info_notification_event_states_running">Running : l\'événement est lancé et en cours d\'exécution. Paramètres de déclenchement sont remplies.</string>
   <string name="info_notification_event_states_paused">En pause : L\'événement ne fonctionne pas. Les paramètres de déclenchement ne sont pas remplies.</string>
   <string name="info_notification_event_states_stopped">Arrêté : L\'événement est arrêté et ne peut pas être démarré. Le paramètres de l\'évènement « valider » n\'est pas coché.</string>
@@ -669,7 +668,6 @@
   <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">Nouvelle cellule (N), (C) connecté à la cellule.</string>
   <string name="mobile_cells_pref_dlg_cell_name_hint">Nom de la cellule</string>
   <string name="mobile_cells_pref_dlg_cell_rename_title">Renommer les cellules</string>
-  <string name="mobile_cells_pref_dlg_cell_rename_button">Renommer</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">Scanne des cellules mobiles</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Enregistrement de cellules</string>
@@ -747,9 +745,6 @@
   <string name="phone_profiles_pref_drawOverlaysPermissions">Dessiner sur les applications</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">S\'il vous plaît chercher l\' application « PhoneProfilesPlus » et lui donner l\'autorisation.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">non configuré dans les paramètres système</string>
-  <string name="important_into_huawei_protected_apps">Lorsque vous avez périphérique Huawei, activez la protection de PhoneProfilesPlus dans « Paramètres avancés » → « Gestion de la batterie » → « Applications protégés ». Sans cela, l\'application ne fonctionnera pas correctement.</string>
-  <string name="important_into_xiaomi_no_restrictions">Lorsque vous avez périphérique Xiaomi, activez « pas de restriction » pour PhoneProfilesPlus dans « Paramètres avancés » → « Gestion de la batterie » → « Gestion de la batterie par les applications ». Sans cela, l\'application ne fonctionnera pas correctement.</string>
-  <string name="important_into_samsung_no_save_power">Lorsque vous avez un Samsung, désactivez « Sauvegarde de la batterie » pour PhoneProfilesPlus dans « Paramètres » → « Batterie » → « Gestion de la batterie » → « détails ». Sans cela, l\'application ne fonctionnera pas correctement.</string>
   <string name="mobile_cells_pref_dlg_last_connected">Connecté :</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Ajouter un nom Bluetooth</string>
   <string name="mobile_cells_pref_dlg_rename_icon">Renommer l\'antenne</string>
@@ -777,7 +772,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Icône colorée</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Certains appareils ne supporte pas les icônes colorées dans la barre d’État.</string>
   <string name="pref_dlg_change_selection_title">Changer la sélection</string>
-  <string name="pref_dlg_change_selection_button">Changer</string>
   <string name="array_pref_change_selection_unselect_all">Tout désélectionner</string>
   <string name="array_pref_change_selection_mobile_cells_select_by_name">Sélectionner par nom de d\'antenne</string>
   <string name="pref_dlg_change_selection_button_unselect_all">Tout désélectionner</string>
@@ -976,8 +970,6 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="array_pref_value_in">in</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Démarrer l\'évènement au démarrage</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI">Permission de démarrage automatique</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Cliquez ici pour activer la permission de démarrage automatique pour PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Analyser seulement lorsque l’écran est allumé</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirmer le redémarrage événements</string>
   <string name="applications_editor_dialog_startApplicationDelay">Délai de démarrage :</string>
@@ -1176,6 +1168,24 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="stop_events_alert_message">Are you sure?</string>
   <string name="array_event_pref_incall_ended">Incoming call ended</string>
   <string name="array_event_pref_outcall_ended">Outgoing call ended</string>
+  <string name="phone_profiles_pref_applicationPowerManager">Power manager</string>
+  <string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>
+  <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>
+  <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
+  <string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>
+  <string name="array_pref_screenTimeoutArray_30minutes">30 minutes</string>
+  <string name="event_preferences_calendar_all_events">All calendar events</string>
+  <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
+  <string name="event_type_alarm_clock">Alarm clock</string>
+  <string name="event_preferences_category_eventAlarmClockParameters">Alarm clock sensor</string>
+  <string name="event_preferences_alarmClock_info_title">Experimental sensor</string>
+  <string name="event_preferences_alarmClock_info_summary">This sensor is experimental. Tested applications: Working: Samsung Clock, Sony Clock, Huawei Clock; Not working: Google Clock, LG Clock, Xiaomi Clock.</string>
+  <string name="phone_profiles_pref_grantRootPermission">Grant root</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary">Please grant root for PhoneProfilesPlus. Is required for profile and event parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_otherManagers">Please open root manager installed in your device and grant root for PhoneProfilesPlus.</string>
+  <string name="preferences_grantRoot_title">Grant root not enabled</string>
+  <string name="preferences_grantRoot_summary">Grant root is not enabled. Click here to grant it.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>

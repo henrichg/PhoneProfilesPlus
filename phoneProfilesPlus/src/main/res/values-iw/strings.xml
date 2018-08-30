@@ -85,7 +85,6 @@
   <string name="array_pref_screenTimeoutArray_1minute">דקה אחת</string>
   <string name="array_pref_screenTimeoutArray_2minutes">2 דקות</string>
   <string name="array_pref_screenTimeoutArray_10minutes">10 דקות</string>
-  <string name="array_pref_screenTimeoutArray_never_timeout">ללא זמן קצוב</string>
   <string name="phone_profiles_pref_applicationLanguage">שפה</string>
   <string name="phone_profiles_pref_applicationLanguage_system">מערכת</string>
   <string name="title_activity_shortcut_creator">PhoneProfilesPlus-קיצור דרך</string>
@@ -540,7 +539,7 @@
   <string name="important_info_profile_activation_traffic_light_icon">סמל \"רמזור\":</string>
   <string name="important_info_android_doze_mode">באנדרואיד 6+ יושמו \"מצב נמנום\" ו\"המתנת יישום\". אם נתקלת בבעיות בהפעלת פרופיל מאירועים, כאשר השארת מכשיר לא-מחובר ונייח למשך זמן-מה וכאשר המסך כבוי, יש להוסיף את PhoneProfilesPlus ל\"סוללה\"←\"אופטימיזציה של סוללה\"←\"ללא אופטימיזציה\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">רטט בעת צלצול</string>
-  <string name="info_notification_event_states">האירוע יכול להיות ב-5 מצבים:</string>
+  <string name="info_notification_event_states">האירוע יכול להיות ב-6 מצבים:</string>
   <string name="info_notification_event_states_running">פעיל: אירוע התחיל ופועל. הפרמטרים של האירוע התקיימו.</string>
   <string name="info_notification_event_states_paused">מושהה: אירוע אינו פועל. פרמטרים של האירוע לא התקיימו. האירוע ממתין לקיום כל הפרמטרים.</string>
   <string name="info_notification_event_states_stopped">מופסק: אירוע מופסק ולא ניתן להתחילו. פרמטר האירוע \"אפשר להפעיל\" אינו מסומן.</string>
@@ -669,7 +668,6 @@
   <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) תא חדש, (C) מחובר לתא.</string>
   <string name="mobile_cells_pref_dlg_cell_name_hint">שם התא</string>
   <string name="mobile_cells_pref_dlg_cell_rename_title">שינוי שם של תאים</string>
-  <string name="mobile_cells_pref_dlg_cell_rename_button">שינוי שם</string>
   <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
   <string name="phone_profiles_pref_category_mobile_cells_scanning">סריקת תאים סלולריים</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">רישום תאים</string>
@@ -747,9 +745,6 @@
   <string name="phone_profiles_pref_drawOverlaysPermissions">הצגה מעל יישומים אחרים</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">אנא חפשו את היישום \"PhoneProfilesPlus\", והתירו אותו.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">לא נקבעה תצורה בהגדרות המערכת</string>
-  <string name="important_into_huawei_protected_apps">אם יש לך מכשיר Huawei, אנא הפעל הגנה על PhoneProfilesPlus ב\"הגדרות מתקדמות\" ←\"ניהול סוללה\"←\"יישומים מוגנים\". בלי זה, היישום לא יפעל כראוי.</string>
-  <string name="important_into_xiaomi_no_restrictions">אם יש לך מכשיר Xiaomi, אנא קבעו \"ללא הגבלות\" ל-PhoneProfilesPlus ב\"הגדרות\" ←\"סוללה וביצועים\"←\"מנהל שימוש יישומים בסוללה\"←\"בחירת יישומים\". בלי זה, היישום לא יפעל כראוי.</string>
-  <string name="important_into_samsung_no_save_power">בעלי מכשיר סמסונג, אנא בטלו את \"צריכת הסוללה של יישומים\" עבור PhoneProfilesPlus ב\"הגדרות\"←\"סוללה\"←\"צריכת הסוללה של יישומים\" ← \"פרטים\". בלי זה, היישום לא יפעל כראוי.</string>
   <string name="mobile_cells_pref_dlg_last_connected">חובר לאחרונה:</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">הוספת שם Bluetooth</string>
   <string name="mobile_cells_pref_dlg_rename_icon">שינוי שם תא</string>
@@ -780,7 +775,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">סמל צבעוני</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">מכשירים מסוימים אינם תומכים בסמלים צבעוניים בשורת המצב.</string>
   <string name="pref_dlg_change_selection_title">שינוי הבחירה</string>
-  <string name="pref_dlg_change_selection_button">שינוי</string>
   <string name="array_pref_change_selection_unselect_all">ביטול בחירה של הכל</string>
   <string name="array_pref_change_selection_mobile_cells_select_by_name">בחירה עפ\"י שם תא</string>
   <string name="pref_dlg_change_selection_button_unselect_all">ביטול בחירה של הכל</string>
@@ -979,8 +973,6 @@
   <string name="array_pref_value_in">in</string>
   <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI">AutoStart permission</string>
-  <string name="phone_profiles_pref_systemAutoStartMIUI_summary">Click here to enable AutoStart permission for PhoneProfilesPlus</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
   <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
@@ -1179,6 +1171,24 @@
   <string name="stop_events_alert_message">Are you sure?</string>
   <string name="array_event_pref_incall_ended">Incoming call ended</string>
   <string name="array_event_pref_outcall_ended">Outgoing call ended</string>
+  <string name="phone_profiles_pref_applicationPowerManager">Power manager</string>
+  <string name="phone_profiles_pref_applicationPowerManager_summary">Allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications. Without this, PhoneProfilesPlus will not working in background.</string>
+  <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>
+  <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
+  <string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>
+  <string name="array_pref_screenTimeoutArray_30minutes">30 minutes</string>
+  <string name="event_preferences_calendar_all_events">All calendar events</string>
+  <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
+  <string name="event_type_alarm_clock">Alarm clock</string>
+  <string name="event_preferences_category_eventAlarmClockParameters">Alarm clock sensor</string>
+  <string name="event_preferences_alarmClock_info_title">Experimental sensor</string>
+  <string name="event_preferences_alarmClock_info_summary">This sensor is experimental. Tested applications: Working: Samsung Clock, Sony Clock, Huawei Clock; Not working: Google Clock, LG Clock, Xiaomi Clock.</string>
+  <string name="phone_profiles_pref_grantRootPermission">Grant root</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary">Please grant root for PhoneProfilesPlus. Is required for profile and event parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>
+  <string name="phone_profiles_pref_grantRootPermission_otherManagers">Please open root manager installed in your device and grant root for PhoneProfilesPlus.</string>
+  <string name="preferences_grantRoot_title">Grant root not enabled</string>
+  <string name="preferences_grantRoot_summary">Grant root is not enabled. Click here to grant it.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>
