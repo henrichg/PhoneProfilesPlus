@@ -127,6 +127,8 @@ class Permissions {
     private static final String PREF_SMS_PERMISSION = "smsPermission";
     private static final String PREF_STORAGE_PERMISSION = "storagePermission";
 
+    static boolean grantRootChanged = false;
+
     static class PermissionType implements Parcelable {
         final int type;
         final String permission;
@@ -2004,7 +2006,7 @@ class Permissions {
 
     //---------------------
 
-    static void grantRoot(final Activity activity) {
+    static void grantRoot(final ProfilePreferencesNestedFragment fragment, final Activity activity) {
         final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
 
         FrameLayout container = new FrameLayout(activity);
@@ -2042,6 +2044,11 @@ class Permissions {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                 editor.apply();
+
+                if (fragment != null) {
+                    grantRootChanged = true;
+                    fragment.setPermissionsPreference();
+                }
 
                 boolean ok = false;
                 PackageManager packageManager = activity.getPackageManager();
@@ -2091,7 +2098,14 @@ class Permissions {
                 }
             }
         });
-        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+        dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                if (fragment != null) {
+                    grantRootChanged = true;
+                    fragment.setPermissionsPreference();
+                }
+            }
+        });
         AlertDialog dialog = dialogBuilder.create();
         /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override

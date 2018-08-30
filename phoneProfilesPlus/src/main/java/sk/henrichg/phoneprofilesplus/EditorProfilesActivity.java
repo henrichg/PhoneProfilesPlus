@@ -1059,6 +1059,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 PPApplication.startPPService(this, serviceIntent);
             }
+            else
+            if (data != null) {
+                boolean restart = data.getBooleanExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, false);
+                if (restart) {
+                    // refresh activity for special changes
+                    GlobalGUIRoutines.reloadActivity(this, true);
+                }
+            }
         }
         else
         if (requestCode == REQUEST_CODE_EVENT_PREFERENCES)
@@ -1085,6 +1093,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 PPApplication.startPPService(this, serviceIntent);
+            }
+            else
+            if (data != null) {
+                boolean restart = data.getBooleanExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, false);
+                if (restart) {
+                    // refresh activity for special changes
+                    GlobalGUIRoutines.reloadActivity(this, true);
+                }
             }
         }
         else

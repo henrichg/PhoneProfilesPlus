@@ -21,6 +21,7 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.security.Permissions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +126,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         returnIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile_id);
         returnIntent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
         returnIntent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
+        returnIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, sk.henrichg.phoneprofilesplus.Permissions.grantRootChanged);
+        sk.henrichg.phoneprofilesplus.Permissions.grantRootChanged = false;
         setResult(resultCode,returnIntent);
 
         super.finish();
