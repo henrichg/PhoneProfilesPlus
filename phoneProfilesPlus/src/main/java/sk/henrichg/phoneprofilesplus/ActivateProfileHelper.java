@@ -511,7 +511,8 @@ class ActivateProfileHelper {
         else
             return true;*/
         return (audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) ||
-               (getSystemZenMode(context, -1) == ActivateProfileHelper.ZENMODE_PRIORITY);
+                ((getSystemZenMode(context, -1) == ActivateProfileHelper.ZENMODE_PRIORITY) &&
+                        (audioManager.getRingerMode() != AudioManager.RINGER_MODE_VIBRATE));
     }
 
     /*
@@ -814,15 +815,28 @@ class ActivateProfileHelper {
 
             if ((zenMode != ZENMODE_SILENT) && canChangeZenMode(context, false)) {
                 PPApplication.logE("ActivateProfileHelper.setZenMode", "not ZENMODE_SILENT and can change zen mode");
-                audioManager.setRingerMode(ringerMode);
+
+                audioManager.setRingerMode(ringerMode/*AudioManager.RINGER_MODE_NORMAL*/);
                 //try { Thread.sleep(500); } catch (InterruptedException e) { }
                 //SystemClock.sleep(500);
                 PPApplication.sleep(500);
 
                 if ((zenMode != _zenMode) || (zenMode == ZENMODE_PRIORITY)) {
+                    PPApplication.logE("ActivateProfileHelper.setZenMode", "change zen mode");
                     PPNotificationListenerService.requestInterruptionFilter(context, zenMode);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
+                    //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(500);
+                    //PPApplication.sleep(1000);
                 }
+
+                /*
+                if (zenMode == ZENMODE_PRIORITY) {
+                    PPApplication.logE("ActivateProfileHelper.setZenMode", "change ringer mode");
+                    //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                    audioManager.setRingerMode(ringerMode);
+                }
+                */
             } else {
                 PPApplication.logE("ActivateProfileHelper.setZenMode", "ZENMODE_SILENT or not can change zen mode");
                 try {
