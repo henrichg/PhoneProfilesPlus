@@ -1357,7 +1357,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "not registered");
         }
         if (register) {
-            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, appContext).allowed ==
+            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED) ||
@@ -1843,7 +1843,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerWifiStateChangedBroadcastReceiver", "not registered");
         }
         if (register) {
-            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, appContext).allowed ==
+            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -1922,7 +1922,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "not registered");
         }
         if (register) {
-            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, appContext).allowed ==
+            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
