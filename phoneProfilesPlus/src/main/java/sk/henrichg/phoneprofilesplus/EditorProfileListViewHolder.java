@@ -61,7 +61,8 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
         }
         else
-        if (!isPermissionGranted) {
+        if ((!isPermissionGranted) ||
+                (Profile.isProfilePreferenceAllowed(null, profile, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
             profileName.setTypeface(null, Typeface.NORMAL);
             profileName.setTextSize(15);
             profileName.setTextColor(Color.RED);

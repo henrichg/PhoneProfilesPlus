@@ -2259,7 +2259,7 @@ public class Profile {
             //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI))
@@ -2271,7 +2271,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH))
@@ -2283,7 +2283,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
@@ -2366,7 +2366,7 @@ public class Profile {
             }
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
@@ -2379,7 +2379,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_GPS))
@@ -2423,7 +2423,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NFC))
@@ -2460,7 +2460,7 @@ public class Profile {
             }
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
@@ -2515,7 +2515,7 @@ public class Profile {
             PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason="+preferenceAllowed.notAllowedReason);
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
@@ -2545,7 +2545,7 @@ public class Profile {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
@@ -2587,7 +2587,7 @@ public class Profile {
             }
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
@@ -2623,7 +2623,7 @@ public class Profile {
             }
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
@@ -2671,7 +2671,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
@@ -2712,7 +2712,7 @@ public class Profile {
             }
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
@@ -2729,7 +2729,7 @@ public class Profile {
             }
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
@@ -2741,7 +2741,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING))
@@ -2753,7 +2753,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
@@ -2765,7 +2765,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS))
@@ -2778,7 +2778,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))
@@ -2789,7 +2789,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
@@ -2803,7 +2803,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
@@ -2843,7 +2843,7 @@ public class Profile {
             }
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
@@ -2854,7 +2854,7 @@ public class Profile {
             //    preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
@@ -2865,7 +2865,7 @@ public class Profile {
             //    preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS))
@@ -2878,7 +2878,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
         }
-        if (checked)
+        if (checked && (profile == null))
             return preferenceAllowed;
 
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;

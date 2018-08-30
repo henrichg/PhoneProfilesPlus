@@ -53,6 +53,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
     private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1983;
+    private static final String PRF_GRANT_ROOT = "prf_pref_grantRoot";
 
     @Override
     public int addPreferencesFromResource() {
@@ -514,9 +515,51 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     }
                 });
             }
+
+            // not enabled grant root
+            if (Profile.isProfilePreferenceAllowed(null, profile, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("rootScreen");
+                    preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("rootScreen");
+                    preference = new Preference(context);
+                    preference.setKey(PRF_GRANT_ROOT);
+                    preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                    preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                    preference.setOrder(-100);
+                    preferenceCategory.addPreference(preference);
+                }
+
+                Spannable title = new SpannableString(getString(R.string.preferences_grantRoot_title));
+                title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                preference.setTitle(title);
+                Spannable summary = new SpannableString(getString(R.string.preferences_grantRoot_summary));
+                summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                preference.setSummary(summary);
+
+                final Activity activity = getActivity();
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Permissions.grantRoot(activity);
+                        return false;
+                    }
+                });
+            }
         }
         else {
             Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("rootScreen");
+                preferenceCategory.removePreference(preference);
+            }
+            preference = prefMng.findPreference(PRF_GRANT_ROOT);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("rootScreen");
                 preferenceCategory.removePreference(preference);
