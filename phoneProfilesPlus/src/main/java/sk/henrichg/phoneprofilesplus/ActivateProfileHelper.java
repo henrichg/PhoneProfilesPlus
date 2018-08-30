@@ -825,14 +825,14 @@ class ActivateProfileHelper {
                     PPApplication.logE("ActivateProfileHelper.setZenMode", "change zen mode");
                     PPNotificationListenerService.requestInterruptionFilter(context, zenMode);
                     InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
-                    //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(500);
-                    //PPApplication.sleep(1000);
                 }
 
                 /*
                 if (zenMode == ZENMODE_PRIORITY) {
                     PPApplication.logE("ActivateProfileHelper.setZenMode", "change ringer mode");
+                    //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(500);
+                    PPApplication.sleep(1000);
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     audioManager.setRingerMode(ringerMode);
                 }
@@ -1050,6 +1050,10 @@ class ActivateProfileHelper {
                         PPApplication.sleep(500);
                         setVolumes(context, profile, audioManager, linkUnlink, forProfileActivation);
                         PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
+                        if (getSystemZenMode(context, -1) == ActivateProfileHelper.ZENMODE_PRIORITY) {
+                            //PPApplication.sleep(500);
+                            setRingerMode(context, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
+                        }
 
                         //try { Thread.sleep(500); } catch (InterruptedException e) { }
                         //SystemClock.sleep(500);
