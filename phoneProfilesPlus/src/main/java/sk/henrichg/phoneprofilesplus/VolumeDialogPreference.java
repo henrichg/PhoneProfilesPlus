@@ -99,17 +99,25 @@ public class VolumeDialogPreference extends
             defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
         }
 
-        try {
-            mediaPlayer = MediaPlayer.create(context, R.raw.volume_change_notif);
-            if (mediaPlayer != null)
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        } catch (Exception ignored) {}
-
         typedArray.recycle();
     }
 
     @Override
     protected void showDialog(Bundle state) {
+
+        PPApplication.startHandlerThreadPlayTone();
+        final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
+                    if (mediaPlayer != null)
+                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                } catch (Exception ignored) {}
+            }
+        });
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
         dialogBuilder.setTitle(getDialogTitle());
         dialogBuilder.setIcon(getDialogIcon());

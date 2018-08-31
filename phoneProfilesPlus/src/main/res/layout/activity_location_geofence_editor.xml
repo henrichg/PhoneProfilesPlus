@@ -95,7 +95,7 @@
                 <SeekBar
                     android:id="@+id/location_pref_dlg_radius_seekbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_below="@id/location_pref_dlg_radius_seekbar_label"
                     android:max="50"
                     android:splitTrack="false"

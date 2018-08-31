@@ -32,7 +32,7 @@
     <SeekBar
         android:id="@+id/volumePrefDialogSeekbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:splitTrack="false"
         tools:ignore="UnusedAttribute"/>
 
