@@ -277,7 +277,8 @@ public class EditorProfileListFragment extends Fragment
                 if ((fragment != null) && (fragment.getActivity() != null)) {
                     _dataWrapper.fillPredefinedProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context), fragment.getActivity());
                     defaultProfilesGenerated = true;
-
+                }
+                if ((fragment != null) && (fragment.getActivity() != null)) {
                     _dataWrapper.generatePredefinedEventList(fragment.getActivity());
                     defaultEventsGenerated = true;
                 }
