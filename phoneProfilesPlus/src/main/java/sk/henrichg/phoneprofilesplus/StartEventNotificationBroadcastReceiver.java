@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.SystemClock;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -80,16 +81,6 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
     {
         //if (!_permanentRun) {
 
-            Calendar now = Calendar.getInstance();
-            now.add(Calendar.SECOND, event._repeatNotificationInterval);
-            long alarmTime = now.getTimeInMillis();
-
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
-            }
-
             Context _context = context;
             if (PhoneProfilesService.getInstance() != null)
                 _context = PhoneProfilesService.getInstance();
@@ -107,12 +98,25 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             if (alarmManager != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                         ApplicationPreferences.applicationUseAlarmClock(_context)) {
+
+                    Calendar now = Calendar.getInstance();
+                    now.add(Calendar.SECOND, event._repeatNotificationInterval);
+                    long alarmTime = now.getTimeInMillis();
+
+                    if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(alarmTime);
+                        PPApplication.logE("StartEventNotificationBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                    }
+
                     Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
                 else {
+                    long alarmTime = SystemClock.elapsedRealtime() + event._repeatNotificationInterval * 1000;
+
                     if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                     else //if (android.os.Build.VERSION.SDK_INT >= 19)
