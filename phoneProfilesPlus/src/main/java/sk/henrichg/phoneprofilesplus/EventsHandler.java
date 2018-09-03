@@ -33,7 +33,7 @@ class EventsHandler {
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
     static final String SENSOR_TYPE_RESTART_EVENTS = "restartEvents";
-    static final String SENSOR_TYPE_START_EVENTS_SERVICE = "startEventsService";
+    static final String SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK = "restartEventsNotUnblock";
     static final String SENSOR_TYPE_PHONE_CALL = "phoneCall";
     static final String SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED = "calendarProviderChanged";
     static final String SENSOR_TYPE_SEARCH_CALENDAR_EVENTS = "searchCalendarEvents";
@@ -216,19 +216,7 @@ class EventsHandler {
                 editor.apply();*/
 
                 // for restart events, set startTime to 0
-                for (Event _event : this.dataWrapper.eventList) {
-                    _event._eventPreferencesSMS._startTime = 0;
-                    DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
-                    //_event._eventPreferencesNotification._startTime = 0;
-                    //dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
-                    _event._eventPreferencesNFC._startTime = 0;
-                    DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCStartTime(_event);
-                    PPApplication.logE("[CALL] EventsHandler.handleEvents", "_startTime=0");
-                    _event._eventPreferencesCall._startTime = 0;
-                    DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
-                    _event._eventPreferencesAlarmClock._startTime = 0;
-                    DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
-                }
+                dataWrapper.clearSensorsStartTime();
             }
             else {
                 if (sensorType.equals(SENSOR_TYPE_SMS)) {
