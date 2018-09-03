@@ -363,7 +363,7 @@ class EventPreferencesCall extends EventPreferences {
         PPApplication.logE("EventPreferencesCall.removeSystemEvent", "xxx");
     }
 
-    private void removeAlarm(Context context) {
+    void removeAlarm(Context context) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             //Intent intent = new Intent(context, MissedCallEventEndBroadcastReceiver.class);

@@ -4220,14 +4220,23 @@ public class DataWrapper {
         for (Event _event : eventList) {
             _event._eventPreferencesSMS._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
+            _event._eventPreferencesSMS.removeAlarm(context);
+
             //_event._eventPreferencesNotification._startTime = 0;
             //dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+            //_event._eventPreferencesNotification.removeAlarm(context);
+
             _event._eventPreferencesNFC._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCStartTime(_event);
+            _event._eventPreferencesNFC.removeAlarm(context);
+
             _event._eventPreferencesCall._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
+            _event._eventPreferencesCall.removeAlarm(context);
+
             _event._eventPreferencesAlarmClock._startTime = 0;
             DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
+            _event._eventPreferencesAlarmClock.removeAlarm(context);
         }
     }
 

@@ -347,7 +347,7 @@ class EventPreferencesNFC extends EventPreferences {
         PPApplication.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
     }
 
-    private void removeAlarm(Context context)
+    void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {

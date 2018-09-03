@@ -249,7 +249,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         PPApplication.logE("EventPreferencesAlarmClock.removeSystemEvent", "xxx");
     }
 
-    private void removeAlarm(Context context)
+    void removeAlarm(Context context)
     {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
