@@ -23,7 +23,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
     static final String ACTION_START_WIFI_SCAN = "sk.henrichg.phoneprofilesplus.ACTION_START_WIFI_SCAN";
 
     private static final String EXTRA_SENSOR_TYPE = "sensor_type";
-    private static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
+    static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
     private static final String EXTRA_LOG_TYPE = "log_type";
 
     @Override

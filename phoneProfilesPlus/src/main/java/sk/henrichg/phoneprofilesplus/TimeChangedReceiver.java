@@ -20,13 +20,19 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 if (!PPApplication.getApplicationStarted(appContext, true))
                     return;
 
-                ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                Profile.setActivatedProfileForDuration(context, 0);
+                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                        ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+                    Profile.setActivatedProfileForDuration(context, 0);
+                }
 
                 SearchCalendarEventsJob.scheduleJob(/*appContext, */true, null, true);
 
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                dataWrapper.clearSensorsStartTime();
+                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                        ApplicationPreferences.applicationUseAlarmClock(context)) {
+                    dataWrapper.clearSensorsStartTime();
+                }
                 dataWrapper.restartEvents(false, true/*, false*/, false, true);
             }
         }

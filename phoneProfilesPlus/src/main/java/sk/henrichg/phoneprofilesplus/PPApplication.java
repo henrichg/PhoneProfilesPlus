@@ -1663,13 +1663,14 @@ public class PPApplication extends Application {
         } catch (Exception ignored) {}
     }
 
-    public static void restartEvents(Context context) {
+    public static void restartEvents(Context context, boolean unblockEventsRun) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartEvents", "xxx");
             Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
+            serviceIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
             PPApplication.startPPService(context, serviceIntent);
         } catch (Exception ignored) {}
     }
