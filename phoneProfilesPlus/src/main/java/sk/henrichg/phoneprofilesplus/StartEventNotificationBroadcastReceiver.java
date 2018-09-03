@@ -118,11 +118,11 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     long alarmTime = SystemClock.elapsedRealtime() + event._repeatNotificationInterval * 1000;
 
                     if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else
-                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
             }
         //}
