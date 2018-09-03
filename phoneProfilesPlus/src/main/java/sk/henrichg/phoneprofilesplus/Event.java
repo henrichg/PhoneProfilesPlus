@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
+import android.os.SystemClock;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -1665,16 +1666,6 @@ class Event {
             // delay for start is > 0
             // set alarm
 
-            Calendar now = Calendar.getInstance();
-            now.add(Calendar.SECOND, this._delayStart);
-            long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayStart;
-
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
-            }
-
             //Intent intent = new Intent(_context, EventDelayStartBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
@@ -1688,21 +1679,34 @@ class Event {
             if (alarmManager != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                         ApplicationPreferences.applicationUseAlarmClock(_context)) {
+
+                    Calendar now = Calendar.getInstance();
+                    now.add(Calendar.SECOND, this._delayStart);
+                    long alarmTime = now.getTimeInMillis();
+
+                    if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(alarmTime);
+                        PPApplication.logE("Event.setDelayStartAlarm", "startTime=" + result);
+                    }
+
                     Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
                 else {
+                    long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000;
+
                     if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     else /*if (android.os.Build.VERSION.SDK_INT >= 19)*/
-                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else
-                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
 
-                now = Calendar.getInstance();
+                Calendar now = Calendar.getInstance();
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 this._startStatusTime = now.getTimeInMillis() - gmtOffset;
 
@@ -1810,16 +1814,6 @@ class Event {
             // delay for end is > 0
             // set alarm
 
-            Calendar now = Calendar.getInstance();
-            now.add(Calendar.SECOND, this._delayEnd);
-            long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
-
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
-            }
-
             //Intent intent = new Intent(_context, EventDelayEndBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
@@ -1834,21 +1828,34 @@ class Event {
             if (alarmManager != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                         ApplicationPreferences.applicationUseAlarmClock(_context)) {
+
+                    Calendar now = Calendar.getInstance();
+                    now.add(Calendar.SECOND, this._delayEnd);
+                    long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
+
+                    if (PPApplication.logEnabled()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(alarmTime);
+                        PPApplication.logE("Event.setDelayEndAlarm", "endTime=" + result);
+                    }
+
                     Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
                 else {
+                    long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000;
+
                     if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     else /*if (android.os.Build.VERSION.SDK_INT >= 19)*/
-                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else
-                    //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                    //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 }
 
-                now = Calendar.getInstance();
+                Calendar now = Calendar.getInstance();
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 this._pauseStatusTime = now.getTimeInMillis() - gmtOffset;
 
