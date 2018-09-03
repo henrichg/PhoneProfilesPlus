@@ -91,7 +91,7 @@ public class PPApplication extends Application {
                                          +"|$$$$$ EditorProfilesActivity"
                                          */
 
-                                         +"|ActivateProfileHelper.setZenMode"
+                                         //+"|ActivateProfileHelper.setZenMode"
                                          //+"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
 
@@ -244,7 +244,8 @@ public class PPApplication extends Application {
 
                                         //+"|LauncherActivity"
 
-                                        +"|AlarmClockBroadcastReceiver.onReceive"
+                                        //+"|AlarmClockBroadcastReceiver.onReceive"
+                                        +"|##### TimeChangedReceiver.onReceive"
             ;
 
 
