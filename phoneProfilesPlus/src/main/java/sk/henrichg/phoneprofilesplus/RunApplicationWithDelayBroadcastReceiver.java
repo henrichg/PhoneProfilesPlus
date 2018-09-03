@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.SystemClock;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -74,17 +75,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
         if (startApplicationDelay > 0)
         {
-            Calendar now = Calendar.getInstance();
-            now.add(Calendar.SECOND, startApplicationDelay);
-            long alarmTime = now.getTimeInMillis();
-
-            if (PPApplication.logEnabled()) {
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
-            }
-
             Context _context = context;
             if (PhoneProfilesService.getInstance() != null)
                 _context = PhoneProfilesService.getInstance();
@@ -103,16 +93,30 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             if (alarmManager != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                         ApplicationPreferences.applicationUseAlarmClock(_context)) {
+
+                    Calendar now = Calendar.getInstance();
+                    now.add(Calendar.SECOND, startApplicationDelay);
+                    long alarmTime = now.getTimeInMillis();
+
+                    if (PPApplication.logEnabled()) {
+                        @SuppressLint("SimpleDateFormat")
+                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                        String result = sdf.format(alarmTime);
+                        PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
+                    }
+
                     Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
                 else {
+                    long alarmTime = SystemClock.elapsedRealtime() + startApplicationDelay * 1000;
+
                     if (android.os.Build.VERSION.SDK_INT >= 23)
-                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+                        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                     //else
                     //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                 }

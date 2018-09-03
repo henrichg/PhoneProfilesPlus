@@ -55,14 +55,6 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
         int delay = 20; // 20 seconds
 
-        long alarmTime = SystemClock.elapsedRealtime() + delay * 1000;
-
-        if (PPApplication.logEnabled()) {
-            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            String result = sdf.format(alarmTime);
-            PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
-        }
-
         Context _context = context;
         if (PhoneProfilesService.getInstance() != null)
             _context = PhoneProfilesService.getInstance();
@@ -78,12 +70,25 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
         if (alarmManager != null) {
             if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                     ApplicationPreferences.applicationUseAlarmClock(_context)) {
+
+                Calendar now = Calendar.getInstance();
+                now.add(Calendar.SECOND, delay);
+                long alarmTime = now.getTimeInMillis();
+
+                if (PPApplication.logEnabled()) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                    String result = sdf.format(alarmTime);
+                    PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
+                }
+
                 Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }
             else {
+                long alarmTime = SystemClock.elapsedRealtime() + delay * 1000;
+
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                 else //if (android.os.Build.VERSION.SDK_INT >= 19)
