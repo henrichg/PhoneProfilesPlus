@@ -99,7 +99,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(_context,
                     PPApplication.requestCodeForAlarm.nextInt(), intent, 0);
 
-            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                         ApplicationPreferences.applicationUseAlarmClock(_context)) {
@@ -123,7 +123,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
     /*
     static private void removeDelayAlarm(Context context)
     {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             Context _context = context;
             if (PhoneProfilesService.getInstance() != null)

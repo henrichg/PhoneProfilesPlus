@@ -38,6 +38,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.SystemClock;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
@@ -4251,17 +4252,16 @@ public class PhoneProfilesService extends Service
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Activity.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            Calendar now = Calendar.getInstance();
-            long time = now.getTimeInMillis() + notificationStatusBarCancel * 1000;
+            long time = SystemClock.elapsedRealtime() + notificationStatusBarCancel * 1000;
             // not needed exact for removing notification
             /*if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC, time, pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
             if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 19))
-                alarmManager.setExact(AlarmManager.RTC, time, pendingIntent);
+                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
             else*/
-            alarmManager.set(AlarmManager.RTC, time, pendingIntent);
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
         }
     }
 

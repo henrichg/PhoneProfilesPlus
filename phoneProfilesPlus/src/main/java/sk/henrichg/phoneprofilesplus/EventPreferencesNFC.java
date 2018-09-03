@@ -350,7 +350,7 @@ class EventPreferencesNFC extends EventPreferences {
 
     private void removeAlarm(Context context)
     {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             //Intent intent = new Intent(context, NFCEventEndBroadcastReceiver.class);
             Intent intent = new Intent();
@@ -387,7 +387,7 @@ class EventPreferencesNFC extends EventPreferences {
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Activity.ALARM_SERVICE);
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                             ApplicationPreferences.applicationUseAlarmClock(context)) {
