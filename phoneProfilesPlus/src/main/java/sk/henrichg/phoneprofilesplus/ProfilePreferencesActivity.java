@@ -21,7 +21,6 @@ import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import java.security.Permissions;
 import java.util.ArrayList;
 import java.util.List;
 
