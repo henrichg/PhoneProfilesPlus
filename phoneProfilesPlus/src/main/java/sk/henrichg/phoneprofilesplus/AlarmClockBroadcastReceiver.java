@@ -1,18 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.content.Context.POWER_SERVICE;
 
 public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
-    public AlarmClockBroadcastReceiver() {
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -29,12 +31,10 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
         final long _time = now.getTimeInMillis() + gmtOffset;
 
-        if (Event.getGlobalEventsRunning(context))
-        {
-            PPApplication.logE("@@@ AlarmClockBroadcastReceiver.onReceive","start service");
+        if (Event.getGlobalEventsRunning(context)) {
+            PPApplication.logE("@@@ AlarmClockBroadcastReceiver.onReceive", "start service");
 
             // start job
-            //EventsHandlerJob.startForSMSSensor(context.getApplicationContext(), origin, time);
             PPApplication.startHandlerThread("AlarmClockBroadcastReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -49,17 +49,17 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.setEventAlarmClockParameters(_time);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK/*, false*/);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
                             wakeLock.release();
-                        } catch (Exception ignored) {}
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             });
         }
-
     }
 }
 

@@ -91,7 +91,7 @@ public class PhoneProfilesService extends Service
     private WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
     private BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
     private BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
-    //private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
+    private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     private WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
     private LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
     private AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
@@ -116,7 +116,7 @@ public class PhoneProfilesService extends Service
     private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
     private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
     private PostDelayedBroadcastReceiver postDelayedBroadcastReceiver = null;
-    private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
+    //private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
@@ -138,6 +138,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.StartEventNotificationBroadcastReceiver";
     static final String ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.GeofencesScannerSwitchGPSBroadcastReceiver";
     static final String ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.LockDeviceActivityFinishBroadcastReceiver";
+    static final String ACTION_ALARM_CLOCK_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.AlarmClockBroadcastReceiver";
     static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.AlarmClockEventEndBroadcastReceiver";
 
     static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
@@ -1280,46 +1281,57 @@ public class PhoneProfilesService extends Service
                 if (checkDatabase)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ALARM_CLOCK, false);
                 if (eventCount > 0) {
-                    if (alarmClockBroadcastReceiver == null) {
+                    if (android.os.Build.VERSION.SDK_INT < 21) {
+                        if (alarmClockBroadcastReceiver == null) {
+                            CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER ALARM CLOCK", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
+                            PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER ALARM CLOCK");
+                            alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
+                            IntentFilter intentFilter21 = new IntentFilter();
+                            // AOSP
+                            intentFilter21.addAction("com.android.deskclock.ALARM_ALERT");
+                            intentFilter21.addAction("com.android.alarmclock.ALARM_ALERT");
+                            // Samsung
+                            intentFilter21.addAction("com.samsung.sec.android.clockpackage.alarm.ALARM_ALERT");
+                            // HTC
+                            intentFilter21.addAction("com.htc.android.worldclock.ALARM_ALERT");
+                            intentFilter21.addAction("com.htc.android.ALARM_ALERT");
+                            // Sony
+                            intentFilter21.addAction("com.sonyericsson.alarm.ALARM_ALERT");
+                            // ZTE
+                            intentFilter21.addAction("zte.com.cn.alarmclock.ALARM_ALERT");
+                            // Motorola
+                            intentFilter21.addAction("com.motorola.blur.alarmclock.ALARM_ALERT");
+                            // LG - not working :-/
+                            intentFilter21.addAction("com.lge.clock.ALARM_ALERT");
+                            intentFilter21.addAction("com.lge.alarm.alarmclocknew");
+                            // Xiaomi - not working :-/
+                            //08-23 17:02:00.006 1535-1646/? W/ActivityManager: Sending non-protected broadcast null from system uid 1000 pkg android. Callers=com.android.server.am.ActivityManagerService.broadcastIntentLocked:19078 com.android.server.am.ActivityManagerService.broadcastIntentInPackage:19192 com.android.server.am.PendingIntentRecord.sendInner:311 com.android.server.am.PendingIntentRecord.sendWithResult:205 com.android.server.am.ActivityManagerService.sendIntentSender:7620
+                            //08-23 17:02:00.049 12506-12612/? I/AlarmClock: AlarmReceiver, action: com.android.deskclock.ALARM_ALERT
+                            //08-23 17:02:00.081 12506-12612/? I/AlarmClock: enableAlarmInternal id:4, enabled:false, skip:false
+                            //08-23 17:02:00.093 12506-12612/? I/AlarmClock: Settings, saveNextAlarmTime(), and the timeString is
+
+                            // Gentle Alarm
+                            intentFilter21.addAction("com.mobitobi.android.gentlealarm.ALARM_INFO");
+                            // Sleep As Android
+                            intentFilter21.addAction("com.urbandroid.sleep.alarmclock.ALARM_ALERT");
+                            //  Alarmdroid (1.13.2)
+                            intentFilter21.addAction("com.splunchy.android.alarmclock.ALARM_ALERT");
+
+                            //intentFilter21.setPriority(Integer.MAX_VALUE);
+                            registerReceiver(alarmClockBroadcastReceiver, intentFilter21);
+                        } else
+                            PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered ALARM CLOCK");
+                    }
+                    else {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER ALARM CLOCK", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER ALARM CLOCK");
-                        alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
-                        IntentFilter intentFilter21 = new IntentFilter();
-                        // AOSP
-                        intentFilter21.addAction("com.android.deskclock.ALARM_ALERT");
-                        intentFilter21.addAction("com.android.alarmclock.ALARM_ALERT");
-                        // Samsung
-                        intentFilter21.addAction("com.samsung.sec.android.clockpackage.alarm.ALARM_ALERT");
-                        // HTC
-                        intentFilter21.addAction("com.htc.android.worldclock.ALARM_ALERT");
-                        intentFilter21.addAction("com.htc.android.ALARM_ALERT");
-                        // Sony
-                        intentFilter21.addAction("com.sonyericsson.alarm.ALARM_ALERT");
-                        // ZTE
-                        intentFilter21.addAction("zte.com.cn.alarmclock.ALARM_ALERT");
-                        // Motorola
-                        intentFilter21.addAction("com.motorola.blur.alarmclock.ALARM_ALERT");
-                        // LG - not working :-/
-                        intentFilter21.addAction("com.lge.clock.ALARM_ALERT");
-                        intentFilter21.addAction("com.lge.alarm.alarmclocknew");
-                        // Xiaomi - not working :-/
-                        //08-23 17:02:00.006 1535-1646/? W/ActivityManager: Sending non-protected broadcast null from system uid 1000 pkg android. Callers=com.android.server.am.ActivityManagerService.broadcastIntentLocked:19078 com.android.server.am.ActivityManagerService.broadcastIntentInPackage:19192 com.android.server.am.PendingIntentRecord.sendInner:311 com.android.server.am.PendingIntentRecord.sendWithResult:205 com.android.server.am.ActivityManagerService.sendIntentSender:7620
-                        //08-23 17:02:00.049 12506-12612/? I/AlarmClock: AlarmReceiver, action: com.android.deskclock.ALARM_ALERT
-                        //08-23 17:02:00.081 12506-12612/? I/AlarmClock: enableAlarmInternal id:4, enabled:false, skip:false
-                        //08-23 17:02:00.093 12506-12612/? I/AlarmClock: Settings, saveNextAlarmTime(), and the timeString is
-
-                        // Gentle Alarm
-                        intentFilter21.addAction("com.mobitobi.android.gentlealarm.ALARM_INFO");
-                        // Sleep As Android
-                        intentFilter21.addAction("com.urbandroid.sleep.alarmclock.ALARM_ALERT");
-                        //  Alarmdroid (1.13.2)
-                        intentFilter21.addAction("com.splunchy.android.alarmclock.ALARM_ALERT");
-
-                        //intentFilter21.setPriority(Integer.MAX_VALUE);
-                        registerReceiver(alarmClockBroadcastReceiver, intentFilter21);
+                        if (alarmClockBroadcastReceiver == null) {
+                            alarmClockBroadcastReceiver = new AlarmClockBroadcastReceiver();
+                            IntentFilter intentFilter21 = new IntentFilter(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
+                            registerReceiver(alarmClockBroadcastReceiver, intentFilter21);
+                        } else
+                            PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered ALARM CLOCK");
                     }
-                    else
-                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered ALARM CLOCK");
                     if (alarmClockEventEndBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER alarmClockEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER alarmClockEventEndBroadcastReceiver");
