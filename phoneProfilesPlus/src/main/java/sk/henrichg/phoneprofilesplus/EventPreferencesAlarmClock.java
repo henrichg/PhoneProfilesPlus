@@ -73,22 +73,24 @@ class EventPreferencesAlarmClock extends EventPreferences {
     {
         String descr = "";
 
-        if (!this._enabled) {
-            if (!addBullet)
-                descr = context.getString(R.string.event_preference_sensor_alarm_clock_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_alarm_clock), addPassStatus, DatabaseHandler.ETYPE_ALARM_CLOCK, context);
-                descr = descr + ": </b>";
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+
+            if (!this._enabled) {
+                if (!addBullet)
+                    descr = context.getString(R.string.event_preference_sensor_alarm_clock_summary);
+            } else {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_alarm_clock), addPassStatus, DatabaseHandler.ETYPE_ALARM_CLOCK, context);
+                    descr = descr + ": </b>";
+                }
+
+                if (this._permanentRun)
+                    descr = descr + context.getString(R.string.pref_event_permanentRun);
+                else
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
             }
 
-            if (this._permanentRun)
-                descr = descr + context.getString(R.string.pref_event_permanentRun);
-            else
-                descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
         }
 
         return descr;
@@ -177,7 +179,10 @@ class EventPreferencesAlarmClock extends EventPreferences {
     @Override
     public boolean isRunnable(Context context)
     {
-        return super.isRunnable(context);
+        if (android.os.Build.VERSION.SDK_INT >= 21)
+            return super.isRunnable(context);
+        else
+            return false;
     }
 
     long computeAlarm()

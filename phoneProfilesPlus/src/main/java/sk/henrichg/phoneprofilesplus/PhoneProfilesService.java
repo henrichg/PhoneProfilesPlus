@@ -91,7 +91,6 @@ public class PhoneProfilesService extends Service
     private WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
     private BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
     private BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
-    private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     private WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
     private LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
     private AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
@@ -116,7 +115,7 @@ public class PhoneProfilesService extends Service
     private GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
     private LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
     private PostDelayedBroadcastReceiver postDelayedBroadcastReceiver = null;
-    //private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
+    private AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     private AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
 
     private PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
@@ -1245,6 +1244,9 @@ public class PhoneProfilesService extends Service
     }
 
     private void registerReceiverForAlarmClockSensor(boolean register, boolean checkDatabase) {
+        if (android.os.Build.VERSION.SDK_INT < 21)
+            return;
+
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "xxx");
@@ -1281,7 +1283,7 @@ public class PhoneProfilesService extends Service
                 if (checkDatabase)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ALARM_CLOCK, false);
                 if (eventCount > 0) {
-                    if (android.os.Build.VERSION.SDK_INT < 21) {
+                    /*if (android.os.Build.VERSION.SDK_INT < 21) {
                         if (alarmClockBroadcastReceiver == null) {
                             CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER ALARM CLOCK", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
                             PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER ALARM CLOCK");
@@ -1322,7 +1324,7 @@ public class PhoneProfilesService extends Service
                         } else
                             PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered ALARM CLOCK");
                     }
-                    else {
+                    else {*/
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER ALARM CLOCK", "PhoneProfilesService_registerReceiverForAlarmClockSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER ALARM CLOCK");
                         if (alarmClockBroadcastReceiver == null) {
@@ -1331,7 +1333,7 @@ public class PhoneProfilesService extends Service
                             registerReceiver(alarmClockBroadcastReceiver, intentFilter21);
                         } else
                             PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "registered ALARM CLOCK");
-                    }
+                    //}
                     if (alarmClockEventEndBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor->REGISTER alarmClockEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAlarmClockSensor", "REGISTER alarmClockEventEndBroadcastReceiver");

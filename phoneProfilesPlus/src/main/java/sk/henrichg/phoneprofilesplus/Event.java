@@ -417,7 +417,8 @@ class Event {
     }
 
     public boolean isEnabledSomeSensor() {
-        return this._eventPreferencesTime._enabled ||
+        boolean someEnabled =
+                this._eventPreferencesTime._enabled ||
                 this._eventPreferencesBattery._enabled ||
                 this._eventPreferencesCall._enabled ||
                 this._eventPreferencesPeripherals._enabled ||
@@ -432,32 +433,41 @@ class Event {
                 this._eventPreferencesOrientation._enabled ||
                 this._eventPreferencesMobileCells._enabled ||
                 this._eventPreferencesNFC._enabled ||
-                this._eventPreferencesRadioSwitch._enabled ||
-                this._eventPreferencesAlarmClock._enabled;
+                this._eventPreferencesRadioSwitch._enabled;
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            someEnabled = someEnabled ||
+                    this._eventPreferencesAlarmClock._enabled;
+        }
+        return someEnabled;
     }
 
-    public boolean isRunnable(Context context, boolean checkSomeSensorEnabled)
-    {
+    public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         boolean runnable = (this._fkProfileStart != 0);
-        if (checkSomeSensorEnabled)
-            if (!(this._eventPreferencesTime._enabled ||
-                  this._eventPreferencesBattery._enabled ||
-                  this._eventPreferencesCall._enabled ||
-                  this._eventPreferencesPeripherals._enabled ||
-                  this._eventPreferencesCalendar._enabled ||
-                  this._eventPreferencesWifi._enabled ||
-                  this._eventPreferencesScreen._enabled ||
-                  this._eventPreferencesBluetooth._enabled ||
-                  this._eventPreferencesSMS._enabled ||
-                  this._eventPreferencesNotification._enabled ||
-                  this._eventPreferencesApplication._enabled ||
-                  this._eventPreferencesLocation._enabled ||
-                  this._eventPreferencesOrientation._enabled ||
-                  this._eventPreferencesMobileCells._enabled ||
-                  this._eventPreferencesNFC._enabled ||
-                  this._eventPreferencesRadioSwitch._enabled ||
-                  this._eventPreferencesAlarmClock._enabled))
+        if (checkSomeSensorEnabled) {
+            boolean someEnabled =
+                    this._eventPreferencesTime._enabled ||
+                    this._eventPreferencesBattery._enabled ||
+                    this._eventPreferencesCall._enabled ||
+                    this._eventPreferencesPeripherals._enabled ||
+                    this._eventPreferencesCalendar._enabled ||
+                    this._eventPreferencesWifi._enabled ||
+                    this._eventPreferencesScreen._enabled ||
+                    this._eventPreferencesBluetooth._enabled ||
+                    this._eventPreferencesSMS._enabled ||
+                    this._eventPreferencesNotification._enabled ||
+                    this._eventPreferencesApplication._enabled ||
+                    this._eventPreferencesLocation._enabled ||
+                    this._eventPreferencesOrientation._enabled ||
+                    this._eventPreferencesMobileCells._enabled ||
+                    this._eventPreferencesNFC._enabled ||
+                    this._eventPreferencesRadioSwitch._enabled;
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                someEnabled = someEnabled ||
+                        this._eventPreferencesAlarmClock._enabled;
+            }
+            if (!someEnabled)
                 runnable = false;
+        }
         if (this._eventPreferencesTime._enabled)
             runnable = runnable && this._eventPreferencesTime.isRunnable(context);
         if (this._eventPreferencesBattery._enabled)
@@ -490,8 +500,11 @@ class Event {
             runnable = runnable && this._eventPreferencesNFC.isRunnable(context);
         if (this._eventPreferencesRadioSwitch._enabled)
             runnable = runnable && this._eventPreferencesRadioSwitch.isRunnable(context);
-        if (this._eventPreferencesAlarmClock._enabled)
-            runnable = runnable && this._eventPreferencesAlarmClock.isRunnable(context);
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            if (this._eventPreferencesAlarmClock._enabled)
+                runnable = runnable && this._eventPreferencesAlarmClock.isRunnable(context);
+        }
+
         return runnable;
     }
 

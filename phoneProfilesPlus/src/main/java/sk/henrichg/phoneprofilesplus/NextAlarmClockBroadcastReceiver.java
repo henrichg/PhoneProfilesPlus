@@ -43,33 +43,47 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time=" + result);
                         }
 
-                        PendingIntent pendingIntent = alarmClockInfo.getShowIntent();
-                        if (pendingIntent != null) {
-                            String packageName = pendingIntent.getCreatorPackage();
+                        PendingIntent infoPendingIntent = alarmClockInfo.getShowIntent();
+                        // infoPendingIntent == null - Xiaomi Clock :-/
+                        // infoPendingIntent == null - LG Clock :-/
+                        // infoPendingIntent == null - Huawei Clock :-/
+                        if (infoPendingIntent != null) {
+                            String packageName = infoPendingIntent.getCreatorPackage();
                             if (packageName != null) {
                                 PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
 
                                 // com.google.android.deskclock - Google Clock
                                 // com.sec.android.app.clockpackage - Samsung Clock
+                                // com.sonyericsson.organizer - Sony Clock
 
                                 if (packageName.equals("com.google.android.deskclock") ||
-                                    packageName.equals("com.sec.android.app.clockpackage")) {
+                                    packageName.equals("com.sec.android.app.clockpackage")  ||
+                                    packageName.equals("com.sonyericsson.organizer")) {
                                     //Intent _intent = new Intent(context, AlarmClockBroadcastReceiver.class);
                                     Intent _intent = new Intent();
                                     _intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
                                     //_intent.setClass(context, AlarmClockBroadcastReceiver.class);
 
-                                    PendingIntent _pendingIntent = PendingIntent.getBroadcast(context, 9998, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    // cancel alarm
+                                    PendingIntent _pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_NO_CREATE);
+                                    if (_pendingIntent != null) {
+                                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarm found");
+                                        alarmManager.cancel(_pendingIntent);
+                                        _pendingIntent.cancel();
+                                    }
+
+                                    // set alarm
+                                    _pendingIntent = PendingIntent.getBroadcast(context, 9998, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(_time, infoPendingIntent);
+                                    PendingIntent _infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(_time, _infoPendingIntent);
                                     alarmManager.setAlarmClock(clockInfo, _pendingIntent);
                                 }
                             } else
                                 PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
                         } else
-                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "pendingIntent == null");
+                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
                     }
                     else
                         PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo == null");
