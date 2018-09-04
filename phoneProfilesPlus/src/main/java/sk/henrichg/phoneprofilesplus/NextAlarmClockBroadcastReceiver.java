@@ -25,10 +25,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        final Context appContext = context.getApplicationContext();
-
-        if (!PPApplication.getApplicationStarted(context.getApplicationContext(), true))
-            return;
+        //if (!PPApplication.getApplicationStarted(context.getApplicationContext(), true))
+        //    return;
 
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             String action = intent.getAction();
