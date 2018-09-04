@@ -31,10 +31,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 SearchCalendarEventsJob.scheduleJob(/*appContext, */true, null, true);
 
                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
-                        ApplicationPreferences.applicationUseAlarmClock(context)) {
-                    dataWrapper.clearSensorsStartTime();
-                }
+                dataWrapper.clearSensorsStartTime();
                 dataWrapper.restartEvents(false, true/*, false*/, false, true);
             }
         }
