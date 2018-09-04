@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -47,6 +49,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                         // infoPendingIntent == null - Xiaomi Clock :-/
                         // infoPendingIntent == null - LG Clock :-/
                         // infoPendingIntent == null - Huawei Clock :-/
+
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
                             if (packageName != null) {
@@ -59,36 +62,44 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                 if (packageName.equals("com.google.android.deskclock") ||
                                     packageName.equals("com.sec.android.app.clockpackage")  ||
                                     packageName.equals("com.sonyericsson.organizer")) {
-                                    //Intent _intent = new Intent(context, AlarmClockBroadcastReceiver.class);
-                                    Intent _intent = new Intent();
-                                    _intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
-                                    //_intent.setClass(context, AlarmClockBroadcastReceiver.class);
-
-                                    // cancel alarm
-                                    PendingIntent _pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_NO_CREATE);
-                                    if (_pendingIntent != null) {
-                                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarm found");
-                                        alarmManager.cancel(_pendingIntent);
-                                        _pendingIntent.cancel();
-                                    }
-
-                                    // set alarm
-                                    _pendingIntent = PendingIntent.getBroadcast(context, 9998, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-                                    PendingIntent _infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                                    AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(_time, _infoPendingIntent);
-                                    alarmManager.setAlarmClock(clockInfo, _pendingIntent);
+                                    setAlarm(_time, alarmManager, context);
                                 }
-                            } else
+                            } else {
                                 PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName == null");
-                        } else
+                                setAlarm(_time, alarmManager, context);
+                            }
+                        } else {
                             PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "infoPendingIntent == null");
+                            setAlarm(_time, alarmManager, context);
+                        }
                     }
                     else
                         PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo == null");
                 }
             }
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setAlarm(long time, AlarmManager alarmManager, Context context) {
+        //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
+        //intent.setClass(context, AlarmClockBroadcastReceiver.class);
+
+        // cancel alarm
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_NO_CREATE);
+        if (pendingIntent != null) {
+            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarm found");
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
+
+        // set alarm
+        pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+        PendingIntent _infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(time, _infoPendingIntent);
+        alarmManager.setAlarmClock(clockInfo, pendingIntent);
     }
 }
