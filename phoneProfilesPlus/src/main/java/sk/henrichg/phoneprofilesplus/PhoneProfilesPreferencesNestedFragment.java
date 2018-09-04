@@ -263,9 +263,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             preference = prefMng.findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                if (PPApplication.romIsMIUI) {
+                /*if (PPApplication.romIsMIUI) {
                     preference.setSummary(R.string.phone_profiles_pref_writeSystemSettingPermissions_summary_miui);
-                }
+                }*/
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
