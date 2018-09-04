@@ -35,6 +35,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
+                    removeAlarm(alarmManager, context);
+
                     AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
                     if (alarmClockInfo != null) {
                         long _time = alarmClockInfo.getTriggerTime();
@@ -73,15 +75,16 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                             setAlarm(_time, alarmManager, context);
                         }
                     }
-                    else
+                    else {
                         PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo == null");
+                        //removeAlarm(alarmManager, context);
+                    }
                 }
             }
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setAlarm(long time, AlarmManager alarmManager, Context context) {
+    private void removeAlarm(AlarmManager alarmManager, Context context) {
         //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
@@ -90,16 +93,38 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         // cancel alarm
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null) {
-            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarm found");
+            PPApplication.logE("NextAlarmClockBroadcastReceiver.removeAlarm", "alarm found");
             alarmManager.cancel(pendingIntent);
             pendingIntent.cancel();
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setAlarm(long time, AlarmManager alarmManager, Context context) {
+        //removeAlarm(alarmManager, context);
+
+        long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
+
+        if (PPApplication.logEnabled()) {
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(alarmTime);
+            PPApplication.logE("NextAlarmClockBroadcastReceiver.setAlarm", "alarmTime=" + result);
+        }
+
+        //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
+        //intent.setClass(context, AlarmClockBroadcastReceiver.class);
 
         // set alarm
-        pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
-        PendingIntent _infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(time, _infoPendingIntent);
-        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // !!! DO NOT USE ALARM CLOCK !!!
+        if (android.os.Build.VERSION.SDK_INT >= 23)
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+        else //if (android.os.Build.VERSION.SDK_INT >= 19)
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+        //else
+        //    alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
 }

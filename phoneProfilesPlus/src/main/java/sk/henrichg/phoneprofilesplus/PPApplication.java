@@ -245,7 +245,7 @@ public class PPApplication extends Application {
                                         //+"|LauncherActivity"
 
                                         +"|AlarmClockBroadcastReceiver.onReceive"
-                                        +"|NextAlarmClockBroadcastReceiver.onReceive"
+                                        +"|NextAlarmClockBroadcastReceiver"
                                         //+"|##### TimeChangedReceiver.onReceive"
             ;
 
