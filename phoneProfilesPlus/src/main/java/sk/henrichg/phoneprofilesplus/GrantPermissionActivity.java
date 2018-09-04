@@ -756,14 +756,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
             boolean writeSettingsFound = false;
             for (Permissions.PermissionType permissionType : permissions) {
                 if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
-                    if (!PPApplication.romIsMIUI) {
+                    //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS, getApplicationContext())) {
                             writeSettingsFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_WRITE_SETTINGS);
                             startActivityForResult(intent, WRITE_SETTINGS_REQUEST_CODE);
                             break;
                         }
-                    }
+                    /*}
                     else {
                         try {
                             // MIUI 8
@@ -784,7 +784,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                                 writeSettingsFound = false;
                             }
                         }
-                    }
+                    }*/
                 }
             }
             if (!writeSettingsFound)
@@ -812,14 +812,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //boolean api25 = android.os.Build.VERSION.SDK_INT >= 25;
             for (Permissions.PermissionType permissionType : permissions) {
                 if (/*api25 && */permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
-                    if (!PPApplication.romIsMIUI) {
+                    //if (!PPApplication.romIsMIUI) {
                         if (GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getApplicationContext())) {
                             drawOverlaysFound = true;
                             final Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                             startActivityForResult(intent, DRAW_OVERLAYS_REQUEST_CODE);
                             break;
                         }
-                    }
+                    /*}
                     else {
                         try {
                             // MIUI 8
@@ -842,7 +842,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                                 drawOverlaysFound = false;
                             }
                         }
-                    }
+                    }*/
                 }
             }
             if (!drawOverlaysFound)

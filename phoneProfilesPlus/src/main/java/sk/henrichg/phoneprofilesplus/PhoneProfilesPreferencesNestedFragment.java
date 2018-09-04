@@ -269,7 +269,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        if (!PPApplication.romIsMIUI) {
+                        //if (!PPApplication.romIsMIUI) {
                             if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
                                 @SuppressLint("InlinedApi")
                                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
@@ -292,7 +292,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 });*/
                                 dialog.show();
                             }
-                        }
+                        /*}
                         else {
                             try {
                                 // MIUI 8
@@ -313,19 +313,19 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                     dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                     AlertDialog dialog = dialogBuilder.create();
-                                    /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                        @Override
-                                        public void onShow(DialogInterface dialog) {
-                                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                            if (positive != null) positive.setAllCaps(false);
-                                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                            if (negative != null) negative.setAllCaps(false);
-                                        }
-                                    });*/
+                                    //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    //    @Override
+                                    //    public void onShow(DialogInterface dialog) {
+                                    //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    //        if (positive != null) positive.setAllCaps(false);
+                                    //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    //        if (negative != null) negative.setAllCaps(false);
+                                    //    }
+                                    //});
                                     dialog.show();
                                 }
                             }
-                        }
+                        }*/
                         return false;
                     }
                 });
@@ -355,14 +355,14 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preference != null) {
                 //if (android.os.Build.VERSION.SDK_INT >= 25) {
                     //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                    if (PPApplication.romIsMIUI) {
+                    /*if (PPApplication.romIsMIUI) {
                         preference.setTitle(R.string.phone_profiles_pref_drawOverlaysPermissions_miui);
                         preference.setSummary(R.string.phone_profiles_pref_drawOverlaysPermissions_summary_miui);
-                    }
+                    }*/
                     preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference preference) {
-                            if (!PPApplication.romIsMIUI) {
+                            //if (!PPApplication.romIsMIUI) {
                                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
                                     @SuppressLint("InlinedApi")
                                     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
@@ -385,7 +385,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                     });*/
                                     dialog.show();
                                 }
-                            }
+                            /*}
                             else {
                                 try {
                                     // MIUI 8
@@ -406,19 +406,19 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                                         AlertDialog dialog = dialogBuilder.create();
-                                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                            @Override
-                                            public void onShow(DialogInterface dialog) {
-                                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                                if (positive != null) positive.setAllCaps(false);
-                                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                                if (negative != null) negative.setAllCaps(false);
-                                            }
-                                        });*/
+                                        //*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                        //    @Override
+                                        //    public void onShow(DialogInterface dialog) {
+                                        //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                        //        if (positive != null) positive.setAllCaps(false);
+                                        //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                        //        if (negative != null) negative.setAllCaps(false);
+                                        //    }
+                                        //});
                                         dialog.show();
                                     }
                                 }
-                            }
+                            }*/
                             return false;
                         }
                     });
