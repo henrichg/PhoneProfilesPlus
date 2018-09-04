@@ -8,12 +8,17 @@
       <w>afterduration</w>
       <w>afterdurationdo</w>
       <w>alarmclock</w>
+      <w>alarmclocknew</w>
       <w>alarmdroid</w>
+      <w>alarmy</w>
       <w>alleventsdeleted</w>
       <w>allprofilesdeleted</w>
       <w>altype</w>
+      <w>amdroid</w>
+      <w>amdroidalarmclock</w>
       <w>anrwatchdog</w>
       <w>aosp</w>
+      <w>apalon</w>
       <w>applicationexit</w>
       <w>applicationstart</w>
       <w>applicationstartonboot</w>
@@ -25,6 +30,7 @@
       <w>backgroundprofile</w>
       <w>backgrounprofile</w>
       <w>basestation</w>
+      <w>bitspin</w>
       <w>bluetoothconnected</w>
       <w>bluetoothinfront</w>
       <w>bottombar</w>
@@ -43,9 +49,11 @@
       <w>descr</w>
       <w>deskclock</w>
       <w>dlight</w>
+      <w>droom</w>
       <w>dropshadow</w>
       <w>dtmf</w>
       <w>dtype</w>
+      <w>earlybirdalarm</w>
       <w>eatenddo</w>
       <w>edgepanel</w>
       <w>eorder</w>
@@ -64,6 +72,7 @@
       <w>exportdata</w>
       <w>false;</w>
       <w>fgui</w>
+      <w>funanduseful</w>
       <w>gentlealarm</w>
       <w>geofence</w>
       <w>geofences</w>
@@ -88,6 +97,7 @@
       <w>listview</w>
       <w>listwidget</w>
       <w>lockscreen</w>
+      <w>mdroid</w>
       <w>mimetype</w>
       <w>miui</w>
       <w>mobitobi</w>
@@ -155,6 +165,7 @@
       <w>textview</w>
       <w>timelines</w>
       <w>topbar</w>
+      <w>treme</w>
       <w>true;</w>
       <w>twopane</w>
       <w>uncheck</w>
@@ -166,6 +177,7 @@
       <w>wifiinfront</w>
       <w>worldclock</w>
       <w>xiaomi</w>
+      <w>xtreme</w>
       <w>zenmode</w>
     </words>
   </dictionary>

@@ -60,10 +60,28 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                 // com.google.android.deskclock - Google Clock
                                 // com.sec.android.app.clockpackage - Samsung Clock
                                 // com.sonyericsson.organizer - Sony Clock
+                                // com.amdroidalarmclock.amdroid - AMdroid
+                                // com.alarmclock.xtreme.free - Alarm Clock XTreme free
+                                // com.alarmclock.xtreme - Alarm Clock XTreme
+                                // droom.sleepIfUCan - Alarmy (Sleep if u can)
+                                // com.funanduseful.earlybirdalarm - Early Bird Alarm Clock
+                                // com.apalon.alarmclock.smart - Good Morning Alarm Clock
+                                // com.kog.alarmclock - I Can't Wake Up! Alarm Clock
+                                // com.urbandroid.sleep - Sleep as Android
+                                // ch.bitspin.timely - Timely
 
                                 if (packageName.equals("com.google.android.deskclock") ||
-                                    packageName.equals("com.sec.android.app.clockpackage")  ||
-                                    packageName.equals("com.sonyericsson.organizer")) {
+                                    packageName.equals("com.sec.android.app.clockpackage") ||
+                                    packageName.equals("com.sonyericsson.organizer") ||
+                                    packageName.equals("com.amdroidalarmclock.amdroid") ||
+                                    packageName.equals("com.alarmclock.xtreme") ||
+                                    packageName.equals("com.alarmclock.xtreme.free") ||
+                                    packageName.equals("droom.sleepIfUCan") ||
+                                    packageName.equals("com.funanduseful.earlybirdalarm") ||
+                                    packageName.equals("com.apalon.alarmclock.smart") ||
+                                    packageName.equals("com.kog.alarmclock") ||
+                                    packageName.equals("com.urbandroid.sleep") ||
+                                    packageName.equals("ch.bitspin.timely")) {
                                     setAlarm(_time, alarmManager, context);
                                 }
                             } else {
