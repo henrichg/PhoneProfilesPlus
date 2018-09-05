@@ -28,25 +28,23 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG))
         {
+            PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive.1");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-            boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
+                    boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
 
-            if (scanStarted)
-            {
-                PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive","xxx");
+                    if (scanStarted) {
+                        PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
-                PPApplication.startHandlerThread("BluetoothLEScanBroadcastReceiver.onReceive.1");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothLEScanBroadcastReceiver.onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
 
                         BluetoothScanJob.fillBoundedDevicesList(appContext);
 
@@ -83,17 +81,16 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                             }, 5000);*/
                             PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
                         }
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
-                        }
                     }
-                });
-            }
-        }
 
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
+                }
+            });
+        }
     }
 
 }
