@@ -59,7 +59,6 @@
         <item name="dialogTheme">@style/DialogStyleWhite</item>
         <item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile_white</item>
         <item name="actionHelpIcon">@drawable/ic_action_help_white</item>
-        <item name="actionProfileActivationDuration">@drawable/ic_button_profile_activation_duration</item>
         <item name="fastScrollTrackPP">@color/fastScrollTrackPP_white</item>
         <item name="fastScrollThumbPP">@color/fastScrollThumbPP_white</item>
         <item name="fastScrollPopupBackgroundPP">@color/fastScrollPopupBackgroundPP_white</item>
