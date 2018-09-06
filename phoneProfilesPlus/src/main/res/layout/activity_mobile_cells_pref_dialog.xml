@@ -108,7 +108,7 @@
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_helpIcon"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_profile_activated"
+                    android:src="@drawable/ic_button_select"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/pref_dlg_change_selection_title"

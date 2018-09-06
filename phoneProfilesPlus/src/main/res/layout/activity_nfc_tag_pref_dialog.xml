@@ -74,7 +74,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/nfc_tag_pref_dlg_helpIcon"
-                    android:src="@drawable/ic_profile_activated"
+                    android:src="@drawable/ic_button_select"
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/pref_dlg_change_selection_title"/>
 

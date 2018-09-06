@@ -36,7 +36,7 @@
         <item name="filterStatusBarBackground">@color/primary</item>
 <!--         <item name="editorDrawerSpinner">@style/editorDrawerSpinnerStyle</item>   --> 
         <item name="preferenceDialogBackground">@color/preferenceDialogBackground</item>
-        <item name="editItemMenuIcon">@drawable/ic_profile_item_edit_menu</item> 
+        <item name="editItemMenuIcon">@drawable/ic_list_item_edit_menu</item>
         <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
         <item name="importantInfoEventsRestartIcon">@drawable/ic_important_info_events_restart</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
