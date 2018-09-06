@@ -37,9 +37,8 @@
 <!--         <item name="editorDrawerSpinner">@style/editorDrawerSpinnerStyle</item>  --> 
         <item name="preferenceDialogBackground">@color/preferenceDialogBackground_dark</item>
         <item name="editItemMenuIcon">@drawable/ic_profile_item_edit_menu_dark</item> 
-        <item name="applicationSettingsLanguageIcon">@drawable/ic_settings_language_dark</item> 
         <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
-        <item name="actionEventsRestartIconInverse">@drawable/ic_action_events_restart_dark</item>
+        <item name="importantInfoEventsRestartIcon">@drawable/ic_important_info_events_restart_dark</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>

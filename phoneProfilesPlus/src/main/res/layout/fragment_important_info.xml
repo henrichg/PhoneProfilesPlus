@@ -275,7 +275,7 @@
             android:text="@string/important_info_profile_activation_restart_events_icon"
             android:id="@+id/activity_info_profile_activation7a"
             android:textStyle="bold"
-            android:drawableEnd="?attr/actionEventsRestartIconInverse"
+            android:drawableEnd="?attr/importantInfoEventsRestartIcon"
             android:drawablePadding="4dp" />
         <TextView
             android:layout_width="wrap_content"
@@ -551,7 +551,7 @@
             android:text="@string/important_info_profile_activation_restart_events_icon"
             android:id="@+id/activity_info_profile_activation7b"
             android:textStyle="bold"
-            android:drawableEnd="?attr/actionEventsRestartIconInverse"
+            android:drawableEnd="?attr/importantInfoEventsRestartIcon"
             android:drawablePadding="4dp" />
         <TextView
             android:layout_width="wrap_content"
