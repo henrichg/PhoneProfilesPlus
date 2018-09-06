@@ -450,7 +450,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
             }
         }
         if (addressButton.isEnabled())
-            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
+            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_button_location_address, getApplicationContext());
         String name = geofenceNameEditText.getText().toString();
 
         updateEditedMarker(setMapCamera);
@@ -573,7 +573,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 enableAddressButton = true;
             }
 
-            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_action_location_address, getApplicationContext());
+            GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, R.drawable.ic_button_location_address, getApplicationContext());
 
             //mAddressRequested = false;
         }

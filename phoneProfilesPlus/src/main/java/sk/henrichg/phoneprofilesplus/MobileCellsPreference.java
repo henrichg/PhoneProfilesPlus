@@ -584,7 +584,7 @@ public class MobileCellsPreference extends DialogPreference {
                     }
                     connectedCell.setText(connectedCellName);
                     GlobalGUIRoutines.setImageButtonEnabled((registeredCellData != null) && !(registeredCellInTable && registeredCellInValue),
-                            addCellButton, R.drawable.ic_action_location_add, context);
+                            addCellButton, R.drawable.ic_button_location_add, context);
 
                     //progressLinearLayout.setVisibility(View.GONE);
                     //dataRelativeLayout.setVisibility(View.VISIBLE);

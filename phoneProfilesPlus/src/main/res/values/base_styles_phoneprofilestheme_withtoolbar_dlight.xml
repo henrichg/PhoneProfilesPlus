@@ -58,7 +58,7 @@
         <item name="dialogTheme">@style/DialogStyleDLight</item>
         <item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile</item>
         <item name="actionHelpIcon">@drawable/ic_action_help</item>
-        <item name="actionProfileActivationDuration">@drawable/ic_action_profile_activation_duration</item>
+        <item name="actionProfileActivationDuration">@drawable/ic_button_profile_activation_duration</item>
         <item name="fastScrollTrackPP">@color/fastScrollTrackPP</item>
         <item name="fastScrollThumbPP">@color/fastScrollThumbPP</item>
         <item name="fastScrollPopupBackgroundPP">@color/fastScrollPopupBackgroundPP</item>

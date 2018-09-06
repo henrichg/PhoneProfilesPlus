@@ -371,7 +371,7 @@ public class Profile {
     static {
         profileIconIdMap = new HashMap<>();
 
-        profileIconIdMap.put("ic_action_events_restart_color", R.drawable.ic_action_events_restart_color);
+        profileIconIdMap.put("ic_list_item_events_restart_color", R.drawable.ic_list_item_events_restart_color);
 
         profileIconIdMap.put("ic_profile_default", R.drawable.ic_profile_default);
         profileIconIdMap.put("ic_profile_home", R.drawable.ic_profile_home);

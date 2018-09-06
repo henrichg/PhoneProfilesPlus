@@ -62,7 +62,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/ic_action_profileicon_help"
+                    android:src="@drawable/ic_button_profileicon_help"
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/menu_help"/>
 
@@ -86,7 +86,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/nfc_tag_pref_dlg_changeSelection"
-                    android:src="@drawable/ic_action_location_add"
+                    android:src="@drawable/ic_button_location_add"
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/nfc_tag_pref_dlg_add_icon"/>
 

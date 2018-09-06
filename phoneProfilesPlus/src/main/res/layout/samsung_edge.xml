@@ -30,7 +30,7 @@
                 android:layout_alignParentEnd="true"
                 android:contentDescription="@string/menu_restart_events"
                 android:scaleType="center"
-                android:src="@drawable/ic_action_events_restart_notification"
+                android:src="@drawable/ic_button_events_restart_notification"
                 android:clickable="true"
                 android:focusable="true" />
 

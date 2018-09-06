@@ -128,12 +128,12 @@ public class NFCTagPreference extends DialogPreference {
             @Override
             public void afterTextChanged(Editable s) {
                 GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
-                        addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
+                        addIcon, R.drawable.ic_button_location_add, context.getApplicationContext());
             }
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
-                addIcon, R.drawable.ic_action_location_add, context.getApplicationContext());
+                addIcon, R.drawable.ic_button_location_add, context.getApplicationContext());
 
         nfcTagListView = layout.findViewById(R.id.nfc_tag_pref_dlg_listview);
         listAdapter = new NFCTagPreferenceAdapter(context, this);
@@ -160,7 +160,7 @@ public class NFCTagPreference extends DialogPreference {
             helpText.setVisibility(View.VISIBLE);
         }
         else {
-            helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+            helpIcon.setImageResource(R.drawable.ic_button_profileicon_help);
             helpText.setVisibility(View.GONE);
         }
         helpIcon.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +170,7 @@ public class NFCTagPreference extends DialogPreference {
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 int visibility = helpText.getVisibility();
                 if (visibility == View.VISIBLE) {
-                    helpIcon.setImageResource(R.drawable.ic_action_profileicon_help);
+                    helpIcon.setImageResource(R.drawable.ic_button_profileicon_help);
                     visibility = View.GONE;
                     editor.putBoolean(PREF_SHOW_HELP, false);
                 }

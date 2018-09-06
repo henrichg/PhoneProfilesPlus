@@ -119,7 +119,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_location_my_location"
+                android:src="@drawable/ic_button_location_my_location"
                 android:background="?attr/selectableItemBackground" />
 
             <android.support.v7.widget.AppCompatImageButton
@@ -130,7 +130,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_toStartOf = "@id/location_editor_my_location"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_location_address"
+                android:src="@drawable/ic_button_location_address"
                 android:background="?attr/selectableItemBackground" />
 
             <EditText

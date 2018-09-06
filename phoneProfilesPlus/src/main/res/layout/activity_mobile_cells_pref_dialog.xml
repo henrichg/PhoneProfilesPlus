@@ -62,7 +62,7 @@
                     android:padding="5dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_action_location_add"
+                    android:src="@drawable/ic_button_location_add"
                     android:background="?attr/selectableItemBackground" />
 
             </RelativeLayout>
@@ -92,7 +92,7 @@
                     android:layout_centerVertical="true"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_action_profileicon_help"
+                    android:src="@drawable/ic_button_profileicon_help"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/menu_help"
@@ -124,7 +124,7 @@
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_changeSelection"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_action_location_edit"
+                    android:src="@drawable/ic_button_location_edit"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"
