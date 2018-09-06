@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 

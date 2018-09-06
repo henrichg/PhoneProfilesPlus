@@ -46,7 +46,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
                 R.styleable.ConnectToSSIDDialogPreference);
 
         disableSharedProfile = typedArray.getInteger(
-                R.styleable.ConnectToSSIDDialogPreference_ctsdpDisableSharedProfile, 0);
+                R.styleable.ConnectToSSIDDialogPreference_cDisableSharedProfile, 0);
 
         this.context = context;
         ssidList = new ArrayList<>();

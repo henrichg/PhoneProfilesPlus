@@ -398,7 +398,7 @@
             <sk.henrichg.phoneprofilesplus.ConnectToSSIDDialogPreference
                 android:key="prf_pref_deviceConnectToSSID"
                 android:defaultValue="^just_any^"
-                henrichg:ctsdpDisableSharedProfile="0"
+                henrichg:cDisableSharedProfile="0"
                 android:title="@string/profile_preferences_deviceConnectToSSID"
                 android:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
                 android:layout="@layout/mp_preference_material_widget" />

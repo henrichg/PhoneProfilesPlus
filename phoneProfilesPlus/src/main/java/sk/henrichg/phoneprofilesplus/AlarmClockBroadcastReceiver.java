@@ -1,15 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.content.Context.POWER_SERVICE;

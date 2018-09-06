@@ -8,13 +8,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
-import android.os.PowerManager;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import static android.content.Context.POWER_SERVICE;
 
 public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
@@ -118,10 +113,10 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setAlarm(long time, AlarmManager alarmManager, Context context) {
+    private void setAlarm(long alarmTime, AlarmManager alarmManager, Context context) {
         //removeAlarm(alarmManager, context);
 
-        long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
+        //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
 
         if (PPApplication.logEnabled()) {
             @SuppressLint("SimpleDateFormat")
@@ -139,7 +134,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         // !!! DO NOT USE ALARM CLOCK !!!
         if (android.os.Build.VERSION.SDK_INT >= 23)
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         else //if (android.os.Build.VERSION.SDK_INT >= 19)
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
         //else

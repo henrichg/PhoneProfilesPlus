@@ -49,7 +49,7 @@
         <attr name="infoText" format="string" />
     </declare-styleable>
     <declare-styleable name="ConnectToSSIDDialogPreference">
-        <attr name="ctsdpDisableSharedProfile" format="integer" />
+        <attr name="cDisableSharedProfile" format="integer" />
     </declare-styleable>
     <declare-styleable name="RingtonePreference">
         <attr name="ringtoneType" format="string" />

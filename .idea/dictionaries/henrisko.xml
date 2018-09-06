@@ -36,6 +36,7 @@
       <w>bottombar</w>
       <w>bssid</w>
       <w>cdma</w>
+      <w>chainfire</w>
       <w>clockpackage</w>
       <w>connecttossid</w>
       <w>crashlytics</w>
@@ -97,6 +98,7 @@
       <w>listview</w>
       <w>listwidget</w>
       <w>lockscreen</w>
+      <w>magisk</w>
       <w>mdroid</w>
       <w>mimetype</w>
       <w>miui</w>
@@ -165,6 +167,7 @@
       <w>textview</w>
       <w>timelines</w>
       <w>topbar</w>
+      <w>topjohnwu</w>
       <w>treme</w>
       <w>true;</w>
       <w>twopane</w>
