@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ class BluetoothNamePreferenceAdapter extends BaseAdapter
     static class ViewHolder {
         TextView bluetoothName;
         CheckBox checkBox;
-        ImageView itemEditMenu;
+        AppCompatImageButton itemEditMenu;
         //int position;
     }
 

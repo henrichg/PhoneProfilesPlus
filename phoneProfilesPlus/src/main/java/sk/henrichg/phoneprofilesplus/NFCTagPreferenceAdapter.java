@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ class NFCTagPreferenceAdapter extends BaseAdapter
         TextView tagName;
         //TextView tagUid;
         CheckBox checkBox;
-        ImageView itemEditMenu;
+        AppCompatImageButton itemEditMenu;
         //int position;
     }
 

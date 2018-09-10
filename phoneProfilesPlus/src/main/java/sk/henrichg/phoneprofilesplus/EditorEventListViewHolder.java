@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,7 +28,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
     private final ImageView profileEndIcon;
     private final TextView profileEndName;
     private ImageView profileEndIndicator;
-    private final ImageView eventItemEditMenu;
+    private final AppCompatImageButton eventItemEditMenu;
 
     private Event event;
     private final EditorEventListFragment editorFragment;

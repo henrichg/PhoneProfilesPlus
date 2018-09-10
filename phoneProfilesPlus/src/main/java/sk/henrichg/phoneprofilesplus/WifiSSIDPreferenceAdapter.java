@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ class WifiSSIDPreferenceAdapter extends BaseAdapter
     static class ViewHolder {
         TextView SSIDName;
         CheckBox checkBox;
-        ImageView itemEditMenu;
+        AppCompatImageButton itemEditMenu;
         //int position;
     }
 

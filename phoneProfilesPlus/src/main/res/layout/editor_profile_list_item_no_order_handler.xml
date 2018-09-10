@@ -21,17 +21,14 @@
             android:layout_alignParentEnd="true"
             android:orientation="horizontal" >
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/profile_list_item_edit_menu"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:padding="10dp"
-            android:scaleType="center"
-            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
             android:background="?attr/selectableItemBackground"
             android:contentDescription="@string/preference_item_edit_menu"
-            android:src="?attr/editItemMenuIcon"
-            android:focusable="true"/>
+            android:src="?attr/editItemMenuIcon"/>
         
     </LinearLayout>
     

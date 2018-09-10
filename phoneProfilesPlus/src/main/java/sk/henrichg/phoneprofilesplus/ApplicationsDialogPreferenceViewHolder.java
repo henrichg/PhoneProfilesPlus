@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -18,7 +19,7 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
     private final ImageView imageViewIcon;
     private final TextView textViewAppName;
     private final TextView textViewAppType;
-    private final ImageView imageViewMenu;
+    private final AppCompatImageButton imageViewMenu;
     private final TextView textViewStartApplicationDelay;
 
     private Application application;

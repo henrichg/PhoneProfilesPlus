@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,12 +42,12 @@ class MobileCellsPreferenceAdapter extends BaseAdapter
     }
     
     static class ViewHolder {
-          TextView cellId;
-          TextView lastConnectedTime;
-          CheckBox checkBox;
-          ImageView itemEditMenu;
-          //int position;
-        }
+        TextView cellId;
+        TextView lastConnectedTime;
+        CheckBox checkBox;
+        AppCompatImageButton itemEditMenu;
+        //int position;
+    }
 
     @SuppressLint("SetTextI18n")
     public View getView(final int position, View convertView, ViewGroup parent)

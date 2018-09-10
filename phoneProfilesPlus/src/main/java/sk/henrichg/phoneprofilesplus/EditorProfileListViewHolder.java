@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +19,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
     private final ImageView profileIcon;
     private final TextView profileName;
     private ImageView profileIndicator;
-    private final ImageView profileItemEditMenu;
+    private final AppCompatImageButton profileItemEditMenu;
 
     private Profile profile;
     private final EditorProfileListFragment editorFragment;

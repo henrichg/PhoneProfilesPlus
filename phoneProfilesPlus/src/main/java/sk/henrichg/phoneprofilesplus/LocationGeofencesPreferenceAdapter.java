@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Typeface;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,7 +117,7 @@ class LocationGeofencesPreferenceAdapter extends CursorAdapter {
     public static class ViewHolder {
         CheckBox checkBox;
         TextView name;
-        ImageView itemEditMenu;
+        AppCompatImageButton itemEditMenu;
         long geofenceId;
     }
 
