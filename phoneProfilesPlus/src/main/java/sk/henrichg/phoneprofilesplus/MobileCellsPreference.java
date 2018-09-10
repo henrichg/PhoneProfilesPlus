@@ -19,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -584,7 +583,7 @@ public class MobileCellsPreference extends DialogPreference {
                     }
                     connectedCell.setText(connectedCellName);
                     GlobalGUIRoutines.setImageButtonEnabled((registeredCellData != null) && !(registeredCellInTable && registeredCellInValue),
-                            addCellButton, R.drawable.ic_button_location_add, context);
+                            addCellButton, R.drawable.ic_button_add, context);
 
                     //progressLinearLayout.setVisibility(View.GONE);
                     //dataRelativeLayout.setVisibility(View.VISIBLE);

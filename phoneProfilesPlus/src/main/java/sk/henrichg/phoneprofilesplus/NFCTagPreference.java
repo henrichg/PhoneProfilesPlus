@@ -128,12 +128,12 @@ public class NFCTagPreference extends DialogPreference {
             @Override
             public void afterTextChanged(Editable s) {
                 GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
-                        addIcon, R.drawable.ic_button_location_add, context.getApplicationContext());
+                        addIcon, R.drawable.ic_button_add, context.getApplicationContext());
             }
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!nfcTagName.getText().toString().isEmpty(),
-                addIcon, R.drawable.ic_button_location_add, context.getApplicationContext());
+                addIcon, R.drawable.ic_button_add, context.getApplicationContext());
 
         nfcTagListView = layout.findViewById(R.id.nfc_tag_pref_dlg_listview);
         listAdapter = new NFCTagPreferenceAdapter(context, this);

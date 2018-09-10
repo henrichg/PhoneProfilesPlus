@@ -155,12 +155,12 @@ public class BluetoothNamePreference extends DialogPreference {
             @Override
             public void afterTextChanged(Editable s) {
                 GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
-                        addIcon, R.drawable.ic_button_location_add, context.getApplicationContext());
+                        addIcon, R.drawable.ic_button_add, context.getApplicationContext());
             }
         });
 
         GlobalGUIRoutines.setImageButtonEnabled(!bluetoothName.getText().toString().isEmpty(),
-                addIcon, R.drawable.ic_button_location_add, context.getApplicationContext());
+                addIcon, R.drawable.ic_button_add, context.getApplicationContext());
 
         bluetoothListView = layout.findViewById(R.id.bluetooth_name_pref_dlg_listview);
         listAdapter = new BluetoothNamePreferenceAdapter(context, this);
