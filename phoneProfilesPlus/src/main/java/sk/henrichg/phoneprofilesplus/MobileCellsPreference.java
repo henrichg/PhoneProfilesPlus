@@ -201,7 +201,7 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
-        final ImageView editIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_rename);
+        final AppCompatImageButton editIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_rename);
         editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,7 +230,7 @@ public class MobileCellsPreference extends DialogPreference {
                         .show();
             }
         });
-        ImageView changeSelectionIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
+        AppCompatImageButton changeSelectionIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_changeSelection);
         changeSelectionIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -268,7 +268,7 @@ public class MobileCellsPreference extends DialogPreference {
             }
         });
 
-        final ImageView helpIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
+        final AppCompatImageButton helpIcon = layout.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

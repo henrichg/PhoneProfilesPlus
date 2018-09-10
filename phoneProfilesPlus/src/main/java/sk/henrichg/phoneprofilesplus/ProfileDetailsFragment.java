@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,7 @@ public class ProfileDetailsFragment extends Fragment {
         ImageView profileIcon;
         TextView profileName;
         ImageView profileIndicator;
-        ImageView profileItemEdit;
+        AppCompatImageButton profileItemEdit;
 
         profileName = view.findViewById(R.id.profile_detail_profile_name);
         profileIcon = view.findViewById(R.id.profile_detail_profile_icon);

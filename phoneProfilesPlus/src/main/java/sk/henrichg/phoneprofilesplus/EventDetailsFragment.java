@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +99,7 @@ public class EventDetailsFragment extends Fragment {
         ImageView profileEndIcon;
         TextView profileEndName;
         ImageView profileEndIndicator;
-        ImageView eventItemEdit;
+        AppCompatImageButton eventItemEdit;
 
         eventName = view.findViewById(R.id.event_detail_event_name);
         eventStatus = view.findViewById(R.id.event_detail_status);

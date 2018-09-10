@@ -21,18 +21,13 @@
             android:layout_alignParentEnd="true"
             android:orientation="horizontal" >
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/event_detail_edit"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:padding="5dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:clickable="true"
+                android:padding="7dp"
                 android:background="?attr/selectableItemBackground"
-                android:contentDescription="@string/empty_string"
-                android:src="@drawable/ic_button_detail_profile_preferences_edit"
-                android:focusable="true"/>
+                android:src="@drawable/ic_button_detail_profile_preferences_edit"/>
 
         </LinearLayout>
 
