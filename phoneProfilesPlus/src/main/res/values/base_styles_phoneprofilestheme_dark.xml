@@ -49,7 +49,7 @@
         <item name="dialogDivider">@color/dialog_divider_dark</item>
         <!--<item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item> -->
         <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
-        <item name="actionActivityLogPlayIcon">@drawable/ic_action_activity_log_play</item>
+        <item name="actionActivityLogPlayIcon">@drawable/ic_action_play</item>
         <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleDark</item>
         <item name="dialogTheme">@style/DialogStyleDark</item>
@@ -60,7 +60,7 @@
         <item name="fastScrollPopupBackgroundPP">@color/fastScrollPopupBackgroundPP_dark</item>
         <item name="fastScrollPopupTextPP">@color/fastScrollPopupTextPP_dark</item>
         <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
-        <item name="actionRunStopEventsIcon">@drawable/ic_action_run_stop_events_icon</item>
+        <item name="actionRunStopEventsIcon">@drawable/ic_action_play</item>
         <item name="editorDrawerSpinnerDropDownTextColor">@color/activityTextColor_dark</item>
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor_dark</item>
         <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all</item>
