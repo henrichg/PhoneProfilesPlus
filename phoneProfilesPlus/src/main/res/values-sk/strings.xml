@@ -1177,8 +1177,6 @@
   <string name="event_preference_sensor_alarm_clock_summary">Tento senzor je pre štart udalosti podľa budíka. Parametre: Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
   <string name="event_type_alarm_clock">Budík</string>
   <string name="event_preferences_category_eventAlarmClockParameters">Senzor budíka</string>
-  <string name="event_preferences_alarmClock_info_title">Experimentálny senzor</string>
-  <string name="event_preferences_alarmClock_info_summary">Tento senzor je experimentálny. Testované aplikácie: Funguje: Samsung Hodiny, Sony Hodiny, Huawei Hodiny; Nefunguje: Google Hodiny, LG Hodiny, Xiaomi Hodiny.</string>
   <string name="phone_profiles_pref_grantRootPermission">Povoliť root</string>
   <string name="phone_profiles_pref_grantRootPermission_summary">Prosím povolte root pre PhoneProfilesPlus. Je potrebné pre parametre profilu a udalostí, ktoré vyžadujú root.</string>
   <string name="phone_profiles_pref_grantRootPermission_summary_pp">Prosím povolte root pre PhoneProfiles. Je potrebné pre parametre profilu, ktoré vyžadujú root.</string>
