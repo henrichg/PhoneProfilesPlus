@@ -88,3 +88,10 @@ Custom ikony - ako ich generovat:
 - Kazde generovanie a pouzivanie lockuj mutexom.
 - V Cache si pamataj URI ikony, z ktorej ikona je a toto aj pouzi ako identifikator, nech su ikony v Cache neduplikovane.
 
+---------------------------------------
+
+Permissions:
+- Treba pre kazdy profil a kazdu udalost robit zvlast grant.
+- Ak sa ma len generovat notifikacia tak tu vytvarat proamo v grantXXX metodach, ktore naplnim extras ako naplnam grant aktivitu.
+- Grant notifikacia musi byt zvlast pre kazdy profil a udalost. Cize rozlisovat notifikacie cez request code, pouzit id profilu a zaporne ide udalosti.
+
