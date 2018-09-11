@@ -506,10 +506,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
             mBuilder.setDeleteIntent(deletePendingIntent);
 
-            if (event != null)
+            if (event != null) {
                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-
-            notificationID = PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
+                notificationID = -(9999 + (int)event._id);
+            }
+            else
+                notificationID = -PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID;
         }
         else {
             String nTitle = context.getString(R.string.permissions_for_profile_text_notification);
@@ -539,13 +541,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, 0);
             mBuilder.setDeleteIntent(deletePendingIntent);
 
-            if (profile != null)
-                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-
             //intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
             //intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
             //intent.putExtra(Permissions.EXTRA_MONOCHROME_VALUE, monochromeValue);
-            notificationID = PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
+
+            if (profile != null) {
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                notificationID = 9999 + (int)profile._id;
+            }
+            else
+                notificationID = PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID;
         }
         //permissions.clear();
         intent.putExtra(Permissions.EXTRA_GRANT_TYPE, grantType);

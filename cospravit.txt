@@ -92,6 +92,6 @@ Custom ikony - ako ich generovat:
 
 Permissions:
 - Treba pre kazdy profil a kazdu udalost robit zvlast grant.
-- Ak sa ma len generovat notifikacia tak tu vytvarat proamo v grantXXX metodach, ktore naplnim extras ako naplnam grant aktivitu.
+- Ak sa ma len generovat notifikacia tak tu vytvarat priamo v grantXXX metodach, ktore naplnim extras ako naplnam grant aktivitu.
 - Grant notifikacia musi byt zvlast pre kazdy profil a udalost. Cize rozlisovat notifikacie cez request code, pouzit id profilu a zaporne ide udalosti.
 
