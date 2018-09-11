@@ -12,8 +12,8 @@
 // 4200 = show Important info on first application start
 
 ext.ppVersions = [
-    publishVersion: '3.6.4',
-    publishVersionCode: 4220,
+    publishVersion: '3.6.4.1',
+    publishVersionCode: 4230,
 
     minSdk: 19,
     targetSdk: 27,

@@ -599,14 +599,20 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         else {
             if (PPApplication.isRooted()) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
-                Preference preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
-                preferenceCategory.removePreference(preference);
-                preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
-                preferenceCategory.removePreference(preference);
-                preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
-                preferenceCategory.removePreference(preference);
-                preference = findPreference(PREF_APPLICATION_PERMISSIONS);
-                preferenceCategory.removePreference(preference);
+                if (preferenceCategory != null) {
+                    Preference preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                    if (preference != null)
+                        preferenceCategory.removePreference(preference);
+                    preference = findPreference(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+                    if (preference != null)
+                        preferenceCategory.removePreference(preference);
+                    preference = findPreference(PREF_DRAW_OVERLAYS_PERMISSIONS);
+                    if (preference != null)
+                        preferenceCategory.removePreference(preference);
+                    preference = findPreference(PREF_APPLICATION_PERMISSIONS);
+                    if (preference != null)
+                        preferenceCategory.removePreference(preference);
+                }
             }
             else {
                 PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
