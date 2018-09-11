@@ -16,24 +16,8 @@ Ako disablovat lockscreen, 2 kroky:
   Settings.Secure - lock_screen_lock_after_timeout (milisekundy)
 
 
-povolenie/zakazanie vybrovania pri dotyku: Settings.System.HAPTIC_FEEDBACK_ENABLED (0,1)
-
-
----- Power management:
-
-1. Ak je device v "Device Idle" mode, podla dokumentacie nerobi wifi scanning.
-2. Pocas "device idle" nerobit scanning, odchytavat broadcast na zmenu modu a ak sa
-   "Device Idle" vypne, zavolat EventsService (akoby to bol typ udalosti).
-3. Aplikacia sa moze dostat do "App Standby" modu. Treba zistit, ako sa toto da odchytit. Ak bude v tomto mode,
-   scannovat s intervalom raz tak dlhym ako je prednastavene. Ak sa vypne tento mod, spravit one scan.
-4. Od Lollipopa existuje "Power Save" mod. Da sa odchytit boradcast. Mal by fungovat tak ako pri
-   "App standby" mode.
-
 --------
 
-1. scanning - ak bezi, a dam spustit one shot scanning z preferences, neukoncit hned, ale cakat na
-   ukoncenie beziaceho
-3. skus spravit do profilu moznot zastavit aplikaciu
 4. sprav notifikaciu ako dasboard, kde budu ikony profilov, klikom na ikonu sa profil aktivuje.
    poradie bude take iste ako pro aktivatore. Ak sa nezmestia na jednu notifikaciu, spravit dalsiu.
    Notifikacia bude mat prioritu nastavitelnu, default bude Minimal. Uzivatel si bude moct zmenit, aby sa
@@ -73,199 +57,7 @@ DevicePolicyManager.PASSWORD_QUALITY_COMPLEX - heslo?
 
 --------------------------------
 
-1. timezone +02, bolo 20:06 na mobile
-2. nastavil som, ze sa ma spustit o 20:10
-3. zmenil som timezone na +01, cas sa zmenil na 19:06
-4. Editor pise, ze sa nastartuje 21:10 casu mobilu, co je zle!!!
-5. 19:10 sa nenstartoval (20:10 mojho casu), co je spravne
-6. cakam kedy sa naozaj udalost spusti, predpokladam ze o 20:10 casu na mobile
-7. tak 20.10 casu na mobile sa nespustil. Takze asi az 21.10 casu na mobile, tak ako pise v Editore.
-
-Cele je to zle. Ako to opravit:
-1. do DabaseHandler.onUpdate() vsetky casy v profiloch a udalostiach prepocitat na lokalny cas. Cize:
-    int gmtOffset = TimeZone.getDefault().getRawOffset();
-    localTimaToDB = timeFromDB - gmtOffset
-2. do db ukladat lokalny cas, ziaden prepocet na UTC nerobit
-3. testnut zmenu timezony, ci sa prejavuje uz v nahodenych alarmoch do AlarmManagera. Podla mna sa musi,
-   ved je blbost znova nahadzovat alarmy, ak sa zmeni timezna.
-
-Po oprave:
-1. timezone +02, bolo 22:22 na mobile
-2. nastavil som, ze sa ma spustit o 22:25
-3. zmenil som timezone na +01, cas sa zmenil na 21:25
-5. Editor pise, ze sa nastartuje 22:25 casu mobilu, co je OK
-6. cakam kedy sa naozaj udalost spusti, predpokladam ze o 22:25 casu na mobile
-
----------------------------------
-
-Android O:
-0. Treba cakat na material-dialogs a android-job, kim sa updatnu na podporu Android O. A mozno aj
-   in-app platby treba kuknut.
-1. Pouzivat LayoutParams.TYPE_APPLICATION_OVERLAY - uz mam, len je to zapoznamkovane.
-2. Pouzivat Context.startForegroundService() - uz mam, len je to zapoznamkovane.
-   Tu je problem, ze to pada, akoby nebolo volane Service.startForeground(). Hlavne, ak servis stopnem.
-3. Pouzivat JobIntentService namiesto WakefulIntentService a IntentService - servisy nie je mozne startovat, ak je app. na pozadi,
-   treba to preto robit cez JobIntentService. Problem je ale ten, ze na toto sa potom pouziva JobScheduler,
-   cize servis sa nespusti hned, ale to riadi JobScheduler (plati len pre Android O). :-/
-   Dobre, ale je, ze to spravi wake, takze v podstate ako WakefulIntentService.
-4. Pouzivat NotificationChannels. Pre hlavnu notifikaciu to uz mam, len je to zapoznamkovane. Treba to spravit pre vsetky notifikacie.
-
-----------------------------------
-
-Mam force start pre wifi, bluetooth, phone state, skenery.
-Tie sa volaju z preferences a len na toto su.
-Ked toto zavolam, nesmu sa registrovat na pozadi.
-Totizto ich moze odregistrovat a potom nebude fungovat rescan na dialogoch.
-Pre geofence a orientation skenery to netreba, nemam na to force start.
-
---------------
-
-Senzor polohy:
-- existuje GeofenceScanner a GeofenceScannerJob
-- GeofenceScanner:
-  - v constructore inicializuje google api + inicializuje locationRequest
-    - volany je z PhoneProfilesService.startGeofenceScanner()
-  - ma metodu connect()
-    - ta je volana z PhoneProfilesService.startGeofenceScanner()
-    - vyvolana je metoda onConnected()
-  - ma metodu disconnect()
-    - ta je volana z PhoneProfilesService.start/stopGeofenceScanner()
-    - zavola stopLocationUpdates()
-    - odpoji google api
-  - ma metodu onConnected()
-    - vymaze vsetky transitions z db
-    - zavola updateTransitionsByLastKnownLocation(), nevola sa EventsHandler
-    - nasheduluje GeofenceScannerJob - ZAPOZNAMKOVANE, JOB SA SHEDULUJE SAMOSTATNE
-  - ma metodu onLocationChanged()
-    - updatne lastLocation
-  - ma metodu updateTransitionsByLastKnownLocation()
-    - volana je z onConnected()
-    - volana je z LocationModeChangedBroadcastReceiver.onReceive()
-    - volana je z PhoneProfilesService.scheduleGeofenceScannerJob()
-    - ziska posledne znamu lokaciu
-    - updatne lastLocation
-    - updatne transitions do db (vola updateGeofencesInDB())
-    - moze zavolat EventsHandler
-  - ma metodu startLocationUpdates()
-    - zapina samotne skenovanie polohy - TOTO ZAPINA GPS!!!
-    - volana je z GeofenceScannerJob.onRunJob - TOTO NECHAJME VOLAT LEN ODTIALTO, LEBO LEN V JOBE BUDEME RIESIT PREPINANIE GPS
-    - da GeofenceScanner.mUpdatesStarted = true
-  - ma metodu stopLocationUpdates()
-    - volana je z disconnect()
-    - vypina samotne skenovanie polohy, vypne GPS
-    - da GeofenceScanner.mUpdatesStarted = false
-  - ma metodu updateGeofencesInDB()
-    - volana je z GeofenceScannerJob.onRunJob()
-    - volana je z updateTransitionsByLastKnownLocation()
-    - updatne transition v db pre kazde zaregistrovane geofence
-  - ma metodu clearAllEventGeofences()
-    - volana je z onConnected() - CIZE KAZDY CONNECT/RECONNECT VYMAZE TRANSITIONS Z DB
-    - volana je z LocationModeChangedBroadcastReceiver.onReceive()
-    - keze hned za nou je volane updateTransitionsByLastKnownLocation(), nevadi, ze sa transitions vymazu, znova sa nahodia podla posledne znamej polohy
-    - vymaze transitions v db pre vsetky zaregistrovane geofences
-- GeofenceScannerJob:
-  - onRunJob()
-    - ak nie je GeofenceScanner nastartovany, spravi cancel jobu
-    - ak sa nema v power save mode skenovat poloha, spravi sa cancel jobu
-    - ak GeofenceScanner.mUpdatesStarted == true
-      - zavola sa GeofenceScanner.updateGeofencesInDB()
-      - zavola sa EventsHandler
-    - ak GeofenceScanner.mUpdatesStarted == false
-      - zavola sa GeofenceScanner.startLocationUpdates() - CIZE LEN JOB ZAPINA SKENOVANIE POLOHY
-  - scheduleJob()
-    - volana je z onRunJob()
-    - volana je z PhoneProfilesService.scheduleGeofenceScannerJob()
-    - vola PhoneProfilesService.getGeofencesScanner().mUpdatesStarted = false;
-    - normalne scheduluje job pomocou android-job lib.
-  - cancelJob()
-    - volana je z onRunJob()
-    - volana je z PhoneProfilesService.scheduleGeofenceScannerJob()
-    - normalne canceluje job pomocou android-job lib.
-- PhoneProfilesService:
-  - startGeofenceScanner():
-    - volana je z startGeofenceScanner(...)
-    - reconnectuje GeofenceScanner
-      - vola GeofenceScanner.disconnect()
-      - vola GeofenceScanner.connect()
-  - stopGeofenceScanner()
-    - volana je z startGeofenceScanner(...)
-    - vola GeofenceScanner.disconnect()
-  - startGeofenceScanner(...)
-    - volana je z registerReceiversAndJobs()
-    - volana je z reregisterReceiversAndJobs()
-    - volana je z unregisterReceiversAndJobs()
-    - robi start/stop GeofenceScanner
-    - vie aj restartnut GeofenceScannerJob (rescan = true)
-  - scheduleGeofenceScannerJob()
-    - volana je z DeviceIdleModeBroadcastReceiver.onReceive()
-      - aby sa spravil rescan - tu by som radsej zavolal GeofenceScanner.updateTransitionsByLastKnownLocation(true)
-      - TU TO PREROB AJ PRE OSTATNE SCENERY, VYVOLAJ LEN RESCAN
-    - volana je z GeofenceScanner.onConnected() - ZAPOZNAMKOVANE
-    - volana je z GrantPermissionActivity.finishGrant()
-      - aby sa spustilo GeofenceScanner.startLoacionUpdates() z GeofenceScannerJob.onRunJob()
-    - volana je z PhoneProfilesPreferencesActivity.finish()
-      - aby sa resheduloval job s novym intervalom
-    - volana je z registerReceiversAndJobs()
-    - volana je z reregisterReceiversAndJobs()
-    - volana je z startGeofenceScanner(...)
-    - volana je z unregisterReceiversAndJobs()
-    - robi start/stop GeofenceScannerJob
-  - cancelGeofenceScannerJob()
-    - volane je z scheduleGeofenceScannerJob()
-    - robi cancel GeofenceScannerJob
-
--------------------
-
-Aktivacia profilu z Aktivatora - vraj sa nezatvara
-1. volane je DataWrapper.activateProfile() s startupSource = STARTUP_SOURCE_ACTIVATOR a s aktivitou = Aktivator
-2. ak profile_id je najdene, tak volane je DataWrapper.activateProfileWithAlert(profile, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
-3. ak profile_id nie je najdene, tak sa updatne vsetko v db, gui a zavola sa finishActivity(STARTUP_SOURCE_ACTIVATOR, true, activity (Aktivator)).
-4. DataWrapper.activateProfileWithAlert()
-   a) ak je nastavene, ze ma pytat potvrdenie aktivacie:
-      aa) vytvori sa AlertDialog.
-      ab) positive button vola Permissions.grantProfilePermissions().
-          aba) ak vrati false, vola sa finishActivity(STARTUP_SOURCE_ACTIVATOR, false, activity (Aktivator))
-          abb) ak vrati true, vola sa _dataWrapper.activateProfileFromMainThread(profile, false, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
-   b) ak je nastavene, ze nema pytat potvrdenie aktivacie:
-      aa) positive button vola Permissions.grantProfilePermissions().
-          aa) ak vrati false, NEVOLA SA NIC!!!! Tu je chyba, nema prava nahodene, nic sa neaktivuje a Aktivator sa nezavrie!!!! - OPRAVENE
-          ab) ak vrati true, vola sa _dataWrapper.activateProfileFromMainThread(profile, false, STARTUP_SOURCE_ACTIVATOR, activity (Aktivator)).
-
----------------------
-
-Obcas to spadne na chybe (aj na mojom S8 to raz spadlo):
-
-07-27 12:54:48.976 7857-7857/? E/Zygote: isWhitelistProcess - Process is Whitelisted
-07-27 12:54:48.987 7857-7857/? E/libpersona: scanKnoxPersonas
-    Couldn't open the File - /data/system/users/0/personalist.xml - No such file or directory
-07-27 12:54:48.998 7857-7857/? W/SELinux: SELinux selinux_android_compute_policy_index : Policy Index[2],  Con:u:r:zygote:s0 RAM:SEPF_SM-G950F_8.0.0_0010, [-1 -1 -1 -1 0 1]
-07-27 12:54:49.313 7857-7857/sk.henrichg.phoneprofilesplus E/##### PPApplication.onCreate: romManufacturer=samsung
-07-27 12:54:49.404 7857-7901/sk.henrichg.phoneprofilesplus W/Fabric: Could not call getId on com.google.android.gms.ads.identifier.AdvertisingIdClient$Info
-07-27 12:54:49.406 7857-7901/sk.henrichg.phoneprofilesplus W/Fabric: Could not call isLimitAdTrackingEnabled on com.google.android.gms.ads.identifier.AdvertisingIdClient$Info
-07-27 12:54:49.578 7857-7857/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.onCreate: android.os.Build.VERSION.SDK_INT=26
-07-27 12:54:49.601 7857-7857/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.onCreate: OK created
-07-27 12:54:49.603 7857-7857/sk.henrichg.phoneprofilesplus E/PhoneProfilesService.doForFirstStart: EXTRA_ONLY_START
-07-27 12:54:49.604 7857-7898/sk.henrichg.phoneprofilesplus E/PhoneProfilesService.doForFirstStart: PhoneProfilesService.doForFirstStart.2
-07-27 12:54:49.607 7857-7857/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.onStartCommand: intent=Intent { cmp=sk.henrichg.phoneprofilesplus/.PhoneProfilesService (has extras) }
-07-27 12:54:49.607 7857-7857/sk.henrichg.phoneprofilesplus E/PhoneProfilesService.doForFirstStart: EXTRA_ONLY_START already running
-07-27 12:54:50.310 7857-7898/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.doForFirstStart: application not started, start it
-07-27 12:54:53.844 7857-7898/sk.henrichg.phoneprofilesplus E/BluetoothHeadset: BTStateChangeCB is unregisted
-07-27 12:54:53.853 7857-7857/sk.henrichg.phoneprofilesplus E/AndroidRuntime: FATAL EXCEPTION: main
-    Process: sk.henrichg.phoneprofilesplus, PID: 7857
-    java.lang.NullPointerException: Attempt to invoke interface method 'void android.bluetooth.BluetoothProfile$ServiceListener.onServiceDisconnected(int)' on a null object reference
-        at android.bluetooth.BluetoothHeadset$3.handleMessage(BluetoothHeadset.java:1221)
-        at android.os.Handler.dispatchMessage(Handler.java:105)
-        at android.os.Looper.loop(Looper.java:164)
-        at android.app.ActivityThread.main(ActivityThread.java:6938)
-        at java.lang.reflect.Method.invoke(Native Method)
-        at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:327)
-        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1374)
-07-27 12:55:01.033 7857-7898/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.doForFirstStart: application started
-07-27 12:55:01.034 7857-7898/sk.henrichg.phoneprofilesplus E/$$$ PhoneProfilesService.doForFirstStart: global event run is enabled, first start events
-
----------------
-
-NFC tag senzor
+NFC tag senzor - NEFUNGUJE PRI CITANI TAGU NA POZADI!
 
 Tu mas ako sa to id cita: https://gist.github.com/luixal/5768921.
 
@@ -286,3 +78,13 @@ Tu mas ako sa to id cita: https://gist.github.com/luixal/5768921.
         <action android:name="android.nfc.action.TAG_DISCOVERED"/>
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
+
+---------------------------------------
+
+Custom ikony - ako ich generovat:
+- Prilis dlho to trva, cize treba ich generovat v samostanom threade. Najlepsie v AsyncTask, aby vygenerovane sa dalo lahko pouzit.
+- Sprav na to Cache class.
+- Generuj len jednu ikonu naraz. Generovanie nech je v samostanom threade.
+- Kazde generovanie a pouzivanie lockuj mutexom.
+- V Cache si pamataj URI ikony, z ktorej ikona je a toto aj pouzi ako identifikator, nech su ikony v Cache neduplikovane.
+
