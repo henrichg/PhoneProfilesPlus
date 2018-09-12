@@ -189,64 +189,64 @@ public class GrantPermissionActivity extends AppCompatActivity {
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
 
-        String[] whyPermissionString = new String[14];
+        boolean[][] whyPermissionType = new boolean[14][100];
 
         for (Permissions.PermissionType permissionType : permissions) {
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                 showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context) || forceGrant;
-                whyPermissionString[0] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[0][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
                 showRequestAccessNotificationPolicy = Permissions.getShowRequestAccessNotificationPolicyPermission(context) || forceGrant;
-                whyPermissionString[1] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[1][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                 showRequestDrawOverlays = Permissions.getShowRequestDrawOverlaysPermission(context) || forceGrant;
-                whyPermissionString[2] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[2][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE) || forceGrant;
-                whyPermissionString[3] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[3][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
                 showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE) || forceGrant;
-                whyPermissionString[4] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[4][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.PROCESS_OUTGOING_CALLS)) {
                 showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.PROCESS_OUTGOING_CALLS) || forceGrant;
-                whyPermissionString[5] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[5][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || forceGrant;
-                whyPermissionString[6] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[6][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
                 showRequestReadCalendar = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALENDAR) || forceGrant;
-                whyPermissionString[7] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[7][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
                 showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS) || forceGrant;
-                whyPermissionString[8] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[8][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.RECEIVE_SMS)) {
                 showRequestReceiveSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS) || forceGrant;
-                whyPermissionString[9] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[9][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_SMS)) {
                 showRequestReadSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS) || forceGrant;
-                whyPermissionString[10] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[10][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.RECEIVE_MMS)) {
                 showRequestReceiveMMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_MMS) || forceGrant;
-                whyPermissionString[11] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[11][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION) || forceGrant;
-                whyPermissionString[12] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[12][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                 showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) || forceGrant;
-                whyPermissionString[13] = getWhyPermissionString(permissionType.type);
+                whyPermissionType[13][permissionType.type] = true;
             }
         }
 
@@ -325,60 +325,74 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
                 if (showRequestWriteSettings) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_write_settings) + "</b>";
-                    if (whyPermissionString[0] != null)
-                        showRequestString = showRequestString + whyPermissionString[0];
+                    String whyPermissionString = getWhyPermissionString(whyPermissionType[0]);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadExternalStorage || showRequestWriteExternalStorage) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
-                    if (whyPermissionString[3] != null)
-                        showRequestString = showRequestString + whyPermissionString[3];
-                    if (whyPermissionString[6] != null)
-                        showRequestString = showRequestString + whyPermissionString[6];
+                    boolean[] permissionTypes = new boolean[100];
+                    for (int i = 0; i < 100; i++) {
+                        permissionTypes[i] = whyPermissionType[3][i] || whyPermissionType[6][i];
+                    }
+                    String whyPermissionString = getWhyPermissionString(permissionTypes);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadPhoneState || showRequestProcessOutgoingCalls) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
-                    if (whyPermissionString[4] != null)
-                        showRequestString = showRequestString + whyPermissionString[4];
-                    if (whyPermissionString[5] != null)
-                        showRequestString = showRequestString + whyPermissionString[5];
+                    boolean[] permissionTypes = new boolean[100];
+                    for (int i = 0; i < 100; i++) {
+                        permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i];
+                    }
+                    String whyPermissionString = getWhyPermissionString(permissionTypes);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadCalendar) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_calendar) + "</b>";
-                    if (whyPermissionString[7] != null)
-                        showRequestString = showRequestString + whyPermissionString[7];
+                    String whyPermissionString = getWhyPermissionString(whyPermissionType[7]);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadContacts) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_contacts) + "</b>";
-                    if (whyPermissionString[8] != null)
-                        showRequestString = showRequestString + whyPermissionString[8];
+                    String whyPermissionString = getWhyPermissionString(whyPermissionType[8]);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReceiveSMS || showRequestReadSMS || showRequestReceiveMMS) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_sms) + "</b>";
-                    if (whyPermissionString[9] != null)
-                        showRequestString = showRequestString + whyPermissionString[9];
-                    if (whyPermissionString[10] != null)
-                        showRequestString = showRequestString + whyPermissionString[10];
-                    if (whyPermissionString[11] != null)
-                        showRequestString = showRequestString + whyPermissionString[11];
+                    boolean[] permissionTypes = new boolean[100];
+                    for (int i = 0; i < 100; i++) {
+                        permissionTypes[i] = whyPermissionType[9][i] || whyPermissionType[10][i] || whyPermissionType[11][i];
+                    }
+                    String whyPermissionString = getWhyPermissionString(permissionTypes);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestAccessCoarseLocation || showRequestAccessFineLocation) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_location) + "</b>";
-                    if (whyPermissionString[12] != null)
-                        showRequestString = showRequestString + whyPermissionString[12];
-                    if (whyPermissionString[13] != null)
-                        showRequestString = showRequestString + whyPermissionString[13];
+                    boolean[] permissionTypes = new boolean[100];
+                    for (int i = 0; i < 100; i++) {
+                        permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i];
+                    }
+                    String whyPermissionString = getWhyPermissionString(permissionTypes);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestAccessNotificationPolicy) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
-                    if (whyPermissionString[1] != null)
-                        showRequestString = showRequestString + whyPermissionString[1];
+                    String whyPermissionString = getWhyPermissionString(whyPermissionType[1]);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestDrawOverlays) {
@@ -386,8 +400,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
                     else
                         showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
-                    if (whyPermissionString[2] != null)
-                        showRequestString = showRequestString + whyPermissionString[2];
+                    String whyPermissionString = getWhyPermissionString(whyPermissionType[2]);
+                    if (whyPermissionString != null)
+                        showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
 
@@ -487,113 +502,117 @@ public class GrantPermissionActivity extends AppCompatActivity {
     }
     */
 
-    private String getWhyPermissionString(int permissionType) {
+    private String getWhyPermissionString(boolean[] permissionTypes) {
         String s = "";
-        switch (permissionType) {
-            //case Permissions.PERMISSION_PROFILE_VOLUME_PREFERENCES:
-            //    break;
-            case Permissions.PERMISSION_PROFILE_VIBRATION_ON_TOUCH:
-                s = "enable/disable vibration on touch";
-                break;
-            case Permissions.PERMISSION_PROFILE_RINGTONES:
-                s = "change ringtone, notification, alarm sound";
-                break;
-            case Permissions.PERMISSION_PROFILE_SCREEN_TIMEOUT:
-                s = "change screen timeout";
-                break;
-            case Permissions.PERMISSION_PROFILE_SCREEN_BRIGHTNESS:
-                s = "change screen brightness";
-                break;
-            case Permissions.PERMISSION_PROFILE_AUTOROTATION:
-                s = "change screen rotation";
-                break;
-            case Permissions.PERMISSION_PROFILE_WALLPAPER:
-                s = "change wallpaper";
-                break;
-            case Permissions.PERMISSION_PROFILE_RADIO_PREFERENCES:
-                s = "enable/disable mobile data, enable/disable mobile network type, connect to SSID";
-                break;
-            case Permissions.PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST:
-                s = "enable/disable speakerphone during call";
-                break;
-            case Permissions.PERMISSION_PROFILE_CUSTOM_PROFILE_ICON:
-                s = "use custom profile icon";
-                break;
-            case Permissions.PERMISSION_INSTALL_TONE:
-                s = "write tone to storage";
-                break;
-            case Permissions.PERMISSION_EXPORT:
-                s = "write backup data to storage";
-                break;
-            case Permissions.PERMISSION_IMPORT:
-                s = "read backup data from storage";
-                break;
-            case Permissions.PERMISSION_EVENT_CALENDAR_PREFERENCES:
-                s = "read calendar data in calendar sensor";
-                break;
-            case Permissions.PERMISSION_EVENT_CALL_PREFERENCES:
-                s = "read contacts and check phone calls in call sensor";
-                break;
-            case Permissions.PERMISSION_EVENT_ORIENTATION_PREFERENCES:
-                s = "check phone calls in orientation sensor for ignore orientation change during call";
-                break;
-            case Permissions.PERMISSION_EVENT_SMS_PREFERENCES:
-                s = "read contacts and check SMS/MMS in SMS/MMS sensor";
-                break;
-            case Permissions.PERMISSION_EVENT_LOCATION_PREFERENCES:
-                s = "use location data in location sensor";
-                break;
-            case Permissions.PERMISSION_EVENT_WIFI_PREFERENCES:
-                s = "use location data in wi-fi sensor";
-                break;
-            case Permissions.PERMISSION_EVENT_BLUETOOTH_PREFERENCES:
-                s = "use location data in bluetooth sensor";
-                break;
-            case Permissions.PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES:
-                s = "use location data in mobile cells sensor";
-                break;
-            case Permissions.PERMISSION_EVENT_CONTACTS_PREFERENCE:
-                s = "read contacts during configuration";
-                break;
-            case Permissions.PERMISSION_PROFILE_NOTIFICATION_LED:
-                s = "enable/disable notification LED";
-                break;
-            case Permissions.PERMISSION_PROFILE_VIBRATE_WHEN_RINGING:
-                s = "enable/disable vibrate when ringing";
-                break;
-            case Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION:
-                s = "play ringing and notification sounds";
-                break;
-            case Permissions.PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY:
-                s = "change sound profile, change ringing, notification, system volume";
-                break;
-            case Permissions.PERMISSION_PROFILE_LOCK_DEVICE:
-                s = "lock device";
-                break;
-            case Permissions.PERMISSION_RINGTONE_PREFERENCE:
-                s = "read ringtones from storage";
-                break;
-            case Permissions.PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING:
-                s = "enable/disable DTMF tone when dialing";
-                break;
-            case Permissions.PERMISSION_PROFILE_SOUND_ON_TOUCH:
-                s = "enable/disable sound on touch";
-                break;
-            case Permissions.PERMISSION_BRIGHTNESS_PREFERENCE:
-                s = "change brightness during configuration";
-                break;
-            case Permissions.PERMISSION_WALLPAPER_PREFERENCE:
-                s = "read wallpapers from storage";
-                break;
-            case Permissions.PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE:
-                s = "read custom icons from storage";
-                break;
-            case Permissions.PERMISSION_LOCATION_PREFERENCE:
-                s = "read location data during configuration";
-                break;
-            case Permissions.PERMISSION_CALENDAR_PREFERENCE:
-                s = "read calendar data";
-                break;
+        for (int permissionType = 0; permissionType < 100; permissionType++) {
+            if (permissionTypes[permissionType]) {
+                switch (permissionType) {
+                    //case Permissions.PERMISSION_PROFILE_VOLUME_PREFERENCES:
+                    //    break;
+                    case Permissions.PERMISSION_PROFILE_VIBRATION_ON_TOUCH:
+                        s = "enable/disable vibration on touch";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_RINGTONES:
+                        s = "change ringtone, notification, alarm sound";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_SCREEN_TIMEOUT:
+                        s = "change screen timeout";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_SCREEN_BRIGHTNESS:
+                        s = "change screen brightness";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_AUTOROTATION:
+                        s = "change screen rotation";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_WALLPAPER:
+                        s = "change wallpaper";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_RADIO_PREFERENCES:
+                        s = "enable/disable mobile data, enable/disable mobile network type, connect to SSID";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST:
+                        s = "enable/disable speakerphone during call";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_CUSTOM_PROFILE_ICON:
+                        s = "use custom profile icon";
+                        break;
+                    case Permissions.PERMISSION_INSTALL_TONE:
+                        s = "save tone to storage";
+                        break;
+                    case Permissions.PERMISSION_EXPORT:
+                        s = "save backup data to storage";
+                        break;
+                    case Permissions.PERMISSION_IMPORT:
+                        s = "load backup data from storage";
+                        break;
+                    case Permissions.PERMISSION_EVENT_CALENDAR_PREFERENCES:
+                        s = "read calendar data in calendar sensor";
+                        break;
+                    case Permissions.PERMISSION_EVENT_CALL_PREFERENCES:
+                        s = "read contacts and check phone calls in call sensor";
+                        break;
+                    case Permissions.PERMISSION_EVENT_ORIENTATION_PREFERENCES:
+                        s = "check phone calls in orientation sensor for ignore orientation change during call";
+                        break;
+                    case Permissions.PERMISSION_EVENT_SMS_PREFERENCES:
+                        s = "read contacts and check SMS/MMS in SMS/MMS sensor";
+                        break;
+                    case Permissions.PERMISSION_EVENT_LOCATION_PREFERENCES:
+                        s = "use location data in location sensor";
+                        break;
+                    case Permissions.PERMISSION_EVENT_WIFI_PREFERENCES:
+                        s = "use location data in wi-fi sensor";
+                        break;
+                    case Permissions.PERMISSION_EVENT_BLUETOOTH_PREFERENCES:
+                        s = "use location data in bluetooth sensor";
+                        break;
+                    case Permissions.PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES:
+                        s = "use location data in mobile cells sensor";
+                        break;
+                    case Permissions.PERMISSION_EVENT_CONTACTS_PREFERENCE:
+                        s = "read contacts during configuration";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_NOTIFICATION_LED:
+                        s = "enable/disable notification LED";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_VIBRATE_WHEN_RINGING:
+                        s = "enable/disable vibrate when ringing";
+                        break;
+                    case Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION:
+                        s = "play ringing and notification sounds";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY:
+                        s = "change sound profile, change ringing, notification, system volume";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_LOCK_DEVICE:
+                        s = "lock device";
+                        break;
+                    case Permissions.PERMISSION_RINGTONE_PREFERENCE:
+                        s = "load ringtones from storage";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING:
+                        s = "enable/disable DTMF tone when dialing";
+                        break;
+                    case Permissions.PERMISSION_PROFILE_SOUND_ON_TOUCH:
+                        s = "enable/disable sound on touch";
+                        break;
+                    case Permissions.PERMISSION_BRIGHTNESS_PREFERENCE:
+                        s = "change brightness during configuration";
+                        break;
+                    case Permissions.PERMISSION_WALLPAPER_PREFERENCE:
+                        s = "load wallpapers from storage";
+                        break;
+                    case Permissions.PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE:
+                        s = "load custom icons from storage";
+                        break;
+                    case Permissions.PERMISSION_LOCATION_PREFERENCE:
+                        s = "read location data during configuration";
+                        break;
+                    case Permissions.PERMISSION_CALENDAR_PREFERENCE:
+                        s = "read calendar data";
+                        break;
+                }
+            }
         }
         if (s.isEmpty())
             return s;
