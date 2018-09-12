@@ -281,16 +281,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     //}
                 }
                 else {
-                    /*if (mergedProfile || mergedNotification) {
+                    if (mergedProfile/* || mergedNotification*/) {
                         showRequestString = context.getString(R.string.permissions_for_profile_text1m) + " ";
                         showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
                     }
-                    else {*/
+                    else {
                         showRequestString = context.getString(R.string.permissions_for_profile_text1) + " ";
                         if (profile != null)
                             showRequestString = showRequestString + "\"" + profile._name + "\" ";
                         showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text2) + "<br><br>";
-                    //}
+                    }
                 }
 
                 if (showRequestWriteSettings) {
@@ -432,7 +432,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     static void showNotification(int grantType, List<Permissions.PermissionType> permissions,
                                  @SuppressWarnings("SameParameterValue") boolean forceGrant,
                                  int startupSource, boolean interactive,
-                                 Profile profile, boolean activateProfile, Event event,
+                                 Profile profile, boolean mergedProfile, boolean activateProfile, Event event,
                                  boolean grantAlsoContacts, Context context) {
         int notificationID;
         NotificationCompat.Builder mBuilder;
@@ -520,16 +520,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 nTitle = context.getString(R.string.app_name);
                 nText = context.getString(R.string.permissions_for_profile_text_notification)+": ";
             }
-            /*if (mergedProfile || mergedNotification) {
+            if (mergedProfile/* || mergedNotification*/) {
                 nText = nText + context.getString(R.string.permissions_for_profile_text1m) + " " +
                         context.getString(R.string.permissions_for_profile_big_text_notification);
             }
-            else {*/
+            else {
                 nText = nText + context.getString(R.string.permissions_for_profile_text1) + " ";
                 if (profile != null)
                     nText = nText + "\"" + profile._name + "\" ";
                 nText = nText + context.getString(R.string.permissions_for_profile_big_text_notification);
-            //}
+            }
             mBuilder =   new NotificationCompat.Builder(context, PPApplication.GRANT_PERMISSION_NOTIFICATION_CHANNEL)
                     .setColor(ContextCompat.getColor(context, R.color.primary))
                     .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
@@ -560,6 +560,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         intent.putExtra(Permissions.EXTRA_FORCE_GRANT, forceGrant);
         intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
         intent.putExtra(Permissions.EXTRA_INTERACTIVE, interactive);
+        intent.putExtra(Permissions.EXTRA_MERGED_PROFILE, mergedProfile);
         intent.putExtra(Permissions.EXTRA_ACTIVATE_PROFILE, activateProfile);
         intent.putExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, grantAlsoContacts);
 

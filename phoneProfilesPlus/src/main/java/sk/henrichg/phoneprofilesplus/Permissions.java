@@ -37,7 +37,7 @@ class Permissions {
     private static final int PERMISSION_PROFILE_AUTOROTATION = 6;
     private static final int PERMISSION_PROFILE_WALLPAPER = 7;
     private static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
-    private static final int PERMISSION_PROFILE_PHONE_BROADCAST = 9;
+    private static final int PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST = 9;
     private static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
     private static final int PERMISSION_INSTALL_TONE = 11;
     private static final int PERMISSION_EXPORT = 12;
@@ -467,7 +467,7 @@ class Permissions {
                     if (!grantedWriteSettings)
                         permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
                     if (!grantedDrawOverlays)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.SYSTEM_ALERT_WINDOW));
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.SYSTEM_ALERT_WINDOW));
                 }
                 return grantedWriteSettings && grantedDrawOverlays;
             } catch (Exception e) {
@@ -493,7 +493,7 @@ class Permissions {
                         if (!grantedWriteSettings)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
                         if (!grantedDrawOverlays)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.SYSTEM_ALERT_WINDOW));
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.SYSTEM_ALERT_WINDOW));
                     }
                     return grantedWriteSettings && grantedDrawOverlays;
                 } else
@@ -724,9 +724,9 @@ class Permissions {
                     boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (!grantedReadPhoneState)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.READ_PHONE_STATE));
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST, permission.READ_PHONE_STATE));
                         if (!grantedOutgoingCall)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
                     }
                     //return grantedOutgoingCall && grantedReadPhoneState;
                 }
@@ -1204,7 +1204,7 @@ class Permissions {
             if (permissions.size() > 0) {
                 if (onlyNotification) {
                     GrantPermissionActivity.showNotification(GRANT_TYPE_PROFILE, permissions, false,
-                            startupSource, interactive, profile, activateProfile, null, false, context);
+                            startupSource, interactive, profile, mergedProfile, activateProfile, null, false, context);
                 }
                 else {
                     try {
@@ -1248,7 +1248,7 @@ class Permissions {
             if (!granted) {
                 if (onlyNotification) {
                     GrantPermissionActivity.showNotification(GRANT_TYPE_INSTALL_TONE, permissions, false,
-                            PPApplication.STARTUP_SOURCE_ACTIVATOR, true, null, false,
+                            PPApplication.STARTUP_SOURCE_ACTIVATOR, true, null, false, false,
                             null, false, context);
                 }
                 else {
@@ -1277,7 +1277,7 @@ class Permissions {
             boolean granted = checkPlayRingtoneNotification(context, alsoContacts, permissions);
             if (!granted) {
                 GrantPermissionActivity.showNotification(GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION, permissions, false,
-                        PPApplication.STARTUP_SOURCE_ACTIVATOR, true, null, false, null,
+                        PPApplication.STARTUP_SOURCE_ACTIVATOR, true, null, false, false, null,
                         alsoContacts, context);
                 /*try {
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
@@ -1445,7 +1445,7 @@ class Permissions {
             if (permissions.size() > 0) {
                 if (onlyNotification) {
                     GrantPermissionActivity.showNotification(GRANT_TYPE_EVENT, permissions, false,
-                            PPApplication.STARTUP_SOURCE_ACTIVATOR, true, null, false, event,
+                            PPApplication.STARTUP_SOURCE_ACTIVATOR, true, null, false, false, event,
                             false, context);
                 }
                 else {
