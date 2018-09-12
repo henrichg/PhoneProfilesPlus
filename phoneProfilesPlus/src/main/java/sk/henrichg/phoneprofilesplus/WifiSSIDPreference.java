@@ -429,6 +429,16 @@ public class WifiSSIDPreference extends DialogPreference {
                             }
                             if (!found) {
                                 _SSIDList.add(new WifiSSIDData(_ssid, "", true, false, false));
+                            }
+
+                            found = false;
+                            for (WifiSSIDData ssid : customSSIDList) {
+                                if (_ssid.equals(ssid.ssid)) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
                                 customSSIDList.add(new WifiSSIDData(_ssid, "", true, false, false));
                             }
                         }
@@ -444,8 +454,9 @@ public class WifiSSIDPreference extends DialogPreference {
                                     break;
                                 }
                             }
-                            if (!exists)
+                            if (!exists) {
                                 _SSIDList.add(new WifiSSIDData(customSSID.ssid, customSSID.bssid, true, false, false));
+                            }
                         }
                     }
 
@@ -508,7 +519,7 @@ public class WifiSSIDPreference extends DialogPreference {
         //    popup = new PopupMenu(context, view);
         new MenuInflater(context).inflate(R.menu.wifi_ssid_pref_dlg_item_edit, popup.getMenu());
 
-        int ssidPos = (int)view.getTag();
+        final int ssidPos = (int)view.getTag();
         final String ssid = SSIDList.get(ssidPos).ssid;
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -517,48 +528,48 @@ public class WifiSSIDPreference extends DialogPreference {
                 switch (item.getItemId()) {
                      case R.id.wifi_ssid_pref_dlg_item_menu_change:
                          if (!SSIDName.getText().toString().isEmpty()) {
-                            String[] splits = value.split("\\|");
-                            value = "";
-                            boolean found = false;
-                            for (String _ssid : splits) {
-                                if (!_ssid.isEmpty()) {
-                                    if (!_ssid.equals(ssid)) {
-                                        if (!value.isEmpty())
-                                            //noinspection StringConcatenationInLoop
-                                            value = value + "|";
-                                        //noinspection StringConcatenationInLoop
-                                        value = value + _ssid;
-                                    } else
-                                        found = true;
-                                }
-                            }
-                            if (found) {
-                                if (!value.isEmpty())
-                                    value = value + "|";
-                                value = value + SSIDName.getText().toString();
-                            }
-                            for (WifiSSIDData customSSID : customSSIDList) {
-                                if (customSSID.ssid.equals(ssid)) {
-                                    customSSID.ssid = SSIDName.getText().toString();
-                                    break;
-                                }
-                            }
-                            refreshListView(false, "");
-                        }
-                        return true;
-                    case R.id.wifi_ssid_pref_dlg_item_menu_delete:
-                        removeSSID(ssid);
-                        for (WifiSSIDData customSSID : customSSIDList)
-                        {
-                            if (customSSID.ssid.equals(ssid)) {
-                                customSSIDList.remove(customSSID);
-                                break;
-                            }
-                        }
-                        refreshListView(false, "");
-                        return true;
-                    default:
-                        return false;
+                             String[] splits = value.split("\\|");
+                             value = "";
+                             boolean found = false;
+                             for (String _ssid : splits) {
+                                 if (!_ssid.isEmpty()) {
+                                     if (!_ssid.equals(ssid)) {
+                                         if (!value.isEmpty())
+                                             //noinspection StringConcatenationInLoop
+                                             value = value + "|";
+                                         //noinspection StringConcatenationInLoop
+                                         value = value + _ssid;
+                                     } else
+                                         found = true;
+                                 }
+                             }
+                             if (found) {
+                                 if (!value.isEmpty())
+                                     value = value + "|";
+                                 value = value + SSIDName.getText().toString();
+                             }
+                             for (WifiSSIDData customSSID : customSSIDList) {
+                                 if (customSSID.ssid.equals(ssid)) {
+                                     customSSID.ssid = SSIDName.getText().toString();
+                                     break;
+                                 }
+                             }
+                             refreshListView(false, "");
+                         }
+                         return true;
+                     case R.id.wifi_ssid_pref_dlg_item_menu_delete:
+                         removeSSID(ssid);
+                         for (WifiSSIDData customSSID : customSSIDList)
+                         {
+                             if (customSSID.ssid.equals(ssid)) {
+                                 customSSIDList.remove(customSSID);
+                                 break;
+                             }
+                         }
+                         refreshListView(false, "");
+                         return true;
+                     default:
+                         return false;
                 }
             }
         });

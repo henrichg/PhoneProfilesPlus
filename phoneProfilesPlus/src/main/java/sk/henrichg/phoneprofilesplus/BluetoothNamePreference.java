@@ -423,10 +423,24 @@ public class BluetoothNamePreference extends DialogPreference {
                             if (!found) {
                                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                                 _bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
-                                customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
                             /*}
                             else {
                                 _bluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true, 0));
+                            }*/
+                            }
+
+                            found = false;
+                            for (BluetoothDeviceData bluetoothName : customBluetoothList) {
+                                if (_bluetoothName.equals(bluetoothName.getName())) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if (!found) {
+                                //if (android.os.Build.VERSION.SDK_INT >= 18) {
+                                customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", BluetoothDevice.DEVICE_TYPE_DUAL, true, 0, false, false));
+                            /*}
+                            else {
                                 customBluetoothList.add(new BluetoothDeviceData(_bluetoothName, "", 0, true, 0));
                             }*/
                             }
