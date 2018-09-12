@@ -158,12 +158,18 @@ Permissions:
     permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
     permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_MMS));
     permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_CONTACTS));
-  event._eventPreferencesWifi._enabled && event._eventPreferencesWifi._connectionType == infront (nearby) types,
-  event._eventPreferencesBluetooth._enabled && event._eventPreferencesBluetooth._connectionType == infront (nearby) types,
-  event._eventPreferencesLocation._enabled,
-  event._eventPreferencesMobileCells._enabled ->
+  event._eventPreferencesWifi._enabled && event._eventPreferencesWifi._connectionType == infront (nearby) types ->
+    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+  event._eventPreferencesBluetooth._enabled && event._eventPreferencesBluetooth._connectionType == infront (nearby) types ->
+    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+  event._eventPreferencesLocation._enabled ->
     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+  event._eventPreferencesMobileCells._enabled ->
+    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
 
   install PhoneProfiles Silent tone ->
     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.WRITE_EXTERNAL_STORAGE));

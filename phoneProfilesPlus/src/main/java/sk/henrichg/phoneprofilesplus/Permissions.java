@@ -61,6 +61,9 @@ class Permissions {
     static final int PERMISSION_LOCATION_PREFERENCE = 31;
     static final int PERMISSION_CALENDAR_PREFERENCE = 32;
     static final int PERMISSION_EVENT_ORIENTATION_PREFERENCES = 33;
+    static final int PERMISSION_EVENT_WIFI_PREFERENCES = 34;
+    static final int PERMISSION_EVENT_BLUETOOTH_PREFERENCES = 35;
+    static final int PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES = 36;
 
     static final int GRANT_TYPE_PROFILE = 1;
     static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -1096,10 +1099,36 @@ class Permissions {
                     boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
-                        if (!grantedAccessCoarseLocation)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                        if (!grantedAccessFineLocation)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                        if (event._eventPreferencesWifi._enabled &&
+                                ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
+                                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT))) {
+                            if (!grantedAccessCoarseLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessFineLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                        }
+                        else
+                        if (event._eventPreferencesBluetooth._enabled &&
+                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
+                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) {
+                            if (!grantedAccessCoarseLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessFineLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                        }
+                        else
+                        if (event._eventPreferencesMobileCells._enabled) {
+                            if (!grantedAccessCoarseLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessFineLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                        }
+                        else {
+                            if (!grantedAccessCoarseLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessFineLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                        }
                     }
                     return grantedAccessCoarseLocation && grantedAccessFineLocation;
                 } else
