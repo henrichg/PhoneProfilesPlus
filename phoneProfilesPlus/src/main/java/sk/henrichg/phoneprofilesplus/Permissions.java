@@ -46,7 +46,7 @@ class Permissions {
     private static final int PERMISSION_EVENT_CALL_PREFERENCES = 16;
     private static final int PERMISSION_EVENT_SMS_PREFERENCES = 17;
     private static final int PERMISSION_EVENT_LOCATION_PREFERENCES = 18;
-    private static final int PERMISSION_EVENT_CONTACTS = 19;
+    private static final int PERMISSION_EVENT_CONTACTS_PREFERENCE = 19;
     private static final int PERMISSION_PROFILE_NOTIFICATION_LED = 20;
     private static final int PERMISSION_PROFILE_VIBRATE_WHEN_RINGING = 21;
     private static final int PERMISSION_PLAY_RINGTONE_NOTIFICATION = 22;
@@ -55,6 +55,11 @@ class Permissions {
     private static final int PERMISSION_RINGTONE_PREFERENCE = 25;
     private static final int PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
     private static final int PERMISSION_PROFILE_SOUND_ON_TOUCH = 27;
+    private static final int PERMISSION_BRIGHTNESS_PREFERENCE = 28;
+    private static final int PERMISSION_WALLPAPER_PREFERENCE = 29;
+    private static final int PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE = 30;
+    private static final int PERMISSION_LOCATION_PREFERENCE = 31;
+    private static final int PERMISSION_CALENDAR_PREFERENCE = 32;
 
     static final int GRANT_TYPE_PROFILE = 1;
     static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -465,9 +470,9 @@ class Permissions {
                     setShowRequestDrawOverlaysPermission(context, true);
                 if (permissions != null) {
                     if (!grantedWriteSettings)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
+                        permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.WRITE_SETTINGS));
                     if (!grantedDrawOverlays)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.SYSTEM_ALERT_WINDOW));
+                        permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.SYSTEM_ALERT_WINDOW));
                 }
                 return grantedWriteSettings && grantedDrawOverlays;
             } catch (Exception e) {
@@ -1304,7 +1309,7 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(PERMISSION_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1332,7 +1337,7 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1482,8 +1487,8 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1516,8 +1521,8 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1550,7 +1555,7 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
+                    permissions.add(new PermissionType(PERMISSION_CALENDAR_PREFERENCE, permission.READ_CALENDAR));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1578,7 +1583,7 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS, permission.READ_CONTACTS));
+                    permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1607,7 +1612,7 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS, permission.READ_CONTACTS));
+                    permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1636,8 +1641,8 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1669,8 +1674,8 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1702,8 +1707,8 @@ class Permissions {
             if (!granted) {
                 try {
                     List<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

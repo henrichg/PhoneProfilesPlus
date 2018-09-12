@@ -103,8 +103,7 @@ Permissions:
   profile._soundAlarmChange != 0 ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.WRITE_SETTINGS));
     permissions.add(new PermissionType(PERMISSION_PROFILE_RINGTONES, permission.READ_EXTERNAL_STORAGE));
-  profile.getDeviceBrightnessChange(),
-  brightness dialog preference ->
+  profile.getDeviceBrightnessChange() ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.WRITE_SETTINGS));
     permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_BRIGHTNESS, permission.SYSTEM_ALERT_WINDOW));
   profile._deviceScreenTimeout != 0 ->
@@ -112,8 +111,7 @@ Permissions:
     permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_TIMEOUT, permission.SYSTEM_ALERT_WINDOW));
   profile._deviceAutoRotate != 0 ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_AUTOROTATION, permission.WRITE_SETTINGS));
-  profile._deviceWallpaperChange != 0,
-  wallpaper dialog preference ->
+  profile._deviceWallpaperChange != 0 ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
   profile._deviceWiFiAP  != 0 ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.WRITE_SETTINGS));
@@ -126,8 +124,7 @@ Permissions:
   profile._volumeSpeakerPhone != 0 (speaker phone can be enabled/disabled only during call) ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST, permission.READ_PHONE_STATE));
     permissions.add(new PermissionType(PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
-  !_profile.getIsIconResourceID() (for show custom profile icon),
-  !_profile.getIsIconResourceID() (for profile icon dialog preference) ->
+  !_profile.getIsIconResourceID() (for show custom profile icon) ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
   profile._notificationLed  != 0 ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_NOTIFICATION_LED, permission.WRITE_SETTINGS));
@@ -146,8 +143,7 @@ Permissions:
   profile._soundOnTouch != 0 ->
     permissions.add(new PermissionType(PERMISSION_PROFILE_SOUND_ON_TOUCH, permission.WRITE_SETTINGS));
 
-  event._eventPreferencesCalendar._enabled,
-  event calendar dialog preference ->
+  event._eventPreferencesCalendar._enabled ->
     permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
   event._eventPreferencesCall._enabled ->
     permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
@@ -163,16 +159,9 @@ Permissions:
   event._eventPreferencesWifi._enabled && event._eventPreferencesWifi._connectionType == infront (nearby) types,
   event._eventPreferencesBluetooth._enabled && event._eventPreferencesBluetooth._connectionType == infront (nearby) types,
   event._eventPreferencesLocation._enabled,
-  event._eventPreferencesMobileCells._enabled,
-  event wi-fi dialog preference,
-  event bluetooth dialog preference,
-  event location editor activity,
-  event mobile cells dialog preference ->
+  event._eventPreferencesMobileCells._enabled ->
     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
-  event contact groups dialog preference,
-  event contacts dialog preference ->
-    permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS, permission.READ_CONTACTS));
 
   install PhoneProfiles Silent tone ->
     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
@@ -184,6 +173,25 @@ Permissions:
     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
   play ringtone sound (ringing call simulation) ->
     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
+
   ringtone dialog preference ->
     permissions.add(new PermissionType(PERMISSION_RINGTONE_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+  brightness dialog preference ->
+    permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.WRITE_SETTINGS));
+    permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.SYSTEM_ALERT_WINDOW));
+  wallpaper dialog preference ->
+    permissions.add(new PermissionType(PERMISSION_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+  custom profile icon dialog preference ->
+    permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON, permission.READ_EXTERNAL_STORAGE));
+  event calendar dialog preference ->
+    permissions.add(new PermissionType(PERMISSION_CALENDAR_PREFERENCE, permission.READ_CALENDAR));
+  event wi-fi dialog preference,
+  event bluetooth dialog preference,
+  event location editor activity,
+  event mobile cells dialog preference ->
+    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+  event contact groups dialog preference,
+  event contacts dialog preference ->
+    permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
 
