@@ -189,35 +189,65 @@ public class GrantPermissionActivity extends AppCompatActivity {
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
 
+        String[] whyPermissionString = new String[14];
+
         for (Permissions.PermissionType permissionType : permissions) {
-            if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS))
+            if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
                 showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY))
+                whyPermissionString[0] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
                 showRequestAccessNotificationPolicy = Permissions.getShowRequestAccessNotificationPolicyPermission(context) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW))
+                whyPermissionString[1] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                 showRequestDrawOverlays = Permissions.getShowRequestDrawOverlaysPermission(context) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE))
+                whyPermissionString[2] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE))
+                whyPermissionString[3] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
                 showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.PROCESS_OUTGOING_CALLS))
+                whyPermissionString[4] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.PROCESS_OUTGOING_CALLS)) {
                 showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.PROCESS_OUTGOING_CALLS) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                whyPermissionString[5] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR))
+                whyPermissionString[6] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
                 showRequestReadCalendar = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALENDAR) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS))
+                whyPermissionString[7] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
                 showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.RECEIVE_SMS))
+                whyPermissionString[8] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.RECEIVE_SMS)) {
                 showRequestReceiveSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.READ_SMS))
+                whyPermissionString[9] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.READ_SMS)) {
                 showRequestReadSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.RECEIVE_MMS))
+                whyPermissionString[10] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.RECEIVE_MMS)) {
                 showRequestReceiveMMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_MMS) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION))
+                whyPermissionString[11] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION) || forceGrant;
-            if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION))
+                whyPermissionString[12] = getWhyPermissionString(permissionType.type);
+            }
+            if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                 showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) || forceGrant;
+                whyPermissionString[13] = getWhyPermissionString(permissionType.type);
+            }
         }
 
         if (showRequestWriteSettings ||
@@ -295,34 +325,47 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
                 if (showRequestWriteSettings) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_write_settings) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[0];
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadExternalStorage || showRequestWriteExternalStorage) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[3];
+                    showRequestString = showRequestString + whyPermissionString[6];
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadPhoneState || showRequestProcessOutgoingCalls) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[4];
+                    showRequestString = showRequestString + whyPermissionString[5];
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadCalendar) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_calendar) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[7];
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReadContacts) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_contacts) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[8];
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestReceiveSMS || showRequestReadSMS || showRequestReceiveMMS) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_sms) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[9];
+                    showRequestString = showRequestString + whyPermissionString[10];
+                    showRequestString = showRequestString + whyPermissionString[11];
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestAccessCoarseLocation || showRequestAccessFineLocation) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_location) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[12];
+                    showRequestString = showRequestString + whyPermissionString[13];
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestAccessNotificationPolicy) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[1];
                     showRequestString = showRequestString + "<br>";
                 }
                 if (showRequestDrawOverlays) {
@@ -330,6 +373,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
                     else
                         showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
+                    showRequestString = showRequestString + whyPermissionString[2];
                     showRequestString = showRequestString + "<br>";
                 }
 
@@ -428,6 +472,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
         super.onDestroy();
     }
     */
+
+    private String getWhyPermissionString(int permissionType) {
+        return "";
+    }
 
     static void showNotification(int grantType, List<Permissions.PermissionType> permissions,
                                  @SuppressWarnings("SameParameterValue") boolean forceGrant,
