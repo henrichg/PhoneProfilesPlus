@@ -29,37 +29,38 @@ import static android.Manifest.permission;
 
 class Permissions {
 
-    //private static final int PERMISSION_PROFILE_VOLUME_PREFERENCES = 1;
-    private static final int PERMISSION_PROFILE_VIBRATION_ON_TOUCH = 2;
-    private static final int PERMISSION_PROFILE_RINGTONES = 3;
-    private static final int PERMISSION_PROFILE_SCREEN_TIMEOUT = 4;
-    private static final int PERMISSION_PROFILE_SCREEN_BRIGHTNESS = 5;
-    private static final int PERMISSION_PROFILE_AUTOROTATION = 6;
-    private static final int PERMISSION_PROFILE_WALLPAPER = 7;
-    private static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
-    private static final int PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST = 9;
-    private static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
-    private static final int PERMISSION_INSTALL_TONE = 11;
-    private static final int PERMISSION_EXPORT = 12;
-    private static final int PERMISSION_IMPORT = 13;
-    private static final int PERMISSION_EVENT_CALENDAR_PREFERENCES = 15;
-    private static final int PERMISSION_EVENT_CALL_PREFERENCES = 16;
-    private static final int PERMISSION_EVENT_SMS_PREFERENCES = 17;
-    private static final int PERMISSION_EVENT_LOCATION_PREFERENCES = 18;
-    private static final int PERMISSION_EVENT_CONTACTS_PREFERENCE = 19;
-    private static final int PERMISSION_PROFILE_NOTIFICATION_LED = 20;
-    private static final int PERMISSION_PROFILE_VIBRATE_WHEN_RINGING = 21;
-    private static final int PERMISSION_PLAY_RINGTONE_NOTIFICATION = 22;
-    private static final int PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY = 23;
-    private static final int PERMISSION_PROFILE_LOCK_DEVICE = 24;
-    private static final int PERMISSION_RINGTONE_PREFERENCE = 25;
-    private static final int PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
-    private static final int PERMISSION_PROFILE_SOUND_ON_TOUCH = 27;
-    private static final int PERMISSION_BRIGHTNESS_PREFERENCE = 28;
-    private static final int PERMISSION_WALLPAPER_PREFERENCE = 29;
-    private static final int PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE = 30;
-    private static final int PERMISSION_LOCATION_PREFERENCE = 31;
-    private static final int PERMISSION_CALENDAR_PREFERENCE = 32;
+    //static final int PERMISSION_PROFILE_VOLUME_PREFERENCES = 1;
+    static final int PERMISSION_PROFILE_VIBRATION_ON_TOUCH = 2;
+    static final int PERMISSION_PROFILE_RINGTONES = 3;
+    static final int PERMISSION_PROFILE_SCREEN_TIMEOUT = 4;
+    static final int PERMISSION_PROFILE_SCREEN_BRIGHTNESS = 5;
+    static final int PERMISSION_PROFILE_AUTOROTATION = 6;
+    static final int PERMISSION_PROFILE_WALLPAPER = 7;
+    static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
+    static final int PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST = 9;
+    static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
+    static final int PERMISSION_INSTALL_TONE = 11;
+    static final int PERMISSION_EXPORT = 12;
+    static final int PERMISSION_IMPORT = 13;
+    static final int PERMISSION_EVENT_CALENDAR_PREFERENCES = 15;
+    static final int PERMISSION_EVENT_CALL_PREFERENCES = 16;
+    static final int PERMISSION_EVENT_SMS_PREFERENCES = 17;
+    static final int PERMISSION_EVENT_LOCATION_PREFERENCES = 18;
+    static final int PERMISSION_EVENT_CONTACTS_PREFERENCE = 19;
+    static final int PERMISSION_PROFILE_NOTIFICATION_LED = 20;
+    static final int PERMISSION_PROFILE_VIBRATE_WHEN_RINGING = 21;
+    static final int PERMISSION_PLAY_RINGTONE_NOTIFICATION = 22;
+    static final int PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY = 23;
+    static final int PERMISSION_PROFILE_LOCK_DEVICE = 24;
+    static final int PERMISSION_RINGTONE_PREFERENCE = 25;
+    static final int PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
+    static final int PERMISSION_PROFILE_SOUND_ON_TOUCH = 27;
+    static final int PERMISSION_BRIGHTNESS_PREFERENCE = 28;
+    static final int PERMISSION_WALLPAPER_PREFERENCE = 29;
+    static final int PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE = 30;
+    static final int PERMISSION_LOCATION_PREFERENCE = 31;
+    static final int PERMISSION_CALENDAR_PREFERENCE = 32;
+    static final int PERMISSION_EVENT_ORIENTATION_PREFERENCES = 33;
 
     static final int GRANT_TYPE_PROFILE = 1;
     static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -1135,10 +1136,18 @@ class Permissions {
                     boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
-                        if (!grantedPhoneState)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
-                        if (!grantedOutgoingCall)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                        if (event._eventPreferencesCall._enabled) {
+                            if (!grantedPhoneState)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
+                            if (!grantedOutgoingCall)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                        }
+                        if (event._eventPreferencesOrientation._enabled) {
+                            if (!grantedPhoneState)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.READ_PHONE_STATE));
+                            if (!grantedOutgoingCall)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                        }
                     }
                     return grantedPhoneState && grantedOutgoingCall;
                 } else

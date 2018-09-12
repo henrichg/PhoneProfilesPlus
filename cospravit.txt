@@ -147,10 +147,12 @@ Permissions:
     permissions.add(new PermissionType(PERMISSION_EVENT_CALENDAR_PREFERENCES, permission.READ_CALENDAR));
   event._eventPreferencesCall._enabled ->
     permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_CONTACTS));
-  event._eventPreferencesCall._enabled,
-  event._eventPreferencesOrientation._enabled (for ignoring orientation change during call) ->
+  event._eventPreferencesCall._enabled ->
     permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
     permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+  event._eventPreferencesOrientation._enabled (for ignoring orientation change during call) ->
+    permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.READ_PHONE_STATE));
+    permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
   event._eventPreferencesSMS._enabled ->
     permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_SMS));
     permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));

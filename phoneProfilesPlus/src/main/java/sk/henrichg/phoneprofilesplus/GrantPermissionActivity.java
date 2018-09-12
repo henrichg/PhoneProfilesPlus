@@ -474,7 +474,108 @@ public class GrantPermissionActivity extends AppCompatActivity {
     */
 
     private String getWhyPermissionString(int permissionType) {
-        return "";
+        String s = "";
+        switch (permissionType) {
+            //case Permissions.PERMISSION_PROFILE_VOLUME_PREFERENCES:
+            //    break;
+            case Permissions.PERMISSION_PROFILE_VIBRATION_ON_TOUCH:
+                s = "enable/disable vibration on touch";
+                break;
+            case Permissions.PERMISSION_PROFILE_RINGTONES:
+                s = "change ringtone, notification, alarm sound";
+                break;
+            case Permissions.PERMISSION_PROFILE_SCREEN_TIMEOUT:
+                s = "change screen timeout";
+                break;
+            case Permissions.PERMISSION_PROFILE_SCREEN_BRIGHTNESS:
+                s = "change screen brightness";
+                break;
+            case Permissions.PERMISSION_PROFILE_AUTOROTATION:
+                s = "change screen rotation";
+                break;
+            case Permissions.PERMISSION_PROFILE_WALLPAPER:
+                s = "change wallpaper";
+                break;
+            case Permissions.PERMISSION_PROFILE_RADIO_PREFERENCES:
+                s = "enable/disable mobile data, enable/disable mobile network type, connect to SSID";
+                break;
+            case Permissions.PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST:
+                s = "enable/disable speakerphone during call";
+                break;
+            case Permissions.PERMISSION_PROFILE_CUSTOM_PROFILE_ICON:
+                s = "use custom profile icon";
+                break;
+            case Permissions.PERMISSION_INSTALL_TONE:
+                s = "write tone to storage";
+                break;
+            case Permissions.PERMISSION_EXPORT:
+                s = "write backup data to storage";
+                break;
+            case Permissions.PERMISSION_IMPORT:
+                s = "read backup data from storage";
+                break;
+            case Permissions.PERMISSION_EVENT_CALENDAR_PREFERENCES:
+                s = "read calendar data in calendar sensor";
+                break;
+            case Permissions.PERMISSION_EVENT_CALL_PREFERENCES:
+                s = "read contacts and check phone calls in call sensor";
+                break;
+            case Permissions.PERMISSION_EVENT_ORIENTATION_PREFERENCES:
+                s = "check phone calls in orientation sensor for ignore orientation change during call";
+                break;
+            case Permissions.PERMISSION_EVENT_SMS_PREFERENCES:
+                s = "read contacts and check SMS/MMS in SMS/MMS sensor";
+                break;
+            case Permissions.PERMISSION_EVENT_LOCATION_PREFERENCES:
+                s = "use location data in wi-fi, bluetooth, mobile data, location sensor";
+                break;
+            case Permissions.PERMISSION_EVENT_CONTACTS_PREFERENCE:
+                s = "read contacts during configuration";
+                break;
+            case Permissions.PERMISSION_PROFILE_NOTIFICATION_LED:
+                s = "enable/disable notification LED";
+                break;
+            case Permissions.PERMISSION_PROFILE_VIBRATE_WHEN_RINGING:
+                s = "enable/disable vibrate when ringing";
+                break;
+            case Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION:
+                s = "play ringing and notification sounds";
+                break;
+            case Permissions.PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY:
+                s = "change sound profile, change ringing, notification, system volume";
+                break;
+            case Permissions.PERMISSION_PROFILE_LOCK_DEVICE:
+                s = "lock device";
+                break;
+            case Permissions.PERMISSION_RINGTONE_PREFERENCE:
+                s = "read ringtones from storage";
+                break;
+            case Permissions.PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING:
+                s = "enable/disable DTMF tone when dialing";
+                break;
+            case Permissions.PERMISSION_PROFILE_SOUND_ON_TOUCH:
+                s = "enable/disable sound on touch";
+                break;
+            case Permissions.PERMISSION_BRIGHTNESS_PREFERENCE:
+                s = "change brightness during configuration";
+                break;
+            case Permissions.PERMISSION_WALLPAPER_PREFERENCE:
+                s = "read wallpapers from storage";
+                break;
+            case Permissions.PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE:
+                s = "read custom icons from storage";
+                break;
+            case Permissions.PERMISSION_LOCATION_PREFERENCE:
+                s = "read location data during configuration";
+                break;
+            case Permissions.PERMISSION_CALENDAR_PREFERENCE:
+                s = "read calendar data";
+                break;
+        }
+        if (s.isEmpty())
+            return s;
+        else
+            return "- " + s + "<br>";
     }
 
     static void showNotification(int grantType, List<Permissions.PermissionType> permissions,
