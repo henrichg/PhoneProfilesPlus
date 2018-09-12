@@ -13,7 +13,7 @@ public class PermissionsNotificationDeletedReceiver extends BroadcastReceiver {
 
         CallsCounter.logCounter(context, "PermissionsNotificationDeletedReceiver.onReceive", "PermissionsNotificationDeletedReceiver_onReceive");
 
-        Permissions.clearMergedPermissions(context.getApplicationContext());
+        //Permissions.clearMergedPermissions(context.getApplicationContext());
 
     }
 

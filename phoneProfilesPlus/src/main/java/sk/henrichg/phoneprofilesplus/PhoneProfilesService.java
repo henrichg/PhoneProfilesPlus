@@ -2951,7 +2951,7 @@ public class PhoneProfilesService extends Service
 
                     PPApplication.createNotificationChannels(appContext);
 
-                    Permissions.clearMergedPermissions(appContext);
+                    //Permissions.clearMergedPermissions(appContext);
 
                     TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
 
