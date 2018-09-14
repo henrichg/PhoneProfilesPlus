@@ -814,6 +814,13 @@ class WifiBluetoothScanner {
                 return false;
             }
             else {
+                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null) {
+                    if (scanType.equals(SCANNER_TYPE_WIFI))
+                        notificationManager.cancel(PPApplication.LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID);
+                    else
+                        notificationManager.cancel(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID);
+                }
                 setShowEnableLocationNotification(context, true);
                 return true;
             }
