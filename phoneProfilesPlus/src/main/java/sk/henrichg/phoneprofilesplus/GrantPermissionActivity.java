@@ -617,7 +617,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (s.isEmpty())
             return s;
         else
-            return "<br>" + "&nbsp;&nbsp;&nbsp;- "+getString(R.string.permission_why_for)+" " + s;
+            return "<br>" + "&nbsp;&nbsp;&nbsp;- " + s;
     }
 
     static void showNotification(int grantType, List<Permissions.PermissionType> permissions,
