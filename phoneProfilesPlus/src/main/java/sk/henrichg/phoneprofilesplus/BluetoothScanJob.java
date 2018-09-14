@@ -450,17 +450,19 @@ class BluetoothScanJob extends Job {
 
             if (bluetooth != null) {
                 if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
-                    if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                        if (WifiBluetoothScanner.bluetoothLEScanner == null)
-                            WifiBluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
-                        //if (WifiBluetoothScanner.bluetoothLEScanCallback21 == null)
-                        //    WifiBluetoothScanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
-                        WifiBluetoothScanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(context));
-                    } else {
-                        //if (WifiBluetoothScanner.bluetoothLEScanCallback18 == null)
-                        //    WifiBluetoothScanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
-                        bluetooth.stopLeScan(new BluetoothLEScanCallback18(context));
-                    }
+                    try {
+                        if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                            if (WifiBluetoothScanner.bluetoothLEScanner == null)
+                                WifiBluetoothScanner.bluetoothLEScanner = bluetooth.getBluetoothLeScanner();
+                            //if (WifiBluetoothScanner.bluetoothLEScanCallback21 == null)
+                            //    WifiBluetoothScanner.bluetoothLEScanCallback21 = new BluetoothLEScanCallback21(context);
+                            WifiBluetoothScanner.bluetoothLEScanner.stopScan(new BluetoothLEScanCallback21(context));
+                        } else {
+                            //if (WifiBluetoothScanner.bluetoothLEScanCallback18 == null)
+                            //    WifiBluetoothScanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
+                            bluetooth.stopLeScan(new BluetoothLEScanCallback18(context));
+                        }
+                    } catch (Exception ignored) {}
                 }
             }
         }
