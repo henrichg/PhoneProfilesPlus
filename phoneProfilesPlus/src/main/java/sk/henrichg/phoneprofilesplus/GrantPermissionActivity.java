@@ -530,8 +530,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_RADIO_PREFERENCES:
                         s = getString(R.string.permission_why_profile_radio_preferences);
                         break;
-                    case Permissions.PERMISSION_PROFILE_SPEAKER_PHONE_BROADCAST:
-                        s = getString(R.string.permission_why_profile_speaker_phone_broadcast);
+                    case Permissions.PERMISSION_PROFILE_PHONE_STATE_BROADCAST:
+                        s = getString(R.string.permission_why_profile_phone_state_broadcast);
                         break;
                     case Permissions.PERMISSION_PROFILE_CUSTOM_PROFILE_ICON:
                         s = getString(R.string.permission_why_profile_custom_profile_icon);

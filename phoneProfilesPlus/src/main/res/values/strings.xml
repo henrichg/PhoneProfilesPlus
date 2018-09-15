@@ -1224,7 +1224,7 @@
     <string name="permission_why_profile_autorotation">for change screen rotation</string>
     <string name="permission_why_profile_wallpaper">for change wallpaper</string>
     <string name="permission_why_profile_radio_preferences">for enable/disable mobile data, enable/disable mobile network type, connect to ssid</string>
-    <string name="permission_why_profile_speaker_phone_broadcast">for enable/disable speakerphone during call</string>
+    <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
     <string name="permission_why_profile_custom_profile_icon">for custom profile icon</string>
     <string name="permission_why_install_tone">for save tone into storage</string>
     <string name="permission_why_export">for save backup data into storage</string>

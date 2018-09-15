@@ -997,18 +997,20 @@ class ActivateProfileHelper {
                 }
 
                 // link, unlink volumes during activation of profile
-                // required for phone call events
                 ApplicationPreferences.getSharedPreferences(context);
                 int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                 int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
-                if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
-                    if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
-                        linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_UNLINK;
-                        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                            (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
-                            linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_LINK;
+                if (Permissions.checkPhone(appContext)) {
+                    if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
+                            ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
+                                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
+                            linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_UNLINK;
+                            if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
+                                linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_LINK;
+                        }
                     }
                 }
 
