@@ -227,12 +227,13 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 new IntentFilter("RefreshActivatorGUIBroadcastReceiver"));
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                 new IntentFilter("ShowActivatorTargetHelpsBroadcastReceiver"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
-                new IntentFilter("FinishActivatorBroadcastReceiver"));
 
         refreshGUI(false);
 
     //-----------------------------------------------------------------------------------------		
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
+                new IntentFilter("FinishActivatorBroadcastReceiver"));
 
     }
 
@@ -581,12 +582,18 @@ public class ActivateProfileActivity extends AppCompatActivity {
             }
         }
         else {
-            if (ActivatorTargetHelpsActivity.activity != null) {
-                //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
-                ActivatorTargetHelpsActivity.activity.finish();
-                ActivatorTargetHelpsActivity.activity = null;
-                //ActivatorTargetHelpsActivity.activatorActivity = null;
-            }
+            final Handler handler = new Handler(getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (ActivatorTargetHelpsActivity.activity != null) {
+                        //Log.d("ActivateProfilesActivity.showTargetHelps", "finish activity");
+                        ActivatorTargetHelpsActivity.activity.finish();
+                        ActivatorTargetHelpsActivity.activity = null;
+                        //ActivatorTargetHelpsActivity.activatorActivity = null;
+                    }
+                }
+            }, 500);
         }
     }
 

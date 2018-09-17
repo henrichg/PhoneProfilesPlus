@@ -526,10 +526,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                 new IntentFilter("RefreshEditorGUIBroadcastReceiver"));
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                 new IntentFilter("ShowEditorTargetHelpsBroadcastReceiver"));
-        LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
-                new IntentFilter("FinishEditorBroadcastReceiver"));
 
         refreshGUI(false, true);
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
+                new IntentFilter("FinishEditorBroadcastReceiver"));
     }
 
     /*public static EditorProfilesActivity getInstance()
