@@ -13,6 +13,7 @@ import android.view.WindowManager;
 public class LockDeviceActivity extends AppCompatActivity {
 
     private View view = null;
+    private boolean displayed = false;
 
     @SuppressLint("InflateParams")
     @Override
@@ -76,6 +77,8 @@ public class LockDeviceActivity extends AppCompatActivity {
             */
 
             LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
+
+            displayed = true;
         }
         else
             finish();
@@ -87,7 +90,7 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         PPApplication.logE("LockDeviceActivity.onDestroy", "xxx");
 
-        if (PhoneProfilesService.getInstance() != null) {
+        if (displayed && (PhoneProfilesService.getInstance() != null)) {
             if (view != null)
                 try {
                     WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -126,7 +129,6 @@ public class LockDeviceActivity extends AppCompatActivity {
                 }*/
             }
             dataWrapper.invalidateDataWrapper();
-
         }
     }
 
@@ -135,6 +137,7 @@ public class LockDeviceActivity extends AppCompatActivity {
     {
         super.finish();
         overridePendingTransition(0, 0);
+        displayed = false;
     }
 
 }

@@ -1655,7 +1655,7 @@ public class DataWrapper {
         }
     }
 
-    void finishActivity(int startupSource, boolean finishActivator, Activity _activity)
+    void finishActivity(int startupSource, boolean finishActivator, final Activity _activity)
     {
         if (_activity == null)
             return;
@@ -1681,8 +1681,15 @@ public class DataWrapper {
             finish = false;
         }
 
-        if (finish)
-            _activity.finish();
+        if (finish) {
+            final Handler handler = new Handler(context.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    _activity.finish();
+                }
+            });
+        }
     }
 
     public void activateProfile(final long profile_id, final int startupSource, final Activity activity)
@@ -3797,7 +3804,7 @@ public class DataWrapper {
 
     }
 
-    void restartEventsWithAlert(Activity activity)
+    void restartEventsWithAlert(final Activity activity)
     {
         if (!Event.getGlobalEventsRunning(context))
             // events are globally stopped
@@ -3812,8 +3819,6 @@ public class DataWrapper {
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert(context) || (activity instanceof EditorProfilesActivity))
         {
-            final Activity _activity = activity;
-
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.restart_events_alert_title);
             dialogBuilder.setMessage(R.string.restart_events_alert_message);
@@ -3823,16 +3828,16 @@ public class DataWrapper {
                     PPApplication.logE("DataWrapper.restartEventsWithAlert", "restart");
 
                     boolean finish;
-                    if (_activity instanceof ActivateProfileActivity)
+                    if (activity instanceof ActivateProfileActivity)
                         finish = ApplicationPreferences.applicationClose(context);
                     else
                     //noinspection RedundantIfStatement
-                    if (_activity instanceof RestartEventsFromNotificationActivity)
+                    if (activity instanceof RestartEventsFromNotificationActivity)
                         finish = true;
                     else
                         finish = false;
                     if (finish)
-                        _activity.finish();
+                        activity.finish();
 
                     restartEventsWithRescan();
                 }
@@ -3840,11 +3845,11 @@ public class DataWrapper {
             dialogBuilder.setNegativeButton(R.string.alert_button_no, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    boolean finish = (!(_activity instanceof ActivateProfileActivity)) &&
-                                     (!(_activity instanceof EditorProfilesActivity));
+                    boolean finish = (!(activity instanceof ActivateProfileActivity)) &&
+                                     (!(activity instanceof EditorProfilesActivity));
 
                     if (finish)
-                        _activity.finish();
+                        activity.finish();
                 }
             });
             AlertDialog dialog = dialogBuilder.create();
@@ -3874,8 +3879,15 @@ public class DataWrapper {
             else
                 finish = false;
             PPApplication.logE("DataWrapper.restartEventsWithAlert", "finish="+finish);
-            if (finish)
-                activity.finish();
+            if (finish) {
+                final Handler handler = new Handler(context.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.finish();
+                    }
+                });
+            }
 
             restartEventsWithRescan();
         }
