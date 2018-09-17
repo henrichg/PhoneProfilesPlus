@@ -321,20 +321,20 @@ public class EditorProfileListFragment extends Fragment
                                 ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
                 fragment.updateHeader(profile);
                 fragment.profileListAdapter.notifyDataSetChanged(false);
-                if (!ApplicationPreferences.applicationEditorHeader(fragment.activityDataWrapper.context))
+                if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
                     fragment.setProfileSelection(profile);
 
                 if (defaultProfilesGenerated)
                 {
-                    ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
-                    Toast msg = Toast.makeText(fragment.activityDataWrapper.context,
+                    ActivateProfileHelper.updateGUI(_dataWrapper.context, true);
+                    Toast msg = Toast.makeText(_dataWrapper.context,
                             fragment.getResources().getString(R.string.toast_default_profiles_generated),
                             Toast.LENGTH_SHORT);
                     msg.show();
                 }
                 if (defaultEventsGenerated)
                 {
-                    Toast msg = Toast.makeText(fragment.activityDataWrapper.context,
+                    Toast msg = Toast.makeText(_dataWrapper.context,
                             fragment.getResources().getString(R.string.toast_default_events_generated),
                             Toast.LENGTH_SHORT);
                     msg.show();

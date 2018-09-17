@@ -1424,12 +1424,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                         importProgressDialog.dismiss();
                         importProgressDialog = null;
                     }
-                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                    if (!isFinishing())
+                        GlobalGUIRoutines.unlockScreenOrientation(activity);
 
                     this.dataWrapper.updateNotificationAndWidgets();
 
-                    Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                    PPApplication.setApplicationStarted(getApplicationContext(), true);
+                    Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);
+                    PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
                     PPApplication.startPPService(activity, serviceIntent);
@@ -1438,20 +1439,21 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
 
                         // restart events
-                        if (Event.getGlobalEventsRunning(getApplicationContext())) {
+                        if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
                             this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                         }
 
                         this.dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
 
                         // toast notification
-                        Toast msg = Toast.makeText(getApplicationContext(),
+                        Toast msg = Toast.makeText(this.dataWrapper.context,
                                 getResources().getString(R.string.toast_import_ok),
                                 Toast.LENGTH_SHORT);
                         msg.show();
 
                         // refresh activity
-                        GlobalGUIRoutines.reloadActivity(activity, true);
+                        if (!isFinishing())
+                            GlobalGUIRoutines.reloadActivity(activity, true);
                     } else {
                         PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
 
@@ -1459,7 +1461,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (appSettingsError) appSettingsResult = 0;
                         int sharedProfileResult = 1;
                         if (sharedProfileError) sharedProfileResult = 0;
-                        importExportErrorDialog(1, dbError, appSettingsResult, sharedProfileResult);
+                        if (!isFinishing())
+                            importExportErrorDialog(1, dbError, appSettingsResult, sharedProfileResult);
                     }
                 }
 
@@ -1680,18 +1683,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                         exportProgressDialog.dismiss();
                         exportProgressDialog = null;
                     }
-                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                    if (!isFinishing())
+                        GlobalGUIRoutines.unlockScreenOrientation(activity);
 
                     if (result == 1) {
 
                         // toast notification
-                        Toast msg = Toast.makeText(getApplicationContext(),
+                        Toast msg = Toast.makeText(this.dataWrapper.context,
                                 getResources().getString(R.string.toast_export_ok),
                                 Toast.LENGTH_SHORT);
                         msg.show();
 
                     } else {
-                        importExportErrorDialog(2, 0, 0, 0);
+                        if (!isFinishing())
+                            importExportErrorDialog(2, 0, 0, 0);
                     }
                 }
 
