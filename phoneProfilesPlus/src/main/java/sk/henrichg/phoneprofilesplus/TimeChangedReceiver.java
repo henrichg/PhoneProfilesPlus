@@ -12,8 +12,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if ((intent != null) && (intent.getAction() != null)) {
             String action = intent.getAction();
-            if (action.equals(Intent.ACTION_TIMEZONE_CHANGED) ||
-                    action.equals(Intent.ACTION_TIME_CHANGED)) {
+            if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)/* ||
+                    action.equals(Intent.ACTION_TIME_CHANGED)*/) {
                 PPApplication.logE("##### TimeChangedReceiver.onReceive", "xxx");
                 CallsCounter.logCounter(context, "TimeChangedReceiver.onReceive", "TimeChangedReceiver_onReceive");
 
