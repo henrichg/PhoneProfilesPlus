@@ -1254,6 +1254,7 @@
     <string name="exit_application_alert_title">Exit application</string>
     <string name="exit_application_alert_message">Are you sure?</string>
     <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
+    <string name="altype_applicationUpgrade">application upgrade</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

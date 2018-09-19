@@ -39,6 +39,10 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
                 int actualVersionCode = pInfo.versionCode;
                 PPApplication.setSavedVersionCode(appContext, actualVersionCode);
+
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
+                String version = pInfo.versionName + " (" + pInfo.versionCode + ")";
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONUPGRADE, version, null, null, 0);
             } catch (Exception ignored) {
             }
 
