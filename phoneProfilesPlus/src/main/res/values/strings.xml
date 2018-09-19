@@ -1251,6 +1251,8 @@
     <string name="permission_why_custom_profile_icon_preference">for load custom icons from storage</string>
     <string name="permission_why_location_preference">for read location data during configuration</string>
     <string name="permission_why_calendar_preference">for read calendar data during configuration</string>
+    <string name="exit_application_alert_title">Exit application</string>
+    <string name="exit_application_alert_message">Are you sure?</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
