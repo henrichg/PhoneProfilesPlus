@@ -753,7 +753,28 @@ public class EditorProfilesActivity extends AppCompatActivity
                 startActivity(intent);
                 return true;
             case R.id.menu_exit:
-                PPApplication.exitApp(getApplicationContext(), getDataWrapper(), this, false);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+                dialogBuilder.setTitle(R.string.exit_application_alert_title);
+                dialogBuilder.setMessage(R.string.exit_application_alert_message);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        PPApplication.exitApp(getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
+                                EditorProfilesActivity.this, false, true);
+                    }
+                });
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                AlertDialog dialog = dialogBuilder.create();
+                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialog) {
+                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        if (positive != null) positive.setAllCaps(false);
+                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        if (negative != null) negative.setAllCaps(false);
+                    }
+                });*/
+                dialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

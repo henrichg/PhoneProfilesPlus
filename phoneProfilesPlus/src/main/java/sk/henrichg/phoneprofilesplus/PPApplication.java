@@ -1745,7 +1745,7 @@ public class PPApplication extends Application {
     }
 
     public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
-                               final boolean shutdown) {
+                               final boolean shutdown, final boolean killProcess) {
         try {
             PPApplication.startHandlerThread("PPApplication.exitApp");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1753,78 +1753,91 @@ public class PPApplication extends Application {
                 @Override
                 public void run() {
 
-                    PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPApplication.exitApp");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    if (!shutdown) {
-                        // stop all events
-                        dataWrapper.stopAllEvents(false, false);
-
-                        // remove notifications
-                        ImportantInfoNotification.removeNotification(context);
-                        Permissions.removeNotifications(context);
-
-                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
-
-                        if (PPApplication.brightnessHandler != null) {
-                            PPApplication.brightnessHandler.post(new Runnable() {
-                                public void run() {
-                                    ActivateProfileHelper.removeBrightnessView(context);
-
-                                }
-                            });
-                        }
-                        if (PPApplication.screenTimeoutHandler != null) {
-                            PPApplication.screenTimeoutHandler.post(new Runnable() {
-                                public void run() {
-                                    ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                                    ActivateProfileHelper.removeBrightnessView(context);
-
-                                }
-                            });
+                    try {
+                        PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPApplication.exitApp");
+                            wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.initRoot();
-                    }
+                        if (!shutdown) {
+                            // stop all events
+                            dataWrapper.stopAllEvents(false, false);
 
-                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                    Profile.setActivatedProfileForDuration(context, 0);
-                    StartEventNotificationBroadcastReceiver.removeAlarm(context);
-                    GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
-                    LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
+                            // remove notifications
+                            ImportantInfoNotification.removeNotification(context);
+                            Permissions.removeNotifications(context);
 
-                    context.stopService(new Intent(context, PhoneProfilesService.class));
+                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
-                    Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
+                            if (PPApplication.brightnessHandler != null) {
+                                PPApplication.brightnessHandler.post(new Runnable() {
+                                    public void run() {
+                                        ActivateProfileHelper.removeBrightnessView(context);
 
-                    WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
-                    //ActivateProfileHelper.setScreenUnlocked(context, true);
+                                    }
+                                });
+                            }
+                            if (PPApplication.screenTimeoutHandler != null) {
+                                PPApplication.screenTimeoutHandler.post(new Runnable() {
+                                    public void run() {
+                                        ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
+                                        ActivateProfileHelper.removeBrightnessView(context);
 
-                    PPApplication.setApplicationStarted(context, false);
+                                    }
+                                });
+                            }
 
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                            PPApplication.initRoot();
+                        }
+
+                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+                        Profile.setActivatedProfileForDuration(context, 0);
+                        StartEventNotificationBroadcastReceiver.removeAlarm(context);
+                        GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+                        LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
+
+                        context.stopService(new Intent(context, PhoneProfilesService.class));
+
+                        Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
+
+                        WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+                        //ActivateProfileHelper.setScreenUnlocked(context, true);
+
+                        PPApplication.setApplicationStarted(context, false);
+
+                        if (!shutdown) {
+                            if (activity != null) {
+                                Handler _handler = new Handler(context.getMainLooper());
+                                Runnable r = new Runnable() {
+                                    public void run() {
+                                        activity.finish();
+                                    }
+                                };
+                                _handler.post(r);
+                            }
+                            if (killProcess) {
+                                Handler _handler = new Handler(context.getMainLooper());
+                                Runnable r = new Runnable() {
+                                    public void run() {
+                                        android.os.Process.killProcess(android.os.Process.myPid());
+                                    }
+                                };
+                                _handler.postDelayed(r, 1000);
+                            }
+                        }
+
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                    } catch (Exception ignored) {
+
                     }
                 }
             });
-
-            if (!shutdown) {
-                if (activity != null) {
-                    Handler _handler = new Handler(context.getMainLooper());
-                    Runnable r = new Runnable() {
-                        public void run() {
-                            activity.finish();
-                        }
-                    };
-                    _handler.postDelayed(r, 500);
-                }
-            }
         } catch (Exception ignored) {
 
         }

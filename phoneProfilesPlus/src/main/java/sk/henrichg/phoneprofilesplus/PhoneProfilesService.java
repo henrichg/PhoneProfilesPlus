@@ -4130,7 +4130,7 @@ public class PhoneProfilesService extends Service
                 // intent to LauncherActivity, for click on notification
                 Intent exitAppIntent = new Intent(appContext, ExitApplicationActivity.class);
                 // clear all opened activities
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 Notification.Action.Builder actionBuilder = new Notification.Action.Builder(

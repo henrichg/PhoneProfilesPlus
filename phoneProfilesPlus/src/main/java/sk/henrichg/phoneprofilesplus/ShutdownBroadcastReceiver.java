@@ -10,6 +10,6 @@ public class ShutdownBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("ShutdownBroadcastReceiver.onReceive", "xxx");
         //DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, false, 0);
-        PPApplication.exitApp(context.getApplicationContext(), null, null, true);
+        PPApplication.exitApp(context.getApplicationContext(), null, null, true, false);
     }
 }
