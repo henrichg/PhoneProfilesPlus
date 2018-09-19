@@ -226,18 +226,6 @@
         <PreferenceCategory
             android:title="@string/phone_profiles_pref_notificationStatusBarNew"
             android:layout="@layout/mp_preference_category" >
-        <!--    <CheckBoxPreference
-                android:key="notificationShowInStatusBar"
-                android:title="@string/phone_profiles_pref_notificationShowInStatusBar"
-                android:defaultValue="true"
-                android:widgetLayout="@layout/mp_preference_switch"
-                android:layout="@layout/mp_preference_material_widget" />
-            <CheckBoxPreference
-                android:key="notificationHideInLockscreen"
-                android:title="@string/phone_profiles_pref_notificationHideInLockscreen"
-                android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch"
-                android:layout="@layout/mp_preference_material_widget" /> -->
             <Preference
                 android:key="notificationSystemSettings"
                 android:title="@string/phone_profiles_pref_notificationSystemSettings"
@@ -275,15 +263,12 @@
                 android:entryValues="@array/notificationTextColorValues"
                 android:layout="@layout/mp_preference_material_widget"
                 app:useStockLayout="true" />
-        <!--    <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/phone_profiles_pref_notificationTheme"
-                android:summary="@string/array_pref_color_native"
-                android:key="notificationTheme"
-                android:defaultValue="0"
-                android:entries="@array/notificationThemeArray"
-                android:entryValues="@array/notificationThemeValues"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" /> -->
+            <CheckBoxPreference
+                android:key="notificationShowButtonExit"
+                android:title="@string/phone_profiles_pref_notificationShowButtonExit"
+                android:defaultValue="true"
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceCategory>
     </PreferenceScreen>
 
