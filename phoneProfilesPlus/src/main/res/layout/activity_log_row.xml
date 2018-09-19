@@ -33,6 +33,14 @@
         android:layout_marginEnd="10dp" />
 
     <TextView
+        android:id="@+id/activity_log_row_log_data"
+        android:layout_weight="0.43"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp" />
+
+    <!--
+    <TextView
         android:id="@+id/activity_log_row_event_name"
         android:layout_weight="0.22"
         android:layout_width="0dp"
@@ -45,5 +53,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp" />
+    -->
 
 </LinearLayout>

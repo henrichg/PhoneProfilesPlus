@@ -122,17 +122,26 @@ class ActivityLogAdapter extends CursorAdapter {
         rowData.logTypeColor = view.findViewById(R.id.activity_log_row_color);
         rowData.logDateTime  = view.findViewById(R.id.activity_log_row_log_date_time);
         rowData.logType  = view.findViewById(R.id.activity_log_row_log_type);
-        rowData.eventName  = view.findViewById(R.id.activity_log_row_event_name);
-        rowData.profileName  = view.findViewById(R.id.activity_log_row_profile_name);
-        //rowData.profileIcon  = view.findViewById(R.id.activity_log_row_profile_icon);
-        //rowData.durationDelay  = view.findViewById(R.id.activity_log_row_duration_delay);
+        rowData.logData  = view.findViewById(R.id.activity_log_row_log_data);
+        //rowData.eventName  = view.findViewById(R.id.activity_log_row_event_name);
+        //rowData.profileName  = view.findViewById(R.id.activity_log_row_profile_name);
 
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-        rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
-        rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
-        //rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
+        String logData = "";
+        String event_name = cursor.getString(KEY_AL_EVENT_NAME);
+        String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
+        if (event_name != null)
+            logData = logData + event_name;
+        if (profile_name != null) {
+            if (!logData.isEmpty())
+                logData = logData + " ";
+            logData = logData + profile_name;
+        }
+        rowData.logData.setText(logData);
+        //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
+        //rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
 
         view.setTag(rowData);
 
@@ -147,19 +156,28 @@ class ActivityLogAdapter extends CursorAdapter {
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
-        rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
-        rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
-        //rowData.durationDelay.setText(cursor.getString(KEY_AL_DURATION_DELAY));
+        String logData = "";
+        String event_name = cursor.getString(KEY_AL_EVENT_NAME);
+        String profile_name = cursor.getString(KEY_AL_PROFILE_NAME);
+        if (event_name != null)
+            logData = logData + event_name;
+        if (profile_name != null) {
+            if (!logData.isEmpty())
+                logData = logData + " ";
+            logData = logData + profile_name;
+        }
+        rowData.logData.setText(logData);
+        //rowData.eventName.setText(cursor.getString(KEY_AL_EVENT_NAME));
+        //rowData.profileName.setText(cursor.getString(KEY_AL_PROFILE_NAME));
     }
 
     private static class MyRowViewHolder {
         FrameLayout logTypeColor;
         TextView logDateTime;
         TextView logType;
-        TextView eventName;
-        TextView profileName;
-        //ImageView profileIcon;
-        //TextView durationDelay;
+        TextView logData;
+        //TextView eventName;
+        //TextView profileName;
     }
 
     public void reload(DataWrapper dataWrapper) {
