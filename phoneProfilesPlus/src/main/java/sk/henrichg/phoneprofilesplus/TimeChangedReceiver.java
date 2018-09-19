@@ -28,10 +28,12 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 if (action.equals(Intent.ACTION_TIME_CHANGED)) {
                     timeChanged = false;
                     String isAutoTime = Settings.Global.getString(appContext.getContentResolver(), Settings.Global.AUTO_TIME);
+                    PPApplication.logE("TimeChangedReceiver.onReceive", "isAutoTime="+isAutoTime);
                     if (isAutoTime.equals("0")) {
                         timeChanged = true;
                     }
                 }
+                PPApplication.logE("TimeChangedReceiver.onReceive", "timeChanged="+timeChanged);
 
                 if (timeChanged) {
                     if ((android.os.Build.VERSION.SDK_INT >= 21) &&
