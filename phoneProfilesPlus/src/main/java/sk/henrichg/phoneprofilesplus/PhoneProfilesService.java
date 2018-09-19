@@ -4124,7 +4124,8 @@ public class PhoneProfilesService extends Service
             else
                 notificationBuilder.setContent(contentView);
 
-            if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext)) {
+            //if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext)) {
+            if (Build.VERSION.SDK_INT >= 26) {
                 // add action button to stop application
 
                 // intent to LauncherActivity, for click on notification
@@ -4133,18 +4134,18 @@ public class PhoneProfilesService extends Service
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                if (Build.VERSION.SDK_INT < 23)
+                /*if (Build.VERSION.SDK_INT < 23)
                     notificationBuilder.addAction(
                             R.drawable.ic_action_exit_app_white,
                             appContext.getString(R.string.menu_exit),
                             pExitAppIntent);
-                else {
+                else {*/
                     Notification.Action.Builder actionBuilder = new Notification.Action.Builder(
                             Icon.createWithResource(appContext, R.drawable.ic_action_exit_app_white),
                             appContext.getString(R.string.menu_exit),
                             pExitAppIntent);
                     notificationBuilder.addAction(actionBuilder.build());
-                }
+                //}
             }
 
             Notification phoneProfilesNotification;
