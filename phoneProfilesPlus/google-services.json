@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "703391605107",
+    "firebase_url": "https://phoneprofilesplus-bdca8.firebaseio.com",
+    "project_id": "phoneprofilesplus-bdca8",
+    "storage_bucket": "phoneprofilesplus-bdca8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703391605107:android:9663b5f575de32e6",
+        "android_client_info": {
+          "package_name": "sk.henrichg.phoneprofilesplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703391605107-8fun4gfffurg6gg8b3u7ijt540e7telm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOpMl7QbpF_uN_OXkK_msb0I6uqua2Gho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

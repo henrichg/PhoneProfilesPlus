@@ -55,6 +55,7 @@ android {
 
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
+
     implementation "com.android.support:support-core-ui:$ppVersions.supportLib"
     implementation "com.android.support:appcompat-v7:$ppVersions.supportLib"
     implementation "com.android.support:gridlayout-v7:$ppVersions.supportLib"
@@ -67,6 +68,7 @@ dependencies {
     implementation 'com.android.billingclient:billing:1.0'
     implementation 'com.google.code.gson:gson:2.8.1'
 
+    implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {
         transitive = true
     }
@@ -95,3 +97,5 @@ dependencies {
     implementation files('libs/sdk-v1.0.0.jar')
     implementation files('libs/slook_v1.4.0.jar')
 }
+
+apply plugin: 'com.google.gms.google-services'
