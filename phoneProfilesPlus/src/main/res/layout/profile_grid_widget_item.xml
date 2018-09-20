@@ -27,7 +27,6 @@
         android:shadowRadius="3"
         android:text="@string/profile_name_default"
         android:textSize="13sp"
-        android:fontFamily="sans-serif-condensed"
         android:textColor="#ffffffff" />
         
 </LinearLayout>

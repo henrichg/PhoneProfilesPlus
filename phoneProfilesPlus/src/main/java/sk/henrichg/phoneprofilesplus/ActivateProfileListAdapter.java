@@ -187,14 +187,14 @@ class ActivateProfileListAdapter extends BaseAdapter
         }
         else {
             if (profile._checked && (!ApplicationPreferences.applicationActivatorHeader(fragment.getActivity()))) {
-                holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.BOLD));
+                holder.profileName.setTypeface(/*Typeface.create("sans-serif-condensed", Typeface.BOLD)*/ null, Typeface.BOLD);
                 if (ApplicationPreferences.applicationActivatorGridLayout(fragment.getActivity()))
                     holder.profileName.setTextSize(14);
                 else
                     holder.profileName.setTextSize(16);
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             } else {
-                holder.profileName.setTypeface(Typeface.create("sans-serif-condensed", Typeface.NORMAL));
+                holder.profileName.setTypeface(/*Typeface.create("sans-serif-condensed", Typeface.NORMAL)*/ null, Typeface.NORMAL);
                 if (ApplicationPreferences.applicationActivatorGridLayout(fragment.getActivity()))
                     holder.profileName.setTextSize(13);
                 else

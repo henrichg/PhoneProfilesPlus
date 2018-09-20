@@ -41,7 +41,6 @@
             android:text="@string/profile_name_default"
             android:textColor="#ffffffff"
             android:textSize="13sp"
-            android:fontFamily="sans-serif-condensed"
             android:gravity="center_horizontal"
             android:maxLines="1"/>
 

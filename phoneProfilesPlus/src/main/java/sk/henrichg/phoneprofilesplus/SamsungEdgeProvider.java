@@ -49,7 +49,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
                 widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_no_header);
             else*/
-                widget=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget_no_header);
+                widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_no_header);
         }
 
         // set background

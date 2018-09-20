@@ -389,7 +389,7 @@ class ApplicationPreferences {
     }
 
     static String applicationWidgetIconBackground(Context context) {
-        return getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "0");
+        return getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "25");
     }
 
     static String applicationWidgetIconLightnessB(Context context) {

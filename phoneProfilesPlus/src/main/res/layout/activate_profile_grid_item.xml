@@ -38,7 +38,6 @@
         android:maxLines = "2"
         android:text="@string/profile_name_default"
         android:textSize="13sp"
-        android:fontFamily="sans-serif-condensed"
         android:gravity="center_horizontal" />
 
 </LinearLayout>
