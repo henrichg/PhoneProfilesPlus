@@ -110,12 +110,12 @@
             android:defaultValue="false"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
-        <Preference
+        <!--<Preference
             android:key="applicationRingerNotificationVolumesUnlinkedInfo"
             android:title="@string/phone_profiles_pref_applicationRingerNotificationVolumesUnlinked"
             android:summary="@string/phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info"
             android:widgetLayout="@layout/info_preference"
-            android:layout="@layout/mp_preference_material_widget" />
+            android:layout="@layout/mp_preference_material_widget" />-->
         <Preference
             android:key="applicationForceSetMergeRingNotificationVolumesInfo"
             android:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"

@@ -578,7 +578,7 @@ class ActivateProfileHelper {
                         else
                             newNotificationVolume = oldNotificationVolume + 1;
                         audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, newNotificationVolume, 0);
-                        PPApplication.sleep(1000);
+                        PPApplication.sleep(2000);
                         merged = audioManager.getStreamVolume(AudioManager.STREAM_RING) == newNotificationVolume;
                     } else
                         merged = false;

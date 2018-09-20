@@ -399,7 +399,7 @@
   <string name="profileicon_pref_dialog_customColor_button">Zmena farby</string>
   <string name="colorChooser_pref_dialog_title">Výber farby</string>
   <string name="phone_profiles_pref_category_system">Systém</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Oddeľ hlasitosť zvonenia a notif.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Oddeľ hlasitosť zvonenia a notifikácií</string>
   <string name="info_notification_title">Dôležité informácie</string>
   <string name="info_notification_text">Kliknite sem pre zobrazenie dôležitých informácií</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi prístupový bod</string>
