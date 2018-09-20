@@ -96,10 +96,8 @@ class ApplicationEditorDialog
         mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                Log.e("ApplicationEditorDialog.onShow", "selectedPosition="+selectedPosition);
                 if (selectedPosition == -1) {
                     Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                    Log.e("ApplicationEditorDialog.onShow", "positive="+positive);
                     if (positive != null)
                         positive.setEnabled(false);
                 }
