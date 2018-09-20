@@ -587,40 +587,41 @@ public class ApplicationsDialogPreference  extends DialogPreference
     }
 
     void updateApplication(Application application, int positionInEditor, int startApplicationDelay) {
+        if (positionInEditor == -1)
+            return;
+
         if (EditorProfilesActivity.getApplicationsCache() != null) {
             List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
             if (cachedApplicationList != null) {
                 int _position = applicationsList.indexOf(application);
-                if (_position != -1) {
-                    Application cachedApplication = cachedApplicationList.get(positionInEditor);
-                    Application editedApplication = application;
-                    if (editedApplication == null) {
-                        editedApplication = new Application();
-                        applicationsList.add(editedApplication);
-                        _position = applicationsList.size() - 1;
-                    }
-                    editedApplication.shortcut = cachedApplication.shortcut;
-                    editedApplication.appLabel = cachedApplication.appLabel;
-                    editedApplication.packageName = cachedApplication.packageName;
-                    editedApplication.activityName = cachedApplication.activityName;
-                    if (!editedApplication.shortcut)
-                        editedApplication.shortcutId = 0;
-                    editedApplication.startApplicationDelay = startApplicationDelay;
+                Application cachedApplication = cachedApplicationList.get(positionInEditor);
+                Application editedApplication = application;
+                if (editedApplication == null) {
+                    editedApplication = new Application();
+                    applicationsList.add(editedApplication);
+                    _position = applicationsList.size() - 1;
+                }
+                editedApplication.shortcut = cachedApplication.shortcut;
+                editedApplication.appLabel = cachedApplication.appLabel;
+                editedApplication.packageName = cachedApplication.packageName;
+                editedApplication.activityName = cachedApplication.activityName;
+                if (!editedApplication.shortcut)
+                    editedApplication.shortcutId = 0;
+                editedApplication.startApplicationDelay = startApplicationDelay;
 
-                    applicationsListView.getRecycledViewPool().clear();
-                    listAdapter.notifyDataSetChanged();
+                applicationsListView.getRecycledViewPool().clear();
+                listAdapter.notifyDataSetChanged();
 
-                    if (editedApplication.shortcut &&
-                            (editedApplication.packageName != null)) {
-                        Intent intent = new Intent(context, LaunchShortcutActivity.class);
-                        intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, editedApplication.packageName);
-                        intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, editedApplication.activityName);
-                        intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
-                        intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
+                if (editedApplication.shortcut &&
+                        (editedApplication.packageName != null)) {
+                    Intent intent = new Intent(context, LaunchShortcutActivity.class);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_PACKAGE_NAME, editedApplication.packageName);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_ACTIVITY_NAME, editedApplication.activityName);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
+                    intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
 
-                        //ProfilePreferencesFragment.setApplicationsDialogPreference(this);
-                        ((Activity) context).startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
-                    }
+                    //ProfilePreferencesFragment.setApplicationsDialogPreference(this);
+                    ((Activity) context).startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
                 }
             }
         }

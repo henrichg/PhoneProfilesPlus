@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -92,6 +93,19 @@ class ApplicationEditorDialog
             }
         );
 
+        mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                Log.e("ApplicationEditorDialog.onShow", "selectedPosition="+selectedPosition);
+                if (selectedPosition == -1) {
+                    Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                    Log.e("ApplicationEditorDialog.onShow", "positive="+positive);
+                    if (positive != null)
+                        positive.setEnabled(false);
+                }
+            }
+        });
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         //noinspection ConstantConditions
         FastScrollRecyclerView listView = layout.findViewById(R.id.applications_editor_dialog_listview);
@@ -119,12 +133,6 @@ class ApplicationEditorDialog
             }
         }
 
-        if (selectedPosition == -1) {
-            Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            if (positive != null)
-                positive.setEnabled(false);
-        }
-
         listAdapter = new ApplicationEditorDialogAdapter(this, activity);
         listView.setAdapter(listAdapter);
 
@@ -135,11 +143,13 @@ class ApplicationEditorDialog
 
     void doOnItemSelected(int position)
     {
-        Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        positive.setEnabled(true);
+        if (position != -1) {
+            Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setEnabled(true);
 
-        selectedPosition = position;
-        listAdapter.notifyDataSetChanged();
+            selectedPosition = position;
+            listAdapter.notifyDataSetChanged();
+        }
     }
 
     public void show() {
