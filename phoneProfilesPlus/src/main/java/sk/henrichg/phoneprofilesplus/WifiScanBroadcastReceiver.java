@@ -37,6 +37,11 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION)) {
                 // WifiScanBroadcastReceiver
 
+                boolean resultsUpdated = true;
+                if (android.os.Build.VERSION.SDK_INT >= 23)
+                    resultsUpdated = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true);
+                final boolean scanResultsUpdated = resultsUpdated;
+
                 if (WifiScanJob.wifi == null)
                     WifiScanJob.wifi = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
 
@@ -64,8 +69,9 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                             //PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "resultsUpdated="+intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false));
 
-                            //if ((android.os.Build.VERSION.SDK_INT < 23) || (intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, false)))
-                            WifiScanJob.fillScanResults(appContext);
+                            if (scanResultsUpdated)
+                                WifiScanJob.fillScanResults(appContext);
+
                             //WifiScanJobBroadcastReceiver.unlock();
 
                             List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(appContext);
