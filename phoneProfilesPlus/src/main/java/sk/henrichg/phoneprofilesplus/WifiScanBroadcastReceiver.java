@@ -70,7 +70,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                             List<WifiSSIDData> scanResults = WifiScanJob.getScanResults(appContext);
                             if (scanResults != null) {
-                                //PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults.size="+scanResults.size());
+                                PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "scanResults.size="+scanResults.size());
                                 for (WifiSSIDData result : scanResults) {
                                     PPApplication.logE("$$$ WifiScanBroadcastReceiver.onReceive", "result.SSID=" + result.ssid);
                                 }
