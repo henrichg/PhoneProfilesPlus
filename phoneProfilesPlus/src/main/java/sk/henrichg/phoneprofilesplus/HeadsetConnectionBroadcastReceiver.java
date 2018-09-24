@@ -46,39 +46,71 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
         if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED))
             HeadsetConnectionJob.startForBluetoothPlug(appContext, BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED, intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED));*/
 
+        ApplicationPreferences.getSharedPreferences(appContext);
+
         boolean broadcast = false;
 
-        boolean connectedHeadphones = false;
-        boolean connectedMicrophone = false;
-        boolean bluetoothHeadset = false;
+        boolean connectedHeadphones = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_CONNECTED, false);
+        boolean connectedMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_MICROPHONE, false);
+        boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_BLUETOOTH, false);
 
         if (action != null) {
             // Wired headset monitoring
             if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
-                connectedHeadphones = (intent.getIntExtra("state", -1) == 1);
-                connectedMicrophone = (intent.getIntExtra("microphone", -1) == 1);
-                bluetoothHeadset = false;
+                if ((!connectedHeadphones) && (intent.getIntExtra("state", -1) == 1)) {
+                    connectedHeadphones = true;
+                    connectedMicrophone = (intent.getIntExtra("microphone", -1) == 1);
+                    bluetoothHeadset = false;
 
-                broadcast = true;
+                    broadcast = true;
+                }
+                else
+                if (connectedHeadphones && (intent.getIntExtra("state", -1) == 0)) {
+                    connectedHeadphones = false;
+                    connectedMicrophone = false;
+                    bluetoothHeadset = false;
+
+                    broadcast = true;
+                }
             }
 
             // Bluetooth monitoring
             // Works up to and including Honeycomb
             if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED)) {
-                connectedHeadphones = (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED) == BluetoothHeadset.STATE_AUDIO_CONNECTED);
-                connectedMicrophone = true;
-                bluetoothHeadset = true;
+                if ((!connectedHeadphones) && (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED) == BluetoothHeadset.STATE_AUDIO_CONNECTED)) {
+                    connectedHeadphones = true;
+                    connectedMicrophone = true;
+                    bluetoothHeadset = true;
 
-                broadcast = true;
+                    broadcast = true;
+                }
+                else
+                if (connectedHeadphones && (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED) != BluetoothHeadset.STATE_AUDIO_CONNECTED)) {
+                    connectedHeadphones = false;
+                    connectedMicrophone = false;
+                    bluetoothHeadset = true;
+
+                    broadcast = true;
+                }
             }
 
             // Works for Ice Cream Sandwich
             if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED)) {
-                connectedHeadphones = (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED) == BluetoothProfile.STATE_CONNECTED);
-                connectedMicrophone = true;
-                bluetoothHeadset = true;
+                if ((!connectedHeadphones) && (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED) == BluetoothProfile.STATE_CONNECTED)) {
+                    connectedHeadphones = true;
+                    connectedMicrophone = true;
+                    bluetoothHeadset = true;
 
-                broadcast = true;
+                    broadcast = true;
+                }
+                else
+                if (connectedHeadphones && (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED) != BluetoothProfile.STATE_CONNECTED)) {
+                    connectedHeadphones = false;
+                    connectedMicrophone = false;
+                    bluetoothHeadset = true;
+
+                    broadcast = true;
+                }
             }
         }
 
@@ -86,7 +118,6 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
         if (broadcast)
         {
-            ApplicationPreferences.getSharedPreferences(appContext);
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
             editor.putBoolean(PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
             editor.putBoolean(PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
