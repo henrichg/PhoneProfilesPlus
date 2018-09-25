@@ -13,12 +13,10 @@ import static android.content.Context.POWER_SERVICE;
 
 public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
-    //static final String EXTRA_HEADSET_PLUG_STATE = "state";
-    //static final String EXTRA_HEADSET_PLUG_MICROPHONE = "microphone";
-
-    static final String PREF_EVENT_HEADSET_CONNECTED = "eventHeadsetConnected";
-    static final String PREF_EVENT_HEADSET_MICROPHONE = "eventHeadsetMicrophone";
-    static final String PREF_EVENT_HEADSET_BLUETOOTH = "eventHeadsetBluetooth";
+    static final String PREF_EVENT_WIRED_HEADSET_CONNECTED = "eventWiredHeadsetConnected";
+    static final String PREF_EVENT_WIRED_HEADSET_MICROPHONE = "eventWiredHeadsetMicrophone";
+    static final String PREF_EVENT_BLUETOOTH_HEADSET_CONNECTED = "eventBluetoothHeadsetConnected";
+    static final String PREF_EVENT_BLUETOOTH_HEADSET_MICROPHONE = "eventBluetoothHeadsetMicrophone";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -50,67 +48,35 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
         boolean broadcast = false;
 
-        boolean connectedHeadphones = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_CONNECTED, false);
-        boolean connectedMicrophone = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_MICROPHONE, false);
-        boolean bluetoothHeadset = ApplicationPreferences.preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_HEADSET_BLUETOOTH, false);
+        boolean connectedWiredHeadphones = false;
+        boolean connectedWiredMicrophone = false;
+        boolean connectedBluetoothHeadphones = false;
+        boolean connectedBluetoothMicrophone = false;
 
         if (action != null) {
             // Wired headset monitoring
             if (action.equals(Intent.ACTION_HEADSET_PLUG)) {
-                if ((!connectedHeadphones) && (intent.getIntExtra("state", -1) == 1)) {
-                    connectedHeadphones = true;
-                    connectedMicrophone = (intent.getIntExtra("microphone", -1) == 1);
-                    bluetoothHeadset = false;
+                connectedWiredHeadphones = (intent.getIntExtra("state", -1) == 1);
+                connectedWiredMicrophone = (intent.getIntExtra("microphone", -1) == 1);
 
-                    broadcast = true;
-                }
-                else
-                if (connectedHeadphones && (intent.getIntExtra("state", -1) == 0)) {
-                    connectedHeadphones = false;
-                    connectedMicrophone = false;
-                    bluetoothHeadset = false;
-
-                    broadcast = true;
-                }
+                broadcast = true;
             }
 
             // Bluetooth monitoring
             // Works up to and including Honeycomb
             if (action.equals(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED)) {
-                if ((!connectedHeadphones) && (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED) == BluetoothHeadset.STATE_AUDIO_CONNECTED)) {
-                    connectedHeadphones = true;
-                    connectedMicrophone = true;
-                    bluetoothHeadset = true;
+                connectedBluetoothHeadphones = (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED) == BluetoothHeadset.STATE_AUDIO_CONNECTED);
+                connectedBluetoothMicrophone = true;
 
-                    broadcast = true;
-                }
-                else
-                if (connectedHeadphones && (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothHeadset.STATE_AUDIO_DISCONNECTED) != BluetoothHeadset.STATE_AUDIO_CONNECTED)) {
-                    connectedHeadphones = false;
-                    connectedMicrophone = false;
-                    bluetoothHeadset = true;
-
-                    broadcast = true;
-                }
+                broadcast = true;
             }
 
             // Works for Ice Cream Sandwich
             if (action.equals(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED)) {
-                if ((!connectedHeadphones) && (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED) == BluetoothProfile.STATE_CONNECTED)) {
-                    connectedHeadphones = true;
-                    connectedMicrophone = true;
-                    bluetoothHeadset = true;
+                connectedBluetoothHeadphones = (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED) == BluetoothProfile.STATE_CONNECTED);
+                connectedBluetoothMicrophone = true;
 
-                    broadcast = true;
-                }
-                else
-                if (connectedHeadphones && (intent.getIntExtra(BluetoothProfile.EXTRA_STATE, BluetoothProfile.STATE_DISCONNECTED) != BluetoothProfile.STATE_CONNECTED)) {
-                    connectedHeadphones = false;
-                    connectedMicrophone = false;
-                    bluetoothHeadset = true;
-
-                    broadcast = true;
-                }
+                broadcast = true;
             }
         }
 
@@ -119,9 +85,10 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
         if (broadcast)
         {
             SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putBoolean(PREF_EVENT_HEADSET_CONNECTED, connectedHeadphones);
-            editor.putBoolean(PREF_EVENT_HEADSET_MICROPHONE, connectedMicrophone);
-            editor.putBoolean(PREF_EVENT_HEADSET_BLUETOOTH, bluetoothHeadset);
+            editor.putBoolean(PREF_EVENT_WIRED_HEADSET_CONNECTED, connectedWiredHeadphones);
+            editor.putBoolean(PREF_EVENT_WIRED_HEADSET_MICROPHONE, connectedWiredMicrophone);
+            editor.putBoolean(PREF_EVENT_BLUETOOTH_HEADSET_CONNECTED, connectedBluetoothHeadphones);
+            editor.putBoolean(PREF_EVENT_BLUETOOTH_HEADSET_MICROPHONE, connectedBluetoothMicrophone);
             editor.apply();
         }
 
