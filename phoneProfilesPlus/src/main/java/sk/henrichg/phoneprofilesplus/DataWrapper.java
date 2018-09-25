@@ -2268,7 +2268,7 @@ public class DataWrapper {
                         if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_HEADPHONES)
                                     && (!wiredHeadsetMicrophone))
                             peripheralPassed = true;
-                    } else
+                    }
                     if (bluetoothHeadsetConnected) {
                         if ((event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_BLUETOOTH_HEADSET)
                                 && bluetoothHeadsetMicrophone)
