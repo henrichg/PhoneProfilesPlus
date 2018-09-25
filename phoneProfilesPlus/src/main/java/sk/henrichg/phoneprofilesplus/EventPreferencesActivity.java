@@ -428,40 +428,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         if (event == null)
             return;
 
-        if (event._eventPreferencesApplication._enabled)
-            event._eventPreferencesApplication.setSensorPassed(event._eventPreferencesApplication.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesBattery._enabled)
-            event._eventPreferencesBattery.setSensorPassed(event._eventPreferencesBattery.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesBluetooth._enabled)
-            event._eventPreferencesBluetooth.setSensorPassed(event._eventPreferencesBluetooth.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesCalendar._enabled)
-            event._eventPreferencesCalendar.setSensorPassed(event._eventPreferencesCalendar.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesCall._enabled)
-            event._eventPreferencesCall.setSensorPassed(event._eventPreferencesCall.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesLocation._enabled)
-            event._eventPreferencesLocation.setSensorPassed(event._eventPreferencesLocation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesMobileCells._enabled)
-            event._eventPreferencesMobileCells.setSensorPassed(event._eventPreferencesMobileCells.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesNFC._enabled)
-            event._eventPreferencesNFC.setSensorPassed(event._eventPreferencesNFC.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesNotification._enabled)
-            event._eventPreferencesNotification.setSensorPassed(event._eventPreferencesNotification.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesOrientation._enabled)
-            event._eventPreferencesOrientation.setSensorPassed(event._eventPreferencesOrientation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesPeripherals._enabled)
-            event._eventPreferencesPeripherals.setSensorPassed(event._eventPreferencesPeripherals.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesRadioSwitch._enabled)
-            event._eventPreferencesRadioSwitch.setSensorPassed(event._eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesScreen._enabled)
-            event._eventPreferencesScreen.setSensorPassed(event._eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesSMS._enabled)
-            event._eventPreferencesSMS.setSensorPassed(event._eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesTime._enabled)
-            event._eventPreferencesTime.setSensorPassed(event._eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesWifi._enabled)
-            event._eventPreferencesWifi.setSensorPassed(event._eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
-        if (event._eventPreferencesAlarmClock._enabled)
-            event._eventPreferencesAlarmClock.setSensorPassed(event._eventPreferencesAlarmClock.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        event.setSensorsWaiting();
 
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
 

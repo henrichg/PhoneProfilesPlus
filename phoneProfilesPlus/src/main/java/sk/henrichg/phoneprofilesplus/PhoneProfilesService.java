@@ -2991,7 +2991,7 @@ public class PhoneProfilesService extends Service
                     PPNotificationListenerService.clearNotifiedPackages(appContext);
 
                     DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
-                    DatabaseHandler.getInstance(appContext).clearAllEventsSensorPassed();
+                    DatabaseHandler.getInstance(appContext).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     dataWrapper.setDynamicLauncherShortcuts();

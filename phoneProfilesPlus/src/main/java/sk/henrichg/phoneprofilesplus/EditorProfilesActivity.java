@@ -1398,6 +1398,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     dbError = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
                     if (dbError == DatabaseHandler.IMPORT_OK) {
                         DatabaseHandler.getInstance(this.dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+                        DatabaseHandler.getInstance(this.dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
                         DatabaseHandler.getInstance(this.dataWrapper.context).deactivateProfile();
                         DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
                         DatabaseHandler.getInstance(this.dataWrapper.context).disableNotAllowedPreferences();

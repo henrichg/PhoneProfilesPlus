@@ -5627,7 +5627,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    void clearAllEventsSensorPassed()
+    void updateAllEventSensorsPassed(Event event)
     {
         importExportLock.lock();
         try {
@@ -5638,23 +5638,76 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 SQLiteDatabase db = getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_E_BLUETOOTH_SENSOR_PASSED, 0);
-                values.put(KEY_E_LOCATION_SENSOR_PASSED, 0);
-                values.put(KEY_E_MOBILE_CELLS_SENSOR_PASSED, 0);
-                values.put(KEY_E_ORIENTATION_SENSOR_PASSED, 0);
-                values.put(KEY_E_WIFI_SENSOR_PASSED, 0);
-                values.put(KEY_E_APPLICATION_SENSOR_PASSED, 0);
-                values.put(KEY_E_BATTERY_SENSOR_PASSED, 0);
-                values.put(KEY_E_CALENDAR_SENSOR_PASSED, 0);
-                values.put(KEY_E_CALL_SENSOR_PASSED, 0);
-                values.put(KEY_E_NFC_SENSOR_PASSED, 0);
-                values.put(KEY_E_NOTIFICATION_SENSOR_PASSED, 0);
-                values.put(KEY_E_PERIPHERAL_SENSOR_PASSED, 0);
-                values.put(KEY_E_RADIO_SWITCH_SENSOR_PASSED, 0);
-                values.put(KEY_E_SCREEN_SENSOR_PASSED, 0);
-                values.put(KEY_E_SMS_SENSOR_PASSED, 0);
-                values.put(KEY_E_TIME_SENSOR_PASSED, 0);
-                values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, 0);
+                values.put(KEY_E_BLUETOOTH_SENSOR_PASSED, event._eventPreferencesBluetooth.getSensorPassed());
+                values.put(KEY_E_LOCATION_SENSOR_PASSED, event._eventPreferencesLocation.getSensorPassed());
+                values.put(KEY_E_MOBILE_CELLS_SENSOR_PASSED, event._eventPreferencesMobileCells.getSensorPassed());
+                values.put(KEY_E_ORIENTATION_SENSOR_PASSED, event._eventPreferencesOrientation.getSensorPassed());
+                values.put(KEY_E_WIFI_SENSOR_PASSED, event._eventPreferencesWifi.getSensorPassed());
+                values.put(KEY_E_APPLICATION_SENSOR_PASSED, event._eventPreferencesApplication.getSensorPassed());
+                values.put(KEY_E_BATTERY_SENSOR_PASSED, event._eventPreferencesBattery.getSensorPassed());
+                values.put(KEY_E_CALENDAR_SENSOR_PASSED, event._eventPreferencesCalendar.getSensorPassed());
+                values.put(KEY_E_CALL_SENSOR_PASSED, event._eventPreferencesCall.getSensorPassed());
+                values.put(KEY_E_NFC_SENSOR_PASSED, event._eventPreferencesNFC.getSensorPassed());
+                values.put(KEY_E_NOTIFICATION_SENSOR_PASSED, event._eventPreferencesNotification.getSensorPassed());
+                values.put(KEY_E_PERIPHERAL_SENSOR_PASSED, event._eventPreferencesPeripherals.getSensorPassed());
+                values.put(KEY_E_RADIO_SWITCH_SENSOR_PASSED, event._eventPreferencesRadioSwitch.getSensorPassed());
+                values.put(KEY_E_SCREEN_SENSOR_PASSED, event._eventPreferencesScreen.getSensorPassed());
+                values.put(KEY_E_SMS_SENSOR_PASSED, event._eventPreferencesSMS.getSensorPassed());
+                values.put(KEY_E_TIME_SENSOR_PASSED, event._eventPreferencesTime.getSensorPassed());
+                values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, event._eventPreferencesAlarmClock.getSensorPassed());
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateEventSensorPassed", Log.getStackTraceString(e));
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updateAllEventsSensorsPassed(int sensorPassed)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_BLUETOOTH_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_LOCATION_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_MOBILE_CELLS_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_ORIENTATION_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_WIFI_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_APPLICATION_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_BATTERY_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_CALENDAR_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_CALL_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_NFC_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_NOTIFICATION_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_PERIPHERAL_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_RADIO_SWITCH_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_SCREEN_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_SMS_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_TIME_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, sensorPassed);
 
                 db.beginTransaction();
 

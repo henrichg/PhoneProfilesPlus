@@ -1540,9 +1540,14 @@ class Event {
         int status = this._status;
         PPApplication.logE("@@@ Event.stopEvent","-- old status="+this._status);
         this._status = ESTATUS_STOP;
+
         PPApplication.logE("@@@ Event.stopEvent","-- new status="+this._status);
         if (saveEventStatus)
             DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
+
+        setSensorsWaiting();
+        if (saveEventStatus)
+            DatabaseHandler.getInstance(dataWrapper.context).updateAllEventSensorsPassed(this);
 
         if (/*log &&*/ (status != this._status)) {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTOP, _name, null, null, 0);
@@ -1564,6 +1569,93 @@ class Event {
     public void setStatus(int status)
     {
         _status = status;
+    }
+
+    public void setSensorsWaiting() {
+        if (_eventPreferencesApplication._enabled)
+            _eventPreferencesApplication.setSensorPassed(_eventPreferencesApplication.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesApplication.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesBattery._enabled)
+            _eventPreferencesBattery.setSensorPassed(_eventPreferencesBattery.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesBattery.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesBluetooth._enabled)
+            _eventPreferencesBluetooth.setSensorPassed(_eventPreferencesBluetooth.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesBluetooth.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesCalendar._enabled)
+            _eventPreferencesCalendar.setSensorPassed(_eventPreferencesCalendar.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesCalendar.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesCall._enabled)
+            _eventPreferencesCall.setSensorPassed(_eventPreferencesCall.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesCall.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesLocation._enabled)
+            _eventPreferencesLocation.setSensorPassed(_eventPreferencesLocation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesLocation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesMobileCells._enabled)
+            _eventPreferencesMobileCells.setSensorPassed(_eventPreferencesMobileCells.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesMobileCells.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesNFC._enabled)
+            _eventPreferencesNFC.setSensorPassed(_eventPreferencesNFC.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesNFC.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesNotification._enabled)
+            _eventPreferencesNotification.setSensorPassed(_eventPreferencesNotification.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesNotification.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesOrientation._enabled)
+            _eventPreferencesOrientation.setSensorPassed(_eventPreferencesOrientation.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesOrientation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesPeripherals._enabled)
+            _eventPreferencesPeripherals.setSensorPassed(_eventPreferencesPeripherals.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesPeripherals.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesRadioSwitch._enabled)
+            _eventPreferencesRadioSwitch.setSensorPassed(_eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesRadioSwitch.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesScreen._enabled)
+            _eventPreferencesScreen.setSensorPassed(_eventPreferencesScreen.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesScreen.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesSMS._enabled)
+            _eventPreferencesSMS.setSensorPassed(_eventPreferencesSMS.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesSMS.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesTime._enabled)
+            _eventPreferencesTime.setSensorPassed(_eventPreferencesTime.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesTime.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesWifi._enabled)
+            _eventPreferencesWifi.setSensorPassed(_eventPreferencesWifi.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesWifi.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        if (_eventPreferencesAlarmClock._enabled)
+            _eventPreferencesAlarmClock.setSensorPassed(_eventPreferencesAlarmClock.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        else
+            _eventPreferencesAlarmClock.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
     }
 
     private void setSystemEvent(Context context, int forStatus)
