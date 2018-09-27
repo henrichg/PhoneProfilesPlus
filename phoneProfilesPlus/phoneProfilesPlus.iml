@@ -92,6 +92,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
@@ -102,7 +103,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
@@ -172,7 +172,7 @@
     <orderEntry type="library" name="Gradle: com.labo.kaji:relativepopupwindow-0.3.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-analytics-impl-16.2.1" level="project" />
     <orderEntry type="library" name="Gradle: com.evernote:android-job-1.2.6" level="project" />
-    <orderEntry type="module" module-name="RootShell" />
     <orderEntry type="module" module-name="RootTools" />
+    <orderEntry type="module" module-name="RootShell" />
   </component>
 </module>
