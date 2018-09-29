@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
@@ -105,7 +106,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 String url = "https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -126,7 +127,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 String url = "https://github.com/henrichg/PhoneProfilesPlus/releases";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -147,7 +148,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 String url = "https://github.com/henrichg/PhoneProfilesPlus";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -168,7 +169,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 String url = "https://github.com/henrichg/PhoneProfilesPlusExtender";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -189,7 +190,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 String url = "https://crowdin.com/project/phoneprofilesplus";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -210,7 +211,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 String url = "https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -231,7 +232,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 String url = "https://plus.google.com/communities/100282006628784777672";
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
@@ -250,7 +251,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt = new SpannableString(str1);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 Uri uri = Uri.parse("market://details?id=" + getPackageName());
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                 // To count with Play market back stack, After pressing back button,
@@ -309,7 +310,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
-            public void onClick(View textView) {
+            public void onClick(@NonNull View textView) {
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setData(Uri.parse("mailto:")); // only email apps should handle this
                 String[] email = { "henrich.gron@gmail.com" };

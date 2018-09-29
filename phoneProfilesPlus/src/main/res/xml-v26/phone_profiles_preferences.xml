@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="rootScreen"
     android:title="@string/title_activity_phone_profiles_preferences" >
@@ -288,7 +287,7 @@
             android:key="applicationBackgroundProfile"
             android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
             android:layout="@layout/mp_preference_material_widget"
-            henrichg:addNoActivateItem="1" />
+            app:addNoActivateItem="1" />
         <Preference
             android:key="applicationBackgroundProfileNotificationSoundInfo"
             android:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
@@ -360,7 +359,7 @@
             android:defaultValue="0"
             android:key="applicationEventLocationsEditor"
             android:title="@string/phone_profiles_pref_applicationEventLocationsEditor"
-            henrichg:onlyEdit="1"
+            app:onlyEdit="1"
             android:dependency="applicationEventLocationEnableScannig"
             android:layout="@layout/mp_preference_material_widget" />
         <Preference
@@ -375,8 +374,8 @@
             android:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
             android:defaultValue="15"
-            henrichg:min="1"
-            henrichg:max="300"
+            app:min="1"
+            app:max="300"
             android:dependency="applicationEventLocationEnableScannig"
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -461,8 +460,8 @@
             android:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventWifiScanInterval" 
             android:defaultValue="15"
-            henrichg:min="1"
-            henrichg:max="300"
+            app:min="1"
+            app:max="300"
             android:dependency="applicationEventWifiEnableScannig"
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -532,8 +531,8 @@
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
             android:defaultValue="15"
-            henrichg:min="1"
-            henrichg:max="300"
+            app:min="1"
+            app:max="300"
             android:dependency="applicationEventBluetoothEnableScannig"
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
@@ -541,8 +540,8 @@
             android:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
             android:defaultValue="10"
-            henrichg:min="5"
-            henrichg:max="30"
+            app:min="5"
+            app:max="30"
             android:dependency="applicationEventBluetoothEnableScannig"
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -591,8 +590,8 @@
             android:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
             android:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
             android:defaultValue="0"
-            henrichg:dMin="0"
-            henrichg:dMax="86400"
+            app:dMin="0"
+            app:dMax="86400"
             android:dependency="applicationEventMobileCellEnableScannig"
             android:layout="@layout/mp_preference_material_widget" />
         -->
@@ -648,8 +647,8 @@
             android:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
             android:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
             android:defaultValue="10"
-            henrichg:min="5"
-            henrichg:max="60"
+            app:min="5"
+            app:max="60"
             android:dependency="applicationEventOrientationEnableScannig"
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -742,8 +741,8 @@
             android:summary="@string/phone_profiles_pref_deleteOldActivityLogs"
             android:title="@string/phone_profiles_pref_deleteOldActivityLogs"
             android:defaultValue="7"
-            henrichg:min="0"
-            henrichg:max="30"
+            app:min="0"
+            app:max="30"
             android:layout="@layout/mp_preference_material_widget" />
     </PreferenceScreen>
     

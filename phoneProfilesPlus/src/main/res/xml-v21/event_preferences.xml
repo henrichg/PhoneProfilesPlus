@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="eventPreferenceScreen"
     android:title="@string/title_activity_event_preferences">
@@ -46,7 +45,7 @@
             android:defaultValue="0"
             android:key="eventProfileStart"
             android:title="@string/event_preferences_eventProfileStart"
-            henrichg:addNoActivateItem="0"
+            app:addNoActivateItem="0"
             android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="eventForceRun"
@@ -85,8 +84,8 @@
                 android:summary="@string/event_preferences_delayStart"
                 android:title="@string/event_preferences_delayStart"
                 android:defaultValue="0"
-                henrichg:dMin="0"
-                henrichg:dMax="86400"
+                app:dMin="0"
+                app:dMax="86400"
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventNotificationSoundInfo"
@@ -119,8 +118,8 @@
                 android:summary="@string/event_preferences_notificationRepeatInterval"
                 android:title="@string/event_preferences_notificationRepeatInterval"
                 android:defaultValue="900"
-                henrichg:dMin="10"
-                henrichg:dMax="86400"
+                app:dMin="10"
+                app:dMax="86400"
                 android:dependency="eventNotificationRepeat"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
@@ -134,7 +133,7 @@
             android:defaultValue="-999"
             android:key="eventProfileEnd"
             android:title="@string/event_preferences_eventProfileEnd"
-            henrichg:addNoActivateItem="1"
+            app:addNoActivateItem="1"
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/event_preferences_atEndDo"
@@ -155,8 +154,8 @@
                 android:summary="@string/event_preferences_delayStart"
                 android:title="@string/event_preferences_delayStart"
                 android:defaultValue="0"
-                henrichg:dMin="0"
-                henrichg:dMax="86400"
+                app:dMin="0"
+                app:dMax="86400"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
     </PreferenceCategory>
@@ -168,7 +167,7 @@
             android:key="eventSensorsInfo"
             android:title="@string/event_preferences_sensorsInfo_title"
             android:summary="@string/info_preference_click_here"
-            henrichg:infoText="@string/event_preferences_sensorsInfo_summary"
+            app:infoText="@string/event_preferences_sensorsInfo_summary"
             android:widgetLayout="@layout/info_preference"
             android:layout="@layout/mp_preference_material_widget" />
         <PreferenceScreen
@@ -282,8 +281,8 @@
                 android:summary="@string/event_preferences_startBeforeEvent"
                 android:title="@string/event_preferences_startBeforeEvent"
                 android:defaultValue="0"
-                henrichg:dMin="0"
-                henrichg:dMax="86400"
+                app:dMin="0"
+                app:dMax="86400"
                 android:dependency="eventCalendarEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
@@ -304,8 +303,8 @@
                 android:summary="@string/event_preferences_battery_level_low"
                 android:title="@string/event_preferences_battery_level_low"
                 android:defaultValue="0"
-                henrichg:min="0"
-                henrichg:max="100"
+                app:min="0"
+                app:max="100"
                 android:dependency="eventBatteryEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
@@ -313,8 +312,8 @@
                 android:summary="@string/event_preferences_battery_level_hight"
                 android:title="@string/event_preferences_battery_level_hight"
                 android:defaultValue="100"
-                henrichg:min="0"
-                henrichg:max="100"
+                app:min="0"
+                app:max="100"
                 android:dependency="eventBatteryEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -392,8 +391,8 @@
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
                 android:defaultValue="5"
-                henrichg:dMin="5"
-                henrichg:dMax="86400"
+                app:dMin="5"
+                app:dMax="86400"
                 android:dependency="eventCallEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
@@ -452,8 +451,8 @@
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
                 android:defaultValue="5"
-                henrichg:dMin="5"
-                henrichg:dMax="86400"
+                app:dMin="5"
+                app:dMax="86400"
                 android:dependency="eventSMSEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
@@ -568,7 +567,7 @@
                 android:defaultValue="0"
                 android:key="eventLocationGeofences"
                 android:title="@string/event_preferences_locations_location"
-                henrichg:onlyEdit="0"
+                app:onlyEdit="0"
                 android:dependency="eventLocationEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
@@ -712,8 +711,8 @@
                 android:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
                 android:title="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
                 android:defaultValue="0"
-                henrichg:dMin="0"
-                henrichg:dMax="86400"
+                app:dMin="0"
+                app:dMax="86400"
                 android:dependency="eventMobileCellsEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MobileCellsPreference
@@ -846,8 +845,8 @@
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
                 android:defaultValue="5"
-                henrichg:dMin="5"
-                henrichg:dMax="86400"
+                app:dMin="5"
+                app:dMax="86400"
                 android:dependency="eventNotificationEnabled"
                 android:layout="@layout/mp_preference_material_widget" /> -->
         </PreferenceScreen>
@@ -1009,8 +1008,8 @@
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
                 android:defaultValue="5"
-                henrichg:dMin="5"
-                henrichg:dMax="86400"
+                app:dMin="5"
+                app:dMax="86400"
                 android:dependency="eventNFCEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
@@ -1039,8 +1038,8 @@
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
                 android:defaultValue="5"
-                henrichg:dMin="5"
-                henrichg:dMax="86400"
+                app:dMin="5"
+                app:dMax="86400"
                 android:dependency="eventAlarmClockEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>

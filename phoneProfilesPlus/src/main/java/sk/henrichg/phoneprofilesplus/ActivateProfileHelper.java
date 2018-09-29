@@ -3037,8 +3037,11 @@ class ActivateProfileHelper {
                     // Android 6?
                     if (Build.VERSION.SDK_INT >= 23) {
                         SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
-                        // Loop through the subscription list i.e. SIM list.
-                        List<SubscriptionInfo> subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        List<SubscriptionInfo> subscriptionList = null;
+                        try {
+                            // Loop through the subscription list i.e. SIM list.
+                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        } catch (SecurityException ignored) {}
                         if (subscriptionList != null) {
                             for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
                                 // Get the active subscription ID for a given SIM card.

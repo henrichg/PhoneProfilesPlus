@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:henrichg="http://schemas.android.com/apk/res/sk.henrichg.phoneprofilesplus"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="rootScreen"
     android:title="@string/title_activity_default_profile_preferences" >
@@ -19,7 +18,7 @@
             android:key="prf_pref_preferenceTypesInfo"
             android:title="@string/profile_preferences_preferenceTypesInfo_title"
             android:summary="@string/info_preference_click_here"
-            henrichg:infoText="@string/empty_string"
+            app:infoText="@string/empty_string"
             android:widgetLayout="@layout/info_preference"
             android:layout="@layout/mp_preference_material_widget" />
         <PreferenceScreen
@@ -81,10 +80,10 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeRingtone"
-                henrichg:volumeType="ringtone"
-                henrichg:vNoChange="1"
-                henrichg:vSharedProfile="0"
-                henrichg:vDisableSharedProfile="1"
+                app:volumeType="ringtone"
+                app:vNoChange="1"
+                app:vSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeRingtone"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -96,10 +95,10 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeNotification"
-                henrichg:volumeType="notification"
-                henrichg:vNoChange="1"
-                henrichg:vSharedProfile="0"
-                henrichg:vDisableSharedProfile="1"
+                app:volumeType="notification"
+                app:vNoChange="1"
+                app:vSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeNotification"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -110,37 +109,37 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeMedia"
-                henrichg:volumeType="media"
-                henrichg:vNoChange="1"
-                henrichg:vSharedProfile="0"
-                henrichg:vDisableSharedProfile="1"
+                app:volumeType="media"
+                app:vNoChange="1"
+                app:vSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeMedia"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeAlarm"
-                henrichg:volumeType="alarm"
-                henrichg:vNoChange="1"
-                henrichg:vSharedProfile="0"
-                henrichg:vDisableSharedProfile="1"
+                app:volumeType="alarm"
+                app:vNoChange="1"
+                app:vSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeAlarm"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeSystem"
-                henrichg:volumeType="system"
-                henrichg:vNoChange="1"
-                henrichg:vSharedProfile="0"
-                henrichg:vDisableSharedProfile="1"
+                app:volumeType="system"
+                app:vNoChange="1"
+                app:vSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeSystem"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.VolumeDialogPreference
                 android:key="prf_pref_volumeVoice"
-                henrichg:volumeType="voice"
-                henrichg:vNoChange="1"
-                henrichg:vSharedProfile="0"
-                henrichg:vDisableSharedProfile="1"
+                app:volumeType="voice"
+                app:vNoChange="1"
+                app:vSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeVoice"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -318,7 +317,7 @@
             <sk.henrichg.phoneprofilesplus.ConnectToSSIDDialogPreference
                 android:key="prf_pref_deviceConnectToSSID"
                 android:defaultValue="^just_any^"
-                henrichg:cDisableSharedProfile="1"
+                app:cDisableSharedProfile="1"
                 android:title="@string/profile_preferences_deviceConnectToSSID"
                 android:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -414,10 +413,10 @@
                 app:useStockLayout="true" />
             <sk.henrichg.phoneprofilesplus.BrightnessDialogPreference
                 android:key="prf_pref_deviceBrightness"
-                henrichg:bNoChange="1"
-                henrichg:bAutomatic="0"
-                henrichg:bSharedProfile="0"
-                henrichg:bDisableSharedProfile="1"
+                app:bNoChange="1"
+                app:bAutomatic="0"
+                app:bSharedProfile="0"
+                app:bDisableSharedProfile="1"
                 android:title="@string/profile_preferences_deviceBrightness"
                 android:summary="@string/brightness_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />

@@ -285,7 +285,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        toolbar.inflateMenu(R.menu.activity_activate_profile);
+        toolbar.inflateMenu(R.menu.activator_top_bar);
         return true;
     }
 
