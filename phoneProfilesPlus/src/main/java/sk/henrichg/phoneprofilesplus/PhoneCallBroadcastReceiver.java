@@ -121,7 +121,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
         PowerManager.WakeLock wakeLock = null;
         if (powerManager != null) {
-            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneCallBroadcastReceiver.doCallEvent");
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneCallBroadcastReceiver.doCallEvent");
             wakeLock.acquire(10 * 60 * 1000);
         }
 

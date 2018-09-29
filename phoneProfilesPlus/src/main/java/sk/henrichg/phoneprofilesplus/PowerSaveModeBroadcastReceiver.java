@@ -44,7 +44,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PowerSaveModeBroadcastReceiver.onReceive");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PowerSaveModeBroadcastReceiver.onReceive");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 

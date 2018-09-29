@@ -420,7 +420,7 @@ class ActivateProfileHelper {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRadios");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.executeForRadios");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -992,7 +992,7 @@ class ActivateProfileHelper {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForVolumes");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.executeForVolumes");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -1110,7 +1110,7 @@ class ActivateProfileHelper {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.setHeadsUpNotifications");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.setHeadsUpNotifications");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -1161,7 +1161,7 @@ class ActivateProfileHelper {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.setHeadsUpNotifications");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.setHeadsUpNotifications");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -1492,7 +1492,7 @@ class ActivateProfileHelper {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForWallpaper");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.executeForWallpaper");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -1591,7 +1591,7 @@ class ActivateProfileHelper {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeForRunApplications");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.executeForRunApplications");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -1709,7 +1709,7 @@ class ActivateProfileHelper {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.executeRootForAdaptiveBrightness");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.executeRootForAdaptiveBrightness");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -3539,7 +3539,7 @@ class ActivateProfileHelper {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.setPowerSaveMode");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.setPowerSaveMode");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -3616,7 +3616,7 @@ class ActivateProfileHelper {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "ActivateProfileHelper.lockDevice");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":ActivateProfileHelper.lockDevice");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 

@@ -766,7 +766,7 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.setDynamicLauncherShortcutsFromMainThread");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -925,7 +925,7 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.stopEventsForProfileFromMainThread");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.stopEventsForProfileFromMainThread");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -1004,7 +1004,7 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.pauseAllEventsFromMainThread");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.pauseAllEventsFromMainThread");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -1058,7 +1058,7 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.stopAllEventsFromMainThread");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.stopAllEventsFromMainThread");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -1503,7 +1503,7 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.activateProfileFromMainThread");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.activateProfileFromMainThread");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -3738,7 +3738,7 @@ public class DataWrapper {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEvents");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.restartEvents");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -3771,7 +3771,7 @@ public class DataWrapper {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "DataWrapper.restartEventsWithRescan");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.restartEventsWithRescan");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 

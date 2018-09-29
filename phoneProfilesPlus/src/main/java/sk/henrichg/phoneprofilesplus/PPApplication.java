@@ -1765,7 +1765,7 @@ public class PPApplication extends Application {
                         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PPApplication.exitApp");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PPApplication.exitApp");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 

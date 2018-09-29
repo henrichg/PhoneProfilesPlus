@@ -251,7 +251,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.onCellInfoChanged");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.onCellInfoChanged");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -288,7 +288,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.onServiceStateChanged");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.onServiceStateChanged");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -381,7 +381,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.onCellLocationChanged");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.onCellLocationChanged");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -435,7 +435,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.rescanMobileCells");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.rescanMobileCells");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -490,7 +490,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "PhoneStateScanner.doAutoRegistration");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.doAutoRegistration");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 

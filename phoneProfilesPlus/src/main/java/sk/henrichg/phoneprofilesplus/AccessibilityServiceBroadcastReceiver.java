@@ -67,7 +67,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AccessibilityServiceBroadcastReceiver.onReceive.1");
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":AccessibilityServiceBroadcastReceiver.onReceive.1");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
@@ -100,7 +100,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AccessibilityServiceBroadcastReceiver.onReceive.2");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":AccessibilityServiceBroadcastReceiver.onReceive.2");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -127,7 +127,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "AccessibilityServiceBroadcastReceiver.onReceive.3");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":AccessibilityServiceBroadcastReceiver.onReceive.3");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 

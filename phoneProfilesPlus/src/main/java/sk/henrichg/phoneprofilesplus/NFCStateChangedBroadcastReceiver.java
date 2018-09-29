@@ -41,7 +41,7 @@ public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "NFCStateChangedBroadcastReceiver.onReceive");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":NFCStateChangedBroadcastReceiver.onReceive");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
