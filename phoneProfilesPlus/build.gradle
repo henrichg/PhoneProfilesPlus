@@ -66,7 +66,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:15.0.1'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
     implementation 'com.android.billingclient:billing:1.0'
-    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.google.code.gson:gson:2.8.2'
 
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.5@aar') {

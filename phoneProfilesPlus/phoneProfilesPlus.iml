@@ -107,7 +107,6 @@
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v4-27.1.1" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-core-16.0.3" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-basement-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:common:1.1.0@jar" level="project" />
@@ -160,6 +159,7 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-stats-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid-16.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.2@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid-interop-16.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-maps-15.0.1" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics-2.9.5" level="project" />
