@@ -41,13 +41,17 @@ public class ImportantInfoActivity extends AppCompatActivity {
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
-                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
-            else
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
-                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark19_white));
-            else
-                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
+            switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+                case "color":
+                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
+                    break;
+                case "white":
+                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark19_white));
+                    break;
+                default:
+                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
+                    break;
+            }
         }
 
         /*if (Build.VERSION.SDK_INT >= 21) {

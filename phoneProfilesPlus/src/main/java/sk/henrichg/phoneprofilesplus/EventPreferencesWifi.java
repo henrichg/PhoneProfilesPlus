@@ -107,13 +107,17 @@ class EventPreferencesWifi extends EventPreferences {
                 }
                 else
                 if (splits.length == 1) {
-                    if (_ssid.equals(ALL_SSIDS_VALUE))
-                        selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
-                    else
-                    if (_ssid.equals(CONFIGURED_SSIDS_VALUE))
-                        selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
-                    else
-                        selectedSSIDs = selectedSSIDs + _ssid;
+                    switch (_ssid) {
+                        case ALL_SSIDS_VALUE:
+                            selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                            break;
+                        case CONFIGURED_SSIDS_VALUE:
+                            selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                            break;
+                        default:
+                            selectedSSIDs = selectedSSIDs + _ssid;
+                            break;
+                    }
                 }
                 else {
                     selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
@@ -192,12 +196,17 @@ class EventPreferencesWifi extends EventPreferences {
                         if (_ssid.isEmpty()) {
                             preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
                         } else if (splits.length == 1) {
-                            if (_ssid.equals(ALL_SSIDS_VALUE))
-                                preference.setSummary(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
-                            else if (_ssid.equals(CONFIGURED_SSIDS_VALUE))
-                                preference.setSummary(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
-                            else
-                                preference.setSummary(_ssid);
+                            switch (_ssid) {
+                                case ALL_SSIDS_VALUE:
+                                    preference.setSummary(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                                    break;
+                                case CONFIGURED_SSIDS_VALUE:
+                                    preference.setSummary(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                                    break;
+                                default:
+                                    preference.setSummary(_ssid);
+                                    break;
+                            }
                         } else {
                             String selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
                             selectedSSIDs = selectedSSIDs + " " + splits.length;

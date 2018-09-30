@@ -190,23 +190,27 @@ class Permissions {
         List<PermissionType>  permissions = new ArrayList<>();
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             for (PermissionType _permission : _permissions) {
-                if (_permission.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
-                    if (!Settings.System.canWrite(context))
-                        permissions.add(new PermissionType(_permission.type, _permission.permission));
-                } else if (_permission.permission.equals(permission.ACCESS_NOTIFICATION_POLICY)) {
-                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (mNotificationManager != null) {
-                        if (!mNotificationManager.isNotificationPolicyAccessGranted())
+                switch (_permission.permission) {
+                    case permission.WRITE_SETTINGS:
+                        if (!Settings.System.canWrite(context))
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
-                    }
-                    else
-                        permissions.add(new PermissionType(_permission.type, _permission.permission));
-                } else if (_permission.permission.equals(permission.SYSTEM_ALERT_WINDOW)) {
-                    if (!Settings.canDrawOverlays(context))
-                        permissions.add(new PermissionType(_permission.type, _permission.permission));
-                } else {
-                    if (ContextCompat.checkSelfPermission(context, _permission.permission) != PackageManager.PERMISSION_GRANTED)
-                        permissions.add(new PermissionType(_permission.type, _permission.permission));
+                        break;
+                    case permission.ACCESS_NOTIFICATION_POLICY:
+                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                        if (mNotificationManager != null) {
+                            if (!mNotificationManager.isNotificationPolicyAccessGranted())
+                                permissions.add(new PermissionType(_permission.type, _permission.permission));
+                        } else
+                            permissions.add(new PermissionType(_permission.type, _permission.permission));
+                        break;
+                    case permission.SYSTEM_ALERT_WINDOW:
+                        if (!Settings.canDrawOverlays(context))
+                            permissions.add(new PermissionType(_permission.type, _permission.permission));
+                        break;
+                    default:
+                        if (ContextCompat.checkSelfPermission(context, _permission.permission) != PackageManager.PERMISSION_GRANTED)
+                            permissions.add(new PermissionType(_permission.type, _permission.permission));
+                        break;
                 }
             }
         }

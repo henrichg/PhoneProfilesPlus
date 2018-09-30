@@ -94,18 +94,20 @@ class BitmapManipulator {
                 //noinspection ConstantConditions
                 inputStream.close();
 
-                /*
-                 * if the orientation is not 0 (or -1, which means we don't know), we
-                 * have to do a rotation.
-                 */
-                if (checkOrientation && (orientation > 0)) {
-                    Matrix matrix = new Matrix();
-                    matrix.postRotate(orientation);
+                if (decodedSampleBitmap != null) {
+                    /*
+                     * if the orientation is not 0 (or -1, which means we don't know), we
+                     * have to do a rotation.
+                     */
+                    if (checkOrientation && (orientation > 0)) {
+                        Matrix matrix = new Matrix();
+                        matrix.postRotate(orientation);
 
-                    decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
-                            decodedSampleBitmap.getHeight(), matrix, true);
+                        decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
+                                decodedSampleBitmap.getHeight(), matrix, true);
+                    }
+                    //Log.d("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
                 }
-                //Log.d("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
                 return decodedSampleBitmap;
             } catch (Exception e) {
                 Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));

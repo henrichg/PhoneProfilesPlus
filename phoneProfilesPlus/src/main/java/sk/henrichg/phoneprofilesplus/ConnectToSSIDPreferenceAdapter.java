@@ -62,13 +62,17 @@ class ConnectToSSIDPreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        if (wifiSSID.ssid.equals(Profile.CONNECTTOSSID_JUSTANY))
-            holder.SSIDName.setText(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
-        else
-        if (wifiSSID.ssid.equals(Profile.CONNECTTOSSID_SHAREDPROFILE))
-            holder.SSIDName.setText(R.string.array_pref_default_profile);
-        else
-            holder.SSIDName.setText(wifiSSID.ssid);
+        switch (wifiSSID.ssid) {
+            case Profile.CONNECTTOSSID_JUSTANY:
+                holder.SSIDName.setText(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
+                break;
+            case Profile.CONNECTTOSSID_SHAREDPROFILE:
+                holder.SSIDName.setText(R.string.array_pref_default_profile);
+                break;
+            default:
+                holder.SSIDName.setText(wifiSSID.ssid);
+                break;
+        }
 
         holder.radioButton.setTag(position);
         holder.radioButton.setChecked(preference.value.equals(wifiSSID.ssid));

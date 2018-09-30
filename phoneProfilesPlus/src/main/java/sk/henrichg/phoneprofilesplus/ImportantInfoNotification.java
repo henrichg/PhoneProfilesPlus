@@ -66,12 +66,14 @@ class ImportantInfoNotification {
 
         if (newsLatest) {
             // change to false for not show notification
+            //noinspection ConstantConditions
             news = false;
         }
 
         if (news3670) {
             //noinspection RedundantIfStatement
             if ((extenderVersion > 0) || ((applicationSensorsCount == 0) && (orientationSensorsCount == 0)))
+                //noinspection ConstantConditions
                 news = false; // Extender is installed or not needed
             else {
                 news = true;

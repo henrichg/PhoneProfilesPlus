@@ -42,84 +42,58 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "action="+intent.getAction());
 
-        if (intent.getAction().equals(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED)) {
-            final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
-            final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
+        switch (intent.getAction()) {
+            case PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED:
+                final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
+                final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
 
-            PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "packageName="+packageName);
-            PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "className="+className);
+                PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "packageName=" + packageName);
+                PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "className=" + className);
 
-            try {
-                ComponentName componentName = new ComponentName(packageName, className);
+                try {
+                    ComponentName componentName = new ComponentName(packageName, className);
 
-                ActivityInfo activityInfo = tryGetActivity(appContext, componentName);
-                boolean isActivity = activityInfo != null;
-                if (isActivity) {
-                    setApplicationInForeground(appContext, packageName);
+                    ActivityInfo activityInfo = tryGetActivity(appContext, componentName);
+                    boolean isActivity = activityInfo != null;
+                    if (isActivity) {
+                        setApplicationInForeground(appContext, packageName);
 
-                    if (Event.getGlobalEventsRunning(appContext)) {
-                        //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-                        PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.1");
-                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                PowerManager.WakeLock wakeLock = null;
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":AccessibilityServiceBroadcastReceiver.onReceive.1");
-                                    wakeLock.acquire(10 * 60 * 1000);
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
+                            PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.1");
+                            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.1");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION/*, false*/);
+
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
                                 }
-
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION/*, false*/);
-
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {}
-                                }
-                            }
-                        });
+                            });
+                        }
                     }
+                } catch (Exception e) {
+                    Log.e("AccessibilityServiceBroadcastReceiver.onReceive", Log.getStackTraceString(e));
                 }
-            } catch (Exception e) {
-                Log.e("AccessibilityServiceBroadcastReceiver.onReceive", Log.getStackTraceString(e));
-            }
-        }
-        else
-        if (intent.getAction().equals(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND)) {
-            setApplicationInForeground(appContext, "");
+                break;
+            case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
+                setApplicationInForeground(appContext, "");
 
-            //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-            PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.2");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":AccessibilityServiceBroadcastReceiver.onReceive.2");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION/*, false*/);
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
-                    }
-                }
-            });
-        }
-        else
-        if (intent.getAction().equals(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END)) {
-            final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-            if (profileId != 0) {
-                PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.3");
+                //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
+                PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.2");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -127,22 +101,51 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":AccessibilityServiceBroadcastReceiver.onReceive.3");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.2");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
-                        if (profile != null)
-                            ActivateProfileHelper.executeForInteractivePreferences(profile, appContext);
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION/*, false*/);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
                                 wakeLock.release();
-                            } catch (Exception ignored) {}
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 });
-            }
+                break;
+            case PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END:
+                final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+                if (profileId != 0) {
+                    PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.3");
+                    final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
+                    handler2.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.3");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
+                            if (profile != null)
+                                ActivateProfileHelper.executeForInteractivePreferences(profile, appContext);
+
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                    });
+                }
+                break;
         }
     }
 

@@ -219,13 +219,17 @@ public class EditorProfilesActivity extends AppCompatActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
-                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
-            else
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
-                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark19_white));
-            else
-                tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
+            switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+                case "color":
+                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
+                    break;
+                case "white":
+                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primaryDark19_white));
+                    break;
+                default:
+                    tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary_dark));
+                    break;
+            }
         }
 
         //if (android.os.Build.VERSION.SDK_INT >= 21)
@@ -322,17 +326,20 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerRoot = findViewById(R.id.editor_drawer_root);
 
         // set status bar background for Activity body layout
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("color"))
-            drawerLayout.setStatusBarBackground(R.color.primaryDark);
-        else
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
-            drawerLayout.setStatusBarBackground(R.color.primaryDark_white);
-        else
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
-            drawerLayout.setStatusBarBackground(R.color.primaryDark_dark);
-        else
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dlight"))
-            drawerLayout.setStatusBarBackground(R.color.primaryDark_dark);
+        switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+            case "color":
+                drawerLayout.setStatusBarBackground(R.color.primaryDark);
+                break;
+            case "white":
+                drawerLayout.setStatusBarBackground(R.color.primaryDark_white);
+                break;
+            case "dark":
+                drawerLayout.setStatusBarBackground(R.color.primaryDark_dark);
+                break;
+            case "dlight":
+                drawerLayout.setStatusBarBackground(R.color.primaryDark_dark);
+                break;
+        }
 
         drawerListView = findViewById(R.id.editor_drawer_list);
         //noinspection ConstantConditions
@@ -445,23 +452,23 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     R.layout.editor_drawer_spinner);
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_drawer_spinner_dropdown);
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark")) {
-            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
-            orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
-        }
-        else
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white")) {
-            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
-            orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
-        }
-        else
-        if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dlight")) {
-            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
-            orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-        }
-        else {
-            orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
-            orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+        switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+            case "dark":
+                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
+                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
+                break;
+            case "white":
+                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
+                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+                break;
+            case "dlight":
+                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+                break;
+            default:
+                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+                break;
         }
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -1017,7 +1024,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         setStatusBarTitle();
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
-        if ((fragment != null) && (fragment instanceof EditorEventListFragment))
+        if ((fragment instanceof EditorEventListFragment))
         {
             ((EditorEventListFragment)fragment).changeListOrder(_eventsOrderType);
         }

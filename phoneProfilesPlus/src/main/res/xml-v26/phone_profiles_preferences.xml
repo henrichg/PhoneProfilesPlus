@@ -341,6 +341,12 @@
         android:title="@string/phone_profiles_pref_category_location"
         android:widgetLayout="@layout/start_activity_preference"
         android:layout="@layout/mp_preference_material_widget">
+        <Preference
+            android:key="applicationEventLocationInfo"
+            android:title="@string/phone_profiles_pref_category_location"
+            android:summary="@string/phone_profiles_pref_applicationEventLocation_info"
+            android:widgetLayout="@layout/info_preference"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="applicationEventLocationEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventLocationEnableScanning"
@@ -419,6 +425,12 @@
         android:title="@string/phone_profiles_pref_category_wifi_scanning"
         android:widgetLayout="@layout/start_activity_preference"
         android:layout="@layout/mp_preference_material_widget">
+        <Preference
+            android:key="applicationEventWifiInfo"
+            android:title="@string/phone_profiles_pref_category_wifi_scanning"
+            android:summary="@string/phone_profiles_pref_applicationEventWifi_info"
+            android:widgetLayout="@layout/info_preference"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="applicationEventWifiEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventWifiEnableScanning"
@@ -498,6 +510,12 @@
         android:title="@string/phone_profiles_pref_category_bluetooth_scanning"
         android:widgetLayout="@layout/start_activity_preference"
         android:layout="@layout/mp_preference_material_widget">
+        <Preference
+            android:key="applicationEventBluetoothInfo"
+            android:title="@string/phone_profiles_pref_category_bluetooth_scanning"
+            android:summary="@string/phone_profiles_pref_applicationEventBluetooth_info"
+            android:widgetLayout="@layout/info_preference"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="applicationEventBluetoothEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableScanning"
@@ -578,6 +596,12 @@
         android:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
         android:widgetLayout="@layout/start_activity_preference"
         android:layout="@layout/mp_preference_material_widget">
+        <Preference
+            android:key="applicationEventMobileCellInfo"
+            android:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
+            android:summary="@string/phone_profiles_pref_applicationEventMobileCell_info"
+            android:widgetLayout="@layout/info_preference"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="applicationEventMobileCellEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventMobileCellEnableScanning"
@@ -629,6 +653,12 @@
         android:title="@string/phone_profiles_pref_category_orientation_scanning"
         android:widgetLayout="@layout/start_activity_preference"
         android:layout="@layout/mp_preference_material_widget">
+        <Preference
+            android:key="applicationEventOrientationInfo"
+            android:title="@string/phone_profiles_pref_category_orientation_scanning"
+            android:summary="@string/phone_profiles_pref_applicationEventOrientation_info"
+            android:widgetLayout="@layout/info_preference"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="applicationEventOrientationEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventOrientationEnableScanning"

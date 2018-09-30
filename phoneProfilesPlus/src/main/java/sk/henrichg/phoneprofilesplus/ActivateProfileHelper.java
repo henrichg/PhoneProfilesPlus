@@ -511,7 +511,7 @@ class ActivateProfileHelper {
         else
             return true;*/
         return (audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL) ||
-                ((getSystemZenMode(context, -1) == ActivateProfileHelper.ZENMODE_PRIORITY) &&
+                ((getSystemZenMode(context/*, -1*/) == ActivateProfileHelper.ZENMODE_PRIORITY) &&
                         (audioManager.getRingerMode() != AudioManager.RINGER_MODE_VIBRATE));
     }
 
@@ -808,7 +808,7 @@ class ActivateProfileHelper {
             PPApplication.logE("ActivateProfileHelper.setZenMode", "zenMode=" + zenMode);
             PPApplication.logE("ActivateProfileHelper.setZenMode", "ringerMode=" + ringerMode);
 
-            int _zenMode = getSystemZenMode(context, -1);
+            int _zenMode = getSystemZenMode(context/*, -1*/);
             PPApplication.logE("ActivateProfileHelper.setZenMode", "_zenMode (system)=" + _zenMode);
             int _ringerMode = audioManager.getRingerMode();
             PPApplication.logE("ActivateProfileHelper.setZenMode", "_ringerMode (system)=" + _ringerMode);
@@ -1052,7 +1052,7 @@ class ActivateProfileHelper {
                         PPApplication.sleep(500);
                         setVolumes(context, profile, audioManager, linkUnlink, forProfileActivation);
                         PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange="+RingerModeChangeReceiver.internalChange);
-                        if (getSystemZenMode(context, -1) == ActivateProfileHelper.ZENMODE_PRIORITY) {
+                        if (getSystemZenMode(context/*, -1*/) == ActivateProfileHelper.ZENMODE_PRIORITY) {
                             //PPApplication.sleep(500);
                             setRingerMode(context, profile, audioManager, false, /*linkUnlink,*/ forProfileActivation);
                         }
@@ -1257,7 +1257,7 @@ class ActivateProfileHelper {
 
     @SuppressLint("SwitchIntDef")
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-    static int getSystemZenMode(Context context, int defaultValue) {
+    static int getSystemZenMode(Context context/*, int defaultValue*/) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
@@ -1305,7 +1305,7 @@ class ActivateProfileHelper {
                     return ActivateProfileHelper.ZENMODE_ALARMS;
             }
         }
-        return defaultValue;
+        return -1; //defaultValue;
     }
 
     static boolean vibrationIsOn(/*Context context, */AudioManager audioManager, boolean testRingerMode) {

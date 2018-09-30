@@ -304,7 +304,7 @@ public class ProfileMultiSelectPreference extends DialogPreference {
 
                 ImageView profIcon = profileIcon1;
                 for (int i = 0; i < 4; i++) {
-                    if (i == 0) profIcon = profileIcon1;
+                    //if (i == 0) profIcon = profileIcon1;
                     if (i == 1) profIcon = profileIcon2;
                     if (i == 2) profIcon = profileIcon3;
                     if (i == 3) profIcon = profileIcon4;

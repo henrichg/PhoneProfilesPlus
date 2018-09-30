@@ -130,92 +130,67 @@ class GlobalGUIRoutines {
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar, boolean withDrawerLayout, Context context) {
-        if (ApplicationPreferences.applicationTheme(context).equals("color"))
-        {
-            if (forPopup)
-            {
-                if (withToolbar)
-                    return R.style.PopupTheme_withToolbar_color;
-                else
-                    return R.style.PopupTheme_color;
-            }
-            else
-            {
-                if (withToolbar) {
-                    if (withDrawerLayout)
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
+        switch (ApplicationPreferences.applicationTheme(context)) {
+            case "color":
+                if (forPopup) {
+                    if (withToolbar)
+                        return R.style.PopupTheme_withToolbar_color;
                     else
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
+                        return R.style.PopupTheme_color;
+                } else {
+                    if (withToolbar) {
+                        if (withDrawerLayout)
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
+                        else
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
+                    } else
+                        return R.style.Theme_PhoneProfilesTheme_color;
                 }
-                else
-                    return R.style.Theme_PhoneProfilesTheme_color;
-            }
-        }
-        else
-        if (ApplicationPreferences.applicationTheme(context).equals("white"))
-        {
-            if (forPopup)
-            {
-                if (withToolbar)
-                    return R.style.PopupTheme_withToolbar_white;
-                else
-                    return R.style.PopupTheme_white;
-            }
-            else
-            {
-                if (withToolbar) {
-                    if (withDrawerLayout)
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
+            case "white":
+                if (forPopup) {
+                    if (withToolbar)
+                        return R.style.PopupTheme_withToolbar_white;
                     else
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
+                        return R.style.PopupTheme_white;
+                } else {
+                    if (withToolbar) {
+                        if (withDrawerLayout)
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
+                        else
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
+                    } else
+                        return R.style.Theme_PhoneProfilesTheme_white;
                 }
-                else
-                    return R.style.Theme_PhoneProfilesTheme_white;
-            }
-        }
-        else
-        if (ApplicationPreferences.applicationTheme(context).equals("dark"))
-        {
-            if (forPopup)
-            {
-                if (withToolbar)
-                    return R.style.PopupTheme_withToolbar_dark;
-                else
-                    return R.style.PopupTheme_dark;
-            }
-            else
-            {
-                if (withToolbar) {
-                    if (withDrawerLayout)
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+            case "dark":
+                if (forPopup) {
+                    if (withToolbar)
+                        return R.style.PopupTheme_withToolbar_dark;
                     else
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_dark;
+                        return R.style.PopupTheme_dark;
+                } else {
+                    if (withToolbar) {
+                        if (withDrawerLayout)
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+                        else
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_dark;
+                    } else
+                        return R.style.Theme_PhoneProfilesTheme_dark;
                 }
-                else
-                    return R.style.Theme_PhoneProfilesTheme_dark;
-            }
-        }
-        else
-        if (ApplicationPreferences.applicationTheme(context).equals("dlight"))
-        {
-            if (forPopup)
-            {
-                if (withToolbar)
-                    return R.style.PopupTheme_withToolbar_dlight;
-                else
-                    return R.style.PopupTheme_dlight;
-            }
-            else
-            {
-                if (withToolbar) {
-                    if (withDrawerLayout)
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dlight;
+            case "dlight":
+                if (forPopup) {
+                    if (withToolbar)
+                        return R.style.PopupTheme_withToolbar_dlight;
                     else
-                        return R.style.Theme_PhoneProfilesTheme_withToolbar_dlight;
+                        return R.style.PopupTheme_dlight;
+                } else {
+                    if (withToolbar) {
+                        if (withDrawerLayout)
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dlight;
+                        else
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_dlight;
+                    } else
+                        return R.style.Theme_PhoneProfilesTheme_dlight;
                 }
-                else
-                    return R.style.Theme_PhoneProfilesTheme_dlight;
-            }
         }
         return 0;
     }

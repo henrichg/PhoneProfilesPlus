@@ -143,7 +143,8 @@
                 android:layout_centerVertical="true"
                 android:selectAllOnFocus="true"
                 android:inputType="textNoSuggestions"
-                tools:ignore="LabelFor"/>
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor,UnusedAttribute"/>
 
         </RelativeLayout>
 

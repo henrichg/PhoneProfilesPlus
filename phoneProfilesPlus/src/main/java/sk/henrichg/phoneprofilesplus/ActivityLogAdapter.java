@@ -70,13 +70,17 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(DatabaseHandler.ALTYPE_APPLICATIONUPGRADE, R.string.altype_applicationUpgrade);
 
         int otherColor;
-        if (ApplicationPreferences.applicationTheme(context).equals("color"))
-            otherColor = R.color.altype_other;
-        else
-        if (ApplicationPreferences.applicationTheme(context).equals("white"))
-            otherColor = R.color.altype_other_white;
-        else
-            otherColor = R.color.altype_other_dark;
+        switch (ApplicationPreferences.applicationTheme(context)) {
+            case "color":
+                otherColor = R.color.altype_other;
+                break;
+            case "white":
+                otherColor = R.color.altype_other_white;
+                break;
+            default:
+                otherColor = R.color.altype_other_dark;
+                break;
+        }
 
         activityTypeColors.put(DatabaseHandler.ALTYPE_PROFILEACTIVATION, R.color.altype_profile);
         activityTypeColors.put(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, R.color.altype_profile);

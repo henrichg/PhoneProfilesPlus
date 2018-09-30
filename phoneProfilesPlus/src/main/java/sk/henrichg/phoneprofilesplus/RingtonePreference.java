@@ -65,12 +65,17 @@ public class RingtonePreference extends DialogPreference {
 
         ringtone = "";
         if (ringtoneType != null) {
-            if (ringtoneType.equals("ringtone"))
-                ringtone = Settings.System.DEFAULT_RINGTONE_URI.toString();
-            else if (ringtoneType.equals("notification"))
-                ringtone = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
-            else if (ringtoneType.equals("alarm"))
-                ringtone = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
+            switch (ringtoneType) {
+                case "ringtone":
+                    ringtone = Settings.System.DEFAULT_RINGTONE_URI.toString();
+                    break;
+                case "notification":
+                    ringtone = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
+                    break;
+                case "alarm":
+                    ringtone = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
+                    break;
+            }
         }
 
         prefContext = context;
@@ -326,12 +331,17 @@ public class RingtonePreference extends DialogPreference {
             RingtoneManager manager = new RingtoneManager(prefContext);
 
             Uri uri = null;
-            if (ringtoneType.equals("ringtone"))
-                uri = Settings.System.DEFAULT_RINGTONE_URI;
-            else if (ringtoneType.equals("notification"))
-                uri = Settings.System.DEFAULT_NOTIFICATION_URI;
-            else if (ringtoneType.equals("alarm"))
-                uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+            switch (ringtoneType) {
+                case "ringtone":
+                    uri = Settings.System.DEFAULT_RINGTONE_URI;
+                    break;
+                case "notification":
+                    uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                    break;
+                case "alarm":
+                    uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                    break;
+            }
 
             Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
             if (_ringtone == null) {
@@ -340,45 +350,49 @@ public class RingtonePreference extends DialogPreference {
                 positive.setEnabled(false);
             }
 
-            if (ringtoneType.equals("ringtone")) {
-                manager.setType(RingtoneManager.TYPE_RINGTONE);
-                if (showDefault) {
-                    uri = Settings.System.DEFAULT_RINGTONE_URI;
-                    _ringtone = RingtoneManager.getRingtone(prefContext, uri);
-                    String ringtoneName;
-                    try {
-                        ringtoneName = _ringtone.getTitle(prefContext);
-                    } catch (Exception e) {
-                        ringtoneName = prefContext.getString(R.string.ringtone_preference_default_ringtone);
+            switch (ringtoneType) {
+                case "ringtone":
+                    manager.setType(RingtoneManager.TYPE_RINGTONE);
+                    if (showDefault) {
+                        uri = Settings.System.DEFAULT_RINGTONE_URI;
+                        _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                        String ringtoneName;
+                        try {
+                            ringtoneName = _ringtone.getTitle(prefContext);
+                        } catch (Exception e) {
+                            ringtoneName = prefContext.getString(R.string.ringtone_preference_default_ringtone);
+                        }
+                        toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), ringtoneName);
                     }
-                    toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), ringtoneName);
-                }
-            } else if (ringtoneType.equals("notification")) {
-                manager.setType(RingtoneManager.TYPE_NOTIFICATION);
-                if (showDefault) {
-                    uri = Settings.System.DEFAULT_NOTIFICATION_URI;
-                    _ringtone = RingtoneManager.getRingtone(prefContext, uri);
-                    String ringtoneName;
-                    try {
-                        ringtoneName = _ringtone.getTitle(prefContext);
-                    } catch (Exception e) {
-                        ringtoneName = prefContext.getString(R.string.ringtone_preference_default_notification);
+                    break;
+                case "notification":
+                    manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+                    if (showDefault) {
+                        uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                        _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                        String ringtoneName;
+                        try {
+                            ringtoneName = _ringtone.getTitle(prefContext);
+                        } catch (Exception e) {
+                            ringtoneName = prefContext.getString(R.string.ringtone_preference_default_notification);
+                        }
+                        toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), ringtoneName);
                     }
-                    toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), ringtoneName);
-                }
-            } else if (ringtoneType.equals("alarm")) {
-                manager.setType(RingtoneManager.TYPE_ALARM);
-                if (showDefault) {
-                    uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
-                    _ringtone = RingtoneManager.getRingtone(prefContext, uri);
-                    String ringtoneName;
-                    try {
-                        ringtoneName = _ringtone.getTitle(prefContext);
-                    } catch (Exception e) {
-                        ringtoneName = prefContext.getString(R.string.ringtone_preference_default_alarm);
+                    break;
+                case "alarm":
+                    manager.setType(RingtoneManager.TYPE_ALARM);
+                    if (showDefault) {
+                        uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                        _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                        String ringtoneName;
+                        try {
+                            ringtoneName = _ringtone.getTitle(prefContext);
+                        } catch (Exception e) {
+                            ringtoneName = prefContext.getString(R.string.ringtone_preference_default_alarm);
+                        }
+                        toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), ringtoneName);
                     }
-                    toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), ringtoneName);
-                }
+                    break;
             }
 
             if (showSilent)
@@ -460,15 +474,19 @@ public class RingtonePreference extends DialogPreference {
                         int ringtoneVolume = 0;
                         int maximumRingtoneValue = 0;
 
-                        if (ringtoneType.equals("ringtone")) {
-                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-                            maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-                        } else if (ringtoneType.equals("notification")) {
-                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
-                            maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-                        } else if (ringtoneType.equals("alarm")) {
-                            ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                            maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                        switch (ringtoneType) {
+                            case "ringtone":
+                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
+                                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
+                                break;
+                            case "notification":
+                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION);
+                                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
+                                break;
+                            case "alarm":
+                                ringtoneVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                                maximumRingtoneValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
+                                break;
                         }
 
                         PPApplication.logE("RingtonePreference.playRingtone", "ringtoneVolume=" + ringtoneVolume);

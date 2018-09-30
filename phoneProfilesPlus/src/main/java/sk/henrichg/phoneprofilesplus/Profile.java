@@ -776,7 +776,6 @@ public class Profile {
         this._durationNotificationSound = durationNotificationSound;
         this._durationNotificationVibrate = durationNotificationVibrate;
         this._deviceKeyguard = deviceKeyguard;
-        this._deviceKeyguard = deviceKeyguard;
         this._vibrationOnTouch = vibrationOnTouch;
         this._deviceWiFiAP = deviceWifiAP;
         this._devicePowerSaveMode = devicePowerSaveMode;

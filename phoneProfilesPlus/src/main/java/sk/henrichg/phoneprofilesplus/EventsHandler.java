@@ -503,111 +503,114 @@ class EventsHandler {
 
     private boolean eventsExists(String broadcastReceiverType, boolean onlyRunning) {
         int eventType = 0;
-        if (broadcastReceiverType.equals(SENSOR_TYPE_BATTERY))
-            eventType = DatabaseHandler.ETYPE_BATTERY;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_BLUETOOTH_CONNECTION))
-            eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_BLUETOOTH_SCANNER))
-            eventType = DatabaseHandler.ETYPE_BLUETOOTHINFRONT;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_BLUETOOTH_STATE))
-            eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED))
-            eventType = DatabaseHandler.ETYPE_CALENDAR;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_DOCK_CONNECTION))
-            eventType = DatabaseHandler.ETYPE_PERIPHERAL;
-        else
-        /*if (broadcastReceiverType.equals(SENSOR_TYPE_EVENT_DELAY_START))
-            eventType = DatabaseHandler.ETYPE_????;
-        else*/
-        /*if (broadcastReceiverType.equals(SENSOR_TYPE_EVENT_DELAY_END))
-            eventType = DatabaseHandler.ETYPE_????;
-        else*/
-        if (broadcastReceiverType.equals(SENSOR_TYPE_CALENDAR))
-            eventType = DatabaseHandler.ETYPE_CALENDAR;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_TIME))
-            eventType = DatabaseHandler.ETYPE_TIME;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_APPLICATION))
-            eventType = DatabaseHandler.ETYPE_APPLICATION;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_HEADSET_CONNECTION))
-            eventType = DatabaseHandler.ETYPE_PERIPHERAL;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_NOTIFICATION))
-            eventType = DatabaseHandler.ETYPE_NOTIFICATION;
-        else
-        /*if (broadcastReceiverType.equals(SENSOR_TYPE_NOTIFICATION_EVENT_END))
-            eventType = DatabaseHandler.ETYPE_NOTIFICATION;
-        else*/
-        if (broadcastReceiverType.equals(SENSOR_TYPE_PHONE_CALL))
-            eventType = DatabaseHandler.ETYPE_CALL;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END))
-            eventType = DatabaseHandler.ETYPE_CALL;
-        else
-        /*if (broadcastReceiverType.equals(SENSOR_TYPE_RESTART_EVENTS))
-            eventType = DatabaseHandler.ETYPE_???;
-        else*/
-                // call doEventService for all screen on/off changes
-        /*if (broadcastReceiverType.equals(SENSOR_TYPE_SCREEN))
-            eventType = DatabaseHandler.ETYPE_SCREEN;
-        else*/
-        if (broadcastReceiverType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS))
-            eventType = DatabaseHandler.ETYPE_CALENDAR;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_SMS))
-            eventType = DatabaseHandler.ETYPE_SMS;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_SMS_EVENT_END))
-            eventType = DatabaseHandler.ETYPE_SMS;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_WIFI_CONNECTION))
-            eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_WIFI_SCANNER))
-            eventType = DatabaseHandler.ETYPE_WIFIINFRONT;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_WIFI_STATE))
-            eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
-        else
-        /*if (broadcastReceiverType.equals(SENSOR_TYPE_DEVICE_IDLE_MODE))
-            eventType = DatabaseHandler.ETYPE_????;
-        else*/
-        if (broadcastReceiverType.equals(SENSOR_TYPE_POWER_SAVE_MODE))
-            eventType = DatabaseHandler.ETYPE_BATTERY;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_GEOFENCES_SCANNER))
-            eventType = DatabaseHandler.ETYPE_LOCATION;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_LOCATION_MODE))
-            eventType = DatabaseHandler.ETYPE_LOCATION;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_DEVICE_ORIENTATION))
-            eventType = DatabaseHandler.ETYPE_ORIENTATION;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_PHONE_STATE))
-            eventType = DatabaseHandler.ETYPE_MOBILE_CELLS;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_NFC_TAG))
-            eventType = DatabaseHandler.ETYPE_NFC;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_NFC_EVENT_END))
-            eventType = DatabaseHandler.ETYPE_NFC;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_RADIO_SWITCH))
-            eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_ALARM_CLOCK))
-            eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
-        else
-        if (broadcastReceiverType.equals(SENSOR_TYPE_ALARM_CLOCK_EVENT_END))
-            eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
+        switch (broadcastReceiverType) {
+            case SENSOR_TYPE_BATTERY:
+                eventType = DatabaseHandler.ETYPE_BATTERY;
+                break;
+            case SENSOR_TYPE_BLUETOOTH_CONNECTION:
+                eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
+                break;
+            case SENSOR_TYPE_BLUETOOTH_SCANNER:
+                eventType = DatabaseHandler.ETYPE_BLUETOOTHINFRONT;
+                break;
+            case SENSOR_TYPE_BLUETOOTH_STATE:
+                eventType = DatabaseHandler.ETYPE_BLUETOOTHCONNECTED;
+                break;
+            case SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED:
+                eventType = DatabaseHandler.ETYPE_CALENDAR;
+                break;
+            case SENSOR_TYPE_DOCK_CONNECTION:
+                eventType = DatabaseHandler.ETYPE_PERIPHERAL;
+                break;
+            /*case SENSOR_TYPE_EVENT_DELAY_START:
+                eventType = DatabaseHandler.ETYPE_????;
+                break;
+            case SENSOR_TYPE_EVENT_DELAY_END:
+                eventType = DatabaseHandler.ETYPE_????;
+                break;*/
+            case SENSOR_TYPE_CALENDAR:
+                eventType = DatabaseHandler.ETYPE_CALENDAR;
+                break;
+            case SENSOR_TYPE_TIME:
+                eventType = DatabaseHandler.ETYPE_TIME;
+                break;
+            case SENSOR_TYPE_APPLICATION:
+                eventType = DatabaseHandler.ETYPE_APPLICATION;
+                break;
+            case SENSOR_TYPE_HEADSET_CONNECTION:
+                eventType = DatabaseHandler.ETYPE_PERIPHERAL;
+                break;
+            case SENSOR_TYPE_NOTIFICATION:
+                eventType = DatabaseHandler.ETYPE_NOTIFICATION;
+                break;
+            /*case SENSOR_TYPE_NOTIFICATION_EVENT_END:
+                eventType = DatabaseHandler.ETYPE_NOTIFICATION;
+                break;*/
+            case SENSOR_TYPE_PHONE_CALL:
+                eventType = DatabaseHandler.ETYPE_CALL;
+                break;
+            case SENSOR_TYPE_PHONE_CALL_EVENT_END:
+                eventType = DatabaseHandler.ETYPE_CALL;
+                break;
+            /*case SENSOR_TYPE_RESTART_EVENTS:
+                eventType = DatabaseHandler.ETYPE_???;
+                break;*/
+            /*// call doEventService for all screen on/off changes
+            case SENSOR_TYPE_SCREEN:
+                eventType = DatabaseHandler.ETYPE_SCREEN;
+                break;*/
+            case SENSOR_TYPE_SEARCH_CALENDAR_EVENTS:
+                eventType = DatabaseHandler.ETYPE_CALENDAR;
+                break;
+            case SENSOR_TYPE_SMS:
+                eventType = DatabaseHandler.ETYPE_SMS;
+                break;
+            case SENSOR_TYPE_SMS_EVENT_END:
+                eventType = DatabaseHandler.ETYPE_SMS;
+                break;
+            case SENSOR_TYPE_WIFI_CONNECTION:
+                eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
+                break;
+            case SENSOR_TYPE_WIFI_SCANNER:
+                eventType = DatabaseHandler.ETYPE_WIFIINFRONT;
+                break;
+            case SENSOR_TYPE_WIFI_STATE:
+                eventType = DatabaseHandler.ETYPE_WIFICONNECTED;
+                break;
+            /*case SENSOR_TYPE_DEVICE_IDLE_MODE:
+                eventType = DatabaseHandler.ETYPE_????;
+                break;*/
+            case SENSOR_TYPE_POWER_SAVE_MODE:
+                eventType = DatabaseHandler.ETYPE_BATTERY;
+                break;
+            case SENSOR_TYPE_GEOFENCES_SCANNER:
+                eventType = DatabaseHandler.ETYPE_LOCATION;
+                break;
+            case SENSOR_TYPE_LOCATION_MODE:
+                eventType = DatabaseHandler.ETYPE_LOCATION;
+                break;
+            case SENSOR_TYPE_DEVICE_ORIENTATION:
+                eventType = DatabaseHandler.ETYPE_ORIENTATION;
+                break;
+            case SENSOR_TYPE_PHONE_STATE:
+                eventType = DatabaseHandler.ETYPE_MOBILE_CELLS;
+                break;
+            case SENSOR_TYPE_NFC_TAG:
+                eventType = DatabaseHandler.ETYPE_NFC;
+                break;
+            case SENSOR_TYPE_NFC_EVENT_END:
+                eventType = DatabaseHandler.ETYPE_NFC;
+                break;
+            case SENSOR_TYPE_RADIO_SWITCH:
+                eventType = DatabaseHandler.ETYPE_RADIO_SWITCH;
+                break;
+            case SENSOR_TYPE_ALARM_CLOCK:
+                eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
+                break;
+            case SENSOR_TYPE_ALARM_CLOCK_EVENT_END:
+                eventType = DatabaseHandler.ETYPE_ALARM_CLOCK;
+                break;
+        }
 
         if (eventType > 0)
             return DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType, onlyRunning) > 0;

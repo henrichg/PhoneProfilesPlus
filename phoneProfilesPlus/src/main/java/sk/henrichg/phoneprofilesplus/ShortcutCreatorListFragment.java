@@ -294,7 +294,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                         if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
                         if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
                         if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
-                        if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
+                        //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
 
                         if (isIconResourceID || useCustomColor) {
                             // icon is from resource or colored by custom color

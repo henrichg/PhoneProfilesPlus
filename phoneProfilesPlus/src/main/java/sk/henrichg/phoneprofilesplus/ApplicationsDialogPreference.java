@@ -486,7 +486,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
                 ImageView packIcon = packageIcon1;
                 for (int i = 0; i < 4; i++) {
-                    if (i == 0) packIcon = packageIcon1;
+                    //if (i == 0) packIcon = packageIcon1;
                     if (i == 1) packIcon = packageIcon2;
                     if (i == 2) packIcon = packageIcon3;
                     if (i == 3) packIcon = packageIcon4;

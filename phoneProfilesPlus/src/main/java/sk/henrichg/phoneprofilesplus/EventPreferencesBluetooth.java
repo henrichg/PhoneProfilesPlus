@@ -117,21 +117,24 @@ class EventPreferencesBluetooth extends EventPreferences {
                 }
                 else
                 if (splits.length == 1) {
-                    if (_bluetoothName.equals(ALL_BLUETOOTH_NAMES_VALUE))
-                        selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
-                    else
-                    if (_bluetoothName.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE))
-                        selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
-                    else {
-                        if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
-                            if (WifiBluetoothScanner.bluetoothLESupported(context)) {
-                                if (this._devicesType == DTYPE_CLASSIC)
-                                    selectedBluetoothNames = selectedBluetoothNames + "[CL] ";
-                                else if (this._devicesType == DTYPE_LE)
-                                    selectedBluetoothNames = selectedBluetoothNames + "[LE] ";
+                    switch (_bluetoothName) {
+                        case ALL_BLUETOOTH_NAMES_VALUE:
+                            selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
+                            break;
+                        case CONFIGURED_BLUETOOTH_NAMES_VALUE:
+                            selectedBluetoothNames = selectedBluetoothNames + context.getString(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
+                            break;
+                        default:
+                            if ((this._connectionType == CTYPE_INFRONT) || (this._connectionType == CTYPE_NOTINFRONT)) {
+                                if (WifiBluetoothScanner.bluetoothLESupported(context)) {
+                                    if (this._devicesType == DTYPE_CLASSIC)
+                                        selectedBluetoothNames = selectedBluetoothNames + "[CL] ";
+                                    else if (this._devicesType == DTYPE_LE)
+                                        selectedBluetoothNames = selectedBluetoothNames + "[LE] ";
+                                }
                             }
-                        }
-                        selectedBluetoothNames = selectedBluetoothNames + _bluetoothName;
+                            selectedBluetoothNames = selectedBluetoothNames + _bluetoothName;
+                            break;
                     }
                 }
                 else {
@@ -211,12 +214,17 @@ class EventPreferencesBluetooth extends EventPreferences {
                         if (_bluetoothName.isEmpty()) {
                             preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
                         } else if (splits.length == 1) {
-                            if (value.equals(ALL_BLUETOOTH_NAMES_VALUE))
-                                preference.setSummary(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
-                            else if (value.equals(CONFIGURED_BLUETOOTH_NAMES_VALUE))
-                                preference.setSummary(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
-                            else
-                                preference.setSummary(_bluetoothName);
+                            switch (value) {
+                                case ALL_BLUETOOTH_NAMES_VALUE:
+                                    preference.setSummary(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
+                                    break;
+                                case CONFIGURED_BLUETOOTH_NAMES_VALUE:
+                                    preference.setSummary(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
+                                    break;
+                                default:
+                                    preference.setSummary(_bluetoothName);
+                                    break;
+                            }
                         } else {
                             String selectedBluetoothNames = context.getString(R.string.applications_multiselect_summary_text_selected);
                             selectedBluetoothNames = selectedBluetoothNames + " " + splits.length;

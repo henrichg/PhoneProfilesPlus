@@ -22,6 +22,7 @@
       <w>applicationexit</w>
       <w>applicationstart</w>
       <w>applicationstartonboot</w>
+      <w>applicationupgrade</w>
       <w>audiofocus</w>
       <w>autoregistration</w>
       <w>autorotation</w>

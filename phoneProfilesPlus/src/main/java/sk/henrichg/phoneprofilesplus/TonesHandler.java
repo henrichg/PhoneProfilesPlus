@@ -175,6 +175,7 @@ class TonesHandler {
             // Write the file
             InputStream inputStream = null;
             FileOutputStream outputStream = null;
+            //noinspection TryFinallyCanBeTryWithResources
             try {
                 inputStream = context.getResources().openRawResource(resID);
                 outputStream = new FileOutputStream(outFile);

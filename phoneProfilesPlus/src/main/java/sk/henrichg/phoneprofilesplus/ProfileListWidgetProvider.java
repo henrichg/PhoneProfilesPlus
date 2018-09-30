@@ -83,7 +83,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
 
         // set background
-        int red = 0;
+        int red = 0x00;
         int green;
         int blue;
         if (ApplicationPreferences.applicationWidgetListBackgroundType(context)) {
@@ -94,7 +94,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
         else {
             String applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB(context);
-            if (applicationWidgetListLightnessB.equals("0")) red = 0x00;
+            //if (applicationWidgetListLightnessB.equals("0")) red = 0x00;
             if (applicationWidgetListLightnessB.equals("25")) red = 0x40;
             if (applicationWidgetListLightnessB.equals("50")) red = 0x80;
             if (applicationWidgetListLightnessB.equals("75")) red = 0xC0;
@@ -105,7 +105,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         int alpha = 0x40;
         String applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground(context);
         if (applicationWidgetListBackground.equals("0")) alpha = 0x00;
-        if (applicationWidgetListBackground.equals("25")) alpha = 0x40;
+        //if (applicationWidgetListBackground.equals("25")) alpha = 0x40;
         if (applicationWidgetListBackground.equals("50")) alpha = 0x80;
         if (applicationWidgetListBackground.equals("75")) alpha = 0xC0;
         if (applicationWidgetListBackground.equals("100")) alpha = 0xFF;
@@ -137,7 +137,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
             if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
             if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-            if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+            //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
             Profile profile = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
 
@@ -196,7 +196,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
             if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-            if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red; blue = red;
             widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
 
@@ -215,7 +215,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
                 if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
                 if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-                if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+                //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
                 green = red; blue = red;
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, red, green, blue));
             }
@@ -227,7 +227,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
                     if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
                     if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-                    if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+                    //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
                     Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_button_restart_events);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);

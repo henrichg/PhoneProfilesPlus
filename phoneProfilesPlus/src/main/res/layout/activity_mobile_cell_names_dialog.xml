@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
@@ -47,7 +48,9 @@
                 android:layout_marginRight="30dp"
                 android:hint="@string/mobile_cells_pref_dlg_cell_name_hint"
                 android:selectAllOnFocus="true"
-                android:inputType="textNoSuggestions" />
+                android:inputType="textNoSuggestions"
+                android:importantForAutofill="no"
+                tools:ignore="UnusedAttribute"/>
 
         </LinearLayout>
 

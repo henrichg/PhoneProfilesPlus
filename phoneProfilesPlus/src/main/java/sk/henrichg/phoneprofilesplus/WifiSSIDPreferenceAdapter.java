@@ -70,20 +70,22 @@ class WifiSSIDPreferenceAdapter extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        if (wifiSSID.ssid.equals(EventPreferencesWifi.ALL_SSIDS_VALUE))
-            holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
-        else
-        if (wifiSSID.ssid.equals(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE))
-            holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
-        else {
-            String ssidName = "";
-            if (wifiSSID.configured)
-                ssidName = "(C)";
-            else
-            if (wifiSSID.scanned)
-                ssidName = "(S)";
-            ssidName = ssidName + " " + wifiSSID.ssid;
-            holder.SSIDName.setText(ssidName);
+        switch (wifiSSID.ssid) {
+            case EventPreferencesWifi.ALL_SSIDS_VALUE:
+                holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                break;
+            case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
+                holder.SSIDName.setText(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                break;
+            default:
+                String ssidName = "";
+                if (wifiSSID.configured)
+                    ssidName = "(C)";
+                else if (wifiSSID.scanned)
+                    ssidName = "(S)";
+                ssidName = ssidName + " " + wifiSSID.ssid;
+                holder.SSIDName.setText(ssidName);
+                break;
         }
 
         holder.checkBox.setTag(position);

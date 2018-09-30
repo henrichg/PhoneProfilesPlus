@@ -40,7 +40,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
         if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
         if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-        if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+        //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
         if (dataWrapper == null)
         {
@@ -128,7 +128,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
             if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-            if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+            //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red;
             blue = red;
             if (!ApplicationPreferences.applicationWidgetListHeader(context)) {

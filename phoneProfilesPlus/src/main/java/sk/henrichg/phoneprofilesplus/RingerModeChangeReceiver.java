@@ -31,7 +31,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
         // convert to profile ringerMode
         int pRingerMode = 0;
         if (android.os.Build.VERSION.SDK_INT >= 21) {
-            int systemZenMode = ActivateProfileHelper.getSystemZenMode(context, -1);
+            int systemZenMode = ActivateProfileHelper.getSystemZenMode(context/*, -1*/);
             PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "systemZenMode=" + systemZenMode);
             if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) {
                 switch (ringerMode) {
