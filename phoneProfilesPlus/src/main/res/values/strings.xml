@@ -493,7 +493,6 @@
     <string name="phone_profiles_pref_applicationPermissions">Application permissions</string>
     <string name="phone_profiles_pref_applicationPermissions_summary">Please enable permissions in option \"Permissions\".</string>
     <string name="permissions_for_event_text1">Event</string>
-    <string name="permissions_for_event_text1m">Some events</string>
     <string name="permissions_for_event_text2">requires these permissions:</string>
     <string name="permissions_for_event_text3">Please grant them in next dialog. Events will then be restarted.</string>
     <string name="permissions_for_event_text_notification">Permissions request</string>
@@ -937,8 +936,6 @@
     <string name="action_for_external_application_notification_no_event_text">Parameter event_name is missing or empty.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">On (ignore hotspot)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Toggle (ignore hotspot)</string>
-    <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume link detection</string>
-    <string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Your device does not have linked volumes for ringtone and notifications.</string>
     <string name="phone_profiles_pref_applicationLanguage_el" translatable="false">Ελληνικά</string>
     <string name="array_pref_value_el">el</string>
     <string name="samsung_edge_name">PhoneProfilesPlus</string>
@@ -1194,9 +1191,6 @@
     <string name="event_preferences_not_set_underlined_parameters">Some underlined parameters are not configured!</string>
     <string name="permission_group_name_draw_overlays_miui">Display pop-up window</string>
     <string name="permissions_draw_overlays_not_allowed_confirm_miui">You have not enabled \"Display pop-up window\". Never ask again?</string>
-    <string name="phone_profiles_pref_drawOverlaysPermissions_miui">Display pop-up window</string>
-    <string name="phone_profiles_pref_writeSystemSettingPermissions_summary_miui">Please enable it.</string>
-    <string name="phone_profiles_pref_drawOverlaysPermissions_summary_miui">Please enable it.</string>
     <string name="stop_events_alert_title">Stop events</string>
     <string name="stop_events_alert_message">Are you sure?</string>
     <string name="array_event_pref_incall_ended">Incoming call ended</string>
@@ -1268,16 +1262,13 @@
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
 
-    <!--    <string name="profile_preferences_screenNightMode">Night mode</string>
-    <string name="array_pref_screenNightMode_automatic">Automatic</string> -->
+    <!--<string name="profile_preferences_screenNightMode">Night mode</string>-->
+    <!--<string name="array_pref_screenNightMode_automatic">Automatic</string> -->
 
-    <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>
-    <string name="array_pref_color_native">Native</string>
-    <string name="array_pref_color_dark">Dark</string>
-    <string name="array_pref_color_light">Light</string>-->
-
-    <!--<string name="fast_access_duration_activate_with_button">Act. with</string>
-    <string name="fast_access_duration_activate_without_button">Act. without</string>-->
+    <!--<string name="phone_profiles_pref_notificationTheme">Notification theme</string>-->
+    <!--<string name="array_pref_color_native">Native</string>-->
+    <!--<string name="array_pref_color_dark">Dark</string>-->
+    <!--<string name="array_pref_color_light">Light</string>-->
 
     <!-- <string name="donation_google_android_market_description" tools:ignore="StringFormatCount">Google takes 30% off every donation.</string> -->
     <!-- <string name="donation_paypal">PayPal</string> -->
@@ -1300,5 +1291,12 @@
     <!--<string name="profile_preferences_zenModeM_alarms_summary">Disturb only with alarms</string>-->
     <!--<string name="imageview_resource_file_pref_dialog_gallery_btn">Custom&#8230;</string>-->
     <!--<string name="profileicon_pref_dialog_info_about_status_bar_icon">If you change the color of the icon, the icon in the status bar will be white. If you select a custom icon, the icon in the status bar will be the application icon.</string>-->
+    <!--<string name="permissions_for_event_text1m">Some events</string>-->
+    <!--<string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked">Volume link detection</string>-->
+    <!--<string name="phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info">Your device does not have linked volumes for ringtone and notifications.</string>-->
+    <!--<string name="phone_profiles_pref_drawOverlaysPermissions_miui">Display pop-up window</string>-->
+    <!--<string name="phone_profiles_pref_writeSystemSettingPermissions_summary_miui">Please enable it.</string>-->
+    <!--<string name="phone_profiles_pref_drawOverlaysPermissions_summary_miui">Please enable it.</string>-->
+
 
 </resources>
