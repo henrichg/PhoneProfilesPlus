@@ -1148,8 +1148,8 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="phone_profiles_pref_applicationEventScanningDisabledByProfile">Scanning disabled by profile.</string>
   <string name="alert_message_enable_event_check_box">Never ask again</string>
   <string name="phone_profiles_pref_applicationUseAlarmClock">Utiliser l\'horloge de l\'alarme</string>
-  <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Quand l\'écran est éteint, la durée des évènements, les délais de démarrage et d\'arrêt... peuvent ne pas être exacts. Pour éviter ce comportement, activer cette option. L’icône de l\'alarme s\'affichera alors dans la barre de statut.</string>
-  <string name="important_info_useAlarmClock">Quand l\'écran est éteint, la durée des évènements, les délais de démarrage et d\'arrêt... peuvent ne pas être exacts. Pour éviter ce comportement, activer l\'option \"Utiliser l\'horloge de l\'alarme\" dans les paramètres. L’icône de l\'alarme s\'affichera alors dans la barre de statut.</string>
+  <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Quand l\'écran est éteint, la durée des évènements, les délais de démarrage et d\'arrêt… peuvent ne pas être exacts. Pour éviter ce comportement, activer cette option. L’icône de l\'alarme s\'affichera alors dans la barre de statut.</string>
+  <string name="important_info_useAlarmClock">Quand l\'écran est éteint, la durée des évènements, les délais de démarrage et d\'arrêt… peuvent ne pas être exacts. Pour éviter ce comportement, activer l\'option \"Utiliser l\'horloge de l\'alarme\" dans les paramètres. L’icône de l\'alarme s\'affichera alors dans la barre de statut.</string>
   <!--<string name="nfc_tag_pref_dlg_read_tag_editor_title">Read NFC Tag</string>
     <string name="nfc_tag_pref_dlg_readNfcTag_touch">Attach your device to an NFC tag. Read will be started.</string>
     <string name="nfc_tag_pref_dlg_tag_uid_empty">Tag UID is not read from tag.</string>-->
