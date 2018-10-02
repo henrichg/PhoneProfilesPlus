@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -9,6 +10,7 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 class GeofenceScannerJob extends Job {
@@ -193,11 +195,41 @@ class GeofenceScannerJob extends Job {
     }
 
     private static void _cancelJob(/*final Context context*/) {
-        try {
-            JobManager jobManager = JobManager.instance();
-            //jobManager.cancelAllForTag(JOB_TAG_START);
-            jobManager.cancelAllForTag(JOB_TAG);
-        } catch (Exception ignored) {}
+        if (isJobScheduled()) {
+            try {
+                JobManager jobManager = JobManager.instance();
+
+                PPApplication.logE("GeofenceScannerJob._cancelJob", "START WAIT FOR FINISH");
+                long start = SystemClock.uptimeMillis();
+                do {
+                    if (!isJobScheduled()) {
+                        PPApplication.logE("GeofenceScannerJob._cancelJob", "NOT SCHEDULED");
+                        break;
+                    }
+
+                    Set<Job> jobs = jobManager.getAllJobsForTag(JOB_TAG);
+                    boolean allFinished = true;
+                    for (Job job : jobs) {
+                        if (!job.isFinished()) {
+                            allFinished = false;
+                            break;
+                        }
+                    }
+                    if (allFinished) {
+                        PPApplication.logE("GeofenceScannerJob._cancelJob", "FINISHED");
+                        break;
+                    }
+
+                    //try { Thread.sleep(100); } catch (InterruptedException e) { }
+                    SystemClock.sleep(100);
+                } while (SystemClock.uptimeMillis() - start < 10 * 1000);
+                PPApplication.logE("GeofenceScannerJob._cancelJob", "END WAIT FOR FINISH");
+
+                //jobManager.cancelAllForTag(JOB_TAG_START);
+                jobManager.cancelAllForTag(JOB_TAG);
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     static void cancelJob(/*final Context context, */final boolean useHandler, final Handler _handler) {

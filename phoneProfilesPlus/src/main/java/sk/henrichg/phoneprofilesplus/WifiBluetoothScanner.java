@@ -26,8 +26,8 @@ class WifiBluetoothScanner {
 
     private final Context context;
 
-    private static final int wifiScanDuration = 25;      // 25 seconds for wifi scan
-    private static final int classicBTScanDuration = 25; // 25 seconds for classic bluetooth scan
+    static final int wifiScanDuration = 25;      // 25 seconds for wifi scan
+    static final int classicBTScanDuration = 25; // 25 seconds for classic bluetooth scan
 
     static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static boolean bluetoothDiscoveryStarted = false;

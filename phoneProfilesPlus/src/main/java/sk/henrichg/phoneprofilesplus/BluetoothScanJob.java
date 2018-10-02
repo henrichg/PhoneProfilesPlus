@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -71,7 +72,7 @@ class BluetoothScanJob extends Job {
         if (Event.getGlobalEventsRunning(context))
         {
             if ((!params.getExtras().getBoolean("shortInterval", false)) ||
-                params.getExtras().getBoolean("notShortIsExact", true))
+                    params.getExtras().getBoolean("notShortIsExact", true))
                 startScanner(context, false);
         }
 
@@ -176,19 +177,53 @@ class BluetoothScanJob extends Job {
     }
 
     private static void _cancelJob(final Context context) {
-        BluetoothScanJob.setScanRequest(context, false);
-        BluetoothScanJob.setWaitForResults(context, false);
-        BluetoothScanJob.setLEScanRequest(context, false);
-        BluetoothScanJob.setWaitForLEResults(context, false);
-        BluetoothScanJob.setBluetoothEnabledForScan(context, false);
-        WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
-        WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+        if (isJobScheduled()) {
+            try {
+                JobManager jobManager = JobManager.instance();
 
-        try {
-            JobManager jobManager = JobManager.instance();
-            //jobManager.cancelAllForTag(JOB_TAG_SHORT);
-            jobManager.cancelAllForTag(JOB_TAG);
-        } catch (Exception ignored) {}
+
+                PPApplication.logE("BluetoothScanJob._cancelJob", "START WAIT FOR FINISH");
+                long start = SystemClock.uptimeMillis();
+                do {
+                    if (!isJobScheduled()) {
+                        PPApplication.logE("BluetoothScanJob._cancelJob", "NOT SCHEDULED");
+                        break;
+                    }
+
+                    Set<Job> jobs = jobManager.getAllJobsForTag(JOB_TAG);
+                    boolean allFinished = true;
+                    for (Job job : jobs) {
+                        if (!job.isFinished()) {
+                            allFinished = false;
+                            break;
+                        }
+                    }
+                    if (allFinished) {
+                        PPApplication.logE("BluetoothScanJob._cancelJob", "FINISHED");
+                        break;
+                    }
+
+                    //try { Thread.sleep(100); } catch (InterruptedException e) { }
+                    SystemClock.sleep(100);
+                }
+                while (SystemClock.uptimeMillis() - start < WifiBluetoothScanner.classicBTScanDuration * 1000);
+                PPApplication.logE("BluetoothScanJob._cancelJob", "END WAIT FOR FINISH");
+
+                setScanRequest(context, false);
+                setWaitForResults(context, false);
+                setLEScanRequest(context, false);
+                setWaitForLEResults(context, false);
+                setBluetoothEnabledForScan(context, false);
+                WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+                WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+
+                //jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                jobManager.cancelAllForTag(JOB_TAG);
+
+                PPApplication.logE("BluetoothScanJob._cancelJob", "CANCELED");
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     static void cancelJob(final Context context, final boolean useHandler, final Handler _handler) {

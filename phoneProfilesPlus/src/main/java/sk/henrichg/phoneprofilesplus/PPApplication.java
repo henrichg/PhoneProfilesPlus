@@ -158,6 +158,8 @@ public class PPApplication extends Application {
                                          //+"|$$$ WifiAP"
 
 
+                                         +"|DeviceIdleModeBroadcastReceiver"
+
                                          //+"|##### GeofenceScanner"
                                          //+"|GeofenceScannerJob"
                                          //+"|GeofenceScannerJob.scheduleJob"
@@ -175,7 +177,7 @@ public class PPApplication extends Application {
                                          +"|WifiScanJob"
                                          +"|WifiScanBroadcastReceiver.onReceive"
                                          //+"|----- DataWrapper.doHandleEvents"
-
+                                         +"|WifiSSIDPreference.refreshListView"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"

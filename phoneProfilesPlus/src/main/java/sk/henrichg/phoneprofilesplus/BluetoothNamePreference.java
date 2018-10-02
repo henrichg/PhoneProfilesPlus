@@ -377,7 +377,7 @@ public class BluetoothNamePreference extends DialogPreference {
 
                         //try { Thread.sleep(200); } catch (InterruptedException e) { }
                         //SystemClock.sleep(200);
-                        //PPApplication.sleep(200);
+                        PPApplication.sleep(500);
                         WifiBluetoothScanner.waitForForceOneBluetoothScanEnd(context, this);
                     }
 

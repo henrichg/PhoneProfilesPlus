@@ -8,6 +8,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 class WifiScanJob extends Job {
@@ -49,14 +51,15 @@ class WifiScanJob extends Job {
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                 PreferenceAllowed.PREFERENCE_ALLOWED) {
             WifiScanJob.cancelJob(context, false, null);
+            PPApplication.logE("WifiScanJob.onRunJob", "return - not allowed wifi scanning");
             return Result.SUCCESS;
         }
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
-            PPApplication.logE("WifiScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
             WifiScanJob.cancelJob(context, false, null);
+            PPApplication.logE("WifiScanJob.onRunJob", "return - update in power save mode is not allowed");
             return Result.SUCCESS;
         }
 
@@ -65,9 +68,15 @@ class WifiScanJob extends Job {
 
         if (Event.getGlobalEventsRunning(context))
         {
+            PPApplication.logE("WifiScanJob.onRunJob", "global events running=true");
+            PPApplication.logE("WifiScanJob.onRunJob", "shortInterval="+params.getExtras().getBoolean("shortInterval", false));
+            PPApplication.logE("WifiScanJob.onRunJob", "notShortIsExact="+params.getExtras().getBoolean("notShortIsExact", true));
+
             if ((!params.getExtras().getBoolean("shortInterval", false)) ||
-                params.getExtras().getBoolean("notShortIsExact", true))
+                    params.getExtras().getBoolean("notShortIsExact", true)) {
+                PPApplication.logE("WifiScanJob.onRunJob", "start scanner");
                 startScanner(context, false);
+            }
         }
 
         PPApplication.logE("WifiScanJob.onRunJob", "schedule job");
@@ -81,6 +90,21 @@ class WifiScanJob extends Job {
         PPApplication.logE("WifiScanJob.onRunJob", "return");
         return Result.SUCCESS;
     }
+
+    /*
+    protected void onCancel() {
+        PPApplication.logE("WifiScanJob.onCancel", "xxx");
+
+        Context context = getContext();
+
+        CallsCounter.logCounter(context, "WifiScanJob.onCancel", "WifiScanJob_onCancel");
+
+        WifiScanJob.setScanRequest(context, false);
+        WifiScanJob.setWaitForResults(context, false);
+        WifiScanJob.setWifiEnabledForScan(context, false);
+        WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+    }
+    */
 
     private static void _scheduleJob(final Context context, final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
         JobManager jobManager = null;
@@ -176,16 +200,49 @@ class WifiScanJob extends Job {
     }
 
     private static void _cancelJob(final Context context) {
-        WifiScanJob.setScanRequest(context, false);
-        WifiScanJob.setWaitForResults(context, false);
-        WifiScanJob.setWifiEnabledForScan(context, false);
-        WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+        if (isJobScheduled()) {
+            try {
+                JobManager jobManager = JobManager.instance();
 
-        try {
-            JobManager jobManager = JobManager.instance();
-            //jobManager.cancelAllForTag(JOB_TAG_SHORT);
-            jobManager.cancelAllForTag(JOB_TAG);
-        } catch (Exception ignored) {}
+                PPApplication.logE("WifiScanJob._cancelJob", "START WAIT FOR FINISH");
+                long start = SystemClock.uptimeMillis();
+                do {
+                    if (!isJobScheduled()) {
+                        PPApplication.logE("WifiScanJob._cancelJob", "NOT SCHEDULED");
+                        break;
+                    }
+
+                    Set<Job> jobs = jobManager.getAllJobsForTag(JOB_TAG);
+                    boolean allFinished = true;
+                    for (Job job : jobs) {
+                        if (!job.isFinished()) {
+                            allFinished = false;
+                            break;
+                        }
+                    }
+                    if (allFinished) {
+                        PPApplication.logE("WifiScanJob._cancelJob", "FINISHED");
+                        break;
+                    }
+
+                    //try { Thread.sleep(100); } catch (InterruptedException e) { }
+                    SystemClock.sleep(100);
+                } while (SystemClock.uptimeMillis() - start < WifiBluetoothScanner.wifiScanDuration * 1000);
+                PPApplication.logE("WifiScanJob._cancelJob", "END WAIT FOR FINISH");
+
+                setScanRequest(context, false);
+                setWaitForResults(context, false);
+                setWifiEnabledForScan(context, false);
+                WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+
+                //jobManager.cancelAllForTag(JOB_TAG_SHORT);
+                jobManager.cancelAllForTag(JOB_TAG);
+
+                PPApplication.logE("WifiScanJob._cancelJob", "CANCELED");
+
+            } catch (Exception ignored) {
+            }
+        }
     }
 
     static void cancelJob(final Context context, final boolean useHandler, final Handler _handler) {
@@ -211,7 +268,7 @@ class WifiScanJob extends Job {
     }
 
     static boolean isJobScheduled() {
-        PPApplication.logE("WifiScanJob.isJobScheduled", "xxx");
+        //PPApplication.logE("WifiScanJob.isJobScheduled", "xxx");
 
         try {
             JobManager jobManager = JobManager.instance();

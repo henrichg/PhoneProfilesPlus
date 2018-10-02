@@ -39,10 +39,14 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
 
                 boolean resultsUpdated = true;
                 if (android.os.Build.VERSION.SDK_INT >= 23) {
-                    if (intent.hasExtra(WifiManager.EXTRA_RESULTS_UPDATED))
+                    if (intent.hasExtra(WifiManager.EXTRA_RESULTS_UPDATED)) {
+                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED exists");
                         resultsUpdated = intent.getBooleanExtra(WifiManager.EXTRA_RESULTS_UPDATED, true);
-                    else
+                    }
+                    else {
+                        PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "EXTRA_RESULTS_UPDATED NOT exists");
                         resultsUpdated = false;
+                    }
                 }
                 final boolean scanResultsUpdated = resultsUpdated;
                 PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanResultsUpdated=" + scanResultsUpdated);

@@ -47,17 +47,21 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE/*, false*/);
 
+                        /* Not needed, job is started in maintenance window
                         // rescan
                         if (PhoneProfilesService.getInstance() != null) {
                             PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive", "rescan/reschedule jobs");
 
                             // schedule job for one wifi scan
-                            PhoneProfilesService.getInstance().scheduleWifiJob(true,  true, /*true, false, false,*/ false);
+                            PhoneProfilesService.getInstance().scheduleWifiJob(true,  true, //true, false, false,
+                                    false);
                             // schedule job for one bluetooth scan
-                            PhoneProfilesService.getInstance().scheduleBluetoothJob(true,  true, /*true, false,*/ false);
+                            PhoneProfilesService.getInstance().scheduleBluetoothJob(true,  true, //true, false,
+                                    false);
                             // schedule job for location scan
-                            PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true,  true, /*true,*/ false);
-                        }
+                            PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true,  true, //true,
+                                    false);
+                        }*/
                         if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                             // rescan mobile cells
                             synchronized (PPApplication.phoneStateScannerMutex) {
