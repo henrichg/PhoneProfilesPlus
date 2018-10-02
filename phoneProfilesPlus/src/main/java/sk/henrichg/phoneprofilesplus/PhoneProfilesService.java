@@ -2307,7 +2307,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "not scheduled");
     }
 
-    void scheduleBluetoothJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
+    private void scheduleBluetoothJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
                               /*final boolean forScreenOn, final boolean forceStart,*/ final boolean rescan) {
         final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothJob", "PhoneProfilesService_scheduleBluetoothJob");
@@ -2370,7 +2370,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceScannerJob", "not scheduled");
     }
 
-    void scheduleGeofenceScannerJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
+    private void scheduleGeofenceScannerJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
                                     /*final boolean forScreenOn,*/ final boolean rescan) {
         final Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob", "PhoneProfilesService_scheduleGeofenceScannerJob");

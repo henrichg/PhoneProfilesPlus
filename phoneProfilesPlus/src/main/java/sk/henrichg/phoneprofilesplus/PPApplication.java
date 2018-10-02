@@ -1969,7 +1969,7 @@ public class PPApplication extends Application {
         }
     }
 
-    // Google Alaytics ----------------------------------------------------------------------------
+    // Google Analytics ----------------------------------------------------------------------------
 
     static void logAnalyticsEvent(String itemId, String itemName, String contentType) {
         Bundle bundle = new Bundle();
