@@ -54,7 +54,7 @@ class BluetoothScanJob extends Job {
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
                 PreferenceAllowed.PREFERENCE_ALLOWED) {
-            BluetoothScanJob.cancelJob(context, false, null);
+            cancelJob(context, false, null);
             return Result.SUCCESS;
         }
 
@@ -62,7 +62,7 @@ class BluetoothScanJob extends Job {
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
             PPApplication.logE("BluetoothScanJob.onRunJob", "update in power save mode is not allowed = cancel job");
-            BluetoothScanJob.cancelJob(context, false, null);
+            cancelJob(context, false, null);
             return Result.SUCCESS;
         }
 
@@ -76,7 +76,7 @@ class BluetoothScanJob extends Job {
                 startScanner(context, false);
         }
 
-        BluetoothScanJob.scheduleJob(context, false, null, false/*, false*/);
+        scheduleJob(context, false, null, false/*, false*/);
 
         /*try {
             countDownLatch.await();
@@ -85,6 +85,22 @@ class BluetoothScanJob extends Job {
         countDownLatch = null;*/
         PPApplication.logE("BluetoothScanJob.onRunJob", "return");
         return Result.SUCCESS;
+    }
+
+    protected void onCancel() {
+        PPApplication.logE("BluetoothScanJob.onCancel", "xxx");
+
+        Context context = getContext();
+
+        CallsCounter.logCounter(context, "BluetoothScanJob.onCancel", "BluetoothScanJob_onCancel");
+
+        setScanRequest(context, false);
+        setWaitForResults(context, false);
+        setLEScanRequest(context, false);
+        setWaitForLEResults(context, false);
+        setBluetoothEnabledForScan(context, false);
+        WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
+        WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
     }
 
     private static void _scheduleJob(final Context context, final boolean shortInterval/*, final boolean forScreenOn*/) {
@@ -841,9 +857,9 @@ class BluetoothScanJob extends Job {
                     }
                 }
 
-                BluetoothScanJob.saveCLScanResults(context, scanResults);
+                saveCLScanResults(context, scanResults);
 
-                BluetoothScanJob.setWaitForResults(context, false);
+                setWaitForResults(context, false);
 
                 int forceOneScan = WifiBluetoothScanner.getForceOneBluetoothScan(context);
                 WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);

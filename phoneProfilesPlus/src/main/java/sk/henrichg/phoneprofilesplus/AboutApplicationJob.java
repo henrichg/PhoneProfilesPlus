@@ -111,6 +111,14 @@ class AboutApplicationJob extends Job {
         return Result.SUCCESS;
     }
 
+    protected void onCancel() {
+        PPApplication.logE("AboutApplicationJob.onCancel", "xxx");
+
+        Context context = getContext();
+
+        CallsCounter.logCounter(context, "AboutApplicationJob.onCancel", "AboutApplicationJob_onCancel");
+    }
+
     private static void _scheduleJob(/*final Context context*/) {
         JobManager jobManager = null;
         try {

@@ -31,6 +31,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             // isLightDeviceIdleMode() is @hide :-(
             if ((powerManager != null) && !powerManager.isDeviceIdleMode() /*&& !powerManager.isLightDeviceIdleMode()*/) {
+                PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","NOT in idle mode");
                 PPApplication.startHandlerThread("DeviceIdleModeBroadcastReceiver.onReceive");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
@@ -79,6 +80,8 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                     }
                 });
             }
+            else
+                PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","in idle mode");
         }
     }
 }

@@ -43,7 +43,7 @@ class SearchCalendarEventsJob extends Job {
             }
         }
 
-        SearchCalendarEventsJob.scheduleJob(/*appContext, */false,null, false);
+        scheduleJob(/*appContext, */false,null, false);
 
         /*try {
             countDownLatch.await();
@@ -52,6 +52,14 @@ class SearchCalendarEventsJob extends Job {
         countDownLatch = null;
         PPApplication.logE("SearchCalendarEventsJob.onRunJob", "return");*/
         return Result.SUCCESS;
+    }
+
+    protected void onCancel() {
+        PPApplication.logE("SearchCalendarEventsJob.onCancel", "xxx");
+
+        Context context = getContext();
+
+        CallsCounter.logCounter(context, "SearchCalendarEventsJob.onCancel", "SearchCalendarEventsJob_onCancel");
     }
 
     private static void _scheduleJob(/*final Context context, */final boolean shortInterval) {

@@ -50,7 +50,7 @@ class WifiScanJob extends Job {
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                 PreferenceAllowed.PREFERENCE_ALLOWED) {
-            WifiScanJob.cancelJob(context, false, null);
+            cancelJob(context, false, null);
             PPApplication.logE("WifiScanJob.onRunJob", "return - not allowed wifi scanning");
             return Result.SUCCESS;
         }
@@ -58,7 +58,7 @@ class WifiScanJob extends Job {
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
         if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
-            WifiScanJob.cancelJob(context, false, null);
+            cancelJob(context, false, null);
             PPApplication.logE("WifiScanJob.onRunJob", "return - update in power save mode is not allowed");
             return Result.SUCCESS;
         }
@@ -80,7 +80,7 @@ class WifiScanJob extends Job {
         }
 
         PPApplication.logE("WifiScanJob.onRunJob", "schedule job");
-        WifiScanJob.scheduleJob(context, false, null, false/*, false, false*/);
+        scheduleJob(context, false, null, false/*, false, false*/);
 
         /*try {
             countDownLatch.await();
@@ -91,7 +91,6 @@ class WifiScanJob extends Job {
         return Result.SUCCESS;
     }
 
-    /*
     protected void onCancel() {
         PPApplication.logE("WifiScanJob.onCancel", "xxx");
 
@@ -99,12 +98,11 @@ class WifiScanJob extends Job {
 
         CallsCounter.logCounter(context, "WifiScanJob.onCancel", "WifiScanJob_onCancel");
 
-        WifiScanJob.setScanRequest(context, false);
-        WifiScanJob.setWaitForResults(context, false);
-        WifiScanJob.setWifiEnabledForScan(context, false);
+        setScanRequest(context, false);
+        setWaitForResults(context, false);
+        setWifiEnabledForScan(context, false);
         WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
     }
-    */
 
     private static void _scheduleJob(final Context context, final boolean shortInterval/*, final boolean forScreenOn, final boolean afterEnableWifi*/) {
         JobManager jobManager = null;
