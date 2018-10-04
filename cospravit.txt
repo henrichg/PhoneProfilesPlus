@@ -203,3 +203,18 @@ Permissions:
   event contacts dialog preference ->
     permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
 
+----------------
+
+Restart udalosti:
+
+DataWrapper.restartEvents()
+- ActionForExternalApplicationActivity
+- EditorEventListFragment.runStopEvent()
+- EditorEventListFragment.deleteEvent()
+- EditorProfileListFragment.deleteProfile()
+- EditorPreferencesActivity.savePreferences()
+- PhoneProfilesService.onStartCommand() - EXTRA_RESTART_EVENTS - ak uzivatel zmeni parameter Settings->System->Use alarm clock
+- PostDelayedProadcastReceiver - ACTION_RESTART_EVENTS - pre DataWrapper.restartEventsWithDelay()
+- ProfilePreferenceActivity.savePreferences()
+- TimeChangedReceiver - ACTION_TIMEZONE_CHANGED,
+                        ACTION_TIME_CHANGED -- toto moze byt problem!!!
