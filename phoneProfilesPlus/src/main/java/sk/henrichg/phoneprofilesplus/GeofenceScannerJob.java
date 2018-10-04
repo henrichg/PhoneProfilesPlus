@@ -62,7 +62,7 @@ class GeofenceScannerJob extends Job {
 
                     // start events handler
                     EventsHandler eventsHandler = new EventsHandler(context);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER, false);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
 
                 }
             }

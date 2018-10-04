@@ -150,7 +150,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY, false);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

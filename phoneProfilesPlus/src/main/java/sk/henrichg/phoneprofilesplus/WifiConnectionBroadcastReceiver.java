@@ -79,7 +79,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
                                             // start events handler
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION, false);
+                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 
                                         }
                                     } else

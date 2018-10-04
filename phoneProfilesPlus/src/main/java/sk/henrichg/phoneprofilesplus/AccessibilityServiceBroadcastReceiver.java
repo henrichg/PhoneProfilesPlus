@@ -73,7 +73,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                                     }
 
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -106,7 +106,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION, false);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

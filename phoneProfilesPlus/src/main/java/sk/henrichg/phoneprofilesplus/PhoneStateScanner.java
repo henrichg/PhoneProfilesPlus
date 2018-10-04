@@ -462,7 +462,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 PPApplication.logE("PhoneStateScanner.handleEvents", "start events handler");
                 // start events handler
                 EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE, false);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE);
             }
         }
 

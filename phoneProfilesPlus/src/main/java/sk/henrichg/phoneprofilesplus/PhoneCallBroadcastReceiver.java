@@ -138,7 +138,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         // start events handler
         // handlerThread is used in doCall
         EventsHandler eventsHandler = new EventsHandler(context);
-        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL, false);
+        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
 
         if ((wakeLock != null) && wakeLock.isHeld()) {
             try {

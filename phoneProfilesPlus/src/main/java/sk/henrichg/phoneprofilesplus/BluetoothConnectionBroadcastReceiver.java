@@ -126,7 +126,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 */
                                 // start events handler
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION, false);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
                                 //}
                             }
                             else

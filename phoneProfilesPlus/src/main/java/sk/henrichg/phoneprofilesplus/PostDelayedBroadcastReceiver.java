@@ -103,7 +103,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(sensorType, false);
+                        eventsHandler.handleEvents(sensorType);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

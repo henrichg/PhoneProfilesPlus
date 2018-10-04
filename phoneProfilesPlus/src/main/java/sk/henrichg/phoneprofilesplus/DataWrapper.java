@@ -3672,7 +3672,7 @@ public class DataWrapper {
                             if (!event._isInDelayEnd) {
                                 // no delay alarm is set
                                 // pause event
-                                event.pauseEvent(this, eventTimelineList, reactivate, false,
+                                event.pauseEvent(this, eventTimelineList, true, false,
                                         false, /*true,*/ mergedProfile, !forRestartEvents);
                             }
                         }
@@ -3680,7 +3680,7 @@ public class DataWrapper {
                         if (forDelayEndAlarm && event._isInDelayEnd) {
                             // called for delay alarm
                             // pause event
-                            event.pauseEvent(this, eventTimelineList, reactivate, false,
+                            event.pauseEvent(this, eventTimelineList, true, false,
                                     false, /*true,*/ mergedProfile, !forRestartEvents);
                         }
                     }
@@ -3698,10 +3698,11 @@ public class DataWrapper {
         if (log)
             addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
-        if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
+        if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) || (!reactivateProfile)) {
             EventsHandler eventsHandler = new EventsHandler(context);
             // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
-            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK, reactivateProfile);
+            // this is used also in TimeChangedReceiver for not reactivate profile when time changed (reactivateProfile = false)
+            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK);
             return;
         }
 
@@ -3735,7 +3736,7 @@ public class DataWrapper {
         }
 
         EventsHandler eventsHandler = new EventsHandler(context);
-        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS, reactivateProfile);
+        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
     }
 
     void restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile, final boolean reactivateProfile, final boolean log, final boolean useHandler)
