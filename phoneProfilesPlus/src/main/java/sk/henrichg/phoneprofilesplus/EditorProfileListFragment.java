@@ -461,7 +461,7 @@ public class EditorProfileListFragment extends Fragment
             ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
         }
         else
-            activityDataWrapper.restartEvents(false, true/*, false*/, true, true);
+            activityDataWrapper.restartEvents(false, true, true, true, true);
 
         activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 

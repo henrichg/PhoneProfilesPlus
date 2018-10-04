@@ -416,7 +416,7 @@ class Event {
         this._eventPreferencesAlarmClock.copyPreferences(fromEvent);
     }
 
-    public boolean isEnabledSomeSensor() {
+    boolean isEnabledSomeSensor() {
         boolean someEnabled =
                 this._eventPreferencesTime._enabled ||
                 this._eventPreferencesBattery._enabled ||
@@ -1571,7 +1571,7 @@ class Event {
         _status = status;
     }
 
-    public void setSensorsWaiting() {
+    void setSensorsWaiting() {
         if (_eventPreferencesApplication._enabled)
             _eventPreferencesApplication.setSensorPassed(_eventPreferencesApplication.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         else

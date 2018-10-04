@@ -3810,7 +3810,7 @@ public class PhoneProfilesService extends Service
 
                                 if (PhoneProfilesService.getInstance() != null) {
                                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                                    dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, false, false);
+                                    dataWrapper.restartEvents(unblockEventsRun, true, true, false, false);
                                     dataWrapper.invalidateDataWrapper();
                                 }
 
@@ -4597,7 +4597,7 @@ public class PhoneProfilesService extends Service
 
                     // start events handler
                     EventsHandler eventsHandler = new EventsHandler(context);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION/*, false*/);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION, false);
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

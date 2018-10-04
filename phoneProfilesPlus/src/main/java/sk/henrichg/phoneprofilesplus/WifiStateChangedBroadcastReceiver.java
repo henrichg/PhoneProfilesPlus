@@ -158,11 +158,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                     // start events handler
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH/*, false*/);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH, false);
 
                                     // start events handler
                                     eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_STATE/*, false*/);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_STATE, false);
                                 }
                             }
                         }

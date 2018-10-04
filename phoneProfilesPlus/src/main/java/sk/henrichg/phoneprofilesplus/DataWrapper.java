@@ -909,7 +909,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).unlinkEventsFromProfile(profile);
         }
         PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
-        restartEvents(false, true/*, false*/, true, true);
+        restartEvents(false, true, true, true, true);
     }
 
     void stopEventsForProfileFromMainThread(final Profile profile,
@@ -1126,7 +1126,7 @@ public class DataWrapper {
         if (startedFromService) {
             if (/*ApplicationPreferences.applicationActivate(context) &&*/
                     ApplicationPreferences.applicationStartEvents(context)) {
-                restartEvents(false, false/*, false*/, false, true);
+                restartEvents(false, false, true, false, true);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
@@ -1134,7 +1134,7 @@ public class DataWrapper {
             }
         }
         else {
-            restartEvents(false, false/*, false*/, false, true);
+            restartEvents(false, false, true, false, true);
         }
     }
 
@@ -3672,7 +3672,7 @@ public class DataWrapper {
                             if (!event._isInDelayEnd) {
                                 // no delay alarm is set
                                 // pause event
-                                event.pauseEvent(this, eventTimelineList, true, false,
+                                event.pauseEvent(this, eventTimelineList, reactivate, false,
                                         false, /*true,*/ mergedProfile, !forRestartEvents);
                             }
                         }
@@ -3680,7 +3680,7 @@ public class DataWrapper {
                         if (forDelayEndAlarm && event._isInDelayEnd) {
                             // called for delay alarm
                             // pause event
-                            event.pauseEvent(this, eventTimelineList, true, false,
+                            event.pauseEvent(this, eventTimelineList, reactivate, false,
                                     false, /*true,*/ mergedProfile, !forRestartEvents);
                         }
                     }
@@ -3691,7 +3691,7 @@ public class DataWrapper {
         PPApplication.logE("%%% DataWrapper.doHandleEvents","--- end --------------------------");
     }
 
-    private void _restartEvents(final boolean unblockEventsRun, final boolean keepActivatedProfile, final boolean log)
+    private void _restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile, final boolean reactivateProfile, final boolean log)
     {
         PPApplication.logE("DataWrapper._restartEvents", "xxx");
 
@@ -3700,7 +3700,8 @@ public class DataWrapper {
 
         if (Event.getEventsBlocked(context) && (!unblockEventsRun)) {
             EventsHandler eventsHandler = new EventsHandler(context);
-            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK/*, false*/);
+            // this do not perform restart, only SENSOR_TYPE_RESTART_EVENTS perform restart
+            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK, reactivateProfile);
             return;
         }
 
@@ -3728,16 +3729,16 @@ public class DataWrapper {
             Event.setForceRunEventRunning(context, false);
         }
 
-        if (!keepActivatedProfile) {
+        if (!notClearActivatedProfile) {
             DatabaseHandler.getInstance(context).deactivateProfile();
             setProfileActive(null);
         }
 
         EventsHandler eventsHandler = new EventsHandler(context);
-        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS/*, interactive*/);
+        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS, reactivateProfile);
     }
 
-    void restartEvents(final boolean unblockEventsRun, final boolean keepActivatedProfile, final boolean log, final boolean useHandler)
+    void restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile, final boolean reactivateProfile, final boolean log, final boolean useHandler)
     {
         if (!Event.getGlobalEventsRunning(context))
             // events are globally stopped
@@ -3759,7 +3760,7 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    _restartEvents(unblockEventsRun, keepActivatedProfile, log);
+                    _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -3771,7 +3772,7 @@ public class DataWrapper {
             });
         }
         else
-            _restartEvents(unblockEventsRun, keepActivatedProfile, log);
+            _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
     }
 
     void restartEventsWithRescan(/*boolean showToast, boolean interactive*/)
@@ -3797,7 +3798,7 @@ public class DataWrapper {
                 dataWrapper.resetAllEventsInDelayEnd(false);
                 // ignore manual profile activation
                 // and unblock forceRun events
-                dataWrapper.restartEvents(true, true/*, true/*interactive*/, true, false);
+                dataWrapper.restartEvents(true, true, true, true, false);
 
                 if (ApplicationPreferences.applicationEventWifiRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
                 {

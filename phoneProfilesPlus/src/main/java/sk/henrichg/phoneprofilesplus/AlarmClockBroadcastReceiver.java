@@ -45,7 +45,7 @@ public class AlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.setEventAlarmClockParameters(_time);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK, false);
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

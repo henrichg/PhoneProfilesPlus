@@ -39,7 +39,7 @@ class SearchCalendarEventsJob extends Job {
             if (!params.getExtras().getBoolean("shortInterval", false)) {
                 // start events handler
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS/*, false*/);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SEARCH_CALENDAR_EVENTS, false);
             }
         }
 

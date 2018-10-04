@@ -139,7 +139,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                                     event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
                                             false, /*true,*/ null, false); // activate return profile
-                                    _dataWrapper.restartEvents(false, true/*, true*/, true, false);
+                                    _dataWrapper.restartEvents(false, true, true, true, false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -194,7 +194,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
                                     event.stopEvent(_dataWrapper, eventTimelineList, true, false,
                                             true/*, true*/); // activate return profile
-                                    _dataWrapper.restartEvents(false, true/*, true*/, true, false);
+                                    _dataWrapper.restartEvents(false, true, true, true, false);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {

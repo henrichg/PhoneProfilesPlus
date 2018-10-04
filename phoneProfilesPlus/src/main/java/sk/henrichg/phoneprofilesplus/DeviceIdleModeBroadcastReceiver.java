@@ -46,7 +46,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE/*, false*/);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE, false);
 
                         /* Not needed, job is started in maintenance window
                         // rescan

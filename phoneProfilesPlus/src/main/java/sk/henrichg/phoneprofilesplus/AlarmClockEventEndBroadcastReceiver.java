@@ -39,7 +39,7 @@ public class AlarmClockEventEndBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END/*, false*/);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_ALARM_CLOCK_EVENT_END, false);
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

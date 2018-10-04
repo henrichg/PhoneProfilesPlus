@@ -46,7 +46,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     dataWrapper.clearSensorsStartTime();
-                    dataWrapper.restartEvents(false, true/*, false*/, false, true);
+                    dataWrapper.restartEvents(false, true, false, false, true);
                 }
             }
         }

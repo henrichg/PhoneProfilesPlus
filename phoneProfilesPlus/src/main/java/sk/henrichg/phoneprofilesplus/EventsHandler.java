@@ -72,7 +72,7 @@ class EventsHandler {
         this.context = context;
     }
     
-    void handleEvents(String sensorType/*, boolean _interactive*/) {
+    void handleEvents(String sensorType, boolean reactivateProfile) {
         synchronized (PPApplication.eventsHandlerMutex) {
             CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
@@ -305,7 +305,7 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP)
                         // only pause events
                         // pause also paused events
-                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, forDelayEndAlarm, reactivateProfile, mergedProfile, sensorType);
                 }
 
                 // get running events count
@@ -322,7 +322,7 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP)
                         // only start events
                         // start all events
-                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, reactivateProfile, mergedProfile, sensorType);
                 }
             } else {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");
@@ -362,7 +362,7 @@ class EventsHandler {
                         // only start events
                         // start only paused events
                         //noinspection ConstantConditions
-                        dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, reactivateProfile, mergedProfile, sensorType);
                 }
             }
 

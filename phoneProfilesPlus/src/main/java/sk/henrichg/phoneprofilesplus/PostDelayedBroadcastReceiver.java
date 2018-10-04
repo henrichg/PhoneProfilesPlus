@@ -103,7 +103,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(sensorType);
+                        eventsHandler.handleEvents(sensorType, false);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -135,7 +135,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                         if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
                             dataWrapper.addActivityLog(logType, null, null, null, 0);
-                        dataWrapper.restartEvents(unblockEventsRun, true/*, _interactive*/, true, false);
+                        dataWrapper.restartEvents(unblockEventsRun, true, true, true, false);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
