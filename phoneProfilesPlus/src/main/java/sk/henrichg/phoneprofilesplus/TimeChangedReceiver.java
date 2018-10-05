@@ -36,16 +36,13 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 PPApplication.logE("TimeChangedReceiver.onReceive", "timeChanged="+timeChanged);
 
                 if (timeChanged) {
-                    // only restart events.
-
-                    /*if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                    if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                             ApplicationPreferences.applicationUseAlarmClock(context)) {
                         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
                         Profile.setActivatedProfileForDuration(context, 0);
                     }
 
                     SearchCalendarEventsJob.scheduleJob(true, null, true);
-                    */
 
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
                     //dataWrapper.clearSensorsStartTime();
