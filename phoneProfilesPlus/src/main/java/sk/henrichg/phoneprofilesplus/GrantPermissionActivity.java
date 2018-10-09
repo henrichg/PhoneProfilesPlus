@@ -184,7 +184,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         boolean showRequestReadCalendar = false;
         boolean showRequestReadContacts = false;
         boolean showRequestReceiveSMS = false;
-        boolean showRequestReadSMS = false;
+        //boolean showRequestReadSMS = false;
         boolean showRequestReceiveMMS = false;
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
@@ -212,10 +212,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE) || forceGrant;
                 whyPermissionType[4][permissionType.type] = true;
             }
+            /* not needed for unlink volumes and event Call sensor
             if (permissionType.permission.equals(Manifest.permission.PROCESS_OUTGOING_CALLS)) {
                 showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.PROCESS_OUTGOING_CALLS) || forceGrant;
                 whyPermissionType[5][permissionType.type] = true;
-            }
+            } */
             if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || forceGrant;
                 whyPermissionType[6][permissionType.type] = true;
@@ -232,10 +233,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReceiveSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS) || forceGrant;
                 whyPermissionType[9][permissionType.type] = true;
             }
+            /* not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
             if (permissionType.permission.equals(Manifest.permission.READ_SMS)) {
                 showRequestReadSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS) || forceGrant;
                 whyPermissionType[10][permissionType.type] = true;
-            }
+            }*/
             if (permissionType.permission.equals(Manifest.permission.RECEIVE_MMS)) {
                 showRequestReceiveMMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_MMS) || forceGrant;
                 whyPermissionType[11][permissionType.type] = true;
@@ -258,7 +260,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReadCalendar ||
                 showRequestReadContacts ||
                 showRequestReceiveSMS ||
-                showRequestReadSMS ||
+                //showRequestReadSMS ||
                 showRequestReceiveMMS ||
                 showRequestAccessCoarseLocation ||
                 showRequestAccessFineLocation ||
@@ -366,7 +368,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
-                if (showRequestReceiveSMS || showRequestReadSMS || showRequestReceiveMMS) {
+                if (showRequestReceiveSMS || /*showRequestReadSMS ||*/ showRequestReceiveMMS) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_sms) + "</b>";
                     boolean[] permissionTypes = new boolean[100];
                     for (int i = 0; i < 100; i++) {

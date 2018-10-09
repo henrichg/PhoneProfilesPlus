@@ -218,3 +218,20 @@ DataWrapper.restartEvents()
 - ProfilePreferenceActivity.savePreferences()
 - TimeChangedReceiver - ACTION_TIMEZONE_CHANGED,
                         ACTION_TIME_CHANGED -- toto moze byt problem!!!
+
+------------------
+
+Vyhodenie SMS a Call permissions
+
+1. PhoneProfiles
+- android.permission.PROCESS_OUTGOING_CALLS - vyhodene, nie je treba pre unlink volumes
+- Cize PhoneProfiles je OK
+
+2. PhoneProfilesPlus
+- android.permission.READ_SMS - vyhodene, nie je treba, od koho je sms je v intent bundle receiveru, obsah sms/mms necitam.
+- android.permission.RECEIVE_SMS - treba vyhodit z GooglePlay PPP, dat to do PPPE je problem,
+                                    vyzaduje si to foreground servis na pozadi a teda aj dalsia notifikacia :-/.
+- android.permission.RECEIVE_MMS - treba vyhodit z GooglePlay PPP, dat to do PPPE je problem,
+                                    vyzaduje si to foreground servis na pozadi a teda aj dalsia notifikacia :-/.
+- android.permission.PROCESS_OUTGOING_CALLS - vyhodene, nie je treba pre unlink volumes a event Call senzor.
+

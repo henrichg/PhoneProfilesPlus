@@ -32,6 +32,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                 listener = new PhoneCallStartEndDetector();
             }
 
+            /* not needed for unlink volumes and event Call sensor
             //We listen to two intents.  The new outgoing call only tells us of an outgoing call.  We use it to get the number.
             if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
                 if (intent.getExtras() != null)
@@ -40,6 +41,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                     listener.setOutgoingNumber("");
                 return;
             }
+            */
 
             listener.onCallStateChanged(intent);
 
@@ -51,7 +53,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
     //Derived classes should override these to respond to specific events of interest
     protected abstract boolean onStartReceive();
     protected abstract void onIncomingCallStarted(String number, Date eventTime);
-    protected abstract void onOutgoingCallStarted(String number, Date eventTime);
+    //protected abstract void onOutgoingCallStarted(String number, Date eventTime);
     protected abstract void onOutgoingCallAnswered(String number, Date eventTime);
     protected abstract void onIncomingCallAnswered(String number, Date eventTime);
     protected abstract void onIncomingCallEnded(String number, Date eventTime);
@@ -70,6 +72,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
 
         PhoneCallStartEndDetector() {}
 
+        /* not needed for unlink volumes and event Call sensor
         //The outgoing number is only sent via a separate intent, so we need to store it out of band
         void setOutgoingNumber(String number){
             inCall = false;
@@ -77,7 +80,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
             savedNumber = number;
             eventTime = new Date();
             onOutgoingCallStarted(savedNumber, eventTime);
-        }
+        } */
 
         //Incoming call-  goes from IDLE to RINGING when it rings, to OFF HOOK when it's answered, to IDLE when its hung up
         //Outgoing call-  goes from IDLE to OFF HOOK when it dials out, to IDLE when hung up

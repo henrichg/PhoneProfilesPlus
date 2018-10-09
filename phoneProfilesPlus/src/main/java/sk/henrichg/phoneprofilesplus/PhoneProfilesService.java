@@ -582,7 +582,8 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER phone call");
                 phoneCallBroadcastReceiver = new PhoneCallBroadcastReceiver();
                 IntentFilter intentFilter6 = new IntentFilter();
-                intentFilter6.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
+                // not needed for unlink volumes and event Call sensor
+                //intentFilter6.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
                 intentFilter6.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
                 registerReceiver(phoneCallBroadcastReceiver, intentFilter6);
             }

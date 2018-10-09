@@ -273,15 +273,18 @@ class Permissions {
     static boolean checkInstallTone(Context context, List<PermissionType>  permissions) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
-                boolean granted = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                granted = granted && ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                if ((permissions != null) && (!granted)) {
-                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
-                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.READ_EXTERNAL_STORAGE));
+                boolean writeGranted = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                boolean readGranted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                if (permissions != null) {
+                    if (!readGranted)
+                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.READ_EXTERNAL_STORAGE));
+                    if (!writeGranted)
+                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
                 }
-                return granted;
+                return readGranted && writeGranted;
             } else
-                return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE) && hasPermission(context, permission.READ_EXTERNAL_STORAGE);
+                return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE) &&
+                        hasPermission(context, permission.READ_EXTERNAL_STORAGE);
         } catch (Exception e) {
             return false;
         }
@@ -722,10 +725,12 @@ class Permissions {
     static boolean checkPhone(Context context) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED);
+                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)/* &&
+                        // not needed for unlink volumes and event Call sensor
+                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED)*/;
             } else
-                return hasPermission(context, permission.READ_CALENDAR);
+                return hasPermission(context, Manifest.permission.READ_PHONE_STATE);// &&
+                        //hasPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS);
         } catch (Exception e) {
             return false;
         }
@@ -739,12 +744,13 @@ class Permissions {
                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
                 if (unlinkEnabled || (profile._volumeSpeakerPhone != 0)) {
                     boolean grantedReadPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
+                    // not needed for unlink volumes and event Call sensor
+                    //boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (!grantedReadPhoneState)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.READ_PHONE_STATE));
-                        if (!grantedOutgoingCall)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
+                        //if (!grantedOutgoingCall)
+                        //    permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
                     }
                     //return grantedOutgoingCall && grantedReadPhoneState;
                 }
@@ -757,8 +763,8 @@ class Permissions {
         /*else {
             try {
                 if (profile._volumeSpeakerPhone != 0)
-                    return hasPermission(context, permission.READ_PHONE_STATE) &&
-                            hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
+                    return hasPermission(context, permission.READ_PHONE_STATE);// &&
+                            //hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
                 else
                     return true;
             } catch (Exception e) {
@@ -1034,7 +1040,8 @@ class Permissions {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 return (ContextCompat.checkSelfPermission(context, permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) &&
+                        // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
+                        //(ContextCompat.checkSelfPermission(context, permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) &&
                         (ContextCompat.checkSelfPermission(context, permission.RECEIVE_MMS) == PackageManager.PERMISSION_GRANTED);
             } else
                 return hasPermission(context, permission.READ_CALENDAR);
@@ -1049,17 +1056,19 @@ class Permissions {
             try {
                 if (event._eventPreferencesSMS._enabled) {
                     boolean grantedReceiveSMS = ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedReadSMS = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED;
+                    // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
+                    //boolean grantedReadSMS = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedReceiveMMS = ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_MMS) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (!grantedReceiveSMS)
                             permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_SMS));
-                        if (!grantedReadSMS)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
+                        // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
+                        //if (!grantedReadSMS)
+                        //    permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
                         if (!grantedReceiveMMS)
                             permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_MMS));
                     }
-                    return grantedReceiveSMS && grantedReadSMS && grantedReceiveMMS;
+                    return grantedReceiveSMS && /*grantedReadSMS &&*/ grantedReceiveMMS;
                 } else
                     return true;
             } catch (Exception e) {
@@ -1070,7 +1079,8 @@ class Permissions {
             try {
                 if (event._eventPreferencesSMS._enabled) {
                     return hasPermission(context, permission.RECEIVE_SMS) &&
-                            hasPermission(context, permission.READ_SMS) &&
+                            // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
+                            //hasPermission(context, permission.READ_SMS) &&
                             hasPermission(context, permission.RECEIVE_MMS);
                 } else
                     return true;
@@ -1172,22 +1182,23 @@ class Permissions {
             try {
                 if (event._eventPreferencesCall._enabled || event._eventPreferencesOrientation._enabled) {
                     boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
+                    // not needed for unlink volumes and event Call sensor
+                    //boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (event._eventPreferencesCall._enabled) {
                             if (!grantedPhoneState)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
-                            if (!grantedOutgoingCall)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                            //if (!grantedOutgoingCall)
+                            //    permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
                         }
                         if (event._eventPreferencesOrientation._enabled) {
                             if (!grantedPhoneState)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.READ_PHONE_STATE));
-                            if (!grantedOutgoingCall)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                            //if (!grantedOutgoingCall)
+                            //    permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
                         }
                     }
-                    return grantedPhoneState && grantedOutgoingCall;
+                    return grantedPhoneState;// && grantedOutgoingCall;
                 } else
                     return true;
             } catch (Exception e) {
@@ -1197,8 +1208,8 @@ class Permissions {
         else {
             try {
                 if (event._eventPreferencesCall._enabled || event._eventPreferencesOrientation._enabled) {
-                    return hasPermission(context, permission.READ_PHONE_STATE) &&
-                            hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
+                    return hasPermission(context, permission.READ_PHONE_STATE)/* &&
+                            hasPermission(context, permission.PROCESS_OUTGOING_CALLS)*/;
                 } else
                     return true;
             } catch (Exception e) {
