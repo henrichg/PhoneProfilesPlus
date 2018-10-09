@@ -406,7 +406,9 @@ public class PPApplication extends Application {
 
     //public static boolean isPowerSaveMode = false;
 
+    // !! this must be here
     public static boolean startedOnBoot = false;
+    public static boolean ppServiceStarted = false;
 
     // Samsung Look instance
     public static Slook sLook = null;

@@ -2936,7 +2936,6 @@ public class PhoneProfilesService extends Service
 
                     GlobalGUIRoutines.setLanguage(appContext);
 
-                    //if (PPApplication.getApplicationStarted(appContext, false)) {
                     if (serviceHasFirstStart) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2947,99 +2946,105 @@ public class PhoneProfilesService extends Service
                         return;
                     }
 
-                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application not started, start it");
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
 
-                    PPApplication.createNotificationChannels(appContext);
+                    if (!PPApplication.ppServiceStarted) {
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "application not started, start it");
 
-                    //Permissions.clearMergedPermissions(appContext);
+                        PPApplication.createNotificationChannels(appContext);
 
-                    TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
+                        //Permissions.clearMergedPermissions(appContext);
 
-                    ActivateProfileHelper.setLockScreenDisabled(appContext, false);
+                        TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
+                        ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
 
-                    ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
+                        ActivateProfileHelper.setLockScreenDisabled(appContext, false);
 
-                    AudioManager audioManager = (AudioManager)appContext.getSystemService(Context.AUDIO_SERVICE);
-                    if (audioManager != null) {
-                        ActivateProfileHelper.setRingerVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_RING));
-                        ActivateProfileHelper.setNotificationVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
-                        RingerModeChangeReceiver.setRingerMode(appContext, audioManager);
-                        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
+                        AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
+                        if (audioManager != null) {
+                            ActivateProfileHelper.setRingerVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_RING));
+                            ActivateProfileHelper.setNotificationVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
+                            RingerModeChangeReceiver.setRingerMode(appContext, audioManager);
+                            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2)
                             PPNotificationListenerService.setZenMode(appContext, audioManager);
-                        InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager);
+                            InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager);
+                        }
+
+                        AccessibilityServiceBroadcastReceiver.setApplicationInForeground(appContext, "");
+
+                        ApplicationPreferences.getSharedPreferences(appContext);
+                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                        editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+                        editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                        editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
+                        editor.apply();
+
+                        // show info notification
+                        ImportantInfoNotification.showInfoNotification(appContext);
+
+                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
+                        Profile.setActivatedProfileForDuration(appContext, 0);
+
+                        StartEventNotificationBroadcastReceiver.removeAlarm(appContext);
+                        GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(appContext);
+                        LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
+
+                        PPNotificationListenerService.clearNotifiedPackages(appContext);
+
+                        DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
+                        DatabaseHandler.getInstance(appContext).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+                        dataWrapper.setDynamicLauncherShortcuts();
+
+                        MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
+
+                        BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
+                        BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                        BluetoothConnectedDevices.getConnectedDevices(appContext);
+
                     }
 
-                    AccessibilityServiceBroadcastReceiver.setApplicationInForeground(appContext, "");
-
-                    ApplicationPreferences.getSharedPreferences(appContext);
-                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                    editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-                    editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
-                    editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
-                    editor.apply();
-
-                    // show info notification
-                    ImportantInfoNotification.showInfoNotification(appContext);
-
-                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
-                    Profile.setActivatedProfileForDuration(appContext, 0);
-
-                    StartEventNotificationBroadcastReceiver.removeAlarm(appContext);
-                    GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(appContext);
-                    LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
-
-                    PPNotificationListenerService.clearNotifiedPackages(appContext);
-
-                    DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
-                    DatabaseHandler.getInstance(appContext).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
-
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                    dataWrapper.setDynamicLauncherShortcuts();
-
-                    MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
-
-                    BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
-                    BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
-                    BluetoothConnectedDevices.getConnectedDevices(appContext);
-
+                    // !! must be here, used is service context for registrations
                     if (PhoneProfilesService.getInstance() != null)
                         PhoneProfilesService.getInstance().registerReceiversAndJobs();
-                    AboutApplicationJob.scheduleJob(getApplicationContext(), true);
+                    AboutApplicationJob.scheduleJob(appContext, false);
 
-                    serviceHasFirstStart = true;
-                    //PPApplication.setApplicationStarted(appContext, true);
-                    if (_startOnBoot)
-                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
-                    else
-                        dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
+                    if (!PPApplication.ppServiceStarted) {
 
-                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application started");
+                        if (_startOnBoot)
+                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
+                        else
+                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
-                    // start events
-                    if (Event.getGlobalEventsRunning(appContext))
-                    {
-                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","global event run is enabled, first start events");
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "application started");
 
-                        if (!dataWrapper.getIsManualProfileActivation()) {
+                        // start events
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "global event run is enabled, first start events");
+
+                            if (!dataWrapper.getIsManualProfileActivation()) {
+                                ////// unblock all events for first start
+                                //     that may be blocked in previous application run
+                                dataWrapper.pauseAllEvents(true, false/*, false*/);
+                            }
+
+                            dataWrapper.firstStartEvents(true);
+                        } else {
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "global event run is not enabled, manually activate profile");
+
                             ////// unblock all events for first start
                             //     that may be blocked in previous application run
                             dataWrapper.pauseAllEvents(true, false/*, false*/);
+
+                            dataWrapper.activateProfileOnBoot();
                         }
 
-                        dataWrapper.firstStartEvents(true);
-                    }
-                    else
-                    {
-                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","global event run is not enabled, manually activate profile");
-
-                        ////// unblock all events for first start
-                        //     that may be blocked in previous application run
-                        dataWrapper.pauseAllEvents(true, false/*, false*/);
-
-                        dataWrapper.activateProfileOnBoot();
                     }
 
                     dataWrapper.invalidateDataWrapper();
+
+                    PPApplication.ppServiceStarted = true;
+                    serviceHasFirstStart = true;
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
