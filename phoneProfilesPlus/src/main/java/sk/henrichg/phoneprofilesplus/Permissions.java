@@ -274,11 +274,14 @@ class Permissions {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                if ((permissions != null) && (!granted))
+                granted = granted && ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                if ((permissions != null) && (!granted)) {
                     permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.READ_EXTERNAL_STORAGE));
+                }
                 return granted;
             } else
-                return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE);
+                return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE) && hasPermission(context, permission.READ_EXTERNAL_STORAGE);
         } catch (Exception e) {
             return false;
         }
