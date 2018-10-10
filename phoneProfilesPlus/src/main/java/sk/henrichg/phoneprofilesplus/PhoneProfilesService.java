@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
@@ -146,6 +147,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_ON_BOOT = "start_on_boot";
     static final String EXTRA_START_ON_PACKAGE_REPLACE = "start_on_package_replace";
     static final String EXTRA_ONLY_START = "only_start";
+    static final String EXTRA_STARTED_FROM_APP = "started_from_app";
     static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
     static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
@@ -2874,11 +2876,13 @@ public class PhoneProfilesService extends Service
     // start service for first start
     private boolean doForFirstStart(Intent intent/*, int flags, int startId*/) {
         boolean onlyStart = true;
+        boolean startedFromApp = false;
         boolean startOnBoot = false;
         boolean startOnPackageReplace = false;
 
         if (intent != null) {
             onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
+            startedFromApp = intent.getBooleanExtra(EXTRA_STARTED_FROM_APP, false);
             startOnBoot = intent.getBooleanExtra(EXTRA_START_ON_BOOT, false);
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
@@ -2911,6 +2915,8 @@ public class PhoneProfilesService extends Service
             */
 
             final boolean _startOnBoot = startOnBoot;
+            final boolean _startOnPackageReplace = startOnPackageReplace;
+            final boolean _startedFromApp = startedFromApp;
             PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart.2");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -2947,12 +2953,12 @@ public class PhoneProfilesService extends Service
                         return;
                     }
 
+                    PPApplication.createNotificationChannels(appContext);
+
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
 
-                    if (!PPApplication.ppServiceStarted) {
+                    if (_startOnBoot || _startOnPackageReplace || _startedFromApp) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "application not started, start it");
-
-                        PPApplication.createNotificationChannels(appContext);
 
                         //Permissions.clearMergedPermissions(appContext);
 
@@ -2995,23 +3001,23 @@ public class PhoneProfilesService extends Service
                         DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
                         DatabaseHandler.getInstance(appContext).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
 
-                        dataWrapper.setDynamicLauncherShortcuts();
-
                         MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
 
                         BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
-                        BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
+                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                        // not needed clearConnectedDevices(.., true) call it
+                        //BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                         BluetoothConnectedDevices.getConnectedDevices(appContext);
-
                     }
+
+                    dataWrapper.setDynamicLauncherShortcuts();
 
                     // !! must be here, used is service context for registrations
                     if (PhoneProfilesService.getInstance() != null)
                         PhoneProfilesService.getInstance().registerReceiversAndJobs();
                     AboutApplicationJob.scheduleJob(appContext, false);
 
-                    if (!PPApplication.ppServiceStarted) {
-
+                    if (_startOnBoot || _startOnPackageReplace || _startedFromApp) {
                         if (_startOnBoot)
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
                         else
@@ -3039,12 +3045,10 @@ public class PhoneProfilesService extends Service
 
                             dataWrapper.activateProfileOnBoot();
                         }
-
                     }
 
                     dataWrapper.invalidateDataWrapper();
 
-                    PPApplication.ppServiceStarted = true;
                     serviceHasFirstStart = true;
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -4252,13 +4256,17 @@ public class PhoneProfilesService extends Service
     }
 
     /*
-    public static boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+    public static boolean isServiceRunning(Context context, Class<?> serviceClass, boolean inForeground) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (manager != null) {
             for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
                 if (serviceClass.getName().equals(service.service.getClassName())) {
-                    PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "service.foreground="+service.foreground);
-                    return service.foreground;
+                    if (inForeground) {
+                        PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "service.foreground=" + service.foreground);
+                        return service.foreground;
+                    }
+                    else
+                        return true;
                 }
             }
         }

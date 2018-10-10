@@ -36,6 +36,7 @@ public class LauncherActivity extends AppCompatActivity {
             PPApplication.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_STARTED_FROM_APP, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             PPApplication.startPPService(this, serviceIntent);
         }
@@ -46,6 +47,7 @@ public class LauncherActivity extends AppCompatActivity {
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_STARTED_FROM_APP, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
                 PPApplication.startPPService(this, serviceIntent);
             }
