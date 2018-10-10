@@ -2901,6 +2901,8 @@ public class PhoneProfilesService extends Service
 
         if (onlyStart)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
+        if (startedFromApp)
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_STARTED_FROM_APP");
         if (startOnBoot)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
         if (startOnPackageReplace)
