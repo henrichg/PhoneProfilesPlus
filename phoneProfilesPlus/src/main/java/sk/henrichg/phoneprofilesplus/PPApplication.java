@@ -1666,7 +1666,7 @@ public class PPApplication extends Application {
 
     public static void restartAllScanners(Context context, boolean forScreenOn) {
         try {
-            PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
+            PPApplication.logE("[RJS] PPApplication.restartAllScanners", "xxx");
             Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
