@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.provider.Settings;
 
 public class TimeChangedReceiver extends BroadcastReceiver {
@@ -18,7 +19,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 PPApplication.logE("##### TimeChangedReceiver.onReceive", "xxx");
                 CallsCounter.logCounter(context, "TimeChangedReceiver.onReceive", "TimeChangedReceiver_onReceive");
 
-                Context appContext = context.getApplicationContext();
+                final Context appContext = context.getApplicationContext();
 
                 if (!PPApplication.getApplicationStarted(appContext, true))
                     return;
@@ -36,17 +37,24 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 PPApplication.logE("TimeChangedReceiver.onReceive", "timeChanged="+timeChanged);
 
                 if (timeChanged) {
-                    if ((android.os.Build.VERSION.SDK_INT >= 21) &&
-                            ApplicationPreferences.applicationUseAlarmClock(context)) {
-                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                        Profile.setActivatedProfileForDuration(context, 0);
-                    }
+                    PPApplication.startHandlerThread("TimeChangedReceiver.onReceive");
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                                    ApplicationPreferences.applicationUseAlarmClock(appContext)) {
+                                ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
+                                Profile.setActivatedProfileForDuration(appContext, 0);
+                            }
 
-                    SearchCalendarEventsJob.scheduleJob(true, null, true);
+                            SearchCalendarEventsJob.scheduleJob(false, null, true);
 
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
-                    //dataWrapper.clearSensorsStartTime();
-                    dataWrapper.restartEvents(false, true, false, false, true);
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                            //dataWrapper.clearSensorsStartTime();
+                            dataWrapper.restartEvents(false, true, false, false, false);
+                        }
+                    });
                 }
             }
         }
