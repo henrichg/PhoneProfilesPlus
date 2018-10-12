@@ -662,7 +662,6 @@ class EventsHandler {
                     try {
                         Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
                         // add saved ringer mode, zen mode, ringtone before handle events as parameters
                         // ringing call simulator compare this with new (actual values), changed by currently activated profile
@@ -714,7 +713,6 @@ class EventsHandler {
             // start PhoneProfilesService for notification tone simulation
             Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
             serviceIntent.putExtra(EXTRA_SIMULATE_NOTIFICATION_TONE, true);
             serviceIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
             serviceIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
@@ -728,7 +726,6 @@ class EventsHandler {
                 // start PhoneProfilesService for notification tone simulation
                 Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, false);
                 serviceIntent.putExtra(EXTRA_SIMULATE_NOTIFICATION_TONE, true);
                 serviceIntent.putExtra(EXTRA_OLD_RINGER_MODE, oldRingerMode);
                 serviceIntent.putExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
