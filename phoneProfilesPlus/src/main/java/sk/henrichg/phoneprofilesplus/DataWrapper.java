@@ -3947,7 +3947,7 @@ public class DataWrapper {
                     dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                 }
             }, delay * 1000);*/
-            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, logType);
+            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, logType, context);
         }
         else {
             /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
@@ -3959,7 +3959,7 @@ public class DataWrapper {
                     dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                 }
             }, delay * 1000);*/
-            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, logType);
+            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, logType, context);
         }
     }
 

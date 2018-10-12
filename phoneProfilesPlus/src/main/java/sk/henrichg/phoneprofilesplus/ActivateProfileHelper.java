@@ -1073,7 +1073,7 @@ class ActivateProfileHelper {
                         }, 3000);
                         */
                         PostDelayedBroadcastReceiver.setAlarm(
-                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
                     }
 
                     setTones(context, profile);
@@ -2394,7 +2394,7 @@ class ActivateProfileHelper {
         }, 3000);
         */
         PostDelayedBroadcastReceiver.setAlarm(
-                PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE, 3);
+                PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE, 3, context);
     }
 
     private static void createScreenTimeoutAlwaysOnView(Context context)
@@ -2515,7 +2515,7 @@ class ActivateProfileHelper {
                 }, 5000);
                 */
                 PostDelayedBroadcastReceiver.setAlarm(
-                        PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5);
+                        PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5, context);
             }
         }
     }

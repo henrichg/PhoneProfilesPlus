@@ -177,98 +177,100 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("NewApi")
-    static void setAlarm(String action, int delaySeconds)
+    static void setAlarm(String action, int delaySeconds, Context context)
     {
-        if (PhoneProfilesService.getInstance() != null) {
-            long delayTime = SystemClock.elapsedRealtime() + delaySeconds * 1000;
+        final Context appContext = context.getApplicationContext();
 
-            //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(action);
-            //intent.setClass(context, PostDelayedBroadcastReceiver.class);
+        long delayTime = SystemClock.elapsedRealtime() + delaySeconds * 1000;
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(PhoneProfilesService.getInstance(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(action);
+        //intent.setClass(context, PostDelayedBroadcastReceiver.class);
 
-            AlarmManager alarmManager = (AlarmManager) PhoneProfilesService.getInstance().getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-            }
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            if (android.os.Build.VERSION.SDK_INT >= 23)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+            else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+            //else
+            //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
         }
     }
 
     @SuppressLint("NewApi")
     static void setAlarmForHandleEvents(String sensorType,
-                                        @SuppressWarnings("SameParameterValue") int delaySeconds)
+                                        @SuppressWarnings("SameParameterValue") int delaySeconds,
+                                        Context context)
     {
-        if (PhoneProfilesService.getInstance() != null) {
-            long delayTime = SystemClock.elapsedRealtime() + delaySeconds * 1000;
+        final Context appContext = context.getApplicationContext();
 
-            //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
-            Intent intent = new Intent();
-            intent.setAction(ACTION_HANDLE_EVENTS);
-            //intent.setClass(context, PostDelayedBroadcastReceiver.class);
+        long delayTime = SystemClock.elapsedRealtime() + delaySeconds * 1000;
 
-            intent.putExtra(EXTRA_SENSOR_TYPE, sensorType);
+        //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(ACTION_HANDLE_EVENTS);
+        //intent.setClass(context, PostDelayedBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(PhoneProfilesService.getInstance(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.putExtra(EXTRA_SENSOR_TYPE, sensorType);
 
-            AlarmManager alarmManager = (AlarmManager) PhoneProfilesService.getInstance().getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-            }
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            if (android.os.Build.VERSION.SDK_INT >= 23)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+            else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+            //else
+            //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
         }
     }
 
     @SuppressLint("NewApi")
-    static void setAlarmForRestartEvents(int delaySeconds, boolean clearOld, final boolean unblockEventsRun, final int logType)
+    static void setAlarmForRestartEvents(int delaySeconds, boolean clearOld, final boolean unblockEventsRun,
+                                         final int logType, Context context)
     {
-        if (PhoneProfilesService.getInstance() != null) {
-            AlarmManager alarmManager = (AlarmManager) PhoneProfilesService.getInstance().getSystemService(Context.ALARM_SERVICE);
-            if (alarmManager != null) {
-                if (clearOld) {
-                    //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
-                    Intent intent = new Intent();
-                    intent.setAction(ACTION_RESTART_EVENTS);
-                    //intent.setClass(context, PostDelayedBroadcastReceiver.class);
+        final Context appContext = context.getApplicationContext();
 
-                    PendingIntent pendingIntent = PendingIntent.getBroadcast(PhoneProfilesService.getInstance(), 0, intent, PendingIntent.FLAG_NO_CREATE);
-                    if (pendingIntent != null) {
-                        PPApplication.logE("PostDelayedBroadcastReceiver.removeAlarm", "alarm found");
-
-                        alarmManager.cancel(pendingIntent);
-                        pendingIntent.cancel();
-                    }
-                }
-
-                long delayTime = SystemClock.elapsedRealtime() + delaySeconds * 1000;
-
+        AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            if (clearOld) {
                 //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
                 Intent intent = new Intent();
                 intent.setAction(ACTION_RESTART_EVENTS);
                 //intent.setClass(context, PostDelayedBroadcastReceiver.class);
 
-                intent.putExtra(EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
-                intent.putExtra(EXTRA_LOG_TYPE, logType);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    PPApplication.logE("PostDelayedBroadcastReceiver.removeAlarm", "alarm found");
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(PhoneProfilesService.getInstance(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                if (android.os.Build.VERSION.SDK_INT >= 23)
-                    alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-                else //if (android.os.Build.VERSION.SDK_INT >= 19)
-                    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
-                //else
-                //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
             }
+
+            long delayTime = SystemClock.elapsedRealtime() + delaySeconds * 1000;
+
+            //Intent intent = new Intent(context, PostDelayedBroadcastReceiver.class);
+            Intent intent = new Intent();
+            intent.setAction(ACTION_RESTART_EVENTS);
+            //intent.setClass(context, PostDelayedBroadcastReceiver.class);
+
+            intent.putExtra(EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
+            intent.putExtra(EXTRA_LOG_TYPE, logType);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            if (android.os.Build.VERSION.SDK_INT >= 23)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+            else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
+            //else
+            //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, delayTime, pendingIntent);
         }
     }
 

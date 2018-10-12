@@ -5058,7 +5058,7 @@ public class PhoneProfilesService extends Service
                         }
                     }, 3000);*/
                     PostDelayedBroadcastReceiver.setAlarm(
-                            PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                            PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
                     ringingMediaPlayer = null;
@@ -5072,7 +5072,7 @@ public class PhoneProfilesService extends Service
                         }
                     }, 3000);*/
                     PostDelayedBroadcastReceiver.setAlarm(
-                            PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                            PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
                 }
             }
         }
@@ -5115,7 +5115,7 @@ public class PhoneProfilesService extends Service
             }
         }, 3000);*/
         PostDelayedBroadcastReceiver.setAlarm(
-                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
     }
 
     /*private void doSimulatingNotificationTone(Intent intent) {
@@ -5459,7 +5459,7 @@ public class PhoneProfilesService extends Service
 
                         notificationIsPlayed = true;
 
-                        //final Context context = this;
+                        final Context context = this;
                         notificationPlayTimer = new Timer();
                         notificationPlayTimer.schedule(new TimerTask() {
                             @Override
@@ -5489,7 +5489,7 @@ public class PhoneProfilesService extends Service
                                     }
                                 }, 3000);*/
                                 PostDelayedBroadcastReceiver.setAlarm(
-                                        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                                        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
 
                                 notificationPlayTimer = null;
                             }
@@ -5507,7 +5507,7 @@ public class PhoneProfilesService extends Service
                             }
                         }, 3000);*/
                         PostDelayedBroadcastReceiver.setAlarm(
-                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
                         Permissions.grantPlayRingtoneNotificationPermissions(this, false);
                     } catch (Exception e) {
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "exception");
@@ -5521,7 +5521,7 @@ public class PhoneProfilesService extends Service
                             }
                         }, 3000);*/
                         PostDelayedBroadcastReceiver.setAlarm(
-                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
                     }
                 }
             }

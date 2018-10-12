@@ -79,7 +79,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
                             }, 5000);*/
-                            PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
+                            PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5,appContext);
                         }
                     }
 

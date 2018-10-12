@@ -117,7 +117,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             }
                                         }, 5000);*/
                                         PostDelayedBroadcastReceiver.setAlarm(
-                                                PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN, 5);
+                                                PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN, 5, appContext);
 
                                         /*
                                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");

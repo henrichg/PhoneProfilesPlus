@@ -533,7 +533,7 @@ public class RingtonePreference extends DialogPreference {
                                     }
                                 }, 3000);*/
                                 PostDelayedBroadcastReceiver.setAlarm(
-                                        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                                        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
 
                                 playTimer = null;
                             }
@@ -551,7 +551,7 @@ public class RingtonePreference extends DialogPreference {
                             }
                         }, 3000);*/
                         PostDelayedBroadcastReceiver.setAlarm(
-                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     } catch (Exception e) {
                         PPApplication.logE("RingtonePreference.playRingtone", "exception");
                         stopPlayRingtone();
@@ -564,7 +564,7 @@ public class RingtonePreference extends DialogPreference {
                             }
                         }, 3000);*/
                         PostDelayedBroadcastReceiver.setAlarm(
-                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3);
+                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     }
                 }
             });

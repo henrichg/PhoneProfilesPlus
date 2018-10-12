@@ -217,7 +217,7 @@ class WifiBluetoothScanner {
                                                 }
                                             }, 5000);*/
                                             //WifiScanBroadcastReceiver.setAlarm(context);
-                                            PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5);
+                                            PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, context);
                                         }
                                     }
                                 }

@@ -892,7 +892,7 @@ class BluetoothScanJob extends Job {
                             }
                         }
                     }, 5000);*/
-                    PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5);
+                    PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, context);
                 }
 
                 WifiBluetoothScanner.tmpBluetoothScanResults = null;

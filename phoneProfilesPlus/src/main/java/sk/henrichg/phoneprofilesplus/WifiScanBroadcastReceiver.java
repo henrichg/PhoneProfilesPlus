@@ -124,7 +124,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                             }
                                         }
                                     }, 5000);*/
-                                    PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5);
+                                    PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, appContext);
                                 }
                             }
 
