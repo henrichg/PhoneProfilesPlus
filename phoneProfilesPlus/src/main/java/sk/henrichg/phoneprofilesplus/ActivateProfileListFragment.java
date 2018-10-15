@@ -386,15 +386,19 @@ public class ActivateProfileListFragment extends Fragment {
     private void setProfileSelection(Profile profile, boolean refreshIcons) {
         if (profileListAdapter != null)
         {
-            int profilePos;
+            int profilePos = ListView.INVALID_POSITION;
 
             if (profile != null)
                 profilePos = profileListAdapter.getItemPosition(profile);
             else {
-                if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
-                    profilePos = listView.getCheckedItemPosition();
-                else
-                    profilePos = gridView.getCheckedItemPosition();
+                if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context)) {
+                    if (listView != null)
+                        profilePos = listView.getCheckedItemPosition();
+                }
+                else {
+                    if (gridView != null)
+                        profilePos = gridView.getCheckedItemPosition();
+                }
             }
 
             profileListAdapter.notifyDataSetChanged(refreshIcons);
@@ -403,19 +407,23 @@ public class ActivateProfileListFragment extends Fragment {
             {
                 // set profile visible in list
                 if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context)) {
-                    listView.setItemChecked(profilePos, true);
-                    int last = listView.getLastVisiblePosition();
-                    int first = listView.getFirstVisiblePosition();
-                    if ((profilePos <= first) || (profilePos >= last)) {
-                        listView.setSelection(profilePos);
+                    if (listView != null) {
+                        listView.setItemChecked(profilePos, true);
+                        int last = listView.getLastVisiblePosition();
+                        int first = listView.getFirstVisiblePosition();
+                        if ((profilePos <= first) || (profilePos >= last)) {
+                            listView.setSelection(profilePos);
+                        }
                     }
                 }
                 else {
-                    gridView.setItemChecked(profilePos, true);
-                    int last = gridView.getLastVisiblePosition();
-                    int first = gridView.getFirstVisiblePosition();
-                    if ((profilePos <= first) || (profilePos >= last)) {
-                        gridView.setSelection(profilePos);
+                    if (gridView != null) {
+                        gridView.setItemChecked(profilePos, true);
+                        int last = gridView.getLastVisiblePosition();
+                        int first = gridView.getFirstVisiblePosition();
+                        if ((profilePos <= first) || (profilePos >= last)) {
+                            gridView.setSelection(profilePos);
+                        }
                     }
                 }
             }
