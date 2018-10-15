@@ -719,13 +719,15 @@ public class EditorEventListFragment extends Fragment
 
             if (setPosition || newEvent) {
                 if (eventPos != ListView.INVALID_POSITION) {
-                    // set event visible in list
-                    //int last = listView.getLastVisiblePosition();
-                    //int first = listView.getFirstVisiblePosition();
-                    //if ((eventPos <= first) || (eventPos >= last)) {
-                    //    listView.setSelection(eventPos);
-                    //}
-                    listView.getLayoutManager().scrollToPosition(eventPos);
+                    if (listView != null) {
+                        // set event visible in list
+                        //int last = listView.getLastVisiblePosition();
+                        //int first = listView.getFirstVisiblePosition();
+                        //if ((eventPos <= first) || (eventPos >= last)) {
+                        //    listView.setSelection(eventPos);
+                        //}
+                        listView.getLayoutManager().scrollToPosition(eventPos);
+                    }
                 }
             }
 

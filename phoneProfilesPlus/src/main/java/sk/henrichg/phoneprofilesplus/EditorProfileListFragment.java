@@ -685,13 +685,15 @@ public class EditorProfileListFragment extends Fragment
 
             if (/*(!ApplicationPreferences.applicationEditorHeader(dataWrapper.context)) && */(profilePos != ListView.INVALID_POSITION))
             {
-                // set profile visible in list
-                //int last = listView.getLastVisiblePosition();
-                //int first = listView.getFirstVisiblePosition();
-                //if ((profilePos <= first) || (profilePos >= last)) {
-                //    listView.setSelection(profilePos);
-                //}
-                listView.getLayoutManager().scrollToPosition(profilePos);
+                if (listView != null) {
+                    // set profile visible in list
+                    //int last = listView.getLastVisiblePosition();
+                    //int first = listView.getFirstVisiblePosition();
+                    //if ((profilePos <= first) || (profilePos >= last)) {
+                    //    listView.setSelection(profilePos);
+                    //}
+                    listView.getLayoutManager().scrollToPosition(profilePos);
+                }
             }
         }
 
