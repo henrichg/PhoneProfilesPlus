@@ -20,12 +20,12 @@ import android.support.v7.widget.AppCompatCheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
-//import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission;
+
+//import com.google.gson.Gson;
 
 class Permissions {
 

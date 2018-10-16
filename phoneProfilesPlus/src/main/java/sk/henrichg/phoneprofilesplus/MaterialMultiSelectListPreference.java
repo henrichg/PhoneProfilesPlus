@@ -12,7 +12,6 @@ import android.os.Parcelable;
 import android.preference.MultiSelectListPreference;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.util.HashSet;
@@ -74,9 +73,9 @@ public class MaterialMultiSelectListPreference extends MultiSelectListPreference
     @Override
     protected void showDialog(Bundle state) {
         indices = new boolean[getEntries().length];
-        Log.e("MaterialMultiSelectListPreference.showDialog", "getValues().size="+getValues().size());
+        //Log.e("MaterialMultiSelectListPreference.showDialog", "getValues().size="+getValues().size());
         for (String s : getValues()) {
-            Log.e("MaterialMultiSelectListPreference.showDialog", "getValues().s="+s);
+            //Log.e("MaterialMultiSelectListPreference.showDialog", "getValues().s="+s);
             int index = findIndexOfValue(s);
             if (index != -1)
                 indices[index] = true;

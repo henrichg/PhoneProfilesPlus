@@ -22,11 +22,11 @@
 package com.stericson.RootShell;
 
 
+import android.util.Log;
+
 import com.stericson.RootShell.exceptions.RootDeniedException;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
-
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
