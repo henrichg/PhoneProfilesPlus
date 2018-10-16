@@ -36,7 +36,7 @@ import java.util.TimerTask;
 
 public class RingtonePreference extends DialogPreference {
     String ringtoneUri;
-    String oldRingtoneUri;
+    private String oldRingtoneUri;
     private String ringtoneName;
 
     private final String ringtoneType;
