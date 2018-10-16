@@ -1134,10 +1134,10 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="import_profiles_alert_error_database_bug">Erreur lors de la restauration de la base de données.</string>
   <string name="import_profiles_alert_error_appSettings_bug">Erreur lors de la restauration des paramètres de l\'application.</string>
   <string name="import_profiles_alert_error_sharedProfile_bug">Erreur lors de la restauration des préférences de profil partagé.</string>
-  <string name="phone_profiles_pref_applicationTheme_white">White</string>
+  <string name="phone_profiles_pref_applicationTheme_white">Blanc</string>
   <string name="array_pref_value_white">white</string>
-  <string name="permission_ask_button">Ask</string>
-  <string name="permission_not_ask_button">Not ask</string>
+  <string name="permission_ask_button">Demander</string>
+  <string name="permission_not_ask_button">Ne pas demander</string>
   <string name="brightness_pref_dialog_level_chb">Change level</string>
   <string name="preference_profile_manual_brightness">Manual</string>
   <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>
@@ -1146,7 +1146,7 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="event_preferences_no_sensor_is_enabled">Aucun capteur activé !</string>
   <string name="info_notification_event_states_manual_profile_activation">Paused: some profile is manually activated and event has not enabled parameter \"Ignore manual activation\".</string>
   <string name="phone_profiles_pref_applicationEventScanningDisabledByProfile">Scanning disabled by profile.</string>
-  <string name="alert_message_enable_event_check_box">Never ask again</string>
+  <string name="alert_message_enable_event_check_box">Ne jamais redemander</string>
   <string name="phone_profiles_pref_applicationUseAlarmClock">Utiliser l\'horloge de l\'alarme</string>
   <string name="phone_profiles_pref_applicationUseAlarmClock_summary">Quand l\'écran est éteint, la durée des évènements, les délais de démarrage et d\'arrêt… peuvent ne pas être exacts. Pour éviter ce comportement, activer cette option. L’icône de l\'alarme s\'affichera alors dans la barre de statut.</string>
   <string name="important_info_useAlarmClock">Quand l\'écran est éteint, la durée des évènements, les délais de démarrage et d\'arrêt… peuvent ne pas être exacts. Pour éviter ce comportement, activer l\'option \"Utiliser l\'horloge de l\'alarme\" dans les paramètres. L’icône de l\'alarme s\'affichera alors dans la barre de statut.</string>
