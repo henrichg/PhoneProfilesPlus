@@ -70,14 +70,14 @@ class RingtonePreferenceAdapter extends BaseAdapter {
         }
 
         holder.radioBtn.setTag(ringtone);
-        if (preference.ringtone.equals(ringtone))
+        if (preference.ringtoneUri.equals(ringtone))
             holder.radioBtn.setChecked(true);
         else
             holder.radioBtn.setChecked(false);
         holder.radioBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 RadioButton rb = (RadioButton) v;
-                preference.setRingtone((String)rb.getTag());
+                preference.setRingtone((String)rb.getTag(), false);
                 preference.playRingtone();
             }
         });

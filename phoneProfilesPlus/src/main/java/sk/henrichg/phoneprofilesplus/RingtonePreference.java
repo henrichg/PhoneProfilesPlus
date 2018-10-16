@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcel;
@@ -34,8 +35,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class RingtonePreference extends DialogPreference {
-
-    String ringtone;
+    String ringtoneUri;
+    String oldRingtoneUri;
+    private String ringtoneName;
 
     private final String ringtoneType;
     private final boolean showSilent;
@@ -47,6 +49,8 @@ public class RingtonePreference extends DialogPreference {
 
     private final Map<String, String> toneList = new LinkedHashMap<>();
     private RingtonePreferenceAdapter listAdapter;
+
+    private AsyncTask asyncTask = null;
 
     private static MediaPlayer mediaPlayer = null;
     private static int oldMediaVolume = -1;
@@ -63,17 +67,17 @@ public class RingtonePreference extends DialogPreference {
         showSilent = typedArray.getBoolean(R.styleable.RingtonePreference_showSilent, false);
         showDefault = typedArray.getBoolean(R.styleable.RingtonePreference_showDefault, false);
 
-        ringtone = "";
+        ringtoneUri = "";
         if (ringtoneType != null) {
             switch (ringtoneType) {
                 case "ringtone":
-                    ringtone = Settings.System.DEFAULT_RINGTONE_URI.toString();
+                    ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
                     break;
                 case "notification":
-                    ringtone = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
+                    ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
                     break;
                 case "alarm":
-                    ringtone = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
+                    ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
                     break;
             }
         }
@@ -91,19 +95,21 @@ public class RingtonePreference extends DialogPreference {
         dialogBuilder.setTitle(getDialogTitle());
         dialogBuilder.setIcon(getDialogIcon());
         dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
+        dialogBuilder.setNegativeButton(getNegativeButtonText(), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // set summary
+                PPApplication.logE("RingtonePreference._setSummary", "OK button");
+                setRingtone(oldRingtoneUri, false);
+            }
+        });
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist())
                 {
-                    // set summary
-                    PPApplication.logE("RingtonePreference._setSummary", "OK button");
-                    _setSummary(ringtone);
-
                     // save to preferences
-                    persistString(ringtone);
+                    persistString(ringtoneUri);
 
                     // and notify
                     notifyChanged();
@@ -132,7 +138,7 @@ public class RingtonePreference extends DialogPreference {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
             {
                 RingtonePreferenceAdapter.ViewHolder viewHolder = (RingtonePreferenceAdapter.ViewHolder) item.getTag();
-                setRingtone((String)listAdapter.getItem(position)/*, viewHolder.radioBtn*/);
+                setRingtone((String)listAdapter.getItem(position), false);
                 viewHolder.radioBtn.setChecked(true);
                 playRingtone();
             }
@@ -143,12 +149,12 @@ public class RingtonePreference extends DialogPreference {
 
         String value;
         try {
-            value = getPersistedString(ringtone);
+            value = getPersistedString(ringtoneUri);
         } catch  (Exception e) {
-            value = ringtone;
+            value = ringtoneUri;
         }
-        ringtone = value;
-        PPApplication.logE("RingtonePreference.showDialog", "ringtone="+ringtone);
+        ringtoneUri = value;
+        PPApplication.logE("RingtonePreference.showDialog", "ringtoneUri="+ringtoneUri);
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
@@ -160,14 +166,21 @@ public class RingtonePreference extends DialogPreference {
     }
 
     private void onShow(/*DialogInterface dialog*/) {
-        if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext))
+        if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext)) {
+            oldRingtoneUri = ringtoneUri;
             refreshListView();
+        }
     }
 
     public void onDismiss (DialogInterface dialog)
     {
         super.onDismiss(dialog);
-        PPApplication.logE("RingtonePreference.onDismiss", "ringtone="+ringtone);
+
+        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            asyncTask.cancel(true);
+        }
+
+        PPApplication.logE("RingtonePreference.onDismiss", "ringtoneUri="+ringtoneUri);
         PPApplication.startHandlerThreadPlayTone();
         final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
         handler.post(new Runnable() {
@@ -182,7 +195,7 @@ public class RingtonePreference extends DialogPreference {
     @Override
     public void onActivityDestroy() {
         super.onActivityDestroy();
-        PPApplication.logE("RingtonePreference.onActivityDestroy", "ringtone="+ringtone);
+        PPApplication.logE("RingtonePreference.onActivityDestroy", "ringtoneUri="+ringtoneUri);
 
         PPApplication.startHandlerThreadPlayTone();
         final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
@@ -252,175 +265,177 @@ public class RingtonePreference extends DialogPreference {
             // restore state
             String value;
             try {
-                value = getPersistedString(ringtone);
+                value = getPersistedString(ringtoneUri);
             } catch  (Exception e) {
-                value = ringtone;
+                value = ringtoneUri;
             }
-            ringtone = value;
+            ringtoneUri = value;
         }
         else {
             // set state
             String value = (String) defaultValue;
-            ringtone = value;
+            ringtoneUri = value;
             persistString(value);
         }
-        PPApplication.logE("RingtonePreference._setSummary", "onSetInitialValue");
-        _setSummary(ringtone);
+        setRingtone("", true);
     }
 
-    private void _setSummary(String ringtone)
+    void setRingtone(String newRingtoneUri, boolean onlySetName)
     {
-        String ringtoneName;
+        if (!onlySetName)
+            ringtoneUri = newRingtoneUri;
 
-        /*if (ringtone.equals(Settings.System.DEFAULT_RINGTONE_URI.toString()))
-            ringtoneName = prefContext.getString(R.string.ringtone_preference_dialog_default_ringtone);
-        else
-        if (ringtone.equals(Settings.System.DEFAULT_NOTIFICATION_URI.toString()))
-            ringtoneName = prefContext.getString(R.string.ringtone_preference_dialog_default_notification);
-        else
-        if (ringtone.equals(Settings.System.DEFAULT_ALARM_ALERT_URI.toString()))
-            ringtoneName = prefContext.getString(R.string.ringtone_preference_dialog_default_alarm);
-        else*/
-        if (ringtone.isEmpty())
-            ringtoneName = prefContext.getString(R.string.ringtone_preference_none);
-        else {
-            /*try {
-                Uri ringtoneUri = Uri.parse(ringtone);
+        new AsyncTask<Void, Integer, Void>() {
 
-                ContentResolver cr = getContext().getContentResolver();
-                String[] projection = {MediaStore.MediaColumns.TITLE};
-                //String title;
-                Cursor cur = cr.query(ringtoneUri, projection, null, null, null);
-                if (cur != null) {
-                    if (cur.moveToFirst()) {
-                        ringtoneName = cur.getString(0);
+            @Override
+            protected Void doInBackground(Void... params) {
+                if (ringtoneUri.isEmpty())
+                    ringtoneName = prefContext.getString(R.string.ringtone_preference_none);
+                else {
+                    Uri uri = Uri.parse(ringtoneUri);
+                    Ringtone ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                    try {
+                        ringtoneName = ringtone.getTitle(prefContext);
+                    } catch (Exception e) {
+                        ringtoneName = prefContext.getString(R.string.ringtone_preference_not_set);
                     }
-                    cur.close();
                 }
-            } catch (Exception ignored) {
-            }*/
-            Uri uri = Uri.parse(ringtone);
-            Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
-            try {
-                ringtoneName = _ringtone.getTitle(prefContext);
-            } catch (Exception e) {
-                ringtoneName = prefContext.getString(R.string.ringtone_preference_not_set);
+                return null;
             }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                setSummary(ringtoneName);
+            }
+
+        }.execute();
+
+        if (!onlySetName) {
+            View positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setEnabled(true);
+
+            listAdapter.notifyDataSetChanged();
         }
-
-        PPApplication.logE("RingtonePreference._setSummary", "ringtoneName="+ringtoneName);
-
-        setSummary(ringtoneName);
-    }
-
-    void setRingtone(String newRingtone/*, RadioButton newCheckedRadioButton*/)
-    {
-        ringtone = newRingtone;
-
-        View positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-        positive.setEnabled(true);
-
-        listAdapter.notifyDataSetChanged();
-
-        // set summary
-        //_setSummary(ringtone);
     }
 
     void refreshListView() {
         if ((mDialog != null) && mDialog.isShowing()) {
-            RingtoneManager manager = new RingtoneManager(prefContext);
 
-            Uri uri = null;
-            switch (ringtoneType) {
-                case "ringtone":
-                    uri = Settings.System.DEFAULT_RINGTONE_URI;
-                    break;
-                case "notification":
-                    uri = Settings.System.DEFAULT_NOTIFICATION_URI;
-                    break;
-                case "alarm":
-                    uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
-                    break;
-            }
+            asyncTask = new AsyncTask<Void, Integer, Void>() {
 
-            Ringtone _ringtone = RingtoneManager.getRingtone(prefContext, uri);
-            if (_ringtone == null) {
-                // ringtone not found
-                View positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                positive.setEnabled(false);
-            }
+                Ringtone defaultRingtone;
 
-            switch (ringtoneType) {
-                case "ringtone":
-                    manager.setType(RingtoneManager.TYPE_RINGTONE);
-                    if (showDefault) {
-                        uri = Settings.System.DEFAULT_RINGTONE_URI;
-                        _ringtone = RingtoneManager.getRingtone(prefContext, uri);
-                        String ringtoneName;
-                        try {
-                            ringtoneName = _ringtone.getTitle(prefContext);
-                        } catch (Exception e) {
-                            ringtoneName = prefContext.getString(R.string.ringtone_preference_default_ringtone);
-                        }
-                        toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), ringtoneName);
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                }
+
+                @Override
+                protected Void doInBackground(Void... params) {
+                    RingtoneManager manager = new RingtoneManager(prefContext);
+
+                    Uri uri = null;
+                    switch (ringtoneType) {
+                        case "ringtone":
+                            uri = Settings.System.DEFAULT_RINGTONE_URI;
+                            break;
+                        case "notification":
+                            uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                            break;
+                        case "alarm":
+                            uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                            break;
                     }
-                    break;
-                case "notification":
-                    manager.setType(RingtoneManager.TYPE_NOTIFICATION);
-                    if (showDefault) {
-                        uri = Settings.System.DEFAULT_NOTIFICATION_URI;
-                        _ringtone = RingtoneManager.getRingtone(prefContext, uri);
-                        String ringtoneName;
-                        try {
-                            ringtoneName = _ringtone.getTitle(prefContext);
-                        } catch (Exception e) {
-                            ringtoneName = prefContext.getString(R.string.ringtone_preference_default_notification);
-                        }
-                        toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), ringtoneName);
+
+                    defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);
+
+                    Ringtone _ringtone;
+
+                    switch (ringtoneType) {
+                        case "ringtone":
+                            manager.setType(RingtoneManager.TYPE_RINGTONE);
+                            if (showDefault) {
+                                uri = Settings.System.DEFAULT_RINGTONE_URI;
+                                _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                                String ringtoneName;
+                                try {
+                                    ringtoneName = _ringtone.getTitle(prefContext);
+                                } catch (Exception e) {
+                                    ringtoneName = prefContext.getString(R.string.ringtone_preference_default_ringtone);
+                                }
+                                toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), ringtoneName);
+                            }
+                            break;
+                        case "notification":
+                            manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+                            if (showDefault) {
+                                uri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                                _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                                String ringtoneName;
+                                try {
+                                    ringtoneName = _ringtone.getTitle(prefContext);
+                                } catch (Exception e) {
+                                    ringtoneName = prefContext.getString(R.string.ringtone_preference_default_notification);
+                                }
+                                toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), ringtoneName);
+                            }
+                            break;
+                        case "alarm":
+                            manager.setType(RingtoneManager.TYPE_ALARM);
+                            if (showDefault) {
+                                uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                                _ringtone = RingtoneManager.getRingtone(prefContext, uri);
+                                String ringtoneName;
+                                try {
+                                    ringtoneName = _ringtone.getTitle(prefContext);
+                                } catch (Exception e) {
+                                    ringtoneName = prefContext.getString(R.string.ringtone_preference_default_alarm);
+                                }
+                                toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), ringtoneName);
+                            }
+                            break;
                     }
-                    break;
-                case "alarm":
-                    manager.setType(RingtoneManager.TYPE_ALARM);
-                    if (showDefault) {
-                        uri = Settings.System.DEFAULT_ALARM_ALERT_URI;
-                        _ringtone = RingtoneManager.getRingtone(prefContext, uri);
-                        String ringtoneName;
-                        try {
-                            ringtoneName = _ringtone.getTitle(prefContext);
-                        } catch (Exception e) {
-                            ringtoneName = prefContext.getString(R.string.ringtone_preference_default_alarm);
-                        }
-                        toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), ringtoneName);
+
+                    if (showSilent)
+                        toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
+
+                    Cursor cursor = manager.getCursor();
+
+                    /*
+                    profile._soundRingtone=content://settings/system/ringtone
+                    profile._soundNotification=content://settings/system/notification_sound
+                    profile._soundAlarm=content://settings/system/alarm_alert
+                    */
+
+                    while (cursor.moveToNext()) {
+                        String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                        String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+                        String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                        toneList.put(_uri + "/" + _id, _title);
                     }
-                    break;
-            }
 
-            if (showSilent)
-                toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
+                    return null;
+                }
 
-            Cursor cursor = manager.getCursor();
+                @Override
+                protected void onPostExecute(Void result) {
+                    super.onPostExecute(result);
 
-            /*
-            profile._soundRingtone=content://settings/system/ringtone
-            profile._soundNotification=content://settings/system/notification_sound
-            profile._soundAlarm=content://settings/system/alarm_alert
-            */
+                    if (defaultRingtone == null) {
+                        // ringtone not found
+                        View positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                        positive.setEnabled(false);
+                    }
 
-            while (cursor.moveToNext()) {
-                String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-                String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
-                toneList.put(_uri + "/" + _id, _title);
-            }
+                    listAdapter.notifyDataSetChanged();
 
-            listAdapter.notifyDataSetChanged();
+                    List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
+                    final int position = uris.indexOf(ringtoneUri);
+                    listView.setSelection(position);
+                }
 
-            List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
-            final int position = uris.indexOf(ringtone);
-            listView.setSelection(position);
-
-            PPApplication.logE("RingtonePreference._setSummary", "refreshListView");
-            _setSummary(ringtone);
+            }.execute();
         }
     }
 
@@ -450,7 +465,7 @@ public class RingtonePreference extends DialogPreference {
         final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
 
-            final Uri ringtoneUri = Uri.parse(ringtone);
+            final Uri _ringtoneUri = Uri.parse(ringtoneUri);
 
             PPApplication.startHandlerThreadPlayTone();
             final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
@@ -465,7 +480,7 @@ public class RingtonePreference extends DialogPreference {
                         if (mediaPlayer == null)
                             mediaPlayer = new MediaPlayer();
                         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        mediaPlayer.setDataSource(prefContext, ringtoneUri);
+                        mediaPlayer.setDataSource(prefContext, _ringtoneUri);
                         mediaPlayer.prepare();
                         mediaPlayer.setLooping(false);
 
