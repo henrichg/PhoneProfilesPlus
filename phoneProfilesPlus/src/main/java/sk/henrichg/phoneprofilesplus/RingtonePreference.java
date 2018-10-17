@@ -289,7 +289,7 @@ public class RingtonePreference extends DialogPreference {
 
             @Override
             protected Void doInBackground(Void... params) {
-                if (ringtoneUri.isEmpty())
+                if ((ringtoneUri == null) || ringtoneUri.isEmpty())
                     ringtoneName = prefContext.getString(R.string.ringtone_preference_none);
                 else {
                     Uri uri = Uri.parse(ringtoneUri);
