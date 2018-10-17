@@ -19,8 +19,7 @@
             android:summary="@string/event_preferences_eventName"
             android:title="@string/event_preferences_eventName"
             android:selectAllOnFocus="true"
-            android:layout="@layout/mp_preference_material_widget"
-            app:useStockLayout="true" />
+            android:layout="@layout/mp_preference_material_widget" />
         <Preference
             android:key="eventUsePriorityAppSettings"
             android:title="@string/phone_profiles_pref_eventUsePriorityAppSettings"
@@ -34,8 +33,7 @@
             android:defaultValue="0"
             android:entries="@array/eventPriorityArray"
             android:entryValues="@array/eventPriorityValues"
-            android:layout="@layout/mp_preference_material_widget"
-            app:useStockLayout="true" />
+            android:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/event_preferences_category_startOfEvent"
@@ -142,8 +140,7 @@
             android:defaultValue="2"
             android:entries="@array/eventAtEndDoArray"
             android:entryValues="@array/eventAtEndDoValues"
-            android:layout="@layout/mp_preference_material_widget"
-            app:useStockLayout="true" />
+            android:layout="@layout/mp_preference_material_widget" />
         <PreferenceScreen
             android:title="@string/event_preferences_category_startOfEventOthers"
             android:key="eventEndOthersCategory"
@@ -249,16 +246,14 @@
                 android:entries="@array/eventCalendarSearchFieldArray"
                 android:entryValues="@array/eventCalendarSearchFieldValues"
                 android:dependency="eventCalendarEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialEditTextPreference
                 android:key="eventCalendarSearchString"
                 android:summary="@string/event_preferences_calendar_search_string"
                 android:title="@string/event_preferences_calendar_search_string"
                 android:selectAllOnFocus="true"
                 android:dependency="eventCalendarEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventCalendarIgnoreAllDayEvents"
                 android:title="@string/event_preferences_calendar_ignore_all_day_events"
@@ -274,8 +269,7 @@
                 android:entries="@array/eventCalendarAvailabilityArray"
                 android:entryValues="@array/eventCalendarAvailabilityValues"
                 android:dependency="eventCalendarEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
                 android:key="eventCalendarStartBeforeEvent"
                 android:summary="@string/event_preferences_startBeforeEvent"
@@ -324,8 +318,7 @@
                 android:entries="@array/eventBatteryChargingArray"
                 android:entryValues="@array/eventBatteryChargingValues"
                 android:dependency="eventBatteryEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventBatteryPowerSaveMode"
                 android:title="@string/event_preferences_battery_power_save_mode"
@@ -354,8 +347,7 @@
                 android:entries="@array/eventCallEventsArray"
                 android:entryValues="@array/eventCallEventsValues"
                 android:dependency="eventCallEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.ContactGroupsMultiSelectDialogPreference
                 android:key="eventCallContactGroups"
                 android:defaultValue="@string/empty_string"
@@ -376,8 +368,7 @@
                 android:entries="@array/eventCallContactListTypeArray"
                 android:entryValues="@array/eventCallContactListTypeValues"
                 android:dependency="eventCallEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventCallPermanentRun"
                 android:title="@string/pref_event_permanentRun"
@@ -436,8 +427,7 @@
                 android:entries="@array/eventSMSContactListTypeArray"
                 android:entryValues="@array/eventSMSContactListTypeValues"
                 android:dependency="eventSMSEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventSMSPermanentRun"
                 android:title="@string/pref_event_permanentRun"
@@ -483,8 +473,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_bluetooth"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
@@ -493,8 +482,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_mobileData"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
@@ -503,8 +491,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_gps"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
@@ -513,8 +500,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_nfc"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
@@ -523,8 +509,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_radioSwitch_airplaneMode"
                 android:summary="@string/array_pref_radioSwitch_notDetect"
@@ -533,8 +518,7 @@
                 android:entries="@array/eventRadioSwitchArray"
                 android:entryValues="@array/eventRadioSwitchValues"
                 android:dependency="eventRadioSwitchEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventLocationCategory"
@@ -622,8 +606,7 @@
                 android:entries="@array/eventWifiConnectionTypeArray"
                 android:entryValues="@array/eventWifiConnectionTypeValues"
                 android:dependency="eventWiFiEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.WifiSSIDPreference
                 android:key="eventWiFiSSID"
                 android:summary="@string/event_preferences_wifi_ssid"
@@ -667,8 +650,7 @@
                 android:entries="@array/eventBluetoothConnectionTypeArray"
                 android:entryValues="@array/eventBluetoothConnectionTypeValues"
                 android:dependency="eventBluetoothEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_bluetooth_devices_type"
                 android:summary="@string/array_event_pref_bluetoothDevicesType_classic"
@@ -677,8 +659,7 @@
                 android:entries="@array/eventBluetoothDevicesTypeArray"
                 android:entryValues="@array/eventBluetoothDevicesTypeValues"
                 android:dependency="eventBluetoothEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.BluetoothNamePreference
                 android:key="eventBluetoothAdapterNAME"
                 android:summary="@string/event_preferences_bluetooth_adapter_name"
@@ -749,8 +730,7 @@
                 android:entries="@array/eventPeripheralTypeArray"
                 android:entryValues="@array/eventPeripheralTypeValues"
                 android:dependency="eventPeripheralEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventScreenParameters"
@@ -772,8 +752,7 @@
                 android:entries="@array/eventScreenEventTypeArray"
                 android:entryValues="@array/eventScreenEventTypeValues"
                 android:dependency="eventScreenEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventScreenWhenUnlocked"
                 android:title="@string/event_preferences_screen_start_when_unlocked"
@@ -922,8 +901,7 @@
                 android:entries="@array/eventOrientationDisplayArray"
                 android:entryValues="@array/eventOrientationDisplayValues"
                 android:dependency="eventOrientationEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialMultiSelectListPreference
                 android:key="eventOrientationSides"
                 android:title="@string/event_preferences_orientation_sides"
@@ -931,8 +909,7 @@
                 android:entries="@array/eventOrientationSidesArray"
                 android:entryValues="@array/eventOrientationSidesValues"
                 android:dependency="eventOrientationEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/event_preferences_orientation_distance"
                 android:summary="@string/array_event_pref_orientationDistanceType_noCheck"
@@ -941,8 +918,7 @@
                 android:entries="@array/eventOrientationDistanceTypeArray"
                 android:entryValues="@array/eventOrientationDistanceTypeValues"
                 android:dependency="eventOrientationEnabled"
-                android:layout="@layout/mp_preference_material_widget"
-                app:useStockLayout="true" />
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventOrientationInstallExtender"
                 android:title="@string/event_preferences_orientation_PPPExtender_title"

@@ -1,3 +1,4 @@
 include ':RootShell'
 include ':RootTools'
+include ':appkillermanager'
 include ':phoneProfilesPlus'
