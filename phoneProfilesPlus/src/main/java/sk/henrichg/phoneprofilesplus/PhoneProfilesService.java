@@ -4197,7 +4197,7 @@ public class PhoneProfilesService extends Service
     }
 
     private void showProfileNotification() {
-        if (Build.VERSION.SDK_INT >= 26) {
+        //if (Build.VERSION.SDK_INT >= 26) {
             //if (BuildConfig.DEBUG)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
@@ -4210,7 +4210,7 @@ public class PhoneProfilesService extends Service
                 dataWrapper.invalidateDataWrapper();
                 runningInForeground = true;
             }
-        }
+        //}
 
         //if (BuildConfig.DEBUG)
         //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
