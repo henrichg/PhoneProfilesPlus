@@ -229,6 +229,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
+        /*
         text = findViewById(R.id.about_application_google_plus_community);
         str1 = getString(R.string.about_application_google_plus_community);
         str2 = str1 + " https://plus.google.com/communities/100282006628784777672";
@@ -249,6 +250,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
+        */
 
         text = findViewById(R.id.about_application_rate_application);
         str1 = getString(R.string.about_application_rate_in_googlePlay);
