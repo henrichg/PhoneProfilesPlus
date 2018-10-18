@@ -250,7 +250,10 @@ public class PPApplication extends Application {
 
                                         //+"|AlarmClockBroadcastReceiver.onReceive"
                                         //+"|NextAlarmClockBroadcastReceiver"
-                                        +"|TimeChangedReceiver.onReceive"
+                                        //+"|TimeChangedReceiver.onReceive"
+
+                                        +"|@@@ ScreenOnOffBroadcastReceiver"
+                                        +"|LockDeviceActivity"
             ;
 
 
