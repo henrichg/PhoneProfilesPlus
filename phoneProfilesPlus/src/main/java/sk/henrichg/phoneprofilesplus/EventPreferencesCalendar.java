@@ -403,19 +403,15 @@ class EventPreferencesCalendar extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         //removeAlarm(true, _context);
-        removeAlarm(/*false, */_context);
+        removeAlarm(/*false, */context);
 
-        searchEvent(_context);
+        searchEvent(context);
 
-        if (!(isRunnable(_context) && _enabled && _eventFound))
+        if (!(isRunnable(context) && _enabled && _eventFound))
             return;
 
-        setAlarm(true, computeAlarm(true), _context);
+        setAlarm(true, computeAlarm(true), context);
     }
 
     @Override
@@ -426,19 +422,15 @@ class EventPreferencesCalendar extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         //removeAlarm(true, _context);
-        removeAlarm(/*false, */_context);
+        removeAlarm(/*false, */context);
 
-        searchEvent(_context);
+        searchEvent(context);
 
-        if (!(isRunnable(_context) && _enabled && _eventFound))
+        if (!(isRunnable(context) && _enabled && _eventFound))
             return;
 
-        setAlarm(false, computeAlarm(false), _context);
+        setAlarm(false, computeAlarm(false), context);
     }
 
     @Override
@@ -446,12 +438,8 @@ class EventPreferencesCalendar extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         //removeAlarm(true, _context);
-        removeAlarm(/*false, */_context);
+        removeAlarm(/*false, */context);
 
         _eventFound = false;
 

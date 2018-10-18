@@ -468,17 +468,13 @@ class EventPreferencesTime extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         //removeAlarm(true, _context);
-        removeAlarm(/*false, */_context);
+        removeAlarm(/*false, */context);
 
-        if (!(isRunnable(_context) && _enabled))
+        if (!(isRunnable(context) && _enabled))
             return;
 
-        setAlarm(true, computeAlarm(true), _context);
+        setAlarm(true, computeAlarm(true), context);
     }
 
     @Override
@@ -489,17 +485,13 @@ class EventPreferencesTime extends EventPreferences {
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         //removeAlarm(true, _context);
-        removeAlarm(/*false, */_context);
+        removeAlarm(/*false, */context);
 
-        if (!(isRunnable(_context) && _enabled))
+        if (!(isRunnable(context) && _enabled))
             return;
 
-        setAlarm(false, computeAlarm(false), _context);
+        setAlarm(false, computeAlarm(false), context);
     }
 
     @Override
@@ -507,12 +499,8 @@ class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         //removeAlarm(true, _context);
-        removeAlarm(/*false, */_context);
+        removeAlarm(/*false, */context);
 
         PPApplication.logE("EventPreferencesTime.removeSystemEvent","xxx");
     }

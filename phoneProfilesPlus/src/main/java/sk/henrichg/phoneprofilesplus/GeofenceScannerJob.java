@@ -101,11 +101,13 @@ class GeofenceScannerJob extends Job {
 
             int interval;
             synchronized (PPApplication.geofenceScannerMutex) {
-                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted);
-                else {
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");
-                    PPApplication.logE("GeofenceScannerJob.scheduleJob", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
+                if (PPApplication.logEnabled()) {
+                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "mUpdatesStarted=" + PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted);
+                    else {
+                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "scanner is not started");
+                        PPApplication.logE("GeofenceScannerJob.scheduleJob", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
+                    }
                 }
 
                 // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS

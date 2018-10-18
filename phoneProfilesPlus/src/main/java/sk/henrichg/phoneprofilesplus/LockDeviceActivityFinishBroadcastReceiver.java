@@ -26,18 +26,14 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
     static void removeAlarm(Context context)
     {
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
-        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             //Intent intent = new Intent(_context, LockDeviceActivityFinishBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);
             //intent.setClass(context, LockDeviceActivityFinishBroadcastReceiver.class);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
             if (pendingIntent != null) {
                 PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.removeAlarm", "alarm found");
 
@@ -54,21 +50,17 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
 
         int delay = 20; // 20 seconds
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         //Intent intent = new Intent(_context, LockDeviceActivityFinishBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER);
         //intent.setClass(context, LockDeviceActivityFinishBroadcastReceiver.class);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             if ((android.os.Build.VERSION.SDK_INT >= 21) &&
-                    ApplicationPreferences.applicationUseAlarmClock(_context)) {
+                    ApplicationPreferences.applicationUseAlarmClock(context)) {
 
                 Calendar now = Calendar.getInstance();
                 now.add(Calendar.SECOND, delay);
@@ -80,8 +72,8 @@ public class LockDeviceActivityFinishBroadcastReceiver extends BroadcastReceiver
                     PPApplication.logE("LockDeviceActivityFinishBroadcastReceiver.setAlarm", "alarmTime=" + result);
                 }
 
-                Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
-                PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
             }

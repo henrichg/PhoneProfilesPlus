@@ -4291,18 +4291,14 @@ public class PhoneProfilesService extends Service
 
         int notificationStatusBarCancel = Integer.valueOf(ApplicationPreferences.notificationStatusBarCancel(context));
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         //Intent intent = new Intent(_context, NotificationCancelAlarmBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER);
         //intent.setClass(context, NotificationCancelAlarmBroadcastReceiver.class);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             long time = SystemClock.elapsedRealtime() + notificationStatusBarCancel * 1000;
             // not needed exact for removing notification

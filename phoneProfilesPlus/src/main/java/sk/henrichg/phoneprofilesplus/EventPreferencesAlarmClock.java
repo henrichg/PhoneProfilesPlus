@@ -213,11 +213,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
         PPApplication.logE("EventPreferencesAlarmClock.setSystemRunningEvent","xxx");
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
-        removeAlarm(_context);
+        removeAlarm(context);
     }
 
     @Override
@@ -230,26 +226,18 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
         PPApplication.logE("EventPreferencesAlarmClock.setSystemPauseEvent","xxx");
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
-        removeAlarm(_context);
+        removeAlarm(context);
 
         if (!(isRunnable(context) && _enabled))
             return;
 
-        setAlarm(computeAlarm(), _context);
+        setAlarm(computeAlarm(), context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
-        removeAlarm(_context);
+        removeAlarm(context);
 
         PPApplication.logE("EventPreferencesAlarmClock.removeSystemEvent", "xxx");
     }

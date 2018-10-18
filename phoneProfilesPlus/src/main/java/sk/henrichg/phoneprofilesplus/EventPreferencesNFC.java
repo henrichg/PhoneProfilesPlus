@@ -304,13 +304,9 @@ class EventPreferencesNFC extends EventPreferences {
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
         PPApplication.logE("EventPreferencesNFC.setSystemRunningEvent","xxx");
 
-        removeAlarm(_context);
+        removeAlarm(context);
     }
 
     @Override
@@ -323,26 +319,18 @@ class EventPreferencesNFC extends EventPreferences {
 
         PPApplication.logE("EventPreferencesNFC.setSystemPauseEvent","xxx");
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
+        removeAlarm(context);
 
-        removeAlarm(_context);
-
-        if (!(isRunnable(_context) && _enabled))
+        if (!(isRunnable(context) && _enabled))
             return;
 
-        setAlarm(computeAlarm(), _context);
+        setAlarm(computeAlarm(), context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
-        removeAlarm(_context);
+        removeAlarm(context);
 
         PPApplication.logE("EventPreferencesNFC.removeSystemEvent", "xxx");
     }

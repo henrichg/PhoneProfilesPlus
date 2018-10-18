@@ -74,10 +74,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
         if (startApplicationDelay > 0)
         {
-            Context _context = context;
-            if (PhoneProfilesService.getInstance() != null)
-                _context = PhoneProfilesService.getInstance();
-
             //Intent intent = new Intent(_context, RunApplicationWithDelayBroadcastReceiver.class);
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
@@ -85,13 +81,13 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
             intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(_context,
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                     PPApplication.requestCodeForAlarm.nextInt(), intent, 0);
 
-            AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 if ((android.os.Build.VERSION.SDK_INT >= 21) &&
-                        ApplicationPreferences.applicationUseAlarmClock(_context)) {
+                        ApplicationPreferences.applicationUseAlarmClock(context)) {
 
                     Calendar now = Calendar.getInstance();
                     now.add(Calendar.SECOND, startApplicationDelay);
@@ -104,8 +100,8 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                         PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.setDelayAlarm", "startTime=" + result);
                     }
 
-                    Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
-                    PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                    PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }

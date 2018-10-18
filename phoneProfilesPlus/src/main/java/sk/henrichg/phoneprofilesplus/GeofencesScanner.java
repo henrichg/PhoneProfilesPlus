@@ -86,8 +86,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     void connect(boolean resetUseGPS) {
         PPApplication.logE("##### GeofenceScanner.connect", "mResolvingError="+mResolvingError);
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.connect", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.connect", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
         try {
             if (!mResolvingError) {
                 //if (dataWrapper.getDatabaseHandler().getGeofenceCount() > 0)
@@ -100,8 +102,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     void connectForResolve() {
         PPApplication.logE("##### GeofenceScanner.connectForResolve", "xxx");
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.connectForResolve", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.connectForResolve", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
         try {
             if ((mGoogleApiClient != null) && !mGoogleApiClient.isConnecting() && !mGoogleApiClient.isConnected()) {
                 PPApplication.logE("##### GeofenceScanner.connectForResolve", "not connected, connect it");
@@ -113,8 +117,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     void disconnect() {
         PPApplication.logE("##### GeofenceScanner.disconnect", "xxx");
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.disconnect", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.disconnect", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
         try {
             if (mGoogleApiClient != null) {
                 if (mGoogleApiClient.isConnected()) {
@@ -130,8 +136,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnected(Bundle bundle) {
         PPApplication.logE("##### GeofenceScanner.onConnected", "xxx");
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.onConnected", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.onConnected", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
         try {
             if ((mGoogleApiClient != null) && mGoogleApiClient.isConnected()) {
                 //PPApplication.logE("##### GeofenceScanner.onConnected", "xxx2");
@@ -174,8 +182,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnectionSuspended(int i) {
         PPApplication.logE("##### GeofenceScanner.onConnectionSuspended", "xxx");
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.onConnectionSuspended", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.onConnectionSuspended", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
         // The connection has been interrupted.
         // Disable any UI components that depend on Google APIs
         // until onConnected() is called.
@@ -186,8 +196,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         PPApplication.logE("##### GeofenceScanner.onConnectionFailed", "xxx");
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.onConnectionFailed", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.onConnectionFailed", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
         try {
             //noinspection StatementWithEmptyBody
             if (mResolvingError) {
@@ -224,8 +236,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
     void updateGeofencesInDB() {
         synchronized (PPApplication.geofenceScannerLastLocationMutex) {
             PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "xxx");
-            if (PhoneProfilesService.getInstance() != null)
-                PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+            if (PPApplication.logEnabled()) {
+                if (PhoneProfilesService.getInstance() != null)
+                    PPApplication.logE("##### GeofenceScanner.updateGeofencesInDB", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+            }
 
             List<Geofence> geofences = DatabaseHandler.getInstance(dataWrapper.context).getAllGeofences();
 
@@ -341,8 +355,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         if (!ApplicationPreferences.applicationEventLocationEnableScanning(context))
             return;
 
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
 
         synchronized (PPApplication.geofenceScannerMutex) {
             try {
@@ -387,8 +403,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
 
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
 
         synchronized (PPApplication.geofenceScannerMutex) {
             try {
@@ -416,8 +434,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
 
     @SuppressLint("MissingPermission")
     void updateTransitionsByLastKnownLocation(final boolean startEventsHandler) {
-        if (PhoneProfilesService.getInstance() != null)
-            PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "PhoneProfilesService.isGeofenceScannerStarted()="+PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        if (PPApplication.logEnabled()) {
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
+        }
 
         try {
             if (Permissions.checkLocation(context) && (mGoogleApiClient != null) && mGoogleApiClient.isConnected()) {

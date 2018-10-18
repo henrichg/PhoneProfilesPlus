@@ -298,11 +298,7 @@ class EventPreferencesSMS extends EventPreferences {
 
         PPApplication.logE("EventPreferencesSMS.setSystemRunningEvent","xxx");
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
-        removeAlarm(_context);
+        removeAlarm(context);
     }
 
     @Override
@@ -315,26 +311,18 @@ class EventPreferencesSMS extends EventPreferences {
 
         PPApplication.logE("EventPreferencesSMS.setSystemPauseEvent","xxx");
 
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
-        removeAlarm(_context);
+        removeAlarm(context);
 
         if (!(isRunnable(context) && _enabled))
             return;
 
-        setAlarm(computeAlarm(), _context);
+        setAlarm(computeAlarm(), context);
     }
 
     @Override
     public void removeSystemEvent(Context context)
     {
-        Context _context = context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
-
-        removeAlarm(_context);
+        removeAlarm(context);
 
         PPApplication.logE("EventPreferencesSMS.removeSystemEvent", "xxx");
     }

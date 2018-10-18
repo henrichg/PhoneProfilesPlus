@@ -1764,8 +1764,6 @@ class Event {
         if (this._delayStart > 0)
         {
             Context _context = dataWrapper.context;
-            if (PhoneProfilesService.getInstance() != null)
-                _context = PhoneProfilesService.getInstance();
 
             // delay for start is > 0
             // set alarm
@@ -1854,8 +1852,6 @@ class Event {
     void removeDelayStartAlarm(DataWrapper dataWrapper)
     {
         Context _context = dataWrapper.context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
 
         AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
@@ -1912,8 +1908,6 @@ class Event {
         if (this._delayEnd > 0)
         {
             Context _context = dataWrapper.context;
-            if (PhoneProfilesService.getInstance() != null)
-                _context = PhoneProfilesService.getInstance();
 
             // delay for end is > 0
             // set alarm
@@ -2022,8 +2016,6 @@ class Event {
     void removeDelayEndAlarm(DataWrapper dataWrapper)
     {
         Context _context = dataWrapper.context;
-        if (PhoneProfilesService.getInstance() != null)
-            _context = PhoneProfilesService.getInstance();
 
         AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {

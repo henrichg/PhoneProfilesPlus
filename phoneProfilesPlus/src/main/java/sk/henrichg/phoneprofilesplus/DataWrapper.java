@@ -1930,10 +1930,7 @@ public class DataWrapper {
                 Intent batteryStatus = null;
                 try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
                     IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-                    Context _context = context;
-                    if (PhoneProfilesService.getInstance() != null)
-                        _context = PhoneProfilesService.getInstance();
-                    batteryStatus = _context.registerReceiver(null, filter);
+                    batteryStatus = context.registerReceiver(null, filter);
                 } catch (Exception ignored) {
                 }
 
@@ -2236,10 +2233,7 @@ public class DataWrapper {
                         (event._eventPreferencesPeripherals._peripheralType == EventPreferencesPeripherals.PERIPHERAL_TYPE_CAR_DOCK)) {
                     // get dock status
                     IntentFilter iFilter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
-                    Context _context = context;
-                    if (PhoneProfilesService.getInstance() != null)
-                        _context = PhoneProfilesService.getInstance();
-                    Intent dockStatus = _context.registerReceiver(null, iFilter);
+                    Intent dockStatus = context.registerReceiver(null, iFilter);
 
                     if (dockStatus != null) {
                         int dockState = dockStatus.getIntExtra(Intent.EXTRA_DOCK_STATE, -1);
@@ -4231,10 +4225,7 @@ public class DataWrapper {
         Intent batteryStatus = null;
         try { // Huawei devices: java.lang.IllegalArgumentException: registered too many Broadcast Receivers
             IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-            Context _context = context;
-            if (PhoneProfilesService.getInstance() != null)
-                _context = PhoneProfilesService.getInstance();
-            batteryStatus = _context.registerReceiver(null, filter);
+            batteryStatus = context.registerReceiver(null, filter);
         } catch (Exception ignored) {}
         if (batteryStatus != null) {
             int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
