@@ -209,7 +209,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredH="+measuredH);
 
                 int[] location = new int[2];
-                eventsRunStopIndicator.getLocationOnScreen(location);
+                //eventsRunStopIndicator.getLocationOnScreen(location);
+                eventsRunStopIndicator.getLocationInWindow(location);
 
                 int x = 0;
                 int y = 0;
@@ -217,7 +218,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 if (location[0] + eventsRunStopIndicator.getWidth() - measuredW < 0)
                     x = -(location[0] + eventsRunStopIndicator.getWidth() - measuredW);
 
-                popup.setClippingEnabled(false);
+                popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
             }

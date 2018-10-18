@@ -62,8 +62,10 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
                     try {
                         final int[] myLocation = new int[2];
                         final int[] anchorLocation = new int[2];
-                        contentView.getLocationOnScreen(myLocation);
-                        anchor.getLocationOnScreen(anchorLocation);
+                        //contentView.getLocationOnScreen(myLocation);
+                        contentView.getLocationInWindow(myLocation);
+                        //anchor.getLocationOnScreen(anchorLocation);
+                        anchor.getLocationInWindow(anchorLocation);
                         final int cx = anchorLocation[0] - myLocation[0] + anchor.getWidth() / 2;
                         final int cy = anchorLocation[1] - myLocation[1] + anchor.getHeight() / 2;
 

@@ -347,14 +347,18 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredH="+measuredH);
 
                     Point screenSize = GlobalGUIRoutines.getRealScreenSize(editorFragment.getActivity());
-                    Point navigationBarSize = GlobalGUIRoutines.getNavigationBarSize(editorFragment.getActivity());
-                    if ((screenSize != null) && (navigationBarSize != null)) {
+                    //Point navigationBarSize = GlobalGUIRoutines.getNavigationBarSize(editorFragment.getActivity());
+                    int navigationBarHeight = GlobalGUIRoutines.getNavigationBarHeight(context);
+                    if ((screenSize != null)/* && (navigationBarSize != null)*/) {
                         int[] location = new int[2];
-                        _eventStatusView.getLocationOnScreen(location);
+                        //
+                        //_eventStatusView.getLocationOnScreen(location);
+                        _eventStatusView.getLocationInWindow(location);
                         int x = 0;
                         int y = 0;
 
-                        int statusBarHeight = (int) (24 * editorFragment.getResources().getDisplayMetrics().density + 0.5f);
+                        //int statusBarHeight = (int) (24 * editorFragment.getResources().getDisplayMetrics().density + 0.5f);
+                        int statusBarHeight = GlobalGUIRoutines.getStatusBarHeight(editorFragment.getActivity());
 
                         if ((location[0] + measuredW) > screenSize.x)
                             x = -(location[0]
@@ -363,10 +367,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         if ((location[1] + _eventStatusView.getHeight() + measuredH) > screenSize.y)
                             y = -(location[1] - _eventStatusView.getHeight()
                                     - (screenSize.y - measuredH)
-                                    + navigationBarSize.y
+                                    + navigationBarHeight //navigationBarSize.y
                                     + statusBarHeight);
 
-                        popup.setClippingEnabled(false);
+                        popup.setClippingEnabled(false); // disabled for draw outside activity
                         popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                                 RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
                     }

@@ -29,7 +29,8 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
         int measuredHPopup = contentView.getMeasuredHeight();
 
         int[] locationHelpIcon = new int[2];
-        helpIcon.getLocationOnScreen(locationHelpIcon);
+        //helpIcon.getLocationOnScreen(locationHelpIcon);
+        helpIcon.getLocationInWindow(locationHelpIcon);
 
         int x = 0;
         int y = 0;
@@ -38,15 +39,16 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
             x = -(locationHelpIcon[0] + helpIcon.getWidth() - measuredWPopup);
 
         Point screenSize = GlobalGUIRoutines.getRealScreenSize(context);
-        Point navigationBarSize = GlobalGUIRoutines.getNavigationBarSize(context);
-        if ((screenSize != null) && (navigationBarSize != null)) {
-            int screenBottom = screenSize.y - navigationBarSize.y;
+        //Point navigationBarSize = GlobalGUIRoutines.getNavigationBarSize(context);
+        int navigationBarHeight = GlobalGUIRoutines.getNavigationBarHeight(context);
+        if ((screenSize != null) /*&& (navigationBarSize != null)*/) {
+            int screenBottom = screenSize.y - navigationBarHeight;//navigationBarSize.y;
 
             if ((locationHelpIcon[1] + measuredHPopup) > screenBottom)
                 y = -((locationHelpIcon[1] + measuredHPopup) - screenBottom);
         }
 
-        popup.setClippingEnabled(false);
+        popup.setClippingEnabled(false); // disabled for draw outside activity
         popup.showOnAnchor(helpIcon, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                 RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
     }

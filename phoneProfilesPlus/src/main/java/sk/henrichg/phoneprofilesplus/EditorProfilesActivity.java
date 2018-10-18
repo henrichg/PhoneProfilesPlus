@@ -19,6 +19,9 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.OnApplyWindowInsetsListener;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -503,7 +506,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredH="+measuredH);
 
                 int[] location = new int[2];
-                eventsRunStopIndicator.getLocationOnScreen(location);
+                //eventsRunStopIndicator.getLocationOnScreen(location);
+                eventsRunStopIndicator.getLocationInWindow(location);
 
                 int x = 0;
                 int y = 0;
@@ -511,7 +515,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (location[0] + eventsRunStopIndicator.getWidth() - measuredW < 0)
                     x = -(location[0] + eventsRunStopIndicator.getWidth() - measuredW);
 
-                popup.setClippingEnabled(false);
+                popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                         RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
             }
@@ -528,6 +532,18 @@ public class EditorProfilesActivity extends AppCompatActivity
         // first must be set eventsOrderType
         changeEventOrder(orderSelectedItem, savedInstanceState != null);
         selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null, false);
+
+        /*
+        ViewCompat.setOnApplyWindowInsetsListener(drawerLayout, new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
+                int statusBarSize = insets.getSystemWindowInsetTop();
+                PPApplication.logE("EditorProfilesActivity.onApplyWindowInsets", "statusBarSize="+statusBarSize);
+                return insets;
+            }
+        });
+        */
+
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter("RefreshEditorGUIBroadcastReceiver"));

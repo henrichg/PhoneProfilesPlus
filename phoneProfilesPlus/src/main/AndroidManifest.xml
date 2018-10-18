@@ -117,12 +117,16 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:resizeableActivity="false"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        <!-- android:resizeableActivity="false"
+           disabled multi window support
+        -->
 
         <!-- support for 18.5:9 display (Samsung Galaxy S8, LG G6) -->
         <meta-data
             android:name="android.max_aspect"
-            android:value="2.1"/>
+            android:value="2.4"/>
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

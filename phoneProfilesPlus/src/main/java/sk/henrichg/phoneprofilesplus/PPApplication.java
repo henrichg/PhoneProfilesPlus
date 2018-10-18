@@ -116,9 +116,9 @@ public class PPApplication extends Application {
                                          //+"|SettingsContentObserver.onChange"
 
                                          //+"|$$$ DataWrapper._activateProfile"
-                                         +"|ProfileDurationAlarmBroadcastReceiver.onReceive"
-                                         +"|DataWrapper.activateProfileAfterDuration"
-                                         +"|DataWrapper.getIsManualProfileActivation"
+                                         //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
+                                         //+"|DataWrapper.activateProfileAfterDuration"
+                                         //+"|DataWrapper.getIsManualProfileActivation"
 
                                          //+"|BillingManager"
                                          //+"|DonationFragment"
@@ -252,6 +252,10 @@ public class PPApplication extends Application {
 
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
                                         //+"|LockDeviceActivity"
+
+                                        +"|GlobalGUIRoutines.getAppUsableScreenSize"
+                                        +"|GlobalGUIRoutines.getRealScreenSize"
+                                        +"|EditorProfilesActivity.onApplyWindowInsets"
             ;
 
 
