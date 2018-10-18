@@ -79,7 +79,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;
 
             DataWrapper dataWrapper = new DataWrapper(context, false, 0);
-            boolean manualProfileActivation = dataWrapper.getIsManualProfileActivation();
+            boolean manualProfileActivation = dataWrapper.getIsManualProfileActivation(false);
             dataWrapper.invalidateDataWrapper();
 
             int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);

@@ -3035,7 +3035,7 @@ public class PhoneProfilesService extends Service
                         if (Event.getGlobalEventsRunning(appContext)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "global event run is enabled, first start events");
 
-                            if (!dataWrapper.getIsManualProfileActivation()) {
+                            if (!dataWrapper.getIsManualProfileActivation(false)) {
                                 ////// unblock all events for first start
                                 //     that may be blocked in previous application run
                                 dataWrapper.pauseAllEvents(true, false/*, false*/);

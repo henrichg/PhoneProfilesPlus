@@ -116,8 +116,9 @@ public class PPApplication extends Application {
                                          //+"|SettingsContentObserver.onChange"
 
                                          //+"|$$$ DataWrapper._activateProfile"
-                                         //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
-                                         //+"|DataWrapper.activateProfileAfterDuration"
+                                         +"|ProfileDurationAlarmBroadcastReceiver.onReceive"
+                                         +"|DataWrapper.activateProfileAfterDuration"
+                                         +"|DataWrapper.getIsManualProfileActivation"
 
                                          //+"|BillingManager"
                                          //+"|DonationFragment"
@@ -139,9 +140,6 @@ public class PPApplication extends Application {
                                          //+"|StartEventNotificationBroadcastReceiver"
                                          //+"|StartEventNotificationDeletedReceiver"
                                          //+"|PhoneProfilesService.playNotificationSound"
-
-                                         //+"|ProfileDurationAlarmBroadcastReceiver"
-                                         //+"|$$$ DataWrapper._activateProfile"
 
                                          //+"|PPNotificationListenerService"
                                          //+"|[NOTIF] EventsHandler.handleEvents"

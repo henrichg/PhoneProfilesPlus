@@ -31,6 +31,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "profileId="+profileId);
+
                         if (profileId != 0) {
 
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
@@ -42,18 +44,28 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
 
-                            if (dataWrapper.getIsManualProfileActivation()) {
+                            if (PPApplication.logEnabled())
+                                PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "getIsManualProfileActivation()="+dataWrapper.getIsManualProfileActivation(true));
+
+                            if (dataWrapper.getIsManualProfileActivation(true)) {
                                 Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
                                 Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+
+                                if (PPApplication.logEnabled()) {
+                                    if (activatedProfile != null)
+                                        PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "activatedProfile._name" + activatedProfile._name);
+                                }
 
                                 if ((profile != null) && (activatedProfile != null) &&
                                         (activatedProfile._id == profile._id) &&
                                         (profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
                                     // alarm is from activated profile
 
+                                    PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "alarm is from activated profile");
+
                                     if (!profile._durationNotificationSound.isEmpty() || profile._durationNotificationVibrate) {
                                         if (PhoneProfilesService.getInstance() != null) {
-                                            PPApplication.logE("##### ProfileDurationAlarmBroadcastReceiver.onReceive", "play notification");
+                                            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "play notification");
                                             PhoneProfilesService.getInstance().playNotificationSound(profile._durationNotificationSound, profile._durationNotificationVibrate);
                                             //PPApplication.sleep(500);
                                         }

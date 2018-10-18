@@ -388,7 +388,7 @@ class EventsHandler {
             long backgroundProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyBackgroundProfile = false;
 
-            if (!dataWrapper.getIsManualProfileActivation()) {
+            if (!dataWrapper.getIsManualProfileActivation(false)) {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "active profile is NOT activated manually");
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
                 // no manual profile activation
