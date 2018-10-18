@@ -19,9 +19,6 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.OnApplyWindowInsetsListener;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.WindowInsetsCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -534,6 +531,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null, false);
 
         /*
+        // TODO not working good, all activity is under status bar
         ViewCompat.setOnApplyWindowInsetsListener(drawerLayout, new OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {
