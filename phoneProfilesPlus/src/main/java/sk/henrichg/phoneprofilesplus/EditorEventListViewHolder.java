@@ -3,10 +3,12 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -341,39 +343,44 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
                     View contentView = popup.getContentView();
                     contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                    int measuredW = contentView.getMeasuredWidth();
-                    int measuredH = contentView.getMeasuredHeight();
-                    //Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredW="+measuredW);
-                    //Log.d("EditorEventListAdapter.eventsRunStopIndicator.onClick","measuredH="+measuredH);
+                    int popupWidth = contentView.getMeasuredWidth();
+                    int popupHeight = contentView.getMeasuredHeight();
+                    //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupWidth="+popupWidth);
+                    //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupHeight="+popupHeight);
 
-                    Point screenSize = GlobalGUIRoutines.getRealScreenSize(editorFragment.getActivity());
-                    //Point navigationBarSize = GlobalGUIRoutines.getNavigationBarSize(editorFragment.getActivity());
-                    int navigationBarHeight = GlobalGUIRoutines.getNavigationBarHeight(context);
-                    if ((screenSize != null)/* && (navigationBarSize != null)*/) {
-                        int[] location = new int[2];
-                        //
-                        //_eventStatusView.getLocationOnScreen(location);
-                        _eventStatusView.getLocationInWindow(location);
-                        int x = 0;
-                        int y = 0;
+                    ViewGroup activityView = editorFragment.getActivity().findViewById(android.R.id.content);
+                    int activityHeight = activityView.getHeight();
+                    int activityWidth = activityView.getWidth();
 
-                        //int statusBarHeight = (int) (24 * editorFragment.getResources().getDisplayMetrics().density + 0.5f);
-                        int statusBarHeight = GlobalGUIRoutines.getStatusBarHeight(editorFragment.getActivity());
+                    int[] activityLocation = new int[2];
+                    //_eventStatusView.getLocationOnScreen(location);
+                    activityView.getLocationInWindow(activityLocation);
 
-                        if ((location[0] + measuredW) > screenSize.x)
-                            x = -(location[0]
-                                    - (screenSize.x - measuredW));
+                    int[] statusViewLocation = new int[2];
+                    //_eventStatusView.getLocationOnScreen(statusViewLocation);
+                    _eventStatusView.getLocationInWindow(statusViewLocation);
 
-                        if ((location[1] + _eventStatusView.getHeight() + measuredH) > screenSize.y)
-                            y = -(location[1] - _eventStatusView.getHeight()
-                                    - (screenSize.y - measuredH)
-                                    + navigationBarHeight //navigationBarSize.y
-                                    + statusBarHeight);
+                    /*Rect offsetViewBounds = new Rect();
+                    //returns the visible bounds
+                    _eventStatusView.getDrawingRect(offsetViewBounds);
+                    // calculates the relative coordinates to the parent
+                    activityView.offsetDescendantRectToMyCoords(_eventStatusView, offsetViewBounds);
+                    statusViewLocation[1] = offsetViewBounds.top;
+                    statusViewLocation[0] = offsetViewBounds.left;*/
 
-                        popup.setClippingEnabled(false); // disabled for draw outside activity
-                        popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                                RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
-                    }
+                    int x = 0;
+                    int y = 0;
+
+                    if ((statusViewLocation[0] + popupWidth) > activityWidth)
+                        x = -(statusViewLocation[0]
+                                - (activityWidth - popupWidth));
+
+                    if ((statusViewLocation[1] + _eventStatusView.getHeight() + popupHeight) > activityHeight)
+                        y = -(statusViewLocation[1]// - _eventStatusView.getHeight()
+                                - (activityHeight - popupHeight));
+
+                    popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
+                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
                 }
             });
 
