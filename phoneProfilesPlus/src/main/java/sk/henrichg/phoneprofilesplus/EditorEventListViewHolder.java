@@ -372,12 +372,10 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     int y = 0;
 
                     if ((statusViewLocation[0] + popupWidth) > activityWidth)
-                        x = -(statusViewLocation[0]
-                                - (activityWidth - popupWidth));
+                        x = -(statusViewLocation[0] - (activityWidth - popupWidth));
 
-                    if ((statusViewLocation[1] + _eventStatusView.getHeight() + popupHeight) > activityHeight)
-                        y = -(statusViewLocation[1]// - _eventStatusView.getHeight()
-                                - (activityHeight - popupHeight));
+                    if ((statusViewLocation[1] + popupHeight) > activityHeight)
+                        y = -(statusViewLocation[1] - (activityHeight - popupHeight));
 
                     popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                             RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
