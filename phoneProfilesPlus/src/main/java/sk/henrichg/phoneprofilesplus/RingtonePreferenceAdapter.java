@@ -70,7 +70,7 @@ class RingtonePreferenceAdapter extends BaseAdapter {
         }
 
         holder.radioBtn.setTag(ringtone);
-        if (preference.ringtoneUri.equals(ringtone))
+        if ((preference.ringtoneUri != null) && preference.ringtoneUri.equals(ringtone))
             holder.radioBtn.setChecked(true);
         else
             holder.radioBtn.setChecked(false);
