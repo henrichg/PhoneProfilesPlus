@@ -352,9 +352,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     int activityHeight = activityView.getHeight();
                     int activityWidth = activityView.getWidth();
 
-                    int[] activityLocation = new int[2];
+                    //int[] activityLocation = new int[2];
                     //_eventStatusView.getLocationOnScreen(location);
-                    activityView.getLocationInWindow(activityLocation);
+                    //activityView.getLocationInWindow(activityLocation);
 
                     int[] statusViewLocation = new int[2];
                     //_eventStatusView.getLocationOnScreen(statusViewLocation);

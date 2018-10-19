@@ -497,20 +497,20 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 View contentView = popup.getContentView();
                 contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-                int measuredW = contentView.getMeasuredWidth();
-                //int measuredH = contentView.getMeasuredHeight();
-                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredW="+measuredW);
-                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","measuredH="+measuredH);
+                int popupWidth = contentView.getMeasuredWidth();
+                //int popupHeight = contentView.getMeasuredHeight();
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupWidth="+popupWidth);
+                //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
 
-                int[] location = new int[2];
-                //eventsRunStopIndicator.getLocationOnScreen(location);
-                eventsRunStopIndicator.getLocationInWindow(location);
+                int[] runStopIndicatorLocation = new int[2];
+                //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
+                eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
 
                 int x = 0;
                 int y = 0;
 
-                if (location[0] + eventsRunStopIndicator.getWidth() - measuredW < 0)
-                    x = -(location[0] + eventsRunStopIndicator.getWidth() - measuredW);
+                if (runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth < 0)
+                    x = -(runStopIndicatorLocation[0] + eventsRunStopIndicator.getWidth() - popupWidth);
 
                 popup.setClippingEnabled(false); // disabled for draw outside activity
                 popup.showOnAnchor(eventsRunStopIndicator, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
