@@ -30,7 +30,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     timeChanged = false;
                     String isAutoTime = Settings.Global.getString(appContext.getContentResolver(), Settings.Global.AUTO_TIME);
                     PPApplication.logE("TimeChangedReceiver.onReceive", "isAutoTime="+isAutoTime);
-                    if (isAutoTime.equals("0")) {
+                    if ((isAutoTime != null) && isAutoTime.equals("0")) {
                         timeChanged = true;
                     }
                 }
