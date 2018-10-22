@@ -485,7 +485,6 @@ class GlobalGUIRoutines {
         else
             return null;
     }
-    */
 
     static Point getRealScreenSize(Context context) {
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -495,14 +494,14 @@ class GlobalGUIRoutines {
 
             //if (Build.VERSION.SDK_INT >= 17) {
                 display.getRealSize(size);
-            /*} else {
-                try {
-                    //TODO Android P - used reflections!!
-                    size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
-                    size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
-                } catch (Exception ignored) {
-                }
-            }*/
+            //} else {
+            //    try {
+            //        //TODO Android P - used reflections!!
+            //        size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
+            //        size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
+            //    } catch (Exception ignored) {
+            //    }
+            //}
 
             PPApplication.logE("GlobalGUIRoutines.getRealScreenSize", "size.y="+size.y);
             return size;
@@ -528,6 +527,7 @@ class GlobalGUIRoutines {
         }
         return result;
     }
+    */
 
     static int getThemeAccentColor(final Context context) {
         final TypedValue value = new TypedValue();

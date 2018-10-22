@@ -360,14 +360,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //_eventStatusView.getLocationOnScreen(statusViewLocation);
                     _eventStatusView.getLocationInWindow(statusViewLocation);
 
-                    /*Rect offsetViewBounds = new Rect();
-                    //returns the visible bounds
-                    _eventStatusView.getDrawingRect(offsetViewBounds);
-                    // calculates the relative coordinates to the parent
-                    activityView.offsetDescendantRectToMyCoords(_eventStatusView, offsetViewBounds);
-                    statusViewLocation[1] = offsetViewBounds.top;
-                    statusViewLocation[0] = offsetViewBounds.left;*/
-
                     int x = 0;
                     int y = 0;
 

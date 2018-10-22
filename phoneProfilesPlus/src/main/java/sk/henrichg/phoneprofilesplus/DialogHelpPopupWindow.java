@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,41 +22,50 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
         textView.setText(helpString);
     }
 
-    static void showPopup(ImageView helpIcon, Context context, String helpString) {
-        DialogHelpPopupWindow popup = new DialogHelpPopupWindow(context, helpString);
+    static void showPopup(ImageView helpIcon, Activity activity, String helpString) {
+        DialogHelpPopupWindow popup = new DialogHelpPopupWindow(activity, helpString);
 
         View contentView = popup.getContentView();
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        int measuredWPopup = contentView.getMeasuredWidth();
-        int measuredHPopup = contentView.getMeasuredHeight();
+        int popupWidth = contentView.getMeasuredWidth();
+        int popupHeight = contentView.getMeasuredHeight();
+        PPApplication.logE("DialogHelpPopupWindow.showPopup","popupWidth="+popupWidth);
+        PPApplication.logE("DialogHelpPopupWindow.showPopup","popupHeight="+popupHeight);
+
+        ViewGroup activityView = activity.findViewById(android.R.id.content);
+        int activityHeight = activityView.getHeight();
+        //int activityWidth = activityView.getWidth();
+        PPApplication.logE("DialogHelpPopupWindow.showPopup","activityHeight="+activityHeight);
+
+        //int[] activityLocation = new int[2];
+        //_eventStatusView.getLocationOnScreen(location);
+        //activityView.getLocationInWindow(activityLocation);
 
         int[] locationHelpIcon = new int[2];
-        //helpIcon.getLocationOnScreen(locationHelpIcon);
-        helpIcon.getLocationInWindow(locationHelpIcon);
+        helpIcon.getLocationOnScreen(locationHelpIcon); // must be used this in dialogs.
+        //helpIcon.getLocationInWindow(locationHelpIcon);
+        PPApplication.logE("DialogHelpPopupWindow.showPopup","locationHelpIcon[0]="+locationHelpIcon[0]);
+        PPApplication.logE("DialogHelpPopupWindow.showPopup","locationHelpIcon[1]="+locationHelpIcon[1]);
 
         int x = 0;
         int y = 0;
 
-        if (locationHelpIcon[0] + helpIcon.getWidth() - measuredWPopup < 0)
-            x = -(locationHelpIcon[0] + helpIcon.getWidth() - measuredWPopup);
+        if (locationHelpIcon[0] + helpIcon.getWidth() - popupWidth < 0)
+            x = -(locationHelpIcon[0] + helpIcon.getWidth() - popupWidth);
 
-        Point screenSize = GlobalGUIRoutines.getRealScreenSize(context);
-        //Point navigationBarSize = GlobalGUIRoutines.getNavigationBarSize(context);
-        int navigationBarHeight = GlobalGUIRoutines.getNavigationBarHeight(context);
-        if ((screenSize != null) /*&& (navigationBarSize != null)*/) {
-            int screenBottom = screenSize.y - navigationBarHeight;//navigationBarSize.y;
+        if ((locationHelpIcon[1] + popupHeight) > activityHeight)
+            y = -(locationHelpIcon[1] - (activityHeight - popupHeight));
 
-            if ((locationHelpIcon[1] + measuredHPopup) > screenBottom)
-                y = -((locationHelpIcon[1] + measuredHPopup) - screenBottom);
-        }
+        PPApplication.logE("DialogHelpPopupWindow.showPopup","x="+x);
+        PPApplication.logE("DialogHelpPopupWindow.showPopup","y="+y);
 
         popup.setClippingEnabled(false); // disabled for draw outside activity
         popup.showOnAnchor(helpIcon, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
                 RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
     }
 
-    static void showPopup(ImageView helpIcon, Context context, int helpTextResource) {
-        String helpString = context.getString(helpTextResource);
-        showPopup(helpIcon, context, helpString);
+    static void showPopup(ImageView helpIcon, Activity activity, int helpTextResource) {
+        String helpString = activity.getString(helpTextResource);
+        showPopup(helpIcon, activity, helpString);
     }
 }
