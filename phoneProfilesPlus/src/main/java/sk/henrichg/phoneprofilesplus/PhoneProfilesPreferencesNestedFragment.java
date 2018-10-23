@@ -105,9 +105,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         if (!ActivateProfileHelper.getMergedRingNotificationVolumes(getActivity().getApplicationContext())) {
             //Log.e("PhoneProfilesPreferencesNestedFragment.onActivityCreated","volumes are merged=false");
             Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
-            if (preference != null)
+            if (preference != null) {
                 preference.setEnabled(false);
+                preference.setSummary(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary);
                 //systemCategory.removePreference(preference);
+            }
         }
         /*else {
             Log.e("PhoneProfilesPreferencesNestedFragment.onActivityCreated","volumes are merged=true");
