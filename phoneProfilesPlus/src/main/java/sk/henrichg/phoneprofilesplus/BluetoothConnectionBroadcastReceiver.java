@@ -58,6 +58,17 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             final boolean connected = action.equals(BluetoothDevice.ACTION_ACL_CONNECTED);
             final String newName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 
+            if (action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
+                if (newName == null) {
+                    PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action + " with newName == null");
+                    return;
+                }
+                if (newName.equals(device.getName())) {
+                    PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action + " with not changed name");
+                    return;
+                }
+            }
+
             PPApplication.startHandlerThread("BluetoothConnectionBroadcastReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -75,13 +86,13 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                     if (device != null) {
 
-                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action);
+                        PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action);
 
                         try {
                             //if (!action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
-                                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
-                                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
-                                PPApplication.logE("BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
+                                PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
+                                PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
+                                PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
                             //}
 
                             switch (action) {
@@ -89,8 +100,10 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                     addConnectedDevice(device);
                                     break;
                                 case BluetoothDevice.ACTION_NAME_CHANGED:
-                                    if (newName != null)
+                                    if (newName != null) {
+                                        PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "newName=" + newName);
                                         changeDeviceName(device, newName);
+                                    }
                                     break;
                                 default:
                                     removeConnectedDevice(device);
