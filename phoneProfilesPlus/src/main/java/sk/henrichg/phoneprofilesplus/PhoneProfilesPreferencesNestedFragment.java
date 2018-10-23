@@ -111,12 +111,17 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 //systemCategory.removePreference(preference);
             }
         }
-        /*else {
-            Log.e("PhoneProfilesPreferencesNestedFragment.onActivityCreated","volumes are merged=true");
-            Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_RINGER_NOTIFICATION_VOLUMES_UNLINKED_INFO);
+        else {
+            Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
+            if (preference != null) {
+                preference.setEnabled(true);
+                preference.setSummary(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary);
+            }
+            //Log.e("PhoneProfilesPreferencesNestedFragment.onActivityCreated","volumes are merged=true");
+            /*Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_RINGER_NOTIFICATION_VOLUMES_UNLINKED_INFO);
             if (preference != null)
-                systemCategory.removePreference(preference);
-        }*/
+                systemCategory.removePreference(preference);*/
+        }
 
         /*if (Build.VERSION.SDK_INT >= 24) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("applicationInterfaceCategory");
