@@ -753,16 +753,22 @@ class ActivateProfileHelper {
                 // Fatal Exception: java.lang.SecurityException: Only SystemUI can disable the safe media volume:
                 // Neither user 10118 nor current process has android.permission.STATUS_BAR_SERVICE.
                 try {
+                    PPApplication.logE("ActivateProfileHelper.setVolumes", "set media volume");
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_MUSIC, profile.getVolumeMediaValue());
                 } catch (SecurityException e) {
+                    PPApplication.logE("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e));
                     // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
                     if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                         try {
+                            PPApplication.logE("ActivateProfileHelper.setVolumes", "disable safe volume without root");
                             Settings.Global.putInt(context.getContentResolver(), "audio_safe_volume_state", 2);
+                            PPApplication.logE("ActivateProfileHelper.setVolumes", "set media volume");
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
                         }
-                        catch (Exception ignored) {}
+                        catch (Exception e2) {
+                            PPApplication.logE("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e2));
+                        }
                     }
                     else {
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
@@ -771,8 +777,10 @@ class ActivateProfileHelper {
                                 String command1 = "settings put global audio_safe_volume_state 2";
                                 Command command = new Command(0, false, command1);
                                 try {
+                                    PPApplication.logE("ActivateProfileHelper.setVolumes", "disable safe volume with root");
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command);
+                                    PPApplication.logE("ActivateProfileHelper.setVolumes", "set media volume");
                                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, profile.getVolumeMediaValue(), 0);
                                 /*} catch (RootDeniedException ee) {
                                     PPApplication.rootMutex.rootGranted = false;
@@ -783,7 +791,9 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                } catch (Exception ignored) {}
+                } catch (Exception e3) {
+                    PPApplication.logE("ActivateProfileHelper.setVolumes", Log.getStackTraceString(e3));
+                }
             }
             if (profile.getVolumeAlarmChange()) {
                 try {
