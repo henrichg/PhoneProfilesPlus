@@ -296,8 +296,10 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
 
-        if (PPApplication.getApplicationStarted(getApplicationContext(), false))
+        if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
+            PPApplication.logE("$$$ PhoneProfilesService.onCreate", "doForFirstStart");
             doForFirstStart(null);
+        }
         else
             stopSelf();
     }
@@ -2874,6 +2876,8 @@ public class PhoneProfilesService extends Service
 
     // start service for first start
     private boolean doForFirstStart(Intent intent/*, int flags, int startId*/) {
+        PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart START");
+
         boolean onlyStart = true;
         boolean startedFromApp = false;
         boolean startOnBoot = false;
@@ -2886,18 +2890,6 @@ public class PhoneProfilesService extends Service
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
 
-        if (serviceRunning && onlyStart && !startOnBoot && !startOnPackageReplace) {
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START already running");
-            return true;
-        }
-
-        if ((!startOnPackageReplace) && PPApplication.isNewVersion(getApplicationContext())) {
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "is new version");
-            return true;
-        }
-
-        serviceRunning = true;
-
         if (onlyStart)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
         if (startedFromApp)
@@ -2907,14 +2899,25 @@ public class PhoneProfilesService extends Service
         if (startOnPackageReplace)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
 
+        PPApplication.logE("PhoneProfilesService.doForFirstStart", "serviceRunning="+serviceRunning);
+
+        if (serviceRunning && onlyStart && !startOnBoot && !startOnPackageReplace && !startedFromApp) {
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "only EXTRA_ONLY_START, service already running");
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
+            return true;
+        }
+
+        if ((!startOnPackageReplace) && PPApplication.isNewVersion(getApplicationContext())) {
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "is new version but not EXTRA_START_ON_PACKAGE_REPLACE");
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
+            return true;
+        }
+
+        serviceRunning = true;
+
         final Context appContext = getApplicationContext();
 
         if (onlyStart) {
-            if (startOnBoot || startOnPackageReplace) {
-                // restart first start
-                serviceHasFirstStart = false;
-            }
-
             /*
             registerReceiversAndJobs();
             AboutApplicationJob.scheduleJob(getApplicationContext(), true);
@@ -2928,7 +2931,7 @@ public class PhoneProfilesService extends Service
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart.2");
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart.2 START");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -2949,6 +2952,11 @@ public class PhoneProfilesService extends Service
 
                     GlobalGUIRoutines.setLanguage(appContext);
 
+                    if (_startOnBoot || _startOnPackageReplace) {
+                        // restart first start
+                        serviceHasFirstStart = false;
+                    }
+
                     if (serviceHasFirstStart) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -2956,6 +2964,7 @@ public class PhoneProfilesService extends Service
                                 wakeLock.release();
                             } catch (Exception ignored) {}
                         }
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart.2 END");
                         return;
                     }
 
@@ -3057,6 +3066,8 @@ public class PhoneProfilesService extends Service
 
                     serviceHasFirstStart = true;
 
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart.2 END");
+
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
                             wakeLock.release();
@@ -3065,6 +3076,8 @@ public class PhoneProfilesService extends Service
                 }
             });
         }
+
+        PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
 
         return onlyStart;
     }

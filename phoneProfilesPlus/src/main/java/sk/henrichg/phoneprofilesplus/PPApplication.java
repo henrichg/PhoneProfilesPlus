@@ -96,6 +96,7 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setZenMode"
                                          +"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
+                                         +"|ActivateProfileHelper.doExecuteForRadios"
 
                                          //+"|PPApplication.startHandlerThread"
                                          //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
@@ -253,7 +254,7 @@ public class PPApplication extends Application {
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
                                         //+"|LockDeviceActivity"
 
-                                        +"|DialogHelpPopupWindow.showPopup"
+                                        //+"|DialogHelpPopupWindow.showPopup"
             ;
 
 

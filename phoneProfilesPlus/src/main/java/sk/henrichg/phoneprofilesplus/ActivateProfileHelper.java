@@ -97,6 +97,7 @@ class ActivateProfileHelper {
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                 // in array.xml, networkTypeGSMValues are 100+ values
                 setPreferredNetworkType(context, profile._deviceNetworkType - 100);
                 //try { Thread.sleep(200); } catch (InterruptedException e) { }
@@ -108,6 +109,7 @@ class ActivateProfileHelper {
         // setup mobile data
         if (profile._deviceMobileData != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData");
                 boolean _isMobileData = isMobileData(context);
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
@@ -142,17 +144,15 @@ class ActivateProfileHelper {
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-start");
+                PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
                 WifiApManager wifiApManager = null;
                 try {
                     wifiApManager = new WifiApManager(context);
                 } catch (Exception ignored) {
                 }
                 if (wifiApManager != null) {
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-wifiApManager!=null");
                     boolean setWifiAPState = false;
                     boolean isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=" + isWifiAPEnabled);
                     switch (profile._deviceWiFiAP) {
                         case 1:
                             if (!isWifiAPEnabled) {
@@ -174,9 +174,6 @@ class ActivateProfileHelper {
                             canChangeWifi = !isWifiAPEnabled;
                             break;
                     }
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-setWifiAPState=" + setWifiAPState);
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=" + isWifiAPEnabled);
-                    PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-canChangeWifi=" + canChangeWifi);
                     if (setWifiAPState) {
                         setWifiAP(wifiApManager, isWifiAPEnabled, context);
                         //try { Thread.sleep(200); } catch (InterruptedException e) { }
@@ -191,9 +188,9 @@ class ActivateProfileHelper {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
                     boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi == 4)) { // only when wifi AP is not enabled, change wifi
-                        PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.doExecuteForRadios-isWifiAPEnabled=false");
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                         if (wifiManager != null) {
                             int wifiState = wifiManager.getWifiState();
@@ -240,6 +237,7 @@ class ActivateProfileHelper {
             // connect to SSID
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID");
                     if (Permissions.checkLocation(context)) {
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                         if (wifiManager != null) {
