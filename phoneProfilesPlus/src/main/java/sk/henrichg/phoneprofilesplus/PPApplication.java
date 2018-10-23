@@ -94,9 +94,9 @@ public class PPApplication extends Application {
                                          */
 
                                          //+"|ActivateProfileHelper.setZenMode"
-                                         +"|ActivateProfileHelper.setVolumes"
+                                         //+"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
-                                         +"|ActivateProfileHelper.doExecuteForRadios"
+                                         //+"|ActivateProfileHelper.doExecuteForRadios"
 
                                          //+"|PPApplication.startHandlerThread"
                                          //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
@@ -181,7 +181,7 @@ public class PPApplication extends Application {
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
                                          //+"|BluetoothConnectedDevices"
-                                         +"|BluetoothConnectionBroadcastReceiver"
+                                         //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
                                          //+"|BluetoothScanJob"

@@ -296,11 +296,13 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OK created");
 
-        if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
+        /*if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
             PPApplication.logE("$$$ PhoneProfilesService.onCreate", "doForFirstStart");
             doForFirstStart(null);
         }
         else
+            stopSelf();*/
+        if (!PPApplication.getApplicationStarted(getApplicationContext(), false))
             stopSelf();
     }
 
@@ -2952,7 +2954,7 @@ public class PhoneProfilesService extends Service
 
                     GlobalGUIRoutines.setLanguage(appContext);
 
-                    if (_startOnBoot || _startOnPackageReplace) {
+                    if (_startOnBoot || _startOnPackageReplace || _startedFromApp) {
                         // restart first start
                         serviceHasFirstStart = false;
                     }
