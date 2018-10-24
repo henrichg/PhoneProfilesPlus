@@ -845,7 +845,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Cliquez sur ce bouton pour ouvrir le menu événement avec options : activer/arrêt, dupliquer et supprimer.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Gestionnaire de priorité</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Faites glisser l’événement vers le haut ou le bas pour modifier l\'ordre dans l\'activateur.</string>
-  <string name="activator_activity_targetHelps_editor_title">Editeur</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Editeur</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Cliquez sur ce bouton pour ouvrir l’éditeur. Dans l’éditeur, que pouvez configurer les profils, les événements, changer les paramètres de l’application…</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Cliquez sur ce bouton pour ouvrir l’éditeur. Dans l’éditeur, que pouvez configurer les profils, les événements, changer les paramètres de l’application…</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Activer le profil</string>
@@ -1216,6 +1216,7 @@ Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="exit_application_alert_message">Are you sure?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Votre appareil n’a pas fusionné les volumes de sonnerie d’appel et de notification.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>

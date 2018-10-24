@@ -848,7 +848,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">לחצו כאן לפתיחת התפריט האירועים עם אפשרויות: אפשור/עצירת הפעלה, שכפול ומחיקה של האירוע.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">סדרן</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">גרורו אירוע למעלה/למטה כאן לשינוי סדר ההפעלה של אירועים.</string>
-  <string name="activator_activity_targetHelps_editor_title">עורך</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">עורך</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">לחצו כאן לפתיחת העורך. העורך מאפשר להגדיר פרופילים, אירועים, שינוי הגדרות יישום…</string>
   <string name="activator_activity_targetHelps_editor_description_pp">לחצו כאן לפתיחת העורך. העורך מאפשר להגדיר פרופילים, לשנות הגדרות יישום…</string>
   <string name="activator_activity_targetHelps_activateProfile_title">הפעלת פרופיל</string>
@@ -1219,6 +1219,7 @@
   <string name="exit_application_alert_message">Are you sure?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">במכשירך לא מוזגו עוצמות הקול עבור שיחות נכנסות והודעות.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>

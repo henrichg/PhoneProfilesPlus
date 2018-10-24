@@ -845,7 +845,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Seçenekleri ile durum menüsünü açmak için buna dokunun: Durumu Başlatmak/Durdurmak, Çoğaltmak ve Silmek.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Sıra düzenleyici</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Durumun \"Başlatma sırası\"nı değiştirmek için bununla durumu yukarı/aşağı sürükleyin.</string>
-  <string name="activator_activity_targetHelps_editor_title">Düzenleyici</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Düzenleyici</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Tercihleri, durumları, uygulama ayarlarını vs. ayarlayabileceğiniz Düzenleyici\'yi açmak için buna dokunun.</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Tercihleri, durumları, uygulama ayarlarını vs. ayarlayabileceğiniz Düzenleyici\'yi açmak için buna dokunun.</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Tercihi faal yap</string>
@@ -1215,6 +1215,7 @@
   <string name="exit_application_alert_message">Are you sure?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Cihazınızın zil ve bildirim ses hacimleri birleştirilmiş değil.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• profil şartları \"Zorla durdurulan uygulamalar\"\n• durum sensörleri \"Uygulama şartları\" ve \"Ekran döndürme şartları\".</string>

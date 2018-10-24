@@ -845,7 +845,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Klik hierop voor het openen van event menu met de opties: Inschakelen/Stoppen, Dupliceren en verwijderen event.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Volgorde afhandelaar</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Sleep event omhoog/omlaag voor het wijzigen van de \"Startvolgorde\".</string>
-  <string name="activator_activity_targetHelps_editor_title">Editor</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Editor</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Klik hier om de Editor te openen. In de Editor kun je profielen en events configureren, programma-instellingen wijzigen, enz.</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Klik hier om de Editor te openen. In de Editor kun je profielen configureren, programma-instellingen wijzigen, enz.</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Activeer profiel</string>
@@ -1215,6 +1215,7 @@
   <string name="exit_application_alert_message">Weet je het zeker?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Toon de \"Afsluiten\" knop</string>
   <string name="altype_applicationUpgrade">applicatie bijwerken</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Je apparaat heeft volume voor beltoon en meldingen niet samengevoegd.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Toestaan van PhoneProfilesPlusExtender voor: \n• profiel parameter \"Stoppen forceren applicaties\" \n• van event parameters \"Applicatie sensor\" en \"Oriëntatie-sensor\".</string>

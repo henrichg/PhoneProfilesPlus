@@ -845,7 +845,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Klik ini untuk membuka menu acara dengan opsi: Enable / Stop run, Duplicate and Delete event.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Pesanan handler</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Tarik acara naik / turun dengan handler ini untuk mengubah acara \"Start Order\".</string>
-  <string name="activator_activity_targetHelps_editor_title">Editor</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Editor</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Klik ini untuk membuka Editor, di mana Anda dapat mengkonfigurasi profil, acara, mengubah pengaturan aplikasi, dll.</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Klik ini untuk membuka Editor, di mana Anda dapat mengkonfigurasi profil, mengubah pengaturan aplikasi, dll.</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Aktifkan profil</string>
@@ -1215,6 +1215,7 @@
   <string name="exit_application_alert_message">Are you sure?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Perangkat Anda tidak memiliki volume terkait untuk nada dering dan pemberitahuan.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>

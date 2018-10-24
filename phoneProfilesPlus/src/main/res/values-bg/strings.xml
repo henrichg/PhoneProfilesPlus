@@ -845,7 +845,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Click this to open event menu with options: Enable/Stop run, Duplicate and Delete event.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Order handler</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Drag event up/down with this handler to change the event \"Start order\".</string>
-  <string name="activator_activity_targetHelps_editor_title">Редактор</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Редактор</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Click this to open Editor, where you can configure profiles, events, change application settings, etc.</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Click this to open Editor, where you can configure profiles, change application settings, etc.</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Activate profile</string>
@@ -1215,6 +1215,7 @@
   <string name="exit_application_alert_message">Are you sure?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Your device does not have linked volumes for ringtone and notifications.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>

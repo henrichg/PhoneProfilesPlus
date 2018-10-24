@@ -846,7 +846,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Нажмите эту кнопку для открытия событий меню с вариантами: Включить/Остановить, Дублировать и Удалить событие.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Упорядочиватель</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Перетащите событие вверх/вниз, чтобы изменить его порядок запуска.</string>
-  <string name="activator_activity_targetHelps_editor_title">Редактор</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Редактор</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Нажмите, чтобы открыть Редактор. В Редакторе Вы можете настроить профили и события, изменить настройки приложения и т.д.</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Нажмите здесь для открытия Редактора. В редакторе можно настроить профили, изменить параметры приложения…</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Активировать профиль</string>
@@ -1216,6 +1216,7 @@
   <string name="exit_application_alert_message">Вы уверены?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Показывать кнопку \"Выход\"</string>
   <string name="altype_applicationUpgrade">обновление приложения</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Уровни громкости для звонка и уведомлений в вашем устройстве не объединены.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Разрешите PhoneProfilesPlusExtender доступ для:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров событий \"Датчик приложений\" и \"Датчик ориентации\".</string>

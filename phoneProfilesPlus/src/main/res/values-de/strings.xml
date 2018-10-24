@@ -845,7 +845,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Klicke hier um das Ereignismenü mit Optionen zu öffnen: Aktiviere/Stoppe, dupliziere und lösche Ereignis.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Festlegung Reihenfolge</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Verschiebe Ereignis auf/ab um die Startreihenfolge zu ändern.</string>
-  <string name="activator_activity_targetHelps_editor_title">Editor</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Editor</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Hier klicken um den Editor zu öffnen. Im Editor kannst du Profile, Ereignisse und Anwendungseinstellungen konfigurieren…</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Hier klicken um den Editor zu öffnen. Im Editor kannst du Profile, Ereignisse und Anwendungseinstellungen konfigurieren…</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Aktiviere Profil</string>
@@ -1215,6 +1215,7 @@
   <string name="exit_application_alert_message">Are you sure?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Das Gerät hat keine Lautstärkeverknüpfung für Klingeltöne und Benachrichtigungen.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben, für: \n• Profil Parameter \"Anwendungen sofort stoppen\" \n• für die Ereignis Sensoren \"Anwendungsparameter\" und \"Ausrichtung\".</string>

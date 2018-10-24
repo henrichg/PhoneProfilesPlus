@@ -846,7 +846,7 @@ Proszę przeczytać.</string>
   <string name="editor_activity_targetHelps_eventMenu_description">Kliknij, tutaj, aby otrzymać menu zdarzeń z opcjami: Włącz/zatrzymaj uruchomienie, Powiel i Usuń zdarzenie.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Kolejność obsługi</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Przeciągnij zdarzenie w górę/dół z tym doradcom, aby zmienić wydarzenie \"Start order\".</string>
-  <string name="activator_activity_targetHelps_editor_title">Edytor</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Edytor</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Kliknij tutaj, aby otworzyć Edytor, w którym możesz konfigurować profile, zdarzenia, zmienić ustawienia aplikacji, itp.</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Kliknij tutaj, aby otworzyć Edytor, w którym możesz konfigurować profile, zmienić ustawienia aplikacji, itp.</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Aktywuj profil</string>
@@ -1216,6 +1216,7 @@ Proszę przeczytać.</string>
   <string name="exit_application_alert_message">Are you sure?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Twoje urządzenie nie ma połączonych woluminów na dzwonek i powiadomienia.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>

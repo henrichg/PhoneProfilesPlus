@@ -845,7 +845,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Ide kattintva megnyílik az események menü az opcióival: Engedélyezett/Leállít futtatást, Duplázása és Törlése az eseménynek.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Rendezés kezelő</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Esemény húzza fel/le ezzel módosításának esemény \"Indítási sorrend\"-jét.</string>
-  <string name="activator_activity_targetHelps_editor_title">Szerkesztő</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Szerkesztő</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Kattintson ide a szerkesztő megnyitásához. A szerkesztőben konfigurálhatja a profilokat, eseményeket, változtathat az alkalmazás beállításain…</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Kattintson ide a szerkesztő megnyitásához. A szerkesztőben konfigurálhatja a profilokat, változtathat az alkalmazás beállításain…</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Profil aktiválása</string>
@@ -1215,6 +1215,7 @@
   <string name="exit_application_alert_message">Are you sure?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Az eszközén nincs egyesítve a csengő és értesítés hangerő.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Lehetővé teszi a PhoneProfilesPlusExtender: \n• profil paraméter \"Alkalmazások kényszerített leállítása\" \n• esemény paraméterek \"Alkalmazás erzékelő\" és \"Irány érzékelő\".</string>

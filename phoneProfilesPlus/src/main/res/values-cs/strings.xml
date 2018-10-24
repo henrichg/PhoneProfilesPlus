@@ -845,7 +845,7 @@
   <string name="editor_activity_targetHelps_eventMenu_description">Klikněte zde pro otevření menu události s možnostmi: Povol/Zastav běh, Duplikuj a Smaž událost.</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_title">Obsluhovač pořadí</string>
   <string name="editor_activity_targetHelps_eventOrderHandler_description">Přesuňte nahoru/dolů událost s tímto pro změnu \"Pořadí startu\" události.</string>
-  <string name="activator_activity_targetHelps_editor_title">Editor</string>
+  <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Editor</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Klikněte zde pro otevření Editoru. V Editoru můžete nakonfigurovat profily, události, změnit nastavení aplikace…</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Klikněte zde pro otevření Editoru. V Editoru můžete nakonfigurovat profily, změnit nastavení aplikace…</string>
   <string name="activator_activity_targetHelps_activateProfile_title">Aktivovat profil</string>
@@ -1215,6 +1215,7 @@
   <string name="exit_application_alert_message">Jste si jistý?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Zobrazit tlačítko \"Ukončit\"</string>
   <string name="altype_applicationUpgrade">aktualizace aplikace</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Zařízení nemá sloučenou hlasitost vyzvánění a oznámení.</string>
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací\"\n• parametry události \"Senzor aplikací\" and \"Senzor orientace\".</string>
