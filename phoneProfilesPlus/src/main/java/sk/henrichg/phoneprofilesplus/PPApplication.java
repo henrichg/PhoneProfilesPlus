@@ -84,6 +84,7 @@ public class PPApplication extends Application {
                                          //+"|PostDelayedBroadcastReceiver"
 
                                          //+"|#### EventsHandler.handleEvents"
+                                         //+"|$$$ EventsHandler.handleEvents"
 
                                          /*
                                          +"|DataWrapper.restartEventsWithDelay"

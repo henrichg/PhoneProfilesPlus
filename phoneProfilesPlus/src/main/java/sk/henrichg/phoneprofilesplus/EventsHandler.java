@@ -283,7 +283,7 @@ class EventsHandler {
             ActivateProfileHelper.lockRefresh = true;
 
             Profile mergedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
-            //mergedProfiles = new ArrayList<>();
+            Profile mergedPausedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
 
             //Profile activatedProfile0 = null;
 
@@ -342,7 +342,7 @@ class EventsHandler {
                         // only pause events
                         // pause only running events
                         //noinspection ConstantConditions
-                        dataWrapper.doHandleEvents(_event, true, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, false, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, true, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, false, mergedPausedProfile, sensorType);
                         restartEventsAtEnd = (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS);
                     }
                 }
@@ -352,6 +352,7 @@ class EventsHandler {
                 runningEventCount0 = _etl.size();
 
                 //2. start events
+                mergedProfile.copyProfile(mergedPausedProfile);
                 dataWrapper.sortEventsByStartOrderAsc();
                 for (Event _event : this.dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
@@ -403,7 +404,14 @@ class EventsHandler {
                         long activatedProfileId = 0;
                         if (activatedProfile != null)
                             activatedProfileId = activatedProfile._id;
-                        if ((activatedProfileId != backgroundProfileId) || isRestart) {
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
+                        if ((activatedProfileId == 0) ||
+                            ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0) && // activate default profile only when is not activated profile at end of events
+                             (activatedProfileId != backgroundProfileId))
+                                || isRestart) {
                             notifyBackgroundProfile = true;
                             mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper, false);
                             PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");

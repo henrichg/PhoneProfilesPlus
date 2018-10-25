@@ -4061,7 +4061,11 @@ public class DataWrapper {
                 long profileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(dataWrapper.context));
                 if ((!Event.getEventsBlocked(dataWrapper.context)) && (profileId != Profile.PROFILE_NO_ACTIVATE))
                 {
-                    Profile profile = dataWrapper.getActivatedProfile(false, false);
+                    Profile profile;
+                    if (fromDB)
+                        profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                    else
+                        profile = dataWrapper.getActivatedProfile(false, false);
                     if ((profile != null) && (profile._id == profileId))
                         return dataWrapper.context.getString(R.string.event_name_background_profile);
                     else
