@@ -46,7 +46,7 @@ class BitmapManipulator {
                     context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 } catch (Exception e) {
-                    Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                    //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                 }
                 //}
                 InputStream inputStream = context.getContentResolver().openInputStream(uri);
@@ -110,8 +110,7 @@ class BitmapManipulator {
                 }
                 return decodedSampleBitmap;
             } catch (Exception e) {
-                Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
-                e.printStackTrace();
+                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                 return null;
             }
         }
@@ -158,8 +157,7 @@ class BitmapManipulator {
                 final int rawWidth = options.outWidth;
                 return (rawWidth <= ICON_BITMAP_SIZE_MULTIPLIER * width) && (rawHeight <= ICON_BITMAP_SIZE_MULTIPLIER * height);
             } catch (Exception e) {
-                Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
-                e.printStackTrace();
+                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                 return false;
             }
         }

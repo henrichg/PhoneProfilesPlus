@@ -288,12 +288,19 @@ class EventsHandler {
             //Profile activatedProfile0 = null;
 
             int runningEventCount0;
+            int runningEventCountP;
             boolean restartEventsAtEnd = false;
+            boolean activateProfileAtEnd = false;
+            boolean anyEventPaused = false;
 
             if (isRestart) {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
 
                 //oldActivatedProfile = null;
+
+                // get running events count
+                List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
+                runningEventCount0 = _etl.size();
 
                 // 1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
@@ -302,15 +309,21 @@ class EventsHandler {
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
-                    if (_event.getStatus() != Event.ESTATUS_STOP)
+                    if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only pause events
                         // pause also paused events
+
+                        boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
                         dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
+
+                        if (running && paused) {
+                            anyEventPaused = true;
+                        }
+                    }
                 }
 
-                // get running events count
-                List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
-                runningEventCount0 = _etl.size();
+                runningEventCountP = _etl.size();
 
                 // 2. start events
                 dataWrapper.sortEventsByStartOrderAsc();
@@ -331,6 +344,10 @@ class EventsHandler {
 
                 //activatedProfile0 = dataWrapper.getActivatedProfileFromDB();
 
+                // get running events count
+                List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
+                runningEventCount0 = _etl.size();
+
                 //1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
                 for (Event _event : this.dataWrapper.eventList) {
@@ -341,15 +358,23 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only pause events
                         // pause only running events
+
+                        boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
                         //noinspection ConstantConditions
                         dataWrapper.doHandleEvents(_event, true, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, false, mergedPausedProfile, sensorType);
-                        restartEventsAtEnd = (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS);
+                        boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
+
+                        if (running && paused) {
+                            anyEventPaused = true;
+                            if (!restartEventsAtEnd && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS))
+                                restartEventsAtEnd = true;
+                            if (!activateProfileAtEnd && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
+                                activateProfileAtEnd = true;
+                        }
                     }
                 }
 
-                // get running events count
-                List<EventTimeline> _etl = dataWrapper.getEventTimelineList();
-                runningEventCount0 = _etl.size();
+                runningEventCountP = _etl.size();
 
                 //2. start events
                 mergedProfile.copyProfile(mergedPausedProfile);
@@ -391,6 +416,7 @@ class EventsHandler {
 
             if (!dataWrapper.getIsManualProfileActivation(false)) {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "active profile is NOT activated manually");
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
                 // no manual profile activation
                 if ((runningEventCountE == 0) && (!restartEventsAtEnd)) {
@@ -404,14 +430,24 @@ class EventsHandler {
                         long activatedProfileId = 0;
                         if (activatedProfile != null)
                             activatedProfileId = activatedProfile._id;
+
+                        // do not activate default profile when not any event is paused and no any profile is activated
+                        // for example for screen on/off broadcast, when no any event is running
+                        if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
+                            activateProfileAtEnd = true;
+
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
                         if ((activatedProfileId == 0) ||
-                            ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0) && // activate default profile only when is not activated profile at end of events
+                            isRestart ||
+                            // activate default profile when is not activated profile at end of events
+                            ((!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
                              (activatedProfileId != backgroundProfileId))
-                                || isRestart) {
+                           ) {
                             notifyBackgroundProfile = true;
                             mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper, false);
                             PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");
@@ -437,7 +473,7 @@ class EventsHandler {
             String backgroundProfileNotificationSound = "";
             boolean backgroundProfileNotificationVibrate = false;
 
-            if ((!isRestart) && (runningEventCountE > runningEventCount0)) {
+            if ((!isRestart) && (runningEventCountE > runningEventCountP)) {
                 // only when not restart events and running events is increased, play event notification sound
 
                 EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
