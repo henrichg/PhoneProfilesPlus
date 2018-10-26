@@ -350,12 +350,16 @@
             android:defaultValue="false"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget"/>
-        <CheckBoxPreference
-            android:key="applicationAlert"
-            android:title="@string/phone_profiles_pref_applicationAlert"
-            android:defaultValue="true"
-            android:widgetLayout="@layout/mp_preference_switch"
-            android:layout="@layout/mp_preference_material_widget" />
+        <PreferenceCategory
+            android:title="@string/phone_profiles_pref_manualProfileActivation"
+            android:layout="@layout/mp_preference_category" >
+            <CheckBoxPreference
+                android:key="applicationAlert"
+                android:title="@string/phone_profiles_pref_applicationAlert"
+                android:defaultValue="true"
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
+        </PreferenceCategory>
     </PreferenceScreen>
 
     <PreferenceScreen
