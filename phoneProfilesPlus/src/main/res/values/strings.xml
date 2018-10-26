@@ -1250,6 +1250,8 @@
     <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
     <string name="altype_applicationUpgrade">application upgrade</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Your device does not have linked volumes for ringtone and notifications.</string>
+    <string name="phone_profiles_pref_backgroundProfileUsage">Default profile usage</string>
+    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

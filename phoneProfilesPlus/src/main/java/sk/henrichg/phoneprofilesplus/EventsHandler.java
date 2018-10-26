@@ -431,26 +431,35 @@ class EventsHandler {
                         if (activatedProfile != null)
                             activatedProfileId = activatedProfile._id;
 
-                        // do not activate default profile when not any event is paused and no any profile is activated
-                        // for example for screen on/off broadcast, when no any event is running
-                        if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
-                            activateProfileAtEnd = true;
+                        if (ApplicationPreferences.applicationBackgroundProfileUsage(context)) {
+                            // do not activate default profile when not any event is paused and no any profile is activated
+                            // for example for screen on/off broadcast, when no any event is running
+                            if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
+                                activateProfileAtEnd = true;
 
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
-                        if ((activatedProfileId == 0) ||
-                            isRestart ||
-                            // activate default profile when is not activated profile at end of events
-                            ((!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
-                             (activatedProfileId != backgroundProfileId))
-                           ) {
-                            notifyBackgroundProfile = true;
-                            mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper, false);
-                            PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");
+                            PPApplication.logE("$$$ EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
+                            PPApplication.logE("$$$ EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
+                            PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+                            PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
+                            PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
+                            PPApplication.logE("$$$ EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
+                            if ((activatedProfileId == 0) ||
+                                    isRestart ||
+                                    // activate default profile when is not activated profile at end of events
+                                    ((!activateProfileAtEnd || ((mergedProfile._id != 0) && (mergedPausedProfile._id == 0))) &&
+                                            (activatedProfileId != backgroundProfileId))
+                                    ) {
+                                notifyBackgroundProfile = true;
+                                mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper, false);
+                                PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");
+                            }
+                        }
+                        else {
+                            if ((activatedProfileId != backgroundProfileId) || isRestart) {
+                                notifyBackgroundProfile = true;
+                                mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper, false);
+                                PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");
+                            }
                         }
                     }
                 }

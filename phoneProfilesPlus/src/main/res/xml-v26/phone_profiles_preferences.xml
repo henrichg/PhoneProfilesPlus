@@ -279,6 +279,13 @@
             android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
             android:layout="@layout/mp_preference_material_widget"
             app:addNoActivateItem="1" />
+        <CheckBoxPreference
+            android:key="applicationBackgroundProfileUsage"
+            android:title="@string/phone_profiles_pref_backgroundProfileUsage"
+            android:summary="@string/phone_profiles_pref_backgroundProfileUsage_summary"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget"/>
         <Preference
             android:key="applicationBackgroundProfileNotificationSoundInfo"
             android:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
