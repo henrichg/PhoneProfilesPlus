@@ -1067,6 +1067,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_VIBRATE);
             if (_preference != null)
                 _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE);
+            if (_preference != null)
+                _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
         }
         else
         if (preference instanceof ListPreference) {

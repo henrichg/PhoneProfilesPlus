@@ -116,7 +116,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_USE_ALARM_CLOCK = "applicationUseAlarmClock";
     static final String PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT = "applicationNeverAskForGrantRoot";
     private static final String PREF_NOTIFICATION_SHOW_BUTTON_EXIT = "notificationShowButtonExit";
-    private static final String PREF_APPLICATION_BACKGROUND_PROFILE_USAGE = "applicationBackgroundProfileUsage";
+    static final String PREF_APPLICATION_BACKGROUND_PROFILE_USAGE = "applicationBackgroundProfileUsage";
 
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)
