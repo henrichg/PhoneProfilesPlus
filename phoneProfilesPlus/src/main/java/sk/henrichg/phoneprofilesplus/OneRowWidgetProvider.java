@@ -99,7 +99,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         boolean roundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners(context);
                         if (roundedCorners) {
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
-                            remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(alpha, red, green, blue));
+                            remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, red, green, blue));
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                             remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", alpha);
                             //else

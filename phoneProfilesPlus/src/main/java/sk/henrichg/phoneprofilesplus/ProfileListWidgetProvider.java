@@ -112,7 +112,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         boolean roundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners(context);
         if (roundedCorners) {
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
-            widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(alpha, red, green, blue));
+            widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(0xFF, red, green, blue));
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                 widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alpha);
             //else
