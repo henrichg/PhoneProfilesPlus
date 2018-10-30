@@ -98,6 +98,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         if (applicationWidgetListBackground.equals("100")) alpha = 0xFF;
                         boolean roundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners(context);
                         if (roundedCorners) {
+                            remoteViews.setViewVisibility(R.id.widget_one_row_background, View.VISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.VISIBLE);
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
                             remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, red, green, blue));
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
@@ -105,12 +108,15 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             //else
                             //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", alpha);
                         } else {
+                            remoteViews.setViewVisibility(R.id.widget_one_row_background, View.GONE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
+                            remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.VISIBLE);
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
-                            remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", 0x00000000);
+                            /*remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", 0x00000000);
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                             remoteViews.setInt(R.id.widget_one_row_background, "setImageAlpha", 0);
                             //else
-                            //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", 0);
+                            //    remoteViews.setInt(R.id.widget_one_row_background, "setAlpha", 0);*/
                         }
 
                         if (isIconResourceID) {

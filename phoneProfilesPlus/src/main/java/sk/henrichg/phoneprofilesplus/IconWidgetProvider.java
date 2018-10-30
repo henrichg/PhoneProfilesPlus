@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
+import android.view.View;
 import android.widget.RemoteViews;
 
 public class IconWidgetProvider extends AppWidgetProvider {
@@ -99,6 +100,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         if (applicationWidgetIconBackground.equals("100")) alpha = 0xFF;
                         boolean roundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners(context);
                         if (roundedCorners) {
+                            remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.GONE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.VISIBLE);
                             remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", 0x00000000);
                             remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", Color.argb(0xFF, red, green, blue));
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
@@ -106,12 +110,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             //else
                             //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", alpha);
                         } else {
+                            remoteViews.setViewVisibility(R.id.widget_icon_background, View.GONE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.GONE);
+                            remoteViews.setViewVisibility(R.id.widget_icon_not_rounded_border, View.VISIBLE);
                             remoteViews.setInt(R.id.widget_icon_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
-                            remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", 0x00000000);
+                            /*remoteViews.setInt(R.id.widget_icon_background, "setColorFilter", 0x00000000);
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                             remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", 0);
                             //else
-                            //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", 0);
+                            //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", 0);*/
                         }
 
                         if (isIconResourceID) {
