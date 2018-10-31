@@ -7692,9 +7692,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         MobileCell mobileCell = new MobileCell();
                         mobileCell._id = foundedDbId;
                         mobileCell._cellId = cell.cellId;
-                        if (renameExistingCell)
-                            mobileCell._name = cell.name;
-                        else
+                        mobileCell._name = cell.name;
+                        if (!renameExistingCell && !foundedCellName.isEmpty())
                             mobileCell._name = foundedCellName;
                         mobileCell._new = _new && cell._new;
                         if (cell.connected)
