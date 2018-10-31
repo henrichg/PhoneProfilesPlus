@@ -98,6 +98,17 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         if (applicationWidgetIconBackground.equals("50")) alpha = 0x80;
                         if (applicationWidgetIconBackground.equals("75")) alpha = 0xC0;
                         if (applicationWidgetIconBackground.equals("100")) alpha = 0xFF;
+                        int redBorder = 0xFF;
+                        int greenBorder;
+                        int blueBorder;
+                        String applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder(context);
+                        if (applicationWidgetIconLightnessBorder.equals("0")) redBorder = 0x00;
+                        if (applicationWidgetIconLightnessBorder.equals("25")) redBorder = 0x40;
+                        if (applicationWidgetIconLightnessBorder.equals("50")) redBorder = 0x80;
+                        if (applicationWidgetIconLightnessBorder.equals("75")) redBorder = 0xC0;
+                        //if (applicationWidgetIconLightnessBorder.equals("100")) redBorder = 0xFF;
+                        greenBorder = redBorder;
+                        blueBorder = redBorder;
                         boolean roundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners(context);
                         if (roundedCorners) {
                             remoteViews.setViewVisibility(R.id.widget_icon_background, View.VISIBLE);
@@ -109,6 +120,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", alpha);
                             //else
                             //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", alpha);
+                            remoteViews.setInt(R.id.widget_icon_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         } else {
                             remoteViews.setViewVisibility(R.id.widget_icon_background, View.GONE);
                             remoteViews.setViewVisibility(R.id.widget_icon_rounded_border, View.GONE);
@@ -119,6 +131,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             remoteViews.setInt(R.id.widget_icon_background, "setImageAlpha", 0);
                             //else
                             //    remoteViews.setInt(R.id.widget_icon_background, "setAlpha", 0);*/
+                            remoteViews.setInt(R.id.widget_icon_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         }
 
                         if (isIconResourceID) {

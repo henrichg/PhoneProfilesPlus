@@ -863,6 +863,14 @@
             android:key="applicationWidgetListBackgroundColor"
             android:defaultValue="-1"
             android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
+            android:summary="100%%"
+            android:key="applicationWidgetListLightnessBorder"
+            android:defaultValue="100"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="applicationWidgetListRoundedCorners"
             android:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
@@ -933,6 +941,14 @@
             android:key="applicationWidgetOneRowBackgroundColor"
             android:defaultValue="-1"
             android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
+            android:summary="100%%"
+            android:key="applicationWidgetOneRowLightnessBorder"
+            android:defaultValue="100"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="applicationWidgetOneRowRoundedCorners"
             android:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
@@ -996,6 +1012,14 @@
             android:title="@string/phone_profiles_pref_applicationWidgetIconColorB"
             android:key="applicationWidgetIconBackgroundColor"
             android:defaultValue="-1"
+            android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetIconLightnessBorder"
+            android:summary="100%%"
+            android:key="applicationWidgetIconLightnessBorder"
+            android:defaultValue="100"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
             android:layout="@layout/mp_preference_material_widget" />
         <CheckBoxPreference
             android:key="applicationWidgetIconRoundedCorners"
