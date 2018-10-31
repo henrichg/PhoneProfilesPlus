@@ -1163,6 +1163,13 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 _preference.setEnabled(colorful);
             }
         }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
+            if (_preference != null) {
+                boolean colorful = preferences.getString(key, "0").equals("1");
+                _preference.setEnabled(colorful);
+            }
+        }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
             if (_preference != null) {
