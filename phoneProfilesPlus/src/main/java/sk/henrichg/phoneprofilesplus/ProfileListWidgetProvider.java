@@ -110,41 +110,52 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         if (applicationWidgetListBackground.equals("50")) alpha = 0x80;
         if (applicationWidgetListBackground.equals("75")) alpha = 0xC0;
         if (applicationWidgetListBackground.equals("100")) alpha = 0xFF;
+        boolean showBorder = ApplicationPreferences.applicationWidgetListShowBorder(context);
         int redBorder = 0xFF;
         int greenBorder;
         int blueBorder;
-        String applicationWidgetListLightnessBorder = ApplicationPreferences.applicationWidgetListLightnessBorder(context);
-        if (applicationWidgetListLightnessBorder.equals("0")) redBorder = 0x00;
-        if (applicationWidgetListLightnessBorder.equals("25")) redBorder = 0x40;
-        if (applicationWidgetListLightnessBorder.equals("50")) redBorder = 0x80;
-        if (applicationWidgetListLightnessBorder.equals("75")) redBorder = 0xC0;
-        //if (applicationWidgetListLightnessBorder.equals("100")) redBorder = 0xFF;
+        if (showBorder) {
+            String applicationWidgetListLightnessBorder = ApplicationPreferences.applicationWidgetListLightnessBorder(context);
+            if (applicationWidgetListLightnessBorder.equals("0")) redBorder = 0x00;
+            if (applicationWidgetListLightnessBorder.equals("25")) redBorder = 0x40;
+            if (applicationWidgetListLightnessBorder.equals("50")) redBorder = 0x80;
+            if (applicationWidgetListLightnessBorder.equals("75")) redBorder = 0xC0;
+            //if (applicationWidgetListLightnessBorder.equals("100")) redBorder = 0xFF;
+        }
         greenBorder = redBorder;
         blueBorder = redBorder;
         boolean roundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners(context);
         if (roundedCorners) {
             widget.setViewVisibility(R.id.widget_profile_list_background, View.VISIBLE);
             widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
-            widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.VISIBLE);
+            if (showBorder)
+                widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.VISIBLE);
+            else
+                widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.GONE);
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", 0x00000000);
             widget.setInt(R.id.widget_profile_list_background, "setColorFilter", Color.argb(0xFF, red, green, blue));
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                 widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", alpha);
             //else
             //    widget.setInt(R.id.widget_profile_list_background, "setAlpha", alpha);
-            widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+            if (showBorder)
+                widget.setInt(R.id.widget_profile_list_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
         }
         else {
             widget.setViewVisibility(R.id.widget_profile_list_background, View.GONE);
             widget.setViewVisibility(R.id.widget_profile_list_rounded_border, View.GONE);
-            widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.VISIBLE);
+            if (showBorder)
+                widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.VISIBLE);
+            else
+                widget.setViewVisibility(R.id.widget_profile_list_not_rounded_border, View.GONE);
             widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
             /*widget.setInt(R.id.widget_profile_list_background, "setColorFilter", 0x00000000);
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
                 widget.setInt(R.id.widget_profile_list_background, "setImageAlpha", 0);
             //else
             //    widget.setInt(R.id.widget_profile_list_background, "setAlpha", 0);*/
-            widget.setInt(R.id.widget_profile_list_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
+            if (showBorder)
+                widget.setInt(R.id.widget_profile_list_not_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
         }
 
 

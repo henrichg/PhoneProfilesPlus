@@ -1080,6 +1080,25 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
         }
 
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER);
+            if (_preference != null) {
+                _preference.setEnabled(preferences.getBoolean(key, false));
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER);
+            if (_preference != null) {
+                _preference.setEnabled(preferences.getBoolean(key, false));
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER);
+            if (_preference != null) {
+                _preference.setEnabled(preferences.getBoolean(key, false));
+            }
+        }
+
         // Do not bind toggles.
         if (preference instanceof CheckBoxPreference || preference instanceof TwoStatePreference) {
             return;
@@ -1184,7 +1203,6 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 _preference.setEnabled(colorful);
             }
         }
-
     }
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
