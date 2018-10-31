@@ -20,13 +20,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_gravity="center_vertical"
+        android:text="@string/profile_name_default"
+        android:textSize="15sp"
+        android:textColor="#ffffffff" />
+
+    <!--<TextView
+        android:id="@+id/widget_profile_list_item_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_gravity="center_vertical"
         android:shadowColor="#ffffffff"
         android:shadowDx="1"
         android:shadowDy="1"
         android:shadowRadius="3"
         android:text="@string/profile_name_default"
         android:textSize="15sp"
-        android:textColor="#ffffffff" />
-        
+        android:textColor="#ffffffff" />-->
+
 </LinearLayout>
 
