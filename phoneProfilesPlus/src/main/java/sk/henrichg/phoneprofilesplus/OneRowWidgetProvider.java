@@ -24,17 +24,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             @Override
             public void run() {
                 int monochromeValue = 0xFF;
-                String applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness(context);
-                if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
-                if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
-                if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
-                if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-                //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+                String applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness(context);
+                if (applicationWidgetOneRowIconLightness.equals("0")) monochromeValue = 0x00;
+                if (applicationWidgetOneRowIconLightness.equals("25")) monochromeValue = 0x40;
+                if (applicationWidgetOneRowIconLightness.equals("50")) monochromeValue = 0x80;
+                if (applicationWidgetOneRowIconLightness.equals("75")) monochromeValue = 0xC0;
+                //if (applicationWidgetOneRowIconLightness.equals("100")) monochromeValue = 0xFF;
 
-                DataWrapper dataWrapper = new DataWrapper(context,  ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
+                DataWrapper dataWrapper = new DataWrapper(context,  ApplicationPreferences.applicationWidgetOneRowIconColor(context).equals("1"), monochromeValue);
 
                 Profile profile = dataWrapper.getActivatedProfile(true,
-                        ApplicationPreferences.applicationWidgetListPrefIndicator(context));
+                        ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context));
 
                 try {
                     // get all OneRowWidgetProvider widgets in launcher
@@ -56,7 +56,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
 
                             profile.generateIconBitmap(context,
-                                    ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
+                                    ApplicationPreferences.applicationWidgetOneRowIconColor(context).equals("1"),
                                     monochromeValue);
                             isIconResourceID = profile.getIsIconResourceID();
                             iconIdentifier = profile.getIconIdentifier();
@@ -64,7 +64,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         }
 
                         RemoteViews remoteViews;
-                        if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
+                        if (ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context))
                             remoteViews = new RemoteViews(context.getPackageName(), R.layout.one_row_widget);
                         else
                             remoteViews = new RemoteViews(context.getPackageName(), R.layout.one_row_widget_no_indicator);
@@ -74,29 +74,29 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         int red = 0x00;
                         int green;
                         int blue;
-                        if (ApplicationPreferences.applicationWidgetListBackgroundType(context)) {
-                            int bgColor = Integer.valueOf(ApplicationPreferences.applicationWidgetListBackgroundColor(context));
+                        if (ApplicationPreferences.applicationWidgetOneRowBackgroundType(context)) {
+                            int bgColor = Integer.valueOf(ApplicationPreferences.applicationWidgetOneRowBackgroundColor(context));
                             red = Color.red(bgColor);
                             green = Color.green(bgColor);
                             blue = Color.blue(bgColor);
                         } else {
-                            String applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB(context);
-                            //if (applicationWidgetListLightnessB.equals("0")) red = 0x00;
-                            if (applicationWidgetListLightnessB.equals("25")) red = 0x40;
-                            if (applicationWidgetListLightnessB.equals("50")) red = 0x80;
-                            if (applicationWidgetListLightnessB.equals("75")) red = 0xC0;
-                            if (applicationWidgetListLightnessB.equals("100")) red = 0xFF;
+                            String applicationWidgetOneRowLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
+                            //if (applicationWidgetOneRowLightnessB.equals("0")) red = 0x00;
+                            if (applicationWidgetOneRowLightnessB.equals("25")) red = 0x40;
+                            if (applicationWidgetOneRowLightnessB.equals("50")) red = 0x80;
+                            if (applicationWidgetOneRowLightnessB.equals("75")) red = 0xC0;
+                            if (applicationWidgetOneRowLightnessB.equals("100")) red = 0xFF;
                             green = red;
                             blue = red;
                         }
                         int alpha = 0x40;
-                        String applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground(context);
-                        if (applicationWidgetListBackground.equals("0")) alpha = 0x00;
-                        //if (applicationWidgetListBackground.equals("25")) alpha = 0x40;
-                        if (applicationWidgetListBackground.equals("50")) alpha = 0x80;
-                        if (applicationWidgetListBackground.equals("75")) alpha = 0xC0;
-                        if (applicationWidgetListBackground.equals("100")) alpha = 0xFF;
-                        boolean roundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners(context);
+                        String applicationWidgetOneRowBackground = ApplicationPreferences.applicationWidgetOneRowBackground(context);
+                        if (applicationWidgetOneRowBackground.equals("0")) alpha = 0x00;
+                        //if (applicationWidgetOneRowBackground.equals("25")) alpha = 0x40;
+                        if (applicationWidgetOneRowBackground.equals("50")) alpha = 0x80;
+                        if (applicationWidgetOneRowBackground.equals("75")) alpha = 0xC0;
+                        if (applicationWidgetOneRowBackground.equals("100")) alpha = 0xFF;
+                        boolean roundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners(context);
                         if (roundedCorners) {
                             remoteViews.setViewVisibility(R.id.widget_one_row_background, View.VISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
@@ -133,18 +133,18 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         }
 
                         red = 0xFF;
-                        String applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT(context);
-                        if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
-                        if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
-                        if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
-                        if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-                        //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
+                        String applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT(context);
+                        if (applicationWidgetOneRowLightnessT.equals("0")) red = 0x00;
+                        if (applicationWidgetOneRowLightnessT.equals("25")) red = 0x40;
+                        if (applicationWidgetOneRowLightnessT.equals("50")) red = 0x80;
+                        if (applicationWidgetOneRowLightnessT.equals("75")) red = 0xC0;
+                        //if (applicationWidgetOneRowLightnessT.equals("100")) red = 0xFF;
                         green = red;
                         blue = red;
                         remoteViews.setTextColor(R.id.widget_one_row_header_profile_name, Color.argb(0xFF, red, green, blue));
 
                         remoteViews.setTextViewText(R.id.widget_one_row_header_profile_name, profileName);
-                        if (ApplicationPreferences.applicationWidgetListPrefIndicator(context)) {
+                        if (ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context)) {
                             if (profile._preferencesIndicator == null)
                                 remoteViews.setImageViewResource(R.id.widget_one_row_header_profile_pref_indicator, R.drawable.ic_empty);
                             else
@@ -152,17 +152,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         }
 
                         if (Event.getGlobalEventsRunning(context)) {
-                            if (ApplicationPreferences.applicationWidgetListIconColor(context).equals("1")) {
+                            if (ApplicationPreferences.applicationWidgetOneRowIconColor(context).equals("1")) {
                                 monochromeValue = 0xFF;
-                                if (applicationWidgetListIconLightness.equals("0"))
+                                if (applicationWidgetOneRowIconLightness.equals("0"))
                                     monochromeValue = 0x00;
-                                if (applicationWidgetListIconLightness.equals("25"))
+                                if (applicationWidgetOneRowIconLightness.equals("25"))
                                     monochromeValue = 0x40;
-                                if (applicationWidgetListIconLightness.equals("50"))
+                                if (applicationWidgetOneRowIconLightness.equals("50"))
                                     monochromeValue = 0x80;
-                                if (applicationWidgetListIconLightness.equals("75"))
+                                if (applicationWidgetOneRowIconLightness.equals("75"))
                                     monochromeValue = 0xC0;
-                                //if (applicationWidgetListIconLightness.equals("100"))
+                                //if (applicationWidgetOneRowIconLightness.equals("100"))
                                 //    monochromeValue = 0xFF;
                                 Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_button_restart_events);
                                 bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);

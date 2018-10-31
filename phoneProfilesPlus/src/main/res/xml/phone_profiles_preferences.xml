@@ -838,7 +838,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetBackground"
-            android:summary="25%"
+            android:summary="25%%"
             android:key="applicationWidgetListBackground"
             android:defaultValue="25"
             android:entries="@array/widgetBackgroundArray"
@@ -852,7 +852,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
-            android:summary="0"
+            android:summary="0%%"
             android:key="applicationWidgetListLightnessB"
             android:defaultValue="0"
             android:entries="@array/widgetLightnessArray"
@@ -871,7 +871,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
-            android:summary="100"
+            android:summary="100%%"
             android:key="applicationWidgetListLightnessT"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"
@@ -887,14 +887,84 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
-            android:summary="100"
+            android:summary="100%%"
             android:key="applicationWidgetListIconLightness"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"
             android:entryValues="@array/widgetLightnessValues"
             android:layout="@layout/mp_preference_material_widget" />
     </PreferenceScreen>
-    
+
+    <PreferenceScreen
+        android:title="@string/phone_profiles_pref_category_widget_one_row"
+        android:key="categoryWidgetOneRow"
+        android:widgetLayout="@layout/start_activity_preference"
+        android:layout="@layout/mp_preference_material_widget">
+        <CheckBoxPreference
+            android:key="applicationWidgetOneRowPrefIndicator"
+            android:title="@string/phone_profiles_pref_applicationPrefIndicator"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetBackground"
+            android:summary="25%%"
+            android:key="applicationWidgetOneRowBackground"
+            android:defaultValue="25"
+            android:entries="@array/widgetBackgroundArray"
+            android:entryValues="@array/widgetBackgroundValues"
+            android:layout="@layout/mp_preference_material_widget" />
+        <CheckBoxPreference
+            android:key="applicationWidgetOneRowBackgroundType"
+            android:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
+            android:defaultValue="false"
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
+            android:summary="0%%"
+            android:key="applicationWidgetOneRowLightnessB"
+            android:defaultValue="0"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.ColorChooserPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetColorB"
+            android:key="applicationWidgetOneRowBackgroundColor"
+            android:defaultValue="-1"
+            android:layout="@layout/mp_preference_material_widget" />
+        <CheckBoxPreference
+            android:key="applicationWidgetOneRowRoundedCorners"
+            android:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
+            android:defaultValue="true"
+            android:widgetLayout="@layout/mp_preference_switch"
+            android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+            android:summary="100%%"
+            android:key="applicationWidgetOneRowLightnessT"
+            android:defaultValue="100"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+            android:summary="0"
+            android:key="applicationWidgetOneRowIconColor"
+            android:defaultValue="0"
+            android:entries="@array/widgetColorArray"
+            android:entryValues="@array/widgetColorValues"
+            android:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
+            android:summary="100%%"
+            android:key="applicationWidgetOneRowIconLightness"
+            android:defaultValue="100"
+            android:entries="@array/widgetLightnessArray"
+            android:entryValues="@array/widgetLightnessValues"
+            android:layout="@layout/mp_preference_material_widget" />
+    </PreferenceScreen>
+
     <PreferenceScreen
         android:title="@string/phone_profiles_pref_category_widget_icon_shortcut"
         android:key="categoryWidgetIcon"
@@ -902,7 +972,7 @@
         android:layout="@layout/mp_preference_material_widget">
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetIconBackground"
-            android:summary="0%"
+            android:summary="0%%"
             android:key="applicationWidgetIconBackground"
             android:defaultValue="0"
             android:entries="@array/widgetBackgroundArray"
@@ -916,7 +986,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetIconLightnessB"
-            android:summary="0"
+            android:summary="0%%"
             android:key="applicationWidgetIconLightnessB"
             android:defaultValue="0"
             android:entries="@array/widgetLightnessArray"
@@ -942,7 +1012,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetIconLightnessT"
-            android:summary="100"
+            android:summary="100%%"
             android:key="applicationWidgetIconLightnessT"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"
@@ -959,7 +1029,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
-            android:summary="100"
+            android:summary="100%%"
             android:key="applicationWidgetIconLightness"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"
@@ -1002,7 +1072,7 @@
         -->
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetBackground"
-            android:summary="25%"
+            android:summary="25%%"
             android:key="applicationSamsungEdgeBackground"
             android:defaultValue="25"
             android:entries="@array/widgetBackgroundArray"
@@ -1016,7 +1086,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
-            android:summary="0"
+            android:summary="0%%"
             android:key="applicationSamsungEdgeLightnessB"
             android:defaultValue="0"
             android:entries="@array/widgetLightnessArray"
@@ -1029,7 +1099,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
-            android:summary="100"
+            android:summary="100%%"
             android:key="applicationSamsungEdgeLightnessT"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"
@@ -1045,7 +1115,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
-            android:summary="100"
+            android:summary="100%%"
             android:key="applicationSamsungEdgeIconLightness"
             android:defaultValue="100"
             android:entries="@array/widgetLightnessArray"

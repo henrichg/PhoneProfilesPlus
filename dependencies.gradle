@@ -8,12 +8,14 @@
 // 3900 = replaced applicationEventWifiEnableWifi with applicationEventBluetoothEnableBluetooth
 //        and applicationEventWifiScanIfWifiOff with applicationEventBluetoothScanIfBluetoothOff
 // 4000 = updated privacy policy
-// 4100 = Wi-Fi AP = Toggle is not supported fro Android 8+
+// 4100 = Wi-Fi AP = Toggle is not supported from Android 8+
 // 4200 = show Important info on first application start
+// 4400 = moved SMS sensor receivers into Extender
+//        separated preferences for single row widget
 
 ext.ppVersions = [
-    publishVersion: '3.6.4.8b',
-    publishVersionCode: 4312,
+    publishVersion: '3.6.5b',
+    publishVersionCode: 4313,
 
     minSdk: 19,
     targetSdk: 27,
