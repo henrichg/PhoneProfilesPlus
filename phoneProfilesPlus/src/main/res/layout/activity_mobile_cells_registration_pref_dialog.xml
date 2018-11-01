@@ -116,6 +116,7 @@
         android:focusable="true"
         android:hint="@string/mobile_cells_registration_cell_name_hint"
         android:textColor="?attr/colorAccent"
+        android:textColorHint="?attr/colorAccent"
         android:textSize="18sp"/>
 
     <TextView
