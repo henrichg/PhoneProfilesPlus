@@ -75,6 +75,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
+                                         +"|DataWrapper.firstStartEvents"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          +"|ShutdownBroadcastReceiver"
@@ -223,7 +224,7 @@ public class PPApplication extends Application {
 
                                         //+"|BrightnessDialogPreference"
 
-                                        +"|PhoneStateScanner"
+                                        //+"|PhoneStateScanner"
                                         //+"|MobileCellsPreference"
                                         //+"|MobileCellsPreference.refreshListView"
                                         //+"|PhoneStateScanner.startAutoRegistration"
