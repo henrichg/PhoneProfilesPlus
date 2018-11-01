@@ -2552,7 +2552,9 @@ public class PhoneProfilesService extends Service
             if (start) {
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, appContext).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
+                PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "eventAllowed="+eventAllowed);
                 if (eventAllowed) {
+                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled="+ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext));
                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext) || PhoneStateScanner.forceStart) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {

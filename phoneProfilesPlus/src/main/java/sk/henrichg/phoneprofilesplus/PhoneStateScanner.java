@@ -87,6 +87,10 @@ class PhoneStateScanner extends PhoneStateListener {
             // start scanning in power save mode is not allowed
             return;
 
+        PPApplication.logE("PhoneStateScanner.connect", "telephonyManager="+telephonyManager);
+        PPApplication.logE("PhoneStateScanner.connect", "FEATURE_TELEPHONY="+PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY));
+        PPApplication.logE("PhoneStateScanner.connect", "checkLocation="+Permissions.checkLocation(context.getApplicationContext()));
+
         if ((telephonyManager != null) &&
                 PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) &&
                 Permissions.checkLocation(context.getApplicationContext())) {
@@ -153,10 +157,10 @@ class PhoneStateScanner extends PhoneStateListener {
                 PPApplication.logE("PhoneStateScanner.getAllCellInfo", "---- start ----------------------------");
 
                 for (CellInfo _cellInfo : cellInfo) {
-                    //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "registered="+_cellInfo.isRegistered());
+                    PPApplication.logE("PhoneStateScanner.getAllCellInfo", "registered="+_cellInfo.isRegistered());
 
                     if (_cellInfo instanceof CellInfoGsm) {
-                        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm info="+_cellInfo);
+                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm info="+_cellInfo);
                         CellIdentityGsm identityGsm = ((CellInfoGsm) _cellInfo).getCellIdentity();
                         if (identityGsm.getCid() != Integer.MAX_VALUE) {
                             //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+identityGsm.getCid());
@@ -169,7 +173,7 @@ class PhoneStateScanner extends PhoneStateListener {
                             doAutoRegistration(identityGsm.getCid());
                         }
                     } else if (_cellInfo instanceof CellInfoLte) {
-                        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
+                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
                         CellIdentityLte identityLte = ((CellInfoLte) _cellInfo).getCellIdentity();
                         if (identityLte.getCi() != Integer.MAX_VALUE) {
                             //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte mCi="+identityLte.getCi());
@@ -182,7 +186,7 @@ class PhoneStateScanner extends PhoneStateListener {
                             doAutoRegistration(identityLte.getCi());
                         }
                     } else if (_cellInfo instanceof CellInfoWcdma) {
-                        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
+                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
                         CellIdentityWcdma identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
                         if (identityWcdma.getCid() != Integer.MAX_VALUE) {
                             //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
@@ -195,7 +199,7 @@ class PhoneStateScanner extends PhoneStateListener {
                             doAutoRegistration(identityWcdma.getCid());
                         }
                     } else if (_cellInfo instanceof CellInfoCdma) {
-                        //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cdma info="+_cellInfo);
+                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cdma info="+_cellInfo);
                         CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
                         if (identityCdma.getBasestationId() != Integer.MAX_VALUE) {
                             //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid="+identityCdma.getBasestationId());
@@ -208,9 +212,9 @@ class PhoneStateScanner extends PhoneStateListener {
                             doAutoRegistration(identityCdma.getBasestationId());
                         }
                     }
-                    //else {
-                    //    PPApplication.logE("PhoneStateScanner.getAllCellInfo", "unknown info="+_cellInfo);
-                    //}
+                    else {
+                        PPApplication.logE("PhoneStateScanner.getAllCellInfo", "unknown info="+_cellInfo);
+                    }
                 }
 
                 PPApplication.logE("PhoneStateScanner.getAllCellInfo", "---- end ----------------------------");
