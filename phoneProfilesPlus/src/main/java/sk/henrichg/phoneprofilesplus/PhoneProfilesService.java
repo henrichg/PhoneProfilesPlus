@@ -1403,6 +1403,7 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
                         eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
                         eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+                        eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
                     }
                 }
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "profileCount="+profileCount);

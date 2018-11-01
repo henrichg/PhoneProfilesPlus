@@ -85,7 +85,7 @@ public class PPApplication extends Application {
                                          //+"|PostDelayedBroadcastReceiver"
 
                                          //+"|#### EventsHandler.handleEvents"
-                                         +"|$$$ EventsHandler.handleEvents"
+                                         //+"|$$$ EventsHandler.handleEvents"
 
                                          /*
                                          +"|DataWrapper.restartEventsWithDelay"
@@ -216,9 +216,10 @@ public class PPApplication extends Application {
 
                                          //+"|PreferenceFragment"
 
-                                        //+"|PhoneProfilesService.registerAccessibilityServiceReceiver"
+                                        +"|PhoneProfilesService.registerAccessibilityServiceReceiver"
                                         //+"|DatabaseHandler.getTypeProfilesCount"
-                                        //+"|AccessibilityServiceBroadcastReceiver.onReceive"
+                                        +"|AccessibilityServiceBroadcastReceiver.onReceive"
+                                        +"|SMSEventEndBroadcastReceiver.onReceive"
 
                                         //+"|BrightnessDialogPreference"
 

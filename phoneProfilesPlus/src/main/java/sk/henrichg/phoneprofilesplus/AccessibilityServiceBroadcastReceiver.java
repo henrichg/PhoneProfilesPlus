@@ -74,8 +74,12 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
+                                    DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                    if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                    if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -107,8 +111,12 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                        if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                        if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -151,6 +159,8 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_SMS_MMS_RECEIVED:
                 final String origin = intent.getStringExtra(EXTRA_ORIGIN);
                 final long time = intent.getLongExtra(EXTRA_TIME, 0);
+                PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "origin="+origin);
+                PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "time="+time);
 
                 PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.4");
                 final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
@@ -164,9 +174,11 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.setEventSMSParameters(origin, time);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.setEventSMSParameters(origin, time);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+                        }
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
