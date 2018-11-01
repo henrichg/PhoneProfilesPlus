@@ -1258,10 +1258,14 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Border lightness (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetShowBorder">Show border</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Show border (widget)</string>
+    <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving SMS and MMS.</string>
+    <string name="event_preferences_sms_PPPExtender_title">PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
+    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>
+    <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\".</string>
     <string name="extender_about_application_version">Version:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Accessibility service for profile parameter \"Force stop applications\":</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Accessibility service for event parameters \"Application sensor\" and \"Orientation sensor\":</string>
@@ -1270,6 +1274,11 @@
     <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
+    <string name="extender_accessibility_service_event_sensor_sms_mms">• Accessibility service for event parameter \"SMS/MMS sensor\". Accessibility function is not used, service is needed for receiving SMS and MMS.:</string>
+    <string name="extender_permissions_event_sensor_sms_mms">• Permissions for event parameter \"SMS/MMS sensor\" - permission SMS:</string>
+    <string name="extender_permissions_not_granted">Not granted</string>
+    <string name="extender_permissions_granted">Granted</string>
+    <string name="extender_permissions_button">Grant/Deny\nPermissions</string>
 
     <!--<string name="profile_preferences_screenNightMode">Night mode</string>-->
     <!--<string name="array_pref_screenNightMode_automatic">Automatic</string> -->

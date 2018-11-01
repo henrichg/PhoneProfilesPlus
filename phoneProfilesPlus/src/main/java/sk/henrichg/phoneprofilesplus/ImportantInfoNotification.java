@@ -13,7 +13,7 @@ import android.support.v4.content.ContextCompat;
 class ImportantInfoNotification {
 
     // this version code must by <= version code in dependencies.gradle
-    static final int VERSION_CODE_FOR_NEWS = 4077;
+    static final int VERSION_CODE_FOR_NEWS = 4314;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
@@ -57,20 +57,29 @@ class ImportantInfoNotification {
         boolean afterInstall = savedVersionCode == 0;
 
         int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
-        int applicationSensorsCount = 0;
-        int orientationSensorsCount = 0;
-        if (extenderVersion == 0) {
-            applicationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
-            orientationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
-        }
 
         if (newsLatest) {
-            // change to false for not show notification
+            /*// change to false for not show notification
             //noinspection ConstantConditions
-            news = false;
+            news = false;*/
+
+            int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
+            //noinspection RedundantIfStatement
+            if (smsSensorsCount == 0)
+                //noinspection ConstantConditions
+                news = false; // Extender is installed or not needed
+            else {
+                news = true;
+            }
         }
 
         if (news3670) {
+            int applicationSensorsCount = 0;
+            int orientationSensorsCount = 0;
+            if (extenderVersion == 0) {
+                applicationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
+                orientationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+            }
             //noinspection RedundantIfStatement
             if ((extenderVersion > 0) || ((applicationSensorsCount == 0) && (orientationSensorsCount == 0)))
                 //noinspection ConstantConditions

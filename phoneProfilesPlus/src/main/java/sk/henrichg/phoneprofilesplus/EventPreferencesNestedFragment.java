@@ -59,6 +59,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = 1990;
     private static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
     private static final int RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS = 1992;
+    private static final String PREF_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
 
     @Override
     public int addPreferencesFromResource() {
@@ -454,6 +455,53 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             mobileCellsPreference.event_id = event_id;
         }
         */
+        extenderPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_INSTALL_EXTENDER);
+        if (extenderPreference != null) {
+            //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    } catch (Exception ignored) {}
+                    return false;
+                }
+            });
+        }
+        Preference smsPreference = prefMng.findPreference(PREF_SMS_ACCESSIBILITY_SETTINGS);
+        if (smsPreference != null) {
+            //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            smsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
+                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                    } else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });*/
+                        dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
+
     }
 
     private void setPreferencesStatusPreference() {
@@ -615,6 +663,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
             event._eventPreferencesApplication.checkPreferences(prefMng, context);
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);
+            event._eventPreferencesSMS.checkPreferences(prefMng, context);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
             event._eventPreferencesWifi.checkPreferences(prefMng, context);

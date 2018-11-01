@@ -24,6 +24,8 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender.package_name";
     private static final String EXTRA_CLASS_NAME = "sk.henrichg.phoneprofilesplusextender.class_name";
+    private static final String EXTRA_ORIGIN = "sk.henrichg.phoneprofilesplusextender.origin";
+    private static final String EXTRA_TIME = "sk.henrichg.phoneprofilesplusextender.time";
 
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
@@ -145,6 +147,36 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         }
                     });
                 }
+                break;
+            case PPApplication.ACTION_SMS_MMS_RECEIVED:
+                final String origin = intent.getStringExtra(EXTRA_ORIGIN);
+                final long time = intent.getLongExtra(EXTRA_TIME, 0);
+
+                PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.4");
+                final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
+                handler3.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.4");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                        eventsHandler.setEventSMSParameters(origin, time);
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                });
+
                 break;
         }
     }

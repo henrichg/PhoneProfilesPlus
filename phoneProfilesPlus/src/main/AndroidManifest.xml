@@ -46,8 +46,12 @@
     -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
+
+    <!-- moved to Extender
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_MMS"/>
+    -->
+
     <!-- not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
     <uses-permission android:name="android.permission.READ_SMS"/>
     -->
