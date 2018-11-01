@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
@@ -1674,8 +1675,30 @@ public class Profile {
             // brightness is not set, change it to default manual brightness value
             value = Settings.System.getInt(context.getContentResolver(),
                                             Settings.System.SCREEN_BRIGHTNESS, 128);
-        else
-            value = Math.round((float)(maximumValue - minimumValue) / 100 * percentage) + minimumValue;
+        else {
+            //if (Build.VERSION.SDK_INT < 28)
+                value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
+            /*else {
+                if (PPApplication.logEnabled()) {
+                    try {
+                        int oldValue = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
+                        PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "oldValue=" + oldValue);
+                    } catch (Settings.SettingNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "percentage=" + percentage);
+                double valLog10 = 0.0d;
+                if (percentage > 0)
+                    valLog10 = Math.log10(1.0d) - Math.log10(percentage / 100.0d);
+                //valLog10 = valLog10 / 2.0d * 100.0d;
+                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "valLog10=" + valLog10);
+                //value = Math.round((float) (maximumValue - minimumValue) / 100 * (float) valLog10) + minimumValue;
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value=" + value);
+
+                value = 128;
+            }*/
+        }
 
         PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value="+value);
         return value;

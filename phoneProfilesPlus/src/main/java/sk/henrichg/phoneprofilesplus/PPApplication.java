@@ -259,6 +259,8 @@ public class PPApplication extends Application {
                                         //+"|LockDeviceActivity"
 
                                         //+"|DialogHelpPopupWindow.showPopup"
+
+                                        +"|Profile.convertPercentsToBrightnessManualValue"
             ;
 
 
