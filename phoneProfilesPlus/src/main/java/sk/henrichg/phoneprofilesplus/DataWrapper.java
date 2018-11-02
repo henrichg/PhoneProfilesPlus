@@ -3880,6 +3880,16 @@ public class DataWrapper {
                         activity.finish();
                 }
             });
+            dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+                    boolean finish = (!(activity instanceof ActivateProfileActivity)) &&
+                                     (!(activity instanceof EditorProfilesActivity));
+
+                    if (finish)
+                        activity.finish();
+                }
+            });
             AlertDialog dialog = dialogBuilder.create();
             /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
                 @Override
