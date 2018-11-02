@@ -2939,7 +2939,7 @@ public class PhoneProfilesService extends Service
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart.2 START");
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 START");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -2948,7 +2948,8 @@ public class PhoneProfilesService extends Service
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.initRoot();
+                    // is called from PPApplication
+                    //PPApplication.initRoot();
                     if (!ApplicationPreferences.applicationNeverAskForGrantRoot(appContext)) {
                         // grant root
                         PPApplication.isRootGranted();
@@ -2966,22 +2967,23 @@ public class PhoneProfilesService extends Service
                     }
 
                     if (serviceHasFirstStart) {
-                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart","application already started");
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler","application already started");
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
                                 wakeLock.release();
                             } catch (Exception ignored) {}
                         }
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart.2 END");
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 END");
                         return;
                     }
 
-                    PPApplication.createNotificationChannels(appContext);
-
                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
 
+                    PPApplication.createNotificationChannels(appContext);
+                    dataWrapper.setDynamicLauncherShortcuts();
+
                     if (_startOnBoot || _startOnPackageReplace || _startedFromApp) {
-                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "application not started, start it");
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application not started, start it");
 
                         //Permissions.clearMergedPermissions(appContext);
 
@@ -3031,26 +3033,23 @@ public class PhoneProfilesService extends Service
                         // not needed clearConnectedDevices(.., true) call it
                         //BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                         BluetoothConnectedDevices.getConnectedDevices(appContext);
-                    }
 
-                    dataWrapper.setDynamicLauncherShortcuts();
+                        if (PhoneProfilesService.getInstance() != null)
+                            PhoneProfilesService.getInstance().registerReceiversAndJobs();
+                        AboutApplicationJob.scheduleJob(appContext, false);
+                    //}
 
-                    // !! must be here, used is service context for registrations
-                    if (PhoneProfilesService.getInstance() != null)
-                        PhoneProfilesService.getInstance().registerReceiversAndJobs();
-                    AboutApplicationJob.scheduleJob(appContext, false);
-
-                    if (_startOnBoot || _startOnPackageReplace || _startedFromApp) {
+                    //if (_startOnBoot || _startOnPackageReplace || _startedFromApp) {
                         if (_startOnBoot)
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
                         else
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
-                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "application started");
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
 
                         // start events
                         if (Event.getGlobalEventsRunning(appContext)) {
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "global event run is enabled, first start events");
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
 
                             if (!dataWrapper.getIsManualProfileActivation(false)) {
                                 ////// unblock all events for first start
@@ -3060,7 +3059,7 @@ public class PhoneProfilesService extends Service
 
                             dataWrapper.firstStartEvents(true);
                         } else {
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart", "global event run is not enabled, manually activate profile");
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
 
                             ////// unblock all events for first start
                             //     that may be blocked in previous application run
@@ -3074,7 +3073,7 @@ public class PhoneProfilesService extends Service
 
                     serviceHasFirstStart = true;
 
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart.2 END");
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 END");
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

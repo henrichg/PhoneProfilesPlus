@@ -260,7 +260,7 @@ public class PPApplication extends Application {
 
                                         //+"|DialogHelpPopupWindow.showPopup"
 
-                                        +"|Profile.convertPercentsToBrightnessManualValue"
+                                        //+"|Profile.convertPercentsToBrightnessManualValue"
             ;
 
 
@@ -1793,7 +1793,7 @@ public class PPApplication extends Application {
                                 });
                             }
 
-                            PPApplication.initRoot();
+                            //PPApplication.initRoot();
                         }
 
                         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
