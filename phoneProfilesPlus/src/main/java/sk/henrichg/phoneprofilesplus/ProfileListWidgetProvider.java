@@ -604,6 +604,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
         doOnUpdate(context, appWidgetManager, appWidgetId);
+        //Log.e("ProfileListWidgetProvider.updateWidget","isLargeLayout="+isLargeLayout);
         if (isLargeLayout)
         {
             if (!ApplicationPreferences.applicationWidgetListGridLayout(context))

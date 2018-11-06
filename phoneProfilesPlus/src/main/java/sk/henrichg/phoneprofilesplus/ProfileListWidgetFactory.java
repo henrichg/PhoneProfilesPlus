@@ -175,7 +175,11 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             Intent i = new Intent();
             Bundle extras = new Bundle();
 
-            extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            if ((!ApplicationPreferences.applicationWidgetListHeader(context)) &&
+                Event.getGlobalEventsRunning(context) && (position == 0))
+                extras.putLong(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
+            else
+                extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
             extras.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
             i.putExtras(extras);
             row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
@@ -217,6 +221,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             }
         }
         Collections.sort(newProfileList, new ProfileComparator());
+
+        if ((!ApplicationPreferences.applicationWidgetListHeader(context)) &&
+                Event.getGlobalEventsRunning(context)) {
+            Profile restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
+            restartEvents._showInActivator = true;
+            newProfileList.add(0, restartEvents);
+        }
+
         if (dataWrapper != null) {
             dataWrapper.invalidateProfileList();
             dataWrapper.setProfileList(newProfileList);
