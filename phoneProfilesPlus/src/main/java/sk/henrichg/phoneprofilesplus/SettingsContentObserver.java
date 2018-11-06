@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 
@@ -125,8 +126,13 @@ class SettingsContentObserver  extends ContentObserver {
         }
         previousScreenTimeout = screenTimeout;
 
-        int value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128);
+        /*
+        int defaultValue = 128;
+        if (Build.VERSION.SDK_INT >= 28)
+            defaultValue = 24;
+        int value = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, defaultValue);
         PPApplication.logE("SettingsContentObserver.onChange","brightness value="+value);
+        */
 
         /////////////
     }

@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcel;
@@ -52,7 +53,7 @@ public class BrightnessDialogPreference extends
     private int changeLevel;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final int maximumValue = 100;
+    private int maximumValue = 100;
     private final int minimumValue = 0;
     private final int stepSize = 1;
 
@@ -93,7 +94,12 @@ public class BrightnessDialogPreference extends
                 (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, _context).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED);
 
-        savedBrightness = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, 128);
+        int defaultValue = 128;
+        if (Build.VERSION.SDK_INT >= 28) {
+            defaultValue = 24;
+            maximumValue = 255;
+        }
+        savedBrightness = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, defaultValue);
         savedBrightnessMode = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
         if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
             savedAdaptiveBrightness = Settings.System.getFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
