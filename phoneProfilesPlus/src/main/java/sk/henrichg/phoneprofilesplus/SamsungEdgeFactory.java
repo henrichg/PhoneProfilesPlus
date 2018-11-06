@@ -50,6 +50,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         {
             dataWrapper.setParameters(ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"), monochromeValue);
         }
+
     }
 
     public void onCreate() {
@@ -81,13 +82,11 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             Profile _profile = null;
 
             int pos = -1;
-            for (Profile profile : profileList)
-            {
+            for (Profile profile : profileList) {
                 if (profile._showInActivator)
                     ++pos;
 
-                if (pos == position)
-                {
+                if (pos == position) {
                     _profile = profile;
                     break;
                 }
@@ -176,7 +175,10 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             Intent i = new Intent();
             Bundle extras = new Bundle();
 
-            extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
+            if (Event.getGlobalEventsRunning(context) && (position == 0))
+                extras.putLong(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
+            else
+                extras.putLong(PPApplication.EXTRA_PROFILE_ID, profile._id);
             extras.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
             i.putExtras(extras);
             row.setOnClickFillInIntent(R.id.widget_profile_list_item, i);
@@ -219,6 +221,12 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         }
 
         Collections.sort(newProfileList, new ProfileComparator());
+
+        if (Event.getGlobalEventsRunning(context)) {
+            Profile restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
+            restartEvents._showInActivator = true;
+            newProfileList.add(0, restartEvents);
+        }
 
         dataWrapper.invalidateProfileList();
         dataWrapper.setProfileList(newProfileList);

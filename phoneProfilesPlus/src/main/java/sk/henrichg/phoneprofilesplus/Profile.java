@@ -267,6 +267,7 @@ public class Profile {
     static final long SHARED_PROFILE_ID = -999L;
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
     static final long PROFILE_NO_ACTIVATE = -999;
+    static final long RESTART_EVENTS_PROFILE_ID = -888L;
 
     static final int NO_CHANGE_VALUE = 0;
     static final int SHARED_PROFILE_VALUE = 99;

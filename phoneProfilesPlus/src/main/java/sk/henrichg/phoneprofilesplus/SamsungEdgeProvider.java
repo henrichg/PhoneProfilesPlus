@@ -170,6 +170,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             green = red; blue = red;
             widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, red, green, blue));
 
+            /*
             if (Event.getGlobalEventsRunning(context)) {
                 if (ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1")) {
                     monochromeValue = 0xFF;
@@ -185,6 +186,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 else
                     widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, R.drawable.ic_notification_widget_restart_events);
             }
+            */
 
         }
         ////////////////////////////////////////////////
@@ -195,6 +197,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 PendingIntent.FLAG_UPDATE_CURRENT);
         widget.setOnClickPendingIntent(R.id.widget_profile_list_header, pendingIntent);
 
+        /*
         if (Event.getGlobalEventsRunning(context)) {
             widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
@@ -203,6 +206,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
         else
             widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
+        */
 
         /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
             widget.setRemoteAdapter(R.id.widget_profile_list, svcIntent);

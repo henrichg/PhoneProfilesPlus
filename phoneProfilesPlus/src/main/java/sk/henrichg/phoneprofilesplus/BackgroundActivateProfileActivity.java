@@ -44,7 +44,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
-            dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
+            if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID)
+                dataWrapper.restartEventsWithRescan();
+            else
+                dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
         }
     }
 
