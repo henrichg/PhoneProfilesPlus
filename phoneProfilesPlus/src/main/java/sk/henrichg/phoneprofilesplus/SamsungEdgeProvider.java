@@ -179,12 +179,12 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                     if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
                     if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
                     //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
-                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_notification_widget_restart_events);
+                    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_widget_restart_events);
                     bitmap = BitmapManipulator.monochromeBitmap(bitmap, monochromeValue);
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_restart_events, bitmap);
                 }
                 else
-                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, R.drawable.ic_notification_widget_restart_events);
+                    widget.setImageViewResource(R.id.widget_profile_list_header_restart_events, R.drawable.ic_widget_restart_events);
             }
             */
 
