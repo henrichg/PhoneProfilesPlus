@@ -1311,6 +1311,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 summary = summary + getString(R.string.phone_profiles_pref_grantRootPermission);
             }
             if (Build.VERSION.SDK_INT >= 23) {
+                if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions);
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
