@@ -969,8 +969,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     }
     */
 
-    void setSummary(String key)
-    {
+    void setSummary(String key) {
 
         Preference preference = prefMng.findPreference(key);
 
@@ -1018,8 +1017,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
                 if (_preference != null)
                     _preference.setEnabled(false);
-            }
-            else {
+            } else {
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(false);
@@ -1036,8 +1034,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
                 if (_preference != null)
                     _preference.setEnabled(false);
-            }
-            else {
+            } else {
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(false);
@@ -1054,8 +1051,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
                 if (_preference != null)
                     _preference.setEnabled(false);
-            }
-            else {
+            } else {
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(false);
@@ -1072,8 +1068,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
                 if (_preference != null)
                     _preference.setEnabled(false);
-            }
-            else {
+            } else {
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(false);
@@ -1109,15 +1104,14 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         String stringValue = preferences.getString(key, "");
 
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE))
-        {
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE)) {
             long lProfileId;
             try {
                 lProfileId = Long.parseLong(stringValue);
             } catch (Exception e) {
                 lProfileId = 0;
             }
-            ProfilePreference profilePreference = (ProfilePreference)preference;
+            ProfilePreference profilePreference = (ProfilePreference) preference;
             profilePreference.setSummary(lProfileId);
 
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND);
@@ -1129,9 +1123,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE);
             if (_preference != null)
                 _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
-        }
-        else
-        if (preference instanceof ListPreference) {
+        } else if (preference instanceof ListPreference) {
             // For list preferences, look up the correct display value in
             // the preference's 'entries' list.
             ListPreference listPreference = (ListPreference) preference;
@@ -1140,31 +1132,27 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             // Set the summary to reflect the new value.
             // added support for "%" in list items
             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            if (summary != null)
-            {
+            if (summary != null) {
                 String sSummary = summary.toString();
                 sSummary = sSummary.replace("%", "%%");
                 preference.setSummary(sSummary);
-            }
-            else
+            } else
                 preference.setSummary(null);
 
             //if (key.equals(PPApplication.PREF_APPLICATION_LANGUAGE))
             //    setTitleStyle(preference, true, false);
-
-
-        }
-        else
-        //noinspection StatementWithEmptyBody
-        if (preference instanceof RingtonePreference) {
-            // keep summary from preference
-        }
-        else {
-            // For all other preferences, set the summary to the value's
-            // simple string representation.
-            //preference.setSummary(preference.toString());
-             preference.setSummary(stringValue);
-        }
+        } else
+            //noinspection StatementWithEmptyBody
+            if (preference instanceof RingtonePreference) {
+                // keep summary from preference
+            } else {
+                if (!stringValue.isEmpty()) {
+                    // For all other preferences, set the summary to the value's
+                    // simple string representation.
+                    //preference.setSummary(preference.toString());
+                    preference.setSummary(stringValue);
+                }
+            }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
             if (_preference != null) {
@@ -1204,6 +1192,51 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (_preference != null) {
                 boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);
+            }
+        }
+        /*if (key.equals(PREF_GRANT_ROOT_PERMISSION)) {
+            if (PPApplication.isRooted()) {
+                String summary;
+                if (PPApplication.isRootGranted(true))
+                    summary = getString(R.string.permission_granted);
+                else
+                    summary = getString(R.string.permission_not_granted);
+                preference.setSummary(summary);
+            }
+        }*/
+        if (Build.VERSION.SDK_INT >= 23) {
+            /*if (key.equals(PREF_APPLICATION_PERMISSIONS)) {
+                // not possible to get granted runtime permission groups :-(
+            }*/
+            if (key.equals(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS)) {
+                String summary = "";
+                if (Settings.System.canWrite(getActivity().getApplicationContext()))
+                    summary = getString(R.string.permission_granted);
+                else {
+                    summary = getString(R.string.permission_not_granted);
+                    summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions_summary);
+                }
+                preference.setSummary(summary);
+            }
+            if (key.equals(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS)) {
+                String summary = "";
+                if (Permissions.checkAccessNotificationPolicy(getActivity().getApplicationContext()))
+                    summary = getString(R.string.permission_granted);
+                else {
+                    summary = getString(R.string.permission_not_granted);
+                    summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions_summary);
+                }
+                preference.setSummary(summary);
+            }
+            if (key.equals(PREF_DRAW_OVERLAYS_PERMISSIONS)) {
+                String summary = "";
+                if (Settings.canDrawOverlays(getActivity().getApplicationContext()))
+                    summary = getString(R.string.permission_granted);
+                else {
+                    summary = getString(R.string.permission_not_granted);
+                    summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_drawOverlaysPermissions_summary);
+                }
+                preference.setSummary(summary);
             }
         }
     }

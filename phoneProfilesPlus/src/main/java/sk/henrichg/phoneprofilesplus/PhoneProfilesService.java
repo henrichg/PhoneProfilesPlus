@@ -2952,7 +2952,7 @@ public class PhoneProfilesService extends Service
                     //PPApplication.initRoot();
                     if (!ApplicationPreferences.applicationNeverAskForGrantRoot(appContext)) {
                         // grant root
-                        PPApplication.isRootGranted();
+                        PPApplication.isRootGranted(false);
                     }
                     //PPApplication.getSUVersion();
                     PPApplication.settingsBinaryExists();
