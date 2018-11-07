@@ -1486,6 +1486,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_deleteOldActivityLogs);
         }
+        /*
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR) ||
                 key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER) ||
                 key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT) ||
@@ -1612,6 +1613,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 summary = summary + getString(R.string.phone_profiles_pref_applicationWidgetLightnessI);
             }
         }
+        */
 
         if (!summary.isEmpty()) summary = summary +" • ";
         summary = summary + "…";
