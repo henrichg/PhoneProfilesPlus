@@ -155,6 +155,18 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(PhoneProfilesPreferencesNestedFragment.PREF_AUTOSTART_MANAGER);
         setSummary(PhoneProfilesPreferencesNestedFragment.PREF_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_LOCATION_EDITOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_USE_GPS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING);
 
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed

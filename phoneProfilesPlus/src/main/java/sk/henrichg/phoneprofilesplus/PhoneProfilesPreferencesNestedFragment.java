@@ -1310,6 +1310,77 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationTextColor);
         }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_USAGE) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_ALERT)) {
+            categoryPreference = "profileActivationCategory";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_backgroundProfileUsage);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationAlert);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT)) {
+            categoryPreference = "eventRunCategory";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_eventRunUsePriority);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationRestartEventsAlert);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING) ||
+                key.equals(PREF_LOCATION_EDITOR) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_USE_GPS)) {
+            categoryPreference = "locationScanningCategory";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationEnableScanning);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsEditor);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationScanInterval);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsUseGPS);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL)) {
+            categoryPreference = "wifiScanningCategory";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiEnableScanning);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanIfWifiOff);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanInterval);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_LE_SCAN_DURATION)) {
+            categoryPreference = "bluetoothScanningCategory";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableScanning);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanInterval);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothLEScanDuration);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING)) {
+            categoryPreference = "mobileCellsScanningCategory";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL)) {
+            categoryPreference = "orientationScanningCategory";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationScanInterval);
+        }
 
         if (!summary.isEmpty()) summary = summary +" • ";
         summary = summary + "…";
