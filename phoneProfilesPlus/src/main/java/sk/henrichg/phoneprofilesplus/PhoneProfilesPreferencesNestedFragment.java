@@ -978,19 +978,33 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
         setCategorySummary(preference);
 
-        PreferenceScreen preferenceCategoryNotifications = (PreferenceScreen) findPreference("categoryNotifications");
         if (Build.VERSION.SDK_INT < 26) {
             boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
             boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
+            PreferenceScreen preferenceCategoryNotifications = (PreferenceScreen) findPreference("categoryNotifications");
             if (!(notificationStatusBar && notificationStatusBarPermanent)) {
                 GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, true, true, false, true, false);
-                if (preferenceCategoryNotifications != null)
-                    preferenceCategoryNotifications.setSummary(getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
-                            getString(R.string.phone_profiles_pref_notificationStatusBarRequired));
+                if (preferenceCategoryNotifications != null) {
+                    String summary = getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
+                                        getString(R.string.phone_profiles_pref_notificationStatusBarRequired);
+                    if (preferenceCategoryNotifications.getSummary() != null) {
+                        String oldSummary = preferenceCategoryNotifications.getSummary().toString();
+                        if (!oldSummary.isEmpty())
+                            summary = summary + "\n\n" + oldSummary;
+                    }
+                    preferenceCategoryNotifications.setSummary(summary);
+                }
             } else {
                 GlobalGUIRoutines.setPreferenceTitleStyle(preferenceCategoryNotifications, true, false, false, false, false);
-                if (preferenceCategoryNotifications != null)
-                    preferenceCategoryNotifications.setSummary(R.string.empty_string);
+                if (preferenceCategoryNotifications != null) {
+                    String summary = "";
+                    if (preferenceCategoryNotifications.getSummary() != null) {
+                        String oldSummary = preferenceCategoryNotifications.getSummary().toString();
+                        if (!oldSummary.isEmpty())
+                            summary = oldSummary;
+                    }
+                    preferenceCategoryNotifications.setSummary(summary);
+                }
             }
             if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR)) {
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !notificationStatusBar, false, !notificationStatusBar, false);
