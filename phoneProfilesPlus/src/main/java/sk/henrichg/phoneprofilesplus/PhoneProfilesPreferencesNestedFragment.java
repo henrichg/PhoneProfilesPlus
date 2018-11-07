@@ -1396,6 +1396,34 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
         }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_HEADER) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_CLOSE) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT)) {
+            categoryPreference = "categoryActivator";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationClose);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationGridLayout);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS)) {
+            categoryPreference = "categoryEditor";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationHeader);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationEditorSaveEditorState);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_deleteOldActivityLogs);
+        }
 
         if (!summary.isEmpty()) summary = summary +" • ";
         summary = summary + "…";
