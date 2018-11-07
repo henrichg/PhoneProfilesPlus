@@ -53,7 +53,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
     private void updateSharedPreference()
     {
         setSummary(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT);
-//	    setSummary(PPApplication.PREF_APPLICATION_ACTIVATE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ALERT);
         setSummary(ApplicationPreferences.PREF_APPLICATION_CLOSE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION);
@@ -142,6 +142,19 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_START_EVENTS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_APPLICATION_POWER_MANAGER);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_POWER_SAVE_MODE_SETTINGS);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_GRANT_ROOT_PERMISSION);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_DRAW_OVERLAYS_PERMISSIONS);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_APPLICATION_PERMISSIONS);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_AUTOSTART_MANAGER);
+        setSummary(PhoneProfilesPreferencesNestedFragment.PREF_NOTIFICATION_SYSTEM_SETTINGS);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
 
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed

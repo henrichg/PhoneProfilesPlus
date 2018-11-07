@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
@@ -34,33 +35,33 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     PreferenceManager prefMng;
     SharedPreferences preferences;
 
-    private static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
+    static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
     private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
-    private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
+    static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
     private static final int RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS = 1991;
-    private static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
+    static final String PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = "permissionsAccessNotificationPolicyPermissions";
     private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
-    private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
+    static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
     private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
-    private static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
+    static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
 
     private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
     private static final String PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = "applicationEventBluetoothLocationSystemSettings";
     private static final int RESULT_WIFI_BLUETOOTH_LOCATION_SETTINGS = 1992;
-    private static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
+    static final String PREF_POWER_SAVE_MODE_SETTINGS = "applicationPowerSaveMode";
     private static final int RESULT_POWER_SAVE_MODE_SETTINGS = 1993;
     //static final String PREF_POWER_SAVE_MODE_INTERNAL = "applicationPowerSaveModeInternal";
     private static final String PREF_LOCATION_SYSTEM_SETTINGS = "applicationEventLocationSystemSettings";
     private static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
     static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
-    private static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
+    static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
     private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     //static final int RESULT_LOCALE_SETTINGS = 1996;
-    private static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
+    static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
     private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
-    private static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
-    private static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
+    static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
+    static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
 
     @Override
     public int addPreferencesFromResource() {
@@ -232,9 +233,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             Preference preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
-            preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
+            /*preference = findPreference(PREF_POWER_SAVE_MODE_SETTINGS);
             if (preference != null)
-                preferenceCategory.removePreference(preference);
+                preferenceCategory.removePreference(preference);*/
         }
         if (Build.VERSION.SDK_INT >= 23) {
             Preference preference = prefMng.findPreference(PREF_APPLICATION_PERMISSIONS);
@@ -976,6 +977,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         if (preference == null)
             return;
 
+        setCategorySummary(preference);
+
         PreferenceScreen preferenceCategoryNotifications = (PreferenceScreen) findPreference("categoryNotifications");
         if (Build.VERSION.SDK_INT < 26) {
             boolean notificationStatusBar = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, true);
@@ -1204,6 +1207,118 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
         }
     }
+
+    private void setCategorySummary(Preference preference) {
+        String key = preference.getKey();
+        String summary = "";
+        String categoryPreference = "";
+
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {
+            categoryPreference = "applicationInterfaceCategory";
+            if (!summary.isEmpty()) summary = summary +" • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationLanguage);
+            if (!summary.isEmpty()) summary = summary +" • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationTheme);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_ACTIVATE) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_START_EVENTS)) {
+            categoryPreference = "categoryApplicationStart";
+            if (!summary.isEmpty()) summary = summary +" • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationStartOnBoot);
+            if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_AUTOSTART)) {
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + getString(R.string.phone_profiles_pref_systemAutoStartManager);
+            }
+            if (!summary.isEmpty()) summary = summary +" • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationActivate);
+            if (!summary.isEmpty()) summary = summary +" • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationStartEvents);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES) ||
+                key.equals(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS) ||
+                key.equals(PREF_APPLICATION_POWER_MANAGER) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_POWER_SAVE_MODE_INTERNAL) ||
+                key.equals(PREF_POWER_SAVE_MODE_SETTINGS)) {
+            categoryPreference = "categorySystem";
+            if (!summary.isEmpty()) summary = summary +" • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes);
+            if (!summary.isEmpty()) summary = summary +" • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes);
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationBatteryOptimization);
+            }
+            if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_POWERSAVING)) {
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationPowerManager);
+            }
+            if (!summary.isEmpty()) summary = summary +" • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationPowerSaveMode);
+            if (Build.VERSION.SDK_INT >= 21) {
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationBatterySaver);
+            }
+        }
+        if (key.equals(PREF_GRANT_ROOT_PERMISSION) ||
+                key.equals(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS) ||
+                key.equals(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
+                key.equals(PREF_DRAW_OVERLAYS_PERMISSIONS) ||
+                key.equals(PREF_APPLICATION_PERMISSIONS)) {
+            categoryPreference = "categoryPermissions";
+            if (PPApplication.isRooted()) {
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_grantRootPermission);
+            }
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_drawOverlaysPermissions);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationPermissions);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_TOAST) ||
+                key.equals(PREF_NOTIFICATION_SYSTEM_SETTINGS) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR)) {
+            categoryPreference = "categoryNotifications";
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
+            if (Build.VERSION.SDK_INT >= 26) {
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_notificationSystemSettings);
+            }
+            else {
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBar);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarPermanent);
+            }
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationPrefIndicator);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationTextColor);
+        }
+
+        if (!summary.isEmpty()) summary = summary +" • ";
+        summary = summary + "…";
+
+        Preference preferenceScreen = prefMng.findPreference(categoryPreference);
+        if (preferenceScreen != null)
+            preferenceScreen.setSummary(summary);
+    }
+
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
             String key) {

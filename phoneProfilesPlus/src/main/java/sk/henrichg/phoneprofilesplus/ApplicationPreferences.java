@@ -10,8 +10,8 @@ class ApplicationPreferences {
 
     static final String PREF_APPLICATION_FIRST_START = "applicationFirstStart";
     static final String PREF_APPLICATION_START_ON_BOOT = "applicationStartOnBoot";
-    private  static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
-    private  static final String PREF_APPLICATION_START_EVENTS = "applicationStartEvents";
+    static final String PREF_APPLICATION_ACTIVATE = "applicationActivate";
+    static final String PREF_APPLICATION_START_EVENTS = "applicationStartEvents";
     static final String PREF_APPLICATION_ALERT = "applicationAlert";
     static final String PREF_APPLICATION_CLOSE = "applicationClose";
     static final String PREF_APPLICATION_LONG_PRESS_ACTIVATION = "applicationLongClickActivation";
@@ -39,7 +39,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS = "applicationWidgetListIconLightness";
     private static final String PREF_APPLICATION_EDITOR_AUTO_CLOSE_DRAWER = "applicationEditorAutoCloseDrawer";
     static final String PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE = "applicationEditorSaveEditorState";
-    private static final String PREF_NOTIFICATION_PREF_INDICATOR = "notificationPrefIndicator";
+    static final String PREF_NOTIFICATION_PREF_INDICATOR = "notificationPrefIndicator";
     static final String PREF_APPLICATION_HOME_LAUNCHER = "applicationHomeLauncher";
     static final String PREF_APPLICATION_WIDGET_LAUNCHER = "applicationWidgetLauncher";
     static final String PREF_APPLICATION_NOTIFICATION_LAUNCHER = "applicationNotificationLauncher";
