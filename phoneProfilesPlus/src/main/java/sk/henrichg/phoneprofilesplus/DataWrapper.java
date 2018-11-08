@@ -3685,7 +3685,8 @@ public class DataWrapper {
         PPApplication.logE("%%% DataWrapper.doHandleEvents","--- end --------------------------");
     }
 
-    private void _restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile, final boolean reactivateProfile, final boolean log)
+    private void _restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile,
+                                final boolean reactivateProfile, final boolean log)
     {
         PPApplication.logE("DataWrapper._restartEvents", "xxx");
 
@@ -3733,7 +3734,8 @@ public class DataWrapper {
         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RESTART_EVENTS);
     }
 
-    void restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile, final boolean reactivateProfile, final boolean log, final boolean useHandler)
+    void restartEvents(final boolean unblockEventsRun, final boolean notClearActivatedProfile,
+                       final boolean reactivateProfile, final boolean log, final boolean useHandler)
     {
         if (!Event.getGlobalEventsRunning(context))
             // events are globally stopped

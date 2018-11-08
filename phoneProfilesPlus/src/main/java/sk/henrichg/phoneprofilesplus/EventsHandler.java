@@ -489,7 +489,7 @@ class EventsHandler {
                 notifyEvent = dataWrapper.getEventById(eventTimeline._fkEvent);
             }
             else
-            if ((!isRestart) && (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
+            if (/*(!isRestart) &&*/ (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
                 // only when not restart events and activated is background profile, play event notification sound
 
                 backgroundProfileNotificationSound = ApplicationPreferences.applicationBackgroundProfileNotificationSound(context);
@@ -507,10 +507,17 @@ class EventsHandler {
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);
 
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEvent=" + notifyEvent);
+                if (notifyEvent != null)
+                    PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventStart=" + notifyEvent.notifyEventStart(context));
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "backgroundProfileNotificationSound=" + backgroundProfileNotificationSound);
+
                 if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
                     if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                        if (PhoneProfilesService.getInstance() != null)
+                        if (PhoneProfilesService.getInstance() != null) {
+                            PPApplication.logE("$$$ EventsHandler.handleEvents", "play default profile notification");
                             PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                        }
                     }
                 }
 
