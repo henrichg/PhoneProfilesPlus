@@ -485,15 +485,15 @@ class EventsHandler {
             String backgroundProfileNotificationSound = "";
             boolean backgroundProfileNotificationVibrate = false;
 
-            if ((!isRestart) && (runningEventCountE > runningEventCountP)) {
-                // only when not restart events and running events is increased, play event notification sound
+            if (/*(!isRestart) &&*/ (runningEventCountE > runningEventCountP)) {
+                // only running events is increased, play event notification sound
 
                 EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
                 notifyEventStart = dataWrapper.getEventById(eventTimeline._fkEvent);
             }
             else
             if (/*(!isRestart) &&*/ (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
-                // only when not restart events and activated is background profile, play event notification sound
+                // only when activated is background profile, play event notification sound
 
                 backgroundProfileNotificationSound = ApplicationPreferences.applicationBackgroundProfileNotificationSound(context);
                 backgroundProfileNotificationVibrate = ApplicationPreferences.applicationBackgroundProfileNotificationVibrate(context);
@@ -531,13 +531,13 @@ class EventsHandler {
             }
             PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "backgroundProfileNotificationSound=" + backgroundProfileNotificationSound);
 
-            // notify start of event
-            boolean notify = ((notifyEventStart != null) && notifyEventStart.notifyEventStart(context));
+            // notify start of event - only when not restart events
+            boolean notify = (!isRestart) && (notifyEventStart != null) && notifyEventStart.notifyEventStart(context);
             if (notify)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "start of event notified");
             if (!notify)
-                // notify end of event
-                notify = ((notifyEventEnd != null) && notifyEventEnd.notifyEventEnd(context));
+                // notify end of event - only when not restart events
+                notify = (!isRestart) && (notifyEventEnd != null) && notifyEventEnd.notifyEventEnd(context);
             if (notify)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "end of event notified");
             if (!notify) {
