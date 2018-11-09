@@ -452,6 +452,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             // restart Events
             PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
+            PPApplication.setBlockProfileEventActions(true);
             dataWrapper.restartEvents(false, true, true, true, true);
         }
         else
@@ -485,6 +486,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
                             // restart Events
                             PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
+                            PPApplication.setBlockProfileEventActions(true);
                             dataWrapper.restartEvents(false, true, true, true, false);
                         }
 
@@ -517,6 +519,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
                         // restart Events
                         PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
+                        PPApplication.setBlockProfileEventActions(true);
                         dataWrapper.restartEvents(false, true, true, true, false);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {

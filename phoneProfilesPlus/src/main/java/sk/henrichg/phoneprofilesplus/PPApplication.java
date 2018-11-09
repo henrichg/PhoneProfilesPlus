@@ -81,13 +81,14 @@ public class PPApplication extends Application {
                                          +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"
+                                         //+"|PPApplication.setBlockProfileEventActions"
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
 
                                          //+"|PostDelayedBroadcastReceiver"
 
                                          //+"|#### EventsHandler.handleEvents"
                                          //+"|$$$ EventsHandler.handleEvents"
-                                         +"|[NOTIFY] EventsHandler"
+                                         //+"|[NOTIFY] EventsHandler"
 
                                          /*
                                          +"|DataWrapper.restartEventsWithDelay"
@@ -261,7 +262,7 @@ public class PPApplication extends Application {
 
                                         //+"|DialogHelpPopupWindow.showPopup"
 
-                                        +"|Profile.convertPercentsToBrightnessManualValue"
+                                        //+"|Profile.convertPercentsToBrightnessManualValue"
             ;
 
 
@@ -419,7 +420,7 @@ public class PPApplication extends Application {
     //public static boolean isPowerSaveMode = false;
 
     // !! this must be here
-    public static boolean startedOnBoot = false;
+    public static boolean blockProfileEventActions = false;
 
     // Samsung Look instance
     public static Slook sLook = null;
@@ -1963,6 +1964,22 @@ public class PPApplication extends Application {
         if (handlerThreadNotificationLed == null) {
             handlerThreadNotificationLed = new HandlerThread("handlerThreadNotificationLed");
             handlerThreadNotificationLed.start();
+        }
+    }
+
+    static void setBlockProfileEventActions(boolean enable) {
+        // if blockProfileEventActions = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
+        PPApplication.blockProfileEventActions = enable;
+        if (enable) {
+            PPApplication.startHandlerThread("PPApplication.setBlockProfileEventActions");
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PPApplication.logE("PPApplication.setBlockProfileEventActions", "delayed boot up");
+                    PPApplication.blockProfileEventActions = false;
+                }
+            }, 30000);
         }
     }
 

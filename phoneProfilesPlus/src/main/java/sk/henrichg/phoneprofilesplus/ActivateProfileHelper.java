@@ -1683,7 +1683,7 @@ class ActivateProfileHelper {
     }
 
     private static void executeForForceStopApplications(final Profile profile, Context context) {
-        if (PPApplication.startedOnBoot)
+        if (PPApplication.blockProfileEventActions)
             // not force stop applications after boot
             return;
 
@@ -2254,7 +2254,7 @@ class ActivateProfileHelper {
 
         // close all applications
         if (profile._deviceCloseAllApplications == 1) {
-            if (!PPApplication.startedOnBoot) {
+            if (!PPApplication.blockProfileEventActions) {
                 try {
                     Intent startMain = new Intent(Intent.ACTION_MAIN);
                     startMain.addCategory(Intent.CATEGORY_HOME);
@@ -3620,7 +3620,7 @@ class ActivateProfileHelper {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if (PPApplication.startedOnBoot)
+                if (PPApplication.blockProfileEventActions)
                     // not lock device after boot
                     return;
 

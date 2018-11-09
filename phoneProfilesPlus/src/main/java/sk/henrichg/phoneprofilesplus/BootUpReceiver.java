@@ -24,17 +24,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
             PPApplication.logE("@@@ BootUpReceiver.onReceive", "#### -- start");
 
-            // if startedOnBoot = true, do not perform any actions, for example ActivateProfileHelper.lockDevice()
-            PPApplication.startedOnBoot = true;
-            PPApplication.startHandlerThread("BootUpReceiver.onReceive");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    PPApplication.logE("BootUpReceiver.onReceive", "delayed boot up");
-                    PPApplication.startedOnBoot = false;
-                }
-            }, 30000);
+            PPApplication.setBlockProfileEventActions(true);
 
             PPApplication.logE("BootUpReceiver.onReceive", "applicationStartOnBoot=" + ApplicationPreferences.applicationStartOnBoot(context));
             PPApplication.logE("BootUpReceiver.onReceive", "applicationStartEvents=" + ApplicationPreferences.applicationStartEvents(context));

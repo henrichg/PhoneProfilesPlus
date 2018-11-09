@@ -632,6 +632,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
                     // restart Events
                     PPApplication.logE("$$$ restartEvents","from ProfilePreferencesActivity.savePreferences");
+                    PPApplication.setBlockProfileEventActions(true);
                     dataWrapper.restartEvents(false, true, true, true, true);
                 }
             }
@@ -640,6 +641,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
                 // restart Events
                 PPApplication.logE("$$$ restartEvents","from ProfilePreferencesActivity.savePreferences");
+                PPApplication.setBlockProfileEventActions(true);
                 dataWrapper.restartEvents(false, true, true, true, true);
             }
         }

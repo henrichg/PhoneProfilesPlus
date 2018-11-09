@@ -1563,6 +1563,8 @@ public class DataWrapper {
     private void activateProfileWithAlert(Profile profile, int startupSource, /*final boolean interactive,*/
                                             Activity activity)
     {
+        PPApplication.setBlockProfileEventActions(false);
+
         if (/*interactive &&*/ (ApplicationPreferences.applicationActivateWithAlert(context) ||
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
@@ -3848,6 +3850,8 @@ public class DataWrapper {
         */
 
         PPApplication.logE("DataWrapper.restartEventsWithAlert", "xxx");
+
+        PPApplication.setBlockProfileEventActions(false);
 
         if (ApplicationPreferences.applicationRestartEventsWithAlert(context) || (activity instanceof EditorProfilesActivity))
         {
