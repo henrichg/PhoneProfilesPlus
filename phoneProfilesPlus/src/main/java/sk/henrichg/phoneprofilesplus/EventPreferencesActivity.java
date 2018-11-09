@@ -293,7 +293,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         origEvent._fkProfileStart,
                         origEvent._fkProfileEnd,
                         origEvent.getStatus(),
-                        origEvent._notificationSound,
+                        origEvent._notificationSoundStart,
                         origEvent._forceRun,
                         origEvent._blocked,
                         //origEvent._undoneProfile,
@@ -307,10 +307,12 @@ public class EventPreferencesActivity extends PreferenceActivity
                         origEvent._isInDelayEnd,
                         origEvent._startStatusTime,
                         origEvent._pauseStatusTime,
-                        origEvent._notificationVibrate,
+                        origEvent._notificationVibrateStart,
                         origEvent._noPauseByManualActivation,
-                        origEvent._repeatNotification,
-                        origEvent._repeatNotificationInterval
+                        origEvent._repeatNotificationStart,
+                        origEvent._repeatNotificationIntervalStart,
+                        origEvent._notificationSoundEnd,
+                        origEvent._notificationVibrateEnd
                 );
                 event.copyEventPreferences(origEvent);
                 showSaveMenu = true;

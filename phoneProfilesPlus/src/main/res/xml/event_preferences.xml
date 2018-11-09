@@ -86,13 +86,13 @@
                 app:dMax="86400"
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
-                android:key="eventNotificationSoundInfo"
+                android:key="eventStartNotificationSoundInfo"
                 android:title="@string/event_preferences_notificationSound"
                 android:summary="@string/preferences_durationNotificationSoundInfo_summary"
                 android:widgetLayout="@layout/info_preference"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
-                android:key="eventNotificationSound"
+                android:key="eventStartNotificationSound"
                 android:summary="@string/array_pref_no_change"
                 android:title="@string/event_preferences_notificationSound"
                 app:ringtoneType="notification"
@@ -100,25 +100,25 @@
                 app:showDefault="true"
                 android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
-                android:key="eventNotificationVibrate"
+                android:key="eventStartNotificationVibrate"
                 android:title="@string/event_preferences_notificationVibrate"
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:layout="@layout/mp_preference_material_widget"/>
             <CheckBoxPreference
-                android:key="eventNotificationRepeat"
+                android:key="eventStartNotificationRepeat"
                 android:title="@string/event_preferences_notificationRepeat"
                 android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:layout="@layout/mp_preference_material_widget"/>
             <sk.henrichg.phoneprofilesplus.DurationDialogPreference
-                android:key="eventNotificationRepeatInterval"
+                android:key="eventStartNotificationRepeatInterval"
                 android:summary="@string/event_preferences_notificationRepeatInterval"
                 android:title="@string/event_preferences_notificationRepeatInterval"
                 android:defaultValue="900"
                 app:dMin="10"
                 app:dMax="86400"
-                android:dependency="eventNotificationRepeat"
+                android:dependency="eventStartNotificationRepeat"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
     </PreferenceCategory>
@@ -154,6 +154,26 @@
                 app:dMin="0"
                 app:dMax="86400"
                 android:layout="@layout/mp_preference_material_widget" />
+            <Preference
+                android:key="eventEndNotificationSoundInfo"
+                android:title="@string/event_preferences_notificationSound"
+                android:summary="@string/preferences_durationNotificationSoundInfo_summary"
+                android:widgetLayout="@layout/info_preference"
+                android:layout="@layout/mp_preference_material_widget" />
+            <sk.henrichg.phoneprofilesplus.RingtonePreference
+                android:key="eventEndNotificationSound"
+                android:summary="@string/array_pref_no_change"
+                android:title="@string/event_preferences_notificationSound"
+                app:ringtoneType="notification"
+                app:showSilent="true"
+                app:showDefault="true"
+                android:layout="@layout/mp_preference_material_widget" />
+            <CheckBoxPreference
+                android:key="eventEndNotificationVibrate"
+                android:title="@string/event_preferences_notificationVibrate"
+                android:defaultValue="false"
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget"/>
         </PreferenceScreen>
     </PreferenceCategory>
     <PreferenceCategory

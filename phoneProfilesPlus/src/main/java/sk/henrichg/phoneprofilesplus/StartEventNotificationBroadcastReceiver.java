@@ -91,7 +91,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                         ApplicationPreferences.applicationUseAlarmClock(context)) {
 
                     Calendar now = Calendar.getInstance();
-                    now.add(Calendar.SECOND, event._repeatNotificationInterval);
+                    now.add(Calendar.SECOND, event._repeatNotificationIntervalStart);
                     long alarmTime = now.getTimeInMillis();
 
                     if (PPApplication.logEnabled()) {
@@ -106,7 +106,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 }
                 else {
-                    long alarmTime = SystemClock.elapsedRealtime() + event._repeatNotificationInterval * 1000;
+                    long alarmTime = SystemClock.elapsedRealtime() + event._repeatNotificationIntervalStart * 1000;
 
                     if (android.os.Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);

@@ -292,6 +292,7 @@ class EventsHandler {
             boolean restartEventsAtEnd = false;
             boolean activateProfileAtEnd = false;
             boolean anyEventPaused = false;
+            Event notifyEventEnd = null;
 
             if (isRestart) {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
@@ -320,6 +321,8 @@ class EventsHandler {
                         if (running && paused) {
                             anyEventPaused = true;
                         }
+                        if (paused)
+                            notifyEventEnd = _event;
                     }
                 }
 
@@ -371,6 +374,8 @@ class EventsHandler {
                             if (!activateProfileAtEnd && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
                                 activateProfileAtEnd = true;
                         }
+                        if (paused)
+                            notifyEventEnd = _event;
                     }
                 }
 
@@ -478,7 +483,7 @@ class EventsHandler {
             }
             ////////////////
 
-            Event notifyEvent = null;
+            Event notifyEventStart = null;
             String backgroundProfileNotificationSound = "";
             boolean backgroundProfileNotificationVibrate = false;
 
@@ -486,7 +491,7 @@ class EventsHandler {
                 // only when not restart events and running events is increased, play event notification sound
 
                 EventTimeline eventTimeline = eventTimelineList.get(runningEventCountE - 1);
-                notifyEvent = dataWrapper.getEventById(eventTimeline._fkEvent);
+                notifyEventStart = dataWrapper.getEventById(eventTimeline._fkEvent);
             }
             else
             if (/*(!isRestart) &&*/ (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyBackgroundProfile) {
@@ -499,6 +504,7 @@ class EventsHandler {
             PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile=" + mergedProfile);
 
             PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+            boolean doSleep = false;
             if (mergedProfile._id != 0) {
                 // activate merged profile
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "profileName=" + mergedProfile._name);
@@ -506,41 +512,47 @@ class EventsHandler {
                 //PPApplication.logE("$$$ EventsHandler.handleEvents", "interactive=" + interactive);
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);
-
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEvent=" + notifyEvent);
-                if (notifyEvent != null)
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventStart=" + notifyEvent.notifyEventStart(context));
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "backgroundProfileNotificationSound=" + backgroundProfileNotificationSound);
-
-                if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
-                    if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                        if (PhoneProfilesService.getInstance() != null) {
-                            PPApplication.logE("$$$ EventsHandler.handleEvents", "play default profile notification");
-                            PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
-                        }
-                    }
-                }
-
                 // wait for profile activation
-                //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                //SystemClock.sleep(500);
-                PPApplication.sleep(500);
+                doSleep = true;
             } else {
                 if (!restartEventsAtEnd) {
                     // update only when will not be do restart events from paused events
                     dataWrapper.updateNotificationAndWidgets();
-
-                    /*
-                    if (!((notifyEvent != null) && notifyEvent.notifyEventStart(context))) {
-                        if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
-                            if (PhoneProfilesService.getInstance() != null)
-                                PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
-                        }
-                    }
-                    */
                 }
             }
 
+            PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart);
+            if (notifyEventStart != null)
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart.notifyEventStart(context));
+            PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd);
+            if (notifyEventEnd != null)
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd.notifyEventEnd(context));
+            PPApplication.logE("$$$ EventsHandler.handleEvents", "backgroundProfileNotificationSound=" + backgroundProfileNotificationSound);
+
+            // notify start of event
+            boolean notify = ((notifyEventStart != null) && notifyEventStart.notifyEventStart(context));
+            if (notify)
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "start of event notified");
+            if (!notify)
+                // notify end of event
+                notify = ((notifyEventEnd != null) && notifyEventEnd.notifyEventEnd(context));
+            if (notify)
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "end of event notified");
+            if (!notify) {
+                // notify default profile
+                if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
+                    if (PhoneProfilesService.getInstance() != null) {
+                        PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "default profile notified");
+                    }
+                }
+            }
+
+            if (doSleep || notify) {
+                //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                //SystemClock.sleep(500);
+                PPApplication.sleep(500);
+            }
             //}
 
             //restartAtEndOfEvent = false;

@@ -712,7 +712,10 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context);
         }
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
-            RingtonePreference preference = (RingtonePreference) prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND);
+            RingtonePreference preference = (RingtonePreference) prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND_START);
+            if (preference != null)
+                preference.refreshListView();
+            preference = (RingtonePreference) prefMng.findPreference(Event.PREF_EVENT_NOTIFICATION_SOUND_END);
             if (preference != null)
                 preference.refreshListView();
         }
