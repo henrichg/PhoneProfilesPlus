@@ -87,6 +87,7 @@ public class PPApplication extends Application {
 
                                          //+"|#### EventsHandler.handleEvents"
                                          //+"|$$$ EventsHandler.handleEvents"
+                                         +"|[NOTIFY] EventsHandler"
 
                                          /*
                                          +"|DataWrapper.restartEventsWithDelay"

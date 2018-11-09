@@ -320,9 +320,8 @@ class EventsHandler {
 
                         if (running && paused) {
                             anyEventPaused = true;
-                        }
-                        if (paused)
                             notifyEventEnd = _event;
+                        }
                     }
                 }
 
@@ -369,13 +368,12 @@ class EventsHandler {
 
                         if (running && paused) {
                             anyEventPaused = true;
+                            notifyEventEnd = _event;
                             if (!restartEventsAtEnd && (_event._atEndDo == Event.EATENDDO_RESTART_EVENTS))
                                 restartEventsAtEnd = true;
                             if (!activateProfileAtEnd && ((_event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) || (_event._fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)))
                                 activateProfileAtEnd = true;
                         }
-                        if (paused)
-                            notifyEventEnd = _event;
                     }
                 }
 
@@ -521,29 +519,33 @@ class EventsHandler {
                 }
             }
 
-            PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart);
-            if (notifyEventStart != null)
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart.notifyEventStart(context));
-            PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd);
-            if (notifyEventEnd != null)
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd.notifyEventEnd(context));
-            PPApplication.logE("$$$ EventsHandler.handleEvents", "backgroundProfileNotificationSound=" + backgroundProfileNotificationSound);
+            PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart);
+            if (notifyEventStart != null) {
+                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventStart._name=" + notifyEventStart._name);
+                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventStart=" + notifyEventStart.notifyEventStart(context));
+            }
+            PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd);
+            if (notifyEventEnd != null) {
+                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd._name=" + notifyEventEnd._name);
+                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd.notifyEventEnd(context));
+            }
+            PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "backgroundProfileNotificationSound=" + backgroundProfileNotificationSound);
 
             // notify start of event
             boolean notify = ((notifyEventStart != null) && notifyEventStart.notifyEventStart(context));
             if (notify)
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "start of event notified");
+                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "start of event notified");
             if (!notify)
                 // notify end of event
                 notify = ((notifyEventEnd != null) && notifyEventEnd.notifyEventEnd(context));
             if (notify)
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "end of event notified");
+                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "end of event notified");
             if (!notify) {
                 // notify default profile
                 if (!backgroundProfileNotificationSound.isEmpty() || backgroundProfileNotificationVibrate) {
                     if (PhoneProfilesService.getInstance() != null) {
                         PhoneProfilesService.getInstance().playNotificationSound(backgroundProfileNotificationSound, backgroundProfileNotificationVibrate);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "default profile notified");
+                        PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "default profile notified");
                     }
                 }
             }
