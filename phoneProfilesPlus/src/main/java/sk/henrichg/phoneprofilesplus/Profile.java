@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -213,10 +212,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_deviceNFC", "0");
         defaultValuesString.put("prf_pref_deviceScreenTimeout", "0");
         defaultValuesString.put("prf_pref_deviceKeyguard", "0");
-        //if (Build.VERSION.SDK_INT >= 28)
-        //    defaultValuesString.put("prf_pref_deviceBrightness", "24|1|1|0");
-        //else
-            defaultValuesString.put("prf_pref_deviceBrightness", "50|1|1|0");
+        defaultValuesString.put("prf_pref_deviceBrightness", "50|1|1|0");
         defaultValuesString.put("prf_pref_deviceBrightness_withoutLevel", "|1|1|0");
         defaultValuesString.put("prf_pref_deviceAutoRotation", "0");
         defaultValuesString.put("prf_pref_devicePowerSaveMode", "0");
