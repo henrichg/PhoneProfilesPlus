@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.MathUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -211,9 +213,9 @@ public class Profile {
         defaultValuesString.put("prf_pref_deviceNFC", "0");
         defaultValuesString.put("prf_pref_deviceScreenTimeout", "0");
         defaultValuesString.put("prf_pref_deviceKeyguard", "0");
-        if (Build.VERSION.SDK_INT >= 28)
-            defaultValuesString.put("prf_pref_deviceBrightness", "24|1|1|0");
-        else
+        //if (Build.VERSION.SDK_INT >= 28)
+        //    defaultValuesString.put("prf_pref_deviceBrightness", "24|1|1|0");
+        //else
             defaultValuesString.put("prf_pref_deviceBrightness", "50|1|1|0");
         defaultValuesString.put("prf_pref_deviceBrightness_withoutLevel", "|1|1|0");
         defaultValuesString.put("prf_pref_deviceAutoRotation", "0");
@@ -1563,10 +1565,6 @@ public class Profile {
     {
         int maximumValue = 100;
         int defaultValue = 50;
-        if (Build.VERSION.SDK_INT >= 28) {
-            maximumValue = 255;
-            defaultValue = 24;
-        }
         int value;
         try {
             String[] splits = _deviceBrightness.split("\\|");
@@ -1666,6 +1664,70 @@ public class Profile {
     }
     */
 
+    ////// from AOSP and changed for PPP
+    private static final int GAMMA_SPACE_MAX = 1023;
+
+    private static int getBrightnessPercentage_A9(int settingsValue, int minValue, int maxValue) {
+        final int value;
+
+        value = convertLinearToGamma(settingsValue, minValue, maxValue);
+
+        return Math.round(getPercentage(value, 0, GAMMA_SPACE_MAX) * 100);
+    }
+
+    private static int getBrightnessValue_A9(int percentage, int minValue, int maxValue) {
+        int value = Math.round((GAMMA_SPACE_MAX+1) / 100f * (float)(percentage + 1));
+        int systemValue = convertGammaToLinear(value, minValue, maxValue);
+        if (systemValue > 255)
+            systemValue = 255;
+        return systemValue;
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static float getPercentage(int value, int min, int max) {
+        if (value > max) {
+            return 1.0f;
+        }
+        if (value < min) {
+            return 0.0f;
+        }
+        return (value - min) / (max - min);
+    }
+
+    // Hybrid Log Gamma constant values
+    private static final float _R = 0.5f;
+    private static final float _A = 0.17883277f;
+    private static final float _B = 0.28466892f;
+    private static final float _C = 0.55991073f;
+
+    @SuppressWarnings("SameParameterValue")
+    private static int convertLinearToGamma(int val, int min, int max) {
+        // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
+        final float normalizedVal = MathUtils.norm(min, max, val) * 12;
+        final float ret;
+        if (normalizedVal <= 1f) {
+            ret = (float)Math.sqrt(normalizedVal) * _R;
+        } else {
+            ret = _A * MathUtils.log(normalizedVal - _B) + _C;
+        }
+        return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX, ret));
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static int convertGammaToLinear(int val, int min, int max) {
+        final float normalizedVal = MathUtils.norm(0, GAMMA_SPACE_MAX, val);
+        final float ret;
+        if (normalizedVal <= _R) {
+            ret = MathUtils.sq(normalizedVal / _R);
+        } else {
+            ret = MathUtils.exp((normalizedVal - _C) / _A) + _B;
+        }
+        // HLG is normalized to the range [0, 12], so we need to re-normalize to the range [0, 1]
+        // in order to derive the correct setting value.
+        return Math.round(MathUtils.lerp(min, max, ret / 12));
+    }
+    ///////////////
+
     static int convertPercentsToBrightnessManualValue(int percentage, Context context)
     {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
@@ -1685,7 +1747,7 @@ public class Profile {
             // brightness is not set, change it to default manual brightness value
             int defaultValue = 128;
             if (Build.VERSION.SDK_INT >= 28)
-                defaultValue = 24;
+                defaultValue = getBrightnessValue_A9(50, minimumValue, maximumValue);
             value = Settings.System.getInt(context.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS, defaultValue);
         }
@@ -1701,22 +1763,7 @@ public class Profile {
             if (Build.VERSION.SDK_INT < 28)
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
             else {
-                value = percentage;
-            /*    PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "percentage=" + percentage);
-                double valLog = 0.0d;
-                if (percentage > 0)
-                    valLog = //Math.log10(1.0d) -
-                            1.0d + Math.log10(percentage / 100.d) / 2.0d;
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "valLog=" + valLog);
-                //valLog10 = ((valLog10
-                // / 2.0d
-                // )) * 100.0d;
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "valLog=" + valLog);
-                //value = Math.round((float) (maximumValue - minimumValue) / 100 * (float) valLog) + minimumValue;
-                value = Math.round((float)valLog * (maximumValue - minimumValue)) + minimumValue;
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value=" + value);
-
-                //value = 128;*/
+                value = getBrightnessValue_A9(percentage, minimumValue, maximumValue);
             }
         }
 
@@ -1741,8 +1788,20 @@ public class Profile {
         else {
             if (Build.VERSION.SDK_INT < 28)
                 value = (percentage - 50) / 50f;
-            else
-                value = (percentage - 128) / 128f;
+            else {
+                int maximumValue;// = getMaximumScreenBrightnessSetting();
+                int minimumValue;// = getMinimumScreenBrightnessSetting();
+
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "maximumValue="+maximumValue);
+                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "minimumValue="+minimumValue);
+
+                //if (maximumValue-minimumValue > 255) {
+                minimumValue = 0;
+                maximumValue = 255;
+                //}
+
+                value = (getBrightnessValue_A9(percentage, minimumValue, maximumValue) - 128) / 128f;
+            }
         }
 
         return value;
@@ -1764,7 +1823,7 @@ public class Profile {
             if (Build.VERSION.SDK_INT < 28)
                 percentage = Math.round((float) (value - minValue) / (maxValue - minValue) * 100.0);
             else
-                percentage = value;
+                percentage = getBrightnessPercentage_A9(value, minValue, maxValue);
         }
 
         return percentage;
