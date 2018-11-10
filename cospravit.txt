@@ -264,6 +264,9 @@ PhoneProfilesPlus - Applikacne nastavenia - popis v hlavnej obrazovke:
 
 Brightness in Pie
 
+https://android.googlesource.com/platform/frameworks/base/+/master/packages/SettingsLib/src/com/android/settingslib/display/BrightnessUtils.java
+https://android.googlesource.com/platform/frameworks/base/+/master/packages/SystemUI/src/com/android/systemui/settings/BrightnessController.java
+
 public static final int GAMMA_SPACE_MAX = 1023;
 
 // returns value from 0 to 1
