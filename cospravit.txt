@@ -276,15 +276,9 @@ private double getCurrentBrightness() {
 
         final int value;
 
-        /*if (isInVrMode()) {
-            value = convertLinearToGamma(System.getInt(mContentResolver,
-                    System.SCREEN_BRIGHTNESS_FOR_VR, mMaxBrightness),
-                    mMinVrBrightness, mMaxVrBrightness);
-        } else {*/
-            value = convertLinearToGamma(Settings.System.getInt(mContentResolver,
-                    System.SCREEN_BRIGHTNESS, mMinBrightness),
-                    mMinBrightness, mMaxBrightness);
-        //}
+        value = convertLinearToGamma(Settings.System.getInt(mContentResolver,
+                System.SCREEN_BRIGHTNESS, mMinBrightness),
+                mMinBrightness, mMaxBrightness);
 
         return getPercentage(value, 0, GAMMA_SPACE_MAX);
     }
@@ -303,7 +297,7 @@ private void setCurrentBrightness(double value) {
     final int mMinBrightness = 0;
     final int mMaxBrightness = 255;
 
-    final int val = convertGammaToLinear(value, min, max);
+    final int val = convertGammaToLinear(value, mMinBrightness, mMaxBrightness);
 
     Settings.System.putInt(mContext.getContentResolver(), System.SCREEN_BRIGHTNESS, val);
 }
