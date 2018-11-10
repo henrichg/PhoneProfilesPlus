@@ -262,5 +262,76 @@ PhoneProfilesPlus - Applikacne nastavenia - popis v hlavnej obrazovke:
 
 ----------------------
 
+Brightness in Pie
 
+public static final int GAMMA_SPACE_MAX = 1023;
 
+// returns value from 0 to 1
+private double getCurrentBrightness() {
+        final int mMinBrightness = 0;
+        final int mMaxBrightness = 255;
+
+        final int value;
+
+        /*if (isInVrMode()) {
+            value = convertLinearToGamma(System.getInt(mContentResolver,
+                    System.SCREEN_BRIGHTNESS_FOR_VR, mMaxBrightness),
+                    mMinVrBrightness, mMaxVrBrightness);
+        } else {*/
+            value = convertLinearToGamma(Settings.System.getInt(mContentResolver,
+                    System.SCREEN_BRIGHTNESS, mMinBrightness),
+                    mMinBrightness, mMaxBrightness);
+        //}
+
+        return getPercentage(value, 0, GAMMA_SPACE_MAX);
+    }
+
+private double getPercentage(double value, int min, int max) {
+        if (value > max) {
+            return 1.0;
+        }
+        if (value < min) {
+            return 0.0;
+        }
+        return (value - min) / (max - min);
+    }
+
+private void setCurrentBrightness(double value) {
+    final int mMinBrightness = 0;
+    final int mMaxBrightness = 255;
+
+    final int val = convertGammaToLinear(value, min, max);
+
+    Settings.System.putInt(mContext.getContentResolver(), System.SCREEN_BRIGHTNESS, val);
+}
+
+// Hybrid Log Gamma constant values
+private static final float R = 0.5f;
+private static final float A = 0.17883277f;
+private static final float B = 0.28466892f;
+private static final float C = 0.55991073f;
+
+public static final int convertLinearToGamma(int val, int min, int max) {
+        // For some reason, HLG normalizes to the range [0, 12] rather than [0, 1]
+        final float normalizedVal = MathUtils.norm(min, max, val) * 12;
+        final float ret;
+        if (normalizedVal <= 1f) {
+            ret = MathUtils.sqrt(normalizedVal) * R;
+        } else {
+            ret = A * MathUtils.log(normalizedVal - B) + C;
+        }
+        return Math.round(MathUtils.lerp(0, GAMMA_SPACE_MAX, ret));
+    }
+
+public static final int convertGammaToLinear(int val, int min, int max) {
+        final float normalizedVal = MathUtils.norm(0, GAMMA_SPACE_MAX, val);
+        final float ret;
+        if (normalizedVal <= R) {
+            ret = MathUtils.sq(normalizedVal / R);
+        } else {
+            ret = MathUtils.exp((normalizedVal - C) / A) + B;
+        }
+        // HLG is normalized to the range [0, 12], so we need to re-normalize to the range [0, 1]
+        // in order to derive the correct setting value.
+        return Math.round(MathUtils.lerp(min, max, ret / 12));
+    }
