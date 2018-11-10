@@ -24,10 +24,9 @@ Required external libs
 - DashClock API - https://github.com/romannurik/dashclock/wiki/API
 - SystemBarTint - https://github.com/jgilfelt/SystemBarTint
 - google-gson - https://code.google.com/p/google-gson/
-- material-dialogs - https://github.com/afollestad/material-dialogs
 - RelativePopupWindow - https://github.com/kakajika/RelativePopupWindow
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
-- crashlytics - https://fabric.io/kits/android/crashlytics
+- Crashlytics - https://fabric.io/kits/android/crashlytics
 - RecyclerView-FastScroll - https://github.com/timusus/RecyclerView-FastScroll
 - android-job - https://github.com/evernote/android-job
 - time-duration-picker - https://github.com/svenwiegand/time-duration-picker
