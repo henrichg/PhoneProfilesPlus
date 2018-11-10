@@ -2813,8 +2813,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesSMS._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventSMSContacts(context, event, null)/* &&
-                    Permissions.checkEventSMSBroadcast(context, event, null)*/) {
+                    && Permissions.checkEventSMSContacts(context, event, null) &&
+                    Permissions.checkEventSMSBroadcast(context, event, null)) {
                 // compute start time
 
                 if (event._eventPreferencesSMS._startTime > 0) {

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -36,7 +35,7 @@ class EventPreferencesSMS extends EventPreferences {
     private static final String PREF_EVENT_SMS_CONTACT_LIST_TYPE = "eventSMSContactListType";
     private static final String PREF_EVENT_SMS_PERMANENT_RUN = "eventSMSPermanentRun";
     private static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
-    static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
+    //static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
 
     private static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategory";
 
@@ -181,7 +180,7 @@ class EventPreferencesSMS extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, false, false, false);
         }
-        if (key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)) {
+        /*if (key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
@@ -193,7 +192,7 @@ class EventPreferencesSMS extends EventPreferences {
                 else
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
             }
-        }
+        }*/
 
         Event event = new Event();
         event.createEventPreferences();
@@ -228,8 +227,8 @@ class EventPreferencesSMS extends EventPreferences {
             key.equals(PREF_EVENT_SMS_CONTACT_LIST_TYPE) ||
             key.equals(PREF_EVENT_SMS_CONTACTS) ||
             key.equals(PREF_EVENT_SMS_CONTACT_GROUPS) ||
-            key.equals(PREF_EVENT_SMS_DURATION) ||
-            key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER))
+            key.equals(PREF_EVENT_SMS_DURATION) /*||
+            key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)*/)
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -245,7 +244,7 @@ class EventPreferencesSMS extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SMS_CONTACT_GROUPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_DURATION, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SMS_INSTALL_EXTENDER, preferences, context);
+        //setSummary(prefMng, PREF_EVENT_SMS_INSTALL_EXTENDER, preferences, context);
     }
 
     @Override

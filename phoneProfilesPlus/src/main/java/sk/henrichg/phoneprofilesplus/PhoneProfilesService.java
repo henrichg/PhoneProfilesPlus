@@ -94,8 +94,8 @@ public class PhoneProfilesService extends Service
     private WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;
     private LocationModeChangedBroadcastReceiver locationModeChangedBroadcastReceiver = null;
     private AirplaneModeStateChangedBroadcastReceiver airplaneModeStateChangedBroadcastReceiver = null;
-    //private SMSBroadcastReceiver smsBroadcastReceiver = null;
-    //private SMSBroadcastReceiver mmsBroadcastReceiver = null;
+    private SMSBroadcastReceiver smsBroadcastReceiver = null;
+    private SMSBroadcastReceiver mmsBroadcastReceiver = null;
     private CalendarProviderChangedBroadcastReceiver calendarProviderChangedBroadcastReceiver = null;
     private WifiScanBroadcastReceiver wifiScanReceiver = null;
     private BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
@@ -953,7 +953,7 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForSMSSensor", "PhoneProfilesService_registerReceiverForSMSSensor");
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "xxx");
         if (!register) {
-            /*if (smsBroadcastReceiver != null) {
+            if (smsBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->UNREGISTER SMS", "PhoneProfilesService_registerReceiverForSMSSensor");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "UNREGISTER SMS");
                 try {
@@ -976,7 +976,7 @@ public class PhoneProfilesService extends Service
                 }
             }
             else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "not registered MMS");*/
+                PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "not registered MMS");
             if (smsEventEndBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->UNREGISTER smsEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "UNREGISTER smsEventEndBroadcastReceiver");
@@ -997,7 +997,7 @@ public class PhoneProfilesService extends Service
                 if (checkDatabase/* || (smsBroadcastReceiver == null) || (mmsBroadcastReceiver == null)*/)
                     eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
                 if (eventCount > 0) {
-                    /*if (smsBroadcastReceiver == null) {
+                    if (smsBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->REGISTER SMS", "PhoneProfilesService_registerReceiverForSMSSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "REGISTER SMS");
                         smsBroadcastReceiver = new SMSBroadcastReceiver();
@@ -1024,7 +1024,7 @@ public class PhoneProfilesService extends Service
                         appContext.registerReceiver(mmsBroadcastReceiver, intentFilter22);
                     }
                     else
-                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "registered MMS");*/
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "registered MMS");
                     if (smsEventEndBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForSMSSensor->REGISTER smsEventEndBroadcastReceiver", "PhoneProfilesService_registerReceiverForSMSSensor");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForSMSSensor", "REGISTER smsEventEndBroadcastReceiver");
@@ -1382,9 +1382,9 @@ public class PhoneProfilesService extends Service
             boolean eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED) ||
                                    (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                                        PreferenceAllowed.PREFERENCE_ALLOWED)/* ||
                                    (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+                                        PreferenceAllowed.PREFERENCE_ALLOWED)*/;
             if (profileAllowed || eventAllowed) {
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "profile or event allowed");
                 int profileCount = 1;
@@ -1403,7 +1403,7 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
                         eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
                         eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
-                        eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
+                        //eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
                     }
                 }
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "profileCount="+profileCount);
@@ -1417,7 +1417,7 @@ public class PhoneProfilesService extends Service
                         intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
                         intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                         intentFilter23.addAction(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END);
-                        intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
+                        //intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
                         appContext.registerReceiver(accessibilityServiceBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }

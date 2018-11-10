@@ -465,6 +465,7 @@
                 app:dMax="86400"
                 android:dependency="eventSMSEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
+            <!--
             <Preference
                 android:key="eventSMSInstallExtender"
                 android:title="@string/event_preferences_sms_PPPExtender_title"
@@ -488,6 +489,7 @@
                 android:widgetLayout="@layout/start_activity_preference"
                 android:layout="@layout/mp_preference_material_widget" >
             </Preference>
+            -->
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventRadioSwitchCategory"

@@ -68,6 +68,7 @@
             android:text="@string/important_info_accessibility_service_text1"
             android:id="@+id/activity_info_notification_accessibility_service_text1"
             android:textStyle="bold" />
+        <!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +76,7 @@
             android:text="@string/important_info_accessibility_service_text2"
             android:id="@+id/activity_info_notification_accessibility_service_text2"
             android:textStyle="bold" />
+        -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
