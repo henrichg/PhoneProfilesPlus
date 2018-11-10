@@ -53,6 +53,7 @@ public class BrightnessDialogPreference extends
     private int changeLevel;
 
     @SuppressWarnings("FieldCanBeLocal")
+    int defaultValue = 128;
     private int maximumValue = 100;
     private final int minimumValue = 0;
     private final int stepSize = 1;
@@ -94,7 +95,6 @@ public class BrightnessDialogPreference extends
                 (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, _context).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED);
 
-        int defaultValue = 128;
         if (Build.VERSION.SDK_INT >= 28) {
             defaultValue = 24;
             maximumValue = 255;
@@ -428,7 +428,7 @@ public class BrightnessDialogPreference extends
         }
         else {
             // set state
-            value = maximumValue / 2;
+            value = this.defaultValue;
             noChange = 1;
             automatic = 1;
             sharedProfile = 0;
@@ -456,10 +456,10 @@ public class BrightnessDialogPreference extends
                 value = Math.round(savedAdaptiveBrightness * halfValue + halfValue);
             }
             if ((value < 0) || (value > maximumValue)) {
-                value = maximumValue / 2;
+                value = defaultValue;
             }
         } catch (Exception e) {
-            value = maximumValue / 2;
+            value = defaultValue;
         }
         value = value - minimumValue;
         try {
