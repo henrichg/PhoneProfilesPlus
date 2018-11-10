@@ -1561,14 +1561,20 @@ public class Profile {
 
     int getDeviceBrightnessValue()
     {
+        int maximumValue = 100;
+        int defaultValue = 50;
+        if (Build.VERSION.SDK_INT >= 28) {
+            maximumValue = 255;
+            defaultValue = 24;
+        }
         int value;
         try {
             String[] splits = _deviceBrightness.split("\\|");
             value = Integer.parseInt(splits[0]);
-            if ((value < 0) || (value > 100))
-                value = 50;
+            if ((value < 0) || (value > maximumValue))
+                value = defaultValue;
         } catch (Exception e) {
-            value = 0;
+            value = defaultValue;
         }
         return value;
     }
