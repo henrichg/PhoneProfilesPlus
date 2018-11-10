@@ -5,6 +5,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:popupMenuStyle">@style/PopupMenu_color</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu_color</item>
+        <item name="android:navigationBarColor">@color/primaryDark</item>
     </style>
 
 </resources>

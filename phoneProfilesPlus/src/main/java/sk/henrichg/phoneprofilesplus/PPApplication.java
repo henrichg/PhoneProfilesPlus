@@ -81,10 +81,10 @@ public class PPApplication extends Application {
                                          +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"
-                                         //+"|PPApplication.setBlockProfileEventActions"
+                                         +"|PPApplication.setBlockProfileEventActions"
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
 
-                                         +"|EditorProfilesActivity.onCreate"
+                                         //+"|EditorProfilesActivity.onCreate"
 
                                          //+"|PostDelayedBroadcastReceiver"
 
