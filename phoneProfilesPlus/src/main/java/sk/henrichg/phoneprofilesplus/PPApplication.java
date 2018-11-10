@@ -84,6 +84,8 @@ public class PPApplication extends Application {
                                          //+"|PPApplication.setBlockProfileEventActions"
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
 
+                                         +"|EditorProfilesActivity.onCreate"
+
                                          //+"|PostDelayedBroadcastReceiver"
 
                                          //+"|#### EventsHandler.handleEvents"

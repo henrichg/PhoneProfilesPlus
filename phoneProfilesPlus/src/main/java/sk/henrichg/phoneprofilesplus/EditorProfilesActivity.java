@@ -147,7 +147,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private int drawerSelectedItem = 1;
     private int orderSelectedItem = 0;
-    private int eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+    private int eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
 
     private static final int COUNT_DRAWER_PROFILE_ITEMS = 3;
 
@@ -526,6 +526,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             orderSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_ORDER_SELECTED_ITEM, 0);
         }
 
+        PPApplication.logE("EditorProfilesActivity.onCreate", "orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
         changeEventOrder(orderSelectedItem, savedInstanceState != null);
         selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null, false);
@@ -1008,18 +1009,20 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void changeEventOrder(int position, boolean orientationChange) {
         orderSelectedItem = position;
 
-        // save into shared preferences
-        ApplicationPreferences.getSharedPreferences(this);
-        Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
-        editor.apply();
+        if (drawerSelectedItem != DSI_EVENTS_START_ORDER) {
+            // save into shared preferences
+            ApplicationPreferences.getSharedPreferences(this);
+            Editor editor = ApplicationPreferences.preferences.edit();
+            editor.putInt(SP_EDITOR_ORDER_SELECTED_ITEM, orderSelectedItem);
+            editor.apply();
+        }
 
         int _eventsOrderType;
         if (drawerSelectedItem == DSI_EVENTS_START_ORDER) {
             _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
         } else {
             _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
-            switch (position) {
+            switch (orderSelectedItem) {
                 case 0:
                     _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
                     break;
@@ -1043,7 +1046,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             ((EditorEventListFragment)fragment).changeListOrder(_eventsOrderType);
         }
 
-        orderSpinner.setSelection(orderSelectedItem);
+        //if (drawerSelectedItem != DSI_EVENTS_START_ORDER)
+            orderSpinner.setSelection(orderSelectedItem);
 
         // Close drawer
         if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))

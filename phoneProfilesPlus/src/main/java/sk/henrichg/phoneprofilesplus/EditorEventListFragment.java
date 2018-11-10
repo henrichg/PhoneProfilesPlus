@@ -138,11 +138,11 @@ public class EditorEventListFragment extends Fragment
         setRetainInstance(true);
 
         filterType = getArguments() != null ? 
-                getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorEventListFragment.FILTER_TYPE_ALL) :
-                    EditorEventListFragment.FILTER_TYPE_ALL;
+                getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorEventListFragment.FILTER_TYPE_START_ORDER) :
+                    EditorEventListFragment.FILTER_TYPE_START_ORDER;
         orderType = getArguments() != null ? 
-                getArguments().getInt(ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_EVENT_NAME) :
-                    EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+                getArguments().getInt(ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER) :
+                    EditorEventListFragment.ORDER_TYPE_START_ORDER;
 
         //Log.d("EditorEventListFragment.onCreate","filterType="+filterType);
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
