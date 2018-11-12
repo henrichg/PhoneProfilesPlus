@@ -697,6 +697,15 @@ public class EditorProfilesActivity extends AppCompatActivity
             menuItem.setVisible(Event.getGlobalEventsRunning(getApplicationContext()));
         }
 
+        menuItem = menu.findItem(R.id.menu_dark_theme);
+        if (menuItem != null)
+        {
+            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+                menuItem.setTitle(R.string.menu_dark_theme_off);
+            else
+                menuItem.setTitle(R.string.menu_dark_theme_on);
+        }
+
         onNextLayout(editorToolbar, new Runnable() {
             @Override
             public void run() {
@@ -749,6 +758,24 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
 
+                return true;
+            case R.id.menu_dark_theme:
+                String theme = ApplicationPreferences.applicationTheme(getApplicationContext());
+                if (theme.equals("dark")) {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                    theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "color");
+                    Editor editor = preferences.edit();
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, theme);
+                    editor.apply();
+                }
+                else {
+                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                    Editor editor = preferences.edit();
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
+                    editor.apply();
+                }
+                GlobalGUIRoutines.reloadActivity(this, true);
                 return true;
             case R.id.menu_install_tone:
                 TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getApplicationContext(), true);

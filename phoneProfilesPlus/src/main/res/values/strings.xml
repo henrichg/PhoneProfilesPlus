@@ -1264,6 +1264,8 @@
     <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>
     <string name="permission_not_granted">Not granted</string>
     <string name="permission_granted">Granted</string>
+    <string name="menu_dark_theme_on">Switch on dark theme</string>
+    <string name="menu_dark_theme_off">Switch off dark theme</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

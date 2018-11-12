@@ -27,6 +27,10 @@
         android:orderInCategory="210"
         app:showAsAction="never" >
     </item>
+    <item android:id="@+id/menu_dark_theme"
+          android:title="@string/menu_dark_theme_on"
+          android:orderInCategory="212"
+          app:showAsAction="never" />
     <item android:id="@+id/menu_install_tone"
         android:title="@string/menu_install_tone"
         android:orderInCategory="215"

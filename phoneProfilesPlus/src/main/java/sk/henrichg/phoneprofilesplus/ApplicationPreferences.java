@@ -132,6 +132,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER = "applicationWidgetListShowBorder";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER = "applicationWidgetOneRowShowBorder";
     static final String PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER = "applicationWidgetIconShowBorder";
+    static final String PREF_APPLICATION_NOT_DARK_THEME = "applicationNotDarkTheme";
 
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)

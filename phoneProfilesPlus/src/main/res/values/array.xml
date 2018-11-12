@@ -136,14 +136,14 @@
     </string-array>
     <string-array name="themeArray">
         <item>@string/phone_profiles_pref_applicationTheme_color</item>
-        <item>@string/phone_profiles_pref_applicationTheme_dlight</item>
         <item>@string/phone_profiles_pref_applicationTheme_dark</item>
+        <item>@string/phone_profiles_pref_applicationTheme_dlight</item>
         <item>@string/phone_profiles_pref_applicationTheme_white</item>
     </string-array>
     <string-array name="themeValues">
         <item>@string/array_pref_value_color</item>
-        <item>@string/array_pref_value_dlight</item>
         <item>@string/array_pref_value_dark</item>
+        <item>@string/array_pref_value_dlight</item>
         <item>@string/array_pref_value_white</item>
     </string-array>
     <string-array name="widgetBackgroundArray">
