@@ -2280,7 +2280,7 @@ class Event {
         return false;
     }
 
-    boolean notifyEventEnd(Context context) {
+    boolean notifyEventEnd(/*Context context*/) {
         String notificationSoundEnd = _notificationSoundEnd;
         boolean notificationVibrateEnd = _notificationVibrateEnd;
 

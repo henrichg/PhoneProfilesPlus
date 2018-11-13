@@ -527,7 +527,7 @@ class EventsHandler {
             PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd);
             if (notifyEventEnd != null) {
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd._name=" + notifyEventEnd._name);
-                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd.notifyEventEnd(context));
+                PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "notifyEventEnd=" + notifyEventEnd.notifyEventEnd());
             }
             PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "backgroundProfileNotificationSound=" + backgroundProfileNotificationSound);
 
@@ -537,7 +537,7 @@ class EventsHandler {
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "start of event notified");
             if (!notify)
                 // notify end of event - only when not restart events
-                notify = (!isRestart) && (notifyEventEnd != null) && notifyEventEnd.notifyEventEnd(context);
+                notify = (!isRestart) && (notifyEventEnd != null) && notifyEventEnd.notifyEventEnd();
             if (notify)
                 PPApplication.logE("[NOTIFY] EventsHandler.handleEvents", "end of event notified");
             if (!notify) {

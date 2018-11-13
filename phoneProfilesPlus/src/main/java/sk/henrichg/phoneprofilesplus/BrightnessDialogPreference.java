@@ -51,8 +51,8 @@ public class BrightnessDialogPreference extends
     private int disableSharedProfile;
     private int changeLevel;
 
-    int defaultValue = 50;
-    private int maximumValue = 100;
+    private final int defaultValue = 50;
+    private final int maximumValue = 100;
     private final int minimumValue = 0;
     private final int stepSize = 1;
 

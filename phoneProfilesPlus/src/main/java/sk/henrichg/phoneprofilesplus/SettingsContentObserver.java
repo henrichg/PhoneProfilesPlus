@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 
