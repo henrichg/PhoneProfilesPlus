@@ -87,7 +87,6 @@
   <string name="array_pref_screenTimeoutArray_10minutes">10 minutos</string>
   <string name="phone_profiles_pref_applicationLanguage">Idioma</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Sistema</string>
-  <string name="title_activity_shortcut_creator">Phone profiles plus - atalho</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Iniciar na inicialização do telefone</string>
   <string name="array_pref_value_system">system</string>
   <string name="array_pref_value_en">en</string>
@@ -138,16 +137,11 @@
   <string name="event_preferences_eventEnabled">Ativar execução</string>
   <string name="event_preferences_eventName">Nome do evento</string>
   <string name="event_preferences_eventProfileStart">Ativar perfil</string>
-  <string name="widget_label_icon">PhoneProfilesPlus-icon</string>
-  <string name="widget_label_one_row">PhoneProfilesPlus-uma linha</string>
-  <string name="widget_label_list">PhoneProfilesPlus-lista</string>
-  <string name="phone_profiles_pref_category_widget_list">Widget-Lista</string>
   <string name="phone_profiles_pref_applicationWidgetBackground">Fundo opaco</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessB">Fundo claro</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Texto claro</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Icone claro</string>
   <string name="dashclock_extension_description">Mostra o perfil ativo com o indicador de preferência. Abre o ativador ao tocar.</string>
-  <string name="phone_profiles_pref_category_widget_icon_shortcut">Widget-Icon; Atalho</string>
   <string name="array_pref_widgetColor_colorful">Colorido</string>
   <string name="array_pref_widgetColor_monochrome">Preto e branco</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">Tipo de cor do ícone</string>
@@ -1216,7 +1210,32 @@
   <string name="phone_profiles_pref_notificationShowButtonExit">Show button \"Exit\"</string>
   <string name="altype_applicationUpgrade">application upgrade</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Your device does not have linked volumes for ringtone and notifications.</string>
-  <string name="extender_app_name">PhoneProfilesPlusExtender</string>
+
+    <string name="phone_profiles_pref_category_widget_list">Widget: List</string>
+    <string name="phone_profiles_pref_category_widget_icon_shortcut">Widget: Icon; Shortcut</string>
+    <string name="title_activity_shortcut_creator">Shortcut</string>
+    <string name="widget_label_icon">Icon</string>
+    <string name="widget_label_one_row">Single row</string>
+    <string name="widget_label_list">List</string>
+
+    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>
+    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>
+    <string name="phone_profiles_pref_manualProfileActivation">Manual profile activation</string>
+    <string name="phone_profiles_pref_category_widget_one_row">Widget: Single row</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Border lightness</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Border lightness (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetShowBorder">Show border</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Show border (widget)</string>
+    <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving SMS and MMS.</string>
+    <string name="event_preferences_sms_PPPExtender_title">PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
+    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>
+    <string name="permission_not_granted">Not granted</string>
+    <string name="permission_granted">Granted</string>
+    <string name="menu_dark_theme_on">Switch on dark theme</string>
+    <string name="menu_dark_theme_off">Switch off dark theme</string>
+
+    <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\" and \"Orientation sensor\".</string>
   <string name="extender_about_application_version">Version:</string>

@@ -87,7 +87,6 @@
   <string name="array_pref_screenTimeoutArray_10minutes">10 minút</string>
   <string name="phone_profiles_pref_applicationLanguage">Jazyk</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Systémový</string>
-  <string name="title_activity_shortcut_creator">PhoneProfilesPlus-odkaz</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Spusti pri štarte telefónu</string>
   <string name="array_pref_value_system">system</string>
   <string name="array_pref_value_en">en</string>
@@ -138,16 +137,11 @@
   <string name="event_preferences_eventEnabled">Povoľ beh</string>
   <string name="event_preferences_eventName">Názov udalosti</string>
   <string name="event_preferences_eventProfileStart">Aktivovať profil</string>
-  <string name="widget_label_icon">PhoneProfilesPlus-ikona</string>
-  <string name="widget_label_one_row">PhoneProfilesPlus-jednoriadkový</string>
-  <string name="widget_label_list">PhoneProfilesPlus-zoznam</string>
-  <string name="phone_profiles_pref_category_widget_list">Miniaplikácia-Zoznam</string>
   <string name="phone_profiles_pref_applicationWidgetBackground">Nepriehľadnosť pozadia</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessB">Svetlosť pozadia</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Svetlosť textu</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Svetlosť ikony</string>
   <string name="dashclock_extension_description">Zobrazí aktívny profil s indikátorom preferencií profilu. Na kliknutie sa otvorí Aktivátor.</string>
-  <string name="phone_profiles_pref_category_widget_icon_shortcut">Miniaplikácia-Ikona; Odkaz</string>
   <string name="array_pref_widgetColor_colorful">Farebné</string>
   <string name="array_pref_widgetColor_monochrome">Monochromatické</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">Typ farby ikony</string>
@@ -1216,6 +1210,31 @@
   <string name="phone_profiles_pref_notificationShowButtonExit">Zobraziť tlačidlo \"Ukončiť\"</string>
   <string name="altype_applicationUpgrade">aktualizácia aplikácie</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Zariadenie nemá zlúčenú hlasitosť zvonenia a notifikácií.</string>
+
+  <string name="phone_profiles_pref_category_widget_list">Miniaplikácia: Zoznam</string>
+  <string name="phone_profiles_pref_category_widget_icon_shortcut">Miniaplikácia: Ikona; Odkaz</string>
+  <string name="title_activity_shortcut_creator">Odkaz</string>
+  <string name="widget_label_icon">Ikona</string>
+  <string name="widget_label_one_row">Jednoriadkový</string>
+  <string name="widget_label_list">Zoznam</string>
+
+  <string name="phone_profiles_pref_backgroundProfileUsage">Kedy aktivovať predvolený profil</string>
+  <string name="phone_profiles_pref_backgroundProfileUsage_summary">Aktivovať ho len vtedy, keď na konci udalosti nie je aktivovaný žiadny profil a pri reštarte udalostí.</string>
+  <string name="phone_profiles_pref_manualProfileActivation">Manuálna aktivácia profilu</string>
+  <string name="phone_profiles_pref_category_widget_one_row">Miniaplikácia: Jednoriadková</string>
+  <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Svetlosť okraja</string>
+  <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Svetlosť okraja (miniaplikácia)</string>
+  <string name="phone_profiles_pref_applicationWidgetShowBorder">Zobraziť okraj</string>
+  <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Zobraziť okraj (miniaplikácia)</string>
+  <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\". Funkcia dostupnosti nie je použitá, bežiaci servis je potrebný pre príjem SMS a MMS.</string>
+  <string name="event_preferences_sms_PPPExtender_title">PhoneProfilesPlusExtender</string>
+  <string name="event_preferences_sms_PPPExtender_install_summary">Kliknite tu pre inštaláciu PhoneProfilesPlusExtender. bežiaci servis je potrebný pre príjem SMS a MMS.</string>
+  <string name="important_info_accessibility_service_text2">Vzhľadom k tomu, že spoločnosť Google zmenila pravidlá o používaní práv pre príjem SMS a MMS, musíte pre udalostný senzor SMS/MMS nainštalovať PhoneProfilesPlusExtender. Pozrite sa na parametre tohoto senzora pre viac informácií.</string>
+  <string name="permission_not_granted">Neudelené</string>
+  <string name="permission_granted">Udelené</string>
+  <string name="menu_dark_theme_on">Zapnúť tmavú tému</string>
+  <string name="menu_dark_theme_off">Vypnúť tmavú tému</string>
+
   <string name="extender_app_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
   <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\" and \"Senzor orientácie\".</string>

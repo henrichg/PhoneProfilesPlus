@@ -87,7 +87,6 @@
     <string name="array_pref_screenTimeoutArray_10minutes">10 Minuten</string>
     <string name="phone_profiles_pref_applicationLanguage">Sprache</string>
     <string name="phone_profiles_pref_applicationLanguage_system">Nach Systemeinstellung</string>
-    <string name="title_activity_shortcut_creator">PhoneProfilesPlus-Schnellstarter</string>
     <string name="phone_profiles_pref_applicationStartOnBoot">Beim Hochfahren starten</string>
     <string name="array_pref_value_system">system</string>
     <string name="array_pref_value_en">en</string>
@@ -138,16 +137,11 @@
     <string name="event_preferences_eventEnabled">Lauf aktivieren</string>
     <string name="event_preferences_eventName">Ereignis-Name</string>
     <string name="event_preferences_eventProfileStart">Profil aktivieren</string>
-    <string name="widget_label_icon">PhoneProfilesPlus-Icon</string>
-    <string name="widget_label_one_row">PhoneProfilesPlus-Reihe</string>
-    <string name="widget_label_list">PhoneProfilesPlus-Liste</string>
-    <string name="phone_profiles_pref_category_widget_list">Widget-Liste</string>
     <string name="phone_profiles_pref_applicationWidgetBackground">Deckkraft</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessB">Hintergrund-Helligkeit</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessT">Text-Helligkeit</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessI">Symbol-Helligkeit</string>
     <string name="dashclock_extension_description">Aktives Profil mit Eigenschaften-Symbolen anzeigen. Darauf klicken öffnet Starter.</string>
-    <string name="phone_profiles_pref_category_widget_icon_shortcut">Widget-Symbol; Schnellstart</string>
     <string name="array_pref_widgetColor_colorful">Farbig</string>
     <string name="array_pref_widgetColor_monochrome">Schwarz-weiß</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Symbol-Farbtyp</string>
@@ -1143,7 +1137,7 @@
     <string name="preferences_grantPermissions_title">Nicht erteilte Berechtigungen</string>
     <string name="preferences_grantPermissions_summary">Einige Berechtigungen sind nicht erteilt,, Hier klicken um diese zu erteilen.</string>
     <string name="event_preferences_no_sensor_is_enabled">Kein Sensor ist aktiviert</string>
-    <string name="info_notification_event_states_manual_profile_activation">Automatik ausgeschalten: Profile wurden manuell gestartet und der Parameter: \"Ignoriere manuelle Aktivierung\" ist nicht eingeschalten.</string>
+    <string name="info_notification_event_states_manual_profile_activation">Automatik ausgeschaltet: Profile wurden manuell gestartet und der Parameter: \"Ignoriere manuelle Aktivierung\" ist nicht eingeschalten.</string>
     <string name="phone_profiles_pref_applicationEventScanningDisabledByProfile">Sensoren sind durch Profil abgeschalten.</string>
     <string name="alert_message_enable_event_check_box">Nicht erneut fragen/anzeigen.</string>
     <string name="phone_profiles_pref_applicationUseAlarmClock">Wecker wird verwendet</string>
@@ -1216,6 +1210,31 @@
     <string name="phone_profiles_pref_notificationShowButtonExit">Zeigt den \"Schließen\" Knopf an</string>
     <string name="altype_applicationUpgrade">Anwendungsaktualisierung</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Das Gerät hat keine Lautstärkeverknüpfung für Klingeltöne und Benachrichtigungen.</string>
+
+    <string name="phone_profiles_pref_category_widget_list">Widget: List</string>
+    <string name="phone_profiles_pref_category_widget_icon_shortcut">Widget: Icon; Shortcut</string>
+    <string name="title_activity_shortcut_creator">Shortcut</string>
+    <string name="widget_label_icon">Icon</string>
+    <string name="widget_label_one_row">Single row</string>
+    <string name="widget_label_list">List</string>
+
+    <string name="phone_profiles_pref_backgroundProfileUsage">When to activate default profile</string>
+    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Activate it only when at end of event is not activated any profile and for restart events.</string>
+    <string name="phone_profiles_pref_manualProfileActivation">Manual profile activation</string>
+    <string name="phone_profiles_pref_category_widget_one_row">Widget: Single row</string>
+    <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Border lightness</string>
+    <string name="phone_profiles_pref_applicationWidgetIconLightnessBorder">Border lightness (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetShowBorder">Show border</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Show border (widget)</string>
+    <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving SMS and MMS.</string>
+    <string name="event_preferences_sms_PPPExtender_title">PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
+    <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>
+    <string name="permission_not_granted">Not granted</string>
+    <string name="permission_granted">Granted</string>
+    <string name="menu_dark_theme_on">Switch on dark theme</string>
+    <string name="menu_dark_theme_off">Switch off dark theme</string>
+
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben, für: \n• Profil Parameter \"Anwendungen sofort stoppen\" \n• für die Ereignis Sensoren \"Anwendungsparameter\" und \"Ausrichtung\".</string>
