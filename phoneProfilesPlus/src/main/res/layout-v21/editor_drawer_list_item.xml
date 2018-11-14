@@ -12,7 +12,7 @@
         android:layout_height="30dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="4dp"
         android:contentDescription="@string/empty_string"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@id/editor_drawer_list_item_icon"
-        android:paddingStart="13dp"
-        android:paddingEnd="13dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
         android:ellipsize="end"
         android:maxLines="1"/>
     
@@ -37,8 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editor_drawer_list_item_title"
         android:layout_toEndOf="@id/editor_drawer_list_item_icon"
-        android:paddingStart="13dp"
-        android:paddingEnd="13dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
         android:ellipsize="end"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:maxLines="1"/>
