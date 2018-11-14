@@ -209,8 +209,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 //Log.d("ActivateProfileActivity.eventsRunStopIndicator.onClick","popupHeight="+popupHeight);
 
                 int[] runStopIndicatorLocation = new int[2];
-                //eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
-                eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
+                eventsRunStopIndicator.getLocationOnScreen(runStopIndicatorLocation);
+                //eventsRunStopIndicator.getLocationInWindow(runStopIndicatorLocation);
 
                 int x = 0;
                 int y = 0;
