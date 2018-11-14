@@ -10,7 +10,7 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
 
     @SuppressLint("SetTextI18n")
     EventStatusPopupWindow(EditorEventListFragment fragment, Event event) {
-        super(R.layout.event_status_popup_window, fragment.getActivity().getBaseContext());
+        super(R.layout.event_status_popup_window, fragment.getActivity());
 
         // Disable default animation
         setAnimationStyle(0);

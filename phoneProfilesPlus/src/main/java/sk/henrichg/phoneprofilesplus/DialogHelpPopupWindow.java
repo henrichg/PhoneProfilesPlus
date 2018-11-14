@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -11,18 +11,39 @@ import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 class DialogHelpPopupWindow extends GuiInfoPopupWindow {
 
-    private DialogHelpPopupWindow(Context context, String helpString) {
-        super(R.layout.dialog_help_popup_window, context);
+    final AlertDialog dialog;
+
+    private DialogHelpPopupWindow(final Activity activity, final AlertDialog _dialog, String helpString) {
+        super(R.layout.dialog_help_popup_window, activity);
+
+        dialog = _dialog;
 
         // Disable default animation
         setAnimationStyle(0);
 
+        if (dialog.getWindow() != null) {
+            ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();
+            applyDim(root);
+        }
+
         TextView textView = popupView.findViewById(R.id.dialog_help_popup_window_text);
         textView.setText(helpString);
+
+        setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                if (dialog.getWindow() != null) {
+                    ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();
+                    clearDim(root);
+                }
+                ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+                clearDim(root);
+            }
+        });
     }
 
-    static void showPopup(ImageView helpIcon, Activity activity, String helpString) {
-        DialogHelpPopupWindow popup = new DialogHelpPopupWindow(activity, helpString);
+    static void showPopup(ImageView helpIcon, Activity activity, final AlertDialog dialog, String helpString) {
+        DialogHelpPopupWindow popup = new DialogHelpPopupWindow(activity, dialog, helpString);
 
         View contentView = popup.getContentView();
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -63,8 +84,8 @@ class DialogHelpPopupWindow extends GuiInfoPopupWindow {
                 RelativePopupWindow.HorizontalPosition.ALIGN_RIGHT, x, y, false);
     }
 
-    static void showPopup(ImageView helpIcon, Activity activity, int helpTextResource) {
+    static void showPopup(ImageView helpIcon, Activity activity, final AlertDialog dialog, int helpTextResource) {
         String helpString = activity.getString(helpTextResource);
-        showPopup(helpIcon, activity, helpString);
+        showPopup(helpIcon, activity, dialog, helpString);
     }
 }

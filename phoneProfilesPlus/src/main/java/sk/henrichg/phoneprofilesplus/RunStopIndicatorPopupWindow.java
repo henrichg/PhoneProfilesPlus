@@ -8,7 +8,7 @@ import android.widget.CompoundButton;
 class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
 
     RunStopIndicatorPopupWindow(final DataWrapper dataWrapper, final Activity activity) {
-        super(R.layout.run_stop_indicator_popup_window, activity.getBaseContext());
+        super(R.layout.run_stop_indicator_popup_window, activity);
 
         // Disable default animation
         setAnimationStyle(0);

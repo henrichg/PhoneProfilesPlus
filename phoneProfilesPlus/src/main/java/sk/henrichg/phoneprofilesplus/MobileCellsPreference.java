@@ -271,7 +271,7 @@ public class MobileCellsPreference extends DialogPreference {
         helpIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogHelpPopupWindow.showPopup(helpIcon, (Activity)context, R.string.mobile_cells_pref_dlg_help);
+                DialogHelpPopupWindow.showPopup(helpIcon, (Activity)context, mDialog, R.string.mobile_cells_pref_dlg_help);
             }
         });
 

@@ -1,27 +1,34 @@
 package sk.henrichg.phoneprofilesplus;
 
-
-import android.content.Context;
+import android.annotation.NonNull;
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroupOverlay;
 
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 class GuiInfoPopupWindow extends RelativePopupWindow {
 
     final View popupView;
+    final Activity activity;
 
-    GuiInfoPopupWindow(int layoutId, Context context) {
-        popupView = LayoutInflater.from(context).inflate(layoutId, null);
+    GuiInfoPopupWindow(int layoutId, Activity _activity) {
+        activity = _activity;
+        popupView = LayoutInflater.from(activity).inflate(layoutId, null);
         setContentView(popupView);
         setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         setFocusable(true);
         setOutsideTouchable(true);
         setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+        applyDim(root);
 
         /*
         // Disable default animation for circular reveal
@@ -37,7 +44,27 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
             }
         });
 
+        setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+                clearDim(root);
+            }
+        });
+    }
 
+    static void applyDim(@NonNull ViewGroup parent){
+        Drawable dim = new ColorDrawable(Color.BLACK);
+        dim.setBounds(0, 0, parent.getWidth(), parent.getHeight());
+        dim.setAlpha((int) (255 * 0.5));
+
+        ViewGroupOverlay overlay = parent.getOverlay();
+        overlay.add(dim);
+    }
+
+    static void clearDim(@NonNull ViewGroup parent) {
+        ViewGroupOverlay overlay = parent.getOverlay();
+        overlay.clear();
     }
 
     /*
@@ -82,5 +109,6 @@ class GuiInfoPopupWindow extends RelativePopupWindow {
         });
     }
     */
+
 
 }

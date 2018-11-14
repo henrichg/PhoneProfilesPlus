@@ -202,7 +202,7 @@ public class BluetoothNamePreference extends DialogPreference {
                         context.getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +
                         context.getString(R.string.pref_dlg_info_about_wildcards_3);
 
-                DialogHelpPopupWindow.showPopup(helpIcon, (Activity)context, helpString);
+                DialogHelpPopupWindow.showPopup(helpIcon, (Activity)context, mDialog, helpString);
             }
         });
 
