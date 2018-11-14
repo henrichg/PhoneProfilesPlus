@@ -147,7 +147,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private int drawerSelectedItem = 1;
     private int orderSelectedItem = 0;
-    private int eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+    //private int eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
 
     private static final int COUNT_DRAWER_PROFILE_ITEMS = 3;
 
@@ -872,6 +872,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
  
     private void selectDrawerItem(int position, boolean removePreferences, boolean orientationChange, boolean startTargetHelps) {
+        PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "position="+position);
+        PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "drawerSelectedItem="+drawerSelectedItem);
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
         if (position == 0) position = 1;
@@ -891,6 +893,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
 
             drawerSelectedItem = position;
+            PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "drawerSelectedItem="+drawerSelectedItem);
 
             // save into shared preferences
             ApplicationPreferences.getSharedPreferences(this);
@@ -902,10 +905,12 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             int profilesFilterType;
             int eventsFilterType;
+            int eventsOrderType = getEventsOrderType();
 
             switch (drawerSelectedItem) {
             case DSI_PROFILES_ALL:
                 profilesFilterType = EditorProfileListFragment.FILTER_TYPE_ALL;
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "profilesFilterType=FILTER_TYPE_ALL");
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
@@ -919,6 +924,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 break;
             case DSI_PROFILES_SHOW_IN_ACTIVATOR:
                 profilesFilterType = EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR;
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "profilesFilterType=FILTER_TYPE_SHOW_IN_ACTIVATOR");
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
@@ -932,6 +938,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 break;
             case DSI_PROFILES_NO_SHOW_IN_ACTIVATOR:
                 profilesFilterType = EditorProfileListFragment.FILTER_TYPE_NO_SHOW_IN_ACTIVATOR;
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "profilesFilterType=FILTER_TYPE_NO_SHOW_IN_ACTIVATOR");
                 fragment = new EditorProfileListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorProfileListFragment.FILTER_TYPE_ARGUMENT, profilesFilterType);
@@ -945,10 +952,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 break;
             case DSI_EVENTS_START_ORDER:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_START_ORDER;
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsFilterType=FILTER_TYPE_START_ORDER");
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, EditorEventListFragment.ORDER_TYPE_START_ORDER);
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsOrderType=ORDER_TYPE_START_ORDER");
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -959,10 +968,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 break;
             case DSI_EVENTS_ALL:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_ALL;
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsFilterType=FILTER_TYPE_ALL");
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsOrderType="+eventsOrderType);
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -973,10 +984,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 break;
             case DSI_EVENTS_RUNNING:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_RUNNING;
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsFilterType=FILTER_TYPE_RUNNING");
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsOrderType="+eventsOrderType);
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -987,10 +1000,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 break;
             case DSI_EVENTS_PAUSED:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_PAUSED;
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsFilterType=FILTER_TYPE_PAUSED");
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsOrderType="+eventsOrderType);
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -1001,10 +1016,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 break;
             case DSI_EVENTS_STOPPED:
                 eventsFilterType = EditorEventListFragment.FILTER_TYPE_STOPPED;
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsFilterType=FILTER_TYPE_STOPPED");
                 fragment = new EditorEventListFragment();
                 arguments = new Bundle();
                 arguments.putInt(EditorEventListFragment.FILTER_TYPE_ARGUMENT, eventsFilterType);
                 arguments.putInt(EditorEventListFragment.ORDER_TYPE_ARGUMENT, eventsOrderType);
+                PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "eventsOrderType="+eventsOrderType);
                 arguments.putBoolean(EditorEventListFragment.START_TARGET_HELPS_ARGUMENT, startTargetHelps);
                 fragment.setArguments(arguments);
                 getFragmentManager().beginTransaction()
@@ -1044,28 +1061,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             editor.apply();
         }
 
-        int _eventsOrderType;
-        if (drawerSelectedItem == DSI_EVENTS_START_ORDER) {
-            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
-        } else {
-            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
-            switch (orderSelectedItem) {
-                case 0:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
-                    break;
-                case 1:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
-                    break;
-                case 2:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
-                    break;
-                case 3:
-                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY;
-                    break;
-            }
-            eventsOrderType = _eventsOrderType;
-        }
+        int _eventsOrderType = getEventsOrderType();
         setStatusBarTitle();
+
+        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "drawerSelectedItem="+drawerSelectedItem);
+        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "orderSelectedItem="+orderSelectedItem);
+        PPApplication.logE("EditorProfilesActivity.changeEventOrder", "_eventsOrderType="+_eventsOrderType);
 
         Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
         if ((fragment instanceof EditorEventListFragment))
@@ -1080,6 +1081,30 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))
             drawerLayout.closeDrawer(drawerRoot);
 
+    }
+
+    private int getEventsOrderType() {
+        int _eventsOrderType;
+        if (drawerSelectedItem == DSI_EVENTS_START_ORDER) {
+            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+        } else {
+            _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+            switch (orderSelectedItem) {
+                /*case 0:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_START_ORDER;
+                    break;*/
+                case 1:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_EVENT_NAME;
+                    break;
+                case 2:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PROFILE_NAME;
+                    break;
+                case 3:
+                    _eventsOrderType = EditorEventListFragment.ORDER_TYPE_PRIORITY;
+                    break;
+            }
+        }
+        return _eventsOrderType;
     }
 
     @Override
