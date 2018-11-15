@@ -101,7 +101,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         text.setText(sbt);
 
-        emailMe((TextView) findViewById(R.id.about_application_email), getString(R.string.about_application_email), false, this);
+        emailMe((TextView) findViewById(R.id.about_application_email), getString(R.string.about_application_email),
+                "", "", false, this);
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
@@ -209,6 +210,11 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
         */
+        emailMe((TextView) findViewById(R.id.about_application_translations),
+                getString(R.string.about_application_translations),
+                getString(R.string.about_application_translations2),
+                getString(R.string.about_application_translations_subject),
+                false,this);
 
         text = findViewById(R.id.about_application_xda_developers_community);
         str1 = getString(R.string.about_application_xda_developers_community);
@@ -312,10 +318,12 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
     }
 
-    static void emailMe(final TextView textView, final String text, final boolean boldLink, final Context context) {
-        String str2 = text + " henrich.gron@gmail.com";
+    static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
+                        final boolean boldLink, final Context context) {
+        String strNoLink = text + " " + linkText;
+        String str2 = strNoLink + " henrich.gron@gmail.com";
         Spannable sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, strNoLink.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View textView) {
@@ -329,17 +337,17 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     packageVersion = " - v" + pInfo.versionName + " (" + pInfo.versionCode + ")";
                 } catch (Exception ignored) {
                 }
-                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
+                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + subjectText);
                 try {
                     context.startActivity(Intent.createChooser(intent, context.getString(R.string.email_chooser)));
                 } catch (Exception ignored) {}
             }
         };
-        sbt.setSpan(clickableSpan, text.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbt.setSpan(clickableSpan, strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         if (boldLink)
-            sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), text.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         else
-            sbt.setSpan(new UnderlineSpan(), text.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sbt.setSpan(new UnderlineSpan(), strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(sbt);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }

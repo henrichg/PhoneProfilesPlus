@@ -629,7 +629,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoTextGrant1Command.setText(spannable);
 
         AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_contact),
-                getString(R.string.important_info_contact), true, activity);
+                getString(R.string.important_info_contact), "", "", true, activity);
 
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
             news = true;

@@ -104,7 +104,6 @@
             android:text="@string/about_application_extender_source_code"
             android:textSize="15sp"/>
 
-        <!--
         <TextView
             android:id="@+id/about_application_translations"
             android:layout_width="wrap_content"
@@ -113,7 +112,6 @@
             android:layout_marginStart="10dp"
             android:text="@string/about_application_translations"
             android:textSize="15sp"/>
-        -->
 
         <TextView
             android:id="@+id/about_application_xda_developers_community"
