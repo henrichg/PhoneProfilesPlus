@@ -1234,6 +1234,8 @@
   <string name="permission_granted">Uděleno</string>
   <string name="menu_dark_theme_on">Zapnout tmavou tému</string>
   <string name="menu_dark_theme_off">Vypnout tmavou tému</string>
+    <string name="about_application_translations2">kontakt:</string>
+    <string name="about_application_translations_subject">překlad</string>
 
 
 
