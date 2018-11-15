@@ -63,7 +63,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         }
         else
         if ((!isPermissionGranted) ||
-                (Profile.isProfilePreferenceAllowed("-", profile, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                (Profile.isProfilePreferenceAllowed("-", profile, true, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
             profileName.setTypeface(null, Typeface.NORMAL);
             profileName.setTextSize(15);
             profileName.setTextColor(Color.RED);

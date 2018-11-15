@@ -643,7 +643,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 });
             }
 
-            if (!PPApplication.isRooted()) {
+            if (!PPApplication.isRooted(true)) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
                 preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
                 if ((preferenceCategory != null) && (preference != null))
@@ -651,7 +651,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
         }
         else {
-            if (PPApplication.isRooted()) {
+            if (PPApplication.isRooted(true)) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryPermissions");
                 if (preferenceCategory != null) {
                     Preference preference = findPreference(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
@@ -691,7 +691,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preferenceCategory.removePreference(preference);
         }
 
-        if (PPApplication.isRooted()) {
+        if (PPApplication.isRooted(true)) {
             Preference preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -1351,7 +1351,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
         }
         if (key.equals("categoryPermissions")) {
-            if (PPApplication.isRooted()) {
+            if (PPApplication.isRooted(true)) {
                 summary = summary + getString(R.string.phone_profiles_pref_grantRootPermission);
             }
             if (Build.VERSION.SDK_INT >= 23) {

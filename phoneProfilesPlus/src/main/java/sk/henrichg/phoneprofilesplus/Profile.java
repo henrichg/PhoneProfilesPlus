@@ -2327,7 +2327,8 @@ public class Profile {
             return null;
     }
 
-    static PreferenceAllowed isProfilePreferenceAllowed(String preferenceKey, Profile profile, Context context)
+    static PreferenceAllowed isProfilePreferenceAllowed(String preferenceKey, Profile profile,
+                                                        boolean fromUIThread, Context context)
     {
         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
 
@@ -2339,7 +2340,7 @@ public class Profile {
         {
             //if (android.os.Build.VERSION.SDK_INT >= 17)
             //{
-                if (PPApplication.isRooted())
+                if (PPApplication.isRooted(fromUIThread))
                 {
                     // device is rooted
 
@@ -2354,7 +2355,7 @@ public class Profile {
                         }
                     }
 
-                    if (PPApplication.settingsBinaryExists())
+                    if (PPApplication.settingsBinaryExists(fromUIThread))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
@@ -2439,7 +2440,7 @@ public class Profile {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     }
                     else
-                    if (PPApplication.isRooted()) {
+                    if (PPApplication.isRooted(fromUIThread)) {
                         // device is rooted
 
                         if (profile != null) {
@@ -2502,7 +2503,7 @@ public class Profile {
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
-                if (PPApplication.isRooted())
+                if (PPApplication.isRooted(fromUIThread))
                 {
                     // device is rooted
 
@@ -2517,7 +2518,7 @@ public class Profile {
                         }
                     }
 
-                    if (PPApplication.settingsBinaryExists())
+                    if (PPApplication.settingsBinaryExists(fromUIThread))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
@@ -2548,7 +2549,7 @@ public class Profile {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
-                if (PPApplication.isRooted()) {
+                if (PPApplication.isRooted(fromUIThread)) {
 
                     if (profile != null) {
                         // test if grant root is disabled
@@ -2593,7 +2594,7 @@ public class Profile {
                     PPApplication.notAllowedReasonDetail = Build.VERSION.RELEASE;
                 }*/
                 else
-                if (PPApplication.isRooted())
+                if (PPApplication.isRooted(fromUIThread))
                 {
                     // device is rooted
 
@@ -2609,7 +2610,7 @@ public class Profile {
                     }
 
                     if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
-                        if (PPApplication.serviceBinaryExists())
+                        if (PPApplication.serviceBinaryExists(fromUIThread))
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
@@ -2636,7 +2637,7 @@ public class Profile {
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
         {
             if (android.os.Build.VERSION.SDK_INT == 23) {
-                if (PPApplication.isRooted()) {
+                if (PPApplication.isRooted(fromUIThread)) {
                     // device is rooted
 
                     if (profile != null) {
@@ -2650,7 +2651,7 @@ public class Profile {
                         }
                     }
 
-                    if (PPApplication.settingsBinaryExists())
+                    if (PPApplication.settingsBinaryExists(fromUIThread))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
@@ -2675,7 +2676,7 @@ public class Profile {
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     }
                     else {*/
-                        if (PPApplication.isRooted()) {
+                        if (PPApplication.isRooted(fromUIThread)) {
                             // device is rooted
 
                             if (profile != null) {
@@ -2689,7 +2690,7 @@ public class Profile {
                                 }
                             }
 
-                            if (PPApplication.settingsBinaryExists())
+                            if (PPApplication.settingsBinaryExists(fromUIThread))
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                             else
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
@@ -2716,7 +2717,7 @@ public class Profile {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
-                if (PPApplication.isRooted()) {
+                if (PPApplication.isRooted(fromUIThread)) {
                     // device is rooted
 
                     if (profile != null) {
@@ -2730,7 +2731,7 @@ public class Profile {
                         }
                     }
 
-                    if (PPApplication.settingsBinaryExists())
+                    if (PPApplication.settingsBinaryExists(fromUIThread))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
@@ -2755,7 +2756,7 @@ public class Profile {
                 if (telephonyManager != null) {
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                        if (PPApplication.isRooted()) {
+                        if (PPApplication.isRooted(fromUIThread)) {
                             // device is rooted
 
                             if (profile != null) {
@@ -2770,7 +2771,7 @@ public class Profile {
                             }
 
                             if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
-                                if (PPApplication.serviceBinaryExists())
+                                if (PPApplication.serviceBinaryExists(fromUIThread))
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                                 else
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
@@ -2806,7 +2807,7 @@ public class Profile {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else*/
-                if (PPApplication.isRooted()) {
+                if (PPApplication.isRooted(fromUIThread)) {
                     // device is rooted
 
                     if (profile != null) {
@@ -2820,7 +2821,7 @@ public class Profile {
                         }
                     }
 
-                    if (PPApplication.settingsBinaryExists())
+                    if (PPApplication.settingsBinaryExists(fromUIThread))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
@@ -2939,7 +2940,7 @@ public class Profile {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
-                if (PPApplication.isRooted()) {
+                if (PPApplication.isRooted(fromUIThread)) {
                     // device is rooted
 
                     if (profile != null) {
@@ -2953,7 +2954,7 @@ public class Profile {
                         }
                     }
 
-                    if (PPApplication.settingsBinaryExists())
+                    if (PPApplication.settingsBinaryExists(fromUIThread))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;

@@ -388,6 +388,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
 
+    public static HandlerThread handlerThreadRoot = null;
     public static HandlerThread handlerThreadVolumes = null;
     public static HandlerThread handlerThreadRadios = null;
     public static HandlerThread handlerThreadAdaptiveBrightness = null;
@@ -499,6 +500,7 @@ public class PPApplication extends Application {
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
 
         startHandlerThread("PPApplication.onCreate");
+        startHandlerThreadRoot();
         startHandlerThreadWidget();
         startHandlerThreadProfileNotification();
         startHandlerThreadPlayTone();
@@ -1148,9 +1150,12 @@ public class PPApplication extends Application {
         return rootMutex.rooted;
     }
 
-    static boolean isRooted() {
+    static boolean isRooted(boolean fromUIThread) {
         if (rootMutex.rootChecked)
             return rootMutex.rooted;
+
+        if (fromUIThread)
+            return false;
 
         synchronized (PPApplication.rootMutex) {
             return _isRooted();
@@ -1164,7 +1169,7 @@ public class PPApplication extends Application {
         /*if (onlyCheck && rootMutex.grantRootChecked)
             return rootMutex.rootGranted;*/
 
-        if (isRooted()) {
+        if (isRooted(false)) {
             synchronized (PPApplication.rootMutex) {
                 try {
                     PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
@@ -1191,12 +1196,15 @@ public class PPApplication extends Application {
         //return false;
     }
 
-    static boolean settingsBinaryExists()
+    static boolean settingsBinaryExists(boolean fromUIThread)
     {
         RootShell.debugMode = rootToolsDebug;
 
         if (rootMutex.settingsBinaryChecked)
             return rootMutex.settingsBinaryExists;
+
+        if (fromUIThread)
+            return false;
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.settingsBinaryChecked) {
@@ -1209,12 +1217,15 @@ public class PPApplication extends Application {
         }
     }
 
-    static boolean serviceBinaryExists()
+    static boolean serviceBinaryExists(boolean fromUIThread)
     {
         RootShell.debugMode = rootToolsDebug;
 
         if (rootMutex.serviceBinaryChecked)
             return rootMutex.serviceBinaryExists;
+
+        if (fromUIThread)
+            return false;
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.serviceBinaryChecked) {
@@ -1861,6 +1872,13 @@ public class PPApplication extends Application {
         if (handlerThread == null) {
             handlerThread = new HandlerThread("PPHandlerThread");
             handlerThread.start();
+        }
+    }
+
+    static void startHandlerThreadRoot() {
+        if (handlerThreadRoot == null) {
+            handlerThreadRoot = new HandlerThread("PPHandlerThreadRoot");
+            handlerThreadRoot.start();
         }
     }
 

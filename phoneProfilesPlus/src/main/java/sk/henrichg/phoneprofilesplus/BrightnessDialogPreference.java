@@ -90,7 +90,7 @@ public class BrightnessDialogPreference extends
         _sharedProfile = Profile.getSharedProfile(_context);
 
         adaptiveAllowed = (android.os.Build.VERSION.SDK_INT <= 21) ||
-                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, _context).allowed
+                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, true, _context).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED);
 
         /*if (Build.VERSION.SDK_INT >= 28) {
@@ -528,13 +528,13 @@ public class BrightnessDialogPreference extends
                     Settings.System.putFloat(_context.getContentResolver(),
                             ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
                 } catch (Exception ee) {
-                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(_context)) &&
-                            (PPApplication.isRooted() && PPApplication.settingsBinaryExists())) {
-                        PPApplication.startHandlerThread("BrightnessDialogPreference.setAdaptiveBrightness");
-                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
+                    PPApplication.startHandlerThread("BrightnessDialogPreference.setAdaptiveBrightness");
+                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(_context)) &&
+                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
                                     String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
                                             Float.toString(value);
@@ -544,16 +544,16 @@ public class BrightnessDialogPreference extends
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command);
-                                    /*} catch (RootDeniedException e) {
-                                        PPApplication.rootMutex.rootGranted = false;
-                                        Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));*/
+                                /*} catch (RootDeniedException e) {
+                                    PPApplication.rootMutex.rootGranted = false;
+                                    Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));*/
                                     } catch (Exception e) {
                                         Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));
                                     }
                                 }
                             }
-                        });
-                    }
+                        }
+                    });
                 }
             }
         }
