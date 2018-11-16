@@ -102,7 +102,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setText(sbt);
 
         emailMe((TextView) findViewById(R.id.about_application_email), getString(R.string.about_application_email),
-                "", "", false, this);
+                "", "", "", false, this);
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
@@ -214,6 +214,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 getString(R.string.about_application_translations),
                 getString(R.string.about_application_translations2),
                 getString(R.string.about_application_translations_subject),
+                getEmailBodyText(EMAIL_BODY_TRANSLATIONS),
                 false,this);
 
         text = findViewById(R.id.about_application_xda_developers_community);
@@ -319,7 +320,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
     }
 
     static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
-                        final boolean boldLink, final Context context) {
+                        final String bodyText, final boolean boldLink, final Context context) {
         String strNoLink = text + " " + linkText;
         String str2 = strNoLink + " henrich.gron@gmail.com";
         Spannable sbt = new SpannableString(str2);
@@ -337,7 +338,12 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     packageVersion = " - v" + pInfo.versionName + " (" + pInfo.versionCode + ")";
                 } catch (Exception ignored) {
                 }
-                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + subjectText);
+                if (subjectText.isEmpty())
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion);
+                else
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + subjectText);
+                if (!bodyText.isEmpty())
+                    intent.putExtra(Intent.EXTRA_TEXT, bodyText);
                 try {
                     context.startActivity(Intent.createChooser(intent, context.getString(R.string.email_chooser)));
                 } catch (Exception ignored) {}
@@ -350,6 +356,27 @@ public class AboutApplicationActivity extends AppCompatActivity {
             sbt.setSpan(new UnderlineSpan(), strNoLink.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(sbt);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    static final int EMAIL_BODY_SUPPORT = 1;
+    static final int EMAIL_BODY_TRANSLATIONS = 2;
+
+    static String getEmailBodyText(int bodyType) {
+        String body = "";
+        switch (bodyType) {
+            case EMAIL_BODY_SUPPORT:
+                body = "Device:" + " \n";
+                body = body + "Android version:" + " \n\n";
+                body = body + "Problems:" + " \n";
+                body = body + "Questions:" + " \n";
+                body = body + "Suggestions:" + " \n\n";
+                break;
+            case EMAIL_BODY_TRANSLATIONS:
+                body = "Language from which to translate:" + " \n";
+                body = body + "Language to translate:" + " \n\n";
+                break;
+        }
+        return body;
     }
 
 }
