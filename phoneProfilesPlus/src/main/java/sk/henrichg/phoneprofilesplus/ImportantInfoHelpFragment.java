@@ -630,6 +630,12 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_contact),
                 getString(R.string.important_info_contact), "", "", true, activity);
+        AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
+                getString(R.string.important_info_translations),
+                getString(R.string.about_application_translations2),
+                getString(R.string.about_application_translations_subject),
+                true,activity);
+
 
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
             news = true;
