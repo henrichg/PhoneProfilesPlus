@@ -1031,6 +1031,23 @@ public class Profile {
 
         Profile withProfile = dataWrapper.getProfileById(withProfileId, false, false, false);
 
+        /*
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** START");
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this.profileName=" + _name);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this.profileId=" + _id);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeRingerMode=" + _volumeRingerMode);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeZenMode=" + _volumeZenMode);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeRingtone=" + _volumeRingtone);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeNotification=" + _volumeNotification);
+
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile.profileName=" + withProfile._name);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile.profileId=" + withProfile._id);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile._volumeRingerMode=" + withProfile._volumeRingerMode);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile._volumeZenMode=" + withProfile._volumeZenMode);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile._volumeRingtone=" + withProfile._volumeRingtone);
+        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile._volumeNotification=" + withProfile._volumeNotification);
+        */
+
         if (withProfile != null) {
             this._id = withProfile._id;
             this._name = withProfile._name;
@@ -1051,10 +1068,17 @@ public class Profile {
             this._deviceConnectToSSID = withProfile._deviceConnectToSSID;
             this._activationByUserCount = withProfile._activationByUserCount;
 
-            if (withProfile._volumeRingerMode != 0)
+            if (withProfile._volumeRingerMode != 0) {
                 this._volumeRingerMode = withProfile._volumeRingerMode;
-            if (withProfile._volumeZenMode != 0)
-                this._volumeZenMode = withProfile._volumeZenMode;
+                // also look at ProfilePreferencesNestedFragment.disableDependedPref()
+                if (withProfile._volumeZenMode != 0) {
+                    this._volumeZenMode = withProfile._volumeZenMode;
+                    if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
+                        if (withProfile._vibrateWhenRinging != 0)
+                            this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
+                    }
+                }
+            }
             if (withProfile.getVolumeRingtoneChange())
                 this._volumeRingtone = withProfile._volumeRingtone;
             if (withProfile.getVolumeNotificationChange())
@@ -1202,8 +1226,6 @@ public class Profile {
                 this._deviceNetworkType = withProfile._deviceNetworkType;
             if (withProfile._notificationLed != 0)
                 this._notificationLed = withProfile._notificationLed;
-            if (withProfile._vibrateWhenRinging != 0)
-                this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
             if (withProfile._lockDevice != 0)
                 this._lockDevice = withProfile._lockDevice;
             if (withProfile._applicationDisableWifiScanning != 0)
@@ -1246,6 +1268,16 @@ public class Profile {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
                                     DataWrapper.getProfileNameWithManualIndicator(withProfile, true, false, false, dataWrapper, false),
                                     profileIcon, 0);
+
+            /*
+            PPApplication.logE("$$$ Profile.mergeProfiles", "**** END");
+            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this.profileName=" + _name);
+            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this.profileId=" + _id);
+            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeRingerMode=" + _volumeRingerMode);
+            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeZenMode=" + _volumeZenMode);
+            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeRingtone=" + _volumeRingtone);
+            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeNotification=" + _volumeNotification);
+            */
         }
     }
 

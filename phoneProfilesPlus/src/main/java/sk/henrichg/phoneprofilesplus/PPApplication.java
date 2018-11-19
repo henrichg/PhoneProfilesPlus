@@ -92,6 +92,7 @@ public class PPApplication extends Application {
                                          //+"|#### EventsHandler.handleEvents"
                                          //+"|$$$ EventsHandler.handleEvents"
                                          //+"|[NOTIFY] EventsHandler"
+                                         //+"|Profile.mergeProfiles"
 
                                          /*
                                          +"|DataWrapper.restartEventsWithDelay"
@@ -267,8 +268,8 @@ public class PPApplication extends Application {
 
                                         //+"|SMSBroadcastReceiver.onReceive"
 
-                                        +"|EditorProfilesActivity.changeEventOrder"
-                                        +"|EditorProfilesActivity.selectDrawerItem"
+                                        //+"|EditorProfilesActivity.changeEventOrder"
+                                        //+"|EditorProfilesActivity.selectDrawerItem"
             ;
 
 

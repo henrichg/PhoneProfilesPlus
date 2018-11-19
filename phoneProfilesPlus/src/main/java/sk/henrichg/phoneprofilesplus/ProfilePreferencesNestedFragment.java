@@ -1697,6 +1697,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
                 String zenMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
                 boolean enabled = false;
+                // also look at Profile.mergeProfiles()
                 if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
                         ringerMode.equals("5")) {
                     if (zenMode.equals("1") || zenMode.equals("2"))

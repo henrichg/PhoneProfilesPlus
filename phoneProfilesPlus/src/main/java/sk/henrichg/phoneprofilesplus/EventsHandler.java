@@ -322,6 +322,15 @@ class EventsHandler {
                             anyEventPaused = true;
                             notifyEventEnd = _event;
                         }
+
+                        /*
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileName=" + mergedProfile._name);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileId=" + mergedProfile._id);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeRingerMode=" + mergedProfile._volumeRingerMode);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeZenMode=" + mergedProfile._volumeZenMode);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeRingtone=" + mergedProfile._volumeRingtone);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeNotification=" + mergedProfile._volumeNotification);
+                        */
                     }
                 }
 
@@ -334,10 +343,20 @@ class EventsHandler {
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
-                    if (_event.getStatus() != Event.ESTATUS_STOP)
+                    if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
                         // start all events
                         dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, true, mergedProfile, sensorType);
+
+                        /*
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileName=" + mergedProfile._name);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileId=" + mergedProfile._id);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeRingerMode=" + mergedProfile._volumeRingerMode);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeZenMode=" + mergedProfile._volumeZenMode);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeRingtone=" + mergedProfile._volumeRingtone);
+                        PPApplication.logE("$$$ EventsHandler.handleEvents", "**** _volumeNotification=" + mergedProfile._volumeNotification);
+                        */
+                    }
                 }
             } else {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");
@@ -505,9 +524,12 @@ class EventsHandler {
             boolean doSleep = false;
             if (mergedProfile._id != 0) {
                 // activate merged profile
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "profileName=" + mergedProfile._name);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "profileId=" + mergedProfile._id);
-                //PPApplication.logE("$$$ EventsHandler.handleEvents", "interactive=" + interactive);
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileName=" + mergedProfile._name);
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### profileId=" + mergedProfile._id);
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingerMode=" + mergedProfile._volumeRingerMode);
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeZenMode=" + mergedProfile._volumeZenMode);
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingtone=" + mergedProfile._volumeRingtone);
+                PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeNotification=" + mergedProfile._volumeNotification);
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
                 dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);
                 // wait for profile activation
