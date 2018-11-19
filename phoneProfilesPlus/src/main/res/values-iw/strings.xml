@@ -141,7 +141,6 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessB">בהירות הרקע</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">בהירות המלל</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">בהירות הסמל</string>
-  <string name="dashclock_extension_description">הצגת הפרופיל הפעיל עם חיווי הגדרות. המפעיל ייפתח בנגיעה.</string>
   <string name="array_pref_widgetColor_colorful">צבעוני</string>
   <string name="array_pref_widgetColor_monochrome">צבע יחיד</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">סוג צבע הסמל</string>
@@ -941,7 +940,7 @@
   <string name="important_info_quick_guide_profiles_1"><b>פרופילים:</b> מאפשר לך לקבוע תצורה של הגדרות המכשיר כגון מצב צלצול, עוצמת קול, צלילי צלצול והודעות, הפעלה וכיבוי של רדיו (Wi-Fi, Bluetooth, נתונים, וכו\').
 כאשר מופעל פרופיל, נקבעות ההגדרות המתאימות. אם ברצונך לשנות הגדרות, יש להפעיל פרופיל אחר.</string>
   <string name="important_info_quick_guide_profiles_2">ניתן להפעיל פרופילים באופן ידני או על-ידי אירוע.</string>
-  <string name="important_info_quick_guide_profiles_3">באפשרותך להפעיל באופן ידני פרופיל דרך Activator PPP (חלון מוקפץ עם רשימת פרופילים זמינים). ניתן להציג את ה-Activator באמצעות סמל הבית של PPP, הודעות PPP, ווידג\'טים של PPP, רכיב widget מסוג DashClock, ובמכשירי סמסונג EDGE, מחלונית EDGE. באפשרותך להפעיל פרופיל ישירות באמצעות ווידג\'ט PPP 4x4, באמצעות קיצור דרך לפרופיל או במכשירי סמסונג EDGE, באמצעות חלונית EDGE.</string>
+  <string name="important_info_quick_guide_profiles_3">באפשרותך להפעיל באופן ידני פרופיל דרך Activator PPP (חלון מוקפץ עם רשימת פרופילים זמינים). ניתן להציג את ה-Activator באמצעות סמל הבית של PPP, הודעות PPP, ווידג\'טים של PPP, רכיב , ובמכשירי סמסונג EDGE, מחלונית EDGE. באפשרותך להפעיל פרופיל ישירות באמצעות ווידג\'ט PPP 4x4, באמצעות קיצור דרך לפרופיל או במכשירי סמסונג EDGE, באמצעות חלונית EDGE.</string>
   <string name="important_info_quick_guide_events_1"><b>אירועים:</b> מאפשרים לך לקבוע את עיתוי הפעלת פרופיל. לאירועים יש התחלה וסיום. ניתן להגדיר מה יקרה בתחילת אירוע ומה יקרה בסיום האירוע.</string>
   <string name="important_info_quick_guide_events_2">אירועים מכילים פרמטרים חשובים של תצורת חיישנים, אשר חייבים להתקיים כדי להתחיל אירוע. אם לא כל החיישנים עוברים, האירוע יסתיים (השהיה).</string>
   <string name="important_info_quick_guide_sensors_1">דוגמאות חיישן:</string>

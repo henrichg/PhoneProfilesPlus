@@ -141,7 +141,6 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessB">Achtergrondcontrast</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Tekstcontrast</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Icooncontrast</string>
-  <string name="dashclock_extension_description">Actief profiel weergeven met voorkeuraanduiding. Opent de Activator bij aanraken.</string>
   <string name="array_pref_widgetColor_colorful">Kleurrijk</string>
   <string name="array_pref_widgetColor_monochrome">Zwart-wit</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">Icoon kleurtype</string>
@@ -937,7 +936,7 @@
   <string name="important_info_quick_guide_3">2. <b>EVENTS:</b> Geeft aan hoe apparaatinstellingen te wijzigen.</string>
   <string name="important_info_quick_guide_profiles_1"><b>PROFIELEN:</b> Je kunt apparaatinstellingen wijzigen zoals Beltoonmodus, volumeniveaus, beltoon en notificatiegeluid configureren, radio schakelaar (Wi-Fi, Bluetooth, mobiele data, enz.). Wanneer je profiel activeert worden de corresponderende instellingen permanent. Als je de instellingen wilt wijzigen moet je een ander profiel activeren.</string>
   <string name="important_info_quick_guide_profiles_2">Profielen kunnen handmatig of door een Event worden geactiveerd.</string>
-  <string name="important_info_quick_guide_profiles_3">Je kunt handmatig een profiel activeren met de PPP-Activator (pop-up venster met de lijst met beschikbare profielen). De Activator kun je tonen via het PPP \' thuis \' icoon, de PPP notificatie, PPP-widgets, DashClock widget en voor Samsung Edge-apparaten via het Edge-deelvenster. Je kunt ook direct een profiel via de PPP-4 x 4 widget activeren, een snelkoppeling naar het profiel of op Samsung Edge-apparaten, via het Configuratiescherm van de rand.</string>
+  <string name="important_info_quick_guide_profiles_3">Je kunt handmatig een profiel activeren met de PPP-Activator (pop-up venster met de lijst met beschikbare profielen). De Activator kun je tonen via het PPP \' thuis \' icoon, de PPP notificatie, PPP-widgets en voor Samsung Edge-apparaten via het Edge-deelvenster. Je kunt ook direct een profiel via de PPP-4 x 4 widget activeren, een snelkoppeling naar het profiel of op Samsung Edge-apparaten, via het Configuratiescherm van de rand.</string>
   <string name="important_info_quick_guide_events_1"><b>Events:</b> Kun je configureren bij activeren van een profiel. Events hebben een begin en eind. Je kunt de actie configureren bij de start van een event en de actie bij het eindigen van een event.</string>
   <string name="important_info_quick_guide_events_2">Events bevatten belangrijke sensor configuratie parameters die allemaal voorwaardelijk zijn om een event te starten. Als een sensor parameter afwijkt zal het event eindigen (pauze).</string>
   <string name="important_info_quick_guide_sensors_1">Sensor voorbeelden:</string>

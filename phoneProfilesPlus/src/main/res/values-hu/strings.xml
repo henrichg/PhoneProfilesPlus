@@ -141,7 +141,6 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessB">Háttér fényessége</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Szöveg fényessége</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Ikon fényessége</string>
-  <string name="dashclock_extension_description">Megjeleníti az aktív profilt beállításait indikátorral. Aktivátor megnyitás érintésre.</string>
   <string name="array_pref_widgetColor_colorful">Színes</string>
   <string name="array_pref_widgetColor_monochrome">Fekete/fehér</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">Ikon színtipus</string>
@@ -937,7 +936,7 @@
   <string name="important_info_quick_guide_3">(1) <b>ESEMÉNYEK:</b> Itt adhatja meg, hogyan lehet megváltoztatni készüléke beállításait.</string>
   <string name="important_info_quick_guide_profiles_1"><b>PROFILOK:</b> Segítségével megadhatók az eszközök beállításai között a csengetési mód, a hangerőt, a csengőhang és értesítési hangok, rádió váltás (Wi-Fi, Bluetooth, mobil adat, stb.). A profil aktiválásakor a megfelelő beállítások is állandósulnak. Ha a beállításokat módosításítani akarja, egy másik profilt is aktiválni kell.</string>
   <string name="important_info_quick_guide_profiles_2">Profilokat lehet aktiválni kézzel, vagy egy eseménnyel.</string>
-  <string name="important_info_quick_guide_profiles_3">Egy profil a PPP-aktivátoron keresztül (előugró ablak a rendelkezésre álló profilok listájával) kézzel aktiválhatja. Az aktiválás otthon PPP-ikon, a PPP-értesítés, PPP widget, DashClock widget keresztül, és a széle panelről a Samsung EDGE eszközökön jeleníthetők meg. Közvetlenül is aktiválhatja a profil révén a PPP 4 x 4 widget, a profilokon vagy az Edge panelen keresztül a Samsung Edge eszközökön.</string>
+  <string name="important_info_quick_guide_profiles_3">Egy profil a PPP-aktivátoron keresztül (előugró ablak a rendelkezésre álló profilok listájával) kézzel aktiválhatja. Az aktiválás otthon PPP-ikon, a PPP-értesítés, PPP widget keresztül, és a széle panelről a Samsung EDGE eszközökön jeleníthetők meg. Közvetlenül is aktiválhatja a profil révén a PPP 4 x 4 widget, a profilokon vagy az Edge panelen keresztül a Samsung Edge eszközökön.</string>
   <string name="important_info_quick_guide_events_1"><b>ESEMÉNYEK:</b> Segítségével konfigurálhatja a profil aktiválásának lefolyását. Eseményeknek van kezdete és vége. Beállíthatja, mi történjen az esemény kezdetekor, és mi fog történni, amikor a esemény véget ér.</string>
   <string name="important_info_quick_guide_events_2">Események tartalmaznak fontos szenzor konfigurációs paramétereket, amelyek az esemény kezdete előtt megfelelő értéket kell adnia. Ha néhány szenzor nem felel meg, az esemény véget ér (szünet).</string>
   <string name="important_info_quick_guide_sensors_1">Szenzor példák:</string>

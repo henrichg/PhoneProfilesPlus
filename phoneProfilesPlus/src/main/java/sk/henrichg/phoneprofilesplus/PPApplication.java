@@ -437,7 +437,6 @@ public class PPApplication extends Application {
 
     // this refresh GUI, must by called from GUI thread no IntentService, Job
     private static final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
-    private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
     public static final Random requestCodeForAlarm = new Random();
 
@@ -498,7 +497,6 @@ public class PPApplication extends Application {
 
         PACKAGE_NAME = this.getPackageName();
 
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
 
         startHandlerThread("PPApplication.onCreate");

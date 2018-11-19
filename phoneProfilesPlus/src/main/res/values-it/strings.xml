@@ -141,7 +141,6 @@
     <string name="phone_profiles_pref_applicationWidgetLightnessB">Luminosità dello sfondo</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessT">Luminosità del testo</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessI">Luminosità dell\'icona</string>
-    <string name="dashclock_extension_description">Visualizza il profilo attivo con indicatore di preferenze. Apre attivatore al tocco.</string>
     <string name="array_pref_widgetColor_colorful">Colorato</string>
     <string name="array_pref_widgetColor_monochrome">Bianco e nero</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Tipo colore dell\'icona</string>
@@ -938,7 +937,7 @@ Non chiedere nuovamente?</string>
     <string name="important_info_quick_guide_3">2. <b>EVENTI:</b> Specificano quando cambiare le impostazioni del dispositivo.</string>
     <string name="important_info_quick_guide_profiles_1"><b>PROFILI:</b> Consentono di configurare le impostazioni del dispositivo come la suoneria, i livelli di volume, i toni di suoneria e notifiche, radio (Wi-Fi, Bluetooth, dati mobili, ecc.). Quando un profilo viene attivato, le impostazioni corrispondenti vengono applicate al dispositivo. Se si desidera cambiare le impostazioni, è necessario attivare un altro profilo.</string>
     <string name="important_info_quick_guide_profiles_2">I profili possono essere attivati manualmente oppure da un evento.</string>
-    <string name="important_info_quick_guide_profiles_3">È possibile attivare un profilo manualmente tramite l\'attivatore di PPP (finestra pop-up con l\'elenco dei profili disponibili). L\'attivatore può essere visualizzato tramite l\'icona nella home di PPP, l\'icona di notifica, il widget, il widget di DashClock e, per i dispositivi Samsung Edge, dal pannello Edge. Potete anche attivare direttamente un profilo attraverso il widget PPP 4x4, un collegamento al profilo o, su dispositivi Samsung Edge, attraverso il pannello Edge.</string>
+    <string name="important_info_quick_guide_profiles_3">È possibile attivare un profilo manualmente tramite l\'attivatore di PPP (finestra pop-up con l\'elenco dei profili disponibili). L\'attivatore può essere visualizzato tramite l\'icona nella home di PPP, l\'icona di notifica, il widget e, per i dispositivi Samsung Edge, dal pannello Edge. Potete anche attivare direttamente un profilo attraverso il widget PPP 4x4, un collegamento al profilo o, su dispositivi Samsung Edge, attraverso il pannello Edge.</string>
     <string name="important_info_quick_guide_events_1"><b>EVENTI:</b> Consentono di configurare quando un profilo deve essere attivato. Gli eventi hanno un inizio e una fine. È possibile configurare cosa accadrà all\'inizio di un evento e cosa accadrà quando l\'evento termina.</string>
     <string name="important_info_quick_guide_events_2">Gli eventi sono dotati di parametri per la configurazione dei sensori; tutte le condizioni impostate devono essere soddisfatte prima di procedere all\'attivazione di un evento. L\'evento si concluderà (pausa) se anche solo una condizione non è soddisfatta.</string>
     <string name="important_info_quick_guide_sensors_1">Esempi di sensore:</string>

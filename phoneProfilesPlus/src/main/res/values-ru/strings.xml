@@ -141,7 +141,6 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessB">Яркость фона</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Яркость текста</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Яркость иконки</string>
-  <string name="dashclock_extension_description">Отображает активный профиль с индикатором настроек. Открывает Активатор по прикосновению.</string>
   <string name="array_pref_widgetColor_colorful">Цветная</string>
   <string name="array_pref_widgetColor_monochrome">Монохромная</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">Тип иконки</string>
@@ -938,7 +937,7 @@
   <string name="important_info_quick_guide_3">2. <b>СОБЫТИЯ:</b> указывает, когда следует изменить настройки устройства.</string>
   <string name="important_info_quick_guide_profiles_1"><b>ПРОФИЛИ:</b> Позволяют вам настроить параметры устройства, такие как режим звонка, уровни громкости, мелодию звонка и звуки уведомлений, переключение радиомодулей (Wi-Fi, Bluetooth, мобильные данные и т.д.). Когда профиль активирован, соответствующие ему параметры постоянны. Если вы хотите изменить какой-то параметр, нужно активировать другой профиль.</string>
   <string name="important_info_quick_guide_profiles_2">Профили можно активировать вручную или событием.</string>
-  <string name="important_info_quick_guide_profiles_3">Вы можете вручную активировать профиль через Активатор (всплывающее окно со списком доступных профилей). Активатор можно вызвать нажатием на иконку приложения на домашнем экране, через виджеты приложения, виджет DashClock и, для устройств Samsung Edge, из панели Edge. Также вы можете напрямую активировать нужный профиль через виджет приложения 4x4, ярлык профиля или, на устройствах Samsung Edge, из панели Edge.</string>
+  <string name="important_info_quick_guide_profiles_3">Вы можете вручную активировать профиль через Активатор (всплывающее окно со списком доступных профилей). Активатор можно вызвать нажатием на иконку приложения на домашнем экране, через виджеты приложения и, для устройств Samsung Edge, из панели Edge. Также вы можете напрямую активировать нужный профиль через виджет приложения 4x4, ярлык профиля или, на устройствах Samsung Edge, из панели Edge.</string>
   <string name="important_info_quick_guide_events_1"><b>СОБЫТИЯ:</b> Позволяют вам настроить, когда активируется профиль. У событий есть начало и конец. Вы можете настроить, что произойдёт в начале события, и что произойдёт, когда событие завершится.</string>
   <string name="important_info_quick_guide_events_2">События содержат важные параметры настройки датчика, и все они должны быть удовлетворены до запуска события. Если хоть один параметр хоть одного датчика не выполняется, событие завершится (приостановится).</string>
   <string name="important_info_quick_guide_sensors_1">Примеры датчиков:</string>

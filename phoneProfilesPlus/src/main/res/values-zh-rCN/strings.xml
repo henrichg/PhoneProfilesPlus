@@ -141,7 +141,6 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessB">背景亮度</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">文本亮度</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">图标亮度</string>
-  <string name="dashclock_extension_description">以配置指示器显示激活的情景。触碰时打开激活清单。</string>
   <string name="array_pref_widgetColor_colorful">彩色的</string>
   <string name="array_pref_widgetColor_monochrome">单色</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">图标颜色类型</string>
@@ -937,7 +936,7 @@
   <string name="important_info_quick_guide_3">2. <b>事件</b>：指定何时更改设备设置。</string>
   <string name="important_info_quick_guide_profiles_1"><b>配置文件</b>：允许您更改设备设置，如响铃模式、音量级别、铃声和通知声音、网络设置 (Wi-Fi、蓝牙、移动数据等)。当配置文件被激活时，相应的设置将被永久更改。如果要更改设置，则必须激活另一个配置文件。</string>
   <string name="important_info_quick_guide_profiles_2">配置文件可手动激活，或者由事件激活。</string>
-  <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets, DashClock widget and, for Samsung Edge devices, from the Edge panel. You can also directly activate a profile through the PPP 4x4 widget, a shortcut to the profile or, on Samsung Edge devices, through the Edge panel.</string>
+  <string name="important_info_quick_guide_profiles_3">You can manually activate a profile through the PPP Activator (pop-up window with list of available profiles). The Activator can be displayed via the PPP home icon, the PPP notification, PPP widgets and, for Samsung Edge devices, from the Edge panel. You can also directly activate a profile through the PPP 4x4 widget, a shortcut to the profile or, on Samsung Edge devices, through the Edge panel.</string>
   <string name="important_info_quick_guide_events_1"><b>事件</b>：允许您在配置文件激活时进行配置。每个事件有开始和结束。您可以配置事件开始时将发生的情况，以及事件结束时将发生的情况。</string>
   <string name="important_info_quick_guide_events_2">事件包含重要的传感器配置参数，在触发事件之前都必须满足。如果有任何传感器没有通过，则事件将结束 (暂停)。</string>
   <string name="important_info_quick_guide_sensors_1">传感器示例：</string>

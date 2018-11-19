@@ -141,7 +141,6 @@
     <string name="phone_profiles_pref_applicationWidgetLightnessB">Hintergrund-Helligkeit</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessT">Text-Helligkeit</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessI">Symbol-Helligkeit</string>
-    <string name="dashclock_extension_description">Aktives Profil mit Eigenschaften-Symbolen anzeigen. Darauf klicken öffnet Starter.</string>
     <string name="array_pref_widgetColor_colorful">Farbig</string>
     <string name="array_pref_widgetColor_monochrome">Schwarz-weiß</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Symbol-Farbtyp</string>

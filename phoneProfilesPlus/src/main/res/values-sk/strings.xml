@@ -141,7 +141,6 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessB">Svetlosť pozadia</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Svetlosť textu</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Svetlosť ikony</string>
-  <string name="dashclock_extension_description">Zobrazí aktívny profil s indikátorom preferencií profilu. Na kliknutie sa otvorí Aktivátor.</string>
   <string name="array_pref_widgetColor_colorful">Farebné</string>
   <string name="array_pref_widgetColor_monochrome">Monochromatické</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">Typ farby ikony</string>
@@ -937,7 +936,7 @@
   <string name="important_info_quick_guide_3">2. <b>UDALOSTI:</b> určujú, kedy je sa zmenia nastavenia zariadenia.</string>
   <string name="important_info_quick_guide_profiles_1"><b>PROFILY:</b> Umožňujú konfigurovať nastavenie zariadenia ako režim zvonenia, hlasitosť, tóny zvonenie a oznámenia, prepínanie rádií (Wi-Fi, Bluetooth, mobilné dáta, atď.). Po aktivovaní profilu príslušné nastavenia sú trvalé. Ak chcete nastavenia zmeniť, musí byť aktivovaný iný profil.</string>
   <string name="important_info_quick_guide_profiles_2">Profily je možné aktivovať manuálne alebo udalosťou.</string>
-  <string name="important_info_quick_guide_profiles_3">Môžete manuálne aktivovať profil cez PPP Aktivátor (pop-up okno so zoznamom dostupných profilov). Aktivátor je možné zobraziť cez domovskú ikonu PPP, PPP notifikáciu, PPP widgety, DashClock widget a pre zariadenia Samsung Edge z panela Edge. Môžete tiež priamo aktivovať profil cez PPP 4 x 4 widget, odkaz na profil alebo na zariadeniach Samsung Edge z panela Edge.</string>
+  <string name="important_info_quick_guide_profiles_3">Môžete manuálne aktivovať profil cez PPP Aktivátor (pop-up okno so zoznamom dostupných profilov). Aktivátor je možné zobraziť cez domovskú ikonu PPP, PPP notifikáciu, PPP miniaplikácie a pre zariadenia Samsung Edge z panela Edge. Môžete tiež priamo aktivovať profil cez PPP 4 x 4 widget, odkaz na profil alebo na zariadeniach Samsung Edge z panela Edge.</string>
   <string name="important_info_quick_guide_events_1"><b>UDALOSTI:</b> Umožňujú nakonfigurovať kedy sa profil aktivuje. Udalosti majú začiatok a koniec. Môžete nakonfigurovať, čo sa stane na začiatku udalosti, a čo sa stane po skončení udalosti.</string>
   <string name="important_info_quick_guide_events_2">Udalosti obsahujú dôležité konfiguračné parametre senzorov, ktoré sa musia všetky splniť predtým, ako sa udalosť spustí. Ak nejaký senzor nie je splnený, udalosť skončí (pauzne).</string>
   <string name="important_info_quick_guide_sensors_1">Príklady senzorov:</string>

@@ -141,7 +141,6 @@
     <string name="phone_profiles_pref_applicationWidgetLightnessB">Arka plan hafiflik</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessT">Metin hafiflik</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessI">Simge hafiflik</string>
-    <string name="dashclock_extension_description">Başlatılmış tercihi göstergede görüntüler. Dokununca \"Muharrik\" açılır.</string>
     <string name="array_pref_widgetColor_colorful">Renkli</string>
     <string name="array_pref_widgetColor_monochrome">Siyah-Beyaz</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Simge renk türü</string>
@@ -937,7 +936,7 @@
     <string name="important_info_quick_guide_3">1. <b>Durumlar:</b> Cihaz ayarlarının hangi durumlarda değiştirileceğini tayin eder.</string>
     <string name="important_info_quick_guide_profiles_1"><b>Tercihler:</b> Zil modu, ses seviyeleri, zil ve bildirim sesleri, radyolar (Wi-Fi, Bluetooth, mobil veri, vb.) gibi cihaz ayarlarını değiştirmeye izin verin. Bir tercih faal olduğunda, bu tercihle alakalı ayarlar kalıcıdır. Ayarları değiştirmek istiyorsanız, başka bir tercih faaliyete geçirilmelidir.</string>
     <string name="important_info_quick_guide_profiles_2">Tercihler, el ile veya bir Durum tarafından faaliyete geçirilebilir.</string>
-    <string name="important_info_quick_guide_profiles_3">PPP Muharrik vasıtasıyla El ile bir tercihi faaliyete geçirebilirsiniz (açılır penceredeki kullanılabilir tercih listesi ile). Muharrik, PPP başlatma simgesi, PPP bildirim, PPP widgetleri, DashClock widget ve Samsung Edge cihazlarında kenar paneli vasıtasıyla görüntülenebilir. PPP 4 x 4 widget, tercih kısayolu veya Samsung Edge cihazlarda kenar paneli ile doğrudan bir tercihi faaliyete geçirebilirsiniz.</string>
+    <string name="important_info_quick_guide_profiles_3">PPP Muharrik vasıtasıyla El ile bir tercihi faaliyete geçirebilirsiniz (açılır penceredeki kullanılabilir tercih listesi ile). Muharrik, PPP başlatma simgesi, PPP bildirim, PPP widgetleri ve Samsung Edge cihazlarında kenar paneli vasıtasıyla görüntülenebilir. PPP 4 x 4 widget, tercih kısayolu veya Samsung Edge cihazlarda kenar paneli ile doğrudan bir tercihi faaliyete geçirebilirsiniz.</string>
     <string name="important_info_quick_guide_events_1"><b>Durumlar:</b> Bir tercih faaliyete geçtiğinde neler yapılacağını ayarlamanızı sağlar. Durumların bir başlangıç ve bir bitişi vardır. Bir durumun başında ve sonunda olacağını ayarlayabilirsiniz.</string>
     <string name="important_info_quick_guide_events_2">Durumlar, daha önce tetiklenen bir durumdan önce yerine getirilmesi gereken önemli sensör ayarlama değerlerini içerir. Herhangi bir sensör geçemezse durum sona erer (fasıla).</string>
     <string name="important_info_quick_guide_sensors_1">Sensör örnekleri:</string>

@@ -141,7 +141,6 @@
   <string name="phone_profiles_pref_applicationWidgetLightnessB">Latar belakang ringan</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessT">Teks ringan</string>
   <string name="phone_profiles_pref_applicationWidgetLightnessI">Ikon ringan</string>
-  <string name="dashclock_extension_description">Menampilkan profil aktif dengan indikator preferensi. Terbuka Activator pada sentuhan.</string>
   <string name="array_pref_widgetColor_colorful">Warna-warni</string>
   <string name="array_pref_widgetColor_monochrome">Satu Warna</string>
   <string name="phone_profiles_pref_applicationWidgetIconColor">Jenis warna ikon</string>
@@ -937,7 +936,7 @@
   <string name="important_info_quick_guide_3">2. <b>ACARA:</b> Menentukan kapan harus mengubah pengaturan perangkat.</string>
   <string name="important_info_quick_guide_profiles_1"><b>PROFIL:</b> Memungkinkan Anda untuk mengkonfigurasi pengaturan perangkat seperti mode dering, tingkat volume, nada dering dan suara notifikasi, radio switch (Wi-Fi, Bluetooth, data mobile, dll.). Bila profil diaktifkan, pengaturan yang sesuai bersifat permanen. Jika Anda ingin pengaturan berubah, profil lain harus diaktifkan.</string>
   <string name="important_info_quick_guide_profiles_2">Profil dapat diaktifkan secara manual, atau oleh sebuah Acara.</string>
-  <string name="important_info_quick_guide_profiles_3">Anda dapat mengaktifkan profil secara manual melalui PPP Activator (jendela pop-up dengan daftar profil yang tersedia). Pengaktifan dapat ditampilkan melalui ikon rumah PPP, notifikasi PPP, widget PPP, widget DashClock dan, untuk perangkat Samsung Edge, dari panel Edge. Anda juga bisa langsung mengaktifkan profil melalui widget PPP 4x4, jalan pintas ke profil atau, pada perangkat Samsung Edge, melalui panel Edge.</string>
+  <string name="important_info_quick_guide_profiles_3">Anda dapat mengaktifkan profil secara manual melalui PPP Activator (jendela pop-up dengan daftar profil yang tersedia). Pengaktifan dapat ditampilkan melalui ikon rumah PPP, notifikasi PPP, widget PPP dan, untuk perangkat Samsung Edge, dari panel Edge. Anda juga bisa langsung mengaktifkan profil melalui widget PPP 4x4, jalan pintas ke profil atau, pada perangkat Samsung Edge, melalui panel Edge.</string>
   <string name="important_info_quick_guide_events_1"><b>ACARA:</b> Memungkinkan Anda untuk mengkonfigurasi saat profil diaktifkan. Acara memiliki awal dan akhir. Anda dapat mengonfigurasi apa yang akan terjadi di awal acara, dan apa yang akan terjadi bila acara berakhir.</string>
   <string name="important_info_quick_guide_events_2">Peristiwa berisi parameter konfigurasi sensor yang penting, yang semuanya harus dipuaskan sebelum sebuah acara dipicu. Jika sensor tidak lewat, acara akan berakhir (jeda).</string>
   <string name="important_info_quick_guide_sensors_1">Contoh sensor:</string>
