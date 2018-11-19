@@ -3068,6 +3068,16 @@ public class PhoneProfilesService extends Service
                             dataWrapper.activateProfileOnBoot();
                         }
                     }
+                    if (!_startOnBoot && !_startOnPackageReplace && !_startedFromApp) {
+                        PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "###### started from PPApplication ######");
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, restart events");
+                            dataWrapper.startEventsOnBoot(true);
+                        } else {
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
+                            dataWrapper.activateProfileOnBoot();
+                        }
+                    }
 
                     dataWrapper.invalidateDataWrapper();
 

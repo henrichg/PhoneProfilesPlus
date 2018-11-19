@@ -1121,11 +1121,10 @@ public class DataWrapper {
             activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
     }
 
-    private void startEventsOnBoot(boolean startedFromService)
+    void startEventsOnBoot(boolean startedFromService)
     {
         if (startedFromService) {
-            if (/*ApplicationPreferences.applicationActivate(context) &&*/
-                    ApplicationPreferences.applicationStartEvents(context)) {
+            if (ApplicationPreferences.applicationStartEvents(context)) {
                 restartEvents(false, false, true, false, true);
             }
             else {
@@ -4106,7 +4105,6 @@ public class DataWrapper {
                 for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
                     event.removeDelayStartAlarm(this);
-                    event.removeDelayStartAlarm(this);
                 }
             }
         }
@@ -4121,7 +4119,6 @@ public class DataWrapper {
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
-                    event.removeDelayEndAlarm(this);
                     event.removeDelayEndAlarm(this);
                 }
             }
