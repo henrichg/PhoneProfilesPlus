@@ -3033,13 +3033,13 @@ public class PhoneProfilesService extends Service
                         // not needed clearConnectedDevices(.., true) call it
                         //BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                         BluetoothConnectedDevices.getConnectedDevices(appContext);
+                    }
 
-                        if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().registerReceiversAndJobs();
-                        AboutApplicationJob.scheduleJob(appContext, false);
-                    //}
+                    if (PhoneProfilesService.getInstance() != null)
+                        PhoneProfilesService.getInstance().registerReceiversAndJobs();
+                    AboutApplicationJob.scheduleJob(appContext, false);
 
-                    //if (_startOnBoot || _startOnPackageReplace || _startedFromApp) {
+                    if (_startOnBoot || _startOnPackageReplace || _startedFromApp) {
                         if (_startOnBoot)
                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
                         else
