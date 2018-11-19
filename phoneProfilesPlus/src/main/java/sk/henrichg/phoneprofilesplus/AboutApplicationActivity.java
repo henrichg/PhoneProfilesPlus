@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,10 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class AboutApplicationActivity extends AppCompatActivity {
 
-    @SuppressLint({"InlinedApi", "SetTextI18n"})
+    static final int EMAIL_BODY_SUPPORT = 1;
+    static final int EMAIL_BODY_TRANSLATIONS = 2;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
@@ -214,7 +218,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 getString(R.string.about_application_translations),
                 getString(R.string.about_application_translations2),
                 getString(R.string.about_application_translations_subject),
-                getEmailBodyText(EMAIL_BODY_TRANSLATIONS),
+                getEmailBodyText(EMAIL_BODY_TRANSLATIONS, this),
                 false,this);
 
         text = findViewById(R.id.about_application_xda_developers_community);
@@ -358,22 +362,30 @@ public class AboutApplicationActivity extends AppCompatActivity {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    static final int EMAIL_BODY_SUPPORT = 1;
-    static final int EMAIL_BODY_TRANSLATIONS = 2;
-
-    static String getEmailBodyText(int bodyType) {
+    static String getEmailBodyText(int bodyType, Context context) {
         String body = "";
         switch (bodyType) {
             case EMAIL_BODY_SUPPORT:
-                body = "Device:" + " \n";
-                body = body + "Android version:" + " \n\n";
-                body = body + "Problems:" + " \n";
-                body = body + "Questions:" + " \n";
-                body = body + "Suggestions:" + " \n\n";
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+                    body = context.getString(R.string.important_info_email_body_device) + " " +
+                            Settings.Global.getString(context.getContentResolver(), Settings.Global.DEVICE_NAME) +
+                            " (" + Build.MODEL + ")" + " \n";
+                else {
+                    String manufacturer = Build.MANUFACTURER;
+                    String model = Build.MODEL;
+                    if (model.startsWith(manufacturer))
+                        body = context.getString(R.string.important_info_email_body_device) + " " + model + " \n";
+                    else
+                        body = context.getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
+                }
+                body = body + context.getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
+                body = body + context.getString(R.string.important_info_email_body_problems) + " \n";
+                body = body + context.getString(R.string.important_info_email_body_questions) + " \n";
+                body = body + context.getString(R.string.important_info_email_body_suggestions) + " \n\n";
                 break;
             case EMAIL_BODY_TRANSLATIONS:
-                body = "Language from which to translate:" + " \n";
-                body = body + "Language to translate:" + " \n\n";
+                body = context.getString(R.string.important_info_email_body_translation_language_from) + " \n";
+                body = body + context.getString(R.string.important_info_email_body_translation_language_to) + " \n\n";
                 break;
         }
         return body;
