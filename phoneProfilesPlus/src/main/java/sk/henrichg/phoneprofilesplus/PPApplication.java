@@ -78,6 +78,7 @@ public class PPApplication extends Application {
                                          +"|DataWrapper.firstStartEvents"
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
+                                         +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"
