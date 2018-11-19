@@ -563,7 +563,7 @@ public class PPApplication extends Application {
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 // do not change data in shared preferences and do not restart events
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_STARTED_FROM_APP, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, false);
                 startPPService(getApplicationContext(), serviceIntent);
             } catch (Exception ignored) {
             }

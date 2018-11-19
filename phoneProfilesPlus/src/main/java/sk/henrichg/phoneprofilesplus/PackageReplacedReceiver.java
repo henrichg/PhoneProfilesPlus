@@ -239,7 +239,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         // start PhoneProfilesService
         Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_STARTED_FROM_APP, true);
+        serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
         PPApplication.startPPService(context, serviceIntent);
     }

@@ -1532,7 +1532,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);
                     PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_STARTED_FROM_APP, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
                     PPApplication.startPPService(activity, serviceIntent);
 
                     if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError))) {
