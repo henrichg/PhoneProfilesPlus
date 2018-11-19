@@ -46,7 +46,7 @@ public class LauncherActivity extends AppCompatActivity {
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
                 PPApplication.startPPService(this, serviceIntent);
             }
 
