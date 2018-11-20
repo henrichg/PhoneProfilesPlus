@@ -636,7 +636,6 @@
   <string name="about_application_title">Acerca de la aplicación</string>
   <string name="about_application_version">versión:</string>
   <string name="about_application_author">Autor:</string>
-  <string name="about_application_email">Correo electrónico:</string>
   <string name="about_application_source_code">Código fuente:</string>
   <string name="about_application_translations">Traducciones:</string>
   <string name="about_application_rate_in_googlePlay">Por favor califique esta aplicación en Google Play</string>
@@ -1236,6 +1235,9 @@
     <string name="about_application_translations2">contact:</string>
     <string name="about_application_translations_subject">translation</string>
     <string name="important_info_translations">Please help me with translation, thank you:</string>
+    <string name="about_application_support">Support:</string>
+    <string name="about_application_support2">contact:</string>
+    <string name="about_application_support_subject">support</string>
 
 
 

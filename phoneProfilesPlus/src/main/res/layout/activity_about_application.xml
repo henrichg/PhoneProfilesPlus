@@ -60,12 +60,21 @@
             android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/about_application_email"
+            android:id="@+id/about_application_support"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
-            android:text="@string/about_application_email"
+            android:text="@string/about_application_support"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/about_application_translations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/about_application_translations"
             android:textSize="15sp"/>
 
         <TextView
@@ -102,15 +111,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:text="@string/about_application_extender_source_code"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:id="@+id/about_application_translations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:text="@string/about_application_translations"
             android:textSize="15sp"/>
 
         <TextView

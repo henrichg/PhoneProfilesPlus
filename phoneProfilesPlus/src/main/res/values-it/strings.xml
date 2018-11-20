@@ -636,14 +636,12 @@
     <string name="about_application_title">Informazioni sull\'applicazione</string>
     <string name="about_application_version">versione:</string>
     <string name="about_application_author">Autore:</string>
-    <string name="about_application_email">E-mail:</string>
     <string name="about_application_source_code">Codice sorgente:</string>
     <string name="about_application_translations">Traduzioni:</string>
     <string name="about_application_rate_in_googlePlay">Esprimi la tua opinione su questa applicazione in Google Play</string>
     <string name="phone_profiles_pref_systemLanguage_summary">L\'applicazione utilizza la lingua configurata nel sistema.</string>
     <string name="permission_group_name_access_notification_policy">Accesso non disturbare</string>
-    <string name="permissions_access_notification_policy_not_allowed_confirm">Non sei abilitato all\'accesso \"non disturbare\".
-Non chiedere nuovamente?</string>
+    <string name="permissions_access_notification_policy_not_allowed_confirm">Non sei abilitato all\'accesso \"non disturbare\". Non chiedere nuovamente?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Accesso non disturbare</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Si prega di cercare l\'applicazione \"PhoneProfilePlus\" e attivarla.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Aggiungere PhoneProfilePlus a \"Non ottimizzato\", quando si incontrano problemi con l\'attivazione di profili dagli eventi, se si lascia il dispositivo scollegato e non in uso per un periodo di tempo, con lo schermo spento.</string>
@@ -1237,6 +1235,9 @@ Non chiedere nuovamente?</string>
     <string name="about_application_translations2">contact:</string>
     <string name="about_application_translations_subject">translation</string>
     <string name="important_info_translations">Please help me with translation, thank you:</string>
+    <string name="about_application_support">Support:</string>
+    <string name="about_application_support2">contact:</string>
+    <string name="about_application_support_subject">support</string>
 
 
 

@@ -656,7 +656,6 @@
     <string name="about_application_title">About application</string>
     <string name="about_application_version">version:</string>
     <string name="about_application_author">Author:</string>
-    <string name="about_application_email">E-mail:</string>
     <string name="about_application_source_code">Source code:</string>
     <string name="about_application_translations">Translations:</string>
     <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>
@@ -1277,6 +1276,9 @@
     <string name="important_info_email_body_suggestions">Suggestions:</string>
     <string name="important_info_email_body_translation_language_from">Language from which to translate:</string>
     <string name="important_info_email_body_translation_language_to">Language to translate:</string>
+    <string name="about_application_support">Support:</string>
+    <string name="about_application_support2">contact:</string>
+    <string name="about_application_support_subject">support</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

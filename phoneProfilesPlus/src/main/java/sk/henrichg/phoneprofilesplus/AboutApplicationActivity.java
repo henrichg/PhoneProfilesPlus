@@ -105,8 +105,41 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         text.setText(sbt);
 
-        emailMe((TextView) findViewById(R.id.about_application_email), getString(R.string.about_application_email),
-                "", "", "", false, this);
+        emailMe((TextView) findViewById(R.id.about_application_support),
+                getString(R.string.about_application_support),
+                getString(R.string.about_application_support2),
+                getString(R.string.about_application_support_subject),
+                getEmailBodyText(EMAIL_BODY_SUPPORT, this),
+                false,this);
+
+        /*
+        text = findViewById(R.id.about_application_translations);
+        str1 = getString(R.string.about_application_translations);
+        str2 = str1 + " https://crowdin.com/project/phoneprofilesplus";
+        sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(@NonNull View textView) {
+                String url = "https://crowdin.com/project/phoneprofilesplus";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception ignored) {}
+            }
+        };
+        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        text.setText(sbt);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+        */
+        emailMe((TextView) findViewById(R.id.about_application_translations),
+                getString(R.string.about_application_translations),
+                getString(R.string.about_application_translations2),
+                getString(R.string.about_application_translations_subject),
+                getEmailBodyText(EMAIL_BODY_TRANSLATIONS, this),
+                false,this);
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
@@ -191,35 +224,6 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
-
-        /*
-        text = findViewById(R.id.about_application_translations);
-        str1 = getString(R.string.about_application_translations);
-        str2 = str1 + " https://crowdin.com/project/phoneprofilesplus";
-        sbt = new SpannableString(str2);
-        sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(@NonNull View textView) {
-                String url = "https://crowdin.com/project/phoneprofilesplus";
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-                } catch (Exception ignored) {}
-            }
-        };
-        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
-        text.setText(sbt);
-        text.setMovementMethod(LinkMovementMethod.getInstance());
-        */
-        emailMe((TextView) findViewById(R.id.about_application_translations),
-                getString(R.string.about_application_translations),
-                getString(R.string.about_application_translations2),
-                getString(R.string.about_application_translations_subject),
-                getEmailBodyText(EMAIL_BODY_TRANSLATIONS, this),
-                false,this);
 
         text = findViewById(R.id.about_application_xda_developers_community);
         str1 = getString(R.string.about_application_xda_developers_community);

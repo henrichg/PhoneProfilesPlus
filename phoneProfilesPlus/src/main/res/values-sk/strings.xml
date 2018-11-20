@@ -636,7 +636,6 @@
   <string name="about_application_title">O aplikácii</string>
   <string name="about_application_version">verzia:</string>
   <string name="about_application_author">Autor:</string>
-  <string name="about_application_email">E-mail:</string>
   <string name="about_application_source_code">Zdrojový kód:</string>
   <string name="about_application_translations">Preklady:</string>
   <string name="about_application_rate_in_googlePlay">Ohodnoťte prosím túto aplikáciu v obchode Google Play</string>
@@ -1236,6 +1235,9 @@
     <string name="about_application_translations2">kontakt:</string>
     <string name="about_application_translations_subject">preklad</string>
     <string name="important_info_translations">Prosím pomôžte mi s prekladom, ďakujem:</string>
+    <string name="about_application_support">Support:</string>
+    <string name="about_application_support2">contact:</string>
+    <string name="about_application_support_subject">support</string>
 
 
 

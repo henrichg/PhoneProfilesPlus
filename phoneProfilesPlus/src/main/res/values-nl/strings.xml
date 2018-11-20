@@ -636,7 +636,6 @@
   <string name="about_application_title">Over programma</string>
   <string name="about_application_version">versie:</string>
   <string name="about_application_author">Auteur:</string>
-  <string name="about_application_email">E-mail:</string>
   <string name="about_application_source_code">Broncode:</string>
   <string name="about_application_translations">Vertalingen:</string>
   <string name="about_application_rate_in_googlePlay">Beoordeel dit programma in Google Play</string>
@@ -1236,6 +1235,9 @@
     <string name="about_application_translations2">contact:</string>
     <string name="about_application_translations_subject">translation</string>
     <string name="important_info_translations">Please help me with translation, thank you:</string>
+    <string name="about_application_support">Support:</string>
+    <string name="about_application_support2">contact:</string>
+    <string name="about_application_support_subject">support</string>
 
 
 

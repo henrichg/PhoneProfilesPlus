@@ -636,7 +636,6 @@
   <string name="about_application_title">A propos</string>
   <string name="about_application_version">version :</string>
   <string name="about_application_author">Auteur :</string>
-  <string name="about_application_email">Email :</string>
   <string name="about_application_source_code">Code source :</string>
   <string name="about_application_translations">Traductions :</string>
   <string name="about_application_rate_in_googlePlay">Merci d\'évaluer cette application dans Google Play</string>
@@ -870,8 +869,7 @@
   <string name="event_preferences_radioSwitch_nfc">NFC</string>
   <string name="event_preferences_radioSwitch_airplaneMode">Mode avion</string>
   <string name="event_preferences_radioSwitch_info_title">Configuration des capteurs</string>
-  <string name="event_preferences_radioSwitch_info_summary">L\'état de toutes les radios doivent être remplies pour commencer les évènements.
-Configurez uniquement les radios dont vous avez besoin.</string>
+  <string name="event_preferences_radioSwitch_info_summary">L\'état de toutes les radios doivent être remplies pour commencer les évènements. Configurez uniquement les radios dont vous avez besoin.</string>
   <string name="connect_to_ssid_pref_dlg_summary_text_just_any">N\'importe lequel</string>
   <string name="profile_preferences_deviceConnectToSSID">Se connecter au SSID</string>
   <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Fusion des volumes</string>
@@ -1237,6 +1235,9 @@ Configurez uniquement les radios dont vous avez besoin.</string>
     <string name="about_application_translations2">contact:</string>
     <string name="about_application_translations_subject">translation</string>
     <string name="important_info_translations">Please help me with translation, thank you:</string>
+    <string name="about_application_support">Support:</string>
+    <string name="about_application_support2">contact:</string>
+    <string name="about_application_support_subject">support</string>
 
 
 
