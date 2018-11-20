@@ -629,7 +629,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoTextGrant1Command.setText(spannable);
 
         AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_notification_contact),
-                getString(R.string.important_info_contact), "", "",
+                getString(R.string.important_info_contact),
+                "", getString(R.string.about_application_support_subject),
                 AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_SUPPORT, activity),
                 true, activity);
         AboutApplicationActivity.emailMe((TextView) view.findViewById(R.id.activity_info_translations),
