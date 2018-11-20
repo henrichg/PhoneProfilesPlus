@@ -37,7 +37,7 @@
     <!-- Background -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/activityBackgroundColor_dark" />
+            <solid android:color="@color/activityPopupBackground_dark" />
 
             <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
