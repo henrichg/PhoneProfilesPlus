@@ -432,6 +432,7 @@ public class NFCTagPreference extends DialogPreference {
 
         int tagPos = (int)view.getTag();
         final NFCTag tagInItem = nfcTagList.get(tagPos);
+        PPApplication.logE("NFCTagPreference.showEditMenu", "tagInItem._name="+tagInItem._name);
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -450,6 +451,7 @@ public class NFCTagPreference extends DialogPreference {
                         return true;*/
                     case R.id.nfc_tag_pref_dlg_item_menu_change:
                         if (!nfcTagName.getText().toString().isEmpty()) {
+                            PPApplication.logE("NFCTagPreference.showEditMenu.change", "tagInItem._name="+tagInItem._name);
                             String[] splits = value.split("\\|");
                             value = "";
                             boolean found = false;
@@ -462,18 +464,21 @@ public class NFCTagPreference extends DialogPreference {
                                             value = value + "|";
                                         //noinspection StringConcatenationInLoop
                                         value = value + tag;
+                                        PPApplication.logE("NFCTagPreference.showEditMenu.change", "value="+value);
                                     } else
                                         found = true;
                                 }
                             }
+                            PPApplication.logE("NFCTagPreference.showEditMenu.change", "found="+found);
                             if (found) {
                                 // add item tag with new name
                                 if (!value.isEmpty())
                                     value = value + "|";
                                 value = value + nfcTagName.getText().toString();
-                                tagInItem._name = nfcTagName.getText().toString();
-                                DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCTag(tagInItem);
                             }
+                            PPApplication.logE("NFCTagPreference.showEditMenu.change", "value=" + value);
+                            tagInItem._name = nfcTagName.getText().toString();
+                            DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCTag(tagInItem);
                             refreshListView("");
                         }
                         return true;
