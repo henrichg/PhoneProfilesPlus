@@ -532,7 +532,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         selectDrawerItem(drawerSelectedItem, false, savedInstanceState != null, false);
 
         /*
-        // TODO not working good, all activity is under status bar
+        // not working good, all activity is under status bar
         ViewCompat.setOnApplyWindowInsetsListener(drawerLayout, new OnApplyWindowInsetsListener() {
             @Override
             public WindowInsetsCompat onApplyWindowInsets(View v, WindowInsetsCompat insets) {

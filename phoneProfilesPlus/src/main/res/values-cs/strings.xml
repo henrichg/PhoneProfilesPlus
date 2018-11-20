@@ -1106,7 +1106,6 @@
   <string name="array_pref_value_auto_rotate_off">Vypnout automatickou orientaci</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Změna úrovně adaptivního jasu nemusí fungovat na vašem zařízení (například: zařízení Samsung).</string>
   <string name="about_application_xda_developers_community">Komunita XDA-developers:</string>
-  <string name="about_application_google_plus_community">Komunita Google+:</string>
   <string name="mobile_cells_pref_dlg_connected_cell">Připojená buňka:</string>
   <string name="permissions_for_mobile_cells_registration_dialog_text1">Registrace mobilních buněk vyžaduje nějaké povolení.</string>
   <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Počet nových buněk:</string>

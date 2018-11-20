@@ -15,7 +15,7 @@ import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 class GuiInfoPopupWindow extends RelativePopupWindow {
 
     final View popupView;
-    final Activity activity;
+    private final Activity activity;
 
     GuiInfoPopupWindow(int layoutId, Activity _activity) {
         activity = _activity;

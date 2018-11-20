@@ -1107,7 +1107,6 @@
   <string name="array_pref_value_auto_rotate_off">Автоматичне обертання вимкнуто</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Зміна адаптивного рівня може не працювати на Вашому пристрої (наприклад: пристрої Samsung).</string>
   <string name="about_application_xda_developers_community">XDA-developers спільнота:</string>
-  <string name="about_application_google_plus_community">Google+ спільнота:</string>
   <string name="mobile_cells_pref_dlg_connected_cell">Під’єднані вишки:</string>
   <string name="permissions_for_mobile_cells_registration_dialog_text1">Реєстрація мобільних вишок потребує дозволів.</string>
   <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Кількість нових вишок:</string>

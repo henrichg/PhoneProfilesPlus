@@ -64,7 +64,7 @@ public class PPApplication extends Application {
     //static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_2_0;
 
-    private static final boolean logIntoLogCat = true;
+    private static final boolean logIntoLogCat = false;
     private static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -390,7 +390,7 @@ public class PPApplication extends Application {
     public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
 
-    public static HandlerThread handlerThreadRoot = null;
+    private static HandlerThread handlerThreadRoot = null;
     public static HandlerThread handlerThreadVolumes = null;
     public static HandlerThread handlerThreadRadios = null;
     public static HandlerThread handlerThreadAdaptiveBrightness = null;
@@ -1875,7 +1875,7 @@ public class PPApplication extends Application {
         }
     }
 
-    static void startHandlerThreadRoot() {
+    private static void startHandlerThreadRoot() {
         if (handlerThreadRoot == null) {
             handlerThreadRoot = new HandlerThread("PPHandlerThreadRoot");
             handlerThreadRoot.start();

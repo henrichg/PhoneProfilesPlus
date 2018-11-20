@@ -11,7 +11,7 @@ import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 class DialogHelpPopupWindow extends GuiInfoPopupWindow {
 
-    final AlertDialog dialog;
+    private final AlertDialog dialog;
 
     private DialogHelpPopupWindow(final Activity activity, final AlertDialog _dialog, String helpString) {
         super(R.layout.dialog_help_popup_window, activity);

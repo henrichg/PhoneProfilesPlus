@@ -1110,7 +1110,6 @@
   <string name="array_pref_value_auto_rotate_off">Automatic rotation off</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
   <string name="about_application_xda_developers_community">XDA-developers community:</string>
-  <string name="about_application_google_plus_community">Google+ community:</string>
   <string name="mobile_cells_pref_dlg_connected_cell">Connected cell:</string>
   <string name="permissions_for_mobile_cells_registration_dialog_text1">Mobile cell registration requires some permissions.</string>
   <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">New cells count:</string>

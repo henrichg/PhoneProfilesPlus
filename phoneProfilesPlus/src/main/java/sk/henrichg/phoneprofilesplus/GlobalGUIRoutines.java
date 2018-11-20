@@ -493,7 +493,7 @@ class GlobalGUIRoutines {
                 display.getRealSize(size);
             //} else {
             //    try {
-            //        //TODO Android P - used reflections!!
+            //        TODO Android P - used reflections!!
             //        size.x = (Integer) Display.class.getMethod("getRawWidth").invoke(display);
             //        size.y = (Integer) Display.class.getMethod("getRawHeight").invoke(display);
             //    } catch (Exception ignored) {
