@@ -173,9 +173,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 if (splits.length == 1) {
                     profile = editorFragment.activityDataWrapper.getProfileById(Long.valueOf(event._startWhenActivatedProfile), false, false, false);
                     if (profile != null)
-                        _eventName = _eventName + "\n" + "[#] " + profile._name;
+                        _eventName = _eventName + "  " + "[#] " + profile._name;
                 } else {
-                    _eventName = _eventName + "\n" + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                    _eventName = _eventName + "  " + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
                 }
             }
 
