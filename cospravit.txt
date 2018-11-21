@@ -332,3 +332,14 @@ public static final int convertGammaToLinear(int val, int min, int max) {
         // in order to derive the correct setting value.
         return Math.round(MathUtils.lerp(min, max, ret / 12));
     }
+
+-----------------------------------
+
+Android Pie support:
+- Musis testnut "Call sensor". Ci budes dostavat telefonne cislo. Testni na Nexus5x.
+
+- Musis nastavit compileSDK=28 a classpath 'com.android.tools.build:gradle:3.2.1'.
+  Potom to uz bude padat len na nepodpore zo strany android-hidden-api. Cize treba cakat. :-(
+- Ostatne veci mas v Keep.
+
+-----------------------------------
