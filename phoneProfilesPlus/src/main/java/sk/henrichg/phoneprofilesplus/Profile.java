@@ -16,7 +16,6 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-import android.util.MathUtils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1734,7 +1733,7 @@ public class Profile {
         final float normalizedVal = MathUtils.norm(min, max, val) * 12;
         final float ret;
         if (normalizedVal <= 1f) {
-            ret = (float)Math.sqrt(normalizedVal) * _R;
+            ret = MathUtils.sqrt(normalizedVal) * _R;
         } else {
             ret = _A * MathUtils.log(normalizedVal - _B) + _C;
         }
@@ -2832,7 +2831,7 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
         {
-            int value = Settings.System.getInt(context.getContentResolver(), Settings.System.NOTIFICATION_LIGHT_PULSE, -10);
+            int value = Settings.System.getInt(context.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, -10);
             if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 23)) {
                 /* not working (private secure settings) :-/
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {

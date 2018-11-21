@@ -1113,7 +1113,7 @@ class ActivateProfileHelper {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, false, appContext).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
-                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.NOTIFICATION_LIGHT_PULSE, value);
+                        Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
                     else {
                         /* not working (private secure settings) :-/
                         if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -1123,7 +1123,7 @@ class ActivateProfileHelper {
                         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(appContext)) &&
                                 (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                             synchronized (PPApplication.rootMutex) {
-                                String command1 = "settings put system " + Settings.System.NOTIFICATION_LIGHT_PULSE + " " + value;
+                                String command1 = "settings put system " + "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/ + " " + value;
                                 //if (PPApplication.isSELinuxEnforcing())
                                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                 Command command = new Command(0, false, command1); //, command2);
