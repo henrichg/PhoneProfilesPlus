@@ -155,19 +155,17 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
             }
 
-            String _eventName = event._name;
+            String _eventName = "";
             String eventStartOrder = "[O:" + event._startOrder + "] ";
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
                 eventStartOrder = "";
             String eventPriority = "";
             if (ApplicationPreferences.applicationEventUsePriority(context))
                 eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
-            //else
-            //    eventPriority = "[P:" + "5" + "] ";
             if (event._forceRun) {
-                _eventName = eventStartOrder + eventPriority + "[\u00BB] " + _eventName;
+                _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[\u00BB]";
             } else
-                _eventName = eventStartOrder + eventPriority + _eventName;
+                _eventName = event._name + "\n" + eventStartOrder + eventPriority;
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
                 String[] splits = event._startWhenActivatedProfile.split("\\|");

@@ -3963,7 +3963,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("PhoneProfilesService.showProfileNotification", "profile != null");
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, dataWrapper, false);
+                profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false);
 
                 if (inHandlerThread) {
                     profile.generateIconBitmap(appContext, false, 0);

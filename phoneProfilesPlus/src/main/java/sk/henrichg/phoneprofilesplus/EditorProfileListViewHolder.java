@@ -75,13 +75,14 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
         }
 
+        String indicators = "";
+        if (profile._showInActivator)
+            indicators = "[A]";
         String _profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
                                     profile._checked &&
-                                    (!ApplicationPreferences.applicationEditorHeader(context)), true, false,
+                                    (!ApplicationPreferences.applicationEditorHeader(context)),
+                                    indicators, true, true,
                                     editorFragment.activityDataWrapper, false);
-        //Log.d("EditorProfileListViewHolder.bindProfile","_profileName="+_profileName);
-        if (profile._showInActivator)
-            _profileName = "[A] " + _profileName;
 
         profileName.setText(_profileName);
 

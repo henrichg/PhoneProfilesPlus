@@ -75,8 +75,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:text="@string/profile_name_default"
-            android:textSize="15sp"
-            android:maxLines="1"/>
+            android:textSize="15sp"/>
 
         <ImageView
             android:id="@+id/profile_list_profile_pref_indicator"

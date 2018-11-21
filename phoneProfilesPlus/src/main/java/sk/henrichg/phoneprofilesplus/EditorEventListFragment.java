@@ -651,7 +651,7 @@ public class EditorEventListFragment extends Fragment
         }
         else
         {
-            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, true, false, activityDataWrapper, true));
+            activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, activityDataWrapper, true));
             if (profile.getIsIconResourceID())
             {
                 if (profile._iconBitmap != null)

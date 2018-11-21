@@ -120,10 +120,10 @@ public class ProfileDetailsFragment extends Fragment {
         }
 
         if (profile != null) {
-
-            String sProfileName = profile.getProfileNameWithDuration(false, dataWrapper.context);
+            String indicators = "";
             if (profile._showInActivator)
-                sProfileName = "[A] " + sProfileName;
+                indicators = "[A]";
+            String sProfileName = profile.getProfileNameWithDuration("", indicators, true, dataWrapper.context);
 
             profileName.setText(sProfileName);
 

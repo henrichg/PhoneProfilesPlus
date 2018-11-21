@@ -1468,7 +1468,7 @@ public class DataWrapper {
 
         if ((profile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                    getProfileNameWithManualIndicator(profile, true, profileDuration > 0, false, this, false),
+                    getProfileNameWithManualIndicator(profile, true, "", profileDuration > 0, false, this, false),
                     profileIcon, profileDuration);
         }
 
@@ -1547,7 +1547,7 @@ public class DataWrapper {
     {
         //Log.d("DataWrapper.showToastAfterActivation", "xxx");
         try {
-            String profileName = getProfileNameWithManualIndicator(profile, true, false, false, this, false);
+            String profileName = getProfileNameWithManualIndicator(profile, true, "", false, false, this, false);
             Toast msg = Toast.makeText(context,
                     context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
                             context.getResources().getString(R.string.toast_profile_activated_1),
@@ -3998,48 +3998,51 @@ public class DataWrapper {
     }
 
     static private String getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList,
-                                                            boolean addIndicators, boolean addDuration, boolean multiLine,
+                                                            boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
                                                             DataWrapper dataWrapper, boolean fromDB)
     {
         if (profile == null)
             return "";
 
-        String name;
-        if (addDuration)
-            name = profile.getProfileNameWithDuration(multiLine, dataWrapper.context);
-        else
-            name = profile._name;
-
-        if (Event.getEventsBlocked(dataWrapper.context))
+        String eventName = "";
+        if (addEventName)
         {
-            if (addIndicators)
-            {
-                if (Event.getForceRunEventRunning(dataWrapper.context))
-                {
-                    name = "[\u00BB] " + name;
-                }
-                else
-                {
-                    name = "[M] " + name;
+            String manualIndicators = "";
+            if (Event.getEventsBlocked(dataWrapper.context)) {
+                if (Event.getForceRunEventRunning(dataWrapper.context)) {
+                    manualIndicators = "[\u00BB]";
+                } else {
+                    manualIndicators = "[M]";
                 }
             }
+
+            String _eventName = getLastStartedEventName(eventTimelineList, dataWrapper, fromDB);
+            if (!_eventName.equals("?"))
+                eventName = "[" + _eventName + "]";
+
+            if (!manualIndicators.isEmpty())
+                eventName = manualIndicators + " " + eventName;
         }
 
-        if (addIndicators)
-        {
-            String eventName = getLastStartedEventName(eventTimelineList, dataWrapper, fromDB);
-            //Log.e("***** DataWrapper.getProfileNameWithManualIndicator", "eventName="+eventName);
-            if (!eventName.equals("?"))
-                name = name + " [" + eventName + "]";
+        String name;
+        if (addDuration)
+            name = profile.getProfileNameWithDuration(eventName, indicators, multiLine, dataWrapper.context);
+        else {
+            name = profile._name;
+            if (!eventName.isEmpty())
+                name = name + " " + eventName;
+            if (!indicators.isEmpty()) {
+                name = name + " " + indicators;
+            }
         }
 
         return name;
     }
 
-    static String getProfileNameWithManualIndicator(Profile profile, boolean addIndicators, boolean addDuration, boolean multiLine,
+    static String getProfileNameWithManualIndicator(Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
                                                     DataWrapper dataWrapper, boolean fromDB) {
         List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-        return getProfileNameWithManualIndicator(profile, eventTimelineList, addIndicators, addDuration, multiLine, dataWrapper, fromDB);
+        return getProfileNameWithManualIndicator(profile, eventTimelineList, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB);
     }
 
     static private String getLastStartedEventName(List<EventTimeline> eventTimelineList, DataWrapper dataWrapper, boolean fromDB)
