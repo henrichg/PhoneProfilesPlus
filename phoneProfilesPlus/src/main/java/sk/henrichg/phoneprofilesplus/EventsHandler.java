@@ -194,8 +194,19 @@ class EventsHandler {
 
             //interactive = (!isRestart) || _interactive;
 
+            boolean saveCalendarStartEndTime = false;
+            if (isRestart) {
+                if (Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context.getApplicationContext()).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    int eventCount = DatabaseHandler.getInstance(context.getApplicationContext())
+                                        .getTypeEventsCount(DatabaseHandler.ETYPE_CALENDAR, false);
+                    if (eventCount > 0)
+                        saveCalendarStartEndTime = true;
+                }
+            }
             if (sensorType.equals(SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
-                    sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS)) {
+                    sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
+                    saveCalendarStartEndTime) {
                 // search for calendar events
                 PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
                 for (Event _event : this.dataWrapper.eventList) {
