@@ -165,20 +165,40 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             String eventPriority = "";
             if (ApplicationPreferences.applicationEventUsePriority(context))
                 eventPriority = "[P:" + (event._priority + Event.EPRIORITY_HIGHEST) + "] ";
-            if (event._forceRun) {
-                _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[\u00BB]";
-            } else
-                _eventName = event._name + "\n" + eventStartOrder + eventPriority;
+            boolean addedLF = false;
+            if (eventStartOrder.isEmpty() && eventPriority.isEmpty()) {
+                if (event._forceRun) {
+                    addedLF = true;
+                    _eventName = event._name + "\n" + "[\u00BB]";
+                } else
+                    _eventName = event._name;
+            }
+            else {
+                addedLF = true;
+                if (event._forceRun) {
+                    _eventName = event._name + "\n" + eventStartOrder + eventPriority + "[\u00BB]";
+                } else
+                    _eventName = event._name + "\n" + eventStartOrder + eventPriority;
+            }
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
                 String[] splits = event._startWhenActivatedProfile.split("\\|");
                 Profile profile;
                 if (splits.length == 1) {
                     profile = editorFragment.activityDataWrapper.getProfileById(Long.valueOf(event._startWhenActivatedProfile), false, false, false);
-                    if (profile != null)
-                        _eventName = _eventName + "  " + "[#] " + profile._name;
+                    if (profile != null) {
+                        if (addedLF)
+                            _eventName = _eventName + "  ";
+                        else
+                            _eventName = _eventName + "\n";
+                        _eventName = _eventName + "[#] " + profile._name;
+                    }
                 } else {
-                    _eventName = _eventName + "  " + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                    if (addedLF)
+                        _eventName = _eventName + "  ";
+                    else
+                        _eventName = _eventName + "\n";
+                    _eventName = _eventName + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
                 }
             }
 

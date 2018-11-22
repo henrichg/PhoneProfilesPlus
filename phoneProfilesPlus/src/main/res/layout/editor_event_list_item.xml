@@ -134,13 +134,14 @@
             android:scaleType="fitCenter"
             android:paddingStart="2dp"
             android:paddingEnd="2dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7dp"
             android:src="@drawable/ic_profile_default" />
 
         <TextView
             android:id="@+id/event_list_item_profile_end_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:layout_alignTop="@id/event_list_item_profile_end_icon"
             android:layout_toEndOf="@id/event_list_item_profile_end_icon"
             android:paddingStart="10dp"
