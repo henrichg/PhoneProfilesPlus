@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageButton;
+import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +124,7 @@ public class ProfileDetailsFragment extends Fragment {
             String indicators = "";
             if (profile._showInActivator)
                 indicators = "[A]";
-            String sProfileName = profile.getProfileNameWithDuration("", indicators, true, dataWrapper.context);
+            Spannable sProfileName = profile.getProfileNameWithDuration("", indicators, true, dataWrapper.context);
 
             profileName.setText(sProfileName);
 

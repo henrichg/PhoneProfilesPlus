@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -179,9 +182,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 }
             }
 
-            //if (!isRunnable)
-            //    _eventName = _eventName + "\n\n" + context.getResources().getString(R.string.event_preferences_error);
-            eventName.setText(_eventName);
+            Spannable sbt = new SpannableString(_eventName);
+            sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), _eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            eventName.setText(sbt);
 
             if (ApplicationPreferences.applicationEditorPrefIndicator(context))
             {

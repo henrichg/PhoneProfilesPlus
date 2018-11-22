@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -202,7 +203,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
             }
 
-            String profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
+            Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
                     (!ApplicationPreferences.applicationActivatorGridLayout(fragment.getActivity())) &&
                             profile._checked &&
                             (!ApplicationPreferences.applicationActivatorHeader(fragment.getActivity())),

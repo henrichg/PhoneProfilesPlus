@@ -47,6 +47,8 @@ import android.provider.Telephony;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -3954,7 +3956,7 @@ public class PhoneProfilesService extends Service
 
             boolean isIconResourceID;
             String iconIdentifier;
-            String profileName;
+            Spannable profileName;
             Bitmap iconBitmap;
             Bitmap preferencesIndicator;
 
@@ -3981,10 +3983,12 @@ public class PhoneProfilesService extends Service
             {
                 isIconResourceID = true;
                 iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
+                String pName;
                 if (inHandlerThread)
-                    profileName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                    pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
                 else
-                    profileName = appContext.getResources().getString(R.string.empty_string);
+                    pName = appContext.getResources().getString(R.string.empty_string);
+                profileName = new SpannableString(pName);
                 iconBitmap = null;
                 preferencesIndicator = null;
             }

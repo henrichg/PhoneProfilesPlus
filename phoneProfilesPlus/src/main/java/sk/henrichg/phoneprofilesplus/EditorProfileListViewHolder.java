@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -78,7 +79,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         String indicators = "";
         if (profile._showInActivator)
             indicators = "[A]";
-        String _profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
+        Spannable _profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
                                     profile._checked &&
                                     (!ApplicationPreferences.applicationEditorHeader(context)),
                                     indicators, true, true,

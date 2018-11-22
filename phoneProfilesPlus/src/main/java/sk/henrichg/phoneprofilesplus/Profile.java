@@ -16,6 +16,9 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -1265,7 +1268,7 @@ public class Profile {
 
             String profileIcon = withProfile._icon;
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                                    DataWrapper.getProfileNameWithManualIndicator(withProfile, true, "", false, false, dataWrapper, false),
+                                    DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, dataWrapper, false),
                                     profileIcon, 0);
 
             /*
@@ -1998,7 +2001,7 @@ public class Profile {
         }
     }
 
-    String getProfileNameWithDuration(String eventName, String indicators, boolean multiLine, Context context) {
+    Spannable getProfileNameWithDuration(String eventName, String indicators, boolean multiLine, Context context) {
         String profileName = _name;
         if (!eventName.isEmpty())
             profileName = profileName + " " + eventName;
@@ -2016,6 +2019,7 @@ public class Profile {
                 durationString = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]";
             }
         }
+        int startSpan = profileName.length();
         if (!(indicators.isEmpty() && durationString.isEmpty())) {
             if (multiLine)
                 profileName = profileName + "\n";
@@ -2029,32 +2033,11 @@ public class Profile {
                 profileName = profileName + " ";
             profileName = profileName + durationString;
         }
-        return profileName;
+        Spannable sbt = new SpannableString(profileName);
+        if (multiLine)
+            sbt.setSpan(new RelativeSizeSpan(0.8f), startSpan, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return sbt;
     }
-    /*String getProfileNameWithDuration(boolean multiLine, Context context) {
-        String profileName = _name;
-        if ((_duration > 0) && (_afterDurationDo != Profile.AFTERDURATIONDO_NOTHING)) {
-            boolean showEndTime = false;
-            if (_checked) {
-                long endDurationTime = getActivatedProfileEndDurationTime(context);
-                if (endDurationTime > 0) {
-                    if (multiLine)
-                        profileName = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ")\n" + profileName;
-                    else
-                        profileName = "(de:" + timeDateStringFromTimestamp(context, endDurationTime) + ") " + profileName;
-                    showEndTime = true;
-                }
-            }
-            if (!showEndTime) {
-                //profileName = "[" + _duration + "] " + profileName;
-                if (multiLine)
-                    profileName = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]\n" + profileName;
-                else
-                    profileName = "[" + GlobalGUIRoutines.getDurationString(_duration) + "] " + profileName;
-            }
-        }
-        return profileName;
-    }*/
 
     @SuppressLint("SimpleDateFormat")
     private static String timeDateStringFromTimestamp(Context applicationContext, long timestamp){

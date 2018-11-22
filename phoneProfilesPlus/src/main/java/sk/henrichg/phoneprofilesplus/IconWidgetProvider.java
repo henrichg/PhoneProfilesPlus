@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -43,7 +45,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     for (int widgetId : allWidgetIds) {
                         boolean isIconResourceID;
                         String iconIdentifier;
-                        String profileName;
+                        Spannable profileName;
                         if (profile != null) {
                             isIconResourceID = profile.getIsIconResourceID();
                             iconIdentifier = profile.getIconIdentifier();
@@ -58,7 +60,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                                     ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
                             isIconResourceID = profile.getIsIconResourceID();
                             iconIdentifier = profile.getIconIdentifier();
-                            profileName = profile._name;
+                            profileName = new SpannableString(profile._name);
                         }
 
                         // prepare view for widget update

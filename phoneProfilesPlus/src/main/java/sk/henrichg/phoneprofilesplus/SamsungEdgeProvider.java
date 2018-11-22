@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.widget.RemoteViews;
 
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
@@ -94,7 +96,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
             boolean isIconResourceID;
             String iconIdentifier;
-            String profileName;
+            Spannable profileName;
             if (profile != null)
             {
                 profile.generateIconBitmap(context,
@@ -122,7 +124,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
-                profileName = profile._name;
+                profileName = new SpannableString(profile._name);
             }
             if (isIconResourceID)
             {

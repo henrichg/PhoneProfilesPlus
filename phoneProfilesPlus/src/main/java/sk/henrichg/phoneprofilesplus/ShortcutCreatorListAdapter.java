@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
 
         Profile profile = activityDataWrapper.profileList.get(position);
 
-        String profileName = profile.getProfileNameWithDuration("", "", false, fragment.getActivity());
+        Spannable profileName = profile.getProfileNameWithDuration("", "", false, fragment.getActivity());
         holder.profileName.setText(profileName);
 
         if (profile.getIsIconResourceID())
