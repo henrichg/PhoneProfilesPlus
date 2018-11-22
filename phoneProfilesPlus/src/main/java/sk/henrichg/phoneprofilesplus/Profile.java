@@ -2024,7 +2024,7 @@ public class Profile {
             if (multiLine)
                 profileName = profileName + "\n";
             else
-                profileName = profileName + "   ";
+                profileName = profileName + " ";
         }
         if (!indicators.isEmpty())
             profileName = profileName + indicators;
@@ -2034,8 +2034,7 @@ public class Profile {
             profileName = profileName + durationString;
         }
         Spannable sbt = new SpannableString(profileName);
-        if (multiLine)
-            sbt.setSpan(new RelativeSizeSpan(0.8f), startSpan, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        sbt.setSpan(new RelativeSizeSpan(0.8f), startSpan, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return sbt;
     }
 
