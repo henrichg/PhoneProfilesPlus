@@ -2989,7 +2989,7 @@ public class PhoneProfilesService extends Service
 
                         //Permissions.clearMergedPermissions(appContext);
 
-                        TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
+                        //TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
                         ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
 
                         ActivateProfileHelper.setLockScreenDisabled(appContext, false);

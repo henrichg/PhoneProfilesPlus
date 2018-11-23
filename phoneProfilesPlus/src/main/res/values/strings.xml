@@ -1278,6 +1278,8 @@
     <string name="about_application_support">Support:</string>
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
+    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
+    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

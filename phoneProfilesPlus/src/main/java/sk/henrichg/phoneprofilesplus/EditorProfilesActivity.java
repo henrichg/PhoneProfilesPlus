@@ -684,13 +684,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
 
-        boolean toneInstalled = TonesHandler.isToneInstalled(TonesHandler.TONE_ID, getApplicationContext());
-        menuItem = menu.findItem(R.id.menu_install_tone);
-        if ((menuItem != null) && toneInstalled)
-        {
-                menuItem.setVisible(false);
-        }
-
         menuItem = menu.findItem(R.id.menu_restart_events);
         if (menuItem != null)
         {
@@ -776,9 +769,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                     editor.apply();
                 }
                 GlobalGUIRoutines.reloadActivity(this, true);
-                return true;
-            case R.id.menu_install_tone:
-                TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getApplicationContext(), true);
                 return true;
             case R.id.menu_export:
                 exportData();

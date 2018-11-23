@@ -31,10 +31,6 @@
           android:title="@string/menu_dark_theme_on"
           android:orderInCategory="212"
           app:showAsAction="never" />
-    <item android:id="@+id/menu_install_tone"
-        android:title="@string/menu_install_tone"
-        android:orderInCategory="215"
-        app:showAsAction="never" />
     <item android:id="@+id/menu_import_export"
         android:title="@string/menu_import_export"
         android:orderInCategory="230"

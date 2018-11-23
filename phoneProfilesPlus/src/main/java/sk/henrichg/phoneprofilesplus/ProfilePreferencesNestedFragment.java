@@ -54,6 +54,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1983;
     private static final String PRF_GRANT_ROOT = "prf_pref_grantRoot";
+    private static final String PREF_INSTALL_SILENT_TONE = "prf_pref_soundInstallSilentTone";
 
     @Override
     public int addPreferencesFromResource() {
@@ -460,6 +461,35 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             });
         }
 
+        boolean toneInstalled = TonesHandler.isToneInstalled(TonesHandler.TONE_ID, getActivity().getApplicationContext());
+        if (!toneInstalled) {
+            Preference installTonePreference = prefMng.findPreference(PREF_INSTALL_SILENT_TONE);
+            if (installTonePreference != null) {
+                installTonePreference.setSummary(R.string.profile_preferences_installSilentTone_summary);
+                installTonePreference.setEnabled(true);
+                installTonePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        if (!TonesHandler.isToneInstalled(TonesHandler.TONE_ID, getActivity().getApplicationContext()))
+                            TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getActivity().getApplicationContext(), true);
+                        else {
+                            Toast msg = Toast.makeText(context.getApplicationContext(),
+                                    context.getResources().getString(R.string.profile_preferences_installSilentTone_installed_summary),
+                                    Toast.LENGTH_SHORT);
+                            msg.show();
+                        }
+                        return false;
+                    }
+                });
+            }
+        }
+        else {
+            Preference installTonePreference = prefMng.findPreference(PREF_INSTALL_SILENT_TONE);
+            if (installTonePreference != null) {
+                installTonePreference.setSummary(R.string.profile_preferences_installSilentTone_installed_summary);
+                installTonePreference.setEnabled(false);
+            }
+        }
     }
 
     void setPermissionsPreference() {
