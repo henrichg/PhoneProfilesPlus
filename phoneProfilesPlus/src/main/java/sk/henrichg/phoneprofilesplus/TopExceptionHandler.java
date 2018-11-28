@@ -86,37 +86,36 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     @SuppressLint("SimpleDateFormat")
     private void logIntoFile(String type, String tag, String text)
     {
-        try
-        {
-            File sd = Environment.getExternalStorageDirectory();
-            File exportDir = new File(sd, PPApplication.EXPORT_PATH);
-            if (!(exportDir.exists() && exportDir.isDirectory()))
-                //noinspection ResultOfMethodCallIgnored
-                exportDir.mkdirs();
+        if (PPApplication.logIntoFile) {
+            try {
+                File sd = Environment.getExternalStorageDirectory();
+                File exportDir = new File(sd, PPApplication.EXPORT_PATH);
+                if (!(exportDir.exists() && exportDir.isDirectory()))
+                    //noinspection ResultOfMethodCallIgnored
+                    exportDir.mkdirs();
 
-            File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);
+                File logFile = new File(sd, PPApplication.EXPORT_PATH + "/" + CRASH_FILENAME);
 
-            if (logFile.length() > 1024 * 10000)
-                resetLog();
+                if (logFile.length() > 1024 * 10000)
+                    resetLog();
 
-            if (!logFile.exists())
-            {
-                //noinspection ResultOfMethodCallIgnored
-                logFile.createNewFile();
+                if (!logFile.exists()) {
+                    //noinspection ResultOfMethodCallIgnored
+                    logFile.createNewFile();
+                }
+
+                //BufferedWriter for performance, true to set append to file flag
+                BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
+                String log = "";
+                SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
+                String time = sdf.format(Calendar.getInstance().getTimeInMillis());
+                log = log + time + "--" + type + "-----" + tag + "------" + text;
+                buf.append(log);
+                buf.newLine();
+                buf.flush();
+                buf.close();
+            } catch (IOException ignored) {
             }
-
-            //BufferedWriter for performance, true to set append to file flag
-            BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
-            String log = "";
-            SimpleDateFormat sdf = new SimpleDateFormat("d.MM.yy HH:mm:ss:S");
-            String time = sdf.format(Calendar.getInstance().getTimeInMillis());
-            log = log + time + "--" + type + "-----" + tag + "------" + text;
-            buf.append(log);
-            buf.newLine();
-            buf.flush();
-            buf.close();
-        }
-        catch (IOException ignored) {
         }
     }
 

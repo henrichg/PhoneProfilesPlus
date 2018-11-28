@@ -64,6 +64,7 @@ class Permissions {
     static final int PERMISSION_EVENT_WIFI_PREFERENCES = 34;
     static final int PERMISSION_EVENT_BLUETOOTH_PREFERENCES = 35;
     static final int PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES = 36;
+    static final int PERMISSION_LOG_TO_FILE = 37;
 
     static final int GRANT_TYPE_PROFILE = 1;
     static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -81,7 +82,8 @@ class Permissions {
     static final int GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG = 15;
     static final int GRANT_TYPE_RINGTONE_PREFERENCE = 16;
     static final int GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG = 17;
-    //static final int GRANT_TYPE_GRANT_ROOT = 18;
+    static final int GRANT_TYPE_LOG_TO_FILE = 18;
+    //static final int GRANT_TYPE_GRANT_ROOT = 19;
 
     static final int REQUEST_CODE = 5000;
 
@@ -1255,6 +1257,23 @@ class Permissions {
         }
     }
 
+    static boolean checkLogToFile(Context context, List<PermissionType>  permissions) {
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                boolean grantedWriteExternalStorage = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                if (permissions != null) {
+                    if (!grantedWriteExternalStorage)
+                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_LOG_TO_FILE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
+                }
+                return grantedWriteExternalStorage;
+            } else {
+                return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE);
+            }
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     static boolean grantProfilePermissions(Context context, Profile profile, boolean mergedProfile,
                                                   boolean onlyNotification,
                                                   //boolean forGUI, boolean monochrome, int monochromeValue,
@@ -1821,6 +1840,18 @@ class Permissions {
             return true;
     }
 
+    static void grantLogToFilePermissions(Context context) {
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            List<PermissionType> permissions = new ArrayList<>();
+            boolean granted = checkLogToFile(context, permissions);
+            if (!granted) {
+                GrantPermissionActivity.showNotification(GRANT_TYPE_LOG_TO_FILE, permissions, false,
+                        PPApplication.STARTUP_SOURCE_ACTIVATOR, true, null, false, false, null,
+                        false, context);
+            }
+        }
+    }
+
     static void removeProfileNotification(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -1849,13 +1880,23 @@ class Permissions {
             notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
     }
 
+    static void removeLogToFileNotification(Context context)
+    {
+        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null)
+            notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
+    }
+
+
     static void removeNotifications(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
             notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
             notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
+            notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);
         }
     }
 

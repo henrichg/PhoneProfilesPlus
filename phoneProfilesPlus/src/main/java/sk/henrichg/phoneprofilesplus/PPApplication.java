@@ -64,8 +64,8 @@ public class PPApplication extends Application {
     //static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_2_0;
 
-    private static final boolean logIntoLogCat = false;
-    private static final boolean logIntoFile = false;
+    static final boolean logIntoLogCat = false;
+    static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PhoneProfilesService.onCreate"
@@ -325,6 +325,7 @@ public class PPApplication extends Application {
     static final int PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID = 700436;
     static final int PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID = 700437;
     static final int MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID = 700438;
+    static final int GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID = 700439;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
@@ -452,6 +453,9 @@ public class PPApplication extends Application {
 
         if (checkAppReplacingState())
             return;
+
+        if (logIntoFile)
+            Permissions.grantLogToFilePermissions(getApplicationContext());
 
         // Obtain the FirebaseAnalytics instance.
         //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -637,8 +641,7 @@ public class PPApplication extends Application {
         if (!logIntoFile)
             return;
 
-        try
-        {
+        try {
             // warnings when logIntoFile == false
             File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
@@ -651,8 +654,7 @@ public class PPApplication extends Application {
             if (logFile.length() > 1024 * 10000)
                 resetLog();
 
-            if (!logFile.exists())
-            {
+            if (!logFile.exists()) {
                 //noinspection ResultOfMethodCallIgnored
                 logFile.createNewFile();
             }
@@ -667,8 +669,7 @@ public class PPApplication extends Application {
             buf.newLine();
             buf.flush();
             buf.close();
-        }
-        catch (IOException ignored) {
+        } catch (IOException ignored) {
         }
     }
 
