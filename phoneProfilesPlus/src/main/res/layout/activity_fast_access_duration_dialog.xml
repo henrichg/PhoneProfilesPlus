@@ -60,6 +60,7 @@
                 android:textSize="18sp"
                 android:textColor="?attr/colorAccent"
                 android:maxLines="1"
+                android:ellipsize="end"
                 android:clickable="true"
                 android:focusable="true"/>
 

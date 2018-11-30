@@ -168,6 +168,7 @@
             android:layout_marginRight="15dp"
             android:layout_alignParentBottom="true"
             android:text="@string/empty_string"
+            android:ellipsize="end"
             android:maxLines="1"/>
 
         <fragment android:id="@+id/location_editor_map"

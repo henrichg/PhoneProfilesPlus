@@ -36,6 +36,7 @@
         android:text="@string/empty_string"
         android:textSize="14sp"
         android:textStyle="bold"
+        android:ellipsize="end"
         android:maxLines="1"/>
 
 </RelativeLayout>

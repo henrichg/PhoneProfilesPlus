@@ -39,6 +39,7 @@
             android:layout_marginStart="3dp"
             android:text="@string/profile_name_default"
             android:textSize="15sp"
+            android:ellipsize="end"
             android:maxLines="1"/>
 
         <ImageView

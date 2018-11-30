@@ -46,6 +46,7 @@
             android:layout_marginStart="5dp"
             android:text="@string/profile_name_default"
             style="@style/TextAppearance.Compat.Notification.Title"
+            android:ellipsize="end"
             android:maxLines="1" />
 
         <ImageView

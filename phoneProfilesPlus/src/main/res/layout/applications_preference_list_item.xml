@@ -71,6 +71,7 @@
             android:text="@string/empty_string"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:ellipsize="end"
             android:maxLines="1"/>
 
         <TextView
@@ -82,6 +83,7 @@
             android:layout_below="@id/applications_pref_dlg_item_app_name"
             android:text="@string/empty_string"
             android:textSize="13sp"
+            android:ellipsize="end"
             android:maxLines="1"/>
 
         <TextView
@@ -93,6 +95,7 @@
             android:layout_below="@id/applications_pref_dlg_item_app_type"
             android:text="Startup delay: 00:00:00"
             android:textSize="13sp"
+            android:ellipsize="end"
             android:maxLines="1"
             tools:ignore="HardcodedText"/>
 

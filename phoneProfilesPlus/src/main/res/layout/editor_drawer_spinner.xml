@@ -5,4 +5,5 @@
           android:layout_height="wrap_content"
           android:textColor="?attr/editorFilterTitleColor"
           android:textSize="16sp"
+          android:ellipsize="end"
           android:maxLines="1"/>

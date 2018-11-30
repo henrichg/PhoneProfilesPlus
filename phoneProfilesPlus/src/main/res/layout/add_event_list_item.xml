@@ -54,6 +54,7 @@
         android:paddingEnd="10dp"
         android:text="@string/profile_preference_profile_not_set"
         android:textSize="15sp"
+        android:ellipsize="end"
         android:maxLines="1"/>
 
     <ImageView
@@ -95,6 +96,7 @@
         android:paddingEnd="10dp"
         android:text="@string/profile_preference_profile_not_set"
         android:textSize="15sp"
+        android:ellipsize="end"
         android:maxLines="1"/>
 
     <ImageView

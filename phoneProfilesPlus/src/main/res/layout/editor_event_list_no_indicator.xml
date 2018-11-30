@@ -36,6 +36,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="?attr/colorAccent" />
 
     </RelativeLayout>
