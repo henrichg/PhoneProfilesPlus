@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
+import android.text.Spannable;
 
 import com.google.android.apps.dashclock.api.DashClockExtension;
 import com.google.android.apps.dashclock.api.ExtensionData;
@@ -73,7 +74,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         {
             isIconResourceID = profile.getIsIconResourceID();
             iconIdentifier = profile.getIconIdentifier();
-            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, false, false, dataWrapper, false);
+            profileName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, dataWrapper, false);
         }
         else
         {
