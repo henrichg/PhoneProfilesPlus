@@ -256,7 +256,7 @@
             <CheckBoxPreference
                 android:key="notificationShowButtonExit"
                 android:title="@string/phone_profiles_pref_notificationShowButtonExit"
-                android:defaultValue="true"
+                android:defaultValue="false"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceCategory>

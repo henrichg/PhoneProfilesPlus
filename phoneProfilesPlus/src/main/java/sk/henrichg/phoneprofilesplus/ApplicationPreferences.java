@@ -594,7 +594,7 @@ class ApplicationPreferences {
     }
 
     static boolean notificationShowButtonExit(Context context) {
-        return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_BUTTON_EXIT, true);
+        return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_BUTTON_EXIT, false);
     }
 
     static boolean applicationWidgetOneRowPrefIndicator(Context context) {
