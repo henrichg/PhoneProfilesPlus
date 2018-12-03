@@ -2576,6 +2576,10 @@ class ActivateProfileHelper {
             context.sendBroadcast(intent2);
         } catch (Exception ignored) {}
 
+        // dash clock extension
+        Intent intent3 = new Intent("DashClockBroadcastReceiver");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
         // activities
         Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
         intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
