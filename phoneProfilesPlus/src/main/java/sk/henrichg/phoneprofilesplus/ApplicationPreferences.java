@@ -133,6 +133,10 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER = "applicationWidgetOneRowShowBorder";
     static final String PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER = "applicationWidgetIconShowBorder";
     static final String PREF_APPLICATION_NOT_DARK_THEME = "applicationNotDarkTheme";
+    static final String PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS = "applicationWidgetListCustomIconLightness";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS = "applicationWidgetOneRowCustomIconLightness";
+    static final String PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS = "applicationWidgetIconCustomIconLightness";
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS = "applicationSamsungEdgeCustomIconLightness";
 
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)
@@ -655,6 +659,22 @@ class ApplicationPreferences {
 
     static boolean applicationWidgetIconShowBorder(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, false);
+    }
+
+    static boolean applicationWidgetListCustomIconLightness(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, false);
+    }
+
+    static boolean applicationWidgetOneRowCustomIconLightness(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, false);
+    }
+
+    static boolean applicationWidgetIconCustomIconLightness(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, false);
+    }
+
+    static boolean applicationSamsungEdgeCustomIconLightness(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, false);
     }
 
 }
