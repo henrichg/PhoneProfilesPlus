@@ -64,7 +64,7 @@ public class PPApplication extends Application {
     //static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_2_0;
 
-    static final boolean logIntoLogCat = false;
+    static final boolean logIntoLogCat = true;
     static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -272,6 +272,8 @@ public class PPApplication extends Application {
                                         //+"|EditorProfilesActivity.selectDrawerItem"
 
                                         //+"|NFCTagPreference.showEditMenu"
+
+                                        +"|Profile.generateIconBitmap"
             ;
 
 

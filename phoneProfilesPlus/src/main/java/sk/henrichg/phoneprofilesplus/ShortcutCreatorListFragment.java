@@ -288,19 +288,27 @@ public class ShortcutCreatorListFragment extends Fragment {
                     }
 
                     if (ApplicationPreferences.applicationWidgetIconColor(activityDataWrapper.context).equals("1")) {
-                        int monochromeValue = 0xFF;
-                        String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(activityDataWrapper.context);
-                        if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
-                        if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
-                        if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
-                        if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
-                        //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
-
                         if (isIconResourceID || useCustomColor) {
                             // icon is from resource or colored by custom color
+                            int monochromeValue = 0xFF;
+                            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(activityDataWrapper.context);
+                            if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
+                            if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
+                            if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
+                            if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
+                            //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
                             profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, context*/);
-                        } else
+                        } else {
+                            float monochromeValue = 255f;
+                            String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness(context);
+                            if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
+                            if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;
+                            if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0f;
+                            if (applicationWidgetIconLightness.equals("75")) monochromeValue = 128f;
+                            //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 255f;
                             profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
+                            profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
+                        }
                     }
 
                     if (Build.VERSION.SDK_INT < 26)

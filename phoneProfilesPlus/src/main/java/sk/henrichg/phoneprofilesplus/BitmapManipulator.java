@@ -367,31 +367,33 @@ class BitmapManipulator {
         paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
         Matrix matrix = new Matrix();
         canvas.drawBitmap(bitmap, matrix, paint);
-        //ColorFilter filter = new PorterDuffColorFilter(Color.YELLOW, PorterDuff.Mode.MULTIPLY);
-        //paint.setColorFilter(filter);
-        //canvas.drawBitmap(monochromeBitmap, matrix, paint);
-
-        /*
-        float[] colorTransform = {
-                0, 1f, 0, 0, 0,
-                0, 0, 0f, 0, 0,
-                0, 0, 0, 0f, 0,
-                0, 0, 0, 1f, 0};
-
-        ColorMatrix colorMatrix = new ColorMatrix();
-        colorMatrix.setSaturation(0f); //Remove Colour
-        colorMatrix.set(colorTransform); //Apply the Red
-
-        ColorMatrixColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
-        Paint paint = new Paint();
-        paint.setColorFilter(colorFilter);
-
-        Canvas canvas = new Canvas(monochromeBitmap);
-        Matrix matrix = new Matrix();
-        canvas.drawBitmap(bitmap, matrix, paint);
-        */
 
         return monochromeBitmap;
+    }
+
+    static Bitmap setBitmapBrightness(Bitmap bitmap, float brightness)
+    {
+        if (bitmap == null)
+            return null;
+
+        float[] colorTransform = {
+                1f, 0, 0, 0, brightness,
+                0, 1f, 0, 0, brightness,
+                0, 0, 1f, 0, brightness,
+                0, 0, 0, 1f, 0};
+
+        Bitmap newBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                bitmap.getHeight(),
+                bitmap.getConfig());
+        Canvas canvas = new Canvas(newBitmap);
+        Paint paint = new Paint();
+        ColorMatrix colorMatrix = new ColorMatrix();
+        colorMatrix.set(colorTransform);
+        paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
+        Matrix matrix = new Matrix();
+        canvas.drawBitmap(bitmap, matrix, paint);
+
+        return newBitmap;
     }
 
     private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight)
