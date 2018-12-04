@@ -65,7 +65,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
         }
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
         listView = findViewById(R.id.activity_log_list);
 

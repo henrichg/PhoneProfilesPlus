@@ -1217,9 +1217,19 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);
             }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
+            if (_preference != null) {
+                boolean colorful = preferences.getString(key, "0").equals("1");
+                _preference.setEnabled(colorful);
+            }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
+            if (_preference != null) {
+                boolean colorful = preferences.getString(key, "0").equals("1");
+                _preference.setEnabled(colorful);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
             if (_preference != null) {
                 boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);
@@ -1231,9 +1241,19 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);
             }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
+            if (_preference != null) {
+                boolean colorful = preferences.getString(key, "0").equals("1");
+                _preference.setEnabled(colorful);
+            }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS);
+            if (_preference != null) {
+                boolean colorful = preferences.getString(key, "0").equals("1");
+                _preference.setEnabled(colorful);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
             if (_preference != null) {
                 boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);

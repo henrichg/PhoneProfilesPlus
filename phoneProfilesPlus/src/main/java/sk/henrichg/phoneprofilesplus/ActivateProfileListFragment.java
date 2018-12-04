@@ -55,7 +55,7 @@ public class ActivateProfileListFragment extends Fragment {
         // configuration changes for example
         setRetainInstance(true);
 
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
     }
 
     @Override
@@ -173,7 +173,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         private LoadProfileListAsyncTask (ActivateProfileListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
         }
 
         @Override

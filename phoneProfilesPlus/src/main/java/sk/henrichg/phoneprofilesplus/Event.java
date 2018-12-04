@@ -816,7 +816,7 @@ class Event {
                     if (profileStartWhenActivatedChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile) + ": ";
-                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
+                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
                         String[] splits = startWhenActivatedProfile.split("\\|");
                         Profile profile;
                         if (splits.length == 1) {

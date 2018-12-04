@@ -282,7 +282,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     private Profile createProfile(int startupSource, long profile_id,
                                   int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
         if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
             // no change this in shared profile
@@ -603,7 +603,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     {
         Profile profile = getProfileFromPreferences(profile_id, new_profile_mode, predefinedProfileIndex);
         if (profile != null) {
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
             int startupSource;
             if (profile_id == Profile.SHARED_PROFILE_ID)

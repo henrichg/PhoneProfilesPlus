@@ -1902,7 +1902,7 @@ public class Profile {
 
     //----------------------------------
 
-    void generateIconBitmap(Context context, boolean monochrome, int monochromeValue)
+    void generateIconBitmap(Context context, boolean monochrome, int monochromeValue, boolean useMonochromeValueForCustomIcon)
     {
         if (!getIsIconResourceID())
         {
@@ -1938,7 +1938,8 @@ public class Profile {
                 if (monochromeValue == 0xC0) monoValue = 128f;
                 //if (monochromeValue == 0xFF) monoValue = 255f;
                 _iconBitmap = BitmapManipulator.grayScaleBitmap(_iconBitmap);
-                _iconBitmap = BitmapManipulator.setBitmapBrightness(_iconBitmap, monoValue);
+                if (useMonochromeValueForCustomIcon)
+                    _iconBitmap = BitmapManipulator.setBitmapBrightness(_iconBitmap, monoValue);
             }
             //_iconDrawable = null;
         }

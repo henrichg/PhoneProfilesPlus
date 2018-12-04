@@ -147,7 +147,7 @@ public class EditorEventListFragment extends Fragment
         //Log.d("EditorEventListFragment.onCreate","filterType="+filterType);
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
 
         getActivity().getIntent();
 
@@ -265,7 +265,7 @@ public class EditorEventListFragment extends Fragment
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             _orderType = orderType;
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
         }
 
         @Override

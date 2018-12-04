@@ -33,7 +33,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 if (applicationWidgetOneRowIconLightness.equals("75")) monochromeValue = 0xC0;
                 //if (applicationWidgetOneRowIconLightness.equals("100")) monochromeValue = 0xFF;
 
-                DataWrapper dataWrapper = new DataWrapper(context,  ApplicationPreferences.applicationWidgetOneRowIconColor(context).equals("1"), monochromeValue);
+                DataWrapper dataWrapper = new DataWrapper(context,
+                        ApplicationPreferences.applicationWidgetOneRowIconColor(context).equals("1"), monochromeValue,
+                        ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context));
 
                 Profile profile = dataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context));
@@ -59,7 +61,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
                             profile.generateIconBitmap(context,
                                     ApplicationPreferences.applicationWidgetOneRowIconColor(context).equals("1"),
-                                    monochromeValue);
+                                    monochromeValue,
+                                    ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context));
                             isIconResourceID = profile.getIsIconResourceID();
                             iconIdentifier = profile.getIconIdentifier();
                             profileName = new SpannableString(profile._name);

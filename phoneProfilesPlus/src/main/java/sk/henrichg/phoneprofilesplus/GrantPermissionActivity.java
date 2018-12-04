@@ -91,7 +91,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false);
         if (profile_id != Profile.SHARED_PROFILE_ID)
             profile = dataWrapper.getProfileById(profile_id, false, false, mergedProfile);
         else

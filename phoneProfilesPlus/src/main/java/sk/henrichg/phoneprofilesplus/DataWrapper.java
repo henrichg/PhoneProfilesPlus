@@ -57,6 +57,7 @@ public class DataWrapper {
     //private boolean forGUI = false;
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
+    private boolean useMonochromeValueForCustomIcon = false;
 
     boolean profileListFilled = false;
     boolean eventListFilled = false;
@@ -68,25 +69,28 @@ public class DataWrapper {
     DataWrapper(Context c,
                         //boolean fgui,
                         boolean mono,
-                        int monoVal)
+                        int monoVal,
+                        boolean useMonoValForCustomIcon)
     {
         context = c.getApplicationContext();
 
-        setParameters(/*fgui, */mono, monoVal);
+        setParameters(/*fgui, */mono, monoVal, useMonoValForCustomIcon);
     }
 
     void setParameters(
             //boolean fgui,
             boolean mono,
-            int monoVal)
+            int monoVal,
+            boolean useMonoValForCustomIcon)
     {
         //forGUI = fgui;
         monochrome = mono;
         monochromeValue = monoVal;
+        useMonochromeValueForCustomIcon = useMonoValForCustomIcon;
     }
 
     private DataWrapper copyDataWrapper() {
-        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue);
+        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);
         }
@@ -116,7 +120,7 @@ public class DataWrapper {
             for (Iterator<Profile> it = newProfileList.iterator(); it.hasNext();) {
                 Profile profile = it.next();
                 if (generateIcons)
-                    profile.generateIconBitmap(context, monochrome, monochromeValue);
+                    profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
                     profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             }
@@ -425,7 +429,7 @@ public class DataWrapper {
         if (/*forGUI &&*/ (profile != null))
         {
             if (generateIcon)
-                profile.generateIconBitmap(context, monochrome, monochromeValue);
+                profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
             if (generateIndicators)
                 profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
         }
@@ -508,7 +512,7 @@ public class DataWrapper {
         if (/*forGUI &&*/ (profile != null))
         {
             if (generateIcon)
-                profile.generateIconBitmap(context, monochrome, monochromeValue);
+                profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
             if (generateIndicators)
                 profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
         }
@@ -620,7 +624,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).getProfileIcon(profile);
             if (isIconResourceID && iconIdentifier.equals("ic_profile_default") && (!profile.getIsIconResourceID())) {
                 if (generateIcon)
-                    profile.generateIconBitmap(context, monochrome, monochromeValue);
+                    profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
                     profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
             }
@@ -737,12 +741,12 @@ public class DataWrapper {
                 ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
                 Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
-                _profile.generateIconBitmap(context, monochrome, monochromeValue);
+                _profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 shortcuts.add(createShortcutInfo(_profile, true));
 
                 for (Profile profile : countedProfiles) {
                     PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "countedProfile=" + profile._name);
-                    profile.generateIconBitmap(context, monochrome, monochromeValue);
+                    profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                     shortcuts.add(createShortcutInfo(profile, false));
                 }
 
@@ -750,7 +754,7 @@ public class DataWrapper {
                 if (shortcutsCount < limit) {
                     for (Profile profile : notCountedProfiles) {
                         PPApplication.logE("DataWrapper.setDynamicLauncherShortcuts", "notCountedProfile=" + profile._name);
-                        profile.generateIconBitmap(context, monochrome, monochromeValue);
+                        profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                         shortcuts.add(createShortcutInfo(profile, false));
 
                         ++shortcutsCount;

@@ -105,7 +105,7 @@ public class ProfileDetailsFragment extends Fragment {
         //else
         //    profileIndicator = null;
 
-        DataWrapper dataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
 
         final Profile profile = dataWrapper.getProfileById(profile_id, true, true, false);
 

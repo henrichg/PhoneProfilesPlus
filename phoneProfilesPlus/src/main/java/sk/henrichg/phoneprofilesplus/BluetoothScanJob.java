@@ -540,7 +540,7 @@ class BluetoothScanJob extends Job {
     static void startScanner(Context context, boolean fromDialog)
     {
         PPApplication.logE("$$$ BluetoothScanJob.startScanner", "xxx");
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0);
+        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
         if (fromDialog || ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
 
 

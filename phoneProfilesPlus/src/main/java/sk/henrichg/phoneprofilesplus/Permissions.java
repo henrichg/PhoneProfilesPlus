@@ -574,7 +574,7 @@ class Permissions {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
                 Profile _profile = DatabaseHandler.getInstance(dataWrapper.context).getProfile(profile._id, false);
                 if (_profile == null) return;// true;
                 if (!_profile.getIsIconResourceID()) {

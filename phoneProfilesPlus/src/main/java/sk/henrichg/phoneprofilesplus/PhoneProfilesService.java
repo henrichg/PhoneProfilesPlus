@@ -2979,7 +2979,7 @@ public class PhoneProfilesService extends Service
                         return;
                     }
 
-                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
                     PPApplication.createNotificationChannels(appContext);
                     dataWrapper.setDynamicLauncherShortcuts();
@@ -3857,7 +3857,7 @@ public class PhoneProfilesService extends Service
                                 }
 
                                 if (PhoneProfilesService.getInstance() != null) {
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                                     dataWrapper.restartEvents(unblockEventsRun, true, true, false, false);
                                     dataWrapper.invalidateDataWrapper();
                                 }
@@ -3976,7 +3976,7 @@ public class PhoneProfilesService extends Service
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false);
 
                 if (inHandlerThread) {
-                    profile.generateIconBitmap(appContext, false, 0);
+                    profile.generateIconBitmap(appContext, false, 0, false);
                     if (ApplicationPreferences.notificationPrefIndicator(appContext))
                         profile.generatePreferencesIndicator(appContext, false, 0);
                     iconBitmap = profile._iconBitmap;
@@ -4281,7 +4281,7 @@ public class PhoneProfilesService extends Service
 
             if (!runningInForeground) {
             //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 _showProfileNotification(null, false, dataWrapper);
                 dataWrapper.invalidateDataWrapper();
                 runningInForeground = true;
@@ -4298,7 +4298,7 @@ public class PhoneProfilesService extends Service
             public void run() {
                 PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","instance="+PhoneProfilesService.getInstance());
                 if (PhoneProfilesService.getInstance() != null) {
-                    DataWrapper dataWrapper = new DataWrapper(PhoneProfilesService.getInstance().getApplicationContext(), false, 0);
+                    DataWrapper dataWrapper = new DataWrapper(PhoneProfilesService.getInstance().getApplicationContext(), false, 0, false);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                     if (PhoneProfilesService.getInstance() != null) {
                         PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","_showProfileNotification()");
@@ -4313,7 +4313,7 @@ public class PhoneProfilesService extends Service
     private void removeProfileNotification(Context context, boolean onlyEmpty)
     {
         if (onlyEmpty) {
-            DataWrapper dataWrapper = new DataWrapper(context, false, 0);
+            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
             _showProfileNotification(null, false, dataWrapper);
             dataWrapper.invalidateDataWrapper();
         }

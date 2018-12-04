@@ -42,7 +42,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
                             if (PPApplication.logEnabled())
                                 PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "getIsManualProfileActivation()="+dataWrapper.getIsManualProfileActivation(true));

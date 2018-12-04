@@ -44,11 +44,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
+            dataWrapper = new DataWrapper(context, ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
+                                            monochromeValue, ApplicationPreferences.applicationWidgetListCustomIconLightness(context));
         }
         else
         {
-            dataWrapper.setParameters(ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"), monochromeValue);
+            dataWrapper.setParameters(ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
+                                        monochromeValue, ApplicationPreferences.applicationWidgetListCustomIconLightness(context));
         }
     }
 

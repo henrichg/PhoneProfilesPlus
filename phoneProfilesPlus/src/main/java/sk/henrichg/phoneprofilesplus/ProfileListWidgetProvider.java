@@ -180,7 +180,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             {
                 profile.generateIconBitmap(context,
                         ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
-                        monochromeValue);
+                        monochromeValue,
+                        ApplicationPreferences.applicationWidgetListCustomIconLightness(context));
                 if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
                     profile.generatePreferencesIndicator(context,
                         ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
@@ -198,7 +199,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                 profile.generateIconBitmap(context,
                         ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
-                        monochromeValue);
+                        monochromeValue,
+                        ApplicationPreferences.applicationWidgetListCustomIconLightness(context));
                 if (ApplicationPreferences.applicationWidgetListPrefIndicator(context))
                     profile.generatePreferencesIndicator(context,
                         ApplicationPreferences.applicationWidgetListIconColor(context).equals("1"),
@@ -339,7 +341,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     {
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
+            dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
         }
     }
 

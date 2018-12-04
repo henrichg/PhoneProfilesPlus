@@ -50,7 +50,7 @@ public class LocationGeofencePreference extends DialogPreference {
 
         this.context = context;
 
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
     }
 
     @Override

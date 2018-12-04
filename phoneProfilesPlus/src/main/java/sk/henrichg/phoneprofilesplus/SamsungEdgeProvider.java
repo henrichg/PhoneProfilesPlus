@@ -101,7 +101,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             {
                 profile.generateIconBitmap(context,
                         ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
-                        monochromeValue);
+                        monochromeValue,
+                        ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context));
                 /*profile.generatePreferencesIndicator(context,
                         ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
                         monochromeValue);*/
@@ -118,7 +119,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                 profile.generateIconBitmap(context,
                         ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
-                        monochromeValue);
+                        monochromeValue,
+                        ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context));
                 /*profile.generatePreferencesIndicator(context,
                         ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
                         monochromeValue);*/
@@ -238,7 +240,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     {
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0);
+            dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
         }
     }
 

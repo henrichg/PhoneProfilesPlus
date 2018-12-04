@@ -50,7 +50,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
                             SearchCalendarEventsJob.scheduleJob(false, null, true);
 
-                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                             //dataWrapper.clearSensorsStartTime();
                             dataWrapper.restartEvents(false, true, false, false, false);
                         }

@@ -506,7 +506,7 @@ class PhoneStateScanner extends PhoneStateListener {
                             localCellsList.add(new MobileCellsData(cellIdToRegister, cellsNameForAutoRegistration, true, false, Calendar.getInstance().getTimeInMillis()));
                             db.saveMobileCellsList(localCellsList, true, true);
 
-                            DataWrapper dataWrapper = new DataWrapper(context, false, 0);
+                            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
 
                             synchronized (eventList) {
                                 for (Long event_id : eventList) {

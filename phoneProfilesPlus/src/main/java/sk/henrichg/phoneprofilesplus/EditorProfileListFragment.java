@@ -132,7 +132,7 @@ public class EditorProfileListFragment extends Fragment
                 getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorProfileListFragment.FILTER_TYPE_ALL) :
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
 
         setHasOptionsMenu(true);
 
@@ -250,7 +250,7 @@ public class EditorProfileListFragment extends Fragment
         private LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
             //_baseContext = fragment.getActivity();
         }
 

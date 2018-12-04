@@ -132,7 +132,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0);
+                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                         if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
                             dataWrapper.addActivityLog(logType, null, null, null, 0);
                         dataWrapper.restartEvents(unblockEventsRun, true, true, true, false);

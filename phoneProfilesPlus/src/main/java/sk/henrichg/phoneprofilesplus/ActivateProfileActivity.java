@@ -140,7 +140,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         // add toolbar height
         popupHeight = popupHeight + (25f + 1f + 3f) * scale;
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(true);
         dataWrapper.invalidateDataWrapper();
 
