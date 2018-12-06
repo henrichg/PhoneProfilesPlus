@@ -108,7 +108,7 @@ public class PPApplication extends Application {
                                          */
 
                                          //+"|ActivateProfileHelper.setZenMode"
-                                         //+"|ActivateProfileHelper.setVolumes"
+                                         +"|ActivateProfileHelper.setVolumes"
                                          //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
 
