@@ -88,8 +88,6 @@ public class PPApplication extends Application {
                                          +"|PPApplication.setBlockProfileEventActions"
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
 
-                                         +"|PPApplication.getSystemProperty"
-
                                          //+"|EditorProfilesActivity.onCreate"
 
                                          //+"|PostDelayedBroadcastReceiver"
@@ -107,9 +105,6 @@ public class PPApplication extends Application {
                                          +"|$$$$$ EditorProfilesActivity"
                                          */
 
-                                         //+"|ActivateProfileHelper.setZenMode"
-                                         +"|ActivateProfileHelper.setVolumes"
-                                         //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
 
                                          //+"|PPApplication.startHandlerThread"
@@ -143,8 +138,8 @@ public class PPApplication extends Application {
                                          //+"|Permissions.checkVibrateWhenRinging"
                                          //+"|ActivateProfileHelper.setZenMode"
                                          //+"|ActivateProfileHelper.setRingerMode"
-                                         //+"|ActivateProfileHelper.setVolumes"
-                                         //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.setVolumes"
+                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
