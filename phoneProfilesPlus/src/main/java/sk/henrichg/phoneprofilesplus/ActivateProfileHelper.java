@@ -859,10 +859,17 @@ class ActivateProfileHelper {
                 try {
                     switch (zenMode) {
                         case ZENMODE_SILENT:
-                            audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                            //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             //try { Thread.sleep(1000); } catch (InterruptedException e) { }
                             //SystemClock.sleep(1000);
-                            PPApplication.sleep(1000);
+                            //PPApplication.sleep(1000);
+                            //audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+                            if ((_zenMode != ZENMODE_ALL) && canChangeZenMode(context, false)) {
+                                PPApplication.logE("ActivateProfileHelper.setZenMode", "change zen mode");
+                                PPNotificationListenerService.requestInterruptionFilter(context, zenMode);
+                                InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
+                                PPApplication.sleep(500);
+                            }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                             break;
                         default:
@@ -1435,14 +1442,15 @@ class ActivateProfileHelper {
                 case Profile.RINGERMODE_SILENT:
                     PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=SILENT");
                     if (android.os.Build.VERSION.SDK_INT >= 21) {
-                        int systemRingerMode = audioManager.getRingerMode();
-                        //int systemZenMode = getSystemZenMode(context);
+                        /*int systemRingerMode = audioManager.getRingerMode();
+                        int systemZenMode = getSystemZenMode(context);
                         PPApplication.logE("ActivateProfileHelper.setRingerMode", "systemRingerMode="+systemRingerMode);
-                        //PPApplication.logE("ActivateProfileHelper.setRingerMode", "systemZenMode="+systemZenMode);
-                        if (systemRingerMode != AudioManager.RINGER_MODE_SILENT) {
-                            //setZenMode(ZENMODE_SILENT, audioManager, AudioManager.RINGER_MODE_SILENT);
+                        PPApplication.logE("ActivateProfileHelper.setRingerMode", "systemZenMode="+systemZenMode);
+                        if ((systemZenMode != ActivateProfileHelper.ZENMODE_ALL) ||
+                                (systemRingerMode != AudioManager.RINGER_MODE_SILENT)) {
                             setZenMode(context, ZENMODE_SILENT, audioManager, AudioManager.RINGER_MODE_NORMAL);
-                        }
+                        }*/
+                        setZenMode(context, ZENMODE_SILENT, audioManager, AudioManager.RINGER_MODE_SILENT);
                     }
                     else {
                         setZenMode(context, ZENMODE_ALL, audioManager, AudioManager.RINGER_MODE_SILENT);
