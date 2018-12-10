@@ -868,8 +868,8 @@ class ActivateProfileHelper {
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
                             if ((systemZenMode != ZENMODE_ALL) && canChangeZenMode(context, false)) {
                                 PPApplication.logE("ActivateProfileHelper.setZenMode", "change zen mode");
-                                PPNotificationListenerService.requestInterruptionFilter(context, zenMode);
-                                InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
+                                PPNotificationListenerService.requestInterruptionFilter(context, ZENMODE_ALL);
+                                InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, ZENMODE_ALL);
                                 PPApplication.sleep(500);
                             }
                             audioManager.setRingerMode(AudioManager.RINGER_MODE_SILENT);
