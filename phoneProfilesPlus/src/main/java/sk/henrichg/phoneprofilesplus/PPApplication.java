@@ -31,7 +31,6 @@ import com.stericson.RootShell.RootShell;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootTools.RootTools;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,10 +66,12 @@ public class PPApplication extends Application {
     //static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_2_0;
 
-    static final boolean logIntoLogCat = false;
+    static final boolean logIntoLogCat = true;
     static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
+                                         +"|PPApplication.isMIUI"
+                                         +"|PPApplication.isEMUI"
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
@@ -1761,6 +1762,7 @@ public class PPApplication extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        PPApplication.logE("PPApplication.isMIUI", "miuiRom="+miuiRom);
         return miuiRom ||
                 Build.BRAND.equalsIgnoreCase("xiaomi") ||
                 Build.MANUFACTURER.equalsIgnoreCase("xiaomi") ||
@@ -1799,11 +1801,13 @@ public class PPApplication extends Application {
 
     private static boolean isEMUI() {
         String emuiRomName = getEmuiRomName();
-        return "EmotionUI_3.0.1".equalsIgnoreCase(emuiRomName) ||
-                "EmotionUI_3.1".equalsIgnoreCase(emuiRomName) ||
-                "EmotionUI_4.1".equalsIgnoreCase(emuiRomName) ||
-                "EmotionUI_3.0".equalsIgnoreCase(emuiRomName) ||
-                ("EmotionUI_2.3".equalsIgnoreCase(emuiRomName) || Build.DISPLAY.toLowerCase().contains("emui2.3") || "EMUI 2.3".equalsIgnoreCase(emuiRomName)) ||
+        PPApplication.logE("PPApplication.isEMUI", "emuiRomName="+emuiRomName);
+        String romName = "";
+        if (emuiRomName != null)
+            romName = emuiRomName.toLowerCase();
+
+        return (romName.indexOf("emotionui_") == 0) ||
+                Build.DISPLAY.toLowerCase().contains("emui2.3") || "EMUI 2.3".equalsIgnoreCase(emuiRomName) ||
                 Build.BRAND.equalsIgnoreCase("huawei") ||
                 Build.MANUFACTURER.equalsIgnoreCase("huawei") ||
                 Build.FINGERPRINT.toLowerCase().contains("huawei");

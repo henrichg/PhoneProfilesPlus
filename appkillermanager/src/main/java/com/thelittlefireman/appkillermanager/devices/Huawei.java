@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.thelittlefireman.appkillermanager.R;
@@ -29,15 +30,20 @@ public class Huawei extends DeviceAbstract {
     @Override
     public boolean isThatRom() {
         return isEmotionUI_23() ||
-                isEmotionUI_3() ||
+                /*isEmotionUI_3() ||
                 isEmotionUI_301() ||
                 isEmotionUI_31() ||
-                isEmotionUI_41() ||
+                isEmotionUI_41() ||*/
+                isEmotionUI() ||
                 Build.BRAND.equalsIgnoreCase(getDeviceManufacturer().toString()) ||
                 Build.MANUFACTURER.equalsIgnoreCase(getDeviceManufacturer().toString()) ||
                 Build.FINGERPRINT.toLowerCase().contains(getDeviceManufacturer().toString());
     }
 
+    public static boolean isEmotionUI_23() {
+        return "EmotionUI_2.3".equalsIgnoreCase(getEmuiRomName()) || Build.DISPLAY.toLowerCase().contains("emui2.3") || "EMUI 2.3".equalsIgnoreCase(getEmuiRomName());
+    }
+    /*
     public static boolean isEmotionUI_301() {
         return "EmotionUI_3.0.1".equalsIgnoreCase(getEmuiRomName());
     }
@@ -53,9 +59,14 @@ public class Huawei extends DeviceAbstract {
     public static boolean isEmotionUI_3() {
         return "EmotionUI_3.0".equalsIgnoreCase(getEmuiRomName());
     }
+    */
 
-    public static boolean isEmotionUI_23() {
-        return "EmotionUI_2.3".equalsIgnoreCase(getEmuiRomName()) || Build.DISPLAY.toLowerCase().contains("emui2.3") || "EMUI 2.3".equalsIgnoreCase(getEmuiRomName());
+    public static boolean isEmotionUI() {
+        String romName = getEmuiRomName();
+        if (romName != null)
+            return romName.toLowerCase().indexOf("emotionui_") == 0;
+        else
+            return false;
     }
 
     @Override
