@@ -200,8 +200,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
         boolean showRequestReceiveMMS = false;
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
+        boolean showRequestReadCallLogs = false;
 
-        boolean[][] whyPermissionType = new boolean[14][100];
+        boolean[][] whyPermissionType = new boolean[15][100];
 
         for (Permissions.PermissionType permissionType : permissions) {
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
@@ -224,11 +225,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE) || forceGrant;
                 whyPermissionType[4][permissionType.type] = true;
             }
-            /* not needed for unlink volumes and event Call sensor
             if (permissionType.permission.equals(Manifest.permission.PROCESS_OUTGOING_CALLS)) {
                 showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.PROCESS_OUTGOING_CALLS) || forceGrant;
                 whyPermissionType[5][permissionType.type] = true;
-            } */
+            }
             if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || forceGrant;
                 whyPermissionType[6][permissionType.type] = true;
@@ -262,6 +262,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) || forceGrant;
                 whyPermissionType[13][permissionType.type] = true;
             }
+            if (permissionType.permission.equals(Manifest.permission.READ_CALL_LOG)) {
+                showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALL_LOG) || forceGrant;
+                whyPermissionType[14][permissionType.type] = true;
+            }
         }
 
         if (showRequestWriteSettings ||
@@ -277,7 +281,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestAccessCoarseLocation ||
                 showRequestAccessFineLocation ||
                 showRequestAccessNotificationPolicy ||
-                showRequestDrawOverlays) {
+                showRequestDrawOverlays||
+                showRequestReadCallLogs) {
 
             /*if (onlyNotification) {
                 showNotification(context);
@@ -357,11 +362,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
-                if (showRequestReadPhoneState || showRequestProcessOutgoingCalls) {
+                if (showRequestReadPhoneState || showRequestProcessOutgoingCalls || showRequestReadCallLogs) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
                     boolean[] permissionTypes = new boolean[100];
                     for (int i = 0; i < 100; i++) {
-                        permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i];
+                        permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i] || whyPermissionType[14][i];
                     }
                     String whyPermissionString = getWhyPermissionString(permissionTypes);
                     if (whyPermissionString != null)

@@ -37,22 +37,26 @@
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission
         android:name="android.permission.MODIFY_PHONE_STATE"
         tools:ignore="ProtectedPermissions"/>
-    <!--  not needed for unlink volumes and event Call sensor
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- required for Call sensor for answer call to get phone number -->
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-    -->
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <!-- required for Android 9??? -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
 
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_MMS"/>
-
     <!-- not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
     <uses-permission android:name="android.permission.READ_SMS"/>
     -->
+
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
     <uses-permission android:name="android.permission.NFC"/>

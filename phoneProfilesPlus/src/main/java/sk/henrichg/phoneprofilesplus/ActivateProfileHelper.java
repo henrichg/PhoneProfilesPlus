@@ -1028,7 +1028,7 @@ class ActivateProfileHelper {
                 int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
                 if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
-                    if (Permissions.checkPhone(appContext)) {
+                    if (Permissions.checkProfilePhone(appContext)) {
                         if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
                                 (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
                                 (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {

@@ -138,6 +138,7 @@ class Permissions {
     private static final String PREF_SENSORS_PERMISSION = "sensorsPermission";
     private static final String PREF_SMS_PERMISSION = "smsPermission";
     private static final String PREF_STORAGE_PERMISSION = "storagePermission";
+    private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
 
     static boolean grantRootChanged = false;
 
@@ -724,15 +725,51 @@ class Permissions {
         }*/
     }
 
-    static boolean checkPhone(Context context) {
+    static boolean checkProfilePhone(Context context) {
         try {
+            /*if (android.os.Build.VERSION.SDK_INT >= 28) {
+                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED);
+            }
+            else*/
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)/* &&
-                        // not needed for unlink volumes and event Call sensor
                         (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED)*/;
             } else
-                return hasPermission(context, Manifest.permission.READ_PHONE_STATE);// &&
-                        //hasPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS);
+                return hasPermission(context, Manifest.permission.READ_PHONE_STATE)/* &&
+                        hasPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS)*/;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean checkEventPhone(Context context) {
+        try {
+            /*if ((android.os.Build.VERSION.SDK_INT >= 28) && checkCallLog) {
+                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED);
+            }
+            else*/
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED);
+            } else
+                return hasPermission(context, Manifest.permission.READ_PHONE_STATE) &&
+                        hasPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean checkCallLogs(Context context) {
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= 28) {
+                return (ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED);
+            }
+            else
+                return hasPermission(context, Manifest.permission.READ_CALL_LOG);
         } catch (Exception e) {
             return false;
         }
@@ -746,15 +783,20 @@ class Permissions {
                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
                 if (unlinkEnabled || (profile._volumeSpeakerPhone != 0)) {
                     boolean grantedReadPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-                    // not needed for unlink volumes and event Call sensor
-                    //boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
+                    // not needed for unlink volumes
+                    /*boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
+                    boolean grantedReadCallLog = true;
+                    if (android.os.Build.VERSION.SDK_INT >= 28)
+                        grantedReadCallLog = ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED;*/
                     if (permissions != null) {
                         if (!grantedReadPhoneState)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.READ_PHONE_STATE));
-                        //if (!grantedOutgoingCall)
-                        //    permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
+                        /*if (!grantedOutgoingCall)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
+                        if (!grantedReadCallLog)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.READ_CALL_LOG));*/
                     }
-                    //return grantedOutgoingCall && grantedReadPhoneState;
+                    //return grantedOutgoingCall && grantedReadPhoneState && grantedReadCallLog;
                 }
                 //else
                 //    return true;
@@ -765,8 +807,8 @@ class Permissions {
         /*else {
             try {
                 if (profile._volumeSpeakerPhone != 0)
-                    return hasPermission(context, permission.READ_PHONE_STATE);// &&
-                            //hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
+                    return hasPermission(context, permission.READ_PHONE_STATE); &&
+                            hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
                 else
                     return true;
             } catch (Exception e) {
@@ -1185,23 +1227,29 @@ class Permissions {
             try {
                 if (event._eventPreferencesCall._enabled || event._eventPreferencesOrientation._enabled) {
                     boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-                    // not needed for unlink volumes and event Call sensor
-                    //boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
+                    boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
+                    boolean grantedReadCallLog = true;
+                    if (android.os.Build.VERSION.SDK_INT >= 28)
+                        grantedReadCallLog = ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (event._eventPreferencesCall._enabled) {
                             if (!grantedPhoneState)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
-                            //if (!grantedOutgoingCall)
-                            //    permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                            if (!grantedOutgoingCall)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                            if (!grantedReadCallLog)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_CALL_LOG));
                         }
                         if (event._eventPreferencesOrientation._enabled) {
                             if (!grantedPhoneState)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.READ_PHONE_STATE));
-                            //if (!grantedOutgoingCall)
-                            //    permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                            if (!grantedOutgoingCall)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
+                            if (!grantedReadCallLog)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.READ_CALL_LOG));
                         }
                     }
-                    return grantedPhoneState;// && grantedOutgoingCall;
+                    return grantedPhoneState && grantedOutgoingCall;
                 } else
                     return true;
             } catch (Exception e) {
@@ -1211,8 +1259,8 @@ class Permissions {
         else {
             try {
                 if (event._eventPreferencesCall._enabled || event._eventPreferencesOrientation._enabled) {
-                    return hasPermission(context, permission.READ_PHONE_STATE)/* &&
-                            hasPermission(context, permission.PROCESS_OUTGOING_CALLS)*/;
+                    return hasPermission(context, permission.READ_PHONE_STATE) &&
+                            hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
                 } else
                     return true;
             } catch (Exception e) {
@@ -2052,7 +2100,8 @@ class Permissions {
         editor.putBoolean(PREF_CONTACTS_PERMISSION, Permissions.checkContacts(context));
         editor.putBoolean(PREF_LOCATION_PERMISSION, Permissions.checkLocation(context));
         editor.putBoolean(PREF_MICROPHONE_PERMISSION, Permissions.checkMicrophone(context));
-        editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkPhone(context));
+        editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkEventPhone(context));
+        editor.putBoolean(PREF_CALL_LOGS_PERMISSION, Permissions.checkCallLogs(context));
         editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(context));
         editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(context));
         editor.putBoolean(PREF_STORAGE_PERMISSION, Permissions.checkStorage(context));
@@ -2112,6 +2161,11 @@ class Permissions {
     static boolean getPhonePermission(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getBoolean(PREF_PHONE_PERMISSION, false);
+    }
+
+    static boolean getCallLogsPermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_CALL_LOGS_PERMISSION, false);
     }
 
     static boolean getStoragePermission(Context context) {

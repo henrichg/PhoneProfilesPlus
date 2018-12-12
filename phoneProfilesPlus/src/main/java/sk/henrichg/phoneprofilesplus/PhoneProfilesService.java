@@ -590,7 +590,7 @@ public class PhoneProfilesService extends Service
                 phoneCallBroadcastReceiver = new PhoneCallBroadcastReceiver();
                 IntentFilter intentFilter6 = new IntentFilter();
                 // not needed for unlink volumes and event Call sensor
-                //intentFilter6.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
+                intentFilter6.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
                 intentFilter6.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
                 appContext.registerReceiver(phoneCallBroadcastReceiver, intentFilter6);
             }

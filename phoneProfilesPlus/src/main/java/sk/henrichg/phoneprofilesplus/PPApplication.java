@@ -247,7 +247,8 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
                                         //+"|EventTimeBroadcastReceiver.onReceive"
 
-                                        //+"|PhoneCallBroadcastReceiver"
+                                        +"|PhoneCallReceiver"
+                                        +"|PhoneCallBroadcastReceiver"
                                         //+"|#### EventsHandler.handleEvents"
                                         //+"|[CALL] EventsHandler.handleEvents"
                                         //+"|%%%%%%% DataWrapper.doHandleEvents"

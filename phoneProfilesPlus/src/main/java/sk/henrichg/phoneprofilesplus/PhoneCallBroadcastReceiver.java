@@ -62,13 +62,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false, number, eventTime);
     }
 
-    /* not needed for unlink volumes and event Call sensor
     protected void onOutgoingCallStarted(String number, Date eventTime)
     {
         doCall(savedContext, SERVICE_PHONE_EVENT_START, false, false, number, eventTime);
     }
-    */
-    
+
     protected void onIncomingCallAnswered(String number, Date eventTime)
     {
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false, number, eventTime);
@@ -153,6 +151,9 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
+        PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "incoming="+incoming);
+        PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "phoneNumber="+phoneNumber);
 
         if (incoming) {
             doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, eventTime, context);
