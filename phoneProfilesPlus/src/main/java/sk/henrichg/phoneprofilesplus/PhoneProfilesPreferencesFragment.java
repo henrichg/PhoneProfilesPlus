@@ -23,7 +23,10 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         super.onCreate(savedInstanceState);
 
         // must by false to avoid FC when rotation changes and preference dialogs are shown
-        setRetainInstance(false);
+        //setRetainInstance(false);
+        // this is really important in order to save the state across screen
+        // configuration changes for example
+        setRetainInstance(true);
 
         extraScrollTo = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "");
         //extraScrollToType = getArguments().getString(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "");
