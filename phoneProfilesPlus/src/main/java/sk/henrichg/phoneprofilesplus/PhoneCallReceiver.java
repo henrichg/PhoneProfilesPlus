@@ -40,6 +40,12 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                     listener.setOutgoingNumber("");
                 return;
             }
+            else {
+                if (intent != null) {
+                    String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                    PPApplication.logE("PhoneCallReceiver.onReceive", "incomingNumber=" + incomingNumber);
+                }
+            }
 
             listener.onCallStateChanged(intent);
 
@@ -91,13 +97,21 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
                     PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "state=CALL_STATE_RINGING");
-                    inCall = false;
-                    isIncoming = true;
-                    eventTime = new Date();
                     String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
                     PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "incomingNumber="+incomingNumber);
-                    savedNumber = incomingNumber;
-                    onIncomingCallStarted(incomingNumber, eventTime);
+                    if ((savedNumber == null) && (incomingNumber == null)) {
+                        // CALL_STATE_RINGING is called twice.
+                        // When savedNumber and incomingNumber are not filled,
+                        // wait for second CALL_STATE_RINGING call.
+                        state = TelephonyManager.CALL_STATE_IDLE;
+                    }
+                    else {
+                        inCall = false;
+                        isIncoming = true;
+                        eventTime = new Date();
+                        savedNumber = incomingNumber;
+                        onIncomingCallStarted(incomingNumber, eventTime);
+                    }
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
                     PPApplication.logE("PhoneCallReceiver.PhoneCallStartEndDetector", "state=CALL_STATE_OFFHOOK");

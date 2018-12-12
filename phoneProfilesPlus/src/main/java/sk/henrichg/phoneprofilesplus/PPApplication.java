@@ -268,7 +268,7 @@ public class PPApplication extends Application {
 
                                         //+"|DialogHelpPopupWindow.showPopup"
 
-                                        //+"|SMSBroadcastReceiver.onReceive"
+                                        +"|SMSBroadcastReceiver.onReceive"
 
                                         //+"|EditorProfilesActivity.changeEventOrder"
                                         //+"|EditorProfilesActivity.selectDrawerItem"
