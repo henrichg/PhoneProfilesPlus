@@ -1247,11 +1247,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         }*/
         else
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_EXPORT) {
-            doExportData();
+            if (resultCode == RESULT_OK) {
+                doExportData();
+            }
         }
         else
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMPORT) {
-            if (data != null) {
+            if ((resultCode == RESULT_OK) && (data != null)) {
                 doImportData(data.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH));
             }
         }
