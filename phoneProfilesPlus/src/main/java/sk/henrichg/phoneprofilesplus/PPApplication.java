@@ -226,8 +226,8 @@ public class PPApplication extends Application {
 
                                         //+"|PhoneProfilesService.registerAccessibilityServiceReceiver"
                                         //+"|DatabaseHandler.getTypeProfilesCount"
-                                        //+"|AccessibilityServiceBroadcastReceiver.onReceive"
-                                        //+"|SMSEventEndBroadcastReceiver.onReceive"
+                                        +"|AccessibilityServiceBroadcastReceiver.onReceive"
+                                        +"|SMSEventEndBroadcastReceiver.onReceive"
 
                                         //+"|BrightnessDialogPreference"
 
@@ -247,8 +247,8 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
                                         //+"|EventTimeBroadcastReceiver.onReceive"
 
-                                        +"|PhoneCallReceiver"
-                                        +"|PhoneCallBroadcastReceiver"
+                                        //+"|PhoneCallReceiver"
+                                        //+"|PhoneCallBroadcastReceiver"
                                         //+"|#### EventsHandler.handleEvents"
                                         //+"|[CALL] EventsHandler.handleEvents"
                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
@@ -268,7 +268,7 @@ public class PPApplication extends Application {
 
                                         //+"|DialogHelpPopupWindow.showPopup"
 
-                                        +"|SMSBroadcastReceiver.onReceive"
+                                        //+"|SMSBroadcastReceiver.onReceive"
 
                                         //+"|EditorProfilesActivity.changeEventOrder"
                                         //+"|EditorProfilesActivity.selectDrawerItem"

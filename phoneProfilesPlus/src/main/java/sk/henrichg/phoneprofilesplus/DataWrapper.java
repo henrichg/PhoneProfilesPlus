@@ -986,17 +986,7 @@ public class DataWrapper {
 
                     if (!(event._forceRun && event._noPauseByManualActivation)) {
                         // for "push" events, set startTime to 0
-                        event._eventPreferencesSMS._startTime = 0;
-                        DatabaseHandler.getInstance(context).updateSMSStartTime(event);
-                        //event._eventPreferencesNotification._startTime = 0;
-                        //DatabaseHandler.getInstance(context).updateNotificationStartTime(event);
-                        event._eventPreferencesNFC._startTime = 0;
-                        DatabaseHandler.getInstance(context).updateNFCStartTime(event);
-                        PPApplication.logE("DataWrapper.pauseAllEvents", "_startTime=0");
-                        event._eventPreferencesCall._startTime = 0;
-                        DatabaseHandler.getInstance(context).updateCallStartTime(event);
-                        event._eventPreferencesAlarmClock._startTime = 0;
-                        DatabaseHandler.getInstance(context).updateAlarmClockStartTime(event);
+                        clearSensorsStartTime();
                     }
                 }
             }
