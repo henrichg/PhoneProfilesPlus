@@ -967,7 +967,7 @@ class Permissions {
             checkEventCallContacts(context, event, permissions);
             checkEventPhoneBroadcast(context, event, permissions);
             checkEventSMSContacts(context, event, permissions);
-            checkEventSMSBroadcast(context, event, permissions);
+            //checkEventSMSBroadcast(context, event, permissions);
             checkEventLocation(context, event, permissions);
 
             return permissions;
@@ -1081,7 +1081,8 @@ class Permissions {
     }
 
     static boolean checkSMS(@SuppressWarnings("unused") Context context) {
-        //return true;
+        return true;
+        /*
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 return (ContextCompat.checkSelfPermission(context, permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED) &&
@@ -1093,8 +1094,10 @@ class Permissions {
         } catch (Exception e) {
             return false;
         }
+        */
     }
 
+    /*
     static boolean checkEventSMSBroadcast(Context context, Event event, List<PermissionType>  permissions) {
         if (event == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -1134,6 +1137,7 @@ class Permissions {
             }
         }
     }
+    */
 
     static boolean checkLocation(Context context) {
         try {

@@ -63,8 +63,8 @@ public class PPApplication extends Application {
 
     //static final int VERSION_CODE_EXTENDER_1_0_4 = 60;
     static final int VERSION_CODE_EXTENDER_2_0 = 100;
-    //static final int VERSION_CODE_EXTENDER_3_0 = 200;
-    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_2_0;
+    static final int VERSION_CODE_EXTENDER_3_0 = 200;
+    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
     static final boolean logIntoLogCat = true;
     static final boolean logIntoFile = false;
@@ -384,7 +384,7 @@ public class PPApplication extends Application {
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = "sk.henrichg.phoneprofilesplusextender.ACTION_ACCESSIBILITY_SERVICE_UNBIND";
     static final String ACTION_FORCE_STOP_APPLICATIONS_START = "sk.henrichg.phoneprofilesplusextender.ACTION_FORCE_STOP_APPLICATIONS_START";
     static final String ACTION_FORCE_STOP_APPLICATIONS_END = "sk.henrichg.phoneprofilesplusextender.ACTION_FORCE_STOP_APPLICATIONS_END";
-    //static final String ACTION_SMS_MMS_RECEIVED = "sk.henrichg.phoneprofilesplusextender.ACTION_SMS_MMS_RECEIVED";
+    static final String ACTION_SMS_MMS_RECEIVED = "sk.henrichg.phoneprofilesplusextender.ACTION_SMS_MMS_RECEIVED";
     static final String ACCESSIBILITY_SERVICE_PERMISSION = "sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION";
 
     static final String EXTRA_APPLICATIONS = "extra_applications";

@@ -24,8 +24,8 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender.package_name";
     private static final String EXTRA_CLASS_NAME = "sk.henrichg.phoneprofilesplusextender.class_name";
-    //private static final String EXTRA_ORIGIN = "sk.henrichg.phoneprofilesplusextender.origin";
-    //private static final String EXTRA_TIME = "sk.henrichg.phoneprofilesplusextender.time";
+    private static final String EXTRA_ORIGIN = "sk.henrichg.phoneprofilesplusextender.origin";
+    private static final String EXTRA_TIME = "sk.henrichg.phoneprofilesplusextender.time";
 
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
@@ -156,7 +156,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                     });
                 }
                 break;
-            /*case PPApplication.ACTION_SMS_MMS_RECEIVED:
+            case PPApplication.ACTION_SMS_MMS_RECEIVED:
                 final String origin = intent.getStringExtra(EXTRA_ORIGIN);
                 final long time = intent.getLongExtra(EXTRA_TIME, 0);
                 PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "origin="+origin);
@@ -188,7 +188,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 });
-                break;*/
+                break;
         }
     }
 

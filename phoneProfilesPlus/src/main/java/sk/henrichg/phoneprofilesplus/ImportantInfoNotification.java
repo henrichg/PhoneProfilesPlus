@@ -13,7 +13,7 @@ import android.support.v4.content.ContextCompat;
 class ImportantInfoNotification {
 
     // this version code must by <= version code in dependencies.gradle
-    static final int VERSION_CODE_FOR_NEWS = 4077; //4314;
+    static final int VERSION_CODE_FOR_NEWS = 4340;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
@@ -59,10 +59,10 @@ class ImportantInfoNotification {
         int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
 
         if (newsLatest) {
-            // change to false for not show notification
+            /*// change to false for not show notification
             //noinspection ConstantConditions
-            news = false;
-            /*
+            news = false;*/
+
             int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
             //noinspection RedundantIfStatement
             if (smsSensorsCount == 0)
@@ -71,7 +71,7 @@ class ImportantInfoNotification {
             else {
                 news = true;
             }
-            */
+
         }
 
         if (news3670) {

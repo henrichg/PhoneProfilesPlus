@@ -77,7 +77,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         //noinspection StatementWithEmptyBody
         if (newsLatest) {
             // move this to newXXX, for switch off news
-            /*
+
             int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
             boolean news_extender = true;
             if (smsSensorsCount == 0) {
@@ -88,14 +88,14 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
             news = //news ||
                     news_extender;
-            */
+
         }
         else {
             // move this to newXXX, for switch off news
-            /*
+
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
             infoText1.setVisibility(View.GONE);
-            */
+
         }
 
         if (news3985) {

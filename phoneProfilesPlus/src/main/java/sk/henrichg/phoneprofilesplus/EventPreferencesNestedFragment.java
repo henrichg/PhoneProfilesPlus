@@ -59,7 +59,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = 1990;
     private static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
     private static final int RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS = 1992;
-    //private static final String PREF_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
+    private static final String PREF_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
 
     @Override
     public int addPreferencesFromResource() {
@@ -458,7 +458,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             mobileCellsPreference.event_id = event_id;
         }
         */
-        /*
+
         extenderPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_INSTALL_EXTENDER);
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
@@ -505,7 +505,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        */
 
     }
 
@@ -668,7 +667,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
             event._eventPreferencesApplication.checkPreferences(prefMng, context);
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);
-            //event._eventPreferencesSMS.checkPreferences(prefMng, context);
+            event._eventPreferencesSMS.checkPreferences(prefMng, context);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
