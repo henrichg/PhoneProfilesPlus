@@ -40,6 +40,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
     private static final String PRF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
     private static final String PRF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
+    private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
     private static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
@@ -607,6 +608,31 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     }
                 });
             }
+
+            // not enabled accessibility service
+            if (event.isAccessibilityServiceEnabled(context, false)) {
+                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                if (preference != null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                    preferenceCategory.removePreference(preference);
+                }
+            }
+            else {
+                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                if (preference == null) {
+                    PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                    preference = new Preference(context);
+                    preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                    preference.setWidgetLayoutResource(R.layout.exclamation_preference);
+                    preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                    preference.setOrder(-97);
+                    preferenceCategory.addPreference(preference);
+                }
+
+                Spannable title = new SpannableString(getString(R.string.preferences_not_enabled_accessibility_service_title));
+                title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                preference.setTitle(title);
+            }
         }
         else {
             Preference preference = prefMng.findPreference(PRF_NOT_IS_RUNNABLE);
@@ -620,6 +646,11 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 preferenceCategory.removePreference(preference);
             }
             preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
+                preferenceCategory.removePreference(preference);
+            }
+            preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
                 preferenceCategory.removePreference(preference);

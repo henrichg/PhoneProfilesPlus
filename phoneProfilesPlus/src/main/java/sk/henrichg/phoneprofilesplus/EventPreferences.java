@@ -36,6 +36,11 @@ class EventPreferences {
         return true;
     }
 
+    boolean isAccessibilityServiceEnabled(Context context)
+    {
+        return true;
+    }
+
     /*
     boolean activateReturnProfile()
     {

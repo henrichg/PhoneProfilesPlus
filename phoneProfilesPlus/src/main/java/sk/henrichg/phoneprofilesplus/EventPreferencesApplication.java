@@ -20,6 +20,7 @@ class EventPreferencesApplication extends EventPreferences {
     static final String PREF_EVENT_APPLICATION_ENABLED = "eventApplicationEnabled";
     private static final String PREF_EVENT_APPLICATION_APPLICATIONS = "eventApplicationApplications";
     static final String PREF_EVENT_APPLICATION_INSTALL_EXTENDER = "eventApplicationInstallExtender";
+    private static final String PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
 
     private static final String PREF_EVENT_APPLICATION_CATEGORY = "eventApplicationCategory";
 
@@ -174,6 +175,10 @@ class EventPreferencesApplication extends EventPreferences {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_APPLICATION_APPLICATIONS, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, true);
         }
+        boolean isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context);
+        preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isAccessibilityEnabled, false);
     }
 
     @Override
@@ -210,7 +215,8 @@ class EventPreferencesApplication extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                boolean runnable = tmp.isRunnable(context) && tmp.isAccessibilityServiceEnabled(context);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -235,26 +241,29 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
+    public boolean isAccessibilityServiceEnabled(Context context)
+    {
+        return AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0);
+    }
+
+    @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            final boolean enabled =
-                    AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0);
-            ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
-            if (applicationsPreference != null) {
-                //Preference durationPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_DURATION);
-                applicationsPreference.setEnabled(enabled);
-                //durationPreference.setEnabled(enabled);
-                applicationsPreference.setSummaryAMSDP();
-            }
-            SharedPreferences preferences = prefMng.getSharedPreferences();
-            setCategorySummary(prefMng, preferences, context);
-        //}
-        /*else {
-            PreferenceScreen preferenceScreen = (PreferenceScreen) prefMng.findPreference("eventPreferenceScreen");
-            PreferenceScreen preferenceCategory = (PreferenceScreen) prefMng.findPreference("eventNotificationCategory");
-            if (preferenceCategory != null)
-                preferenceScreen.removePreference(preferenceCategory);
-        }*/
+        final boolean accessibilityEnabled =
+                AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0);
+        ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+        if (applicationsPreference != null) {
+            applicationsPreference.setEnabled(accessibilityEnabled);
+            applicationsPreference.setSummaryAMSDP();
+        }
+
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !accessibilityEnabled, false);
+
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setCategorySummary(prefMng, preferences, context);
     }
 
     /*

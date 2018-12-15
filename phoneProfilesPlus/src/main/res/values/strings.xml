@@ -1288,6 +1288,8 @@
     <string name="dashclock_extension_description">Displays active profile with preferences indicator. Opens Activator on touch.</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
 
+    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
+
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\".</string>

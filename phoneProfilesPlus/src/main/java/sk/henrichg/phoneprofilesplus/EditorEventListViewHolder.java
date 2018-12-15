@@ -80,6 +80,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
             boolean isRunnable = event.isRunnable(context, true);
             boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;
+            boolean isAccessibilityServiceEnabled = event.isAccessibilityServiceEnabled(context, true);
 
             DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
             boolean manualProfileActivation = dataWrapper.getIsManualProfileActivation(false);
@@ -127,7 +128,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
             }
             else
-            if (!(isRunnable && isPermissionGranted)) {
+            if (!(isRunnable && isPermissionGranted && isAccessibilityServiceEnabled)) {
                 if (!isRunnable)
                     eventName.setTypeface(null, Typeface.ITALIC);
                 else

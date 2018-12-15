@@ -36,6 +36,7 @@ class EventPreferencesSMS extends EventPreferences {
     private static final String PREF_EVENT_SMS_PERMANENT_RUN = "eventSMSPermanentRun";
     private static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
     static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
+    private static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
 
     private static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategory";
 
@@ -126,16 +127,33 @@ class EventPreferencesSMS extends EventPreferences {
                 descr = descr + ": </b>";
             }
 
-            //descr = descr + context.getString(R.string.pref_event_sms_event);
-            //String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);
-            //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
-            descr = descr + context.getString(R.string.pref_event_sms_contactListType);
-            String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
-            descr = descr + ": " + contactListTypes[this._contactListType] + "; ";
-            if (this._permanentRun)
-                descr = descr + context.getString(R.string.pref_event_permanentRun);
+            int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+            if (extenderVersion == 0) {
+                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+            }
             else
-                descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+            }
+            else
+            if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+            }
+            else {
+                //descr = descr + context.getString(R.string.pref_event_sms_event);
+                //String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);
+                //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
+                descr = descr + context.getString(R.string.pref_event_sms_contactListType);
+                String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
+                descr = descr + ": " + contactListTypes[this._contactListType] + "; ";
+                if (this._permanentRun)
+                    descr = descr + context.getString(R.string.pref_event_permanentRun);
+                else
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+            }
         }
 
         return descr;
@@ -213,6 +231,10 @@ class EventPreferencesSMS extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_LIST_TYPE);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        boolean isAccessibilityEnabled = event._eventPreferencesSMS.isAccessibilityServiceEnabled(context);
+        preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isAccessibilityEnabled, false);
     }
 
     @Override
@@ -260,7 +282,8 @@ class EventPreferencesSMS extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                boolean runnable = tmp.isRunnable(context) && tmp.isAccessibilityServiceEnabled(context);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -284,6 +307,27 @@ class EventPreferencesSMS extends EventPreferences {
                               (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
 
         return runnable;
+    }
+
+    @Override
+    public boolean isAccessibilityServiceEnabled(Context context)
+    {
+        return AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
+    }
+
+    @Override
+    public void checkPreferences(PreferenceManager prefMng, Context context) {
+        final boolean accessibilityEnabled =
+                AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
+
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        Preference preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !accessibilityEnabled, false);
+
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setCategorySummary(prefMng, preferences, context);
     }
 
     long computeAlarm()
