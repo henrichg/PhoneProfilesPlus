@@ -59,7 +59,6 @@
     <string name="profile_preferences_volumeMedia">Media volume</string>
     <string name="profile_preferences_volumeAlarm">Alarm volume</string>
     <string name="profile_preferences_volumeSystem">System volume</string>
-    <string name="profile_preferences_volumeVoice">Voice volume</string>
     <string name="profile_preferences_soundRingtoneChange">Change ringtone</string>
     <string name="profile_preferences_soundRingtone">Ringtone sound</string>
     <string name="profile_preferences_soundNotificationChange">Change notification</string>
@@ -1289,6 +1288,7 @@
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
 
     <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
+    <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

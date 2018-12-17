@@ -215,7 +215,7 @@
                 app:vNoChange="1"
                 app:vSharedProfile="0"
                 app:vDisableSharedProfile="0"
-                android:title="@string/profile_preferences_volumeVoice"
+                android:title="@string/profile_preferences_volumeVoiceCall"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference

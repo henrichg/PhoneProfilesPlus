@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">עוצמת קול המדיה</string>
   <string name="profile_preferences_volumeAlarm">עוצמת קול מעורר/אזעקה</string>
   <string name="profile_preferences_volumeSystem">עוצמת קול המערכת</string>
-  <string name="profile_preferences_volumeVoice">עוצמת קול הדיבור</string>
   <string name="profile_preferences_soundRingtoneChange">שינוי הצלצול</string>
   <string name="profile_preferences_soundRingtone">צליל הצלצול</string>
   <string name="profile_preferences_soundNotificationChange">שינוי ההתראות</string>

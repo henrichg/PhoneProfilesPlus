@@ -56,7 +56,6 @@
     <string name="profile_preferences_volumeMedia">Medya ses seviyesi</string>
     <string name="profile_preferences_volumeAlarm">Alarm ses seviyesi</string>
     <string name="profile_preferences_volumeSystem">Sistem ses seviyesi</string>
-    <string name="profile_preferences_volumeVoice">Konuşma ses seviyesi</string>
     <string name="profile_preferences_soundRingtoneChange">Zil sesini değiştir</string>
     <string name="profile_preferences_soundRingtone">Zil sesi</string>
     <string name="profile_preferences_soundNotificationChange">Bildirim sesini değiştir</string>

@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">媒體音量</string>
   <string name="profile_preferences_volumeAlarm">鬧鐘音量</string>
   <string name="profile_preferences_volumeSystem">系統音量</string>
-  <string name="profile_preferences_volumeVoice">通話音量</string>
   <string name="profile_preferences_soundRingtoneChange">變更鈴聲</string>
   <string name="profile_preferences_soundRingtone">鈴聲</string>
   <string name="profile_preferences_soundNotificationChange">更改通知</string>

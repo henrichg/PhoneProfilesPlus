@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Hlasitosť médií</string>
   <string name="profile_preferences_volumeAlarm">Hlasitosť budíka</string>
   <string name="profile_preferences_volumeSystem">Hlasitosť sys. zvukov</string>
-  <string name="profile_preferences_volumeVoice">Hlasitosť slúchadla</string>
   <string name="profile_preferences_soundRingtoneChange">Zmeniť tón zvonenia</string>
   <string name="profile_preferences_soundRingtone">Tón zvonenia</string>
   <string name="profile_preferences_soundNotificationChange">Zmenit tón notifikácie</string>
@@ -1246,6 +1245,8 @@
     <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>
     <string name="dashclock_extension_description">Zobrazí aktívny profil s indikátorom preferencií profilu. Na kliknutie sa otvorí Aktivátor.</string>
 
+    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
+    <string name="profile_preferences_volumeVoiceCall">Hlasitosť hlasového hovoru</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

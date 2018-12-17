@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Громкость медиа</string>
   <string name="profile_preferences_volumeAlarm">Громкость будильника и напоминаний</string>
   <string name="profile_preferences_volumeSystem">Громкость системных звуков</string>
-  <string name="profile_preferences_volumeVoice">Громкость голоса</string>
   <string name="profile_preferences_soundRingtoneChange">Изменить рингтон</string>
   <string name="profile_preferences_soundRingtone">Рингтон</string>
   <string name="profile_preferences_soundNotificationChange">Изменить звук уведомлений</string>

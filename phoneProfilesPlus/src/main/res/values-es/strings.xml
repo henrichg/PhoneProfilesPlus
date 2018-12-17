@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Volumen multimedia</string>
   <string name="profile_preferences_volumeAlarm">Volumen de alarma</string>
   <string name="profile_preferences_volumeSystem">Volumen del sistema</string>
-  <string name="profile_preferences_volumeVoice">Volumen de voz</string>
   <string name="profile_preferences_soundRingtoneChange">Cambiar tono de llamada</string>
   <string name="profile_preferences_soundRingtone">Tono de llamada</string>
   <string name="profile_preferences_soundNotificationChange">Cambiar notificación</string>

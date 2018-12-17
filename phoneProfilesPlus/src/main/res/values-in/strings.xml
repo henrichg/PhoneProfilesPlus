@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Volume media</string>
   <string name="profile_preferences_volumeAlarm">Volume alarm</string>
   <string name="profile_preferences_volumeSystem">Sistem volume</string>
-  <string name="profile_preferences_volumeVoice">Volume suara</string>
   <string name="profile_preferences_soundRingtoneChange">Perubahan nada dering</string>
   <string name="profile_preferences_soundRingtone">Suara nada dering</string>
   <string name="profile_preferences_soundNotificationChange">Ubah Notifikasi</string>

@@ -56,7 +56,6 @@
     <string name="profile_preferences_volumeMedia">Medien-Lautstärke</string>
     <string name="profile_preferences_volumeAlarm">Alarm-Lautstärke</string>
     <string name="profile_preferences_volumeSystem">System-Lautstärke</string>
-    <string name="profile_preferences_volumeVoice">Stimmlautstärke</string>
     <string name="profile_preferences_soundRingtoneChange">Klingelton ändern</string>
     <string name="profile_preferences_soundRingtone">Klingelton</string>
     <string name="profile_preferences_soundNotificationChange">Benachrichtigungston ändern</string>

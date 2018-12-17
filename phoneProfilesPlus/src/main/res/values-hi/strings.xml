@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">मीडिया वॉल्‍यूम</string>
   <string name="profile_preferences_volumeAlarm">अलार्म वॉल्यूम</string>
   <string name="profile_preferences_volumeSystem">सिस्टम वॉल्यूम</string>
-  <string name="profile_preferences_volumeVoice">आवाज की मात्रा</string>
   <string name="profile_preferences_soundRingtoneChange">रिंगटोन बदलें</string>
   <string name="profile_preferences_soundRingtone">रिंगटोन ध्वनि</string>
   <string name="profile_preferences_soundNotificationChange">सूचना बदलें</string>

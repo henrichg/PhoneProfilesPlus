@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">మీడియా వాల్యూమ్</string>
   <string name="profile_preferences_volumeAlarm">అలారం వాల్యూమ్</string>
   <string name="profile_preferences_volumeSystem">సిస్టం వాల్యూమ్</string>
-  <string name="profile_preferences_volumeVoice">వాయిస్ వాల్యూమ్</string>
   <string name="profile_preferences_soundRingtoneChange">రింగ్టోన్ మార్చు</string>
   <string name="profile_preferences_soundRingtone">రింగ్టోన్ ధ్వని</string>
   <string name="profile_preferences_soundNotificationChange">ప్రకటన మార్పు</string>

@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Сила на звука</string>
   <string name="profile_preferences_volumeAlarm">Сила на звука на будилника</string>
   <string name="profile_preferences_volumeSystem">Сила на звука от системата</string>
-  <string name="profile_preferences_volumeVoice">Сила на гласа</string>
   <string name="profile_preferences_soundRingtoneChange">Промяна на мелодия</string>
   <string name="profile_preferences_soundRingtone">Звук на звънене</string>
   <string name="profile_preferences_soundNotificationChange">Промяна на известия</string>

@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Ένταση ήχου πολυμέσων</string>
   <string name="profile_preferences_volumeAlarm">Ένταση ήχου ξυπνητηριού</string>
   <string name="profile_preferences_volumeSystem">Ένταση ήχου συστήματος</string>
-  <string name="profile_preferences_volumeVoice">Ένταση ήχου ομιλίας</string>
   <string name="profile_preferences_soundRingtoneChange">Αλλαγή ήχου κλήσης</string>
   <string name="profile_preferences_soundRingtone">Ήχος κλήσης</string>
   <string name="profile_preferences_soundNotificationChange">Αλλαγή ειδοποίησης</string>

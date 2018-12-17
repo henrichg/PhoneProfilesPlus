@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Volum media</string>
   <string name="profile_preferences_volumeAlarm">Volum alarmă</string>
   <string name="profile_preferences_volumeSystem">Volum sistem</string>
-  <string name="profile_preferences_volumeVoice">Volum voce</string>
   <string name="profile_preferences_soundRingtoneChange">Schimbă ton de apel</string>
   <string name="profile_preferences_soundRingtone">Sunet ton de apel</string>
   <string name="profile_preferences_soundNotificationChange">Schimbă notificare</string>

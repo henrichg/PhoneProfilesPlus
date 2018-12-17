@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">میزان صدای رسانه</string>
   <string name="profile_preferences_volumeAlarm">میزان صدای هشدار</string>
   <string name="profile_preferences_volumeSystem">میزان صدای سیستم</string>
-  <string name="profile_preferences_volumeVoice">میزان صدای تماس گیرنده</string>
   <string name="profile_preferences_soundRingtoneChange">تغییر زنگ تلفن</string>
   <string name="profile_preferences_soundRingtone">صدای زنگ تلفن</string>
   <string name="profile_preferences_soundNotificationChange">تغییر اعلان</string>

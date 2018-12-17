@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Média hangereje</string>
   <string name="profile_preferences_volumeAlarm">Ébresztés hangereje</string>
   <string name="profile_preferences_volumeSystem">Rendszerhangok hangereje</string>
-  <string name="profile_preferences_volumeVoice">Telefonhívás hangereje</string>
   <string name="profile_preferences_soundRingtoneChange">Csengőhang cseréje</string>
   <string name="profile_preferences_soundRingtone">Csengőhang</string>
   <string name="profile_preferences_soundNotificationChange">Értesítési hang módosítása</string>

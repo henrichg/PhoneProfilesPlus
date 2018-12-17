@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Głośność mediów</string>
   <string name="profile_preferences_volumeAlarm">Głośność alarmu</string>
   <string name="profile_preferences_volumeSystem">Głośność systemu</string>
-  <string name="profile_preferences_volumeVoice">Głośność głosu</string>
   <string name="profile_preferences_soundRingtoneChange">Zmień dzwonek</string>
   <string name="profile_preferences_soundRingtone">Dźwięk dzwonka</string>
   <string name="profile_preferences_soundNotificationChange">Zmień powiadomienie</string>

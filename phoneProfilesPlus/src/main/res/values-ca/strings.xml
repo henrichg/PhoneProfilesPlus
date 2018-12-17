@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Volum de multimèdia</string>
   <string name="profile_preferences_volumeAlarm">Volum d\'alarma</string>
   <string name="profile_preferences_volumeSystem">Volum del sistema</string>
-  <string name="profile_preferences_volumeVoice">Volum de la veu</string>
   <string name="profile_preferences_soundRingtoneChange">Canviar el so del timbre</string>
   <string name="profile_preferences_soundRingtone">so del timbre</string>
   <string name="profile_preferences_soundNotificationChange">Canviar el so de les notificacions</string>

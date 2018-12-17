@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Mediavolym</string>
   <string name="profile_preferences_volumeAlarm">Alarmvolym</string>
   <string name="profile_preferences_volumeSystem">Systemvolym</string>
-  <string name="profile_preferences_volumeVoice">Röstvolym</string>
   <string name="profile_preferences_soundRingtoneChange">Ändra ringsignal</string>
   <string name="profile_preferences_soundRingtone">Ringsignalsljud</string>
   <string name="profile_preferences_soundNotificationChange">Ändra notifiering</string>

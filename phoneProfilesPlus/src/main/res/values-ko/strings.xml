@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">미디어 볼륨</string>
   <string name="profile_preferences_volumeAlarm">알람 볼륨</string>
   <string name="profile_preferences_volumeSystem">시스템 볼륨</string>
-  <string name="profile_preferences_volumeVoice">음성 볼륨</string>
   <string name="profile_preferences_soundRingtoneChange">벨소리 변경</string>
   <string name="profile_preferences_soundRingtone">벨소리</string>
   <string name="profile_preferences_soundNotificationChange">알림음 변경</string>

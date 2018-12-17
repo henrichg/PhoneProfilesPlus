@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Mediavolume</string>
   <string name="profile_preferences_volumeAlarm">Alarmvolume</string>
   <string name="profile_preferences_volumeSystem">Systeemvolume</string>
-  <string name="profile_preferences_volumeVoice">Stemvolume</string>
   <string name="profile_preferences_soundRingtoneChange">Verander beltoon</string>
   <string name="profile_preferences_soundRingtone">Beltoon geluid</string>
   <string name="profile_preferences_soundNotificationChange">Verander melding</string>

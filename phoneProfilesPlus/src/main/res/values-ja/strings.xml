@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">メディアの音量</string>
   <string name="profile_preferences_volumeAlarm">アラームの音量</string>
   <string name="profile_preferences_volumeSystem">システムの音量</string>
-  <string name="profile_preferences_volumeVoice">音声の音量</string>
   <string name="profile_preferences_soundRingtoneChange">着信音を変更</string>
   <string name="profile_preferences_soundRingtone">着信音</string>
   <string name="profile_preferences_soundNotificationChange">通知の変更</string>

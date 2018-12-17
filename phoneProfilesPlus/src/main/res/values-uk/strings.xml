@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Гучність медіа</string>
   <string name="profile_preferences_volumeAlarm">Гучність будильника</string>
   <string name="profile_preferences_volumeSystem">Гучність системних звуків</string>
-  <string name="profile_preferences_volumeVoice">Гучність при розмові</string>
   <string name="profile_preferences_soundRingtoneChange">Змінити мелодію дзвінка</string>
   <string name="profile_preferences_soundRingtone">Мелодія дзвінка</string>
   <string name="profile_preferences_soundNotificationChange">Змінити звуки сповіщень</string>

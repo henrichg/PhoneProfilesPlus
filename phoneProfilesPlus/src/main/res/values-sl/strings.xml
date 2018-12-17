@@ -56,7 +56,6 @@
   <string name="profile_preferences_volumeMedia">Glasnost medijev</string>
   <string name="profile_preferences_volumeAlarm">Glasnost alarma</string>
   <string name="profile_preferences_volumeSystem">Glasnost sistema</string>
-  <string name="profile_preferences_volumeVoice">Glasnost glasu</string>
   <string name="profile_preferences_soundRingtoneChange">Spremeni melodijo zvonjenja</string>
   <string name="profile_preferences_soundRingtone">Zvok zvonjenja</string>
   <string name="profile_preferences_soundNotificationChange">Spremeni zvok obvestila</string>
