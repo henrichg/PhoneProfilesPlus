@@ -303,7 +303,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
         if (this._startTime == 0) {
             // alarm for end is not set
 
-            this._startTime = startTime + (10 * 1000);
+            this._startTime = startTime; // + (10 * 1000);
 
             DatabaseHandler.getInstance(dataWrapper.context).updateAlarmClockStartTime(_event);
 

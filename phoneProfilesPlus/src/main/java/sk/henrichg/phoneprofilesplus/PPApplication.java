@@ -225,8 +225,9 @@ public class PPApplication extends Application {
 
                                         //+"|PhoneProfilesService.registerAccessibilityServiceReceiver"
                                         //+"|DatabaseHandler.getTypeProfilesCount"
-                                        +"|AccessibilityServiceBroadcastReceiver.onReceive"
+                                        //+"|AccessibilityServiceBroadcastReceiver.onReceive"
                                         +"|SMSEventEndBroadcastReceiver.onReceive"
+                                        +"|[SMS sensor]"
 
                                         //+"|BrightnessDialogPreference"
 

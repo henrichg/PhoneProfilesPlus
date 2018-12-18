@@ -986,7 +986,7 @@ public class DataWrapper {
 
                     if (!(event._forceRun && event._noPauseByManualActivation)) {
                         // for "push" events, set startTime to 0
-                        clearSensorsStartTime();
+                        clearSensorsStartTime(true);
                     }
                 }
             }
@@ -2822,13 +2822,15 @@ public class DataWrapper {
                 // compute start time
 
                 if (event._eventPreferencesSMS._startTime > 0) {
+                    PPApplication.logE("[SMS sensor] DataWrapper.doHandleEvents", "startTime > 0");
+
                     int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                     long startTime = event._eventPreferencesSMS._startTime - gmtOffset;
 
                     if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
+                        PPApplication.logE("[SMS sensor] DataWrapper.doHandleEvents", "startTime=" + alarmTimeS);
                     }
 
                     // compute end datetime
@@ -2836,7 +2838,7 @@ public class DataWrapper {
                     if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("[SMS sensor] DataWrapper.doHandleEvents", "endAlarmTime=" + alarmTimeS);
                     }
 
                     Calendar now = Calendar.getInstance();
@@ -2844,24 +2846,30 @@ public class DataWrapper {
                     if (PPApplication.logEnabled()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                         String alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
+                        PPApplication.logE("[SMS sensor] DataWrapper.doHandleEvents", "nowAlarmTime=" + alarmTimeS);
                     }
 
                     if (sensorType.equals(EventsHandler.SENSOR_TYPE_SMS))
                         smsPassed = true;
                     else if (!event._eventPreferencesSMS._permanentRun) {
+                        PPApplication.logE("[SMS sensor] DataWrapper.doHandleEvents", "sensorType=" + sensorType);
                         if (sensorType.equals(EventsHandler.SENSOR_TYPE_SMS_EVENT_END))
                             smsPassed = false;
                         else
                             smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                        PPApplication.logE("[SMS sensor] DataWrapper.doHandleEvents", "smsPassed=" + smsPassed);
                     } else {
                         smsPassed = nowAlarmTime >= startTime;
                     }
-                } else
+                } else {
+                    PPApplication.logE("[SMS sensor] DataWrapper.doHandleEvents", "startTime == 0");
                     smsPassed = false;
+                }
 
                 if (!smsPassed) {
                     event._eventPreferencesSMS._startTime = 0;
+                    //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
+                    //    PPApplication.logE("[SMS sensor] DataWrapper.doHandleEvents", "startTime="+event._eventPreferencesSMS._startTime);
                     DatabaseHandler.getInstance(context).updateSMSStartTime(event);
                 }
 
@@ -4301,27 +4309,39 @@ public class DataWrapper {
         return false;
     }
 
-    void clearSensorsStartTime() {
+    void clearSensorsStartTime(boolean force) {
         for (Event _event : eventList) {
-            _event._eventPreferencesSMS._startTime = 0;
-            DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
-            _event._eventPreferencesSMS.removeAlarm(context);
+            if (force || _event._eventPreferencesSMS._permanentRun) {
+                _event._eventPreferencesSMS._startTime = 0;
+                //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
+                //    PPApplication.logE("[SMS sensor] DataWrapper.clearSensorsStartTime", "startTime="+_event._eventPreferencesSMS._startTime);
+                DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
+                _event._eventPreferencesSMS.removeAlarm(context);
+            }
 
-            //_event._eventPreferencesNotification._startTime = 0;
-            //dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
-            //_event._eventPreferencesNotification.removeAlarm(context);
+            //if (force || _event._eventPreferencesNotification._permanentRun) {
+                //_event._eventPreferencesNotification._startTime = 0;
+                //dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+                //_event._eventPreferencesNotification.removeAlarm(context);
+            //}
 
-            _event._eventPreferencesNFC._startTime = 0;
-            DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCStartTime(_event);
-            _event._eventPreferencesNFC.removeAlarm(context);
+            if (force || _event._eventPreferencesNFC._permanentRun) {
+                _event._eventPreferencesNFC._startTime = 0;
+                DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCStartTime(_event);
+                _event._eventPreferencesNFC.removeAlarm(context);
+            }
 
-            _event._eventPreferencesCall._startTime = 0;
-            DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
-            _event._eventPreferencesCall.removeAlarm(context);
+            if (force || _event._eventPreferencesCall._permanentRun) {
+                _event._eventPreferencesCall._startTime = 0;
+                DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
+                _event._eventPreferencesCall.removeAlarm(context);
+            }
 
-            _event._eventPreferencesAlarmClock._startTime = 0;
-            DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
-            _event._eventPreferencesAlarmClock.removeAlarm(context);
+            if (force || _event._eventPreferencesAlarmClock._permanentRun) {
+                _event._eventPreferencesAlarmClock._startTime = 0;
+                DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
+                _event._eventPreferencesAlarmClock.removeAlarm(context);
+            }
         }
     }
 

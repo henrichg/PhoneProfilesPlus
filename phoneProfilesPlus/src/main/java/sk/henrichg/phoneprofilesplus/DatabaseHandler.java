@@ -4682,6 +4682,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._contacts = cursor.getString(cursor.getColumnIndex(KEY_E_SMS_CONTACTS));
                 eventPreferences._contactListType = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_CONTACT_LIST_TYPE)));
                 eventPreferences._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_START_TIME)));
+                //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
+                //    PPApplication.logE("[SMS sensor] DatabaseHandler.getEventPreferencesSMS", "startTime="+eventPreferences._startTime);
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndex(KEY_E_SMS_CONTACT_GROUPS));
                 eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_DURATION));
                 eventPreferences._permanentRun = (Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_PERMANENT_RUN))) == 1);
@@ -6164,6 +6166,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (cursor.getCount() > 0) {
                         event._eventPreferencesSMS._startTime = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_SMS_START_TIME)));
+                        //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
+                        //    PPApplication.logE("[SMS sensor] DatabaseHandler.getSMSStartTime", "startTime="+event._eventPreferencesSMS._startTime);
                     }
 
                     cursor.close();

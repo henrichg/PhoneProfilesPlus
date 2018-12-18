@@ -413,7 +413,7 @@ class EventPreferencesNFC extends EventPreferences {
             PPApplication.logE("EventPreferencesNFC.saveStartTime", "tagFound=" + tagFound);
 
             if (tagFound)
-                this._startTime = startTime  + (10 * 1000);
+                this._startTime = startTime; //  + (10 * 1000);
             else
                 this._startTime = 0;
 

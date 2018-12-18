@@ -67,6 +67,8 @@ class EventPreferencesSMS extends EventPreferences {
         this._duration = duration;
 
         this._startTime = 0;
+        //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
+        //    PPApplication.logE("[SMS sensor] EventPreferencesSMS.EventPreferencesSMS", "startTime="+this._startTime);
     }
 
     @Override
@@ -82,6 +84,7 @@ class EventPreferencesSMS extends EventPreferences {
         this.setSensorPassed(fromEvent._eventPreferencesSMS.getSensorPassed());
 
         this._startTime = 0;
+        //PPApplication.logE("[SMS sensor] EventPreferencesSMS.copyPreferences", "startTime="+this._startTime);
     }
 
     @Override
@@ -535,9 +538,11 @@ class EventPreferencesSMS extends EventPreferences {
                     phoneNumberFound = true;
 
                 if (phoneNumberFound)
-                    this._startTime = startTime + (10 * 1000);
+                    this._startTime = startTime;// + (10 * 1000);
                 else
                     this._startTime = 0;
+                //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
+                //    PPApplication.logE("[SMS sensor] EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
 
                 DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
 
@@ -547,6 +552,8 @@ class EventPreferencesSMS extends EventPreferences {
                 }
             } else {
                 this._startTime = 0;
+                //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
+                //    PPApplication.logE("[SMS sensor] EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
                 DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
             }
         }

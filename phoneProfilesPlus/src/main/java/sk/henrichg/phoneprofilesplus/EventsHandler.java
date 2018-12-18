@@ -227,7 +227,7 @@ class EventsHandler {
                 editor.apply();*/
 
                 // for restart events, set startTime to 0
-                dataWrapper.clearSensorsStartTime();
+                dataWrapper.clearSensorsStartTime(false);
             }
             else {
                 if (sensorType.equals(SENSOR_TYPE_SMS)) {

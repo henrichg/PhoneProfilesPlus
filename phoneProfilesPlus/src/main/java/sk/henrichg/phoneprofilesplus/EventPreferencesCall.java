@@ -512,7 +512,7 @@ class EventPreferencesCall extends EventPreferences {
                         phoneNumberFound = true;
 
                     if (phoneNumberFound)
-                        this._startTime = callTime + (10 * 1000);
+                        this._startTime = callTime; // + (10 * 1000);
                     else
                         this._startTime = 0;
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
