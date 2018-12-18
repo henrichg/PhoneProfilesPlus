@@ -474,7 +474,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         if (!TonesHandler.isToneInstalled(TonesHandler.TONE_ID, getActivity().getApplicationContext()))
-                            TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getActivity().getApplicationContext(), true);
+                            TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, getActivity().getApplicationContext());
                         else {
                             Toast msg = Toast.makeText(context.getApplicationContext(),
                                     context.getResources().getString(R.string.profile_preferences_installSilentTone_installed_summary),

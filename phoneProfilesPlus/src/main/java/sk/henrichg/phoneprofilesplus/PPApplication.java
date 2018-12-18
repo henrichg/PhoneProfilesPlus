@@ -37,7 +37,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
-    static final boolean logIntoLogCat = true;
+    private static final boolean logIntoLogCat = true;
     static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -1770,7 +1769,7 @@ public class PPApplication extends Application {
                 Build.FINGERPRINT.toLowerCase().contains("xiaomi");
     }
 
-    public static String getEmuiRomName() {
+    private static String getEmuiRomName() {
         try {
             String line;
             //BufferedReader input = null;

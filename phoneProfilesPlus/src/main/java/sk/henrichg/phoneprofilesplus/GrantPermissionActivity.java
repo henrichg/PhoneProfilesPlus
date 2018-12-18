@@ -1147,7 +1147,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //finishAffinity();
             finish();
             Permissions.removeInstallToneNotification(context);
-            TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, context, true);
+            TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, context);
         }
         else
         if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {

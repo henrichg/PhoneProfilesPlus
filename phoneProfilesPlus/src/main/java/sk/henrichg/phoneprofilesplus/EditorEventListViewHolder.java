@@ -159,7 +159,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
             }
 
-            String _eventName = "";
+            String _eventName;
             String eventStartOrder = "[O:" + event._startOrder + "] ";
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
                 eventStartOrder = "";

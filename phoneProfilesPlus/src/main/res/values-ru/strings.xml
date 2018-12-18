@@ -1232,6 +1232,15 @@
     <string name="about_application_translations2">пишите:</string>
     <string name="about_application_translations_subject">translation</string>
     <string name="important_info_translations">Помогите мне, пожалуйста, с переводом; спасибо:</string>
+
+    <string name="important_info_email_body_device">Device:</string>
+    <string name="important_info_email_body_android_version">Android version:</string>
+    <string name="important_info_email_body_problems">Problems:</string>
+    <string name="important_info_email_body_questions">Questions:</string>
+    <string name="important_info_email_body_suggestions">Suggestions:</string>
+    <string name="important_info_email_body_translation_language_from">Language from which to translate:</string>
+    <string name="important_info_email_body_translation_language_to">Language to translate:</string>
+
     <string name="about_application_support">Поддержка:</string>
     <string name="about_application_support2">пишите:</string>
     <string name="about_application_support_subject">support</string>

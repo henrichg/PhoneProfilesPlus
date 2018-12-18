@@ -1232,6 +1232,15 @@
     <string name="about_application_translations2">kontakt:</string>
     <string name="about_application_translations_subject">preklad</string>
     <string name="important_info_translations">Prosím pomôžte mi s prekladom, ďakujem:</string>
+
+    <string name="important_info_email_body_device">Device:</string>
+    <string name="important_info_email_body_android_version">Android version:</string>
+    <string name="important_info_email_body_problems">Problems:</string>
+    <string name="important_info_email_body_questions">Questions:</string>
+    <string name="important_info_email_body_suggestions">Suggestions:</string>
+    <string name="important_info_email_body_translation_language_from">Language from which to translate:</string>
+    <string name="important_info_email_body_translation_language_to">Language to translate:</string>
+
     <string name="about_application_support">Podpora:</string>
     <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">podpora</string>
@@ -1243,6 +1252,7 @@
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>
     <string name="dashclock_extension_description">Zobrazí aktívny profil s indikátorom preferencií profilu. Na kliknutie sa otvorí Aktivátor.</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
 
     <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
     <string name="profile_preferences_volumeVoiceCall">Hlasitosť hlasového hovoru</string>

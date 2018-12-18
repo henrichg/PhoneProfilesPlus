@@ -283,27 +283,21 @@ class TonesHandler {
 
     static void installTone(@SuppressWarnings("SameParameterValue") int resID,
                             @SuppressWarnings("SameParameterValue") String title,
-                            Context context, boolean fromMenu) {
+                            Context context) {
 
-        boolean granted;
-        if (fromMenu)
-            granted = Permissions.grantInstallTonePermissions(context, false);
-        else
-            granted = Permissions.grantInstallTonePermissions(context, true);
+        boolean granted = Permissions.grantInstallTonePermissions(context);
         if (granted) {
             boolean ringtone = _installTone(resID, RingtoneManager.TYPE_RINGTONE, title, context);
             boolean notification = _installTone(resID, RingtoneManager.TYPE_NOTIFICATION, title, context);
             boolean alarm = _installTone(resID, RingtoneManager.TYPE_ALARM, title, context);
-            if (fromMenu) {
-                int strId = R.string.toast_tone_installation_installed_ok;
-                if (!(ringtone && notification && alarm))
-                    strId = R.string.toast_tone_installation_installed_error;
+            int strId = R.string.toast_tone_installation_installed_ok;
+            if (!(ringtone && notification && alarm))
+                strId = R.string.toast_tone_installation_installed_error;
 
-                Toast msg = Toast.makeText(context.getApplicationContext(),
-                        context.getResources().getString(strId),
-                        Toast.LENGTH_SHORT);
-                msg.show();
-            }
+            Toast msg = Toast.makeText(context.getApplicationContext(),
+                    context.getResources().getString(strId),
+                    Toast.LENGTH_SHORT);
+            msg.show();
         }
     }
 

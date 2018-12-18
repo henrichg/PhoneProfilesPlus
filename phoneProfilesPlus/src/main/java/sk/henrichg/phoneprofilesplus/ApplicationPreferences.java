@@ -330,6 +330,7 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, true);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationWidgetListGridLayout(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, true);
     }

@@ -4052,8 +4052,9 @@ public class DataWrapper {
         return getProfileNameWithManualIndicator(profile, eventTimelineList, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB);
     }
 
+    @SuppressWarnings("SameParameterValue")
     static String getProfileNameWithManualIndicatorAsString(Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-                                                    DataWrapper dataWrapper, boolean fromDB) {
+                                                            DataWrapper dataWrapper, boolean fromDB) {
         Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB);
         Spannable sbt = new SpannableString(sProfileName);
         Object spansToRemove[] = sbt.getSpans(0, sProfileName.length(), Object.class);

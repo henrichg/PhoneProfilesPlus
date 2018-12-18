@@ -550,6 +550,7 @@ class Event {
                 accessibilityEnabled = false;
         }
         if (this._eventPreferencesTime._enabled)
+            //noinspection ConstantConditions
             accessibilityEnabled = accessibilityEnabled && this._eventPreferencesTime.isAccessibilityServiceEnabled(context);
         if (this._eventPreferencesBattery._enabled)
             accessibilityEnabled = accessibilityEnabled && this._eventPreferencesBattery.isAccessibilityServiceEnabled(context);
