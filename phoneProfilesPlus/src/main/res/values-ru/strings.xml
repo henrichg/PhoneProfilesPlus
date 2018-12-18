@@ -714,7 +714,6 @@
   <string name="write_nfc_tag_error">Ошибка при записи метки</string>
   <string name="read_nfc_tag_read">Метка прочитана</string>
   <string name="pref_event_permanentRun">Постоянный запуск</string>
-  <string name="pref_event_permanentRun_summary">Приостановить событие после ручной активации профиля, затем перезапустить события</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Метка перезаписываемая</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Метка не записываемая</string>
   <string name="about_application_donate_button">Поддержать проект</string>
@@ -731,8 +730,7 @@
   <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Релизы</string>
   <string name="permission_group_name_draw_overlays">Отображать поверх других приложений</string>
-  <string name="permissions_draw_overlays_not_allowed_confirm">Отображение поверх других приложений отключено.
-Не спрашивать больше?</string>
+  <string name="permissions_draw_overlays_not_allowed_confirm">Отображение поверх других приложений отключено. Не спрашивать больше?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Отображать поверх других приложений</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Найдите приложение «PhoneProfilesPlus» и разрешите доступ.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">не настроено в параметрах системы</string>
@@ -1245,6 +1243,11 @@
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>
     <string name="dashclock_extension_description">Отображает активный профиль с индикатором настроек. Открывает Активатор по прикосновению.</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+
+    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
+    <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
+    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
 
 
 

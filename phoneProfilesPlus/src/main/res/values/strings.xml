@@ -734,7 +734,6 @@
     <string name="write_nfc_tag_error">Tag write ERROR</string>
     <string name="read_nfc_tag_read">Tag read</string>
     <string name="pref_event_permanentRun">Permanent run</string>
-    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and then restart events</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Tag is writable</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag is not writable</string>
     <string name="about_application_donate_button">Please donate</string>
@@ -1289,6 +1288,7 @@
 
     <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
     <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
+    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

@@ -714,7 +714,6 @@
   <string name="write_nfc_tag_error">CHYBA pri zápise tagu</string>
   <string name="read_nfc_tag_read">Tag prečítaný</string>
   <string name="pref_event_permanentRun">Trvalý beh</string>
-  <string name="pref_event_permanentRun_summary">Pozastav udalosť po manuálnej aktivácii profilu a po reštarte udalostí</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Tag je zapisovateľný</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag nie je zapisovateľný</string>
   <string name="about_application_donate_button">Prosím prispejte</string>
@@ -1247,6 +1246,7 @@
 
     <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
     <string name="profile_preferences_volumeVoiceCall">Hlasitosť hlasového hovoru</string>
+    <string name="pref_event_permanentRun_summary">Pozastav udalosť po manuálnej aktivácii profilu a po reštarte udalostí</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

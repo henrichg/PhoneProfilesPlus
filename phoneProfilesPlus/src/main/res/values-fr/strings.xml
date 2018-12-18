@@ -714,7 +714,6 @@
   <string name="write_nfc_tag_error">ERREUR d’écriture sur la balise</string>
   <string name="read_nfc_tag_read">Balise lues</string>
   <string name="pref_event_permanentRun">Activation permanente</string>
-  <string name="pref_event_permanentRun_summary">Pauser l\'événement après activation manuelle et redémarrer les évènements</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Tag est accessible en écriture</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Tag n’est pas accessible en écriture</string>
   <string name="about_application_donate_button">S’il vous plaît faites un don</string>
@@ -1244,6 +1243,11 @@
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>
     <string name="dashclock_extension_description">Affiche le profil actif avec indicateur de préférences. Ouvre l\'activateur sur contact.</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+
+    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
+    <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
+    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
 
 
 

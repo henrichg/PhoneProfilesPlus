@@ -714,7 +714,6 @@
   <string name="write_nfc_tag_error">Помилка запису мітки</string>
   <string name="read_nfc_tag_read">Мітку прочитано</string>
   <string name="pref_event_permanentRun">Постійний запуск</string>
-  <string name="pref_event_permanentRun_summary">Призупинити подію після ручної активації профілю, після цього перезавантажити події</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_writable">Мітку можна перезаписувати</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_not_writable">Мітку не можна перезаписати</string>
   <string name="about_application_donate_button">Підтримайте нас копійчиною</string>
@@ -1245,6 +1244,11 @@
     <string name="permission_why_log_to_file">для запису debug log в log.txt та crash.txt</string>
     <string name="permissions_for_log_to_file_big_text_notification">Запис debug log в log.txt та crash.txt потребує отримання дозволів.</string>
     <string name="dashclock_extension_description">Відображає активний профіль з індикатором налаштувань. Відкриває Активатор при торканні.</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+
+    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
+    <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
+    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
 
 
 
