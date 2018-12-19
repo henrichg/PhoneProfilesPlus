@@ -59,44 +59,52 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     {
     }
 
-    protected void onIncomingCallStarted(String number, Date eventTime)
+    //TODO call sensor to Extender
+    protected void onIncomingCallStarted(/*String number, Date eventTime*/)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false, number, eventTime);
+        doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false/*, number, eventTime*/);
     }
 
-    protected void onOutgoingCallStarted(String number, Date eventTime)
+    //TODO call sensor to Extender
+    //protected void onOutgoingCallStarted(/*String number, Date eventTime*/)
+    //{
+    //    doCall(savedContext, SERVICE_PHONE_EVENT_START, false, false/*, number, eventTime*/);
+    //}
+
+    //TODO call sensor to Extender
+    protected void onIncomingCallAnswered(/*String number, Date eventTime*/)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_START, false, false, number, eventTime);
+        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false/*, number, eventTime*/);
     }
 
-    protected void onIncomingCallAnswered(String number, Date eventTime)
+    //TODO call sensor to Extender
+    protected void onOutgoingCallAnswered(/*String number, Date eventTime*/)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false, number, eventTime);
+        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false/*, number, eventTime*/);
     }
 
-    protected void onOutgoingCallAnswered(String number, Date eventTime)
+    //TODO call sensor to Extender
+    protected void onIncomingCallEnded(/*String number, Date eventTime*/)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false, number, eventTime);
-    }
-    
-    protected void onIncomingCallEnded(String number, Date eventTime)
-    {
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false, number, eventTime);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false/*, number, eventTime*/);
     }
 
-    protected void onOutgoingCallEnded(String number, Date eventTime)
+    //TODO call sensor to Extender
+    protected void onOutgoingCallEnded(/*String number, Date eventTime*/)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false, number, eventTime);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false/*, number, eventTime*/);
     }
 
-    protected void onMissedCall(String number, Date eventTime)
+    //TODO call sensor to Extender
+    protected void onMissedCall(/*String number, Date eventTime*/)
     {
-        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true, number, eventTime);
+        doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true/*, number, eventTime*/);
     }
 
+    //TODO call sensor to Extender
     private void doCall(final Context context, final int phoneEvent,
-                            final boolean incoming, final boolean missed,
-                            final String number, final Date eventTime) {
+                            final boolean incoming, final boolean missed/*,
+                            final String number, final Date eventTime*/) {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThread("PhoneCallBroadcastReceiver.doCall");
         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -105,13 +113,16 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             public void run() {
                 switch (phoneEvent) {
                     case SERVICE_PHONE_EVENT_START:
-                        callStarted(incoming, number, eventTime, appContext);
+                        //TODO call sensor to Extender
+                        callStarted(incoming, /*number, eventTime,*/ appContext);
                         break;
                     case SERVICE_PHONE_EVENT_ANSWER:
-                        callAnswered(incoming, number, eventTime, appContext);
+                        //TODO call sensor to Extender
+                        callAnswered(incoming, /*number, eventTime,*/ appContext);
                         break;
                     case SERVICE_PHONE_EVENT_END:
-                        callEnded(incoming, missed, number, eventTime, appContext);
+                        //TODO call sensor to Extender
+                        callEnded(incoming, missed, /*number, eventTime,*/ appContext);
                         break;
                 }
             }
@@ -164,13 +175,14 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         }
     }
 
-    private static void callStarted(boolean incoming, String phoneNumber, Date eventTime, Context context)
+    //TODO call sensor to Extender
+    private static void callStarted(boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
         PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "incoming="+incoming);
-        PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "phoneNumber="+phoneNumber);
+        //PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "phoneNumber="+phoneNumber);
 
         if (incoming) {
             //TODO call sensor to Extender
@@ -207,12 +219,15 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     }
     */
 
-    private static void callAnswered(boolean incoming, String phoneNumber, Date eventTime, Context context)
+    //TODO call sensor to Extender
+    private static void callAnswered(boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)
     {
         speakerphoneSelected = false;
 
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
+        PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "incoming="+incoming);
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -264,10 +279,13 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         */
     }
 
-    private static void callEnded(boolean incoming, boolean missed, String phoneNumber, Date eventTime, Context context)
+    //TODO call sensor to Extender
+    private static void callEnded(boolean incoming, boolean missed, /*String phoneNumber, Date eventTime,*/ Context context)
     {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
+
+        PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "incoming="+incoming);
 
         //TODO call sensor to Extender
         /*

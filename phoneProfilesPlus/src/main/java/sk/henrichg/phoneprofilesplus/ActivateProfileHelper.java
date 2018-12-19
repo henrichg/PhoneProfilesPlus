@@ -1052,6 +1052,7 @@ class ActivateProfileHelper {
                     if (Permissions.checkProfilePhone(appContext))
                         linkUnlink = linkUnlinkVolumes;
                 }
+                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "linkUnlink="+linkUnlink);
 
 
                 if (profile != null)
