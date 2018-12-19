@@ -1257,6 +1257,10 @@
     <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
     <string name="profile_preferences_volumeVoiceCall">Hlasitost hlasového hovoru</string>
     <string name="pref_event_permanentRun_summary">Pozastav událost po manuálním aktivaci profilu a po restartu událostí</string>
+    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
+    <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
+
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
