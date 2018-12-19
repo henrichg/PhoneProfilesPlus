@@ -2089,7 +2089,7 @@ public class DataWrapper {
                         if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
                             //noinspection StatementWithEmptyBody
                             if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) ||
-                                    ((callEventType == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                                    ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)))
                                 ;//eventStart = eventStart && true;
                             else
                                 callPassed = false;
