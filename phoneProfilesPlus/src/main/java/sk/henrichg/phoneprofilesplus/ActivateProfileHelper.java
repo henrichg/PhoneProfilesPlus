@@ -1007,7 +1007,6 @@ class ActivateProfileHelper {
         }
     }
 
-    //TODO call sensor to Extender
     static void executeForVolumes(final Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, final Context context) {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadVolumes();
@@ -1023,29 +1022,6 @@ class ActivateProfileHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                //TODO call sensor to Extender
-                // link, unlink volumes during activation of profile
-                /*ApplicationPreferences.getSharedPreferences(context);
-                int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-                int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
-                if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
-                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
-                    if (Permissions.checkProfilePhone(appContext)) {
-                        if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
-                            linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_UNLINK;
-                            if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
-                                linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_LINK;
-                        }
-                    }
-                }
-
-                if (linkUnlink != PhoneCallBroadcastReceiver.LINKMODE_NONE)
-                    // link, unlink is executed, not needed do it from EventsHandler
-                    PhoneCallBroadcastReceiver.linkUnlinkExecuted = true;*/
-                //TODO call sensor to Extender
                 int linkUnlink  = PhoneCallBroadcastReceiver.LINKMODE_NONE;
                 if (ActivateProfileHelper.getMergedRingNotificationVolumes(appContext) &&
                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(appContext)) {
@@ -1059,15 +1035,6 @@ class ActivateProfileHelper {
                     PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile.name="+profile._name);
                 else
                     PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile=null");
-
-                //TODO call sensor to Extender
-                /*
-                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
-                    PhoneCallBroadcastReceiver.setSpeakerphoneOn(profile, context);
-                    PhoneCallBroadcastReceiver.speakerphoneOnExecuted = true;
-                }
-                */
 
                 if (profile != null)
                 {
@@ -1966,7 +1933,6 @@ class ActivateProfileHelper {
         final Profile profile = Profile.getMappedProfile(_profile, context);
 
         // setup volume
-        //TODO call sensor to Extender
         ActivateProfileHelper.executeForVolumes(profile, PhoneCallBroadcastReceiver.LINKMODE_NONE,true, context);
 
         // set vibration on touch

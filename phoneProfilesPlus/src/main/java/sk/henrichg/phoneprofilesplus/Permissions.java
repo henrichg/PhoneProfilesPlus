@@ -744,40 +744,6 @@ class Permissions {
         }
     }
 
-    //TODO call sensor to Extender
-    /*
-    static boolean checkEventPhone(Context context) {
-        try {
-            //if ((android.os.Build.VERSION.SDK_INT >= 28) && checkCallLog) {
-            //    return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
-            //            (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED) &&
-            //            (ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED);
-            //}
-            //else
-            if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED);
-            } else
-                return hasPermission(context, Manifest.permission.READ_PHONE_STATE) &&
-                        hasPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    static boolean checkCallLogs(Context context) {
-        try {
-            if (android.os.Build.VERSION.SDK_INT >= 28) {
-                return (ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED);
-            }
-            else
-                return hasPermission(context, Manifest.permission.READ_CALL_LOG);
-        } catch (Exception e) {
-            return false;
-        }
-    }
-    */
-
     private static void checkProfilePhoneBroadcast(Context context, Profile profile, List<PermissionType>  permissions) {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -968,10 +934,7 @@ class Permissions {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             checkEventCalendar(context, event, permissions);
             checkEventCallContacts(context, event, permissions);
-            //TODO call sensor to Extender
-            //checkEventPhoneBroadcast(context, event, permissions);
             checkEventSMSContacts(context, event, permissions);
-            //checkEventSMSBroadcast(context, event, permissions);
             checkEventLocation(context, event, permissions);
 
             return permissions;
@@ -1229,57 +1192,6 @@ class Permissions {
             }
         }
     }
-
-    //TODO call sensor to Extender
-    /*
-    static boolean checkEventPhoneBroadcast(Context context, Event event, List<PermissionType>  permissions) {
-        if (event == null) return true;
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            try {
-                if (event._eventPreferencesCall._enabled || event._eventPreferencesOrientation._enabled) {
-                    boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedReadCallLog = true;
-                    if (android.os.Build.VERSION.SDK_INT >= 28)
-                        grantedReadCallLog = ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED;
-                    if (permissions != null) {
-                        if (event._eventPreferencesCall._enabled) {
-                            if (!grantedPhoneState)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
-                            if (!grantedOutgoingCall)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
-                            if (!grantedReadCallLog)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_CALL_LOG));
-                        }
-                        if (event._eventPreferencesOrientation._enabled) {
-                            if (!grantedPhoneState)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.READ_PHONE_STATE));
-                            if (!grantedOutgoingCall)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.PROCESS_OUTGOING_CALLS));
-                            if (!grantedReadCallLog)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_ORIENTATION_PREFERENCES, permission.READ_CALL_LOG));
-                        }
-                    }
-                    return grantedPhoneState && grantedOutgoingCall;
-                } else
-                    return true;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-        else {
-            try {
-                if (event._eventPreferencesCall._enabled || event._eventPreferencesOrientation._enabled) {
-                    return hasPermission(context, permission.READ_PHONE_STATE) &&
-                            hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
-                } else
-                    return true;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-    }
-    */
 
     @SuppressWarnings("unused")
     static boolean checkCamera(Context context) {
@@ -2112,11 +2024,7 @@ class Permissions {
         editor.putBoolean(PREF_CONTACTS_PERMISSION, Permissions.checkContacts(context));
         editor.putBoolean(PREF_LOCATION_PERMISSION, Permissions.checkLocation(context));
         editor.putBoolean(PREF_MICROPHONE_PERMISSION, Permissions.checkMicrophone(context));
-        //TODO call sensor to Extender
-        //editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkEventPhone(context));
         editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkProfilePhone(context));
-        //TODO call sensor to Extender
-        //editor.putBoolean(PREF_CALL_LOGS_PERMISSION, Permissions.checkCallLogs(context));
         editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(context));
         editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(context));
         editor.putBoolean(PREF_STORAGE_PERMISSION, Permissions.checkStorage(context));

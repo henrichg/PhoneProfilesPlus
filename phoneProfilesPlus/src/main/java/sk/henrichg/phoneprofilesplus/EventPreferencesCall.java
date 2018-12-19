@@ -49,6 +49,19 @@ class EventPreferencesCall extends EventPreferences {
     static final int CONTACT_LIST_TYPE_BLACK_LIST = 1;
     static final int CONTACT_LIST_TYPE_NOT_USE = 2;
 
+    static final int PHONE_CALL_EVENT_UNDEFINED = 0;
+    static final int PHONE_CALL_EVENT_INCOMING_CALL_RINGING = 1;
+    //static final int PHONE_CALL_EVENT_OUTGOING_CALL_STARTED = 2;
+    static final int PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED = 3;
+    static final int PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED = 4;
+    static final int PHONE_CALL_EVENT_INCOMING_CALL_ENDED = 5;
+    static final int PHONE_CALL_EVENT_OUTGOING_CALL_ENDED = 6;
+    static final int PHONE_CALL_EVENT_MISSED_CALL = 7;
+
+    static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
+    static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
+    static final String PREF_EVENT_CALL_EVENT_TIME = "eventCallEventTime";
+
     EventPreferencesCall(Event event,
                          boolean enabled,
                          int callEvent,
@@ -412,8 +425,6 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     void saveStartTime(DataWrapper dataWrapper) {
-        //TODO call sensor to Extender
-        /*
         PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
         if (this._startTime == 0) {
             // alarm for end is not set
@@ -421,16 +432,16 @@ class EventPreferencesCall extends EventPreferences {
                 PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission granted");
 
                 ApplicationPreferences.getSharedPreferences(dataWrapper.context);
-                int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-                long callTime = ApplicationPreferences.preferences.getLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
-                String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                int callEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
+                long callTime = ApplicationPreferences.preferences.getLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
+                String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
                 PPApplication.logE("EventPreferencesCall.saveStartTime", "callEventType=" + callEventType);
                 PPApplication.logE("EventPreferencesCall.saveStartTime", "callTime=" + callTime);
                 PPApplication.logE("EventPreferencesCall.saveStartTime", "phoneNumber=" + phoneNumber);
 
-                if (((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) ||
-                    ((_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED)) ||
-                    ((_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED))) {
+                if (((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL)) ||
+                    ((_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                    ((_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED) && (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED))) {
 
                     boolean phoneNumberFound = false;
 
@@ -538,7 +549,6 @@ class EventPreferencesCall extends EventPreferences {
                 DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
             }
         }
-        */
     }
 
 }

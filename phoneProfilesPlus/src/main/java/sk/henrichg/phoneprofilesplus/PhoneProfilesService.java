@@ -582,15 +582,12 @@ public class PhoneProfilesService extends Service
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered interruption filter");
 
-            // required for unlink ring and notification volume + call event
+            // required for unlink ring and notification volume
             if (phoneCallBroadcastReceiver == null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER phone call", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER phone call");
                 phoneCallBroadcastReceiver = new PhoneCallBroadcastReceiver();
                 IntentFilter intentFilter6 = new IntentFilter();
-                // not needed for unlink volumes and event Call sensor
-                //TODO call sensor to Extender
-                //intentFilter6.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
                 intentFilter6.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
                 appContext.registerReceiver(phoneCallBroadcastReceiver, intentFilter6);
             }
@@ -1420,7 +1417,6 @@ public class PhoneProfilesService extends Service
                         intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                         intentFilter23.addAction(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END);
                         intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
-                        //TODO call sensor to Extender
                         intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
                         appContext.registerReceiver(accessibilityServiceBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
@@ -3008,15 +3004,12 @@ public class PhoneProfilesService extends Service
 
                         AccessibilityServiceBroadcastReceiver.setApplicationInForeground(appContext, "");
 
-                        //TODO call sensor to Extender
-                        /*
                         ApplicationPreferences.getSharedPreferences(appContext);
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                        editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-                        editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
-                        editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
+                        editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
+                        editor.putString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                        editor.putLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, 0);
                         editor.apply();
-                        */
 
                         // show info notification
                         ImportantInfoNotification.showInfoNotification(appContext);
@@ -4907,8 +4900,6 @@ public class PhoneProfilesService extends Service
     //---------------------------
 
     private void doSimulatingRingingCall(Intent intent) {
-        //TODO call sensor to Extender
-        /*
         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false))
         {
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulate ringing call");
@@ -4929,7 +4920,7 @@ public class PhoneProfilesService extends Service
             int newZenMode = ActivateProfileHelper.getZenMode(context);
             int newRingerVolume = ActivateProfileHelper.getRingerVolume(context);
             String newRingtone = "";
-            String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+            String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
             // get ringtone from contact
             boolean phoneNumberFound = false;
@@ -5056,7 +5047,6 @@ public class PhoneProfilesService extends Service
             }
 
         }
-        */
     }
 
     private void startSimulatingRingingCall(int stream, String ringtone) {

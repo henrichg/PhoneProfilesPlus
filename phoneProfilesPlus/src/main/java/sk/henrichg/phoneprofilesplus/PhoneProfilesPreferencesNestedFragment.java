@@ -1667,24 +1667,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         finishActivity = permissionsChanged && (!smsPermission);
                     }
                     if (!permissionsChanged) {
-                        //TODO call sensor to Extender
-                        //boolean phonePermission = Permissions.checkEventPhone(context);
                         boolean phonePermission = Permissions.checkProfilePhone(context);
                         permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!phonePermission);
                     }
-                    //TODO call sensor to Extender
-                    /*
-                    if (!permissionsChanged) {
-                        if (Build.VERSION.SDK_INT >= 28) {
-                            boolean callLogPermission = Permissions.checkCallLogs(context);
-                            permissionsChanged = Permissions.getCallLogsPermission(context) != callLogPermission;
-                            // finish Editor when permission is disabled
-                            finishActivity = permissionsChanged && (!callLogPermission);
-                        }
-                    }
-                    */
                     if (!permissionsChanged) {
                         boolean storagePermission = Permissions.checkStorage(context);
                         permissionsChanged = Permissions.getStoragePermission(context) != storagePermission;

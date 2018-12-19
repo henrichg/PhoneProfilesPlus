@@ -24,10 +24,17 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender.package_name";
     private static final String EXTRA_CLASS_NAME = "sk.henrichg.phoneprofilesplusextender.class_name";
+
     private static final String EXTRA_ORIGIN = "sk.henrichg.phoneprofilesplusextender.origin";
     private static final String EXTRA_TIME = "sk.henrichg.phoneprofilesplusextender.time";
 
+    //private static final String EXTRA_SERVICE_PHONE_EVENT = "sk.henrichg.phoneprofilesplusextender.service_phone_event";
+    private static final String EXTRA_CALL_EVENT_TYPE = "sk.henrichg.phoneprofilesplusextender.call_event_type";
+    private static final String EXTRA_PHONE_NUMBER = "sk.henrichg.phoneprofilesplusextender.phone_number";
+    private static final String EXTRA_EVENT_TIME = "sk.henrichg.phoneprofilesplusextender.event_time";
+
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -188,6 +195,45 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         }
                     }
                 });
+                break;
+            case PPApplication.ACTION_CALL_RECEIVED:
+                //final int servicePhoneEvent = intent.getIntExtra(EXTRA_SERVICE_PHONE_EVENT, 0);
+                final int callEventType = intent.getIntExtra(EXTRA_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
+                final String phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER);
+                final long eventTime = intent.getLongExtra(EXTRA_EVENT_TIME, 0);
+
+                //PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "servicePhoneEvent="+servicePhoneEvent);
+                PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "callEventType="+callEventType);
+                PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
+                PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "eventTime="+eventTime);
+
+                PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.5");
+                final Handler handler4 = new Handler(PPApplication.handlerThread.getLooper());
+                handler4.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.4");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+                        }
+
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                });
+
                 break;
         }
     }

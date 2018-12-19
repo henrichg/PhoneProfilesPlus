@@ -35,6 +35,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.format.DateFormat;
@@ -1985,22 +1986,20 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BATTERY);
         }
 
-        //TODO call sensor to Extender
-        /*
         if (event._eventPreferencesCall._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                    Permissions.checkEventCallContacts(context, event, null) &&
-                    Permissions.checkEventPhoneBroadcast(context, event, null)) {
+                    Permissions.checkEventCallContacts(context, event, null) /*&&
+                    Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
                 ApplicationPreferences.getSharedPreferences(context);
-                int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-                String phoneNumber = ApplicationPreferences.preferences.getString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                int callEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
+                String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
 
                 PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "callEventType=" + callEventType);
                 PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "phoneNumber=" + phoneNumber);
 
                 boolean phoneNumberFound = false;
 
-                if (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) {
+                if (callEventType != EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED) {
                     if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
                         PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "search in groups");
                         // find phone number in groups
@@ -2089,20 +2088,20 @@ public class DataWrapper {
                     if (phoneNumberFound) {
                         if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
                             //noinspection StatementWithEmptyBody
-                            if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING) ||
-                                    ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                            if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) ||
+                                    ((callEventType == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED)))
                                 ;//eventStart = eventStart && true;
                             else
                                 callPassed = false;
                         } else if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) {
                             //noinspection StatementWithEmptyBody
-                            if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED)
+                            if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)
                                 ;//eventStart = eventStart && true;
                             else
                                 callPassed = false;
                         } else if (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED) {
                             //noinspection StatementWithEmptyBody
-                            if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)
+                            if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED)
                                 ;//eventStart = eventStart && true;
                             else
                                 callPassed = false;
@@ -2138,9 +2137,9 @@ public class DataWrapper {
 
                                 if (sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
                                     //noinspection StatementWithEmptyBody
-                                    if (((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
-                                        ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED)) ||
-                                        ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)))
+                                    if (((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
+                                        ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                                        ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED) && (event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)))
                                         ;//eventStart = eventStart && true;
                                     else
                                         callPassed = false;
@@ -2236,7 +2235,6 @@ public class DataWrapper {
             event._eventPreferencesCall.setSensorPassed(event._eventPreferencesCall.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
             DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALL);
         }
-        */
 
         if (event._eventPreferencesPeripherals._enabled) {
             if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -3061,17 +3059,16 @@ public class DataWrapper {
             if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 ApplicationPreferences.getSharedPreferences(context);
                 PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-
-                //TODO call sensor to Extender
-                /*
-                int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-
-                if ((callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) &&
-                                (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) &&
-                                (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                boolean inCall = false;
+                TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephony != null) {
+                    int callState = telephony.getCallState();
+                    inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);
+                }
+                if (inCall) {
                     // not allowed changes during call
                     notAllowedOrientation = true;
-                } else*/ if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
+                } else if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
                     if (forRestartEvents)
                         orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else

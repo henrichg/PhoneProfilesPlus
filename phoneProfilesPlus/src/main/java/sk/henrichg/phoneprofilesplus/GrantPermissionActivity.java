@@ -225,11 +225,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE) || forceGrant;
                 whyPermissionType[4][permissionType.type] = true;
             }
-            //TODO call sensor to Extender
-            /*if (permissionType.permission.equals(Manifest.permission.PROCESS_OUTGOING_CALLS)) {
-                showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.PROCESS_OUTGOING_CALLS) || forceGrant;
-                whyPermissionType[5][permissionType.type] = true;
-            }*/
             if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || forceGrant;
                 whyPermissionType[6][permissionType.type] = true;
@@ -263,11 +258,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) || forceGrant;
                 whyPermissionType[13][permissionType.type] = true;
             }
-            //TODO call sensor to Extender
-            /*if (permissionType.permission.equals(Manifest.permission.READ_CALL_LOG)) {
-                showRequestProcessOutgoingCalls = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CALL_LOG) || forceGrant;
-                whyPermissionType[14][permissionType.type] = true;
-            }*/
         }
 
         if (showRequestWriteSettings ||

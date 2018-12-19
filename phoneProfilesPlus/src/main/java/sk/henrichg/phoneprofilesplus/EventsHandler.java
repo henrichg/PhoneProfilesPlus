@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
+import android.telephony.TelephonyManager;
 
 import java.util.List;
 
@@ -219,14 +220,6 @@ class EventsHandler {
             }
 
             if (isRestart) {
-                /*// clear phone call data
-                ApplicationPreferences.getSharedPreferences(context);
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-                editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
-                editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
-                editor.apply();*/
-
                 // for restart events, set startTime to 0
                 dataWrapper.clearSensorsStartTime(false);
             }
@@ -819,6 +812,54 @@ class EventsHandler {
             editor.apply();
         }
         */
+        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
+            TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+            if (eventsExists(sensorType, true)) {
+                // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
+                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    boolean inRinging = false;
+                    if (telephony != null) {
+                        int callState = telephony.getCallState();
+                        //if (doUnlink) {
+                        //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
+                        inRinging = (callState == TelephonyManager.CALL_STATE_RINGING);
+                    }
+                    if (inRinging) {
+                        // start PhoneProfilesService for ringing call simulation
+                        PPApplication.logE("EventsHandler.doEndService", "start simulating ringing call");
+                        try {
+                            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
+                            // add saved ringer mode, zen mode, ringtone before handle events as parameters
+                            // ringing call simulator compare this with new (actual values), changed by currently activated profile
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                            PPApplication.startPPService(context, serviceIntent);
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            }
+
+            boolean inCall = false;
+            if (telephony != null) {
+                int callState = telephony.getCallState();
+                //if (doUnlink) {
+                //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
+                inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);
+            }
+            if (!inCall)
+                setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0);
+        }
+        else
+        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
+            setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0);
+        }
 
         /*else
         if (broadcastReceiverType.equals(SENSOR_TYPE_SMS)) {
@@ -866,6 +907,15 @@ class EventsHandler {
 
     void setEventAlarmClockParameters(long date) {
         eventAlarmClockDate = date;
+    }
+
+    void setEventCallParameters(int callEventType, String phoneNumber, long eventTime) {
+        ApplicationPreferences.getSharedPreferences(context);
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, callEventType);
+        editor.putString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, phoneNumber);
+        editor.putLong(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TIME, eventTime);
+        editor.apply();
     }
 
 }
