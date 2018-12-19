@@ -2244,6 +2244,42 @@ class Event {
         if (checked)
             return preferenceAllowed;
 
+        if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED))
+        {
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+                // device has telephony
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
+        }
+        if (checked)
+            return preferenceAllowed;
+
+        if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED))
+        {
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+                // device has telephony
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
+        }
+        if (checked)
+            return preferenceAllowed;
+
+        if (preferenceKey.equals(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED))
+        {
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_LOCATION))
+                // device has location
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
+        }
+        if (checked)
+            return preferenceAllowed;
+
         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 
         return preferenceAllowed;
