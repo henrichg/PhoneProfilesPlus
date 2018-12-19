@@ -1261,7 +1261,10 @@
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\".</string>
+
+    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
+    <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"Call sensor\".</string>
+
     <string name="extender_about_application_version">Verze:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Služba Dostupnost pro parametr profilu \"Vynutit zastavení aplikací\":</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Služba Dostupnost pro parametry události \"Senzor aplikací\" a \"Senzor orientace\":</string>

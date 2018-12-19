@@ -1263,7 +1263,10 @@
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
-    <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\".</string>
+
+    <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
+    <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Call sensor\".</string>
+
     <string name="extender_about_application_version">Версія:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Служба спец. можливостей для параметра профілю \"Примусова зупинка додатків\":</string>
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Служба спец. можливостей для датчиків \"Датчик додатків\" і \"Датчик орієнтації екрану\":</string>
