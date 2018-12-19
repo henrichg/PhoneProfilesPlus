@@ -222,7 +222,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                         if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
                         }
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {

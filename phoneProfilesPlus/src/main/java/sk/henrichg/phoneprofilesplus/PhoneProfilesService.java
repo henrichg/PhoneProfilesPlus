@@ -5135,7 +5135,7 @@ public class PhoneProfilesService extends Service
                     PostDelayedBroadcastReceiver.setAlarm(
                             PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
                 } catch (Exception e) {
-                    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "exception");
+                    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     ringingMediaPlayer = null;
                     /*PPApplication.startHandlerThread("PhoneProfilesService.startSimulatingRingingCall.2");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());

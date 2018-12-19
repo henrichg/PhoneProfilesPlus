@@ -816,6 +816,7 @@ class EventsHandler {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
             if (eventsExists(sensorType, true)) {
+                PPApplication.logE("EventsHandler.doEndService", "running event exists");
                 // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
                 if (android.os.Build.VERSION.SDK_INT >= 21) {
                     boolean inRinging = false;
@@ -825,6 +826,7 @@ class EventsHandler {
                         //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
                         inRinging = (callState == TelephonyManager.CALL_STATE_RINGING);
                     }
+                    PPApplication.logE("EventsHandler.doEndService", "inRinging="+inRinging);
                     if (inRinging) {
                         // start PhoneProfilesService for ringing call simulation
                         PPApplication.logE("EventsHandler.doEndService", "start simulating ringing call");
@@ -845,6 +847,8 @@ class EventsHandler {
                     }
                 }
             }
+            else
+                PPApplication.logE("EventsHandler.doEndService", "running event NOT exists");
 
             boolean inCall = false;
             if (telephony != null) {
