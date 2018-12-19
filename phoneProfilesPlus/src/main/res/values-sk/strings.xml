@@ -1270,9 +1270,14 @@
     <string name="extender_accessibility_service_button">Povoliť/Zakázať\nslužbu Dostupnosť</string>
     <string name="extender_setting_screen_not_found_alert">Obrazovka nastavenia nebola nájdená.</string>
     <string name="extender_accessibility_service_permission">Služba dostupnosti PhoneProfilesPlusExtender</string>
+
     <string name="extender_accessibility_service_event_sensor_sms_mms">• Služba Dostupnosť pre parametre udalosti \"Senzor SMS/MMS\". Funkcia dostupnosti nie je použitá, bežiaci servis je potrebný pre príjem SMS a MMS.:</string>
     <string name="extender_permissions_event_sensor_sms_mms">• Povolenia pre parametre udalosti \"Senzor SMS/MMS\" - povolenie SMS:</string>
     <string name="extender_permissions_not_granted">Neudelené</string>
     <string name="extender_permissions_granted">Udelené</string>
     <string name="extender_permissions_button">Udeľ/odopri\npráva</string>
+
+    <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
+    <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
+    <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
 </resources>

@@ -1272,9 +1272,14 @@
     <string name="extender_accessibility_service_button">Увімкнути/Вимкнути\nСлужбу спец. можливостей</string>
     <string name="extender_setting_screen_not_found_alert">Налаштування екрану не знайдено.</string>
     <string name="extender_accessibility_service_permission">Служба спец. можливостей PhoneProfilesPlusExtender</string>
+
     <string name="extender_accessibility_service_event_sensor_sms_mms">• Служба спец. можливостей для параметру подій \"SMS/MMS датчик\". Служба спец. можливостей не використовується, служба потрібна для отримання SMS та MMS.:</string>
     <string name="extender_permissions_event_sensor_sms_mms">• Дозволи до параметру подій \"SMS/MMS датчик\" - дозвіл SMS:</string>
     <string name="extender_permissions_not_granted">Не надано</string>
     <string name="extender_permissions_granted">Надано</string>
     <string name="extender_permissions_button">Надати/Заборонити\nдозволи</string>
+
+    <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
+    <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
+    <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
 </resources>

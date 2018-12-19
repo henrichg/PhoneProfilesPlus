@@ -1269,9 +1269,14 @@
     <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
+
     <string name="extender_accessibility_service_event_sensor_sms_mms">• Accessibility service for event parameter \"SMS/MMS sensor\". Accessibility function is not used, service is needed for receiving SMS and MMS.:</string>
     <string name="extender_permissions_event_sensor_sms_mms">• Permissions for event parameter \"SMS/MMS sensor\" - permission SMS:</string>
     <string name="extender_permissions_not_granted">Not granted</string>
     <string name="extender_permissions_granted">Granted</string>
     <string name="extender_permissions_button">Grant/deny\npermissions</string>
+
+    <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
+    <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
+    <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
 </resources>
