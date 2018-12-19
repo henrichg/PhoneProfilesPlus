@@ -589,7 +589,8 @@ public class PhoneProfilesService extends Service
                 phoneCallBroadcastReceiver = new PhoneCallBroadcastReceiver();
                 IntentFilter intentFilter6 = new IntentFilter();
                 // not needed for unlink volumes and event Call sensor
-                intentFilter6.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
+                //TODO call sensor to Extender
+                //intentFilter6.addAction(Intent.ACTION_NEW_OUTGOING_CALL);
                 intentFilter6.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
                 appContext.registerReceiver(phoneCallBroadcastReceiver, intentFilter6);
             }
@@ -1419,6 +1420,8 @@ public class PhoneProfilesService extends Service
                         intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                         intentFilter23.addAction(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END);
                         intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
+                        //TODO call sensor to Extender
+                        intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
                         appContext.registerReceiver(accessibilityServiceBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
                     }
@@ -3005,12 +3008,15 @@ public class PhoneProfilesService extends Service
 
                         AccessibilityServiceBroadcastReceiver.setApplicationInForeground(appContext, "");
 
+                        //TODO call sensor to Extender
+                        /*
                         ApplicationPreferences.getSharedPreferences(appContext);
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                         editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                         editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
                         editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
                         editor.apply();
+                        */
 
                         // show info notification
                         ImportantInfoNotification.showInfoNotification(appContext);
@@ -4901,6 +4907,8 @@ public class PhoneProfilesService extends Service
     //---------------------------
 
     private void doSimulatingRingingCall(Intent intent) {
+        //TODO call sensor to Extender
+        /*
         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false))
         {
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulate ringing call");
@@ -4968,7 +4976,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldSystemRingerVolume=" + oldSystemRingerVolume);
             PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerVolume=" + newRingerVolume);
 
-            if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode/*, false*/)) {
+            if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
 
                 PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing is audible");
 
@@ -4976,53 +4984,53 @@ public class PhoneProfilesService extends Service
                 int stream = AudioManager.STREAM_RING;
 
                 if ((android.os.Build.VERSION.SDK_INT >= 21)) {
-                    /*if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                            ((newRingerMode == Profile.RINGERMODE_ZENMODE) &&
-                                    ((newZenMode == Profile.ZENMODE_NONE) || (newZenMode == Profile.ZENMODE_ALARMS))))) {
-                        // new ringer/zen mode is changed to another then NONE and ONLY_ALARMS
-                        // Android 6 - ringerMode=Profile.RINGERMODE_SILENT = ONLY_ALARMS
-
-                        // test old ringer and zen mode
-                        if (((oldRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
-                                ((oldRingerMode == Profile.RINGERMODE_ZENMODE) &&
-                                        ((oldZenMode == Profile.ZENMODE_NONE) || (oldZenMode == Profile.ZENMODE_ALARMS)))) {
-                            // old ringer/zen mode is NONE and ONLY_ALARMS
-                            simulateRinging = true;
-                            stream = AudioManager.STREAM_ALARM;
-                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC (1)");
-                        }
-                    }*/
+                    //if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                    //        ((newRingerMode == Profile.RINGERMODE_ZENMODE) &&
+                    //                ((newZenMode == Profile.ZENMODE_NONE) || (newZenMode == Profile.ZENMODE_ALARMS))))) {
+                    //    // new ringer/zen mode is changed to another then NONE and ONLY_ALARMS
+                    //    // Android 6 - ringerMode=Profile.RINGERMODE_SILENT = ONLY_ALARMS
+                    //
+                    //    // test old ringer and zen mode
+                    //    if (((oldRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
+                    //            ((oldRingerMode == Profile.RINGERMODE_ZENMODE) &&
+                    //                    ((oldZenMode == Profile.ZENMODE_NONE) || (oldZenMode == Profile.ZENMODE_ALARMS)))) {
+                    //        // old ringer/zen mode is NONE and ONLY_ALARMS
+                    //        simulateRinging = true;
+                    //        stream = AudioManager.STREAM_ALARM;
+                    //        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC (1)");
+                    //    }
+                    //}
                     if (android.os.Build.VERSION.SDK_INT >= 23) {
-                       if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode/*, false*/)) {
+                       if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                            simulateRinging = true;
                            stream = AudioManager.STREAM_ALARM;
                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC (1)");
                        }
                     }
 
-                    /*if (!simulateRinging) {
-                        if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT < 23)) ||
-                                ((newRingerMode == Profile.RINGERMODE_ZENMODE) && (newZenMode == Profile.ZENMODE_PRIORITY)))) {
-                            // new ringer/zen mode is changed to another then PRIORITY
-                            // Android 5 - ringerMode=Profile.RINGERMODE_SILENT = PRIORITY
-                            if (((oldRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT < 23)) ||
-                                    ((oldRingerMode == Profile.RINGERMODE_ZENMODE) && (oldZenMode == Profile.ZENMODE_PRIORITY))) {
-                                // old ringer/zen mode is PRIORITY
-                                simulateRinging = true;
-                                if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
-                                    stream = AudioManager.STREAM_ALARM;
-                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC (2)");
-                                }
-                                else {
-                                    //stream = AudioManager.STREAM_RING;
-                                    stream = AudioManager.STREAM_ALARM;
-                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=RING (2)");
-                                }
-                            }
-                        }
-                    }*/
+                    //if (!simulateRinging) {
+                    //    if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                    //            ((newRingerMode == Profile.RINGERMODE_ZENMODE) && (newZenMode == Profile.ZENMODE_PRIORITY)))) {
+                    //        // new ringer/zen mode is changed to another then PRIORITY
+                    //        // Android 5 - ringerMode=Profile.RINGERMODE_SILENT = PRIORITY
+                    //        if (((oldRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                    //                ((oldRingerMode == Profile.RINGERMODE_ZENMODE) && (oldZenMode == Profile.ZENMODE_PRIORITY))) {
+                    //            // old ringer/zen mode is PRIORITY
+                    //            simulateRinging = true;
+                    //            if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
+                    //                stream = AudioManager.STREAM_ALARM;
+                    //                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC (2)");
+                    //            }
+                    //            else {
+                    //                //stream = AudioManager.STREAM_RING;
+                    //                stream = AudioManager.STREAM_ALARM;
+                    //                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=RING (2)");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     if (android.os.Build.VERSION.SDK_INT < 23) {
-                        if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode/*, false*/)) {
+                        if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                             simulateRinging = true;
                             if (oldSystemRingerMode == AudioManager.RINGER_MODE_SILENT) {
                                 stream = AudioManager.STREAM_ALARM;
@@ -5048,6 +5056,7 @@ public class PhoneProfilesService extends Service
             }
 
         }
+        */
     }
 
     private void startSimulatingRingingCall(int stream, String ringtone) {

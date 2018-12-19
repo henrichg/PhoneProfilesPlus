@@ -42,10 +42,13 @@
         tools:ignore="ProtectedPermissions"/>
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!-- required for Call sensor for answer call to get phone number -->
+    <!-- moved to Extender
+    //TODO call sensor to Extender
+    // required for Call sensor for answer call to get phone number
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
-    <!-- required for Android 9??? -->
+    // required for Android 9???
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+    -->
 
     <!-- moved to Extender
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>

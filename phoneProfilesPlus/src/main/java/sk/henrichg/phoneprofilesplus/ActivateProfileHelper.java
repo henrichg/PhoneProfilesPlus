@@ -1007,7 +1007,8 @@ class ActivateProfileHelper {
         }
     }
 
-    static void executeForVolumes(final Profile profile, final boolean forProfileActivation, final Context context) {
+    //TODO call sensor to Extender
+    static void executeForVolumes(final Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, final Context context) {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadVolumes();
         final Handler handler = new Handler(PPApplication.handlerThreadVolumes.getLooper());
@@ -1022,8 +1023,9 @@ class ActivateProfileHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
+                //TODO call sensor to Extender
                 // link, unlink volumes during activation of profile
-                ApplicationPreferences.getSharedPreferences(context);
+                /*ApplicationPreferences.getSharedPreferences(context);
                 int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
                 int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
                 if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
@@ -1042,18 +1044,29 @@ class ActivateProfileHelper {
 
                 if (linkUnlink != PhoneCallBroadcastReceiver.LINKMODE_NONE)
                     // link, unlink is executed, not needed do it from EventsHandler
-                    PhoneCallBroadcastReceiver.linkUnlinkExecuted = true;
+                    PhoneCallBroadcastReceiver.linkUnlinkExecuted = true;*/
+                //TODO call sensor to Extender
+                int linkUnlink  = PhoneCallBroadcastReceiver.LINKMODE_NONE;
+                if (ActivateProfileHelper.getMergedRingNotificationVolumes(appContext) &&
+                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(appContext)) {
+                    if (Permissions.checkProfilePhone(appContext))
+                        linkUnlink = linkUnlinkVolumes;
+                }
+
 
                 if (profile != null)
                     PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile.name="+profile._name);
                 else
                     PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile=null");
 
+                //TODO call sensor to Extender
+                /*
                 if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
                         (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
                     PhoneCallBroadcastReceiver.setSpeakerphoneOn(profile, context);
                     PhoneCallBroadcastReceiver.speakerphoneOnExecuted = true;
                 }
+                */
 
                 if (profile != null)
                 {
@@ -1952,7 +1965,8 @@ class ActivateProfileHelper {
         final Profile profile = Profile.getMappedProfile(_profile, context);
 
         // setup volume
-        ActivateProfileHelper.executeForVolumes(profile, true, context);
+        //TODO call sensor to Extender
+        ActivateProfileHelper.executeForVolumes(profile, PhoneCallBroadcastReceiver.LINKMODE_NONE,true, context);
 
         // set vibration on touch
         if (Permissions.checkProfileVibrationOnTouch(context, profile, null)) {

@@ -1985,6 +1985,8 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_BATTERY);
         }
 
+        //TODO call sensor to Extender
+        /*
         if (event._eventPreferencesCall._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
                     Permissions.checkEventCallContacts(context, event, null) &&
@@ -2154,12 +2156,12 @@ public class DataWrapper {
                                 callPassed = false;
                         }
 
-                        /*if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
-                            //callPassed = true;
-                            //eventStart = eventStart && false;
-                            callPassed = false;
-                        }*/
+                        //if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        //        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                        //    //callPassed = true;
+                        //    //eventStart = eventStart && false;
+                        //    callPassed = false;
+                        //}
                     } else
                         callPassed = false;
 
@@ -2234,6 +2236,7 @@ public class DataWrapper {
             event._eventPreferencesCall.setSensorPassed(event._eventPreferencesCall.getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING));
             DatabaseHandler.getInstance(context).updateEventSensorPassed(event, DatabaseHandler.ETYPE_CALL);
         }
+        */
 
         if (event._eventPreferencesPeripherals._enabled) {
             if (Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -3057,16 +3060,18 @@ public class DataWrapper {
         if (event._eventPreferencesOrientation._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 ApplicationPreferences.getSharedPreferences(context);
+                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
+                //TODO call sensor to Extender
+                /*
                 int callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
-                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                if (/*Permissions.checkEventPhoneBroadcast(context, event) &&*/
-                        (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) &&
+                if ((callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED) &&
                                 (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) &&
                                 (callEventType != PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                     // not allowed changes during call
                     notAllowedOrientation = true;
-                } else if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
+                } else*/ if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
                     if (forRestartEvents)
                         orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else

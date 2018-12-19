@@ -21,14 +21,12 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     static boolean linkUnlinkExecuted = false;
     static boolean speakerphoneOnExecuted = false;
 
-    //public static final String EXTRA_SERVICE_PHONE_EVENT = "service_phone_event";
-    //public static final String EXTRA_SERVICE_PHONE_INCOMING = "service_phone_incoming";
-    //public static final String EXTRA_SERVICE_PHONE_NUMBER = "service_phone_number";
-
     private static final int SERVICE_PHONE_EVENT_START = 1;
     private static final int SERVICE_PHONE_EVENT_ANSWER = 2;
     private static final int SERVICE_PHONE_EVENT_END = 3;
 
+    //TODO call sensor to Extender
+    /*
     static final int CALL_EVENT_UNDEFINED = 0;
     static final int CALL_EVENT_INCOMING_CALL_RINGING = 1;
     //static final int CALL_EVENT_OUTGOING_CALL_STARTED = 2;
@@ -37,14 +35,18 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     static final int CALL_EVENT_INCOMING_CALL_ENDED = 5;
     static final int CALL_EVENT_OUTGOING_CALL_ENDED = 6;
     static final int CALL_EVENT_MISSED_CALL = 7;
+    */
 
     static final int LINKMODE_NONE = 0;
     static final int LINKMODE_LINK = 1;
     static final int LINKMODE_UNLINK = 2;
 
+    //TODO call sensor to Extender
+    /*
     static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
     static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
     static final String PREF_EVENT_CALL_EVENT_TIME = "eventCallEventTime";
+    */
 
     protected boolean onStartReceive()
     {
@@ -116,6 +118,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         });
     }
 
+    //TODO call sensor to Extender
+    /*
     private static void doCallEvent(int eventType, String phoneNumber, Date eventTime, Context context)
     {
         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
@@ -146,6 +150,19 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             } catch (Exception ignored) {}
         }
     }
+    */
+
+    //TODO call sensor to Extender
+    private static void setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
+        if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+            final Profile profile = dataWrapper.getActivatedProfile(false, false);
+            if (profile != null) {
+                ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
+            }
+            dataWrapper.invalidateDataWrapper();
+        }
+    }
 
     private static void callStarted(boolean incoming, String phoneNumber, Date eventTime, Context context)
     {
@@ -156,10 +173,14 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         PPApplication.logE("PhoneCallBroadcastReceiver.callStarted", "phoneNumber="+phoneNumber);
 
         if (incoming) {
-            doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, eventTime, context);
+            //TODO call sensor to Extender
+            //doCallEvent(CALL_EVENT_INCOMING_CALL_RINGING, phoneNumber, eventTime, context);
+            setLinkUnlinkNotificationVolume(LINKMODE_UNLINK, context);
         }
     }
 
+    //TODO call sensor to Extender
+    /*
     static void setSpeakerphoneOn(Profile profile, Context context) {
         if (profile != null) {
 
@@ -184,6 +205,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
             }
         }
     }
+    */
 
     private static void callAnswered(boolean incoming, String phoneNumber, Date eventTime, Context context)
     {
@@ -204,15 +226,42 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         // audio mode is set to MODE_IN_CALL by system
 
+        //TODO call sensor to Extender
+        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+
+        Profile profile = dataWrapper.getActivatedProfile(false, false);
+        profile = Profile.getMappedProfile(profile, context);
+
+        if (profile != null) {
+            if (profile._volumeSpeakerPhone != 0) {
+                savedSpeakerphone = audioManager.isSpeakerphoneOn();
+                boolean changeSpeakerphone = false;
+                if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
+                    changeSpeakerphone = true;
+                if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
+                    changeSpeakerphone = true;
+                if (changeSpeakerphone) {
+                    /// activate SpeakerPhone
+                    audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+                    speakerphoneSelected = true;
+                }
+            }
+        }
+
+        dataWrapper.invalidateDataWrapper();
+
         // setSpeakerphoneOn() moved to ActivateProfileHelper.executeForVolumes
 
+        //TODO call sensor to Extender
+        /*
         if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().stopSimulatingRingingCall(/*true*/);
+            PhoneProfilesService.getInstance().stopSimulatingRingingCall();
 
         if (incoming)
             doCallEvent(CALL_EVENT_INCOMING_CALL_ANSWERED, phoneNumber, eventTime, context);
         else
             doCallEvent(CALL_EVENT_OUTGOING_CALL_ANSWERED, phoneNumber, eventTime, context);
+        */
     }
 
     private static void callEnded(boolean incoming, boolean missed, String phoneNumber, Date eventTime, Context context)
@@ -220,8 +269,11 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
+        //TODO call sensor to Extender
+        /*
         if (PhoneProfilesService.getInstance() != null)
-            PhoneProfilesService.getInstance().stopSimulatingRingingCall(/*true*/);
+            PhoneProfilesService.getInstance().stopSimulatingRingingCall();
+        */
 
         // audio mode is set to MODE_IN_CALL by system
 
@@ -245,6 +297,12 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         // audio mode is set to MODE_NORMAL by system
 
+        //TODO call sensor to Extender
+        if (incoming)
+            setLinkUnlinkNotificationVolume(LINKMODE_LINK, context);
+
+        //TODO call sensor to Extender
+        /*
         PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "incoming="+incoming);
         PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "missed="+missed);
         PPApplication.logE("PhoneCallBroadcastReceiver.callEnded", "phoneNumber="+phoneNumber);
@@ -257,7 +315,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         }
         else
             doCallEvent(CALL_EVENT_OUTGOING_CALL_ENDED, phoneNumber, eventTime, context);
-
+        */
     }
 
 }

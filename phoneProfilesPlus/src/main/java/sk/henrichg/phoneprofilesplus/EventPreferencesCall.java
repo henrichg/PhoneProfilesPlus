@@ -412,6 +412,8 @@ class EventPreferencesCall extends EventPreferences {
     }
 
     void saveStartTime(DataWrapper dataWrapper) {
+        //TODO call sensor to Extender
+        /*
         PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
         if (this._startTime == 0) {
             // alarm for end is not set
@@ -523,12 +525,12 @@ class EventPreferencesCall extends EventPreferences {
                         //if (_event.getStatus() == Event.ESTATUS_RUNNING)
                             setSystemEventForPause(dataWrapper.context);
                     }
-                }/* else {
-                    PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime NOT set");
-
-                    _startTime = 0;
-                    DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
-                }*/
+                }// else {
+                //    PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime NOT set");
+                //
+                //    _startTime = 0;
+                //    DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
+                //}
             } else {
                 PPApplication.logE("EventPreferencesCall.saveStartTime", "contacts permission NOT granted");
 
@@ -536,6 +538,7 @@ class EventPreferencesCall extends EventPreferences {
                 DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
             }
         }
+        */
     }
 
 }

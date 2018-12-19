@@ -102,7 +102,8 @@ class EventsHandler {
             dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
             ApplicationPreferences.getSharedPreferences(context);
-            callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
+            //TODO call sensor to Extender
+            //callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation
@@ -729,6 +730,8 @@ class EventsHandler {
         PPApplication.logE("EventsHandler.doEndService","sensorType="+sensorType);
         PPApplication.logE("EventsHandler.doEndService","callEventType="+callEventType);
 
+        //TODO call sensor to Extender
+        /*
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
             boolean linkUnlink = false;
             if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
@@ -760,10 +763,10 @@ class EventsHandler {
             if (eventsExists(sensorType, true)) {
                 // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
                 if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
-                    /*if (!linkUnlink) {
+                    //if (!linkUnlink) {
                         // wait for change ringer mode + volume
-                        PPApplication.sleep(1500);
-                    }*/
+                    //    PPApplication.sleep(1500);
+                    //}
                     // start PhoneProfilesService for ringing call simulation
                     PPApplication.logE("EventsHandler.doEndService","start simulating ringing call");
                     try {
@@ -815,6 +818,8 @@ class EventsHandler {
             editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
             editor.apply();
         }
+        */
+
         /*else
         if (broadcastReceiverType.equals(SENSOR_TYPE_SMS)) {
             // start PhoneProfilesService for notification tone simulation
