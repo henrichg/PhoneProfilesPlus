@@ -35,6 +35,8 @@ class EventPreferencesCall extends EventPreferences {
     private static final String PREF_EVENT_CALL_CONTACT_LIST_TYPE = "eventCallContactListType";
     private static final String PREF_EVENT_CALL_PERMANENT_RUN = "eventCallPermanentRun";
     private static final String PREF_EVENT_CALL_DURATION = "eventCallDuration";
+    static final String PREF_EVENT_CALL_INSTALL_EXTENDER = "eventCallInstallExtender";
+    static final String PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS = "eventCallAccessibilitySettings";
 
     private static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategory";
 
@@ -134,20 +136,37 @@ class EventPreferencesCall extends EventPreferences {
                 descr = descr + ": </b>";
             }
 
-            descr = descr + context.getString(R.string.pref_event_call_event);
-            String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-            descr = descr + ": " + callEvents[this._callEvent] + "; ";
-            descr = descr + context.getString(R.string.pref_event_call_contactListType);
-            String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-            descr = descr + ": " + contactListTypes[this._contactListType];
+            int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+            if (extenderVersion == 0) {
+                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+            }
+            else
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+            }
+            else
+            if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+            }
+            else {
+                descr = descr + context.getString(R.string.pref_event_call_event);
+                String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
+                descr = descr + ": " + callEvents[this._callEvent] + "; ";
+                descr = descr + context.getString(R.string.pref_event_call_contactListType);
+                String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
+                descr = descr + ": " + contactListTypes[this._contactListType];
 
-            if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
-                    (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
-                    (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
-                if (this._permanentRun)
-                    descr = descr + "; " + context.getString(R.string.pref_event_permanentRun);
-                else
-                    descr = descr + "; " + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
+                        (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                    if (this._permanentRun)
+                        descr = descr + "; " + context.getString(R.string.pref_event_permanentRun);
+                    else
+                        descr = descr + "; " + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                }
             }
         }
 
@@ -222,6 +241,19 @@ class EventPreferencesCall extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, false, false, false);
         }
+        if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+                if (extenderVersion == 0)
+                    preference.setSummary(R.string.event_preferences_call_PPPExtender_install_summary);
+                else
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
+                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
+                else
+                    preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
+            }
+        }
 
         Event event = new Event();
         event.createEventPreferences();
@@ -242,6 +274,10 @@ class EventPreferencesCall extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_LIST_TYPE);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+        boolean isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context);
+        preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isAccessibilityEnabled, false);
     }
 
     @Override
@@ -255,7 +291,8 @@ class EventPreferencesCall extends EventPreferences {
                 key.equals(PREF_EVENT_CALL_CONTACT_LIST_TYPE) ||
                 key.equals(PREF_EVENT_CALL_CONTACTS) ||
                 key.equals(PREF_EVENT_CALL_CONTACT_GROUPS) ||
-                key.equals(PREF_EVENT_CALL_DURATION)) {
+                key.equals(PREF_EVENT_CALL_DURATION) ||
+                key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
@@ -269,6 +306,7 @@ class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_CONTACT_GROUPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
     }
 
     @Override
@@ -284,7 +322,8 @@ class EventPreferencesCall extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALL_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                boolean runnable = tmp.isRunnable(context) && tmp.isAccessibilityServiceEnabled(context);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         } else {
@@ -306,6 +345,27 @@ class EventPreferencesCall extends EventPreferences {
                 (!(_contacts.isEmpty() && _contactGroups.isEmpty())));
 
         return runnable;
+    }
+
+    @Override
+    public boolean isAccessibilityServiceEnabled(Context context)
+    {
+        return AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
+    }
+
+    @Override
+    public void checkPreferences(PreferenceManager prefMng, Context context) {
+        final boolean accessibilityEnabled =
+                AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
+
+        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALL_ENABLED);
+        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        Preference preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !accessibilityEnabled, false);
+
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setCategorySummary(prefMng, preferences, context);
     }
 
     long computeAlarm() {

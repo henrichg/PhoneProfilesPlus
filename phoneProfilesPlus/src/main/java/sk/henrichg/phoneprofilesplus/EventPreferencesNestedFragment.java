@@ -43,12 +43,10 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
     private static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
-    private static final String PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS = "eventApplicationAccessibilitySettings";
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
     private static final int RESULT_LOCATION_APP_SETTINGS = 1983;
     private static final int RESULT_WIFI_SCANNING_APP_SETTINGS = 1984;
     private static final int RESULT_BLUETOOTH_SCANNING_APP_SETTINGS = 1985;
-    private static final String PREF_ORIENTATION_ACCESSIBILITY_SETTINGS = "eventOrientationAccessibilitySettings";
     private static final String PREF_ORIENTATION_SCANNING_APP_SETTINGS = "eventEnableOrientationScanningAppSettings";
     private static final int RESULT_ORIENTATION_SCANNING_SETTINGS = 1986;
     private static final String PREF_MOBILE_CELLS_SCANNING_APP_SETTINGS = "eventMobileCellsScanningAppSettings";
@@ -60,7 +58,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = 1990;
     private static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
     private static final int RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS = 1992;
-    private static final String PREF_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
 
     @Override
     public int addPreferencesFromResource() {
@@ -187,7 +184,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        Preference accessibilityPreference = prefMng.findPreference(PREF_APPLICATIONS_ACCESSIBILITY_SETTINGS);
+        Preference accessibilityPreference = prefMng.findPreference(EventPreferencesApplication.PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -385,7 +382,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        Preference orientationPreference = prefMng.findPreference(PREF_ORIENTATION_ACCESSIBILITY_SETTINGS);
+        Preference orientationPreference = prefMng.findPreference(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ACCESSIBILITY_SETTINGS);
         if (orientationPreference != null) {
             //orientationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             orientationPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -476,10 +473,57 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
-        Preference smsPreference = prefMng.findPreference(PREF_SMS_ACCESSIBILITY_SETTINGS);
+        Preference smsPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             smsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
+                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                    } else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //    @Override
+                        //    public void onShow(DialogInterface dialog) {
+                        //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //        if (positive != null) positive.setAllCaps(false);
+                        //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //        if (negative != null) negative.setAllCaps(false);
+                        //    }
+                        //});
+                        dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
+
+        extenderPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_INSTALL_EXTENDER);
+        if (extenderPreference != null) {
+            //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    } catch (Exception ignored) {}
+                    return false;
+                }
+            });
+        }
+        Preference callPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
+        if (callPreference != null) {
+            //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            callPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
@@ -699,6 +743,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             event._eventPreferencesApplication.checkPreferences(prefMng, context);
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);
             event._eventPreferencesSMS.checkPreferences(prefMng, context);
+            event._eventPreferencesCall.checkPreferences(prefMng, context);
+            setPreferencesStatusPreference();
+            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
             event._eventPreferencesWifi.checkPreferences(prefMng, context);

@@ -406,6 +406,29 @@
                 app:dMax="86400"
                 android:dependency="eventCallEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
+            <Preference
+                android:key="eventCallInstallExtender"
+                android:title="@string/event_preferences_call_PPPExtender_title"
+                android:summary="@string/event_preferences_call_PPPExtender_install_summary"
+                android:dependency="eventCallEnabled"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
+            </Preference>
+            <Preference
+                android:key="eventCallInstallExtenderInfo"
+                android:title="@string/event_preferences_PPPExtenderInstallInfo_text"
+                android:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
+                android:dependency="eventCallEnabled"
+                android:widgetLayout="@layout/info_preference"
+                android:layout="@layout/mp_preference_material_widget" />
+            <Preference
+                android:key="eventCallAccessibilitySettings"
+                android:title="@string/event_preferences_applications_AccessibilitySettings_title"
+                android:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
+                android:dependency="eventCallEnabled"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
+            </Preference>
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventSMSParameters"

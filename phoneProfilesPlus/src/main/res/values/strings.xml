@@ -1292,6 +1292,11 @@
     <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
     <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
 
+    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
+    <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
+
+
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
 
