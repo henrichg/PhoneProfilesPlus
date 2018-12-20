@@ -4951,7 +4951,7 @@ public class PhoneProfilesService extends Service
                     else
                         newRingtone = "";
                 } catch (SecurityException e) {
-                    Permissions.grantPlayRingtoneNotificationPermissions(context, true);
+                    Permissions.grantPlayRingtoneNotificationPermissions(context, false);
                     newRingtone = "";
                 } catch (Exception e) {
                     newRingtone = "";
@@ -5121,7 +5121,6 @@ public class PhoneProfilesService extends Service
                     //    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
                 } catch (SecurityException e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", " security exception");
-                    Permissions.grantPlayRingtoneNotificationPermissions(this, true);
                     ringingMediaPlayer = null;
                     /*PPApplication.startHandlerThread("PhoneProfilesService.startSimulatingRingingCall.1");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -5134,6 +5133,7 @@ public class PhoneProfilesService extends Service
                     }, 3000);*/
                     PostDelayedBroadcastReceiver.setAlarm(
                             PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
+                    Permissions.grantPlayRingtoneNotificationPermissions(this, false);
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     ringingMediaPlayer = null;
@@ -5148,6 +5148,7 @@ public class PhoneProfilesService extends Service
                     }, 3000);*/
                     PostDelayedBroadcastReceiver.setAlarm(
                             PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
+                    Permissions.grantPlayRingtoneNotificationPermissions(this, false);
                 }
             }
         }
@@ -5597,6 +5598,7 @@ public class PhoneProfilesService extends Service
                         }, 3000);*/
                         PostDelayedBroadcastReceiver.setAlarm(
                                 PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
+                        Permissions.grantPlayRingtoneNotificationPermissions(this, false);
                     }
                 }
             }
