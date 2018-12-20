@@ -1179,9 +1179,7 @@
   <string name="permission_why_export">voor bewaren backup data in de storage</string>
   <string name="permission_why_import">voor laden backup data vanuit de opslag</string>
   <string name="permission_why_event_calendar_preferences">voor lezen kalender data in Kalender sensor</string>
-  <string name="permission_why_event_call_preferences">voor lezen contacten en detecteren oproep in Oproep sensor</string>
   <string name="permission_why_event_orientation_preferences">voor detecteren oproep in Oriëntatie sensor (voor negeren oriëntatie wijziging tijdens bellen)</string>
-  <string name="permission_why_event_sms_preferences">voor lezen contacten en detecteren van SMS en MMS in SMS/MMS sensor</string>
   <string name="permission_why_event_location_preferences">voor gebruik locatie data in Locatie sensor</string>
   <string name="permission_why_event_wifi_preferences">voor gebruik locatie data in Wi-Fi sensor</string>
   <string name="permission_why_event_bluetooth_preferences">voor gebruik locatie data in Bluetooth sensor</string>
@@ -1260,6 +1258,8 @@
     <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
     <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
+    <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
+    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
 
 
 

@@ -1025,7 +1025,7 @@ class ActivateProfileHelper {
                 int linkUnlink  = PhoneCallBroadcastReceiver.LINKMODE_NONE;
                 if (ActivateProfileHelper.getMergedRingNotificationVolumes(appContext) &&
                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(appContext)) {
-                    if (Permissions.checkProfilePhone(appContext))
+                    if (Permissions.checkPhone(appContext))
                         linkUnlink = linkUnlinkVolumes;
                 }
                 PPApplication.logE("ActivateProfileHelper.executeForVolumes", "linkUnlink="+linkUnlink);

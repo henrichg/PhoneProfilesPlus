@@ -725,20 +725,12 @@ class Permissions {
         }*/
     }
 
-    static boolean checkProfilePhone(Context context) {
+    static boolean checkPhone(Context context) {
         try {
-            /*if (android.os.Build.VERSION.SDK_INT >= 28) {
-                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED);
-            }
-            else*/
             if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)/* &&
-                        (ContextCompat.checkSelfPermission(context, permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED)*/;
+                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
             } else
-                return hasPermission(context, Manifest.permission.READ_PHONE_STATE)/* &&
-                        hasPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS)*/;
+                return hasPermission(context, Manifest.permission.READ_PHONE_STATE);
         } catch (Exception e) {
             return false;
         }
@@ -752,20 +744,11 @@ class Permissions {
                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context);
                 if (unlinkEnabled || (profile._volumeSpeakerPhone != 0)) {
                     boolean grantedReadPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-                    // not needed for unlink volumes
-                    /*boolean grantedOutgoingCall = ContextCompat.checkSelfPermission(context, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedReadCallLog = true;
-                    if (android.os.Build.VERSION.SDK_INT >= 28)
-                        grantedReadCallLog = ContextCompat.checkSelfPermission(context, permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED;*/
                     if (permissions != null) {
                         if (!grantedReadPhoneState)
                             permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.READ_PHONE_STATE));
-                        /*if (!grantedOutgoingCall)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.PROCESS_OUTGOING_CALLS));
-                        if (!grantedReadCallLog)
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_PHONE_STATE_BROADCAST, permission.READ_CALL_LOG));*/
                     }
-                    //return grantedOutgoingCall && grantedReadPhoneState && grantedReadCallLog;
+                    //return grantedReadPhoneState;
                 }
                 //else
                 //    return true;
@@ -776,8 +759,7 @@ class Permissions {
         /*else {
             try {
                 if (profile._volumeSpeakerPhone != 0)
-                    return hasPermission(context, permission.READ_PHONE_STATE); &&
-                            hasPermission(context, permission.PROCESS_OUTGOING_CALLS);
+                    return hasPermission(context, permission.READ_PHONE_STATE);
                 else
                     return true;
             } catch (Exception e) {
@@ -933,6 +915,7 @@ class Permissions {
         if (event == null) return permissions;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             checkEventCalendar(context, event, permissions);
+            checkEventPhoneBroadcast(context, event, permissions);
             checkEventCallContacts(context, event, permissions);
             checkEventSMSContacts(context, event, permissions);
             checkEventLocation(context, event, permissions);
@@ -1185,6 +1168,37 @@ class Permissions {
                         (event._eventPreferencesMobileCells._enabled)) {
                     return hasPermission(context, permission.ACCESS_COARSE_LOCATION) &&
                             hasPermission(context, permission.ACCESS_FINE_LOCATION);
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+    }
+
+    static boolean checkEventPhoneBroadcast(Context context, Event event, List<PermissionType>  permissions) {
+        if (event == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            try {
+                if (event._eventPreferencesCall._enabled) {
+                    boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
+                    if (permissions != null) {
+                        if (event._eventPreferencesCall._enabled) {
+                            if (!grantedPhoneState)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
+                        }
+                    }
+                    return grantedPhoneState;
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else {
+            try {
+                if (event._eventPreferencesCall._enabled) {
+                    return hasPermission(context, permission.READ_PHONE_STATE);
                 } else
                     return true;
             } catch (Exception e) {
@@ -2024,7 +2038,7 @@ class Permissions {
         editor.putBoolean(PREF_CONTACTS_PERMISSION, Permissions.checkContacts(context));
         editor.putBoolean(PREF_LOCATION_PERMISSION, Permissions.checkLocation(context));
         editor.putBoolean(PREF_MICROPHONE_PERMISSION, Permissions.checkMicrophone(context));
-        editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkProfilePhone(context));
+        editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkPhone(context));
         editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(context));
         editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(context));
         editor.putBoolean(PREF_STORAGE_PERMISSION, Permissions.checkStorage(context));

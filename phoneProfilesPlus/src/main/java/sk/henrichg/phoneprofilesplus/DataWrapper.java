@@ -1988,8 +1988,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesCall._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                    Permissions.checkEventCallContacts(context, event, null) /*&&
-                    Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
+                    Permissions.checkEventCallContacts(context, event, null)/* &&
+                    this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
                 ApplicationPreferences.getSharedPreferences(context);
                 int callEventType = ApplicationPreferences.preferences.getInt(EventPreferencesCall.PREF_EVENT_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");

@@ -1179,9 +1179,7 @@
   <string name="permission_why_export">для сохранения резервных копий в хранилище</string>
   <string name="permission_why_import">для загрузки резервных копий из хранилища</string>
   <string name="permission_why_event_calendar_preferences">для чтения данных календаря в Датчике календаря</string>
-  <string name="permission_why_event_call_preferences">для чтения контактов и определения звонков в Датчике вызовов</string>
   <string name="permission_why_event_orientation_preferences">для определения телефонных звонков в Датчике ориентации (чтобы не менять ориентацию во время звонка)</string>
-  <string name="permission_why_event_sms_preferences">для чтения контактов и определения получения SMS и MMS в Датчике SMS/MMS</string>
   <string name="permission_why_event_location_preferences">для использования данных о местоположении в Датчике местоположения</string>
   <string name="permission_why_event_wifi_preferences">для использования данных о местоположении в Датчике Wi-Fi</string>
   <string name="permission_why_event_bluetooth_preferences">для использования данных о местоположении в Датчике Bluetooth</string>
@@ -1260,6 +1258,8 @@
     <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
     <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
+    <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
+    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
 
 
 

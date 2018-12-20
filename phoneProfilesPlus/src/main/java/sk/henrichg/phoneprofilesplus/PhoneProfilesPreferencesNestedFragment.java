@@ -1667,7 +1667,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         finishActivity = permissionsChanged && (!smsPermission);
                     }
                     if (!permissionsChanged) {
-                        boolean phonePermission = Permissions.checkProfilePhone(context);
+                        boolean phonePermission = Permissions.checkPhone(context);
                         permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!phonePermission);

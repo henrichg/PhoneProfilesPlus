@@ -1179,9 +1179,7 @@
   <string name="permission_why_export">pre uloženie zálohovaných údajov do úložiska</string>
   <string name="permission_why_import">pre načítanie zálohovaných dát z úložiska</string>
   <string name="permission_why_event_calendar_preferences">pre čítanie údajov kalendára v Senzore kalendára</string>
-  <string name="permission_why_event_call_preferences">pre čítanie kontaktov a detekciu hovorov v Senzore hovoru</string>
   <string name="permission_why_event_orientation_preferences">pre detekciu hovorov v Senzore orientácie (pre ignorovanie zmien orientácie počas hovoru)</string>
-  <string name="permission_why_event_sms_preferences">pre čítanie kontaktov a detekciu príjmu SMS a MMS správ v Senzore SMS/MMS</string>
   <string name="permission_why_event_location_preferences">pre používanie polohy v Senzore polohy</string>
   <string name="permission_why_event_wifi_preferences">pre používanie polohy v Senzore Wi-Fi</string>
   <string name="permission_why_event_bluetooth_preferences">pre používanie polohy v Senzore Bluetooth</string>
@@ -1260,6 +1258,8 @@
     <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
     <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
+    <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
+    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
 
 
 
