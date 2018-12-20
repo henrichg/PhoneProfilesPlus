@@ -1287,4 +1287,5 @@
     <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
     <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
     <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
+    <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
 </resources>
