@@ -1231,36 +1231,36 @@
     <string name="about_application_translations_subject">překlad</string>
     <string name="important_info_translations">Prosím pomozte mi s překladem, děkuji:</string>
 
-    <string name="important_info_email_body_device">Device:</string>
-    <string name="important_info_email_body_android_version">Android version:</string>
-    <string name="important_info_email_body_problems">Problems:</string>
-    <string name="important_info_email_body_questions">Questions:</string>
-    <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="important_info_email_body_translation_language_from">Language from which to translate:</string>
-    <string name="important_info_email_body_translation_language_to">Language to translate:</string>
+    <string name="important_info_email_body_device">Zařízení:</string>
+    <string name="important_info_email_body_android_version">Verze Android:</string>
+    <string name="important_info_email_body_problems">Problémy:</string>
+    <string name="important_info_email_body_questions">Otázky:</string>
+    <string name="important_info_email_body_suggestions">Návrhy:</string>
+    <string name="important_info_email_body_translation_language_from">Jazyk který překládat:</string>
+    <string name="important_info_email_body_translation_language_to">Jazyk do kterého překládat:</string>
 
     <string name="about_application_support">Podpora:</string>
     <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">podpora</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
-    <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
-    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
-    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>
-    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>
+    <string name="profile_preferences_installSilentTone_summary">Klikněte sem pro instalaci tónu.</string>
+    <string name="profile_preferences_installSilentTone_installed_summary">Tón je nainstalován.</string>
+    <string name="permissions_for_log_to_file_text1">Debug log do log.txt a crash.txt</string>
+    <string name="permissions_for_log_to_file_text2">Prosím, povolte je v následujícím dialogovém okně. Debug log pak bude zapisován.</string>
+    <string name="permission_why_log_to_file">pro zápis debug logu do log.txt a crash.txt</string>
+    <string name="permissions_for_log_to_file_big_text_notification">Zápis debug logu do log.txt a crash.txt vyžaduje udělení některých povolení.</string>
     <string name="dashclock_extension_description">Zobrazí aktivní profil s indikátorem preferencí profilu. Na kliknutí se otevře Aktivátor.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Pouzít světlost ikony pro vlastní ikony</string>
 
-    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
+    <string name="preferences_not_enabled_accessibility_service_title">Služba Dostupnost není povolena!</string>
     <string name="profile_preferences_volumeVoiceCall">Hlasitost hlasového hovoru</string>
     <string name="pref_event_permanentRun_summary">Pozastav událost po manuálním aktivaci profilu a po restartu událostí</string>
-    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
+    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Povol PhoneProfilesPlusExtender v systémovém nastavení \"Dostupnost\". Funkce dostupnosti není použita, běžící servis je potřebný pro příjem hovorů.</string>
     <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
-    <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
-    <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
-    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
-    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>
+    <string name="event_preferences_call_PPPExtender_install_summary">Klikněte zde pro instalaci PhoneProfilesPlusExtender. Běžící servis je potřebný pro příjem hovorů.</string>
+    <string name="permission_why_event_sms_preferences">pro čtení kontaktů v senzoru SMS/MMS</string>
+    <string name="permission_why_event_call_preferences">pro čtení kontaktů, detekci vyzvánění hovoru (pro \"noční hovor\") v senzoru hovoru</string>
+    <string name="important_info_accessibility_service_text3">Vzhledem k tomu, že společnost Google změnila pravidla o používání práv pro příjem hovorů, musíte pro událostní senzor hovorů nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry tohoto senzoru pro více informací.</string>
 
 
 
@@ -1268,7 +1268,7 @@
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
 
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"Call sensor\".</string>
+    <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
 
     <string name="extender_about_application_version">Verze:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Služba Dostupnost pro parametr profilu \"Vynutit zastavení aplikací\":</string>
@@ -1285,8 +1285,8 @@
     <string name="extender_permissions_granted">Udeleno</string>
     <string name="extender_permissions_button">Udel/odepři\npráva</string>
 
-    <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
-    <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
-    <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
-    <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
+    <string name="extender_accessibility_service_event_sensor_call">• Služba Dostupnost pro parametry události \"Sensor hovoru\". Funkce dostupnosti není použita, běžící servis je potřebný pro příjem hovorů.:</string>
+    <string name="extender_permissions_event_sensor_call">• Povolení pro parametry události \"Senzor hovoru\" - povolení Telefon:</string>
+    <string name="extender_permissions_event_sensor_call_28">• Povolení pro parametry události \"Senzor hovoru\" - povolení Telefon, Deníky hovorů:</string>
+    <string name="extender_toast_permissions_not_granted">Povolení nejsou uděleny</string>
 </resources>
