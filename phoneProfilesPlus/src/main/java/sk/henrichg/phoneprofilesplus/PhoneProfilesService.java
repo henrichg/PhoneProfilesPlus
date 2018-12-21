@@ -301,10 +301,14 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("$$$ PhoneProfilesService.onCreate", "doForFirstStart");
             doForFirstStart(null);
         }
-        else
-            stopSelf();*/
-        if (!PPApplication.getApplicationStarted(getApplicationContext(), false))
+        else {
+            showProfileNotification();
             stopSelf();
+        }*/
+        if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
+            showProfileNotification();
+            stopSelf();
+        }
     }
 
     @Override
@@ -319,7 +323,8 @@ public class PhoneProfilesService extends Service
 
         reenableKeyguard();
 
-        removeProfileNotification(this, false);
+        stopForeground(true);
+        //clearProfileNotification(this, false);
 
         /*synchronized (PhoneProfilesService.class) {
             instance = null;
@@ -3141,7 +3146,7 @@ public class PhoneProfilesService extends Service
                 else
                 if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
-                    removeProfileNotification(this, true);
+                    clearProfileNotification(this);
                 }
                 else
                 if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
@@ -4314,13 +4319,13 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    private void removeProfileNotification(Context context, boolean onlyEmpty)
+    private void clearProfileNotification(Context context/*, boolean onlyEmpty*/)
     {
-        if (onlyEmpty) {
+        //if (onlyEmpty) {
             DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
             _showProfileNotification(null, false, dataWrapper);
             dataWrapper.invalidateDataWrapper();
-        }
+        /*}
         else {
             try {
                 if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(context))
@@ -4333,7 +4338,7 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {
             }
             runningInForeground = false;
-        }
+        }*/
     }
 
     /*

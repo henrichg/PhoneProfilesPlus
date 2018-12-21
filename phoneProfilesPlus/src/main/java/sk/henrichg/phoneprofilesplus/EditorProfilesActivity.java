@@ -1448,8 +1448,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                     importProgressDialog.setCanceledOnTouchOutside(false);
                     importProgressDialog.show();
 
-                    if (PhoneProfilesService.getInstance() != null)
-                        PhoneProfilesService.getInstance().stopSelf();
+                    if (PhoneProfilesService.getInstance() != null) {
+                        stopService(new Intent(getApplicationContext(), PhoneProfilesService.class));
+                    }
 
                     Fragment fragment = getFragmentManager().findFragmentById(R.id.editor_list_container);
                     if (fragment != null) {

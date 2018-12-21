@@ -219,6 +219,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         startService(appContext);
                     }
+                    else {
+                        if (PhoneProfilesService.getInstance() != null) {
+                            appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
+                        }
+                    }
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
