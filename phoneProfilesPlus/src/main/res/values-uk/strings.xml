@@ -1261,6 +1261,7 @@
     <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
     <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
     <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
+    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>
 
 
 
