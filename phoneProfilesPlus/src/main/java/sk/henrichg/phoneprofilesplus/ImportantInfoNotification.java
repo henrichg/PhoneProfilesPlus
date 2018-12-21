@@ -19,7 +19,7 @@ class ImportantInfoNotification {
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
 
     static void showInfoNotification(Context context) {
-        //Log.d("ImportantInfoNotification.showInfoNotification","xxx");
+        PPApplication.logE("ImportantInfoNotification.showInfoNotification","xxx");
         int packageVersionCode = 0;
         int savedVersionCode = 0;
         try {
@@ -30,6 +30,7 @@ class ImportantInfoNotification {
                 //Log.d("ImportantInfoNotification.showInfoNotification","show");
                 //boolean show = (versionCode >= VERSION_CODE_FOR_NEWS);
                 boolean show = canShowNotification(packageVersionCode, savedVersionCode, context);
+                PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show="+show);
                 setShowInfoNotificationOnStart(context, show, packageVersionCode);
             }
             else
@@ -38,6 +39,7 @@ class ImportantInfoNotification {
         }
 
         if ((savedVersionCode == 0) || getShowInfoNotificationOnStart(context, packageVersionCode)) {
+            PPApplication.logE("ImportantInfoNotification.showInfoNotification", "show notification");
 
             showNotification(context,
                     context.getString(R.string.info_notification_title),
@@ -50,13 +52,17 @@ class ImportantInfoNotification {
     static private boolean canShowNotification(int packageVersionCode, int savedVersionCode, Context context) {
         boolean news = false;
 
+        PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
+
         boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
-        boolean news3670 = (packageVersionCode >= 3670); // news for PhoneProfilesPlusExtender - show it when not activated
+        boolean news3670 = ((packageVersionCode >= 3670) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean afterInstall = savedVersionCode == 0;
 
         int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+
+        PPApplication.logE("ImportantInfoNotification.canShowNotification", "newsLatest="+newsLatest);
 
         if (newsLatest) {
             /*// change to false for not show notification
@@ -64,27 +70,27 @@ class ImportantInfoNotification {
             news = false;*/
 
             int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
+            int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
+
+            PPApplication.logE("ImportantInfoNotification.canShowNotification", "smsSensorsCount="+smsSensorsCount);
+            PPApplication.logE("ImportantInfoNotification.canShowNotification", "callSensorsCount="+callSensorsCount);
+
             //noinspection RedundantIfStatement
-            if (smsSensorsCount == 0)
+            if ((smsSensorsCount == 0) && (callSensorsCount == 0))
                 //noinspection ConstantConditions
-                news = false; // Extender is installed or not needed
+                news = false;
             else {
                 news = true;
             }
-
         }
 
         if (news3670) {
-            int applicationSensorsCount = 0;
-            int orientationSensorsCount = 0;
-            if (extenderVersion == 0) {
-                applicationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
-                orientationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
-            }
+            int applicationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
+            int orientationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
             //noinspection RedundantIfStatement
-            if ((extenderVersion > 0) || ((applicationSensorsCount == 0) && (orientationSensorsCount == 0)))
+            if ((applicationSensorsCount == 0) && (orientationSensorsCount == 0))
                 //noinspection ConstantConditions
-                news = false; // Extender is installed or not needed
+                news = false;
             else {
                 news = true;
             }

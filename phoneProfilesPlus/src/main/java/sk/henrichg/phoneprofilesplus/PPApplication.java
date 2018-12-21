@@ -87,6 +87,7 @@ public class PPApplication extends Application {
                                          +"|EditorProfilesActivity.doImportData"
                                          +"|PPApplication.setBlockProfileEventActions"
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
+                                         +"|ImportantInfoNotification"
 
                                          //+"|EditorProfilesActivity.onCreate"
 
