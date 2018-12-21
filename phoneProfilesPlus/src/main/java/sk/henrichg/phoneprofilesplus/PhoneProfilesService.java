@@ -323,8 +323,16 @@ public class PhoneProfilesService extends Service
 
         reenableKeyguard();
 
-        stopForeground(true);
-        //clearProfileNotification(this, false);
+        try {
+            if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(getApplicationContext()))
+                stopForeground(true);
+            else {
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                if (notificationManager != null)
+                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+            }
+        } catch (Exception ignored) {
+        }
 
         /*synchronized (PhoneProfilesService.class) {
             instance = null;
