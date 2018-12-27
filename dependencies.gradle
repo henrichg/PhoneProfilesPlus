@@ -10,7 +10,7 @@
 // 4000 = updated privacy policy
 // 4100 = Wi-Fi AP = Toggle is not supported from Android 8+
 // 4200 = show Important info on first application start
-// 4400 = moved SMS sensor receivers into Extender
+// 4400 = moved SMS/MMS and Call sensor receivers into Extender
 //        separated preferences for single row widget
 
 ext.ppVersions = [
