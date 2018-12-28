@@ -1213,7 +1213,7 @@
     <string name="widget_label_list">Список</string>
 
     <string name="phone_profiles_pref_backgroundProfileUsage">Коли активовано профіль по замовчуванню</string>
-    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Активувати тільки коли по закінченні події не активований не один профіль та для рестарту подій.</string>
+    <string name="phone_profiles_pref_backgroundProfileUsage_summary">Активувати тільки коли по закінченні події не активований жоден профіль та для рестарту подій.</string>
     <string name="phone_profiles_pref_manualProfileActivation">Ручна активація профілю</string>
     <string name="phone_profiles_pref_category_widget_one_row">Віджет: Ряд</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessBorder">Світліть рамки</string>
@@ -1223,7 +1223,7 @@
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Дозволити PhoneProfilesPlusExtender \"Спец. можливості\" в налаштуваннях системи. Спец. можливості не використовуються, запущена служба потрібна для отримання SMS та MMS.</string>
     <string name="event_preferences_sms_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Натисніть аби встановити PhoneProfilesPlusExtender. Запущена служба потрібна для отримання SMS та MMS.</string>
-    <string name="important_info_accessibility_service_text2">Завдяки змінам в правилах Google, нарахунок використання дозволів для отримання SMS та MMS, потрібно встановити PhoneProfilesPlusExtender щоб використовувати датчик подій SMS/MMS . Для додаткової інформації перевірте параметри цього датчику.</string>
+    <string name="important_info_accessibility_service_text2">Завдяки змінам в правилах Google, нарахунок використання дозволів для отримання SMS та MMS, потрібно встановити PhoneProfilesPlusExtender щоб використовувати Датчик SMS/MMS . Для додаткової інформації перевірте параметри цього датчику.</string>
     <string name="permission_not_granted">Не дозволено</string>
     <string name="permission_granted">Дозволено</string>
     <string name="menu_dark_theme_on">Увімкнути темну тему</string>
@@ -1232,13 +1232,13 @@
     <string name="about_application_translations_subject">переклад</string>
     <string name="important_info_translations">Будь ласка допоможить з перекладом, дякую:</string>
 
-    <string name="important_info_email_body_device">Device:</string>
-    <string name="important_info_email_body_android_version">Android version:</string>
-    <string name="important_info_email_body_problems">Problems:</string>
-    <string name="important_info_email_body_questions">Questions:</string>
-    <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="important_info_email_body_translation_language_from">Language from which to translate:</string>
-    <string name="important_info_email_body_translation_language_to">Language to translate:</string>
+    <string name="important_info_email_body_device">Прилад:</string>
+    <string name="important_info_email_body_android_version">Android версія:</string>
+    <string name="important_info_email_body_problems">Проблеми:</string>
+    <string name="important_info_email_body_questions">Запитання:</string>
+    <string name="important_info_email_body_suggestions">Пропозиції:</string>
+    <string name="important_info_email_body_translation_language_from">Мова з якої перекладати:</string>
+    <string name="important_info_email_body_translation_language_to">Мова на яку перекладати:</string>
 
     <string name="about_application_support">Підтримка:</string>
     <string name="about_application_support2">звʼязок:</string>
@@ -1251,17 +1251,17 @@
     <string name="permission_why_log_to_file">для запису debug log в log.txt та crash.txt</string>
     <string name="permissions_for_log_to_file_big_text_notification">Запис debug log в log.txt та crash.txt потребує отримання дозволів.</string>
     <string name="dashclock_extension_description">Відображає активний профіль з індикатором налаштувань. Відкриває Активатор при торканні.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Використовуйте світлість іконки для іконок профіля користувача</string>
 
-    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
-    <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
-    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
-    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
+    <string name="preferences_not_enabled_accessibility_service_title">Служба спец. можливостей вимкнута!</string>
+    <string name="profile_preferences_volumeVoiceCall">Гучність мелодії виклику</string>
+    <string name="pref_event_permanentRun_summary">Призупинити подію після ручної активації профілю та перезапустити події</string>
+    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Дозволити PhoneProfilesPlusExtender \"Служба спец. можливостей\" в налаштуваннях системи. Служба спец. можливостей не використовується, вона потрібна для отримання викликів.</string>
     <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
-    <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
-    <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
-    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
-    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>
+    <string name="event_preferences_call_PPPExtender_install_summary">Натисність щоб встановити PhoneProfilesPlusExtender. Запущена служба необхідна для отримання викликів.</string>
+    <string name="permission_why_event_sms_preferences">для читання контактів SMS/MMS датчиком</string>
+    <string name="permission_why_event_call_preferences">для читання контактів, виявлення виклику для \"нічний виклик\") Датчиком викликів</string>
+    <string name="important_info_accessibility_service_text3">Завдяки змінам в правилах Google, нарахунок використання дозволів для про отриманя інформації про викликі, потрібно встановити PhoneProfilesPlusExtender щоб використовувати Датчик викликів . Для додаткової інформації перевірте параметри цього датчику.</string>
 
 
 
@@ -1269,7 +1269,7 @@
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
 
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Call sensor\".</string>
+    <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
 
     <string name="extender_about_application_version">Версія:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Служба спец. можливостей для параметра профілю \"Примусова зупинка додатків\":</string>
@@ -1286,8 +1286,8 @@
     <string name="extender_permissions_granted">Надано</string>
     <string name="extender_permissions_button">Надати/Заборонити\nдозволи</string>
 
-    <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
-    <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
-    <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
-    <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
+    <string name="extender_accessibility_service_event_sensor_call">• Служба спец. можливостей для параметру подій \"Датчик викликів\". Служба спец. можливостей не використовується, служба потрібна для отримання викликів.:</string>
+    <string name="extender_permissions_event_sensor_call">• Дозволи до параметру подій \"Датчик викликів\" - дозвіл Телефон:</string>
+    <string name="extender_permissions_event_sensor_call_28">• Дозволи до параметру подій \"Датчик викликів\" - дозвіл Телефон, Журнал викликів:</string>
+    <string name="extender_toast_permissions_not_granted">Дозволи не надані</string>
 </resources>

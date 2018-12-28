@@ -1231,36 +1231,36 @@
     <string name="about_application_translations_subject">translation</string>
     <string name="important_info_translations">Помогите мне, пожалуйста, с переводом; спасибо:</string>
 
-    <string name="important_info_email_body_device">Device:</string>
-    <string name="important_info_email_body_android_version">Android version:</string>
-    <string name="important_info_email_body_problems">Problems:</string>
-    <string name="important_info_email_body_questions">Questions:</string>
-    <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="important_info_email_body_translation_language_from">Language from which to translate:</string>
-    <string name="important_info_email_body_translation_language_to">Language to translate:</string>
+    <string name="important_info_email_body_device">Устройство:</string>
+    <string name="important_info_email_body_android_version">Версия Android:</string>
+    <string name="important_info_email_body_problems">Проблемы:</string>
+    <string name="important_info_email_body_questions">Вопросы:</string>
+    <string name="important_info_email_body_suggestions">Предложения:</string>
+    <string name="important_info_email_body_translation_language_from">Язык, с которого переводить:</string>
+    <string name="important_info_email_body_translation_language_to">Язык, на который переводить:</string>
 
     <string name="about_application_support">Поддержка:</string>
     <string name="about_application_support2">пишите:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
-    <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
-    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
-    <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>
-    <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>
+    <string name="profile_preferences_installSilentTone_summary">Нажмите сюда, чтобы установить мелодию.</string>
+    <string name="profile_preferences_installSilentTone_installed_summary">Мелодия установлена.</string>
+    <string name="permissions_for_log_to_file_text1">Журнал отладки в log.txt и crash.txt</string>
+    <string name="permissions_for_log_to_file_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. После этого журнал отладки будет записан.</string>
+    <string name="permission_why_log_to_file">для записи журнала отладки в log.txt и crash.txt</string>
+    <string name="permissions_for_log_to_file_big_text_notification">Запись журнала отладки в log.txt и crash.txt требует предоставления некоторых разрешений.</string>
     <string name="dashclock_extension_description">Отображает активный профиль с индикатором настроек. Открывает Активатор по прикосновению.</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Использовать яркость иконки для пользовательских иконок профиля</string>
 
-    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
-    <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
-    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
-    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
+    <string name="preferences_not_enabled_accessibility_service_title">Служба спец. возможностей не включена!</string>
+    <string name="profile_preferences_volumeVoiceCall">Громкость голосового вызова</string>
+    <string name="pref_event_permanentRun_summary">Приостановить событие после ручной активации профиля и перезапуска событий</string>
+    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Разрешите доступ службе PhoneProfilesPlusExtender в разделе \"Спец. возможности\" системных настроек. Функция спец. возможностей не используется; для получения звонков нужна запущенная служба.</string>
     <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
-    <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
-    <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
-    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
-    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>
+    <string name="event_preferences_call_PPPExtender_install_summary">Нажмите сюда, чтобы установить PhoneProfilesPlusExtender. Эта запущенная служба нужна для получения звонков.</string>
+    <string name="permission_why_event_sms_preferences">для чтения контактов в Датчике SMS/MMS</string>
+    <string name="permission_why_event_call_preferences">для чтения контактов, определения мелодии звонка (для \"ночного звонка\") в Датчике вызовов</string>
+    <string name="important_info_accessibility_service_text3">Из-за изменения компанией Google правил использования разрешений на приём вызовов, для использования Датчика вызовов вам необходимо установить PhoneProfilesPlusExtender. Дополнительная информация - в параметрах этого датчика.</string>
 
 
 
@@ -1268,7 +1268,7 @@
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
 
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
-    <string name="extender_accessibility_service_description">Разрешите PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Call sensor\".</string>
+    <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
 
     <string name="extender_about_application_version">Версия:</string>
     <string name="extender_accessibility_service_profile_force_stop_applications">• Служба спец. возможностей для параметра профиля \"Принудительная остановка приложений\":</string>
@@ -1285,8 +1285,8 @@
     <string name="extender_permissions_granted">Предоставлены</string>
     <string name="extender_permissions_button">Предоставить/отозвать\nразрешения</string>
 
-    <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
-    <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
-    <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
-    <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
+    <string name="extender_accessibility_service_event_sensor_call">• Служба спец. возможностей для параметра события \"Датчик вызовов\". Функция спец. возможностей не используется, служба нужна для получения звонков.:</string>
+    <string name="extender_permissions_event_sensor_call">• Разрешения для параметра события \"Датчик вызовов\" - разрешение \"Телефон\":</string>
+    <string name="extender_permissions_event_sensor_call_28">• Разрешения для параметра события \"Датчик вызовов\" - разрешения \"Телефон\“, \"Журнал звонков\":</string>
+    <string name="extender_toast_permissions_not_granted">Разрешения не предоставлены</string>
 </resources>
