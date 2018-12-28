@@ -1,15 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.os.SystemClock;
-
-import java.util.Date;
-
-import static android.content.Context.POWER_SERVICE;
 
 public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
@@ -18,8 +12,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     private static boolean savedSpeakerphone = false;
     private static boolean speakerphoneSelected = false;
 
-    static boolean linkUnlinkExecuted = false;
-    static boolean speakerphoneOnExecuted = false;
+    //static boolean linkUnlinkExecuted = false;
+    //static boolean speakerphoneOnExecuted = false;
 
     private static final int SERVICE_PHONE_EVENT_START = 1;
     private static final int SERVICE_PHONE_EVENT_ANSWER = 2;
@@ -27,7 +21,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
     static final int LINKMODE_NONE = 0;
     static final int LINKMODE_LINK = 1;
-    static final int LINKMODE_UNLINK = 2;
+    private static final int LINKMODE_UNLINK = 2;
 
     protected boolean onStartReceive()
     {

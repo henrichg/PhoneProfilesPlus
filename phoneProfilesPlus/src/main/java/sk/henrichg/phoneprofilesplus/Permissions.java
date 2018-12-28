@@ -138,7 +138,7 @@ class Permissions {
     private static final String PREF_SENSORS_PERMISSION = "sensorsPermission";
     private static final String PREF_SMS_PERMISSION = "smsPermission";
     private static final String PREF_STORAGE_PERMISSION = "storagePermission";
-    private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
+    //private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
 
     static boolean grantRootChanged = false;
 
@@ -1176,8 +1176,8 @@ class Permissions {
         }
     }
 
-    static boolean checkEventPhoneBroadcast(Context context, Event event, List<PermissionType>  permissions) {
-        if (event == null) return true;
+    private static void checkEventPhoneBroadcast(Context context, Event event, List<PermissionType>  permissions) {
+        if (event == null) return /*true*/;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 if (event._eventPreferencesCall._enabled) {
@@ -1188,14 +1188,14 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
                         }
                     }
-                    return grantedPhoneState;
-                } else
-                    return true;
+                    //return grantedPhoneState;
+                } //else
+                    //return true;
             } catch (Exception e) {
-                return false;
+                //return false;
             }
         }
-        else {
+        /*else {
             try {
                 if (event._eventPreferencesCall._enabled) {
                     return hasPermission(context, permission.READ_PHONE_STATE);
@@ -1204,7 +1204,7 @@ class Permissions {
             } catch (Exception e) {
                 return false;
             }
-        }
+        }*/
     }
 
     @SuppressWarnings("unused")
@@ -2100,10 +2100,12 @@ class Permissions {
         return preferences.getBoolean(PREF_PHONE_PERMISSION, false);
     }
 
+    /*
     static boolean getCallLogsPermission(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getBoolean(PREF_CALL_LOGS_PERMISSION, false);
     }
+    */
 
     static boolean getStoragePermission(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);

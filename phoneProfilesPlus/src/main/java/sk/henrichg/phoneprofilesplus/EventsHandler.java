@@ -14,10 +14,9 @@ import java.util.List;
 class EventsHandler {
     
     private final Context context;
-    private DataWrapper dataWrapper;
     private String sensorType;
 
-    private int callEventType;
+    //private int callEventType;
     private static int oldRingerMode;
     private static int oldSystemRingerMode;
     private static int oldZenMode;
@@ -100,7 +99,7 @@ class EventsHandler {
 
             //PPApplication.setApplicationStarted(context, true);
 
-            dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
             ApplicationPreferences.getSharedPreferences(context);
             //TODO call sensor to Extender
@@ -211,7 +210,7 @@ class EventsHandler {
                     saveCalendarStartEndTime) {
                 // search for calendar events
                 PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
-                for (Event _event : this.dataWrapper.eventList) {
+                for (Event _event : dataWrapper.eventList) {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                         PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "event._id=" + _event._id);
                         _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
@@ -227,7 +226,7 @@ class EventsHandler {
                 if (sensorType.equals(SENSOR_TYPE_SMS)) {
                     // search for sms events, save start time
                     PPApplication.logE("EventsHandler.handleEvents", "search for sms events");
-                    for (Event _event : this.dataWrapper.eventList) {
+                    for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesSMS._enabled) {
                                 PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
@@ -239,7 +238,7 @@ class EventsHandler {
                 if (sensorType.equals(SENSOR_TYPE_NFC_TAG)) {
                     // search for nfc events, save start time
                     PPApplication.logE("EventsHandler.handleEvents", "search for nfc events");
-                    for (Event _event : this.dataWrapper.eventList) {
+                    for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesNFC._enabled) {
                                 PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
@@ -251,7 +250,7 @@ class EventsHandler {
                 if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
                     // search for call events, save start time
                     PPApplication.logE("[CALL] EventsHandler.handleEvents", "search for call events");
-                    for (Event _event : this.dataWrapper.eventList) {
+                    for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesCall._enabled &&
                                     ((_event._eventPreferencesCall._callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
@@ -266,7 +265,7 @@ class EventsHandler {
                 if (sensorType.equals(SENSOR_TYPE_ALARM_CLOCK)) {
                     // search for alarm clock events, save start time
                     PPApplication.logE("EventsHandler.handleEvents", "search for alarm clock events");
-                    for (Event _event : this.dataWrapper.eventList) {
+                    for (Event _event : dataWrapper.eventList) {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesAlarmClock._enabled) {
                                 PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
@@ -310,7 +309,7 @@ class EventsHandler {
 
                 // 1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
-                for (Event _event : this.dataWrapper.eventList) {
+                for (Event _event : dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
@@ -343,7 +342,7 @@ class EventsHandler {
 
                 // 2. start events
                 dataWrapper.sortEventsByStartOrderAsc();
-                for (Event _event : this.dataWrapper.eventList) {
+                for (Event _event : dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
@@ -376,7 +375,7 @@ class EventsHandler {
 
                 //1. pause events
                 dataWrapper.sortEventsByStartOrderDesc();
-                for (Event _event : this.dataWrapper.eventList) {
+                for (Event _event : dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state PAUSE");
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
@@ -406,7 +405,7 @@ class EventsHandler {
                 //2. start events
                 mergedProfile.copyProfile(mergedPausedProfile);
                 dataWrapper.sortEventsByStartOrderAsc();
-                for (Event _event : this.dataWrapper.eventList) {
+                for (Event _event : dataWrapper.eventList) {
                     PPApplication.logE("EventsHandler.handleEvents", "state RUNNING");
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
@@ -721,7 +720,7 @@ class EventsHandler {
 
     private void doEndHandler() {
         PPApplication.logE("EventsHandler.doEndService","sensorType="+sensorType);
-        PPApplication.logE("EventsHandler.doEndService","callEventType="+callEventType);
+        //PPApplication.logE("EventsHandler.doEndService","callEventType="+callEventType);
 
         //TODO call sensor to Extender
         /*

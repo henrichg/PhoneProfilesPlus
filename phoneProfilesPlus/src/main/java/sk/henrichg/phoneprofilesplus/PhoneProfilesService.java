@@ -3154,7 +3154,7 @@ public class PhoneProfilesService extends Service
                 else
                 if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
-                    clearProfileNotification(this);
+                    clearProfileNotification(/*this*/);
                 }
                 else
                 if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
@@ -4327,10 +4327,11 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    private void clearProfileNotification(Context context/*, boolean onlyEmpty*/)
+    private void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
     {
         //if (onlyEmpty) {
-            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+            final Context appContext = getApplicationContext();
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
             _showProfileNotification(null, false, dataWrapper);
             dataWrapper.invalidateDataWrapper();
         /*}

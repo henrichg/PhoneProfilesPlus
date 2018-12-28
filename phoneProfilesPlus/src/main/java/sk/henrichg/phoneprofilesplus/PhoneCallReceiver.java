@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.telephony.TelephonyManager;
 
-import java.util.Date;
-
 public abstract class PhoneCallReceiver extends BroadcastReceiver {
 
     private static TelephonyManager telephony;
@@ -37,7 +35,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
                 PPApplication.logE("PhoneCallReceiver.onReceive", "incomingNumber=" + incomingNumber);
             }
 
-            listener.onCallStateChanged(intent);
+            listener.onCallStateChanged(/*intent*/);
 
         }
         onEndReceive();
@@ -67,7 +65,7 @@ public abstract class PhoneCallReceiver extends BroadcastReceiver {
 
         //Incoming call-  goes from IDLE to RINGING when it rings, to OFF HOOK when it's answered, to IDLE when its hung up
         //Outgoing call-  goes from IDLE to OFF HOOK when it dials out, to IDLE when hung up
-        void onCallStateChanged(Intent intent) {
+        void onCallStateChanged(/*Intent intent*/) {
             int state = telephony.getCallState();
             if(lastState == state){
                 //No change, de-bounce extras
