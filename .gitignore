@@ -9,6 +9,7 @@
 
 /RootShell/build
 /RootTools/build
+/android-job/build
 /appkillermanager/build
 /phoneProfilesPlus/build
 /phoneProfilesPlus/google-services.json
