@@ -473,14 +473,6 @@
                 android:entryValues="@array/applicationDisableScanningDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/profile_preferences_applicationDisableLocationScanning"
-                android:summary="@string/array_pref_no_change"
-                android:key="prf_pref_applicationDisableLocationScanning"
-                android:defaultValue="0"
-                android:entries="@array/applicationDisableScanningDPArray"
-                android:entryValues="@array/applicationDisableScanningDPValues"
-                android:layout="@layout/mp_preference_material_widget" />
-            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_applicationDisableMobileCellScanning"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_applicationDisableMobileCellScanning"
