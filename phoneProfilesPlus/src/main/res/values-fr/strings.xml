@@ -1231,13 +1231,13 @@
     <string name="about_application_translations_subject">traduction </string>
     <string name="important_info_translations">S\’il vous plaît, aidez-moi pour la traduction, merci : </string>
 
-    <string name="important_info_email_body_device">Device:</string>
-    <string name="important_info_email_body_android_version">Android version:</string>
-    <string name="important_info_email_body_problems">Problems:</string>
+    <string name="important_info_email_body_device">Appareil:</string>
+    <string name="important_info_email_body_android_version">Version Android :</string>
+    <string name="important_info_email_body_problems">Problèmes:</string>
     <string name="important_info_email_body_questions">Questions:</string>
     <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="important_info_email_body_translation_language_from">Language from which to translate:</string>
-    <string name="important_info_email_body_translation_language_to">Language to translate:</string>
+    <string name="important_info_email_body_translation_language_from">Langue à partir de laquelle traduire :</string>
+    <string name="important_info_email_body_translation_language_to">Langue à traduire :</string>
 
     <string name="about_application_support">Support:</string>
     <string name="about_application_support2">contact:</string>
@@ -1251,17 +1251,17 @@
     <string name="permissions_for_log_to_file_big_text_notification">Écrire le journal de débogage dans log.txt et crash.txt nécessite que certaines permissions soient accordées. </string>
     <string name="dashclock_extension_description">Affiche le profil actif avec indicateur de préférences. Ouvre l\’activateur sur contact. </string>
 
-    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Use icon lightness for custom profile icons</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Utiliser les icônes claires pour le profil personnalisé</string>
 
-    <string name="preferences_not_enabled_accessibility_service_title">Accessibility service is not enabled!</string>
-    <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
-    <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
-    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
+    <string name="preferences_not_enabled_accessibility_service_title">Le service d\'accessibilité n\'est pas activé !</string>
+    <string name="profile_preferences_volumeVoiceCall">Volume des appels vocaux</string>
+    <string name="pref_event_permanentRun_summary">Pause de l\'événement après l\'activation manuelle du profil et le redémarrage des événements</string>
+    <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Autoriser PhoneProfilesPlusExtender dans les paramètres système. La fonction d\'accessibilité n\'est pas utilisée, un service en cours d\'exécution est nécessaire pour recevoir des appels.</string>
     <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
-    <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
-    <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
-    <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
-    <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>
+    <string name="event_preferences_call_PPPExtender_install_summary">Cliquez ici pour installer PhoneProfilesPlusExtender. Le service en cours d\'exécution est nécessaire pour recevoir des appels.</string>
+    <string name="permission_why_event_sms_preferences">pour lire les contacts dans le capteur SMS/MMS</string>
+    <string name="permission_why_event_call_preferences">pour lire les contacts, détecter la sonnerie d\'appel (pour les \"appels de nuit") dans le capteur d\'appe</string>
+    <string name="important_info_accessibility_service_text3">En raison d\'un changement des règles de Google concernant l\'utilisation des permissions pour la réception d\'appels, vous devez installer PhoneProfilesPlusExtender pour utiliser le capteur d\'événement appel. Vérifiez les paramètres de ce capteur pour plus d\'informations.</string>
 
 
 
@@ -1286,8 +1286,8 @@
     <string name="extender_permissions_granted">Accordé </string>
     <string name="extender_permissions_button">Accorder/refuser les autorisations </string>
 
-    <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
-    <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
-    <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
-    <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
+    <string name="extender_accessibility_service_event_sensor_call">• Accessibilité pour le paramètre \" Capteur d\'appel\". La fonction d\'accessibilité n\'est pas utilisée, le service est nécessaire pour recevoir des appels.:</string>
+    <string name="extender_permissions_event_sensor_call">• Autorisations pour le paramètre \"Capteur d\'appel\" - Permission du téléphone:</string>
+    <string name="extender_permissions_event_sensor_call_28">• Autorisations pour le paramètre \"Capteur d\'appel\" - Permission du téléphone, journaux d\'appels :</string>
+    <string name="extender_toast_permissions_not_granted">Les autorisations ne sont pas accordées</string>
 </resources>
