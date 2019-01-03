@@ -65,7 +65,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
-    private static final boolean logIntoLogCat = true;
+    private static final boolean logIntoLogCat = false;
     static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -183,7 +183,7 @@ public class PPApplication extends Application {
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$W WifiBluetoothScanner"
 
-                                         //+"|WifiScanJob"
+                                         +"|WifiScanJob"
                                          //+"|WifiScanBroadcastReceiver.onReceive"
                                          //+"|----- DataWrapper.doHandleEvents"
                                          //+"|WifiSSIDPreference.refreshListView"
@@ -199,13 +199,13 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
-                                         +"|AccessibilityServiceBroadcastReceiver"
+                                         //+"|AccessibilityServiceBroadcastReceiver"
 
 
-                                         +"|PhoneProfilesService.doSimulatingRingingCall"
-                                         +"|PhoneProfilesService.startSimulatingRingingCall"
-                                         +"|PhoneProfilesService.stopSimulatingRingingCall"
-                                         +"|PhoneProfilesService.onAudioFocusChange"
+                                         //+"|PhoneProfilesService.doSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.startSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.stopSimulatingRingingCall"
+                                         //+"|PhoneProfilesService.onAudioFocusChange"
 
                                          /*
                                          +"|ActivateProfileHelper.(s)setRingerMode"
@@ -213,7 +213,7 @@ public class PPApplication extends Application {
                                          +"|ActivateProfileHelper.(s)setRingerVolume"
                                          */
                                          //+"|@@@ EventsHandler.handleEvents"
-                                         +"|EventsHandler.doEndService"
+                                         //+"|EventsHandler.doEndService"
 
 
                                          //+"|$$$ WifiAP"
@@ -249,9 +249,9 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
                                         //+"|EventTimeBroadcastReceiver.onReceive"
 
-                                        +"|PhoneCallReceiver"
-                                        +"|PhoneCallBroadcastReceiver"
-                                        +"|ActivateProfileHelper.executeForVolumes"
+                                        //+"|PhoneCallReceiver"
+                                        //+"|PhoneCallBroadcastReceiver"
+                                        //+"|ActivateProfileHelper.executeForVolumes"
 
                                         //+"|#### EventsHandler.handleEvents"
                                         //+"|[CALL] EventsHandler.handleEvents"
