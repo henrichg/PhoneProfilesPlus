@@ -183,7 +183,7 @@ public class PPApplication extends Application {
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$W WifiBluetoothScanner"
 
-                                         +"|WifiScanJob"
+                                         //+"|WifiScanJob"
                                          //+"|WifiScanBroadcastReceiver.onReceive"
                                          //+"|----- DataWrapper.doHandleEvents"
                                          //+"|WifiSSIDPreference.refreshListView"
@@ -199,7 +199,7 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
-                                         //+"|AccessibilityServiceBroadcastReceiver"
+                                         +"|AccessibilityServiceBroadcastReceiver"
 
 
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
