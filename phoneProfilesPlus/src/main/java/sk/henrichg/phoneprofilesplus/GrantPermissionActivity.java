@@ -191,16 +191,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
         boolean showRequestDrawOverlays = false;
         boolean showRequestReadExternalStorage = false;
         boolean showRequestReadPhoneState = false;
-        boolean showRequestProcessOutgoingCalls = false;
         boolean showRequestWriteExternalStorage = false;
         boolean showRequestReadCalendar = false;
         boolean showRequestReadContacts = false;
-        boolean showRequestReceiveSMS = false;
-        //boolean showRequestReadSMS = false;
-        boolean showRequestReceiveMMS = false;
         boolean showRequestAccessCoarseLocation = false;
         boolean showRequestAccessFineLocation = false;
-        boolean showRequestReadCallLogs = false;
 
         boolean[][] whyPermissionType = new boolean[15][100];
 
@@ -237,19 +232,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_CONTACTS) || forceGrant;
                 whyPermissionType[8][permissionType.type] = true;
             }
-            if (permissionType.permission.equals(Manifest.permission.RECEIVE_SMS)) {
-                showRequestReceiveSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_SMS) || forceGrant;
-                whyPermissionType[9][permissionType.type] = true;
-            }
-            /* not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
-            if (permissionType.permission.equals(Manifest.permission.READ_SMS)) {
-                showRequestReadSMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_SMS) || forceGrant;
-                whyPermissionType[10][permissionType.type] = true;
-            }*/
-            if (permissionType.permission.equals(Manifest.permission.RECEIVE_MMS)) {
-                showRequestReceiveMMS = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECEIVE_MMS) || forceGrant;
-                whyPermissionType[11][permissionType.type] = true;
-            }
             if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                 showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION) || forceGrant;
                 whyPermissionType[12][permissionType.type] = true;
@@ -263,18 +245,13 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (showRequestWriteSettings ||
                 showRequestReadExternalStorage ||
                 showRequestReadPhoneState ||
-                showRequestProcessOutgoingCalls ||
                 showRequestWriteExternalStorage ||
                 showRequestReadCalendar ||
                 showRequestReadContacts ||
-                showRequestReceiveSMS ||
-                //showRequestReadSMS ||
-                showRequestReceiveMMS ||
                 showRequestAccessCoarseLocation ||
                 showRequestAccessFineLocation ||
                 showRequestAccessNotificationPolicy ||
-                showRequestDrawOverlays||
-                showRequestReadCallLogs) {
+                showRequestDrawOverlays) {
 
             /*if (onlyNotification) {
                 showNotification(context);
@@ -354,7 +331,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";
                 }
-                if (showRequestReadPhoneState || showRequestProcessOutgoingCalls || showRequestReadCallLogs) {
+                if (showRequestReadPhoneState) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
                     boolean[] permissionTypes = new boolean[100];
                     for (int i = 0; i < 100; i++) {
@@ -375,17 +352,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 if (showRequestReadContacts) {
                     showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_contacts) + "</b>";
                     String whyPermissionString = getWhyPermissionString(whyPermissionType[8]);
-                    if (whyPermissionString != null)
-                        showRequestString = showRequestString + whyPermissionString;
-                    showRequestString = showRequestString + "<br>";
-                }
-                if (showRequestReceiveSMS || /*showRequestReadSMS ||*/ showRequestReceiveMMS) {
-                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_sms) + "</b>";
-                    boolean[] permissionTypes = new boolean[100];
-                    for (int i = 0; i < 100; i++) {
-                        permissionTypes[i] = whyPermissionType[9][i] || whyPermissionType[10][i] || whyPermissionType[11][i];
-                    }
-                    String whyPermissionString = getWhyPermissionString(permissionTypes);
                     if (whyPermissionString != null)
                         showRequestString = showRequestString + whyPermissionString;
                     showRequestString = showRequestString + "<br>";

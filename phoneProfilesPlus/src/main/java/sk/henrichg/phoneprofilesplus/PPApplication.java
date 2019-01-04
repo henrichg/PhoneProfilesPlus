@@ -65,11 +65,11 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
-    private static final boolean logIntoLogCat = false;
-    static final boolean logIntoFile = false;
+    private static final boolean logIntoLogCat = true;
+    static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
-                                         +"|PPApplication.isMIUI"
+                                         /*+"|PPApplication.isMIUI"
                                          +"|PPApplication.isEMUI"
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
@@ -87,7 +87,7 @@ public class PPApplication extends Application {
                                          +"|EditorProfilesActivity.doImportData"
                                          +"|PPApplication.setBlockProfileEventActions"
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
-                                         +"|ImportantInfoNotification"
+                                         +"|ImportantInfoNotification"*/
 
                                          //+"|EditorProfilesActivity.onCreate"
 
@@ -183,7 +183,7 @@ public class PPApplication extends Application {
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$W WifiBluetoothScanner"
 
-                                         //+"|WifiScanJob"
+                                         +"|WifiScanJob"
                                          //+"|WifiScanBroadcastReceiver.onReceive"
                                          //+"|----- DataWrapper.doHandleEvents"
                                          //+"|WifiSSIDPreference.refreshListView"
@@ -199,7 +199,7 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
-                                         +"|AccessibilityServiceBroadcastReceiver"
+                                         //+"|AccessibilityServiceBroadcastReceiver"
 
 
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
