@@ -1262,6 +1262,9 @@
     <string name="permission_why_event_call_preferences">для чтения контактов, определения мелодии звонка (для \"ночного звонка\") в Датчике вызовов</string>
     <string name="important_info_accessibility_service_text3">Из-за изменения компанией Google правил использования разрешений на приём вызовов, для использования Датчика вызовов вам необходимо установить PhoneProfilesPlusExtender. Дополнительная информация - в параметрах этого датчика.</string>
 
+    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
+    <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
+
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

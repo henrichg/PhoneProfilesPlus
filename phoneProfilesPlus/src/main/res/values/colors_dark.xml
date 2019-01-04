@@ -26,10 +26,7 @@
     <color name="tabTargetHelpCircleColor_dark">#FF7F7F7F</color>
     <!--<color name="tabTargetHelpTextColor_dark">#FFFFFFFF</color>-->
 
-    <!--
-    <color name="notificationBackground_dark">#FF263238</color>
-    <color name="notificationTextColor_dark">#FFFFFFFF</color>
-    -->
+    <color name="notificationBackground_dark">#FF202020</color>
 
     <color name="fastScrollTrackPP_dark">#FF5F5F5F</color>
     <color name="fastScrollThumbPP_dark">#FFDC8160</color>

@@ -254,6 +254,18 @@
                 android:entryValues="@array/notificationTextColorValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
+                android:key="notificationDarkBackground"
+                android:title="@string/phone_profiles_pref_notificationDarkBackground"
+                android:defaultValue="false"
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
+            <CheckBoxPreference
+                android:key="notificationUseDecoration"
+                android:title="@string/phone_profiles_pref_notificationUseDecoration"
+                android:defaultValue="true"
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
+            <CheckBoxPreference
                 android:key="notificationShowButtonExit"
                 android:title="@string/phone_profiles_pref_notificationShowButtonExit"
                 android:defaultValue="false"

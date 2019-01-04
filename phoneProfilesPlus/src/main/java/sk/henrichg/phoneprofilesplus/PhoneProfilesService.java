@@ -3956,6 +3956,7 @@ public class PhoneProfilesService extends Service
             RemoteViews contentView = null;
             RemoteViews contentViewLarge;
             boolean useDecorator = (!PPApplication.romIsMIUI) || (Build.VERSION.SDK_INT >= 26);
+            useDecorator = useDecorator && ApplicationPreferences.notificationUseDecoration(appContext);
 
             /*if (ApplicationPreferences.notificationTheme(dataWrapper.context).equals("1"))
                 contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_dark);
@@ -3964,21 +3965,45 @@ public class PhoneProfilesService extends Service
                 contentView = new RemoteViews(dataWrapper.context.getPackageName(), R.layout.notification_drawer_light);
             else {*/
             if (PPApplication.romIsMIUI) {
-                contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
-                if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator))
-                    contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_miui);
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
+                    if (!useDecorator)
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_miui_no_decorator);
+                    else
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                }
+                else
+                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
                 PPApplication.logE("PhoneProfilesService.showProfileNotification", "miui");
             }
             else
             if (PPApplication.romIsEMUI) {
-                contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
-                if (android.os.Build.VERSION.SDK_INT >= 24)
-                    contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    if (!useDecorator)
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui_no_decorator);
+                    else
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
+                    if (!useDecorator)
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_emui_no_decorator);
+                    else
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                }
+                else
+                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
             }
             else {
-                contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
-                if (android.os.Build.VERSION.SDK_INT >= 24)
-                    contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    if (!useDecorator)
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_no_decorator);
+                    else
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                    if (!useDecorator)
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_no_decorator);
+                    else
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                }
+                else
+                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
             }
             //}
 
@@ -4184,6 +4209,13 @@ public class PhoneProfilesService extends Service
                 contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                 if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator) && (contentView != null))
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
+            }
+
+            if (ApplicationPreferences.notificationDarkBackground(appContext)) {
+                int color = getResources().getColor(R.color.notificationBackground_dark);
+                contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                if ((Build.VERSION.SDK_INT >= 24) && (contentView != null))
+                    contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
             }
 
             if (ApplicationPreferences.notificationTextColor(appContext).equals("1")) {

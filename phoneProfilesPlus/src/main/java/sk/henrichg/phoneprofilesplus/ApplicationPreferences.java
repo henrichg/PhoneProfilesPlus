@@ -137,6 +137,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS = "applicationWidgetOneRowCustomIconLightness";
     static final String PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS = "applicationWidgetIconCustomIconLightness";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS = "applicationSamsungEdgeCustomIconLightness";
+    private static final String PREF_NOTIFICATION_DARK_BACKGROUND = "notificationDarkBackground";
+    static final String PREF_NOTIFICATION_USE_DECORATION = "notificationUseDecoration";
 
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)
@@ -676,6 +678,14 @@ class ApplicationPreferences {
 
     static boolean applicationSamsungEdgeCustomIconLightness(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, false);
+    }
+
+    static boolean notificationDarkBackground(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_DARK_BACKGROUND, false);
+    }
+
+    static boolean notificationUseDecoration(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, true);
     }
 
 }

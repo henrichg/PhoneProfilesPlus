@@ -988,6 +988,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preferenceCategory.removePreference(preference);
             }
         }
+        if (Build.VERSION.SDK_INT < 24) {
+            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
+            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
+            if ((preferenceCategory != null) && (preference != null))
+                preferenceCategory.removePreference(preference);
+        }
     }
 
     /*

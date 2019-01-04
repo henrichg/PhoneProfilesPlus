@@ -1263,6 +1263,9 @@
     <string name="permission_why_event_call_preferences">для читання контактів, виявлення виклику для \"нічний виклик\") Датчиком викликів</string>
     <string name="important_info_accessibility_service_text3">Завдяки змінам в правилах Google, нарахунок використання дозволів для про отриманя інформації про викликі, потрібно встановити PhoneProfilesPlusExtender щоб використовувати Датчик викликів . Для додаткової інформації перевірте параметри цього датчику.</string>
 
+    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
+    <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
+
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

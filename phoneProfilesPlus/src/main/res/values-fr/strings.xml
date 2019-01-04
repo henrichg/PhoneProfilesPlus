@@ -1263,6 +1263,9 @@
     <string name="permission_why_event_call_preferences">pour lire les contacts, détecter la sonnerie d\'appel (pour les \"appels de nuit") dans le capteur d\'appe</string>
     <string name="important_info_accessibility_service_text3">En raison d\'un changement des règles de Google concernant l\'utilisation des permissions pour la réception d\'appels, vous devez installer PhoneProfilesPlusExtender pour utiliser le capteur d\'événement appel. Vérifiez les paramètres de ce capteur pour plus d\'informations.</string>
 
+    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
+    <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
+
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

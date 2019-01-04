@@ -1262,6 +1262,9 @@
     <string name="permission_why_event_call_preferences">pro čtení kontaktů, detekci vyzvánění hovoru (pro \"noční hovor\") v senzoru hovoru</string>
     <string name="important_info_accessibility_service_text3">Vzhledem k tomu, že společnost Google změnila pravidla o používání práv pro příjem hovorů, musíte pro událostní senzor hovorů nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry tohoto senzoru pro více informací.</string>
 
+    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
+    <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
+
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
