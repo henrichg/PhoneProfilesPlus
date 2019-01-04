@@ -87,22 +87,27 @@ public class ActivityLogActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-
         /*MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
         menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
         if (PPApplication.getActivityLogEnabled(getApplicationContext())) {
-            TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false, false, getApplicationContext()), new int[]{R.attr.actionActivityLogPauseIcon});
-            int attributeResourceId = a.getResourceId(0, 0);
-            a.recycle();
-            menuItem.setIcon(attributeResourceId);
+            int theme = GlobalGUIRoutines.getTheme(false, false, false, getApplicationContext());
+            if (theme != 0) {
+                TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
+                int attributeResourceId = a.getResourceId(0, 0);
+                a.recycle();
+                menuItem.setIcon(attributeResourceId);
+            }
             menuItem.setTitle(R.string.menu_activity_log_pause);
         }
         else {
-            TypedArray a = getTheme().obtainStyledAttributes(GlobalGUIRoutines.getTheme(false, false, false, getApplicationContext()), new int[] {R.attr.actionActivityLogPlayIcon});
-            int attributeResourceId = a.getResourceId(0, 0);
-            a.recycle();
-            menuItem.setIcon(attributeResourceId);
+            int theme = GlobalGUIRoutines.getTheme(false, false, false, getApplicationContext());
+            if (theme != 0) {
+                TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPlayIcon});
+                int attributeResourceId = a.getResourceId(0, 0);
+                a.recycle();
+                menuItem.setIcon(attributeResourceId);
+            }
             menuItem.setTitle(R.string.menu_activity_log_play);
         }
         return super.onPrepareOptionsMenu(menu);

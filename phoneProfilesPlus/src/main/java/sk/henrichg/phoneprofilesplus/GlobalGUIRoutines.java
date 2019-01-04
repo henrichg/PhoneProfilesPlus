@@ -123,7 +123,9 @@ class GlobalGUIRoutines {
 
     public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar, boolean withDrawerLayout)
     {
-        activity.setTheme(getTheme(forPopup, withToolbar, withDrawerLayout, activity));
+        int theme = getTheme(forPopup, withToolbar, withDrawerLayout, activity);
+        if (theme != 0)
+            activity.setTheme(theme);
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar, boolean withDrawerLayout, Context context) {
@@ -188,8 +190,22 @@ class GlobalGUIRoutines {
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dlight;
                 }
+            default:
+                if (forPopup) {
+                    if (withToolbar)
+                        return R.style.PopupTheme_withToolbar_color;
+                    else
+                        return R.style.PopupTheme_color;
+                } else {
+                    if (withToolbar) {
+                        if (withDrawerLayout)
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
+                        else
+                            return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
+                    } else
+                        return R.style.Theme_PhoneProfilesTheme_color;
+                }
         }
-        return 0;
     }
 
     static void reloadActivity(final Activity activity, boolean newIntent)
@@ -576,9 +592,13 @@ class GlobalGUIRoutines {
         //final TypedValue value = new TypedValue();
         //context.getTheme().resolveAttribute(R.attr.eventStopStatusIndicator, value, true);
         //return value.data;
-        TypedArray a = context.getTheme().obtainStyledAttributes(
-                GlobalGUIRoutines.getTheme(false, false, false, context), new int[] {R.attr.eventStopStatusIndicator});
-        return a.getResourceId(0, 0);
+        int theme = GlobalGUIRoutines.getTheme(false, false, false, context);
+        if (theme != 0) {
+            TypedArray a = context.getTheme().obtainStyledAttributes(theme, new int[]{R.attr.eventStopStatusIndicator});
+            return a.getResourceId(0, 0);
+        }
+        else
+            return 0;
     }
 
     /*

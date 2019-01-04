@@ -4157,10 +4157,6 @@ public class PhoneProfilesService extends Service
                             (android.os.Build.VERSION.SDK_INT == 23);
                     //Log.d("ActivateProfileHelper.showNotification","isNote4="+isNote4);
                     if ((Build.VERSION.SDK_INT >= 23) && (!isNote4) && (iconBitmap != null)) {
-                        /*if (!ApplicationPreferences.notificationStatusBarStyle(appContext).equals("0")) {
-                            // native icon
-                            iconBitmap = BitmapManipulator.grayScaleBitmap(iconBitmap);
-                        }*/
                         notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                     } else {
                         int iconSmallResource;
