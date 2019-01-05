@@ -216,6 +216,7 @@
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <PreferenceCategory
+            android:key="categoryNotificationsStatusBar"
             android:title="@string/phone_profiles_pref_notificationStatusBarNew"
             android:layout="@layout/mp_preference_category" >
             <Preference
