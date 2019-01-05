@@ -1265,6 +1265,10 @@
 
     <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
+    <string name="phone_profiles_pref_notificationLayoutType">Layout type</string>
+    <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>
+    <string name="phone_profiles_pref_notificationLayoutType_large">Large</string>
+    <string name="phone_profiles_pref_notificationLayoutType_small">Small</string>
 
 
 
