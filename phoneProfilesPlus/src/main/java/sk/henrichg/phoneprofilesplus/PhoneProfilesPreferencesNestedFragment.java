@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
@@ -746,7 +747,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             });
         }
         if (android.os.Build.VERSION.SDK_INT < 21) {
-            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
+            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("categoryNotificationsStatusBar");
             preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
@@ -989,7 +990,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
         }
         if (Build.VERSION.SDK_INT < 24) {
-            PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
+            PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("categoryNotificationsStatusBar");
             preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
             if ((preferenceCategory != null) && (preference != null))
                 preferenceCategory.removePreference(preference);
