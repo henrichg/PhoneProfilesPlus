@@ -1435,7 +1435,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationPrefIndicator);
             if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationDarkBackground);
+            if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationTextColor);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationUseDecoration);
         }
         if (key.equals("profileActivationCategory")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile);
