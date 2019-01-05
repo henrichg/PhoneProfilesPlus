@@ -990,6 +990,9 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (Build.VERSION.SDK_INT < 24) {
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categoryNotifications");
+            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
+            if ((preferenceCategory != null) && (preference != null))
+                preferenceCategory.removePreference(preference);
             preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
             if ((preferenceCategory != null) && (preference != null))
                 preferenceCategory.removePreference(preference);
@@ -1430,6 +1433,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarPermanent);
             }
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_notificationLayoutType);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
             if (!summary.isEmpty()) summary = summary + " • ";

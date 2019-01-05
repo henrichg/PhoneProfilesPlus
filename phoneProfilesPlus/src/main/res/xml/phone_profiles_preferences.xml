@@ -263,6 +263,15 @@
                 android:dependency="notificationStatusBar"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:layout="@layout/mp_preference_material_widget" />
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/phone_profiles_pref_notificationLayoutType"
+                android:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
+                android:key="notificationLayoutType"
+                android:defaultValue="0"
+                android:entries="@array/notificationLayoutTypeArray"
+                android:entryValues="@array/notificationLayoutTypeValues"
+                android:dependency="notificationStatusBar"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="notificationStatusBarStyleInfo"
                 android:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"

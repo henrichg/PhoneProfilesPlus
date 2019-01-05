@@ -225,6 +225,14 @@
                 android:widgetLayout="@layout/start_activity_preference"
                 android:layout="@layout/mp_preference_material_widget">
             </Preference>
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/phone_profiles_pref_notificationLayoutType"
+                android:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
+                android:key="notificationLayoutType"
+                android:defaultValue="0"
+                android:entries="@array/notificationLayoutTypeArray"
+                android:entryValues="@array/notificationLayoutTypeValues"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="notificationStatusBarStyleInfo"
                 android:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"

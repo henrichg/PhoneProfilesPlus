@@ -1216,6 +1216,16 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string-array name="notificationLayoutTypeArray">
+        <item>@string/phone_profiles_pref_notificationLayoutType_expandable</item>
+        <item>@string/phone_profiles_pref_notificationLayoutType_large</item>
+        <item>@string/phone_profiles_pref_notificationLayoutType_small</item>
+    </string-array>
+    <string-array name="notificationLayoutTypeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 <!--
     <string-array name="screenNightModeArray">

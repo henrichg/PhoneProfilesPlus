@@ -4266,8 +4266,22 @@ public class PhoneProfilesService extends Service
                 if (useDecorator)
                     notificationBuilder.setStyle(new Notification.DecoratedCustomViewStyle());
                 //if (contentView != null) {
-                    notificationBuilder.setCustomContentView(contentView);
-                    notificationBuilder.setCustomBigContentView(contentViewLarge);
+                    String layoutType = ApplicationPreferences.notificationLayoutType(appContext);
+                    switch (layoutType) {
+                        case "1":
+                            // only large layout
+                            notificationBuilder.setCustomContentView(contentViewLarge);
+                            break;
+                        case "2":
+                            // only small layout
+                            notificationBuilder.setCustomContentView(contentView);
+                            break;
+                        default:
+                            // expandable layout
+                            notificationBuilder.setCustomContentView(contentView);
+                            notificationBuilder.setCustomBigContentView(contentViewLarge);
+                            break;
+                    }
                 //}
                 //else
                 //    notificationBuilder.setCustomContentView(contentViewLarge);
