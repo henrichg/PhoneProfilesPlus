@@ -3989,6 +3989,21 @@ public class PhoneProfilesService extends Service
                 else
                     contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_emui);
             }
+            else
+            if (PPApplication.romIsSamsung) {
+                if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    if (!useDecorator)
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_samsung_no_decorator);
+                    else
+                        contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+                    if (!useDecorator)
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact_samsung_no_decorator);
+                    else
+                        contentView = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_compact);
+                }
+                else
+                    contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer);
+            }
             else {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
                     if (!useDecorator)

@@ -3,8 +3,8 @@
                 android:id="@+id/notification_activated_profile_root"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
 
     <ImageView
         android:id="@+id/notification_activated_profile_restart_events"

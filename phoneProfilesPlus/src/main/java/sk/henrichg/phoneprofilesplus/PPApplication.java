@@ -58,6 +58,7 @@ public class PPApplication extends Application {
     //static final String romManufacturer = getROMManufacturer();
     static final boolean romIsMIUI = isMIUI();
     static final boolean romIsEMUI = isEMUI();
+    static final boolean romIsSamsung = isSamsung();
     static String PACKAGE_NAME;
 
     //static final int VERSION_CODE_EXTENDER_1_0_4 = 60;
@@ -66,12 +67,13 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
     private static final boolean logIntoLogCat = true;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
-                                         /*+"|PPApplication.isMIUI"
+                                         +"|PPApplication.isMIUI"
                                          +"|PPApplication.isEMUI"
-                                         +"|PhoneProfilesService.onCreate"
+                                         +"|PPApplication.isSamsung"
+                                         /*+"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.isServiceRunningInForeground"
@@ -79,15 +81,15 @@ public class PPApplication extends Application {
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|DataWrapper.firstStartEvents"
-                                         +"|BootUpReceiver"
+                                         +"|BootUpReceiver"*/
                                          +"|PackageReplacedReceiver"
-                                         +"|PhoneProfilesBackupAgent"
+                                         /*+"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"
                                          +"|PPApplication.setBlockProfileEventActions"
-                                         //+"|ImportantInfoHelpFragment.onViewCreated"
-                                         +"|ImportantInfoNotification"*/
+                                         //+"|ImportantInfoHelpFragment.onViewCreated"*/
+                                         +"|ImportantInfoNotification"
 
                                          //+"|EditorProfilesActivity.onCreate"
 
@@ -183,7 +185,7 @@ public class PPApplication extends Application {
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$W WifiBluetoothScanner"
 
-                                         +"|WifiScanJob"
+                                         //+"|WifiScanJob"
                                          //+"|WifiScanBroadcastReceiver.onReceive"
                                          //+"|----- DataWrapper.doHandleEvents"
                                          //+"|WifiSSIDPreference.refreshListView"
@@ -461,6 +463,7 @@ public class PPApplication extends Application {
         PPApplication.logE("##### PPApplication.onCreate", "romManufacturer="+Build.MANUFACTURER);
         PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI="+romIsMIUI);
         PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI="+romIsEMUI);
+        PPApplication.logE("##### PPApplication.onCreate", "romIsSamsung="+romIsSamsung);
 
         if (checkAppReplacingState())
             return;
@@ -1817,6 +1820,12 @@ public class PPApplication extends Application {
                 Build.BRAND.equalsIgnoreCase("huawei") ||
                 Build.MANUFACTURER.equalsIgnoreCase("huawei") ||
                 Build.FINGERPRINT.toLowerCase().contains("huawei");
+    }
+
+    private static boolean isSamsung() {
+        return Build.BRAND.equalsIgnoreCase("samsung") ||
+                Build.MANUFACTURER.equalsIgnoreCase("samsung") ||
+                Build.FINGERPRINT.toLowerCase().contains("samsung");
     }
 
     static boolean hasSystemFeature(Context context, String feature) {
