@@ -687,7 +687,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 if ((beginVal <= now) && (endVal > now))
                 {
-                    // event instance is found
+                    // event instance is found - actual instance
                     _eventFound = true;
                     _startTime = beginVal + gmtOffset;
                     _endTime = endVal + gmtOffset;
@@ -696,7 +696,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 else
                 if (beginVal > now)
                 {
-                    // event instance is found
+                    // event instance is found - future instance
                     _eventFound = true;
                     _startTime = beginVal + gmtOffset;
                     _endTime = endVal + gmtOffset;

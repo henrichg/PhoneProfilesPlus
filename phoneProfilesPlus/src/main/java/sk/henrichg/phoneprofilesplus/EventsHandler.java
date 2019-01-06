@@ -207,6 +207,7 @@ class EventsHandler {
             }
             if (sensorType.equals(SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
                     sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
+                    sensorType.equals(SENSOR_TYPE_CALENDAR) ||
                     saveCalendarStartEndTime) {
                 // search for calendar events
                 PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
