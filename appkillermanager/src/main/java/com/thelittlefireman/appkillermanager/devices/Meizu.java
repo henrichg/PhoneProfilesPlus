@@ -35,21 +35,6 @@ public class Meizu extends DeviceAbstract {
     }
 
     @Override
-    public boolean isActionPowerSavingAvailable(Context context) {
-        return true;
-    }
-
-    @Override
-    public boolean isActionAutoStartAvailable(Context context) {
-        return true;
-    }
-
-    @Override
-    public boolean isActionNotificationAvailable(Context context) {
-        return true;
-    }
-
-    @Override
     public Intent getActionPowerSaving(Context context) {
         Intent intent = ActionsUtils.createIntent();
         MEIZU_SECURITY_CENTER_VERSION mSecVersion = getMeizuSecVersion(context);

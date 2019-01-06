@@ -30,21 +30,6 @@ public class Asus extends DeviceAbstract {
     }
 
     @Override
-    public boolean isActionPowerSavingAvailable(Context context) {
-        return super.isActionDozeModeNotNecessary(context);
-    }
-
-    @Override
-    public boolean isActionAutoStartAvailable(Context context) {
-        return true;
-    }
-
-    @Override
-    public boolean isActionNotificationAvailable(Context context) {
-        return true;
-    }
-
-    @Override
     public Intent getActionPowerSaving(Context context) {
         // Juste need to use the regular battery non optimization
         // permission =)

@@ -22,21 +22,6 @@ public class Letv extends DeviceAbstract {
     }
 
     @Override
-    public boolean isActionPowerSavingAvailable(Context context) {
-        return true;
-    }
-
-    @Override
-    public boolean isActionAutoStartAvailable(Context context) {
-        return true;
-    }
-
-    @Override
-    public boolean isActionNotificationAvailable(Context context) {
-        return false;
-    }
-
-    @Override
     public Intent getActionPowerSaving(Context context) {
         Intent intent = ActionsUtils.createIntent();
         intent.setComponent(

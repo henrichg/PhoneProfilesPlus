@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
 import com.thelittlefireman.appkillermanager.utils.Manufacturer;
 
 public class Oppo extends DeviceAbstract {
@@ -37,21 +38,6 @@ public class Oppo extends DeviceAbstract {
     @Override
     public Manufacturer getDeviceManufacturer() {
         return Manufacturer.OPPO;
-    }
-
-    @Override
-    public boolean isActionPowerSavingAvailable(Context context) {
-        return false;
-    }
-
-    @Override
-    public boolean isActionAutoStartAvailable(Context context) {
-        return false;
-    }
-
-    @Override
-    public boolean isActionNotificationAvailable(Context context) {
-        return false;
     }
 
     @Override

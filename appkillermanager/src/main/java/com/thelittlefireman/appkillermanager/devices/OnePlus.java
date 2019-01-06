@@ -28,21 +28,6 @@ public class OnePlus extends DeviceAbstract {
     }
 
     @Override
-    public boolean isActionPowerSavingAvailable(Context context) {
-        return false;
-    }
-
-    @Override
-    public boolean isActionAutoStartAvailable(Context context) {
-        return true;
-    }
-
-    @Override
-    public boolean isActionNotificationAvailable(Context context) {
-        return false;
-    }
-
-    @Override
     public Intent getActionPowerSaving(Context context) {
         return null;
     }

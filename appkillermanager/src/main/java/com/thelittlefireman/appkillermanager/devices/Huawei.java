@@ -75,21 +75,6 @@ public class Huawei extends DeviceAbstract {
     }
 
     @Override
-    public boolean isActionPowerSavingAvailable(Context context) {
-        return true;
-    }
-
-    @Override
-    public boolean isActionAutoStartAvailable(Context context) {
-        return false;
-    }
-
-    @Override
-    public boolean isActionNotificationAvailable(Context context) {
-        return true;
-    }
-
-    @Override
     public Intent getActionPowerSaving(Context context) {
         Intent intent = ActionsUtils.createIntent();
         intent.setAction(HUAWEI_ACTION_POWERSAVING);

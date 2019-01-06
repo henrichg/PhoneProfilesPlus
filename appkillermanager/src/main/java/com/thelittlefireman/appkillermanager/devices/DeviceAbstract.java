@@ -10,6 +10,7 @@ import android.support.annotation.DrawableRes;
 
 import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
 import com.thelittlefireman.appkillermanager.utils.LogUtils;
+import com.thelittlefireman.appkillermanager.utils.Manufacturer;
 
 public abstract class DeviceAbstract implements DeviceBase {
 
@@ -65,4 +66,25 @@ public abstract class DeviceAbstract implements DeviceBase {
         }
         return null;
     }
+
+    @Override
+    public Manufacturer getDeviceManufacturer() {
+        return Manufacturer.ZTE;
+    }
+
+    @Override
+    public boolean isActionPowerSavingAvailable(Context context) {
+        return ActionsUtils.isIntentAvailable(context, getActionPowerSaving(context));
+    }
+
+    @Override
+    public boolean isActionAutoStartAvailable(Context context) {
+        return ActionsUtils.isIntentAvailable(context, getActionAutoStart(context));
+    }
+
+    @Override
+    public boolean isActionNotificationAvailable(Context context) {
+        return ActionsUtils.isIntentAvailable(context, getActionNotification(context));
+    }
+
 }
