@@ -406,7 +406,7 @@ class EventPreferencesCalendar extends EventPreferences {
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
-        searchEvent(context);
+        //searchEvent(context);
 
         if (!(isRunnable(context) && _enabled && _eventFound))
             return;
@@ -425,7 +425,7 @@ class EventPreferencesCalendar extends EventPreferences {
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
-        searchEvent(context);
+        //searchEvent(context);
 
         if (!(isRunnable(context) && _enabled && _eventFound))
             return;
@@ -477,6 +477,9 @@ class EventPreferencesCalendar extends EventPreferences {
                 PPApplication.logE("EventPreferencesCalendar.setAlarm", "endTime=" + result);
         }
 
+        if (alarmTime == 0)
+            return;
+
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();
         if ((android.os.Build.VERSION.SDK_INT >= 21) &&
@@ -518,18 +521,19 @@ class EventPreferencesCalendar extends EventPreferences {
         }
     }
 
-    private void searchEvent(Context context)
+    //private void searchEvent(Context context)
+    void saveStartEndTime(DataWrapper dataWrapper)
     {
-        if (!(isRunnable(context) && _enabled && Permissions.checkCalendar(context)))
+        if (!(/*isRunnable(context) && _enabled &&*/ Permissions.checkCalendar(dataWrapper.context)))
         {
             _startTime = 0;
             _endTime = 0;
             _eventFound = false;
-            DatabaseHandler.getInstance(context).updateEventCalendarTimes(_event);
+            DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
             return;
         }
 
-        PPApplication.logE("EventPreferencesCalendar.searchEvent", "xxx xxx");
+        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "xxx xxx");
 
         final String[] INSTANCE_PROJECTION = new String[] {
                 Instances.BEGIN,           // 0
@@ -553,7 +557,7 @@ class EventPreferencesCalendar extends EventPreferences {
         //final int PROJECTION_EVENT_TIMEZONE_INDEX = 6;
 
         Cursor cur;
-        ContentResolver cr = context.getContentResolver();
+        ContentResolver cr = dataWrapper.context.getContentResolver();
 
         StringBuilder selection = new StringBuilder("(");
 
@@ -704,17 +708,21 @@ class EventPreferencesCalendar extends EventPreferences {
             cur.close();
         }
 
-        DatabaseHandler.getInstance(context).updateEventCalendarTimes(_event);
+        DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
 
+        if (_event.getStatus() == Event.ESTATUS_RUNNING)
+            _event._eventPreferencesCalendar.setSystemEventForPause(dataWrapper.context);
+        if (_event.getStatus() == Event.ESTATUS_PAUSE)
+            _event._eventPreferencesCalendar.setSystemEventForStart(dataWrapper.context);
     }
 
-    void saveStartEndTime(DataWrapper dataWrapper) {
+    /*void saveStartEndTime(DataWrapper dataWrapper) {
         //_event._eventPreferencesCalendar.searchEvent(dataWrapper.context);
         //   searchEvent is called from setSystemEventForPause and setSystemEventForStart
         if (_event.getStatus() == Event.ESTATUS_RUNNING)
             _event._eventPreferencesCalendar.setSystemEventForPause(dataWrapper.context);
         if (_event.getStatus() == Event.ESTATUS_PAUSE)
             _event._eventPreferencesCalendar.setSystemEventForStart(dataWrapper.context);
-    }
+    }*/
 
 }
