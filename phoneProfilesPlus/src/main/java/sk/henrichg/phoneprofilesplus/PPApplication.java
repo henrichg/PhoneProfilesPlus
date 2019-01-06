@@ -81,15 +81,15 @@ public class PPApplication extends Application {
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|DataWrapper.firstStartEvents"
-                                         +"|BootUpReceiver"*/
+                                         +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          /*+"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"
                                          +"|PPApplication.setBlockProfileEventActions"
-                                         //+"|ImportantInfoHelpFragment.onViewCreated"*/
-                                         +"|ImportantInfoNotification"
+                                         //+"|ImportantInfoHelpFragment.onViewCreated"
+                                         +"|ImportantInfoNotification"*/
 
                                          //+"|EditorProfilesActivity.onCreate"
 
