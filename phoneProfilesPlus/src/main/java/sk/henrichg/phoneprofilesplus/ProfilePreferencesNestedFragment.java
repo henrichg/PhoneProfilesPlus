@@ -68,10 +68,10 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         //Log.d("------ ProfilePreferencesNestedFragment.onCreate", "this="+this);
 
         // must by false to avoid FC when rotation changes and preference dialogs are shown
-        //setRetainInstance(false);
+        setRetainInstance(false);
         // this is really important in order to save the state across screen
         // configuration changes for example
-        setRetainInstance(true);
+        //setRetainInstance(true);
 
         Bundle bundle = this.getArguments();
         if (bundle != null)
