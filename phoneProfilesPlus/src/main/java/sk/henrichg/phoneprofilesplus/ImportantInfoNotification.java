@@ -24,7 +24,7 @@ class ImportantInfoNotification {
         int savedVersionCode = 0;
         try {
             PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            packageVersionCode = pInfo.versionCode;
+            packageVersionCode = PPApplication.getVersionCode(pInfo);
             savedVersionCode = getShowInfoNotificationOnStartVersion(context);
             if ((packageVersionCode > savedVersionCode)/* || PPApplication.newExtender*/){
                 //Log.d("ImportantInfoNotification.showInfoNotification","show");

@@ -27,11 +27,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             // save version code
             try {
                 PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-                int actualVersionCode = pInfo.versionCode;
+                int actualVersionCode = PPApplication.getVersionCode(pInfo);
                 PPApplication.setSavedVersionCode(appContext, actualVersionCode);
 
                 DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-                String version = pInfo.versionName + " (" + pInfo.versionCode + ")";
+                String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONUPGRADE, version, null, null, 0);
             } catch (Exception ignored) {
             }
@@ -59,7 +59,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     int actualVersionCode;
                     try {
                         PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-                        actualVersionCode = pInfo.versionCode;
+                        actualVersionCode = PPApplication.getVersionCode(pInfo);
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "actualVersionCode=" + actualVersionCode);
 
                         if (oldVersionCode < actualVersionCode) {

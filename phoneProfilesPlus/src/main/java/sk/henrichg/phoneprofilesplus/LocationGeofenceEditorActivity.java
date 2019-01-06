@@ -165,6 +165,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.location_editor_map);
+        //noinspection ConstantConditions
         mapFragment.getMapAsync(this);
 
         radiusLabel = findViewById(R.id.location_pref_dlg_radius_seekbar_label);

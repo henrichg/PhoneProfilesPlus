@@ -2,7 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -50,12 +51,13 @@ public class ShortcutCreatorListFragment extends Fragment {
         // configuration changes for example
         setRetainInstance(true);
 
+        //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
         rootView = inflater.inflate(R.layout.shortcut_creator_list, container, false);
@@ -64,7 +66,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         doOnViewCreated(view);
     }
@@ -114,6 +116,7 @@ public class ShortcutCreatorListFragment extends Fragment {
 
         private LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
+            //noinspection ConstantConditions
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
         }
 
@@ -212,6 +215,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 PPApplication.logE("ShortcutCreatorListFragment.createShortcut","position="+position);
                 profile = activityDataWrapper.profileList.get(position);
 
+                //noinspection ConstantConditions
                 context = getActivity().getApplicationContext();
 
                 if (profile != null) {
@@ -334,9 +338,11 @@ public class ShortcutCreatorListFragment extends Fragment {
                     ShortcutInfoCompat shortcutInfo = shortcutBuilder.build();
                     Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
 
+                    //noinspection ConstantConditions
                     getActivity().setResult(Activity.RESULT_OK, intent);
                 }
 
+                //noinspection ConstantConditions
                 getActivity().finish();
             }
 

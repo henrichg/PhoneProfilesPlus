@@ -1,8 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
 
-import android.app.Activity;
-import android.app.Fragment;
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -47,15 +48,10 @@ public class EventDetailsFragment extends Fragment {
     };
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
-        // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof OnStartEventPreferencesFromDetail)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-        onStartEventPreferencesCallback = (OnStartEventPreferencesFromDetail) activity;
+        onStartEventPreferencesCallback = (OnStartEventPreferencesFromDetail) getActivity();
     }
 
     @Override
@@ -75,19 +71,20 @@ public class EventDetailsFragment extends Fragment {
         // configuration changes for example
         setRetainInstance(true);
 
+        //noinspection ConstantConditions
         event_id = getArguments().getLong(PPApplication.EXTRA_EVENT_ID, 0);
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event_details, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         TextView eventName;
@@ -117,6 +114,7 @@ public class EventDetailsFragment extends Fragment {
         //}
         //int defaultColor = eventName.getTextColors().getDefaultColor();
 
+        //noinspection ConstantConditions
         DataWrapper dataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
 
         final Event event = dataWrapper.getEventById(event_id);

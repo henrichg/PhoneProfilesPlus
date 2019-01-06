@@ -2,7 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -100,15 +101,10 @@ public class EditorProfileListFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
-        // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof OnStartProfilePreferences)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-        onStartProfilePreferencesCallback = (OnStartProfilePreferences) activity;
+        onStartProfilePreferencesCallback = (OnStartProfilePreferences) getActivity();
     }
 
     @Override
@@ -132,6 +128,7 @@ public class EditorProfileListFragment extends Fragment
                 getArguments().getInt(FILTER_TYPE_ARGUMENT, EditorProfileListFragment.FILTER_TYPE_ALL) :
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
+        //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
 
         setHasOptionsMenu(true);
@@ -139,7 +136,7 @@ public class EditorProfileListFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
         if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
@@ -154,7 +151,7 @@ public class EditorProfileListFragment extends Fragment
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         doOnViewCreated(view/*, savedInstanceState*/);
 
@@ -178,6 +175,7 @@ public class EditorProfileListFragment extends Fragment
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_profiles_list);
+        //noinspection ConstantConditions
         listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
@@ -214,6 +212,7 @@ public class EditorProfileListFragment extends Fragment
             }
         });
 
+        //noinspection ConstantConditions
         LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
         orderLayout.setVisibility(View.GONE);
 
@@ -250,6 +249,7 @@ public class EditorProfileListFragment extends Fragment
         private LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
+            //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
             //_baseContext = fragment.getActivity();
         }
@@ -395,7 +395,9 @@ public class EditorProfileListFragment extends Fragment
             if ((profilePos <= first) || (profilePos >= last)) {
                 listView.setSelection(profilePos);
             }*/
-            listView.getLayoutManager().scrollToPosition(profilePos);
+            RecyclerView.LayoutManager lm = listView.getLayoutManager();
+            if (lm != null)
+                lm.scrollToPosition(profilePos);
 
             boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
             if (startTargetHelps)
@@ -441,6 +443,7 @@ public class EditorProfileListFragment extends Fragment
         Profile activatedProfile = activityDataWrapper.getActivatedProfile(false, false);
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
             // remove alarm for profile duration
+            //noinspection ConstantConditions
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
             Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
         }
@@ -482,6 +485,7 @@ public class EditorProfileListFragment extends Fragment
             popup = new PopupMenu(context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
+        //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.profile_list_item_edit, popup.getMenu());
 
         final Profile profile = (Profile)view.getTag();
@@ -513,6 +517,7 @@ public class EditorProfileListFragment extends Fragment
     {
         final Profile _profile = profile;
 
+        //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(getResources().getString(R.string.profile_string_0) + ": " + profile._name);
         dialogBuilder.setMessage(R.string.delete_profile_alert_message);
@@ -541,6 +546,7 @@ public class EditorProfileListFragment extends Fragment
     private void deleteAllProfiles()
     {
         if (profileListAdapter != null) {
+            //noinspection ConstantConditions
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
             dialogBuilder.setTitle(R.string.alert_title_delete_all_profiles);
             dialogBuilder.setMessage(R.string.alert_message_delete_all_profiles);
@@ -631,6 +637,7 @@ public class EditorProfileListFragment extends Fragment
 
         if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
         {
+            //noinspection ConstantConditions
             ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.activated_profile_pref_indicator);
             if (profilePrefIndicatorImageView != null)
             {
@@ -692,7 +699,9 @@ public class EditorProfileListFragment extends Fragment
                     //if ((profilePos <= first) || (profilePos >= last)) {
                     //    listView.setSelection(profilePos);
                     //}
-                    listView.getLayoutManager().scrollToPosition(profilePos);
+                    RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                    if (lm != null)
+                        lm.scrollToPosition(profilePos);
                 }
             }
         }

@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -55,7 +55,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
             if (forActivity)
                 ActivateProfileActivity.this.showTargetHelps();
             else {
-                Fragment fragment = ActivateProfileActivity.this.getFragmentManager().findFragmentById(R.id.activate_profile_list);
+                Fragment fragment = ActivateProfileActivity.this.getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                 if (fragment != null) {
                     ((ActivateProfileListFragment) fragment).showTargetHelps();
                 }
@@ -374,7 +374,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 setEventsRunStopIndicator();
                 invalidateOptionsMenu();
 
-                Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
 
                 if (fragment != null)
                 {
@@ -386,7 +386,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     private DataWrapper getDataWrapper()
     {
-        Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
         if (fragment != null)
             return ((ActivateProfileListFragment)fragment).activityDataWrapper;
         else
@@ -523,7 +523,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSequenceFinish() {
                         targetHelpsSequenceStarted = false;
-                        Fragment fragment = getFragmentManager().findFragmentById(R.id.activate_profile_list);
+                        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activate_profile_list);
                         if (fragment != null)
                         {
                             ((ActivateProfileListFragment)fragment).showTargetHelps();

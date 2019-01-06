@@ -276,7 +276,7 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
             if (installed) {
                 PPApplication.logE("AccessibilityServiceBroadcastReceiver.isExtenderInstalled", "installed=true");
                 PackageInfo pInfo = packageManager.getPackageInfo(appInfo.packageName, 0);
-                int version = pInfo.versionCode;
+                int version = PPApplication.getVersionCode(pInfo);
                 PPApplication.logE("AccessibilityServiceBroadcastReceiver.isExtenderInstalled", "version="+version);
                 return version;
             }

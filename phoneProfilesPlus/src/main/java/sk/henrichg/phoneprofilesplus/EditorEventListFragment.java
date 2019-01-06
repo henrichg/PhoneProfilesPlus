@@ -1,7 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -108,15 +109,10 @@ public class EditorEventListFragment extends Fragment
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
 
-        // Activities containing this fragment must implement its callbacks.
-        if (!(activity instanceof OnStartEventPreferences)) {
-            throw new IllegalStateException(
-                    "Activity must implement fragment's callbacks.");
-        }
-        onStartEventPreferencesCallback = (OnStartEventPreferences) activity;
+        onStartEventPreferencesCallback = (OnStartEventPreferences) getActivity();
     }
 
     @Override
@@ -147,6 +143,7 @@ public class EditorEventListFragment extends Fragment
         //Log.d("EditorEventListFragment.onCreate","filterType="+filterType);
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
+        //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
 
         getActivity().getIntent();
@@ -156,7 +153,7 @@ public class EditorEventListFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
         //rootView = inflater.inflate(R.layout.editor_event_list, container, false);
@@ -172,7 +169,7 @@ public class EditorEventListFragment extends Fragment
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         doOnViewCreated(view/*, savedInstanceState*/);
 
@@ -190,6 +187,7 @@ public class EditorEventListFragment extends Fragment
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
+        //noinspection ConstantConditions
         listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
@@ -232,6 +230,7 @@ public class EditorEventListFragment extends Fragment
             }
         });
 
+        //noinspection ConstantConditions
         LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             orderLayout.setVisibility(View.GONE);
@@ -265,6 +264,7 @@ public class EditorEventListFragment extends Fragment
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             _orderType = orderType;
+            //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
         }
 
@@ -382,7 +382,9 @@ public class EditorEventListFragment extends Fragment
             if ((eventPos <= first) || (eventPos >= last)) {
                 listView.setSelection(eventPos);
             }*/
-            listView.getLayoutManager().scrollToPosition(eventPos);
+            RecyclerView.LayoutManager lm = listView.getLayoutManager();
+            if (lm != null)
+                lm.scrollToPosition(eventPos);
 
             boolean startTargetHelps = getArguments() != null && getArguments().getBoolean(START_TARGET_HELPS_ARGUMENT, false);
             if (startTargetHelps)
@@ -500,6 +502,7 @@ public class EditorEventListFragment extends Fragment
 
         eventListAdapter.notifyDataSetChanged();
 
+        //noinspection ConstantConditions
         Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -518,6 +521,7 @@ public class EditorEventListFragment extends Fragment
         //else
         //    popup = new PopupMenu(context, view);
         Menu menu = popup.getMenu();
+        //noinspection ConstantConditions
         getActivity().getMenuInflater().inflate(R.menu.event_list_item_edit, menu);
 
         final Event event = (Event)view.getTag();
@@ -565,6 +569,7 @@ public class EditorEventListFragment extends Fragment
     private void deleteEventWithAlert(Event event)
     {
         final Event _event = event;
+        //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
         dialogBuilder.setMessage(getResources().getString(R.string.delete_event_alert_message));
@@ -592,6 +597,7 @@ public class EditorEventListFragment extends Fragment
     private void deleteAllEvents()
     {
         if (eventListAdapter != null) {
+            //noinspection ConstantConditions
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
             dialogBuilder.setTitle(getResources().getString(R.string.alert_title_delete_all_events));
             dialogBuilder.setMessage(getResources().getString(R.string.alert_message_delete_all_events));
@@ -670,6 +676,7 @@ public class EditorEventListFragment extends Fragment
 
         if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context))
         {
+            //noinspection ConstantConditions
             ImageView profilePrefIndicatorImageView = getActivity().findViewById(R.id.activated_profile_pref_indicator);
             if (profilePrefIndicatorImageView != null)
             {
@@ -726,7 +733,9 @@ public class EditorEventListFragment extends Fragment
                         //if ((eventPos <= first) || (eventPos >= last)) {
                         //    listView.setSelection(eventPos);
                         //}
-                        listView.getLayoutManager().scrollToPosition(eventPos);
+                        RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                        if (lm != null)
+                            lm.scrollToPosition(eventPos);
                     }
                 }
             }

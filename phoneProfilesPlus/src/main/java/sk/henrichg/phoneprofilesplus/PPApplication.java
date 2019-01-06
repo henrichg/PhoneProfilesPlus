@@ -505,7 +505,7 @@ public class PPApplication extends Application {
         int actualVersionCode = 0;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            actualVersionCode = pInfo.versionCode;
+            actualVersionCode = PPApplication.getVersionCode(pInfo);
         } catch (Exception ignored) {
         }
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
@@ -619,7 +619,7 @@ public class PPApplication extends Application {
                 // save version code
                 try {
                     PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-                    actualVersionCode = pInfo.versionCode;
+                    actualVersionCode = PPApplication.getVersionCode(pInfo);
                     PPApplication.setSavedVersionCode(appContext, actualVersionCode);
                 } catch (Exception ignored) {
                 }
@@ -627,13 +627,18 @@ public class PPApplication extends Application {
             }
 
             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(), 0);
-            actualVersionCode = pInfo.versionCode;
+            actualVersionCode = PPApplication.getVersionCode(pInfo);
             PPApplication.logE("PPApplication.isNewVersion", "actualVersionCode=" + actualVersionCode);
 
             return (oldVersionCode < actualVersionCode);
         } catch (Exception e) {
             return false;
         }
+    }
+
+    static int getVersionCode(PackageInfo pInfo) {
+        //noinspection deprecation
+        return pInfo.versionCode;
     }
 
     //--------------------------------------------------------------

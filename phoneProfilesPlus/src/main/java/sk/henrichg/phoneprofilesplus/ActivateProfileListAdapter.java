@@ -193,6 +193,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                     holder.profileName.setTextSize(14);
                 else
                     holder.profileName.setTextSize(16);
+                //noinspection ConstantConditions
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
             } else {
                 holder.profileName.setTypeface(/*Typeface.create("sans-serif-condensed", Typeface.NORMAL)*/ null, Typeface.NORMAL);
@@ -200,6 +201,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                     holder.profileName.setTextSize(13);
                 else
                     holder.profileName.setTextSize(15);
+                //noinspection ConstantConditions
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeTextColor(fragment.getActivity()));
             }
 

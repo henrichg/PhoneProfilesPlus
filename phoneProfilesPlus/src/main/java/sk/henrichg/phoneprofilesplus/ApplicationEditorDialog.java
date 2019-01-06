@@ -134,7 +134,9 @@ class ApplicationEditorDialog
         listView.setAdapter(listAdapter);
 
         if (selectedPosition > -1) {
-            listView.getLayoutManager().scrollToPosition(selectedPosition);
+            RecyclerView.LayoutManager lm = listView.getLayoutManager();
+            if (lm != null)
+                lm.scrollToPosition(selectedPosition);
         }
     }
 
