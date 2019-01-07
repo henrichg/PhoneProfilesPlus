@@ -37,6 +37,7 @@ class EventPreferencesCall extends EventPreferences {
     private static final String PREF_EVENT_CALL_DURATION = "eventCallDuration";
     static final String PREF_EVENT_CALL_INSTALL_EXTENDER = "eventCallInstallExtender";
     static final String PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS = "eventCallAccessibilitySettings";
+    static final String PREF_EVENT_CALL_LAUNCH_EXTENDER = "eventCallLaunchExtender";
 
     private static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategory";
 
@@ -306,6 +307,7 @@ class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_CONTACT_GROUPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
     }
 

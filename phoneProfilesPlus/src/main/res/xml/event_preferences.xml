@@ -427,8 +427,14 @@
                 android:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
                 android:dependency="eventCallEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
-                android:layout="@layout/mp_preference_material_widget" >
-            </Preference>
+                android:layout="@layout/mp_preference_material_widget" />
+            <Preference
+                android:key="eventCallLaunchExtender"
+                android:title="@string/event_preferences_applications_LaunchExtender_title"
+                android:summary="@string/event_preferences_call_LaunchExtender_summary"
+                android:dependency="eventCallEnabled"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:title="@string/event_preferences_category_eventSMSParameters"
@@ -509,8 +515,14 @@
                 android:summary="@string/event_preferences_sms_AccessibilitySettingsForExtender_summary"
                 android:dependency="eventSMSEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
-                android:layout="@layout/mp_preference_material_widget" >
-            </Preference>
+                android:layout="@layout/mp_preference_material_widget" />
+            <Preference
+                android:key="eventSMSLaunchExtender"
+                android:title="@string/event_preferences_applications_LaunchExtender_title"
+                android:summary="@string/event_preferences_sms_LaunchExtender_summary"
+                android:dependency="eventSMSEnabled"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
             android:key="eventRadioSwitchCategory"

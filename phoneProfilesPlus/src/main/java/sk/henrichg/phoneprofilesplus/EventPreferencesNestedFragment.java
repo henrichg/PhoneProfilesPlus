@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -199,15 +200,15 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface dialog) {
-                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                if (positive != null) positive.setAllCaps(false);
-                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                if (negative != null) negative.setAllCaps(false);
-                            }
-                        });*/
+                        //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //    @Override
+                        //    public void onShow(DialogInterface dialog) {
+                        //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //        if (positive != null) positive.setAllCaps(false);
+                        //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //        if (negative != null) negative.setAllCaps(false);
+                        //    }
+                        //});
                         dialog.show();
                     }
                     return false;
@@ -397,15 +398,15 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            @Override
-                            public void onShow(DialogInterface dialog) {
-                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                                if (positive != null) positive.setAllCaps(false);
-                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                                if (negative != null) negative.setAllCaps(false);
-                            }
-                        });*/
+                        //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //    @Override
+                        //    public void onShow(DialogInterface dialog) {
+                        //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //        if (positive != null) positive.setAllCaps(false);
+                        //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //        if (negative != null) negative.setAllCaps(false);
+                        //    }
+                        //});
                         dialog.show();
                     }
                     return false;
@@ -503,6 +504,45 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
+        smsPreference = prefMng.findPreference(EventPreferencesSMS.PREF_EVENT_SMS_LAUNCH_EXTENDER);
+        if (smsPreference != null) {
+            //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            smsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                        PackageManager packageManager = context.getPackageManager();
+                        Intent intent = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofilesplusextender");
+                        if (intent != null) {
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                startActivity(intent);
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //    @Override
+                        //    public void onShow(DialogInterface dialog) {
+                        //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //        if (positive != null) positive.setAllCaps(false);
+                        //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //        if (negative != null) negative.setAllCaps(false);
+                        //    }
+                        //});
+                        dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
 
         extenderPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_INSTALL_EXTENDER);
         if (extenderPreference != null) {
@@ -532,6 +572,45 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     } else {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //    @Override
+                        //    public void onShow(DialogInterface dialog) {
+                        //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //        if (positive != null) positive.setAllCaps(false);
+                        //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //        if (negative != null) negative.setAllCaps(false);
+                        //    }
+                        //});
+                        dialog.show();
+                    }
+                    return false;
+                }
+            });
+        }
+        callPreference = prefMng.findPreference(EventPreferencesCall.PREF_EVENT_CALL_LAUNCH_EXTENDER);
+        if (callPreference != null) {
+            //callPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            callPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                        PackageManager packageManager = context.getPackageManager();
+                        Intent intent = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofilesplusextender");
+                        if (intent != null) {
+                            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                startActivity(intent);
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.event_preferences_extender_not_installed);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();

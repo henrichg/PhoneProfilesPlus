@@ -37,6 +37,7 @@ class EventPreferencesSMS extends EventPreferences {
     private static final String PREF_EVENT_SMS_DURATION = "eventSMSDuration";
     static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
     static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
+    static final String PREF_EVENT_SMS_LAUNCH_EXTENDER = "eventSMSLaunchExtender";
 
     private static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategory";
 
