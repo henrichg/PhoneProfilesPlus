@@ -388,8 +388,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 body = body + context.getString(R.string.important_info_email_body_suggestions) + " \n\n";
                 break;
             case EMAIL_BODY_TRANSLATIONS:
-                body = context.getString(R.string.important_info_email_body_translation_language_from) + " \n";
-                body = body + context.getString(R.string.important_info_email_body_translation_language_to) + " \n\n";
+                //body = context.getString(R.string.important_info_email_body_translation_language_from) + " \n";
+                body = /*body +*/ context.getString(R.string.important_info_email_body_translation_language_to) + " \n\n";
                 break;
         }
         return body;

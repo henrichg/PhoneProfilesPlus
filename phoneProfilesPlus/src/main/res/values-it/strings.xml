@@ -1236,7 +1236,6 @@
     <string name="important_info_email_body_problems">Problems:</string>
     <string name="important_info_email_body_questions">Questions:</string>
     <string name="important_info_email_body_suggestions">Suggestions:</string>
-    <string name="important_info_email_body_translation_language_from">Language from which to translate:</string>
     <string name="important_info_email_body_translation_language_to">Language to translate:</string>
 
     <string name="about_application_support">Support:</string>

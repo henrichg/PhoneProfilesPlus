@@ -1236,7 +1236,6 @@
     <string name="important_info_email_body_problems">Problémy:</string>
     <string name="important_info_email_body_questions">Otázky:</string>
     <string name="important_info_email_body_suggestions">Návrhy:</string>
-    <string name="important_info_email_body_translation_language_from">Jazyk který překládat:</string>
     <string name="important_info_email_body_translation_language_to">Jazyk do kterého překládat:</string>
 
     <string name="about_application_support">Podpora:</string>

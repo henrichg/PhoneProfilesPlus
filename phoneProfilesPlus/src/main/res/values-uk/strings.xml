@@ -1237,7 +1237,6 @@
     <string name="important_info_email_body_problems">Проблеми:</string>
     <string name="important_info_email_body_questions">Запитання:</string>
     <string name="important_info_email_body_suggestions">Пропозиції:</string>
-    <string name="important_info_email_body_translation_language_from">Мова з якої перекладати:</string>
     <string name="important_info_email_body_translation_language_to">Мова на яку перекладати:</string>
 
     <string name="about_application_support">Підтримка:</string>
