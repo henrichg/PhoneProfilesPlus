@@ -1029,20 +1029,14 @@ public class DataWrapper {
     void stopAllEvents(boolean saveEventStatus, boolean alsoDelete/*, boolean activateReturnProfile*/)
     {
         List<EventTimeline> eventTimelineList = getEventTimelineList();
-
-        for (int i = eventTimelineList.size()-1; i >= 0; i--)
-        {
-            EventTimeline eventTimeline = eventTimelineList.get(i);
-            if (eventTimeline != null)
-            {
-                long eventId = eventTimeline._fkEvent;
-                Event event = getEventById(eventId);
-                if (event != null)
-                {
+        synchronized (eventList) {
+            fillEventList();
+            //noinspection ForLoopReplaceableByForEach
+            for (Iterator<Event> it = eventList.iterator(); it.hasNext(); ) {
+                Event event = it.next();
                 //if (event.getStatusFromDB(this) != Event.ESTATUS_STOP)
-                    event.stopEvent(this, eventTimelineList, false/*activateReturnProfile*/,
-                            true, saveEventStatus/*, false*/);
-                }
+                event.stopEvent(this, eventTimelineList, false/*activateReturnProfile*/,
+                        true, saveEventStatus/*, false*/);
             }
         }
         if (alsoDelete) {

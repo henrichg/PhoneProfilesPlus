@@ -284,6 +284,10 @@ public class PPApplication extends Application {
                                         //+"|Profile.generateIconBitmap"
 
                                         //+"|CalendarProviderChangedBroadcastReceiver"
+
+                                        + "|EventPreferencesTime.removeSystemEvent"
+                                        + "|EventPreferencesTime.removeAlarm"
+                                        + "|EventPreferencesTime.setAlarm"
             ;
 
 
@@ -1848,7 +1852,7 @@ public class PPApplication extends Application {
     }
 
     public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
-                               final boolean shutdown, final boolean killProcess) {
+                               final boolean shutdown, final boolean killProcess/*, final boolean removeAlarmClock*/) {
         try {
             PPApplication.startHandlerThread("PPApplication.exitApp");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
@@ -1864,9 +1868,12 @@ public class PPApplication extends Application {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        // stop all events
+                        //if (removeAlarmClock)
+                        //    ApplicationPreferences.forceNotUseAlarmClock = true;
+                        dataWrapper.stopAllEvents(false, false);
+
                         if (!shutdown) {
-                            // stop all events
-                            dataWrapper.stopAllEvents(false, false);
 
                             // remove notifications
                             ImportantInfoNotification.removeNotification(context);

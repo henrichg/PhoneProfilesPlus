@@ -58,7 +58,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                         PPApplication.startPPService(appContext, serviceIntent);
                     }
                     else {
-                        PPApplication.exitApp(appContext, null, null, false, true);
+                        PPApplication.exitApp(appContext, null, null, false, true/*, true*/);
                     }
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {

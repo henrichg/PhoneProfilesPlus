@@ -799,7 +799,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         PPApplication.exitApp(getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
-                                EditorProfilesActivity.this, false, true);
+                                EditorProfilesActivity.this, false, true/*, true*/);
                     }
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -1448,9 +1448,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     importProgressDialog.setCanceledOnTouchOutside(false);
                     importProgressDialog.show();
 
-                    if (PhoneProfilesService.getInstance() != null) {
-                        stopService(new Intent(getApplicationContext(), PhoneProfilesService.class));
-                    }
+                    PPApplication.exitApp(dataWrapper.context, dataWrapper, null, false, false/*, true*/);
 
                     Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                     if (fragment != null) {
@@ -1463,7 +1461,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 @Override
                 protected Integer doInBackground(Void... params) {
-                    this.dataWrapper.stopAllEvents(true, false);
+                    //ApplicationPreferences.forceNotUseAlarmClock = true;
+                    this.dataWrapper.stopAllEvents(false, false);
+                    //ApplicationPreferences.forceNotUseAlarmClock = false;
 
                     dbError = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
                     if (dbError == DatabaseHandler.IMPORT_OK) {

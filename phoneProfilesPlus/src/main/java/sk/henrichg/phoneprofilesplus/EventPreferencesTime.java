@@ -502,11 +502,13 @@ class EventPreferencesTime extends EventPreferences {
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
+        //PPApplication.logE("EventPreferencesTime.removeSystemEvent","forceNotUseAlarmClock="+ApplicationPreferences.forceNotUseAlarmClock);
         PPApplication.logE("EventPreferencesTime.removeSystemEvent","xxx");
     }
 
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
+        PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             //Intent intent = new Intent(context, EventTimeBroadcastReceiver.class);
@@ -515,11 +517,11 @@ class EventPreferencesTime extends EventPreferences {
             //intent.setClass(context, EventPreferencesTime.class);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+            PPApplication.logE("EventPreferencesTime.removeAlarm", "pendingIntent="+pendingIntent);
             if (pendingIntent != null) {
-                PPApplication.logE("EventPreferencesTime.removeAlarm", "alarm found");
-
                 alarmManager.cancel(pendingIntent);
                 pendingIntent.cancel();
+                PPApplication.logE("EventPreferencesTime.removeAlarm", "event="+_event._name + " alarm removed");
             }
         }
     }
@@ -565,6 +567,7 @@ class EventPreferencesTime extends EventPreferences {
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm clock set");
             }
             else {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -573,6 +576,7 @@ class EventPreferencesTime extends EventPreferences {
                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 //else
                 //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                PPApplication.logE("EventPreferencesTime.setAlarm", "event="+_event._name + " alarm set");
             }
         }
     }

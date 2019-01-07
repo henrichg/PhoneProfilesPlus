@@ -141,6 +141,8 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_USE_DECORATION = "notificationUseDecoration";
     static final String PREF_NOTIFICATION_LAYOUT_TYPE = "notificationLayoutType";
 
+    //static boolean forceNotUseAlarmClock = false;
+
     static SharedPreferences getSharedPreferences(Context context) {
         if (preferences == null)
             preferences = context.getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
@@ -594,7 +596,10 @@ class ApplicationPreferences {
     }
 
     static boolean applicationUseAlarmClock(Context context) {
-        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_USE_ALARM_CLOCK, false);
+        //if (forceNotUseAlarmClock)
+        //    return false;
+        //else
+            return getSharedPreferences(context).getBoolean(PREF_APPLICATION_USE_ALARM_CLOCK, false);
     }
 
     static boolean applicationNeverAskForGrantRoot(Context context) {

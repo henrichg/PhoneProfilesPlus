@@ -242,6 +242,7 @@ public class PhoneProfilesService extends Service
         serviceHasFirstStart = false;
         serviceRunning = false;
         runningInForeground = false;
+        //ApplicationPreferences.forceNotUseAlarmClock = false;
 
         if (Build.VERSION.SDK_INT >= 26)
             // show empty notification to avoid ANR
