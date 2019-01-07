@@ -22,9 +22,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
         final Context appContext = getApplicationContext();
 
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-
-        PPApplication.exitApp(appContext, dataWrapper, null, false, false/*, false*/);
+        final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
         Intent intent = new Intent("FinishActivatorBroadcastReceiver");
         LocalBroadcastManager.getInstance(appContext).sendBroadcast(intent);
@@ -59,6 +57,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneProfilesBackupAgent.onRestoreFinished");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
+
+                PPApplication.exitApp(false, appContext, dataWrapper, null, false, false/*, false*/);
 
                 PPApplication.setSavedVersionCode(appContext, 0);
 

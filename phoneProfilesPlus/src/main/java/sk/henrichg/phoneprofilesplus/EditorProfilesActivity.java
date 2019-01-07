@@ -798,7 +798,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        PPApplication.exitApp(getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
+                        PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
                                 EditorProfilesActivity.this, false, true/*, true*/);
                     }
                 });
@@ -1448,8 +1448,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                     importProgressDialog.setCanceledOnTouchOutside(false);
                     importProgressDialog.show();
 
-                    PPApplication.exitApp(dataWrapper.context, dataWrapper, null, false, false/*, true*/);
-
                     Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                     if (fragment != null) {
                         if (fragment instanceof EditorProfileListFragment)
@@ -1461,9 +1459,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 @Override
                 protected Integer doInBackground(Void... params) {
-                    //ApplicationPreferences.forceNotUseAlarmClock = true;
-                    this.dataWrapper.stopAllEvents(false, false);
-                    //ApplicationPreferences.forceNotUseAlarmClock = false;
+                    PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false, false/*, true*/);
 
                     dbError = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
                     if (dbError == DatabaseHandler.IMPORT_OK) {
@@ -1522,6 +1518,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     this.dataWrapper.updateNotificationAndWidgets();
 
+                    PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                     Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);
                     PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
@@ -1532,9 +1529,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
 
                         // restart events
-                        if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
-                            this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
-                        }
+                        //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
+                        //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                        //}
 
                         this.dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
 

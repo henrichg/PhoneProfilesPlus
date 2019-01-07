@@ -1851,16 +1851,93 @@ public class PPApplication extends Application {
         }
     }
 
-    public static void exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
+    private static void _exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
                                final boolean shutdown, final boolean killProcess/*, final boolean removeAlarmClock*/) {
         try {
-            PPApplication.startHandlerThread("PPApplication.exitApp");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
+            // stop all events
+            //if (removeAlarmClock)
+            //    ApplicationPreferences.forceNotUseAlarmClock = true;
+            dataWrapper.stopAllEvents(false, false);
 
-                    try {
+            if (!shutdown) {
+
+                // remove notifications
+                ImportantInfoNotification.removeNotification(context);
+                Permissions.removeNotifications(context);
+
+                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
+
+                if (PPApplication.brightnessHandler != null) {
+                    PPApplication.brightnessHandler.post(new Runnable() {
+                        public void run() {
+                            ActivateProfileHelper.removeBrightnessView(context);
+
+                        }
+                    });
+                }
+                if (PPApplication.screenTimeoutHandler != null) {
+                    PPApplication.screenTimeoutHandler.post(new Runnable() {
+                        public void run() {
+                            ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
+                            ActivateProfileHelper.removeBrightnessView(context);
+
+                        }
+                    });
+                }
+
+                //PPApplication.initRoot();
+            }
+
+            ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
+            Profile.setActivatedProfileForDuration(context, 0);
+            StartEventNotificationBroadcastReceiver.removeAlarm(context);
+            GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+            LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
+
+            context.stopService(new Intent(context, PhoneProfilesService.class));
+
+            Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
+
+            WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+            //ActivateProfileHelper.setScreenUnlocked(context, true);
+
+            PPApplication.setApplicationStarted(context, false);
+
+            if (!shutdown) {
+                if (activity != null) {
+                    Handler _handler = new Handler(context.getMainLooper());
+                    Runnable r = new Runnable() {
+                        public void run() {
+                            activity.finish();
+                        }
+                    };
+                    _handler.post(r);
+                }
+                if (killProcess) {
+                    Handler _handler = new Handler(context.getMainLooper());
+                    Runnable r = new Runnable() {
+                        public void run() {
+                            android.os.Process.killProcess(android.os.Process.myPid());
+                        }
+                    };
+                    _handler.postDelayed(r, 1000);
+                }
+            }
+
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
+                                 final boolean shutdown, final boolean killProcess/*, final boolean removeAlarmClock*/) {
+        try {
+            if (useHandler) {
+                PPApplication.startHandlerThread("PPApplication.exitApp");
+                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
                         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         if (powerManager != null) {
@@ -1868,86 +1945,18 @@ public class PPApplication extends Application {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        // stop all events
-                        //if (removeAlarmClock)
-                        //    ApplicationPreferences.forceNotUseAlarmClock = true;
-                        dataWrapper.stopAllEvents(false, false);
-
-                        if (!shutdown) {
-
-                            // remove notifications
-                            ImportantInfoNotification.removeNotification(context);
-                            Permissions.removeNotifications(context);
-
-                            dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
-
-                            if (PPApplication.brightnessHandler != null) {
-                                PPApplication.brightnessHandler.post(new Runnable() {
-                                    public void run() {
-                                        ActivateProfileHelper.removeBrightnessView(context);
-
-                                    }
-                                });
-                            }
-                            if (PPApplication.screenTimeoutHandler != null) {
-                                PPApplication.screenTimeoutHandler.post(new Runnable() {
-                                    public void run() {
-                                        ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                                        ActivateProfileHelper.removeBrightnessView(context);
-
-                                    }
-                                });
-                            }
-
-                            //PPApplication.initRoot();
-                        }
-
-                        ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
-                        Profile.setActivatedProfileForDuration(context, 0);
-                        StartEventNotificationBroadcastReceiver.removeAlarm(context);
-                        GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
-                        LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
-
-                        context.stopService(new Intent(context, PhoneProfilesService.class));
-
-                        Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
-
-                        WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
-                        //ActivateProfileHelper.setScreenUnlocked(context, true);
-
-                        PPApplication.setApplicationStarted(context, false);
-
-                        if (!shutdown) {
-                            if (activity != null) {
-                                Handler _handler = new Handler(context.getMainLooper());
-                                Runnable r = new Runnable() {
-                                    public void run() {
-                                        activity.finish();
-                                    }
-                                };
-                                _handler.post(r);
-                            }
-                            if (killProcess) {
-                                Handler _handler = new Handler(context.getMainLooper());
-                                Runnable r = new Runnable() {
-                                    public void run() {
-                                        android.os.Process.killProcess(android.os.Process.myPid());
-                                    }
-                                };
-                                _handler.postDelayed(r, 1000);
-                            }
-                        }
+                        _exitApp(context, dataWrapper, activity, shutdown, killProcess);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
                                 wakeLock.release();
                             } catch (Exception ignored) {}
                         }
-                    } catch (Exception ignored) {
-
                     }
-                }
-            });
+                });
+            }
+            else
+                _exitApp(context, dataWrapper, activity, shutdown, killProcess);
         } catch (Exception ignored) {
 
         }
