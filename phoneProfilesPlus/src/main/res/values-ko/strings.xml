@@ -260,7 +260,6 @@
   <string name="event_preferences_peripheral_type">액세서리 종류</string>
   <string name="array_event_pref_peripheralType_wired_headset">유선 핸즈프리</string>
   <string name="array_event_pref_peripheralType_bluetooth_headset">블루투스 핸즈프리</string>
-  <string name="array_event_pref_peripheralType_headphones">헤드폰</string>
   <string name="toast_default_events_generated">기본 프로필 생성 됨</string>
   <string name="default_event_name_during_the_week">주 중</string>
   <string name="default_event_name_weekend">주말</string>
@@ -1271,6 +1270,7 @@
     <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
 
 
 

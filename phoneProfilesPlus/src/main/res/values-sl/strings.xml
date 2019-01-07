@@ -260,7 +260,6 @@
   <string name="event_preferences_peripheral_type">Vrsta dodatkov</string>
   <string name="array_event_pref_peripheralType_wired_headset">Žično prosto-ročno</string>
   <string name="array_event_pref_peripheralType_bluetooth_headset">Bluetooth prosto-ročno</string>
-  <string name="array_event_pref_peripheralType_headphones">Slušalke</string>
   <string name="toast_default_events_generated">Privzeti profil ustvarjen</string>
   <string name="default_event_name_during_the_week">Med tednom</string>
   <string name="default_event_name_weekend">Vikend</string>
@@ -1271,6 +1270,7 @@
     <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
 
 
 

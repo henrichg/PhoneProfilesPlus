@@ -260,7 +260,6 @@
   <string name="event_preferences_peripheral_type">Typ příslušenství</string>
   <string name="array_event_pref_peripheralType_wired_headset">Drátové handsfree</string>
   <string name="array_event_pref_peripheralType_bluetooth_headset">Bluetooth handsfree</string>
-  <string name="array_event_pref_peripheralType_headphones">Sluchátka</string>
   <string name="toast_default_events_generated">Přednastavené profily vygenerované</string>
   <string name="default_event_name_during_the_week">Přes týden</string>
   <string name="default_event_name_weekend">Víkend</string>
@@ -1271,6 +1270,7 @@
     <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="array_event_pref_peripheralType_headphones">Sluchátka bez mikrofonu</string>
 
 
 

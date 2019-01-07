@@ -260,7 +260,6 @@
   <string name="event_preferences_peripheral_type">配件类型</string>
   <string name="array_event_pref_peripheralType_wired_headset">有线免提</string>
   <string name="array_event_pref_peripheralType_bluetooth_headset">蓝牙免提</string>
-  <string name="array_event_pref_peripheralType_headphones">耳机</string>
   <string name="toast_default_events_generated">生成的默认事件</string>
   <string name="default_event_name_during_the_week">在周内</string>
   <string name="default_event_name_weekend">周末</string>
@@ -1271,6 +1270,7 @@
     <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
 
 
 

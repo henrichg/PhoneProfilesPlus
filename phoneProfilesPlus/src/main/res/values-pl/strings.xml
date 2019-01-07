@@ -260,7 +260,6 @@
   <string name="event_preferences_peripheral_type">Typ akcesoriów</string>
   <string name="array_event_pref_peripheralType_wired_headset">Przewodowy zestaw słuchawkowy</string>
   <string name="array_event_pref_peripheralType_bluetooth_headset">Zestaw głośnomówiący Bluetooth</string>
-  <string name="array_event_pref_peripheralType_headphones">Słuchawki</string>
   <string name="toast_default_events_generated">Domyślne zdarzenia wygenerowane</string>
   <string name="default_event_name_during_the_week">W ciągu tygodnia</string>
   <string name="default_event_name_weekend">Weekend</string>
@@ -1272,6 +1271,7 @@ Proszę przeczytać.</string>
     <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
 
 
 

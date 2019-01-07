@@ -260,7 +260,6 @@
   <string name="event_preferences_peripheral_type">Kellék típusa</string>
   <string name="array_event_pref_peripheralType_wired_headset">Vezetékes fejhallgató</string>
   <string name="array_event_pref_peripheralType_bluetooth_headset">Bluetooth kihangosító</string>
-  <string name="array_event_pref_peripheralType_headphones">Fejhallgató</string>
   <string name="toast_default_events_generated">Alapértelmezett a generált esemény</string>
   <string name="default_event_name_during_the_week">A hét folyamán</string>
   <string name="default_event_name_weekend">Hétvége</string>
@@ -1271,6 +1270,7 @@
     <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
 
 
 
