@@ -1268,6 +1268,10 @@ Proszę przeczytać.</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>
     <string name="phone_profiles_pref_notificationLayoutType_large">Large</string>
     <string name="phone_profiles_pref_notificationLayoutType_small">Small</string>
+    <string name="event_preferences_applications_LaunchExtender_title">Launch PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
+    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
 
 
 
