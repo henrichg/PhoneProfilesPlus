@@ -169,32 +169,34 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "origin="+origin);
                 PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "time="+time);
 
-                PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.4");
-                final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
-                handler3.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.4");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                if (Event.getGlobalEventsRunning(appContext)) {
+                    PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.4");
+                    final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
+                    handler3.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.4");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.setEventSMSParameters(origin, time);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
-                        }
+                            if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                eventsHandler.setEventSMSParameters(origin, time);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+                            }
 
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
                 break;
             case PPApplication.ACTION_CALL_RECEIVED:
                 //final int servicePhoneEvent = intent.getIntExtra(EXTRA_SERVICE_PHONE_EVENT, 0);
@@ -207,32 +209,34 @@ public class AccessibilityServiceBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "phoneNumber="+phoneNumber);
                 PPApplication.logE("AccessibilityServiceBroadcastReceiver.onReceive", "eventTime="+eventTime);
 
-                PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.5");
-                final Handler handler4 = new Handler(PPApplication.handlerThread.getLooper());
-                handler4.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.4");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                if (Event.getGlobalEventsRunning(appContext)) {
+                    PPApplication.startHandlerThread("AccessibilityServiceBroadcastReceiver.onReceive.5");
+                    final Handler handler4 = new Handler(PPApplication.handlerThread.getLooper());
+                    handler4.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":AccessibilityServiceBroadcastReceiver.onReceive.4");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
-                        }
+                            if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
+                            }
 
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
-                    }
-                });
+                    });
+                }
 
                 break;
         }
