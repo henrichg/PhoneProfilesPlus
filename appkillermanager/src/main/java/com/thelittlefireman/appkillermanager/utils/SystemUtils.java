@@ -18,9 +18,9 @@ public class SystemUtils {
 
     public static String getDefaultDebugInformation(){
         return "Display_id:" + Build.DISPLAY +
-                "MODEL:" + Build.MODEL +
-                "MANUFACTURER:" + Build.MANUFACTURER +
-                "PRODUCT:" + Build.PRODUCT;
+                " MODEL:" + Build.MODEL +
+                " MANUFACTURER:" + Build.MANUFACTURER +
+                " PRODUCT:" + Build.PRODUCT;
     }
 
     public static String getEmuiRomName() {
