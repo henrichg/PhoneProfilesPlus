@@ -369,8 +369,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                 Rect eventItemTarget = new Rect(0, 0, listItemView.getHeight(), listItemView.getHeight());
                 int[] screenLocation = new int[2];
-                //listItemView.getLocationOnScreen(screenLocation);
-                listItemView.getLocationInWindow(screenLocation);
+                listItemView.getLocationOnScreen(screenLocation);
+                //listItemView.getLocationInWindow(screenLocation);
                 eventItemTarget.offset(screenLocation[0] + listItemView.getWidth() / 2 - listItemView.getHeight() / 2, screenLocation[1]);
 
                 final TapTargetSequence sequence = new TapTargetSequence(activity);
