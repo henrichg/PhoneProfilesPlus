@@ -733,7 +733,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             }
 
             // not enabled accessibility service
-            if (event.isAccessibilityServiceEnabled(context, false)) {
+            int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false);
+            if (accessibilityEnabled == 1) {
                 Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");
@@ -751,8 +752,12 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     preference.setOrder(-97);
                     preferenceCategory.addPreference(preference);
                 }
-
-                Spannable title = new SpannableString(getString(R.string.preferences_not_enabled_accessibility_service_title));
+                int stringRes = R.string.preferences_not_enabled_accessibility_service_title;
+                if (accessibilityEnabled == 0)
+                    stringRes = R.string.preferences_not_installed_PPPExtender_title;
+                else
+                    stringRes = R.string.preferences_old_version_PPPExtender_title;
+                Spannable title = new SpannableString(getString(stringRes));
                 title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
                 preference.setTitle(title);
             }

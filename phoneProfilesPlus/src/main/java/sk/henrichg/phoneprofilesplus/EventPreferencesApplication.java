@@ -175,7 +175,7 @@ class EventPreferencesApplication extends EventPreferences {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_APPLICATION_APPLICATIONS, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, true);
         }
-        boolean isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context);
+        boolean isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isAccessibilityEnabled, false);
@@ -215,7 +215,7 @@ class EventPreferencesApplication extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                boolean runnable = tmp.isRunnable(context) && tmp.isAccessibilityServiceEnabled(context);
+                boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
@@ -241,9 +241,16 @@ class EventPreferencesApplication extends EventPreferences {
     }
 
     @Override
-    public boolean isAccessibilityServiceEnabled(Context context)
+    public int isAccessibilityServiceEnabled(Context context)
     {
-        return AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0);
+        int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+        if (extenderVersion == 0)
+            return 0;
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0)
+            return -1;
+        if (AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context))
+            return 1;
+        return 0;
     }
 
     @Override

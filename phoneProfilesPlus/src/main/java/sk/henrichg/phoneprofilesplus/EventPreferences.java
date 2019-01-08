@@ -36,9 +36,9 @@ class EventPreferences {
         return true;
     }
 
-    boolean isAccessibilityServiceEnabled(Context context)
+    int isAccessibilityServiceEnabled(Context context)
     {
-        return true;
+        return 1;
     }
 
     /*

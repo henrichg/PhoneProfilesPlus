@@ -522,10 +522,11 @@ class Event {
         return runnable;
     }
 
-    public boolean isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled) {
-        boolean accessibilityEnabled = true;
+    public int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled) {
+        int accessibilityEnabled = 0;
+        boolean someEnabled = true;
         if (checkSomeSensorEnabled) {
-            boolean someEnabled =
+            someEnabled =
                     this._eventPreferencesTime._enabled ||
                             this._eventPreferencesBattery._enabled ||
                             this._eventPreferencesCall._enabled ||
@@ -546,45 +547,45 @@ class Event {
                 someEnabled = someEnabled ||
                         this._eventPreferencesAlarmClock._enabled;
             }
-            if (!someEnabled)
-                accessibilityEnabled = false;
         }
-        if (this._eventPreferencesTime._enabled)
-            //noinspection ConstantConditions
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesTime.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesBattery._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesBattery.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesCall._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesCall.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesPeripherals._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesPeripherals.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesCalendar._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesCalendar.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesWifi._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesWifi.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesScreen._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesScreen.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesBluetooth._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesBluetooth.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesSMS._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesSMS.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesNotification._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesNotification.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesApplication._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesApplication.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesLocation._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesLocation.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesOrientation._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesOrientation.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesMobileCells._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesMobileCells.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesNFC._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesNFC.isAccessibilityServiceEnabled(context);
-        if (this._eventPreferencesRadioSwitch._enabled)
-            accessibilityEnabled = accessibilityEnabled && this._eventPreferencesRadioSwitch.isAccessibilityServiceEnabled(context);
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            if (this._eventPreferencesAlarmClock._enabled)
-                accessibilityEnabled = accessibilityEnabled && this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context);
+        if (someEnabled) {
+            if (this._eventPreferencesTime._enabled)
+                //noinspection ConstantConditions
+                accessibilityEnabled = this._eventPreferencesTime.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesBattery._enabled)
+                accessibilityEnabled = this._eventPreferencesBattery.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesCall._enabled)
+                accessibilityEnabled = this._eventPreferencesCall.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesPeripherals._enabled)
+                accessibilityEnabled = this._eventPreferencesPeripherals.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesCalendar._enabled)
+                accessibilityEnabled = this._eventPreferencesCalendar.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesWifi._enabled)
+                accessibilityEnabled = this._eventPreferencesWifi.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesScreen._enabled)
+                accessibilityEnabled = this._eventPreferencesScreen.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesBluetooth._enabled)
+                accessibilityEnabled = this._eventPreferencesBluetooth.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesSMS._enabled)
+                accessibilityEnabled = this._eventPreferencesSMS.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesNotification._enabled)
+                accessibilityEnabled = this._eventPreferencesNotification.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesApplication._enabled)
+                accessibilityEnabled = this._eventPreferencesApplication.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesLocation._enabled)
+                accessibilityEnabled = this._eventPreferencesLocation.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesOrientation._enabled)
+                accessibilityEnabled = this._eventPreferencesOrientation.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesMobileCells._enabled)
+                accessibilityEnabled = this._eventPreferencesMobileCells.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesNFC._enabled)
+                accessibilityEnabled = this._eventPreferencesNFC.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesRadioSwitch._enabled)
+                accessibilityEnabled = this._eventPreferencesRadioSwitch.isAccessibilityServiceEnabled(context);
+            if (android.os.Build.VERSION.SDK_INT >= 21) {
+                if (this._eventPreferencesAlarmClock._enabled)
+                    accessibilityEnabled = this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context);
+            }
         }
 
         return accessibilityEnabled;

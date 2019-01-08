@@ -80,7 +80,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
             boolean isRunnable = event.isRunnable(context, true);
             boolean isPermissionGranted = Permissions.checkEventPermissions(context, event).size() == 0;
-            boolean isAccessibilityServiceEnabled = event.isAccessibilityServiceEnabled(context, true);
+            boolean isAccessibilityServiceEnabled = (event.isAccessibilityServiceEnabled(context, true) == 1);
 
             DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
             boolean manualProfileActivation = dataWrapper.getIsManualProfileActivation(false);
