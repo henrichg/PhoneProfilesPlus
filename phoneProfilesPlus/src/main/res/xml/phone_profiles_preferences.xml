@@ -212,7 +212,7 @@
         <CheckBoxPreference
             android:key="notificationsToast"
             android:title="@string/phone_profiles_pref_notificationsToast"
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <PreferenceCategory
