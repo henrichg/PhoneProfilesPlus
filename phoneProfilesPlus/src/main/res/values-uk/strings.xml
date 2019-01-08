@@ -1272,6 +1272,8 @@
     <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
     <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
+    <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in newest version!</string>
 
 
 
