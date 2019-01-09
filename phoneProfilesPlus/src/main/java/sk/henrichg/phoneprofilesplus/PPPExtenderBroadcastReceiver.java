@@ -52,6 +52,31 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
 
         switch (intent.getAction()) {
+            case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
+                PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.0");
+                final Handler handler0 = new Handler(PPApplication.handlerThread.getLooper());
+                handler0.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.0");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        if (PhoneProfilesService.getInstance() != null)
+                            PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, true);
+
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                });
+                break;
             case PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED:
                 final String packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME);
                 final String className = intent.getStringExtra(EXTRA_CLASS_NAME);
