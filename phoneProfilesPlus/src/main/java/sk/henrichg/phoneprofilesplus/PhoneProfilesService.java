@@ -101,7 +101,10 @@ public class PhoneProfilesService extends Service
     private WifiScanBroadcastReceiver wifiScanReceiver = null;
     private BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
     private BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
-    private AccessibilityServiceBroadcastReceiver accessibilityServiceBroadcastReceiver = null;
+    private PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
+    private PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
+    private PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
+    private PPPExtenderBroadcastReceiver pppExtenderCallBroadcastReceiver = null;
     private EventTimeBroadcastReceiver eventTimeBroadcastReceiver = null;
     private EventCalendarBroadcastReceiver eventCalendarBroadcastReceiver = null;
     private EventDelayStartBroadcastReceiver eventDelayStartBroadcastReceiver = null;
@@ -1371,42 +1374,112 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerAccessibilityServiceReceiver(boolean register, boolean checkDatabase) {
+    private void unregisterPPPPExtenderReceiver(int type) {
         Context appContext = getApplicationContext();
-        CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAccessibilityServiceReceiver", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
-        PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "xxx");
-        if (!register) {
-            if (accessibilityServiceBroadcastReceiver != null) {
-                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAccessibilityServiceReceiver->UNREGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "UNREGISTER");
+        if (type == PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER) {
+            if (pppExtenderForceStopApplicationBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderForceStopApplicationBroadcastReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER pppExtenderForceStopApplicationBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(accessibilityServiceBroadcastReceiver);
-                    accessibilityServiceBroadcastReceiver = null;
+                    appContext.unregisterReceiver(pppExtenderForceStopApplicationBroadcastReceiver);
+                    pppExtenderForceStopApplicationBroadcastReceiver = null;
+
+                    Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
+                    sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
                 } catch (Exception e) {
-                    accessibilityServiceBroadcastReceiver = null;
+                    pppExtenderForceStopApplicationBroadcastReceiver = null;
                 }
-            }
-            else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "not registered");
+            } else
+                PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "not registered pppExtenderForceStopApplicationBroadcastReceiver");
+        }
+        if (type == PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER) {
+            if (pppExtenderForegroundApplicationBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderForegroundApplicationBroadcastReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER pppExtenderForegroundApplicationBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(pppExtenderForegroundApplicationBroadcastReceiver);
+                    pppExtenderForegroundApplicationBroadcastReceiver = null;
+
+                    Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
+                    sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                } catch (Exception e) {
+                    pppExtenderForegroundApplicationBroadcastReceiver = null;
+                }
+            } else
+                PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "not registered pppExtenderForegroundApplicationBroadcastReceiver");
+        }
+        if (type == PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER) {
+            if (pppExtenderSMSBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderSMSBroadcastReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER pppExtenderSMSBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(pppExtenderSMSBroadcastReceiver);
+                    pppExtenderSMSBroadcastReceiver = null;
+
+                    Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+                    sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                } catch (Exception e) {
+                    pppExtenderSMSBroadcastReceiver = null;
+                }
+            } else
+                PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "not registered pppExtenderSMSBroadcastReceiver");
+        }
+        if (type == PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER) {
+            if (pppExtenderCallBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderCallBroadcastReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER pppExtenderCallBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(pppExtenderCallBroadcastReceiver);
+                    pppExtenderCallBroadcastReceiver = null;
+
+                    Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+                    sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                } catch (Exception e) {
+                    pppExtenderCallBroadcastReceiver = null;
+                }
+            } else
+                PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "not registered pppExtenderCallBroadcastReceiver");
+        }
+    }
+
+    private void registerPPPPExtenderReceiver(boolean register, boolean checkDatabase) {
+        Context appContext = getApplicationContext();
+        CallsCounter.logCounter(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver", "PhoneProfilesService_registerPPPPExtenderReceiver");
+        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "xxx");
+        if (!register) {
+            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
+            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
+            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
         }
         if (register) {
             boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, false, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED;
-            boolean eventAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                                   (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                                   (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
-                                        PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                                   (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
+            boolean applicationsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
-            if (profileAllowed || eventAllowed) {
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "profile or event allowed");
-                int profileCount = 1;
-                int eventCount = 1;
+            boolean orientationAllowed = (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+            boolean smsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+            boolean callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED);
+            if (profileAllowed || applicationsAllowed || orientationAllowed || smsAllowed || callAllowed) {
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "profile or event allowed");
+                int profileCount = 0;
+                int applicationCount = 0;
+                int orientationCount = 0;
+                int smsCount = 0;
+                int callCount = 0;
                 if (checkDatabase) {
                     if (profileAllowed) {
-                        profileCount = 0;
                         if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, true) > 0) {
                             Profile profile = Profile.getSharedProfile(appContext);
                             if (profile._deviceForceStopApplicationChange != 0)
@@ -1415,37 +1488,119 @@ public class PhoneProfilesService extends Service
                         else
                             profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, false);
                     }
-                    if (eventAllowed) {
-                        eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
-                        eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
-                        eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
-                        eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
-                    }
+                    if (applicationsAllowed)
+                        applicationCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
+                    if (orientationAllowed)
+                        orientationCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
+                    if (smsAllowed)
+                        smsCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
+                    if (callAllowed)
+                        callCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
                 }
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "profileCount="+profileCount);
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "eventCount="+eventCount);
-                if ((profileCount > 0) || (eventCount > 0)) {
-                    if (accessibilityServiceBroadcastReceiver == null) {
-                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAccessibilityServiceReceiver->REGISTER", "PhoneProfilesService_registerForegroundApplicationChangedReceiver");
-                        PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "REGISTER");
-                        accessibilityServiceBroadcastReceiver = new AccessibilityServiceBroadcastReceiver();
+                else {
+                    profileCount = 1;
+                    applicationCount = 1;
+                    orientationCount = 1;
+                    smsCount = 1;
+                    callCount = 1;
+                }
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "profileCount="+profileCount);
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "applicationCount="+applicationCount);
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "orientationCount="+orientationCount);
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "smsCount="+smsCount);
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "callCount="+callCount);
+
+                if (profileCount > 0) {
+                    if (pppExtenderForceStopApplicationBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderForceStopApplicationBroadcastReceiver");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderForceStopApplicationBroadcastReceiver");
+                        pppExtenderForceStopApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
-                        intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
-                        intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                         intentFilter23.addAction(PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END);
-                        intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
-                        intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
-                        appContext.registerReceiver(accessibilityServiceBroadcastReceiver, intentFilter23,
+                        appContext.registerReceiver(pppExtenderForceStopApplicationBroadcastReceiver, intentFilter23,
                                 PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
+
+                        Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                        intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                        intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_REGISTER);
+                        sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
                     }
                     else
-                        PPApplication.logE("[RJS] PhoneProfilesService.registerAccessibilityServiceReceiver", "registered");
-                } else {
-                    registerAccessibilityServiceReceiver(false, false);
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "registered pppExtenderForceStopApplicationBroadcastReceiver");
                 }
+                else
+                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
+
+                if ((applicationCount > 0) || (orientationCount > 0)) {
+                    if (pppExtenderForegroundApplicationBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderForegroundApplicationBroadcastReceiver");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderForegroundApplicationBroadcastReceiver");
+                        pppExtenderForegroundApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        IntentFilter intentFilter23 = new IntentFilter();
+                        intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
+                        intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
+                        appContext.registerReceiver(pppExtenderForegroundApplicationBroadcastReceiver, intentFilter23,
+                                PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
+
+                        Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                        intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                        intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_REGISTER);
+                        sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "registered pppExtenderForegroundApplicationBroadcastReceiver");
+                }
+                else
+                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
+
+                if (smsCount > 0) {
+                    if (pppExtenderSMSBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderSMSBroadcastReceiver");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderSMSBroadcastReceiver");
+                        pppExtenderSMSBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        IntentFilter intentFilter23 = new IntentFilter();
+                        intentFilter23.addAction(PPApplication.ACTION_SMS_MMS_RECEIVED);
+                        appContext.registerReceiver(pppExtenderSMSBroadcastReceiver, intentFilter23,
+                                PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
+
+                        Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                        intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                        intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_SMS_REGISTER);
+                        sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "registered pppExtenderSMSBroadcastReceiver");
+                }
+                else
+                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+
+                if (callCount > 0) {
+                    if (pppExtenderCallBroadcastReceiver == null) {
+                        CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderCallBroadcastReceiver");
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderCallBroadcastReceiver");
+                        pppExtenderCallBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                        IntentFilter intentFilter23 = new IntentFilter();
+                        intentFilter23.addAction(PPApplication.ACTION_CALL_RECEIVED);
+                        appContext.registerReceiver(pppExtenderCallBroadcastReceiver, intentFilter23,
+                                PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
+
+                        Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                        intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                        intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_REGISTER);
+                        sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                    }
+                    else
+                        PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "registered pppExtenderCallBroadcastReceiver");
+                }
+                else
+                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
             }
-            else
-                registerAccessibilityServiceReceiver(false, false);
+            else {
+                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
+                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
+                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
+                unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+            }
         }
     }
 
@@ -2695,7 +2850,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForAlarmClockSensor(true, true);
 
         // required for force stop applications, applications event and orientation event
-        registerAccessibilityServiceReceiver(true, true);
+        registerPPPPExtenderReceiver(true, true);
 
         // required for location and radio switch event
         registerLocationModeChangedBroadcastReceiver(true, true);
@@ -2830,7 +2985,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchNFCSensor(false, false);
         registerReceiverForRadioSwitchAirplaneModeSensor(false, false);
         registerReceiverForAlarmClockSensor(false, false);
-        registerAccessibilityServiceReceiver(false, false);
+        registerPPPPExtenderReceiver(false, false);
         registerLocationModeChangedBroadcastReceiver(false, false);
         registerBluetoothStateChangedBroadcastReceiver(false, false, false);
         //registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
@@ -2873,7 +3028,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchNFCSensor(true, true);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, true);
         registerReceiverForAlarmClockSensor(true, true);
-        registerAccessibilityServiceReceiver(true, true);
+        registerPPPPExtenderReceiver(true, true);
         registerLocationModeChangedBroadcastReceiver(true, true);
         registerBluetoothStateChangedBroadcastReceiver(true, true, false);
         //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
@@ -3019,7 +3174,7 @@ public class PhoneProfilesService extends Service
                             InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager);
                         }
 
-                        AccessibilityServiceBroadcastReceiver.setApplicationInForeground(appContext, "");
+                        PPPExtenderBroadcastReceiver.setApplicationInForeground(appContext, "");
 
                         ApplicationPreferences.getSharedPreferences(appContext);
                         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();

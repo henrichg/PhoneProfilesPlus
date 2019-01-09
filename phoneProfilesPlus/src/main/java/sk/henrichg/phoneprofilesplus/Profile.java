@@ -3032,7 +3032,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
-            //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+            //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
@@ -3043,7 +3043,7 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
         {
-            //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+            //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;

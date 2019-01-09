@@ -60,7 +60,7 @@ class ImportantInfoNotification {
         boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean afterInstall = savedVersionCode == 0;
 
-        int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
         PPApplication.logE("ImportantInfoNotification.canShowNotification", "newsLatest="+newsLatest);
 

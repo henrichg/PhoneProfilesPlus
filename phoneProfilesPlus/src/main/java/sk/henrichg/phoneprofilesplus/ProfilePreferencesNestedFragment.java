@@ -1540,7 +1540,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0)
                     preference.setSummary(R.string.profile_preferences_deviceForceStopApplications_PPPExtender_install_summary);
                 else
@@ -1565,7 +1565,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
                     boolean ok = true;
                     CharSequence changeSummary = "";
-                    int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+                    int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                     if (extenderVersion == 0) {
                         ok = false;
                         changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
@@ -1580,7 +1580,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         categorySummary = changeSummary;
                     }
                     else
-                    if (!AccessibilityServiceBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
+                    if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
                         ok = false;
                         changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
@@ -1747,7 +1747,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
             setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
-            boolean ok = AccessibilityServiceBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_2_0);
+            boolean ok = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_2_0);
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             if (preference != null) {
                 preference.setEnabled(ok);

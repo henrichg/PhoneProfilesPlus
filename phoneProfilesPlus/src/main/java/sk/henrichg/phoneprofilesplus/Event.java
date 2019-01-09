@@ -2194,7 +2194,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED))
         {
-            //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+            //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             //else
             //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
@@ -2209,7 +2209,7 @@ class Event {
                     (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null) &&
                     (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
             if (enabled) {
-                //if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
+                //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 //else
                 //    PPApplication.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;

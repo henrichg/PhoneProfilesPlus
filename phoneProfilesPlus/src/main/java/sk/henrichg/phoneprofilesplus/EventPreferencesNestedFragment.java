@@ -510,7 +510,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             smsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
                         PackageManager packageManager = context.getPackageManager();
                         Intent intent = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofilesplusextender");
                         if (intent != null) {
@@ -596,7 +596,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             callPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    if (AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                    if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
                         PackageManager packageManager = context.getPackageManager();
                         Intent intent = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofilesplusextender");
                         if (intent != null) {

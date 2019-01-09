@@ -2949,8 +2949,8 @@ public class DataWrapper {
             if ((Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 applicationPassed = false;
 
-                if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0)) {
-                    String foregroundApplication = AccessibilityServiceBroadcastReceiver.getApplicationInForeground(context);
+                if (PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0)) {
+                    String foregroundApplication = PPPExtenderBroadcastReceiver.getApplicationInForeground(context);
 
                     if (!foregroundApplication.isEmpty()) {
                         String[] splits = event._eventPreferencesApplication._applications.split("\\|");
@@ -3079,8 +3079,8 @@ public class DataWrapper {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isOrientationScannerStarted()) {
                             boolean lApplicationPassed = false;
                             if (!event._eventPreferencesOrientation._ignoredApplications.isEmpty()) {
-                                if (AccessibilityServiceBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0)) {
-                                    String foregroundApplication = AccessibilityServiceBroadcastReceiver.getApplicationInForeground(context);
+                                if (PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0)) {
+                                    String foregroundApplication = PPPExtenderBroadcastReceiver.getApplicationInForeground(context);
                                     if (!foregroundApplication.isEmpty()) {
                                         String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
                                         for (String split : splits) {

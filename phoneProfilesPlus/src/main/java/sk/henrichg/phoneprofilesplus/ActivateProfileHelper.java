@@ -2294,9 +2294,9 @@ class ActivateProfileHelper {
         }
 
         if ((profile._deviceForceStopApplicationChange == 1) &&
-                AccessibilityServiceBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_2_0))
+                PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_2_0))
         {
-            // executeForInteractivePreferences() is called from broadcast receiver AccessibilityServiceBroadcastReceiver
+            // executeForInteractivePreferences() is called from broadcast receiver PPPExtenderBroadcastReceiver
             ActivateProfileHelper.executeForForceStopApplications(profile, context);
         }
         else

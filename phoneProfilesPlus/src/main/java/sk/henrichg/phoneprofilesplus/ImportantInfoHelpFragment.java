@@ -72,7 +72,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news1772="+news1772);
 
-        int extenderVersion = AccessibilityServiceBroadcastReceiver.isExtenderInstalled(context);
+        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
         //noinspection StatementWithEmptyBody
         if (newsLatest) {
