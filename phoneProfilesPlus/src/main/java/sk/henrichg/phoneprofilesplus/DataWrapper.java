@@ -1994,6 +1994,9 @@ public class DataWrapper {
                 boolean phoneNumberFound = false;
 
                 if (callEventType != EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED) {
+                    if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_SERVICE_UNBIND)
+                        callPassed = false;
+                    else
                     if (event._eventPreferencesCall._contactListType != EventPreferencesCall.CONTACT_LIST_TYPE_NOT_USE) {
                         PPApplication.logE("[CALL] DataWrapper.doHandleEvents", "search in groups");
                         // find phone number in groups
