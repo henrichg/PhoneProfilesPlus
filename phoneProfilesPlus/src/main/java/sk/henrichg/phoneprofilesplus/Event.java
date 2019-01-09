@@ -523,7 +523,7 @@ class Event {
     }
 
     public int isAccessibilityServiceEnabled(Context context, boolean checkSomeSensorEnabled) {
-        int accessibilityEnabled = 0;
+        int accessibilityEnabled = 1;
         boolean someEnabled = true;
         if (checkSomeSensorEnabled) {
             someEnabled =
