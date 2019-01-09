@@ -101,6 +101,7 @@ public class PhoneProfilesService extends Service
     private WifiScanBroadcastReceiver wifiScanReceiver = null;
     private BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
     private BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
+    private PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
     private PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
     private PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
     private PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
@@ -553,7 +554,19 @@ public class PhoneProfilesService extends Service
                 }
             }
             else
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered postDelayedBroadcastReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered pppExtenderBroadcastReceiver");
+            if (pppExtenderBroadcastReceiver != null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER pppExtenderBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER pppExtenderBroadcastReceiverr");
+                try {
+                    appContext.unregisterReceiver(pppExtenderBroadcastReceiver);
+                    pppExtenderBroadcastReceiver = null;
+                } catch (Exception e) {
+                    pppExtenderBroadcastReceiver = null;
+                }
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered pppExtenderBroadcastReceiver");
         }
         if (register) {
             if (shutdownBroadcastReceiver == null) {
@@ -762,6 +775,19 @@ public class PhoneProfilesService extends Service
             }
             else
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered postDelayedBroadcastReceiver");
+
+            if (pppExtenderBroadcastReceiver == null) {
+                CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER pppExtenderBroadcastReceiver", "PhoneProfilesService_pppExtenderBroadcastReceiver");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER pppExtenderBroadcastReceiver");
+
+                pppExtenderBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                IntentFilter intentFilter14 = new IntentFilter();
+                intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
+                appContext.registerReceiver(pppExtenderBroadcastReceiver, intentFilter14,
+                        PPApplication.ACCESSIBILITY_SERVICE_PERMISSION, null);
+            }
+            else
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "registered pppExtenderBroadcastReceiver");
         }
     }
 
