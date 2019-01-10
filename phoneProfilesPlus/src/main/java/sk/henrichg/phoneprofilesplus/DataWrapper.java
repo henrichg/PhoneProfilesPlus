@@ -286,7 +286,7 @@ public class DataWrapper {
                             profile._volumeZenMode = 1; // ALL
                         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
                             profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; //
+                            profile._volumeZenMode = 1; // ALL
                         } else
                             profile._volumeRingerMode = 2;
                     } else
