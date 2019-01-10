@@ -896,7 +896,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG) {
             MobileCellsPreference preference = (MobileCellsPreference) prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
             if (preference != null)
-                preference.refreshListView(true);
+                preference.refreshListView(true, Integer.MAX_VALUE);
         }
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG) {
             MobileCellsRegistrationDialogPreference preference = (MobileCellsRegistrationDialogPreference) prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_REGISTRATION);
@@ -1020,7 +1020,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         public void onReceive(Context context, Intent intent) {
             if (preference != null) {
                 //Log.d("MobileCellsRegistrationStoppedBroadcastReceiver", "xxx");
-                preference.refreshListView(true);
+                preference.refreshListView(true, Integer.MAX_VALUE);
             }
         }
     }

@@ -137,7 +137,7 @@ public class MobileCellsPreference extends DialogPreference {
         mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                refreshListView(false);
+                refreshListView(false, Integer.MAX_VALUE);
             }
         });
 
@@ -162,7 +162,7 @@ public class MobileCellsPreference extends DialogPreference {
 
             @Override
             public void afterTextChanged(Editable s) {
-                refreshListView(false);
+                refreshListView(false, Integer.MAX_VALUE);
             }
         });
 
@@ -222,7 +222,7 @@ public class MobileCellsPreference extends DialogPreference {
                                         db.renameMobileCellsList(filteredCellsList, cellName.getText().toString(), false, null);
                                         break;
                                 }
-                                refreshListView(false);
+                                refreshListView(false, Integer.MAX_VALUE);
                                 //dialog.dismiss();
                             }
                         })
@@ -259,7 +259,7 @@ public class MobileCellsPreference extends DialogPreference {
                                         break;
                                     default:
                                 }
-                                refreshListView(false);
+                                refreshListView(false, Integer.MAX_VALUE);
                                 //dialog.dismiss();
                             }
                         })
@@ -281,7 +281,7 @@ public class MobileCellsPreference extends DialogPreference {
             @Override
             public void onClick(View v) {
                 if (Permissions.grantMobileCellsDialogPermissions(context))
-                    refreshListView(true);
+                    refreshListView(true, Integer.MAX_VALUE);
             }
         });
 
@@ -291,7 +291,7 @@ public class MobileCellsPreference extends DialogPreference {
             public void onClick(View v) {
                 if (registeredCellData != null) {
                     addCellId(registeredCellData.cellId);
-                    refreshListView(false);
+                    refreshListView(false, registeredCellData.cellId);
                 }
             }
         });
@@ -420,7 +420,7 @@ public class MobileCellsPreference extends DialogPreference {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void refreshListView(final boolean forRescan)
+    public void refreshListView(final boolean forRescan, final int renameCellId)
     {
         if ((mDialog != null) && mDialog.isShowing()) {
             rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
@@ -475,12 +475,12 @@ public class MobileCellsPreference extends DialogPreference {
                                     cell.connected = true;
                                     registeredCellData = cell;
                                     registeredCellInTable = true;
-                                    PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell found");
+                                    PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell - found");
                                     break;
                                 }
                             }
                             if (!registeredCellInTable && (PhoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
-                                PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell not found");
+                                PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell - not found");
                                 registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
                                         _cellName, true, true, PhoneStateScanner.lastConnectedTime);
                                 _cellsList.add(registeredCellData);
@@ -511,6 +511,12 @@ public class MobileCellsPreference extends DialogPreference {
 
                         // save all from value + registeredCell to table
                         db.saveMobileCellsList(_cellsList, true, false);
+
+                        // rename cell added by "plus" icon
+                        if (renameCellId != Integer.MAX_VALUE) {
+                            String val = String.valueOf(renameCellId);
+                            db.renameMobileCellsList(_cellsList, _cellName, false, val);
+                        }
 
                         Collections.sort(_cellsList, new SortList());
 
@@ -655,7 +661,7 @@ public class MobileCellsPreference extends DialogPreference {
                         DatabaseHandler db = DatabaseHandler.getInstance(_context);
                         db.deleteMobileCell(cellId);
                         removeCellId(cellId);
-                        refreshListView(false);
+                        refreshListView(false, Integer.MAX_VALUE);
                         return true;
                     default:
                         return false;
