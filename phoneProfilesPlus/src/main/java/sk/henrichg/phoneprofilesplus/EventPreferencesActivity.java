@@ -385,9 +385,14 @@ public class EventPreferencesActivity extends PreferenceActivity
                         SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventPreferencesActivity.this);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
+                        editor.apply();
 
+                        String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+                        SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+                        editor = preferences.edit();
                         editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
                         editor.apply();
+
                         savePreferences(new_event_mode, predefinedEventIndex);
                         resultCode = RESULT_OK;
                         finish();
