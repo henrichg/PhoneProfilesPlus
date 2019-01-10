@@ -283,10 +283,10 @@ public class DataWrapper {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 4; // ALL with vibration
+                            profile._volumeZenMode = 1; // ALL
                         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
                             profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 4; // ALL with vibration
+                            profile._volumeZenMode = 1; //
                         } else
                             profile._volumeRingerMode = 2;
                     } else
@@ -307,10 +307,10 @@ public class DataWrapper {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
                         if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
+                            profile._volumeZenMode = 4; // ALL with vibration
                         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
                             profile._volumeRingerMode = 5;
-                            profile._volumeZenMode = 1; // ALL
+                            profile._volumeZenMode = 4; // ALL with vibration
                         } else
                             profile._volumeRingerMode = 1;
                     } else
