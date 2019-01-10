@@ -5,9 +5,12 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.*;
+
+import java.util.Locale;
 
 /**
  * Control that allows the user to easily input a time duration made up of hours, minutes and seconds, like known from
@@ -321,7 +324,13 @@ public class TimeDurationPicker extends FrameLayout {
     private void applyLeftMargin(int margin, View... targetViews) {
         for (View view : targetViews) {
             final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) view.getLayoutParams();
-            params.setMargins(margin, params.topMargin, params.rightMargin, params.bottomMargin);
+
+            boolean isLeftToRight = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault())==View.LAYOUT_DIRECTION_LTR;
+            if (isLeftToRight)
+                params.setMargins(margin, params.topMargin, params.rightMargin, params.bottomMargin);
+            else
+                params.setMargins(params.leftMargin, params.topMargin, margin, params.bottomMargin);
+
             view.setLayoutParams(params);
         }
     }
