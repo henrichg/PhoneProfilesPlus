@@ -339,9 +339,9 @@ public class PhoneProfilesService extends Service
         } catch (Exception ignored) {
         }
 
-        /*synchronized (PhoneProfilesService.class) {
+        synchronized (PhoneProfilesService.class) {
             instance = null;
-        }*/
+        }
 
         serviceHasFirstStart = false;
         serviceRunning = false;
@@ -4101,7 +4101,8 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        if ((PhoneProfilesService.getInstance() != null) && ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
+        if ((PhoneProfilesService.getInstance() != null) &&
+                ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
         {
             PPApplication.logE("PhoneProfilesService._showProfileNotification", "show");
 
