@@ -355,7 +355,7 @@ class EventPreferencesCall extends EventPreferences {
     {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
-            return 0;
+            return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
             return -1;
         if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))

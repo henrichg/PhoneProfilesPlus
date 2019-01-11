@@ -753,9 +753,10 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     preferenceCategory.addPreference(preference);
                 }
                 int stringRes = R.string.preferences_not_enabled_accessibility_service_title;
-                if (accessibilityEnabled == 0)
+                if (accessibilityEnabled == -2)
                     stringRes = R.string.preferences_not_installed_PPPExtender_title;
                 else
+                if (accessibilityEnabled == -1)
                     stringRes = R.string.preferences_old_version_PPPExtender_title;
                 Spannable title = new SpannableString(getString(stringRes));
                 title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
