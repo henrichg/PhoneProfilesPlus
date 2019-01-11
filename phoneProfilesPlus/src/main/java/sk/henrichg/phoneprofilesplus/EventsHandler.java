@@ -160,7 +160,7 @@ class EventsHandler {
             if (!Event.getGlobalEventsRunning(context)) {
                 // events are globally stopped
 
-                doEndHandler();
+                doEndHandler(null);
                 dataWrapper.invalidateDataWrapper();
 
                 PPApplication.logE("#### EventsHandler.handleEvents", "-- end: events globally stopped --------------------------------");
@@ -181,7 +181,7 @@ class EventsHandler {
             if (!eventsExists(sensorType, false)) {
                 // events not exists
 
-                doEndHandler();
+                doEndHandler(null);
                 dataWrapper.invalidateDataWrapper();
 
                 PPApplication.logE("#### EventsHandler.handleEvents", "-- end: not events found --------------------------------");
@@ -586,7 +586,7 @@ class EventsHandler {
 
             //restartAtEndOfEvent = false;
 
-            doEndHandler();
+            doEndHandler(dataWrapper);
 
             // refresh GUI
             /*Intent refreshIntent = new Intent();
@@ -719,9 +719,9 @@ class EventsHandler {
             return true;
     }
 
-    private void doEndHandler() {
-        PPApplication.logE("EventsHandler.doEndService","sensorType="+sensorType);
-        //PPApplication.logE("EventsHandler.doEndService","callEventType="+callEventType);
+    private void doEndHandler(DataWrapper dataWrapper) {
+        PPApplication.logE("EventsHandler.doEndHandler","sensorType="+sensorType);
+        //PPApplication.logE("EventsHandler.doEndHandler","callEventType="+callEventType);
 
         //TODO call sensor to Extender
         /*
@@ -729,9 +729,9 @@ class EventsHandler {
             boolean linkUnlink = false;
             if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
                     ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
-                PPApplication.logE("EventsHandler.doEndService","unlink enabled");
+                PPApplication.logE("EventsHandler.doEndHandler","unlink enabled");
                 if (!PhoneCallBroadcastReceiver.linkUnlinkExecuted) {
-                    PPApplication.logE("EventsHandler.doEndService","profile is not activated from EventsHandler");
+                    PPApplication.logE("EventsHandler.doEndHandler","profile is not activated from EventsHandler");
                     // no profile is activated from EventsHandler
                     // link, unlink volumes for activated profile
                     if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
@@ -761,7 +761,7 @@ class EventsHandler {
                     //    PPApplication.sleep(1500);
                     //}
                     // start PhoneProfilesService for ringing call simulation
-                    PPApplication.logE("EventsHandler.doEndService","start simulating ringing call");
+                    PPApplication.logE("EventsHandler.doEndHandler","start simulating ringing call");
                     try {
                         Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -816,7 +816,7 @@ class EventsHandler {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
             if (eventsExists(sensorType, true)) {
-                PPApplication.logE("EventsHandler.doEndService", "running event exists");
+                PPApplication.logE("EventsHandler.doEndHandler", "running event exists");
                 // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
                 if (android.os.Build.VERSION.SDK_INT >= 21) {
                     boolean inRinging = false;
@@ -826,22 +826,33 @@ class EventsHandler {
                         //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
                         inRinging = (callState == TelephonyManager.CALL_STATE_RINGING);
                     }
-                    PPApplication.logE("EventsHandler.doEndService", "inRinging="+inRinging);
+                    PPApplication.logE("EventsHandler.doEndHandler", "inRinging="+inRinging);
                     if (inRinging) {
                         // start PhoneProfilesService for ringing call simulation
-                        PPApplication.logE("EventsHandler.doEndService", "start simulating ringing call");
+                        PPApplication.logE("EventsHandler.doEndHandler", "start simulating ringing call");
                         try {
-                            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
-                            // add saved ringer mode, zen mode, ringtone before handle events as parameters
-                            // ringing call simulator compare this with new (actual values), changed by currently activated profile
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
-                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                            PPApplication.startPPService(context, serviceIntent);
+                            boolean simulateRingingCall = false;
+                            String phoneNumber = ApplicationPreferences.preferences.getString(EventPreferencesCall.PREF_EVENT_CALL_PHONE_NUMBER, "");
+                            for (Event _event : dataWrapper.eventList) {
+                                if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
+                                    PPApplication.logE("EventsHandler.doEndHandler", "event._id=" + _event._id);
+                                    if (_event._eventPreferencesCall.isPhoneNumberConfigured(phoneNumber, dataWrapper))
+                                        simulateRingingCall = true;
+                                }
+                            }
+                            if (simulateRingingCall) {
+                                Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
+                                // add saved ringer mode, zen mode, ringtone before handle events as parameters
+                                // ringing call simulator compare this with new (actual values), changed by currently activated profile
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                                PPApplication.startPPService(context, serviceIntent);
+                            }
                         } catch (Exception ignored) {
                         }
                     }
