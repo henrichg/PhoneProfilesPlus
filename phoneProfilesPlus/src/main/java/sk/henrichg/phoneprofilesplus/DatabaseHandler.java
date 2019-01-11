@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2180;
+    private static final int DATABASE_VERSION = 2190;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -48,6 +48,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_SHORTCUTS = "shortcuts";
     private static final String TABLE_MOBILE_CELLS = "mobile_cells";
     private static final String TABLE_NFC_TAGS = "nfc_tags";
+    private static final String TABLE_INTENTS = "intents";
 
     // import/export
     private final String EXPORT_DBFILENAME = DATABASE_NAME + ".backup";
@@ -373,6 +374,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_NT_ID = "_id";
     private static final String KEY_NT_NAME = "name";
     private static final String KEY_NT_UID = "uid";
+
+    // Intents Columns names
+    private static final String KEY_IN_ID = "_id";
+    private static final String KEY_IN_PACKAGE_NAME = "packageName";
+    private static final String KEY_IN_CLASS_NAME = "className";
+    private static final String KEY_IN_ACTION = "_action";
+    private static final String KEY_IN_DATA = "data";
+    private static final String KEY_IN_MIME_TYPE = "mimeType";
+    private static final String KEY_IN_EXTRA_KEY_1 = "extraKey1";
+    private static final String KEY_IN_EXTRA_VALUE_1 = "extraValue1";
+    private static final String KEY_IN_EXTRA_TYPE_1 = "extraType1";
+    private static final String KEY_IN_EXTRA_KEY_2 = "extraKey2";
+    private static final String KEY_IN_EXTRA_VALUE_2 = "extraValue2";
+    private static final String KEY_IN_EXTRA_TYPE_2 = "extraType2";
+    private static final String KEY_IN_EXTRA_KEY_3 = "extraKey3";
+    private static final String KEY_IN_EXTRA_VALUE_3 = "extraValue3";
+    private static final String KEY_IN_EXTRA_TYPE_3 = "extraType3";
+    private static final String KEY_IN_EXTRA_KEY_4 = "extraKey4";
+    private static final String KEY_IN_EXTRA_VALUE_4 = "extraValue4";
+    private static final String KEY_IN_EXTRA_TYPE_4 = "extraType4";
+    private static final String KEY_IN_EXTRA_KEY_5 = "extraKey5";
+    private static final String KEY_IN_EXTRA_VALUE_5 = "extraValue5";
+    private static final String KEY_IN_EXTRA_TYPE_5 = "extraType5";
+    private static final String KEY_IN_EXTRA_KEY_6 = "extraKey6";
+    private static final String KEY_IN_EXTRA_VALUE_6 = "extraValue6";
+    private static final String KEY_IN_EXTRA_TYPE_6 = "extraType6";
+    private static final String KEY_IN_EXTRA_KEY_7 = "extraKey7";
+    private static final String KEY_IN_EXTRA_VALUE_7 = "extraValue7";
+    private static final String KEY_IN_EXTRA_TYPE_7 = "extraType7";
+    private static final String KEY_IN_EXTRA_KEY_8 = "extraKey8";
+    private static final String KEY_IN_EXTRA_VALUE_8 = "extraValue8";
+    private static final String KEY_IN_EXTRA_TYPE_8 = "extraType8";
+    private static final String KEY_IN_EXTRA_KEY_9 = "extraKey9";
+    private static final String KEY_IN_EXTRA_VALUE_9 = "extraValue9";
+    private static final String KEY_IN_EXTRA_TYPE_9 = "extraType9";
+    private static final String KEY_IN_EXTRA_KEY_10 = "extraKey10";
+    private static final String KEY_IN_EXTRA_VALUE_10 = "extraValue10";
+    private static final String KEY_IN_EXTRA_TYPE_10 = "extraType10";
+    private static final String KEY_IN_CATEGORIES = "categories";
+    private static final String KEY_IN_FLAGS = "flags";
+
 
     private DatabaseHandler(Context context) {
         super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
@@ -705,6 +747,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + ")";
         db.execSQL(CREATE_NFC_TAGS_TABLE);
 
+        final String CREATE_INTENTS_TABLE = "CREATE TABLE " + TABLE_INTENTS + "("
+                + KEY_IN_ID + " INTEGER PRIMARY KEY,"
+                + KEY_IN_PACKAGE_NAME + " TEXT,"
+                + KEY_IN_CLASS_NAME + " TEXT,"
+                + KEY_IN_ACTION + " TEXT,"
+                + KEY_IN_DATA + " TEXT,"
+                + KEY_IN_MIME_TYPE + " TEXT,"
+                + KEY_IN_EXTRA_KEY_1 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_1 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_1 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_2 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_2 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_2 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_3 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_3 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_3 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_4 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_4 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_4 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_5 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_5 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_5 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_6 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_6 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_6 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_7 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_7 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_7 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_8 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_8 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_8 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_9 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_9 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_9 + " INTEGER,"
+                + KEY_IN_EXTRA_KEY_10 + " TEXT,"
+                + KEY_IN_EXTRA_VALUE_10 + " TEXT,"
+                + KEY_IN_EXTRA_TYPE_10 + " INTEGER,"
+                + KEY_IN_CATEGORIES + " TEXT,"
+                + KEY_IN_FLAGS + " TEXT"
+                + ")";
+        db.execSQL(CREATE_INTENTS_TABLE);
 
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_AUTOROTATE ON " + TABLE_PROFILES + " (" + KEY_DEVICE_AUTOROTATE + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_DEVICE_CONNECT_TO_SSID ON " + TABLE_PROFILES + " (" + KEY_DEVICE_CONNECT_TO_SSID + ")");
@@ -751,6 +834,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHORTCUTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOBILE_CELLS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NFC_TAGS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INTENTS);
 
         onCreate(db);
     }
@@ -2419,6 +2503,50 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SOUND_END + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_VIBRATE_END + "=0");
+        }
+
+        if (oldVersion < 2190) {
+            final String CREATE_INTENTS_TABLE = "CREATE TABLE " + TABLE_INTENTS + "("
+                    + KEY_IN_ID + " INTEGER PRIMARY KEY,"
+                    + KEY_IN_PACKAGE_NAME + " TEXT,"
+                    + KEY_IN_CLASS_NAME + " TEXT,"
+                    + KEY_IN_ACTION + " TEXT,"
+                    + KEY_IN_DATA + " TEXT,"
+                    + KEY_IN_MIME_TYPE + " TEXT,"
+                    + KEY_IN_EXTRA_KEY_1 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_1 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_1 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_2 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_2 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_2 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_3 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_3 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_3 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_4 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_4 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_4 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_5 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_5 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_5 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_6 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_6 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_6 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_7 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_7 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_7 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_8 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_8 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_8 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_9 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_9 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_9 + " INTEGER,"
+                    + KEY_IN_EXTRA_KEY_10 + " TEXT,"
+                    + KEY_IN_EXTRA_VALUE_10 + " TEXT,"
+                    + KEY_IN_EXTRA_TYPE_10 + " INTEGER,"
+                    + KEY_IN_CATEGORIES + " TEXT,"
+                    + KEY_IN_FLAGS + " TEXT"
+                    + ")";
+            db.execSQL(CREATE_INTENTS_TABLE);
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -8221,6 +8349,298 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     */
 
+// INTENTS ----------------------------------------------------------------------
+
+    // Adding new intent
+    void addIntent(PPIntent intent) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_IN_ID, intent._id);
+                values.put(KEY_IN_PACKAGE_NAME, intent._packageName);
+                values.put(KEY_IN_CLASS_NAME, intent._className);
+                values.put(KEY_IN_ACTION, intent._action);
+                values.put(KEY_IN_DATA, intent._data);
+                values.put(KEY_IN_MIME_TYPE, intent._mimeType);
+                values.put(KEY_IN_EXTRA_KEY_1, intent._extraKey1);
+                values.put(KEY_IN_EXTRA_VALUE_1, intent._extraValue1);
+                values.put(KEY_IN_EXTRA_TYPE_1, intent._extraType1);
+                values.put(KEY_IN_EXTRA_KEY_2, intent._extraKey2);
+                values.put(KEY_IN_EXTRA_VALUE_2, intent._extraValue2);
+                values.put(KEY_IN_EXTRA_TYPE_2, intent._extraType2);
+                values.put(KEY_IN_EXTRA_KEY_3, intent._extraKey3);
+                values.put(KEY_IN_EXTRA_VALUE_3, intent._extraValue3);
+                values.put(KEY_IN_EXTRA_TYPE_3, intent._extraType3);
+                values.put(KEY_IN_EXTRA_KEY_4, intent._extraKey4);
+                values.put(KEY_IN_EXTRA_VALUE_4, intent._extraValue4);
+                values.put(KEY_IN_EXTRA_TYPE_4, intent._extraType4);
+                values.put(KEY_IN_EXTRA_KEY_5, intent._extraKey5);
+                values.put(KEY_IN_EXTRA_VALUE_5, intent._extraValue5);
+                values.put(KEY_IN_EXTRA_TYPE_5, intent._extraType5);
+                values.put(KEY_IN_EXTRA_KEY_6, intent._extraKey6);
+                values.put(KEY_IN_EXTRA_VALUE_6, intent._extraValue6);
+                values.put(KEY_IN_EXTRA_TYPE_6, intent._extraType6);
+                values.put(KEY_IN_EXTRA_KEY_7, intent._extraKey7);
+                values.put(KEY_IN_EXTRA_VALUE_7, intent._extraValue7);
+                values.put(KEY_IN_EXTRA_TYPE_7, intent._extraType7);
+                values.put(KEY_IN_EXTRA_KEY_8, intent._extraKey8);
+                values.put(KEY_IN_EXTRA_VALUE_8, intent._extraValue8);
+                values.put(KEY_IN_EXTRA_TYPE_8, intent._extraType8);
+                values.put(KEY_IN_EXTRA_KEY_9, intent._extraKey9);
+                values.put(KEY_IN_EXTRA_VALUE_9, intent._extraValue9);
+                values.put(KEY_IN_EXTRA_TYPE_9, intent._extraType9);
+                values.put(KEY_IN_EXTRA_KEY_10, intent._extraKey10);
+                values.put(KEY_IN_EXTRA_VALUE_10, intent._extraValue10);
+                values.put(KEY_IN_EXTRA_TYPE_10, intent._extraType10);
+                values.put(KEY_IN_CATEGORIES, intent._categories);
+                values.put(KEY_IN_FLAGS, intent._flags);
+
+                db.beginTransaction();
+
+                try {
+                    // Inserting Row
+                    db.insert(TABLE_INTENTS, null, values);
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close(); // Closing database connection
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Getting All intents
+    List<PPIntent> getAllIntents() {
+        importExportLock.lock();
+        try {
+            List<PPIntent> intentList = new ArrayList<>();
+            try {
+                startRunningCommand();
+
+                // Select All Query
+                final String selectQuery = "SELECT " + KEY_IN_ID + "," +
+                        KEY_IN_PACKAGE_NAME + ", " +
+                        KEY_IN_CLASS_NAME + ", " +
+                        KEY_IN_ACTION + ", " +
+                        KEY_IN_DATA + ", " +
+                        KEY_IN_MIME_TYPE + ", " +
+                        KEY_IN_EXTRA_KEY_1 + ", " +
+                        KEY_IN_EXTRA_VALUE_1 + ", " +
+                        KEY_IN_EXTRA_TYPE_1 + ", " +
+                        KEY_IN_EXTRA_KEY_2 + ", " +
+                        KEY_IN_EXTRA_VALUE_2 + ", " +
+                        KEY_IN_EXTRA_TYPE_2 + ", " +
+                        KEY_IN_EXTRA_KEY_3 + ", " +
+                        KEY_IN_EXTRA_VALUE_3 + ", " +
+                        KEY_IN_EXTRA_TYPE_3 + ", " +
+                        KEY_IN_EXTRA_KEY_4 + ", " +
+                        KEY_IN_EXTRA_VALUE_4 + ", " +
+                        KEY_IN_EXTRA_TYPE_4 + ", " +
+                        KEY_IN_EXTRA_KEY_5 + ", " +
+                        KEY_IN_EXTRA_VALUE_5 + ", " +
+                        KEY_IN_EXTRA_TYPE_5 + ", " +
+                        KEY_IN_EXTRA_KEY_6 + ", " +
+                        KEY_IN_EXTRA_VALUE_6 + ", " +
+                        KEY_IN_EXTRA_TYPE_6 + ", " +
+                        KEY_IN_EXTRA_KEY_7 + ", " +
+                        KEY_IN_EXTRA_VALUE_7 + ", " +
+                        KEY_IN_EXTRA_TYPE_7 + ", " +
+                        KEY_IN_EXTRA_KEY_8 + ", " +
+                        KEY_IN_EXTRA_VALUE_8 + ", " +
+                        KEY_IN_EXTRA_TYPE_8 + ", " +
+                        KEY_IN_EXTRA_KEY_9 + ", " +
+                        KEY_IN_EXTRA_VALUE_9 + ", " +
+                        KEY_IN_EXTRA_TYPE_9 + ", " +
+                        KEY_IN_EXTRA_KEY_10 + ", " +
+                        KEY_IN_EXTRA_VALUE_10 + ", " +
+                        KEY_IN_EXTRA_TYPE_10 + ", " +
+                        KEY_IN_CATEGORIES + ", " +
+                        KEY_IN_FLAGS +
+                        " FROM " + TABLE_INTENTS;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        PPIntent ppIntent = new PPIntent(
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_IN_ID))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_PACKAGE_NAME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_CLASS_NAME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_ACTION)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_DATA)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_MIME_TYPE)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_1)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_1)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_1))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_2)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_2)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_2))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_3)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_3)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_3))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_4)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_4)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_4))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_5)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_5)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_5))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_6)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_6)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_6))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_7)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_7)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_7))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_8)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_8)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_8))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_9)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_9)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_9))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_10)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_10)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_10))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)));
+                        intentList.add(ppIntent);
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return intentList;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Updating single intent
+    void updateIntent(PPIntent intent) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_IN_PACKAGE_NAME, intent._packageName);
+                values.put(KEY_IN_CLASS_NAME, intent._className);
+                values.put(KEY_IN_ACTION, intent._action);
+                values.put(KEY_IN_DATA, intent._data);
+                values.put(KEY_IN_MIME_TYPE, intent._mimeType);
+                values.put(KEY_IN_EXTRA_KEY_1, intent._extraKey1);
+                values.put(KEY_IN_EXTRA_VALUE_1, intent._extraValue1);
+                values.put(KEY_IN_EXTRA_TYPE_1, intent._extraType1);
+                values.put(KEY_IN_EXTRA_KEY_2, intent._extraKey2);
+                values.put(KEY_IN_EXTRA_VALUE_2, intent._extraValue2);
+                values.put(KEY_IN_EXTRA_TYPE_2, intent._extraType2);
+                values.put(KEY_IN_EXTRA_KEY_3, intent._extraKey3);
+                values.put(KEY_IN_EXTRA_VALUE_3, intent._extraValue3);
+                values.put(KEY_IN_EXTRA_TYPE_3, intent._extraType3);
+                values.put(KEY_IN_EXTRA_KEY_4, intent._extraKey4);
+                values.put(KEY_IN_EXTRA_VALUE_4, intent._extraValue4);
+                values.put(KEY_IN_EXTRA_TYPE_4, intent._extraType4);
+                values.put(KEY_IN_EXTRA_KEY_5, intent._extraKey5);
+                values.put(KEY_IN_EXTRA_VALUE_5, intent._extraValue5);
+                values.put(KEY_IN_EXTRA_TYPE_5, intent._extraType5);
+                values.put(KEY_IN_EXTRA_KEY_6, intent._extraKey6);
+                values.put(KEY_IN_EXTRA_VALUE_6, intent._extraValue6);
+                values.put(KEY_IN_EXTRA_TYPE_6, intent._extraType6);
+                values.put(KEY_IN_EXTRA_KEY_7, intent._extraKey7);
+                values.put(KEY_IN_EXTRA_VALUE_7, intent._extraValue7);
+                values.put(KEY_IN_EXTRA_TYPE_7, intent._extraType7);
+                values.put(KEY_IN_EXTRA_KEY_8, intent._extraKey8);
+                values.put(KEY_IN_EXTRA_VALUE_8, intent._extraValue8);
+                values.put(KEY_IN_EXTRA_TYPE_8, intent._extraType8);
+                values.put(KEY_IN_EXTRA_KEY_9, intent._extraKey9);
+                values.put(KEY_IN_EXTRA_VALUE_9, intent._extraValue9);
+                values.put(KEY_IN_EXTRA_TYPE_9, intent._extraType9);
+                values.put(KEY_IN_EXTRA_KEY_10, intent._extraKey10);
+                values.put(KEY_IN_EXTRA_VALUE_10, intent._extraValue10);
+                values.put(KEY_IN_EXTRA_TYPE_10, intent._extraType10);
+                values.put(KEY_IN_CATEGORIES, intent._categories);
+                values.put(KEY_IN_FLAGS, intent._flags);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_INTENTS, values, KEY_IN_ID + " = ?",
+                            new String[]{String.valueOf(intent._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updateIntent", Log.getStackTraceString(e));
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    // Deleting single intent
+    void deleteIntent(PPIntent intent) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+
+                try {
+                    // delete geofence
+                    db.delete(TABLE_INTENTS, KEY_IN_ID + " = ?",
+                            new String[]{String.valueOf(intent._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.deleteIntent", Log.getStackTraceString(e));
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
 // OTHERS -------------------------------------------------------------------------
 
     void disableNotAllowedPreferences()
@@ -9532,12 +9952,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             }
 
                                             // for non existent fields set default value
-                                    /*if (exportedDBObj.getVersion() < 1480) {
-                                        values.put(KEY_G_CHECKED, 0);
-                                    }
-                                    if (exportedDBObj.getVersion() < 1510) {
-                                        values.put(KEY_G_TRANSITION, 0);
-                                    }*/
+                                            /*if (exportedDBObj.getVersion() < 1480) {
+                                                values.put(KEY_G_CHECKED, 0);
+                                            }
+                                            if (exportedDBObj.getVersion() < 1510) {
+                                                values.put(KEY_G_TRANSITION, 0);
+                                            }*/
 
                                             // Inserting Row do db z SQLiteOpenHelper
                                             db.insert(TABLE_SHORTCUTS, null, values);
@@ -9616,6 +10036,42 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             // Inserting Row do db z SQLiteOpenHelper
                                             db.insert(TABLE_NFC_TAGS, null, values);
+
+                                        } while (cursorExportedDB.moveToNext());
+                                    }
+
+                                    cursorExportedDB.close();
+                                    cursorImportDB.close();
+
+                                }
+
+                                db.execSQL("DELETE FROM " + TABLE_INTENTS);
+
+                                if (tableExists(TABLE_INTENTS, exportedDBObj)) {
+                                    // cursor for events exportedDB
+                                    cursorExportedDB = exportedDBObj.rawQuery("SELECT * FROM " + TABLE_INTENTS, null);
+                                    columnNamesExportedDB = cursorExportedDB.getColumnNames();
+
+                                    // cursor for profiles of destination db
+                                    cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_INTENTS, null);
+
+                                    if (cursorExportedDB.moveToFirst()) {
+                                        do {
+                                            values.clear();
+                                            for (int i = 0; i < columnNamesExportedDB.length; i++) {
+                                                // put only when columnNamesExportedDB[i] exists in cursorImportDB
+                                                if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
+                                                    values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
+                                                }
+                                            }
+
+                                            // for non existent fields set default value
+                                            /*if (exportedDBObj.getVersion() < 2130) {
+                                                values.put(KEY_NT_UID, "");
+                                            }*/
+
+                                            // Inserting Row do db z SQLiteOpenHelper
+                                            db.insert(TABLE_INTENTS, null, values);
 
                                         } while (cursorExportedDB.moveToNext());
                                     }
