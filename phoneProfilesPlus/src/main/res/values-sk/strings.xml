@@ -1273,6 +1273,7 @@
     <string name="array_event_pref_peripheralType_headphones">Slúchadlá bez mikrofónu</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in newest version!</string>
+    <string name="default_profile_name_battery_ok">OK battery</string>
 
 
 
