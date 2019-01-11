@@ -586,7 +586,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         listAdapter.notifyDataSetChanged();
     }
 
-    void updateApplication(Application application, int positionInEditor, int startApplicationDelay) {
+    void updateApplication(Application application, int filterInEditor, int positionInEditor, int startApplicationDelay) {
         if (positionInEditor == -1)
             return;
 
@@ -594,17 +594,38 @@ public class ApplicationsDialogPreference  extends DialogPreference
             List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
             if (cachedApplicationList != null) {
                 int _position = applicationsList.indexOf(application);
-                Application cachedApplication = cachedApplicationList.get(positionInEditor);
+
+                // search filtered application in cachedApplicationList
+                int pos = 0;
+                Application cachedApplication = null;
+                for (Application _application : cachedApplicationList) {
+                    boolean search = false;
+                    if ((filterInEditor == 0) && (!_application.shortcut))
+                        search = true;
+                    if ((filterInEditor == 1) && (_application.shortcut))
+                        search = true;
+                    if (search) {
+                        if (pos == positionInEditor) {
+                            cachedApplication = _application;
+                            break;
+                        }
+                        pos++;
+                    }
+                }
+
                 Application editedApplication = application;
                 if (editedApplication == null) {
                     editedApplication = new Application();
                     applicationsList.add(editedApplication);
                     _position = applicationsList.size() - 1;
                 }
-                editedApplication.shortcut = cachedApplication.shortcut;
-                editedApplication.appLabel = cachedApplication.appLabel;
-                editedApplication.packageName = cachedApplication.packageName;
-                editedApplication.activityName = cachedApplication.activityName;
+                if (cachedApplication != null) {
+                    editedApplication.shortcut = cachedApplication.shortcut;
+                    editedApplication.appLabel = cachedApplication.appLabel;
+                    editedApplication.packageName = cachedApplication.packageName;
+                    editedApplication.activityName = cachedApplication.activityName;
+                }
+
                 if (!editedApplication.shortcut)
                     editedApplication.shortcutId = 0;
                 editedApplication.startApplicationDelay = startApplicationDelay;

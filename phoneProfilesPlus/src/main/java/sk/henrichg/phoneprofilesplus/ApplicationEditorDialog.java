@@ -8,12 +8,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import mobi.upod.timedurationpicker.TimeDurationPicker;
@@ -30,10 +34,16 @@ class ApplicationEditorDialog
     private final TimeDurationPickerDialog mDelayValueDialog;
 
     List<Application> cachedApplicationList;
+    final List<Application> applicationList;
     private final Application mApplication;
 
     int selectedPosition;
     private int startApplicationDelay = 0;
+
+    private final String[] filterValues;
+    private int selectedFilter = 0;
+
+    FastScrollRecyclerView listView;
 
     ApplicationEditorDialog(Activity activity, ApplicationsDialogPreference preference,
                             final Application application)
@@ -43,6 +53,8 @@ class ApplicationEditorDialog
         if (mApplication != null)
             startApplicationDelay = mApplication.startApplicationDelay;
 
+        applicationList = new ArrayList<>();
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.applications_editor_dialog_title);
         dialogBuilder.setCancelable(true);
@@ -50,7 +62,7 @@ class ApplicationEditorDialog
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (cachedApplicationList != null) {
-                    ApplicationEditorDialog.this.preference.updateApplication(mApplication, selectedPosition, startApplicationDelay);
+                    ApplicationEditorDialog.this.preference.updateApplication(mApplication, selectedFilter, selectedPosition, startApplicationDelay);
                 }
             }
         });
@@ -103,9 +115,46 @@ class ApplicationEditorDialog
             }
         });
 
+        Spinner filterSpinner = layout.findViewById(R.id.applications_editor_dialog_filter_spinner);
+        switch (ApplicationPreferences.applicationTheme(activity)) {
+            case "dark":
+                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
+                break;
+            case "white":
+                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
+                break;
+            case "dlight":
+                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+                break;
+            default:
+                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+                break;
+        }
+        filterValues= activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterValues);
+
+        if ((mApplication != null) && (mApplication.shortcut)) selectedFilter = 1;
+        filterSpinner.setSelection(Arrays.asList(filterValues).indexOf(String.valueOf(selectedFilter)));
+        filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedFilter = Integer.valueOf(filterValues[position]);
+                fillApplicationList();
+                listAdapter.notifyDataSetChanged();
+
+                if (selectedPosition > -1) {
+                    RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                    if (lm != null)
+                        lm.scrollToPosition(selectedPosition);
+                }
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
         //noinspection ConstantConditions
-        FastScrollRecyclerView listView = layout.findViewById(R.id.applications_editor_dialog_listview);
+        listView = layout.findViewById(R.id.applications_editor_dialog_listview);
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -114,21 +163,7 @@ class ApplicationEditorDialog
 
         cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
 
-        selectedPosition = -1;
-        if (mApplication != null) {
-            int pos = 0;
-            if (cachedApplicationList != null) {
-                for (Application _application : cachedApplicationList) {
-                    if ((mApplication.shortcut == _application.shortcut) &&
-                        mApplication.packageName.equals(_application.packageName) &&
-                        mApplication.activityName.equals(_application.activityName)) {
-                        selectedPosition = pos;
-                        break;
-                    }
-                    pos++;
-                }
-            }
-        }
+        fillApplicationList();
 
         listAdapter = new ApplicationEditorDialogAdapter(this, activity);
         listView.setAdapter(listAdapter);
@@ -137,6 +172,32 @@ class ApplicationEditorDialog
             RecyclerView.LayoutManager lm = listView.getLayoutManager();
             if (lm != null)
                 lm.scrollToPosition(selectedPosition);
+        }
+    }
+
+    private void fillApplicationList() {
+        applicationList.clear();
+        selectedPosition = -1;
+        int pos = 0;
+        if (cachedApplicationList != null) {
+            for (Application _application : cachedApplicationList) {
+                boolean add = false;
+                if ((selectedFilter == 0) && (!_application.shortcut))
+                    add = true;
+                if ((selectedFilter == 1) && (_application.shortcut))
+                    add = true;
+                if (add) {
+                    if (mApplication != null) {
+                        if ((mApplication.shortcut == _application.shortcut) &&
+                                mApplication.packageName.equals(_application.packageName) &&
+                                mApplication.activityName.equals(_application.activityName)) {
+                            selectedPosition = pos;
+                        }
+                    }
+                    applicationList.add(_application);
+                    pos++;
+                }
+            }
         }
     }
 

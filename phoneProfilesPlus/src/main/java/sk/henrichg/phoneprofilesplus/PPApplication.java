@@ -158,7 +158,7 @@ public class PPApplication extends Application {
                                          //+"|[NOTIF] EventsHandler.handleEvents"
                                          //+"|EventPreferencesNotification"
 
-                                         +"|[CALL] DataWrapper.doHandleEvents"
+                                         //+"|[CALL] DataWrapper.doHandleEvents"
 
                                          //+"|"+CallsCounter.LOG_TAG
                                          //+"|[RJS] PPApplication"
@@ -229,8 +229,8 @@ public class PPApplication extends Application {
 
                                         //+"|PhoneProfilesService.registerAccessibilityServiceReceiver"
                                         //+"|DatabaseHandler.getTypeProfilesCount"
-                                        +"|[RJS] PhoneProfilesService.registerPPPPExtenderReceiver"
-                                        +"|PPPExtenderBroadcastReceiver.onReceive"
+                                        //+"|[RJS] PhoneProfilesService.registerPPPPExtenderReceiver"
+                                        //+"|PPPExtenderBroadcastReceiver.onReceive"
                                         //+"|SMSEventEndBroadcastReceiver.onReceive"
                                         //+"|[SMS sensor]"
 

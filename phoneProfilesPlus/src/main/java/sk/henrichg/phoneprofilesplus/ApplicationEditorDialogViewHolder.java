@@ -13,9 +13,7 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
     private final ImageView imageViewIcon;
     private final TextView textViewAppName;
     private final RadioButton radioBtn;
-    private final TextView textViewAppType;
 
-    private final Context context;
     private final ApplicationEditorDialog dialog;
 
     private Application application;
@@ -24,13 +22,11 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
     {
         super(itemView);
 
-        this.context = context;
         this.dialog = d;
 
         imageViewIcon = itemView.findViewById(R.id.applications_editor_dialog_item_icon);
         textViewAppName = itemView.findViewById(R.id.applications_editor_dialog_item_app_name);
         radioBtn = itemView.findViewById(R.id.applications_editor_dialog_item_radiobutton);
-        textViewAppType = itemView.findViewById(R.id.applications_editor_dialog_item_app_type);
 
         radioBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -51,10 +47,6 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
         if (EditorProfilesActivity.getApplicationsCache() != null)
             imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
         textViewAppName.setText(application.appLabel);
-        if (application.shortcut)
-            textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
-        else
-            textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
 
         if (dialog.selectedPosition == position)
             radioBtn.setChecked(true);
@@ -65,7 +57,7 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
 
     @Override
     public void onClick(View v) {
-        int position = dialog.cachedApplicationList.indexOf(application);
+        int position = dialog.applicationList.indexOf(application);
         dialog.doOnItemSelected(position);
         radioBtn.setChecked(true);
     }
