@@ -253,7 +253,7 @@ public class DataWrapper {
 
         switch (index) {
             case 0:
-                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_home), "ic_profile_home_2", 1);
+                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_home), "ic_profile_home_2", index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -277,7 +277,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "60|0|0|0";
                 break;
             case 1:
-                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", 2);
+                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_outdoor), "ic_profile_outdoors_1", index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -301,7 +301,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "255|0|0|0";
                 break;
             case 2:
-                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_work), "ic_profile_work_5", 3);
+                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_work), "ic_profile_work_5", index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -325,7 +325,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = "60|0|0|0";
                 break;
             case 3:
-                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", 4);
+                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_meeting), "ic_profile_meeting_2", index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -349,7 +349,7 @@ public class DataWrapper {
                 //profile._deviceBrightness = Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET+"|1|1|0";
                 break;
             case 4:
-                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", 5);
+                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_sleep), "ic_profile_sleep", index+1);
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
@@ -373,13 +373,22 @@ public class DataWrapper {
                 //profile._deviceBrightness = "10|0|0|0";
                 break;
             case 5:
-                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", 6);
+                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 2;
                 profile._deviceMobileData = 2;
                 profile._deviceWiFi = 2;
                 profile._deviceBluetooth = 2;
                 profile._deviceGPS = 2;
+                break;
+            case 6:
+                profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), "ic_profile_battery_3", index+1);
+                profile._showInActivator = false;
+                profile._deviceAutoSync = 1;
+                profile._deviceMobileData = 1;
+                profile._deviceWiFi = 1;
+                profile._deviceBluetooth = 1;
+                profile._deviceGPS = 1;
                 break;
             default:
                 profile = null;
@@ -401,7 +410,7 @@ public class DataWrapper {
             invalidateProfileList();
             DatabaseHandler.getInstance(context).deleteAllProfiles();
 
-            for (int index = 0; index < 6; index++)
+            for (int index = 0; index < 7; index++)
                 getPredefinedProfile(index, true, baseContext);
 
             fillProfileList(generateIcons, generateIndicators);
@@ -1239,7 +1248,7 @@ public class DataWrapper {
 
         switch (index) {
             case 0:
-                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_during_the_week), 5);
+                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_during_the_week), index+1);
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -1254,7 +1263,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 1:
-                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_weekend), 5);
+                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_weekend), index+1);
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -1266,7 +1275,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 2:
-                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_during_the_work), 8);
+                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_during_the_work), index+1);
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_work));
                 //event._undoneProfile = true;
                 event._atEndDo = Event.EATENDDO_NONE;
@@ -1282,7 +1291,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 3:
-                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_overnight), 5);
+                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_overnight), index+1);
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_sleep));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -1299,7 +1308,7 @@ public class DataWrapper {
                 //event._eventPreferencesTime._useEndTime = true;
                 break;
             case 4:
-                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_night_call), 10);
+                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_night_call), index+1);
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_home));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -1322,8 +1331,9 @@ public class DataWrapper {
                 event._eventPreferencesCall._contactListType = EventPreferencesCall.CONTACT_LIST_TYPE_WHITE_LIST;
                 break;
             case 5:
-                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_low_battery), 10);
+                event = getNonInitializedEvent(baseContext.getString(R.string.default_event_name_low_battery), index+1);
                 event._fkProfileStart = getProfileIdByName(baseContext.getString(R.string.default_profile_name_battery_low));
+                event._fkProfileEnd = getProfileIdByName(baseContext.getString(R.string.default_profile_name_battery_ok));
                 //event._undoneProfile = false;
                 event._atEndDo = Event.EATENDDO_RESTART_EVENTS;
                 event._priority = Event.EPRIORITY_HIGHEST;
@@ -1359,7 +1369,7 @@ public class DataWrapper {
         invalidateEventList();
         DatabaseHandler.getInstance(context).deleteAllEvents();
 
-        for (int index = 0; index < 5; index++)
+        for (int index = 0; index < 6; index++)
             getPredefinedEvent(index, true, baseContext);
     }
 
