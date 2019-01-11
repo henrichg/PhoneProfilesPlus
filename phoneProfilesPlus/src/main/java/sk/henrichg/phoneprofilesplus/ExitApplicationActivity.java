@@ -54,7 +54,8 @@ public class ExitApplicationActivity extends AppCompatActivity {
                 if (negative != null) negative.setAllCaps(false);
             }
         });*/
-        dialog.show();
+        if (!isFinishing())
+            dialog.show();
     }
 
     @Override
