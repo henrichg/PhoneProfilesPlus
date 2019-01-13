@@ -85,6 +85,12 @@ public abstract class DeviceAbstract implements DeviceBase {
                         "SYSTEM UTILS:\n   " + SystemUtils.getDefaultDebugInformation() + "\n" +
                         "DEVICE:\n" + getExtraDebugInformations(context));
             }
+            else {
+                LogUtils.logE("KillerManager.isActionPowerSavingAvailable", "INTENT AVAILABLE\n" +
+                        "INTENT:\n   " + ActionsUtils.getExtrasDebugInformations(intent) + "\n" +
+                        "SYSTEM UTILS:\n   " + SystemUtils.getDefaultDebugInformation() + "\n" +
+                        "DEVICE:\n" + getExtraDebugInformations(context));
+            }
         }
         return intentAvailable;
     }
@@ -100,6 +106,12 @@ public abstract class DeviceAbstract implements DeviceBase {
                         "SYSTEM UTILS:\n   " + SystemUtils.getDefaultDebugInformation() + "\n" +
                         "DEVICE:\n" + getExtraDebugInformations(context));
             }
+            else {
+                LogUtils.logE("KillerManager.isActionAutoStartAvailable", "INTENT AVAILABLE\n" +
+                        "INTENT:\n   " + ActionsUtils.getExtrasDebugInformations(intent) + "\n" +
+                        "SYSTEM UTILS:\n   " + SystemUtils.getDefaultDebugInformation() + "\n" +
+                        "DEVICE:\n" + getExtraDebugInformations(context));
+            }
         }
         return intentAvailable;
     }
@@ -111,6 +123,12 @@ public abstract class DeviceAbstract implements DeviceBase {
         if (LogUtils.logEnabled()) {
             if (!intentAvailable) {
                 LogUtils.logE("KillerManager.isActionNotificationAvailable", "INTENT NOT AVAILABLE\n" +
+                        "INTENT:\n   " + ActionsUtils.getExtrasDebugInformations(intent) + "\n" +
+                        "SYSTEM UTILS:\n   " + SystemUtils.getDefaultDebugInformation() + "\n" +
+                        "DEVICE:\n" + getExtraDebugInformations(context));
+            }
+            else {
+                LogUtils.logE("KillerManager.isActionNotificationAvailable", "INTENT AVAILABLE\n" +
                         "INTENT:\n   " + ActionsUtils.getExtrasDebugInformations(intent) + "\n" +
                         "SYSTEM UTILS:\n   " + SystemUtils.getDefaultDebugInformation() + "\n" +
                         "DEVICE:\n" + getExtraDebugInformations(context));

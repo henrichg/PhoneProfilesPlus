@@ -21,10 +21,11 @@ public class Huawei extends DeviceAbstract {
     private static final String HUAWEI_ACTION_AUTOSTART = "huawei.intent.action.HSM_BOOTAPP_MANAGER";
     private static final String HUAWEI_ACTION_NOTIFICATION = "huawei.intent.action.NOTIFICATIONMANAGER";
     private static final String HUAWEI_SYSTEMMANAGER_PACKAGE_NAME = "com.huawei.systemmanager";
-    private static final String HUAWEI_SYSTEMMANAGER_AUTO_START_V1 = "com.huawei.systemmanager.optimize.bootstart.BootStartActivity";
-    private static final String HUAWEI_SYSTEMMANAGER_AUTO_START_V2 = "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity";
-    private static final String HUAWEI_SYSTEMMANAGER_AUTO_START_V3 = "com.huawei.permissionmanager.ui.MainActivity";
+    //private static final String HUAWEI_SYSTEMMANAGER_AUTO_START_V1 = "com.huawei.systemmanager.optimize.bootstart.BootStartActivity";
+    //private static final String HUAWEI_SYSTEMMANAGER_AUTO_START_V2 = "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity";
+    //private static final String HUAWEI_SYSTEMMANAGER_AUTO_START_V3 = "com.huawei.permissionmanager.ui.MainActivity";
     private static final String HUAWEI_SYSTEMMANAGER_POWERSAVING_V1 = "com.huawei.systemmanager.optimize.process.ProtectActivity";
+    private static final String HUAWEI_SYSTEMMANAGER_POWERSAVING_V2 = "com.huawei.systemmanager.appcontrol.activity.StartupAppControlActivity";
 
     //com.huawei.systemmanager/com.huawei.notificationmanager.ui.NotificationManagmentActivity // huawei.intent.action.NOTIFICATIONMANAGER
     @Override
@@ -82,9 +83,18 @@ public class Huawei extends DeviceAbstract {
             return intent;
         else {
             intent = ActionsUtils.createIntent();
-            intent.setClassName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_POWERSAVING_V1);
-            return intent;
+            intent.setComponent(new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_POWERSAVING_V1));
+            if (ActionsUtils.isIntentAvailable(context, intent)) {
+                return intent;
+            }
+            else {
+                intent = ActionsUtils.createIntent();
+                intent.setComponent(new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_POWERSAVING_V2));
+                if (ActionsUtils.isIntentAvailable(context, intent))
+                    return intent;
+            }
         }
+        return null;
     }
 
     @Override
@@ -97,14 +107,24 @@ public class Huawei extends DeviceAbstract {
         if (ActionsUtils.isIntentAvailable(context, intent)) {
             return intent;
         } else {
-            intent = ActionsUtils.createIntent();
-            intent.setComponent(getComponentNameAutoStart(context));
+            Intent intent = ActionsUtils.createIntent();
+            intent.setComponent(new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V1));
             if (ActionsUtils.isIntentAvailable(context, intent))
                 return intent;
-            else
-                return null;
+            else {
+                intent = ActionsUtils.createIntent();
+                intent.setComponent(new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V2));
+                if (ActionsUtils.isIntentAvailable(context, intent))
+                    return intent;
+                else {
+                    intent = ActionsUtils.createIntent();
+                    intent.setComponent(new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V3));
+                    if (ActionsUtils.isIntentAvailable(context, intent))
+                        return intent;
+                }
+            }
         }
-        */
+        return null;*/
     }
 
     @Override
@@ -116,9 +136,11 @@ public class Huawei extends DeviceAbstract {
 
     @Override
     public String getExtraDebugInformations(Context context) {
+        //noinspection StringBufferReplaceableByString
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("   ROM_VERSION:").append(getEmuiRomName()).append("\n");
 
+        /*
         stringBuilder.append("   HuaweiSystemManagerVersionMethod:").append(getHuaweiSystemManagerVersion(context)).append("\n");
 
         PackageManager manager = context.getPackageManager();
@@ -132,16 +154,18 @@ public class Huawei extends DeviceAbstract {
         }
 
         stringBuilder.append("   HuaweiSystemManagerPackageVersion:").append(versionStr).append("\n");
+        */
 
         // ----- PACAKGE INFORMATIONS -----
         stringBuilder.append("   "+HUAWEI_ACTION_AUTOSTART+":").append(ActionsUtils.isIntentAvailable(context, HUAWEI_ACTION_AUTOSTART)).append("\n");
         stringBuilder.append("   "+HUAWEI_ACTION_POWERSAVING+":").append(ActionsUtils.isIntentAvailable(context, HUAWEI_ACTION_POWERSAVING)).append("\n");
-        stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_AUTO_START_V1 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V1))).append("\n");
         stringBuilder.append("   "+HUAWEI_ACTION_NOTIFICATION+":").append(ActionsUtils.isIntentAvailable(context, HUAWEI_ACTION_NOTIFICATION)).append("\n");
-        stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_AUTO_START_V1 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V1))).append("\n");
-        stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_AUTO_START_V2 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V2))).append("\n");
-        stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_AUTO_START_V3 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V3))).append("\n");
+        //stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_AUTO_START_V1 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V1))).append("\n");
+        //stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_AUTO_START_V2 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V2))).append("\n");
+        //stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_AUTO_START_V3 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V3))).append("\n");
         stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_POWERSAVING_V1 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_POWERSAVING_V1))).append("\n");
+        stringBuilder.append("   "+HUAWEI_SYSTEMMANAGER_PACKAGE_NAME + "." + HUAWEI_SYSTEMMANAGER_POWERSAVING_V2 + ":").append(ActionsUtils.isIntentAvailable(context, new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_POWERSAVING_V2))).append("\n");
+
         return stringBuilder.toString();
     }
 
@@ -161,7 +185,6 @@ public class Huawei extends DeviceAbstract {
             return new ComponentName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_AUTO_START_V1);
         }
     }
-    */
 
     private static int getHuaweiSystemManagerVersion(Context context) {
         int version = 0;
@@ -204,5 +227,5 @@ public class Huawei extends DeviceAbstract {
         }
         return version;
     }
-
+    */
 }
