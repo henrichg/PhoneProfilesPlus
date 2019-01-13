@@ -1275,6 +1275,9 @@ Proszę przeczytać.</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in newest version!</string>
     <string name="default_profile_name_battery_ok">OK battery</string>
+    <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
+    <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
+    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
 
 
 
