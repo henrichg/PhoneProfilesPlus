@@ -81,6 +81,7 @@ public class Huawei extends DeviceAbstract {
         if (ActionsUtils.isIntentAvailable(context, intent))
             return intent;
         else {
+            intent = ActionsUtils.createIntent();
             intent.setClassName(HUAWEI_SYSTEMMANAGER_PACKAGE_NAME, HUAWEI_SYSTEMMANAGER_POWERSAVING_V1);
             return intent;
         }

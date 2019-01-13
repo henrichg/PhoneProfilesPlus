@@ -24,7 +24,7 @@ public class LogUtils {
 
     //------------ from PPApplication ----------------------------------------------
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     private static final boolean logIntoFile = false;
     private static final String logFilterTags = "KillerManager.isActionPowerSavingAvailable"
                                                 + "|KillerManager.isActionAutoStartAvailable"
