@@ -16,6 +16,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.telephony.TelephonyManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -2155,6 +2156,9 @@ class Event {
 
         boolean checked = false;
 
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        boolean simCardReady = (telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY);
+
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
@@ -2223,7 +2227,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) && simCardReady)
                 // device has telephony
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -2247,7 +2251,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) && simCardReady)
                 // device has telephony
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
@@ -2259,7 +2263,7 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) && simCardReady)
                 // device has telephony
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else

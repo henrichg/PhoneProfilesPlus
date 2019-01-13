@@ -245,9 +245,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         }
 
         preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext());
-        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-        if ((preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                (telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY))
+        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
 
             Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
