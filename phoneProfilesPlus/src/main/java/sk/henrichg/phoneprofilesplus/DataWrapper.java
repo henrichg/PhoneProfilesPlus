@@ -3118,8 +3118,10 @@ public class DataWrapper {
         }
 
         if (event._eventPreferencesMobileCells._enabled) {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventLocation(context, event, null)) {
+                    && Permissions.checkEventLocation(context, event, null)
+                    && (telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)) {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
                     if (forRestartEvents)
                         mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;

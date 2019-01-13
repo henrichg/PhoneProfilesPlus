@@ -93,6 +93,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
         if ((telephonyManager != null) &&
                 PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) &&
+                (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY) &&
                 Permissions.checkLocation(context.getApplicationContext())) {
             PPApplication.logE("PhoneStateScanner.connect", "telephonyManager.listen");
             telephonyManager.listen(this,

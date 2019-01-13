@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -215,7 +216,9 @@ class EventPreferencesMobileCells extends EventPreferences {
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
-        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
+            (telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)) {
             EventPreferencesMobileCells tmp = new EventPreferencesMobileCells(this._event,
                     this._enabled, this._cells, this._whenOutside);
             if (preferences != null)

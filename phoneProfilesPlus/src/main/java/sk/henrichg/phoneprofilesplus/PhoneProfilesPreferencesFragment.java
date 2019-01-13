@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.telephony.TelephonyManager;
 
 public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNestedFragment
                                               implements SharedPreferences.OnSharedPreferenceChangeListener
@@ -243,8 +245,11 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         }
 
         preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext());
-        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+        if ((preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) &&
+                (telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY))
         {
+
             Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
             if (preference != null) {
                 preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +

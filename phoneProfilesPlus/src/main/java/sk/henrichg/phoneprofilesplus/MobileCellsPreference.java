@@ -5,12 +5,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -277,13 +279,22 @@ public class MobileCellsPreference extends DialogPreference {
 
         final Button rescanButton = layout.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
         //rescanButton.setAllCaps(false);
-        rescanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Permissions.grantMobileCellsDialogPermissions(context))
-                    refreshListView(true, Integer.MAX_VALUE);
+        if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)) {
+                rescanButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (Permissions.grantMobileCellsDialogPermissions(context))
+                            refreshListView(true, Integer.MAX_VALUE);
+                    }
+                });
             }
-        });
+            else
+                rescanButton.setEnabled(false);
+        }
+        else
+            rescanButton.setEnabled(false);
 
         addCellButton = layout.findViewById(R.id.mobile_cells_pref_dlg_addCellButton);
         addCellButton.setOnClickListener(new View.OnClickListener() {
