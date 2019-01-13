@@ -1,7 +1,9 @@
 package com.thelittlefireman.appkillermanager.devices;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
 import com.thelittlefireman.appkillermanager.utils.Manufacturer;
@@ -11,17 +13,19 @@ public class Vivo extends DeviceAbstract {
     // Starting: Intent { cmp=com.vivo.permissionmanager/.activity.BgStartUpManagerActivity }
     //java.lang.SecurityException: Permission Denial: starting Intent { flg=0x10000000 cmp=com.vivo.permissionmanager/.activity.BgStartUpManagerActivity } from null (pid=28141, uid=2000) not exported from uid 1000
 
-    private final String p1 = "com.iqoo.secure";
-    private final String p1c1 = "com.iqoo.secure.ui.phoneoptimize.AddWhiteListActivity";
-    private final String p1c2 = "com.iqoo.secure.ui.phoneoptimize.BgStartUpManager";
+    private final String VIVO_ACTION_POWERSAVE_V1[] = {"com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.AddWhiteListActivity"};
+    private final String VIVO_ACTION_POWERSAVE_V2[] = {"com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.BgStartUpManager"};
 
-    private final String p2 = "com.vivo.permissionmanager";
-    private final String p2c1 = "com.vivo.permissionmanager.activity.BgStartUpManagerActivity";
+    private final String VIVO_ACTION_AUTOSTART_V1[] = {"com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"};
+
    // "com.vivo.abe", "com.vivo.applicationbehaviorengine.ui.ExcessivePowerManagerActivity"
     //com.iqoo.secure.MainGuideActivity ??
     @Override
+
     public boolean isThatRom() {
-        return false;
+        return Build.BRAND.equalsIgnoreCase(getDeviceManufacturer().toString()) ||
+                Build.MANUFACTURER.equalsIgnoreCase(getDeviceManufacturer().toString()) ||
+                Build.FINGERPRINT.toLowerCase().contains(getDeviceManufacturer().toString());
     }
 
     @Override
@@ -31,11 +35,26 @@ public class Vivo extends DeviceAbstract {
 
     @Override
     public Intent getActionPowerSaving(Context context) {
+        Intent intent = ActionsUtils.createIntent();
+        intent.setComponent(new ComponentName(VIVO_ACTION_POWERSAVE_V1[0], VIVO_ACTION_POWERSAVE_V1[1]));
+        if (ActionsUtils.isIntentAvailable(context, intent))
+            return intent;
+
+        intent = ActionsUtils.createIntent();
+        intent.setComponent(new ComponentName(VIVO_ACTION_POWERSAVE_V2[0], VIVO_ACTION_POWERSAVE_V2[1]));
+        if (ActionsUtils.isIntentAvailable(context, intent))
+            return intent;
+
         return null;
     }
 
     @Override
     public Intent getActionAutoStart(Context context) {
+        Intent intent = ActionsUtils.createIntent();
+        intent.setComponent(new ComponentName(VIVO_ACTION_AUTOSTART_V1[0], VIVO_ACTION_AUTOSTART_V1[1]));
+        if (ActionsUtils.isIntentAvailable(context, intent))
+            return intent;
+
         return null;
     }
 

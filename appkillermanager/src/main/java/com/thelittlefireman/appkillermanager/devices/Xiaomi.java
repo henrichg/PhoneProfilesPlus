@@ -18,11 +18,13 @@ public class Xiaomi extends DeviceAbstract {
 
     // ONE SPECIFIQUE APP
     private static final String[] MIUI_ACTION_POWERSAVE = {"com.miui.powerkeeper", "com.miui.powerkeeper.ui.HiddenAppsConfigActivity"};
+
     // OPEN DEFAULT LIST BATTERYSAVER
     private static final String MIUI_ACTION_POWER_SAVE_LIST = "miui.intent.action.POWER_HIDE_MODE_APP_LIST";
     private static final String MIUI_ACTION_POWER_SAVE_EXTRA_NAME = "package_name";
     private static final String MIUI_ACTION_POWER_SAVE_EXTRA_LABEL = "package_label";
-    private static final String MIUI_ACTION_AUTOSTART = "miui.intent.action.OP_AUTO_START";
+    private static final String MIUI_ACTION_AUTOSTART_V1 = "miui.intent.action.OP_AUTO_START";
+    private static final String[] MIUI_ACTION_AUTOSTART_V2 = {"com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"};
 
     @Override
     public boolean isThatRom() {
@@ -42,17 +44,27 @@ public class Xiaomi extends DeviceAbstract {
         intent.setComponent(new ComponentName(MIUI_ACTION_POWERSAVE[0], MIUI_ACTION_POWERSAVE[1]));
         intent.putExtra(MIUI_ACTION_POWER_SAVE_EXTRA_NAME, context.getPackageName());
         intent.putExtra(MIUI_ACTION_POWER_SAVE_EXTRA_LABEL, SystemUtils.getApplicationName(context));
-        return intent;
+        if (ActionsUtils.isIntentAvailable(context, intent))
+            return intent;
+
+        return null;
     }
 
     @Override
     public Intent getActionAutoStart(Context context) {
         Intent intent = ActionsUtils.createIntent();
-        intent.setAction(MIUI_ACTION_AUTOSTART);
+        intent.setAction(MIUI_ACTION_AUTOSTART_V1);
         intent.putExtra(MIUI_ACTION_POWER_SAVE_EXTRA_NAME, context.getPackageName());
         intent.putExtra(MIUI_ACTION_POWER_SAVE_EXTRA_LABEL, SystemUtils.getApplicationName(context));
+        if (ActionsUtils.isIntentAvailable(context, intent))
+            return intent;
 
-        return intent;
+        intent = ActionsUtils.createIntent();
+        intent.setComponent(new ComponentName(MIUI_ACTION_AUTOSTART_V2[0], MIUI_ACTION_AUTOSTART_V2[1]));
+        if (ActionsUtils.isIntentAvailable(context, intent))
+            return intent;
+
+        return null;
     }
 
     @Override
