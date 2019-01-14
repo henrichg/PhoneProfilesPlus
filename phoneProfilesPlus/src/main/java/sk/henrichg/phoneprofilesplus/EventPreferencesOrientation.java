@@ -242,7 +242,8 @@ class EventPreferencesOrientation extends EventPreferences {
                     }
                 }
                 else {
-                    summary = context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
+                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n" +
+                            context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
