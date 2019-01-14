@@ -156,11 +156,14 @@ public class EditorEventListFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
+        boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context);
+
         //rootView = inflater.inflate(R.layout.editor_event_list, container, false);
-        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+        if (applicationEditorPrefIndicator && applicationEditorHeader)
             rootView = inflater.inflate(R.layout.editor_event_list, container, false);
         else
-        if (ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+        if (applicationEditorHeader)
             rootView = inflater.inflate(R.layout.editor_event_list_no_indicator, container, false);
         else
             rootView = inflater.inflate(R.layout.editor_event_list_no_header, container, false);
@@ -260,12 +263,16 @@ public class EditorEventListFragment extends Fragment
         private final int _filterType;
         private final int _orderType;
 
+        boolean applicationEditorPrefIndicator;
+
         private LoadEventListAsyncTask (EditorEventListFragment fragment, int filterType, int orderType) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             _orderType = orderType;
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+
+            applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context);
         }
 
         @Override
@@ -283,7 +290,7 @@ public class EditorEventListFragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
+            _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
             //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
@@ -304,7 +311,7 @@ public class EditorEventListFragment extends Fragment
                 fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList
-                _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
+                _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.copyProfileList(_dataWrapper);
 
@@ -323,7 +330,7 @@ public class EditorEventListFragment extends Fragment
                 fragment.listView.setAdapter(fragment.eventListAdapter);
 
                 Profile profile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
-                        ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
+                        applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
 
             }

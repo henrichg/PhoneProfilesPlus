@@ -140,10 +140,12 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             }
         }
 
+        String applicationTheme = ApplicationPreferences.applicationTheme(activity);
+
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        if (ApplicationPreferences.applicationTheme(activity).equals("dark")) {
+        if (applicationTheme.equals("dark")) {
             if (position == 2) // dark gray color
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }
@@ -154,7 +156,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        if (ApplicationPreferences.applicationTheme(activity).equals("dark")) {
+        if (applicationTheme.equals("dark")) {
             if (position == 2) // dark gray color
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }

@@ -64,22 +64,26 @@ public class ActivateProfileListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
+        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context);
+        boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context);
+        boolean applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context);
+
+        if (!applicationActivatorGridLayout)
         {
-            if (ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
+            if (applicationActivatorPrefIndicator && applicationActivatorHeader)
                 rootView = inflater.inflate(R.layout.activate_profile_list, container, false);
             else
-            if (ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
+            if (applicationActivatorHeader)
                 rootView = inflater.inflate(R.layout.activate_profile_list_no_indicator, container, false);
             else
                 rootView = inflater.inflate(R.layout.activate_profile_list_no_header, container, false);
         }
         else
         {
-            if (ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
+            if (applicationActivatorPrefIndicator && applicationActivatorHeader)
                 rootView = inflater.inflate(R.layout.activate_profile_grid, container, false);
             else
-            if (ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context))
+            if (applicationActivatorHeader)
                 rootView = inflater.inflate(R.layout.activate_profile_grid_no_indicator, container, false);
             else
                 rootView = inflater.inflate(R.layout.activate_profile_grid_no_header, container, false);
@@ -100,9 +104,11 @@ public class ActivateProfileListFragment extends Fragment {
 
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
+        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context);
+
         activeProfileName = view.findViewById(R.id.act_prof_activated_profile_name);
         activeProfileIcon = view.findViewById(R.id.act_prof_activated_profile_icon);
-        if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
+        if (!applicationActivatorGridLayout)
             listView = view.findViewById(R.id.act_prof_profiles_list);
         else
             gridView = view.findViewById(R.id.act_prof_profiles_grid);
@@ -110,7 +116,7 @@ public class ActivateProfileListFragment extends Fragment {
         progressBar = view.findViewById(R.id.act_prof_list_linla_progress);
 
         AbsListView absListView;
-        if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context))
+        if (!applicationActivatorGridLayout)
             absListView = listView;
         else
             absListView = gridView;
@@ -164,6 +170,10 @@ public class ActivateProfileListFragment extends Fragment {
         private final WeakReference<ActivateProfileListFragment> fragmentWeakRef;
         private final DataWrapper dataWrapper;
 
+        private boolean applicationActivatorPrefIndicator;
+        private boolean applicationActivatorHeader;
+        private boolean applicationActivatorGridLayout;
+
         private class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {
                 int res = 0;
@@ -177,6 +187,10 @@ public class ActivateProfileListFragment extends Fragment {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+
+            applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context);
+            applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(this.dataWrapper.context);
+            applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(this.dataWrapper.context);
         }
 
         @Override
@@ -194,9 +208,9 @@ public class ActivateProfileListFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... params) {
-            this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context));
+            this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
 
-            if (!ApplicationPreferences.applicationActivatorHeader(this.dataWrapper.context))
+            if (!applicationActivatorHeader)
             {
                 Profile profile = this.dataWrapper.getActivatedProfile(false, false);
                 if ((profile != null) && (!profile._showInActivator))
@@ -206,7 +220,7 @@ public class ActivateProfileListFragment extends Fragment {
                 }
             }
 
-            if (ApplicationPreferences.applicationActivatorGridLayout(this.dataWrapper.context)) {
+            if (applicationActivatorGridLayout) {
                 int count = 0;
                 for (Profile profile : this.dataWrapper.profileList)
                 {
@@ -239,7 +253,7 @@ public class ActivateProfileListFragment extends Fragment {
                 fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList
-                this.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationActivatorPrefIndicator(dataWrapper.context));
+                this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
                 // set copy local profile list into activity profilesDataWrapper
                 fragment.activityDataWrapper.copyProfileList(this.dataWrapper);
 
@@ -261,7 +275,7 @@ public class ActivateProfileListFragment extends Fragment {
                 fragment.profileListAdapter = new ActivateProfileListAdapter(fragment, /*fragment.profileList, */fragment.activityDataWrapper);
 
                 AbsListView absListView;
-                if (!ApplicationPreferences.applicationActivatorGridLayout(dataWrapper.context))
+                if (!applicationActivatorGridLayout)
                     absListView = fragment.listView;
                 else
                     absListView = fragment.gridView;
@@ -395,10 +409,12 @@ public class ActivateProfileListFragment extends Fragment {
         {
             int profilePos = ListView.INVALID_POSITION;
 
+            boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context);
+
             if (profile != null)
                 profilePos = profileListAdapter.getItemPosition(profile);
             else {
-                if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context)) {
+                if (!applicationActivatorGridLayout) {
                     if (listView != null)
                         profilePos = listView.getCheckedItemPosition();
                 }
@@ -413,7 +429,7 @@ public class ActivateProfileListFragment extends Fragment {
             if ((!ApplicationPreferences.applicationActivatorHeader(activityDataWrapper.context)) && (profilePos != ListView.INVALID_POSITION))
             {
                 // set profile visible in list
-                if (!ApplicationPreferences.applicationActivatorGridLayout(activityDataWrapper.context)) {
+                if (!applicationActivatorGridLayout) {
                     if (listView != null) {
                         listView.setItemChecked(profilePos, true);
                         int last = listView.getLastVisiblePosition();
@@ -479,12 +495,14 @@ public class ActivateProfileListFragment extends Fragment {
 
         ApplicationPreferences.getSharedPreferences(getActivity());
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+        boolean showTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+
+        if (showTargetHelps ||
                 ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
 
             //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (showTargetHelps) {
 
                 //Log.d("ActivateProfileListFragment.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 

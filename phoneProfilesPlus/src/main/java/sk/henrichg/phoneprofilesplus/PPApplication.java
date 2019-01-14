@@ -954,7 +954,7 @@ public class PPApplication extends Application {
     static void createProfileNotificationChannel(/*Profile profile, */Context context) {
         if (Build.VERSION.SDK_INT >= 26) {
             int importance;
-            PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
+            //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
             if (ApplicationPreferences.notificationShowInStatusBar(context)) {
                 /*KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                 if (myKM != null) {

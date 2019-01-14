@@ -53,17 +53,20 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
         ViewHolder holder;
         
         View vi = convertView;
+
+        boolean applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity());
+
         if (convertView == null)
         {
             LayoutInflater inflater = LayoutInflater.from(fragment.getActivity());
-            if (ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity()))
+            if (applicationActivatorPrefIndicator)
                 vi = inflater.inflate(R.layout.shortcut_list_item, parent, false);
             else
                 vi = inflater.inflate(R.layout.shortcut_list_item_no_indicator, parent, false);
             holder = new ViewHolder();
             holder.profileName = vi.findViewById(R.id.shortcut_list_item_profile_name);
             holder.profileIcon = vi.findViewById(R.id.shortcut_list_item_profile_icon);
-            if (ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity()))
+            if (applicationActivatorPrefIndicator)
                 holder.profileIndicator = vi.findViewById(R.id.shortcut_list_profile_pref_indicator);
             vi.setTag(holder);        
         }
@@ -94,7 +97,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
             holder.profileIcon.setImageBitmap(profile._iconBitmap);
         }
         
-        if (ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity()))
+        if (applicationActivatorPrefIndicator)
         {
             if (profile._preferencesIndicator != null) {
                 //profilePrefIndicatorImageView.setImageBitmap(null);

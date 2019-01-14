@@ -358,7 +358,10 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
         ApplicationPreferences.getSharedPreferences(activity);
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) || ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
+        boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+        boolean startTargetHelpsOrder = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true);
+
+        if (startTargetHelps || startTargetHelpsOrder) {
 
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -370,7 +373,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 textColor = R.color.tabTargetHelpTextColor_white;
             boolean tintTarget = !ApplicationPreferences.applicationTheme(activity).equals("white");
 
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (startTargetHelps) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -448,7 +451,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 //targetHelpsSequenceStarted = true;
                 sequence.start();
             }
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
+            if (startTargetHelpsOrder) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();

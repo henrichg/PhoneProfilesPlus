@@ -363,7 +363,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                 superContainer.addView(container);
 
                 doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
-                doNotShowAgain.setChecked(ApplicationPreferences.applicationEventNeverAskForEnableRun(EventPreferencesActivity.this));
+                doNotShowAgain.setChecked(false);
                 doNotShowAgain.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

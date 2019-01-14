@@ -26,18 +26,29 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         RemoteViews widget;
 
-        if (ApplicationPreferences.applicationSamsungEdgeHeader(context))
+        boolean applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader(context);
+        boolean applicationSamsungEdgeBackgroundType = ApplicationPreferences.applicationSamsungEdgeBackgroundType(context);
+        String applicationSamsungEdgeBackgroundColor = ApplicationPreferences.applicationSamsungEdgeBackgroundColor(context);
+        String applicationWidgetListLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
+        String applicationWidgetListBackground = ApplicationPreferences.applicationSamsungEdgeBackground(context);
+        String applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
+        String applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor(context);
+        boolean applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context);
+        String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
+
+
+        if (applicationSamsungEdgeHeader)
         {
-            /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+            /*if (!applicationSamsungEdgeGridLayout)
             {
-                if (ApplicationPreferences.applicationSamsungEdgePrefIndicator(context))
+                if (applicationSamsungEdgePrefIndicator)
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget);
                 else
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_no_indicator);
             }
             else
             {
-                if (ApplicationPreferences.applicationSamsungEdgePrefIndicator(context))
+                if (applicationSamsungEdgePrefIndicator)
                     widget=new RemoteViews(context.getPackageName(), R.layout.profile_grid_widget);
                 else*/
                     widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge);
@@ -45,7 +56,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
         else
         {
-            /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+            /*if (!applicationSamsungEdgeGridLayout)
                 widget=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_no_header);
             else*/
                 widget=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_no_header);
@@ -55,14 +66,13 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         int red = 0x00;
         int green;
         int blue;
-        if (ApplicationPreferences.applicationSamsungEdgeBackgroundType(context)) {
-            int bgColor = Integer.valueOf(ApplicationPreferences.applicationSamsungEdgeBackgroundColor(context));
+        if (applicationSamsungEdgeBackgroundType) {
+            int bgColor = Integer.valueOf(applicationSamsungEdgeBackgroundColor);
             red = Color.red(bgColor);
             green = Color.green(bgColor);
             blue = Color.blue(bgColor);
         }
         else {
-            String applicationWidgetListLightnessB = ApplicationPreferences.applicationSamsungEdgeLightnessB(context);
             //if (applicationWidgetListLightnessB.equals("0")) red = 0x00;
             if (applicationWidgetListLightnessB.equals("25")) red = 0x40;
             if (applicationWidgetListLightnessB.equals("50")) red = 0x80;
@@ -72,7 +82,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             blue = red;
         }
         int alpha = 0x40;
-        String applicationWidgetListBackground = ApplicationPreferences.applicationSamsungEdgeBackground(context);
         if (applicationWidgetListBackground.equals("0")) alpha = 0x00;
         //if (applicationWidgetListBackground.equals("25")) alpha = 0x40;
         if (applicationWidgetListBackground.equals("50")) alpha = 0x80;
@@ -82,10 +91,9 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
 
         // header
-        if (ApplicationPreferences.applicationSamsungEdgeHeader(context))
+        if (applicationSamsungEdgeHeader)
         {
             int monochromeValue = 0xFF;
-            String applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness(context);
             if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
             if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
             if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
@@ -100,11 +108,11 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if (profile != null)
             {
                 profile.generateIconBitmap(context,
-                        ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
+                        applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue,
-                        ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context));
+                        applicationSamsungEdgeCustomIconLightness);
                 /*profile.generatePreferencesIndicator(context,
-                        ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
+                        applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
@@ -118,11 +126,11 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 profile._icon = Profile.PROFILE_ICON_DEFAULT+"|1|0|0";
 
                 profile.generateIconBitmap(context,
-                        ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
+                        applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue,
-                        ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context));
+                        applicationSamsungEdgeCustomIconLightness);
                 /*profile.generatePreferencesIndicator(context,
-                        ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
+                        applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
@@ -144,7 +152,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             }
 
             red = 0xFF;
-            String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
             if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
@@ -154,7 +161,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
 
             widget.setTextViewText(R.id.widget_profile_list_header_profile_name, profileName);
-            /*if (ApplicationPreferences.applicationSamsungEdgePrefIndicator(context))
+            /*if (applicationSamsungEdgePrefIndicator)
             {
                 if (profile._preferencesIndicator != null)
                     widget.setImageViewBitmap(R.id.widget_profile_list_header_profile_pref_indicator, profile._preferencesIndicator);
@@ -173,7 +180,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
             /*
             if (Event.getGlobalEventsRunning(context)) {
-                if (ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1")) {
+                if (applicationSamsungEdgeIconColor.equals("1")) {
                     monochromeValue = 0xFF;
                     if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
                     if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
@@ -209,7 +216,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.GONE);
         */
 
-        /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+        /*if (!applicationSamsungEdgeGridLayout)
             widget.setRemoteAdapter(R.id.widget_profile_list, svcIntent);
         else*/
             widget.setRemoteAdapter(R.id.widget_profile_grid, svcIntent);
@@ -217,7 +224,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         // The empty view is displayed when the collection has no items.
         // It should be in the same layout used to instantiate the RemoteViews
         // object above.
-        /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+        /*if (!applicationSamsungEdgeGridLayout)
             widget.setEmptyView(R.id.widget_profile_list, R.id.widget_profiles_list_empty);
         else*/
             widget.setEmptyView(R.id.widget_profile_grid, R.id.widget_profiles_list_empty);
@@ -228,7 +235,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 clickIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+        /*if (!applicationSamsungEdgeGridLayout)
             widget.setPendingIntentTemplate(R.id.widget_profile_list, clickPI);
         else*/
             widget.setPendingIntentTemplate(R.id.widget_profile_grid, clickPI);

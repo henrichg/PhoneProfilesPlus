@@ -2234,7 +2234,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         ApplicationPreferences.getSharedPreferences(this);
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+        boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+
+        if (startTargetHelps ||
                 ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
@@ -2245,7 +2247,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (startTargetHelps) {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = ApplicationPreferences.preferences.edit();

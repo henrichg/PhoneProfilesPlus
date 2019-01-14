@@ -300,9 +300,10 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
         //Log.d("GeofenceScanner.createLocationRequest", "xxx");
 
         // check power save mode
+        String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context);
         //boolean powerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("2")) {
+        if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
             mLocationRequest = null;
             return;
         }
@@ -313,7 +314,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
          * The desired interval for location updates. Inexact. Updates may be more or less frequent.
          */
         int interval = 25;
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode(context).equals("1"))
+        if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
             interval = 2 * interval;
         final long UPDATE_INTERVAL_IN_MILLISECONDS = interval * 1000;
 

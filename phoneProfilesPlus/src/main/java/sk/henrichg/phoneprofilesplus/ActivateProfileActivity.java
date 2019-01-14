@@ -129,9 +129,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         final float scale = getResources().getDisplayMetrics().density;
 
+        boolean applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout(getApplicationContext());
+
         // add header height
         if (ApplicationPreferences.applicationActivatorHeader(getApplicationContext())) {
-            if (!ApplicationPreferences.applicationActivatorGridLayout(getApplicationContext()))
+            if (!applicationActivatorGridLayout)
                 popupHeight = popupHeight + 62f * scale;
             else
                 popupHeight = popupHeight + 74f * scale;
@@ -145,7 +147,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         dataWrapper.invalidateDataWrapper();
 
         if (profileCount > 0) {
-            if (!ApplicationPreferences.applicationActivatorGridLayout(getApplicationContext())) {
+            if (!applicationActivatorGridLayout) {
                 // add list items height
                 popupHeight = popupHeight + (60f * scale * profileCount); // item
                 popupHeight = popupHeight + (1f * scale * (profileCount)); // divider
@@ -448,13 +450,15 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         ApplicationPreferences.getSharedPreferences(this);
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) ||
+        boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+
+        if (startTargetHelps ||
                 ApplicationPreferences.preferences.getBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true)) {
 
             //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (startTargetHelps) {
                 //Log.d("ActivateProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();

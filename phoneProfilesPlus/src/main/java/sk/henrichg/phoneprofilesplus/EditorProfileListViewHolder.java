@@ -56,7 +56,9 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
         boolean isPermissionGranted = Permissions.checkProfilePermissions(context, profile).size() == 0;
 
-        if (profile._checked && (!ApplicationPreferences.applicationEditorHeader(context)))
+        boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(context);
+
+        if (profile._checked && (!applicationEditorHeader))
         {
             profileName.setTypeface(null, Typeface.BOLD);
             profileName.setTextSize(16);
@@ -83,7 +85,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
             indicators = "[A]";
         Spannable _profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
                                     profile._checked &&
-                                    (!ApplicationPreferences.applicationEditorHeader(context)),
+                                    (!applicationEditorHeader),
                                     indicators, true, true,
                                     editorFragment.activityDataWrapper, false);
 

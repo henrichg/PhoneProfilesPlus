@@ -164,6 +164,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
             }
 
+            boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+
             String _eventName;
             String eventStartOrder = "[O:" + event._startOrder + "] ";
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
@@ -212,7 +214,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), _eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             eventName.setText(sbt);
 
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+            if (applicationEditorPrefIndicator)
             {
                 if (eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(context, true);
@@ -222,7 +224,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
             // profile start
             Profile profile =  editorFragment.activityDataWrapper.getProfileById(event._fkProfileStart, true,
-                    ApplicationPreferences.applicationEditorPrefIndicator(editorFragment.activityDataWrapper.context), false);
+                    applicationEditorPrefIndicator, false);
             if (profile != null)
             {
                 String profileName = profile._name;
@@ -248,7 +250,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+                if (applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -265,7 +267,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             {
                 profileStartName.setText(R.string.profile_preference_profile_not_set);
                 profileStartIcon.setImageResource(R.drawable.ic_profile_default);
-                if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+                if (applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -289,7 +291,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     profileEndIndicator.setVisibility(View.VISIBLE);
 
                 profile = editorFragment.activityDataWrapper.getProfileById(event._fkProfileEnd, true,
-                        ApplicationPreferences.applicationEditorPrefIndicator(editorFragment.activityDataWrapper.context), false);
+                        applicationEditorPrefIndicator, false);
                 if (profile != null) {
                     String profileName = profile._name;
                     if (event._delayEnd > 0)
@@ -313,7 +315,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
+                    if (applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -340,7 +342,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     }
                     profileEndName.setText(profileName);
                     profileEndIcon.setImageResource(R.drawable.ic_empty);
-                    if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
+                    if (applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);

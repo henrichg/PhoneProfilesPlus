@@ -72,10 +72,13 @@ class AddEventAdapter extends BaseAdapter {
         ViewHolder holder;
 
         View vi = convertView;
+
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+
         if (convertView == null)
         {
             LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+            if (applicationEditorPrefIndicator)
                 //noinspection ConstantConditions
                 vi = inflater.inflate(R.layout.add_event_list_item, parent, false);
             else
@@ -87,7 +90,7 @@ class AddEventAdapter extends BaseAdapter {
             holder.profileStartIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_start_icon);
             holder.profileEndName = vi.findViewById(R.id.event_pref_dlg_item_profile_end_name);
             holder.profileEndIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_end_icon);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+            if (applicationEditorPrefIndicator)
             {
                 holder.eventPreferencesDescription  = vi.findViewById(R.id.event_pref_dlg_item_preferences_description);
                 //holder.eventPreferencesDescription.setHorizontallyScrolling(true); // disable auto word wrap :-)
@@ -136,7 +139,7 @@ class AddEventAdapter extends BaseAdapter {
             //    eventName = eventName + "\n\n" + vi.getResources().getString(R.string.event_preferences_error);
             holder.eventName.setText(eventName);
 
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+            if (applicationEditorPrefIndicator)
             {
                 if (holder.eventPreferencesDescription != null) {
                     String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
@@ -172,7 +175,7 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileStartIcon.setImageBitmap(profile._iconBitmap);
                 }
 
-                if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+                if (applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -196,7 +199,7 @@ class AddEventAdapter extends BaseAdapter {
                     holder.profileStartName.setTextColor(defaultColor);
                 holder.profileStartName.setText(profileName);
                 holder.profileStartIcon.setImageResource(profileIconsArray[position]);
-                if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+                if (applicationEditorPrefIndicator)
                 {
                     //profilePrefIndicatorImageView.setImageBitmap(null);
                     //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
@@ -241,7 +244,7 @@ class AddEventAdapter extends BaseAdapter {
                         holder.profileEndIcon.setImageBitmap(profile._iconBitmap);
                     }
 
-                    if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
+                    if (applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);
@@ -266,7 +269,7 @@ class AddEventAdapter extends BaseAdapter {
                     }
                     holder.profileEndName.setText(profileName);
                     holder.profileEndIcon.setImageResource(R.drawable.ic_empty);
-                    if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
+                    if (applicationEditorPrefIndicator) {
                         //profilePrefIndicatorImageView.setImageBitmap(null);
                         //Bitmap bitmap = ProfilePreferencesIndicator.paint(profile, vi.getContext());
                         //profilePrefIndicatorImageView.setImageBitmap(bitmap);

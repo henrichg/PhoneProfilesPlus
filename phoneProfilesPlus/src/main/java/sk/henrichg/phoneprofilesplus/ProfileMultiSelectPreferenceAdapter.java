@@ -46,9 +46,12 @@ class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
         ProfilesViewHolder holder;
 
         View vi = convertView;
+
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+
         if (convertView == null)
         {
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+            if (applicationEditorPrefIndicator)
                 vi = inflater.inflate(R.layout.profile_multiselect_pref_list_item, parent, false);
             else
                 vi = inflater.inflate(R.layout.profile_multiselect_pref_list_item_no_indicator, parent, false);
@@ -56,7 +59,7 @@ class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
             holder = new ProfilesViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_multiselect_pref_dlg_item_icon);
             holder.profileName = vi.findViewById(R.id.profile_multiselect_pref_dlg_item_label);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+            if (applicationEditorPrefIndicator)
                 holder.preferencesIndicator = vi.findViewById(R.id.profile_multiselect_pref_dlg_item_indicator);
             holder.checkBox = vi.findViewById(R.id.profile_multiselect_pref_dlg_item_checkbox);
             vi.setTag(holder);
@@ -100,7 +103,7 @@ class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
             }
             else
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
+            if (applicationEditorPrefIndicator) {
                 if (holder.preferencesIndicator != null) {
                     holder.preferencesIndicator.setVisibility(View.VISIBLE);
                     if (profile._preferencesIndicator != null)
@@ -116,7 +119,7 @@ class ProfileMultiSelectPreferenceAdapter extends BaseAdapter {
             holder.profileName.setText("");
             holder.profileIcon.setVisibility(View.VISIBLE);
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
+            if (applicationEditorPrefIndicator) {
                 if (holder.preferencesIndicator != null) {
                     holder.preferencesIndicator.setVisibility(View.VISIBLE);
                     holder.preferencesIndicator.setImageResource(R.drawable.ic_empty);

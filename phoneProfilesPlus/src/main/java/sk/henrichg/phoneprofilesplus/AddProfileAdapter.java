@@ -53,9 +53,12 @@ class AddProfileAdapter extends BaseAdapter {
         ViewHolder holder;
 
         View vi = convertView;
+
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(context);
+
         if (convertView == null)
         {
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+            if (applicationEditorPrefIndicator)
                 vi = inflater.inflate(R.layout.add_profile_list_item, parent, false);
             else
                 vi = inflater.inflate(R.layout.add_profile_list_item_no_indicator, parent, false);
@@ -63,7 +66,7 @@ class AddProfileAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_pref_dlg_item_icon);
             holder.profileLabel = vi.findViewById(R.id.profile_pref_dlg_item_label);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context))
+            if (applicationEditorPrefIndicator)
                 holder.profileIndicator = vi.findViewById(R.id.profile_pref_dlg_item_indicator);
             vi.setTag(holder);
         }
@@ -96,7 +99,7 @@ class AddProfileAdapter extends BaseAdapter {
             }
             else
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
+            if (applicationEditorPrefIndicator) {
                 if (holder.profileIndicator != null) {
                     holder.profileIndicator.setVisibility(View.VISIBLE);
                     if (profile._preferencesIndicator != null)
@@ -111,7 +114,7 @@ class AddProfileAdapter extends BaseAdapter {
             holder.profileLabel.setText("");
             holder.profileIcon.setVisibility(View.VISIBLE);
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
-            if (ApplicationPreferences.applicationEditorPrefIndicator(context)) {
+            if (applicationEditorPrefIndicator) {
                 if (holder.profileIndicator != null) {
                     holder.profileIndicator.setVisibility(View.VISIBLE);
                     holder.profileIndicator.setImageResource(R.drawable.ic_empty);

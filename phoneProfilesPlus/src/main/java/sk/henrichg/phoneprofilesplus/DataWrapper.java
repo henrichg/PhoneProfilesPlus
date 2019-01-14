@@ -4233,11 +4233,13 @@ public class DataWrapper {
             PPApplication.logE("DataWrapper.isPowerSaveMode", "batteryPct=" + batteryPct);
         }
 
-        if (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("1") && (batteryPct <= 5) && (!isCharging))
+        String applicationPowerSaveModeInternal = ApplicationPreferences.applicationPowerSaveModeInternal(context);
+
+        if (applicationPowerSaveModeInternal.equals("1") && (batteryPct <= 5) && (!isCharging))
             return true;
-        if (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("2") && (batteryPct <= 15) && (!isCharging))
+        if (applicationPowerSaveModeInternal.equals("2") && (batteryPct <= 15) && (!isCharging))
             return true;
-        if (ApplicationPreferences.applicationPowerSaveModeInternal(context).equals("3"))
+        if (applicationPowerSaveModeInternal.equals("3"))
             return isPowerSaveMode;
 
         return false;

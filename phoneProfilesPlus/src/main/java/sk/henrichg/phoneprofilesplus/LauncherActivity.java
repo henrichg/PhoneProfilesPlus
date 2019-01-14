@@ -97,7 +97,7 @@ public class LauncherActivity extends AppCompatActivity {
                 break;
         }
 
-        PPApplication.logE("LauncherActivity.endOnStart", "applicationFirstStart="+ApplicationPreferences.applicationFirstStart(getApplicationContext()));
+        //PPApplication.logE("LauncherActivity.endOnStart", "applicationFirstStart="+ApplicationPreferences.applicationFirstStart(getApplicationContext()));
         if (ApplicationPreferences.applicationFirstStart(getApplicationContext())) {
             SharedPreferences sharedPreferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
             if (sharedPreferences != null) {

@@ -727,14 +727,15 @@ class Event {
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
             if (listPreference != null) {
-                if (ApplicationPreferences.applicationEventUsePriority(context)) {
+                boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority(context);
+                if (applicationEventUsePriority) {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
                 } else {
                     listPreference.setSummary(R.string.event_preferences_priority_notUse);
                 }
-                listPreference.setEnabled(ApplicationPreferences.applicationEventUsePriority(context));
+                listPreference.setEnabled(applicationEventUsePriority);
             }
         }
         if (key.equals(PREF_EVENT_AT_END_DO))
@@ -1257,10 +1258,11 @@ class Event {
         }
 
         // search for running event with higher priority
+        boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority(dataWrapper.context);
         for (EventTimeline eventTimeline : eventTimelineList)
         {
             Event event = dataWrapper.getEventById(eventTimeline._fkEvent);
-            if ((event != null) && ApplicationPreferences.applicationEventUsePriority(dataWrapper.context) && (event._priority > this._priority))
+            if ((event != null) && applicationEventUsePriority && (event._priority > this._priority))
                 // is running event with higher priority
                 return;
         }

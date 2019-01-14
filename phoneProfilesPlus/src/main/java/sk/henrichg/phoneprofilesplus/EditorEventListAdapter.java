@@ -279,17 +279,18 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
             synchronized (activityDataWrapper.eventList) {
+                boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
                 //noinspection ForLoopReplaceableByForEach
                 for (Iterator<Event> it = activityDataWrapper.eventList.iterator(); it.hasNext(); ) {
                     Event event = it.next();
                     Profile profile = activityDataWrapper.getProfileById(event._fkProfileStart, true,
-                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
+                            applicationEditorPrefIndicator, false);
                     activityDataWrapper.refreshProfileIcon(profile, true,
-                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                            applicationEditorPrefIndicator);
                     profile = activityDataWrapper.getProfileById(event._fkProfileEnd, true,
-                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context), false);
+                            applicationEditorPrefIndicator, false);
                     activityDataWrapper.refreshProfileIcon(profile, true,
-                            ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
+                            applicationEditorPrefIndicator);
                 }
             }
         }
@@ -348,7 +349,10 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
         ApplicationPreferences.getSharedPreferences(activity);
 
-        if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true) || ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
+        boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+        boolean startTargetHelpsOrder = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true);
+
+        if (startTargetHelps || startTargetHelpsOrder) {
 
             //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
@@ -360,7 +364,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 textColor = R.color.tabTargetHelpTextColor_white;
             boolean tintTarget = !ApplicationPreferences.applicationTheme(activity).equals("white");
 
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
+            if (startTargetHelps) {
                 //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
@@ -439,7 +443,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 sequence.start();
             }
             else
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_ORDER, true)) {
+            if (startTargetHelpsOrder) {
                 //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();

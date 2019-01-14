@@ -2698,10 +2698,11 @@ public class PhoneProfilesService extends Service
                 boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, appContext).allowed ==
                         PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (eventAllowed) {
+                    boolean applicationEventLocationScanOnlyWhenScreenIsOn = ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext);
                     if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                         // location scanner is enabled
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                        if (((pm != null) && pm.isScreenOn()) || !applicationEventLocationScanOnlyWhenScreenIsOn) {
                             // start only for screen On
                             int eventCount = 1;
                             if (checkDatabase/* || (!isGeofenceScannerStarted())*/) {
@@ -2712,7 +2713,7 @@ public class PhoneProfilesService extends Service
                                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
                                     PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START");
                                     if (forScreenOn && (pm != null) && pm.isScreenOn() &&
-                                            ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext))
+                                            applicationEventLocationScanOnlyWhenScreenIsOn)
                                         startGeofenceScanner(true);
                                     else
                                         startGeofenceScanner(false);
@@ -2752,9 +2753,10 @@ public class PhoneProfilesService extends Service
                         PreferenceAllowed.PREFERENCE_ALLOWED);
                 PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "eventAllowed="+eventAllowed);
                 if (eventAllowed) {
-                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled="+ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext));
+                    boolean applicationEventMobileCellEnableScanning = ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext);
+                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled="+applicationEventMobileCellEnableScanning);
                     PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "PhoneStateScanner.forceStart="+PhoneStateScanner.forceStart);
-                    if (ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext) || PhoneStateScanner.forceStart) {
+                    if (applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
@@ -4110,6 +4112,12 @@ public class PhoneProfilesService extends Service
 
             boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(appContext);
             boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
+            boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
+            boolean notificationUseDecoration = ApplicationPreferences.notificationUseDecoration(appContext);
+            boolean notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator(appContext);
+            boolean notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen(appContext);
+            String notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle(appContext);
+            String notificationTextColor = ApplicationPreferences.notificationTextColor(appContext);
 
             // intent to LauncherActivity, for click on notification
             Intent intent = new Intent(appContext, LauncherActivity.class);
@@ -4141,11 +4149,9 @@ public class PhoneProfilesService extends Service
             RemoteViews contentView = null;
             RemoteViews contentViewLarge;
 
-            boolean darkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
-
             boolean useDecorator = (!PPApplication.romIsMIUI) || (Build.VERSION.SDK_INT >= 26);
-            useDecorator = useDecorator && ApplicationPreferences.notificationUseDecoration(appContext);
-            useDecorator = useDecorator && (!darkBackground);
+            useDecorator = useDecorator && notificationUseDecoration;
+            useDecorator = useDecorator && (!notificationDarkBackground);
 
             if (PPApplication.romIsMIUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
@@ -4223,7 +4229,7 @@ public class PhoneProfilesService extends Service
 
                 if (inHandlerThread) {
                     profile.generateIconBitmap(appContext, false, 0, false);
-                    if (ApplicationPreferences.notificationPrefIndicator(appContext))
+                    if (notificationPrefIndicator)
                         profile.generatePreferencesIndicator(appContext, false, 0);
                     iconBitmap = profile._iconBitmap;
                     preferencesIndicator = profile._preferencesIndicator;
@@ -4267,8 +4273,8 @@ public class PhoneProfilesService extends Service
                         boolean screenUnlocked = !myKM.isKeyguardLocked();
                         //boolean screenUnlocked = getScreenUnlocked(context);
                         //PPApplication.logE("PhoneProfilesService.showProfileNotification", "screenUnlocked="+screenUnlocked);
-                        //PPApplication.logE("PhoneProfilesService.showProfileNotification", "hide in lockscreen parameter="+ApplicationPreferences.notificationHideInLockScreen(dataWrapper.context));
-                        if ((ApplicationPreferences.notificationHideInLockScreen(appContext) && (!screenUnlocked)) ||
+                        //PPApplication.logE("PhoneProfilesService.showProfileNotification", "hide in lockscreen parameter="+notificationHideInLockScreen);
+                        if ((notificationHideInLockScreen && (!screenUnlocked)) ||
                                 ((profile != null) && profile._hideStatusBarIcon))
                             notificationBuilder.setPriority(Notification.PRIORITY_MIN);
                         else
@@ -4292,7 +4298,7 @@ public class PhoneProfilesService extends Service
                 if (isIconResourceID) {
                     int iconSmallResource;
                     if (iconBitmap != null) {
-                        if (ApplicationPreferences.notificationStatusBarStyle(appContext).equals("0")) {
+                        if (notificationStatusBarStyle.equals("0")) {
                             // colorful icon
 
                             // FC in Note 4, 6.0.1 :-/
@@ -4332,7 +4338,7 @@ public class PhoneProfilesService extends Service
                         if ((android.os.Build.VERSION.SDK_INT >= 24) && (!useDecorator)/* && (contentView != null)*/)
                             contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                     } else {
-                        if (ApplicationPreferences.notificationStatusBarStyle(appContext).equals("0")) {
+                        if (notificationStatusBarStyle.equals("0")) {
                             // colorful icon
                             //iconSmallResource = dataWrapper.context.getResources().getIdentifier(iconIdentifier + "_notify_color", "drawable", dataWrapper.context.getPackageName());
                             //if (iconSmallResource == 0)
@@ -4386,7 +4392,7 @@ public class PhoneProfilesService extends Service
                         notificationBuilder.setSmallIcon(Icon.createWithBitmap(iconBitmap));
                     } else {
                         int iconSmallResource;
-                        if (ApplicationPreferences.notificationStatusBarStyle(appContext).equals("0"))
+                        if (notificationStatusBarStyle.equals("0"))
                             iconSmallResource = R.drawable.ic_profile_default;
                         else
                             iconSmallResource = R.drawable.ic_profile_default_notify;
@@ -4412,20 +4418,20 @@ public class PhoneProfilesService extends Service
                     contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
             }
 
-            if (darkBackground) {
+            if (notificationDarkBackground) {
                 int color = getResources().getColor(R.color.notificationBackground_dark);
                 contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                 if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                     contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
             }
 
-            if (ApplicationPreferences.notificationTextColor(appContext).equals("1") && (!darkBackground)) {
+            if (notificationTextColor.equals("1") && (!notificationDarkBackground)) {
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
                 if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
             }
             else
-            if (ApplicationPreferences.notificationTextColor(appContext).equals("2") || darkBackground) {
+            if (notificationTextColor.equals("2") || notificationDarkBackground) {
                 contentViewLarge.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
                 if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                     contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);
@@ -4435,7 +4441,7 @@ public class PhoneProfilesService extends Service
             if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
 
-            if ((preferencesIndicator != null) && (ApplicationPreferences.notificationPrefIndicator(appContext)))
+            if ((preferencesIndicator != null) && (notificationPrefIndicator))
                 contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
             else
                 contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
@@ -4624,10 +4630,10 @@ public class PhoneProfilesService extends Service
         if (Build.VERSION.SDK_INT >= 26)
             return;
 
-        if (ApplicationPreferences.notificationStatusBarCancel(context).isEmpty() || ApplicationPreferences.notificationStatusBarCancel(context).equals("0"))
-            return;
+        String notificationStatusBarCancel = ApplicationPreferences.notificationStatusBarCancel(context);
 
-        int notificationStatusBarCancel = Integer.valueOf(ApplicationPreferences.notificationStatusBarCancel(context));
+        if (notificationStatusBarCancel.isEmpty() || notificationStatusBarCancel.equals("0"))
+            return;
 
         //Intent intent = new Intent(_context, NotificationCancelAlarmBroadcastReceiver.class);
         Intent intent = new Intent();
@@ -4638,7 +4644,7 @@ public class PhoneProfilesService extends Service
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
-            long time = SystemClock.elapsedRealtime() + notificationStatusBarCancel * 1000;
+            long time = SystemClock.elapsedRealtime() + Integer.valueOf(notificationStatusBarCancel) * 1000;
             // not needed exact for removing notification
             /*if (PPApplication.exactAlarms && (android.os.Build.VERSION.SDK_INT >= 23))
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
@@ -4832,8 +4838,10 @@ public class PhoneProfilesService extends Service
 
         if (!mStartedOrientationSensors) {
 
+            String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this);
+
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(this);
-            if (/*PPApplication.*/isPowerSaveMode && ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this).equals("2"))
+            if (/*PPApplication.*/isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("2"))
                 // start scanning in power save mode is not allowed
                 return;
 
@@ -4842,7 +4850,7 @@ public class PhoneProfilesService extends Service
                 return;
 
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval(this);
-            if (/*PPApplication.*/isPowerSaveMode && ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode(this).equals("1"))
+            if (/*PPApplication.*/isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("1"))
                 interval *= 2;
             Sensor accelerometer = getAccelerometerSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);

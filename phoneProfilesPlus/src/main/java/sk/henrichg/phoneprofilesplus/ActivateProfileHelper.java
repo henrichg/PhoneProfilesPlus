@@ -544,8 +544,8 @@ class ActivateProfileHelper {
 
     static boolean getMergedRingNotificationVolumes(Context context) {
         ApplicationPreferences.getSharedPreferences(context);
-        PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "force set="+ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context));
-        PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "merged="+ApplicationPreferences.preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true));
+        //PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "force set="+ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context));
+        //PPApplication.logE("ActivateProfileHelper.getMergedRingNotificationVolumes", "merged="+ApplicationPreferences.preferences.getBoolean(PREF_MERGED_RING_NOTIFICATION_VOLUMES, true));
         if (ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context) > 0)
             return ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context) == 1;
         else

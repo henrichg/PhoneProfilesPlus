@@ -42,15 +42,18 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
         //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
+        String applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor(context);
+        boolean applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context);
+
         if (dataWrapper == null)
         {
-            dataWrapper = new DataWrapper(context, ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
-                                            monochromeValue, ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context));
+            dataWrapper = new DataWrapper(context, applicationSamsungEdgeIconColor.equals("1"),
+                                            monochromeValue, applicationSamsungEdgeCustomIconLightness);
         }
         else
         {
-            dataWrapper.setParameters(ApplicationPreferences.applicationSamsungEdgeIconColor(context).equals("1"),
-                                        monochromeValue, ApplicationPreferences.applicationSamsungEdgeCustomIconLightness(context));
+            dataWrapper.setParameters(applicationSamsungEdgeIconColor.equals("1"),
+                                        monochromeValue, applicationSamsungEdgeCustomIconLightness);
         }
 
     }
@@ -101,7 +104,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(int position) {
 
         RemoteViews row;
-        //if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context))
+        //if (!applicationSamsungEdgeGridLayout)
         //    row=new RemoteViews(context.getPackageName(), R.layout.profile_list_widget_item);
         //else
             row=new RemoteViews(context.getPackageName(), R.layout.samsung_edge_item);
@@ -109,6 +112,8 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         Profile profile = getItem(position);
 
         if (profile != null) {
+            String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
+            boolean applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader(context);
 
             if (profile.getIsIconResourceID()) {
                 if (profile._iconBitmap != null)
@@ -124,7 +129,6 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             int red = 0xFF;
             int green;
             int blue;
-            String applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT(context);
             if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
@@ -132,7 +136,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red;
             blue = red;
-            if (!ApplicationPreferences.applicationSamsungEdgeHeader(context)) {
+            if (!applicationSamsungEdgeHeader) {
                 if (profile._checked) {
                     row.setTextViewTextSize(R.id.widget_profile_list_item_profile_name, TypedValue.COMPLEX_UNIT_SP, 16);
 
@@ -151,20 +155,20 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             } else {
                 row.setTextColor(R.id.widget_profile_list_item_profile_name, Color.argb(0xFF, red, green, blue));
             }
-            if ((!ApplicationPreferences.applicationSamsungEdgeHeader(context)) && (profile._checked)) {
+            if ((!applicationSamsungEdgeHeader) && (profile._checked)) {
                 // hm, interesting, how to set bold style for RemoteView text ;-)
-                //String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !ApplicationPreferences.applicationSamsungEdgeGridLayout(context), true, ApplicationPreferences.applicationSamsungEdgeGridLayout(context));
+                //String profileName = dataWrapper.getProfileNameWithManualIndicator(profile, !applicationSamsungEdgeGridLayout, true, ApplicationPreferences.applicationSamsungEdgeGridLayout(context));
                 Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, dataWrapper, false);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
             } else {
-                //String profileName = profile.getProfileNameWithDuration(ApplicationPreferences.applicationSamsungEdgeGridLayout(context), dataWrapper.context);
+                //String profileName = profile.getProfileNameWithDuration(applicationSamsungEdgeGridLayout, dataWrapper.context);
                 Spannable profileName = profile.getProfileNameWithDuration("", "", true, dataWrapper.context);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
             }
-            /*if (!ApplicationPreferences.applicationSamsungEdgeGridLayout(context)) {
-                if (ApplicationPreferences.applicationSamsungEdgePrefIndicator(context)) {
+            /*if (!applicationSamsungEdgeGridLayout) {
+                if (applicationSamsungEdgePrefIndicator) {
                     if (profile._preferencesIndicator != null)
                         row.setImageViewBitmap(R.id.widget_profile_list_profile_pref_indicator, profile._preferencesIndicator);
                     else

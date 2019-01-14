@@ -139,10 +139,13 @@ public class EditorProfileListFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
 
-        if (ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context) && ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+        boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
+        boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context);
+
+        if (applicationEditorPrefIndicator && applicationEditorHeader)
             rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
         else
-        if (ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+        if (applicationEditorHeader)
             rootView = inflater.inflate(R.layout.editor_profile_list_no_indicator, container, false);
         else
             rootView = inflater.inflate(R.layout.editor_profile_list_no_header, container, false);
@@ -246,12 +249,16 @@ public class EditorProfileListFragment extends Fragment
         boolean defaultProfilesGenerated = false;
         boolean defaultEventsGenerated = false;
 
+        boolean applicationEditorPrefIndicator;
+
         private LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             //noinspection ConstantConditions
             _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
             //_baseContext = fragment.getActivity();
+
+            applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context);
         }
 
         @Override
@@ -269,13 +276,13 @@ public class EditorProfileListFragment extends Fragment
 
         @Override
         protected Void doInBackground(Void... params) {
-            _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
+            _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             if (_dataWrapper.profileList.size() == 0)
             {
                 // no profiles in DB, generate default profiles and events
                 EditorProfileListFragment fragment = this.fragmentWeakRef.get();
                 if ((fragment != null) && (fragment.getActivity() != null)) {
-                    _dataWrapper.fillPredefinedProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context), fragment.getActivity());
+                    _dataWrapper.fillPredefinedProfileList(true, applicationEditorPrefIndicator, fragment.getActivity());
                     defaultProfilesGenerated = true;
                 }
                 if ((fragment != null) && (fragment.getActivity() != null)) {
@@ -302,7 +309,7 @@ public class EditorProfileListFragment extends Fragment
                 fragment.progressBar.setVisibility(View.GONE);
 
                 // get local profileList
-                _dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
+                _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
                 // set local profile list into activity dataWrapper
                 fragment.activityDataWrapper.copyProfileList(_dataWrapper);
 
@@ -318,7 +325,7 @@ public class EditorProfileListFragment extends Fragment
                 // update activity for activated profile
                 fragment.listView.getRecycledViewPool().clear();
                 Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
-                                ApplicationPreferences.applicationEditorPrefIndicator(_dataWrapper.context));
+                                applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
                 fragment.profileListAdapter.notifyDataSetChanged(false);
                 if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
