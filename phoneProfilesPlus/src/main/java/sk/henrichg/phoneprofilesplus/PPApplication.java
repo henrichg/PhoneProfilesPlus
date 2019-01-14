@@ -67,7 +67,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
     private static final boolean logIntoLogCat = true;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PPApplication.isMIUI"
@@ -236,7 +236,8 @@ public class PPApplication extends Application {
 
                                         //+"|BrightnessDialogPreference"
 
-                                        //+"|PhoneStateScanner"
+                                        + "|[RJS] PhoneProfilesService.startPhoneStateScanner"
+                                        + "|PhoneStateScanner"
                                         //+"|MobileCellsPreference"
                                         //+"|MobileCellsPreference.refreshListView"
                                         //+"|PhoneStateScanner.startAutoRegistration"

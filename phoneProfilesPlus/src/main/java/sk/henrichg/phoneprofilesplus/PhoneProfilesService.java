@@ -2753,6 +2753,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "eventAllowed="+eventAllowed);
                 if (eventAllowed) {
                     PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled="+ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext));
+                    PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "PhoneStateScanner.forceStart="+PhoneStateScanner.forceStart);
                     if (ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext) || PhoneStateScanner.forceStart) {
                         PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         if (((pm != null) && pm.isScreenOn()) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
@@ -2761,6 +2762,7 @@ public class PhoneProfilesService extends Service
                             if (checkDatabase/* || (!isPhoneStateScannerStarted())*/) {
                                 eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false);
                             }
+                            PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "eventCount="+eventCount);
                             if (eventCount > 0) {
                                 if (!isPhoneStateScannerStarted()) {
                                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->START", "PhoneProfilesService_startPhoneStateScanner");
