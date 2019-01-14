@@ -75,24 +75,24 @@ class EventPreferencesMobileCells extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_mobile_cells_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, DatabaseHandler.ETYPE_MOBILE_CELLS, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, DatabaseHandler.ETYPE_MOBILE_CELLS, context);
+                    descr = descr + ": </b>";
+                }
 
-            String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!this._cells.isEmpty()) {
-                String[] splits = this._cells.split("\\|");
-                selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
-                selectedCells = selectedCells + " " + splits.length;
+                String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if (!this._cells.isEmpty()) {
+                    String[] splits = this._cells.split("\\|");
+                    selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
+                    selectedCells = selectedCells + " " + splits.length;
+                }
+                descr = descr + selectedCells;
+                if (this._whenOutside)
+                    descr = descr + "; " + context.getString(R.string.event_preferences_mobile_cells_when_outside_description);
             }
-            descr = descr + selectedCells;
-            if (this._whenOutside)
-                descr = descr + "; " + context.getString(R.string.event_preferences_mobile_cells_when_outside_description);
         }
 
         return descr;

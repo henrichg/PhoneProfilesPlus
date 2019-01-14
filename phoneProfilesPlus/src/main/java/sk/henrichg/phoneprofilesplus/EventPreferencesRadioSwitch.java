@@ -102,49 +102,49 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_radioSwitch_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, DatabaseHandler.ETYPE_RADIO_SWITCH, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_radioSwitch), addPassStatus, DatabaseHandler.ETYPE_RADIO_SWITCH, context);
+                    descr = descr + ": </b>";
+                }
 
-            if (this._wifi != 0) {
-                descr = descr + context.getString(R.string.event_preferences_radioSwitch_wifi) + ": ";
-                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                descr = descr + fields[this._wifi] + "; ";
-            }
+                if (this._wifi != 0) {
+                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_wifi) + ": ";
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    descr = descr + fields[this._wifi] + "; ";
+                }
 
-            if (this._bluetooth != 0) {
-                descr = descr + context.getString(R.string.event_preferences_radioSwitch_bluetooth) + ": ";
-                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                descr = descr + fields[this._bluetooth] + "; ";
-            }
+                if (this._bluetooth != 0) {
+                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_bluetooth) + ": ";
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    descr = descr + fields[this._bluetooth] + "; ";
+                }
 
-            if (this._mobileData != 0) {
-                descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData) + ": ";
-                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                descr = descr + fields[this._mobileData] + "; ";
-            }
+                if (this._mobileData != 0) {
+                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData) + ": ";
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    descr = descr + fields[this._mobileData] + "; ";
+                }
 
-            if (this._gps != 0) {
-                descr = descr + context.getString(R.string.event_preferences_radioSwitch_gps) + ": ";
-                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                descr = descr + fields[this._gps] + "; ";
-            }
+                if (this._gps != 0) {
+                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_gps) + ": ";
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    descr = descr + fields[this._gps] + "; ";
+                }
 
-            if (this._nfc != 0) {
-                descr = descr + context.getString(R.string.event_preferences_radioSwitch_nfc) + ": ";
-                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                descr = descr + fields[this._nfc] + "; ";
-            }
+                if (this._nfc != 0) {
+                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_nfc) + ": ";
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    descr = descr + fields[this._nfc] + "; ";
+                }
 
-            if (this._airplaneMode != 0) {
-                descr = descr + context.getString(R.string.event_preferences_radioSwitch_airplaneMode) + ": ";
-                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
-                descr = descr + fields[this._airplaneMode] + "; ";
+                if (this._airplaneMode != 0) {
+                    descr = descr + context.getString(R.string.event_preferences_radioSwitch_airplaneMode) + ": ";
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    descr = descr + fields[this._airplaneMode] + "; ";
+                }
             }
         }
 

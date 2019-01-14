@@ -132,42 +132,39 @@ class EventPreferencesCall extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_call_summary);
         } else {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, DatabaseHandler.ETYPE_CALL, context);
-                descr = descr + ": </b>";
-            }
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, DatabaseHandler.ETYPE_CALL, context);
+                    descr = descr + ": </b>";
+                }
 
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
-            if (extenderVersion == 0) {
-                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-            }
-            else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
-                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-            }
-            else
-            if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
-                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
-            }
-            else {
-                descr = descr + context.getString(R.string.pref_event_call_event);
-                String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-                descr = descr + ": " + callEvents[this._callEvent] + "; ";
-                descr = descr + context.getString(R.string.pref_event_call_contactListType);
-                String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
-                descr = descr + ": " + contactListTypes[this._contactListType];
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+                if (extenderVersion == 0) {
+                    descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                    descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+                    descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                } else {
+                    descr = descr + context.getString(R.string.pref_event_call_event);
+                    String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
+                    descr = descr + ": " + callEvents[this._callEvent] + "; ";
+                    descr = descr + context.getString(R.string.pref_event_call_contactListType);
+                    String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
+                    descr = descr + ": " + contactListTypes[this._contactListType];
 
-                if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
-                        (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
-                    if (this._permanentRun)
-                        descr = descr + "; " + context.getString(R.string.pref_event_permanentRun);
-                    else
-                        descr = descr + "; " + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                    if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
+                            (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
+                            (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                        if (this._permanentRun)
+                            descr = descr + "; " + context.getString(R.string.pref_event_permanentRun);
+                        else
+                            descr = descr + "; " + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                    }
                 }
             }
         }

@@ -82,37 +82,34 @@ class EventPreferencesNFC extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_nfc_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, DatabaseHandler.ETYPE_NFC, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_nfc), addPassStatus, DatabaseHandler.ETYPE_NFC, context);
+                    descr = descr + ": </b>";
+                }
 
-            String selectedNfcTags = context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
-            String[] splits = this._nfcTags.split("\\|");
-            for (String _tag : splits) {
-                if (_tag.isEmpty()) {
-                    //noinspection StringConcatenationInLoop
-                    selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                String selectedNfcTags = context.getString(R.string.event_preferences_nfc_nfcTags) + ": ";
+                String[] splits = this._nfcTags.split("\\|");
+                for (String _tag : splits) {
+                    if (_tag.isEmpty()) {
+                        //noinspection StringConcatenationInLoop
+                        selectedNfcTags = selectedNfcTags + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                    } else if (splits.length == 1) {
+                        selectedNfcTags = selectedNfcTags + _tag;
+                    } else {
+                        selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        selectedNfcTags = selectedNfcTags + " " + splits.length;
+                        break;
+                    }
                 }
+                descr = descr + selectedNfcTags + "; ";
+                if (this._permanentRun)
+                    descr = descr + context.getString(R.string.pref_event_permanentRun);
                 else
-                if (splits.length == 1) {
-                    selectedNfcTags = selectedNfcTags + _tag;
-                }
-                else {
-                    selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
-                    selectedNfcTags = selectedNfcTags + " " + splits.length;
-                    break;
-                }
+                    descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
             }
-            descr = descr + selectedNfcTags + "; ";
-            if (this._permanentRun)
-                descr = descr + context.getString(R.string.pref_event_permanentRun);
-            else
-                descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
         }
 
         return descr;

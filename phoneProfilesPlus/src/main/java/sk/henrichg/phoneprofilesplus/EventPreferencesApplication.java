@@ -78,63 +78,55 @@ class EventPreferencesApplication extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_application_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, DatabaseHandler.ETYPE_APPLICATION, context);
-                descr = descr + ": </b>";
-            }
-
-            String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
-            if (extenderVersion == 0) {
-                selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-            }
-            else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0) {
-                selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-            }
-            else
-            if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
-                selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
-            }
-            else
-            if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                String[] splits = this._applications.split("\\|");
-                if (splits.length == 1) {
-                    String packageName = ApplicationsCache.getPackageName(splits[0]);
-
-                    PackageManager packageManager = context.getPackageManager();
-                    if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
-                        ApplicationInfo app;
-                        try {
-                            app = packageManager.getApplicationInfo(packageName, 0);
-                            if (app != null)
-                                selectedApplications = packageManager.getApplicationLabel(app).toString();
-                        } catch (Exception e) {
-                            selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
-                        }
-                    }
-                    else {
-                        Intent intent = new Intent();
-                        intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
-                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                        if (info != null)
-                            selectedApplications = info.loadLabel(packageManager).toString();
-                    }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_applications), addPassStatus, DatabaseHandler.ETYPE_APPLICATION, context);
+                    descr = descr + ": </b>";
                 }
-                else
-                    selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
-            }
-            descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_applications_applications) + ": " + selectedApplications;
 
-            //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
-            //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
+                String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+                if (extenderVersion == 0) {
+                    selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0) {
+                    selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+                    selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                } else if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                    String[] splits = this._applications.split("\\|");
+                    if (splits.length == 1) {
+                        String packageName = ApplicationsCache.getPackageName(splits[0]);
+
+                        PackageManager packageManager = context.getPackageManager();
+                        if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                            ApplicationInfo app;
+                            try {
+                                app = packageManager.getApplicationInfo(packageName, 0);
+                                if (app != null)
+                                    selectedApplications = packageManager.getApplicationLabel(app).toString();
+                            } catch (Exception e) {
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                            }
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                            if (info != null)
+                                selectedApplications = info.loadLabel(packageManager).toString();
+                        }
+                    } else
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                }
+                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_applications_applications) + ": " + selectedApplications;
+
+                //descr = descr + context.getString(R.string.event_preferences_notifications_applications) + ": " +selectedApplications + "; ";
+                //descr = descr + context.getString(R.string.pref_event_duration) + ": " +tmp._duration;
+            }
         }
 
         return descr;

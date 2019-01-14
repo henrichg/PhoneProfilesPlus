@@ -73,12 +73,11 @@ class EventPreferencesAlarmClock extends EventPreferences {
     {
         String descr = "";
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-
-            if (!this._enabled) {
-                if (!addBullet)
-                    descr = context.getString(R.string.event_preference_sensor_alarm_clock_summary);
-            } else {
+        if (!this._enabled) {
+            if (!addBullet)
+                descr = context.getString(R.string.event_preference_sensor_alarm_clock_summary);
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_ALARM_CLOCK_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
                     descr = descr + "<b>\u2022 ";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_alarm_clock), addPassStatus, DatabaseHandler.ETYPE_ALARM_CLOCK, context);
@@ -90,7 +89,6 @@ class EventPreferencesAlarmClock extends EventPreferences {
                 else
                     descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
             }
-
         }
 
         return descr;

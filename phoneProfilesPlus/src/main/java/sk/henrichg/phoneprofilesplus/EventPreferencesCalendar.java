@@ -140,58 +140,57 @@ class EventPreferencesCalendar extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_calendar_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_calendar), addPassStatus, DatabaseHandler.ETYPE_CALENDAR, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_calendar), addPassStatus, DatabaseHandler.ETYPE_CALENDAR, context);
+                    descr = descr + ": </b>";
+                }
 
-            if (this._allEvents) {
-                descr = descr + context.getString(R.string.event_preferences_calendar_all_events) + "; ";
-            }
-            else {
-                String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
-                descr = descr + searchFields[this._searchField] + "; ";
+                if (this._allEvents) {
+                    descr = descr + context.getString(R.string.event_preferences_calendar_all_events) + "; ";
+                } else {
+                    String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
+                    descr = descr + searchFields[this._searchField] + "; ";
 
-                descr = descr + "\"" + this._searchString + "\"" + "; ";
-            }
+                    descr = descr + "\"" + this._searchString + "\"" + "; ";
+                }
 
-            if (this._ignoreAllDayEvents)
-                descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "; ";
+                if (this._ignoreAllDayEvents)
+                    descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "; ";
 
-            String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
-            descr = descr + availabilities[this._availability];
+                String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
+                descr = descr + availabilities[this._availability];
 
-            if (this._startBeforeEvent > 0)
-                descr = descr + "; " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + GlobalGUIRoutines.getDurationString(this._startBeforeEvent);
+                if (this._startBeforeEvent > 0)
+                    descr = descr + "; " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + GlobalGUIRoutines.getDurationString(this._startBeforeEvent);
 
-            if (addBullet) {
-                if (Event.getGlobalEventsRunning(context)) {
-                    if (_eventFound) {
-                        long alarmTime;
-                        //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                        String alarmTimeS;
-                        if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                            alarmTime = computeAlarm(true);
-                            // date and time format by user system settings configuration
-                            alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                    " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                if (addBullet) {
+                    if (Event.getGlobalEventsRunning(context)) {
+                        if (_eventFound) {
+                            long alarmTime;
+                            //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
+                            String alarmTimeS;
+                            if (_event.getStatus() == Event.ESTATUS_PAUSE) {
+                                alarmTime = computeAlarm(true);
+                                // date and time format by user system settings configuration
+                                alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                        " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                                descr = descr + "<br>"; //'\n';
+                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                            } else if (_event.getStatus() == Event.ESTATUS_RUNNING) {
+                                alarmTime = computeAlarm(false);
+                                // date and time format by user system settings configuration
+                                alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                        " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                                descr = descr + "<br>"; //'\n';
+                                descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                            }
+                        } else {
                             descr = descr + "<br>"; //'\n';
-                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
-                        } else if (_event.getStatus() == Event.ESTATUS_RUNNING) {
-                            alarmTime = computeAlarm(false);
-                            // date and time format by user system settings configuration
-                            alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                    " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                            descr = descr + "<br>"; //'\n';
-                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getResources().getString(R.string.event_preferences_calendar_no_event);
                         }
-                    } else {
-                        descr = descr + "<br>"; //'\n';
-                        descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getResources().getString(R.string.event_preferences_calendar_no_event);
                     }
                 }
             }

@@ -97,24 +97,24 @@ class EventPreferencesBattery extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_battery_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_battery), addPassStatus, DatabaseHandler.ETYPE_BATTERY, context);
+                    descr = descr + ": </b>";
+                }
 
-            descr = descr + context.getString(R.string.pref_event_battery_level);
-            descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
+                descr = descr + context.getString(R.string.pref_event_battery_level);
+                descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
 
-            if (this._powerSaveMode)
-                descr = descr + "; " + context.getString(R.string.pref_event_battery_power_save_mode);
-            else {
-                descr = descr + "; " + context.getString(R.string.pref_event_battery_charging);
-                String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
-                descr = descr + ": " + charging[this._charging];
+                if (this._powerSaveMode)
+                    descr = descr + "; " + context.getString(R.string.pref_event_battery_power_save_mode);
+                else {
+                    descr = descr + "; " + context.getString(R.string.pref_event_battery_charging);
+                    String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
+                    descr = descr + ": " + charging[this._charging];
+                }
             }
         }
 

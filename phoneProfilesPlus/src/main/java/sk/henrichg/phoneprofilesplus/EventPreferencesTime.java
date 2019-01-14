@@ -154,86 +154,81 @@ class EventPreferencesTime extends EventPreferences {
     {
         String descr = "";
 
-
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_time_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
-                descr = descr + ": </b>";
-            }
-
-            boolean[] daySet = new boolean[7];
-            daySet[0] = this._sunday;
-            daySet[1] = this._monday;
-            daySet[2] = this._tuesday;
-            daySet[3] = this._wednesday;
-            daySet[4] = this._thursday;
-            daySet[5] = this._friday;
-            daySet[6] = this._saturday;
-
-            boolean allDays = true;
-            for (int i = 0; i < 7; i++)
-                allDays = allDays && daySet[i];
-
-            if (allDays)
-            {
-                descr = descr + context.getString(R.string.array_pref_event_all);
-                descr = descr + " ";
-            }
-            else
-            {
-                String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
-
-                int dayOfWeek;
-                for (int i = 0; i < 7; i++)
-                {
-                    dayOfWeek = getDayOfWeekByLocale(i);
-
-                    if (daySet[dayOfWeek])
-                        //noinspection StringConcatenationInLoop
-                        descr = descr + namesOfDay[dayOfWeek+1] + " ";
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
+                    descr = descr + ": </b>";
                 }
-            }
 
-            Calendar calendar = Calendar.getInstance();
+                boolean[] daySet = new boolean[7];
+                daySet[0] = this._sunday;
+                daySet[1] = this._monday;
+                daySet[2] = this._tuesday;
+                daySet[3] = this._wednesday;
+                daySet[4] = this._thursday;
+                daySet[5] = this._friday;
+                daySet[6] = this._saturday;
 
-            calendar.set(Calendar.HOUR_OF_DAY, _startTime / 60);
-            calendar.set(Calendar.MINUTE, _startTime % 60);
-            descr = descr + "- ";
-            descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-            //if (tmp._useEndTime)
-            //{
+                boolean allDays = true;
+                for (int i = 0; i < 7; i++)
+                    allDays = allDays && daySet[i];
+
+                if (allDays) {
+                    descr = descr + context.getString(R.string.array_pref_event_all);
+                    descr = descr + " ";
+                } else {
+                    String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
+
+                    int dayOfWeek;
+                    for (int i = 0; i < 7; i++) {
+                        dayOfWeek = getDayOfWeekByLocale(i);
+
+                        if (daySet[dayOfWeek])
+                            //noinspection StringConcatenationInLoop
+                            descr = descr + namesOfDay[dayOfWeek + 1] + " ";
+                    }
+                }
+
+                Calendar calendar = Calendar.getInstance();
+
+                calendar.set(Calendar.HOUR_OF_DAY, _startTime / 60);
+                calendar.set(Calendar.MINUTE, _startTime % 60);
+                descr = descr + "- ";
+                descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+                //if (tmp._useEndTime)
+                //{
                 calendar.set(Calendar.HOUR_OF_DAY, _endTime / 60);
                 calendar.set(Calendar.MINUTE, _endTime % 60);
                 descr = descr + "-";
                 descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
-            //}
+                //}
 
 
-            if (addBullet) {
-                if (Event.getGlobalEventsRunning(context)) {
-                    long alarmTime;
-                    //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                    String alarmTimeS;
-                    if (_event.getStatus() == Event.ESTATUS_PAUSE) {
-                        alarmTime = computeAlarm(true);
-                        // date and time format by user system settings configuration
-                        alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                        descr = descr + "<br>"; //'\n';
-                        descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
-                    } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
-                        alarmTime = computeAlarm(false);
-                        // date and time format by user system settings configuration
-                        alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
-                                " " + DateFormat.getTimeFormat(context).format(alarmTime);
-                        descr = descr + "<br>"; //'\n';
-                        descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                if (addBullet) {
+                    if (Event.getGlobalEventsRunning(context)) {
+                        long alarmTime;
+                        //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
+                        String alarmTimeS;
+                        if (_event.getStatus() == Event.ESTATUS_PAUSE) {
+                            alarmTime = computeAlarm(true);
+                            // date and time format by user system settings configuration
+                            alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                    " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                            descr = descr + "<br>"; //'\n';
+                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                        } else if ((_event.getStatus() == Event.ESTATUS_RUNNING)/* && _useEndTime*/) {
+                            alarmTime = computeAlarm(false);
+                            // date and time format by user system settings configuration
+                            alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                    " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                            descr = descr + "<br>"; //'\n';
+                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                        }
                     }
                 }
             }

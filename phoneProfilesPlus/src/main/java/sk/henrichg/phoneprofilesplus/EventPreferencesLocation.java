@@ -77,38 +77,37 @@ class EventPreferencesLocation extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_location_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_locations), addPassStatus, DatabaseHandler.ETYPE_LOCATION, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_locations), addPassStatus, DatabaseHandler.ETYPE_LOCATION, context);
+                    descr = descr + ": </b>";
+                }
 
-            String selectedLocations = "";
-            if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
-                selectedLocations = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
-            }
-            else {
-                String[] splits = this._geofences.split("\\|");
-                for (String _geofence : splits) {
-                    if (_geofence.isEmpty()) {
-                        //noinspection StringConcatenationInLoop
-                        selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
-                    } else if (splits.length == 1) {
-                        selectedLocations = selectedLocations + getGeofenceName(Long.valueOf(_geofence), context);
-                    } else {
-                        selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedLocations = selectedLocations + " " + splits.length;
-                        break;
+                String selectedLocations = "";
+                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    selectedLocations = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                } else {
+                    String[] splits = this._geofences.split("\\|");
+                    for (String _geofence : splits) {
+                        if (_geofence.isEmpty()) {
+                            //noinspection StringConcatenationInLoop
+                            selectedLocations = selectedLocations + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                        } else if (splits.length == 1) {
+                            selectedLocations = selectedLocations + getGeofenceName(Long.valueOf(_geofence), context);
+                        } else {
+                            selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
+                            selectedLocations = selectedLocations + " " + splits.length;
+                            break;
+                        }
                     }
                 }
+                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_locations_location) + ": " + selectedLocations;
+                if (this._whenOutside)
+                    descr = descr + "; " + context.getString(R.string.event_preferences_location_when_outside_description);
             }
-            descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_locations_location) + ": " + selectedLocations;
-            if (this._whenOutside)
-                descr = descr + "; " + context.getString(R.string.event_preferences_location_when_outside_description);
         }
 
         return descr;

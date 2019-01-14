@@ -126,35 +126,19 @@ class EventPreferencesOrientation extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_orientation_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context);
-                descr = descr + ": </b>";
-            }
-
-            String selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!this._display.isEmpty() && !this._display.equals("-")) {
-                String[] splits = this._display.split("\\|");
-                String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationDisplayValues);
-                String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
-                selectedSides = "";
-                for (String s : splits) {
-                    if (!selectedSides.isEmpty())
-                        selectedSides = selectedSides + ", ";
-                    selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_orientation), addPassStatus, DatabaseHandler.ETYPE_ORIENTATION, context);
+                    descr = descr + ": </b>";
                 }
-            }
-            descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": " + selectedSides;
 
-            if (PhoneProfilesService.getMagneticFieldSensor(context) != null) {
-                selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-                if (!this._sides.isEmpty() && !this._sides.equals("-")) {
-                    String[] splits = this._sides.split("\\|");
-                    String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
-                    String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
+                String selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if (!this._display.isEmpty() && !this._display.equals("-")) {
+                    String[] splits = this._display.split("\\|");
+                    String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationDisplayValues);
+                    String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
                     selectedSides = "";
                     for (String s : splits) {
                         if (!selectedSides.isEmpty())
@@ -162,61 +146,68 @@ class EventPreferencesOrientation extends EventPreferences {
                         selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
                     }
                 }
-                descr = descr + "; " + context.getString(R.string.event_preferences_orientation_sides) + ": " + selectedSides;
-            }
+                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": " + selectedSides;
 
-            String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
-            String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
-            int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
-            if (i != -1)
-                descr = descr + "; " + context.getString(R.string.event_preferences_orientation_distance) + ": " + distanceNames[i];
-
-            String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
-            if (extenderVersion == 0) {
-                selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-            }
-            else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0) {
-                selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-            }
-            else
-            if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
-                selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
-            }
-            else
-            if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
-                String[] splits = this._ignoredApplications.split("\\|");
-                if (splits.length == 1) {
-                    String packageName = ApplicationsCache.getPackageName(splits[0]);
-
-                    PackageManager packageManager = context.getPackageManager();
-                    if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
-                        ApplicationInfo app;
-                        try {
-                            app = packageManager.getApplicationInfo(packageName, 0);
-                            if (app != null)
-                                selectedApplications = packageManager.getApplicationLabel(app).toString();
-                        } catch (Exception e) {
-                            selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                if (PhoneProfilesService.getMagneticFieldSensor(context) != null) {
+                    selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                    if (!this._sides.isEmpty() && !this._sides.equals("-")) {
+                        String[] splits = this._sides.split("\\|");
+                        String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
+                        String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
+                        selectedSides = "";
+                        for (String s : splits) {
+                            if (!selectedSides.isEmpty())
+                                selectedSides = selectedSides + ", ";
+                            selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
                         }
                     }
-                    else {
-                        Intent intent = new Intent();
-                        intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
-                        ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                        if (info != null)
-                            selectedApplications = info.loadLabel(packageManager).toString();
-                    }
+                    descr = descr + "; " + context.getString(R.string.event_preferences_orientation_sides) + ": " + selectedSides;
                 }
-                else
-                    selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
-            }
-            descr = descr + "; " + /*"(S) "+*/context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": " + selectedApplications;
 
+                String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
+                String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
+                int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
+                if (i != -1)
+                    descr = descr + "; " + context.getString(R.string.event_preferences_orientation_distance) + ": " + distanceNames[i];
+
+                String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+                if (extenderVersion == 0) {
+                    selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0) {
+                    selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+                    selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                } else if (!this._ignoredApplications.isEmpty() && !this._ignoredApplications.equals("-")) {
+                    String[] splits = this._ignoredApplications.split("\\|");
+                    if (splits.length == 1) {
+                        String packageName = ApplicationsCache.getPackageName(splits[0]);
+
+                        PackageManager packageManager = context.getPackageManager();
+                        if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                            ApplicationInfo app;
+                            try {
+                                app = packageManager.getApplicationInfo(packageName, 0);
+                                if (app != null)
+                                    selectedApplications = packageManager.getApplicationLabel(app).toString();
+                            } catch (Exception e) {
+                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                            }
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                            if (info != null)
+                                selectedApplications = info.loadLabel(packageManager).toString();
+                        }
+                    } else
+                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                }
+                descr = descr + "; " + /*"(S) "+*/context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": " + selectedApplications;
+            }
         }
 
         return descr;

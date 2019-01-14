@@ -83,49 +83,46 @@ class EventPreferencesWifi extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_wifi_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context);
-                descr = descr + ": </b>";
-            }
-
-            descr = descr + context.getString(R.string.pref_event_wifi_connectionType);
-            String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
-            String[] connectionListTypes = context.getResources().getStringArray(R.array.eventWifiConnectionTypeValues);
-            int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
-            descr = descr + ": " + connectionListTypeNames[index] + "; ";
-
-            String selectedSSIDs = context.getString(R.string.pref_event_wifi_ssid) + ": ";
-            String[] splits = this._SSID.split("\\|");
-            for (String _ssid : splits) {
-                if (_ssid.isEmpty()) {
-                    //noinspection StringConcatenationInLoop
-                    selectedSSIDs = selectedSSIDs + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_wifi), addPassStatus, DatabaseHandler.ETYPE_WIFI, context);
+                    descr = descr + ": </b>";
                 }
-                else
-                if (splits.length == 1) {
-                    switch (_ssid) {
-                        case ALL_SSIDS_VALUE:
-                            selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
-                            break;
-                        case CONFIGURED_SSIDS_VALUE:
-                            selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
-                            break;
-                        default:
-                            selectedSSIDs = selectedSSIDs + _ssid;
-                            break;
+
+                descr = descr + context.getString(R.string.pref_event_wifi_connectionType);
+                String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
+                String[] connectionListTypes = context.getResources().getStringArray(R.array.eventWifiConnectionTypeValues);
+                int index = Arrays.asList(connectionListTypes).indexOf(Integer.toString(this._connectionType));
+                descr = descr + ": " + connectionListTypeNames[index] + "; ";
+
+                String selectedSSIDs = context.getString(R.string.pref_event_wifi_ssid) + ": ";
+                String[] splits = this._SSID.split("\\|");
+                for (String _ssid : splits) {
+                    if (_ssid.isEmpty()) {
+                        //noinspection StringConcatenationInLoop
+                        selectedSSIDs = selectedSSIDs + context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                    } else if (splits.length == 1) {
+                        switch (_ssid) {
+                            case ALL_SSIDS_VALUE:
+                                selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                                break;
+                            case CONFIGURED_SSIDS_VALUE:
+                                selectedSSIDs = selectedSSIDs + context.getString(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                                break;
+                            default:
+                                selectedSSIDs = selectedSSIDs + _ssid;
+                                break;
+                        }
+                    } else {
+                        selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
+                        selectedSSIDs = selectedSSIDs + " " + splits.length;
+                        break;
                     }
                 }
-                else {
-                    selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
-                    selectedSSIDs = selectedSSIDs + " " + splits.length;
-                    break;
-                }
+                descr = descr + selectedSSIDs;
             }
-            descr = descr + selectedSSIDs;
         }
 
         return descr;

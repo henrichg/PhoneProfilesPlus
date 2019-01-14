@@ -71,25 +71,24 @@ class EventPreferencesScreen extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_screen_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_screen), addPassStatus, DatabaseHandler.ETYPE_SCREEN, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_screen), addPassStatus, DatabaseHandler.ETYPE_SCREEN, context);
+                    descr = descr + ": </b>";
+                }
 
-            String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
-            String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
-            int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(this._eventType));
-            descr = descr + eventListTypeNames[index];
-            if (this._whenUnlocked)
-            {
-                if (this._eventType == 0)
-                    descr = descr + "; " + context.getString(R.string.pref_event_screen_startWhenUnlocked);
-                else
-                    descr = descr + "; " + context.getString(R.string.pref_event_screen_endWhenUnlocked);
+                String[] eventListTypeNames = context.getResources().getStringArray(R.array.eventScreenEventTypeArray);
+                String[] eventListTypes = context.getResources().getStringArray(R.array.eventScreenEventTypeValues);
+                int index = Arrays.asList(eventListTypes).indexOf(Integer.toString(this._eventType));
+                descr = descr + eventListTypeNames[index];
+                if (this._whenUnlocked) {
+                    if (this._eventType == 0)
+                        descr = descr + "; " + context.getString(R.string.pref_event_screen_startWhenUnlocked);
+                    else
+                        descr = descr + "; " + context.getString(R.string.pref_event_screen_endWhenUnlocked);
+                }
             }
         }
 

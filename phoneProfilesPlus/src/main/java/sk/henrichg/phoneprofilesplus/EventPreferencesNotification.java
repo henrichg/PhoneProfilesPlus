@@ -79,58 +79,57 @@ class EventPreferencesNotification extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_notification_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context);
-                descr = descr + ": </b>";
-            }
-
-            String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-            if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
-                selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
-            }
-            else {
-                if (this._inCall) {
-                    descr = descr + context.getString(R.string.event_preferences_notifications_inCall);
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_notifications), addPassStatus, DatabaseHandler.ETYPE_NOTIFICATION, context);
+                    descr = descr + ": </b>";
                 }
-                if (this._missedCall) {
-                    if (this._inCall)
-                        descr = descr + "; ";
-                    descr = descr + context.getString(R.string.event_preferences_notifications_missedCall);
-                }
-                if (!this._applications.isEmpty() && !this._applications.equals("-")) {
-                    String[] splits = this._applications.split("\\|");
-                    if (splits.length == 1) {
-                        String packageName = ApplicationsCache.getPackageName(splits[0]);
 
-                        PackageManager packageManager = context.getPackageManager();
-                        if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
-                            ApplicationInfo app;
-                            try {
-                                app = packageManager.getApplicationInfo(packageName, 0);
-                                if (app != null)
-                                    selectedApplications = packageManager.getApplicationLabel(app).toString();
-                            } catch (Exception e) {
-                                selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
+                    selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                } else {
+                    if (this._inCall) {
+                        descr = descr + context.getString(R.string.event_preferences_notifications_inCall);
+                    }
+                    if (this._missedCall) {
+                        if (this._inCall)
+                            descr = descr + "; ";
+                        descr = descr + context.getString(R.string.event_preferences_notifications_missedCall);
+                    }
+                    if (!this._applications.isEmpty() && !this._applications.equals("-")) {
+                        String[] splits = this._applications.split("\\|");
+                        if (splits.length == 1) {
+                            String packageName = ApplicationsCache.getPackageName(splits[0]);
+
+                            PackageManager packageManager = context.getPackageManager();
+                            if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                                ApplicationInfo app;
+                                try {
+                                    app = packageManager.getApplicationInfo(packageName, 0);
+                                    if (app != null)
+                                        selectedApplications = packageManager.getApplicationLabel(app).toString();
+                                } catch (Exception e) {
+                                    selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                                }
+                            } else {
+                                Intent intent = new Intent();
+                                intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                                ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
+                                if (info != null)
+                                    selectedApplications = info.loadLabel(packageManager).toString();
                             }
-                        } else {
-                            Intent intent = new Intent();
-                            intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
-                            ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
-                            if (info != null)
-                                selectedApplications = info.loadLabel(packageManager).toString();
-                        }
-                    } else
-                        selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                        } else
+                            selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
+                    }
                 }
+                if (this._inCall || this._missedCall)
+                    descr = descr + "; ";
+                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
             }
-            if (this._inCall || this._missedCall)
-                descr = descr + "; ";
-            descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
         }
 
         return descr;

@@ -672,7 +672,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             }
 
             // not enabled some sensor
-            if (event.isEnabledSomeSensor()) {
+            if (event.isEnabledSomeSensor(context)) {
                 Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_SOME_SENSOR);
                 if (preference != null) {
                     PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("eventPreferenceScreen");

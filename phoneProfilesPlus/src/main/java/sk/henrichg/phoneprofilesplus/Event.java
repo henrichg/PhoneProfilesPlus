@@ -431,55 +431,47 @@ class Event {
         this._eventPreferencesAlarmClock.copyPreferences(fromEvent);
     }
 
-    boolean isEnabledSomeSensor() {
-        boolean someEnabled =
-                this._eventPreferencesTime._enabled ||
-                this._eventPreferencesBattery._enabled ||
-                this._eventPreferencesCall._enabled ||
-                this._eventPreferencesPeripherals._enabled ||
-                this._eventPreferencesCalendar._enabled ||
-                this._eventPreferencesWifi._enabled ||
-                this._eventPreferencesScreen._enabled ||
-                this._eventPreferencesBluetooth._enabled ||
-                this._eventPreferencesSMS._enabled ||
-                this._eventPreferencesNotification._enabled ||
-                this._eventPreferencesApplication._enabled ||
-                this._eventPreferencesLocation._enabled ||
-                this._eventPreferencesOrientation._enabled ||
-                this._eventPreferencesMobileCells._enabled ||
-                this._eventPreferencesNFC._enabled ||
-                this._eventPreferencesRadioSwitch._enabled;
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            someEnabled = someEnabled ||
-                    this._eventPreferencesAlarmClock._enabled;
-        }
-        return someEnabled;
+    boolean isEnabledSomeSensor(Context context) {
+        return  (this._eventPreferencesTime._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesBattery._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesCall._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesPeripherals._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesCalendar._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesWifi._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesScreen._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesBluetooth._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesSMS._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesNotification._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesApplication._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesLocation._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesOrientation._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesMobileCells._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesNFC._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesNFC.PREF_EVENT_NFC_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesRadioSwitch._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesAlarmClock._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         boolean runnable = (this._fkProfileStart != 0);
         if (checkSomeSensorEnabled) {
-            boolean someEnabled =
-                    this._eventPreferencesTime._enabled ||
-                    this._eventPreferencesBattery._enabled ||
-                    this._eventPreferencesCall._enabled ||
-                    this._eventPreferencesPeripherals._enabled ||
-                    this._eventPreferencesCalendar._enabled ||
-                    this._eventPreferencesWifi._enabled ||
-                    this._eventPreferencesScreen._enabled ||
-                    this._eventPreferencesBluetooth._enabled ||
-                    this._eventPreferencesSMS._enabled ||
-                    this._eventPreferencesNotification._enabled ||
-                    this._eventPreferencesApplication._enabled ||
-                    this._eventPreferencesLocation._enabled ||
-                    this._eventPreferencesOrientation._enabled ||
-                    this._eventPreferencesMobileCells._enabled ||
-                    this._eventPreferencesNFC._enabled ||
-                    this._eventPreferencesRadioSwitch._enabled;
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                someEnabled = someEnabled ||
-                        this._eventPreferencesAlarmClock._enabled;
-            }
+            boolean someEnabled = isEnabledSomeSensor(context);
             if (!someEnabled)
                 runnable = false;
         }
@@ -515,10 +507,8 @@ class Event {
             runnable = runnable && this._eventPreferencesNFC.isRunnable(context);
         if (this._eventPreferencesRadioSwitch._enabled)
             runnable = runnable && this._eventPreferencesRadioSwitch.isRunnable(context);
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            if (this._eventPreferencesAlarmClock._enabled)
-                runnable = runnable && this._eventPreferencesAlarmClock.isRunnable(context);
-        }
+        if (this._eventPreferencesAlarmClock._enabled)
+            runnable = runnable && this._eventPreferencesAlarmClock.isRunnable(context);
 
         return runnable;
     }
@@ -2156,9 +2146,6 @@ class Event {
 
         boolean checked = false;
 
-        TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        boolean simCardReady = (telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY);
-
         if (preferenceKey.equals(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI))
@@ -2227,9 +2214,15 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) && simCardReady)
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
                 // device has telephony
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY))
+                    // sim card is ready
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                else
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
@@ -2251,9 +2244,14 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) && simCardReady)
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
                 // device has telephony
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY))
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                else
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
@@ -2263,9 +2261,14 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED))
         {
-            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY) && simCardReady)
+            if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
                 // device has telephony
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY))
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                else
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             checked = true;
@@ -2280,6 +2283,17 @@ class Event {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            checked = true;
+        }
+        if (checked)
+            return preferenceAllowed;
+
+        if (preferenceKey.equals(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED))
+        {
+            if (android.os.Build.VERSION.SDK_INT >= 21)
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            else
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
             checked = true;
         }
         if (checked)

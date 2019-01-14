@@ -64,17 +64,17 @@ class EventPreferencesPeripherals extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_accessories_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_PERIPHERAL, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_PERIPHERAL_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_peripheral), addPassStatus, DatabaseHandler.ETYPE_PERIPHERAL, context);
+                    descr = descr + ": </b>";
+                }
 
-            String[] peripheralTypes = context.getResources().getStringArray(R.array.eventPeripheralTypeArray);
-            descr = descr + peripheralTypes[this._peripheralType];
+                String[] peripheralTypes = context.getResources().getStringArray(R.array.eventPeripheralTypeArray);
+                descr = descr + peripheralTypes[this._peripheralType];
+            }
         }
 
         return descr;

@@ -122,41 +122,36 @@ class EventPreferencesSMS extends EventPreferences {
         if (!this._enabled) {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_sms_summary);
-        }
-        else
-        {
-            if (addBullet) {
-                descr = descr + "<b>\u2022 ";
-                descr = descr + getPassStatusString(context.getString(R.string.event_type_sms), addPassStatus, DatabaseHandler.ETYPE_SMS, context);
-                descr = descr + ": </b>";
-            }
+        } else {
+            if (Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (addBullet) {
+                    descr = descr + "<b>\u2022 ";
+                    descr = descr + getPassStatusString(context.getString(R.string.event_type_sms), addPassStatus, DatabaseHandler.ETYPE_SMS, context);
+                    descr = descr + ": </b>";
+                }
 
-            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
-            if (extenderVersion == 0) {
-                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-            }
-            else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
-                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-            }
-            else
-            if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
-                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
-            }
-            else {
-                //descr = descr + context.getString(R.string.pref_event_sms_event);
-                //String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);
-                //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
-                descr = descr + context.getString(R.string.pref_event_sms_contactListType);
-                String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
-                descr = descr + ": " + contactListTypes[this._contactListType] + "; ";
-                if (this._permanentRun)
-                    descr = descr + context.getString(R.string.pref_event_permanentRun);
-                else
-                    descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
+                if (extenderVersion == 0) {
+                    descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                    descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+                    descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                } else {
+                    //descr = descr + context.getString(R.string.pref_event_sms_event);
+                    //String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);
+                    //descr = descr + ": " + smsEvents[tmp._smsEvent] + "; ";
+                    descr = descr + context.getString(R.string.pref_event_sms_contactListType);
+                    String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
+                    descr = descr + ": " + contactListTypes[this._contactListType] + "; ";
+                    if (this._permanentRun)
+                        descr = descr + context.getString(R.string.pref_event_permanentRun);
+                    else
+                        descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                }
             }
         }
 
