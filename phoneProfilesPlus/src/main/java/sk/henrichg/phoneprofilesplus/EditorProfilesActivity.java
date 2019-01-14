@@ -1520,7 +1520,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                     Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);
-                    PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
                     PPApplication.startPPService(activity, serviceIntent);
