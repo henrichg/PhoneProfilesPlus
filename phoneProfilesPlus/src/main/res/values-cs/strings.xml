@@ -1260,23 +1260,23 @@
     <string name="permission_why_event_call_preferences">pro čtení kontaktů, detekci vyzvánění hovoru (pro \"noční hovor\") v senzoru hovoru</string>
     <string name="important_info_accessibility_service_text3">Vzhledem k tomu, že společnost Google změnila pravidla o používání práv pro příjem hovorů, musíte pro událostní senzor hovorů nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry tohoto senzoru pro více informací.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
-    <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
-    <string name="phone_profiles_pref_notificationLayoutType">Layout type</string>
-    <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>
-    <string name="phone_profiles_pref_notificationLayoutType_large">Large</string>
-    <string name="phone_profiles_pref_notificationLayoutType_small">Small</string>
-    <string name="event_preferences_applications_LaunchExtender_title">Launch PhoneProfilesPlusExtender</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
-    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
+    <string name="phone_profiles_pref_notificationDarkBackground">Tmavé pozadí</string>
+    <string name="phone_profiles_pref_notificationUseDecoration">Použít dekoraci</string>
+    <string name="phone_profiles_pref_notificationLayoutType">Typ rozložení</string>
+    <string name="phone_profiles_pref_notificationLayoutType_expandable">Roztažitelné</string>
+    <string name="phone_profiles_pref_notificationLayoutType_large">Velké</string>
+    <string name="phone_profiles_pref_notificationLayoutType_small">Malé</string>
+    <string name="event_preferences_applications_LaunchExtender_title">Spustit PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Prosím udělte povolení Telefon v PhoneProfilesPlusExtender. Je potřebné pro příjem hovorů Extender.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Prosím udělte povolení SMS v PhoneProfilesPlusExtender. Je potřebné pro příjem SMS / MMS Extender.</string>
+    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender není nainstalován.</string>
     <string name="array_event_pref_peripheralType_headphones">Sluchátka bez mikrofonu</string>
-    <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in newest version!</string>
-    <string name="default_profile_name_battery_ok">OK battery</string>
-    <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
-    <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
-    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
+    <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender není nainstalován!</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender není v nejnovější verzi!</string>
+    <string name="default_profile_name_battery_ok">OK baterie</string>
+    <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Aplikace</string>
+    <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Odkazy</string>
+    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenty</string>
 
 
 
