@@ -170,9 +170,9 @@ public class ActivateProfileListFragment extends Fragment {
         private final WeakReference<ActivateProfileListFragment> fragmentWeakRef;
         private final DataWrapper dataWrapper;
 
-        private boolean applicationActivatorPrefIndicator;
-        private boolean applicationActivatorHeader;
-        private boolean applicationActivatorGridLayout;
+        private final boolean applicationActivatorPrefIndicator;
+        private final boolean applicationActivatorHeader;
+        private final boolean applicationActivatorGridLayout;
 
         private class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {

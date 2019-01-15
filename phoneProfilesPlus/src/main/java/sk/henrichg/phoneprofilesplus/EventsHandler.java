@@ -16,7 +16,6 @@ class EventsHandler {
     private final Context context;
     private String sensorType;
 
-    //private int callEventType;
     private static int oldRingerMode;
     private static int oldSystemRingerMode;
     private static int oldZenMode;
@@ -102,8 +101,6 @@ class EventsHandler {
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
             ApplicationPreferences.getSharedPreferences(context);
-            //TODO call sensor to Extender
-            //callEventType = ApplicationPreferences.preferences.getInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
 
             // save ringer mode, zen mode, ringtone before handle events
             // used by ringing call simulation
@@ -723,95 +720,6 @@ class EventsHandler {
         PPApplication.logE("EventsHandler.doEndHandler","sensorType="+sensorType);
         //PPApplication.logE("EventsHandler.doEndHandler","callEventType="+callEventType);
 
-        //TODO call sensor to Extender
-        /*
-        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
-            boolean linkUnlink = false;
-            if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) &&
-                    ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
-                PPApplication.logE("EventsHandler.doEndHandler","unlink enabled");
-                if (!PhoneCallBroadcastReceiver.linkUnlinkExecuted) {
-                    PPApplication.logE("EventsHandler.doEndHandler","profile is not activated from EventsHandler");
-                    // no profile is activated from EventsHandler
-                    // link, unlink volumes for activated profile
-                    if (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)
-                        linkUnlink = true;
-                    if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                            (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL))
-                        linkUnlink = true;
-                    if (linkUnlink) {
-                        Profile profile = dataWrapper.getActivatedProfile(false, false);
-                        final Profile _profile = Profile.getMappedProfile(profile, context);
-                        if (profile != null) {
-                            ActivateProfileHelper.executeForVolumes(_profile, false, context);
-                        }
-                        // wait for link/unlink
-                        //PPApplication.sleep(1500);
-                    }
-                } else
-                    PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
-            } else
-                PhoneCallBroadcastReceiver.linkUnlinkExecuted = false;
-
-            if (eventsExists(sensorType, true)) {
-                // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
-                if ((android.os.Build.VERSION.SDK_INT >= 21) && (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_RINGING)) {
-                    //if (!linkUnlink) {
-                        // wait for change ringer mode + volume
-                    //    PPApplication.sleep(1500);
-                    //}
-                    // start PhoneProfilesService for ringing call simulation
-                    PPApplication.logE("EventsHandler.doEndHandler","start simulating ringing call");
-                    try {
-                        Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
-                        // add saved ringer mode, zen mode, ringtone before handle events as parameters
-                        // ringing call simulator compare this with new (actual values), changed by currently activated profile
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                        PPApplication.startPPService(context, serviceIntent);
-                    } catch (Exception ignored) {
-                    }
-                }
-            }
-
-            if (!PhoneCallBroadcastReceiver.speakerphoneOnExecuted) {
-                // no profile is activated from EventsHandler
-                // set speakerphone ON for activated profile
-                if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ANSWERED) ||
-                        (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ANSWERED)) {
-                    Profile profile = dataWrapper.getActivatedProfile(false, false);
-                    profile = Profile.getMappedProfile(profile, context);
-                    PhoneCallBroadcastReceiver.setSpeakerphoneOn(profile, context);
-                }
-            } else
-                PhoneCallBroadcastReceiver.speakerphoneOnExecuted = false;
-
-            if ((callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_OUTGOING_CALL_ENDED) ||
-                    (callEventType == PhoneCallBroadcastReceiver.CALL_EVENT_MISSED_CALL)) {
-                ApplicationPreferences.getSharedPreferences(context);
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-                editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
-                editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
-                editor.apply();
-            }
-        }
-        else
-        if (sensorType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
-            ApplicationPreferences.getSharedPreferences(context);
-            SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-            editor.putInt(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TYPE, PhoneCallBroadcastReceiver.CALL_EVENT_UNDEFINED);
-            editor.putString(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_PHONE_NUMBER, "");
-            editor.putLong(PhoneCallBroadcastReceiver.PREF_EVENT_CALL_EVENT_TIME, 0);
-            editor.apply();
-        }
-        */
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 

@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +17,7 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
 
     private Application application;
 
-    ApplicationEditorDialogViewHolder(View itemView, Context context, ApplicationEditorDialog d)
+    ApplicationEditorDialogViewHolder(View itemView, /*Context context,*/ ApplicationEditorDialog d)
     {
         super(itemView);
 

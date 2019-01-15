@@ -28,7 +28,7 @@ import java.util.List;
 public class GrantPermissionActivity extends AppCompatActivity {
 
     private int grantType;
-    private List<Permissions.PermissionType> permissions;
+    private ArrayList<Permissions.PermissionType> permissions;
     private boolean mergedProfile;
     //private boolean onlyNotification;
     private boolean forceGrant;

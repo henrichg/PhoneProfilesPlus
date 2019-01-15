@@ -66,8 +66,8 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
-    private static final boolean logIntoLogCat = true;
-    static final boolean logIntoFile = true;
+    private static final boolean logIntoLogCat = false;
+    static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PPApplication.isMIUI"
@@ -1513,10 +1513,10 @@ public class PPApplication extends Application {
         synchronized (cmd) {
             while (!cmd.isFinished() && waitTill<=waitTillLimit) {
                 try {
-                    if (!cmd.isFinished()) {
+                    //if (!cmd.isFinished()) {
                         cmd.wait(waitTill);
                         waitTill *= waitTillMultiplier;
-                    }
+                    //}
                 } catch (InterruptedException e) {
                     Log.e("PPApplication.commandWait", Log.getStackTraceString(e));
                 }

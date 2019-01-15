@@ -21,7 +21,6 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.Manifest.permission;
 
@@ -189,8 +188,8 @@ class Permissions {
     }
     */
 
-    static List<PermissionType> recheckPermissions(Context context, List<PermissionType> _permissions) {
-        List<PermissionType>  permissions = new ArrayList<>();
+    static ArrayList<PermissionType> recheckPermissions(Context context, ArrayList<PermissionType> _permissions) {
+        ArrayList<PermissionType>  permissions = new ArrayList<>();
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             for (PermissionType _permission : _permissions) {
                 switch (_permission.permission) {
@@ -220,8 +219,8 @@ class Permissions {
         return permissions;
     }
 
-    static List<PermissionType> checkProfilePermissions(Context context, Profile profile) {
-        List<PermissionType>  permissions = new ArrayList<>();
+    static ArrayList<PermissionType> checkProfilePermissions(Context context, Profile profile) {
+        ArrayList<PermissionType>  permissions = new ArrayList<>();
         if (profile == null) return permissions;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             /*if (!checkProfileVolumePreferences(context, profile)) {
@@ -273,7 +272,7 @@ class Permissions {
     }
     */
 
-    static boolean checkInstallTone(Context context, List<PermissionType>  permissions) {
+    static boolean checkInstallTone(Context context, ArrayList<PermissionType>  permissions) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 boolean writeGranted = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
@@ -293,7 +292,7 @@ class Permissions {
         }
     }
 
-    static boolean checkPlayRingtoneNotification(Context context, boolean alsoContacts, List<PermissionType>  permissions) {
+    static boolean checkPlayRingtoneNotification(Context context, boolean alsoContacts, ArrayList<PermissionType>  permissions) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 boolean grantedReadExternalStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
@@ -318,7 +317,7 @@ class Permissions {
         }
     }
 
-    static boolean checkProfileVibrationOnTouch(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileVibrationOnTouch(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -339,7 +338,7 @@ class Permissions {
             return true;
     }
 
-    private static void checkProfileVibrateWhenRinging(Context context, Profile profile, List<PermissionType>  permissions) {
+    private static void checkProfileVibrateWhenRinging(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
         PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "profile._name=" + profile._name);
         PPApplication.logE("Permissions.checkProfileVibrateWhenRinging", "permissions=" + permissions);
@@ -380,7 +379,7 @@ class Permissions {
             return true;
     }
 
-    private static void checkProfileNotificationLed(Context context, Profile profile, List<PermissionType>  permissions) {
+    private static void checkProfileNotificationLed(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -402,7 +401,7 @@ class Permissions {
         //    return true;
     }
 
-    static boolean checkProfileRingtones(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileRingtones(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -448,7 +447,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkProfileScreenTimeout(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileScreenTimeout(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -476,7 +475,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkScreenBrightness(Context context, List<PermissionType>  permissions) {
+    static boolean checkScreenBrightness(Context context, ArrayList<PermissionType>  permissions) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
                 boolean grantedWriteSettings = Settings.System.canWrite(context);
@@ -500,7 +499,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkProfileScreenBrightness(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileScreenBrightness(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -528,7 +527,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkProfileAutoRotation(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileAutoRotation(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -549,7 +548,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkProfileWallpaper(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileWallpaper(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -571,7 +570,7 @@ class Permissions {
         }
     }
 
-    private static void checkCustomProfileIcon(Context context, Profile profile, List<PermissionType>  permissions) {
+    private static void checkCustomProfileIcon(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -675,7 +674,7 @@ class Permissions {
         }
     }
 
-    private static void checkProfileRadioPreferences(Context context, Profile profile, List<PermissionType>  permissions) {
+    private static void checkProfileRadioPreferences(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -736,7 +735,7 @@ class Permissions {
         }
     }
 
-    private static void checkProfilePhoneBroadcast(Context context, Profile profile, List<PermissionType>  permissions) {
+    private static void checkProfilePhoneBroadcast(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -768,7 +767,7 @@ class Permissions {
         }*/
     }
 
-    static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -839,7 +838,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkProfileLockDevice(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileLockDevice(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -868,7 +867,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkProfileDtmfToneWhenDialing(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileDtmfToneWhenDialing(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -889,7 +888,7 @@ class Permissions {
             return true;
     }
 
-    static boolean checkProfileSoundOnTouch(Context context, Profile profile, List<PermissionType>  permissions) {
+    static boolean checkProfileSoundOnTouch(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -910,8 +909,8 @@ class Permissions {
             return true;
     }
 
-    static List<PermissionType> checkEventPermissions(Context context, Event event) {
-        List<PermissionType>  permissions = new ArrayList<>();
+    static ArrayList<PermissionType> checkEventPermissions(Context context, Event event) {
+        ArrayList<PermissionType>  permissions = new ArrayList<>();
         if (event == null) return permissions;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             checkEventCalendar(context, event, permissions);
@@ -938,7 +937,7 @@ class Permissions {
         }
     }
 
-    static boolean checkEventCallContacts(Context context, Event event, List<PermissionType>  permissions) {
+    static boolean checkEventCallContacts(Context context, Event event, ArrayList<PermissionType>  permissions) {
         if (event == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -965,7 +964,7 @@ class Permissions {
         }
     }
 
-    static boolean checkEventSMSContacts(Context context, Event event, List<PermissionType>  permissions) {
+    static boolean checkEventSMSContacts(Context context, Event event, ArrayList<PermissionType>  permissions) {
         if (event == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -1003,7 +1002,7 @@ class Permissions {
         }
     }
 
-    static boolean checkEventCalendar(Context context, Event event, List<PermissionType>  permissions) {
+    static boolean checkEventCalendar(Context context, Event event, ArrayList<PermissionType>  permissions) {
         if (event == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -1049,7 +1048,7 @@ class Permissions {
     }
 
     /*
-    static boolean checkEventSMSBroadcast(Context context, Event event, List<PermissionType>  permissions) {
+    static boolean checkEventSMSBroadcast(Context context, Event event, ArrayList<PermissionType>  permissions) {
         if (event == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -1103,7 +1102,7 @@ class Permissions {
         }
     }
 
-    static boolean checkEventLocation(Context context, Event event, List<PermissionType>  permissions) {
+    static boolean checkEventLocation(Context context, Event event, ArrayList<PermissionType>  permissions) {
         if (event == null) return true;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -1176,7 +1175,7 @@ class Permissions {
         }
     }
 
-    private static void checkEventPhoneBroadcast(Context context, Event event, List<PermissionType>  permissions) {
+    private static void checkEventPhoneBroadcast(Context context, Event event, ArrayList<PermissionType>  permissions) {
         if (event == null) return /*true*/;
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             try {
@@ -1243,7 +1242,7 @@ class Permissions {
         }
     }
 
-    static boolean checkLogToFile(Context context, List<PermissionType>  permissions) {
+    static boolean checkLogToFile(Context context, ArrayList<PermissionType>  permissions) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
                 boolean grantedWriteExternalStorage = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
@@ -1267,7 +1266,7 @@ class Permissions {
                                                   boolean activateProfile,
                                                   boolean fromPreferences) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            List<PermissionType> permissions = checkProfilePermissions(context, profile);
+            ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
             PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
             PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
             if (permissions.size() > 0) {
@@ -1287,7 +1286,7 @@ class Permissions {
                         //if (onlyNotification)
                         //    addMergedPermissions(context, permissions);
                         //else
-                            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                         //intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
                         //intent.putExtra(EXTRA_FOR_GUI, forGUI);
                         //intent.putExtra(EXTRA_MONOCHROME, monochrome);
@@ -1312,7 +1311,7 @@ class Permissions {
 
     static boolean grantInstallTonePermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            List<PermissionType> permissions = new ArrayList<>();
+            ArrayList<PermissionType> permissions = new ArrayList<>();
             boolean granted = checkInstallTone(context, permissions);
             if (!granted) {
                 /*if (onlyNotification) {
@@ -1326,7 +1325,7 @@ class Permissions {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                         intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_INSTALL_TONE);
-                        intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                        intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                         //intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
                         context.startActivity(intent);
                     } catch (Exception e) {
@@ -1342,7 +1341,7 @@ class Permissions {
 
     static void grantPlayRingtoneNotificationPermissions(Context context/*, boolean onlyNotification*/, boolean alsoContacts) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            List<PermissionType> permissions = new ArrayList<>();
+            ArrayList<PermissionType> permissions = new ArrayList<>();
             boolean granted = checkPlayRingtoneNotification(context, alsoContacts, permissions);
             if (!granted) {
                 GrantPermissionActivity.showNotification(GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION, permissions, false,
@@ -1353,7 +1352,7 @@ class Permissions {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, true);
                     intent.putExtra(EXTRA_GRANT_ALSO_CONTACTS, alsoContacts);
                     context.startActivity(intent);
@@ -1372,14 +1371,14 @@ class Permissions {
             boolean granted = checkGallery(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WALLPAPER);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WALLPAPER);
@@ -1400,14 +1399,14 @@ class Permissions {
             boolean granted = checkGallery(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CUSTOM_PROFILE_ICON);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CUSTOM_PROFILE_ICON);
@@ -1425,7 +1424,7 @@ class Permissions {
 
     static boolean grantBrightnessDialogPermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            List<PermissionType> permissions = new ArrayList<>();
+            ArrayList<PermissionType> permissions = new ArrayList<>();
             boolean granted = checkScreenBrightness(context, permissions);
             if (!granted) {
                 try {
@@ -1433,7 +1432,7 @@ class Permissions {
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_BRIGHTNESS_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_BRIGHTNESS_DIALOG);
@@ -1454,14 +1453,14 @@ class Permissions {
             boolean granted = checkExport(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_EXPORT, permission.WRITE_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
@@ -1482,14 +1481,14 @@ class Permissions {
             boolean granted = checkImport(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_IMPORT, permission.READ_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMPORT);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_APPLICATION_DATA_PATH, applicationDataPath);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
@@ -1510,7 +1509,7 @@ class Permissions {
                                                   boolean onlyNotification,
                                                   boolean fromPreferences) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            List<PermissionType> permissions = checkEventPermissions(context, event);
+            ArrayList<PermissionType> permissions = checkEventPermissions(context, event);
             if (permissions.size() > 0) {
                 if (onlyNotification) {
                     GrantPermissionActivity.showNotification(GRANT_TYPE_EVENT, permissions, false,
@@ -1528,7 +1527,7 @@ class Permissions {
                         //if (onlyNotification)
                         //    addMergedPermissions(context, permissions);
                         //else
-                            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                            intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                         //intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
                         if (fromPreferences)
                             ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EVENT);
@@ -1550,7 +1549,7 @@ class Permissions {
             boolean granted = checkLocation(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
@@ -1558,7 +1557,7 @@ class Permissions {
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
@@ -1584,7 +1583,7 @@ class Permissions {
             boolean granted = checkLocation(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
@@ -1592,7 +1591,7 @@ class Permissions {
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
@@ -1618,14 +1617,14 @@ class Permissions {
             boolean granted = checkCalendar(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_CALENDAR_PREFERENCE, permission.READ_CALENDAR));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CALENDAR_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CALENDAR_DIALOG);
@@ -1646,14 +1645,14 @@ class Permissions {
             boolean granted = checkContacts(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONTACT_DIALOG);
@@ -1675,14 +1674,14 @@ class Permissions {
             boolean granted = checkContacts(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONTACT_DIALOG);
@@ -1704,7 +1703,7 @@ class Permissions {
             boolean granted = checkLocation(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
@@ -1712,7 +1711,7 @@ class Permissions {
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     activity.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
@@ -1737,7 +1736,7 @@ class Permissions {
             boolean granted = checkLocation(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
@@ -1745,7 +1744,7 @@ class Permissions {
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
@@ -1770,7 +1769,7 @@ class Permissions {
             boolean granted = checkLocation(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
 
@@ -1778,7 +1777,7 @@ class Permissions {
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
@@ -1803,14 +1802,14 @@ class Permissions {
             boolean granted = checkRingtonePreference(context);
             if (!granted) {
                 try {
-                    List<PermissionType> permissions = new ArrayList<>();
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_RINGTONE_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_RINGTONE_PREFERENCE);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, (ArrayList<PermissionType>) permissions);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_RINGTONE_PREFERENCE);
@@ -1828,7 +1827,7 @@ class Permissions {
 
     static void grantLogToFilePermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
-            List<PermissionType> permissions = new ArrayList<>();
+            ArrayList<PermissionType> permissions = new ArrayList<>();
             boolean granted = checkLogToFile(context, permissions);
             if (!granted) {
                 GrantPermissionActivity.showNotification(GRANT_TYPE_LOG_TO_FILE, permissions, false,

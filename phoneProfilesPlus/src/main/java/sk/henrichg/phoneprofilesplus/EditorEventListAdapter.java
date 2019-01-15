@@ -381,6 +381,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
 
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
+                    startTargetHelpsOrder = false;
                     editor.apply();
 
                     sequence.targets(
@@ -442,7 +443,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 //targetHelpsSequenceStarted = true;
                 sequence.start();
             }
-            else
+
             if (startTargetHelpsOrder) {
                 //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=false");
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {

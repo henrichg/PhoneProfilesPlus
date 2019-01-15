@@ -129,7 +129,8 @@
                 android:orientation="horizontal"
                 android:background="?attr/activityPopupBackground"
                 android:foreground="?android:windowContentOverlay"
-                tools:context=".EditorProfileListActivity" >
+                tools:context=".EditorProfileListActivity"
+                tools:ignore="UnusedAttribute">
 
                 <!--
                 This layout is a two-pane layout for the Profiles

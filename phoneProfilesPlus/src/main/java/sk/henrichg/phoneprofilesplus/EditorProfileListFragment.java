@@ -198,15 +198,15 @@ public class EditorProfileListFragment extends Fragment
                 switch (item.getItemId()) {
                     case R.id.menu_add_profile:
                         if (profileListAdapter != null) {
-                            ((EditorProfilesActivity) getActivity()).addProfileDialog = new AddProfileDialog(activity, fragment);
-                            ((EditorProfilesActivity) getActivity()).addProfileDialog.show();
+                            ((EditorProfilesActivity) activity).addProfileDialog = new AddProfileDialog(activity, fragment);
+                            ((EditorProfilesActivity) activity).addProfileDialog.show();
                         }
                         return true;
                     case R.id.menu_delete_all_profiles:
                         deleteAllProfiles();
                         return true;
                     case R.id.menu_default_profile:
-                        Intent intent = new Intent(getActivity(), PhoneProfilesPreferencesActivity.class);
+                        Intent intent = new Intent(activity, PhoneProfilesPreferencesActivity.class);
                         intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "profileActivationCategory");
                         startActivity(intent);
                         return true;
@@ -249,7 +249,7 @@ public class EditorProfileListFragment extends Fragment
         boolean defaultProfilesGenerated = false;
         boolean defaultEventsGenerated = false;
 
-        boolean applicationEditorPrefIndicator;
+        final boolean applicationEditorPrefIndicator;
 
         private LoadProfileListAsyncTask (EditorProfileListFragment fragment, int filterType) {
             fragmentWeakRef = new WeakReference<>(fragment);
@@ -567,8 +567,8 @@ public class EditorProfileListFragment extends Fragment
                     activityDataWrapper.addActivityLog(DatabaseHandler.ALTYPE_ALLPROFILESDELETED, null, null, null, 0);
 
                     // remove alarm for profile duration
-                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(getActivity().getApplicationContext());
-                    Profile.setActivatedProfileForDuration(getActivity().getApplicationContext(), 0);
+                    ProfileDurationAlarmBroadcastReceiver.removeAlarm(activityDataWrapper.context);
+                    Profile.setActivatedProfileForDuration(activityDataWrapper.context, 0);
 
                     listView.getRecycledViewPool().clear();
 
@@ -587,7 +587,7 @@ public class EditorProfileListFragment extends Fragment
 
                     activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
-                    Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+                    Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     PPApplication.startPPService(getActivity(), serviceIntent);

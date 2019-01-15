@@ -105,7 +105,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         private final WeakReference<ShortcutCreatorListFragment> fragmentWeakRef;
         private final DataWrapper dataWrapper;
 
-        boolean applicationActivatorPrefIndicator;
+        final boolean applicationActivatorPrefIndicator;
 
         private class ProfileComparator implements Comparator<Profile> {
             public int compare(Profile lhs, Profile rhs) {

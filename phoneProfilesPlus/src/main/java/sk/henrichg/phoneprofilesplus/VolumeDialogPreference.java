@@ -189,7 +189,7 @@ public class VolumeDialogPreference extends
         // Round the value to the closest integer value.
         //noinspection ConstantConditions
         if (stepSize >= 1) {
-            value = Math.round(newValue/stepSize)*stepSize;
+            value = Math.round((float)newValue/stepSize)*stepSize;
         }
         else {
             value = newValue;

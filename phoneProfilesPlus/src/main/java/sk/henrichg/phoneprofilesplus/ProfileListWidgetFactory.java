@@ -214,6 +214,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         return(true);
     }
 
+    /*
+        Called when notifyDataSetChanged() is triggered on the remote adapter. This allows a RemoteViewsFactory to
+        respond to data changes by updating any internal references.
+
+        Note: expensive tasks can be safely performed synchronously within this method. In the interim,
+        the old data will be displayed within the widget.
+    */
     public void onDataSetChanged() {
         createProfilesDataWrapper();
 

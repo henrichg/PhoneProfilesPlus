@@ -216,15 +216,15 @@ public class EditorEventListFragment extends Fragment
                 switch (item.getItemId()) {
                     case R.id.menu_add_event:
                         if (eventListAdapter != null) {
-                            ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(activity, fragment);
-                            ((EditorProfilesActivity) getActivity()).addEventDialog.show();
+                            ((EditorProfilesActivity) activity).addEventDialog = new AddEventDialog(activity, fragment);
+                            ((EditorProfilesActivity) activity).addEventDialog.show();
                         }
                         return true;
                     case R.id.menu_delete_all_events:
                         deleteAllEvents();
                         return true;
                     case R.id.menu_default_profile:
-                        Intent intent = new Intent(getActivity(), PhoneProfilesPreferencesActivity.class);
+                        Intent intent = new Intent(activity, PhoneProfilesPreferencesActivity.class);
                         intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "profileActivationCategory");
                         startActivity(intent);
                         return true;
@@ -263,7 +263,7 @@ public class EditorEventListFragment extends Fragment
         private final int _filterType;
         private final int _orderType;
 
-        boolean applicationEditorPrefIndicator;
+        final boolean applicationEditorPrefIndicator;
 
         private LoadEventListAsyncTask (EditorEventListFragment fragment, int filterType, int orderType) {
             fragmentWeakRef = new WeakReference<>(fragment);
@@ -622,10 +622,12 @@ public class EditorEventListFragment extends Fragment
                     // this is in eventListAdapter.clear()
                     //eventListAdapter.notifyDataSetChanged();
 
-                    Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    PPApplication.startPPService(getActivity(), serviceIntent);
+                    if (getActivity() != null) {
+                        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        PPApplication.startPPService(getActivity(), serviceIntent);
+                    }
 
                     onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
                 }

@@ -141,17 +141,17 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         int minutes;
         int seconds;
         hours = mMax / 3600;
-        minutes = (mMax % 3600) / 60;
-        seconds = mMax % 60;
+        //minutes = (mMax % 3600) / 60;
+        //seconds = mMax % 60;
         final String sMax = GlobalGUIRoutines.getDurationString(mMax);
         mSeekBarHours.setMax(hours);
-        if (hours == 0)
-            mSeekBarMinutes.setMax(minutes);
-        else
+        //if (hours == 0)
+        //    mSeekBarMinutes.setMax(minutes);
+        //else
             mSeekBarMinutes.setMax(59);
-        if ((hours == 0) && (minutes == 0))
-            mSeekBarSeconds.setMax(seconds);
-        else
+        //if ((hours == 0) && (minutes == 0))
+        //    mSeekBarSeconds.setMax(seconds);
+        //else
             mSeekBarSeconds.setMax(59);
         final String sMin = GlobalGUIRoutines.getDurationString(mMin);
         int iValue = mProfile._duration;

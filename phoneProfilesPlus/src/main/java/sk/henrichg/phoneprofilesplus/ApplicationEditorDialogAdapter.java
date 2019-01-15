@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,15 +11,10 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEditorDialogViewHolder>
                                                 implements FastScrollRecyclerView.SectionedAdapter
 {
-    private final Context context;
-
     private final ApplicationEditorDialog dialog;
 
-    ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog, Context context)
+    ApplicationEditorDialogAdapter(ApplicationEditorDialog dialog)
     {
-        // Cache the LayoutInflate to avoid asking for a new one each time.
-        this.context = context;
-
         this.dialog = dialog;
     }
 
@@ -28,7 +22,7 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
     @Override
     public ApplicationEditorDialogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.applications_editor_dialog_list_item, parent, false);
-        return new ApplicationEditorDialogViewHolder(view, context, dialog);
+        return new ApplicationEditorDialogViewHolder(view, /*context,*/ dialog);
     }
 
     @Override

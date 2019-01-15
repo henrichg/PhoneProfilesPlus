@@ -1721,7 +1721,7 @@ public class Profile {
         if (value < min) {
             return 0.0f;
         }
-        return (value - min) / (max - min);
+        return ((float)value - min) / (max - min);
     }
 
     // Hybrid Log Gamma constant values
