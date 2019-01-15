@@ -391,6 +391,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
                 if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     editor.apply();
+                    startTargetHelpsOrder = false;
 
                     sequence.targets(
                             TapTarget.forBounds(profileItemTarget, activity.getString(R.string.editor_activity_targetHelps_profilePreferences_title), activity.getString(R.string.editor_activity_targetHelps_profilePreferences_description))
