@@ -38,6 +38,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     private String value = "";
 
     final List<Application> applicationsList;
+    private final List<PPIntent> intentDBList;
 
     private AlertDialog mDialog;
     private ApplicationEditorDialog mEditorDialog;
@@ -76,6 +77,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         this.context = context;
 
         applicationsList = new ArrayList<>();
+        intentDBList = new ArrayList<>();
 
         setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
 
@@ -216,6 +218,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
                     if (!EditorProfilesActivity.getApplicationsCache().cached)
                         EditorProfilesActivity.getApplicationsCache().cacheApplicationsList(context);
 
+                List<PPIntent> _intentDBList = DatabaseHandler.getInstance(context.getApplicationContext()).getAllIntents();
+                intentDBList.addAll(_intentDBList);
+
                 getValueAMSDP();
 
                 return null;
@@ -302,15 +307,18 @@ public class ApplicationsDialogPreference  extends DialogPreference
                     for (Application application : cachedApplicationList) {
                         application.checked = false;
 
-                        String packageName = "";
+                        String packageName;
                         String activityName = "";
                         String shortcutIntent;
                         String shortcutId = "";
-                        String intentId = "";
                         String startApplicationDelay = "0";
                         String[] packageNameActivity = split.split("/"); // package name/activity
                         if (split.length() > 2) {
                             shortcutIntent = packageNameActivity[0].substring(0, 3);
+
+                            if (shortcutIntent.equals("(i)"))
+                                // skip intents
+                                continue;
 
                             switch (shortcutIntent) {
                                 case "(s)":
@@ -338,16 +346,6 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                         if (packageNameShortcutIdDelay.length == 2) {
                                             startApplicationDelay = packageNameShortcutIdDelay[1];
                                         }
-                                    }
-                                    break;
-                                case "(i)":
-                                    // intent
-                                    String[] intentIdDelay = split.split("#");
-                                    if (intentIdDelay.length >= 2) {
-                                        intentId = intentIdDelay[0].substring(3);
-                                        startApplicationDelay = intentIdDelay[1];
-                                    } else {
-                                        startApplicationDelay = split.substring(3);
                                     }
                                     break;
                                 default:
@@ -386,21 +384,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                     }
                                 }
                             } else {
-                                switch (shortcutIntent) {
-                                    case "(i)":
-                                        if (application.type == Application.TYPE_INTENT)
-                                            try {
-                                                application.intentId = Long.parseLong(intentId);
-                                            } catch (Exception e) {
-                                                application.intentId = 0;
-                                            }
-                                            application.checked = true;
-                                        break;
-                                    default:
-                                        if (packagePassed && (application.type == Application.TYPE_APPLICATION))
-                                            application.checked = true;
-                                        break;
-                                }
+                                if (packagePassed && (application.type == Application.TYPE_APPLICATION))
+                                    application.checked = true;
+                                break;
                             }
                             _application = application;
                             try {
@@ -413,6 +399,55 @@ public class ApplicationsDialogPreference  extends DialogPreference
                             PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "activityName=" + activityName);
                             PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
                             PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutId=" + shortcutId);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
+
+                            if (_application.checked)
+                                break;
+                        }
+                    }
+
+                    for (PPIntent ppIntent : intentDBList) {
+                        _application = new Application();
+
+                        String intentId = "";
+                        String startApplicationDelay = "0";
+                        String shortcutIntent;
+                        String[] packageNameActivity = split.split("/"); // package name/activity
+                        if (split.length() > 2) {
+                            shortcutIntent = packageNameActivity[0].substring(0, 3);
+
+                            switch (shortcutIntent) {
+                                case "(i)":
+                                    // intent
+                                    String[] intentIdDelay = split.split("#");
+                                    if (intentIdDelay.length >= 2) {
+                                        intentId = intentIdDelay[0].substring(3);
+                                        startApplicationDelay = intentIdDelay[1];
+                                    } else {
+                                        startApplicationDelay = split.substring(3);
+                                    }
+                                    break;
+                            }
+
+                            boolean intentPassed =  shortcutIntent.equals("(i)") && intentId.equals(String.valueOf(ppIntent._id));
+
+                            if (intentPassed) {
+                                _application.type = Application.TYPE_INTENT;
+                                try {
+                                    _application.intentId = Long.parseLong(intentId);
+                                } catch (Exception e) {
+                                    _application.intentId = 0;
+                                }
+                                _application.checked = true;
+                            }
+                            try {
+                                _application.startApplicationDelay = Integer.parseInt(startApplicationDelay);
+                            } catch (Exception e) {
+                                _application.startApplicationDelay = 0;
+                            }
+
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
                             PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "intentId=" + intentId);
                             PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
                             PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
@@ -421,6 +456,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                 break;
                         }
                     }
+
                     if ((_application != null) && _application.checked) {
                         Application newInfo = new Application();
 
@@ -429,6 +465,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                         newInfo.packageName = _application.packageName;
                         newInfo.activityName = _application.activityName;
                         newInfo.shortcutId = _application.shortcutId;
+                        newInfo.intentId = _application.shortcutId;
                         newInfo.startApplicationDelay = _application.startApplicationDelay;
 
                         applicationsList.add(newInfo);
@@ -463,7 +500,14 @@ public class ApplicationsDialogPreference  extends DialogPreference
                 }
                 else
                 if (Application.isIntent(splits[0])) {
-                    //TODO intent
+                    long intentId = Application.getIntentId(splits[0]);
+                    if (intentId > 0) {
+                        PPIntent intent = DatabaseHandler.getInstance(context.getApplicationContext()).getIntent(intentId);
+                        if (intent != null)
+                            prefSummary = intent._name;
+                    }
+                    else
+                        prefSummary = context.getString(R.string.empty_string);
                 }
                 else {
                     if (Application.getActivityName(splits[0]).isEmpty()) {
@@ -514,7 +558,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                 }
                 else
                 if (Application.isIntent(splits[0])) {
-                    //TODO intent
+                    packageIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
                 } else {
                     if (Application.getActivityName(splits[0]).isEmpty()) {
                         try {
@@ -564,7 +608,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                         }
                         else
                         if (Application.isIntent(splits[0])) {
-                                //TODO intent
+                            packIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
                         } else {
                             if (Application.getActivityName(splits[i]).isEmpty()) {
                                 try {

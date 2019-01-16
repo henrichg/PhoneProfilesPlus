@@ -8620,6 +8620,120 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    // Getting single intent
+    PPIntent getIntent(long intentId) {
+        importExportLock.lock();
+        try {
+            PPIntent intent = null;
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_INTENTS,
+                        new String[]{KEY_IN_ID,
+                                KEY_IN_NAME,
+                                KEY_IN_PACKAGE_NAME,
+                                KEY_IN_CLASS_NAME,
+                                KEY_IN_ACTION,
+                                KEY_IN_DATA,
+                                KEY_IN_MIME_TYPE,
+                                KEY_IN_EXTRA_KEY_1,
+                                KEY_IN_EXTRA_VALUE_1,
+                                KEY_IN_EXTRA_TYPE_1,
+                                KEY_IN_EXTRA_KEY_2,
+                                KEY_IN_EXTRA_VALUE_2,
+                                KEY_IN_EXTRA_TYPE_2,
+                                KEY_IN_EXTRA_KEY_3,
+                                KEY_IN_EXTRA_VALUE_3,
+                                KEY_IN_EXTRA_TYPE_3,
+                                KEY_IN_EXTRA_KEY_4,
+                                KEY_IN_EXTRA_VALUE_4,
+                                KEY_IN_EXTRA_TYPE_4,
+                                KEY_IN_EXTRA_KEY_5,
+                                KEY_IN_EXTRA_VALUE_5,
+                                KEY_IN_EXTRA_TYPE_5,
+                                KEY_IN_EXTRA_KEY_6,
+                                KEY_IN_EXTRA_VALUE_6,
+                                KEY_IN_EXTRA_TYPE_6,
+                                KEY_IN_EXTRA_KEY_7,
+                                KEY_IN_EXTRA_VALUE_7,
+                                KEY_IN_EXTRA_TYPE_7,
+                                KEY_IN_EXTRA_KEY_8,
+                                KEY_IN_EXTRA_VALUE_8,
+                                KEY_IN_EXTRA_TYPE_8,
+                                KEY_IN_EXTRA_KEY_9,
+                                KEY_IN_EXTRA_VALUE_9,
+                                KEY_IN_EXTRA_TYPE_9,
+                                KEY_IN_EXTRA_KEY_10,
+                                KEY_IN_EXTRA_VALUE_10,
+                                KEY_IN_EXTRA_TYPE_10,
+                                KEY_IN_CATEGORIES,
+                                KEY_IN_FLAGS
+                        },
+                        KEY_IN_ID + "=?",
+                        new String[]{String.valueOf(intentId)}, null, null, null, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        intent = new PPIntent(
+                                Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_IN_ID))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_NAME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_PACKAGE_NAME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_CLASS_NAME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_ACTION)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_DATA)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_MIME_TYPE)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_1)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_1)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_1))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_2)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_2)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_2))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_3)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_3)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_3))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_4)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_4)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_4))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_5)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_5)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_5))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_6)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_6)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_6))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_7)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_7)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_7))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_8)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_8)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_8))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_9)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_9)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_9))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_KEY_10)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_10)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_10))),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
+            return intent;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
     // Deleting single intent
     void deleteIntent(PPIntent intent) {
         importExportLock.lock();

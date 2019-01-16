@@ -114,6 +114,23 @@ class Application {
             return 0;
     }
 
+    static long getIntentId(String value) {
+        if (value.length() > 2) {
+            long intentId = 0;
+            String[] intentIdDelay = value.split("#");
+            String intent = intentIdDelay[0].substring(0, 3);
+            if (intent.equals("(i)")) {
+                // intent
+                try {
+                    intentId = Long.parseLong(intentIdDelay[0].substring(3));
+                } catch (Exception ignored) {}
+            }
+            return intentId;
+        }
+        else
+            return 0;
+    }
+
     static int getStartApplicationDelay(String value) {
         if (value.length() > 2) {
             String shortcutIntent;
