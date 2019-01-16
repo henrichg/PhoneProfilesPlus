@@ -145,10 +145,17 @@ class ApplicationEditorDialog
         filterValues= activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterValues);
 
         if (editedApplication != null) {
-            if (!editedApplication.shortcut)
-                selectedFilter = 0;
-            if (editedApplication.shortcut)
-                selectedFilter = 1;
+            switch (editedApplication.type) {
+                case Application.TYPE_APPLICATION:
+                    selectedFilter = 0;
+                    break;
+                case Application.TYPE_SHORTCUT:
+                    selectedFilter = 1;
+                    break;
+                case Application.TYPE_INTENT:
+                    selectedFilter = 3;
+                    break;
+            }
         }
 
         filterSpinner.setSelection(Arrays.asList(filterValues).indexOf(String.valueOf(selectedFilter)));
@@ -179,7 +186,7 @@ class ApplicationEditorDialog
         if (EditorProfilesActivity.getApplicationsCache() == null)
             EditorProfilesActivity.createApplicationsCache();
 
-        cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
+        cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);
 
         fillApplicationList();
         updateSelectedAppViews();
@@ -201,16 +208,28 @@ class ApplicationEditorDialog
         if (cachedApplicationList != null) {
             for (Application _application : cachedApplicationList) {
                 boolean add = false;
-                if ((selectedFilter == 0) && (!_application.shortcut))
+                if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     add = true;
-                if ((selectedFilter == 1) && (_application.shortcut))
+                if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
+                    add = true;
+                if ((selectedFilter == 3) && (_application.type == Application.TYPE_INTENT))
                     add = true;
                 if (add) {
                     if (selectedApplication != null) {
-                        if ((selectedApplication.shortcut == _application.shortcut) &&
-                                selectedApplication.packageName.equals(_application.packageName) &&
-                                selectedApplication.activityName.equals(_application.activityName)) {
-                            selectedPosition = pos;
+                        switch (selectedApplication.type) {
+                            case Application.TYPE_APPLICATION:
+                                if (selectedApplication.packageName.equals(_application.packageName))
+                                    selectedPosition = pos;
+                                break;
+                            case Application.TYPE_SHORTCUT:
+                                if (selectedApplication.packageName.equals(_application.packageName) &&
+                                        selectedApplication.activityName.equals(_application.activityName))
+                                    selectedPosition = pos;
+                                break;
+                            case Application.TYPE_INTENT:
+                                if (selectedApplication.intentId == _application.intentId)
+                                    selectedPosition = pos;
+                                break;
                         }
                     }
                     applicationList.add(_application);
@@ -222,15 +241,17 @@ class ApplicationEditorDialog
 
     private Application getSelectedApplication() {
         if (EditorProfilesActivity.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getList(false);
+            List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);
             if (cachedApplicationList != null) {
                 // search filtered application in cachedApplicationList
                 int pos = 0;
                 for (Application _application : cachedApplicationList) {
                     boolean search = false;
-                    if ((selectedFilter == 0) && (!_application.shortcut))
+                    if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                         search = true;
-                    if ((selectedFilter == 1) && (_application.shortcut))
+                    if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
+                        search = true;
+                    if ((selectedFilter == 3) && (_application.type == Application.TYPE_INTENT))
                         search = true;
                     if (search) {
                         if (pos == selectedPosition) {
@@ -259,11 +280,18 @@ class ApplicationEditorDialog
             }
             else
                 mSelectedAppIcon.setVisibility(View.GONE);
-            String appName;
-            if (selectedApplication.shortcut)
-                appName = "(S) ";
-            else
-                appName = "(A) ";
+            String appName = "";
+            switch (selectedApplication.type) {
+                case Application.TYPE_APPLICATION:
+                    appName = "(A) ";
+                    break;
+                case Application.TYPE_SHORTCUT:
+                    appName = "(S) ";
+                    break;
+                case Application.TYPE_INTENT:
+                    appName = "(I) ";
+                    break;
+            }
             appName = appName + selectedApplication.appLabel;
             mSelectedAppName.setText(appName);
         }

@@ -2889,7 +2889,7 @@ public class DataWrapper {
                     if (!foregroundApplication.isEmpty()) {
                         String[] splits = event._eventPreferencesApplication._applications.split("\\|");
                         for (String split : splits) {
-                            String packageName = ApplicationsCache.getPackageName(split);
+                            String packageName = Application.getPackageName(split);
 
                             if (foregroundApplication.equals(packageName)) {
                                 applicationPassed = true;
@@ -3018,7 +3018,7 @@ public class DataWrapper {
                                     if (!foregroundApplication.isEmpty()) {
                                         String[] splits = event._eventPreferencesOrientation._ignoredApplications.split("\\|");
                                         for (String split : splits) {
-                                            String packageName = ApplicationsCache.getPackageName(split);
+                                            String packageName = Application.getPackageName(split);
 
                                             if (foregroundApplication.equals(packageName)) {
                                                 lApplicationPassed = true;

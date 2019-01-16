@@ -41,7 +41,6 @@
         <attr name="onlyEdit" format="integer" />
     </declare-styleable>
     <declare-styleable name="ApplicationsMultiSelectDialogPreference">
-        <attr name="addShortcuts" format="integer" />
         <attr name="removePPApplications" format="integer" />
         <attr name="systemSettings" format="string" />
     </declare-styleable>

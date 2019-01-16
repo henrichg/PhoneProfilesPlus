@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,31 +11,21 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 class ApplicationsMultiSelectPreferenceAdapter extends RecyclerView.Adapter<ApplicationsMultiSelectDialogPreferenceViewHolder>
                                                 implements FastScrollRecyclerView.SectionedAdapter
 {
-    private final Context context;
-
     private final ApplicationsMultiSelectDialogPreference preference;
 
-    private final boolean noShortcuts;
-
-    ApplicationsMultiSelectPreferenceAdapter(Context context, ApplicationsMultiSelectDialogPreference preference, int addShortcuts)
+    ApplicationsMultiSelectPreferenceAdapter(ApplicationsMultiSelectDialogPreference preference)
     {
-        this.context = context;
         this.preference = preference;
-
-        noShortcuts = addShortcuts == 0;
     }
 
     @NonNull
     @Override
     public ApplicationsMultiSelectDialogPreferenceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int resource;
-        if (noShortcuts)
-            resource = R.layout.applications_multiselect_preference_ns_list_item;
-        else
-            resource = R.layout.applications_multiselect_preference_list_item;
+        resource = R.layout.applications_multiselect_preference_list_item;
 
         View view = LayoutInflater.from(parent.getContext()).inflate(resource, parent, false);
-        return new ApplicationsMultiSelectDialogPreferenceViewHolder(view, context, noShortcuts);
+        return new ApplicationsMultiSelectDialogPreferenceViewHolder(view);
     }
 
     @Override

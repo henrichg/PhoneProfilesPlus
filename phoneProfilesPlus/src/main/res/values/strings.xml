@@ -1313,6 +1313,7 @@
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
 
     <string name="applications_editor_dialog_not_selected">[not selected]</string>
+    <string name="applications_preference_applicationType_intent">intent</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

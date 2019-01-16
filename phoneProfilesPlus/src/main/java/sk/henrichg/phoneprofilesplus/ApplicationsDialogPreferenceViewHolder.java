@@ -59,18 +59,30 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
                 text = shortcut._name;
         }
         textViewAppName.setText(text);
-        setTextStyle(textViewAppName, application.shortcut && (application.shortcutId == 0));
+        boolean errorColor = false;
+        if ((application.type == Application.TYPE_SHORTCUT) && (application.shortcutId == 0))
+            errorColor = true;
+        if ((application.type == Application.TYPE_INTENT) && (application.intentId == 0))
+            errorColor = true;
+        setTextStyle(textViewAppName, errorColor);
 
-        if (application.shortcut)
-            textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
-        else
-            textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
-        setTextStyle(textViewAppType, application.shortcut && (application.shortcutId == 0));
+        switch (application.type) {
+            case Application.TYPE_APPLICATION:
+                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_application));
+                break;
+            case Application.TYPE_SHORTCUT:
+                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_shortcut));
+                break;
+            case Application.TYPE_INTENT:
+                textViewAppType.setText("- "+context.getString(R.string.applications_preference_applicationType_intent));
+                break;
+        }
+        setTextStyle(textViewAppType, errorColor);
 
         text = context.getString(R.string.applications_editor_dialog_startApplicationDelay);
         text = text + " " + GlobalGUIRoutines.getDurationString(application.startApplicationDelay);
         textViewStartApplicationDelay.setText(text);
-        setTextStyle(textViewStartApplicationDelay, application.shortcut && (application.shortcutId == 0));
+        setTextStyle(textViewStartApplicationDelay, errorColor);
 
         imageViewMenu.setTag(application);
         imageViewMenu.setOnClickListener(new View.OnClickListener() {

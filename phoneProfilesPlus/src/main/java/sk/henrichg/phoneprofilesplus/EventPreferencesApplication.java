@@ -100,10 +100,10 @@ class EventPreferencesApplication extends EventPreferences {
                 } else if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                     String[] splits = this._applications.split("\\|");
                     if (splits.length == 1) {
-                        String packageName = ApplicationsCache.getPackageName(splits[0]);
+                        String packageName = Application.getPackageName(splits[0]);
 
                         PackageManager packageManager = context.getPackageManager();
-                        if (ApplicationsCache.getActivityName(splits[0]).isEmpty()) {
+                        if (Application.getActivityName(splits[0]).isEmpty()) {
                             ApplicationInfo app;
                             try {
                                 app = packageManager.getApplicationInfo(packageName, 0);
@@ -114,7 +114,7 @@ class EventPreferencesApplication extends EventPreferences {
                             }
                         } else {
                             Intent intent = new Intent();
-                            intent.setClassName(ApplicationsCache.getPackageName(splits[0]), ApplicationsCache.getActivityName(splits[0]));
+                            intent.setClassName(Application.getPackageName(splits[0]), Application.getActivityName(splits[0]));
                             ActivityInfo info = intent.resolveActivityInfo(packageManager, 0);
                             if (info != null)
                                 selectedApplications = info.loadLabel(packageManager).toString();

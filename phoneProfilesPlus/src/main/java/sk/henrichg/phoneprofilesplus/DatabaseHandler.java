@@ -3133,9 +3133,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     // unlink shortcuts from profile
                     String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
                     for (String split : splits) {
-                        boolean shortcut = ApplicationsCache.isShortcut(split);
+                        boolean shortcut = Application.isShortcut(split);
                         if (shortcut) {
-                            long shortcutId = ApplicationsCache.getShortcutId(split);
+                            long shortcutId = Application.getShortcutId(split);
                             deleteShortcut(shortcutId);
                         }
                     }

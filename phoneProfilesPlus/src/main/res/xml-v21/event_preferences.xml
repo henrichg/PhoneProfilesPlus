@@ -877,7 +877,6 @@
                 android:defaultValue="@string/dash_string"
                 android:key="eventNotificationApplications"
                 android:title="@string/event_preferences_notifications_applications"
-                app:addShortcuts="0"
                 app:removePPApplications="0"
                 app:systemSettings="notifications"
                 android:dependency="eventNotificationEnabled"
@@ -946,7 +945,6 @@
                 android:defaultValue="@string/dash_string"
                 android:key="eventApplicationApplications"
                 android:title="@string/event_preferences_applications_applications"
-                app:addShortcuts="0"
                 app:removePPApplications="0"
                 app:systemSettings="accessibility_2.0"
                 android:dependency="eventApplicationEnabled"
@@ -1024,7 +1022,6 @@
                 android:defaultValue="@string/dash_string"
                 android:key="eventOrientationIgnoredApplications"
                 android:title="@string/event_preferences_orientation_ignoreForApplications"
-                app:addShortcuts="0"
                 app:removePPApplications="0"
                 app:systemSettings="accessibility_2.0"
                 android:dependency="eventOrientationEnabled"
@@ -1046,7 +1043,6 @@
                 android:defaultValue="@string/empty_string"
                 android:key="eventNFCTags"
                 android:title="@string/event_preferences_nfc_nfcTags"
-                app:addShortcuts="0"
                 android:dependency="eventNFCEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
