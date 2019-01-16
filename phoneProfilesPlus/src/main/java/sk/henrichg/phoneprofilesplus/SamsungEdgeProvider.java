@@ -275,7 +275,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
+        super.onReceive(context, intent); // calling onUpdate!!!
 
         if (EditorProfilesActivity.doImport)
             return;
