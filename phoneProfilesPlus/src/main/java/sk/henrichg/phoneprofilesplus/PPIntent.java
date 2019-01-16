@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 class PPIntent {
     final long _id;
+    String _name;
     String _packageName;
     String _className;
     String _action;
@@ -42,6 +43,7 @@ class PPIntent {
 
     PPIntent(
         long id,
+        String name,
         String packageName,
         String className,
         String action,
@@ -82,6 +84,7 @@ class PPIntent {
     )
     {
         this._id = id;
+        this._name = name;
         this._packageName = packageName;
         this._className = className;
         this._action = action;

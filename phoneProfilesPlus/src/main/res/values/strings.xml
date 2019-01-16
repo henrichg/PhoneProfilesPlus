@@ -1312,6 +1312,7 @@
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
 
+    <string name="applications_editor_dialog_not_selected">[not selected]</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

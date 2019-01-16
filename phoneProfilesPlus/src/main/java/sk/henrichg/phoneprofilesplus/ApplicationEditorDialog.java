@@ -253,10 +253,12 @@ class ApplicationEditorDialog
             }
         }
         if (selectedApplication != null) {
-            if (applicationIcon != null)
+            if (applicationIcon != null) {
                 mSelectedAppIcon.setImageBitmap(applicationIcon);
+                mSelectedAppIcon.setVisibility(View.VISIBLE);
+            }
             else
-                mSelectedAppIcon.setImageResource(R.drawable.ic_empty);
+                mSelectedAppIcon.setVisibility(View.GONE);
             String appName;
             if (selectedApplication.shortcut)
                 appName = "(S) ";
@@ -266,8 +268,8 @@ class ApplicationEditorDialog
             mSelectedAppName.setText(appName);
         }
         else {
-            mSelectedAppIcon.setImageResource(R.drawable.ic_empty);
-            mSelectedAppName.setText(R.string.empty_string);
+            mSelectedAppIcon.setVisibility(View.GONE);
+            mSelectedAppName.setText(R.string.applications_editor_dialog_not_selected);
         }
     }
 

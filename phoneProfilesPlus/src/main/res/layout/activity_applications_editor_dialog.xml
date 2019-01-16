@@ -84,7 +84,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:orientation="horizontal"
             android:layout_marginBottom="7dp">
 
@@ -92,6 +92,7 @@
                 android:id="@+id/applications_editor_dialog_selectedIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="7dp"
                 android:contentDescription="@string/applications_editor_dialog_item_icon"
                 android:padding="3dp"
                 android:scaleType="fitCenter"
@@ -101,8 +102,8 @@
                 android:id="@+id/applications_editor_dialog_selectedAppName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
                 android:text="@string/empty_string"
                 android:textSize="16sp"
                 android:ellipsize="end"
@@ -114,6 +115,7 @@
             android:id="@+id/applications_editor_dialog_startApplicationDelay_root"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
             android:orientation="vertical"
             android:clickable="true"
             android:focusable="true">
