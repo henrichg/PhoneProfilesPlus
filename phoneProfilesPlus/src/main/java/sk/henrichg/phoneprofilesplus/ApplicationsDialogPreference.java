@@ -502,9 +502,12 @@ public class ApplicationsDialogPreference  extends DialogPreference
                 if (Application.isIntent(splits[0])) {
                     long intentId = Application.getIntentId(splits[0]);
                     if (intentId > 0) {
-                        PPIntent intent = DatabaseHandler.getInstance(context.getApplicationContext()).getIntent(intentId);
-                        if (intent != null)
-                            prefSummary = intent._name;
+                        for (PPIntent intent : intentDBList) {
+                            if (intent._id == intentId) {
+                                prefSummary = intent._name;
+                                break;
+                            }
+                        }
                     }
                     else
                         prefSummary = context.getString(R.string.empty_string);
