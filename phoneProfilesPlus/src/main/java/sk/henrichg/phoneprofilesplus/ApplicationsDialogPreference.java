@@ -38,7 +38,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     private String value = "";
 
     final List<Application> applicationsList;
-    private final List<PPIntent> intentDBList;
+    final List<PPIntent> intentDBList;
 
     private AlertDialog mDialog;
     private ApplicationEditorDialog mEditorDialog;
@@ -304,7 +304,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                 String[] splits = value.split("\\|");
                 for (String split : splits) {
 
-                    boolean applicationPassed = false;
+                    boolean applicationPassed;
 
                     for (Application application : cachedApplicationList) {
                         application.checked = false;
@@ -708,6 +708,29 @@ public class ApplicationsDialogPreference  extends DialogPreference
     void updateApplication(Application application, Application selectedApplication, int startApplicationDelay) {
         if (selectedApplication == null)
             return;
+
+        if (selectedApplication.type == Application.TYPE_INTENT) {
+            if (intentDBList != null) {
+                Application editedApplication = application;
+                if (editedApplication == null) {
+                    editedApplication = new Application();
+                    applicationsList.add(editedApplication);
+                }
+                editedApplication.type = selectedApplication.type;
+                editedApplication.appLabel = selectedApplication.appLabel;
+                editedApplication.intentId = selectedApplication.intentId;
+
+                if (editedApplication.type != Application.TYPE_SHORTCUT)
+                    editedApplication.shortcutId = 0;
+                if (editedApplication.type != Application.TYPE_INTENT)
+                    editedApplication.intentId = 0;
+                editedApplication.startApplicationDelay = startApplicationDelay;
+
+                applicationsListView.getRecycledViewPool().clear();
+                listAdapter.notifyDataSetChanged();
+            }
+            return;
+        }
 
         if (EditorProfilesActivity.getApplicationsCache() != null) {
             List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);

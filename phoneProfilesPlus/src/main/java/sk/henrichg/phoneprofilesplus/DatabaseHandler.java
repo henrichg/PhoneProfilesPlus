@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2220;
+    private static final int DATABASE_VERSION = 2230;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2558,7 +2558,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_NAME + "=\"\"");
         }
 
-        if (oldVersion < 2220)
+        if (oldVersion < 2230)
         {
             final String selectQuery = "SELECT * FROM " + TABLE_INTENTS;
             Cursor cursor = db.rawQuery(selectQuery, null);

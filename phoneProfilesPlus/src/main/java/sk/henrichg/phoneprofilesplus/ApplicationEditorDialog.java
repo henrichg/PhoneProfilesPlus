@@ -208,6 +208,29 @@ class ApplicationEditorDialog
         applicationList.clear();
         selectedPosition = -1;
         int pos = 0;
+
+        if (selectedFilter == 2) {
+            if (preference.intentDBList != null) {
+                for (PPIntent ppIntent : preference.intentDBList) {
+                    Application _application = new Application();
+                    _application.type = Application.TYPE_INTENT;
+                    _application.intentId = ppIntent._id;
+                    _application.appLabel = ppIntent._name;
+                    if (selectedApplication != null) {
+                        switch (selectedApplication.type) {
+                            case Application.TYPE_INTENT:
+                                if (selectedApplication.intentId == _application.intentId)
+                                    selectedPosition = pos;
+                                break;
+                        }
+                    }
+                    applicationList.add(_application);
+                    pos++;
+                }
+            }
+            return;
+        }
+
         if (cachedApplicationList != null) {
             PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "selectedFilter="+selectedFilter);
             for (Application _application : cachedApplicationList) {
@@ -215,8 +238,6 @@ class ApplicationEditorDialog
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     add = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
-                    add = true;
-                if ((selectedFilter == 2) && (_application.type == Application.TYPE_INTENT))
                     add = true;
                 if (add) {
                     if (selectedApplication != null) {
