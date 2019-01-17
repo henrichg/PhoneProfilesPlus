@@ -66,7 +66,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -236,8 +236,8 @@ public class PPApplication extends Application {
 
                                         //+"|BrightnessDialogPreference"
 
-                                        + "|[RJS] PhoneProfilesService.startPhoneStateScanner"
-                                        + "|PhoneStateScanner"
+                                        //+ "|[RJS] PhoneProfilesService.startPhoneStateScanner"
+                                        //+ "|PhoneStateScanner"
                                         //+"|MobileCellsPreference"
                                         //+"|MobileCellsPreference.refreshListView"
                                         //+"|PhoneStateScanner.startAutoRegistration"
@@ -290,6 +290,13 @@ public class PPApplication extends Application {
                                         //+ "|EventPreferencesTime.removeSystemEvent"
                                         //+ "|EventPreferencesTime.removeAlarm"
                                         //+ "|EventPreferencesTime.setAlarm"
+
+                                        //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
+                                        + "|ApplicationsDialogPreference.getValueAMSDP"
+                                        + "|ApplicationEditorDialogAdapter"
+                                        + "|ApplicationEditorDialog"
+                                        //+ "|ApplicationsCache.cacheApplicationsList"
+                                        + "|@ Application."
             ;
 
 

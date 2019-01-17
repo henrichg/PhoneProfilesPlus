@@ -46,10 +46,14 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
 
     @Override
     public int getItemCount() {
-        if (dialog.cachedApplicationList == null)
+        /*if (dialog.cachedApplicationList == null) {
+            //PPApplication.logE("ApplicationEditorDialogAdapter.getItemCount", "getItemCount=0");
             return 0;
-        else
+        }
+        else*/ {
+            //PPApplication.logE("ApplicationEditorDialogAdapter.getItemCount", "getItemCount="+dialog.applicationList.size());
             return dialog.applicationList.size();
+        }
     }
 
     /*

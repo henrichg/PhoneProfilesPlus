@@ -37,7 +37,7 @@ class ApplicationEditorDialog
     private final ImageView mSelectedAppIcon;
     private final TextView mSelectedAppName;
 
-    List<Application> cachedApplicationList;
+    private List<Application> cachedApplicationList;
     final List<Application> applicationList;
 
     private final Application editedApplication;
@@ -153,7 +153,7 @@ class ApplicationEditorDialog
                     selectedFilter = 1;
                     break;
                 case Application.TYPE_INTENT:
-                    selectedFilter = 3;
+                    selectedFilter = 2;
                     break;
             }
         }
@@ -165,11 +165,14 @@ class ApplicationEditorDialog
                 selectedFilter = Integer.valueOf(filterValues[position]);
                 fillApplicationList();
                 listAdapter.notifyDataSetChanged();
+                //listView.setAdapter(listAdapter);
 
-                if (selectedPosition > -1) {
-                    RecyclerView.LayoutManager lm = listView.getLayoutManager();
-                    if (lm != null)
+                RecyclerView.LayoutManager lm = listView.getLayoutManager();
+                if (lm != null) {
+                    if (selectedPosition > -1)
                         lm.scrollToPosition(selectedPosition);
+                    else
+                        lm.scrollToPosition(0);
                 }
             }
 
@@ -206,13 +209,14 @@ class ApplicationEditorDialog
         selectedPosition = -1;
         int pos = 0;
         if (cachedApplicationList != null) {
+            PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "selectedFilter="+selectedFilter);
             for (Application _application : cachedApplicationList) {
                 boolean add = false;
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     add = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
                     add = true;
-                if ((selectedFilter == 3) && (_application.type == Application.TYPE_INTENT))
+                if ((selectedFilter == 2) && (_application.type == Application.TYPE_INTENT))
                     add = true;
                 if (add) {
                     if (selectedApplication != null) {
@@ -240,25 +244,22 @@ class ApplicationEditorDialog
     }
 
     private Application getSelectedApplication() {
-        if (EditorProfilesActivity.getApplicationsCache() != null) {
-            List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);
-            if (cachedApplicationList != null) {
-                // search filtered application in cachedApplicationList
-                int pos = 0;
-                for (Application _application : cachedApplicationList) {
-                    boolean search = false;
-                    if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
-                        search = true;
-                    if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
-                        search = true;
-                    if ((selectedFilter == 3) && (_application.type == Application.TYPE_INTENT))
-                        search = true;
-                    if (search) {
-                        if (pos == selectedPosition) {
-                            return  _application;
-                        }
-                        pos++;
+        if (cachedApplicationList != null) {
+            // search filtered application in cachedApplicationList
+            int pos = 0;
+            for (Application _application : cachedApplicationList) {
+                boolean search = false;
+                if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
+                    search = true;
+                if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
+                    search = true;
+                if ((selectedFilter == 2) && (_application.type == Application.TYPE_INTENT))
+                    search = true;
+                if (search) {
+                    if (pos == selectedPosition) {
+                        return  _application;
                     }
+                    pos++;
                 }
             }
         }

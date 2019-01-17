@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class ApplicationsCache {
+class ApplicationsCache {
 
     private class SortList implements Comparator<Application> {
 
@@ -42,7 +42,7 @@ public class ApplicationsCache {
     boolean cached;
     private boolean cancelled;
 
-    public ApplicationsCache()
+    ApplicationsCache()
     {
         applicationsList = new ArrayList<>();
         applicationIconsLru = new LruCache<>(5 * 1024 * 1024); //Max is 5MB
@@ -130,17 +130,21 @@ public class ApplicationsCache {
         if (android.os.Build.VERSION.SDK_INT >= 23)
             flags = PackageManager.MATCH_ALL;
         List<ResolveInfo> shortcuts = packageManager.queryIntentActivities(shortcutsIntent, flags);
-        //Log.d("ApplicationsCache.getApplicationsList", "shortcuts.size="+shortcuts.size());
+        PPApplication.logE("ApplicationsCache.cacheApplicationsList", "shortcuts.size="+shortcuts.size());
         for (int i = 0; i < shortcuts.size(); i++)
         {
             ResolveInfo shortcutInfo = shortcuts.get(i);
 
-            //Log.d("ApplicationsCache.getApplicationsList", "shortcutInfo="+shortcutInfo);
-            //Log.d("ApplicationsCache.getApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
-            //Log.d("ApplicationsCache.getApplicationsList", "name="+shortcutInfo.activityInfo.name);
+            PPApplication.logE("ApplicationsCache.cacheApplicationsList", "i="+i);
+            PPApplication.logE("ApplicationsCache.cacheApplicationsList", "shortcutInfo="+shortcutInfo);
+            PPApplication.logE("ApplicationsCache.cacheApplicationsList", "packageName="+shortcutInfo.activityInfo.packageName);
+            PPApplication.logE("ApplicationsCache.cacheApplicationsList", "name="+shortcutInfo.activityInfo.name);
 
             if ((shortcutInfo.activityInfo.applicationInfo.packageName != null) &&
                     (packageManager.getLaunchIntentForPackage(shortcutInfo.activityInfo.applicationInfo.packageName) != null)) {
+
+                PPApplication.logE("ApplicationsCache.cacheApplicationsList", "ADD");
+
                 Application newInfo = new Application();
 
                 newInfo.type = Application.TYPE_SHORTCUT;
