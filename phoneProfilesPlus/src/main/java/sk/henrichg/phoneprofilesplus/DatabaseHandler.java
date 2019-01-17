@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2200;
+    private static final int DATABASE_VERSION = 2220;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2556,6 +2556,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_NAME + " TEXT");
 
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_NAME + "=\"\"");
+        }
+
+        if (oldVersion < 2220)
+        {
+            final String selectQuery = "SELECT * FROM " + TABLE_INTENTS;
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            boolean columnExists =  (cursor.getColumnIndex(KEY_IN_ACTION) != -1);
+            PPApplication.logE("DatabaseHandler.onUpgrade", "columnExists="+columnExists);
+            cursor.close();
+            if (!columnExists) {
+                db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_ACTION + " TEXT");
+
+                db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_ACTION + "=\"\"");
+            }
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");

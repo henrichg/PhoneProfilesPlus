@@ -84,9 +84,9 @@ public class PPApplication extends Application {
                                          +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
                                          /*+"|PhoneProfilesBackupAgent"
-                                         +"|ShutdownBroadcastReceiver"
+                                         +"|ShutdownBroadcastReceiver"*/
                                          +"|DatabaseHandler.onUpgrade"
-                                         +"|EditorProfilesActivity.doImportData"
+                                         /*+"|EditorProfilesActivity.doImportData"
                                          +"|PPApplication.setBlockProfileEventActions"
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
