@@ -315,6 +315,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestDrawOverlays);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void showRationale(final Context context) {
         if (canShowRationale(context)) {
 
@@ -509,14 +510,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    int iteration = 4;
-                    if (_showRequestWriteSettings)
-                        iteration = 1;
-                    else if (_showRequestAccessNotificationPolicy)
-                        iteration = 2;
-                    else if (_showRequestDrawOverlays)
-                        iteration = 3;
-                    requestPermissions(iteration);
+                    finish();
                 }
             });
             AlertDialog dialog = dialogBuilder.create();
