@@ -258,7 +258,6 @@
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity

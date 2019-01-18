@@ -64,6 +64,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean[][] whyPermissionType = null;
     private boolean rationaleAlreadyShown = false;
 
+    private boolean restoredInstanceState;
+
     //private AsyncTask geofenceEditorAsyncTask = null;
 
     private static final int PERMISSIONS_REQUEST_CODE = 9090;
@@ -120,6 +122,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else
             profile = Profile.getSharedProfile(getApplicationContext());
         event = dataWrapper.getEventById(event_id);
+
+        restoredInstanceState = savedInstanceState != null;
 
         if (onlyNotification) {
             showNotification();
@@ -214,21 +218,23 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
         }
 
-        boolean withRationale = canShowRationale(context, false);
+        if (!restoredInstanceState) {
+            boolean withRationale = canShowRationale(context, false);
 
-        PPApplication.logE("GrantPermissionActivity.onStart","showRequestWriteSettings="+showRequestWriteSettings);
-        PPApplication.logE("GrantPermissionActivity.onStart","showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
-        PPApplication.logE("GrantPermissionActivity.onStart","showRequestDrawOverlays="+showRequestDrawOverlays);
+            PPApplication.logE("GrantPermissionActivity.onStart", "showRequestWriteSettings=" + showRequestWriteSettings);
+            PPApplication.logE("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy=" + showRequestAccessNotificationPolicy);
+            PPApplication.logE("GrantPermissionActivity.onStart", "showRequestDrawOverlays=" + showRequestDrawOverlays);
 
-        int iteration = 4;
-        if (showRequestWriteSettings)
-            iteration = 1;
-        else if (showRequestAccessNotificationPolicy)
-            iteration = 2;
-        else if (showRequestDrawOverlays)
-            iteration = 3;
+            int iteration = 4;
+            if (showRequestWriteSettings)
+                iteration = 1;
+            else if (showRequestAccessNotificationPolicy)
+                iteration = 2;
+            else if (showRequestDrawOverlays)
+                iteration = 3;
 
-        requestPermissions(iteration, withRationale);
+            requestPermissions(iteration, withRationale);
+        }
     }
 
     /*
@@ -1105,34 +1111,116 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
         }
         if ((requestCode == Permissions.REQUEST_CODE + grantType)/* || (requestCode == Permissions.REQUEST_CODE_FORCE_GRANT + grantType)*/) {
-            boolean granted = false;
-            for (Permissions.PermissionType permissionType : permissions) {
-                if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                }
-                if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
-                    granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                }
-                if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                }
-                if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
-                    granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                }
-                if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
-                    granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                }
-                if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                    granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-                }
-                if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+
+            boolean finishActivity;// = false;
+            boolean permissionsChanged;// = Permissions.getPermissionsChanged(context);
+
+            boolean calendarPermission = Permissions.checkCalendar(context);
+            permissionsChanged = Permissions.getCalendarPermission(context) != calendarPermission;
+            PPApplication.logE("GrantPermissionActivity.onActivityResult", "calendarPermission="+permissionsChanged);
+            // finish Editor when permission is disabled
+            finishActivity = permissionsChanged && (!calendarPermission);
+            if (!permissionsChanged) {
+                boolean contactsPermission = Permissions.checkContacts(context);
+                permissionsChanged = Permissions.getContactsPermission(context) != contactsPermission;
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "contactsPermission="+permissionsChanged);
+                // finish Editor when permission is disabled
+                finishActivity = permissionsChanged && (!contactsPermission);
+            }
+            if (!permissionsChanged) {
+                boolean locationPermission = Permissions.checkLocation(context);
+                permissionsChanged = Permissions.getLocationPermission(context) != locationPermission;
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "locationPermission="+permissionsChanged);
+                // finish Editor when permission is disabled
+                finishActivity = permissionsChanged && (!locationPermission);
+            }
+            if (!permissionsChanged) {
+                boolean smsPermission = Permissions.checkSMS(context);
+                permissionsChanged = Permissions.getSMSPermission(context) != smsPermission;
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "smsPermission="+permissionsChanged);
+                // finish Editor when permission is disabled
+                finishActivity = permissionsChanged && (!smsPermission);
+            }
+            if (!permissionsChanged) {
+                boolean phonePermission = Permissions.checkPhone(context);
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "phonePermission="+phonePermission);
+                permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "permissionsChanged="+permissionsChanged);
+                // finish Editor when permission is disabled
+                finishActivity = permissionsChanged && (!phonePermission);
+            }
+            if (!permissionsChanged) {
+                boolean storagePermission = Permissions.checkStorage(context);
+                permissionsChanged = Permissions.getStoragePermission(context) != storagePermission;
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "storagePermission="+permissionsChanged);
+                // finish Editor when permission is disabled
+                finishActivity = permissionsChanged && (!storagePermission);
+            }
+            if (!permissionsChanged) {
+                boolean cameraPermission = Permissions.checkCamera(context);
+                permissionsChanged = Permissions.getCameraPermission(context) != cameraPermission;
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "cameraPermission="+permissionsChanged);
+                // finish Editor when permission is disabled
+                finishActivity = permissionsChanged && (!cameraPermission);
+            }
+            if (!permissionsChanged) {
+                boolean microphonePermission = Permissions.checkMicrophone(context);
+                permissionsChanged = Permissions.getMicrophonePermission(context) != microphonePermission;
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "microphonePermission="+permissionsChanged);
+                // finish Editor when permission is disabled
+                finishActivity = permissionsChanged && (!microphonePermission);
+            }
+            if (!permissionsChanged) {
+                boolean sensorsPermission = Permissions.checkSensors(context);
+                permissionsChanged = Permissions.getSensorsPermission(context) != sensorsPermission;
+                PPApplication.logE("GrantPermissionActivity.onActivityResult", "sensorsPermission="+permissionsChanged);
+                // finish Editor when permission is disabled
+                finishActivity = permissionsChanged && (!sensorsPermission);
+            }
+
+            Permissions.saveAllPermissions(context, permissionsChanged);
+            PPApplication.logE("GrantPermissionActivity.onActivityResult", "permissionsChanged="+permissionsChanged);
+
+            if (permissionsChanged) {
+                PPApplication.showProfileNotification(context);
+                ActivateProfileHelper.updateGUI(context, !finishActivity);
+
+                if (finishActivity) {
+                    setResult(Activity.RESULT_CANCELED);
+                    finishAffinity();
                 }
             }
-            if (granted)
-                finishGrant();
-            else
-                showRationale(context);
+
+            if (!finishActivity) {
+                boolean granted = false;
+                for (Permissions.PermissionType permissionType : permissions) {
+                    if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                    }
+                    if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
+                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                    }
+                    if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                    }
+                    if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
+                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                    }
+                    if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
+                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                    }
+                    if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                    }
+                    if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                    }
+                }
+                if (granted)
+                    finishGrant();
+                else
+                    showRationale(context);
+            }
         }
     }
 
@@ -1261,6 +1349,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             PPApplication.logE("GrantPermissionActivity.requestPermissions", "permList.size=" + permList.size());
             if (permList.size() > 0) {
                 if (!withRationale) {
+                    Permissions.saveAllPermissions(getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
                     intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
