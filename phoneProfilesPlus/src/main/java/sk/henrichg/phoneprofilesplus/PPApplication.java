@@ -115,7 +115,7 @@ public class PPApplication extends Application {
 
                                          //+"|PPApplication.startPPService"
 
-                                         //+"|GrantPermissionActivity"
+                                         +"|GrantPermissionActivity"
 
                                          /*
                                          +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"

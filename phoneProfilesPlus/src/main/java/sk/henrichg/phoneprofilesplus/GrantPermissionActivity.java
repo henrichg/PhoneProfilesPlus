@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -50,17 +51,17 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private boolean started = false;
 
-    static private boolean showRequestWriteSettings = false;
-    static private boolean showRequestAccessNotificationPolicy = false;
-    static private boolean showRequestDrawOverlays = false;
-    static private boolean showRequestReadExternalStorage = false;
-    static private boolean showRequestReadPhoneState = false;
-    static private boolean showRequestWriteExternalStorage = false;
-    static private boolean showRequestReadCalendar = false;
-    static private boolean showRequestReadContacts = false;
-    static private boolean showRequestAccessCoarseLocation = false;
-    static private boolean showRequestAccessFineLocation = false;
-    static private boolean[][] whyPermissionType = null;
+    private boolean showRequestWriteSettings = false;
+    private boolean showRequestAccessNotificationPolicy = false;
+    private boolean showRequestDrawOverlays = false;
+    private boolean showRequestReadExternalStorage = false;
+    private boolean showRequestReadPhoneState = false;
+    private boolean showRequestWriteExternalStorage = false;
+    private boolean showRequestReadCalendar = false;
+    private boolean showRequestReadContacts = false;
+    private boolean showRequestAccessCoarseLocation = false;
+    private boolean showRequestAccessFineLocation = false;
+    private boolean[][] whyPermissionType = null;
 
     //private AsyncTask geofenceEditorAsyncTask = null;
 
@@ -242,50 +243,72 @@ public class GrantPermissionActivity extends AppCompatActivity {
     */
 
     private boolean canShowRationale(Context context) {
+        showRequestWriteSettings = false;
+        showRequestAccessNotificationPolicy = false;
+        showRequestDrawOverlays = false;
+        showRequestReadExternalStorage = false;
+        showRequestReadPhoneState = false;
+        showRequestWriteExternalStorage = false;
+        showRequestReadCalendar = false;
+        showRequestReadContacts = false;
+        showRequestAccessCoarseLocation = false;
+        showRequestAccessFineLocation = false;
+
         whyPermissionType = new boolean[15][100];
 
         for (Permissions.PermissionType permissionType : permissions) {
             if (permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) {
-                showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context) || forceGrant;
+                showRequestWriteSettings = Permissions.getShowRequestWriteSettingsPermission(context);
                 whyPermissionType[0][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
-                showRequestAccessNotificationPolicy = Permissions.getShowRequestAccessNotificationPolicyPermission(context) || forceGrant;
+                showRequestAccessNotificationPolicy = Permissions.getShowRequestAccessNotificationPolicyPermission(context);
                 whyPermissionType[1][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
-                showRequestDrawOverlays = Permissions.getShowRequestDrawOverlaysPermission(context) || forceGrant;
+                showRequestDrawOverlays = Permissions.getShowRequestDrawOverlaysPermission(context);
                 whyPermissionType[2][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                showRequestReadExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission);
                 whyPermissionType[3][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_PHONE_STATE)) {
-                showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                showRequestReadPhoneState = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission);
                 whyPermissionType[4][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                showRequestWriteExternalStorage = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission);
                 whyPermissionType[6][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_CALENDAR)) {
-                showRequestReadCalendar = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                showRequestReadCalendar = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission);
                 whyPermissionType[7][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
-                showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                showRequestReadContacts = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission);
                 whyPermissionType[8][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
-                showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission);
                 whyPermissionType[12][permissionType.type] = true;
             }
             if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                showRequestAccessFineLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission);
                 whyPermissionType[13][permissionType.type] = true;
             }
         }
+
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestWriteSettings="+showRequestWriteSettings);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestReadExternalStorage="+showRequestReadExternalStorage);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestReadPhoneState="+showRequestReadPhoneState);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestWriteExternalStorage="+showRequestWriteExternalStorage);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestReadCalendar="+showRequestReadCalendar);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestReadContacts="+showRequestReadContacts);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestAccessCoarseLocation="+showRequestAccessCoarseLocation);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestAccessFineLocation="+showRequestAccessFineLocation);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestAccessNotificationPolicy="+showRequestAccessNotificationPolicy);
+        PPApplication.logE("GrantPermissionActivity.canShowRationale", "showRequestDrawOverlays="+showRequestDrawOverlays);
 
         return (showRequestWriteSettings ||
                 showRequestReadExternalStorage ||
@@ -518,12 +541,30 @@ public class GrantPermissionActivity extends AppCompatActivity {
             //}
         }
         else {
-            Toast msg = Toast.makeText(context,
-                    context.getResources().getString(R.string.app_name) + ": " +
-                            context.getResources().getString(R.string.toast_permissions_not_granted),
-                    Toast.LENGTH_SHORT);
-            msg.show();
-            finish();
+            if (forceGrant) {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
+                if (GlobalGUIRoutines.activityIntentExists(intent, getApplicationContext())) {
+                    startActivityForResult(intent, Permissions.REQUEST_CODE + grantType);
+                }
+                else {
+                    Toast msg = Toast.makeText(context,
+                            context.getResources().getString(R.string.app_name) + ": " +
+                                    context.getResources().getString(R.string.toast_permissions_not_granted),
+                            Toast.LENGTH_SHORT);
+                    msg.show();
+                    finish();
+                }
+            }
+            else {
+                Toast msg = Toast.makeText(context,
+                        context.getResources().getString(R.string.app_name) + ": " +
+                                context.getResources().getString(R.string.toast_permissions_not_granted),
+                        Toast.LENGTH_SHORT);
+                msg.show();
+                finish();
+            }
         }
     }
 
@@ -779,7 +820,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             //permissions.clear();
             intent.putExtra(Permissions.EXTRA_GRANT_TYPE, grantType);
-            intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, (ArrayList<Permissions.PermissionType>) permissions);
+            intent.putParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES, permissions);
             //intent.putExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
             intent.putExtra(Permissions.EXTRA_FROM_NOTIFICATION, true);
             intent.putExtra(Permissions.EXTRA_FORCE_GRANT, forceGrant);
@@ -811,6 +852,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE: {
                 // If request is cancelled, the result arrays are empty.
+                PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "grantResults.length="+grantResults.length);
 
                 boolean allGranted = true;
                 for (int grantResult : grantResults) {
@@ -984,6 +1026,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 Permissions.setShowRequestDrawOverlaysPermission(context, true);
                 requestPermissions(4);
             }
+        }
+        if (requestCode == Permissions.REQUEST_CODE + grantType) {
+            setResult(Activity.RESULT_OK);
+            finish();
         }
     }
 

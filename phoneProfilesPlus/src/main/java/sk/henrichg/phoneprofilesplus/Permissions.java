@@ -1276,6 +1276,7 @@ class Permissions {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PROFILE);
+                    intent.putExtra(EXTRA_FORCE_GRANT, fromPreferences);
                     intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                     intent.putExtra(EXTRA_MERGED_PROFILE, mergedProfile);
                     //if (onlyNotification)
@@ -1513,6 +1514,7 @@ class Permissions {
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
                     intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EVENT);
+                    intent.putExtra(EXTRA_FORCE_GRANT, fromPreferences);
                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                     //if (onlyNotification)
                     //    addMergedPermissions(context, permissions);
