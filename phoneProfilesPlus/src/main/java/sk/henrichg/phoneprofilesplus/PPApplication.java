@@ -116,6 +116,7 @@ public class PPApplication extends Application {
                                          //+"|PPApplication.startPPService"
 
                                          +"|GrantPermissionActivity"
+                                         +"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
 
                                          /*
                                          +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"

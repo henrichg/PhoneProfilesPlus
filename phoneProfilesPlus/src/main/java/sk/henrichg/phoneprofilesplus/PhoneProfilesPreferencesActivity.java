@@ -104,7 +104,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         useAlarmClockEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
-        Permissions.disablePermissionsChanged(this);
+        //Permissions.disablePermissionsChanged(this);
 
         PhoneProfilesPreferencesNestedFragment fragment = createFragment(false);
 

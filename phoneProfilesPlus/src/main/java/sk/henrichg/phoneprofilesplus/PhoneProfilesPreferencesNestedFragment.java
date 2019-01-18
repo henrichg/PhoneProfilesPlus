@@ -291,6 +291,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
+                        Permissions.saveAllPermissions(getActivity().getApplicationContext(), false);
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         //intent.addCategory(Intent.CATEGORY_DEFAULT);
                         intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
@@ -1686,59 +1687,70 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 if (requestCode == PhoneProfilesPreferencesNestedFragment.RESULT_APPLICATION_PERMISSIONS) {
                     boolean calendarPermission = Permissions.checkCalendar(context);
                     permissionsChanged = Permissions.getCalendarPermission(context) != calendarPermission;
+                    PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "calendarPermission="+permissionsChanged);
                     // finish Editor when permission is disabled
                     finishActivity = permissionsChanged && (!calendarPermission);
                     if (!permissionsChanged) {
                         boolean contactsPermission = Permissions.checkContacts(context);
                         permissionsChanged = Permissions.getContactsPermission(context) != contactsPermission;
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "contactsPermission="+permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!contactsPermission);
                     }
                     if (!permissionsChanged) {
                         boolean locationPermission = Permissions.checkLocation(context);
                         permissionsChanged = Permissions.getLocationPermission(context) != locationPermission;
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "locationPermission="+permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!locationPermission);
                     }
                     if (!permissionsChanged) {
                         boolean smsPermission = Permissions.checkSMS(context);
                         permissionsChanged = Permissions.getSMSPermission(context) != smsPermission;
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "smsPermission="+permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!smsPermission);
                     }
                     if (!permissionsChanged) {
                         boolean phonePermission = Permissions.checkPhone(context);
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "phonePermission="+phonePermission);
                         permissionsChanged = Permissions.getPhonePermission(context) != phonePermission;
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "permissionsChanged="+permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!phonePermission);
                     }
                     if (!permissionsChanged) {
                         boolean storagePermission = Permissions.checkStorage(context);
                         permissionsChanged = Permissions.getStoragePermission(context) != storagePermission;
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "storagePermission="+permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!storagePermission);
                     }
                     if (!permissionsChanged) {
                         boolean cameraPermission = Permissions.checkCamera(context);
                         permissionsChanged = Permissions.getCameraPermission(context) != cameraPermission;
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "cameraPermission="+permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!cameraPermission);
                     }
                     if (!permissionsChanged) {
                         boolean microphonePermission = Permissions.checkMicrophone(context);
                         permissionsChanged = Permissions.getMicrophonePermission(context) != microphonePermission;
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "microphonePermission="+permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!microphonePermission);
                     }
                     if (!permissionsChanged) {
                         boolean sensorsPermission = Permissions.checkSensors(context);
                         permissionsChanged = Permissions.getSensorsPermission(context) != sensorsPermission;
+                        PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "sensorsPermission="+permissionsChanged);
                         // finish Editor when permission is disabled
                         finishActivity = permissionsChanged && (!sensorsPermission);
                     }
                 }
 
                 Permissions.saveAllPermissions(context, permissionsChanged);
+                PPApplication.logE("PhoneProfilesPreferencesNestedFragment.doOnActivityResult", "permissionsChanged="+permissionsChanged);
 
                 if (permissionsChanged) {
                     //DataWrapper dataWrapper = new DataWrapper(context, false, 0);
@@ -1746,7 +1758,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     //Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
                     //dataWrapper.refreshProfileIcon(activatedProfile);
                     PPApplication.showProfileNotification(context);
-                    ActivateProfileHelper.updateGUI(context, true);
+                    ActivateProfileHelper.updateGUI(context, !finishActivity);
 
                     if (finishActivity) {
                         getActivity().setResult(Activity.RESULT_CANCELED);
