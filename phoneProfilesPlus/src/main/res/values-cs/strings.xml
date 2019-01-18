@@ -36,7 +36,7 @@
   <string name="phone_profiles_pref_category_gui">Prostředí aplikace</string>
   <string name="phone_profiles_pref_category_activation">Aktivace profilu</string>
   <string name="phone_profiles_pref_category_start">Start aplikace</string>
-  <string name="phone_profiles_pref_category_notifications">Oznámení</string>
+  <string name="phone_profiles_pref_category_notifications">Notifikace</string>
   <string name="phone_profiles_pref_applicationActivate">Aktivovat profil při startu</string>
   <string name="phone_profiles_pref_applicationClose">Po aktivaci profilu zavřít</string>
   <string name="phone_profiles_pref_applicationPrefIndicator">Indikátor parametrů</string>
@@ -52,14 +52,14 @@
   <string name="profile_preferences_profileIcon">Ikona profilu</string>
   <string name="profile_preferences_volumeRingerMode">Mód zvonění/vibrace</string>
   <string name="profile_preferences_volumeRingtone">Hlasitost zvonění</string>
-  <string name="profile_preferences_volumeNotification">Hlasitost oznámení</string>
+  <string name="profile_preferences_volumeNotification">Hlasitost notifikace</string>
   <string name="profile_preferences_volumeMedia">Hlasitost médií</string>
   <string name="profile_preferences_volumeAlarm">Hlasitost budíku</string>
   <string name="profile_preferences_volumeSystem">Hlasitost sys. zvuků</string>
   <string name="profile_preferences_soundRingtoneChange">Změnit tón zvonění</string>
   <string name="profile_preferences_soundRingtone">Tón zvonění</string>
-  <string name="profile_preferences_soundNotificationChange">Změnit zvuk oznámení</string>
-  <string name="profile_preferences_soundNotification">Zvuk oznámení</string>
+  <string name="profile_preferences_soundNotificationChange">Změnit zvuk notifikace</string>
+  <string name="profile_preferences_soundNotification">Zvuk notifikace</string>
   <string name="profile_preferences_soundAlarmChange">Změnit tón budíku</string>
   <string name="profile_preferences_soundAlarm">Zvuk budíku</string>
   <string name="profile_preferences_deviceAirplaneMode">(R) Mód letadlo</string>
@@ -213,7 +213,7 @@
   <string name="profile_preferences_deviceLocationServicePrefs">(I) Nastavení polohy</string>
   <string name="event_type_battery">Baterie</string>
   <string name="profile_preferences_volumeSpeakerPhone">Hlasitý odposlech</string>
-  <string name="event_preferences_notificationSound">Zvuk oznámení</string>
+  <string name="event_preferences_notificationSound">Zvuk notifikace</string>
   <string name="event_preferences_battery_level_low">Spodní úroveň</string>
   <string name="event_preferences_battery_level_hight">Horní úroveň</string>
   <string name="event_preferences_battery_charging">Nabíjení</string>
@@ -328,7 +328,7 @@
   <string name="event_preferences_category_eventSMSParameters">SMS/MMS senzor</string>
   <string name="event_preferences_sms_contacts">Kontakty</string>
   <string name="toast_events_restarted">Události restartovány</string>
-  <string name="phone_profiles_pref_notificationStatusBarPermanent">Probíhající oznámení</string>
+  <string name="phone_profiles_pref_notificationStatusBarPermanent">Probíhajíci notifikace</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">Zruš po</string>
   <string name="event_name_background_profile">Předvolený profil</string>
   <string name="phone_profiles_pref_applicationEventWifiRescan">Přeskenuj Wi-fi</string>
@@ -390,14 +390,14 @@
   <string name="profileicon_pref_dialog_customColor_button">Změna barvy</string>
   <string name="colorChooser_pref_dialog_title">Nastavit barvu</string>
   <string name="phone_profiles_pref_category_system">Systém</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Odděl hlasitost vyzvánění a oznámení.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Odděl hlasitost vyzvánění a notifikací.</string>
   <string name="info_notification_title">Důležité informace</string>
   <string name="info_notification_text">Kliknutím zde zobrazíte důležité informace</string>
   <string name="profile_preferences_deviceWiFiAP">Wi-Fi přístupový bod</string>
   <string name="array_pref_ringerModeArray_silentL">Prioritní režim</string>
   <string name="menu_import_export">Záloha/Obnova</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minut</string>
-  <string name="info_notification_event_not_started">Událost se nespustí, když:\n1. Máte zakázáno spouštění událostí (červený \"semafor\") - povolte spouštění událostí v menu Editoru položkou menu \"Povol běh událostí\".\n2. Máte manuálně aktivován profil (oranžový \"semafor\") - musíte restartovat události. Použijte ikonu \"Restart událostí\" v titulku Aktivátoru, Editoru nebo v oznámení. Manuální aktivace profilu je také indikována \"[M]\" před názvem profilu. Výjimkou z blokování události manuální aktivací je, pokud máte v parametrech události zaškrnutý parametr \"Ignoruj manuální aktivaci\".\n3. Máte zakázáno spuštění události v jeho parametrech - parametr \"Povol běh\" musí být zaškrtnutý.\nPoznámka: \"Semafor\" se nachází v titulku Aktivátoru a Editoru.</string>
+  <string name="info_notification_event_not_started">Událost se nespustí, když:\n1. Máte zakázáno spouštění událostí (červený \"semafor\") - povolte spouštění událostí v menu Editoru položkou menu \"Povol běh událostí\".\n2. Máte manuálně aktivován profil (oranžový \"semafor\") - musíte restartovat události. Použijte ikonu \"Restart událostí\" v titulku Aktivátoru, Editoru nebo v notifikaci. Manuální aktivace profilu je také indikována \"[M]\" před názvem profilu. Výjimkou z blokování události manuální aktivací je, pokud máte v parametrech události zaškrnutý parametr \"Ignoruj manuální aktivaci\".\n3. Máte zakázáno spuštění události v jeho parametrech - parametr \"Povol běh\" musí být zaškrtnutý.\nPoznámka: \"Semafor\" se nachází v titulku Aktivátoru a Editoru.</string>
   <string name="important_info_profiles">Profily</string>
   <string name="important_info_events">Události</string>
   <string name="important_info_system">Systém</string>
@@ -412,12 +412,12 @@
   <string name="pref_dlg_info_about_wildcards_3">přidejte \"\\" před tyto znaky.</string>
   <string name="important_into_sony_stamina_mode">Když máte zařízení od Sony a zapnutý režim \"Výdrž\" v \"Řízení spotřeby\", prosím přidejte PhoneProfilesPlus do \"Aplikace aktivní i v pohot. režimu\". Bez toho aplikace nebude pracovat správně.</string>
   <string name="important_info_profile_settings">Některé parametry profilu vyžadují změny nastavení v systémových Nastaveních. Tyto parametry jsou označena jako \"(S)\".</string>
-  <string name="profile_preferences_volumeNotificationsAccessSettings_title">Přístup k oznámením</string>
-  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povol PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\", pro povolení parametru profilu \"Typy vyrušení\".</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_title">Přístup k notifikacím</string>
+  <string name="profile_preferences_volumeNotificationsAccessSettings_summary">Povol PhoneProfilesPlus v systémovém nastavení \"Přístup k notifikacím\", pro povolení parametru profilu \"Typy vyrušení\".</string>
   <string name="array_pref_zenModeArray_allWithVibration">Vše s vibrací</string>
   <string name="array_pref_zenModeArray_priorityWithVibration">Prioritní s vibrací</string>
   <string name="important_info_news">Novinky</string>
-  <string name="important_info_profile_zenMode">\"Přerušení\" profilu v \"Režimu vyzvánění\" vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\". Klikněte zde a povolte PhoneProfilesPlus.</string>
+  <string name="important_info_profile_zenMode">\"Přerušení\" profilu v \"Režimu vyzvánění\" vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k notifikacím\". Klikněte zde a povolte PhoneProfilesPlus.</string>
   <string name="profile_preferences_zenMode_none_summary">Žádné vyrušení, ani budíky</string>
   <string name="profile_preferences_zenMode_priority_summary">Pouze prioritní vyrušení</string>
   <string name="profile_preferences_zenMode_all_summary">Všechna vyrušení</string>
@@ -425,7 +425,7 @@
   <string name="pref_event_duration">Trvání</string>
   <string name="applications_multiselect_summary_text_selected">Vybrané</string>
   <string name="applications_multiselect_summary_text_not_selected">Nevybráno</string>
-  <string name="event_type_notifications">Oznámení</string>
+  <string name="event_type_notifications">Notifikace</string>
   <string name="event_preferences_category_eventNotificationsParameters">Senzor notifikací</string>
   <string name="event_preferences_notifications_applications">Aplikace</string>
   <string name="event_preferences_volumeNotificationsAccessSettings_summary">Pro povolení Senzoru notifikací povolte PhoneProfilesPlus v systémovém nastavení \"Přístup k upozorněním\".</string>
@@ -516,11 +516,11 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Nastavení dostupnosti</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Pro změnu adaptívní úrovně je vyžadován ROOT.</string>
   <string name="important_info_profile_activation_text1">Profil může být aktivován ve dvou režimech:</string>
-  <string name="important_info_profile_activation_text2">1. ruční aktivace - aktivuje se v Aktivátoru, Editoru, oznámení, widgetu, zástupci. Ručně aktivovaný profil je označen \"[M]\" před názvem profilu.</string>
+  <string name="important_info_profile_activation_text2">1. ruční aktivace - aktivuje se v Aktivátoru, Editoru, notifikaci, widgetu, zástupci. Ručně aktivovaný profil je označen \"[M]\" před názvem profilu.</string>
   <string name="important_info_profile_activation_text3">2. aktivace událostí - aktivováno událostí.</string>
   <string name="important_info_profile_activation_text4">Ruční aktivace pozastaví všechny události a ty již nebudou spuštěny. Abyste obnovili spouštění událostí, musíte Restartovat události.</string>
   <string name="important_info_profile_activation_text5">Vyjímkou pro toto pravidlo je, když má událost nastaveno \"Ignorovat ruční nastavení\".</string>
-  <string name="important_info_profile_activation_text6">Restart událostí lze vyvolat z Aktivátoru, Editoru a oznámení.</string>
+  <string name="important_info_profile_activation_text6">Restart událostí lze vyvolat z Aktivátoru, Editoru a notifikace.</string>
   <string name="important_info_profile_activation_text8">V záhlaví Aktivátoru a Editoru je \"semafor\".</string>
   <string name="important_info_profile_activation_text9">- zelená: události mohou být spuštěny.</string>
   <string name="important_info_profile_activation_text10">- oranžová: události nemohou být spuštěny - profil je aktivován ručně.</string>
@@ -536,7 +536,7 @@
   <string name="info_notification_event_states_paused_delay">Pozastaveno s pozdržením: událost je spuštěna, ale čeká v pozastavení. Parametry události jsou splněny.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj \"celodenní\" události</string>
   <string name="important_info_default_profile">Pokud neběží žádné události, aktivován je \"Předvolený profil\". Předvolený profil můžete nastavit v nastavení aplikace v \"Aktivace profilu\". Klikněte zde pro jeho nakonfigurování.</string>
-  <string name="important_info_how_does_volume_separation_work">Jak funguje \"oddělování hlasitostí\": Aktivace profilu nastaví hlasitost zařízení podle hlasitosti oznámení v profilu. Pokud je zachycen příchozí hovor, nastaví se hlasitost vyzvánění z profilu. Po ukončení hovoru se zpět nastaví hlasitost oznámení z profilu.</string>
+  <string name="important_info_how_does_volume_separation_work">Jak funguje \"oddělování hlasitostí\": Aktivace profilu nastaví hlasitost zařízení podle hlasitosti notifikací v profilu. Pokud je zachycen příchozí hovor, nastaví se hlasitost vyzvánění z profilu. Po ukončení hovoru se zpět nastaví hlasitost notifikací z profilu.</string>
   <string name="event_type_locations">Poloha</string>
   <string name="event_preferences_category_eventLocationsParameters">Senzor polohy</string>
   <string name="event_preferences_locations_location">Poloha</string>
@@ -620,9 +620,9 @@
   <string name="array_pref_screenTimeoutArray_alwaysOn">Vždy zapnuto</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Když volba \"24 hodin\" nefunguje na vašem zařízení (LG), použijte volbu \"Vždy zapnuto\". Volba \"Vždy zapnuto\", může dělat problémy ve vašem zařízení (Samsung). Tehdy použijte volbu \"24 hodin\".</string>
   <string name="profile_preferences_vibrateWhenRinging">Vibrovat při vyzvánění</string>
-  <string name="permissions_for_play_ringtone_notification_text1">Máte nastaven tón vyzvánění/oznámení z sd karty. Tón nebude přehrán, protože to vyžaduje některá povolení.</string>
+  <string name="permissions_for_play_ringtone_notification_text1">Máte nastaven tón vyzvánění/notifikací z sd karty. Tón nebude přehrán, protože to vyžaduje některá povolení.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Prosím, povolte je v následujících dialogových oknech. Pak tón bude přehráván.</string>
-  <string name="permissions_for_play_ringtone_notification_big_text_notification">Přehrávání nastaveného tónu vyzvánění/oznámení vyžaduje udělení některých povolení.</string>
+  <string name="permissions_for_play_ringtone_notification_big_text_notification">Přehrávání nastaveného tónu vyzvánění/notifikací vyžaduje udělení některých povolení.</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikace, odkazy</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustit aplikace, odkazy</string>
   <string name="applications_editor_dialog_title">Vyber aplikaci, odkaz</string>
@@ -772,19 +772,19 @@
   <string name="profile_preferences_category_profileDeviceParameters">Parametry zařízení</string>
   <string name="profile_preferences_volumeNotificationVolume0_title">Změna oznamovacího tónu</string>
   <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Oznamovací tón \"PhoneProfiles Silent\" je nakonfigurován.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pro hlasitost oznámení = 0 nastavte oznamovací tón na \"PhoneProfiles Silent\" pro skutečně tiché oznámení.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pro hlasitost notifikací = 0 nastavte tón notifikací na \"PhoneProfiles Silent\" pro skutečně tiché notifikace.</string>
   <string name="profile_preferences_volumeNotificationVolume0_question">Nastavit oznamovací tón na \"PhoneProfiles Silent\"?</string>
   <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Oznamovací tón \"PhoneProfiles Silent\" není nainstalován. Nainstalujte jej z menu Editoru a zkuste to znovu.</string>
-  <string name="info_notification_unlink_ringer_notification_volumes">Vaše zařízení má sloučenou hlasitost vyzvánění hovorů a oznámení. Můžete použít \"Odděl hlasitost vyzvánění a Oznámení.\" Klikněte zde pro její konfiguraci.</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Vaše zařízení má sloučenou hlasitost vyzvánění hovorů a oznámení. Chcete-li hlasitosti rozdělit, zaškrtněte tento parametr.</string>
+  <string name="info_notification_unlink_ringer_notification_volumes">Vaše zařízení má sloučenou hlasitost vyzvánění hovorů a notifikací. Můžete použít \"Odděl hlasitost vyzvánění a notifikací.\" Klikněte zde pro její konfiguraci.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Vaše zařízení má sloučenou hlasitost vyzvánění hovorů a notifikací. Chcete-li hlasitosti rozdělit, zaškrtněte tento parametr.</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings">Používat parametr události \"Priorita\"</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Povolte použití parametru \"Priorita\" v nastaveních aplikace.</string>
-  <string name="phone_profiles_pref_notificationStatusBarNew">Oznámení ve stavovém řádku</string>
+  <string name="phone_profiles_pref_notificationStatusBarNew">Notifikace ve stavovém řádku</string>
   <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Aktuálně nakonfigurován:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Hlasitost vyzvánění = 0</string>
-  <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitost vyzvánění = 0 nakonfiguruje zařízení do tichého režimu. Hlasitost oznámení se ignoruje.</string>
+  <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitost vyzvánění = 0 nakonfiguruje zařízení do tichého režimu. Hlasitost notifikací se ignoruje.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">Důležitá informace!</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Probíhající oznámení je vyžadováno pro službu PhoneProfilesService. S oznámením se PhoneProfilesService změní na \"služba v popředí\". A tento typ služby není zabíjen Androidem. PhoneProfilesService musí stále běžet.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Probíhající notifikace je vyžadována pro službu PhoneProfilesService. S notifikaci se PhoneProfilesService změní na \"služba v popředí\". A tento typ služby není zabíjen Androidem. PhoneProfilesService musí stále běžet.</string>
   <string name="phone_profiles_pref_notificationStatusBarRequired">Vyžadováno pro službu v pozadí PhoneProfilesService</string>
   <string name="event_preferences_event_priorityInfo_summary">Funkcionalita priority: událost se nespustí, pokud je spuštěna událost s vyšší prioritou.</string>
   <string name="profile_preferences_preferenceTypesInfo_title">Typy parametrů</string>
@@ -800,7 +800,7 @@
   <string name="event_preference_sensor_mobile_cells_summary">Tento senzor je pro start události podle připojených mobilních buněk (věží). Parametry: Buňky, Start když je mimo mobilní buňky.</string>
   <string name="event_preference_sensor_accessories_summary">Tento senzor je pro start události podle připojeného příslušenství (autosada, drátové handsfree, sluchátka, …). Parametry: Typ příslušenství.</string>
   <string name="event_preference_sensor_screen_summary">Tento senzor je pro start události podle zapnutí/vypnutí obrazovky. Parametry: Typ události (vypnula se, zapnula se, …), Konec když je odemčené (událost skončí při odemknutí zařízení).</string>
-  <string name="event_preference_sensor_notification_summary">Tento senzor je pro start události podle oznámení z aplikací. Parametry: Aplikace, Konec, pokud odstraněn (konec události na odstranění oznámení), Trvalý běh, Trvání (délka běhu události).</string>
+  <string name="event_preference_sensor_notification_summary">Tento senzor je pro start události podle notifikací z aplikací. Parametry: Aplikace, Konec, pokud odstraněn (konec události na odstranění notifikace), Trvalý běh, Trvání (délka běhu události).</string>
   <string name="event_preference_sensor_application_summary">Tento senzor je pro start události podle aplikace v popředí. Parametry: Aplikace.</string>
   <string name="event_preference_sensor_orientation_summary">Tento senzor je pro start události podle orientace zařízení. Parametry: Obrazovka (Nahoru, Dolů), Strany (Horizontální, strana nahoře), Přiblížení (V blízkosti, Daleko; použitý je senzor přiblížení), ignorovat pro aplikace (v popředí).</string>
   <string name="event_preference_sensor_nfc_summary">Tento senzor je pro start události podle NFC tagů. Parametry: NFC tagy, Trvalý běh, Trvání (délka běhu události).</string>
@@ -882,11 +882,11 @@
   <string name="array_pref_zenModeArray_off">Vypnuto</string>
   <string name="array_pref_zenModeArray_offButVibration">Vypnuto, ale s vibracemi</string>
   <string name="array_pref_zenModeArray_totalSilence">Absolutní ticho</string>
-  <string name="profile_preferences_zenMode_off_summary">Rušit všemi oznámeními</string>
-  <string name="profile_preferences_zenMode_totalSilence_summary">Tichá všechna oznámení</string>
+  <string name="profile_preferences_zenMode_off_summary">Rušit všemi notifikacemi</string>
+  <string name="profile_preferences_zenMode_totalSilence_summary">Tiché všechny notifikace</string>
   <string name="array_pref_applicationDisableScanning_disabled">Skenování zakázáno</string>
   <string name="array_pref_applicationDisableScanning_enabled">Skenování povoleno</string>
-  <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Oznámení ve stavovém řádku nejsou povoleny!</string>
+  <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Notifikace ve stavovém řádku není povolena!</string>
   <string name="duration_pref_dlg_duration_label">Trvání:</string>
   <string name="duration_pref_dlg_activation_end_label">Konec aktivace:</string>
   <string name="array_pref_value_pt_BR">pt-BR</string>
@@ -907,7 +907,7 @@
   <string name="action_for_external_application_notification_no_action">Akce není zadána.</string>
   <string name="ringtone_preference_not_set">Nenastaveno</string>
   <string name="ringtone_preference_default_ringtone">Výchozí vyzvánění</string>
-  <string name="ringtone_preference_default_notification">Výchozí oznámení</string>
+  <string name="ringtone_preference_default_notification">Výchozí notifikace</string>
   <string name="ringtone_preference_default_alarm">Výchozí budík</string>
   <string name="ringtone_preference_none">Žádné</string>
   <string name="event_preferences_notificationVibrate">Oznamovat vibracemi</string>
@@ -930,7 +930,7 @@
   <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) má dvě složky:</string>
   <string name="important_info_quick_guide_2">1. <b>PROFILY:</b> určují jak změnit nastavení zařízení.</string>
   <string name="important_info_quick_guide_3">2. <b>UDÁLOSTI:</b> Určují, kdy se změní nastavení zařízení.</string>
-  <string name="important_info_quick_guide_profiles_1"><b>PROFILY:</b> Umožňují konfigurovat nastavení zařízení jako režim vyzvánění, hlasitost, tóny zvonění a oznámení, přepínání rádií (Wi-Fi, Bluetooth, mobilní data, atd.). Po aktivaci profilu příslušné nastavení jsou trvalé. Pokud chcete nastavení změnit, musí být aktivován jiný profil.</string>
+  <string name="important_info_quick_guide_profiles_1"><b>PROFILY:</b> Umožňují konfigurovat nastavení zařízení jako režim vyzvánění, hlasitost, tóny zvonění a notifikací, přepínání rádií (Wi-Fi, Bluetooth, mobilní data, atd.). Po aktivaci profilu příslušné nastavení jsou trvalé. Pokud chcete nastavení změnit, musí být aktivován jiný profil.</string>
   <string name="important_info_quick_guide_profiles_2">Profily lze aktivovat manuálně nebo událostí.</string>
   <string name="important_info_quick_guide_profiles_3">Můžete manuálně aktivovat profil přes PPP Aktivátor (pop-up okno se seznamem dostupných profilů). Aktivátor lze zobrazit přes domovskou ikonu PPP, PPP notifikaci, PPP widgety a pro zařízení Samsung Edge z panelu Edge. Můžete také přímo aktivovat profil přes PPP 4x4 widget, odkaz na profil nebo na zařízeních Samsung Edge z panelu Edge.</string>
   <string name="important_info_quick_guide_events_1"><b>UDÁLOSTI:</b>Umožňují nakonfigurovat kdy se profil aktivuje. Události mají začátek a konec. Můžete nakonfigurovat, co se stane na začátku události, a co se stane po skončení události.</string>
@@ -989,20 +989,20 @@
   <string name="array_pref_change_selection_mobile_cells_select_all_visible">Vybrat všechny viditelné</string>
   <string name="array_pref_mobile_cells_rename_all_visible">Všechny viditelné</string>
   <string name="import_profiles_alert_error_database_newer_version">Zálohovaná databáze je v novější verzi.</string>
-  <string name="phone_profiles_pref_backgroundProfileNotificationSound">Předvolený profil: Zvuk oznámení</string>
+  <string name="phone_profiles_pref_backgroundProfileNotificationSound">Předvolený profil: Zvuk notifikace</string>
   <string name="phone_profiles_pref_backgroundProfileNotificationVibrate">Předvolený profil: Oznamovat vibracemi</string>
-  <string name="profile_preferences_durationNotificationSound">Konec trvání: Zvuk oznámení</string>
+  <string name="profile_preferences_durationNotificationSound">Konec trvání: Zvuk notifikace</string>
   <string name="profile_preferences_durationNotificationVibrate">Konec trvání: Oznamovat vibracemi</string>
   <string name="array_event_pref_missed_call">Zmeškaný hovor</string>
   <string name="start_event_notification_title">Spuštěna událost</string>
   <string name="start_event_notification_text1">Název události</string>
-  <string name="start_event_notification_text2">Vymažte toto oznámení, aby se přestalo oznamovat.</string>
-  <string name="event_preferences_notificationRepeat">Opakované oznámení</string>
-  <string name="event_preferences_notificationRepeatInterval">Interval opakování oznámení</string>
+  <string name="start_event_notification_text2">Vymažte tuto notifikaci, aby se přestala notifikovat.</string>
+  <string name="event_preferences_notificationRepeat">Opakované notifikovaní</string>
+  <string name="event_preferences_notificationRepeatInterval">Interval opakování notifikace</string>
   <string name="duration_pref_dlg_activation_hours_label">Hodiny:</string>
   <string name="duration_pref_dlg_activation_minutes_label">Minuty:</string>
   <string name="duration_pref_dlg_activation_seconds_label">Sekundy:</string>
-  <string name="preferences_durationNotificationSoundInfo_summary">Pro toto oznámení se používá kanál médií. Použije se tedy hlasitost pro média.</string>
+  <string name="preferences_durationNotificationSoundInfo_summary">Pro tuto notifikaci se používá kanál médií. Použije se tedy hlasitost pro média.</string>
   <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Prosím, zapněte Polohu a Vyhledávání Wi-Fi v nastavení systému. Bez toho Wi-fi skenování nebude fungovat.</string>
   <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Prosím, zapněte Polohu a skenování Bluetooth v nastavení systému. Bez toho skenování Bluetooth nebude fungovat.</string>
   <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Systémové nastavení \"Ponechat Wi-Fi zapnuto\"</string>
@@ -1035,7 +1035,7 @@
   <string name="phone_profiles_pref_applicationEventScanningDisabled">Skenování je zakázáno!</string>
   <string name="profile_preferences_applicationDisableMobileCellScanning">Zakázat skenování mobilních buněk</string>
   <string name="profile_preferences_applicationDisableOrientationScanning">Zakázat skenování orientace</string>
-  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up oznámení</string>
+  <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifikace</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">Jak nainstalovat PhoneProfilesPlusExtender</string>
   <string name="event_preferences_PPPExtenderInstallInfo_summary">Stáhněte si nejnovější verzi PhoneProfilesPlusExtender.apk z jeho GitHub. Klikněte na notifikaci o staženém apk a nainstalujte ho.</string>
   <string name="donation_thanks_dialog">Děkuji za darování.\nOpravdu si toho vážím.</string>
@@ -1059,8 +1059,8 @@
   <string name="notification_channel_exclamation">Upozornění</string>
   <string name="notification_channel_grant_permission">Udělit oprávnění</string>
   <string name="notification_channel_grant_permission_description">Zobrazuje povolení, které je potřeba, abyste udělili.</string>
-  <string name="notification_channel_notify_event_start">Oznámení spuštění události</string>
-  <string name="notification_channel_notify_event_start_description">Zobrazí oznámení o zahájení události.</string>
+  <string name="notification_channel_notify_event_start">Notifikace spuštění události</string>
+  <string name="notification_channel_notify_event_start_description">Zobrazí notifikaci o zahájení události.</string>
   <string name="editor_drawer_open">Otevři navigační panel</string>
   <string name="important_info_accessibility_service_new_version">Prosím nainstalujte novou verzi PhoneProfilesPlusExtender. Další informace o instalaci jsou v parametrech, které PhoneProfilesPlusExtender vyžadují.</string>
   <string name="important_info_accessibility_service_new_version_2">Klikněte zde pro zobrazení vydání PhoneProfilesPlusExtender v GitHub.</string>
@@ -1166,13 +1166,13 @@
   <string name="preferences_grantRoot_title">Root není povolen</string>
   <string name="preferences_grantRoot_summary">Root není povolen. Klikněte zde pro jeho povolení.</string>
   <string name="permission_why_profile_vibration_on_touch">pro zapnutí/vypnutí vibrování při klepnutí</string>
-  <string name="permission_why_profile_ringtones">pro změnu vyzváněcího tónu, oznámení, budíku</string>
+  <string name="permission_why_profile_ringtones">pro změnu vyzváněcího tónu, notifikací, budíku</string>
   <string name="permission_why_profile_screen_timeout">pro změnu času do vypnutí obrazovky</string>
   <string name="permission_why_profile_screen_brightness">pro změnu jasu obrazovky</string>
   <string name="permission_why_profile_autorotation">pro změnu rotace obrazovky</string>
   <string name="permission_why_profile_wallpaper">pro změnu obrázku pozadí</string>
   <string name="permission_why_profile_radio_preferences">pro zapnutí/vypnutí mobilních dat, změnu typu mobilní sítě, připojení k SSID</string>
-  <string name="permission_why_profile_phone_state_broadcast">pro oddělení hlasitosti vyzvánění a oznámení, zapnutí/vypnutí sluchátka během hovoru</string>
+  <string name="permission_why_profile_phone_state_broadcast">pro oddělení hlasitosti vyzvánění a notifikací, zapnutí/vypnutí sluchátka během hovoru</string>
   <string name="permission_why_profile_custom_profile_icon">pro vlastní ikonu profilu</string>
   <string name="permission_why_install_tone">pro uložení tónu do úložiště</string>
   <string name="permission_why_export">pro uložení zálohovaných dat do úložiště</string>
@@ -1186,8 +1186,8 @@
   <string name="permission_why_event_contacts_preference">pro čtení kontaktů během konfigurace</string>
   <string name="permission_why_profile_notification_led">pro zapnutí/vypnutí oznamovací diody</string>
   <string name="permission_why_profile_vibrate_when_ringing">pro zapnutí/vypnutí vibrování při zvonění</string>
-  <string name="permission_why_play_ringtone_notification">pro přehrávání zvuku vyzvánění a oznámení</string>
-  <string name="permission_why_profile_access_notification_policy">pro změnu zvukového profilu, změnu hlasitosti vyzvánění, oznámení, systémových zvuků</string>
+  <string name="permission_why_play_ringtone_notification">pro přehrávání zvuku vyzvánění a notifikací</string>
+  <string name="permission_why_profile_access_notification_policy">pro změnu zvukového profilu, změnu hlasitosti vyzvánění, notifikací, systémových zvuků</string>
   <string name="permission_why_profile_lock_device">pro zamknutí zařízení</string>
   <string name="permission_why_ringtone_preference">pro stahování tónů z úložiště</string>
   <string name="permission_why_profile_dtmf_tone_when_dialing">pro zapnutí/vypnutí DTMF tónu při vytáčení</string>
@@ -1201,7 +1201,7 @@
   <string name="exit_application_alert_message">Jste si jistý?</string>
   <string name="phone_profiles_pref_notificationShowButtonExit">Zobrazit tlačítko \"Ukončit\"</string>
   <string name="altype_applicationUpgrade">aktualizace aplikace</string>
-  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Zařízení nemá sloučenou hlasitost vyzvánění a oznámení.</string>
+  <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary">Zařízení nemá sloučenou hlasitost vyzvánění a notifikací.</string>
 
   <string name="phone_profiles_pref_category_widget_list">Widget: Seznam</string>
   <string name="phone_profiles_pref_category_widget_icon_shortcut">Widget: Ikona; Odkaz</string>
