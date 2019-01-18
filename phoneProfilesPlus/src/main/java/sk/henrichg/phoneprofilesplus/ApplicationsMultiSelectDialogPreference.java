@@ -292,14 +292,14 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
                     application.checked = false;
                     for (String split : splits) {
                         String packageName;
-                        String shortcut;
+                        //String shortcut;
                         String[] packageNameActivity = split.split("/");
                         if (split.length() > 2) {
                             if (packageNameActivity.length == 2) {
-                                shortcut = packageNameActivity[0].substring(0, 3);
+                                //shortcut = packageNameActivity[0].substring(0, 3);
                                 packageName = packageNameActivity[0];
                             } else {
-                                shortcut = value.substring(0, 3);
+                                //shortcut = value.substring(0, 3);
                                 packageName = value;
                             }
                             /*if (shortcut.equals("(s)")) {

@@ -1,7 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 class PPIntent {
-    final long _id;
+    long _id;
     String _name;
     String _packageName;
     String _className;

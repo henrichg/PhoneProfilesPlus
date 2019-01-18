@@ -85,6 +85,7 @@ class Permissions {
     //static final int GRANT_TYPE_GRANT_ROOT = 19;
 
     static final int REQUEST_CODE = 5000;
+    static final int REQUEST_CODE_FORCE_GRANT = 6000;
 
     static final String EXTRA_GRANT_TYPE = "grant_type";
     static final String EXTRA_MERGED_PROFILE = "merged_profile";
