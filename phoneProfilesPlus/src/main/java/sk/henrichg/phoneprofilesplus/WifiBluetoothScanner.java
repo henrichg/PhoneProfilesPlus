@@ -565,7 +565,17 @@ class WifiBluetoothScanner {
             else
             {
                 wifiEnabledForScan = false;
-                if (isScanAlwaysAvailable) {
+
+                boolean isWifiAPEnabled = false;
+                WifiApManager wifiApManager = null;
+                try {
+                    wifiApManager = new WifiApManager(context);
+                } catch (Exception ignored) {
+                }
+                if (wifiApManager != null)
+                    isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
+
+                if (isScanAlwaysAvailable  && !isWifiAPEnabled) {
                     PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi", "scan always available");
                     wifiState =  WifiManager.WIFI_STATE_ENABLED;
                 }
