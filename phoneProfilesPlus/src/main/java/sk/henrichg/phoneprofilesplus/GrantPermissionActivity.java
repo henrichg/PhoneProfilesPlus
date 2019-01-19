@@ -220,6 +220,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         if (!restoredInstanceState) {
             boolean withRationale = canShowRationale(context, false);
+            PPApplication.logE("GrantPermissionActivity.onStart", "withRationale=" + withRationale);
 
             PPApplication.logE("GrantPermissionActivity.onStart", "showRequestWriteSettings=" + showRequestWriteSettings);
             PPApplication.logE("GrantPermissionActivity.onStart", "showRequestAccessNotificationPolicy=" + showRequestAccessNotificationPolicy);
@@ -1348,7 +1349,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             PPApplication.logE("GrantPermissionActivity.requestPermissions", "permList.size=" + permList.size());
             if (permList.size() > 0) {
-                if (!withRationale) {
+                if (!withRationale && rationaleAlreadyShown) {
                     Permissions.saveAllPermissions(getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);

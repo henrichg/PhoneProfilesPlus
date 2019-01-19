@@ -405,3 +405,11 @@ Kukni teda, kedy sa toto moze stat. Restart samotneho servisu to nie je. Vtedy s
 
 Vyhodil som kill procesu z exitApp. Toto by mohlo sposobit problemy, ze sa nestihne vykonat onDestroy servisu.
 Pri obnove zalohy kill nerobim a vsetko sa spustilo, oranzove senzory neboli.
+
+-------------------------------
+
+Permissions
+- hned po instalacii vrati pre normalne permission rationale false. Cize hned mi zobrazovalo aktivitu info aplikacie.
+- ale onRequestPermissionsResult je volany aj ked permananentne zakazem normalne permission
+- opravil som tak, ze ak withRationale == dalse a rationaleOnlyShown == true, tak len vtedy pouzije aktivitu info aplikacie.
+  Vysledkom je aj to, ze sa najprv zobrazi rationale a az potom aktivita ;-)

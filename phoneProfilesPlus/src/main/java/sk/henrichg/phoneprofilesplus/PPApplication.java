@@ -117,7 +117,7 @@ public class PPApplication extends Application {
 
                                          //+"|PPApplication.startPPService"
 
-                                         //+"|GrantPermissionActivity"
+                                         +"|GrantPermissionActivity"
                                          //+"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
 
                                          /*
@@ -301,7 +301,7 @@ public class PPApplication extends Application {
                                         //+ "|ApplicationsCache.cacheApplicationsList"
                                         + "|@ Application."
 
-                                        + "|BitmapManipulator.resampleBitmapUri"
+                                        //+ "|BitmapManipulator.resampleBitmapUri"
             ;
 
 
