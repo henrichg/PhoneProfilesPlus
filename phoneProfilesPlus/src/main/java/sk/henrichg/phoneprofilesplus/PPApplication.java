@@ -73,16 +73,16 @@ public class PPApplication extends Application {
                                          +"|PPApplication.isMIUI"
                                          +"|PPApplication.isEMUI"
                                          +"|PPApplication.isSamsung"
-                                         +"|PhoneProfilesService.onCreate"
-                                         +"|PhoneProfilesService.onStartCommand"
-                                         +"|PhoneProfilesService.doForFirstStart"
-                                         +"|PhoneProfilesService.isServiceRunningInForeground"
+                                         //+"|PhoneProfilesService.onCreate"
+                                         //+"|PhoneProfilesService.onStartCommand"
+                                         //+"|PhoneProfilesService.doForFirstStart"
+                                         //+"|PhoneProfilesService.isServiceRunningInForeground"
                                          //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
-                                         +"|PhoneProfilesService.onDestroy"
+                                         //+"|PhoneProfilesService.onDestroy"
                                          /*+"|DataWrapper.firstStartEvents"
                                          +"|BootUpReceiver"*/
-                                         +"|PackageReplacedReceiver"
+                                         //+"|PackageReplacedReceiver"
                                          /*+"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
@@ -91,9 +91,9 @@ public class PPApplication extends Application {
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
-                                         +"|LauncherActivity.onStart"
+                                         //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
-                                         +"|EditorProfilesActivity.onStart"
+                                         //+"|EditorProfilesActivity.onStart"
 
                                          //+"|PostDelayedBroadcastReceiver"
 
@@ -117,8 +117,8 @@ public class PPApplication extends Application {
 
                                          //+"|PPApplication.startPPService"
 
-                                         +"|GrantPermissionActivity"
-                                         +"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
+                                         //+"|GrantPermissionActivity"
+                                         //+"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
 
                                          /*
                                          +"|[XXX] PowerSaveModeBroadcastReceiver.onReceive"
@@ -300,6 +300,8 @@ public class PPApplication extends Application {
                                         + "|ApplicationEditorDialog"
                                         //+ "|ApplicationsCache.cacheApplicationsList"
                                         + "|@ Application."
+
+                                        + "|BitmapManipulator.resampleBitmapUri"
             ;
 
 

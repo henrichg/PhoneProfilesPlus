@@ -29,7 +29,7 @@ class BitmapManipulator {
     static final int ICON_BITMAP_SIZE_MULTIPLIER = 4;
 
     static Bitmap resampleBitmapUri(String bitmapUri, int width, int height, boolean checkSize, boolean checkOrientation, Context context) {
-        //Log.d("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
+        PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "bitmapUri="+bitmapUri);
         if (bitmapUri == null)
             return null;
 
@@ -37,7 +37,7 @@ class BitmapManipulator {
             return null;
 
         Uri uri = Uri.parse(bitmapUri);
-        //Log.d("---- BitmapManipulator.resampleBitmapUri", "uri="+uri);
+        PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "uri="+uri);
         if (uri != null) {
             try {
                 ContentResolver contentResolver = context.getContentResolver();
@@ -46,7 +46,7 @@ class BitmapManipulator {
                     context.grantUriPermission(context.getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 } catch (Exception e) {
-                    //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                    PPApplication.logE("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                 }
                 //}
                 InputStream inputStream = context.getContentResolver().openInputStream(uri);
@@ -60,8 +60,10 @@ class BitmapManipulator {
                     // raw height and width of image
                     final int rawHeight = options.outHeight;
                     final int rawWidth = options.outWidth;
-                    if ((rawWidth > ICON_BITMAP_SIZE_MULTIPLIER * width) || (rawHeight > ICON_BITMAP_SIZE_MULTIPLIER * height))
+                    if ((rawWidth > ICON_BITMAP_SIZE_MULTIPLIER * width) || (rawHeight > ICON_BITMAP_SIZE_MULTIPLIER * height)) {
+                        PPApplication.logE("BitmapManipulator.resampleBitmapUri", "too large");
                         return null;
+                    }
                 }
 
                 int rotatedWidth = width;
@@ -106,11 +108,11 @@ class BitmapManipulator {
                         decodedSampleBitmap = Bitmap.createBitmap(decodedSampleBitmap, 0, 0, decodedSampleBitmap.getWidth(),
                                 decodedSampleBitmap.getHeight(), matrix, true);
                     }
-                    //Log.d("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
+                    PPApplication.logE("---- BitmapManipulator.resampleBitmapUri", "decodedSampleBitmap="+decodedSampleBitmap);
                 }
                 return decodedSampleBitmap;
             } catch (Exception e) {
-                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                PPApplication.logE("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                 return null;
             }
         }
