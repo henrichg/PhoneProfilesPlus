@@ -926,7 +926,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Permissions.setShowRequestWriteSettingsPermission(context, false);
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.WRITE_SETTINGS);
                             requestPermissions(2, withRationale);
                         }
                     });
@@ -934,14 +935,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Permissions.setShowRequestWriteSettingsPermission(context, true);
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.WRITE_SETTINGS);
                             requestPermissions(2, withRationale);
                         }
                     });
                     dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
-                            removePermission(Manifest.permission.WRITE_SETTINGS);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.WRITE_SETTINGS);
                             requestPermissions(2, withRationale);
                         }
                     });
@@ -991,7 +994,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Permissions.setShowRequestAccessNotificationPolicyPermission(context, false);
-                                removePermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
+                                if (rationaleAlreadyShown)
+                                    removePermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
                                 requestPermissions(3, withRationale);
                             }
                         });
@@ -999,14 +1003,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
-                                removePermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
+                                if (rationaleAlreadyShown)
+                                    removePermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
                                 requestPermissions(3, withRationale);
                             }
                         });
                         dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                             @Override
                             public void onCancel(DialogInterface dialog) {
-                                removePermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
+                                if (rationaleAlreadyShown)
+                                    removePermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
                                 requestPermissions(3, withRationale);
                             }
                         });
@@ -1032,7 +1038,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 } else {
                     Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
                     //if (requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE)
-                        removePermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
                         requestPermissions(3, withRationale);
                     //else
                     //    finishGrant();
@@ -1040,6 +1045,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             }
             else {
                 //if (requestCode == ACCESS_NOTIFICATION_POLICY_REQUEST_CODE)
+                    removePermission(Manifest.permission.ACCESS_NOTIFICATION_POLICY);
                     requestPermissions(3, withRationale);
                 //else
                 //    finishGrant();
@@ -1064,7 +1070,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Permissions.setShowRequestDrawOverlaysPermission(context, false);
-                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
                             requestPermissions(4, withRationale);
                         }
                     });
@@ -1072,14 +1079,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Permissions.setShowRequestDrawOverlaysPermission(context, true);
-                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
                             requestPermissions(4, withRationale);
                         }
                     });
                     dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
                         @Override
                         public void onCancel(DialogInterface dialog) {
-                            removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
+                            if (rationaleAlreadyShown)
+                                removePermission(Manifest.permission.SYSTEM_ALERT_WINDOW);
                             requestPermissions(4, withRationale);
                         }
                     });
