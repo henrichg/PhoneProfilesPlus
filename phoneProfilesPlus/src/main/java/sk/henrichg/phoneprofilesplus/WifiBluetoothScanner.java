@@ -171,6 +171,7 @@ class WifiBluetoothScanner {
 
                                 WifiScanJob.setScanRequest(context, false);
                                 WifiScanJob.setWaitForResults(context, false);
+                                wifiEnabledForScan = false;
 
                                 WifiScanJob.unlock();
 
@@ -310,6 +311,7 @@ class WifiBluetoothScanner {
                                     BluetoothScanJob.setLEScanRequest(context, false);
                                     BluetoothScanJob.setWaitForResults(context, false);
                                     BluetoothScanJob.setWaitForLEResults(context, false);
+                                    bluetoothEnabledForScan = false;
 
                                     int bluetoothState;
 
@@ -564,8 +566,6 @@ class WifiBluetoothScanner {
             }
             else
             {
-                wifiEnabledForScan = false;
-
                 boolean isWifiAPEnabled = false;
                 WifiApManager wifiApManager = null;
                 try {
@@ -636,7 +636,6 @@ class WifiBluetoothScanner {
         else
         {
             PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","already enabled");
-            bluetoothEnabledForScan = false;
             return bluetoothState;
         }
         //}
