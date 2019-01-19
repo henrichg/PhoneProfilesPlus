@@ -3183,6 +3183,8 @@ public class PhoneProfilesService extends Service
                             return;
                         }
 
+                        serviceHasFirstStart = true;
+
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
                         PPApplication.createNotificationChannels(appContext);
@@ -3275,8 +3277,6 @@ public class PhoneProfilesService extends Service
                             }
                         }
 
-                        serviceHasFirstStart = true;
-
                         if (!_startOnBoot && !_startOnPackageReplace && !_initializeStart) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "###### not initialize start ######");
                             if (Event.getGlobalEventsRunning(appContext)) {
@@ -3324,11 +3324,11 @@ public class PhoneProfilesService extends Service
         //    return START_NOT_STICKY;
         //}
 
-        if (intent != null) {
+        /*if (intent != null) {
             if (intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false)) {
                 unregisterReceiversAndJobs();
 
-                stopSimulatingRingingCall(/*true*/);
+                stopSimulatingRingingCall();
                 //stopSimulatingNotificationTone(true);
 
                 reenableKeyguard();
@@ -3337,7 +3337,7 @@ public class PhoneProfilesService extends Service
                 serviceRunning = false;
                 runningInForeground = false;
             }
-        }
+        }*/
 
         if (!doForFirstStart(intent/*, flags, startId*/)) {
             if (intent != null) {

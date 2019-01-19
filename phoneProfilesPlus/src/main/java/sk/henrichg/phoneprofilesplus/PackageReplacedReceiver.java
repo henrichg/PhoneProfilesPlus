@@ -247,6 +247,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
             PPApplication.startPPService(dataWrapper.context, serviceIntent);
+
+            //PPApplication.sleep(2000);
         }
     }
 
