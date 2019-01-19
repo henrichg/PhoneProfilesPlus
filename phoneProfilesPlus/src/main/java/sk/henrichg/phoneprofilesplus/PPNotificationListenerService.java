@@ -106,19 +106,21 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 public void run() {
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PPNotificationListenerService.onNotificationPosted");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPNotificationListenerService.onNotificationPosted");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    EventsHandler eventsHandler = new EventsHandler(context);
-                    //eventsHandler.setEventNotificationParameters("posted");
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                        EventsHandler eventsHandler = new EventsHandler(context);
+                        //eventsHandler.setEventNotificationParameters("posted");
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             });
@@ -158,19 +160,21 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 public void run() {
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PPNotificationListenerService.onNotificationRemoved");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPNotificationListenerService.onNotificationRemoved");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    EventsHandler eventsHandler = new EventsHandler(context);
-                    //eventsHandler.setEventNotificationParameters("removed");
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                        EventsHandler eventsHandler = new EventsHandler(context);
+                        //eventsHandler.setEventNotificationParameters("removed");
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             });

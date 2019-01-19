@@ -52,29 +52,30 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PowerSaveModeBroadcastReceiver.onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PowerSaveModeBroadcastReceiver.onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-                        if (windowManager != null) {
-                            if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
+                            WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+                            if (windowManager != null) {
+                                if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
+                                    try {
+                                        windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                                    } catch (Exception ignored) {
+                                    }
+                                    PhoneProfilesService.getInstance().brightnessView = null;
+                                }
+                            }
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
-                                    windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                                    wakeLock.release();
                                 } catch (Exception ignored) {
                                 }
-                                PhoneProfilesService.getInstance().brightnessView = null;
                             }
                         }
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-
                     }
                 });
             }
@@ -97,21 +98,22 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PowerSaveModeBroadcastReceiver.onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PowerSaveModeBroadcastReceiver.onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(sensorType);
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(sensorType);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
-
                     }
                 });
             }
@@ -127,23 +129,24 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PowerSaveModeBroadcastReceiver.onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PowerSaveModeBroadcastReceiver.onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                        if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
-                            dataWrapper.addActivityLog(logType, null, null, null, 0);
-                        dataWrapper.restartEvents(unblockEventsRun, true, true, true, false);
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                            if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
+                                dataWrapper.addActivityLog(logType, null, null, null, 0);
+                            dataWrapper.restartEvents(unblockEventsRun, true, true, true, false);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
-
                     }
                 });
             }
@@ -156,20 +159,21 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PowerSaveModeBroadcastReceiver.onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PowerSaveModeBroadcastReceiver.onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        WifiScanJob.startScan(appContext);
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            WifiScanJob.startScan(appContext);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
-
                     }
                 });
             }

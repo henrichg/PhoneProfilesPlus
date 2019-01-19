@@ -39,14 +39,15 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DeviceIdleModeBroadcastReceiver.onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DeviceIdleModeBroadcastReceiver.onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        // start events handler
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE);
+                            // start events handler
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_IDLE_MODE);
 
                         /* Not needed, job is started in maintenance window
                         // rescan
@@ -63,19 +64,20 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                             PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true,  true, //true,
                                     false);
                         }*/
-                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
-                            // rescan mobile cells
-                            synchronized (PPApplication.phoneStateScannerMutex) {
-                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
-                                    PhoneProfilesService.getInstance().getPhoneStateScanner().rescanMobileCells();
+                            if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
+                                // rescan mobile cells
+                                synchronized (PPApplication.phoneStateScannerMutex) {
+                                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
+                                        PhoneProfilesService.getInstance().getPhoneStateScanner().rescanMobileCells();
+                                    }
                                 }
                             }
-                        }
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
                     }
                 });

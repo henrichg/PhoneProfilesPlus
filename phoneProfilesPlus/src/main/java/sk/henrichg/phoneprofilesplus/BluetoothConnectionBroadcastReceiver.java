@@ -77,57 +77,58 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":BluetoothConnectionBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectionBroadcastReceiver.onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    getConnectedDevices(appContext);
+                        getConnectedDevices(appContext);
 
-                    if (device != null) {
+                        if (device != null) {
 
-                        PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action);
+                            PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "action=" + action);
 
-                        try {
-                            //if (!action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
+                            try {
+                                //if (!action.equals(BluetoothDevice.ACTION_NAME_CHANGED)) {
                                 PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "connected=" + connected);
                                 PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "device.getName()=" + device.getName());
                                 PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "device.getAddress()=" + device.getAddress());
-                            //}
+                                //}
 
-                            switch (action) {
-                                case BluetoothDevice.ACTION_ACL_CONNECTED:
-                                    addConnectedDevice(device);
-                                    break;
-                                case BluetoothDevice.ACTION_NAME_CHANGED:
-                                    if (newName != null) {
-                                        PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "newName=" + newName);
-                                        changeDeviceName(device, newName);
-                                    }
-                                    break;
-                                default:
-                                    removeConnectedDevice(device);
-                                    break;
+                                switch (action) {
+                                    case BluetoothDevice.ACTION_ACL_CONNECTED:
+                                        addConnectedDevice(device);
+                                        break;
+                                    case BluetoothDevice.ACTION_NAME_CHANGED:
+                                        if (newName != null) {
+                                            PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "newName=" + newName);
+                                            changeDeviceName(device, newName);
+                                        }
+                                        break;
+                                    default:
+                                        removeConnectedDevice(device);
+                                        break;
+                                }
+                            } catch (Exception ignored) {
                             }
-                        } catch (Exception ignored) {
-                        }
 
-                        saveConnectedDevices(appContext);
+                            saveConnectedDevices(appContext);
 
 
-                        if (Event.getGlobalEventsRunning(appContext)) {
+                            if (Event.getGlobalEventsRunning(appContext)) {
 
-                            //if (lastState != currState)
-                            //{
+                                //if (lastState != currState)
+                                //{
 
-                            if (!(BluetoothScanJob.getScanRequest(appContext) ||
-                                    BluetoothScanJob.getLEScanRequest(appContext) ||
-                                    BluetoothScanJob.getWaitForResults(appContext) ||
-                                    BluetoothScanJob.getWaitForLEResults(appContext) ||
-                                    WifiBluetoothScanner.bluetoothEnabledForScan)) {
-                                // bluetooth is not scanned
+                                if (!(BluetoothScanJob.getScanRequest(appContext) ||
+                                        BluetoothScanJob.getLEScanRequest(appContext) ||
+                                        BluetoothScanJob.getWaitForResults(appContext) ||
+                                        BluetoothScanJob.getWaitForLEResults(appContext) ||
+                                        WifiBluetoothScanner.bluetoothEnabledForScan)) {
+                                    // bluetooth is not scanned
 
-                                PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "start EventsHandler");
+                                    PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "start EventsHandler");
 
                                 /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                                 boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
@@ -137,21 +138,21 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 {
                                     PPApplication.logE("@@@ BluetoothJob.onRunJob","BluetoothConnectionBroadcastReceiver: bluetoothEventsExists="+bluetoothEventsExists);
                                 */
-                                // start events handler
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
+                                    // start events handler
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_CONNECTION);
+                                    //}
+                                } else
+                                    PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "not start EventsHandler, scanner is running");
                                 //}
                             }
-                            else
-                                PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "not start EventsHandler, scanner is running");
-                            //}
                         }
-                    }
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             });

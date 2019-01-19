@@ -787,17 +787,19 @@ public class DataWrapper {
             public void run() {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.setDynamicLauncherShortcutsFromMainThread");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                dataWrapper.setDynamicLauncherShortcuts();
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
+                    dataWrapper.setDynamicLauncherShortcuts();
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             }
         });
@@ -946,17 +948,19 @@ public class DataWrapper {
 
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.stopEventsForProfileFromMainThread");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper.stopEventsForProfileFromMainThread");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                dataWrapper.stopEventsForProfile(profile, alsoUnlink);
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
+                    dataWrapper.stopEventsForProfile(profile, alsoUnlink);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             }
         });
@@ -1015,17 +1019,19 @@ public class DataWrapper {
 
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.pauseAllEventsFromMainThread");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper.pauseAllEventsFromMainThread");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                dataWrapper.pauseAllEvents(noSetSystemEvent, blockEvents);
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
+                    dataWrapper.pauseAllEvents(noSetSystemEvent, blockEvents);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             }
         });
@@ -1063,17 +1069,19 @@ public class DataWrapper {
 
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.stopAllEventsFromMainThread");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper.stopAllEventsFromMainThread");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                dataWrapper.stopAllEvents(saveEventStatus, alsoDelete);
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
+                    dataWrapper.stopAllEvents(saveEventStatus, alsoDelete);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             }
         });
@@ -1510,25 +1518,26 @@ public class DataWrapper {
             public void run() {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.activateProfileFromMainThread");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper.activateProfileFromMainThread");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start in handler");
-                dataWrapper._activateProfile(_profile, merged, startupSource);
-                if (interactive) {
-                    DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(_profile);
-                    dataWrapper.setDynamicLauncherShortcuts();
+                    PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start in handler");
+                    dataWrapper._activateProfile(_profile, merged, startupSource);
+                    if (interactive) {
+                        DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(_profile);
+                        dataWrapper.setDynamicLauncherShortcuts();
+                    }
+                    PPApplication.logE("DataWrapper.activateProfileFromMainThread", "end in handler");
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
-                PPApplication.logE("DataWrapper.activateProfileFromMainThread", "end in handler");
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
-                }
-
             }
         });
 
@@ -3698,17 +3707,19 @@ public class DataWrapper {
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.restartEvents");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper.restartEvents");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                        _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
@@ -3731,41 +3742,38 @@ public class DataWrapper {
             public void run() {
                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":DataWrapper.restartEventsWithRescan");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper.restartEventsWithRescan");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                // remove all event delay alarms
-                dataWrapper.resetAllEventsInDelayStart(false);
-                dataWrapper.resetAllEventsInDelayEnd(false);
-                // ignore manual profile activation
-                // and unblock forceRun events
-                dataWrapper.restartEvents(true, true, true, true, false);
+                    // remove all event delay alarms
+                    dataWrapper.resetAllEventsInDelayStart(false);
+                    dataWrapper.resetAllEventsInDelayEnd(false);
+                    // ignore manual profile activation
+                    // and unblock forceRun events
+                    dataWrapper.restartEvents(true, true, true, true, false);
 
-                if (ApplicationPreferences.applicationEventWifiRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
-                {
-                    PPApplication.restartWifiScanner(dataWrapper.context, false);
+                    if (ApplicationPreferences.applicationEventWifiRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                        PPApplication.restartWifiScanner(dataWrapper.context, false);
+                    }
+                    if (ApplicationPreferences.applicationEventBluetoothRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                        PPApplication.restartBluetoothScanner(dataWrapper.context, false);
+                    }
+                    if (ApplicationPreferences.applicationEventLocationRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                        PPApplication.restartGeofenceScanner(dataWrapper.context, false);
+                    }
+                    if (ApplicationPreferences.applicationEventMobileCellsRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
+                        PPApplication.restartPhoneStateScanner(dataWrapper.context, false);
+                    }
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
-                if (ApplicationPreferences.applicationEventBluetoothRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
-                {
-                    PPApplication.restartBluetoothScanner(dataWrapper.context, false);
-                }
-                if (ApplicationPreferences.applicationEventLocationRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
-                {
-                    PPApplication.restartGeofenceScanner(dataWrapper.context, false);
-                }
-                if (ApplicationPreferences.applicationEventMobileCellsRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS))
-                {
-                    PPApplication.restartPhoneStateScanner(dataWrapper.context, false);
-                }
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
-                }
-
             }
         });
 

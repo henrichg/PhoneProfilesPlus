@@ -36,30 +36,32 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":BluetoothLEScanBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothLEScanBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
+                    boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
 
-                if (scanStarted) {
-                    //PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - callbackType=" + callbackType);
-                    //PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - result=" + result.toString());
+                    if (scanStarted) {
+                        //PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - callbackType=" + callbackType);
+                        //PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - result=" + result.toString());
 
-                    String btName = _device.getName();
-                    PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - deviceName=" + btName);
+                        String btName = _device.getName();
+                        PPApplication.logE("BluetoothLEScanCallback21", "onScanResult - deviceName=" + btName);
 
-                    BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, _device.getAddress(),
-                            BluetoothScanJob.getBluetoothType(_device), false, 0, false, true);
+                        BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, _device.getAddress(),
+                                BluetoothScanJob.getBluetoothType(_device), false, 0, false, true);
 
-                    BluetoothScanJob.addLEScanResult(deviceData);
-                }
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
+                        BluetoothScanJob.addLEScanResult(deviceData);
+                    }
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             }
         });
@@ -78,32 +80,34 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":BluetoothLEScanBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
-
-                if (scanStarted) {
-                    for (ScanResult result : _results) {
-                        //PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
-
-                        BluetoothDevice device = result.getDevice();
-                        String btName = device.getName();
-                        PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - deviceName=" + btName);
-
-                        BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
-                                BluetoothScanJob.getBluetoothType(device), false, 0, false, true);
-
-                        BluetoothScanJob.addLEScanResult(deviceData);
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothLEScanBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
                     }
-                }
 
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
+                    boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
+
+                    if (scanStarted) {
+                        for (ScanResult result : _results) {
+                            //PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
+
+                            BluetoothDevice device = result.getDevice();
+                            String btName = device.getName();
+                            PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - deviceName=" + btName);
+
+                            BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, device.getAddress(),
+                                    BluetoothScanJob.getBluetoothType(device), false, 0, false, true);
+
+                            BluetoothScanJob.addLEScanResult(deviceData);
+                        }
+                    }
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             }
         });

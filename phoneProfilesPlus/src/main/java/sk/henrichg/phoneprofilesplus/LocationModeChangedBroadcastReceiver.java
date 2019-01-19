@@ -35,29 +35,31 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":LocationModeChangedBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
-                        //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-                    }
-
-                    synchronized (PPApplication.geofenceScannerMutex) {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                            PhoneProfilesService.getInstance().getGeofencesScanner().clearAllEventGeofences();
-                            PPApplication.logE("LocationModeChangedBroadcastReceiver.onReceive", "updateTransitionsByLastKnownLocation");
-                            PhoneProfilesService.getInstance().getGeofencesScanner().updateTransitionsByLastKnownLocation(true);
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationModeChangedBroadcastReceiver.onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
                         }
-                    }
 
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                        if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
+                            //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                        }
+
+                        synchronized (PPApplication.geofenceScannerMutex) {
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                                PhoneProfilesService.getInstance().getGeofencesScanner().clearAllEventGeofences();
+                                PPApplication.logE("LocationModeChangedBroadcastReceiver.onReceive", "updateTransitionsByLastKnownLocation");
+                                PhoneProfilesService.getInstance().getGeofencesScanner().updateTransitionsByLastKnownLocation(true);
+                            }
+                        }
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             });

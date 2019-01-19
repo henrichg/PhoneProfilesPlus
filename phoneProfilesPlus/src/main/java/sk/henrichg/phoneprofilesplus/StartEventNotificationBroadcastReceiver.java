@@ -32,20 +32,22 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                 if (event_id != 0) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":StartEventNotificationBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationBroadcastReceiver.onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                    Event event = databaseHandler.getEvent(event_id);
-                    if (event != null)
-                        event.notifyEventStart(appContext);
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                        Event event = databaseHandler.getEvent(event_id);
+                        if (event != null)
+                            event.notifyEventStart(appContext);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             }

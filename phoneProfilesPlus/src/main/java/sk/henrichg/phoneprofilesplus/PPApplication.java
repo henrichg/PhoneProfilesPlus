@@ -1972,17 +1972,19 @@ public class PPApplication extends Application {
                     public void run() {
                         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PPApplication.exitApp");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication.exitApp");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                            _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
                     }
                 });

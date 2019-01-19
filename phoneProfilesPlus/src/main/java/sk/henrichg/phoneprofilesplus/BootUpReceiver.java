@@ -41,30 +41,31 @@ public class BootUpReceiver extends BroadcastReceiver {
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":BootUpReceiver.onReceive.2");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BootUpReceiver.onReceive.2");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    if (ApplicationPreferences.applicationStartOnBoot(appContext)) {
-                        PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
+                        if (ApplicationPreferences.applicationStartOnBoot(appContext)) {
+                            PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
 
-                        // start service
-                        PPApplication.setApplicationStarted(appContext, true);
-                        Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, true);
-                        PPApplication.startPPService(appContext, serviceIntent);
-                    }
-                    else {
-                        PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);
-                    }
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                            // start service
+                            PPApplication.setApplicationStarted(appContext, true);
+                            Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
+                            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, true);
+                            PPApplication.startPPService(appContext, serviceIntent);
+                        } else {
+                            PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);
+                        }
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             });

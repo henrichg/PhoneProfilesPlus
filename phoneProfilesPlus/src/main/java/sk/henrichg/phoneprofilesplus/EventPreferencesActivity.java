@@ -476,29 +476,31 @@ public class EventPreferencesActivity extends PreferenceActivity
                     public void run() {
                         PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":EditorPreferencesActivity.savePreferences.1");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorPreferencesActivity.savePreferences.1");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (_old_event_status != Event.ESTATUS_STOP) {
-                            // pause event - must be called, because status is ESTATUS_STOP
-                            event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                    false, /*false,*/ null, false);
-                            // stop event
-                            event.stopEvent(dataWrapper, eventTimelineList, true, false,
-                                    true/*, false*/);
+                            if (_old_event_status != Event.ESTATUS_STOP) {
+                                // pause event - must be called, because status is ESTATUS_STOP
+                                event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                        false, /*false,*/ null, false);
+                                // stop event
+                                event.stopEvent(dataWrapper, eventTimelineList, true, false,
+                                        true/*, false*/);
 
-                            // restart Events
-                            PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-                            PPApplication.setBlockProfileEventActions(true);
-                            dataWrapper.restartEvents(false, true, true, true, false);
-                        }
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                                // restart Events
+                                PPApplication.logE("$$$ restartEvents", "from EventPreferencesActivity.savePreferences");
+                                PPApplication.setBlockProfileEventActions(true);
+                                dataWrapper.restartEvents(false, true, true, true, false);
+                            }
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
                     }
                 });
@@ -511,26 +513,28 @@ public class EventPreferencesActivity extends PreferenceActivity
                     public void run() {
                         PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":EditorPreferencesActivity.savePreferences.2");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorPreferencesActivity.savePreferences.2");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        // pause event
-                        event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                false, /*false,*/ null, false);
-                        // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
-                        event.doLogForPauseEvent(dataWrapper, false);
+                            // pause event
+                            event.pauseEvent(dataWrapper, eventTimelineList, true, false,
+                                    false, /*false,*/ null, false);
+                            // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
+                            event.doLogForPauseEvent(dataWrapper, false);
 
-                        // restart Events
-                        PPApplication.logE("$$$ restartEvents","from EventPreferencesActivity.savePreferences");
-                        PPApplication.setBlockProfileEventActions(true);
-                        dataWrapper.restartEvents(false, true, true, true, false);
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                            // restart Events
+                            PPApplication.logE("$$$ restartEvents", "from EventPreferencesActivity.savePreferences");
+                            PPApplication.setBlockProfileEventActions(true);
+                            dataWrapper.restartEvents(false, true, true, true, false);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
                     }
                 });

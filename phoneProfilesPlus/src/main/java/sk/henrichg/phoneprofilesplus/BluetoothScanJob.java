@@ -875,6 +875,7 @@ class BluetoothScanJob extends Job {
                         public void run() {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
+                            try {
                             if (powerManager != null) {
                                 wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanJob.finishScan.Handler.postDelayed");
                                 wakeLock.acquire(10 * 60 * 1000);
@@ -883,11 +884,12 @@ class BluetoothScanJob extends Job {
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
-
+                            } finaly (
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
                                     wakeLock.release();
                                 } catch (Exception ignored) {}
+                            }
                             }
                         }
                     }, 5000);*/

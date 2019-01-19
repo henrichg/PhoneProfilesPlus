@@ -33,28 +33,30 @@ class BluetoothLEScanCallback18 implements BluetoothAdapter.LeScanCallback {
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":BluetoothLEScanBroadcastReceiver.onReceive");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothLEScanBroadcastReceiver.onReceive");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
+                    boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(context));
 
-                if (scanStarted) {
-                    //PPApplication.logE("BluetoothLEScanCallback18", "onLeScan - device=" + device.toString());
+                    if (scanStarted) {
+                        //PPApplication.logE("BluetoothLEScanCallback18", "onLeScan - device=" + device.toString());
 
-                    String btName = _device.getName();
-                    PPApplication.logE("BluetoothLEScanCallback18", "onLeScan - deviceName=" + btName);
+                        String btName = _device.getName();
+                        PPApplication.logE("BluetoothLEScanCallback18", "onLeScan - deviceName=" + btName);
 
-                    BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, _device.getAddress(),
-                            BluetoothScanJob.getBluetoothType(_device), false, 0, false, true);
-                    BluetoothScanJob.addLEScanResult(deviceData);
-                }
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
+                        BluetoothDeviceData deviceData = new BluetoothDeviceData(btName, _device.getAddress(),
+                                BluetoothScanJob.getBluetoothType(_device), false, 0, false, true);
+                        BluetoothScanJob.addLEScanResult(deviceData);
+                    }
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
                 }
             }
         });

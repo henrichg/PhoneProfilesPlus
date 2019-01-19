@@ -132,19 +132,21 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                 public void run() {
                                     PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity.ACTION_ENABLE_RUN_FOR_EVENT");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity.ACTION_ENABLE_RUN_FOR_EVENT");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
 
-                                    event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
-                                            false, /*true,*/ null, false); // activate return profile
-                                    _dataWrapper.restartEvents(false, true, true, true, false);
-
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {
+                                        event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
+                                                false, /*true,*/ null, false); // activate return profile
+                                        _dataWrapper.restartEvents(false, true, true, true, false);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
                                         }
                                     }
                                 }
@@ -187,19 +189,21 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                 public void run() {
                                     PowerManager powerManager = (PowerManager) _dataWrapper.context.getSystemService(POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity.ACTION_STOP_EVENT");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity.ACTION_STOP_EVENT");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
 
-                                    event.stopEvent(_dataWrapper, eventTimelineList, true, false,
-                                            true/*, true*/); // activate return profile
-                                    _dataWrapper.restartEvents(false, true, true, true, false);
-
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {
+                                        event.stopEvent(_dataWrapper, eventTimelineList, true, false,
+                                                true/*, true*/); // activate return profile
+                                        _dataWrapper.restartEvents(false, true, true, true, false);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
                                         }
                                     }
                                 }

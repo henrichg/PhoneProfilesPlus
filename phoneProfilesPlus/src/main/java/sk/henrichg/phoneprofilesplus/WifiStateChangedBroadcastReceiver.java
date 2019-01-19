@@ -46,54 +46,55 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":WifiStateChangedBroadcastReceiver.onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver.onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                            if (!(WifiScanJob.getScanRequest(appContext) ||
-                                    WifiScanJob.getWaitForResults(appContext) ||
-                                    WifiBluetoothScanner.wifiEnabledForScan)) {
-                                // ignore for wifi scanning
+                            if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                                if (!(WifiScanJob.getScanRequest(appContext) ||
+                                        WifiScanJob.getWaitForResults(appContext) ||
+                                        WifiBluetoothScanner.wifiEnabledForScan)) {
+                                    // ignore for wifi scanning
 
-                                if (PhoneProfilesService.getInstance() != null) {
-                                    if (!PhoneProfilesService.getInstance().connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
-                                        WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                                        if (wifiManager != null) {
-                                            List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
-                                            if (list != null) {
-                                                for (WifiConfiguration i : list) {
-                                                    if (i.SSID != null && i.SSID.equals(PhoneProfilesService.getInstance().connectToSSID)) {
-                                                        //wifiManager.disconnect();
-                                                        wifiManager.enableNetwork(i.networkId, true);
-                                                        //wifiManager.reconnect();
-                                                        break;
+                                    if (PhoneProfilesService.getInstance() != null) {
+                                        if (!PhoneProfilesService.getInstance().connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                                            WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                                            if (wifiManager != null) {
+                                                List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+                                                if (list != null) {
+                                                    for (WifiConfiguration i : list) {
+                                                        if (i.SSID != null && i.SSID.equals(PhoneProfilesService.getInstance().connectToSSID)) {
+                                                            //wifiManager.disconnect();
+                                                            wifiManager.enableNetwork(i.networkId, true);
+                                                            //wifiManager.reconnect();
+                                                            break;
+                                                        }
                                                     }
                                                 }
                                             }
                                         }
+                                        //else {
+                                        //    WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                                        //    wifiManager.disconnect();
+                                        //    wifiManager.reconnect();
+                                        //}
                                     }
-                                    //else {
-                                    //    WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                                    //    wifiManager.disconnect();
-                                    //    wifiManager.reconnect();
-                                    //}
                                 }
                             }
-                        }
 
-                        int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
-                        PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
+                            int forceOneScan = WifiBluetoothScanner.getForceOneWifiScan(appContext);
+                            PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "forceOneScan=" + forceOneScan);
 
-                        if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
-                            PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "state=" + wifiState);
+                            if (Event.getGlobalEventsRunning(appContext) || (forceOneScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)) {
+                                PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "state=" + wifiState);
 
-                            if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {
-                                if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                                    // start scan
-                                    if (WifiScanJob.getScanRequest(appContext)) {
-                                        //final Context _context = appContext;
+                                if ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_DISABLED)) {
+                                    if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
+                                        // start scan
+                                        if (WifiScanJob.getScanRequest(appContext)) {
+                                            //final Context _context = appContext;
                                         /*PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.2");
                                         final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                                         handler.postDelayed(new Runnable() {
@@ -101,6 +102,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                             public void run() {
                                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                                 PowerManager.WakeLock wakeLock = null;
+                                                try {
                                                 if (powerManager != null) {
                                                     wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive.Handler.postDelayed.1");
                                                     wakeLock.acquire(10 * 60 * 1000);
@@ -108,16 +110,17 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                                 WifiScanJob.startScan(appContext);
-
+                                                } finaly (
                                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                                     try {
                                                         wakeLock.release();
                                                     } catch (Exception ignored) {}
                                                 }
+                                                }
                                             }
                                         }, 5000);*/
-                                        PostDelayedBroadcastReceiver.setAlarm(
-                                                PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN, 5, appContext);
+                                            PostDelayedBroadcastReceiver.setAlarm(
+                                                    PostDelayedBroadcastReceiver.ACTION_START_WIFI_SCAN, 5, appContext);
 
                                         /*
                                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "before startScan");
@@ -126,51 +129,55 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                         PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "after startScan");
                                         */
 
-                                    } else if (!WifiScanJob.getWaitForResults(appContext)) {
-                                        // refresh configured networks list
-                                        PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.3");
-                                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                                        handler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                                PowerManager.WakeLock wakeLock = null;
-                                                if (powerManager != null) {
-                                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":WifiStateChangedBroadcastReceiver.onReceive.Handler.post.2");
-                                                    wakeLock.acquire(10 * 60 * 1000);
-                                                }
-
-                                                WifiScanJob.fillWifiConfigurationList(appContext);
-
-                                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        } else if (!WifiScanJob.getWaitForResults(appContext)) {
+                                            // refresh configured networks list
+                                            PPApplication.startHandlerThread("WifiStateChangedBroadcastReceiver.onReceive.3");
+                                            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                                            handler.post(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                                    PowerManager.WakeLock wakeLock = null;
                                                     try {
-                                                        wakeLock.release();
-                                                    } catch (Exception ignored) {}
+                                                        if (powerManager != null) {
+                                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver.onReceive.Handler.post.2");
+                                                            wakeLock.acquire(10 * 60 * 1000);
+                                                        }
+
+                                                        WifiScanJob.fillWifiConfigurationList(appContext);
+                                                    } finally {
+                                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                                            try {
+                                                                wakeLock.release();
+                                                            } catch (Exception ignored) {
+                                                            }
+                                                        }
+                                                    }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        }
+                                    }
+
+                                    if (!(WifiScanJob.getScanRequest(appContext) ||
+                                            WifiScanJob.getWaitForResults(appContext) ||
+                                            WifiBluetoothScanner.wifiEnabledForScan)) {
+
+                                        // start events handler
+                                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+
+                                        // start events handler
+                                        eventsHandler = new EventsHandler(appContext);
+                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_STATE);
                                     }
                                 }
-
-                                if (!(WifiScanJob.getScanRequest(appContext) ||
-                                        WifiScanJob.getWaitForResults(appContext) ||
-                                        WifiBluetoothScanner.wifiEnabledForScan)) {
-
-                                    // start events handler
-                                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
-
-                                    // start events handler
-                                    eventsHandler = new EventsHandler(appContext);
-                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_STATE);
-                                }
                             }
-                        }
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
                     }
                 });

@@ -255,22 +255,24 @@ class PhoneStateScanner extends PhoneStateListener {
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.onCellInfoChanged");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.onCellInfoChanged");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                if (cellInfo == null)
-                    getAllCellInfo();
-                else
-                    getAllCellInfo(cellInfo);
+                    if (cellInfo == null)
+                        getAllCellInfo();
+                    else
+                        getAllCellInfo(cellInfo);
 
-                handleEvents();
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
+                    handleEvents();
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             }
@@ -292,20 +294,22 @@ class PhoneStateScanner extends PhoneStateListener {
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.onServiceStateChanged");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.onServiceStateChanged");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                getRegisteredCell();
-                PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=" + registeredCell);
+                    getRegisteredCell();
+                    PPApplication.logE("PhoneStateScanner.onServiceStateChanged", "registeredCell=" + registeredCell);
 
-                handleEvents();
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
+                    handleEvents();
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             }
@@ -385,25 +389,27 @@ class PhoneStateScanner extends PhoneStateListener {
             public void run() {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.onCellLocationChanged");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.onCellLocationChanged");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
 
-                if (location == null)
-                    getCellLocation();
-                else
-                    getCellLocation(location);
+                    if (location == null)
+                        getCellLocation();
+                    else
+                        getCellLocation(location);
 
-                //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "location="+location);
-                //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell="+registeredCell);
+                    //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "location="+location);
+                    //PPApplication.logE("PhoneStateScanner.onCellLocationChanged", "registeredCell="+registeredCell);
 
-                handleEvents();
-
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
+                    handleEvents();
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
             }
@@ -439,18 +445,20 @@ class PhoneStateScanner extends PhoneStateListener {
                 public void run() {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.rescanMobileCells");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.rescanMobileCells");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    getRegisteredCell();
-                    handleEvents();
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                        getRegisteredCell();
+                        handleEvents();
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
@@ -494,49 +502,51 @@ class PhoneStateScanner extends PhoneStateListener {
                 public void run() {
                     PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneStateScanner.doAutoRegistration");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.doAutoRegistration");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
-                    if (cellIdToRegister != Integer.MAX_VALUE) {
-                        DatabaseHandler db = DatabaseHandler.getInstance(context);
-                        if (!db.isMobileCellSaved(cellIdToRegister)) {
-                            List<MobileCellsData> localCellsList = new ArrayList<>();
-                            localCellsList.add(new MobileCellsData(cellIdToRegister, cellsNameForAutoRegistration, true, false, Calendar.getInstance().getTimeInMillis()));
-                            db.saveMobileCellsList(localCellsList, true, true);
+                        //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
+                        if (cellIdToRegister != Integer.MAX_VALUE) {
+                            DatabaseHandler db = DatabaseHandler.getInstance(context);
+                            if (!db.isMobileCellSaved(cellIdToRegister)) {
+                                List<MobileCellsData> localCellsList = new ArrayList<>();
+                                localCellsList.add(new MobileCellsData(cellIdToRegister, cellsNameForAutoRegistration, true, false, Calendar.getInstance().getTimeInMillis()));
+                                db.saveMobileCellsList(localCellsList, true, true);
 
-                            DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+                                DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
 
-                            synchronized (eventList) {
-                                for (Long event_id : eventList) {
-                                    Event event = dataWrapper.getEventById(event_id);
-                                    if (event != null) {
-                                        String cells = event._eventPreferencesMobileCells._cells;
-                                        cells = addCellId(cells, cellIdToRegister);
-                                        event._eventPreferencesMobileCells._cells = cells;
-                                        dataWrapper.updateEvent(event);
-                                        db.updateMobileCellsCells(event);
+                                synchronized (eventList) {
+                                    for (Long event_id : eventList) {
+                                        Event event = dataWrapper.getEventById(event_id);
+                                        if (event != null) {
+                                            String cells = event._eventPreferencesMobileCells._cells;
+                                            cells = addCellId(cells, cellIdToRegister);
+                                            event._eventPreferencesMobileCells._cells = cells;
+                                            dataWrapper.updateEvent(event);
+                                            db.updateMobileCellsCells(event);
 
-                                        // broadcast for event preferences
-                                        Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
-                                        intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
-                                        intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, cellIdToRegister);
-                                        intent.setPackage(context.getPackageName());
-                                        context.sendBroadcast(intent);
+                                            // broadcast for event preferences
+                                            Intent intent = new Intent(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
+                                            intent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                                            intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, cellIdToRegister);
+                                            intent.setPackage(context.getPackageName());
+                                            context.sendBroadcast(intent);
+                                        }
                                     }
                                 }
+
+                                dataWrapper.invalidateDataWrapper();
                             }
-
-                            dataWrapper.invalidateDataWrapper();
                         }
-                    }
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             });

@@ -60,18 +60,20 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.0");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.0");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, true);
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, true);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }
@@ -101,22 +103,24 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 public void run() {
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.1");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.1");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
 
-                                    DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                    if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {
+                                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                                        if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
+                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                        if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
+                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
                                         }
                                     }
                                 }
@@ -138,22 +142,24 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.2");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.2");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                        if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                            DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                            if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }
@@ -169,19 +175,21 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         public void run() {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.3");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.3");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
-                            if (profile != null)
-                                ActivateProfileHelper.executeForInteractivePreferences(profile, appContext);
-
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                                Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
+                                if (profile != null)
+                                    ActivateProfileHelper.executeForInteractivePreferences(profile, appContext);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
                         }
@@ -202,21 +210,23 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         public void run() {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.4");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.4");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.setEventSMSParameters(origin, time);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
-                            }
-
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                                if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.setEventSMSParameters(origin, time);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
+                                }
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
                         }
@@ -242,21 +252,23 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         public void run() {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.4");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver.onReceive.4");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
-                            }
-
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
+                                if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
+                                }
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
                                 }
                             }
                         }

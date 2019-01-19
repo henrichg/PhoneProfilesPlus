@@ -41,56 +41,58 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                         public void run() {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":WifiConnectionBroadcastReceiver.onReceive");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiConnectionBroadcastReceiver.onReceive");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                            PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "state=" + info.getState());
+                                PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "state=" + info.getState());
 
-                            if (PhoneProfilesService.getInstance() != null) {
-                                if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
-                                    // connect to SSID is started
+                                if (PhoneProfilesService.getInstance() != null) {
+                                    if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
+                                        // connect to SSID is started
 
-                                    if (info.getState() == NetworkInfo.State.CONNECTED) {
-                                        //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
-                                        //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-                                        //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
-                                        //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
-                                        //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
-                                        //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
-                                        PhoneProfilesService.getInstance().connectToSSIDStarted = false;
+                                        if (info.getState() == NetworkInfo.State.CONNECTED) {
+                                            //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
+                                            //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                                            //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
+                                            //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "PhoneProfilesService.connectToSSID=" + PhoneProfilesService.connectToSSID);
+                                            //if ((PhoneProfilesService.connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) ||
+                                            //    (wifiInfo.getSSID().equals(PhoneProfilesService.connectToSSID)))
+                                            PhoneProfilesService.getInstance().connectToSSIDStarted = false;
+                                        }
                                     }
                                 }
-                            }
 
-                            if (Event.getGlobalEventsRunning(appContext)) {
-                                if ((info.getState() == NetworkInfo.State.CONNECTED) ||
-                                        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
-                                    if (!(WifiScanJob.getScanRequest(appContext) ||
-                                            WifiScanJob.getWaitForResults(appContext) ||
-                                            WifiBluetoothScanner.wifiEnabledForScan)) {
-                                        // wifi is not scanned
+                                if (Event.getGlobalEventsRunning(appContext)) {
+                                    if ((info.getState() == NetworkInfo.State.CONNECTED) ||
+                                            (info.getState() == NetworkInfo.State.DISCONNECTED)) {
+                                        if (!(WifiScanJob.getScanRequest(appContext) ||
+                                                WifiScanJob.getWaitForResults(appContext) ||
+                                                WifiBluetoothScanner.wifiEnabledForScan)) {
+                                            // wifi is not scanned
 
-                                        PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
+                                            PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");
 
-                                        if ((PhoneProfilesService.getInstance() != null) && (!PhoneProfilesService.getInstance().connectToSSIDStarted)) {
-                                            // connect to SSID is not started
+                                            if ((PhoneProfilesService.getInstance() != null) && (!PhoneProfilesService.getInstance().connectToSSIDStarted)) {
+                                                // connect to SSID is not started
 
-                                            // start events handler
-                                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
+                                                // start events handler
+                                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 
-                                        }
-                                    } else
-                                        PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
+                                            }
+                                        } else
+                                            PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
+                                    }
                                 }
-                            }
-
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {}
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {}
+                                }
                             }
                         }
                     });

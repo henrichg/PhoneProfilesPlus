@@ -153,23 +153,25 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                     public void run() {
                         PowerManager powerManager = (PowerManager) context.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":GeofenceScanner.onConnected");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofenceScanner.onConnected");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                            GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                            scanner.clearAllEventGeofences();
-                            PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
-                            scanner.startLocationUpdates();
-                            scanner.updateTransitionsByLastKnownLocation(false);
-                        }
-
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                            if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                                GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                                scanner.clearAllEventGeofences();
+                                PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
+                                scanner.startLocationUpdates();
+                                scanner.updateTransitionsByLastKnownLocation(false);
+                            }
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {}
+                            }
                         }
                     }
                 });
@@ -463,27 +465,29 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                 public void run() {
                                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                     PowerManager.WakeLock wakeLock = null;
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":GeofenceScanner.updateTransitionsByLastKnownLocation");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofenceScanner.updateTransitionsByLastKnownLocation");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
 
-                                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                                        GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
-                                        scanner.updateGeofencesInDB();
-                                    }
+                                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                                            GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                                            scanner.updateGeofencesInDB();
+                                        }
 
-                                    if (startEventsHandler) {
-                                        // start job
-                                        //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
-                                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
-                                    }
-
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {}
+                                        if (startEventsHandler) {
+                                            // start job
+                                            //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_LOCATION_MODE);
+                                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
+                                        }
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {}
+                                        }
                                     }
                                 }
                             });

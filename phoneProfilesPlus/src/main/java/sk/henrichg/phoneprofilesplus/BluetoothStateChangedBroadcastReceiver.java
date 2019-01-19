@@ -42,59 +42,51 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":BluetoothStateChangedBroadcastReceiver.onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothStateChangedBroadcastReceiver.onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                    // remove connected devices list
-                    if (bluetoothState == BluetoothAdapter.STATE_OFF) {
-                        BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, false);
-                        BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                    }
+                        // remove connected devices list
+                        if (bluetoothState == BluetoothAdapter.STATE_OFF) {
+                            BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, false);
+                            BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
+                        }
 
-                    if (Event.getGlobalEventsRunning(appContext))
-                    {
-                        PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive","state="+bluetoothState);
+                        if (Event.getGlobalEventsRunning(appContext)) {
+                            PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "state=" + bluetoothState);
 
-                        if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
+                            if ((bluetoothState == BluetoothAdapter.STATE_ON) || (bluetoothState == BluetoothAdapter.STATE_OFF)) {
 
-                            if (bluetoothState == BluetoothAdapter.STATE_ON)
-                            {
-                                //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
-                                //{
-                                if (BluetoothScanJob.getScanRequest(appContext))
-                                {
-                                    PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
-                                    BluetoothScanJob.startCLScan(appContext);
+                                if (bluetoothState == BluetoothAdapter.STATE_ON) {
+                                    //if ((!dataWrapper.getIsManualProfileActivation()) || PPApplication.getForceOneBluetoothScan(appContext))
+                                    //{
+                                    if (BluetoothScanJob.getScanRequest(appContext)) {
+                                        PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start classic scan");
+                                        BluetoothScanJob.startCLScan(appContext);
+                                    } else if (BluetoothScanJob.getLEScanRequest(appContext)) {
+                                        PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start LE scan");
+                                        BluetoothScanJob.startLEScan(appContext);
+                                    } else if (!(BluetoothScanJob.getWaitForResults(appContext) ||
+                                            BluetoothScanJob.getWaitForLEResults(appContext))) {
+                                        // refresh bounded devices
+                                        BluetoothScanJob.fillBoundedDevicesList(appContext);
+                                    }
+                                    //}
                                 }
-                                else
-                                if (BluetoothScanJob.getLEScanRequest(appContext))
-                                {
-                                    PPApplication.logE("@@@ BluetoothStateChangedBroadcastReceiver.onReceive", "start LE scan");
-                                    BluetoothScanJob.startLEScan(appContext);
-                                }
-                                else
-                                if (!(BluetoothScanJob.getWaitForResults(appContext) ||
-                                        BluetoothScanJob.getWaitForLEResults(appContext)))
-                                {
-                                    // refresh bounded devices
-                                    BluetoothScanJob.fillBoundedDevicesList(appContext);
-                                }
-                                //}
-                            }
 
-                            if (!(BluetoothScanJob.getScanRequest(appContext) ||
-                                    BluetoothScanJob.getLEScanRequest(appContext) ||
-                                    BluetoothScanJob.getWaitForResults(appContext) ||
-                                    BluetoothScanJob.getWaitForLEResults(appContext) ||
-                                    WifiBluetoothScanner.bluetoothEnabledForScan)) {
+                                if (!(BluetoothScanJob.getScanRequest(appContext) ||
+                                        BluetoothScanJob.getLEScanRequest(appContext) ||
+                                        BluetoothScanJob.getWaitForResults(appContext) ||
+                                        BluetoothScanJob.getWaitForLEResults(appContext) ||
+                                        WifiBluetoothScanner.bluetoothEnabledForScan)) {
 
-                                // start events handler
-                                EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+                                    // start events handler
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 
-                                //}
+                                    //}
 
                                 /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                                 boolean bluetoothEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED) > 0;
@@ -104,19 +96,20 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     PPApplication.logE("@@@ BluetoothJob.onRunJob", "BluetoothStateChangedBroadcastReceiver: bluetoothEventsExists=" + bluetoothEventsExists);
                                 */
 
-                                // start events handler
-                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE);
+                                    // start events handler
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_STATE);
 
-                                //}
+                                    //}
+                                }
+
                             }
-
                         }
-                    }
-
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
                     }
                 }
             });
