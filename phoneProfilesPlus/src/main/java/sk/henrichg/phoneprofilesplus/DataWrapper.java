@@ -1127,11 +1127,11 @@ public class DataWrapper {
             activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
     }
 
-    void startEventsOnBoot(boolean startedFromService)
+    void startEventsOnBoot(boolean startedFromService, boolean useHandler)
     {
         if (startedFromService) {
             if (ApplicationPreferences.applicationStartEvents(context)) {
-                restartEvents(false, false, true, false, true);
+                restartEvents(false, false, true, false, useHandler);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
@@ -1139,12 +1139,12 @@ public class DataWrapper {
             }
         }
         else {
-            restartEvents(false, false, true, false, true);
+            restartEvents(false, false, true, false, useHandler);
         }
     }
 
     // this is called in boot or first start application
-    void firstStartEvents(boolean startedFromService)
+    void firstStartEvents(boolean startedFromService, boolean useHandler)
     {
         PPApplication.logE("DataWrapper.firstStartEvents", "startedFromService="+startedFromService);
 
@@ -1181,7 +1181,7 @@ public class DataWrapper {
 
         if (!getIsManualProfileActivation(false)) {
             PPApplication.logE("DataWrapper.firstStartEvents", "no manual profile activation, restart events");
-            startEventsOnBoot(startedFromService);
+            startEventsOnBoot(startedFromService, useHandler);
         }
         else
         {
@@ -4172,8 +4172,8 @@ public class DataWrapper {
                 Event.setGlobalEventsRunning(context, false);
 
                 Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.startPPService(context, serviceIntent);
                 return true;
             }
@@ -4186,12 +4186,12 @@ public class DataWrapper {
                 Event.setGlobalEventsRunning(context, true);
 
                 Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.startPPService(context, serviceIntent);
 
                 // setup for next start
-                firstStartEvents(false);
+                firstStartEvents(false, true);
                 return true;
             }
         }

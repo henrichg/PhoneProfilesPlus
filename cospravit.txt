@@ -343,3 +343,65 @@ Android Pie support:
 - Ostatne veci mas v Keep.
 
 -----------------------------------
+
+Oranzove senzory:
+
+Co ak restartne service a ziadne extras nie su nastavene?
+
+ - nastavi sa toto:
+        instance = this;
+        serviceHasFirstStart = false;
+        serviceRunning = false;
+        runningInForeground = false;
+
+- neviem vobec ci onStartCommand sa spusti, ale predpokladajme, ze ano:
+  - doForFirstStart sa spusti
+  - intent asi bude prazdny
+  - toto zostane nezmenene:
+        boolean onlyStart = true;
+        boolean initializeStart = false;
+        boolean startOnBoot = false;
+        boolean startOnPackageReplace = false;
+  - toto sa vykona, ak sa zisti, ze je nova verzia:
+        if ((!startOnPackageReplace) && PPApplication.isNewVersion(getApplicationContext())) {
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "is new version but not EXTRA_START_ON_PACKAGE_REPLACE");
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
+            return true;
+        }
+    cize skonci doFirstStart, lebo sa caka na PackageReplacedReceiver. Ten zapisuje novu verziu.
+    No ale v takom pripade predsa uz service bezi, podla mna treba v PackageReplacedReceiver servis stopnut. Radsej vzdy. - HOTOVO
+  - ak nie je nova verzia, pokracuje dalej:
+        serviceRunning = true;
+  - nahodia sa receivre a joby - nebudu fungovat sa, ak nebezi servis alebo serviceHasFirstStart = false
+  - restartnu sa udalosti - nespravi sa vobec nic, ziadna udalosti ani restart, ak nebezi servis alebo serviceHasFirstStart = false
+               v EventsHandler je totizto na zaciatku handleEvent toto:
+                    if (!PPApplication.getApplicationStarted(context, true))
+                        // application is not started
+                        return;
+               Cize testuje sa, ci bezi servis a ci ma serviceHasFirstStart = true
+               (serviceHasFirstStart = true; som presunul a restart udalosti som dal bez pouzitia handlera)
+
+  - vysledok je, ze sa vlastne len nahodia receivre a joby, spravi sa restart udalosti lebo:
+        instance = this;
+        serviceHasFirstStart = true;
+        serviceRunning = true;
+    Udalosti musia normalne bezat, lebo vsetko je pre to spravne nastavene, oranzove senzory nemozu zostat.
+
+- ak sa onStartCommand nespusti, ale neverim, ze je to ono, toto by znamenalo uplne spatne upravene volanie servisov v niektorych mobiloch
+  napr. v Xiaomi sa im stali oranzove senzory:
+
+ - nastavi sa toto:
+        instance = this;
+        serviceHasFirstStart = false;
+        serviceRunning = false;
+        runningInForeground = false;
+
+ - vysledok je ze bobec nic nebezi. Oranzove senzory sa nastavia, bud z doFirstStart (nie je tento pripad, nespusti sa)
+   alebo ak uzivatel zastavi a znova spusti beh udalosti. Cize toto je jediny kedy mozu zostat oranzove.
+   Lebo servis sa nespustil korektne.
+
+Cize, ake su oranzove senzory a ani restart udalosti nefunguje, bud nebezi servis, alebo nebola nastavena serviceHasFirstStart.
+Kukni teda, kedy sa toto moze stat. Restart samotneho servisu to nie je. Vtedy sa oboje nastavi.
+
+Vyhodil som kill procesu z exitApp. Toto by mohlo sposobit problemy, ze sa nestihne vykonat onDestroy servisu.
+Pri obnove zalohy kill nerobim a vsetko sa spustilo, oranzove senzory neboli.

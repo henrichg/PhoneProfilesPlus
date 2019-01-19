@@ -1877,7 +1877,7 @@ public class PPApplication extends Application {
     }
 
     private static void _exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
-                               final boolean shutdown, final boolean killProcess/*, final boolean removeAlarmClock*/) {
+                               final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
         try {
             // stop all events
             //if (removeAlarmClock)
@@ -1938,7 +1938,7 @@ public class PPApplication extends Application {
                     };
                     _handler.post(r);
                 }
-                if (killProcess) {
+                /*if (killProcess) {
                     Handler _handler = new Handler(context.getMainLooper());
                     Runnable r = new Runnable() {
                         public void run() {
@@ -1946,7 +1946,7 @@ public class PPApplication extends Application {
                         }
                     };
                     _handler.postDelayed(r, 1000);
-                }
+                }*/
             }
 
         } catch (Exception ignored) {
@@ -1955,7 +1955,7 @@ public class PPApplication extends Application {
     }
 
     static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
-                                 final boolean shutdown, final boolean killProcess/*, final boolean removeAlarmClock*/) {
+                                 final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
         try {
             if (useHandler) {
                 PPApplication.startHandlerThread("PPApplication.exitApp");
@@ -1970,7 +1970,7 @@ public class PPApplication extends Application {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        _exitApp(context, dataWrapper, activity, shutdown, killProcess);
+                        _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
 
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -1981,7 +1981,7 @@ public class PPApplication extends Application {
                 });
             }
             else
-                _exitApp(context, dataWrapper, activity, shutdown, killProcess);
+                _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
         } catch (Exception ignored) {
 
         }

@@ -799,7 +799,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
-                                EditorProfilesActivity.this, false, true/*, true*/);
+                                EditorProfilesActivity.this, false/*, true, true*/);
                     }
                 });
                 dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -1144,8 +1144,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
 
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.startPPService(this, serviceIntent);
             }
             else
@@ -1179,8 +1179,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
 
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.startPPService(this, serviceIntent);
             }
             else
@@ -1198,8 +1198,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (resultCode == RESULT_OK)
             {
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.startPPService(this, serviceIntent);
 
                 //if (PhoneProfilesService.getInstance() != null) {
@@ -1459,7 +1459,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 @Override
                 protected Integer doInBackground(Void... params) {
-                    PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false, false/*, true*/);
+                    PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
                     dbError = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
                     if (dbError == DatabaseHandler.IMPORT_OK) {

@@ -58,7 +58,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                PPApplication.exitApp(false, appContext, dataWrapper, null, false, false/*, false*/);
+                PPApplication.exitApp(false, appContext, dataWrapper, null, false/*, false, false*/);
 
                 PPApplication.setSavedVersionCode(appContext, 0);
 

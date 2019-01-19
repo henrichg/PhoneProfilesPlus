@@ -213,17 +213,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     } catch (Exception ignored) {
                     }
 
-                    if (PPApplication.getApplicationStarted(appContext, false))
-                    {
-                        PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
-
-                        startService(appContext);
-                    }
-                    else {
-                        if (PhoneProfilesService.getInstance() != null) {
-                            appContext.stopService(new Intent(appContext, PhoneProfilesService.class));
-                        }
-                    }
+                    PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
+                    startService(appContext);
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -236,17 +227,20 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
     }
 
     private void startService(Context context) {
-        PPApplication.logE("@@@ PackageReplacedReceiver.startService", "xxx");
+        context.stopService(new Intent(context, PhoneProfilesService.class));
 
-        // must by false for avoiding starts/pause events before restart events
-        //PPApplication.setApplicationStarted(context, false);
+        if (PPApplication.getApplicationStarted(context, false))
+        {
+            PPApplication.sleep(5000);
 
-        // start PhoneProfilesService
-        Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
-        PPApplication.startPPService(context, serviceIntent);
+            // start PhoneProfilesService
+            PPApplication.logE("@@@ PackageReplacedReceiver.startService", "xxx");
+            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
+            PPApplication.startPPService(context, serviceIntent);
+        }
     }
 
 }

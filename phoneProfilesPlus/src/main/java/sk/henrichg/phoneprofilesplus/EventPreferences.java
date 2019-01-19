@@ -76,7 +76,8 @@ class EventPreferences {
 
     private int getSensorPassedFromDB(int eventType, Context context)
     {
-        return DatabaseHandler.getInstance(context).getEventSensorPassed(this, eventType);
+        _sensorPassed = DatabaseHandler.getInstance(context).getEventSensorPassed(this, eventType);
+        return _sensorPassed;
     }
 
     String getPassStatusString(String sensorTitle, boolean addPassStatus, int eventType, Context context) {

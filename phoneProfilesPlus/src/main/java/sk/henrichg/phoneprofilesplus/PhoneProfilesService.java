@@ -3259,7 +3259,7 @@ public class PhoneProfilesService extends Service
                                 dataWrapper.pauseAllEvents(true, false/*, false*/);
                             }
 
-                            dataWrapper.firstStartEvents(true);
+                            dataWrapper.firstStartEvents(true, false);
                         } else {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
 
@@ -3270,11 +3270,14 @@ public class PhoneProfilesService extends Service
                             dataWrapper.activateProfileOnBoot();
                         }
                     }
+
+                    serviceHasFirstStart = true;
+
                     if (!_startOnBoot && !_startOnPackageReplace && !_initializeStart) {
                         PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "###### not initialize start ######");
                         if (Event.getGlobalEventsRunning(appContext)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, start events");
-                            dataWrapper.startEventsOnBoot(true);
+                            dataWrapper.startEventsOnBoot(true, false);
                         } else {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
                             dataWrapper.activateProfileOnBoot();
@@ -3282,8 +3285,6 @@ public class PhoneProfilesService extends Service
                     }
 
                     dataWrapper.invalidateDataWrapper();
-
-                    serviceHasFirstStart = true;
 
                     PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 END");
 
