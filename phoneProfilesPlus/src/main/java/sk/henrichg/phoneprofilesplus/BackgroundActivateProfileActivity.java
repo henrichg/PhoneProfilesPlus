@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
@@ -35,11 +36,11 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         super.onStart();
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
-            PPApplication.setApplicationStarted(getApplicationContext(), true);
-            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
-            PPApplication.startPPService(this, serviceIntent);
+            Toast msg = Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.activate_profile_application_not_started),
+                    Toast.LENGTH_LONG);
+            msg.show();
+            finish();
         }
 
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||

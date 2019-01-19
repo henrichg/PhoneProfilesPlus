@@ -262,7 +262,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, red, green, blue));
             }
 
-            if (Event.getGlobalEventsRunning(context)) {
+            if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
                 if (applicationWidgetListIconColor.equals("1")) {
                     monochromeValue = 0xFF;
                     if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
@@ -289,7 +289,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
 
-            if (Event.getGlobalEventsRunning(context)) {
+            if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
                 widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);

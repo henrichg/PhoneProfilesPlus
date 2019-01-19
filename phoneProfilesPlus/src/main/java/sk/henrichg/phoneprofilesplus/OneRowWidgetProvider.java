@@ -186,7 +186,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews.setImageViewBitmap(R.id.widget_one_row_header_profile_pref_indicator, profile._preferencesIndicator);
                         }
 
-                        if (Event.getGlobalEventsRunning(context)) {
+                        if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
                             if (applicationWidgetOneRowIconColor.equals("1")) {
                                 monochromeValue = 0xFF;
                                 if (applicationWidgetOneRowIconLightness.equals("0"))
@@ -207,7 +207,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, R.drawable.ic_widget_restart_events);
                         }
 
-                        if (Event.getGlobalEventsRunning(context)) {
+                        if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
                             remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, View.VISIBLE);
                             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);
                             PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);

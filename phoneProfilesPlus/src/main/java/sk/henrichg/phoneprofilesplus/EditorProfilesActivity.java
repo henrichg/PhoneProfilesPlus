@@ -561,6 +561,46 @@ public class EditorProfilesActivity extends AppCompatActivity
     }*/
 
     @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        // this is for list widget header
+        if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
+        {
+            PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
+            PPApplication.logE("EditorProfilesActivity.onStart", "service instance="+PhoneProfilesService.getInstance());
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart="+PhoneProfilesService.getInstance().getServiceHasFirstStart());
+            // start PhoneProfilesService
+            //PPApplication.firstStartServiceStarted = false;
+            PPApplication.setApplicationStarted(getApplicationContext(), true);
+            Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
+            PPApplication.startPPService(this, serviceIntent);
+        }
+        else
+        {
+            if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
+                PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
+                PPApplication.logE("EditorProfilesActivity.onStart", "service instance="+PhoneProfilesService.getInstance());
+                if (PhoneProfilesService.getInstance() != null)
+                    PPApplication.logE("EditorProfilesActivity.onStart", "service hasFirstStart="+PhoneProfilesService.getInstance().getServiceHasFirstStart());
+                // start PhoneProfilesService
+                //PPApplication.firstStartServiceStarted = false;
+                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
+                PPApplication.startPPService(this, serviceIntent);
+            }
+            else {
+                PPApplication.logE("EditorProfilesActivity.onStart", "application and service is started");
+            }
+        }
+    }
+
+    @Override
     protected void onStop()
     {
         super.onStop();

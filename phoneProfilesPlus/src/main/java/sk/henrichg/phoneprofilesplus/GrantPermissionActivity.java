@@ -1590,7 +1590,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (permissions.size() != 0) {
                 Toast msg = Toast.makeText(context,
                         context.getResources().getString(R.string.toast_permissions_not_granted),
-                        Toast.LENGTH_SHORT);
+                        Toast.LENGTH_LONG);
                 msg.show();
             }
         }

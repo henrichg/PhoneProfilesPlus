@@ -310,10 +310,10 @@ public class PhoneProfilesService extends Service
             showProfileNotification();
             stopSelf();
         }*/
-        if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
+        //if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
             showProfileNotification();
-            stopSelf();
-        }
+        //    stopSelf();
+        //}
     }
 
     @Override
@@ -3314,10 +3314,10 @@ public class PhoneProfilesService extends Service
             showProfileNotification();
         //}
 
-        if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
-            stopSelf();
-            return START_NOT_STICKY;
-        }
+        //if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
+        //    stopSelf();
+        //    return START_NOT_STICKY;
+        //}
 
         if (intent != null) {
             if (intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false)) {
@@ -4131,10 +4131,14 @@ public class PhoneProfilesService extends Service
                 requestCode = (int)profile._id;
             PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            // intent for restart events
-            Intent intentRE = new Intent(appContext, RestartEventsFromNotificationActivity.class);
-            intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-            PendingIntent pIntentRE = PendingIntent.getActivity(appContext, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pIntentRE = null;
+            if (Event.getGlobalEventsRunning(getBaseContext().getApplicationContext()) &&
+                    PPApplication.getApplicationStarted(getBaseContext().getApplicationContext(), true)) {
+                // intent for restart events
+                Intent intentRE = new Intent(appContext, RestartEventsFromNotificationActivity.class);
+                intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                pIntentRE = PendingIntent.getActivity(appContext, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
+            }
 
             Notification.Builder notificationBuilder;
 
@@ -4447,7 +4451,8 @@ public class PhoneProfilesService extends Service
             else
                 contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
 
-            if (Event.getGlobalEventsRunning(appContext)) {
+            if (Event.getGlobalEventsRunning(getBaseContext().getApplicationContext()) &&
+                    PPApplication.getApplicationStarted(getBaseContext().getApplicationContext(), true)) {
                 contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
                 contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
             }
