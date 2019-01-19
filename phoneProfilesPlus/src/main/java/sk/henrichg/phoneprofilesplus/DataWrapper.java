@@ -3236,9 +3236,9 @@ public class DataWrapper {
                 if ((event._eventPreferencesRadioSwitch._wifi == 1 || event._eventPreferencesRadioSwitch._wifi == 2)
                         && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_WIFI)) {
 
-                    if (!((WifiScanJob.getScanRequest(context)) ||
-                            (WifiScanJob.getWaitForResults(context)) ||
-                            (WifiScanJob.getWifiEnabledForScan(context)))) {
+                    if (!(WifiScanJob.getScanRequest(context) ||
+                            WifiScanJob.getWaitForResults(context) ||
+                            WifiBluetoothScanner.wifiEnabledForScan)) {
                         // ignore for wifi scanning
 
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -3257,11 +3257,11 @@ public class DataWrapper {
                 if ((event._eventPreferencesRadioSwitch._bluetooth == 1 || event._eventPreferencesRadioSwitch._bluetooth == 2)
                         && PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH)) {
 
-                    if (!((BluetoothScanJob.getScanRequest(context)) ||
-                            (BluetoothScanJob.getLEScanRequest(context)) ||
-                            (BluetoothScanJob.getWaitForResults(context)) ||
-                            (BluetoothScanJob.getWaitForLEResults(context)) ||
-                            (BluetoothScanJob.getBluetoothEnabledForScan(context)))) {
+                    if (!(BluetoothScanJob.getScanRequest(context) ||
+                            BluetoothScanJob.getLEScanRequest(context) ||
+                            BluetoothScanJob.getWaitForResults(context) ||
+                            BluetoothScanJob.getWaitForLEResults(context) ||
+                            WifiBluetoothScanner.bluetoothEnabledForScan)) {
                         // ignore for bluetooth scanning
 
 

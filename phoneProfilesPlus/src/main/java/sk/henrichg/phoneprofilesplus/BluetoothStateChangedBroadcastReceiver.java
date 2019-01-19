@@ -84,11 +84,11 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 //}
                             }
 
-                            if (!((BluetoothScanJob.getScanRequest(appContext)) ||
-                                    (BluetoothScanJob.getLEScanRequest(appContext)) ||
-                                    (BluetoothScanJob.getWaitForResults(appContext)) ||
-                                    (BluetoothScanJob.getWaitForLEResults(appContext)) ||
-                                    (BluetoothScanJob.getBluetoothEnabledForScan(appContext)))) {
+                            if (!(BluetoothScanJob.getScanRequest(appContext) ||
+                                    BluetoothScanJob.getLEScanRequest(appContext) ||
+                                    BluetoothScanJob.getWaitForResults(appContext) ||
+                                    BluetoothScanJob.getWaitForLEResults(appContext) ||
+                                    WifiBluetoothScanner.bluetoothEnabledForScan)) {
 
                                 // start events handler
                                 EventsHandler eventsHandler = new EventsHandler(appContext);

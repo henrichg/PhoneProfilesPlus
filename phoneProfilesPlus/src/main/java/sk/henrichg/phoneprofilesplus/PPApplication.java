@@ -117,7 +117,7 @@ public class PPApplication extends Application {
 
                                          //+"|PPApplication.startPPService"
 
-                                         +"|GrantPermissionActivity"
+                                         //+"|GrantPermissionActivity"
                                          //+"|PhoneProfilesPreferencesNestedFragment.doOnActivityResult"
 
                                          /*
@@ -185,7 +185,8 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.stopGeofenceScanner"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
 
-                                         //+"|$$$B WifiBluetoothScanner"
+                                         +"|$$$B WifiBluetoothScanner"
+                                         +"|$$$BCL WifiBluetoothScanner"
                                          //+"|$$$W WifiBluetoothScanner"
 
                                          //+"|WifiScanJob"

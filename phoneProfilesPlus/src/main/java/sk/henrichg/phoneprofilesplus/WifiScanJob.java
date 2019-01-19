@@ -100,7 +100,6 @@ class WifiScanJob extends Job {
 
         setScanRequest(context, false);
         setWaitForResults(context, false);
-        setWifiEnabledForScan(context, false);
         WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
     }
 
@@ -230,7 +229,6 @@ class WifiScanJob extends Job {
 
                 setScanRequest(context, false);
                 setWaitForResults(context, false);
-                setWifiEnabledForScan(context, false);
                 WifiBluetoothScanner.setForceOneWifiScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
                 //jobManager.cancelAllForTag(JOB_TAG_SHORT);
@@ -283,7 +281,6 @@ class WifiScanJob extends Job {
     {
         setScanRequest(context, false);
         setWaitForResults(context, false);
-        setWifiEnabledForScan(context, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed !=
                 PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -383,7 +380,7 @@ class WifiScanJob extends Job {
             PPApplication.logE("$$$ WifiScanJob.startScan", "scanStarted=" + startScan);
             PPApplication.logE("$$$ WifiAP", "WifiScanJob.startScan-startScan=" + startScan);
             if (!startScan) {
-                if (getWifiEnabledForScan(context)) {
+                if (WifiBluetoothScanner.wifiEnabledForScan) {
                     PPApplication.logE("$$$ WifiScanJob.startScan", "disable wifi");
                     wifi.setWifiEnabled(false);
                 }
@@ -392,7 +389,7 @@ class WifiScanJob extends Job {
             setWaitForResults(context, startScan);
             setScanRequest(context, false);
         } catch (Exception e) {
-            if (getWifiEnabledForScan(context)) {
+            if (WifiBluetoothScanner.wifiEnabledForScan) {
                 PPApplication.logE("$$$ WifiScanJob.startScan", "disable wifi");
                 wifi.setWifiEnabled(false);
             }
@@ -440,6 +437,7 @@ class WifiScanJob extends Job {
     }
     */
 
+    /*
     static boolean getWifiEnabledForScan(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -454,6 +452,7 @@ class WifiScanJob extends Job {
         editor.putBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
         editor.apply();
     }
+    */
 
     static void fillWifiConfigurationList(Context context)
     {

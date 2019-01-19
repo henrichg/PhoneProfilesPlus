@@ -52,9 +52,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
-                            if (!((WifiScanJob.getScanRequest(appContext)) ||
-                                    (WifiScanJob.getWaitForResults(appContext)) ||
-                                    (WifiScanJob.getWifiEnabledForScan(appContext)))) {
+                            if (!(WifiScanJob.getScanRequest(appContext) ||
+                                    WifiScanJob.getWaitForResults(appContext) ||
+                                    WifiBluetoothScanner.wifiEnabledForScan)) {
                                 // ignore for wifi scanning
 
                                 if (PhoneProfilesService.getInstance() != null) {
@@ -152,9 +152,9 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (!((WifiScanJob.getScanRequest(appContext)) ||
-                                        (WifiScanJob.getWaitForResults(appContext)) ||
-                                        (WifiScanJob.getWifiEnabledForScan(appContext)))) {
+                                if (!(WifiScanJob.getScanRequest(appContext) ||
+                                        WifiScanJob.getWaitForResults(appContext) ||
+                                        WifiBluetoothScanner.wifiEnabledForScan)) {
 
                                     // start events handler
                                     EventsHandler eventsHandler = new EventsHandler(appContext);

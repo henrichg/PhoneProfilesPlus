@@ -98,7 +98,6 @@ class BluetoothScanJob extends Job {
         setWaitForResults(context, false);
         setLEScanRequest(context, false);
         setWaitForLEResults(context, false);
-        setBluetoothEnabledForScan(context, false);
         WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
         WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
     }
@@ -229,7 +228,6 @@ class BluetoothScanJob extends Job {
                 setWaitForResults(context, false);
                 setLEScanRequest(context, false);
                 setWaitForLEResults(context, false);
-                setBluetoothEnabledForScan(context, false);
                 WifiBluetoothScanner.setForceOneBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                 WifiBluetoothScanner.setForceOneLEBluetoothScan(context, WifiBluetoothScanner.FORCE_ONE_SCAN_DISABLED);
 
@@ -298,7 +296,6 @@ class BluetoothScanJob extends Job {
         setLEScanRequest(context, false);
         setWaitForResults(context, false);
         setWaitForLEResults(context, false);
-        setBluetoothEnabledForScan(context, false);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed !=
                 PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -405,7 +402,7 @@ class BluetoothScanJob extends Job {
                 PPApplication.logE("@@@ BluetoothScanJob.startScan", "scanStarted=" + startScan);
 
                 if (!startScan) {
-                    if (getBluetoothEnabledForScan(context)) {
+                    if (WifiBluetoothScanner.bluetoothEnabledForScan) {
                         PPApplication.logE("@@@ BluetoothScanJob.startScan", "disable bluetooth");
                         bluetooth.disable();
                     }
@@ -479,7 +476,7 @@ class BluetoothScanJob extends Job {
                             startScan = bluetooth.startLeScan(new BluetoothLEScanCallback18(context));
 
                             if (!startScan) {
-                                if (getBluetoothEnabledForScan(context)) {
+                                if (WifiBluetoothScanner.bluetoothEnabledForScan) {
                                     bluetooth.disable();
                                 }
                             }
@@ -574,6 +571,7 @@ class BluetoothScanJob extends Job {
     }
     */
 
+    /*
     static boolean getBluetoothEnabledForScan(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -587,6 +585,7 @@ class BluetoothScanJob extends Job {
         editor.putBoolean(PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, setEnabled);
         editor.apply();
     }
+    */
 
     static int getBluetoothType(BluetoothDevice device) {
         //if (android.os.Build.VERSION.SDK_INT >= 18)
