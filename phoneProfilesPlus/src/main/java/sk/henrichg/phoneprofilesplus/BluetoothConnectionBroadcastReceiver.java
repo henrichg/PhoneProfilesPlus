@@ -125,7 +125,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                         BluetoothScanJob.getLEScanRequest(appContext) ||
                                         BluetoothScanJob.getWaitForResults(appContext) ||
                                         BluetoothScanJob.getWaitForLEResults(appContext) ||
-                                        WifiBluetoothScanner.bluetoothEnabledForScan)) {
+                                        BluetoothScanJob.getBluetoothEnabledForScan(appContext))) {
                                     // bluetooth is not scanned
 
                                     PPApplication.logE("@@@ BluetoothConnectionBroadcastReceiver.onReceive", "start EventsHandler");

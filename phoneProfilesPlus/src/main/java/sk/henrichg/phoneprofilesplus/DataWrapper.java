@@ -3247,7 +3247,7 @@ public class DataWrapper {
 
                     if (!(WifiScanJob.getScanRequest(context) ||
                             WifiScanJob.getWaitForResults(context) ||
-                            WifiBluetoothScanner.wifiEnabledForScan)) {
+                            WifiScanJob.getWifiEnabledForScan(context))) {
                         // ignore for wifi scanning
 
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -3270,7 +3270,7 @@ public class DataWrapper {
                             BluetoothScanJob.getLEScanRequest(context) ||
                             BluetoothScanJob.getWaitForResults(context) ||
                             BluetoothScanJob.getWaitForLEResults(context) ||
-                            WifiBluetoothScanner.bluetoothEnabledForScan)) {
+                            BluetoothScanJob.getBluetoothEnabledForScan(context))) {
                         // ignore for bluetooth scanning
 
 

@@ -29,8 +29,8 @@ class WifiBluetoothScanner {
     static final int wifiScanDuration = 25;      // 25 seconds for wifi scan
     static final int classicBTScanDuration = 25; // 25 seconds for classic bluetooth scan
 
-    static boolean wifiEnabledForScan;
-    static boolean bluetoothEnabledForScan;
+    //static boolean wifiEnabledForScan;
+    //static boolean bluetoothEnabledForScan;
     static List<BluetoothDeviceData> tmpBluetoothScanResults = null;
     static boolean bluetoothDiscoveryStarted = false;
     static BluetoothLeScanner bluetoothLEScanner = null;
@@ -148,7 +148,7 @@ class WifiBluetoothScanner {
                             if (WifiScanJob.wifi == null)
                                 WifiScanJob.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
-                            if (wifiEnabledForScan) {
+                            if (WifiScanJob.getWifiEnabledForScan(context)) {
                                 // service restarted during scanning, disable wifi
                                 PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi - service restarted");
                                 wifiBluetoothChangeHandler.post(new Runnable() {
@@ -171,7 +171,7 @@ class WifiBluetoothScanner {
 
                                 WifiScanJob.setScanRequest(context, false);
                                 WifiScanJob.setWaitForResults(context, false);
-                                wifiEnabledForScan = false;
+                                WifiScanJob.setWifiEnabledForScan(context, false);
 
                                 WifiScanJob.unlock();
 
@@ -231,7 +231,7 @@ class WifiBluetoothScanner {
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (wifiEnabledForScan) {
+                                if (WifiScanJob.getWifiEnabledForScan(context)) {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
                                     //lock();
                                     WifiScanJob.wifi.setWifiEnabled(false);
@@ -289,7 +289,7 @@ class WifiBluetoothScanner {
                                 BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(context);
 
                             if (BluetoothScanJob.bluetooth != null) {
-                                if (bluetoothEnabledForScan) {
+                                if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
                                     // service restarted during scanning, disable Bluetooth
                                     PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable BT - service restarted");
                                     wifiBluetoothChangeHandler.post(new Runnable() {
@@ -311,7 +311,7 @@ class WifiBluetoothScanner {
                                     BluetoothScanJob.setLEScanRequest(context, false);
                                     BluetoothScanJob.setWaitForResults(context, false);
                                     BluetoothScanJob.setWaitForLEResults(context, false);
-                                    bluetoothEnabledForScan = false;
+                                    BluetoothScanJob.setBluetoothEnabledForScan(context, false);
 
                                     int bluetoothState;
 
@@ -411,7 +411,7 @@ class WifiBluetoothScanner {
                                 wifiBluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (bluetoothEnabledForScan) {
+                                        if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
                                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable bluetooth");
                                             //lock();
                                             BluetoothScanJob.bluetooth.disable();
@@ -547,7 +547,7 @@ class WifiBluetoothScanner {
                             (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                     if (scan)
                     {
-                        wifiEnabledForScan = true;
+                        WifiScanJob.setWifiEnabledForScan(context, true);
                         WifiScanJob.setScanRequest(dataWrapper.context, true);
                         WifiScanJob.lock();
                         final WifiManager _wifi = wifi;
@@ -616,7 +616,7 @@ class WifiBluetoothScanner {
                 if (scan)
                 {
                     PPApplication.logE("$$$B WifiBluetoothScanner.enableBluetooth","set enabled");
-                    bluetoothEnabledForScan = true;
+                    BluetoothScanJob.setBluetoothEnabledForScan(context, true);
                     if (!forLE)
                         BluetoothScanJob.setScanRequest(dataWrapper.context, true);
                     else

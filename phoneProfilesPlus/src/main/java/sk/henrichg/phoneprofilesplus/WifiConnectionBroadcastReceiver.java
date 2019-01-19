@@ -70,7 +70,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                             (info.getState() == NetworkInfo.State.DISCONNECTED)) {
                                         if (!(WifiScanJob.getScanRequest(appContext) ||
                                                 WifiScanJob.getWaitForResults(appContext) ||
-                                                WifiBluetoothScanner.wifiEnabledForScan)) {
+                                                WifiScanJob.getWifiEnabledForScan(appContext))) {
                                             // wifi is not scanned
 
                                             PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is not scanned");

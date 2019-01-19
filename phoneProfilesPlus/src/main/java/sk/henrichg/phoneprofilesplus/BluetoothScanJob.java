@@ -402,7 +402,7 @@ class BluetoothScanJob extends Job {
                 PPApplication.logE("@@@ BluetoothScanJob.startScan", "scanStarted=" + startScan);
 
                 if (!startScan) {
-                    if (WifiBluetoothScanner.bluetoothEnabledForScan) {
+                    if (getBluetoothEnabledForScan(context)) {
                         PPApplication.logE("@@@ BluetoothScanJob.startScan", "disable bluetooth");
                         bluetooth.disable();
                     }
@@ -476,7 +476,7 @@ class BluetoothScanJob extends Job {
                             startScan = bluetooth.startLeScan(new BluetoothLEScanCallback18(context));
 
                             if (!startScan) {
-                                if (WifiBluetoothScanner.bluetoothEnabledForScan) {
+                                if (getBluetoothEnabledForScan(context)) {
                                     bluetooth.disable();
                                 }
                             }
@@ -571,7 +571,6 @@ class BluetoothScanJob extends Job {
     }
     */
 
-    /*
     static boolean getBluetoothEnabledForScan(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -585,7 +584,6 @@ class BluetoothScanJob extends Job {
         editor.putBoolean(PREF_EVENT_BLUETOOTH_ENABLED_FOR_SCAN, setEnabled);
         editor.apply();
     }
-    */
 
     static int getBluetoothType(BluetoothDevice device) {
         //if (android.os.Build.VERSION.SDK_INT >= 18)

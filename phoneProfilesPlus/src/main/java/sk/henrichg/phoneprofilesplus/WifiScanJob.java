@@ -380,7 +380,7 @@ class WifiScanJob extends Job {
             PPApplication.logE("$$$ WifiScanJob.startScan", "scanStarted=" + startScan);
             PPApplication.logE("$$$ WifiAP", "WifiScanJob.startScan-startScan=" + startScan);
             if (!startScan) {
-                if (WifiBluetoothScanner.wifiEnabledForScan) {
+                if (getWifiEnabledForScan(context)) {
                     PPApplication.logE("$$$ WifiScanJob.startScan", "disable wifi");
                     wifi.setWifiEnabled(false);
                 }
@@ -389,7 +389,7 @@ class WifiScanJob extends Job {
             setWaitForResults(context, startScan);
             setScanRequest(context, false);
         } catch (Exception e) {
-            if (WifiBluetoothScanner.wifiEnabledForScan) {
+            if (getWifiEnabledForScan(context)) {
                 PPApplication.logE("$$$ WifiScanJob.startScan", "disable wifi");
                 wifi.setWifiEnabled(false);
             }
@@ -437,7 +437,6 @@ class WifiScanJob extends Job {
     }
     */
 
-    /*
     static boolean getWifiEnabledForScan(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -452,7 +451,6 @@ class WifiScanJob extends Job {
         editor.putBoolean(PREF_EVENT_WIFI_ENABLED_FOR_SCAN, setEnabled);
         editor.apply();
     }
-    */
 
     static void fillWifiConfigurationList(Context context)
     {
