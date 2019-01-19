@@ -31,6 +31,10 @@ public class LauncherActivity extends AppCompatActivity {
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
         {
+            PPApplication.logE("LauncherActivity.onStart", "application is not started");
+            PPApplication.logE("LauncherActivity.onStart", "service instance="+PhoneProfilesService.getInstance());
+            if (PhoneProfilesService.getInstance() != null)
+                PPApplication.logE("LauncherActivity.onStart", "service hasFirstStart="+PhoneProfilesService.getInstance().getServiceHasFirstStart());
             // start PhoneProfilesService
             //PPApplication.firstStartServiceStarted = false;
             PPApplication.setApplicationStarted(getApplicationContext(), true);
@@ -42,12 +46,19 @@ public class LauncherActivity extends AppCompatActivity {
         else
         {
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
+                PPApplication.logE("LauncherActivity.onStart", "application is started");
+                PPApplication.logE("LauncherActivity.onStart", "service instance="+PhoneProfilesService.getInstance());
+                if (PhoneProfilesService.getInstance() != null)
+                    PPApplication.logE("LauncherActivity.onStart", "service hasFirstStart="+PhoneProfilesService.getInstance().getServiceHasFirstStart());
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
                 PPApplication.startPPService(this, serviceIntent);
+            }
+            else {
+                PPApplication.logE("LauncherActivity.onStart", "application and service is started");
             }
 
             if (startupSource == 0)

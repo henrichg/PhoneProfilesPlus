@@ -73,24 +73,25 @@ public class PPApplication extends Application {
                                          +"|PPApplication.isMIUI"
                                          +"|PPApplication.isEMUI"
                                          +"|PPApplication.isSamsung"
-                                         /*+"|PhoneProfilesService.onCreate"
+                                         +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.isServiceRunningInForeground"
                                          //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
-                                         +"|DataWrapper.firstStartEvents"
-                                         +"|BootUpReceiver"
+                                         /*+"|DataWrapper.firstStartEvents"
+                                         +"|BootUpReceiver"*/
                                          +"|PackageReplacedReceiver"
                                          /*+"|PhoneProfilesBackupAgent"
-                                         +"|ShutdownBroadcastReceiver"*/
+                                         +"|ShutdownBroadcastReceiver"
                                          +"|DatabaseHandler.onUpgrade"
                                          /*+"|EditorProfilesActivity.doImportData"
                                          +"|PPApplication.setBlockProfileEventActions"
                                          //+"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
+                                         +"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
 
                                          //+"|PostDelayedBroadcastReceiver"
@@ -431,6 +432,7 @@ public class PPApplication extends Application {
     //static private FirebaseAnalytics mFirebaseAnalytics;
 
     public static HandlerThread handlerThread = null;
+    //public static HandlerThread handlerThreadStartServiceOnBoot = null;
     public static HandlerThread handlerThreadWidget = null;
     public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
@@ -552,6 +554,7 @@ public class PPApplication extends Application {
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
 
         startHandlerThread("PPApplication.onCreate");
+        //startHandlerThreadStartServiceOnBoot();
         startHandlerThreadRoot();
         startHandlerThreadWidget();
         startHandlerThreadProfileNotification();
@@ -1994,6 +1997,15 @@ public class PPApplication extends Application {
             handlerThread.start();
         }
     }
+
+    /*
+    static void startHandlerThreadStartServiceOnBoot() {
+        if (handlerThreadStartServiceOnBoot == null) {
+            handlerThreadStartServiceOnBoot = new HandlerThread("PPHandlerThreadStartServiceOnBoot");
+            handlerThreadStartServiceOnBoot.start();
+        }
+    }
+    */
 
     private static void startHandlerThreadRoot() {
         if (handlerThreadRoot == null) {

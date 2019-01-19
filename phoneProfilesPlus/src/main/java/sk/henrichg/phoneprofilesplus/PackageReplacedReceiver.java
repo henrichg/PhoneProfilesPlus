@@ -23,6 +23,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             PPApplication.setBlockProfileEventActions(true);
 
             final Context appContext = context.getApplicationContext();
+
+            final DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+
             final int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
             // save version code
             try {
@@ -30,7 +33,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                 int actualVersionCode = PPApplication.getVersionCode(pInfo);
                 PPApplication.setSavedVersionCode(appContext, actualVersionCode);
 
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
                 String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONUPGRADE, version, null, null, 0);
             } catch (Exception ignored) {
@@ -214,7 +216,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     }
 
                     PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
-                    startService(appContext);
+                    startService(dataWrapper);
 
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -226,20 +228,23 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         }
     }
 
-    private void startService(Context context) {
-        context.stopService(new Intent(context, PhoneProfilesService.class));
+    private void startService(DataWrapper dataWrapper) {
+        boolean isStarted = PPApplication.getApplicationStarted(dataWrapper.context, false);
 
-        if (PPApplication.getApplicationStarted(context, false))
+        PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
+
+        if (isStarted)
         {
-            PPApplication.sleep(5000);
+            PPApplication.sleep(2000);
 
             // start PhoneProfilesService
             PPApplication.logE("@@@ PackageReplacedReceiver.startService", "xxx");
-            Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+            PPApplication.setApplicationStarted(dataWrapper.context, true);
+            Intent serviceIntent = new Intent(dataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(dataWrapper.context, serviceIntent);
         }
     }
 
