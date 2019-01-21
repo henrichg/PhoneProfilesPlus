@@ -1575,7 +1575,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         this.dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_DATAIMPORT, null, null, null, 0);
 
                         // toast notification
-                        Toast msg = Toast.makeText(this.dataWrapper.context,
+                        Toast msg = Toast.makeText(this.dataWrapper.context.getApplicationContext(),
                                 getResources().getString(R.string.toast_import_ok),
                                 Toast.LENGTH_SHORT);
                         msg.show();
@@ -1818,7 +1818,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (result == 1) {
 
                         // toast notification
-                        Toast msg = Toast.makeText(this.dataWrapper.context,
+                        Toast msg = Toast.makeText(this.dataWrapper.context.getApplicationContext(),
                                 getResources().getString(R.string.toast_export_ok),
                                 Toast.LENGTH_SHORT);
                         msg.show();

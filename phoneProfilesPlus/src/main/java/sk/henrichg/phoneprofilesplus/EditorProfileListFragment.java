@@ -334,14 +334,14 @@ public class EditorProfileListFragment extends Fragment
                 if (defaultProfilesGenerated)
                 {
                     ActivateProfileHelper.updateGUI(_dataWrapper.context, true);
-                    Toast msg = Toast.makeText(_dataWrapper.context,
+                    Toast msg = Toast.makeText(_dataWrapper.context.getApplicationContext(),
                             fragment.getResources().getString(R.string.toast_default_profiles_generated),
                             Toast.LENGTH_SHORT);
                     msg.show();
                 }
                 if (defaultEventsGenerated)
                 {
-                    Toast msg = Toast.makeText(_dataWrapper.context,
+                    Toast msg = Toast.makeText(_dataWrapper.context.getApplicationContext(),
                             fragment.getResources().getString(R.string.toast_default_events_generated),
                             Toast.LENGTH_SHORT);
                     msg.show();
