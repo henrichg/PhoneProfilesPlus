@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.widget.RemoteViews;
@@ -260,38 +262,53 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
 
     @Override
-    public void onUpdate(Context context, SlookCocktailManager cocktailBarManager, int[] cocktailIds) {
-        createProfilesDataWrapper(context);
+    public void onUpdate(final Context context, final SlookCocktailManager cocktailBarManager, final int[] cocktailIds) {
+        super.onUpdate(context, cocktailBarManager, cocktailIds);
 
-        for (int cocktailId : cocktailIds) {
-            doOnUpdate(context, cocktailBarManager, cocktailId);
-        }
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                createProfilesDataWrapper(context);
 
-        if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+                for (int cocktailId : cocktailIds) {
+                    doOnUpdate(context, cocktailBarManager, cocktailId);
+                }
 
+                if (dataWrapper != null)
+                    dataWrapper.invalidateDataWrapper();
+                dataWrapper = null;
+            }
+        });
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         super.onReceive(context, intent); // calling onUpdate!!!
 
-        if (EditorProfilesActivity.doImport)
-            return;
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (EditorProfilesActivity.doImport)
+                    return;
 
-        String action = intent.getAction();
+                String action = intent.getAction();
 
-        createProfilesDataWrapper(context);
+                createProfilesDataWrapper(context);
 
-        if ((action != null) &&
-                (action.equalsIgnoreCase(INTENT_REFRESH_EDGEPANEL))) {
-            updateWidgets(context);
-        }
+                if ((action != null) &&
+                        (action.equalsIgnoreCase(INTENT_REFRESH_EDGEPANEL))) {
+                    updateWidgets(context);
+                }
 
-        if (dataWrapper != null)
-            dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+                if (dataWrapper != null)
+                    dataWrapper.invalidateDataWrapper();
+                dataWrapper = null;
+            }
+        });
     }
 
     private void updateWidget(Context context, int cocktailId) {
