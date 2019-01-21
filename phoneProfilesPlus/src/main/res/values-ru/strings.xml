@@ -359,10 +359,10 @@
   <string name="altype_afterDuration_restartEvents">По окончании - перезапустить события</string>
   <string name="altype_eventStart">Запуск события</string>
   <string name="altype_eventStartDelay">Запуск события с задержкой</string>
-  <string name="altype_eventEnd_none">Приостановить событие</string>
-  <string name="altype_eventEnd_activateProfile">Приостановить событие - активировать профиль</string>
-  <string name="altype_eventEnd_undoProfile">Приостановить событие - отменить профиль</string>
-  <string name="altype_eventEnd_activateProfile_undoProfile">Приостановить событие - активировать и отменить профиль</string>
+  <string name="altype_eventEnd_none">Приостановка события</string>
+  <string name="altype_eventEnd_activateProfile">Приостановка события - активация профиля</string>
+  <string name="altype_eventEnd_undoProfile">Приостановка события - отмена профиля</string>
+  <string name="altype_eventEnd_activateProfile_undoProfile">Приостановка события - активация и отмена профиля</string>
   <string name="altype_restartEvents">Перезапустить события</string>
   <string name="altype_runEvents_disable">Остановить события</string>
   <string name="altype_runEvents_enable">Разрешить запуск событий</string>
@@ -372,7 +372,7 @@
   <string name="array_event_pref_calendarSearchField_location">Местоположение</string>
   <string name="profile_preferences_vibrationOnTouch">Вибрация при нажатии</string>
   <string name="phone_profiles_pref_notificationShowInStatusBar">Показывать в строке состояния</string>
-  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показать в строке состояния и на экране блокировки</string>
+  <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">Показывать в строке состояния и на экране блокировки</string>
   <string name="menu_activity_log_reload">Перезагрузить</string>
   <string name="event_preferences_atEndDo">И выполнить</string>
   <string name="array_pref_atEndDo_none">Ничего</string>
@@ -568,7 +568,7 @@
   <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Пожалуйста, включите Настройки -> Местоположение. Без этого сканирование местоположения не будет работать.</string>
   <string name="array_pref_ringerModeArray_silentM">Только уведомления</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">Редактирование местоположения</string>
-  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Использовать GPS когда НЕ ВКЛЮЧЕН режим энергосбережения</string>
+  <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Использовать GPS, когда НЕ ВКЛЮЧЁН режим энергосбережения</string>
   <string name="menu_activity_log_pause">Приостановить логирование</string>
   <string name="menu_activity_log_play">Запустить логирование</string>
   <string name="altype_pausedLogging">Логирование приостановлено</string>
@@ -581,7 +581,7 @@
   <string name="info_notification_event_states_running_delay">Запущено с задержкой: событие запущено, но параметры не соответствуют условиям. Событие в состоянии ожидания.</string>
   <string name="profile_preferences_askForDuration">Запрос продолжительности</string>
   <string name="phone_profiles_pref_applicationBatteryOptimization">Экономия заряда батареи</string>
-  <string name="phone_profiles_pref_applicationEventLocationRescan">Переопределить местоположение</string>
+  <string name="phone_profiles_pref_applicationEventLocationRescan">Переопределять местоположение</string>
   <string name="profile_preferences_deviceNetworkType">(R) Тип мобильной сети</string>
   <string name="array_pref_powerSaveMode_useSystem">Экономия батареи</string>
   <string name="phone_profiles_pref_applicationBatterySaver">Режим энергосбережения</string>
@@ -662,7 +662,7 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Регистрация вышек</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Сканирование мобильных вышек в режиме энергосбережения</string>
   <string name="array_pref_scanInPowerSaveMode_scan">Сканировать</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Пересканирование мобильных вышек</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Пересканированить мобильные вышки</string>
   <string name="mobile_cells_registration_pref_dlg_start_button">Старт</string>
   <string name="mobile_cells_registration_pref_dlg_stop_button">Стоп</string>
   <string name="mobile_cells_registration_pref_dlg_status_started">Запущено</string>
@@ -687,7 +687,7 @@
   <string name="info_notification_event_start_order_handler_icon">Упорядочиватель:</string>
   <string name="info_notification_activate_profile_from_tasker">Вы можете активировать профиль из Tasker. Настройте задачу \"System\"/\"Send Intent\" с параметрами:</string>
   <string name="phone_profiles_pref_notificationHideInLockscreen">Не показывать на экране блокировки</string>
-  <string name="phone_profiles_pref_deleteOldActivityLogs">Удалить журналы старше (дней)</string>
+  <string name="phone_profiles_pref_deleteOldActivityLogs">Удалять журналы старше (дней)</string>
   <string name="phone_profiles_pref_applicationWidgetIconBackground">Непрозрачность фона (виджет)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Яркость фона (виджет)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Яркость текста (виджет)</string>
@@ -757,7 +757,7 @@
   <string name="preference_not_allowed_reason_detail_cant_be_change">нельзя изменить</string>
   <string name="event_preferences_sensorsInfo_title">Функциональность датчиков</string>
   <string name="event_preferences_sensorsInfo_summary">Событие будет запущено, только если параметры всех включённых датчиков будут выполнены. Запущенное событие завершится, если какие-либо параметры включённых датчиков не выполняются. Проверяйте только те датчики, которые нужны для этого события. Названия включённых датчиков указаны жирным текстом.\n\nНекоторые параметры датчика являются обязательными. Обязательные параметры помечены подчёркиванием. Если какие-либо обязательные параметры не заданы, событие не запустится и параметр \"Включить датчик\" будет сброшен.</string>
-  <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Цветной значок</string>
+  <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Цветная иконка</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Некоторые устройства не поддерживают цветные иконки в панели уведомлений.</string>
   <string name="pref_dlg_change_selection_title">Изменить выбор</string>
   <string name="array_pref_change_selection_unselect_all">Снять все отметки</string>
@@ -1260,27 +1260,27 @@
     <string name="permission_why_event_call_preferences">для чтения контактов, определения мелодии звонка (для \"ночного звонка\") в Датчике вызовов</string>
     <string name="important_info_accessibility_service_text3">Из-за изменения компанией Google правил использования разрешений на приём вызовов, для использования Датчика вызовов вам необходимо установить PhoneProfilesPlusExtender. Дополнительная информация - в параметрах этого датчика.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
-    <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
-    <string name="phone_profiles_pref_notificationLayoutType">Layout type</string>
-    <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>
-    <string name="phone_profiles_pref_notificationLayoutType_large">Large</string>
-    <string name="phone_profiles_pref_notificationLayoutType_small">Small</string>
-    <string name="event_preferences_applications_LaunchExtender_title">Launch PhoneProfilesPlusExtender</string>
-    <string name="event_preferences_call_LaunchExtender_summary">Please grant permission Phone in PhoneProfilesPlusExtender. Is required for receiving calls by Extender.</string>
-    <string name="event_preferences_sms_LaunchExtender_summary">Please grant permission SMS in PhoneProfilesPlusExtender. Is required for receiving SMS/MMS by Extender.</string>
-    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
-    <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
-    <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in newest version!</string>
-    <string name="default_profile_name_battery_ok">OK battery</string>
-    <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
-    <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
-    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
+    <string name="phone_profiles_pref_notificationDarkBackground">Тёмный фон</string>
+    <string name="phone_profiles_pref_notificationUseDecoration">Использовать оформление</string>
+    <string name="phone_profiles_pref_notificationLayoutType">Тип макета</string>
+    <string name="phone_profiles_pref_notificationLayoutType_expandable">Расширяемый</string>
+    <string name="phone_profiles_pref_notificationLayoutType_large">Большой</string>
+    <string name="phone_profiles_pref_notificationLayoutType_small">Маленький</string>
+    <string name="event_preferences_applications_LaunchExtender_title">Запустить PhoneProfilesPlusExtender</string>
+    <string name="event_preferences_call_LaunchExtender_summary">Предоставьте, подалуйста, PhoneProfilesPlusExtender разрешение \"Телефон\". Оно требуется для получения звонков.</string>
+    <string name="event_preferences_sms_LaunchExtender_summary">Предоставьте, пожалуйста, PhoneProfilesPlusExtender разрешение \"SMS\". Оно требуется для получения SMS/MMS.</string>
+    <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender не установлен.</string>
+    <string name="array_event_pref_peripheralType_headphones">Наушники без микрофона</string>
+    <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender не установлен!</string>
+    <string name="preferences_old_version_PPPExtender_title">Установлена не новейшая версия PhoneProfilesPlusExtender!</string>
+    <string name="default_profile_name_battery_ok">Батарея заряжена</string>
+    <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Приложения</string>
+    <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Ярлыки</string>
+    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Намерения</string>
 
-    <string name="applications_editor_dialog_not_selected">[not selected]</string>
-    <string name="applications_preference_applicationType_intent">intent</string>
-    <string name="activate_profile_application_not_started">Application is not started</string>
+	<string name="applications_editor_dialog_not_selected">[не выбрано]</string>
+    <string name="applications_preference_applicationType_intent">намерение</string>
+	<string name="activate_profile_application_not_started">Приложение не запущено</string>
 
 
 
