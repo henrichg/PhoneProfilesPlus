@@ -540,16 +540,16 @@ public class RingtonePreference extends DialogPreference {
                                 ringtoneIsPlayed = false;
                                 mediaPlayer = null;
 
-                                /*PPApplication.startHandlerThreadPlayTone();
-                                final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+                                PPApplication.startHandlerThreadInternalChangeToFalse();
+                                final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         RingerModeChangeReceiver.internalChange = false;
                                     }
-                                }, 3000);*/
-                                PostDelayedBroadcastReceiver.setAlarm(
-                                        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
+                                }, 3000);
+                                //PostDelayedBroadcastReceiver.setAlarm(
+                                //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
 
                                 playTimer = null;
                             }
@@ -558,29 +558,29 @@ public class RingtonePreference extends DialogPreference {
                     } catch (SecurityException e) {
                         PPApplication.logE("RingtonePreference.playRingtone", "security exception");
                         stopPlayRingtone();
-                        /*PPApplication.startHandlerThreadPlayTone();
-                        final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+                        PPApplication.startHandlerThreadInternalChangeToFalse();
+                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
-                        }, 3000);*/
-                        PostDelayedBroadcastReceiver.setAlarm(
-                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
+                        }, 3000);
+                        //PostDelayedBroadcastReceiver.setAlarm(
+                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     } catch (Exception e) {
                         PPApplication.logE("RingtonePreference.playRingtone", "exception");
                         stopPlayRingtone();
-                        /*PPApplication.startHandlerThreadPlayTone();
-                        final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
+                        PPApplication.startHandlerThreadInternalChangeToFalse();
+                        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 RingerModeChangeReceiver.internalChange = false;
                             }
-                        }, 3000);*/
-                        PostDelayedBroadcastReceiver.setAlarm(
-                                PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
+                        }, 3000);
+                        //PostDelayedBroadcastReceiver.setAlarm(
+                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     }
                 }
             });

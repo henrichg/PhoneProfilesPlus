@@ -1068,19 +1068,17 @@ class ActivateProfileHelper {
                             //SystemClock.sleep(500);
                             PPApplication.sleep(500);
 
-                        /*
-                        PPApplication.startHandlerThread("ActivateProfileHelper.executeForVolumes");
-                        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
-                                RingerModeChangeReceiver.internalChange = false;
-                            }
-                        }, 3000);
-                        */
-                            PostDelayedBroadcastReceiver.setAlarm(
-                                    PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
+                            PPApplication.startHandlerThreadInternalChangeToFalse();
+                            final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
+                                    RingerModeChangeReceiver.internalChange = false;
+                                }
+                            }, 3000);
+                            //PostDelayedBroadcastReceiver.setAlarm(
+                            //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
                         }
 
                         setTones(context, profile);
@@ -2429,9 +2427,8 @@ class ActivateProfileHelper {
                 break;
         }
         setActivatedProfileScreenTimeout(context, 0);
-        /*
-        PPApplication.startHandlerThread("ActivateProfileHelper.setScreenTimeout");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        PPApplication.startHandlerThreadInternalChangeToFalse();
+        final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -2439,9 +2436,8 @@ class ActivateProfileHelper {
                 disableScreenTimeoutInternalChange = false;
             }
         }, 3000);
-        */
-        PostDelayedBroadcastReceiver.setAlarm(
-                PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE, 3, context);
+        //PostDelayedBroadcastReceiver.setAlarm(
+        //        PostDelayedBroadcastReceiver.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE, 3, context);
     }
 
     private static void createScreenTimeoutAlwaysOnView(Context context)

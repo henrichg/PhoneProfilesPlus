@@ -441,12 +441,12 @@ public class PPApplication extends Application {
     //static private FirebaseAnalytics mFirebaseAnalytics;
 
     public static HandlerThread handlerThread = null;
-    //public static HandlerThread handlerThreadStartServiceOnBoot = null;
+    public static HandlerThread handlerThreadInternalChangeToFalse = null;
     public static HandlerThread handlerThreadWidget = null;
     public static HandlerThread handlerThreadProfileNotification = null;
     public static HandlerThread handlerThreadPlayTone = null;
 
-    private static HandlerThread handlerThreadRoot = null;
+    //private static HandlerThread handlerThreadRoot = null;
     public static HandlerThread handlerThreadVolumes = null;
     public static HandlerThread handlerThreadRadios = null;
     public static HandlerThread handlerThreadAdaptiveBrightness = null;
@@ -563,8 +563,8 @@ public class PPApplication extends Application {
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
 
         startHandlerThread("PPApplication.onCreate");
-        //startHandlerThreadStartServiceOnBoot();
-        startHandlerThreadRoot();
+        startHandlerThreadInternalChangeToFalse();
+        //startHandlerThreadRoot();
         startHandlerThreadWidget();
         startHandlerThreadProfileNotification();
         startHandlerThreadPlayTone();
@@ -2009,21 +2009,21 @@ public class PPApplication extends Application {
         }
     }
 
-    /*
-    static void startHandlerThreadStartServiceOnBoot() {
-        if (handlerThreadStartServiceOnBoot == null) {
-            handlerThreadStartServiceOnBoot = new HandlerThread("PPHandlerThreadStartServiceOnBoot");
-            handlerThreadStartServiceOnBoot.start();
+    static void startHandlerThreadInternalChangeToFalse() {
+        if (handlerThreadInternalChangeToFalse == null) {
+            handlerThreadInternalChangeToFalse = new HandlerThread("PPHandlerThreadInternalChangeToFalse");
+            handlerThreadInternalChangeToFalse.start();
         }
     }
-    */
 
+    /*
     private static void startHandlerThreadRoot() {
         if (handlerThreadRoot == null) {
             handlerThreadRoot = new HandlerThread("PPHandlerThreadRoot");
             handlerThreadRoot.start();
         }
     }
+    */
 
     static void startHandlerThreadWidget() {
         if (handlerThreadWidget == null) {

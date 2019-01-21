@@ -16,8 +16,8 @@ import static android.content.Context.POWER_SERVICE;
 public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
     static final String ACTION_REMOVE_BRIGHTNESS_VIEW = "sk.henrichg.phoneprofilesplus.ACTION_REMOVE_BRIGHTNESS_VIEW";
-    static final String ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE = "sk.henrichg.phoneprofilesplus.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE";
-    static final String ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE = "sk.henrichg.phoneprofilesplus.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE";
+    //static final String ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE = "sk.henrichg.phoneprofilesplus.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE";
+    //static final String ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE = "sk.henrichg.phoneprofilesplus.ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE";
     static final String ACTION_HANDLE_EVENTS = "sk.henrichg.phoneprofilesplus.ACTION_HANDLE_EVENTS";
     static final String ACTION_RESTART_EVENTS = "sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS";
     static final String ACTION_START_WIFI_SCAN = "sk.henrichg.phoneprofilesplus.ACTION_START_WIFI_SCAN";
@@ -80,13 +80,13 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                 });
             }
 
-            if (action.equals(ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE)) {
-                RingerModeChangeReceiver.internalChange = false;
-            }
+            //if (action.equals(ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE)) {
+            //    RingerModeChangeReceiver.internalChange = false;
+            //}
 
-            if (action.equals(ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE)) {
-                ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
-            }
+            //if (action.equals(ACTION_DISABLE_SCREEN_TIMEOUT_INTERNAL_CHANGE_TO_FALSE)) {
+            //    ActivateProfileHelper.disableScreenTimeoutInternalChange = false;
+            //}
 
             if (action.equals(ACTION_HANDLE_EVENTS)) {
                 final String sensorType = intent.getStringExtra(EXTRA_SENSOR_TYPE);
@@ -124,7 +124,8 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
                 PPApplication.startHandlerThreadRestartEventsWithDelay();
                 PPApplication.restartEventsWithDelayHandler.removeCallbacksAndMessages(null);
-                PPApplication.restartEventsWithDelayHandler.post(new Runnable() {
+                final Handler handler = new Handler(PPApplication.restartEventsWithDelayHandler.getLooper());
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
