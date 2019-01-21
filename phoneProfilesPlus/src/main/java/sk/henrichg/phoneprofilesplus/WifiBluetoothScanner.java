@@ -346,14 +346,13 @@ class WifiBluetoothScanner {
                                             waitForBluetoothScanEnd(context);
 
                                             PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "classic scan ended");
-
                                         }
 
                                         //unlock();
 
-                                        setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                        BluetoothScanJob.setWaitForResults(context, false);
-                                        BluetoothScanJob.setLEScanRequest(context, false);
+                                        //setForceOneBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                        //BluetoothScanJob.setWaitForResults(context, false);
+                                        //BluetoothScanJob.setLEScanRequest(context, false);
 
                                         ///////// Classic BT scan - end
                                     }
@@ -389,20 +388,20 @@ class WifiBluetoothScanner {
                                             // wait for scan end
                                             waitForLEBluetoothScanEnd(context);
 
+                                            PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "LE scan ended");
+
                                             // send broadcast for start EventsHandler
-                                        /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
-                                        sendBroadcast(btLEIntent);*/
+                                            /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
+                                            sendBroadcast(btLEIntent);*/
                                             Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");
                                             LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
-
-                                            PPApplication.logE("$$$BLE WifiBluetoothScanner.doScan", "LE scan ended");
                                         }
 
                                         //unlock();
 
-                                        setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
-                                        BluetoothScanJob.setWaitForLEResults(context, false);
-                                        BluetoothScanJob.setLEScanRequest(context, false);
+                                        //setForceOneLEBluetoothScan(context, FORCE_ONE_SCAN_DISABLED);
+                                        //BluetoothScanJob.setWaitForLEResults(context, false);
+                                        //BluetoothScanJob.setLEScanRequest(context, false);
 
                                         ///////// LE BT scan - end
                                     }
