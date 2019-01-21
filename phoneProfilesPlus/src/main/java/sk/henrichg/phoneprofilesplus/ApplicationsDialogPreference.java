@@ -33,7 +33,7 @@ import java.util.List;
 public class ApplicationsDialogPreference  extends DialogPreference
                                             implements OnStartDragItemListener {
 
-    private final Context context;
+    final Context context;
 
     private String value = "";
 

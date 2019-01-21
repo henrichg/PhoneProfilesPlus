@@ -662,7 +662,7 @@
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Регистрация вышек</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Сканирование мобильных вышек в режиме энергосбережения</string>
   <string name="array_pref_scanInPowerSaveMode_scan">Сканировать</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Пересканированить мобильные вышки</string>
+  <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Пересканировать мобильные вышки</string>
   <string name="mobile_cells_registration_pref_dlg_start_button">Старт</string>
   <string name="mobile_cells_registration_pref_dlg_stop_button">Стоп</string>
   <string name="mobile_cells_registration_pref_dlg_status_started">Запущено</string>

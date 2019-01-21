@@ -2,17 +2,22 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -36,6 +41,8 @@ class ApplicationEditorDialog
     private final TimeDurationPickerDialog mDelayValueDialog;
     private final ImageView mSelectedAppIcon;
     private final TextView mSelectedAppName;
+    private final AppCompatImageButton addButton;
+
 
     private List<Application> cachedApplicationList;
     final List<Application> applicationList;
@@ -48,7 +55,7 @@ class ApplicationEditorDialog
     private final String[] filterValues;
 
     int selectedPosition = -1;
-    private int selectedFilter = 0;
+    int selectedFilter = 0;
 
     private FastScrollRecyclerView listView;
 
@@ -163,6 +170,11 @@ class ApplicationEditorDialog
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedFilter = Integer.valueOf(filterValues[position]);
+                if (selectedFilter == 2)
+                    addButton.setVisibility(View.VISIBLE);
+                else
+                    addButton.setVisibility(View.GONE);
+
                 fillApplicationList();
                 listAdapter.notifyDataSetChanged();
                 //listView.setAdapter(listAdapter);
@@ -177,6 +189,14 @@ class ApplicationEditorDialog
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        addButton  = layout.findViewById(R.id.applications_editor_dialog_addIntent);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startEditor(null);
             }
         });
 
@@ -334,6 +354,60 @@ class ApplicationEditorDialog
 
             updateSelectedAppViews();
         }
+    }
+
+    void showEditMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context context = view.getContext();
+        PopupMenu popup;
+        //if (android.os.Build.VERSION.SDK_INT >= 19)
+        popup = new PopupMenu(context, view, Gravity.END);
+        //else
+        //    popup = new PopupMenu(context, view);
+        new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
+
+        final Application application = (Application) view.getTag();
+
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+            public boolean onMenuItemClick(android.view.MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.applications_pref_dlg_item_menu_edit:
+                        startEditor(application);
+                        return true;
+                    case R.id.applications_pref_dlg_item_menu_delete:
+                        deleteIntent(application);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+        popup.show();
+    }
+
+    private void startEditor(Application application) {
+
+    }
+
+    void deleteIntent(Application application) {
+        if (application.intentId > 0)
+            DatabaseHandler.getInstance(preference.context.getApplicationContext()).deleteIntent(application.intentId);
+
+        if (preference.intentDBList != null) {
+            for (PPIntent ppIntent : preference.intentDBList) {
+                if (ppIntent._id == application.intentId) {
+                    preference.intentDBList.remove(ppIntent);
+                    break;
+                }
+            }
+        }
+
+        applicationList.remove(application);
+        listView.getRecycledViewPool().clear();
+        listAdapter.notifyDataSetChanged();
     }
 
     public void show() {

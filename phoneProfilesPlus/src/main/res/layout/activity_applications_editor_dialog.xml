@@ -111,30 +111,48 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/applications_editor_dialog_startApplicationDelay_root"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:orientation="vertical"
-            android:clickable="true"
-            android:focusable="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/applications_editor_dialog_startApplicationDelay_label"
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/applications_editor_dialog_addIntent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:text="@string/applications_editor_dialog_startApplicationDelay" />
+                android:padding="5dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_button_add"
+                android:background="?attr/selectableItemBackground" />
 
-            <TextView
-                android:id="@+id/applications_editor_dialog_startApplicationDelay"
+            <LinearLayout
+                android:id="@+id/applications_editor_dialog_startApplicationDelay_root"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorAccent"
-                android:textSize="18sp"/>
+                android:layout_marginStart="3dp"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/applications_editor_dialog_addIntent"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/applications_editor_dialog_startApplicationDelay_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="@string/applications_editor_dialog_startApplicationDelay" />
+
+                <TextView
+                    android:id="@+id/applications_editor_dialog_startApplicationDelay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="18sp"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

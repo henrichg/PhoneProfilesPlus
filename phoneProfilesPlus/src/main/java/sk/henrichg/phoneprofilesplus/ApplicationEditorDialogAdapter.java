@@ -21,7 +21,12 @@ class ApplicationEditorDialogAdapter extends RecyclerView.Adapter<ApplicationEdi
     @NonNull
     @Override
     public ApplicationEditorDialogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.applications_editor_dialog_list_item, parent, false);
+        int resId;
+        if (dialog.selectedFilter == 2)
+            resId = R.layout.applications_editor_dialog_list_item_intent;
+        else
+            resId = R.layout.applications_editor_dialog_list_item;
+        View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
         return new ApplicationEditorDialogViewHolder(view, /*context,*/ dialog);
     }
 

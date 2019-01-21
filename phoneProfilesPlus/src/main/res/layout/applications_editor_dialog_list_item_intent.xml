@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp">
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/applications_pref_dlg_item_edit_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:padding="5dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/preference_item_edit_menu"
+        android:src="?attr/editItemMenuIcon"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/applications_pref_dlg_item_edit_menu"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" >
+
+        <RadioButton
+            android:id="@+id/applications_editor_dialog_item_radiobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:checked="false"
+            android:focusable="false" />
+
+        <ImageView
+            android:id="@+id/applications_editor_dialog_item_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@id/applications_editor_dialog_item_radiobutton"
+            android:contentDescription="@string/applications_editor_dialog_item_icon"
+            android:padding="3dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/applications_editor_dialog_item_app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/applications_editor_dialog_item_icon"
+            android:text="@string/empty_string"
+            android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
