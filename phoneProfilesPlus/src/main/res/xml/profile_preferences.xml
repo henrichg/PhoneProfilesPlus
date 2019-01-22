@@ -97,7 +97,7 @@
             android:title="@string/profile_preferences_preferenceTypesInfo_title"
             android:summary="@string/info_preference_click_here"
             app:infoText="@string/empty_string"
-            android:widgetLayout="@layout/info_preference"
+            android:widgetLayout="@layout/info_preference_clickable"
             android:layout="@layout/mp_preference_material_widget" />
         <PreferenceScreen
             android:title="@string/profile_preferences_category_sound_profile"

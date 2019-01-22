@@ -120,5 +120,7 @@
     <attr name="sensorPassStatusNotPassed" format="reference" />
     <attr name="sensorPassStatusWaiting" format="reference" />
     <attr name="activityLogTypeOther" format="reference" />
+    <attr name="infoPreferenceIcon" format="reference" />
+    <attr name="exclamationPreferenceIcon" format="reference" />
 
 </resources>
