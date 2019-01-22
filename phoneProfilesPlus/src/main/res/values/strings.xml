@@ -1315,7 +1315,7 @@
     <string name="applications_editor_dialog_not_selected">[not selected]</string>
     <string name="applications_preference_applicationType_intent">intent</string>
     <string name="activate_profile_application_not_started">Application is not started</string>
-
+    <string name="intent_editor_title">Intent editor</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

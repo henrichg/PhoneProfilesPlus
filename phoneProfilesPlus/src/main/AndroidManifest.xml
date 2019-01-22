@@ -341,6 +341,10 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
+        <activity
+            android:name=".ApplicationEditorIntentActivity"
+            android:label="@string/intent_editor_title">
+        </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
         <!-- https://developer.android.com/guide/components/broadcast-exceptions.html -->
