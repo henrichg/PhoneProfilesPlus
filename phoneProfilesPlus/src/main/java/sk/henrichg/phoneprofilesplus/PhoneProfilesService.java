@@ -4153,8 +4153,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        if ((PhoneProfilesService.getInstance() != null) &&
-                ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext)))
+        if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext))
         {
             PPApplication.logE("PhoneProfilesService._showProfileNotification", "show");
 
@@ -4575,8 +4574,7 @@ public class PhoneProfilesService extends Service
                 }
 
                 if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent)
-                    if (PhoneProfilesService.getInstance() != null)
-                        PhoneProfilesService.getInstance().startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                    startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null)
@@ -4584,7 +4582,7 @@ public class PhoneProfilesService extends Service
                 }
             }
         }
-        else
+        /*else
         {
             if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBarPermanent(appContext))
                 stopForeground(true);
@@ -4593,7 +4591,7 @@ public class PhoneProfilesService extends Service
                 if (notificationManager != null)
                     notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
             }
-        }
+        }*/
     }
 
     private void showProfileNotification() {
