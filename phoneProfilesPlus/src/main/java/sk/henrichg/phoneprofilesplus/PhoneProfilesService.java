@@ -4620,16 +4620,14 @@ public class PhoneProfilesService extends Service
             @Override
             public void run() {
                 PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","instance="+PhoneProfilesService.getInstance());
-                if (PhoneProfilesService.getInstance() != null) {
-                    DataWrapper dataWrapper = new DataWrapper(PhoneProfilesService.getInstance().getApplicationContext(), false, 0, false);
-                    Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                    synchronized (PhoneProfilesService.class) {
-                        if (instance != null) {
-                            PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","_showProfileNotification()");
-                            instance._showProfileNotification(profile, true, dataWrapper);
-                        }
+                synchronized (PhoneProfilesService.class) {
+                    if (instance != null) {
+                        DataWrapper dataWrapper = new DataWrapper(instance.getApplicationContext(), false, 0, false);
+                        Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                        PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
+                        instance._showProfileNotification(profile, true, dataWrapper);
+                        dataWrapper.invalidateDataWrapper();
                     }
-                    dataWrapper.invalidateDataWrapper();
                 }
             }
         });
