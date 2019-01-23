@@ -2060,12 +2060,14 @@ class Permissions {
         editor.apply();
     }
 
+    /*
     static void disablePermissionsChanged(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(PREF_PERMISSIONS_CHANGED, false);
         editor.apply();
     }
+    */
 
     static boolean getPermissionsChanged(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
