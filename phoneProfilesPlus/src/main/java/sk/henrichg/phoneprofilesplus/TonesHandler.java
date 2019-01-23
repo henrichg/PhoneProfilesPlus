@@ -16,6 +16,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import me.drakeet.support.toast.ToastCompat;
+
 class TonesHandler {
 
     static final int TONE_ID = R.raw.phoneprofiles_silent;
@@ -294,7 +296,7 @@ class TonesHandler {
             if (!(ringtone && notification && alarm))
                 strId = R.string.toast_tone_installation_installed_error;
 
-            Toast msg = Toast.makeText(context.getApplicationContext(),
+            Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                     context.getResources().getString(strId),
                     Toast.LENGTH_SHORT);
             msg.show();

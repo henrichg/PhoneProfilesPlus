@@ -47,6 +47,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import me.drakeet.support.toast.ToastCompat;
+
 import static android.content.Context.POWER_SERVICE;
 
 public class DataWrapper {
@@ -1564,7 +1566,7 @@ public class DataWrapper {
         //Log.d("DataWrapper.showToastAfterActivation", "xxx");
         try {
             String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, this, false);
-            Toast msg = Toast.makeText(context.getApplicationContext(),
+            Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                     context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
                             context.getResources().getString(R.string.toast_profile_activated_1),
                     Toast.LENGTH_SHORT);
@@ -3780,7 +3782,7 @@ public class DataWrapper {
         //if (showToast)
         if (ApplicationPreferences.notificationsToast(context))
         {
-            Toast msg = Toast.makeText(context.getApplicationContext(),
+            Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                 context.getResources().getString(R.string.toast_events_restarted),
                 Toast.LENGTH_SHORT);
             msg.show();

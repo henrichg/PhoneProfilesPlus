@@ -29,5 +29,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //implementation 'com.nineoldandroids:library:2.4.0'
     implementation "com.android.support:appcompat-v7:$ppVersions.supportLib"
+
+    implementation 'me.drakeet.support:toastcompat:1.1.0'
 }
 

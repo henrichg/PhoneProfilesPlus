@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import me.drakeet.support.toast.ToastCompat;
+
 public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
     private DataWrapper dataWrapper;
@@ -36,7 +38,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         super.onStart();
 
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
-            Toast msg = Toast.makeText(getApplicationContext(),
+            Toast msg = ToastCompat.makeText(getApplicationContext(),
                     getResources().getString(R.string.activate_profile_application_not_started),
                     Toast.LENGTH_LONG);
             msg.show();

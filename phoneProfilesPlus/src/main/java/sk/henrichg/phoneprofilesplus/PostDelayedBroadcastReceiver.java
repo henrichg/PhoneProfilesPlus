@@ -182,7 +182,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
     }
 
     @SuppressLint("NewApi")
-    static void setAlarm(String action, int delaySeconds, Context context)
+    static void setAlarm(String action, @SuppressWarnings("SameParameterValue") int delaySeconds, Context context)
     {
         final Context appContext = context.getApplicationContext();
 

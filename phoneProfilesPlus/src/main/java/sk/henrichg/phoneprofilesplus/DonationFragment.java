@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 
+import me.drakeet.support.toast.ToastCompat;
 import sk.henrichg.phoneprofilesplus.billing.BillingProvider;
 
 public class DonationFragment extends Fragment {
@@ -222,7 +223,7 @@ public class DonationFragment extends Fragment {
 
         if (getActivity() != null) {
             PPApplication.setDonationDonated(getActivity().getApplicationContext());
-            Toast.makeText(getActivity().getApplicationContext(), getString(R.string.donation_thanks_dialog), Toast.LENGTH_LONG).show();
+            ToastCompat.makeText(getActivity().getApplicationContext(), getString(R.string.donation_thanks_dialog), Toast.LENGTH_LONG).show();
         }
     }
 

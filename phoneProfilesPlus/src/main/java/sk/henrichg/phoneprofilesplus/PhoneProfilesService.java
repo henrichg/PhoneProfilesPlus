@@ -5861,7 +5861,7 @@ public class PhoneProfilesService extends Service
 
                         notificationIsPlayed = true;
 
-                        final Context context = this;
+                        //final Context context = this;
                         notificationPlayTimer = new Timer();
                         notificationPlayTimer.schedule(new TimerTask() {
                             @Override

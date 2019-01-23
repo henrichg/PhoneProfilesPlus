@@ -10,6 +10,8 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import me.drakeet.support.toast.ToastCompat;
+
 class EventPreferencesBattery extends EventPreferences {
 
     int _levelLow;
@@ -237,7 +239,7 @@ class EventPreferencesBattery extends EventPreferences {
                     boolean OK = ((iNewValue >= 0) && (iNewValue <= iHightLevelValue));
 
                     if (!OK) {
-                        Toast msg = Toast.makeText(_context.getApplicationContext(),
+                        Toast msg = ToastCompat.makeText(_context.getApplicationContext(),
                                 _context.getResources().getString(R.string.event_preferences_battery_level_low) + ": " +
                                         _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
                                 Toast.LENGTH_SHORT);
@@ -270,7 +272,7 @@ class EventPreferencesBattery extends EventPreferences {
                     boolean OK = ((iNewValue >= iLowLevelValue) && (iNewValue <= 100));
 
                     if (!OK) {
-                        Toast msg = Toast.makeText(_context.getApplicationContext(),
+                        Toast msg = ToastCompat.makeText(_context.getApplicationContext(),
                                 _context.getResources().getString(R.string.event_preferences_battery_level_hight) + ": " +
                                         _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
                                 Toast.LENGTH_SHORT);

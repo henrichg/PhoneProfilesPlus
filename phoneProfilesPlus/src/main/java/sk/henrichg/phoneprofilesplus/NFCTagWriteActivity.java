@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import me.drakeet.support.toast.ToastCompat;
+
 public class NFCTagWriteActivity extends AppCompatActivity {
 
     private String tagName;
@@ -94,7 +96,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
 
                 @Override
                 public void onTagRead(String tagData) {
-                    //Toast.makeText(getApplicationContext(), "tag read:"+tagData, Toast.LENGTH_LONG).show();
+                    //ToastCompat.makeText(getApplicationContext(), "tag read:"+tagData, Toast.LENGTH_LONG).show();
 
                     int[] attrs = {R.attr.activityTextColor};
                     TypedArray ta = obtainStyledAttributes(attrs);
@@ -117,7 +119,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
             nfcManager.setOnTagWriteListener(new NFCTagReadWriteManager.TagWriteListener() {
                 @Override
                 public void onTagWritten() {
-                    Toast.makeText(getApplicationContext(), R.string.write_nfc_tag_written, Toast.LENGTH_LONG).show();
+                    ToastCompat.makeText(getApplicationContext(), R.string.write_nfc_tag_written, Toast.LENGTH_LONG).show();
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra(EXTRA_TAG_NAME, tagName);
                     returnIntent.putExtra(EXTRA_TAG_DB_ID, tagDbId);
@@ -139,8 +141,8 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     }
                     writableTextView.setTextColor(Color.RED);
                     writableTextView.setText(text);
-                    //Toast.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
+                    //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
+                    //ToastCompat.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
 
                     //NFCTagWriteActivity.this.finish();
                 }

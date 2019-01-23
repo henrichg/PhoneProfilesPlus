@@ -26,6 +26,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.drakeet.support.toast.ToastCompat;
+
 public class GrantPermissionActivity extends AppCompatActivity {
 
     private int grantType;
@@ -155,7 +157,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (grantType == Permissions.GRANT_TYPE_INSTALL_TONE) {
                 boolean granted = Permissions.checkInstallTone(context, permissions);
                 if (granted) {
-                    Toast msg = Toast.makeText(context.getApplicationContext(),
+                    Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     msg.show();
@@ -167,7 +169,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION) {
                 boolean granted = Permissions.checkPlayRingtoneNotification(context, grantAlsoContacts, permissions);
                 if (granted) {
-                    Toast msg = Toast.makeText(context.getApplicationContext(),
+                    Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     msg.show();
@@ -182,7 +184,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
                 if (permissions.size() == 0) {
-                    Toast msg = Toast.makeText(context.getApplicationContext(),
+                    Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     msg.show();
@@ -194,7 +196,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             if (grantType == Permissions.GRANT_TYPE_LOG_TO_FILE) {
                 boolean granted = Permissions.checkLogToFile(context, permissions);
                 if (granted) {
-                    Toast msg = Toast.makeText(context.getApplicationContext(),
+                    Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     msg.show();
@@ -208,7 +210,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 mergedNotification = true;*/
                 permissions = Permissions.recheckPermissions(context, permissions);
                 if (permissions.size() == 0) {
-                    Toast msg = Toast.makeText(context.getApplicationContext(),
+                    Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                             context.getResources().getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     msg.show();
@@ -1364,7 +1366,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
                     intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
                     if (GlobalGUIRoutines.activityIntentExists(intent, getApplicationContext())) {
-                        intent.putExtra(EXTRA_WITH_RATIONALE, withRationale);
+                        intent.putExtra(EXTRA_WITH_RATIONALE, false);
                         startActivityForResult(intent, Permissions.REQUEST_CODE/*_FORCE_GRANT*/ + grantType);
                     }
                     else
@@ -1598,7 +1600,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (permissionsForRecheck != null) {
             permissions = Permissions.recheckPermissions(context, permissionsForRecheck);
             if (permissions.size() != 0) {
-                Toast msg = Toast.makeText(context.getApplicationContext(),
+                Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                         context.getResources().getString(R.string.toast_permissions_not_granted),
                         Toast.LENGTH_LONG);
                 msg.show();

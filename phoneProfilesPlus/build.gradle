@@ -90,6 +90,8 @@ dependencies {
 
     //implementation 'com.thelittlefireman:AppKillerManager:2.1.1'
 
+    implementation 'me.drakeet.support:toastcompat:1.1.0'
+
     //implementation(name:'RootShell', ext:'aar')
     //implementation(name:'RootTools', ext:'aar')
     implementation project(':RootShell')

@@ -392,7 +392,7 @@ class ApplicationEditorDialog
 
     }
 
-    void deleteIntent(Application application) {
+    private void deleteIntent(Application application) {
         if (application.intentId > 0)
             DatabaseHandler.getInstance(preference.context.getApplicationContext()).deleteIntent(application.intentId);
 

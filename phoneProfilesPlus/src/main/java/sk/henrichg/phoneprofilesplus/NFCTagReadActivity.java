@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import me.drakeet.support.toast.ToastCompat;
+
 public class NFCTagReadActivity extends AppCompatActivity {
 
     private NFCTagReadWriteManager nfcManager;
@@ -26,7 +28,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
             /*
             @Override
             public void onUidRead(String uid) {
-                Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+uid, Toast.LENGTH_LONG).show();
+                ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+uid, Toast.LENGTH_LONG).show();
 
                 final String _uid = uid;
 
@@ -57,7 +59,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
             @Override
             public void onTagRead(String tagData) {
-                Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+tagData, Toast.LENGTH_LONG).show();
+                ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.read_nfc_tag_read)+": "+tagData, Toast.LENGTH_LONG).show();
 
                 final String _tagData = tagData;
 
@@ -85,7 +87,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
         /*nfcManager.setOnTagWriteListener(new NFCTagReadWriteManager.TagWriteListener() {
             @Override
             public void onTagWritten() {
-                Toast.makeText(getApplicationContext(), "tag write finished", Toast.LENGTH_LONG).show();
+                ToastCompat.makeText(getApplicationContext(), "tag write finished", Toast.LENGTH_LONG).show();
                 NFCTagReadActivity.this.finish();
             }
         });
@@ -93,8 +95,8 @@ public class NFCTagReadActivity extends AppCompatActivity {
         nfcManager.setOnTagWriteErrorListener(new NFCTagReadWriteManager.TagWriteErrorListener() {
             @Override
             public void onTagWriteError(NFCTagWriteException exception) {
-                //Toast.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.write_nfc_tag_error), Toast.LENGTH_LONG).show();
+                //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
+                ToastCompat.makeText(getApplicationContext(), "("+getString(R.string.app_name)+") "+getString(R.string.write_nfc_tag_error), Toast.LENGTH_LONG).show();
                 NFCTagReadActivity.this.finish();
             }
         });

@@ -68,6 +68,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import me.drakeet.support.toast.ToastCompat;
+
 public class RecurrencePickerDialogFragment extends DialogFragment implements OnItemSelectedListener,
         OnCheckedChangeListener, OnClickListener,
         android.widget.RadioGroup.OnCheckedChangeListener,
@@ -1111,7 +1113,7 @@ public class RecurrencePickerDialogFragment extends DialogFragment implements On
         if (mToast != null) {
             mToast.cancel();
         }
-        mToast = Toast.makeText(getActivity(), rrule,
+        mToast = ToastCompat.makeText(getActivity(), rrule,
                 Toast.LENGTH_LONG);
         mToast.show();
     }
