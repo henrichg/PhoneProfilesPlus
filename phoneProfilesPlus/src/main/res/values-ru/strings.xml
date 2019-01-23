@@ -1281,6 +1281,7 @@
 	<string name="applications_editor_dialog_not_selected">[не выбрано]</string>
     <string name="applications_preference_applicationType_intent">намерение</string>
 	<string name="activate_profile_application_not_started">Приложение не запущено</string>
+    <string name="intent_editor_title">Intent editor</string>
 
 
 
