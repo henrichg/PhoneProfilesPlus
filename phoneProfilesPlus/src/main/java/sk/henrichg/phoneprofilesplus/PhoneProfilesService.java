@@ -4623,9 +4623,11 @@ public class PhoneProfilesService extends Service
                 if (PhoneProfilesService.getInstance() != null) {
                     DataWrapper dataWrapper = new DataWrapper(PhoneProfilesService.getInstance().getApplicationContext(), false, 0, false);
                     Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                    if (PhoneProfilesService.getInstance() != null) {
-                        PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","_showProfileNotification()");
-                        PhoneProfilesService.getInstance()._showProfileNotification(profile, true, dataWrapper);
+                    synchronized (PhoneProfilesService.class) {
+                        if (instance != null) {
+                            PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","_showProfileNotification()");
+                            instance._showProfileNotification(profile, true, dataWrapper);
+                        }
                     }
                     dataWrapper.invalidateDataWrapper();
                 }
