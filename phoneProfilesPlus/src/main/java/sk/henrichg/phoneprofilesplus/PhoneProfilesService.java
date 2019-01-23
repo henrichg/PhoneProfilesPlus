@@ -4573,8 +4573,10 @@ public class PhoneProfilesService extends Service
                     setAlarmForNotificationCancel(appContext);
                 }
 
-                if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent)
+                if ((Build.VERSION.SDK_INT >= 26) || notificationStatusBarPermanent) {
                     startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
+                    runningInForeground = true;
+                }
                 else {
                     NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (notificationManager != null)
@@ -4606,7 +4608,6 @@ public class PhoneProfilesService extends Service
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 _showProfileNotification(null, false, dataWrapper);
                 dataWrapper.invalidateDataWrapper();
-                runningInForeground = true;
             }
         //}
 
