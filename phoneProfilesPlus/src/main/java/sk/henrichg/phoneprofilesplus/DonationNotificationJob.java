@@ -16,9 +16,9 @@ import com.evernote.android.job.JobRequest;
 
 import java.util.concurrent.TimeUnit;
 
-class AboutApplicationJob extends Job {
+class DonationNotificationJob extends Job {
 
-    static final String JOB_TAG  = "AboutApplicationJob";
+    static final String JOB_TAG  = "DonationNotificationJob";
 
     private static final int MAX_DONATION_NOTIFICATION_COUNT = 3;
 
@@ -27,10 +27,10 @@ class AboutApplicationJob extends Job {
     @NonNull
     @Override
     protected Result onRunJob(@NonNull Params params) {
-        PPApplication.logE("##### AboutApplicationJob.onRunJob", "xxx");
+        PPApplication.logE("##### DonationNotificationJob.onRunJob", "xxx");
         Context context = getContext();
 
-        CallsCounter.logCounter(context, "AboutApplicationJob.onRunJob", "AboutApplicationJob_onRunJob");
+        CallsCounter.logCounter(context, "DonationNotificationJob.onRunJob", "AboutApplicationJob_onRunJob");
 
         if (!PPApplication.getApplicationStarted(context, false))
             // application is not started
@@ -39,11 +39,11 @@ class AboutApplicationJob extends Job {
         //countDownLatch = new CountDownLatch(1);
 
         int daysAfterFirstStart = PPApplication.getDaysAfterFirstStart(context)+1;
-        PPApplication.logE("AboutApplicationJob.onRunJob", "daysAfterFirstStart="+daysAfterFirstStart);
+        PPApplication.logE("DonationNotificationJob.onRunJob", "daysAfterFirstStart="+daysAfterFirstStart);
         int donationNotificationCount = PPApplication.getDonationNotificationCount(context);
-        PPApplication.logE("AboutApplicationJob.onRunJob", "donationNotificationCount="+donationNotificationCount);
+        PPApplication.logE("DonationNotificationJob.onRunJob", "donationNotificationCount="+donationNotificationCount);
         boolean donationDonated = PPApplication.getDonationDonated(context);
-        PPApplication.logE("AboutApplicationJob.onRunJob", "donationDonated="+donationDonated);
+        PPApplication.logE("DonationNotificationJob.onRunJob", "donationDonated="+donationDonated);
 
         if (!donationDonated && (donationNotificationCount < MAX_DONATION_NOTIFICATION_COUNT)) {
             int daysForOneNotification = 7;
@@ -102,7 +102,7 @@ class AboutApplicationJob extends Job {
             } catch (InterruptedException ignored) {
             }
             countDownLatch = null;
-            PPApplication.logE("AboutApplicationJob.onRunJob", "return");*/
+            PPApplication.logE("DonationNotificationJob.onRunJob", "return");*/
         }
         else {
             PPApplication.setDonationNotificationCount(context, MAX_DONATION_NOTIFICATION_COUNT);
@@ -112,11 +112,11 @@ class AboutApplicationJob extends Job {
     }
 
     protected void onCancel() {
-        PPApplication.logE("AboutApplicationJob.onCancel", "xxx");
+        PPApplication.logE("DonationNotificationJob.onCancel", "xxx");
 
         Context context = getContext();
 
-        CallsCounter.logCounter(context, "AboutApplicationJob.onCancel", "AboutApplicationJob_onCancel");
+        CallsCounter.logCounter(context, "DonationNotificationJob.onCancel", "AboutApplicationJob_onCancel");
     }
 
     private static void _scheduleJob(/*final Context context*/) {
@@ -128,7 +128,7 @@ class AboutApplicationJob extends Job {
         if (jobManager != null) {
             final JobRequest.Builder jobBuilder;
             int requestsForTagSize = jobManager.getAllJobRequestsForTag(JOB_TAG).size();
-            PPApplication.logE("AboutApplicationJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
+            PPApplication.logE("DonationNotificationJob.scheduleJob", "requestsForTagSize=" + requestsForTagSize);
             if (requestsForTagSize == 0) {
                 jobBuilder = new JobRequest.Builder(JOB_TAG);
                 // each 24 hours
@@ -136,7 +136,7 @@ class AboutApplicationJob extends Job {
             } else
                 return;
 
-            PPApplication.logE("AboutApplicationJob.scheduleJob", "build and schedule");
+            PPApplication.logE("DonationNotificationJob.scheduleJob", "build and schedule");
 
             try {
                 jobBuilder
@@ -148,15 +148,15 @@ class AboutApplicationJob extends Job {
     }
 
     static void scheduleJob(final Context context, final boolean useHandler) {
-        PPApplication.logE("AboutApplicationJob.scheduleJob", "xxx");
+        PPApplication.logE("DonationNotificationJob.scheduleJob", "xxx");
 
         boolean donationDonated = PPApplication.getDonationDonated(context);
-        PPApplication.logE("AboutApplicationJob.scheduleJob", "donationDonated="+donationDonated);
+        PPApplication.logE("DonationNotificationJob.scheduleJob", "donationDonated="+donationDonated);
         if (donationDonated)
             return;
 
         if (useHandler) {
-            PPApplication.startHandlerThread("AboutApplicationJob.scheduleJob");
+            PPApplication.startHandlerThread("DonationNotificationJob.scheduleJob");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
@@ -176,7 +176,7 @@ class AboutApplicationJob extends Job {
 
     /*
     static void cancelJob(final Context context, final Handler _handler) {
-        PPApplication.logE("AboutApplicationJob.cancelJob", "xxx");
+        PPApplication.logE("DonationNotificationJob.cancelJob", "xxx");
 
         final Handler handler;
         if (_handler == null)

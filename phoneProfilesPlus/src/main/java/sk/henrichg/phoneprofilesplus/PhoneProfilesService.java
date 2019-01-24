@@ -3132,7 +3132,7 @@ public class PhoneProfilesService extends Service
         if (onlyStart) {
             /*
             registerReceiversAndJobs();
-            AboutApplicationJob.scheduleJob(getApplicationContext(), true);
+            DonationNotificationJob.scheduleJob(getApplicationContext(), true);
             */
 
             final boolean _startOnBoot = startOnBoot;
@@ -3245,7 +3245,7 @@ public class PhoneProfilesService extends Service
 
                         if (PhoneProfilesService.getInstance() != null)
                             PhoneProfilesService.getInstance().registerReceiversAndJobs();
-                        AboutApplicationJob.scheduleJob(appContext, false);
+                        DonationNotificationJob.scheduleJob(appContext, false);
 
                         if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
                             if (_startOnBoot)
