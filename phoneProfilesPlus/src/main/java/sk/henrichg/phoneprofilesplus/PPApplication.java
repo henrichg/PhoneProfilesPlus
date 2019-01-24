@@ -66,7 +66,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -131,7 +131,7 @@ public class PPApplication extends Application {
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|SettingsContentObserver.onChange"
 
-                                         //+"|$$$ DataWrapper._activateProfile"
+                                         +"|$$$ DataWrapper._activateProfile"
                                          //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
                                          //+"|DataWrapper.activateProfileAfterDuration"
                                          //+"|DataWrapper.getIsManualProfileActivation"
@@ -1153,13 +1153,15 @@ public class PPApplication extends Application {
         PPApplication.createNotifyEventStartNotificationChannel(appContext);
     }
 
-    static void showProfileNotification(Context context) {
+    static void showProfileNotification(/*Context context*/) {
         try {
             PPApplication.logE("PPApplication.showProfileNotification", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_SHOW_PROFILE_NOTIFICATION, true);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            if (PhoneProfilesService.getInstance() != null)
+                PhoneProfilesService.getInstance().showProfileNotification();
         } catch (Exception ignored) {}
     }
 

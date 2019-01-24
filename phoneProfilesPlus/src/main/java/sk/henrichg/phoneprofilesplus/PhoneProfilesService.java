@@ -4141,7 +4141,7 @@ public class PhoneProfilesService extends Service
     @SuppressLint("NewApi")
     private void _showProfileNotification(Profile profile, boolean inHandlerThread, final DataWrapper dataWrapper)
     {
-        PPApplication.logE("PhoneProfilesService.showProfileNotification", "xxx");
+        PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
         /*
         if (ActivateProfileHelper.lockRefresh)
@@ -4217,7 +4217,7 @@ public class PhoneProfilesService extends Service
                 }
                 else
                     contentViewLarge = new RemoteViews(appContext.getPackageName(), R.layout.notification_drawer_miui);
-                PPApplication.logE("PhoneProfilesService.showProfileNotification", "miui");
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "miui");
             }
             else
             if (PPApplication.romIsEMUI) {
@@ -4316,7 +4316,7 @@ public class PhoneProfilesService extends Service
                 //notificationBuilder.setSettingsText("Test");
             }
             else {
-                PPApplication.logE("PhoneProfilesService.showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationShowInStatusBar="+notificationShowInStatusBar);
                 if (notificationShowInStatusBar) {
                     KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                     if (myKM != null) {
@@ -4555,7 +4555,7 @@ public class PhoneProfilesService extends Service
                 phoneProfilesNotification = notificationBuilder.build();
             } catch (Exception e) {
                 phoneProfilesNotification = null;
-                PPApplication.logE("PhoneProfilesService.showProfileNotification", "build crash="+ Log.getStackTraceString(e));
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "build crash="+ Log.getStackTraceString(e));
             }
 
             if (phoneProfilesNotification != null) {
@@ -4596,7 +4596,7 @@ public class PhoneProfilesService extends Service
         }*/
     }
 
-    private void showProfileNotification() {
+    void showProfileNotification() {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (BuildConfig.DEBUG)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);

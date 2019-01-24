@@ -511,7 +511,7 @@ public class DataWrapper {
 
     void updateNotificationAndWidgets()
     {
-        PPApplication.showProfileNotification(context);
+        PPApplication.showProfileNotification(/*context*/);
         ActivateProfileHelper.updateGUI(context, true);
     }
 
@@ -999,7 +999,7 @@ public class DataWrapper {
 
                     if (!(event._forceRun && event._noPauseByManualActivation)) {
                         // for "push" events, set startTime to 0
-                        clearSensorsStartTime(true);
+                        clearSensorsStartTime(event, true);
                     }
                 }
             }
@@ -1435,8 +1435,12 @@ public class DataWrapper {
             ActivateProfileHelper.lockRefresh = false;
         }
 
+        PPApplication.logE("$$$ DataWrapper._activateProfile","before activation");
+
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
+
+        PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
         String profileIcon = "";
         int profileDuration = 0;
@@ -1477,8 +1481,12 @@ public class DataWrapper {
             }
         }
 
-        PPApplication.showProfileNotification(context);
+        PPApplication.logE("$$$ DataWrapper._activateProfile","before update GUI");
+
+        PPApplication.showProfileNotification(/*context*/);
         ActivateProfileHelper.updateGUI(context, true);
+
+        PPApplication.logE("$$$ DataWrapper._activateProfile","after update GUI");
 
         if (profile != null)
             ActivateProfileHelper.execute(context, profile);
@@ -1525,7 +1533,6 @@ public class DataWrapper {
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper.activateProfileFromMainThread");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
-
                     PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start in handler");
                     dataWrapper._activateProfile(_profile, merged, startupSource);
                     if (interactive) {
@@ -1813,7 +1820,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).activateProfile(profile);
             setProfileActive(profile);
 
-            PPApplication.showProfileNotification(context);
+            PPApplication.showProfileNotification(/*context*/);
             ActivateProfileHelper.updateGUI(context, true);
 
             // for startActivityForResult
@@ -1838,7 +1845,7 @@ public class DataWrapper {
             PPApplication.logE("DataWrapper.activateProfileAfterDuration", "no activate");
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
-            PPApplication.showProfileNotification(context);
+            PPApplication.showProfileNotification(/*context*/);
             ActivateProfileHelper.updateGUI(context, true);
             return;
         }
@@ -4128,7 +4135,7 @@ public class DataWrapper {
                 public void onClick(DialogInterface dialog, int which) {
                     PPApplication.logE("DataWrapper.runStopEventsWithAlert", "stop");
                     if (runStopEvents(true)) {
-                        PPApplication.showProfileNotification(activity.getApplicationContext());
+                        PPApplication.showProfileNotification(/*activity.getApplicationContext()*/);
                         if (activity instanceof EditorProfilesActivity)
                             ((EditorProfilesActivity) activity).refreshGUI(false, true);
                         else if (activity instanceof ActivateProfileActivity)
@@ -4158,7 +4165,7 @@ public class DataWrapper {
         }
         else {
             if (runStopEvents(false)) {
-                PPApplication.showProfileNotification(activity.getApplicationContext());
+                PPApplication.showProfileNotification(/*activity.getApplicationContext()*/);
                 if (activity instanceof EditorProfilesActivity)
                     ((EditorProfilesActivity) activity).refreshGUI(false, true);
                 else if (activity instanceof ActivateProfileActivity)
@@ -4252,39 +4259,43 @@ public class DataWrapper {
         return false;
     }
 
+    void clearSensorsStartTime(Event _event, boolean force) {
+        if (force || _event._eventPreferencesSMS._permanentRun) {
+            _event._eventPreferencesSMS._startTime = 0;
+            //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
+            //    PPApplication.logE("[SMS sensor] DataWrapper.clearSensorsStartTime", "startTime="+_event._eventPreferencesSMS._startTime);
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
+            _event._eventPreferencesSMS.removeAlarm(context);
+        }
+
+        //if (force || _event._eventPreferencesNotification._permanentRun) {
+        //_event._eventPreferencesNotification._startTime = 0;
+        //dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
+        //_event._eventPreferencesNotification.removeAlarm(context);
+        //}
+
+        if (force || _event._eventPreferencesNFC._permanentRun) {
+            _event._eventPreferencesNFC._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCStartTime(_event);
+            _event._eventPreferencesNFC.removeAlarm(context);
+        }
+
+        if (force || _event._eventPreferencesCall._permanentRun) {
+            _event._eventPreferencesCall._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
+            _event._eventPreferencesCall.removeAlarm(context);
+        }
+
+        if (force || _event._eventPreferencesAlarmClock._permanentRun) {
+            _event._eventPreferencesAlarmClock._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
+            _event._eventPreferencesAlarmClock.removeAlarm(context);
+        }
+    }
+
     void clearSensorsStartTime(boolean force) {
         for (Event _event : eventList) {
-            if (force || _event._eventPreferencesSMS._permanentRun) {
-                _event._eventPreferencesSMS._startTime = 0;
-                //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
-                //    PPApplication.logE("[SMS sensor] DataWrapper.clearSensorsStartTime", "startTime="+_event._eventPreferencesSMS._startTime);
-                DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);
-                _event._eventPreferencesSMS.removeAlarm(context);
-            }
-
-            //if (force || _event._eventPreferencesNotification._permanentRun) {
-                //_event._eventPreferencesNotification._startTime = 0;
-                //dataWrapper.getDatabaseHandler().updateNotificationStartTime(_event);
-                //_event._eventPreferencesNotification.removeAlarm(context);
-            //}
-
-            if (force || _event._eventPreferencesNFC._permanentRun) {
-                _event._eventPreferencesNFC._startTime = 0;
-                DatabaseHandler.getInstance(context.getApplicationContext()).updateNFCStartTime(_event);
-                _event._eventPreferencesNFC.removeAlarm(context);
-            }
-
-            if (force || _event._eventPreferencesCall._permanentRun) {
-                _event._eventPreferencesCall._startTime = 0;
-                DatabaseHandler.getInstance(context.getApplicationContext()).updateCallStartTime(_event);
-                _event._eventPreferencesCall.removeAlarm(context);
-            }
-
-            if (force || _event._eventPreferencesAlarmClock._permanentRun) {
-                _event._eventPreferencesAlarmClock._startTime = 0;
-                DatabaseHandler.getInstance(context.getApplicationContext()).updateAlarmClockStartTime(_event);
-                _event._eventPreferencesAlarmClock.removeAlarm(context);
-            }
+            clearSensorsStartTime(_event, force);
         }
     }
 

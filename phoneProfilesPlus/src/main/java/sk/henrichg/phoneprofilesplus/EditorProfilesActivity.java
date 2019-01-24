@@ -2016,7 +2016,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
             fragment.updateHeader(activeProfile);
-            PPApplication.showProfileNotification(getApplicationContext());
+            PPApplication.showProfileNotification(/*getApplicationContext()*/);
             ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
 
             fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

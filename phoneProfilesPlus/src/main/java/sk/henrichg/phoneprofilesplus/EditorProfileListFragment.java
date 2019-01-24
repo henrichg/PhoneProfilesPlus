@@ -469,7 +469,7 @@ public class EditorProfileListFragment extends Fragment
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
-            PPApplication.showProfileNotification(activityDataWrapper.context);
+            PPApplication.showProfileNotification(/*activityDataWrapper.context*/);
             ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
         }
         else
@@ -584,7 +584,7 @@ public class EditorProfileListFragment extends Fragment
                     //Profile profile = databaseHandler.getActivatedProfile();
                     //Profile profile = profileListAdapter.getActivatedProfile();
                     updateHeader(null);
-                    PPApplication.showProfileNotification(activityDataWrapper.context);
+                    PPApplication.showProfileNotification(/*activityDataWrapper.context*/);
                     ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
 
                     activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

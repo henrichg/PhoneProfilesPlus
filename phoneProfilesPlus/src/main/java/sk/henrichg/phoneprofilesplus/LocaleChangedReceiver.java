@@ -23,7 +23,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                     @Override
                     public void run() {
                         if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
-                            PPApplication.showProfileNotification(appContext);
+                            PPApplication.showProfileNotification(/*appContext*/);
                         }
                     }
                 });
