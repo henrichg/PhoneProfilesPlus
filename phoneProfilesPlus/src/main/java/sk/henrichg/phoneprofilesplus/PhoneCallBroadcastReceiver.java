@@ -126,6 +126,9 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "incoming="+incoming);
 
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().stopSimulatingRingingCall();
+
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
         do {
