@@ -4259,7 +4259,7 @@ public class DataWrapper {
         return false;
     }
 
-    void clearSensorsStartTime(Event _event, boolean force) {
+    private void clearSensorsStartTime(Event _event, boolean force) {
         if (force || _event._eventPreferencesSMS._permanentRun) {
             _event._eventPreferencesSMS._startTime = 0;
             //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
@@ -4293,9 +4293,9 @@ public class DataWrapper {
         }
     }
 
-    void clearSensorsStartTime(boolean force) {
+    void clearSensorsStartTime(/*boolean force*/) {
         for (Event _event : eventList) {
-            clearSensorsStartTime(_event, force);
+            clearSensorsStartTime(_event, false/*force*/);
         }
     }
 

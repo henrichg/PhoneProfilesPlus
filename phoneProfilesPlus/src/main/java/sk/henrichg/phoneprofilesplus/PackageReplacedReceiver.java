@@ -11,7 +11,7 @@ import android.os.PowerManager;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
-    static boolean restartService;
+    static private boolean restartService;
 
     @Override
     public void onReceive(Context context, Intent intent) {

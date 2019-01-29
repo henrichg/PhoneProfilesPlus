@@ -145,7 +145,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_ALARM_CLOCK_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.AlarmClockBroadcastReceiver";
     static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.AlarmClockEventEndBroadcastReceiver";
 
-    static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
+    //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
     static final String EXTRA_START_ON_BOOT = "start_on_boot";
@@ -3343,12 +3343,12 @@ public class PhoneProfilesService extends Service
 
         if (!doForFirstStart(intent/*, flags, startId*/)) {
             if (intent != null) {
-                if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
+                /*if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
                     // not needed, is already called in start of onStartCommand
                     //showProfileNotification();
                 }
-                else
+                else*/
                 if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
                     clearProfileNotification(/*this*/);
