@@ -3119,11 +3119,13 @@ public class PhoneProfilesService extends Service
             return true;
         }
 
+        /*
         if ((!startOnPackageReplace) && PPApplication.isNewVersion(getApplicationContext())) {
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "is new version but not EXTRA_START_ON_PACKAGE_REPLACE");
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
             return true;
         }
+        */
 
         serviceRunning = true;
 
