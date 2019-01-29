@@ -11,12 +11,16 @@ import android.os.PowerManager;
 
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
+    static boolean restartService;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
 
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
             PPApplication.logE("##### PackageReplacedReceiver.onReceive", "xxx");
+
+            restartService = false;
 
             //PackageReplacedJob.start(context.getApplicationContext());
 
@@ -38,12 +42,12 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             } catch (Exception ignored) {
             }
 
-            PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.2");
+            PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.1");
             final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
             handler2.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PackageReplacedReceiver.onReceive.2");
+                    PPApplication.logE("PackageReplacedReceiver.onReceive", "PackageReplacedReceiver.onReceive.1");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -75,12 +79,16 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "applicationEventUsePriority=true");
                                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY, true);
                                     editor.apply();
+
+                                    restartService = true;
                                 }
                                 if (actualVersionCode <= 2400) {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "donation alarm restart");
                                     PPApplication.setDaysAfterFirstStart(appContext, 0);
                                     PPApplication.setDonationNotificationCount(appContext, 0);
                                     DonationNotificationJob.scheduleJob(appContext, true);
+
+                                    restartService = true;
                                 }
                                 if (actualVersionCode <= 2500) {
                                     // for old packages hide profile notification from status bar if notification is disabled
@@ -91,6 +99,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             PPApplication.logE("PackageReplacedReceiver.onReceive", "notificationShowInStatusBar=false");
                                             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, false);
                                             editor.apply();
+
+                                            restartService = true;
                                         }
                                     }
                                 }
@@ -114,12 +124,16 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS_SAVE, false);
                                     editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, false);
                                     editor.apply();
+
+                                    restartService = true;
                                 }
                                 if (actualVersionCode <= 3200) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                     editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
                                     editor.apply();
+
+                                    restartService = true;
                                 }
                                 if (actualVersionCode <= 3500) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
@@ -154,6 +168,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         if (rescan.equals("2"))
                                             editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELLS_RESCAN, "3");
                                         editor.apply();
+
+                                        restartService = true;
                                     }
 
                                     // continue donation notification
@@ -169,6 +185,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IF_BLUETOOTH_OFF,
                                             ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, true));
                                     editor.apply();
+
+                                    restartService = true;
                                 }
 
                                 if (actualVersionCode <= 4100) {
@@ -179,6 +197,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         SharedPreferences.Editor editor = preferences.edit();
                                         editor.putInt(Profile.PREF_PROFILE_DEVICE_WIFI_AP, 0);
                                         editor.apply();
+
+                                        restartService = true;
                                     }
                                 }
 
@@ -194,6 +214,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.putInt(Profile.PREF_PROFILE_LOCK_DEVICE, 1);
                                         editor.apply();
                                     }
+
+                                    restartService = true;
                                 }
 
                                 if (actualVersionCode <= 4400) {
@@ -210,14 +232,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType(appContext));
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor(appContext));
                                         editor.apply();
+
+                                        restartService = true;
                                     }
                                 }
                             }
                         } catch (Exception ignored) {
                         }
-
-                        PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "start PhoneProfilesService");
-                        startService(dataWrapper);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -227,13 +248,44 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                     }
                 }
             });
+
+            PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.2");
+            final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
+            handler3.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PackageReplacedReceiver.onReceive.2");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        if (restartService) {
+                            //PPApplication.sleep(3000);
+                            if (PPApplication.getApplicationStarted(appContext, true)) {
+                                PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "restart PhoneProfilesService");
+                                startService(dataWrapper);
+                            }
+                        }
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                    }
+                }
+            }, 15000);
+
         }
     }
 
     private void startService(DataWrapper dataWrapper) {
         boolean isStarted = PPApplication.getApplicationStarted(dataWrapper.context, false);
 
-        //PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
+        PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
         if (isStarted)
         {

@@ -73,6 +73,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication.isMIUI"
                                          +"|PPApplication.isEMUI"
                                          +"|PPApplication.isSamsung"
+                                         +"|PPApplication._exitApp"
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
@@ -80,15 +81,15 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
-                                         /*+"|DataWrapper.firstStartEvents"
-                                         +"|BootUpReceiver"*/
+                                         //+"|DataWrapper.firstStartEvents"
+                                         +"|BootUpReceiver"
                                          +"|PackageReplacedReceiver"
-                                         /*+"|PhoneProfilesBackupAgent"
+                                         //+"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
-                                         +"|DatabaseHandler.onUpgrade"
-                                         /*+"|EditorProfilesActivity.doImportData"
+                                         /*+"|DatabaseHandler.onUpgrade"
+                                         +"|EditorProfilesActivity.doImportData"
                                          +"|PPApplication.setBlockProfileEventActions"
-                                         //+"|ImportantInfoHelpFragment.onViewCreated"
+                                         +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
                                          //+"|LauncherActivity.onStart"
@@ -131,7 +132,7 @@ public class PPApplication extends Application {
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|SettingsContentObserver.onChange"
 
-                                         +"|$$$ DataWrapper._activateProfile"
+                                         //+"|$$$ DataWrapper._activateProfile"
                                          //+"|ProfileDurationAlarmBroadcastReceiver.onReceive"
                                          //+"|DataWrapper.activateProfileAfterDuration"
                                          //+"|DataWrapper.getIsManualProfileActivation"
@@ -622,11 +623,10 @@ public class PPApplication extends Application {
 
         if (PPApplication.getApplicationStarted(getApplicationContext(), false)) {
             try {
-                PPApplication.logE("PPApplication.onCreate", "start service");
+                PPApplication.logE("##### PPApplication.onCreate", "start service");
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                // do not change data in shared preferences and do not restart events
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
                 startPPService(getApplicationContext(), serviceIntent);
             } catch (Exception ignored) {
             }
@@ -1893,10 +1893,13 @@ public class PPApplication extends Application {
     private static void _exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
                                final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
         try {
+            PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
             // stop all events
             //if (removeAlarmClock)
             //    ApplicationPreferences.forceNotUseAlarmClock = true;
-            dataWrapper.stopAllEvents(false, false);
+
+            if (dataWrapper != null)
+                dataWrapper.stopAllEvents(false, false);
 
             if (!shutdown) {
 
@@ -1904,7 +1907,8 @@ public class PPApplication extends Application {
                 ImportantInfoNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
 
-                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
+                if (dataWrapper != null)
+                    dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONEXIT, null, null, null, 0);
 
                 if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {
@@ -1933,6 +1937,7 @@ public class PPApplication extends Application {
             GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 
+            PPApplication.logE("PPApplication._exitApp", "stop service");
             context.stopService(new Intent(context, PhoneProfilesService.class));
 
             Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
@@ -1940,6 +1945,7 @@ public class PPApplication extends Application {
             WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
             //ActivateProfileHelper.setScreenUnlocked(context, true);
 
+            PPApplication.logE("PPApplication._exitApp", "set application started = false");
             PPApplication.setApplicationStarted(context, false);
 
             if (!shutdown) {
@@ -1963,8 +1969,8 @@ public class PPApplication extends Application {
                 }*/
             }
 
-        } catch (Exception ignored) {
-
+        } catch (Exception e) {
+            PPApplication.logE("PPApplication._exitApp", Log.getStackTraceString(e));
         }
     }
 
