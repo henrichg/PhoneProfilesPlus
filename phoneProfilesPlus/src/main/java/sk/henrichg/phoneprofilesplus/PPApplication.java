@@ -469,7 +469,7 @@ public class PPApplication extends Application {
 
     public static final RootMutex rootMutex = new RootMutex();
     private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
-    public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
+    //public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     public static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
     public static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
     public static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
@@ -479,8 +479,9 @@ public class PPApplication extends Application {
     public static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
     public static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
     public static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
+    public static final BluetoothScanMutex bluetoothScanMutex = new BluetoothScanMutex();
+    public static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
     public static final BluetoothScanResultsMutex bluetoothScanResultsMutex = new BluetoothScanResultsMutex();
-    public static final BluetoothLEScanResultsMutex bluetoothLEScanResultsMutex = new BluetoothLEScanResultsMutex();
 
     //public static boolean isPowerSaveMode = false;
 
@@ -651,6 +652,7 @@ public class PPApplication extends Application {
         return false;
     }
 
+    /*
     static boolean isNewVersion(Context appContext) {
         int oldVersionCode = PPApplication.getSavedVersionCode(appContext);
         PPApplication.logE("PPApplication.isNewVersion", "oldVersionCode="+oldVersionCode);
@@ -676,6 +678,7 @@ public class PPApplication extends Application {
             return false;
         }
     }
+    */
 
     static int getVersionCode(PackageInfo pInfo) {
         //noinspection deprecation

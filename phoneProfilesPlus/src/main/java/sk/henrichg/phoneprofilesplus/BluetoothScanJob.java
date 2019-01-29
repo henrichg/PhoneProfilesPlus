@@ -427,7 +427,7 @@ class BluetoothScanJob extends Job {
     {
         if (WifiBluetoothScanner.bluetoothLESupported(context)) {
 
-            synchronized (PPApplication.bluetoothLEScanResultsMutex) {
+            synchronized (PPApplication.bluetoothLEScanMutex) {
 
                 if (bluetooth == null)
                     bluetooth = getBluetoothAdapter(context);
@@ -517,7 +517,7 @@ class BluetoothScanJob extends Job {
     }
 
     static void finishLEScan(Context context) {
-        synchronized (PPApplication.bluetoothLEScanResultsMutex) {
+        synchronized (PPApplication.bluetoothLEScanMutex) {
             PPApplication.logE("BluetoothScanJob.finishLEScan", "xxx");
 
             List<BluetoothDeviceData> scanResults = new ArrayList<>();
@@ -621,7 +621,7 @@ class BluetoothScanJob extends Job {
     //public static void getBoundedDevicesList(Context context)
     static List<BluetoothDeviceData> getBoundedDevicesList(Context context)
     {
-        synchronized (PPApplication.wifiScanResultsMutex) {
+        synchronized (PPApplication.bluetoothScanResultsMutex) {
             //if (boundedDevicesList == null)
             //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
@@ -650,7 +650,7 @@ class BluetoothScanJob extends Job {
 
     private static void saveBoundedDevicesList(Context context, List<BluetoothDeviceData> boundedDevicesList)
     {
-        synchronized (PPApplication.wifiScanResultsMutex) {
+        synchronized (PPApplication.bluetoothScanResultsMutex) {
             //if (boundedDevicesList == null)
             //    boundedDevicesList = new ArrayList<BluetoothDeviceData>();
 
@@ -674,7 +674,7 @@ class BluetoothScanJob extends Job {
 
     static List<BluetoothDeviceData> getScanResults(Context context)
     {
-        synchronized (PPApplication.wifiScanResultsMutex) {
+        synchronized (PPApplication.bluetoothScanResultsMutex) {
             List<BluetoothDeviceData> scanResults = new ArrayList<>();
 
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
@@ -715,7 +715,7 @@ class BluetoothScanJob extends Job {
     }
 
     private static void clearScanResults(Context context) {
-        synchronized (PPApplication.wifiScanResultsMutex) {
+        synchronized (PPApplication.bluetoothScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
@@ -736,7 +736,7 @@ class BluetoothScanJob extends Job {
 
     private static void saveCLScanResults(Context context, List<BluetoothDeviceData> scanResults)
     {
-        synchronized (PPApplication.wifiScanResultsMutex) {
+        synchronized (PPApplication.bluetoothScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_CL_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
@@ -756,7 +756,7 @@ class BluetoothScanJob extends Job {
 
     private static void saveLEScanResults(Context context, List<BluetoothDeviceData> scanResults)
     {
-        synchronized (PPApplication.wifiScanResultsMutex) {
+        synchronized (PPApplication.bluetoothScanResultsMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.BLUETOOTH_LE_SCAN_RESULTS_PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
 
@@ -811,7 +811,7 @@ class BluetoothScanJob extends Job {
     */
 
     static void addLEScanResult(BluetoothDeviceData device) {
-        synchronized (PPApplication.bluetoothLEScanResultsMutex) {
+        synchronized (PPApplication.bluetoothLEScanMutex) {
             if (tmpScanLEResults == null)
                 tmpScanLEResults = new ArrayList<>();
 
@@ -838,7 +838,7 @@ class BluetoothScanJob extends Job {
     }
 
     static void finishScan(final Context context) {
-        synchronized (PPApplication.bluetoothScanResultsMutex) {
+        synchronized (PPApplication.bluetoothScanMutex) {
             PPApplication.logE("BluetoothScanJob.finishScan", "BluetoothScanBroadcastReceiver: discoveryStarted=" + WifiBluetoothScanner.bluetoothDiscoveryStarted);
 
             if (WifiBluetoothScanner.bluetoothDiscoveryStarted) {

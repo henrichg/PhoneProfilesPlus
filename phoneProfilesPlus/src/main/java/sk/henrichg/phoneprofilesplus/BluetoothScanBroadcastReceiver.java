@@ -94,7 +94,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                             BluetoothScanJob.fillBoundedDevicesList(appContext);
                                         }
 
-                                        synchronized (PPApplication.bluetoothScanResultsMutex) {
+                                        synchronized (PPApplication.bluetoothScanMutex) {
                                             //noinspection ConstantConditions
                                             String btNameD = device.getName();
                                             String btNameE = "";

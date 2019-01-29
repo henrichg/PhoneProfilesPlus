@@ -106,7 +106,7 @@ class WifiBluetoothScanner {
 
             PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "before synchronized block - scannerType=" + scannerType);
 
-            synchronized (PPApplication.radioChangeStateMutex) {
+            //synchronized (PPApplication.radioChangeStateMutex) {
 
                 PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "in synchronized block - start - scannerType=" + scannerType);
 
@@ -438,7 +438,7 @@ class WifiBluetoothScanner {
 
                 PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "in synchronized block - end - scannerType=" + scannerType);
 
-            }
+            //}
 
             PPApplication.logE("$$$ WifiBluetoothScanner.doScan", "after synchronized block - scannerType=" + scannerType);
 
