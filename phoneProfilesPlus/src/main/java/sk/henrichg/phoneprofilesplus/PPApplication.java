@@ -516,16 +516,20 @@ public class PPApplication extends Application {
         if (logIntoFile)
             Permissions.grantLogToFilePermissions(getApplicationContext());
 
-        // Obtain the FirebaseAnalytics instance.
-        //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        try {
+            // Obtain the FirebaseAnalytics instance.
+            //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        // Set up Crashlytics, disabled for debug builds
-        Crashlytics crashlyticsKit = new Crashlytics.Builder()
-                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
-                .build();
+            // Set up Crashlytics, disabled for debug builds
+            Crashlytics crashlyticsKit = new Crashlytics.Builder()
+                    .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+                    .build();
 
-        Fabric.with(getApplicationContext(), crashlyticsKit);
-        // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
+            Fabric.with(getApplicationContext(), crashlyticsKit);
+            // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
+        } catch (Exception e) {
+            Log.e("PPPEApplication.onCreate", Log.getStackTraceString(e));
+        }
 
         /*
         // set up ANR-WatchDog
