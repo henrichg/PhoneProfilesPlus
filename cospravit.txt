@@ -413,3 +413,24 @@ Permissions
 - ale onRequestPermissionsResult je volany aj ked permananentne zakazem normalne permission
 - opravil som tak, ze ak withRationale == dalse a rationaleOnlyShown == true, tak len vtedy pouzije aktivitu info aplikacie.
   Vysledkom je aj to, ze sa najprv zobrazi rationale a az potom aktivita ;-)
+
+-------------------------------
+
+Direct boot:
+- toto je super na to, aby sa PPP startol aj pri uzamknutej obrazovke.
+- android.intent.action.LOCKED_BOOT_COMPLETED vid:
+    https://medium.com/@jordan_shifter/direct-boot-on-android-nougat-71f06c4a7c9e
+- Ak nepuzijes direct boot, tak apka pada napr. v Fabric, android_job.
+  To preto, lebo chcu pouzivat shared preferences a v uzamknutej obrazovke bez direct boot
+  to spadne na IllegalStateException.
+- Ako spravit podporu Direct boot:
+    https://developer.android.com/training/articles/direct-boot
+- Len mam taky strasne blby pocit, ze prave Fabric, android_job bude problem. neviem ako movnut
+  shared preferences z device do credential storage. Nepoznam nazvy shared preferences a
+  databazy.
+  Vid:
+    https://developer.android.com/reference/android/content/Context#moveSharedPreferencesFrom(android.content.Context,%20java.lang.String)
+    https://developer.android.com/reference/android/content/Context#moveDatabaseFrom(android.content.Context,%20java.lang.String)
+  Alebo, ze by pomohlo toto?
+    https://stackoverflow.com/questions/51377089/android-crashlytics-fails-on-direct-boot-due-to-disk-encryption
+
