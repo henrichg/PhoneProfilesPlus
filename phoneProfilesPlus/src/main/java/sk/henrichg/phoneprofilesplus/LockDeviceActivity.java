@@ -77,7 +77,12 @@ public class LockDeviceActivity extends AppCompatActivity {
 
             PhoneProfilesService.getInstance().screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
             ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
-            Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+
+            boolean canWriteSettings = true;
+            if (android.os.Build.VERSION.SDK_INT >= 23)
+                canWriteSettings = Settings.System.canWrite(getApplicationContext());
+            if (canWriteSettings)
+                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
             LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
         }
