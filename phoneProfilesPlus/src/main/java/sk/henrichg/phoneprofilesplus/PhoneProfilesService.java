@@ -4493,6 +4493,7 @@ public class PhoneProfilesService extends Service
             contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
             if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
+            notificationBuilder.setContentTitle(profileName);
 
             if ((preferencesIndicator != null) && (notificationPrefIndicator))
                 contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicator);
