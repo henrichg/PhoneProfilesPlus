@@ -1287,6 +1287,9 @@ Proszę przeczytać.</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Native</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Dark</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
+    <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
+    <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
+    <string name="array_pref_value_nightMode">night_mode</string>
 
 
 
