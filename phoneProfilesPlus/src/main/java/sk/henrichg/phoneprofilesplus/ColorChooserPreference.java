@@ -167,7 +167,7 @@ public class ColorChooserPreference extends DialogPreference implements View.OnC
             }
         }
 
-        String applicationTheme = ApplicationPreferences.applicationTheme(context);
+        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
 
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);

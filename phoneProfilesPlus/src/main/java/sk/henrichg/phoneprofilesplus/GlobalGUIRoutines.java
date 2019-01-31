@@ -129,7 +129,7 @@ class GlobalGUIRoutines {
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar, boolean withDrawerLayout, Context context) {
-        switch (ApplicationPreferences.applicationTheme(context)) {
+        switch (ApplicationPreferences.applicationTheme(context, true)) {
             case "color":
                 if (forPopup) {
                     if (withToolbar)

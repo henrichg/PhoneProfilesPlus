@@ -82,7 +82,7 @@ public class DonationFragment extends Fragment {
         // choose donation amount
         mGoogleSpinner = root.findViewById(
                 R.id.donation_google_android_market_spinner);
-        switch (ApplicationPreferences.applicationTheme(getActivity())) {
+        switch (ApplicationPreferences.applicationTheme(getActivity(), true)) {
             case "dark":
                 mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
                 break;

@@ -210,6 +210,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
+        String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
+
         if (/*(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) &&*/ (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -220,7 +222,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+            switch (appTheme) {
                 case "color":
                     tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
                     break;
@@ -327,7 +329,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerRoot = findViewById(R.id.editor_drawer_root);
 
         // set status bar background for Activity body layout
-        switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+        switch (appTheme) {
             case "color":
                 drawerLayout.setStatusBarBackground(R.color.primaryDark);
                 break;
@@ -453,7 +455,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     R.layout.editor_drawer_spinner);
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_drawer_spinner_dropdown);
-        switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+        switch (appTheme) {
             case "dark":
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
                 orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -734,10 +736,16 @@ public class EditorProfilesActivity extends AppCompatActivity
         menuItem = menu.findItem(R.id.menu_dark_theme);
         if (menuItem != null)
         {
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
-                menuItem.setTitle(R.string.menu_dark_theme_off);
+            String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
+            if (!appTheme.equals("night_mode")) {
+                menuItem.setVisible(true);
+                if (appTheme.equals("dark"))
+                    menuItem.setTitle(R.string.menu_dark_theme_off);
+                else
+                    menuItem.setTitle(R.string.menu_dark_theme_on);
+            }
             else
-                menuItem.setTitle(R.string.menu_dark_theme_on);
+                menuItem.setVisible(false);
         }
 
         onNextLayout(editorToolbar, new Runnable() {
@@ -794,22 +802,23 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 return true;
             case R.id.menu_dark_theme:
-                String theme = ApplicationPreferences.applicationTheme(getApplicationContext());
-                if (theme.equals("dark")) {
-                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                    theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "color");
-                    Editor editor = preferences.edit();
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, theme);
-                    editor.apply();
+                String theme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
+                if (!theme.equals("night_mode")) {
+                    if (theme.equals("dark")) {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                        theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "color");
+                        Editor editor = preferences.edit();
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, theme);
+                        editor.apply();
+                    } else {
+                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
+                        Editor editor = preferences.edit();
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
+                        editor.apply();
+                    }
+                    GlobalGUIRoutines.reloadActivity(this, true);
                 }
-                else {
-                    SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                    Editor editor = preferences.edit();
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
-                    editor.apply();
-                }
-                GlobalGUIRoutines.reloadActivity(this, true);
                 return true;
             case R.id.menu_export:
                 exportData();
@@ -2192,7 +2201,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void setEventsRunStopIndicator()
     {
-        boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white");
+        boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
         if (Event.getGlobalEventsRunning(getApplicationContext()))
         {
             if (Event.getEventsBlocked(getApplicationContext())) {
@@ -2300,13 +2309,14 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 //final Display display = getWindowManager().getDefaultDisplay();
 
+                String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
                 int circleColor = R.color.tabTargetHelpCircleColor;
-                if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+                if (appTheme.equals("dark"))
                     circleColor = R.color.tabTargetHelpCircleColor_dark;
                 int textColor = R.color.tabTargetHelpTextColor;
-                if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
+                if (appTheme.equals("white"))
                     textColor = R.color.tabTargetHelpTextColor_white;
-                boolean tintTarget = !ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white");
+                boolean tintTarget = !appTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
                 if (Event.getGlobalEventsRunning(getApplicationContext())) {

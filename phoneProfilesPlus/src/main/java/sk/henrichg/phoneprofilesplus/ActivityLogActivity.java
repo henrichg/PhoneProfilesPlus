@@ -45,7 +45,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+            switch (ApplicationPreferences.applicationTheme(getApplicationContext(), true)) {
                 case "color":
                     tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
                     break;

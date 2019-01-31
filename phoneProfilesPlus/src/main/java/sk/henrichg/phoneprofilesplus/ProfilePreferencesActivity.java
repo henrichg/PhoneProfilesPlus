@@ -62,7 +62,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+            switch (ApplicationPreferences.applicationTheme(getApplicationContext(), true)) {
                 case "color":
                     tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
                     break;
@@ -660,7 +660,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         ApplicationPreferences.getSharedPreferences(this);
 
-        String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext());
+        String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
         if (!showSaveMenu) {
             if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {

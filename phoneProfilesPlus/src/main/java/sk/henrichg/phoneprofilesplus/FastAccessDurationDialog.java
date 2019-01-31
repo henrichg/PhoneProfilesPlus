@@ -211,7 +211,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mTextViewRange.setText(sMin + " - " + sMax);
 
         Spinner afterDoSpinner = layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
-        switch (ApplicationPreferences.applicationTheme(mActivity)) {
+        switch (ApplicationPreferences.applicationTheme(mActivity, true)) {
             case "dark":
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
                 break;

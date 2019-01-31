@@ -75,7 +75,7 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
             if (Build.VERSION.SDK_INT >= 21)
                 holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
             else {
-                if (ApplicationPreferences.applicationTheme(context).equals("dark"))
+                if (ApplicationPreferences.applicationTheme(context, true).equals("dark"))
                     holder.icon.setBackgroundResource(R.drawable.abc_list_selector_background_transition_holo_dark);
                 else
                     holder.icon.setBackgroundResource(R.drawable.abc_list_selector_background_transition_holo_light);

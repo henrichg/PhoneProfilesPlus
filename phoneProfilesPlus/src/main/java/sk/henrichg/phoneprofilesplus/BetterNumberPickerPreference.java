@@ -109,7 +109,7 @@ class BetterNumberPickerPreference extends DialogPreference {
         mNumberPicker.setDecimalVisibility(View.INVISIBLE);
         //mNumberPicker.setLabelText(getContext().getString(R.string.minutes_label_description));
         mNumberPicker.setNumber(Integer.valueOf(value), null, null);
-        if (ApplicationPreferences.applicationTheme(context).equals("dark"))
+        if (ApplicationPreferences.applicationTheme(context, true).equals("dark"))
             mNumberPicker.setTheme(R.style.BetterPickersDialogFragment);
         else
             mNumberPicker.setTheme(R.style.BetterPickersDialogFragment_Light);

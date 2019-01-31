@@ -365,13 +365,14 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
 
             //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
+            String appTheme = ApplicationPreferences.applicationTheme(activity, true);
             int circleColor = R.color.tabTargetHelpCircleColor;
-            if (ApplicationPreferences.applicationTheme(activity).equals("dark"))
+            if (appTheme.equals("dark"))
                 circleColor = R.color.tabTargetHelpCircleColor_dark;
             int textColor = R.color.tabTargetHelpTextColor;
-            if (ApplicationPreferences.applicationTheme(activity).equals("white"))
+            if (appTheme.equals("white"))
                 textColor = R.color.tabTargetHelpTextColor_white;
-            boolean tintTarget = !ApplicationPreferences.applicationTheme(activity).equals("white");
+            boolean tintTarget = !appTheme.equals("white");
 
             if (startTargetHelps) {
                 //Log.d("EditorProfileListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS=true");

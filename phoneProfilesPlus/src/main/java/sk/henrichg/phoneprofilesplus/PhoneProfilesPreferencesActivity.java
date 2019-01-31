@@ -65,7 +65,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+            switch (ApplicationPreferences.applicationTheme(getApplicationContext(), true)) {
                 case "color":
                     tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
                     break;
@@ -215,7 +215,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
             invalidateEditor = true;
         }
         else
-        if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext)))
+        if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
             //EditorProfilesActivity.setTheme(this, false);
             invalidateEditor = true;

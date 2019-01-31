@@ -68,7 +68,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             // enable status bar tint
             tintManager.setStatusBarTintEnabled(true);
             // set a custom tint color for status bar
-            switch (ApplicationPreferences.applicationTheme(getApplicationContext())) {
+            switch (ApplicationPreferences.applicationTheme(getApplicationContext(), true)) {
                 case "color":
                     tintManager.setStatusBarTintColor(ContextCompat.getColor(getBaseContext(), R.color.primary));
                     break;
@@ -572,13 +572,14 @@ public class EventPreferencesActivity extends PreferenceActivity
 
             //final Display display = getWindowManager().getDefaultDisplay();
 
+            String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
             int circleColor = R.color.tabTargetHelpCircleColor;
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+            if (appTheme.equals("dark"))
                 circleColor = R.color.tabTargetHelpCircleColor_dark;
             int textColor = R.color.tabTargetHelpTextColor;
-            if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
+            if (appTheme.equals("white"))
                 textColor = R.color.tabTargetHelpTextColor_white;
-            boolean tintTarget = !ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white");
+            boolean tintTarget = !appTheme.equals("white");
 
             final TapTargetSequence sequence = new TapTargetSequence(this);
             List<TapTarget> targets = new ArrayList<>();

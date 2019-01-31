@@ -397,7 +397,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     public void setEventsRunStopIndicator()
     {
-        boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white");
+        boolean whiteTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true).equals("white");
         if (Event.getGlobalEventsRunning(getApplicationContext()))
         {
             if (Event.getEventsBlocked(getApplicationContext())) {
@@ -465,13 +465,14 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
                 editor.apply();
 
+                String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
                 int circleColor = R.color.tabTargetHelpCircleColor;
-                if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("dark"))
+                if (appTheme.equals("dark"))
                     circleColor = R.color.tabTargetHelpCircleColor_dark;
                 int textColor = R.color.tabTargetHelpTextColor;
-                if (ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white"))
+                if (appTheme.equals("white"))
                     textColor = R.color.tabTargetHelpTextColor_white;
-                boolean tintTarget = !ApplicationPreferences.applicationTheme(getApplicationContext()).equals("white");
+                boolean tintTarget = !appTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
                 List<TapTarget> targets = new ArrayList<>();

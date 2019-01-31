@@ -140,7 +140,7 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
             }
         }
 
-        String applicationTheme = ApplicationPreferences.applicationTheme(activity);
+        String applicationTheme = ApplicationPreferences.applicationTheme(activity, true);
 
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);

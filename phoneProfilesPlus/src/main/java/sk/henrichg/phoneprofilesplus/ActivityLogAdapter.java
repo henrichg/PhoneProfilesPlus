@@ -70,7 +70,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(DatabaseHandler.ALTYPE_APPLICATIONUPGRADE, R.string.altype_applicationUpgrade);
 
         int otherColor;
-        switch (ApplicationPreferences.applicationTheme(context)) {
+        switch (ApplicationPreferences.applicationTheme(context, true)) {
             case "color":
                 otherColor = R.color.altype_other;
                 break;

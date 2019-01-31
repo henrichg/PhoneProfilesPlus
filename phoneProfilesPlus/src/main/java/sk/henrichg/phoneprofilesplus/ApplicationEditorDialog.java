@@ -135,7 +135,7 @@ class ApplicationEditorDialog
         });
 
         Spinner filterSpinner = layout.findViewById(R.id.applications_editor_dialog_filter_spinner);
-        switch (ApplicationPreferences.applicationTheme(activity)) {
+        switch (ApplicationPreferences.applicationTheme(activity, true)) {
             case "dark":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
                 break;
