@@ -4169,12 +4169,13 @@ public class PhoneProfilesService extends Service
 
             boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(appContext);
             boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
-            boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
+            //boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
             boolean notificationUseDecoration = ApplicationPreferences.notificationUseDecoration(appContext);
             boolean notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator(appContext);
             boolean notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen(appContext);
             String notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle(appContext);
             String notificationTextColor = ApplicationPreferences.notificationTextColor(appContext);
+            String notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor(appContext);
 
             // intent to LauncherActivity, for click on notification
             Intent intent = new Intent(appContext, LauncherActivity.class);
@@ -4215,16 +4216,23 @@ public class PhoneProfilesService extends Service
                 uiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
             }*/
 
-            int nightModeFlags =
-                    appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            switch (nightModeFlags) {
-                case Configuration.UI_MODE_NIGHT_YES:
-                    notificationDarkBackground = true;
-                    break;
-                case Configuration.UI_MODE_NIGHT_NO:
-                    break;
-                case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                    break;
+            boolean notificationDarkBackground = false;
+            if (notificationBackgroundColor.equals("1")) {
+                notificationDarkBackground = true;
+            }
+            else
+            if (notificationBackgroundColor.equals("2")) {
+                int nightModeFlags =
+                        appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                switch (nightModeFlags) {
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        notificationDarkBackground = true;
+                        break;
+                    case Configuration.UI_MODE_NIGHT_NO:
+                        break;
+                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                        break;
+                }
             }
 
             boolean useDecorator = (!PPApplication.romIsMIUI) || (Build.VERSION.SDK_INT >= 26);

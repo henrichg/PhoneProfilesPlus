@@ -1159,25 +1159,25 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
         }
 
-        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_DARK_BACKGROUND)) {
-            boolean darkBackground = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_DARK_BACKGROUND, false);
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR)) {
+            String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
             Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
             if (_preference != null)
-                _preference.setEnabled(!darkBackground);
+                _preference.setEnabled(backgroundColor.equals("0"));
             _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
             if (_preference != null)
-                _preference.setEnabled(!darkBackground);
+                _preference.setEnabled(backgroundColor.equals("0"));
             boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
             _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
             if (_preference != null)
-                _preference.setEnabled(useDecoration && !darkBackground);
+                _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
         }
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION)) {
             boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
-            boolean darkBackground = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_DARK_BACKGROUND, false);
+            String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
             Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
             if (_preference != null)
-                _preference.setEnabled(useDecoration && !darkBackground);
+                _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
         }
 
         // Do not bind toggles.

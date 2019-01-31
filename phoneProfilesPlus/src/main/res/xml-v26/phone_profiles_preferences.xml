@@ -254,11 +254,13 @@
                 android:defaultValue="true"
                 android:widgetLayout="@layout/mp_preference_switch"
                 android:layout="@layout/mp_preference_material_widget" />
-            <CheckBoxPreference
-                android:key="notificationDarkBackground"
-                android:title="@string/phone_profiles_pref_notificationDarkBackground"
-                android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch"
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                android:title="@string/phone_profiles_pref_notificationBackgroundColor"
+                android:summary="@string/phone_profiles_pref_notificationBackgroundColor_android"
+                android:key="notificationBackgroundColor"
+                android:defaultValue="0"
+                android:entries="@array/notificationBackgroundColorArray"
+                android:entryValues="@array/notificationBackgroundColorValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/phone_profiles_pref_notificationTextColor"

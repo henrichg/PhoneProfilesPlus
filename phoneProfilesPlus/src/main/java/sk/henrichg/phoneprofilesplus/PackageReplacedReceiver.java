@@ -236,6 +236,18 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         restartService = true;
                                     }
                                 }
+
+                                if (actualVersionCode <= 4540) {
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    boolean darkBackground = ApplicationPreferences.preferences.getBoolean("notificationDarkBackground", false);
+                                    if (darkBackground) {
+                                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "1");
+                                        editor.apply();
+
+                                        restartService = true;
+                                    }
+                                }
                             }
                         } catch (Exception ignored) {
                         }

@@ -73,7 +73,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         if (Build.VERSION.SDK_INT < 26)
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
-        setSummary(ApplicationPreferences.PREF_NOTIFICATION_DARK_BACKGROUND);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
 

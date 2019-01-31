@@ -1244,6 +1244,17 @@
         <item>1</item>
         <item>2</item>
     </string-array> -->
+    <string-array name="notificationBackgroundColorArray">
+        <item>@string/phone_profiles_pref_notificationBackgroundColor_android</item>
+        <item>@string/phone_profiles_pref_notificationBackgroundColor_dark</item>
+        <item>@string/phone_profiles_pref_notificationBackgroundColor_nightMode</item>
+    </string-array>
+    <string-array name="notificationBackgroundColorValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 
 <!--
     <string-array name="screenNightModeArray">
