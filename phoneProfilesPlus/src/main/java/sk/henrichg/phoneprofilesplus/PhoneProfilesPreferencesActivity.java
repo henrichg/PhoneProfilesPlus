@@ -26,6 +26,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     private boolean showEditorHeader;
     private String activeLanguage;
     private String activeTheme;
+    private String activeNightModeOffTheme;
     private boolean locationScannerEnabled;
     private boolean wifiScannerEnabled;
     private boolean bluetoothScannerEnabled;
@@ -88,6 +89,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         ApplicationPreferences.getSharedPreferences(this);
         activeLanguage = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
         activeTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, "color");
+        activeNightModeOffTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "color");
         showEditorPrefIndicator = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
         showEditorHeader = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER, true);
 
@@ -216,6 +218,12 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         }
         else
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
+        {
+            //EditorProfilesActivity.setTheme(this, false);
+            invalidateEditor = true;
+        }
+        else
+        if (!activeNightModeOffTheme.equals(ApplicationPreferences.applicationNightModeOffTheme(appContext)))
         {
             //EditorProfilesActivity.setTheme(this, false);
             invalidateEditor = true;

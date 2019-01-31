@@ -142,6 +142,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_USE_DECORATION = "notificationUseDecoration";
     static final String PREF_NOTIFICATION_LAYOUT_TYPE = "notificationLayoutType";
     static final String PREF_NOTIFICATION_BACKGROUND_COLOR = "notificationBackgroundColor";
+    static final String PREF_APPLICATION_NIGHT_MODE_OFF_THEME = "applicationNightModeOffTheme";
 
     //static boolean forceNotUseAlarmClock = false;
 
@@ -205,10 +206,10 @@ class ApplicationPreferences {
                     applicationTheme = "dark";
                     break;
                 case Configuration.UI_MODE_NIGHT_NO:
-                    applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_NOT_DARK_THEME, "color");
+                    applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "color");
                     break;
                 case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                    applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_NOT_DARK_THEME, "color");
+                    applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "color");
                     break;
             }
         }
@@ -719,6 +720,10 @@ class ApplicationPreferences {
 
     static String notificationBackgroundColor(Context context) {
         return getSharedPreferences(context).getString(PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+    }
+
+    static String applicationNightModeOffTheme(Context context) {
+        return getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "color");
     }
 
 }

@@ -139,12 +139,14 @@
         <item>@string/phone_profiles_pref_applicationTheme_dark</item>
         <item>@string/phone_profiles_pref_applicationTheme_dlight</item>
         <item>@string/phone_profiles_pref_applicationTheme_white</item>
+        <item>@string/phone_profiles_pref_applicationTheme_nightMode</item>
     </string-array>
     <string-array name="themeValues">
         <item>@string/array_pref_value_color</item>
         <item>@string/array_pref_value_dark</item>
         <item>@string/array_pref_value_dlight</item>
         <item>@string/array_pref_value_white</item>
+        <item>@string/array_pref_value_nightMode</item>
     </string-array>
     <string-array name="widgetBackgroundArray">
         <item>@string/array_pref_value_0_percent</item>
@@ -1253,6 +1255,16 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+    </string-array>
+    <string-array name="nightModeOffThemeArray">
+        <item>@string/phone_profiles_pref_applicationTheme_color</item>
+        <item>@string/phone_profiles_pref_applicationTheme_dlight</item>
+        <item>@string/phone_profiles_pref_applicationTheme_white</item>
+    </string-array>
+    <string-array name="nightModeOffThemeValues">
+        <item>@string/array_pref_value_color</item>
+        <item>@string/array_pref_value_dlight</item>
+        <item>@string/array_pref_value_white</item>
     </string-array>
 
 
