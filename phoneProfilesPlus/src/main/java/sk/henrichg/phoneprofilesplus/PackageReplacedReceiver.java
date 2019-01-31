@@ -237,7 +237,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (actualVersionCode <= 4540) {
+                                if (actualVersionCode <= 4548) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     boolean darkBackground = ApplicationPreferences.preferences.getBoolean("notificationDarkBackground", false);
                                     if (darkBackground) {
@@ -248,6 +248,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         restartService = true;
                                     }
                                 }
+
+                                PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
                             }
                         } catch (Exception ignored) {
                         }
@@ -273,6 +275,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PackageReplacedReceiver.onReceive.2");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
+
+                        PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
 
                         if (restartService) {
                             //PPApplication.sleep(3000);
