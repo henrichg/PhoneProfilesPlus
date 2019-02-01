@@ -281,8 +281,36 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         if (restartService) {
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, true)) {
-                                PPApplication.logE("@@@ PackageReplacedReceiver.onReceive", "restart PhoneProfilesService");
+                                PPApplication.logE("PackageReplacedReceiver.onReceive", "restart PhoneProfilesService");
                                 startService(dataWrapper);
+                            }
+                        }
+                        else {
+                            //PPApplication.sleep(3000);
+                            if (PPApplication.getApplicationStarted(appContext, true)) {
+                                final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
+
+                                // start events
+                                if (Event.getGlobalEventsRunning(appContext)) {
+                                    PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is enabled, first start events");
+
+                                    if (!dataWrapper.getIsManualProfileActivation(false)) {
+                                        ////// unblock all events for first start
+                                        //     that may be blocked in previous application run
+                                        dataWrapper.pauseAllEvents(true, false/*, false*/);
+                                    }
+
+                                    dataWrapper.firstStartEvents(true, false);
+                                } else {
+                                    PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is not enabled, manually activate profile");
+
+                                    ////// unblock all events for first start
+                                    //     that may be blocked in previous application run
+                                    dataWrapper.pauseAllEvents(true, false/*, false*/);
+
+                                    dataWrapper.activateProfileOnBoot();
+                                }
                             }
                         }
                     } finally {
@@ -308,12 +336,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             PPApplication.sleep(2000);
 
             // start PhoneProfilesService
-            PPApplication.logE("@@@ PackageReplacedReceiver.startService", "xxx");
+            PPApplication.logE("PackageReplacedReceiver.startService", "xxx");
             PPApplication.setApplicationStarted(dataWrapper.context, true);
             Intent serviceIntent = new Intent(dataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(dataWrapper.context, serviceIntent);
 
             //PPApplication.sleep(2000);

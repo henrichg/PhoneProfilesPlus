@@ -65,8 +65,36 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
+                                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_BOOT, true);
                                 PPApplication.startPPService(appContext, serviceIntent);
+                            }
+                            else {
+                                PPApplication.logE("BootUpReceiver.onReceive", "activate profiles");
+
+                                final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                                dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
+
+                                // start events
+                                if (Event.getGlobalEventsRunning(appContext)) {
+                                    PPApplication.logE("BootUpReceiver.onReceive", "global event run is enabled, first start events");
+
+                                    if (!dataWrapper.getIsManualProfileActivation(false)) {
+                                        ////// unblock all events for first start
+                                        //     that may be blocked in previous application run
+                                        dataWrapper.pauseAllEvents(true, false/*, false*/);
+                                    }
+
+                                    dataWrapper.firstStartEvents(true, false);
+                                } else {
+                                    PPApplication.logE("BootUpReceiver.onReceive", "global event run is not enabled, manually activate profile");
+
+                                    ////// unblock all events for first start
+                                    //     that may be blocked in previous application run
+                                    dataWrapper.pauseAllEvents(true, false/*, false*/);
+
+                                    dataWrapper.activateProfileOnBoot();
+                                }
                             }
                         } else {
                             PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);

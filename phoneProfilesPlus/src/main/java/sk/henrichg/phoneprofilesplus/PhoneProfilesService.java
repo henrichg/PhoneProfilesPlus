@@ -154,6 +154,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_ON_PACKAGE_REPLACE = "start_on_package_replace";
     static final String EXTRA_ONLY_START = "only_start";
     static final String EXTRA_INITIALIZE_START = "initialize_start";
+    static final String EXTRA_ACTIVATE_PROFILES = "activate_profiles";
     static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
     static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
@@ -3094,12 +3095,14 @@ public class PhoneProfilesService extends Service
 
         boolean onlyStart = true;
         boolean initializeStart = false;
+        boolean activateProfiles = false;
         boolean startOnBoot = false;
         boolean startOnPackageReplace = false;
 
         if (intent != null) {
             onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
             initializeStart = intent.getBooleanExtra(EXTRA_INITIALIZE_START, false);
+            activateProfiles = intent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
             startOnBoot = intent.getBooleanExtra(EXTRA_START_ON_BOOT, false);
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
@@ -3108,6 +3111,8 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
         if (initializeStart)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_INITIALIZE_START");
+        if (activateProfiles)
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
         if (startOnBoot)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_BOOT");
         if (startOnPackageReplace)
@@ -3142,6 +3147,7 @@ public class PhoneProfilesService extends Service
             final boolean _startOnBoot = startOnBoot;
             final boolean _startOnPackageReplace = startOnPackageReplace;
             final boolean _initializeStart = initializeStart;
+            final boolean _activateProfiles = activateProfiles;
             PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart.2");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
@@ -3255,32 +3261,36 @@ public class PhoneProfilesService extends Service
                             if (_startOnBoot)
                                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
                             else
+                            if (_activateProfiles)
                                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
-                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
+                            if (_activateProfiles) {
+                                PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
 
-                            // start events
-                            if (Event.getGlobalEventsRunning(appContext)) {
-                                PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
+                                // start events
+                                if (Event.getGlobalEventsRunning(appContext)) {
+                                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
 
-                                if (!dataWrapper.getIsManualProfileActivation(false)) {
+                                    if (!dataWrapper.getIsManualProfileActivation(false)) {
+                                        ////// unblock all events for first start
+                                        //     that may be blocked in previous application run
+                                        dataWrapper.pauseAllEvents(true, false/*, false*/);
+                                    }
+
+                                    dataWrapper.firstStartEvents(true, false);
+                                } else {
+                                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
+
                                     ////// unblock all events for first start
                                     //     that may be blocked in previous application run
                                     dataWrapper.pauseAllEvents(true, false/*, false*/);
+
+                                    dataWrapper.activateProfileOnBoot();
                                 }
-
-                                dataWrapper.firstStartEvents(true, false);
-                            } else {
-                                PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
-
-                                ////// unblock all events for first start
-                                //     that may be blocked in previous application run
-                                dataWrapper.pauseAllEvents(true, false/*, false*/);
-
-                                dataWrapper.activateProfileOnBoot();
                             }
                         }
 
+                        /*
                         if (!_startOnBoot && !_startOnPackageReplace && !_initializeStart) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "###### not initialize start ######");
                             if (Event.getGlobalEventsRunning(appContext)) {
@@ -3291,6 +3301,7 @@ public class PhoneProfilesService extends Service
                                 dataWrapper.activateProfileOnBoot();
                             }
                         }
+                        */
 
                         dataWrapper.invalidateDataWrapper();
 
