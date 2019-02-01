@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -603,15 +604,17 @@ class BluetoothScanJob extends Job {
             bluetooth = getBluetoothAdapter(context);
 
         if (bluetooth != null) {
-            Set<BluetoothDevice> boundedDevices = bluetooth.getBondedDevices();
-            boundedDevicesList.clear();
-            if (boundedDevices != null) {
-                for (BluetoothDevice device : boundedDevices) {
-                    boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
-                            getBluetoothType(device), false, 0, true, false));
+            if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
+                Set<BluetoothDevice> boundedDevices = bluetooth.getBondedDevices();
+                boundedDevicesList.clear();
+                if (boundedDevices != null) {
+                    for (BluetoothDevice device : boundedDevices) {
+                        boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
+                                getBluetoothType(device), false, 0, true, false));
+                    }
                 }
+                saveBoundedDevicesList(context, boundedDevicesList);
             }
-            saveBoundedDevicesList(context, boundedDevicesList);
         }
     }
 
