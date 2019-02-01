@@ -302,6 +302,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
 
                                     dataWrapper.firstStartEvents(true, false);
+                                    dataWrapper.updateNotificationAndWidgets();
                                 } else {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "global event run is not enabled, manually activate profile");
 
@@ -310,6 +311,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     dataWrapper.pauseAllEvents(true, false/*, false*/);
 
                                     dataWrapper.activateProfileOnBoot();
+                                    dataWrapper.updateNotificationAndWidgets();
                                 }
                             }
                         }
