@@ -495,7 +495,7 @@ class ActivateProfileHelper {
     }
 
 
-    private static boolean isAudibleSystemRingerMode(AudioManager audioManager, Context context) {
+    static boolean isAudibleSystemRingerMode(AudioManager audioManager, Context context) {
         /*int ringerMode = audioManager.getRingerMode();
         PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "ringerMode="+ringerMode);
         if (ringerMode != AudioManager.RINGER_MODE_NORMAL) {
