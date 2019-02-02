@@ -367,6 +367,7 @@ public class PPApplication extends Application {
     static final int PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID = 700437;
     static final int MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID = 700438;
     static final int GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID = 700439;
+    static final int LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID = 700440;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
@@ -1977,7 +1978,9 @@ public class PPApplication extends Application {
 
             Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
 
-            WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+            WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+            WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+            PhoneStateScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
             //ActivateProfileHelper.setScreenUnlocked(context, true);
 
             PPApplication.logE("PPApplication._exitApp", "set application started = false");

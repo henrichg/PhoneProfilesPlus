@@ -78,6 +78,39 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (newsLatest) {
             // move this to newXXX, for switch off news
 
+            if (Build.VERSION.SDK_INT >= 28) {
+                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
+                infoText21.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                        } else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });*/
+                            dialog.show();
+                        }
+                    }
+                });
+                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
+                infoText22.setVisibility(View.GONE);
+                news = true;
+            }
+
             int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
             int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
             boolean news_extender = true;
@@ -87,11 +120,44 @@ public class ImportantInfoHelpFragment extends Fragment {
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
                 infoText1.setVisibility(View.GONE);
             }
-            news = //news ||
+
+            news = news ||
                     news_extender;
         }
         else {
             // move this to newXXX, for switch off news
+
+            if (Build.VERSION.SDK_INT >= 28) {
+                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
+                infoText21.setVisibility(View.GONE);
+                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
+                infoText22.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivity(intent);
+                        } else {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                        /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialog) {
+                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                if (positive != null) positive.setAllCaps(false);
+                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                if (negative != null) negative.setAllCaps(false);
+                            }
+                        });*/
+                            dialog.show();
+                        }
+                    }
+                });
+            }
 
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
             infoText1.setVisibility(View.GONE);

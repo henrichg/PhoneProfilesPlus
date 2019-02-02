@@ -1546,7 +1546,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         Permissions.setAllShowRequestPermissions(getApplicationContext(), true);
 
-                        WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true);
+                        WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+                        WifiBluetoothScanner.setShowEnableLocationNotification(getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+                        PhoneStateScanner.setShowEnableLocationNotification(getApplicationContext(), true);
                     }
 
                     if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError)))

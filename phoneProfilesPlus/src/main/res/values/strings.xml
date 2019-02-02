@@ -1323,6 +1323,11 @@
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="array_pref_value_nightMode">night_mode</string>
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+
+
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>

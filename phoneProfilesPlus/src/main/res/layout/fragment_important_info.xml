@@ -139,6 +139,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
+            android:text="@string/important_info_profile_mobileCellsScanning_location"
+            android:id="@+id/activity_info_notification_mobileCellsScanning_location_news"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:text="@string/important_info_profile_zenMode"
             android:id="@+id/activity_info_notification_profile_zenMode_news"
             android:textColor="?attr/colorAccent"/>
@@ -623,6 +631,14 @@
             android:paddingBottom="10dp"
             android:text="@string/important_info_profile_bluetoothScanning_location"
             android:id="@+id/activity_info_notification_bluetoothScanning_location"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:text="@string/important_info_profile_mobileCellsScanning_location"
+            android:id="@+id/activity_info_notification_mobileCellsScanning_location"
             android:textColor="?attr/colorAccent" />
 
         <TextView
