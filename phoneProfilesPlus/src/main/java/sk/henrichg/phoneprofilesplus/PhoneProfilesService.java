@@ -3258,6 +3258,8 @@ public class PhoneProfilesService extends Service
                         DonationNotificationJob.scheduleJob(appContext, false);
 
                         if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
+                            PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
+
                             if (_startOnBoot)
                                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTARTONBOOT, null, null, null, 0);
                             else
@@ -3265,8 +3267,6 @@ public class PhoneProfilesService extends Service
                                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
                             if (_activateProfiles) {
-                                PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application started");
-
                                 // start events
                                 if (Event.getGlobalEventsRunning(appContext)) {
                                     PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
