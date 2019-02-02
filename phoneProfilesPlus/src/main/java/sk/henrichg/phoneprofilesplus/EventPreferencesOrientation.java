@@ -175,7 +175,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (extenderVersion == 0) {
                     selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
                     selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
@@ -293,7 +293,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 if (extenderVersion == 0)
                     preference.setSummary(R.string.event_preferences_orientation_PPPExtender_install_summary);
                 else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_2_0)
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                 else
                     preference.setSummary(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -484,7 +484,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabled);
         }
-        enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_2_0);
+        enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
         ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);

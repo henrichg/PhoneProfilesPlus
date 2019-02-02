@@ -349,7 +349,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         else
         if (systemSettings.equals("accessibility_2.0")) {
             int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-            int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_2_0;
+            int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_3_0;
             if (extenderVersion == 0) {
                 ok = false;
                 prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
