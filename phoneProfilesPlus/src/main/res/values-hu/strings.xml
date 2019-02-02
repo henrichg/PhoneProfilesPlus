@@ -87,22 +87,6 @@
   <string name="phone_profiles_pref_applicationLanguage">Nyelv</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Rendszer</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Boot-oláskor elindul</string>
-  <string name="array_pref_value_system">system</string>
-  <string name="array_pref_value_en">en</string>
-  <string name="array_pref_value_sk">sk</string>
-  <string name="array_pref_value_cs">cs</string>
-  <string name="array_pref_value_de">de</string>
-  <string name="array_pref_value_ru">ru</string>
-  <string name="array_pref_value_ca">ca</string>
-  <string name="array_pref_value_es">es</string>
-  <string name="array_pref_value_uk">uk</string>
-  <string name="array_pref_value_it">it</string>
-  <string name="array_pref_value_fr">fr</string>
-  <string name="array_pref_value_pl">pl</string>
-  <string name="array_pref_value_nl">nl</string>
-  <string name="array_pref_value_sv">sv</string>
-  <string name="array_pref_value_hu">hu</string>
-  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Nem engedélyezett</string>
   <string name="menu_export">Alkalmazás beállítások mentése</string>
   <string name="menu_import">Alkalmazás beállítások visszaállítása</string>
@@ -126,9 +110,6 @@
   <string name="phone_profiles_pref_applicationTheme_color">Szín</string>
   <string name="phone_profiles_pref_applicationTheme_dark">Sötét</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">Világos, sötét címsorral</string>
-  <string name="array_pref_value_color">color</string>
-  <string name="array_pref_value_dark">dark</string>
-  <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionMode_save">Mentés</string>
   <string name="profile_preferences_showInActivator">Jelenjen meg a profilok között</string>
   <string name="event_type_time">Idő</string>
@@ -176,15 +157,15 @@
   <string name="title_activity_editor">Szerkesztő</string>
   <string name="menu_run_events">Futó események engedélyezése</string>
   <string name="menu_stop_events">Események leállítása</string>
-  <string name="array_pref_value_0_percent" formatted="false">0%</string>
-  <string name="array_pref_value_25_percent" formatted="false">25%</string>
-  <string name="array_pref_value_50_percent" formatted="false">50%</string>
-  <string name="array_pref_value_75_percent" formatted="false">75%</string>
-  <string name="array_pref_value_100_percent" formatted="false">100%</string>
-  <string name="array_pref_value_0_degrees" formatted="false">0°</string>
-  <string name="array_pref_value_90_degrees" formatted="false">90°</string>
-  <string name="array_pref_value_180_degrees" formatted="false">180°</string>
-  <string name="array_pref_value_270_degrees" formatted="false">270°</string>
+  <string name="array_pref_0_percent" formatted="false">0%</string>
+  <string name="array_pref_25_percent" formatted="false">25%</string>
+  <string name="array_pref_50_percent" formatted="false">50%</string>
+  <string name="array_pref_75_percent" formatted="false">75%</string>
+  <string name="array_pref_100_percent" formatted="false">100%</string>
+  <string name="array_pref_0_degrees" formatted="false">0°</string>
+  <string name="array_pref_90_degrees" formatted="false">90°</string>
+  <string name="array_pref_180_degrees" formatted="false">180°</string>
+  <string name="array_pref_270_degrees" formatted="false">270°</string>
   <string name="default_profile_name">Profil megosztása</string>
   <string name="brightness_pref_dialog_default_profile_chb">Profil megosztása</string>
   <string name="preference_profile_default_profile">Profil megosztása</string>
@@ -508,8 +489,6 @@
   <string name="profile_preferences_category_screen">Kijelző</string>
   <string name="profile_preferences_category_others">Egyebek</string>
   <string name="event_preferences_category_startOfEventOthers">Egyéb paraméterek</string>
-  <string name="array_pref_value_iw">iw</string>
-  <string name="array_pref_value_tr">tr</string>
   <string name="event_type_applications">Alkalmazások</string>
   <string name="event_preferences_category_eventApplicationsParameters">Alkalmazás-érzékelő</string>
   <string name="event_preferences_applications_applications">Alkalmazások</string>
@@ -721,12 +700,6 @@
   <string name="donation_google_android_market">Google Play Áruház</string>
   <string name="donation_google_android_market_text">Mennyit?</string>
   <string name="donation_google_android_market_donate_button">Adomány</string>
-  <string name="array_pref_value_fa">fa</string>
-  <string name="array_pref_value_ja">ja</string>
-  <string name="array_pref_value_ko">ko</string>
-  <string name="array_pref_value_te">te</string>
-  <string name="array_pref_value_ro">ro</string>
-  <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Kiadások</string>
   <string name="permission_group_name_draw_overlays">Alkalmazások felett való működés</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Nincs engedélyezve \"Más alkalmazások eltakarására képes alkalmazások\". Ne kérdezze újra?</string>
@@ -889,7 +862,6 @@
   <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Státusz sor értesítések nincsenek engedélyezve!</string>
   <string name="duration_pref_dlg_duration_label">Időtartam:</string>
   <string name="duration_pref_dlg_activation_end_label">Aktiválás vége:</string>
-  <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"Ne zavarj\" profil \"Csengő mód\" - ban szükség van, a PhoneProfilesPlus a \"Értesítések hozzáférés\"-hez a rendszer beállításaiban. Kattintson ide, és engedélyezze a PhoneProfilesPlus-t.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6 a rendszer beállítás módosítható, csak a Root -olt eszköznél. Érintett csengetési mód, és nem zavarj típus rezgéssel.</string>
   <string name="setting_screen_not_found_alert">A beállítás képernyő nem található.</string>
@@ -898,11 +870,9 @@
   <string name="action_for_external_application_notification_no_event_text">Event_name paraméter hiányzik vagy üres.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Bekapcsolva (hotspot kihagyva)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Váltva (hotspot kihagyva)</string>
-  <string name="array_pref_value_el">el</string>
   <string name="samsung_edge_name">PhoneProfilesPlus</string>
   <string name="samsung_edge_description">Edge panelként aktiválni</string>
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge panel</string>
-  <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Nem támogatott művelet van megadva.</string>
   <string name="action_for_external_application_notification_no_action">Nincs megadva a művelet.</string>
   <string name="ringtone_preference_not_set">Nincs beállítva</string>
@@ -949,11 +919,6 @@
   <string name="event_preferences_noPauseByManualActivation">Nem szüneteltethető ha kézzel aktiválta</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Ez az esemény nem szüneteltethető, ha a profilt kézzel aktiválja az esemény futtatása közben</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Címke neve nincs beállítva.</string>
-  <string name="array_pref_value_ar">ar</string>
-  <string name="array_pref_value_bg">bg</string>
-  <string name="array_pref_value_hi">hi</string>
-  <string name="array_pref_value_in">in</string>
-  <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Készülék indításkor startoló esemény</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Vizsgálat csak bekapcsolt kijelzőnél</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Ellenőrizze az újraindult eseményeket</string>
@@ -1099,8 +1064,8 @@
   <string name="important_info_privacy_policy_backup_files_2">Ide kattintva adatvédelmi politikát mutatja.</string>
   <string name="phone_profiles_pref_notificationSystemSettings">Rendszerbeállítások</string>
   <string name="phone_profiles_pref_notificationSystemSettings_summary">Konfiguráció értesítési kategória:</string>
-  <string name="array_pref_value_auto_rotate_on">Automatikus forgatás be</string>
-  <string name="array_pref_value_auto_rotate_off">Automatikus forgatás ki</string>
+  <string name="array_pref_auto_rotate_on">Automatikus forgatás be</string>
+  <string name="array_pref_auto_rotate_off">Automatikus forgatás ki</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Adaptív változást nem működik az eszközön (például: Samsung eszközök).</string>
   <string name="about_application_xda_developers_community">XDA-developers közösség:</string>
   <string name="mobile_cells_pref_dlg_connected_cell">Csatlakoztatott cella:</string>
@@ -1122,7 +1087,6 @@
   <string name="import_profiles_alert_error_appSettings_bug">Hiba történt az alkalmazás-beállítások visszaállítása során.</string>
   <string name="import_profiles_alert_error_sharedProfile_bug">Hiba történt a megosztott profil beállítások visszaállításánál.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Fehér</string>
-  <string name="array_pref_value_white">white</string>
   <string name="permission_ask_button">Kérdez</string>
   <string name="permission_not_ask_button">Nem kér</string>
   <string name="brightness_pref_dialog_level_chb">Szint módosítása</string>
@@ -1288,7 +1252,8 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="array_pref_value_nightMode">night_mode</string>
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
 
 

@@ -87,22 +87,6 @@
     <string name="phone_profiles_pref_applicationLanguage">Dil</string>
     <string name="phone_profiles_pref_applicationLanguage_system">Sistem</string>
     <string name="phone_profiles_pref_applicationStartOnBoot">Telefon açıldığında otomatik başla</string>
-    <string name="array_pref_value_system">system</string>
-    <string name="array_pref_value_en">en</string>
-    <string name="array_pref_value_sk">sk</string>
-    <string name="array_pref_value_cs">cs</string>
-    <string name="array_pref_value_de">de</string>
-    <string name="array_pref_value_ru">ru</string>
-    <string name="array_pref_value_ca">ca</string>
-    <string name="array_pref_value_es">es</string>
-    <string name="array_pref_value_uk">uk</string>
-    <string name="array_pref_value_it">it</string>
-    <string name="array_pref_value_fr">fr</string>
-    <string name="array_pref_value_pl">pl</string>
-    <string name="array_pref_value_nl">nl</string>
-    <string name="array_pref_value_sv">sv</string>
-    <string name="array_pref_value_hu">hu</string>
-    <string name="array_pref_value_zh_TW">Çince-Tayvan</string>
     <string name="profile_preferences_device_not_allowed">İzin verilmiyor</string>
     <string name="menu_export">Uygulama verilerini yedekle</string>
     <string name="menu_import">Uygulama verilerini geri yükle</string>
@@ -126,9 +110,6 @@
     <string name="phone_profiles_pref_applicationTheme_color">Renk</string>
     <string name="phone_profiles_pref_applicationTheme_dark">Koyu</string>
     <string name="phone_profiles_pref_applicationTheme_dlight">Koyu başlık ile açık renkli tema</string>
-    <string name="array_pref_value_color">color</string>
-    <string name="array_pref_value_dark">dark</string>
-    <string name="array_pref_value_dlight">dlight</string>
     <string name="phone_preferences_actionMode_save">Kaydet</string>
     <string name="profile_preferences_showInActivator">\"Muharrik\" içinde göster</string>
     <string name="event_type_time">Zaman</string>
@@ -176,15 +157,15 @@
     <string name="title_activity_editor">Düzenleyici</string>
     <string name="menu_run_events">Durumların çalışmasına izin ver</string>
     <string name="menu_stop_events">Durumları durdur</string>
-    <string name="array_pref_value_0_percent" formatted="false">0%</string>
-    <string name="array_pref_value_25_percent" formatted="false">25%</string>
-    <string name="array_pref_value_50_percent" formatted="false">50%</string>
-    <string name="array_pref_value_75_percent" formatted="false">75%</string>
-    <string name="array_pref_value_100_percent" formatted="false">100%</string>
-    <string name="array_pref_value_0_degrees" formatted="false">0°</string>
-    <string name="array_pref_value_90_degrees" formatted="false">90°</string>
-    <string name="array_pref_value_180_degrees" formatted="false">180°</string>
-    <string name="array_pref_value_270_degrees" formatted="false">270°</string>
+    <string name="array_pref_0_percent" formatted="false">0%</string>
+    <string name="array_pref_25_percent" formatted="false">25%</string>
+    <string name="array_pref_50_percent" formatted="false">50%</string>
+    <string name="array_pref_75_percent" formatted="false">75%</string>
+    <string name="array_pref_100_percent" formatted="false">100%</string>
+    <string name="array_pref_0_degrees" formatted="false">0°</string>
+    <string name="array_pref_90_degrees" formatted="false">90°</string>
+    <string name="array_pref_180_degrees" formatted="false">180°</string>
+    <string name="array_pref_270_degrees" formatted="false">270°</string>
     <string name="default_profile_name">Paylaşılan tercih</string>
     <string name="brightness_pref_dialog_default_profile_chb">Paylaşılan tercih</string>
     <string name="preference_profile_default_profile">Paylaşılan tercih</string>
@@ -508,8 +489,6 @@
     <string name="profile_preferences_category_screen">Ekran</string>
     <string name="profile_preferences_category_others">Diğerleri</string>
     <string name="event_preferences_category_startOfEventOthers">Diğer değerler</string>
-    <string name="array_pref_value_iw">iw</string>
-    <string name="array_pref_value_tr">tr</string>
     <string name="event_type_applications">Uygulamalar</string>
     <string name="event_preferences_category_eventApplicationsParameters">Uygulama sensörü</string>
     <string name="event_preferences_applications_applications">Uygulamalar</string>
@@ -721,12 +700,6 @@
     <string name="donation_google_android_market">Google Play Mağaza</string>
     <string name="donation_google_android_market_text">Ne kadar?</string>
     <string name="donation_google_android_market_donate_button">Bağış Yap</string>
-    <string name="array_pref_value_fa">fa</string>
-    <string name="array_pref_value_ja">ja</string>
-    <string name="array_pref_value_ko">ko</string>
-    <string name="array_pref_value_te">te</string>
-    <string name="array_pref_value_ro">ro</string>
-    <string name="array_pref_value_pt_PT">pt-PT</string>
     <string name="about_application_releases">Sürümler</string>
     <string name="permission_group_name_draw_overlays">Diğer uygulamaların üzerinde çalışsın</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">\"Diğer uygulamaların üzerinde çalış\"a izin vermediniz. Bunun için tekrar sorulmasın mı?</string>
@@ -889,7 +862,6 @@
     <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Durum çubuğu bildirimi kapalı!</string>
     <string name="duration_pref_dlg_duration_label">Müddet:</string>
     <string name="duration_pref_dlg_activation_end_label">Faaliyete geçirirdikten sonra:</string>
-    <string name="array_pref_value_pt_BR">pt-BR</string>
     <string name="important_info_profile_zenModeM">Tercih → \"Zil modu\" → \"Rahatsız Etmeyin\" modu için sistem ayarlarında \"Bildirim erişim\" ayarlarında PhoneProfilesPlus\'ın seçilmesi lazımdır. Buraya dokunun ve PhoneProfilesPlus\'ı seçin.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"rahatsız etmeyin\" türleridir.</string>
     <string name="setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
@@ -898,11 +870,9 @@
     <string name="action_for_external_application_notification_no_event_text">Durum_ismi değeri eksik veya boş.</string>
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">Açık (Hot-spot\'u ihmal et)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Değiştir (Hot-spot\'u ihmal et)</string>
-    <string name="array_pref_value_el">el</string>
     <string name="samsung_edge_name">PhoneProfilesPlus</string>
     <string name="samsung_edge_description">Kenar paneli olarak Muharrik</string>
     <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung kenar paneli</string>
-    <string name="array_pref_value_zh_CN">zh-CN</string>
     <string name="action_for_external_application_notification_bad_action">Desteklenmeyen olay belirtilir.</string>
     <string name="action_for_external_application_notification_no_action">Olay belirtilmedi.</string>
     <string name="ringtone_preference_not_set">Ayarlanmadı</string>
@@ -949,11 +919,6 @@
     <string name="event_preferences_noPauseByManualActivation">El ile faaliyete geçirmeyle duraklatılmasın</string>
     <string name="event_preferences_noPauseByManualActivation_summary">Bu durum, el ile faaliyete geçirilmiş bir tercih çalışırken durmasın</string>
     <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Etiket ismi ayarlanmamış.</string>
-    <string name="array_pref_value_ar">ar</string>
-    <string name="array_pref_value_bg">bg</string>
-    <string name="array_pref_value_hi">hi</string>
-    <string name="array_pref_value_in">in</string>
-    <string name="array_pref_value_sl">sl</string>
     <string name="phone_profiles_pref_applicationStartEvents">Başlangıçta Durumları başlat</string>
     <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Sadece ekran açıkken tarama yap</string>
     <string name="phone_profiles_pref_applicationRestartEventsAlert">Durumları yeniden başlatırken sor</string>
@@ -1099,8 +1064,8 @@
     <string name="important_info_privacy_policy_backup_files_2">Mahremiyet hareket tarzını göstermek için buna dokunun.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">Sistem ayarları</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Bildirim kategorisi için yapılandırma:</string>
-    <string name="array_pref_value_auto_rotate_on">Otomatik ekran döndürme açık</string>
-    <string name="array_pref_value_auto_rotate_off">Otomatik ekran döndürme kapalı</string>
+    <string name="array_pref_auto_rotate_on">Otomatik ekran döndürme açık</string>
+    <string name="array_pref_auto_rotate_off">Otomatik ekran döndürme kapalı</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Uyarlanabilir seviyenin değişikliği sizin cihazinızda çalışmayabilir (örnek: Samsung cihazlar).</string>
     <string name="about_application_xda_developers_community">XDA geliştirici topluluğu:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Bağlanılan baz istasyonu:</string>
@@ -1122,7 +1087,6 @@
     <string name="import_profiles_alert_error_appSettings_bug">Uygulama ayarları geri yüklenirken hata meydana geldi.</string>
     <string name="import_profiles_alert_error_sharedProfile_bug">Paylaşılan tercih ayarları geri yüklenirken hata meydana geldi.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Beyaz</string>
-    <string name="array_pref_value_white">white</string>
     <string name="permission_ask_button">Sor</string>
     <string name="permission_not_ask_button">Sorma</string>
     <string name="brightness_pref_dialog_level_chb">Seviyeyi değiştir</string>
@@ -1288,7 +1252,8 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="array_pref_value_nightMode">night_mode</string>
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
 
 

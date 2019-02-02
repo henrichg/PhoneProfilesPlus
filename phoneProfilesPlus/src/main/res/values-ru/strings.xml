@@ -87,22 +87,6 @@
   <string name="phone_profiles_pref_applicationLanguage">Язык</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Системный</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Запускать при загрузке телефона</string>
-  <string name="array_pref_value_system">system</string>
-  <string name="array_pref_value_en">en</string>
-  <string name="array_pref_value_sk">sk</string>
-  <string name="array_pref_value_cs">cs</string>
-  <string name="array_pref_value_de">de</string>
-  <string name="array_pref_value_ru">ru</string>
-  <string name="array_pref_value_ca">ca</string>
-  <string name="array_pref_value_es">es</string>
-  <string name="array_pref_value_uk">uk</string>
-  <string name="array_pref_value_it">it</string>
-  <string name="array_pref_value_fr">fr</string>
-  <string name="array_pref_value_pl">pl</string>
-  <string name="array_pref_value_nl">nl</string>
-  <string name="array_pref_value_sv">sv</string>
-  <string name="array_pref_value_hu">hu</string>
-  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Не разрешено</string>
   <string name="menu_export">Сохранить настройки</string>
   <string name="menu_import">Восстановить настройки</string>
@@ -126,9 +110,6 @@
   <string name="phone_profiles_pref_applicationTheme_color">Цветная</string>
   <string name="phone_profiles_pref_applicationTheme_dark">Тёмная</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">Светлая с тёмным названием</string>
-  <string name="array_pref_value_color">color</string>
-  <string name="array_pref_value_dark">dark</string>
-  <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionMode_save">Сохранить</string>
   <string name="profile_preferences_showInActivator">Показывать в Активаторе</string>
   <string name="event_type_time">Время</string>
@@ -176,15 +157,15 @@
   <string name="title_activity_editor">Редактор</string>
   <string name="menu_run_events">Разрешить запуск событий</string>
   <string name="menu_stop_events">Приостановить события</string>
-  <string name="array_pref_value_0_percent" formatted="false">0%</string>
-  <string name="array_pref_value_25_percent" formatted="false">25%</string>
-  <string name="array_pref_value_50_percent" formatted="false">50%</string>
-  <string name="array_pref_value_75_percent" formatted="false">75%</string>
-  <string name="array_pref_value_100_percent" formatted="false">100%</string>
-  <string name="array_pref_value_0_degrees" formatted="false">0°</string>
-  <string name="array_pref_value_90_degrees" formatted="false">90°</string>
-  <string name="array_pref_value_180_degrees" formatted="false">180°</string>
-  <string name="array_pref_value_270_degrees" formatted="false">270°</string>
+  <string name="array_pref_0_percent" formatted="false">0%</string>
+  <string name="array_pref_25_percent" formatted="false">25%</string>
+  <string name="array_pref_50_percent" formatted="false">50%</string>
+  <string name="array_pref_75_percent" formatted="false">75%</string>
+  <string name="array_pref_100_percent" formatted="false">100%</string>
+  <string name="array_pref_0_degrees" formatted="false">0°</string>
+  <string name="array_pref_90_degrees" formatted="false">90°</string>
+  <string name="array_pref_180_degrees" formatted="false">180°</string>
+  <string name="array_pref_270_degrees" formatted="false">270°</string>
   <string name="default_profile_name">Исходный профиль</string>
   <string name="brightness_pref_dialog_default_profile_chb">Исходный профиль</string>
   <string name="preference_profile_default_profile">Исходный профиль</string>
@@ -508,8 +489,6 @@
   <string name="profile_preferences_category_screen">Экран</string>
   <string name="profile_preferences_category_others">Прочие</string>
   <string name="event_preferences_category_startOfEventOthers">Прочие параметры</string>
-  <string name="array_pref_value_iw">iw</string>
-  <string name="array_pref_value_tr">tr</string>
   <string name="event_type_applications">Приложения</string>
   <string name="event_preferences_category_eventApplicationsParameters">Датчик приложений</string>
   <string name="event_preferences_applications_applications">Приложения</string>
@@ -721,12 +700,6 @@
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Сколько?</string>
   <string name="donation_google_android_market_donate_button">Пожертвовать</string>
-  <string name="array_pref_value_fa">fa</string>
-  <string name="array_pref_value_ja">ja</string>
-  <string name="array_pref_value_ko">ko</string>
-  <string name="array_pref_value_te">te</string>
-  <string name="array_pref_value_ro">ro</string>
-  <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Релизы</string>
   <string name="permission_group_name_draw_overlays">Отображать поверх других приложений</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Отображение поверх других приложений отключено. Не спрашивать больше?</string>
@@ -889,7 +862,6 @@
   <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Уведомления в строке состояния не разрешены!</string>
   <string name="duration_pref_dlg_duration_label">Продолжительность:</string>
   <string name="duration_pref_dlg_activation_end_label">Окончание активации:</string>
-  <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">Для установки значения \"Режимы оповещения\" в разделе \"Режим звонка\" необходимо включить службу PhoneProfilesPlus в настройках системы \"Доступ к уведомлениям\". Нажмите здесь, чтобы включить службу PhoneProfilesPlus.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">В Android 6 системные параметры, такие как режим звонка и вибрация, могут быть изменены только на разблокированных устройствах, имеющих права Суперпользователя.</string>
   <string name="setting_screen_not_found_alert">Настройки экрана не найдены.</string>
@@ -898,11 +870,9 @@
   <string name="action_for_external_application_notification_no_event_text">Параметр event_name отсутствует или является пустым.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Включить (игнорировать точку доступа)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Переключить (игнорировать точку доступа)</string>
-  <string name="array_pref_value_el">el</string>
   <string name="samsung_edge_name">PhoneProfilesPlus</string>
   <string name="samsung_edge_description">Активатор как панель</string>
   <string name="phone_profiles_pref_category_samsung_edge_panel">Панель Samsung</string>
-  <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Не поддерживаемое действие.</string>
   <string name="action_for_external_application_notification_no_action">Действие не определено.</string>
   <string name="ringtone_preference_not_set">Не задано</string>
@@ -949,11 +919,6 @@
   <string name="event_preferences_noPauseByManualActivation">Не приостанавливать вручную</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Не приостанавливать это запущенное событие при ручной активации профиля</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Имя метки не настроено.</string>
-  <string name="array_pref_value_ar">ar</string>
-  <string name="array_pref_value_bg">bg</string>
-  <string name="array_pref_value_hi">hi</string>
-  <string name="array_pref_value_in">in</string>
-  <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Запуск событий при старте</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Сканировать только когда экран включен</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Подтверждать перезапуск событий</string>
@@ -1099,8 +1064,8 @@
   <string name="important_info_privacy_policy_backup_files_2">Нажмите сюда для просмотра Политики конфиденциальности.</string>
   <string name="phone_profiles_pref_notificationSystemSettings">Настройки системы</string>
   <string name="phone_profiles_pref_notificationSystemSettings_summary">Конфигурация для категории уведомлений:</string>
-  <string name="array_pref_value_auto_rotate_on">Автоповорот вкл.</string>
-  <string name="array_pref_value_auto_rotate_off">Автоповорот выкл.</string>
+  <string name="array_pref_auto_rotate_on">Автоповорот вкл.</string>
+  <string name="array_pref_auto_rotate_off">Автоповорот выкл.</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Изменение адаптивного уровня может не работать на вашем устройстве (например, на устройствах Samsung).</string>
   <string name="about_application_xda_developers_community">Сообщество XDA-developers:</string>
   <string name="mobile_cells_pref_dlg_connected_cell">Подключённая вышка:</string>
@@ -1122,7 +1087,6 @@
   <string name="import_profiles_alert_error_appSettings_bug">Ошибка при восстановлении настроек приложения.</string>
   <string name="import_profiles_alert_error_sharedProfile_bug">Ошибка при восстановлении настроек Исходного профиля.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Белая</string>
-  <string name="array_pref_value_white">white</string>
   <string name="permission_ask_button">Спрашивать</string>
   <string name="permission_not_ask_button">Не спрашивать</string>
   <string name="brightness_pref_dialog_level_chb">Изменить уровень</string>
@@ -1288,7 +1252,8 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="array_pref_value_nightMode">night_mode</string>
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
 
 

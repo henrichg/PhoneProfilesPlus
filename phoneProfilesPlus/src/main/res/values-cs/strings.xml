@@ -87,22 +87,6 @@
   <string name="phone_profiles_pref_applicationLanguage">Jazyk</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Systémový</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Spustit při startu telefonu</string>
-  <string name="array_pref_value_system">system</string>
-  <string name="array_pref_value_en">en</string>
-  <string name="array_pref_value_sk">sk</string>
-  <string name="array_pref_value_cs">cs</string>
-  <string name="array_pref_value_de">de</string>
-  <string name="array_pref_value_ru">ru</string>
-  <string name="array_pref_value_ca">ca</string>
-  <string name="array_pref_value_es">es</string>
-  <string name="array_pref_value_uk">uk</string>
-  <string name="array_pref_value_it">it</string>
-  <string name="array_pref_value_fr">fr</string>
-  <string name="array_pref_value_pl">pl</string>
-  <string name="array_pref_value_nl">nl</string>
-  <string name="array_pref_value_sv">sv</string>
-  <string name="array_pref_value_hu">hu</string>
-  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Není možné</string>
   <string name="menu_export">Záloha apl. nastavení</string>
   <string name="menu_import">Obnova apl. nastavení</string>
@@ -126,9 +110,6 @@
   <string name="phone_profiles_pref_applicationTheme_color">Barva</string>
   <string name="phone_profiles_pref_applicationTheme_dark">Tmavé</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">Světlé s tmavým titulkem</string>
-  <string name="array_pref_value_color">color</string>
-  <string name="array_pref_value_dark">dark</string>
-  <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionMode_save">Uložit</string>
   <string name="profile_preferences_showInActivator">Zobrazit v aktivátoru</string>
   <string name="event_type_time">Čas</string>
@@ -176,15 +157,15 @@
   <string name="title_activity_editor">Editor</string>
   <string name="menu_run_events">Povol běh událostí</string>
   <string name="menu_stop_events">Zastav události</string>
-  <string name="array_pref_value_0_percent" formatted="false">0 %</string>
-  <string name="array_pref_value_25_percent" formatted="false">25%</string>
-  <string name="array_pref_value_50_percent" formatted="false">50%</string>
-  <string name="array_pref_value_75_percent" formatted="false">75%</string>
-  <string name="array_pref_value_100_percent" formatted="false">100%</string>
-  <string name="array_pref_value_0_degrees" formatted="false">0°</string>
-  <string name="array_pref_value_90_degrees" formatted="false">90°</string>
-  <string name="array_pref_value_180_degrees" formatted="false">180°</string>
-  <string name="array_pref_value_270_degrees" formatted="false">270°</string>
+  <string name="array_pref_0_percent" formatted="false">0 %</string>
+  <string name="array_pref_25_percent" formatted="false">25%</string>
+  <string name="array_pref_50_percent" formatted="false">50%</string>
+  <string name="array_pref_75_percent" formatted="false">75%</string>
+  <string name="array_pref_100_percent" formatted="false">100%</string>
+  <string name="array_pref_0_degrees" formatted="false">0°</string>
+  <string name="array_pref_90_degrees" formatted="false">90°</string>
+  <string name="array_pref_180_degrees" formatted="false">180°</string>
+  <string name="array_pref_270_degrees" formatted="false">270°</string>
   <string name="default_profile_name">Sdílený profil</string>
   <string name="brightness_pref_dialog_default_profile_chb">Sdílený profil</string>
   <string name="preference_profile_default_profile">Sdílený profil</string>
@@ -508,8 +489,6 @@
   <string name="profile_preferences_category_screen">Obrazovka</string>
   <string name="profile_preferences_category_others">Ostatní</string>
   <string name="event_preferences_category_startOfEventOthers">Ostatní parametry</string>
-  <string name="array_pref_value_iw">iw</string>
-  <string name="array_pref_value_tr">tr</string>
   <string name="event_type_applications">Aplikace</string>
   <string name="event_preferences_category_eventApplicationsParameters">Senzor aplikací</string>
   <string name="event_preferences_applications_applications">Aplikace</string>
@@ -721,12 +700,6 @@
   <string name="donation_google_android_market">Obchod Google Play</string>
   <string name="donation_google_android_market_text">Kolik to stojí?</string>
   <string name="donation_google_android_market_donate_button">Darujte</string>
-  <string name="array_pref_value_fa">fa</string>
-  <string name="array_pref_value_ja">ja</string>
-  <string name="array_pref_value_ko">ko</string>
-  <string name="array_pref_value_te">te</string>
-  <string name="array_pref_value_ro">ro</string>
-  <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Vydání</string>
   <string name="permission_group_name_draw_overlays">Vykreslit přes další aplikace</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Nepovolily jste \"Vykreslit přes další aplikace\". Už se nikdy na toto neptat?</string>
@@ -889,7 +862,6 @@
   <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Notifikace ve stavovém řádku není povolena!</string>
   <string name="duration_pref_dlg_duration_label">Trvání:</string>
   <string name="duration_pref_dlg_activation_end_label">Konec aktivace:</string>
-  <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"Nerušit\" v \"Módu vyzvánění\" profil vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k oznámením\". Klikněte zde a povolte PhoneProfilesPlus.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Androidu 6 toto systémové nastavení lze změnit pouze v rootnutých zařízeních. Postižené jsou režimy vyzvánění a typy Nerušit s vibrací.</string>
   <string name="setting_screen_not_found_alert">Obrazovka nastavení nebyla nalezena.</string>
@@ -898,11 +870,9 @@
   <string name="action_for_external_application_notification_no_event_text">Parametr event_name chybí nebo je prázdný.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Zapnout (ignorovat hotspot)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Přepnout stav (ignorovat hotspot)</string>
-  <string name="array_pref_value_el">el</string>
   <string name="samsung_edge_name">PhoneProfilesPlus</string>
   <string name="samsung_edge_description">Aktivátor jako boční panel</string>
   <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung boční panel</string>
-  <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Je zadána nepodporovaná akce.</string>
   <string name="action_for_external_application_notification_no_action">Akce není zadána.</string>
   <string name="ringtone_preference_not_set">Nenastaveno</string>
@@ -949,11 +919,6 @@
   <string name="event_preferences_noPauseByManualActivation">Nezastav manuální aktivací</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Nezastavujte tuto událost ruční aktivací profilu, pokud je spuštěna</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Název tagu není nakonfigurován.</string>
-  <string name="array_pref_value_ar">ar</string>
-  <string name="array_pref_value_bg">bg</string>
-  <string name="array_pref_value_hi">hi</string>
-  <string name="array_pref_value_in">in</string>
-  <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Start událostí při startu</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Skenovat jen když je obrazovka zapnutá</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Ptát se na restart událostí</string>
@@ -1099,8 +1064,8 @@
   <string name="important_info_privacy_policy_backup_files_2">Klikněte zde, pokud chcete zobrazit zásady ochrany osobních údajů.</string>
   <string name="phone_profiles_pref_notificationSystemSettings">Systémová nastavení</string>
   <string name="phone_profiles_pref_notificationSystemSettings_summary">Konfigurace pro oznamovací kategorii:</string>
-  <string name="array_pref_value_auto_rotate_on">Zapnout automatickou orientaci</string>
-  <string name="array_pref_value_auto_rotate_off">Vypnout automatickou orientaci</string>
+  <string name="array_pref_auto_rotate_on">Zapnout automatickou orientaci</string>
+  <string name="array_pref_auto_rotate_off">Vypnout automatickou orientaci</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Změna úrovně adaptivního jasu nemusí fungovat na vašem zařízení (například: zařízení Samsung).</string>
   <string name="about_application_xda_developers_community">Komunita XDA-developers:</string>
   <string name="mobile_cells_pref_dlg_connected_cell">Připojená buňka:</string>
@@ -1122,7 +1087,6 @@
   <string name="import_profiles_alert_error_appSettings_bug">Chyba při obnovování nastavení aplikace.</string>
   <string name="import_profiles_alert_error_sharedProfile_bug">Chyba při obnovování parametrů sdíleného profilu.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Bílé</string>
-  <string name="array_pref_value_white">white</string>
   <string name="permission_ask_button">Zeptat se</string>
   <string name="permission_not_ask_button">Neptat se</string>
   <string name="brightness_pref_dialog_level_chb">Změnit úroveň</string>
@@ -1288,7 +1252,8 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="array_pref_value_nightMode">night_mode</string>
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
 
 

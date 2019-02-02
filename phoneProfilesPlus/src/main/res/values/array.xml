@@ -149,11 +149,11 @@
         <item>@string/array_pref_value_nightMode</item>
     </string-array>
     <string-array name="widgetBackgroundArray">
-        <item>@string/array_pref_value_0_percent</item>
-        <item>@string/array_pref_value_25_percent</item>
-        <item>@string/array_pref_value_50_percent</item>
-        <item>@string/array_pref_value_75_percent</item>
-        <item>@string/array_pref_value_100_percent</item>
+        <item>@string/array_pref_0_percent</item>
+        <item>@string/array_pref_25_percent</item>
+        <item>@string/array_pref_50_percent</item>
+        <item>@string/array_pref_75_percent</item>
+        <item>@string/array_pref_100_percent</item>
     </string-array>
     <string-array name="widgetBackgroundValues">
         <item>0</item>
@@ -163,11 +163,11 @@
         <item>100</item>
     </string-array>
     <string-array name="widgetLightnessArray">
-        <item>@string/array_pref_value_0_percent</item>
-        <item>@string/array_pref_value_25_percent</item>
-        <item>@string/array_pref_value_50_percent</item>
-        <item>@string/array_pref_value_75_percent</item>
-        <item>@string/array_pref_value_100_percent</item>
+        <item>@string/array_pref_0_percent</item>
+        <item>@string/array_pref_25_percent</item>
+        <item>@string/array_pref_50_percent</item>
+        <item>@string/array_pref_75_percent</item>
+        <item>@string/array_pref_100_percent</item>
     </string-array>
     <string-array name="widgetLightnessValues">
         <item>0</item>
@@ -193,12 +193,12 @@
     <string-array name="displayRotationArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_default_profile</item>
-        <item>@string/array_pref_value_auto_rotate_on</item>
-        <item>@string/array_pref_value_auto_rotate_off</item>
-        <item>@string/array_pref_value_0_degrees</item>
-        <item>@string/array_pref_value_90_degrees</item>
-        <item>@string/array_pref_value_180_degrees</item>
-        <item>@string/array_pref_value_270_degrees</item>
+        <item>@string/array_pref_auto_rotate_on</item>
+        <item>@string/array_pref_auto_rotate_off</item>
+        <item>@string/array_pref_0_degrees</item>
+        <item>@string/array_pref_90_degrees</item>
+        <item>@string/array_pref_180_degrees</item>
+        <item>@string/array_pref_270_degrees</item>
     </string-array>
     <string-array name="displayRotationValues">
         <item>0</item>
@@ -303,12 +303,12 @@
     </string-array>
     <string-array name="displayRotationDPArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_value_auto_rotate_on</item>
-        <item>@string/array_pref_value_auto_rotate_off</item>
-        <item>@string/array_pref_value_0_degrees</item>
-        <item>@string/array_pref_value_90_degrees</item>
-        <item>@string/array_pref_value_180_degrees</item>
-        <item>@string/array_pref_value_270_degrees</item>
+        <item>@string/array_pref_auto_rotate_on</item>
+        <item>@string/array_pref_auto_rotate_off</item>
+        <item>@string/array_pref_0_degrees</item>
+        <item>@string/array_pref_90_degrees</item>
+        <item>@string/array_pref_180_degrees</item>
+        <item>@string/array_pref_270_degrees</item>
     </string-array>
     <string-array name="displayRotationDPValues">
         <item>0</item>

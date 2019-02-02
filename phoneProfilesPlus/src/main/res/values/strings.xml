@@ -105,22 +105,22 @@
     <string name="phone_profiles_pref_applicationLanguage_hu" translatable="false">Magyar</string>
     <string name="phone_profiles_pref_applicationLanguage_zh_TW" translatable="false">繁體中文</string>
     <string name="phone_profiles_pref_applicationStartOnBoot">Start on phone boot</string>
-    <string name="array_pref_value_system">system</string>
-    <string name="array_pref_value_en">en</string>
-    <string name="array_pref_value_sk">sk</string>
-    <string name="array_pref_value_cs">cs</string>
-    <string name="array_pref_value_de">de</string>
-    <string name="array_pref_value_ru">ru</string>
-    <string name="array_pref_value_ca">ca</string>
-    <string name="array_pref_value_es">es</string>
-    <string name="array_pref_value_uk">uk</string>
-    <string name="array_pref_value_it">it</string>
-    <string name="array_pref_value_fr">fr</string>
-    <string name="array_pref_value_pl">pl</string>
-    <string name="array_pref_value_nl">nl</string>
-    <string name="array_pref_value_sv">sv</string>
-    <string name="array_pref_value_hu">hu</string>
-    <string name="array_pref_value_zh_TW">zh-TW</string>
+    <string name="array_pref_value_system" translatable="false">system</string>
+    <string name="array_pref_value_en" translatable="false">en</string>
+    <string name="array_pref_value_sk" translatable="false">sk</string>
+    <string name="array_pref_value_cs" translatable="false">cs</string>
+    <string name="array_pref_value_de" translatable="false">de</string>
+    <string name="array_pref_value_ru" translatable="false">ru</string>
+    <string name="array_pref_value_ca" translatable="false">ca</string>
+    <string name="array_pref_value_es" translatable="false">es</string>
+    <string name="array_pref_value_uk" translatable="false">uk</string>
+    <string name="array_pref_value_it" translatable="false">it</string>
+    <string name="array_pref_value_fr" translatable="false">fr</string>
+    <string name="array_pref_value_pl" translatable="false">pl</string>
+    <string name="array_pref_value_nl" translatable="false">nl</string>
+    <string name="array_pref_value_sv" translatable="false">sv</string>
+    <string name="array_pref_value_hu" translatable="false">hu</string>
+    <string name="array_pref_value_zh_TW" translatable="false">zh-TW</string>
     <string name="profile_preferences_device_not_allowed">Not allowed</string>
     <string name="menu_export">Backup settings</string>
     <string name="menu_import">Restore settings</string>
@@ -144,9 +144,9 @@
     <string name="phone_profiles_pref_applicationTheme_color">Color</string>
     <string name="phone_profiles_pref_applicationTheme_dark">Dark</string>
     <string name="phone_profiles_pref_applicationTheme_dlight">Light with dark title</string>
-    <string name="array_pref_value_color">color</string>
-    <string name="array_pref_value_dark">dark</string>
-    <string name="array_pref_value_dlight">dlight</string>
+    <string name="array_pref_value_color" translatable="false">color</string>
+    <string name="array_pref_value_dark" translatable="false">dark</string>
+    <string name="array_pref_value_dlight" translatable="false">dlight</string>
     <string name="phone_preferences_actionMode_save">Save</string>
     <string name="profile_preferences_showInActivator">Show in Activator</string>
     <string name="event_type_time">Time</string>
@@ -194,15 +194,15 @@
     <string name="title_activity_editor">Editor</string>
     <string name="menu_run_events">Enable run events</string>
     <string name="menu_stop_events">Stop events</string>
-    <string name="array_pref_value_0_percent" formatted="false">0%</string>
-    <string name="array_pref_value_25_percent" formatted="false">25%</string>
-    <string name="array_pref_value_50_percent" formatted="false">50%</string>
-    <string name="array_pref_value_75_percent" formatted="false">75%</string>
-    <string name="array_pref_value_100_percent" formatted="false">100%</string>
-    <string name="array_pref_value_0_degrees" formatted="false">0°</string>
-    <string name="array_pref_value_90_degrees" formatted="false">90°</string>
-    <string name="array_pref_value_180_degrees" formatted="false">180°</string>
-    <string name="array_pref_value_270_degrees" formatted="false">270°</string>
+    <string name="array_pref_0_percent" formatted="false">0%</string>
+    <string name="array_pref_25_percent" formatted="false">25%</string>
+    <string name="array_pref_50_percent" formatted="false">50%</string>
+    <string name="array_pref_75_percent" formatted="false">75%</string>
+    <string name="array_pref_100_percent" formatted="false">100%</string>
+    <string name="array_pref_0_degrees" formatted="false">0°</string>
+    <string name="array_pref_90_degrees" formatted="false">90°</string>
+    <string name="array_pref_180_degrees" formatted="false">180°</string>
+    <string name="array_pref_270_degrees" formatted="false">270°</string>
     <string name="default_profile_name">Shared profile</string>
     <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
     <string name="preference_profile_default_profile">Shared profile</string>
@@ -527,9 +527,9 @@
     <string name="profile_preferences_category_others">Others</string>
     <string name="event_preferences_category_startOfEventOthers">Other parameters</string>
     <string name="phone_profiles_pref_applicationLanguage_iw" translatable="false">עִברִית</string>
-    <string name="array_pref_value_iw">iw</string>
+    <string name="array_pref_value_iw" translatable="false">iw</string>
     <string name="phone_profiles_pref_applicationLanguage_tr" translatable="false">Türkçe</string>
-    <string name="array_pref_value_tr">tr</string>
+    <string name="array_pref_value_tr" translatable="false">tr</string>
     <string name="event_type_applications">Applications</string>
     <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
     <string name="event_preferences_applications_applications">Applications</string>
@@ -747,12 +747,12 @@
     <string name="phone_profiles_pref_applicationLanguage_te" translatable="false">తెలుగు</string>
     <string name="phone_profiles_pref_applicationLanguage_ro" translatable="false">Română</string>
     <string name="phone_profiles_pref_applicationLanguage_pt_PT" translatable="false">Português (Portugal)</string>
-    <string name="array_pref_value_fa">fa</string>
-    <string name="array_pref_value_ja">ja</string>
-    <string name="array_pref_value_ko">ko</string>
-    <string name="array_pref_value_te">te</string>
-    <string name="array_pref_value_ro">ro</string>
-    <string name="array_pref_value_pt_PT">pt-PT</string>
+    <string name="array_pref_value_fa" translatable="false">fa</string>
+    <string name="array_pref_value_ja" translatable="false">ja</string>
+    <string name="array_pref_value_ko" translatable="false">ko</string>
+    <string name="array_pref_value_te" translatable="false">te</string>
+    <string name="array_pref_value_ro" translatable="false">ro</string>
+    <string name="array_pref_value_pt_PT" translatable="false">pt-PT</string>
     <string name="about_application_releases">Releases</string>
     <string name="permission_group_name_draw_overlays">Draw over apps</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">You have not enabled \"Draw over apps\". Never ask again?</string>
@@ -916,7 +916,7 @@
     <string name="duration_pref_dlg_duration_label">Duration:</string>
     <string name="duration_pref_dlg_activation_end_label">End activation:</string>
     <string name="phone_profiles_pref_applicationLanguage_pt_BR" translatable="false">Português (Brasil)</string>
-    <string name="array_pref_value_pt_BR">pt-BR</string>
+    <string name="array_pref_value_pt_BR" translatable="false">pt-BR</string>
     <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
     <string name="setting_screen_not_found_alert">Setting screen not found.</string>
@@ -926,12 +926,12 @@
     <string name="array_pref_wifiModeArray_on_ignoreHotspot">On (ignore hotspot)</string>
     <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Toggle (ignore hotspot)</string>
     <string name="phone_profiles_pref_applicationLanguage_el" translatable="false">Ελληνικά</string>
-    <string name="array_pref_value_el">el</string>
+    <string name="array_pref_value_el" translatable="false">el</string>
     <string name="samsung_edge_name">PhoneProfilesPlus</string>
     <string name="samsung_edge_description">Activator as edge panel</string>
     <string name="phone_profiles_pref_category_samsung_edge_panel">Samsung edge panel</string>
     <string name="phone_profiles_pref_applicationLanguage_zh_CN" translatable="false">简体中文</string>
-    <string name="array_pref_value_zh_CN">zh-CN</string>
+    <string name="array_pref_value_zh_CN" translatable="false">zh-CN</string>
     <string name="action_for_external_application_notification_bad_action">Unsupported action specified.</string>
     <string name="action_for_external_application_notification_no_action">Action not specified.</string>
     <string name="ringtone_preference_not_set">Not set</string>
@@ -982,12 +982,12 @@
     <string name="phone_profiles_pref_applicationLanguage_bg" translatable="false">Български</string>
     <string name="phone_profiles_pref_applicationLanguage_hi" translatable="false">हिंदी</string>
     <string name="phone_profiles_pref_applicationLanguage_in" translatable="false">Bahasa Indonesia</string>
-    <string name="array_pref_value_ar">ar</string>
-    <string name="array_pref_value_bg">bg</string>
-    <string name="array_pref_value_hi">hi</string>
-    <string name="array_pref_value_in">in</string>
+    <string name="array_pref_value_ar" translatable="false">ar</string>
+    <string name="array_pref_value_bg" translatable="false">bg</string>
+    <string name="array_pref_value_hi" translatable="false">hi</string>
+    <string name="array_pref_value_in" translatable="false">in</string>
     <string name="phone_profiles_pref_applicationLanguage_sl" translatable="false">Slovenščina</string>
-    <string name="array_pref_value_sl">sl</string>
+    <string name="array_pref_value_sl" translatable="false">sl</string>
     <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
     <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
     <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
@@ -1133,8 +1133,8 @@
     <string name="important_info_privacy_policy_backup_files_2">Click this to show Privacy policy.</string>
     <string name="phone_profiles_pref_notificationSystemSettings">System settings</string>
     <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuration for notification category:</string>
-    <string name="array_pref_value_auto_rotate_on">Automatic rotation on</string>
-    <string name="array_pref_value_auto_rotate_off">Automatic rotation off</string>
+    <string name="array_pref_auto_rotate_on">Automatic rotation on</string>
+    <string name="array_pref_auto_rotate_off">Automatic rotation off</string>
     <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
     <string name="about_application_xda_developers_community">XDA-developers community:</string>
     <string name="mobile_cells_pref_dlg_connected_cell">Connected cell:</string>
@@ -1156,7 +1156,7 @@
     <string name="import_profiles_alert_error_appSettings_bug">Error restoring the application settings.</string>
     <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>
     <string name="phone_profiles_pref_applicationTheme_white">White</string>
-    <string name="array_pref_value_white">white</string>
+    <string name="array_pref_value_white" translatable="false">white</string>
     <string name="permission_ask_button">Ask</string>
     <string name="permission_not_ask_button">Not ask</string>
     <string name="brightness_pref_dialog_level_chb">Change level</string>
@@ -1322,7 +1322,7 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="array_pref_value_nightMode">night_mode</string>
+    <string name="array_pref_value_nightMode" translatable="false">night_mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 

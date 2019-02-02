@@ -87,22 +87,6 @@
   <string name="phone_profiles_pref_applicationLanguage">Langue</string>
   <string name="phone_profiles_pref_applicationLanguage_system">Système</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">Lancer au démarrage du téléphone</string>
-  <string name="array_pref_value_system">system</string>
-  <string name="array_pref_value_en">en</string>
-  <string name="array_pref_value_sk">sk</string>
-  <string name="array_pref_value_cs">cs</string>
-  <string name="array_pref_value_de">de</string>
-  <string name="array_pref_value_ru">ru</string>
-  <string name="array_pref_value_ca">ca</string>
-  <string name="array_pref_value_es">es</string>
-  <string name="array_pref_value_uk">uk</string>
-  <string name="array_pref_value_it">it</string>
-  <string name="array_pref_value_fr">fr</string>
-  <string name="array_pref_value_pl">pl</string>
-  <string name="array_pref_value_nl">nl</string>
-  <string name="array_pref_value_sv">sv</string>
-  <string name="array_pref_value_hu">hu</string>
-  <string name="array_pref_value_zh_TW">zh-TW</string>
   <string name="profile_preferences_device_not_allowed">Non autorisé</string>
   <string name="menu_export">Paramètres de sauvegarde</string>
   <string name="menu_import">Restaurer les paramètres</string>
@@ -126,9 +110,6 @@
   <string name="phone_profiles_pref_applicationTheme_color">Couleur</string>
   <string name="phone_profiles_pref_applicationTheme_dark">Sombre</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">Lumineux avec titre foncé</string>
-  <string name="array_pref_value_color">couleur</string>
-  <string name="array_pref_value_dark">foncé</string>
-  <string name="array_pref_value_dlight">clair</string>
   <string name="phone_preferences_actionMode_save">Enregistrer</string>
   <string name="profile_preferences_showInActivator">Montrer dans l\'activateur</string>
   <string name="event_type_time">Temps</string>
@@ -176,15 +157,15 @@
   <string name="title_activity_editor">Éditeur</string>
   <string name="menu_run_events">Activer les événements</string>
   <string name="menu_stop_events">Désactiver les événements</string>
-  <string name="array_pref_value_0_percent" formatted="false">0%</string>
-  <string name="array_pref_value_25_percent" formatted="false">25%</string>
-  <string name="array_pref_value_50_percent" formatted="false">50%</string>
-  <string name="array_pref_value_75_percent" formatted="false">75%</string>
-  <string name="array_pref_value_100_percent" formatted="false">100%</string>
-  <string name="array_pref_value_0_degrees" formatted="false">0°</string>
-  <string name="array_pref_value_90_degrees" formatted="false">90°</string>
-  <string name="array_pref_value_180_degrees" formatted="false">180°</string>
-  <string name="array_pref_value_270_degrees" formatted="false">270°</string>
+  <string name="array_pref_0_percent" formatted="false">0%</string>
+  <string name="array_pref_25_percent" formatted="false">25%</string>
+  <string name="array_pref_50_percent" formatted="false">50%</string>
+  <string name="array_pref_75_percent" formatted="false">75%</string>
+  <string name="array_pref_100_percent" formatted="false">100%</string>
+  <string name="array_pref_0_degrees" formatted="false">0°</string>
+  <string name="array_pref_90_degrees" formatted="false">90°</string>
+  <string name="array_pref_180_degrees" formatted="false">180°</string>
+  <string name="array_pref_270_degrees" formatted="false">270°</string>
   <string name="default_profile_name">Profil source</string>
   <string name="brightness_pref_dialog_default_profile_chb">Profil source</string>
   <string name="preference_profile_default_profile">Profil source</string>
@@ -508,8 +489,6 @@
   <string name="profile_preferences_category_screen">Écran</string>
   <string name="profile_preferences_category_others">Autre</string>
   <string name="event_preferences_category_startOfEventOthers">Autres paramètres</string>
-  <string name="array_pref_value_iw">iw</string>
-  <string name="array_pref_value_tr">tr</string>
   <string name="event_type_applications">Applications</string>
   <string name="event_preferences_category_eventApplicationsParameters">Capteur application</string>
   <string name="event_preferences_applications_applications">Applications</string>
@@ -721,12 +700,6 @@
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Quel montant?</string>
   <string name="donation_google_android_market_donate_button">Donner</string>
-  <string name="array_pref_value_fa">fa</string>
-  <string name="array_pref_value_ja">ja</string>
-  <string name="array_pref_value_ko">ko</string>
-  <string name="array_pref_value_te">te</string>
-  <string name="array_pref_value_ro">ro</string>
-  <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">Publications</string>
   <string name="permission_group_name_draw_overlays">Dessiner sur les applications</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Vous n’avez pas activé « Dessiner sur les applications ». Ne plus demander à pour cela ?</string>
@@ -889,7 +862,6 @@
   <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">Notification de barre d’État n’est pas activée !</string>
   <string name="duration_pref_dlg_duration_label">Durée :</string>
   <string name="duration_pref_dlg_activation_end_label">Fin d\'activation :</string>
-  <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">« Ne pas déranger » dans le profil « Mode de sonnerie » nécessite l\'activation de PhoneProfilesPlus dans « Accès de Notification » des paramètres système . Cliquez ici et activez PhoneProfilesPlus.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Dans Android 6 ce paramètre ne peut être modifié que sur les appareils rootés. Les modes de sonnerie et les notifications de type ne pas déranger avec vibration sont affectés.</string>
   <string name="setting_screen_not_found_alert">Écran de paramétrage introuvable.</string>
@@ -898,11 +870,9 @@
   <string name="action_for_external_application_notification_no_event_text">Le paramètre event_name est manquant ou vide.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Activer (ignorer le hotspot)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">Activer/désactiver (ignorer le hotspot)</string>
-  <string name="array_pref_value_el">el</string>
   <string name="samsung_edge_name">PhoneProfilesPlus</string>
   <string name="samsung_edge_description">Activator comme panneau de contrôle</string>
   <string name="phone_profiles_pref_category_samsung_edge_panel">Panneau de contrôle de Samsung</string>
-  <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">Un action impossible est demandée.</string>
   <string name="action_for_external_application_notification_no_action">L\'action n\'est pas spécifiée.</string>
   <string name="ringtone_preference_not_set">Non défini</string>
@@ -949,11 +919,6 @@
   <string name="event_preferences_noPauseByManualActivation">Ne pas mettre en pause lors de l\'activation manuelle</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Ne pas mettre en pause cet événement lors de l\'activation manuelle d\'un profil</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Le nom de la balise n’est pas configuré.</string>
-  <string name="array_pref_value_ar">ar</string>
-  <string name="array_pref_value_bg">bg</string>
-  <string name="array_pref_value_hi">hi</string>
-  <string name="array_pref_value_in">in</string>
-  <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Démarrer l\'évènement au démarrage</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Analyser seulement lorsque l’écran est allumé</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirmer le redémarrage événements</string>
@@ -1099,8 +1064,8 @@
   <string name="important_info_privacy_policy_backup_files_2">Cliquez ici pour afficher la politique de confidentialité.</string>
   <string name="phone_profiles_pref_notificationSystemSettings">Paramètres système</string>
   <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuration des catégories de notification:</string>
-  <string name="array_pref_value_auto_rotate_on">Rotation automatique active</string>
-  <string name="array_pref_value_auto_rotate_off">Rotation automatique inactive</string>
+  <string name="array_pref_auto_rotate_on">Rotation automatique active</string>
+  <string name="array_pref_auto_rotate_off">Rotation automatique inactive</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Cle changement de niveau adaptatif peut ne pas fonctionner sur votre appareil (exemple : appareils Samsung).</string>
   <string name="about_application_xda_developers_community">XDA-developers community:</string>
   <string name="mobile_cells_pref_dlg_connected_cell">Cellules connectées :</string>
@@ -1122,7 +1087,6 @@
   <string name="import_profiles_alert_error_appSettings_bug">Erreur lors de la restauration des paramètres de l\'application.</string>
   <string name="import_profiles_alert_error_sharedProfile_bug">Erreur lors de la restauration des préférences de profil partagé.</string>
   <string name="phone_profiles_pref_applicationTheme_white">Blanc</string>
-  <string name="array_pref_value_white">blanc</string>
   <string name="permission_ask_button">Demander</string>
   <string name="permission_not_ask_button">Ne pas demander</string>
   <string name="brightness_pref_dialog_level_chb">Changer le niveau</string>
@@ -1289,7 +1253,8 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="array_pref_value_nightMode">night_mode</string>
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
 
 

@@ -87,22 +87,6 @@
   <string name="phone_profiles_pref_applicationLanguage">שפה</string>
   <string name="phone_profiles_pref_applicationLanguage_system">מערכת</string>
   <string name="phone_profiles_pref_applicationStartOnBoot">הפעלה באתחול המכשיר</string>
-  <string name="array_pref_value_system">system</string>
-  <string name="array_pref_value_en">en</string>
-  <string name="array_pref_value_sk">sk</string>
-  <string name="array_pref_value_cs">cs</string>
-  <string name="array_pref_value_de">de</string>
-  <string name="array_pref_value_ru">ru</string>
-  <string name="array_pref_value_ca">ca</string>
-  <string name="array_pref_value_es">es</string>
-  <string name="array_pref_value_uk">uk</string>
-  <string name="array_pref_value_it">it</string>
-  <string name="array_pref_value_fr">fr</string>
-  <string name="array_pref_value_pl">pl</string>
-  <string name="array_pref_value_nl">nl</string>
-  <string name="array_pref_value_sv">sv</string>
-  <string name="array_pref_value_hu">hu</string>
-  <string name="array_pref_value_zh_TW">סינית (טייוואן)</string>
   <string name="profile_preferences_device_not_allowed">לא מורשה</string>
   <string name="menu_export">גיבוי הגדרות היישום</string>
   <string name="menu_import">שחזור הגדרות היישום</string>
@@ -126,9 +110,6 @@
   <string name="phone_profiles_pref_applicationTheme_color">צבע</string>
   <string name="phone_profiles_pref_applicationTheme_dark">כהה</string>
   <string name="phone_profiles_pref_applicationTheme_dlight">בהיר עם כותרת כהה</string>
-  <string name="array_pref_value_color">color</string>
-  <string name="array_pref_value_dark">dark</string>
-  <string name="array_pref_value_dlight">dlight</string>
   <string name="phone_preferences_actionMode_save">שמור</string>
   <string name="profile_preferences_showInActivator">תצוגה במפעיל</string>
   <string name="event_type_time">זמן</string>
@@ -176,15 +157,15 @@
   <string name="title_activity_editor">עורך</string>
   <string name="menu_run_events">אפשרות הפעלת אירועים</string>
   <string name="menu_stop_events">עצירת אירועים</string>
-  <string name="array_pref_value_0_percent" formatted="false">0%</string>
-  <string name="array_pref_value_25_percent" formatted="false">25%</string>
-  <string name="array_pref_value_50_percent" formatted="false">50%</string>
-  <string name="array_pref_value_75_percent" formatted="false">75%</string>
-  <string name="array_pref_value_100_percent" formatted="false">100%</string>
-  <string name="array_pref_value_0_degrees" formatted="false">0°</string>
-  <string name="array_pref_value_90_degrees" formatted="false">90°</string>
-  <string name="array_pref_value_180_degrees" formatted="false">180°</string>
-  <string name="array_pref_value_270_degrees" formatted="false">270°</string>
+  <string name="array_pref_0_percent" formatted="false">0%</string>
+  <string name="array_pref_25_percent" formatted="false">25%</string>
+  <string name="array_pref_50_percent" formatted="false">50%</string>
+  <string name="array_pref_75_percent" formatted="false">75%</string>
+  <string name="array_pref_100_percent" formatted="false">100%</string>
+  <string name="array_pref_0_degrees" formatted="false">0°</string>
+  <string name="array_pref_90_degrees" formatted="false">90°</string>
+  <string name="array_pref_180_degrees" formatted="false">180°</string>
+  <string name="array_pref_270_degrees" formatted="false">270°</string>
   <string name="default_profile_name">פרופיל משותף</string>
   <string name="brightness_pref_dialog_default_profile_chb">פרופיל משותף</string>
   <string name="preference_profile_default_profile">פרופיל משותף</string>
@@ -508,8 +489,6 @@
   <string name="profile_preferences_category_screen">מסך</string>
   <string name="profile_preferences_category_others">אחרים</string>
   <string name="event_preferences_category_startOfEventOthers">פרמטרים אחרים</string>
-  <string name="array_pref_value_iw">iw</string>
-  <string name="array_pref_value_tr">tr</string>
   <string name="event_type_applications">יישומים</string>
   <string name="event_preferences_category_eventApplicationsParameters">Application sensor</string>
   <string name="event_preferences_applications_applications">יישומים</string>
@@ -721,12 +700,6 @@
   <string name="donation_google_android_market">חנות Google Play</string>
   <string name="donation_google_android_market_text">גובה הסכום?</string>
   <string name="donation_google_android_market_donate_button">תרומה</string>
-  <string name="array_pref_value_fa">fa</string>
-  <string name="array_pref_value_ja">ja</string>
-  <string name="array_pref_value_ko">ko</string>
-  <string name="array_pref_value_te">te</string>
-  <string name="array_pref_value_ro">ro</string>
-  <string name="array_pref_value_pt_PT">pt-PT</string>
   <string name="about_application_releases">מהדורות</string>
   <string name="permission_group_name_draw_overlays">Draw over apps</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">לא התרת \"הצגה מעל יישומים אחרים\". לא לבקש זאת שוב בכלל?</string>
@@ -892,7 +865,6 @@
   <string name="phone_profiles_pref_notificationStatusBarNotEnabled_summary">הודעות בסרגל המצב מושבתות!</string>
   <string name="duration_pref_dlg_duration_label">משך:</string>
   <string name="duration_pref_dlg_activation_end_label">סיום ההפעלה:</string>
-  <string name="array_pref_value_pt_BR">pt-BR</string>
   <string name="important_info_profile_zenModeM">\"נא לא להפריע\" פרופיל \"הצלצול מצב\" דורש הפעלת PhoneProfilesPlus בהגדרות המערכת \"הודעה על גישה\". לחץ כאן ולאפשר PhoneProfilesPlus.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">באנדרואיד 6 הגדרת מערכת זו מערכת מחייבת הרשאות ROOT. ההשפעה היא על מצבי הצלצול וסוגי הפרעה עם רטט.</string>
   <string name="setting_screen_not_found_alert">מסך ההגדרות לא נמצא.</string>
@@ -901,11 +873,9 @@
   <string name="action_for_external_application_notification_no_event_text">הפרמטר event_name חסר או ריק.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">מופעל (התעלם מ-hotspot)</string>
   <string name="array_pref_wifiModeArray_toggle_ignoreHotspot">שינוי מצב הפעלה (התעלם מ-hotspot)</string>
-  <string name="array_pref_value_el">el</string>
   <string name="samsung_edge_name">PhoneProfilesPlus</string>
   <string name="samsung_edge_description">Activator כחלונית-קצה</string>
   <string name="phone_profiles_pref_category_samsung_edge_panel">חלונית-קצה של סמסונג</string>
-  <string name="array_pref_value_zh_CN">zh-CN</string>
   <string name="action_for_external_application_notification_bad_action">הפעולה שהוגדרה איננה נתמכת.</string>
   <string name="action_for_external_application_notification_no_action">לא הוגדרה פעולה.</string>
   <string name="ringtone_preference_not_set">לא מוגדר</string>
@@ -953,11 +923,6 @@
   <string name="event_preferences_noPauseByManualActivation">Do not pause during manual activation</string>
   <string name="event_preferences_noPauseByManualActivation_summary">Do not pause this running event if a profile is manually activated</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Tag name is not configured.</string>
-  <string name="array_pref_value_ar">ar</string>
-  <string name="array_pref_value_bg">bg</string>
-  <string name="array_pref_value_hi">hi</string>
-  <string name="array_pref_value_in">in</string>
-  <string name="array_pref_value_sl">sl</string>
   <string name="phone_profiles_pref_applicationStartEvents">Start events on startup</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan only when screen is on</string>
   <string name="phone_profiles_pref_applicationRestartEventsAlert">Confirm restart events</string>
@@ -1103,8 +1068,8 @@
   <string name="important_info_privacy_policy_backup_files_2">Click this to show Privacy policy.</string>
   <string name="phone_profiles_pref_notificationSystemSettings">System settings</string>
   <string name="phone_profiles_pref_notificationSystemSettings_summary">Configuration for notification category:</string>
-  <string name="array_pref_value_auto_rotate_on">Automatic rotation on</string>
-  <string name="array_pref_value_auto_rotate_off">Automatic rotation off</string>
+  <string name="array_pref_auto_rotate_on">Automatic rotation on</string>
+  <string name="array_pref_auto_rotate_off">Automatic rotation off</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Change of adaptive level may not work on your device (example: Samsung devices).</string>
   <string name="about_application_xda_developers_community">XDA-developers community:</string>
   <string name="mobile_cells_pref_dlg_connected_cell">Connected cell:</string>
@@ -1126,7 +1091,6 @@
   <string name="import_profiles_alert_error_appSettings_bug">Error restoring the application settings.</string>
   <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>
   <string name="phone_profiles_pref_applicationTheme_white">White</string>
-  <string name="array_pref_value_white">white</string>
   <string name="permission_ask_button">Ask</string>
   <string name="permission_not_ask_button">Not ask</string>
   <string name="brightness_pref_dialog_level_chb">Change level</string>
@@ -1292,7 +1256,8 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="array_pref_value_nightMode">night_mode</string>
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
 
 
