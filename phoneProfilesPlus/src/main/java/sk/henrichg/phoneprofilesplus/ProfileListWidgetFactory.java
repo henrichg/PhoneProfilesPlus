@@ -167,7 +167,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
             } else {
                 Spannable profileName = profile.getProfileNameWithDuration("", "",
-                        true/*applicationWidgetListGridLayout*/, dataWrapper.context);
+                        true/*applicationWidgetListGridLayout*/, context);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, profileName);
             }
             if (!applicationWidgetListGridLayout) {
