@@ -4652,11 +4652,13 @@ public class PhoneProfilesService extends Service
 
             PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
 
-            if (!runningInForeground) {
-            //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                _showProfileNotification(null, false, dataWrapper);
-                dataWrapper.invalidateDataWrapper();
+            synchronized (PhoneProfilesService.class) {
+                if (!runningInForeground || (instance == null)) {
+                    //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
+                    DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                    _showProfileNotification(null, false, dataWrapper);
+                    dataWrapper.invalidateDataWrapper();
+                }
             }
         //}
 
