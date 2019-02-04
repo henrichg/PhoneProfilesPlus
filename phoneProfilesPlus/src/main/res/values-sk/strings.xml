@@ -149,7 +149,6 @@
   <string name="default_profile_name_work">Práca</string>
   <string name="default_profile_name_meeting">Porada</string>
   <string name="default_profile_name_sleep">Spánok</string>
-  <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-schovnie navig.panelu</string>
   <string name="alert_button_yes">Áno</string>
   <string name="alert_button_no">Nie</string>
   <string name="profile_preferences_deviceAutoRotation">Rotácia displeja</string>
@@ -289,10 +288,10 @@
   <string name="menu_help">Pomoc</string>
   <string name="array_event_pref_eventScreenEventType_screenOn">Zapla sa</string>
   <string name="array_event_pref_eventScreenEventType_screenOff">Vypla sa</string>
-  <string name="pref_event_screen_startWhenUnlocked">Štart keď je odomknuté</string>
-  <string name="pref_event_screen_endWhenUnlocked">Koniec keď je odomknuté</string>
-  <string name="event_preferences_screen_start_when_unlocked">Štart keď je odomknuté</string>
-  <string name="event_preferences_screen_end_when_unlocked">Koniec keď je odomknuté</string>
+  <string name="pref_event_screen_startWhenUnlocked">Štart, keď je odomknuté</string>
+  <string name="pref_event_screen_endWhenUnlocked">Koniec, keď je odomknuté</string>
+  <string name="event_preferences_screen_start_when_unlocked">Štart, keď je odomknuté</string>
+  <string name="event_preferences_screen_end_when_unlocked">Koniec, keď je odomknuté</string>
   <string name="event_type_bluetooth">Bluetooth</string>
   <string name="event_preferences_category_eventBluetoothParameters">Senzor Bluetooth</string>
   <string name="event_preferences_bluetooth_adapter_name">Meno Bluetooth</string>
@@ -332,8 +331,8 @@
   <string name="array_event_pref_bluetoothConnectionType_notInFront">Nie je v blízkosti (nie je v rozsahu skenovania)</string>
   <string name="event_preferences_call_contact_groups">Skupiny kontaktov</string>
   <string name="event_preferences_sms_contact_groups">Skupiny kontaktov</string>
-  <string name="title_activity_activity_log">Log aktivity</string>
-  <string name="menu_activity_log">Log aktivity</string>
+  <string name="title_activity_activity_log">Záznam aktivity</string>
+  <string name="menu_activity_log">Záznam aktivity</string>
   <string name="altype_profileActivation">aktivácia profilu</string>
   <string name="altype_afterDuration_undoProfile">po uplynutí trvania - vrátiť späť profil</string>
   <string name="altype_afterDuration_backgroundProfile">po uplynutí trvania - aktivácia predvoleného profilu</string>
@@ -384,7 +383,7 @@
   <string name="important_info_system">Systém</string>
   <string name="important_info_profile_root">Niektoré parametre profilu vyžadujú práva ROOT. Tieto parametre sú označená ako \"(R)\".</string>
   <string name="event_preferences_eventStartWhenActivatedProfile">[#] Spustiť len ak je aktivovaný profil</string>
-  <string name="profile_preference_do_not_apply">Neaplikovať</string>
+  <string name="profile_preference_do_not_apply">Nepoužiť</string>
   <string name="pref_dlg_info_about_wildcards_1">Môžete použiť zástupné znaky: \"%\"=nejaké znaky, \"_\"=nejaký jeden znak.</string>
   <string name="pref_dlg_info_about_wildcards_2">Ak máte \"%\" alebo \"_\"</string>
   <string name="wifi_ssid_pref_dlg_info_about_wildcards">v SSID,</string>
@@ -440,12 +439,12 @@
   <string name="permissions_for_export_app_data_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Nastavenia potom budú zálohované.</string>
   <string name="permissions_for_import_app_data_text1">Obnovenie nastavení aplikácie vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_import_app_data_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Nastavenia sa potom obnovia.</string>
-  <string name="permissions_write_settings_not_allowed_confirm">Nepovolili ste \"Úprava nastavení systému\". Už sa nikdy na toto nepýtať?</string>
+  <string name="permissions_write_settings_not_allowed_confirm">Nepovolili ste \"Úprava nastavení systému\". Nabudúce sa už nepýtať?</string>
   <string name="phone_profiles_pref_category_permissions">Povolenia</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions">Úprava nastavení systému</string>
   <string name="phone_profiles_pref_writeSystemSettingPermissions_summary">Prosím nájdite aplikáciu \"PhoneProfilesPlus\" a povoľte ju.</string>
   <string name="phone_profiles_pref_applicationPermissions">Povolenia pre aplikáciu</string>
-  <string name="phone_profiles_pref_applicationPermissions_summary">Prosím povoľte povolenia v časti \"Povolenia\".</string>
+  <string name="phone_profiles_pref_applicationPermissions_summary">Prosím udeľte povolenia v časti \"Povolenia\".</string>
   <string name="permissions_for_event_text1">Udalosť</string>
   <string name="permissions_for_event_text2">vyžaduje nasledujúce povolenia:</string>
   <string name="permissions_for_event_text3">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa reštartujú udalosti.</string>
@@ -509,7 +508,7 @@
   <string name="important_info_android_doze_mode">V Android 6+ je implenentovaný \"Doze mode\" a \"App Standby\". Ak ste narazili na problémy s aktiváciou profilu z udalostí, ak ste nechali zariadenie v kľude a odpojené nejakú dobu, s vypnutou obrazovkou, pridajte PhoneProfilesPlus do \"Batéria\"→\"Optimalizácia batérie\"→\"Neoptimalizované\".</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrovať pri zvonení</string>
   <string name="info_notification_event_states">Udalosť môže byť v 6 stavoch:</string>
-  <string name="info_notification_event_states_running">Beží: udalosť je naštartovaná a beží. Parametre udalosti sú splnené.</string>
+  <string name="info_notification_event_states_running">Beží: udalosť je spustená a beží. Parametre udalosti sú splnené.</string>
   <string name="info_notification_event_states_paused">Pozastavená: udalosť nebeží. Parametre udalosti nie sú splnené. Udalosť čaká na ich splnenie.</string>
   <string name="info_notification_event_states_stopped">Zastavená: udalosť je zastavená a nemôže byť spustená. Parameter udalosti \"Povoľ beh\" nie je zaškrtnutý.</string>
   <string name="info_notification_event_states_paused_delay">Pozastavená s pozdržaním: udalosť je spustená, ale čaká v pozdržaní. Parametre udalosti sú splnené.</string>
@@ -524,20 +523,20 @@
   <string name="event_preferences_locations_cant_delete_location_text">Nie je možné vymazať, poloha je použitá v nejakou udalosťou.</string>
   <string name="location_editor_title">Editor polohy</string>
   <string name="permissions_for_location_geofence_editor_activity_text1">Poloha vyžaduje nejaké povolenia.</string>
-  <string name="permissions_for_location_geofence_editor_activity_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom detekcia zmeny polohy bude fungovať.</string>
+  <string name="permissions_for_location_geofence_editor_activity_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom zisťovanie zmeny polohy bude fungovať.</string>
   <string name="event_preferences_location_new_location_name">Poloha</string>
   <string name="event_preferences_location_no_address_found">Nenašla sa adresa</string>
   <string name="event_preferences_location_google_api_connection_error_title">Chyba Google Play Services</string>
   <string name="event_preferences_location_google_api_connection_error_text">Zlyhalo pripojenie k Google Play Services. Kliknite sem pre jeho vyriešenie.</string>
   <string name="event_preferences_location_radius">Polomer:</string>
-  <string name="event_preferences_location_when_outside_pref_name">Štart keď je mimo polohy</string>
+  <string name="event_preferences_location_when_outside_pref_name">Štart, keď je mimo polohy</string>
   <string name="event_preferences_location_when_outside_description">Mimo polohy</string>
   <string name="new_empty_profile">Prázdny profil</string>
   <string name="new_profile_predefined_profiles_dialog">Preddefinované profily</string>
   <string name="new_empty_event">Prázdna udalosť</string>
   <string name="new_event_predefined_events_dialog">Preddefinované udalosti</string>
-  <string name="menu_activity_log_clear">Vymazať log</string>
-  <string name="activity_log_clear_alert_title">Vymazať log aktivity</string>
+  <string name="menu_activity_log_clear">Vymazať záznam</string>
+  <string name="activity_log_clear_alert_title">Vymazať záznam aktivity</string>
   <string name="activity_log_clear_alert_message">Ste si istý?</string>
   <string name="phone_profiles_pref_category_location">Skenovanie polohy</string>
   <string name="phone_profiles_pref_eventLocationAppSettings_summary">Nastav parametre polohy v nastaveniach aplikácie.</string>
@@ -548,10 +547,10 @@
   <string name="array_pref_ringerModeArray_silentM">Len budíky</string>
   <string name="phone_profiles_pref_applicationEventLocationsEditor">Editor polôh</string>
   <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Použiť GPS, ak nie je Režim šetrenia batérie</string>
-  <string name="menu_activity_log_pause">Zastav logovanie</string>
-  <string name="menu_activity_log_play">Spusti logovanie</string>
-  <string name="altype_pausedLogging">Logovanie zastavené</string>
-  <string name="altype_startedLogging">Logovanie spustené</string>
+  <string name="menu_activity_log_pause">Zastav záznam</string>
+  <string name="menu_activity_log_play">Spusti záznam</string>
+  <string name="altype_pausedLogging">Záznam zastavený</string>
+  <string name="altype_startedLogging">Záznam spustený</string>
   <string name="event_pref_dialog_help">(*) Profil sa nenašiel</string>
   <string name="permissions_for_brightness_dialog_text1">Nastavenie jasu vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_brightness_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách.</string>
@@ -599,7 +598,7 @@
   <string name="array_pref_screenTimeoutArray_alwaysOn">Vždy zapnutá</string>
   <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Keď voľba \"24 hodín\" nefunguje na vašom zariadení (LG), použite voľbu \"Vždy zapnutá\". Voľba \"Vždy zapnutá\", môže robiť problémy vo vašom zariadení (Samsung). Vtedy použite voľbu \"24 hodín\".</string>
   <string name="profile_preferences_vibrateWhenRinging">Vibrovať pri zvonení</string>
-  <string name="permissions_for_play_ringtone_notification_text1">Máte nastavený tón zvonenia/notifikácie z sd karty. Tón nebude prehratý, pretože to vyžaduje niektoré povolenia.</string>
+  <string name="permissions_for_play_ringtone_notification_text1">Máte nastavený tón zvonenia/notifikácie z SD karty. Tón nebude prehratý, pretože to vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom tón bude prehrávaný.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Prehrávanie nastaveného tónu zvonenia/notifikácie vyžaduje udelenie niektorých povolení.</string>
   <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikácie, odkazy ktoré spustiť</string>
@@ -618,7 +617,7 @@
   <string name="about_application_rate_in_googlePlay">Ohodnoťte prosím túto aplikáciu v obchode Google Play</string>
   <string name="phone_profiles_pref_systemLanguage_summary">Aplikácia používa jazyky nakonfigurované v systéme.</string>
   <string name="permission_group_name_access_notification_policy">Prístup k nastaveniu Nerušiť</string>
-  <string name="permissions_access_notification_policy_not_allowed_confirm">Nepovolili ste \"Prístup k nastaveniu Nerušiť\". Už sa nikdy na toto nepýtať?</string>
+  <string name="permissions_access_notification_policy_not_allowed_confirm">Nepovolili ste \"Prístup k nastaveniu Nerušiť\". Nabudúce sa už nepýtať?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Prístup k nastaveniu Nerušiť</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Prosím nájdite aplikáciu \"PhoneProfilesPlus\" a povoľte ju.</string>
   <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Pridajte PhoneProfilesPlus do \"Neoptimalizované\", v prípade problémov s aktiváciou profilu z udalostí, ak nemáte zariadenie pripojene, bez pohybu určitú dobu s vypnutou obrazovkou.</string>
@@ -629,7 +628,7 @@
   <string name="event_type_mobile_cells">Mobilné bunky</string>
   <string name="event_preferences_category_eventMobileCellsParameters">Senzor mobilných buniek</string>
   <string name="event_preferences_mobile_cells_cells">Bunky</string>
-  <string name="event_preferences_mobile_cells_when_outside_pref_name">Štart keď je mimo mobilných buniek</string>
+  <string name="event_preferences_mobile_cells_when_outside_pref_name">Štart, keď je mimo mobilných buniek</string>
   <string name="event_preferences_mobile_cells_when_outside_description">Mimo mobilných buniek</string>
   <string name="permissions_for_mobile_cells_scan_dialog_text1">Skenovanie mobilných buniek vyžaduje nejaké povolenia.</string>
   <string name="mobile_cells_pref_dlg_rescan_button">Preskenovať</string>
@@ -662,11 +661,11 @@
   <string name="editor_drawer_list_item_events_start_order">Poradie štartu</string>
   <string name="editor_drawer_order_start_order">Poradie štartu</string>
   <string name="info_notification_event_priority_new">4. Každá udalosť má parameter \"Priorita\". Udalosť sa nespustí, ak je spustená udalosť s vyššou prioritou.</string>
-  <string name="info_notification_event_start_order">Udalosti sú spustené podľa \"Poradie štartu\". Môžete nastaviť poradie štartu udalostí v editore v zobrazení udalostí \"Poradie štartu\". V tomto zobrazení, môžete presúvať udalosť hore/dole \"obsluhovačom poradia\".</string>
-  <string name="info_notification_event_start_order_handler_icon">Obsluhovač poradia:</string>
+  <string name="info_notification_event_start_order">Udalosti sú spustené podľa \"Poradie štartu\". Môžete nastaviť poradie štartu udalostí v Editore v zobrazení udalostí \"Poradie štartu\". V tomto zobrazení, môžete presúvať udalosť hore/dole \"posuvníkom poradia\".</string>
+  <string name="info_notification_event_start_order_handler_icon">Posuvník poradia:</string>
   <string name="info_notification_activate_profile_from_tasker">Môžete aktivovať profil z Tasker-a. Nakonfugurujte task \"System\"/\"Send Intent\" s parametrami:</string>
   <string name="phone_profiles_pref_notificationHideInLockscreen">Skryť v uzamykacej obrazovke</string>
-  <string name="phone_profiles_pref_deleteOldActivityLogs">Vymazať staré Logy aktivity (dni)</string>
+  <string name="phone_profiles_pref_deleteOldActivityLogs">Vymazať staré Záznamy aktivity (dni)</string>
   <string name="phone_profiles_pref_applicationWidgetIconBackground">Nepriehľadnosť pozadia (miniapl.)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Svetlosť pozadia (miniapl.)</string>
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Svetlosť textu (miniapl.)</string>
@@ -702,7 +701,7 @@
   <string name="donation_google_android_market_donate_button">Prispejte</string>
   <string name="about_application_releases">Vydania</string>
   <string name="permission_group_name_draw_overlays">Vykresliť cez ďalšie aplikácie</string>
-  <string name="permissions_draw_overlays_not_allowed_confirm">Nepovolili ste \"Vykresliť cez ďalšie aplikácie\". Už sa nikdy na toto nepýtať?</string>
+  <string name="permissions_draw_overlays_not_allowed_confirm">Nepovolili ste \"Vykresliť cez ďalšie aplikácie\". Nabudúce sa už nepýtať?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Vykresliť cez ďalšie aplikácie</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Prosím nájdite aplikáciu \"PhoneProfilesPlus\" a povoľte ju.</string>
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">nie nakonfigurované v Systémových Nastaveniach</string>
@@ -710,11 +709,11 @@
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Pridať názov Bluetooth</string>
   <string name="mobile_cells_pref_dlg_rename_icon">Premenovať bunku</string>
   <string name="nfc_tag_pref_dlg_add_icon">Pridať NFC tag</string>
-  <string name="wifi_ssid_pref_dlg_add_wifi_ssid_icon">Pridať Wi-fi SSID</string>
+  <string name="wifi_ssid_pref_dlg_add_wifi_ssid_icon">Pridať Wi-Fi SSID</string>
   <string name="about_application_application_icon">Ikona PhoneProfilesPlus</string>
   <string name="applications_editor_dialog_item_icon">Ikona aplikácie</string>
   <string name="preference_item_edit_menu">Menu úprav</string>
-  <string name="preference_item_drag_handle">Držadlo zmeny poradia</string>
+  <string name="preference_item_drag_handle">Posuvník poradia</string>
   <string name="contacts_multiselect_pref_dlg_contact_photo">Fotografia kontaktu</string>
   <string name="editor_event_list_item_event_status">Indikátor stavu udalosti</string>
   <string name="editor_event_list_item_profile_start_icon">Ikona profilu začiatku udalosti</string>
@@ -729,7 +728,7 @@
   <string name="preference_not_allowed_reason_detail_secure_lock">nepodporovaný bezpečnostný zámok</string>
   <string name="preference_not_allowed_reason_detail_cant_be_change">nie je možné zmeniť</string>
   <string name="event_preferences_sensorsInfo_title">Funkcionalita senzorov</string>
-  <string name="event_preferences_sensorsInfo_summary">Udalosť sa spustí, ak parametre všetkých senzorov so zaškrtnutým parametrom \"Povoľ senzor\", sú splnené. Beh udalosti bude ukončený, ak ľubovoľný parameter senzora nie je splnený. Zaškrtnite \"Povoľ senzor\" iba pre senzory potrebné pre túto udalosť. Meno senzora so zaškrtnutým \"Povoľ senzor\" je označené tučným textom. \n\nNiektoré parametre senzora sú vyžadované. Názov vyžadovaného parametera je označený podčiarknutým textom. Ak niektorý vyžadovaný parameter nie je nakonfigurovaný, udalosť sa nespustí a parameter \"Povoľ senzor\" je nezaškrtnutý.</string>
+  <string name="event_preferences_sensorsInfo_summary">Udalosť sa spustí, ak parametre všetkých senzorov so zaškrtnutým parametrom \"Povoľ senzor\", sú splnené. Beh udalosti bude ukončený, ak ľubovoľný parameter senzora nie je splnený. Zaškrtnite \"Povoľ senzor\" iba pre senzory potrebné pre túto udalosť. Meno senzora so zaškrtnutým \"Povoľ senzor\" je označené tučným textom. \n\nNiektoré parametre senzora sú vyžadované. Názov vyžadovaného parametera je označený podčiarknutým textom. Ak niektorý vyžadovaný parameter nie je nakonfigurovaný, udalosť sa nespustí a parameter \"Povoľ senzor\" nie je aktivovaný.</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Farebná ikona</string>
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Niektoré zariadenia nepodporujú farebné ikony v stavovom riadku.</string>
   <string name="pref_dlg_change_selection_title">Zmeniť výber</string>
@@ -737,7 +736,7 @@
   <string name="array_pref_change_selection_mobile_cells_select_by_name">Vybrať podľa názvu bunky</string>
   <string name="pref_dlg_change_selection_button_unselect_all">Zrušiť celý výber</string>
   <string name="array_pref_change_selection_wifi_ssid_select_by_name">Vybrať podľa názvu SSID</string>
-  <string name="array_pref_change_selection_bluetooth_name_select_by_name">Vybrať podľa názvu bluetooth</string>
+  <string name="array_pref_change_selection_bluetooth_name_select_by_name">Vybrať podľa názvu Bluetooth</string>
   <string name="array_pref_change_selection_nfc_tags_select_by_name">Vybrať podľa názvu NFC tagu</string>
   <string name="event_preferences_enable_sensor">Povoľ senzor</string>
   <string name="info_preference_click_here">Kliknite sem pre zobrazenie informácií</string>
@@ -764,7 +763,7 @@
   <string name="event_preference_bluetooth_bt_types">Typy Bluetooth: [CL] klasické, [LE] nízkoenergetické, [DU] duálne.</string>
   <string name="event_preference_sensor_time_summary">Tento senzor je pre štart udalosti podľa času. Parametre: Čas začiatku, Čas konca, Dni v týždni.</string>
   <string name="event_preference_sensor_calendar_summary">Tento senzor je pre štart udalosti podľa udalosti v kalendári. Parametre: Kalendáre, Hľadať v položke (Názov udalosti, Popis, …), Hľadaný reťazec, ignoruj \"celodenné\" udalosti, Dostupnosť (Zaneprázdnený, K dispozícii, …).</string>
-  <string name="event_preference_sensor_battery_summary">Tento senzor je pre štart udalosti podľa úrovne spotreby batérie. Parametre: Spodná úroveň, Horná úroveň, Nabíjanie, Režim Šetrič batérie.</string>
+  <string name="event_preference_sensor_battery_summary">Tento senzor je pre štart udalosti podľa úrovne spotreby batérie. Parametre: Spodná úroveň, Horná úroveň, Nabíjanie, Úsporný režim.</string>
   <string name="event_preference_sensor_call_summary">Tento senzor je pre štart udalosti podľa volajúcich kontaktov. Parametre: Udalosti hovoru (Zvoní, Odchodzí hovor začatý, …), Skupiny kontaktov, Kontakty, Typ zoznamu kontaktov (Biela/Čierna listina).</string>
   <string name="event_preference_sensor_sms_summary">Tento senzor je pre štart udalosti podľa prijatej SMS/MMS z kontaktov. Parametre: Skupiny kontaktov, Kontakty, Typ zoznamu kontaktov (Biela/Čierna listina), Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
   <string name="event_preference_sensor_location_summary">Tento senzor je pre štart udalosti podľa polohy zariadenia. Parametre: Poloha, Štart keď je mimo polohy.</string>
@@ -778,13 +777,13 @@
   <string name="event_preference_sensor_orientation_summary">Tento senzor je pre štart udalosti podľa orientácie zariadenia. Parametre: Obrazovka (Hore, Dolu), Strany (Horizontálne, strana hore), Priblíženie (V blízkosti, Ďaleko; použitý je senzor priblíženia), ignorovať pre aplikácie (v popredí).</string>
   <string name="event_preference_sensor_nfc_summary">Tento senzor je pre štart udalosti podľa NFC tagov. Parametre: NFC tagy, Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">Bočný panel \"Pohľady\"</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">Kliknite sem, alebo potiahnite prstom ľavú stranu obrazovky doprava, na otvorenie bočného panelu \"Pohľady\". V tomto paneli môžete prepínať medzi zobrazeniami profilov a udalostí.</string>
+  <string name="editor_activity_targetHelps_navigationIcon_description">Kliknite sem, alebo potiahnite prstom z ľavej strany obrazovky doprava, na otvorenie bočného panelu \"Pohľady\". V tomto paneli môžete prepínať medzi zobrazeniami profilov a udalostí.</string>
   <string name="editor_activity_targetHelps_applicationMenu_title">Aplikačné menu</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Kliknite sem pre otvorenie menu aplikácie. V tejto ponuke sú Nastavenia aplikácie.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Reštart udalostí</string>
   <string name="editor_activity_targetHelps_restartEvents_description">Kliknite sem pre reštartovanie udalostí. Udalosti musíte reštartovať, pre naštartovanie udalostí, ak máte manuálne aktivovaný profil.</string>
-  <string name="editor_activity_targetHelps_activityLog_title">Log aktivity</string>
-  <string name="editor_activity_targetHelps_activityLog_description">Kliknite sem pre otvorenie logu aktivity. Logované sú činnosti o štarte/pozastavení/stopnutí udalostí, aktivácii profilov, spustenie aplikácie, …</string>
+  <string name="editor_activity_targetHelps_activityLog_title">Záznam aktivity</string>
+  <string name="editor_activity_targetHelps_activityLog_description">Kliknite sem pre otvorenie záznamu aktivity. Zaznamenávané sú činnosti o štarte/pozastavení/stopnutí udalostí, aktivácii profilov, spustenie aplikácie, …</string>
   <string name="editor_activity_targetHelps_newProfileButton_title">Nový profil</string>
   <string name="editor_activity_targetHelps_newProfileButton_description">Kliknite sem pre pridanie nového profilu.</string>
   <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Vymazať všetky profily</string>
@@ -799,14 +798,14 @@
   <string name="editor_activity_targetHelps_profilePreferences_description">Kliknite sem pre otvorenie parametrov profilu a môžete upraviť tieto parametre.</string>
   <string name="editor_activity_targetHelps_profileMenu_title">Menu profilu</string>
   <string name="editor_activity_targetHelps_profileMenu_description">Kliknite sem pre otvorenie menu profilu s možnosťami: Aktivuj, Duplikuj a Zmaž profil.</string>
-  <string name="editor_activity_targetHelps_profileOrderHandler_title">Obsluhovač poradia</string>
-  <string name="editor_activity_targetHelps_profileOrderHandler_description">Presuňte profil hore/dole s týmto, pre zmenu poradia profilu v Aktivátore.</string>
+  <string name="editor_activity_targetHelps_profileOrderHandler_title">Posuvník poradia</string>
+  <string name="editor_activity_targetHelps_profileOrderHandler_description">Presuňte profil hore/dole s týmto posuvníkom, pre zmenu poradia profilu v Aktivátore.</string>
   <string name="editor_activity_targetHelps_eventPreferences_title">Parametre udalosti</string>
   <string name="editor_activity_targetHelps_eventPreferences_description">Kliknite sem pre otvorenie parametrov profilu a môžete upraviť tieto parametre.</string>
   <string name="editor_activity_targetHelps_eventMenu_title">Menu udalosti</string>
   <string name="editor_activity_targetHelps_eventMenu_description">Kliknite sem pre otvorenie menu udalosti s možnosťami: Povoľ/Zastav beh, Duplikuj a Zmaž udalosť.</string>
-  <string name="editor_activity_targetHelps_eventOrderHandler_title">Obsluhovač poradia</string>
-  <string name="editor_activity_targetHelps_eventOrderHandler_description">Presuňte nahor/nadol udalosť s týmto pre zmenu \"Poradia štartu\" udalosti.</string>
+  <string name="editor_activity_targetHelps_eventOrderHandler_title">Posuvník poradia</string>
+  <string name="editor_activity_targetHelps_eventOrderHandler_description">Presuňte nahor/nadol udalosť s týmto prosuvníkom pre zmenu \"Poradia štartu\" udalosti.</string>
   <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Editor</string>
   <string name="activator_activity_targetHelps_editor_description_ppp">Kliknite sem pre otvorenie Editora. V Editore môžete nakonfigurovať profily, udalosti, zmeniť nastavenia aplikácie…</string>
   <string name="activator_activity_targetHelps_editor_description_pp">Kliknite sem pre otvorenie Editora. V Editore môžete nakonfigurovať profily, zmeniť nastavenia aplikácie…</string>
@@ -821,13 +820,13 @@
   <string name="altype_applicationStartOnBoot">štart pri boote</string>
   <string name="profile_preferences_hideStatusBarIcon">Skryť ikonu v stavovom riadku</string>
   <string name="profile_preferences_lockDevice">Zamknutie zariadenia</string>
-  <string name="array_pref_lockDevice_root">(R) Použiť root (zariadenie musí byť rootnuté)</string>
+  <string name="array_pref_lockDevice_root">(R) Použiť root (zariadenie musí byť \"rootnuté\")</string>
   <string name="array_pref_lockDevice_screenOff">Použiť rýchle vypnutie obrazovky</string>
   <string name="lockDevice_screenOff_text">Zámok rýchlym vypnutím obrazovky</string>
   <string name="event_preferences_calendar_start_before_event">Štart pred udalosťou</string>
   <string name="event_preferences_startBeforeEvent">Štart pred udalosťou</string>
   <string name="event_preferences_category_eventRadioSwitchParameters">Senzor rádií</string>
-  <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pre štart udalosti podľa prepínania rádií (zapnúť/vypnúť). Parametre: Wi-fi, Bluetooth, Mobilné dáta, GPS, NFC, Režim lietadlo.</string>
+  <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pre štart udalosti podľa prepínania rádií (zapnúť/vypnúť). Parametre: Wi-Fi, Bluetooth, Mobilné dáta, GPS, NFC, Režim lietadlo.</string>
   <string name="event_type_radioSwitch">Rádiá</string>
   <string name="array_pref_radioSwitch_notDetect">Nezisťovať</string>
   <string name="array_pref_radioSwitch_on">Zapnuté</string>
@@ -843,10 +842,10 @@
   <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Hocijaký</string>
   <string name="profile_preferences_deviceConnectToSSID">Pripojiť k SSID</string>
   <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Nastavenie zlúčenia hlasitostí</string>
-  <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Nechať zdetegované</string>
+  <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Ponechať zistené</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Hlasitosti sú zlúčené</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Hlasitosti nie sú zlúčené</string>
-  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Použite, ak detekcia zlúčenia hlasitostí je špatná.</string>
+  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Použite, ak zistenie zlúčenia hlasitostí je špatné.</string>
   <string name="profile_preferences_category_application">Funkcie aplikácie</string>
   <string name="profile_preferences_applicationDisableWifiScanning">Vypnutie skenovania Wi-Fi</string>
   <string name="profile_preferences_applicationDisableBluetoothScanning">Vypnutie skenovania Bluetooth</string>
@@ -865,7 +864,7 @@
   <string name="important_info_profile_zenModeM">\"Nerušiť\" v \"Móde zvonenia\" profilu vyžaduje povolenie PhoneProfilesPlus v systémovom nastavení \"Prístup k upozorneniam\". Kliknite sem a povoľte PhoneProfilesPlus.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Android 6 toto systémové nastavenie je možné zmeniť len v rootnutých zariadeniach. Postihnuté sú režimy zvonenia a typy Nerušiť s vybráciou.</string>
   <string name="setting_screen_not_found_alert">Obrazovka nastavenia nebola nájdená.</string>
-  <string name="action_for_external_application_notification_title">Podpora externých apl. (Tasker)</string>
+  <string name="action_for_external_application_notification_title">Podpora externých aplikácií (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name chýba alebo je prázdny.</string>
   <string name="action_for_external_application_notification_no_event_text">Parameter event_name chýba alebo je prázdny.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Zapnúť (ignorovať prístupový bod)</string>
@@ -898,8 +897,8 @@
   <string name="important_info_quick_guide_tab">Rýchly sprievodca</string>
   <string name="important_info_important_info_tab">Dôležité informácie</string>
   <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) má dve zložky:</string>
-  <string name="important_info_quick_guide_2">1. <b>PROFILY:</b> určujú ako zmeniť nastavenia zariadenia.</string>
-  <string name="important_info_quick_guide_3">2. <b>UDALOSTI:</b> určujú, kedy je sa zmenia nastavenia zariadenia.</string>
+  <string name="important_info_quick_guide_2">1. <b>PROFILY:</b> Určujú, ako zmeniť nastavenia zariadenia.</string>
+  <string name="important_info_quick_guide_3">2. <b>UDALOSTI:</b> Určujú, kedy je sa zmenia nastavenia zariadenia.</string>
   <string name="important_info_quick_guide_profiles_1"><b>PROFILY:</b> Umožňujú konfigurovať nastavenie zariadenia ako režim zvonenia, hlasitosť, tóny zvonenie a oznámenia, prepínanie rádií (Wi-Fi, Bluetooth, mobilné dáta, atď.). Po aktivovaní profilu príslušné nastavenia sú trvalé. Ak chcete nastavenia zmeniť, musí byť aktivovaný iný profil.</string>
   <string name="important_info_quick_guide_profiles_2">Profily je možné aktivovať manuálne alebo udalosťou.</string>
   <string name="important_info_quick_guide_profiles_3">Môžete manuálne aktivovať profil cez PPP Aktivátor (pop-up okno so zoznamom dostupných profilov). Aktivátor je možné zobraziť cez domovskú ikonu PPP, PPP notifikáciu, PPP miniaplikácie a pre zariadenia Samsung Edge z panela Edge. Môžete tiež priamo aktivovať profil cez PPP 4 x 4 widget, odkaz na profil alebo na zariadeniach Samsung Edge z panela Edge.</string>
@@ -912,12 +911,12 @@
   <string name="important_info_quick_guide_sensors_5"><b>• Senzor polohy:</b> Začiatok a koniec podľa poloha (GPS). Musíte povoliť lokalizačné služby v nastaveniach zariadenia systému.</string>
   <string name="important_info_quick_guide_sensors_6"><b>• Senzor mobilných buniek:</b> Začiatok a koniec na pripojenie alebo odpojenie od mobilných základňových staníc.</string>
   <string name="important_info_quick_guide_sensors_7"><b>• Senzor hovoru:</b> Začiatok a koniec podľa nakonfigurovaných kontaktov. Napríklad pri zvonení.</string>
-  <string name="important_info_quick_guide_sensors_8"><b>• Senzor príslušenstva:</b> Štart udalosti, keď napríklad sú pripojené slúchadlá.</string>
+  <string name="important_info_quick_guide_sensors_8"><b>• Senzor príslušenstva:</b> Štart udalosti, keď sú napríklad pripojené slúchadlá.</string>
   <string name="important_info_quick_guide_sensors_9"><b>• Senzor NFC:</b> Štart udalosť pomocou NFC Tagov.</string>
   <string name="important_info_quick_guide_events_3">Ak ste manuálne aktivovali profil (nie udalosť), všetky bežiace udalosti sa ukončia (pozastavia). Udalosti sa nespustia počas manuálne aktivovaného profilu. Avšak môžete prepísať toto správanie prostredníctvom parametra \"Ignoruj manuálnu aktiváciu\" v nastaveniach udalosti.</string>
   <string name="important_info_quick_guide_editor_1">Profily a udalosti sú nakonfigurované v Editore, ktorý si môžete vyvolať cez Aktivátor. V Editore môžete pridať, duplikovať, aktualizovať a odstrániť profily a udalosti. Editor má ľavý bočný panel, ktorý vám umožní zmeniť pohľad Editora. Použite ho na prepínanie medzi zoznamami profilov a udalostí.</string>
-  <string name="event_preferences_noPauseByManualActivation">Nezastav manuálnou aktiváciou</string>
-  <string name="event_preferences_noPauseByManualActivation_summary">Nezastav túto udalosť manuálnou aktiváciou profilu ak je spustená</string>
+  <string name="event_preferences_noPauseByManualActivation">Nezastavuj manuálnou aktiváciou</string>
+  <string name="event_preferences_noPauseByManualActivation_summary">Nezastavovať túto udalosť manuálnou aktiváciou profilu ak je spustená</string>
   <string name="nfc_tag_pref_dlg_writeToNfcTag_emptyTagName">Názov tagu nie je nakonfigurovaný.</string>
   <string name="phone_profiles_pref_applicationStartEvents">Štart udalostí pri štarte</string>
   <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Skenovať len keď je obrazovka zapnutá</string>
@@ -931,8 +930,8 @@
   <string name="google_play_chooser">Zobraziť Google Play pomocou</string>
   <string name="preference_not_allowed_reason_not_extender_installed">nie je nainštalovaný PhoneProfilesPlusExtender</string>
   <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">nie je zapnutá Dostupnosť pre PhoneProfilesPlusExtender</string>
-  <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Aplikácie\".</string>
-  <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Ignorovať pre aplikácie\".</string>
+  <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Aplikácie\".</string>
+  <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Ignorovať pre aplikácie\".</string>
   <string name="event_preferences_applications_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_applications_PPPExtender_install_summary">Pre povolenie parametra \"Aplikácie\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
@@ -961,7 +960,7 @@
   <string name="array_event_pref_missed_call">Zmeškaný hovor</string>
   <string name="start_event_notification_title">Spustená udalosť</string>
   <string name="start_event_notification_text1">Názov udalosti</string>
-  <string name="start_event_notification_text2">Vymažte toto upozornenie, aby sa prestalo oznamovať.</string>
+  <string name="start_event_notification_text2">Vymažte toto upozornenie, aby sa prestalo zobrazovať.</string>
   <string name="event_preferences_notificationRepeat">Opakovaná notifikácia</string>
   <string name="event_preferences_notificationRepeatInterval">Interval opakovania oznámenia</string>
   <string name="duration_pref_dlg_activation_hours_label">Hodiny:</string>
@@ -992,7 +991,7 @@
   <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Povoliť skenovanie Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Skenovať aj keď Wi-Fi je vypnutá</string>
   <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Povoiť skenovanie Bluetooth</string>
-  <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Skenovať aj keď Bluetooth je vypnutý</string>
+  <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Skenovať aj keď je Bluetooth vypnutý</string>
   <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Povoliť skenovanie polohy</string>
   <string name="profile_preferences_applicationDisableLocationScanning">Zakázať skenovanie polohy</string>
   <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Povoliť skenovanie mobilných buniek</string>
@@ -1010,7 +1009,7 @@
   <string name="fast_access_duration_activate_without_button_2">Aktivovať bez trvania</string>
   <string name="profileicon_pref_dlg_customIconButton">Vlastná ikona</string>
   <string name="mobile_cells_registration_cell_name_hint">Kliknite pre nastavenie názvu bunky</string>
-  <string name="profile_preferences_deviceWiFiAPInfo_summary">Nemusí pracovať pripojenie do prístupového bodu z iných zariadení.</string>
+  <string name="profile_preferences_deviceWiFiAPInfo_summary">Nemusí fungovať pripojenie do prístupového bodu z iných zariadení.</string>
   <string name="array_event_pref_battery_charging_not_use">Nepouži</string>
   <string name="array_event_pref_battery_charging_start_when_charging">Štart pri nabíjaní</string>
   <string name="array_event_pref_battery_charging_stop_when_charging">Zastavenie pri nabíjaní</string>
@@ -1039,7 +1038,7 @@
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Dostupnosť</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Vynútiť zastavenie aplikácií\".</string>
   <string name="shortcut_activate_profile">Aktivácia profilu:</string>
-  <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Pracuje len keď je obrazovka zapnutá a odomknutá.</string>
+  <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">Pracuje len ak je obrazovka zapnutá a odomknutá.</string>
   <string name="important_info_contact">Ak máte problémy, otázky a návrhy, napíšte mi e-mail:</string>
   <string name="profile_preferences_deviceNetworkTypePrefs">(I) Nastavenia typu mobilnej siete</string>
   <string name="profile_preferences_deviceCloseAllApplications">Zatvoriť všetky aplikácie</string>
@@ -1108,7 +1107,7 @@
   <!--<string name="nfc_tag_pref_dlg_read_tag_uid">Read tag UID</string>-->
   <string name="event_preferences_not_set_underlined_parameters">Nie sú nakonfigurované niektoré podčiarknuté parametre!</string>
   <string name="permission_group_name_draw_overlays_miui">Zobrazovať vyskakovacie okná</string>
-  <string name="permissions_draw_overlays_not_allowed_confirm_miui">Nepovolili ste \"Zobrazovať vyskakovacie okná\". Už sa nikdy na toto nepýtať?</string>
+  <string name="permissions_draw_overlays_not_allowed_confirm_miui">Nepovolili ste \"Zobrazovať vyskakovacie okná\". Nabudúce sa už nepýtať?</string>
   <string name="stop_events_alert_title">Zastav udalosti</string>
   <string name="stop_events_alert_message">Ste si istý?</string>
   <string name="array_event_pref_incall_ended">Príchodzí hovor skončil</string>
@@ -1254,6 +1253,9 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Automatické schovanie bočného panelu</string>
+
 
 
 
