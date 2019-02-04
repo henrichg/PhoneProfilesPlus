@@ -58,6 +58,7 @@
          <uses-permission android:name="android.permission.OVERRIDE_WIFI_CONFIG"
                      tools:ignore="ProtectedPermissions"/>
     -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
 
