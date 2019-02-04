@@ -412,7 +412,7 @@ class EventsHandler {
                         // only start events
                         // start only paused events
                         //noinspection ConstantConditions
-                        dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*/false, mergedProfile, sensorType);
                 }
             }
 
