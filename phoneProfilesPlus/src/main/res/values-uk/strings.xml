@@ -149,7 +149,6 @@
   <string name="default_profile_name_work">Робота</string>
   <string name="default_profile_name_meeting">Нарада</string>
   <string name="default_profile_name_sleep">Сон</string>
-  <string name="phone_profiles_pref_applicationAutoCloseDrawer">Автоматично приховувати меню</string>
   <string name="alert_button_yes">Так</string>
   <string name="alert_button_no">Ні</string>
   <string name="profile_preferences_deviceAutoRotation">Обертання екрану</string>
@@ -778,7 +777,6 @@
   <string name="event_preference_sensor_orientation_summary">Цей датчик запускає подію у орієнтації пристрою. Параметри: \"Екран\" ( Екраном догори, екраном вниз), \"Сторони\" (горизонтально, певною стороною догори), \" Відстань\" (поруч, далеко; використовується датчик наближення), \"Ігнорувати для додатків\" (на передньому плані).</string>
   <string name="event_preference_sensor_nfc_summary">Цей датчик обробляє події NFC мітки. Параметри: NFC мітки, Постійний запуск, тривалість (Тривалість запуску події).</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">«Вид» бокова панель</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">Натисніть цю кнопку, або проведіть пальцем по екрану зліва направо, до відкриття «Вид» бічної панелі. В цій панелі ви можете перемикатися між профілями і подіями.</string>
   <string name="editor_activity_targetHelps_applicationMenu_title">Меню додатку</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Натисніть тут щоб відкрити меню додатка, де ви зможете змінити його налаштування.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Перезавантаження подій</string>
@@ -865,7 +863,6 @@
   <string name="important_info_profile_zenModeM">Для встановлення значення \"Режими оповіщення\" у розділі \"Режим дзвінка\" необхідно увімкнути службу PhoneProfilesPlus в налаштуваннях системи \"Доступ до сповіщень\". Натисніть тут, щоб увімкнути службу PhoneProfilesPlus.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">В Android 6 системні параметри, такі як режим дзвінка і вібрація, можна змінити тільки на пристроях із правами ROOT.</string>
   <string name="setting_screen_not_found_alert">Налаштувань екрану не виявлено.</string>
-  <string name="action_for_external_application_notification_title">Підтримка зовнішніх додатків. (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Параметр profile_name відсутній або пустий.</string>
   <string name="action_for_external_application_notification_no_event_text">Параметр event_name відсутній або пустий.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Увімк. (ігнорувати точку доступу)</string>
@@ -884,8 +881,7 @@
   <string name="important_info_profile_grant">Деякі параметри профілів потребують дозволу WRITE_SECURE_SETTINGS. ROOT не вимагається. Ці параметри позначені \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Для отримання додаткової інформації дивіться нижче у розділі «Профілі».</string>
   <string name="profile_preferences_typesInfoGrant">Щоб дізнатися більше відвідайте пункт \"Важлива інформація\" у розділі \"Профілі\".</string>
-  <string name="important_info_profile_grant_1_howTo_1">Параметри профілю позначені (GX) потребують спеціального дозволу для PhoneProfilesPlus.
-Їх можна отримати з допомогою ПК із встановленим adb.</string>
+  <string name="important_info_profile_grant_1_howTo_1">Параметри профілю позначені (GX) потребують спеціального дозволу для PhoneProfilesPlus. Їх можна отримати з допомогою ПК із встановленим adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">Якщо на вашому ПК не встановлено adb:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Завантажити інструмент платформи SDK із:</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
@@ -962,7 +958,6 @@
   <string name="array_event_pref_missed_call">Пропущений виклик</string>
   <string name="start_event_notification_title">Подію запущено</string>
   <string name="start_event_notification_text1">Назва події</string>
-  <string name="start_event_notification_text2">Приберіть це сповіщення, щоб зупинити його.</string>
   <string name="event_preferences_notificationRepeat">Повторення сповіщення</string>
   <string name="event_preferences_notificationRepeatInterval">Інтервал повторення сповіщень</string>
   <string name="duration_pref_dlg_activation_hours_label">Години:</string>
@@ -1255,6 +1250,11 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
+    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+    <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
+    <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
 
 

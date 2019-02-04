@@ -149,7 +149,6 @@
   <string name="default_profile_name_work">Munka</string>
   <string name="default_profile_name_meeting">Találkozó</string>
   <string name="default_profile_name_sleep">Alvás</string>
-  <string name="phone_profiles_pref_applicationAutoCloseDrawer">Autó.-elrejt irányító menü</string>
   <string name="alert_button_yes">Igen</string>
   <string name="alert_button_no">nem</string>
   <string name="profile_preferences_deviceAutoRotation">Kijelző elforgatás</string>
@@ -778,7 +777,6 @@
   <string name="event_preference_sensor_orientation_summary">Esemény kezdéséhez a készülék bizonyos pozíciója kell. Paraméterek: Kijelző (fel, le), Oldalak (vízszintes, oldalsó fel), a távolság (közel, távol, használ a közelség érzékelőt), figyelmen kívül hagyása ha az alkalmazások (az előtérben van).</string>
   <string name="event_preference_sensor_nfc_summary">NFC címkéhez köti az esemény kezdetét. Paraméterek: NFC címke, Láthatatlan futás, állandó időtartama (esemény időtartama alatt fut).</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">\"Nézetek\" oldalsó panel</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">Ide kattintva vagy húzva a kijelzőn balról jobbra, oldal \"Nézet\" panel kinyitásához. Ezen a panelon tud váltani események és profil nézetek között.</string>
   <string name="editor_activity_targetHelps_applicationMenu_title">Alkalmazás menü</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Ide kattintva megnyílik az alkalmazás menü. Ebben a menüben az alkalmazást beállíthatja.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Események újraindítása</string>
@@ -865,7 +863,6 @@
   <string name="important_info_profile_zenModeM">\"Ne zavarj\" profil \"Csengő mód\" - ban szükség van, a PhoneProfilesPlus a \"Értesítések hozzáférés\"-hez a rendszer beállításaiban. Kattintson ide, és engedélyezze a PhoneProfilesPlus-t.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6 a rendszer beállítás módosítható, csak a Root -olt eszköznél. Érintett csengetési mód, és nem zavarj típus rezgéssel.</string>
   <string name="setting_screen_not_found_alert">A beállítás képernyő nem található.</string>
-  <string name="action_for_external_application_notification_title">Külső app. támogatása (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Paraméter profile_name nem található vagy üres.</string>
   <string name="action_for_external_application_notification_no_event_text">Event_name paraméter hiányzik vagy üres.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Bekapcsolva (hotspot kihagyva)</string>
@@ -961,7 +958,6 @@
   <string name="array_event_pref_missed_call">Nem fogadott hívás</string>
   <string name="start_event_notification_title">Esemény kezdete</string>
   <string name="start_event_notification_text1">Esemény neve</string>
-  <string name="start_event_notification_text2">Törölje ezt az értesítést, hogy abba hagyja, ezt az értesítőt.</string>
   <string name="event_preferences_notificationRepeat">Értesítés ismétlés</string>
   <string name="event_preferences_notificationRepeatInterval">Értesítés ismétlés intervallum</string>
   <string name="duration_pref_dlg_activation_hours_label">Órák:</string>
@@ -1254,6 +1250,11 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
+    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+    <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
+    <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
 
 

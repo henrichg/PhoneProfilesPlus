@@ -149,7 +149,6 @@
   <string name="default_profile_name_work">בעבודה</string>
   <string name="default_profile_name_meeting">בפגישה</string>
   <string name="default_profile_name_sleep">שינה</string>
-  <string name="phone_profiles_pref_applicationAutoCloseDrawer">הסתרה אוטומטית של מגירת הניווט</string>
   <string name="alert_button_yes">כן</string>
   <string name="alert_button_no">לא</string>
   <string name="profile_preferences_deviceAutoRotation">סיבוב התצוגה</string>
@@ -781,7 +780,6 @@
   <string name="event_preference_sensor_orientation_summary">חיישן זה נועד להפעלת אירוע ע\"י כיוון המכשיר. פרמטרים: תצוגה (ישר, הפוך), צדדים (אופקי, על הצד), מרחק (קרוב, רחוק; שימוש בחיישן הקירבה), התעלם מהכיוון עבור יישומים (בקידמה).</string>
   <string name="event_preference_sensor_nfc_summary">חיישן זה נועד להפעלת אירוע לפי תגיות NFC. פרמטרים: תגיות NFC, הפעלה קבועה, משך (משך הפעלת אירוע).</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">פאנל צד \"תצוגות\"</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">לחצו כאן או ישכו משמאל לימין התצוגה, לפתיחת פאנל-צד \"תצוגות\". בחלונית זו ניתן לעבור בין תצוגות פרופילים ואירועים.</string>
   <string name="editor_activity_targetHelps_applicationMenu_title">תפריט היישום</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">לחצו כאן לפתיחת תפריט היישום. בתפריט זה נמצאות הגדרות היישום.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">הפעלת אירועים מחדש</string>
@@ -868,7 +866,6 @@
   <string name="important_info_profile_zenModeM">\"נא לא להפריע\" פרופיל \"הצלצול מצב\" דורש הפעלת PhoneProfilesPlus בהגדרות המערכת \"הודעה על גישה\". לחץ כאן ולאפשר PhoneProfilesPlus.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">באנדרואיד 6 הגדרת מערכת זו מערכת מחייבת הרשאות ROOT. ההשפעה היא על מצבי הצלצול וסוגי הפרעה עם רטט.</string>
   <string name="setting_screen_not_found_alert">מסך ההגדרות לא נמצא.</string>
-  <string name="action_for_external_application_notification_title">תמיכה ביישום חיצוני (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">הפרמטר profile_name חסר או ריק.</string>
   <string name="action_for_external_application_notification_no_event_text">הפרמטר event_name חסר או ריק.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">מופעל (התעלם מ-hotspot)</string>
@@ -965,7 +962,6 @@
   <string name="array_event_pref_missed_call">Missed call</string>
   <string name="start_event_notification_title">Event started</string>
   <string name="start_event_notification_text1">Event name</string>
-  <string name="start_event_notification_text2">Clear this notification to stop notifying it.</string>
   <string name="event_preferences_notificationRepeat">Repeat notification</string>
   <string name="event_preferences_notificationRepeatInterval">Repeat notification interval</string>
   <string name="duration_pref_dlg_activation_hours_label">Hours:</string>
@@ -1258,6 +1254,11 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
+    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+    <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
+    <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
 
 

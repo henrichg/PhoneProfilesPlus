@@ -149,7 +149,6 @@
   <string name="default_profile_name_work">Werk</string>
   <string name="default_profile_name_meeting">Vergadering</string>
   <string name="default_profile_name_sleep">Slapen</string>
-  <string name="phone_profiles_pref_applicationAutoCloseDrawer">Navigatiebalk automatisch verbergen</string>
   <string name="alert_button_yes">Ja</string>
   <string name="alert_button_no">Nee</string>
   <string name="profile_preferences_deviceAutoRotation">Schermrotatie</string>
@@ -778,7 +777,6 @@
   <string name="event_preference_sensor_orientation_summary">Deze sensor is voor event start door oriëntatie van apparaat. Parameters: Scherm (Boven, onder), Zijden (Horizontaal, zijkant boven), Afstand (Nabij, veraf; gebruikt de nabijheidssensor), Negeer voor programma\'s (in de voorgrond).</string>
   <string name="event_preference_sensor_nfc_summary">Deze sensor is voor event start door NFC-tags. Parameters; NFC-tags, Voortdurend ingeschakeld, Duur (event-inschakelduur).</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">\"Weergaven\" zijpaneel</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">Klik hier of veeg linker schermzijde naar rechts om het \"Weergaven\" zijpaneel te openen. In dit paneel kun je wisselen tussen Profiel- en Events-weergave.</string>
   <string name="editor_activity_targetHelps_applicationMenu_title">Programmamenu</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Klik hier om het Programmamenu te openen. Hier vind je de Programma-instellingen.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Events herstarten</string>
@@ -865,7 +863,6 @@
   <string name="important_info_profile_zenModeM">\"Niet storen\" in profiel \"Beltoonmodus\" vereist het autoriseren van PhoneProfilesPlus bij \"Toegang tot notificaties\" in systeem instellingen. Klik hier en schakel PhoneProfiles in.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6 kan deze systeeminstelling alleen gewijzigd worden op geroote apparaten. Dit betreft bel modes met trillen.</string>
   <string name="setting_screen_not_found_alert">Instellen scherm niet gevonden.</string>
-  <string name="action_for_external_application_notification_title">Externe app. ondersteuning (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profle_name ontbreekt of is leeg.</string>
   <string name="action_for_external_application_notification_no_event_text">Parameter event_name ontbreekt of is leeg.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Aan (negeer hotspot)</string>
@@ -961,7 +958,6 @@
   <string name="array_event_pref_missed_call">Gemiste oproep</string>
   <string name="start_event_notification_title">Event gestart</string>
   <string name="start_event_notification_text1">Event naam</string>
-  <string name="start_event_notification_text2">Schakel deze notificatie uit om notificatie te stoppen.</string>
   <string name="event_preferences_notificationRepeat">Herhaal notificatie</string>
   <string name="event_preferences_notificationRepeatInterval">Herhaal notificatie interval</string>
   <string name="duration_pref_dlg_activation_hours_label">Uren:</string>
@@ -1254,6 +1250,11 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
+    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+    <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
+    <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
 
 

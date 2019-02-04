@@ -149,7 +149,6 @@
   <string name="default_profile_name_work">Travail</string>
   <string name="default_profile_name_meeting">Réunion</string>
   <string name="default_profile_name_sleep">Nuit</string>
-  <string name="phone_profiles_pref_applicationAutoCloseDrawer">Masquage automatique de la fenêtre de navigation</string>
   <string name="alert_button_yes">Oui</string>
   <string name="alert_button_no">Non</string>
   <string name="profile_preferences_deviceAutoRotation">Rotation d\'écran</string>
@@ -778,7 +777,6 @@
   <string name="event_preference_sensor_orientation_summary">Ce capteur est pour démarrer un événement selon l’orientation de l’appareil. Paramètres : Affichage (haut, bas), côtés (horizontale, vers le haut), Distance (près, loin, utilisé le capteur de proximité), ignorer pour des applications (au premier plan).</string>
   <string name="event_preference_sensor_nfc_summary">Ce capteur est pour démarrer un événement par étiquette NFC. Paramètres : étiquette  NFC, exécution permanente, durée.</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">Panneau latéral « Vues »</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">Cliquez sur ce bouton ou glisser de gauche à droite pour ouvrir le panneau « Vues ». Dans ce panneau, vous pouvez basculer entre les affichages des profils et des événements.</string>
   <string name="editor_activity_targetHelps_applicationMenu_title">Menu de l’application</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Cliquez sur ce bouton pour ouvrir le menu d’Application. Dans ce menu on trouve les paramètres de l\'application.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Redémarrez l\'événement</string>
@@ -865,7 +863,6 @@
   <string name="important_info_profile_zenModeM">« Ne pas déranger » dans le profil « Mode de sonnerie » nécessite l\'activation de PhoneProfilesPlus dans « Accès de Notification » des paramètres système . Cliquez ici et activez PhoneProfilesPlus.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Dans Android 6 ce paramètre ne peut être modifié que sur les appareils rootés. Les modes de sonnerie et les notifications de type ne pas déranger avec vibration sont affectés.</string>
   <string name="setting_screen_not_found_alert">Écran de paramétrage introuvable.</string>
-  <string name="action_for_external_application_notification_title">Support pour les app. extérieurs</string>
   <string name="action_for_external_application_notification_no_profile_text">Le paramètre profile_name est manquant ou vide.</string>
   <string name="action_for_external_application_notification_no_event_text">Le paramètre event_name est manquant ou vide.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Activer (ignorer le hotspot)</string>
@@ -961,7 +958,6 @@
   <string name="array_event_pref_missed_call">Appels manqués</string>
   <string name="start_event_notification_title">Événement commencé</string>
   <string name="start_event_notification_text1">Nom de l’événement</string>
-  <string name="start_event_notification_text2">Désactivez cette notification d’arrêter sa notification.</string>
   <string name="event_preferences_notificationRepeat">Répétez la notification</string>
   <string name="event_preferences_notificationRepeatInterval">Intervalle de répétition de la notification</string>
   <string name="duration_pref_dlg_activation_hours_label">heure :</string>
@@ -1255,6 +1251,11 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
+    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+    <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
+    <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
 
 

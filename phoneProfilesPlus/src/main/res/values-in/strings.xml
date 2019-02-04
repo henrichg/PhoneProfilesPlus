@@ -149,7 +149,6 @@
   <string name="default_profile_name_work">Kerja</string>
   <string name="default_profile_name_meeting">Pertemuan</string>
   <string name="default_profile_name_sleep">Tidur</string>
-  <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide navigation drawer</string>
   <string name="alert_button_yes">Iya nih</string>
   <string name="alert_button_no">Tidak</string>
   <string name="profile_preferences_deviceAutoRotation">Tampilan rotasi</string>
@@ -778,7 +777,6 @@
   <string name="event_preference_sensor_orientation_summary">Sensor ini akan memulai sebuah acara dengan orientasi perangkat. Parameter: Display (Atas, Bawah), Sisi (Horizontal, sisi atas), Jarak (Dekat, jauh, digunakan adalah sensor jarak), Abaikan aplikasi (di latar depan).</string>
   <string name="event_preference_sensor_nfc_summary">Sensor ini akan memulai sebuah event dengan tag NFC. Parameter: Tag NFC, Permanent run, Durasi (durasi lari acara).</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">Panel samping \"Views\"</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">Klik ini atau gesek dari kiri ke kanan untuk membuka panel samping \"Views\", tempat Anda dapat beralih antara tampilan Profil dan Peristiwa.</string>
   <string name="editor_activity_targetHelps_applicationMenu_title">Menu aplikasi</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Klik ini untuk membuka menu Aplikasi, di mana Anda bisa mengubah Pengaturan aplikasi.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Mulai ulang acara</string>
@@ -865,7 +863,6 @@
   <string name="important_info_profile_zenModeM">\"Jangan diganggu\" dalam profil \"Mode dering\" mengharuskan PhoneProfilesPlus dalam pengaturan sistem \"Akses notifikasi\". Klik disini dan aktifkan.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Di Android 6: Pengaturan sistem ini hanya bisa diubah pada perangkat berakar. Terkena mode ringer dan tidak mengganggu tipe dengan getaran.</string>
   <string name="setting_screen_not_found_alert">Setting layar tidak ditemukan.</string>
-  <string name="action_for_external_application_notification_title">Dukungan aplikasi eksternal (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profil_name hilang atau kosong.</string>
   <string name="action_for_external_application_notification_no_event_text">Parameter event_name hilang atau kosong.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">Aktif (abaikan hotspot)</string>
@@ -961,7 +958,6 @@
   <string name="array_event_pref_missed_call">Panggilan tidak terjawab</string>
   <string name="start_event_notification_title">Acara dimulai</string>
   <string name="start_event_notification_text1">Nama acara</string>
-  <string name="start_event_notification_text2">Hapus pemberitahuan ini untuk berhenti memberitahukannya.</string>
   <string name="event_preferences_notificationRepeat">Pemberitahuan berulang</string>
   <string name="event_preferences_notificationRepeatInterval">Interval pemberitahuan berulang</string>
   <string name="duration_pref_dlg_activation_hours_label">Jam:</string>
@@ -1254,6 +1250,11 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
+    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+    <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
+    <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
 
 

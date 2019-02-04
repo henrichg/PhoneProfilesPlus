@@ -149,7 +149,6 @@
   <string name="default_profile_name_work">محل کار</string>
   <string name="default_profile_name_meeting">جلسه</string>
   <string name="default_profile_name_sleep">خواب</string>
-  <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide navigation drawer</string>
   <string name="alert_button_yes">بله</string>
   <string name="alert_button_no">خیر</string>
   <string name="profile_preferences_deviceAutoRotation">چرخش صفحه نمایش</string>
@@ -778,7 +777,6 @@
   <string name="event_preference_sensor_orientation_summary">This sensor will start an event by device orientation. Parameters: Display (Up, down), Sides (Horizontal, side up), Distance (Near, far; used is proximity sensor), Ignore for applications (in foreground).</string>
   <string name="event_preference_sensor_nfc_summary">This sensor will start an event by NFC tags. Parameters: NFC tags, Permanent run, Duration (event run duration).</string>
   <string name="editor_activity_targetHelps_navigationIcon_title">\"Views\" side panel</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe left-to-right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
   <string name="editor_activity_targetHelps_applicationMenu_title">Application menu</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Click this to open Application menu, where you can change application Settings.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Restart events</string>
@@ -865,7 +863,6 @@
   <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>
   <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
   <string name="setting_screen_not_found_alert">Setting screen not found.</string>
-  <string name="action_for_external_application_notification_title">External app support (Tasker)</string>
   <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name is missing or empty.</string>
   <string name="action_for_external_application_notification_no_event_text">Parameter event_name is missing or empty.</string>
   <string name="array_pref_wifiModeArray_on_ignoreHotspot">On (ignore hotspot)</string>
@@ -961,7 +958,6 @@
   <string name="array_event_pref_missed_call">Missed call</string>
   <string name="start_event_notification_title">Event started</string>
   <string name="start_event_notification_text1">Event name</string>
-  <string name="start_event_notification_text2">Clear this notification to stop notifying it.</string>
   <string name="event_preferences_notificationRepeat">Repeat notification</string>
   <string name="event_preferences_notificationRepeatInterval">Repeat notification interval</string>
   <string name="duration_pref_dlg_activation_hours_label">Hours:</string>
@@ -1254,6 +1250,11 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+
+    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
+    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+    <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
+    <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
 
 
