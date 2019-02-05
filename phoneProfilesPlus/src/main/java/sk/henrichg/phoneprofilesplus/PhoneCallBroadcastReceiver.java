@@ -94,16 +94,19 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
     }
 
     private static void setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
-        if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
-            if (ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, context)) {
-                DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
-                final Profile profile = dataWrapper.getActivatedProfile(false, false);
-                if (profile != null) {
-                    ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
+        if (!RingerModeChangeReceiver.notUnlinkVolumes) {
+            if (ActivateProfileHelper.getMergedRingNotificationVolumes(context) && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                if (ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, context)) {
+                    DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+                    final Profile profile = dataWrapper.getActivatedProfile(false, false);
+                    if (profile != null) {
+                        ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
+                    }
+                    dataWrapper.invalidateDataWrapper();
                 }
-                dataWrapper.invalidateDataWrapper();
             }
         }
+        RingerModeChangeReceiver.notUnlinkVolumes = false;
     }
 
     private static void callStarted(boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)

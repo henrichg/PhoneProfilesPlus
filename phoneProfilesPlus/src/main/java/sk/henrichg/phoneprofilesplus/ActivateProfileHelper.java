@@ -1222,14 +1222,11 @@ class ActivateProfileHelper {
                         // change ringer mode to Silent
                         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to silent");
                         profile._volumeRingerMode = Profile.RINGERMODE_SILENT;
-                    }
-                    else
+                    } else
                         PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "not audible ringer mode in profile");
-                }
-                else
+                } else
                     PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "vibrate ringer mode in profile");
-            }
-            else {
+            } else {
                 if ((profile._volumeRingerMode == 0) && (audioManager.getRingerMode() == AudioManager.RINGER_MODE_SILENT)) {
                     // change ringer mode to Ringing
                     PPApplication.logE("ActivateProfileHelper.changeRingerModeForVolumeEqual0", "changed to ringing");
