@@ -224,6 +224,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 }
                 PPApplication.logE(TAG, "onInterruptionFilterChanged(zenMode=" + zenMode + ')');
                 if (zenMode != 0) {
+                    RingerModeChangeReceiver.notUnlinkVolumes = true;
                     ActivateProfileHelper.setRingerMode(getApplicationContext(), 5);
                     ActivateProfileHelper.setZenMode(getApplicationContext(), zenMode);
                 }

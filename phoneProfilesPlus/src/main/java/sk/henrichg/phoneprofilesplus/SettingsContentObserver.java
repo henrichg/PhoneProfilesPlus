@@ -57,14 +57,14 @@ class SettingsContentObserver  extends ContentObserver {
         {
             if (!RingerModeChangeReceiver.internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING) {
-                    ActivateProfileHelper.setRingerVolume(context, currentVolume);
                     RingerModeChangeReceiver.notUnlinkVolumes = true;
+                    ActivateProfileHelper.setRingerVolume(context, currentVolume);
                     if (PhoneProfilesService.getInstance() != null)
                         PhoneProfilesService.getInstance().ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
-                    ActivateProfileHelper.setNotificationVolume(context, currentVolume);
                     RingerModeChangeReceiver.notUnlinkVolumes = true;
+                    ActivateProfileHelper.setNotificationVolume(context, currentVolume);
                     //PhoneProfilesService.notificationVolume = currentVolume;
                 }
             }
@@ -73,14 +73,14 @@ class SettingsContentObserver  extends ContentObserver {
         {
             if (!RingerModeChangeReceiver.internalChange) {
                 if (volumeStream == AudioManager.STREAM_RING) {
-                    ActivateProfileHelper.setRingerVolume(context, currentVolume);
                     RingerModeChangeReceiver.notUnlinkVolumes = true;
+                    ActivateProfileHelper.setRingerVolume(context, currentVolume);
                     if (PhoneProfilesService.getInstance() != null)
                         PhoneProfilesService.getInstance().ringingVolume = currentVolume;
                 }
                 if (volumeStream == AudioManager.STREAM_NOTIFICATION) {
-                    ActivateProfileHelper.setNotificationVolume(context, currentVolume);
                     RingerModeChangeReceiver.notUnlinkVolumes = true;
+                    ActivateProfileHelper.setNotificationVolume(context, currentVolume);
                     //PhoneProfilesService.notificationVolume = currentVolume;
                 }
             }

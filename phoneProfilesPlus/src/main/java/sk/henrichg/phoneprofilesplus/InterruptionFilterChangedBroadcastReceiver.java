@@ -54,6 +54,7 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
                         }
                         PPApplication.logE(TAG, "onReceive(zenMode=" + zenMode + ')');
                         if (zenMode != 0) {
+                            RingerModeChangeReceiver.notUnlinkVolumes = true;
                             ActivateProfileHelper.setRingerMode(context.getApplicationContext(), 5);
                             ActivateProfileHelper.setZenMode(context.getApplicationContext(), zenMode);
                         }

@@ -17,9 +17,9 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
 
         if (!internalChange) {
             PPApplication.logE("RingerModeChangeReceiver.onReceive", "!internalChange");
+            notUnlinkVolumes = true;
             final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             setRingerMode(context, audioManager);
-            notUnlinkVolumes = true;
         }
 
         //setAlarmForDisableInternalChange(context);
