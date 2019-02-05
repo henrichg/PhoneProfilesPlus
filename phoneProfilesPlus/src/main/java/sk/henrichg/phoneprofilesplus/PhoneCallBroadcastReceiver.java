@@ -106,7 +106,6 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 }
             }
         }
-        RingerModeChangeReceiver.notUnlinkVolumes = false;
     }
 
     private static void callStarted(boolean incoming, /*String phoneNumber, Date eventTime,*/ Context context)
