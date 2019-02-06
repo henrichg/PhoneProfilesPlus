@@ -321,6 +321,7 @@ class EventsHandler {
                         // pause also paused events
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
+                        //noinspection ConstantConditions
                         dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, forDelayEndAlarm, reactivateProfile, mergedProfile, sensorType);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
@@ -352,6 +353,7 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
                         // start all events
+                        //noinspection ConstantConditions
                         dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, reactivateProfile, mergedProfile, sensorType);
 
                         /*
