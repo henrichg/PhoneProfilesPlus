@@ -287,6 +287,12 @@ class EventsHandler {
             Profile mergedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
             Profile mergedPausedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
 
+            Profile oldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
+            long oldActivatedProfileId = 0;
+            if (oldActivatedProfile != null)
+                oldActivatedProfileId = oldActivatedProfile._id;
+            boolean profileChanged = false;
+
             //Profile activatedProfile0 = null;
 
             int runningEventCount0;
@@ -414,11 +420,12 @@ class EventsHandler {
                     PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                     PPApplication.logE("EventsHandler.handleEvents", "event.getStatus()=" + _event.getStatus());
 
-                    if (_event.getStatus() != Event.ESTATUS_STOP)
+                    if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
                         // start only paused events
                         //noinspection ConstantConditions
                         dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*/reactivateProfile, mergedProfile, sensorType);
+                    }
                 }
             }
 
@@ -540,11 +547,11 @@ class EventsHandler {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeNotification=" + mergedProfile._volumeNotification);
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
 
-                long activatedProfileId = 0;
-                if (activatedProfile != null)
-                    activatedProfileId = activatedProfile._id;
 
-                if ((mergedProfile._id != activatedProfileId) || reactivateProfile) {
+                if (mergedProfile._id != oldActivatedProfileId)
+                    profileChanged = true;
+
+                if (profileChanged || reactivateProfile) {
                     dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);
                     // wait for profile activation
                     doSleep = true;
