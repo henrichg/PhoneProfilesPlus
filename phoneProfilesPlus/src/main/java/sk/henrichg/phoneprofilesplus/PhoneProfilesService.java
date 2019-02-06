@@ -3440,8 +3440,8 @@ public class PhoneProfilesService extends Service
                 if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_JOBS, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REGISTER_RECEIVERS_AND_JOBS");
                     final Context appContext = getApplicationContext();
-                    PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.EXTRA_REGISTER_RECEIVERS_AND_JOBS");
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadPPService();
+                    final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -3470,8 +3470,8 @@ public class PhoneProfilesService extends Service
                 if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
                     final Context appContext = getApplicationContext();
-                    PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadPPService();
+                    final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -3500,8 +3500,8 @@ public class PhoneProfilesService extends Service
                 if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_JOBS, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
                     final Context appContext = getApplicationContext();
-                    PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                    PPApplication.startHandlerThreadPPService();
+                    final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -3542,8 +3542,8 @@ public class PhoneProfilesService extends Service
                     switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                         case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_START_GEOFENCE_SCANNER");
-                            final Handler handler1 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler1 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler1.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3572,8 +3572,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_STOP_GEOFENCE_SCANNER");
-                            final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler2 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler2.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3602,8 +3602,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_ORIENTATION_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_START_ORIENTATION_SCANNER");
-                            final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler3 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler3.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3630,8 +3630,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_STOP_ORIENTATION_SCANNER");
-                            final Handler handler4 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler4 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler4.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3658,8 +3658,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_PHONE_STATE_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_START_PHONE_STATE_SCANNER");
-                            final Handler handler5 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler5 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler5.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3688,8 +3688,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_STOP_PHONE_STATE_SCANNER");
-                            final Handler handler6 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler6 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler6.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3716,8 +3716,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                            final Handler handler7 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler7 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler7.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3750,8 +3750,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                            final Handler handler8 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler8 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler8.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3784,8 +3784,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                            final Handler handler9 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler9 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler9.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3816,8 +3816,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                            final Handler handler10 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler10 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler10.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3848,8 +3848,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_WIFI_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_WIFI_SCANNER");
-                            final Handler handler11 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler11 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler11.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3884,8 +3884,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_BLUETOOTH_SCANNER");
-                            final Handler handler12 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler12 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler12.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3918,8 +3918,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
-                            final Handler handler13 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler13 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler13.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3950,8 +3950,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_FORCE_START_PHONE_STATE_SCANNER");
-                            final Handler handler14 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler14 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler14.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -3980,8 +3980,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_GEOFENCE_SCANNER");
-                            final Handler handler15 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler15 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler15.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -4012,8 +4012,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_ORIENTATION_SCANNER");
-                            final Handler handler16 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler16 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler16.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -4040,8 +4040,8 @@ public class PhoneProfilesService extends Service
                             break;
                         case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
                             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ALL_SCANNERS");
-                            PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_ALL_SCANNERS");
-                            final Handler handler17 = new Handler(PPApplication.handlerThread.getLooper());
+                            PPApplication.startHandlerThreadPPService();
+                            final Handler handler17 = new Handler(PPApplication.handlerThreadPPService.getLooper());
                             handler17.post(new Runnable() {
                                 @Override
                                 public void run() {
