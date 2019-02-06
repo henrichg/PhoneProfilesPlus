@@ -296,8 +296,12 @@ class EventsHandler {
             boolean anyEventPaused = false;
             Event notifyEventEnd = null;
 
+            boolean reactivateProfile = false;
+
             if (isRestart) {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
+
+                reactivateProfile = true;
 
                 //oldActivatedProfile = null;
 
@@ -317,7 +321,7 @@ class EventsHandler {
                         // pause also paused events
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
-                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, true, true, /*interactive,*/ false, forDelayEndAlarm, reactivateProfile, mergedProfile, sensorType);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -348,7 +352,7 @@ class EventsHandler {
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
                         // start all events
-                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, true, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, true, /*interactive,*/ false, forDelayEndAlarm, reactivateProfile, mergedProfile, sensorType);
 
                         /*
                         PPApplication.logE("$$$ EventsHandler.handleEvents", "**** profileName=" + mergedProfile._name);
@@ -384,7 +388,7 @@ class EventsHandler {
 
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
                         //noinspection ConstantConditions
-                        dataWrapper.doHandleEvents(_event, true, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, false, mergedPausedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, true, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, reactivateProfile, mergedPausedProfile, sensorType);
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
@@ -412,7 +416,7 @@ class EventsHandler {
                         // only start events
                         // start only paused events
                         //noinspection ConstantConditions
-                        dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*/false, mergedProfile, sensorType);
+                        dataWrapper.doHandleEvents(_event, false, false, /*interactive,*/ forDelayStartAlarm, forDelayEndAlarm, /*true*/reactivateProfile, mergedProfile, sensorType);
                 }
             }
 
@@ -533,9 +537,16 @@ class EventsHandler {
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeRingtone=" + mergedProfile._volumeRingtone);
                 PPApplication.logE("$$$ EventsHandler.handleEvents", "#### _volumeNotification=" + mergedProfile._volumeNotification);
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
-                dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);
-                // wait for profile activation
-                doSleep = true;
+
+                long activatedProfileId = 0;
+                if (activatedProfile != null)
+                    activatedProfileId = activatedProfile._id;
+
+                if ((mergedProfile._id != activatedProfileId) || reactivateProfile) {
+                    dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ false, true);
+                    // wait for profile activation
+                    doSleep = true;
+                }
             } else {
                 if (!restartEventsAtEnd) {
                     // update only when will not be do restart events from paused events

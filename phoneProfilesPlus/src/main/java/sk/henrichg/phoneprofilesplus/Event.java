@@ -1336,7 +1336,8 @@ class Event {
         if (activatedProfile != null)
             activatedProfileId = activatedProfile._id;
 
-        if ((this._fkProfileStart != activatedProfileId) || this._manualProfileActivation || reactivate)
+        if (this._manualProfileActivation || reactivate ||
+                (this._fkProfileStart != activatedProfileId))
         {
             // no activate profile, when is already activated
             PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
