@@ -5853,11 +5853,13 @@ public class PhoneProfilesService extends Service
             Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             if ((vibrator != null) && vibrator.hasVibrator()) {
                 PPApplication.logE("PhoneProfilesService.playNotificationSound", "vibration");
-                if (Build.VERSION.SDK_INT >= 26) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
-                } else {
-                    vibrator.vibrate(500);
-                }
+                try {
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+                    } else {
+                        vibrator.vibrate(500);
+                    }
+                } catch (Exception ignored) {}
             }
         }
 
