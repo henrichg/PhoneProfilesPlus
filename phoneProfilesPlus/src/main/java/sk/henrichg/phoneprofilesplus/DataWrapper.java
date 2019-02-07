@@ -1862,7 +1862,7 @@ public class DataWrapper {
     void doHandleEvents(Event event, boolean statePause,
                                     boolean forRestartEvents, /*boolean interactive,*/
                                     boolean forDelayStartAlarm, boolean forDelayEndAlarm,
-                                    boolean reactivate, Profile mergedProfile,
+                                    /*boolean reactivate,*/ Profile mergedProfile,
                                     String sensorType)
     {
         if (!Permissions.grantEventPermissions(context, event, true, false))
@@ -3590,7 +3590,7 @@ public class DataWrapper {
                             if (!event._isInDelayStart) {
                                 // no delay alarm is set
                                 // start event
-                                event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile);
+                                event.startEvent(this, eventTimelineList, /*interactive,*/ forRestartEvents, mergedProfile);
                                 PPApplication.logE("[***] DataWrapper.doHandleEvents", "mergedProfile._id=" + mergedProfile._id);
                             }
                         }
@@ -3598,7 +3598,7 @@ public class DataWrapper {
                         if (forDelayStartAlarm && event._isInDelayStart) {
                             // called for delay alarm
                             // start event
-                            event.startEvent(this, eventTimelineList, /*interactive,*/ reactivate, mergedProfile);
+                            event.startEvent(this, eventTimelineList, /*interactive,*/ forRestartEvents, mergedProfile);
                         }
                     }
                 } else if (((newEventStatus == Event.ESTATUS_PAUSE) || forRestartEvents) && statePause) {
@@ -3901,7 +3901,8 @@ public class DataWrapper {
 
     @SuppressLint("NewApi")
     // delay is in seconds, max 5
-    void restartEventsWithDelay(int delay, final boolean unblockEventsRun, boolean clearOld, final int logType)
+    void restartEventsWithDelay(int delay, final boolean unblockEventsRun, final boolean reactivateProfile,
+                                boolean clearOld, final int logType)
     {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
 
@@ -3919,7 +3920,7 @@ public class DataWrapper {
                     dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                 }
             }, delay * 1000);*/
-            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, logType, context);
+            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, reactivateProfile, logType, context);
         }
         else {
             /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
@@ -3931,7 +3932,7 @@ public class DataWrapper {
                     dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                 }
             }, delay * 1000);*/
-            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, logType, context);
+            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, reactivateProfile, logType, context);
         }
     }
 

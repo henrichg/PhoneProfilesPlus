@@ -24,6 +24,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_SENSOR_TYPE = "sensor_type";
     static final String EXTRA_UNBLOCK_EVENTS_RUN = "unblock_events_run";
+    static final String EXTRA_REACTIVATE_PROFILE = "reactivate_profile";
     private static final String EXTRA_LOG_TYPE = "log_type";
 
     @Override
@@ -120,6 +121,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
             if (action.equals(ACTION_RESTART_EVENTS)) {
                 final boolean unblockEventsRun = intent.getBooleanExtra(EXTRA_UNBLOCK_EVENTS_RUN, false);
+                final boolean reactivateProfile = intent.getBooleanExtra(EXTRA_REACTIVATE_PROFILE, false);
                 final int logType = intent.getIntExtra(EXTRA_LOG_TYPE, DatabaseHandler.ALTYPE_UNDEFINED);
 
                 PPApplication.startHandlerThreadRestartEventsWithDelay();
@@ -139,7 +141,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                             if (logType != DatabaseHandler.ALTYPE_UNDEFINED)
                                 dataWrapper.addActivityLog(logType, null, null, null, 0);
-                            dataWrapper.restartEvents(unblockEventsRun, true, true, true, false);
+                            dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, true, false);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -237,7 +239,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
     @SuppressLint("NewApi")
     static void setAlarmForRestartEvents(int delaySeconds, boolean clearOld, final boolean unblockEventsRun,
-                                         final int logType, Context context)
+                                         final boolean reactivateProfile, final int logType, Context context)
     {
         final Context appContext = context.getApplicationContext();
 
@@ -266,6 +268,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
             //intent.setClass(context, PostDelayedBroadcastReceiver.class);
 
             intent.putExtra(EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
+            intent.putExtra(EXTRA_REACTIVATE_PROFILE, reactivateProfile);
             intent.putExtra(EXTRA_LOG_TYPE, logType);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

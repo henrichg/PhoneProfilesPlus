@@ -1206,7 +1206,7 @@ class Event {
                             List<EventTimeline> eventTimelineList,
                             //boolean ignoreGlobalPref,
                             //boolean interactive,
-                            boolean reactivate,
+                            boolean forRestartEvents,
                             //boolean log,
                             Profile mergedProfile)
     {
@@ -1331,31 +1331,26 @@ class Event {
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_EVENTSTART, _name, null, null, 0);
         }
 
-        long activatedProfileId = 0;
-        Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-        if (activatedProfile != null)
-            activatedProfileId = activatedProfile._id;
+        PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
 
-        if (this._manualProfileActivation || reactivate ||
-                (this._fkProfileStart != activatedProfileId))
-        {
-            // no activate profile, when is already activated
-            PPApplication.logE("Event.startEvent","event_id="+this._id+" activate profile id="+this._fkProfileStart);
-
-            if (mergedProfile == null)
+        if (mergedProfile == null) {
+            long activatedProfileId = 0;
+            Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+            if (activatedProfile != null)
+                activatedProfileId = activatedProfile._id;
+            if (this._manualProfileActivation || forRestartEvents ||
+                    (this._fkProfileStart != activatedProfileId))
                 dataWrapper.activateProfileFromEvent(this._fkProfileStart, /*interactive,*/ false, false);
-            else {
-                mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
-                if (this._manualProfileActivation) {
-                    DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                    dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ true, true);
-                    mergedProfile._id = 0;
-                }
-            }
+            else
+                dataWrapper.updateNotificationAndWidgets();
         }
-        else
-        {
-            dataWrapper.updateNotificationAndWidgets();
+        else {
+            mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
+            if (this._manualProfileActivation) {
+                DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
+                dataWrapper.activateProfileFromEvent(mergedProfile._id, /*interactive,*/ true, true);
+                mergedProfile._id = 0;
+            }
         }
 
         //return;
@@ -1368,7 +1363,7 @@ class Event {
                                         EventTimeline eventTimeline,
                                         boolean activateReturnProfile,
                                         Profile mergedProfile,
-                                        boolean allowRestart)
+                                        boolean forRestartEvents)
     {
 
         if (!(eventPosition == (timeLineSize-1)))
@@ -1388,60 +1383,85 @@ class Event {
         }
 
         boolean profileActivated = false;
-        Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-        // activate profile only when profile not already activated
         //noinspection ConstantConditions
         if (activateReturnProfile/* && canActivateReturnProfile()*/)
         {
-            long activatedProfileId = 0;
-            if (activatedProfile != null)
-                activatedProfileId = activatedProfile._id;
-            // first activate _fkProfileEnd
-            if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
-            {
-                if (_fkProfileEnd != activatedProfileId)
+            if (mergedProfile == null) {
+                Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+                long activatedProfileId = 0;
+                if (activatedProfile != null)
+                    activatedProfileId = activatedProfile._id;
+                // first activate _fkProfileEnd
+                if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
                 {
-                    PPApplication.logE("Event.pauseEvent","activate end profile");
-                    if (mergedProfile == null)
+                    if ((_fkProfileEnd != activatedProfileId) || forRestartEvents)
+                    {
+                        PPApplication.logE("Event.pauseEvent","activate end profile");
                         dataWrapper.activateProfileFromEvent(_fkProfileEnd, /*false,*/ false, false);
-                    else
-                        mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper, false);
-                    activatedProfileId = _fkProfileEnd;
-                    profileActivated = true;
-                }
-            }
-            // second activate when undone profile is set
-            if (_atEndDo == EATENDDO_UNDONE_PROFILE)
-            {
-                // when in timeline list is event, get start profile from last event in timeline list
-                // because last event in timeline list may be changed
-                if (eventTimelineList.size() > 0) {
-                    EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
-                    if (_eventTimeline != null) {
-                        Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
-                        if (event != null)
-                            eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                        activatedProfileId = _fkProfileEnd;
+                        profileActivated = true;
                     }
                 }
-
-                if (eventTimeline._fkProfileEndActivated != activatedProfileId)
+                // second activate when undone profile is set
+                if (_atEndDo == EATENDDO_UNDONE_PROFILE)
                 {
+                    // when in timeline list is event, get start profile from last event in timeline list
+                    // because last event in timeline list may be changed
+                    if (eventTimelineList.size() > 0) {
+                        EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
+                        if (_eventTimeline != null) {
+                            Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                            if (event != null)
+                                eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                        }
+                    }
+
+                    if ((eventTimeline._fkProfileEndActivated != activatedProfileId) || forRestartEvents)
+                    {
+                        PPApplication.logE("Event.pauseEvent","undone profile");
+                        PPApplication.logE("Event.pauseEvent","_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
+                        if (eventTimeline._fkProfileEndActivated != 0)
+                        {
+                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, /*false,*/ false, false);
+                            profileActivated = true;
+                        }
+                    }
+                }
+            }
+            else {
+                // first activate _fkProfileEnd
+                if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
+                {
+                    PPApplication.logE("Event.pauseEvent","activate end profile");
+                    mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper, false);
+                }
+                // second activate when undone profile is set
+                if (_atEndDo == EATENDDO_UNDONE_PROFILE)
+                {
+                    // when in timeline list is event, get start profile from last event in timeline list
+                    // because last event in timeline list may be changed
+                    if (eventTimelineList.size() > 0) {
+                        EventTimeline _eventTimeline = eventTimelineList.get(eventTimelineList.size() - 1);
+                        if (_eventTimeline != null) {
+                            Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
+                            if (event != null)
+                                eventTimeline._fkProfileEndActivated = event._fkProfileStart;
+                        }
+                    }
                     PPApplication.logE("Event.pauseEvent","undone profile");
                     PPApplication.logE("Event.pauseEvent","_fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                     if (eventTimeline._fkProfileEndActivated != 0)
                     {
-                        if (mergedProfile == null)
-                            dataWrapper.activateProfileFromEvent(eventTimeline._fkProfileEndActivated, /*false,*/ false, false);
-                        else
-                            mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper, false);
-                        profileActivated = true;
+                        mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper, false);
                     }
                 }
             }
+
             // restart events when is set
-            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
+            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && !forRestartEvents) {
                 PPApplication.logE("Event.pauseEvent","restart events");
-                dataWrapper.restartEventsWithDelay(5, true, true, DatabaseHandler.ALTYPE_UNDEFINED);
+                // do not reactivate profile to avoid infinite loop
+                dataWrapper.restartEventsWithDelay(5, true, false, true, DatabaseHandler.ALTYPE_UNDEFINED);
                 profileActivated = true;
             }
 
@@ -1461,7 +1481,7 @@ class Event {
                             boolean noSetSystemEvent,
                             //boolean log,
                             Profile mergedProfile,
-                            boolean allowRestart)
+                            boolean forRestartEvents)
     {
         // remove delay alarm
         removeDelayStartAlarm(dataWrapper); // for start delay
@@ -1562,7 +1582,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (/*log &&*/ (status != this._status)) {
-            doLogForPauseEvent(dataWrapper, allowRestart);
+            doLogForPauseEvent(dataWrapper, !forRestartEvents);
         }
 
 
@@ -1587,7 +1607,7 @@ class Event {
         {
             doActivateEndProfile(dataWrapper, eventPosition, timeLineSize,
                     eventTimelineList, eventTimeline,
-                    activateReturnProfile, mergedProfile, allowRestart);
+                    activateReturnProfile, mergedProfile, forRestartEvents);
 
         }
 

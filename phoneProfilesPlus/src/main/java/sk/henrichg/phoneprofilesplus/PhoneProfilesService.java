@@ -4103,6 +4103,7 @@ public class PhoneProfilesService extends Service
                 if (intent.getBooleanExtra(EXTRA_RESTART_EVENTS, false)) {
                     PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_RESTART_EVENTS");
                     final boolean unblockEventsRun = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, false);
+                    final boolean reactivateProfile = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, false);
                     final Context appContext = getApplicationContext();
                     PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
                     final Handler handler13 = new Handler(PPApplication.handlerThread.getLooper());
@@ -4120,7 +4121,7 @@ public class PhoneProfilesService extends Service
 
                                     if (PhoneProfilesService.getInstance() != null) {
                                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                                        dataWrapper.restartEvents(unblockEventsRun, true, true, false, false);
+                                        dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
                                         dataWrapper.invalidateDataWrapper();
                                     }
                                 } finally {

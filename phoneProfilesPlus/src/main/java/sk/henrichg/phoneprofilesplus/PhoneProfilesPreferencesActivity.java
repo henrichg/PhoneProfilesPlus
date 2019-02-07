@@ -270,7 +270,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock(appContext)) {
             // unblockEventsRun must be true to reset alarms
-            PPApplication.restartEvents(appContext, true);
+            PPApplication.restartEvents(appContext, true, true);
         }
 
         /*
