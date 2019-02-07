@@ -94,8 +94,9 @@ public class PPApplication extends Application {
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|#### EventsHandler.handleEvents"
-                                         +"|@@@ Event.pauseEvent"
+                                         //+"|@@@ Event.pauseEvent"
                                          //+"|@@@ Event.stopEvent"
+                                         +"|### DataWrapper._activateProfile"
 
                                          //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
@@ -281,7 +282,7 @@ public class PPApplication extends Application {
 
                                         //+"|AlarmClockBroadcastReceiver.onReceive"
                                         //+"|NextAlarmClockBroadcastReceiver"
-                                        //+"|TimeChangedReceiver.onReceive"
+                                        +"|TimeChangedReceiver.onReceive"
 
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
                                         //+"|LockDeviceActivity"

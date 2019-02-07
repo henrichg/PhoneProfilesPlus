@@ -1407,12 +1407,12 @@ public class DataWrapper {
         //profile = filterProfileWithBatteryEvents(profile);
 
         if (mappedProfile != null)
-            PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+mappedProfile._name);
+            PPApplication.logE("### DataWrapper._activateProfile","profileName="+mappedProfile._name);
         else
-            PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");
+            PPApplication.logE("### DataWrapper._activateProfile","profile=null");
 
-        PPApplication.logE("$$$ DataWrapper._activateProfile","startupSource="+startupSource);
-        PPApplication.logE("$$$ DataWrapper._activateProfile","merged="+merged);
+        PPApplication.logE("### DataWrapper._activateProfile","startupSource="+startupSource);
+        PPApplication.logE("### DataWrapper._activateProfile","merged="+merged);
 
         //boolean interactive = _interactive;
         //final Activity activity = _activity;
