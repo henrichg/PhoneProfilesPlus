@@ -1510,7 +1510,7 @@ public class PhoneProfilesService extends Service
                 if (checkDatabase) {
                     if (profileAllowed) {
                         if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, true) > 0) {
-                            Profile profile = Profile.getSharedProfile(appContext);
+                            Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (profile._deviceForceStopApplicationChange != 0)
                                 ++profileCount;
                         }
@@ -2082,7 +2082,7 @@ public class PhoneProfilesService extends Service
                     if (profileAllowed) {
                         profileCount = 0;
                         if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
-                            Profile profile = Profile.getSharedProfile(appContext);
+                            Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
                                 ++profileCount;
                         }
@@ -2161,7 +2161,7 @@ public class PhoneProfilesService extends Service
                     if (profileAllowed) {
                         profileCount = 0;
                         if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
-                            Profile profile = Profile.getSharedProfile(appContext);
+                            Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
                                 ++profileCount;
                         }

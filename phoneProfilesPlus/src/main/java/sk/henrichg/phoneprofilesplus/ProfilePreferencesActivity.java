@@ -294,7 +294,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         {
-            profile = Profile.getSharedProfile(getApplicationContext());
+            profile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
         }
         else
         if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)

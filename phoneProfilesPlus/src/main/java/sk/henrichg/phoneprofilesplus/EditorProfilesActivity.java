@@ -1190,7 +1190,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // refresh activity for changes of shared profile
                     GlobalGUIRoutines.reloadActivity(this, false);
 
-                    Profile sharedProfile = Profile.getSharedProfile(getApplicationContext());
+                    Profile sharedProfile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
                     Permissions.grantProfilePermissions(getApplicationContext(), sharedProfile, false, false,
                             /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, false);
                 }

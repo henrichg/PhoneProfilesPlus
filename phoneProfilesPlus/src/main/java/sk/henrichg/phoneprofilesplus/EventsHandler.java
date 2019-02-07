@@ -287,7 +287,8 @@ class EventsHandler {
             Profile mergedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
             Profile mergedPausedProfile = DataWrapper.getNonInitializedProfile("", "", 0);
 
-            Profile oldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
+            //Profile oldActivatedProfile = dataWrapper.getActivatedProfileFromDB(false, false);
+            Profile oldActivatedProfile = Profile.getProfileFromSharedPreferences(context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
             long oldActivatedProfileId = 0;
             if (oldActivatedProfile != null)
                 oldActivatedProfileId = oldActivatedProfile._id;
@@ -548,7 +549,8 @@ class EventsHandler {
                 DatabaseHandler.getInstance(context.getApplicationContext()).saveMergedProfile(mergedProfile);
 
 
-                if (mergedProfile._id != oldActivatedProfileId)
+                //if (mergedProfile._id != oldActivatedProfileId)
+                if (mergedProfile.compareProfile(oldActivatedProfile))
                     profileChanged = true;
 
                 if (profileChanged || reactivateProfile) {

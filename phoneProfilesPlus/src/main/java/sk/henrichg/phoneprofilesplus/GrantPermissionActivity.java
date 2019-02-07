@@ -122,7 +122,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (profile_id != Profile.SHARED_PROFILE_ID)
             profile = dataWrapper.getProfileById(profile_id, false, false, mergedProfile);
         else
-            profile = Profile.getSharedProfile(getApplicationContext());
+            profile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
         event = dataWrapper.getEventById(event_id);
 
         restoredInstanceState = savedInstanceState != null;

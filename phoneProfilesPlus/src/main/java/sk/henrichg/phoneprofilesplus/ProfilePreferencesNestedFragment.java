@@ -1827,7 +1827,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
                 if (profile_id == Profile.SHARED_PROFILE_ID)
                 {
-                    Profile sharedProfile = Profile.getSharedProfile(context);
+                    Profile sharedProfile = Profile.getProfileFromSharedPreferences(context, PPApplication.SHARED_PROFILE_PREFS_NAME);
                     Permissions.grantProfilePermissions(context, sharedProfile, false, true,
                             /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, false);
 

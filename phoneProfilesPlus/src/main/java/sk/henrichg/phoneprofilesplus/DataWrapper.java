@@ -1403,11 +1403,11 @@ public class DataWrapper {
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         Profile.setActivatedProfileForDuration(context, 0);
 
-        final Profile profile = Profile.getMappedProfile(_profile, context);
+        final Profile mappedProfile = Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
 
-        if (profile != null)
-            PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+profile._name);
+        if (mappedProfile != null)
+            PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+mappedProfile._name);
         else
             PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");
 
@@ -1439,18 +1439,19 @@ public class DataWrapper {
 
         DatabaseHandler.getInstance(context).activateProfile(_profile);
         setProfileActive(_profile);
+        Profile.saveProfileToSharedPreferences(_profile, context, PPApplication.ACTIVATED_PROFILE_PREFS_NAME);
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
         String profileIcon = "";
         int profileDuration = 0;
-        if (profile != null)
+        if (mappedProfile != null)
         {
-            profileIcon = profile._icon;
+            profileIcon = mappedProfile._icon;
 
-            if ((profile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
-                    (profile._duration > 0))
-                profileDuration = profile._duration;
+            if ((mappedProfile._afterDurationDo != Profile.AFTERDURATIONDO_NOTHING) &&
+                    (mappedProfile._duration > 0))
+                profileDuration = mappedProfile._duration;
 
             // activation with duration
             if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
@@ -1472,7 +1473,7 @@ public class DataWrapper {
                 else
                     Profile.setActivatedProfileForDuration(context, 0);
 
-                ProfileDurationAlarmBroadcastReceiver.setAlarm(profile, context);
+                ProfileDurationAlarmBroadcastReceiver.setAlarm(mappedProfile, context);
                 ///////////
             }
             else {
@@ -1488,16 +1489,16 @@ public class DataWrapper {
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","after update GUI");
 
-        if (profile != null)
-            ActivateProfileHelper.execute(context, profile);
+        if (mappedProfile != null)
+            ActivateProfileHelper.execute(context, mappedProfile);
 
-        if ((profile != null) && (!merged)) {
+        if ((mappedProfile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                    getProfileNameWithManualIndicatorAsString(profile, true, "", profileDuration > 0, false, this, false),
+                    getProfileNameWithManualIndicatorAsString(mappedProfile, true, "", profileDuration > 0, false, this, false),
                     profileIcon, profileDuration);
         }
 
-        if (profile != null)
+        if (mappedProfile != null)
         {
             if (ApplicationPreferences.notificationsToast(context) && (!ActivateProfileHelper.lockRefresh))
             {
@@ -1506,7 +1507,7 @@ public class DataWrapper {
                     //final Profile __profile = profile;
                     PPApplication.toastHandler.post(new Runnable() {
                         public void run() {
-                            showToastAfterActivation(profile);
+                            showToastAfterActivation(mappedProfile);
                         }
                     });
                 }// else
