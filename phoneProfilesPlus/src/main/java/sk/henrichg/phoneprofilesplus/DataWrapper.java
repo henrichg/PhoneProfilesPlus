@@ -986,7 +986,7 @@ public class DataWrapper {
 
                     if (status == Event.ESTATUS_RUNNING) {
                         if (!(event._forceRun && event._noPauseByManualActivation)) {
-                            event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, /*true,*/ null, false);
+                            event.pauseEvent(this, eventTimelineList, false, true, noSetSystemEvent, /*true,*/ null, false, false);
                         }
                     }
 
@@ -3631,7 +3631,7 @@ public class DataWrapper {
                                 // no delay alarm is set
                                 // pause event
                                 event.pauseEvent(this, eventTimelineList, true, false,
-                                        false, /*true,*/ mergedProfile, !forRestartEvents);
+                                        false, /*true,*/ mergedProfile, !forRestartEvents, forRestartEvents);
                             }
                         }
 
@@ -3639,7 +3639,7 @@ public class DataWrapper {
                             // called for delay alarm
                             // pause event
                             event.pauseEvent(this, eventTimelineList, true, false,
-                                    false, /*true,*/ mergedProfile, !forRestartEvents);
+                                    false, /*true,*/ mergedProfile, !forRestartEvents, forRestartEvents);
                         }
                     }
                 }

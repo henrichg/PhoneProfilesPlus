@@ -140,7 +140,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                         }
 
                                         event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
-                                                false, /*true,*/ null, false); // activate return profile
+                                                false, /*true,*/ null, false, false); // activate return profile
                                         _dataWrapper.restartEvents(false, true, true, true, false);
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -167,7 +167,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                         Event event = dataWrapper.getEventById(event_id);
                         if (event.getStatus() == Event.ESTATUS_RUNNING) {
                             event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                    false, /*true,*/ null, false); // activate return profile
+                                    false, /*true,*/ null, true, false); // activate return profile
                         }
                         dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
                     } else {

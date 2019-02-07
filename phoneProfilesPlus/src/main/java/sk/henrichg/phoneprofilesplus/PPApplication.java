@@ -66,7 +66,7 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
-    private static final boolean logIntoLogCat = false;
+    private static final boolean logIntoLogCat = true;
     static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -92,8 +92,10 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
-                                         +"|%%%%%%% DataWrapper.doHandleEvents"
-                                         +"|#### EventsHandler.handleEvents"
+                                         //+"|%%%%%%% DataWrapper.doHandleEvents"
+                                         //+"|#### EventsHandler.handleEvents"
+                                         +"|@@@ Event.pauseEvent"
+                                         //+"|@@@ Event.stopEvent"
 
                                          //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
@@ -256,9 +258,6 @@ public class PPApplication extends Application {
                                         //+"|PhoneStateScanner.startAutoRegistration"
                                         //+"|PhoneStateScanner.stopAutoRegistration"
                                         //+"|MobileCellsRegistrationService"
-
-                                        //+"|@@@ Event.pauseEvent"
-                                        //+"|@@@ Event.stopEvent"
 
                                         //+"|[RJS] PhoneProfilesService.registerReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.unregisterReceiversAndJobs"

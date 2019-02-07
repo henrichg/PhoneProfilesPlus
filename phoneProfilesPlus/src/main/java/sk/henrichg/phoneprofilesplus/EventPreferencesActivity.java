@@ -485,7 +485,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                             if (_old_event_status != Event.ESTATUS_STOP) {
                                 // pause event - must be called, because status is ESTATUS_STOP
                                 event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                        false, /*false,*/ null, false);
+                                        false, /*false,*/ null, false, false);
                                 // stop event
                                 event.stopEvent(dataWrapper, eventTimelineList, true, false,
                                         true/*, false*/);
@@ -521,7 +521,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
                             // pause event
                             event.pauseEvent(dataWrapper, eventTimelineList, true, false,
-                                    false, /*false,*/ null, false);
+                                    false, /*false,*/ null, false, false);
                             // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
                             event.doLogForPauseEvent(dataWrapper, false);
 

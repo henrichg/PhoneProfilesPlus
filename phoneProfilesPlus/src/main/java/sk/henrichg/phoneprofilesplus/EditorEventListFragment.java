@@ -421,7 +421,7 @@ public class EditorEventListFragment extends Fragment
                 // pause event
                 // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
                 event.pauseEvent(activityDataWrapper, eventTimelineList, false, false,
-                        false, /*false,*/ null, false);
+                        false, /*false,*/ null, false, false);
             } else {
                 // stop event
                 // not needed to use handlerThread, profile is not activated (activateReturnProfile=false)
