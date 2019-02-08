@@ -1256,6 +1256,11 @@
     <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
     <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
+    <string name="event_preferences_battery_plugged">Plugged to</string>
+    <string name="array_pref_battery_plugged_ac">Accumulator</string>
+    <string name="array_pref_battery_plugged_usb">USB</string>
+    <string name="array_pref_battery_plugged_wireless">Wireless</string>
+
 
 
 

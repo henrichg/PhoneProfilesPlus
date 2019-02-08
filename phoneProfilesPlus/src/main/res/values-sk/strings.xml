@@ -1256,6 +1256,11 @@
 
     <string name="phone_profiles_pref_applicationAutoCloseDrawer">Automatické schovanie bočného panelu</string>
 
+    <string name="event_preferences_battery_plugged">Plugged to</string>
+    <string name="array_pref_battery_plugged_ac">Accumulator</string>
+    <string name="array_pref_battery_plugged_usb">USB</string>
+    <string name="array_pref_battery_plugged_wireless">Wireless</string>
+
 
 
 
