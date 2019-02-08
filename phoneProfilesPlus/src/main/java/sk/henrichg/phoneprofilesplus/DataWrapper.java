@@ -4236,8 +4236,12 @@ public class DataWrapper {
         if (batteryStatus != null) {
             int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             PPApplication.logE("DataWrapper.isPowerSaveMode", "status=" + status);
-            isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
-                         status == BatteryManager.BATTERY_STATUS_FULL;
+            int plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+            isCharging = plugged == BatteryManager.BATTERY_PLUGGED_AC
+                    || plugged == BatteryManager.BATTERY_PLUGGED_USB
+                    || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
+            //isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+            //             status == BatteryManager.BATTERY_STATUS_FULL;
             PPApplication.logE("DataWrapper.isPowerSaveMode", "isCharging=" + isCharging);
 
             int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
