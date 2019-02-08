@@ -104,6 +104,7 @@ public class Profile {
     private static final String PREF_PROFILE_ID = "prf_pref_id";
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
     static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";
+    private static final String PREF_PROFILE_CHECKED = "prf_pref_checked";
     static final String PREF_PROFILE_VOLUME_RINGER_MODE = "prf_pref_volumeRingerMode";
     static final String PREF_PROFILE_VOLUME_ZEN_MODE = "prf_pref_volumeZenMode";
     static final String PREF_PROFILE_VOLUME_RINGTONE = "prf_pref_volumeRingtone";
@@ -2248,14 +2249,19 @@ public class Profile {
 
         Profile profile = new Profile();
 
-        if (prefsName.equals(PPApplication.SHARED_PROFILE_PREFS_NAME))
+        if (prefsName.equals(PPApplication.SHARED_PROFILE_PREFS_NAME)) {
             profile._id = Profile.SHARED_PROFILE_ID;
-        else
+            profile._name = context.getResources().getString(R.string.default_profile_name);
+            profile._icon = Profile.PROFILE_ICON_DEFAULT+"1|0|0";
+            profile._checked = false;
+        }
+        else {
             profile._id = preferences.getLong(PREF_PROFILE_ID, 0);
+            profile._name = preferences.getString(PREF_PROFILE_NAME, context.getResources().getString(R.string.default_profile_name));
+            profile._icon = preferences.getString(PREF_PROFILE_ICON, Profile.PROFILE_ICON_DEFAULT+"1|0|0");
+            profile._checked = preferences.getBoolean(PREF_PROFILE_CHECKED, false);
+        }
 
-        profile._name = context.getResources().getString(R.string.default_profile_name);
-        profile._icon = Profile.PROFILE_ICON_DEFAULT+"1|0|0";
-        profile._checked = false;
         profile._porder = 0;
         profile._duration = 0;
         profile._afterDurationDo = Profile.AFTERDURATIONDO_RESTARTEVENTS;
@@ -2327,6 +2333,9 @@ public class Profile {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putLong(PREF_PROFILE_ID, profile._id);
+        editor.putString(PREF_PROFILE_NAME, profile._name);
+        editor.putString(PREF_PROFILE_ICON, profile._icon);
+        editor.putBoolean(PREF_PROFILE_CHECKED, profile._checked);
         editor.putString(PREF_PROFILE_VOLUME_RINGER_MODE, String.valueOf(profile._volumeRingerMode));
         editor.putString(PREF_PROFILE_VOLUME_ZEN_MODE, String.valueOf(profile._volumeZenMode));
         editor.putString(PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
