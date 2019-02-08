@@ -1358,6 +1358,7 @@ public class DataWrapper {
                     event._eventPreferencesBattery._powerSaveMode = false;
                 }
                 event._eventPreferencesBattery._charging = 0;
+                event._eventPreferencesBattery._plugged = null;
                 break;
             default:
                 event = null;
@@ -1959,6 +1960,7 @@ public class DataWrapper {
 
                 boolean isCharging;
                 int batteryPct;
+                int plugged;
 
                 // get battery status
                 Intent batteryStatus = null;
@@ -1976,6 +1978,8 @@ public class DataWrapper {
                     isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                             status == BatteryManager.BATTERY_STATUS_FULL;
                     PPApplication.logE("*** DataWrapper.doHandleEvents", "isCharging=" + isCharging);
+                    plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+                    PPApplication.logE("*** DataWrapper.doHandleEvents", "plugged=" + plugged);
 
                     int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
                     int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
@@ -1989,11 +1993,38 @@ public class DataWrapper {
                             (batteryPct <= event._eventPreferencesBattery._levelHight))
                         batteryPassed = true;
 
-                    if (event._eventPreferencesBattery._charging > 0) {
+                    if ((event._eventPreferencesBattery._charging > 0) ||
+                            (!event._eventPreferencesBattery._plugged.isEmpty())){
                         if (event._eventPreferencesBattery._charging == 1)
                             batteryPassed = batteryPassed && isCharging;
                         else
+                        if (event._eventPreferencesBattery._charging == 2)
                             batteryPassed = batteryPassed && (!isCharging);
+                        if (!event._eventPreferencesBattery._plugged.isEmpty()) {
+                            String[] splits = event._eventPreferencesBattery._plugged.split("\\|");
+                            if (splits.length > 0) {
+                                boolean passed = false;
+                                for (String split : splits) {
+                                    try {
+                                        int plug = Integer.valueOf(split);
+                                        if ((plug == 1) && (plugged == BatteryManager.BATTERY_PLUGGED_AC)) {
+                                            passed = true;
+                                            break;
+                                        }
+                                        if ((plug == 2) && (plugged == BatteryManager.BATTERY_PLUGGED_USB)) {
+                                            passed = true;
+                                            break;
+                                        }
+                                        if ((plug == 3) && (plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS)) {
+                                            passed = true;
+                                            break;
+                                        }
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                                batteryPassed = batteryPassed && passed;
+                            }
+                        }
                     } else if (event._eventPreferencesBattery._powerSaveMode)
                         batteryPassed = batteryPassed && isPowerSaveMode;
                 } else

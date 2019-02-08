@@ -14,6 +14,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
 
     static boolean isCharging = false;
     static int batteryPct = -100;
+    static int plugged = -1;
     //static boolean batteryLow = false;
 
     @Override
@@ -33,10 +34,12 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "status=" + status);
         boolean _isCharging = false;
+        int _plugged = -1;
         if (status != -1) {
             statusReceived = true;
             _isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
+            _plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
         }
         else {
             Intent batteryStatus = null;
@@ -50,6 +53,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                     statusReceived = true;
                     _isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                             status == BatteryManager.BATTERY_STATUS_FULL;
+                    _plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
                 }
             }
         }
@@ -86,9 +90,11 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
             if (action.equals(Intent.ACTION_POWER_CONNECTED)) {
                 statusReceived = true;
                 _isCharging = true;
+                //_plugged = -1;
             } else if (action.equals(Intent.ACTION_POWER_DISCONNECTED)) {
                 statusReceived = true;
                 _isCharging = false;
+                _plugged = -1;
             /*} else if (action.equals(Intent.ACTION_BATTERY_LOW)) {
                 statusReceived = true;
                 _batteryLow = 1;
@@ -105,13 +111,15 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_batteryLow=" + _batteryLow);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "batteryPct=" + batteryPct);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "pct=" + pct);
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "plugged=" + plugged);
+        PPApplication.logE("BatteryBroadcastReceiver.onReceive", "_plugged=" + _plugged);
 
         /* In Samsung S8 lowLevel is configured to 105 :-(
         int _level = appContext.getResources().getInteger(com.android.internal.R.integer.config_lowBatteryWarningLevel);
         PPApplication.logE("BatteryBroadcastReceiver.onReceive", "lowLevel=" + Math.round(_level / (float) scale * 100));
         */
 
-        if ((statusReceived && (isCharging != _isCharging)) ||
+        if ((statusReceived && (isCharging != _isCharging) && (plugged != _plugged)) ||
                 //(statusReceived && (_batteryLow != -1) && (batteryLow != (_batteryLow == 1))) ||
                 (levelReceived && (batteryPct != pct))) {
             PPApplication.logE("BatteryBroadcastReceiver.onReceive", "state changed");
@@ -120,6 +128,7 @@ public class BatteryBroadcastReceiver extends BroadcastReceiver {
                 isCharging = _isCharging;
                 /*if (_batteryLow != -1)
                     batteryLow = (_batteryLow == 1);*/
+                plugged = _plugged;
             }
             if (levelReceived)
                 batteryPct = pct;

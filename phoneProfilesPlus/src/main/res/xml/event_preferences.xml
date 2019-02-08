@@ -339,6 +339,14 @@
                 android:entryValues="@array/eventBatteryChargingValues"
                 android:dependency="eventBatteryEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
+            <sk.henrichg.phoneprofilesplus.MaterialMultiSelectListPreference
+                android:key="eventBatteryPlugged"
+                android:title="@string/event_preferences_battery_plugged"
+                android:defaultValue="@array/emptyArray"
+                android:entries="@array/eventBatteryPluggedArray"
+                android:entryValues="@array/eventBatteryPluggedValues"
+                android:dependency="eventBatteryEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
             <CheckBoxPreference
                 android:key="eventBatteryPowerSaveMode"
                 android:title="@string/event_preferences_battery_power_save_mode"

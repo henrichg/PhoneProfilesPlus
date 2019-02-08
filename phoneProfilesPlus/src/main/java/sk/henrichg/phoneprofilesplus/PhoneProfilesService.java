@@ -2859,6 +2859,7 @@ public class PhoneProfilesService extends Service
             int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
             int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
             BatteryBroadcastReceiver.batteryPct = Math.round(level / (float) scale * 100);
+            BatteryBroadcastReceiver.plugged = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
         }
 
         registerAllTheTimeRequiredReceivers(true);
