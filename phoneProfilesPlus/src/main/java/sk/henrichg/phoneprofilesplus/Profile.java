@@ -1264,6 +1264,7 @@ public class Profile {
             if (withProfile._soundOnTouch != 0)
                 this._soundOnTouch = withProfile._soundOnTouch;
 
+            // set merged profile as activated
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
             dataWrapper.setProfileActive(withProfile);
 
