@@ -244,6 +244,8 @@ class EventPreferencesBattery extends EventPreferences {
                         plugged = plugged + pluggedNames[Arrays.asList(pluggedValues).indexOf(s)];
                     }
                 }
+                if (plugged.isEmpty())
+                    plugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             }
             else
                 plugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);

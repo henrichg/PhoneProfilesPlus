@@ -367,6 +367,8 @@ class EventPreferencesOrientation extends EventPreferences {
                         sides = sides + sideNames[Arrays.asList(sideValues).indexOf(s)];
                     }
                 }
+                if (sides.isEmpty())
+                    sides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             }
             else
                 sides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -386,6 +388,8 @@ class EventPreferencesOrientation extends EventPreferences {
                         sides = sides + sideNames[Arrays.asList(sideValues).indexOf(s)];
                     }
                 }
+                if (sides.isEmpty())
+                    sides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
             }
             else
                 sides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
