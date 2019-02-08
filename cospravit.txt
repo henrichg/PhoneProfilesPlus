@@ -434,3 +434,18 @@ Direct boot:
   Alebo, ze by pomohlo toto?
     https://stackoverflow.com/questions/51377089/android-crashlytics-fails-on-direct-boot-due-to-disk-encryption
 
+---------------------------------
+
+Battery senzor
+- pridaj detekciu, ci je mobil pripojeny ku nabijacke. Teraz tam je len, ci sa nabija a ked je 100% tak brati, ze sa nenabija.
+
+public static boolean isPlugged(Context context) {
+    boolean isPlugged= false;
+    Intent intent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
+    isPlugged = plugged == BatteryManager.BATTERY_PLUGGED_AC || plugged == BatteryManager.BATTERY_PLUGGED_USB;
+    if (VERSION.SDK_INT > VERSION_CODES.JELLY_BEAN) {
+        isPlugged = isPlugged || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
+    }
+    return isPlugged;
+}
