@@ -55,7 +55,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver.onReceive.ACTION_REMOVE_BRIGHTNESS_VIEW");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver_onReceive_ACTION_REMOVE_BRIGHTNESS_VIEW");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -101,7 +101,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver.onReceive.ACTION_HANDLE_EVENTS");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver_onReceive_ACTION_HANDLE_EVENTS");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -134,7 +134,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver.onReceive.ACTION_RESTART_EVENTS");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver_onReceive_ACTION_RESTART_EVENTS");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -164,7 +164,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver.onReceive.ACTION_START_WIFI_SCAN");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PostDelayedBroadcastReceiver_onReceive_ACTION_START_WIFI_SCAN");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 

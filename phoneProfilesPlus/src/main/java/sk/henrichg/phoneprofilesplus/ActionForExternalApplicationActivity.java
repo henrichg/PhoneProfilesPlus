@@ -135,7 +135,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity.ACTION_ENABLE_RUN_FOR_EVENT");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity_ACTION_ENABLE_RUN_FOR_EVENT");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -192,7 +192,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity.ACTION_STOP_EVENT");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity_ACTION_STOP_EVENT");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 

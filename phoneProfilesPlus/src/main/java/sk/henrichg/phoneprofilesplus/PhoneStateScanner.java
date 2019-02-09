@@ -333,7 +333,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.onCellInfoChanged");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellInfoChanged");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -372,7 +372,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.onServiceStateChanged");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onServiceStateChanged");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -467,7 +467,7 @@ class PhoneStateScanner extends PhoneStateListener {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.onCellLocationChanged");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellLocationChanged");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -523,7 +523,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.rescanMobileCells");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_rescanMobileCells");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -580,7 +580,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner.doAutoRegistration");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_doAutoRegistration");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 

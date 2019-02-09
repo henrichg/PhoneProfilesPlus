@@ -3160,7 +3160,7 @@ public class PhoneProfilesService extends Service
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.doForFirstStart");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doForFirstStart");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -3450,7 +3450,7 @@ public class PhoneProfilesService extends Service
                             PowerManager.WakeLock wakeLock = null;
                             try {
                                 if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.EXTRA_REGISTER_RECEIVERS_AND_JOBS");
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_EXTRA_REGISTER_RECEIVERS_AND_JOBS");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
@@ -3480,7 +3480,7 @@ public class PhoneProfilesService extends Service
                             PowerManager.WakeLock wakeLock = null;
                             try {
                                 if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneProfilesService.onStartCommand.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneProfilesService_onStartCommand_EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
@@ -3510,7 +3510,7 @@ public class PhoneProfilesService extends Service
                             PowerManager.WakeLock wakeLock = null;
                             try {
                                 if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
@@ -3552,7 +3552,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_START_GEOFENCE_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_START_GEOFENCE_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3582,7 +3582,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_STOP_GEOFENCE_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_STOP_GEOFENCE_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3612,7 +3612,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_START_ORIENTATION_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_START_ORIENTATION_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3640,7 +3640,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_STOP_ORIENTATION_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_STOP_ORIENTATION_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3668,7 +3668,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_START_PHONE_STATE_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_START_PHONE_STATE_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3698,7 +3698,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_STOP_PHONE_STATE_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_STOP_PHONE_STATE_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3726,7 +3726,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3760,7 +3760,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3794,7 +3794,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3826,7 +3826,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3858,7 +3858,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_RESTART_WIFI_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_WIFI_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3894,7 +3894,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_RESTART_BLUETOOTH_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_BLUETOOTH_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3929,7 +3929,7 @@ public class PhoneProfilesService extends Service
                                         PowerManager.WakeLock wakeLock = null;
                                         try {
                                             if (powerManager != null) {
-                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_PHONE_STATE_SCANNER");
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
@@ -3960,7 +3960,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_FORCE_START_PHONE_STATE_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_FORCE_START_PHONE_STATE_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -3990,7 +3990,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_RESTART_GEOFENCE_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_GEOFENCE_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -4022,7 +4022,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_RESTART_ORIENTATION_SCANNER");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_ORIENTATION_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -4050,7 +4050,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_RESTART_ALL_SCANNERS");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_ALL_SCANNERS");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
@@ -4116,7 +4116,7 @@ public class PhoneProfilesService extends Service
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
                                     if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.EXTRA_RESTART_EVENTS");
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_EXTRA_RESTART_EVENTS");
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
@@ -5023,7 +5023,7 @@ public class PhoneProfilesService extends Service
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.runEventsHandlerForOrientationChange");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_runEventsHandlerForOrientationChange");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 

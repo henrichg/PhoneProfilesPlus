@@ -55,7 +55,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                             PowerManager.WakeLock wakeLock = null;
                             try {
                                 if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileDataStateChangedContentObserver.onChange");
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileDataStateChangedContentObserver_onChange");
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 

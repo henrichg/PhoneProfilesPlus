@@ -43,7 +43,7 @@ class BluetoothConnectedDevices {
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
                                     if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectedDevices.getConnectedDevices.HEADSET");
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectedDevices_getConnectedDevices_HEADSET");
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
@@ -86,7 +86,7 @@ class BluetoothConnectedDevices {
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
                                     if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectedDevices.getConnectedDevices.HEALTH");
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectedDevices_getConnectedDevices_HEALTH");
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
@@ -129,7 +129,7 @@ class BluetoothConnectedDevices {
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
                                     if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectedDevices.getConnectedDevices.A2DP");
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectedDevices_getConnectedDevices_A2DP");
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
@@ -193,7 +193,7 @@ class BluetoothConnectedDevices {
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectedDevices.getConnectedDevices.GATT");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BluetoothConnectedDevices_getConnectedDevices_GATT");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 

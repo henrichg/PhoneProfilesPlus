@@ -155,7 +155,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofenceScanner.onConnected");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofenceScanner_onConnected");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -467,7 +467,7 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofenceScanner.updateTransitionsByLastKnownLocation");
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":GeofenceScanner_updateTransitionsByLastKnownLocation");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 

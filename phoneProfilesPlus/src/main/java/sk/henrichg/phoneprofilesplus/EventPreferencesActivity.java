@@ -478,7 +478,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorPreferencesActivity.savePreferences.1");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorPreferencesActivity_savePreferences_1");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
@@ -515,7 +515,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         PowerManager.WakeLock wakeLock = null;
                         try {
                             if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorPreferencesActivity.savePreferences.2");
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorPreferencesActivity_savePreferences_2");
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 

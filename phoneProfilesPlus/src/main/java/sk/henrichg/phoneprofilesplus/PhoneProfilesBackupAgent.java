@@ -55,7 +55,7 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesBackupAgent.onRestoreFinished");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesBackupAgent_onRestoreFinished");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
