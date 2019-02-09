@@ -12,10 +12,11 @@
 // 4200 = show Important info on first application start
 // 4400 = moved SMS/MMS and Call sensor receivers into Extender
 //        separated preferences for single row widget
+// 4600 = support for "NOT LIKE" in calendar sensor
 
 ext.ppVersions = [
     publishVersion: '3.6.8b',
-    publishVersionCode: 4561,
+    publishVersionCode: 4563,
 
     minSdk: 19,
     targetSdk: 27,

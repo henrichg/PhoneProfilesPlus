@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import java.util.List;
+
 public class PackageReplacedReceiver extends BroadcastReceiver {
 
     static private boolean restartService;
@@ -45,6 +47,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
             PPApplication.startHandlerThread("PackageReplacedReceiver.onReceive.1");
             final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
             handler2.post(new Runnable() {
+                @SuppressWarnings("StringConcatenationInLoop")
                 @Override
                 public void run() {
                     PPApplication.logE("PackageReplacedReceiver.onReceive", "PackageReplacedReceiver.onReceive.1");
@@ -239,7 +242,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (actualVersionCode <= 4548) {
+                                if (actualVersionCode <= 4550) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     boolean darkBackground = ApplicationPreferences.preferences.getBoolean("notificationDarkBackground", false);
                                     if (darkBackground) {
@@ -248,6 +251,30 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                         editor.apply();
 
                                         restartService = true;
+                                    }
+                                }
+
+                                if (actualVersionCode <= 4600) {
+                                    List<Event> eventList = DatabaseHandler.getInstance(appContext).getAllEvents();
+                                    for (Event event : eventList) {
+                                        if (!event._eventPreferencesCalendar._searchString.isEmpty()) {
+                                            String searchStringOrig = event._eventPreferencesCalendar._searchString;
+                                            String searchStringNew = "";
+                                            String[] searchStringSplits = searchStringOrig.split("\\|");
+                                            for (String split : searchStringSplits) {
+                                                if (!split.isEmpty()) {
+                                                    String searchPattern = split;
+                                                    if (searchPattern.startsWith("!")) {
+                                                        searchPattern =  "\\" + searchPattern;
+                                                    }
+                                                    if (!searchStringNew.isEmpty())
+                                                        searchStringNew = searchStringNew + "|";
+                                                    searchStringNew = searchStringNew + searchPattern;
+                                                }
+                                            }
+                                            event._eventPreferencesCalendar._searchString = searchStringNew;
+                                            DatabaseHandler.getInstance(appContext).updateEvent(event);
+                                        }
                                     }
                                 }
 
