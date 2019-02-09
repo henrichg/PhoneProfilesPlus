@@ -512,8 +512,7 @@
         <service
             android:name=".PhoneProfilesService"
             android:exported="false"
-            android:stopWithTask="false">
-        </service>
+            android:stopWithTask="false"/>
 
         <!-- widget services -->
         <service
@@ -544,8 +543,8 @@
         </service>
         <service
             android:name=".MobileCellsRegistrationService"
-            android:enabled="true">
-        </service>
+            android:enabled="true"
+            android:stopWithTask="false"/>
 
     </application>
 
