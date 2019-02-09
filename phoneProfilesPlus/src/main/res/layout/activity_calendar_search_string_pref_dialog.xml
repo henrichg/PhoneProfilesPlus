@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingStart="20dp"
+              android:paddingEnd="20dp"
+              android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/calendar_search_string_pref_dlg_helpIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_button_profileicon_help"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/menu_help"/>
+
+    <EditText
+        android:id="@+id/calendar_search_string_pref_dlg_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf = "@id/calendar_search_string_pref_dlg_helpIcon"
+        android:layout_centerVertical="true"
+        android:selectAllOnFocus="true"
+        android:hint="@string/event_preferences_calendar_search_string"
+        android:inputType="textNoSuggestions"
+        android:importantForAutofill="no"
+        tools:ignore="UnusedAttribute" />
+
+</RelativeLayout>

@@ -267,7 +267,7 @@
                 android:entryValues="@array/eventCalendarSearchFieldValues"
                 android:dependency="eventCalendarEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
-            <sk.henrichg.phoneprofilesplus.MaterialEditTextPreference
+            <sk.henrichg.phoneprofilesplus.CalendarSearchStringPreference
                 android:key="eventCalendarSearchString"
                 android:summary="@string/event_preferences_calendar_search_string"
                 android:title="@string/event_preferences_calendar_search_string"

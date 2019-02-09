@@ -219,21 +219,6 @@ class EventPreferencesCalendar extends EventPreferences {
                 listPreference.setSummary(summary);
             }
         }
-        if (key.equals(PREF_EVENT_CALENDAR_SEARCH_STRING))
-        {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                preference.setSummary(value);
-                String helpString = context.getString(R.string.pref_dlg_info_about_wildcards_1) + "\n" +
-                        context.getString(R.string.pref_dlg_info_about_wildcards_2) + " " +
-                        context.getString(R.string.calendar_pref_dlg_info_about_wildcards) + " " +
-                        context.getString(R.string.pref_dlg_info_about_wildcards_3) + "\n" +
-                        context.getString(R.string.pref_dlg_info_about_wildcards_4)
-                        ;
-                ((MaterialEditTextPreference) preference).setDialogMessage(helpString);
-                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
         if (key.equals(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
@@ -571,6 +556,13 @@ class EventPreferencesCalendar extends EventPreferences {
                 if (!split.isEmpty()) {
                     String searchPattern = split;
 
+                    // when in searchPattern is ! remove it
+                    boolean negation = false;
+                    if (searchPattern.startsWith("!")) {
+                        negation = true;
+                        searchPattern = searchPattern.substring(1);
+                    }
+
                     // when in searchPattern are not wildcards add %
                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
                         searchPattern = "%" + searchPattern + "%";
@@ -582,13 +574,22 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     switch (_searchField) {
                         case SEARCH_FIELD_TITLE:
-                            selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            if (negation)
+                                selection.append("(lower(" + Instances.TITLE + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            else
+                                selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_DESCRIPTION:
-                            selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            if (negation)
+                                selection.append("(lower(" + Instances.DESCRIPTION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            else
+                                selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_LOCATION:
-                            selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            if (negation)
+                                selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            else
+                                selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                     }
 
