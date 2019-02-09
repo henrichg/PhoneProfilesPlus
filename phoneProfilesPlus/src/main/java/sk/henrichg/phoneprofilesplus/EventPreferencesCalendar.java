@@ -551,17 +551,21 @@ class EventPreferencesCalendar extends EventPreferences {
             String[] searchStringSplits = _searchString.split("\\|");
             selectionArgs = new String[searchStringSplits.length];
             int argsId = 0;
-            selection.append("(");
+
+            // positive strings
+            boolean positiveExists = false;
             for (String split : searchStringSplits) {
                 if (!split.isEmpty()) {
                     String searchPattern = split;
 
-                    // when in searchPattern is ! remove it
-                    boolean negation = false;
                     if (searchPattern.startsWith("!")) {
-                        negation = true;
-                        searchPattern = searchPattern.substring(1);
+                        // only positive
+                        continue;
                     }
+
+                    if (!positiveExists)
+                        selection.append("(");
+                    positiveExists = true;
 
                     // when in searchPattern are not wildcards add %
                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
@@ -574,29 +578,70 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     switch (_searchField) {
                         case SEARCH_FIELD_TITLE:
-                            if (negation)
-                                selection.append("(lower(" + Instances.TITLE + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
-                            else
-                                selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            selection.append("(lower(" + Instances.TITLE + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_DESCRIPTION:
-                            if (negation)
-                                selection.append("(lower(" + Instances.DESCRIPTION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
-                            else
-                                selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            selection.append("(lower(" + Instances.DESCRIPTION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                         case SEARCH_FIELD_LOCATION:
-                            if (negation)
-                                selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
-                            else
-                                selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
+                            selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                     }
 
                     ++argsId;
                 }
             }
-            selection.append(")");
+            if (positiveExists)
+                selection.append(")");
+
+            // negative strings
+            boolean negativeExists = false;
+            for (String split : searchStringSplits) {
+                if (!split.isEmpty()) {
+                    String searchPattern = split;
+
+                    if (!searchPattern.startsWith("!")) {
+                        // only negative
+                        continue;
+                    }
+
+                    if (!negativeExists) {
+                        if (positiveExists)
+                            selection.append(" AND (");
+                        else
+                            selection.append("(");
+                    }
+                    negativeExists = true;
+
+                    // remove !
+                    searchPattern = searchPattern.substring(1);
+
+                    // when in searchPattern are not wildcards add %
+                    if (!(searchPattern.contains("%") || searchPattern.contains("_")))
+                        searchPattern = "%" + searchPattern + "%";
+
+                    selectionArgs[argsId] = searchPattern;
+
+                    if (argsId > 0)
+                        selection.append(" AND ");
+
+                    switch (_searchField) {
+                        case SEARCH_FIELD_TITLE:
+                            selection.append("(lower(" + Instances.TITLE + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            break;
+                        case SEARCH_FIELD_DESCRIPTION:
+                            selection.append("(lower(" + Instances.DESCRIPTION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            break;
+                        case SEARCH_FIELD_LOCATION:
+                            selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
+                            break;
+                    }
+
+                    ++argsId;
+                }
+            }
+            if (negativeExists)
+                selection.append(")");
         }
         else {
             selection.append("(1 = 1)");
