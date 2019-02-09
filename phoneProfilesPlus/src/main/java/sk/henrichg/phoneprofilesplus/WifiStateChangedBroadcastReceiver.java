@@ -104,7 +104,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                 PowerManager.WakeLock wakeLock = null;
                                                 try {
                                                 if (powerManager != null) {
-                                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive.Handler.postDelayed.1");
+                                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiStateChangedBroadcastReceiver.onReceive.Handler.1");
                                                     wakeLock.acquire(10 * 60 * 1000);
                                                 }
 
@@ -140,7 +140,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                     PowerManager.WakeLock wakeLock = null;
                                                     try {
                                                         if (powerManager != null) {
-                                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver.onReceive.Handler.post.2");
+                                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiStateChangedBroadcastReceiver.onReceive.Handler.2");
                                                             wakeLock.acquire(10 * 60 * 1000);
                                                         }
 
