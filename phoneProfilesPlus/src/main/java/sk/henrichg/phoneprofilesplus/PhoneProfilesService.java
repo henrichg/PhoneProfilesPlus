@@ -3149,18 +3149,18 @@ public class PhoneProfilesService extends Service
             final boolean _startOnPackageReplace = startOnPackageReplace;
             final boolean _initializeStart = initializeStart;
             final boolean _activateProfiles = activateProfiles;
-            PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart.2");
+            PPApplication.startHandlerThread("PhoneProfilesService.doForFirstStart");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 START");
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart START");
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
                         if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.doForFirstStart.2");
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.doForFirstStart");
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
@@ -3306,7 +3306,7 @@ public class PhoneProfilesService extends Service
 
                         dataWrapper.invalidateDataWrapper();
 
-                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart.2 END");
+                        PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
