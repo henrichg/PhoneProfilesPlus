@@ -3640,6 +3640,7 @@ public class PhoneProfilesService extends Service
                                     PowerManager.WakeLock wakeLock = null;
                                     try {
                                         if (powerManager != null) {
+//TODO wakelocks tags - continue from this
                                             wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService.onStartCommand.SCANNER_STOP_ORIENTATION_SCANNER");
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
