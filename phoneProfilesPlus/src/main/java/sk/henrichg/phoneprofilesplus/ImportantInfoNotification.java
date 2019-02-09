@@ -13,7 +13,7 @@ import android.support.v4.content.ContextCompat;
 class ImportantInfoNotification {
 
     // this version code must by <= version code in dependencies.gradle
-    static final int VERSION_CODE_FOR_NEWS = 4340;
+    static final int VERSION_CODE_FOR_NEWS = 4540;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
@@ -55,6 +55,7 @@ class ImportantInfoNotification {
         PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
 
         boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news4340 = ((packageVersionCode >= 4340) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news3670 = ((packageVersionCode >= 3670) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1772 = ((packageVersionCode >= 1772) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -65,10 +66,12 @@ class ImportantInfoNotification {
         PPApplication.logE("ImportantInfoNotification.canShowNotification", "newsLatest="+newsLatest);
 
         if (newsLatest) {
-            /*// change to false for not show notification
+            // change to false for not show notification
             //noinspection ConstantConditions
-            news = false;*/
+            news = false;
+        }
 
+        if (news4340) {
             int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
             int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
 

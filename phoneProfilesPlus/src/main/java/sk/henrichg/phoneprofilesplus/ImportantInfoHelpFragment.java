@@ -59,8 +59,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news = false;
         boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
+        boolean news4340 = (versionCode >= 4340) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news4340="+news4340);
         boolean news3985 = (versionCode >= 3985) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
-        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3670="+news3985);
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3985="+news3985);
         boolean news3670 = (versionCode >= 3670); // news for PhoneProfilesPlusExtender - show it when not activated
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3670="+news3670);
         boolean news3640 = ((versionCode >= 3640) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -110,19 +112,15 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoText22.setVisibility(View.GONE);
                 news = true;
             }
-
-            int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
-            int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
-            boolean news_extender = true;
-            if ((smsSensorsCount == 0) && (callSensorsCount == 0)) {
-                // extender is not needed
-                news_extender = false;
-                TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
-                infoText1.setVisibility(View.GONE);
+            else {
+                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
+                infoText22.setVisibility(View.GONE);
+                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
+                infoText21.setVisibility(View.GONE);
             }
 
-            news = news ||
-                    news_extender;
+            //news = news ||
+            //        news_extender;
         }
         else {
             // move this to newXXX, for switch off news
@@ -158,12 +156,32 @@ public class ImportantInfoHelpFragment extends Fragment {
                     }
                 });
             }
+            else {
+                TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
+                infoText22.setVisibility(View.GONE);
+                TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
+                infoText21.setVisibility(View.GONE);
+            }
+        }
 
+        if (news4340) {
+            news = true;
+
+            int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
+            int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
+            boolean news_extender = true;
+            if ((smsSensorsCount == 0) && (callSensorsCount == 0)) {
+                // extender is not needed
+                news_extender = false;
+                TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
+                infoText1.setVisibility(View.GONE);
+            }
+        }
+        else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
             infoText1.setVisibility(View.GONE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text3);
             infoText1.setVisibility(View.GONE);
-
         }
 
         if (news3985) {
