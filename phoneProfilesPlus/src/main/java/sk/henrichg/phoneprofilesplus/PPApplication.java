@@ -66,7 +66,8 @@ public class PPApplication extends Application {
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_3_0;
 
-    private static final boolean logIntoLogCat = false;
+    @SuppressWarnings("PointlessBooleanExpression")
+    private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
     static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
@@ -96,7 +97,7 @@ public class PPApplication extends Application {
                                          //+"|#### EventsHandler.handleEvents"
                                          //+"|@@@ Event.pauseEvent"
                                          //+"|@@@ Event.stopEvent"
-                                         +"|### DataWrapper._activateProfile"
+                                         //+"|### DataWrapper._activateProfile"
 
                                          //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
@@ -282,7 +283,7 @@ public class PPApplication extends Application {
 
                                         //+"|AlarmClockBroadcastReceiver.onReceive"
                                         //+"|NextAlarmClockBroadcastReceiver"
-                                        +"|TimeChangedReceiver.onReceive"
+                                        //+"|TimeChangedReceiver.onReceive"
 
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
                                         //+"|LockDeviceActivity"
@@ -304,7 +305,9 @@ public class PPApplication extends Application {
                                         //+ "|EventPreferencesTime.removeAlarm"
                                         //+ "|EventPreferencesTime.setAlarm"
 
-                                        +"|DatabaseHandler.importDB"
+                                        +"|EventPreferencesCalendar.saveStartEndTime"
+
+                                        //+"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
                                         + "|ApplicationsDialogPreference.getValueAMSDP"
                                         + "|ApplicationEditorDialogAdapter"

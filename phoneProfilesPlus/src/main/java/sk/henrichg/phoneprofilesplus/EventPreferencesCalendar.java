@@ -17,6 +17,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract.Instances;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -565,7 +566,6 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     if (!positiveExists)
                         selection.append("(");
-                    positiveExists = true;
 
                     // when in searchPattern are not wildcards add %
                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
@@ -573,7 +573,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     selectionArgs[argsId] = searchPattern;
 
-                    if (argsId > 0)
+                    if (positiveExists)
                         selection.append(" OR ");
 
                     switch (_searchField) {
@@ -587,6 +587,8 @@ class EventPreferencesCalendar extends EventPreferences {
                             selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " LIKE lower(?) ESCAPE '\\')");
                             break;
                     }
+
+                    positiveExists = true;
 
                     ++argsId;
                 }
@@ -611,7 +613,6 @@ class EventPreferencesCalendar extends EventPreferences {
                         else
                             selection.append("(");
                     }
-                    negativeExists = true;
 
                     // remove !
                     searchPattern = searchPattern.substring(1);
@@ -622,7 +623,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     selectionArgs[argsId] = searchPattern;
 
-                    if (argsId > 0)
+                    if (negativeExists)
                         selection.append(" AND ");
 
                     switch (_searchField) {
@@ -636,6 +637,8 @@ class EventPreferencesCalendar extends EventPreferences {
                             selection.append("(lower(" + Instances.EVENT_LOCATION + ")" + " NOT LIKE lower(?) ESCAPE '\\')");
                             break;
                     }
+
+                    negativeExists = true;
 
                     ++argsId;
                 }
@@ -661,11 +664,14 @@ class EventPreferencesCalendar extends EventPreferences {
 
         selection.append(")");
 
-        PPApplication.logE("EventPreferencesCalendar.searchEvent", "selection="+selection);
-        if (selectionArgs != null)
-            PPApplication.logE("EventPreferencesCalendar.searchEvent", "selectionArgs.length="+selectionArgs.length);
+        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selection="+selection);
+        if (selectionArgs != null) {
+            for (String arg : selectionArgs) {
+                PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs.arg=" + arg);
+            }
+        }
         else
-            PPApplication.logE("EventPreferencesCalendar.searchEvent", "selectionArgs=null");
+            PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "selectionArgs=null");
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
@@ -689,6 +695,7 @@ class EventPreferencesCalendar extends EventPreferences {
         try {
             cur = cr.query(builder.build(), INSTANCE_PROJECTION, selection.toString(), selectionArgs, Instances.BEGIN + " ASC");
         } catch (Exception e) {
+            PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             cur = null;
         }
 
@@ -753,6 +760,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
             cur.close();
         }
+        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
 
         DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
 

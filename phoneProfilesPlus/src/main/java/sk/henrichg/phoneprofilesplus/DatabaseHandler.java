@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2240;
+    private static final int DATABASE_VERSION = 2270;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2579,6 +2579,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_EVENTS + " ADD COLUMN " + KEY_E_BATTERY_PLUGGED + " TEXT");
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_BATTERY_PLUGGED + "=\"\"");
+        }
+
+        if (oldVersion < 2270) {
+            final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                                KEY_E_CALENDAR_SEARCH_STRING +
+                    " FROM " + TABLE_EVENTS;
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID)));
+                    String calendarSearchString = cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_SEARCH_STRING));
+
+                    String searchStringNew = "";
+                    String[] searchStringSplits = calendarSearchString.split("\\|");
+                    for (String split : searchStringSplits) {
+                        if (!split.isEmpty()) {
+                            String searchPattern = split;
+                            if (searchPattern.startsWith("!")) {
+                                searchPattern =  "\\" + searchPattern;
+                            }
+                            if (!searchStringNew.isEmpty())
+                                //noinspection StringConcatenationInLoop
+                                searchStringNew = searchStringNew + "|";
+                            //noinspection StringConcatenationInLoop
+                            searchStringNew = searchStringNew + searchPattern;
+                        }
+                    }
+
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_E_CALENDAR_SEARCH_STRING, searchStringNew);
+
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -9979,6 +10017,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (exportedDBObj.getVersion() < 2240) {
                                                 values.put(KEY_E_BATTERY_PLUGGED, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2270) {
+                                                String searchStringNew = "";
+                                                String[] searchStringSplits = calendarSearchString.split("\\|");
+                                                for (String split : searchStringSplits) {
+                                                    if (!split.isEmpty()) {
+                                                        String searchPattern = split;
+                                                        if (searchPattern.startsWith("!")) {
+                                                            searchPattern =  "\\" + searchPattern;
+                                                        }
+                                                        if (!searchStringNew.isEmpty())
+                                                            //noinspection StringConcatenationInLoop
+                                                            searchStringNew = searchStringNew + "|";
+                                                        //noinspection StringConcatenationInLoop
+                                                        searchStringNew = searchStringNew + searchPattern;
+                                                    }
+                                                }
+                                                values.put(KEY_E_CALENDAR_SEARCH_STRING, searchStringNew);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper
