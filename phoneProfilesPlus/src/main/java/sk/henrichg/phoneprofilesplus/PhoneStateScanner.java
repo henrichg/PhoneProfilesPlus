@@ -219,6 +219,10 @@ class PhoneStateScanner extends PhoneStateListener {
         }
     }
 
+    static boolean isValidCellId(int cid) {
+        return (cid != -1) && (cid != 0) && (cid != 1) && (cid != Integer.MAX_VALUE);
+    }
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void getAllCellInfo(List<CellInfo> cellInfo) {
         // only for registered cells is returned identify
@@ -239,7 +243,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     if (_cellInfo instanceof CellInfoGsm) {
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm info="+_cellInfo);
                         CellIdentityGsm identityGsm = ((CellInfoGsm) _cellInfo).getCellIdentity();
-                        if (identityGsm.getCid() != Integer.MAX_VALUE) {
+                        if (isValidCellId(identityGsm.getCid())) {
                             //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "gsm mCid="+identityGsm.getCid());
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityGsm.getCid();
@@ -252,7 +256,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     } else if (_cellInfo instanceof CellInfoLte) {
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte info="+_cellInfo);
                         CellIdentityLte identityLte = ((CellInfoLte) _cellInfo).getCellIdentity();
-                        if (identityLte.getCi() != Integer.MAX_VALUE) {
+                        if (isValidCellId(identityLte.getCi())) {
                             //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "lte mCi="+identityLte.getCi());
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityLte.getCi();
@@ -265,7 +269,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     } else if (_cellInfo instanceof CellInfoWcdma) {
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma info="+_cellInfo);
                         CellIdentityWcdma identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
-                        if (identityWcdma.getCid() != Integer.MAX_VALUE) {
+                        if (isValidCellId(identityWcdma.getCid())) {
                             //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid=" + identityWcdma.getCid());
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityWcdma.getCid();
@@ -278,7 +282,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     } else if (_cellInfo instanceof CellInfoCdma) {
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "cdma info="+_cellInfo);
                         CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
-                        if (identityCdma.getBasestationId() != Integer.MAX_VALUE) {
+                        if (isValidCellId(identityCdma.getBasestationId())) {
                             //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "wcdma mCid="+identityCdma.getBasestationId());
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityCdma.getBasestationId();
@@ -404,25 +408,25 @@ class PhoneStateScanner extends PhoneStateListener {
                 if (location instanceof GsmCellLocation) {
                     GsmCellLocation gcLoc = (GsmCellLocation) location;
                     //PPApplication.logE("PhoneStateScanner.getCellLocation", "gsm location="+gcLoc);
-                    if (gcLoc.getCid() != -1) {
+                    if (isValidCellId(gcLoc.getCid())) {
                         //PPApplication.logE("PhoneStateScanner.getCellLocation", "gsm mCid="+gcLoc.getCid());
                         registeredCell = gcLoc.getCid();
                         lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                         DatabaseHandler db = DatabaseHandler.getInstance(context);
                         db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+                        doAutoRegistration(gcLoc.getCid());
                     }
-                    doAutoRegistration(gcLoc.getCid());
                 } else if (location instanceof CdmaCellLocation) {
                     CdmaCellLocation ccLoc = (CdmaCellLocation) location;
                     //PPApplication.logE("PhoneStateScanner.getCellLocation", "cdma location="+ccLoc);
-                    if (ccLoc.getBaseStationId() != -1) {
+                    if (isValidCellId(ccLoc.getBaseStationId())) {
                         //PPApplication.logE("PhoneStateScanner.getCellLocation", "cdma mCid="+ccLoc.getBaseStationId());
                         registeredCell = ccLoc.getBaseStationId();
                         lastConnectedTime = Calendar.getInstance().getTimeInMillis();
                         DatabaseHandler db = DatabaseHandler.getInstance(context);
                         db.updateMobileCellLastConnectedTime(registeredCell, lastConnectedTime);
+                        doAutoRegistration(ccLoc.getBaseStationId());
                     }
-                    doAutoRegistration(ccLoc.getBaseStationId());
                 }
                 //else {
                 //    PPApplication.logE("PhoneStateScanner.getCellLocation", "unknown location="+location);
@@ -585,7 +589,7 @@ class PhoneStateScanner extends PhoneStateListener {
                         }
 
                         //Log.d("PhoneStateScanner.doAutoRegistration", "xxx");
-                        if (cellIdToRegister != Integer.MAX_VALUE) {
+                        if (isValidCellId(cellIdToRegister)) {
                             DatabaseHandler db = DatabaseHandler.getInstance(context);
                             if (!db.isMobileCellSaved(cellIdToRegister)) {
                                 List<MobileCellsData> localCellsList = new ArrayList<>();

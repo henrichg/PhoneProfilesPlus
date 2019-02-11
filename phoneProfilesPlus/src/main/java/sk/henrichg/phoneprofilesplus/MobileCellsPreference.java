@@ -490,7 +490,7 @@ public class MobileCellsPreference extends DialogPreference {
                                     break;
                                 }
                             }
-                            if (!registeredCellInTable && (PhoneStateScanner.registeredCell != Integer.MAX_VALUE)) {
+                            if (!registeredCellInTable && PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
                                 PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell - not found");
                                 registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
                                         _cellName, true, true, PhoneStateScanner.lastConnectedTime);
@@ -524,7 +524,7 @@ public class MobileCellsPreference extends DialogPreference {
                         db.saveMobileCellsList(_cellsList, true, false);
 
                         // rename cell added by "plus" icon
-                        if (renameCellId != Integer.MAX_VALUE) {
+                        if (PhoneStateScanner.isValidCellId(renameCellId)) {
                             String val = String.valueOf(renameCellId);
                             db.renameMobileCellsList(_cellsList, _cellName, false, val);
                         }

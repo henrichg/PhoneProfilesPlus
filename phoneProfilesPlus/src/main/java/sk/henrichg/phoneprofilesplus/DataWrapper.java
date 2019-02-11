@@ -3185,7 +3185,7 @@ public class DataWrapper {
                         synchronized (PPApplication.phoneStateScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
                                 String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                                if (PhoneStateScanner.registeredCell != Integer.MAX_VALUE) {
+                                if (PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
                                     String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);
                                     boolean found = false;
                                     for (String cell : splits) {
