@@ -1279,7 +1279,6 @@ class ActivateProfileHelper {
     }
 
     @SuppressLint("SwitchIntDef")
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     static int getSystemZenMode(Context context/*, int defaultValue*/) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean no60 = !Build.VERSION.RELEASE.equals("6.0");

@@ -430,7 +430,7 @@ public class EditorEventListFragment extends Fragment
             }
 
             // redraw event list
-            updateListView(event, false, false, true);
+            updateListView(event, false, false, true, 0);
 
             // restart events
             PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
@@ -454,7 +454,7 @@ public class EditorEventListFragment extends Fragment
             // update event in DB
             DatabaseHandler.getInstance(activityDataWrapper.context).updateEvent(event);
             // redraw event list
-            updateListView(event, false, false, true);
+            updateListView(event, false, false, true, 0);
         }
     }
 
@@ -702,7 +702,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition)
+    public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition, long loadEventId)
     {
         /*if (listView != null)
             listView.cancelDrag();*/
@@ -731,6 +731,13 @@ public class EditorEventListFragment extends Fragment
             //else
             //    eventPos = listView.getCheckedItemPosition();
 
+            if (loadEventId != 0) {
+                if (getActivity() != null) {
+                    Event eventFromDB = DatabaseHandler.getInstance(getActivity().getApplicationContext()).getEvent(loadEventId);
+                    activityDataWrapper.updateEvent(eventFromDB);
+                    refreshIcons = true;
+                }
+            }
             eventListAdapter.notifyDataSetChanged(refreshIcons);
 
             if (setPosition || newEvent) {
@@ -841,7 +848,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    public void refreshGUI(boolean refreshIcons, boolean setPosition)
+    public void refreshGUI(boolean refreshIcons, boolean setPosition, long eventId)
     {
         synchronized (activityDataWrapper.eventList) {
             if ((activityDataWrapper == null) || (!activityDataWrapper.eventListFilled))
@@ -874,7 +881,7 @@ public class EditorEventListFragment extends Fragment
             PPApplication.logE("EditorEventListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
         }
-        updateListView(null, false, refreshIcons, setPosition);
+        updateListView(null, false, refreshIcons, setPosition, eventId);
     }
 
     public void removeAdapter() {

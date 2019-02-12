@@ -15,6 +15,7 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.CellIdentityCdma;
 import android.telephony.CellIdentityGsm;
 import android.telephony.CellIdentityLte;
@@ -28,8 +29,6 @@ import android.telephony.CellLocation;
 import android.telephony.PhoneStateListener;
 import android.telephony.ServiceState;
 import android.telephony.TelephonyManager;
-import android.telephony.cdma.CdmaCellLocation;
-import android.telephony.gsm.GsmCellLocation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -223,7 +222,6 @@ class PhoneStateScanner extends PhoneStateListener {
         return (cid != -1) /*&& (cid != 0) && (cid != 1)*/ && (cid != Integer.MAX_VALUE);
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void getAllCellInfo(List<CellInfo> cellInfo) {
         // only for registered cells is returned identify
         // SlimKat in Galaxy Nexus - returns null :-/
@@ -625,6 +623,10 @@ class PhoneStateScanner extends PhoneStateListener {
                                             intent.putExtra(MobileCellsRegistrationService.EXTRA_NEW_CELLS_VALUE, cellIdToRegister);
                                             intent.setPackage(context.getPackageName());
                                             context.sendBroadcast(intent);
+
+                                            Intent refreshIntent = new Intent("RefreshGUIBroadcastReceiver");
+                                            refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
+                                            LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
                                         }
                                     }
                                 }

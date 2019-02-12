@@ -4170,7 +4170,7 @@ public class DataWrapper {
                     if (runStopEvents(true)) {
                         PPApplication.showProfileNotification(/*activity.getApplicationContext()*/);
                         if (activity instanceof EditorProfilesActivity)
-                            ((EditorProfilesActivity) activity).refreshGUI(false, true);
+                            ((EditorProfilesActivity) activity).refreshGUI(false, true, 0, 0);
                         else if (activity instanceof ActivateProfileActivity)
                             ((ActivateProfileActivity) activity).refreshGUI(false);
                         ActivateProfileHelper.updateGUI(activity, false);
@@ -4200,7 +4200,7 @@ public class DataWrapper {
             if (runStopEvents(false)) {
                 PPApplication.showProfileNotification(/*activity.getApplicationContext()*/);
                 if (activity instanceof EditorProfilesActivity)
-                    ((EditorProfilesActivity) activity).refreshGUI(false, true);
+                    ((EditorProfilesActivity) activity).refreshGUI(false, true, 0, 0);
                 else if (activity instanceof ActivateProfileActivity)
                     ((ActivateProfileActivity) activity).refreshGUI(false);
                 ActivateProfileHelper.updateGUI(activity, false);

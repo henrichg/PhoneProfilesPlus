@@ -33,8 +33,13 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("$$$ RefreshGUIBroadcastReceiver", "refreshAlsoEditor="+refreshAlsoEditor);
 
         if (refreshAlsoEditor) {
+            long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+            long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
+
             refreshIntent = new Intent("RefreshEditorGUIBroadcastReceiver");
             refreshIntent.putExtra(EXTRA_REFRESH_ICONS, refreshIcons);
+            refreshIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
+            refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
             LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
             /*EditorProfilesActivity editorProfilesActivity = EditorProfilesActivity.getInstance();
             PPApplication.logE("$$$ RefreshGUIBroadcastReceiver", "editorProfilesActivity="+editorProfilesActivity);

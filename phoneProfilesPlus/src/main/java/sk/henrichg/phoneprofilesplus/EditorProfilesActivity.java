@@ -159,8 +159,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         @Override
         public void onReceive( Context context, Intent intent ) {
             boolean refreshIcons = intent.getBooleanExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+            long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+            long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
             // not change selection in editor if refresh is outside editor
-            EditorProfilesActivity.this.refreshGUI(refreshIcons, false);
+            EditorProfilesActivity.this.refreshGUI(refreshIcons, false, profileId, eventId);
         }
     };
 
@@ -552,7 +554,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                 new IntentFilter("ShowEditorTargetHelpsBroadcastReceiver"));
 
-        refreshGUI(false, true);
+        refreshGUI(false, true, 0, 0);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
                 new IntentFilter("FinishEditorBroadcastReceiver"));
@@ -2025,7 +2027,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             boolean newProfile = ((newProfileMode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (newProfileMode == EditorProfileListFragment.EDIT_MODE_DUPLICATE));
-            fragment.updateListView(profile, newProfile, false, false);
+            fragment.updateListView(profile, newProfile, false, false, 0);
 
             Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
@@ -2109,7 +2111,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             boolean newEvent = ((newEventMode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                     (newEventMode == EditorEventListFragment.EDIT_MODE_DUPLICATE));
-            fragment.updateListView(event, newEvent, false, false);
+            fragment.updateListView(event, newEvent, false, false, 0);
 
             Profile activeProfile = fragment.activityDataWrapper.getActivatedProfileFromDB(true,
                     ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
@@ -2230,11 +2232,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    public void refreshGUI(boolean refreshIcons, boolean setPosition)
+    public void refreshGUI(final boolean refreshIcons, final boolean setPosition, final long profileId, final long eventId)
     {
-        final boolean _refreshIcons = refreshIcons;
-        final boolean _setPosition = setPosition;
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -2247,9 +2246,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment != null) {
                     if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).refreshGUI(_refreshIcons, _setPosition);
+                        ((EditorProfileListFragment) fragment).refreshGUI(refreshIcons, setPosition, profileId);
                     else
-                        ((EditorEventListFragment) fragment).refreshGUI(_refreshIcons, _setPosition);
+                        ((EditorEventListFragment) fragment).refreshGUI(refreshIcons, setPosition, eventId);
                 }
             }
         });

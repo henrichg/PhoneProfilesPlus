@@ -720,7 +720,7 @@ public class EditorProfileListFragment extends Fragment
             showAdapterTargetHelps();
     }
 
-    public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition)
+    public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition, long loadProfileId)
     {
         /*if (listView != null)
             listView.cancelDrag();*/
@@ -744,8 +744,16 @@ public class EditorProfileListFragment extends Fragment
             }
         }
 
-        if (profileListAdapter != null)
+        if (profileListAdapter != null) {
+            if (loadProfileId != 0) {
+                if (getActivity() != null) {
+                    Profile profileFromDB = DatabaseHandler.getInstance(getActivity().getApplicationContext()).getProfile(loadProfileId, false);
+                    activityDataWrapper.updateProfile(profileFromDB);
+                    refreshIcons = true;
+                }
+            }
             profileListAdapter.notifyDataSetChanged(refreshIcons);
+        }
 
         if (setPosition || newProfile)
             setProfileSelection(profile);
@@ -784,7 +792,7 @@ public class EditorProfileListFragment extends Fragment
         Collections.sort(profileList, new ByPOrderComparator());
     }
 
-    public void refreshGUI(boolean refreshIcons, boolean setPosition)
+    public void refreshGUI(boolean refreshIcons, boolean setPosition, long profileId)
     {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
@@ -803,11 +811,11 @@ public class EditorProfileListFragment extends Fragment
             if (profileFromDataWrapper != null)
                 profileFromDataWrapper._checked = true;
             updateHeader(profileFromDataWrapper);
-            updateListView(profileFromDataWrapper, false, refreshIcons, setPosition);
+            updateListView(profileFromDataWrapper, false, refreshIcons, setPosition, profileId);
         } else {
             PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile not activated");
             updateHeader(null);
-            updateListView(null, false, refreshIcons, setPosition);
+            updateListView(null, false, refreshIcons, setPosition, 0);
         }
     }
 
