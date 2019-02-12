@@ -90,6 +90,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
+                else
                 if (Build.VERSION.SDK_INT >= 28) {
                     if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
                         descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
