@@ -175,18 +175,18 @@ class EventPreferencesBluetooth extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
                     if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context)) {
-                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n" +
+                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }
                     else {
-                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n" +
+                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                         titleColor = 0;
                     }
                 }
                 else {
-                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n" +
+                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
                             context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                     titleColor = 0;
                 }
@@ -214,7 +214,11 @@ class EventPreferencesBluetooth extends EventPreferences {
             if (preference != null) {
                 String summary = context.getString(R.string.phone_profiles_pref_eventBluetoothLocationSystemSettings_summary);
                 if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
-                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n" +
+                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n" +
+                            summary;
+                }
+                else {
+                    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n"+
                             summary;
                 }
                 preference.setSummary(summary);

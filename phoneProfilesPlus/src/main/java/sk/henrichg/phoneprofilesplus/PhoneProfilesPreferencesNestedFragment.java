@@ -1559,6 +1559,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                             getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
                 }
+                else {
+                    summary = summary + "\n";
+                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+                }
             }
             else
                 summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -1580,6 +1585,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                             getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
                 }
+                else {
+                    summary = summary + "\n";
+                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+                }
             }
             else
                 summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -1598,6 +1608,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     summary = summary + "\n";
                     summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                             getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
+                }
+                else {
+                    summary = summary + "\n";
+                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
                 }
             }
             else
@@ -1619,6 +1634,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     summary = summary + "\n";
                     summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                             getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
+                }
+                else {
+                    summary = summary + "\n";
+                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
                 }
             }
             else
