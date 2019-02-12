@@ -257,8 +257,12 @@ public class PPApplication extends Application {
                                         //+ "|PhoneStateScanner"
                                         //+"|MobileCellsPreference"
                                         //+"|MobileCellsPreference.refreshListView"
-                                        //+"|PhoneStateScanner.startAutoRegistration"
+                                        +"|PhoneStateScanner.startAutoRegistration"
                                         //+"|PhoneStateScanner.stopAutoRegistration"
+                                        +"|PhoneStateScanner.getAllCellInfo"
+                                        +"|PhoneStateScanner.getCellLocation"
+                                        +"|PhoneStateScanner.doAutoRegistration"
+                                        +"|MobileCellsRegistrationDialogPreference.startRegistration"
                                         //+"|MobileCellsRegistrationService"
 
                                         //+"|[RJS] PhoneProfilesService.registerReceiversAndJobs"
@@ -305,7 +309,7 @@ public class PPApplication extends Application {
                                         //+ "|EventPreferencesTime.removeAlarm"
                                         //+ "|EventPreferencesTime.setAlarm"
 
-                                        +"|EventPreferencesCalendar.saveStartEndTime"
+                                        //+"|EventPreferencesCalendar.saveStartEndTime"
 
                                         //+"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"

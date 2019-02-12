@@ -3245,7 +3245,7 @@ public class PhoneProfilesService extends Service
                             DatabaseHandler.getInstance(appContext).deleteAllEventTimelines();
                             DatabaseHandler.getInstance(appContext).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
 
-                            MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
+                            MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, _startOnBoot || _startOnPackageReplace);
 
                             BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
                             BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);

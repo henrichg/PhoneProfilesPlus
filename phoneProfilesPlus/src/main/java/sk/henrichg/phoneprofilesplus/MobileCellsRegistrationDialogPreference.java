@@ -416,6 +416,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(context, iValue);
             PhoneStateScanner.durationForAutoRegistration = iValue;
             PhoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
+            PPApplication.logE("MobileCellsRegistrationDialogPreference.startRegistration",
+                    "cellsNameForAutoRegistration="+PhoneStateScanner.cellsNameForAutoRegistration);
             PhoneStateScanner.startAutoRegistration(context, false);
 
             value = String.valueOf(iValue);
