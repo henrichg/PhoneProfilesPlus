@@ -589,22 +589,27 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, false);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventWifiDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventBluetoothDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventLocationDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventMobileCellDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventOrientationDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
     }
