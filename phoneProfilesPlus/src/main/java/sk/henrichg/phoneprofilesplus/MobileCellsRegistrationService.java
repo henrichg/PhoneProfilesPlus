@@ -238,6 +238,9 @@ public class MobileCellsRegistrationService extends Service {
             editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
             editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
             setMobileCellsAutoRegistrationRemainingDuration(context, 0);
+            PhoneStateScanner.durationForAutoRegistration = 0;
+            PhoneStateScanner.cellsNameForAutoRegistration = "";
+            PhoneStateScanner.enabledAutoRegistration = false;
         }
         else {
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneStateScanner.durationForAutoRegistration);
