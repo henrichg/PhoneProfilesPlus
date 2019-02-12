@@ -427,7 +427,7 @@
         <CheckBoxPreference
             android:key="applicationEventLocationEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventLocationEnableScanning"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <Preference
@@ -509,7 +509,7 @@
         <CheckBoxPreference
             android:key="applicationEventWifiEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventWifiEnableScanning"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <Preference
@@ -592,7 +592,7 @@
         <CheckBoxPreference
             android:key="applicationEventBluetoothEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventBluetoothEnableScanning"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <Preference
@@ -676,7 +676,7 @@
         <CheckBoxPreference
             android:key="applicationEventMobileCellEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventMobileCellEnableScanning"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <!--
@@ -731,7 +731,7 @@
         <CheckBoxPreference
             android:key="applicationEventOrientationEnableScannig"
             android:title="@string/phone_profiles_pref_applicationEventOrientationEnableScanning"
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:widgetLayout="@layout/mp_preference_switch"
             android:layout="@layout/mp_preference_material_widget" />
         <Preference

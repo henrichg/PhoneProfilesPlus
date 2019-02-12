@@ -570,23 +570,23 @@ class ApplicationPreferences {
     }
 
     static boolean applicationEventWifiEnableScanning(Context context) {
-        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, true);
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, false);
     }
 
     static boolean applicationEventBluetoothEnableScanning(Context context) {
-        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, true);
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, false);
     }
 
     static boolean applicationEventLocationEnableScanning(Context context) {
-        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, true);
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, false);
     }
 
     static boolean applicationEventMobileCellEnableScanning(Context context) {
-        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, true);
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, false);
     }
 
     static boolean applicationEventOrientationEnableScanning(Context context) {
-        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, true);
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, false);
     }
 
     static boolean applicationEventWifiDisabledScannigByProfile(Context context) {
