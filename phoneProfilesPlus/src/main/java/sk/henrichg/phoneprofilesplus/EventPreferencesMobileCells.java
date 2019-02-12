@@ -82,13 +82,20 @@ class EventPreferencesMobileCells extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
+                if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
+                    if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context))
+                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                    else
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                }
+
                 String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._cells.isEmpty()) {
                     String[] splits = this._cells.split("\\|");
                     selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
                     selectedCells = selectedCells + " " + splits.length;
                 }
-                descr = descr + selectedCells;
+                descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": " +selectedCells;
                 if (this._whenOutside)
                     descr = descr + "; " + context.getString(R.string.event_preferences_mobile_cells_when_outside_description);
             }

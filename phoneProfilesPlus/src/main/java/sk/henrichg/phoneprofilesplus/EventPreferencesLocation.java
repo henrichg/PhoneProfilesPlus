@@ -85,6 +85,13 @@ class EventPreferencesLocation extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
+                if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
+                    if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context))
+                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                    else
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                }
+
                 String selectedLocations = "";
                 if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
                     selectedLocations = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +

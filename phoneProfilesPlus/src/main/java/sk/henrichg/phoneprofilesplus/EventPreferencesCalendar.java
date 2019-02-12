@@ -153,7 +153,7 @@ class EventPreferencesCalendar extends EventPreferences {
                     descr = descr + context.getString(R.string.event_preferences_calendar_all_events) + "; ";
                 } else {
                     String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
-                    descr = descr + searchFields[this._searchField] + "; ";
+                    descr = descr + searchFields[this._searchField] + ": ";
 
                     descr = descr + "\"" + this._searchString + "\"" + "; ";
                 }
@@ -162,7 +162,7 @@ class EventPreferencesCalendar extends EventPreferences {
                     descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "; ";
 
                 String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
-                descr = descr + availabilities[this._availability];
+                descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": " +availabilities[this._availability];
 
                 if (this._startBeforeEvent > 0)
                     descr = descr + "; " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + GlobalGUIRoutines.getDurationString(this._startBeforeEvent);

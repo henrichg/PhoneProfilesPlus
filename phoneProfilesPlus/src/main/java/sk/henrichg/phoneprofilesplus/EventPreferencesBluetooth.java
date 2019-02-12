@@ -101,6 +101,13 @@ class EventPreferencesBluetooth extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
+                if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
+                    if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context))
+                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                    else
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                }
+
                 descr = descr + context.getString(R.string.pref_event_bluetooth_connectionType);
                 String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeArray);
                 String[] connectionListTypes = context.getResources().getStringArray(R.array.eventBluetoothConnectionTypeValues);

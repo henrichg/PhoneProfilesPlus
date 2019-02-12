@@ -134,6 +134,13 @@ class EventPreferencesOrientation extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
+                if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
+                    if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context))
+                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                    else
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                }
+
                 String selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._display.isEmpty() && !this._display.equals("-")) {
                     String[] splits = this._display.split("\\|");

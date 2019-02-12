@@ -91,6 +91,13 @@ class EventPreferencesWifi extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
+                if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
+                    if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context))
+                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                    else
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                }
+
                 descr = descr + context.getString(R.string.pref_event_wifi_connectionType);
                 String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
                 String[] connectionListTypes = context.getResources().getStringArray(R.array.eventWifiConnectionTypeValues);
