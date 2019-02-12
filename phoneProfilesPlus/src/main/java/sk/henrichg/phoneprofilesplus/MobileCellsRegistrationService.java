@@ -43,52 +43,60 @@ public class MobileCellsRegistrationService extends Service {
         PPApplication.logE("MobileCellsRegistrationService.onCreate", "xxx");
 
         context = this;
-        serviceStarted = true;
-
-        PPApplication.forceStartPhoneStateScanner(this);
-        forceStart = true;
-
-        //PhoneStateScanner.autoRegistrationService = this;
 
         removeResultNotification();
-        showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
 
-        if (mobileCellsRegistrationStopButtonBroadcastReceiver == null) {
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
-            mobileCellsRegistrationStopButtonBroadcastReceiver =
-                    new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver();
-            context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
+        if (remainingDuration > 0) {
+            serviceStarted = true;
+
+            PPApplication.forceStartPhoneStateScanner(this);
+            forceStart = true;
+
+            //PhoneStateScanner.autoRegistrationService = this;
+
+            showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
+
+            if (mobileCellsRegistrationStopButtonBroadcastReceiver == null) {
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
+                mobileCellsRegistrationStopButtonBroadcastReceiver =
+                        new MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver();
+                context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
+            }
+
+            countDownTimer = new CountDownTimer(remainingDuration * 1000, 1000) {
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    //Log.d("MobileCellsRegistrationService", "Countdown seconds remaining: " + millisUntilFinished / 1000);
+
+                    showNotification(millisUntilFinished);
+
+                    setMobileCellsAutoRegistrationRemainingDuration(context, (int) millisUntilFinished / 1000);
+
+                    // broadcast for event preferences
+                    Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
+                    intent.putExtra(EXTRA_COUNTDOWN, millisUntilFinished);
+                    intent.setPackage(context.getPackageName());
+                    sendBroadcast(intent);
+                }
+
+                @Override
+                public void onFinish() {
+                    //Log.d("MobileCellsRegistrationService", "Timer finished");
+
+                    stopRegistration();
+                }
+            };
+
+            countDownTimer.start();
         }
-
-        countDownTimer = new CountDownTimer(remainingDuration * 1000, 1000) {
-
-            @Override
-            public void onTick(long millisUntilFinished) {
-                //Log.d("MobileCellsRegistrationService", "Countdown seconds remaining: " + millisUntilFinished / 1000);
-
-                showNotification(millisUntilFinished);
-
-                setMobileCellsAutoRegistrationRemainingDuration(context, (int) millisUntilFinished / 1000);
-
-                // broadcast for event preferences
-                Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
-                intent.putExtra(EXTRA_COUNTDOWN, millisUntilFinished);
-                intent.setPackage(context.getPackageName());
-                sendBroadcast(intent);
-            }
-
-            @Override
-            public void onFinish() {
-                //Log.d("MobileCellsRegistrationService", "Timer finished");
-
-                stopRegistration();
-            }
-        };
-
-        countDownTimer.start();
+        else {
+            setMobileCellsAutoRegistration(context, true);
+            stopSelf();
+        }
     }
 
     @Override
@@ -101,24 +109,28 @@ public class MobileCellsRegistrationService extends Service {
     public void onDestroy() {
         PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
 
-        countDownTimer.cancel();
+        if (serviceStarted) {
+            countDownTimer.cancel();
 
-        //PhoneStateScanner.autoRegistrationService = null;
+            //PhoneStateScanner.autoRegistrationService = null;
 
-        forceStart = false;
-        PPApplication.restartPhoneStateScanner(this, false);
+            forceStart = false;
+            PPApplication.restartPhoneStateScanner(this, false);
 
-        stopForeground(true);
+            stopForeground(true);
 
-        showResultNotification();
+            showResultNotification();
 
-        if (mobileCellsRegistrationStopButtonBroadcastReceiver != null) {
-            try {
-                context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
-            } catch (IllegalArgumentException ignored) {
+            if (mobileCellsRegistrationStopButtonBroadcastReceiver != null) {
+                try {
+                    context.unregisterReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver);
+                } catch (IllegalArgumentException ignored) {
+                }
+                mobileCellsRegistrationStopButtonBroadcastReceiver = null;
             }
-            mobileCellsRegistrationStopButtonBroadcastReceiver = null;
         }
+        else
+            stopForeground(true);
 
         serviceStarted = false;
 
@@ -163,8 +175,7 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     private void stopRegistration() {
-        PhoneStateScanner.enabledAutoRegistration = false;
-        setMobileCellsAutoRegistration(context, false);
+        setMobileCellsAutoRegistration(context, true);
 
         // broadcast for event preferences
         Intent intent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
@@ -219,13 +230,14 @@ public class MobileCellsRegistrationService extends Service {
         PhoneStateScanner.enabledAutoRegistration = ApplicationPreferences.preferences.getBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
     }
 
-    static public void setMobileCellsAutoRegistration(Context context, boolean firstStart) {
+    static public void setMobileCellsAutoRegistration(Context context, boolean clear) {
         ApplicationPreferences.getSharedPreferences(context);
         SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-        if (firstStart) {
+        if (clear) {
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, 0);
             editor.putString(PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME, "");
             editor.putBoolean(PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED, false);
+            setMobileCellsAutoRegistrationRemainingDuration(context, 0);
         }
         else {
             editor.putInt(PREF_MOBILE_CELLS_AUTOREGISTRATION_DURATION, PhoneStateScanner.durationForAutoRegistration);
