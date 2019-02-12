@@ -59,6 +59,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final int RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = 1990;
     private static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
     private static final int RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS = 1992;
+    private static final int RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = 1993;
 
     @Override
     public int addPreferencesFromResource() {
@@ -424,6 +425,29 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO, "mobileCellsScanningCategory");
                     //intent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                     startActivityForResult(intent, RESULT_MOBILE_CELLS_SCANNING_SETTINGS);
+                    return false;
+                }
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, getActivity().getApplicationContext())) {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        startActivityForResult(intent, RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+                    }
+                    else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+                        dialog.show();
+                    }
                     return false;
                 }
             });
@@ -852,6 +876,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
+            event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
         }
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {

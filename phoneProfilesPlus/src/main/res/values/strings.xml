@@ -1333,7 +1333,7 @@
     <string name="array_pref_battery_plugged_wireless">Wireless</string>
     <string name="pref_dlg_info_about_wildcards_5">Use \"!\" at the beginning of the string when the string should not be present.</string>
     <string name="pref_dlg_info_about_wildcards_6">\"!\" at the beginning of the string</string>
-
+    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary">Location disabled</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

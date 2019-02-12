@@ -238,7 +238,7 @@ class EventPreferencesOrientation extends EventPreferences {
             if (preference != null) {
                 if (!ApplicationPreferences.applicationEventOrientationEnableScanning(context)) {
                     if (!ApplicationPreferences.applicationEventOrientationDisabledScannigByProfile(context)) {
-                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventOrientationAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }

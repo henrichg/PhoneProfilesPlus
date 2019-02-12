@@ -91,6 +91,9 @@ class EventPreferencesLocation extends EventPreferences {
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
+                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                }
 
                 String selectedLocations = "";
                 if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
@@ -138,7 +141,7 @@ class EventPreferencesLocation extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventLocationEnableScanning(context)) {
                     if (!ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(context)) {
-                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventLocationAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }
@@ -168,6 +171,17 @@ class EventPreferencesLocation extends EventPreferences {
                 }
                 else {
                     preference.setTitle(sbt);
+                }
+                preference.setSummary(summary);
+            }
+        }
+        if (key.equals(PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = context.getString(R.string.phone_profiles_pref_eventLocationSystemSettings_summary);
+                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n" +
+                            summary;
                 }
                 preference.setSummary(summary);
             }

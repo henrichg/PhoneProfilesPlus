@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
+import android.os.Build;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
@@ -22,6 +23,7 @@ class EventPreferencesMobileCells extends EventPreferences {
     private static final String PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE = "eventMobileCellsStartWhenOutside";
     static final String PREF_EVENT_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
     private static final String PREF_EVENT_MOBILE_CELLS_APP_SETTINGS = "eventMobileCellsScanningAppSettings";
+    static final String PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = "eventMobileCellsLocationSystemSettings";
 
     private static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
 
@@ -88,6 +90,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
+                if (Build.VERSION.SDK_INT >= 28) {
+                    if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                    }
+                }
 
                 String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._cells.isEmpty()) {
@@ -122,7 +129,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context)) {
-                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }
@@ -152,6 +159,17 @@ class EventPreferencesMobileCells extends EventPreferences {
                 }
                 else {
                     preference.setTitle(sbt);
+                }
+                preference.setSummary(summary);
+            }
+        }
+        if (key.equals(PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
+                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n" +
+                            summary;
                 }
                 preference.setSummary(summary);
             }
@@ -205,7 +223,8 @@ class EventPreferencesMobileCells extends EventPreferences {
             setSummary(prefMng, key, value ? "true" : "false", context);
         }
         if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS) ||
-            key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS))
+            key.equals(PREF_EVENT_MOBILE_CELLS_APP_SETTINGS) ||
+            key.equals(PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -217,6 +236,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE, preferences, context);
     }
 
@@ -266,6 +286,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         //setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_CELLS, preferences, context);
         setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 

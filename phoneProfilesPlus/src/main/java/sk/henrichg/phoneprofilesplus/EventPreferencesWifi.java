@@ -97,6 +97,9 @@ class EventPreferencesWifi extends EventPreferences {
                     else
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
+                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                }
 
                 descr = descr + context.getString(R.string.pref_event_wifi_connectionType);
                 String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
@@ -153,7 +156,7 @@ class EventPreferencesWifi extends EventPreferences {
                 int titleColor;
                 if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
                     if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context)) {
-                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + "\n" +
+                        summary = "* " + context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabled) + " *\n" +
                                 context.getResources().getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }
@@ -183,6 +186,17 @@ class EventPreferencesWifi extends EventPreferences {
                 }
                 else {
                     preference.setTitle(sbt);
+                }
+                preference.setSummary(summary);
+            }
+        }
+        if (key.equals(PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = context.getString(R.string.phone_profiles_pref_eventWiFiLocationSystemSettings_summary);
+                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n" +
+                            summary;
                 }
                 preference.setSummary(summary);
             }
