@@ -120,14 +120,11 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
             }
             else
-            if (_eventStatus == Event.ESTATUS_RUNNING) {
-                eventName.setTypeface(null, Typeface.BOLD);
-                eventName.setTextSize(16);
-                //if (event._isInDelayEnd)
-                //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
-                //else
+            if (_eventStatus == Event.ESTATUS_STOP) {
+                eventName.setTypeface(null, Typeface.ITALIC);
+                eventName.setTextSize(15);
                 //noinspection ConstantConditions
-                    eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
+                eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(editorFragment.getActivity()));
             }
             else
             if (!(isRunnable && isPermissionGranted && isAccessibilityServiceEnabled)) {
@@ -137,13 +134,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     eventName.setTypeface(null, Typeface.NORMAL);
                 eventName.setTextSize(15);
                 eventName.setTextColor(Color.RED);
-            }
-            else
-            if (_eventStatus == Event.ESTATUS_STOP) {
-                eventName.setTypeface(null, Typeface.ITALIC);
-                eventName.setTextSize(15);
-                //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(editorFragment.getActivity()));
             }
             else
             if (_eventStatus == Event.ESTATUS_PAUSE) {
@@ -156,6 +146,16 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 //noinspection ConstantConditions
                 eventName.setTextColor(GlobalGUIRoutines.getThemeTextColor(editorFragment.getActivity()));
                 //eventName.setUnderLineColor(GlobalGUIRoutines.getThemeEventPauseColor(editorFragment.getActivity()));
+            }
+            else
+            if (_eventStatus == Event.ESTATUS_RUNNING) {
+                eventName.setTypeface(null, Typeface.BOLD);
+                eventName.setTextSize(16);
+                //if (event._isInDelayEnd)
+                //    eventName.setTextColor(GlobalGUIRoutines.getThemeEventInDelayColor(editorFragment.getActivity()));
+                //else
+                //noinspection ConstantConditions
+                eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
             }
             else {
                 eventName.setTypeface(null, Typeface.NORMAL);
