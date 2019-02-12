@@ -677,8 +677,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
         clearEventList();
 
-        enabledAutoRegistration = false;
-        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, false);
+        MobileCellsRegistrationService.setMobileCellsAutoRegistration(context, true);
     }
 
     static boolean isEventAdded(long event_id) {

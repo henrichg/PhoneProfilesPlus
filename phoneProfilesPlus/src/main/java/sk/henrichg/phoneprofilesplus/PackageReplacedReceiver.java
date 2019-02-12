@@ -309,6 +309,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
 
+                        if (PhoneStateScanner.enabledAutoRegistration) {
+                            PhoneStateScanner.stopAutoRegistration(appContext);
+                            PPApplication.sleep(2000);
+                        }
+
                         if (restartService) {
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, false)) {
@@ -321,8 +326,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             }
                         }
                         else {
-                            MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
-
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, true)) {
                                 // service is started by PPApplication
