@@ -274,6 +274,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             }
                                             event._eventPreferencesCalendar._searchString = searchStringNew;
                                             DatabaseHandler.getInstance(appContext).updateEvent(event);
+
+                                            restartService = true;
                                         }
                                     }
                                 }
@@ -319,6 +321,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             }
                         }
                         else {
+                            MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
+
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, true)) {
                                 // service is started by PPApplication
