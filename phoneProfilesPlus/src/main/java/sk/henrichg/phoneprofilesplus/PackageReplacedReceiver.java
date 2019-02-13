@@ -323,9 +323,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "restart PhoneProfilesService");
                                     startService(dataWrapper);
                                 }
+                                else
+                                    restartService = false;
                             }
                         }
-                        else {
+                        if (!restartService) {
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, true)) {
                                 // service is started by PPApplication

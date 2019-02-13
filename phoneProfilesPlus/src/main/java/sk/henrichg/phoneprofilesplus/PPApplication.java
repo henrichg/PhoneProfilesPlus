@@ -258,7 +258,7 @@ public class PPApplication extends Application {
                                         //+"|MobileCellsPreference"
                                         //+"|MobileCellsPreference.refreshListView"
                                         +"|PhoneStateScanner.startAutoRegistration"
-                                        //+"|PhoneStateScanner.stopAutoRegistration"
+                                        +"|PhoneStateScanner.stopAutoRegistration"
                                         +"|PhoneStateScanner.getAllCellInfo"
                                         +"|PhoneStateScanner.getCellLocation"
                                         +"|PhoneStateScanner.doAutoRegistration"
