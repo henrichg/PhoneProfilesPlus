@@ -9,7 +9,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.app.UiModeManager;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
@@ -4780,6 +4779,7 @@ public class PhoneProfilesService extends Service
 
     // Location ----------------------------------------------------------------
 
+    @SuppressWarnings("deprecation")
     public static boolean isLocationEnabled(Context context) {
         if (Build.VERSION.SDK_INT >= 28) {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
