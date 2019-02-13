@@ -4781,21 +4781,21 @@ public class PhoneProfilesService extends Service
     // Location ----------------------------------------------------------------
 
     public static boolean isLocationEnabled(Context context) {
-        int locationMode = 0;
-        //String locationProviders;
-
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= 28) {
+            LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            if (lm != null)
+                return lm.isLocationEnabled();
+            else
+                return true;
+        }
+        else {
+            int locationMode = 0;
             try {
                 locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE);
             } catch (Settings.SettingNotFoundException ignored) {
             }
             return  locationMode != Settings.Secure.LOCATION_MODE_OFF;
-        /*}
-        else {
-            //noinspection deprecation
-            locationProviders = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-            return  !TextUtils.isEmpty(locationProviders);
-        }*/
+        }
     }
 
     private void startGeofenceScanner(boolean resetUseGPS) {

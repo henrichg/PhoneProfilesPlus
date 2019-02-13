@@ -148,9 +148,7 @@ class PhoneStateScanner extends PhoneStateListener {
         if (Build.VERSION.SDK_INT >= 28) {
             // check for Location Settings
 
-            int locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-
-            if (locationMode == Settings.Secure.LOCATION_MODE_OFF) {
+            if (!PhoneProfilesService.isLocationEnabled(context)) {
                 // Location settings are not properly set, show notification about it
 
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {

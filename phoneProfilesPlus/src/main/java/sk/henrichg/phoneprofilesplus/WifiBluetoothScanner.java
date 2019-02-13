@@ -744,8 +744,6 @@ class WifiBluetoothScanner {
         if (Build.VERSION.SDK_INT >= 23) {
             // check for Location Settings
 
-            int locationMode = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE, Settings.Secure.LOCATION_MODE_OFF);
-
             /* isScanAlwaysAvailable() may be disabled for unknown reason :-(
             //boolean isScanAlwaysAvailable = true;
             if (scanType.equals(SCANNER_TYPE_WIFI)) {
@@ -758,7 +756,7 @@ class WifiBluetoothScanner {
             */
 
             //noinspection RedundantIfStatement
-            if ((locationMode == Settings.Secure.LOCATION_MODE_OFF)/* || (!isScanAlwaysAvailable)*/) {
+            if (!PhoneProfilesService.isLocationEnabled(context)/* || (!isScanAlwaysAvailable)*/) {
                 // Location settings are not properly set, show notification about it
 
                 /*

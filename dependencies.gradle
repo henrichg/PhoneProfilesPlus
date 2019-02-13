@@ -16,12 +16,12 @@
 
 ext.ppVersions = [
     publishVersion: '3.6.8b',
-    publishVersionCode: 4572,
+    publishVersionCode: 4573,
 
     minSdk: 19,
     targetSdk: 27,
-    compileSdk: 27,
+    compileSdk: 28,
     buildTools: '28.0.3',
 
-    supportLib: '27.1.1'
+    supportLib: '28.0.0'
 ]
