@@ -623,6 +623,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                 /*boolean defaultValue =
                         getResources().getBoolean(
                                 GlobalGUIRoutines.getResourceId(preference.getKey(), "bool", context));*/
+                //noinspection ConstantConditions
                 boolean defaultValue = Profile.defaultValuesBoolean.get(preference.getKey());
                 if (preferences.getBoolean(key, defaultValue) != defaultValue)
                     title = preference.getTitle().toString();
@@ -632,19 +633,22 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         getResources().getString(
                                 GlobalGUIRoutines.getResourceId(preference.getKey(), "string", context));*/
                 String defaultValue = Profile.defaultValuesString.get(preference.getKey());
-                if (preference instanceof VolumeDialogPreference) {
-                    if (VolumeDialogPreference.changeEnabled(preferences.getString(preference.getKey(), defaultValue)))
-                        title = preference.getTitle().toString();
-                } else if (preference instanceof BrightnessDialogPreference) {
-                    if (BrightnessDialogPreference.changeEnabled(preferences.getString(preference.getKey(), defaultValue)))
-                        title = preference.getTitle().toString();
-                } else {
-                    if (!preferences.getString(preference.getKey(), defaultValue).equals(defaultValue)) {
-                        if (key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE) &&
-                                (android.os.Build.VERSION.SDK_INT >= 23))
-                            title = context.getString(R.string.profile_preferences_volumeZenModeM);
-                        else
+                String value = preferences.getString(preference.getKey(), defaultValue);
+                if (value != null) {
+                    if (preference instanceof VolumeDialogPreference) {
+                        if (VolumeDialogPreference.changeEnabled(value))
                             title = preference.getTitle().toString();
+                    } else if (preference instanceof BrightnessDialogPreference) {
+                        if (BrightnessDialogPreference.changeEnabled(value))
+                            title = preference.getTitle().toString();
+                    } else {
+                        if (!value.equals(defaultValue)) {
+                            if (key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE) &&
+                                    (android.os.Build.VERSION.SDK_INT >= 23))
+                                title = context.getString(R.string.profile_preferences_volumeZenModeM);
+                            else
+                                title = preference.getTitle().toString();
+                        }
                     }
                 }
             }

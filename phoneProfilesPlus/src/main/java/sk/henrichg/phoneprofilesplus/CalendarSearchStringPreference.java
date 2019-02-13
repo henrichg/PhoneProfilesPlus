@@ -74,13 +74,14 @@ class CalendarSearchStringPreference extends DialogPreference {
 
         mDialog = dialogBuilder.create();
 
+        /*
         mDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {
-                CalendarSearchStringPreference.this.onShow(/*dialog*/);
+                CalendarSearchStringPreference.this.onShow();
             }
         });
-
+        */
 
         getValueCSSP();
 
@@ -103,9 +104,6 @@ class CalendarSearchStringPreference extends DialogPreference {
     @Override
     public Dialog getDialog() {
         return mDialog;
-    }
-
-    private void onShow(/*DialogInterface dialog*/) {
     }
 
     @Override

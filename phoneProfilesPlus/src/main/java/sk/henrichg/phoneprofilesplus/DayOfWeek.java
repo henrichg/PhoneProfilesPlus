@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.support.annotation.NonNull;
+
 class DayOfWeek {
     public String name = "";
     public String value = "";
@@ -8,6 +10,7 @@ class DayOfWeek {
     DayOfWeek() {
     }
 
+    @NonNull
     public String toString() {
         return name;
     }

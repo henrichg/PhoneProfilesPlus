@@ -26,8 +26,8 @@ import java.util.Set;
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class PPNotificationListenerService extends NotificationListenerService {
 
-    private static final String ACTION_REQUEST_INTERRUPTION_FILTER =
-            PPNotificationListenerService.class.getPackage().getName() + '.' + "ACTION_REQUEST_INTERRUPTION_FILTER";
+    private static final String ACTION_REQUEST_INTERRUPTION_FILTER = "sk.henrichg.phoneprofilesplus.ACTION_REQUEST_INTERRUPTION_FILTER";
+            //PPNotificationListenerService.class.getPackage().getName() + '.' + "ACTION_REQUEST_INTERRUPTION_FILTER";
     private static final String EXTRA_FILTER = "filter";
 
     private static final String TAG = PPNotificationListenerService.class.getSimpleName();

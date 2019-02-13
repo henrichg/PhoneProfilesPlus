@@ -452,7 +452,6 @@
   <string name="permissions_for_event_big_text_notification">потребує додаткових дозволів.</string>
   <string name="permission_group_name_calendar">Календар</string>
   <string name="permission_group_name_contacts">Контакти</string>
-  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Місцезнаходження</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Сканування Wi-Fi/Bluetooth потребує додаткових дозволів.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього сканування буде виконано.</string>
@@ -1220,7 +1219,6 @@
     <string name="permission_why_event_call_preferences">для читання контактів, виявлення виклику для \"нічний виклик\") Датчиком викликів</string>
     <string name="important_info_accessibility_service_text3">Завдяки змінам в правилах Google, нарахунок використання дозволів для про отриманя інформації про викликі, потрібно встановити PhoneProfilesPlusExtender щоб використовувати Датчик викликів . Для додаткової інформації перевірте параметри цього датчику.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
     <string name="phone_profiles_pref_notificationLayoutType">Layout type</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>

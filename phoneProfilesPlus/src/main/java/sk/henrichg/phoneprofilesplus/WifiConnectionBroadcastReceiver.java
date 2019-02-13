@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -47,13 +48,20 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
-                                PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "state=" + info.getState());
+                                boolean isConnected;
+                                if (Build.VERSION.SDK_INT < 28)
+                                    //noinspection deprecation
+                                    isConnected = info.getState() == NetworkInfo.State.CONNECTED;
+                                else
+                                    isConnected = info.isConnected();
+
+                                PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "isConnected=" + isConnected);
 
                                 if (PhoneProfilesService.getInstance() != null) {
                                     if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
                                         // connect to SSID is started
 
-                                        if (info.getState() == NetworkInfo.State.CONNECTED) {
+                                        if (isConnected) {
                                             //WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                             //WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                                             //PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifiInfo.getSSID()=" + wifiInfo.getSSID());
@@ -66,8 +74,8 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                 }
 
                                 if (Event.getGlobalEventsRunning(appContext)) {
-                                    if ((info.getState() == NetworkInfo.State.CONNECTED) ||
-                                            (info.getState() == NetworkInfo.State.DISCONNECTED)) {
+                                    //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
+                                    //        (info.getState() == NetworkInfo.State.DISCONNECTED)) {
                                         if (!(WifiScanJob.getScanRequest(appContext) ||
                                                 WifiScanJob.getWaitForResults(appContext) ||
                                                 WifiScanJob.getWifiEnabledForScan(appContext))) {
@@ -85,7 +93,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                             }
                                         } else
                                             PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
-                                    }
+                                    //}
                                 }
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {

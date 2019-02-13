@@ -376,6 +376,8 @@ class WifiScanJob extends Job {
         lock(); // lock wakeLock and wifiLock, then scan.
         // unlock() is then called at the end of the onReceive function of WifiScanBroadcastReceiver
         try {
+            //TODO from SDK documentation: The ability for apps to trigger scan requests will be removed in a future release. :-/
+            //noinspection deprecation
             boolean startScan = wifi.startScan();
             PPApplication.logE("$$$ WifiScanJob.startScan", "scanStarted=" + startScan);
             PPApplication.logE("$$$ WifiAP", "WifiScanJob.startScan-startScan=" + startScan);

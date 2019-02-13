@@ -130,8 +130,10 @@ class ActivityLogAdapter extends CursorAdapter {
         //rowData.eventName  = view.findViewById(R.id.activity_log_row_event_name);
         //rowData.profileName  = view.findViewById(R.id.activity_log_row_profile_name);
 
+        //noinspection ConstantConditions
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        //noinspection ConstantConditions
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         String logData = "";
         String event_name = cursor.getString(KEY_AL_EVENT_NAME);
@@ -157,8 +159,10 @@ class ActivityLogAdapter extends CursorAdapter {
 
         MyRowViewHolder rowData = (MyRowViewHolder) view.getTag();
 
+        //noinspection ConstantConditions
         rowData.logTypeColor.setBackgroundColor(ContextCompat.getColor(context, activityTypeColors.get(cursor.getInt(KEY_AL_LOG_TYPE))));
         rowData.logDateTime.setText(GlobalGUIRoutines.formatDateTime(context, cursor.getString(KEY_AL_LOG_DATE_TIME)));
+        //noinspection ConstantConditions
         rowData.logType.setText(activityTypeStrings.get(cursor.getInt(KEY_AL_LOG_TYPE)));
         String logData = "";
         String event_name = cursor.getString(KEY_AL_EVENT_NAME);

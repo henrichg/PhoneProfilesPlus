@@ -452,7 +452,6 @@
   <string name="permissions_for_event_big_text_notification">требует дополнительные разрешения.</string>
   <string name="permission_group_name_calendar">Календарь</string>
   <string name="permission_group_name_contacts">Контакты</string>
-  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Местоположение</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Сканирование Wi-Fi/Bluetooth требует дополнительных разрешений.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Разрешите в следующих диалоговых окнах. Затем будет выполнено сканирование.</string>
@@ -1220,7 +1219,6 @@
     <string name="permission_why_event_call_preferences">для чтения контактов, определения мелодии звонка (для \"ночного звонка\") в Датчике вызовов</string>
     <string name="important_info_accessibility_service_text3">Из-за изменения компанией Google правил использования разрешений на приём вызовов, для использования Датчика вызовов вам необходимо установить PhoneProfilesPlusExtender. Дополнительная информация - в параметрах этого датчика.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Тёмный фон</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Использовать оформление</string>
     <string name="phone_profiles_pref_notificationLayoutType">Тип макета</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Расширяемый</string>

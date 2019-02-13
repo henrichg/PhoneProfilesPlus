@@ -12,6 +12,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
@@ -2673,35 +2675,50 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
         {
-            boolean mobileDataSupported;
+            boolean mobileDataSupported = false;
             if (!PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
-                ConnectivityManager cm = null;
+                ConnectivityManager connManager = null;
                 try {
-                    cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 } catch (Exception ignored) {
                     // java.lang.NullPointerException: missing IConnectivityManager
                     // Dual SIM?? Bug in Android ???
                 }
-                if (cm != null) {
-                    /*if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                        Network[] networks = cm.getAllNetworks();
-                        for (Network network : networks) {
-                            NetworkInfo ni = cm.getNetworkInfo(network);
-                            Log.d("Profile.isProfilePreferenceAllowed", "ni.getType()="+ni.getType());
-                            if (ni.getType() == ConnectivityManager.TYPE_MOBILE) {
-                                Log.d("Profile.isProfilePreferenceAllowed", "network type = mobile data");
-                                mobileDataSupported = true;
-                                break;
+                if (connManager != null) {
+                    if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        Network[] networks = connManager.getAllNetworks();
+                        if ((networks != null) && (networks.length > 0)) {
+                            for (Network network : networks) {
+                                try {
+                                    if (Build.VERSION.SDK_INT < 28) {
+                                        NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
+                                        if (ntkInfo != null) {
+                                            //noinspection deprecation
+                                            if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                                                mobileDataSupported = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        NetworkCapabilities networkCapabilities=connManager.getNetworkCapabilities(network);
+                                        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                                            mobileDataSupported = true;
+                                            break;
+                                        }
+                                    }
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
+                    } else {
+                        //noinspection deprecation
+                        NetworkInfo ni = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                        mobileDataSupported = ni != null;
                     }
-                    else {*/
-                    NetworkInfo ni = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-                    mobileDataSupported = ni != null;
-                    //}
                 }
-                else
-                    mobileDataSupported = false;
+                //else
+                //    mobileDataSupported = false;
             }
             else
                 mobileDataSupported = true;
@@ -3322,6 +3339,7 @@ public class Profile {
     static int getIconResource(String identifier) {
         int iconResource = R.drawable.ic_profile_default;
         try {
+            //noinspection ConstantConditions
             iconResource = profileIconIdMap.get(identifier);
         } catch (Exception ignored) {}
         return iconResource;

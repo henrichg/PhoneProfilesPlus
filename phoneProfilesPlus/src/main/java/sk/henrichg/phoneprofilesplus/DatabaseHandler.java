@@ -2590,7 +2590,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.moveToFirst()) {
                 do {
-                    long id = Long.parseLong(cursor.getString(cursor.getColumnIndex(KEY_E_ID)));
                     String calendarSearchString = cursor.getString(cursor.getColumnIndex(KEY_E_CALENDAR_SEARCH_STRING));
 
                     String searchStringNew = "";

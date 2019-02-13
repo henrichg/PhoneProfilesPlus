@@ -452,7 +452,6 @@
   <string name="permissions_for_event_big_text_notification">vyžaduje udelenie niektorých povolení.</string>
   <string name="permission_group_name_calendar">Kalendár</string>
   <string name="permission_group_name_contacts">Kontakty</string>
-  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Poloha</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-Fi/Bluetooth skenovanie vyžaduje niektoré povolenia.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa znova vykoná skenovanie.</string>
@@ -1223,7 +1222,6 @@
     <string name="permission_why_event_call_preferences">pre čítanie kontaktov, detekciu zvonenia hovoru (pre \"nočný hovor\") v senzore hovoru</string>
     <string name="important_info_accessibility_service_text3">Vzhľadom k tomu, že spoločnosť Google zmenila pravidlá o používaní práv pre prijem hovorov, musíte pre udalostný senzor hovorov nainštalovať PhoneProfilesPlusExtender. Pozrite sa na parametre tohoto senzora pre viac informácií.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Tmavé pozadie</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Použiť dekoráciu</string>
     <string name="phone_profiles_pref_notificationLayoutType">Typ rozloženia</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Roztiahnuteľné</string>

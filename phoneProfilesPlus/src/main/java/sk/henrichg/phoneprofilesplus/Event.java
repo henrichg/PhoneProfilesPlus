@@ -1465,7 +1465,7 @@ class Event {
             if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart) {
                 PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-restart events");
                 // do not reactivate profile to avoid infinite loop
-                dataWrapper.restartEventsWithDelay(5, true, true, true, DatabaseHandler.ALTYPE_UNDEFINED);
+                dataWrapper.restartEventsWithDelay(5, true, true, DatabaseHandler.ALTYPE_UNDEFINED);
                 profileActivated = true;
             }
 

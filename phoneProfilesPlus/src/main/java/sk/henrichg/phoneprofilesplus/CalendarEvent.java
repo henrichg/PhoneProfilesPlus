@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.support.annotation.NonNull;
+
 class CalendarEvent {
     long calendarId = 0;
     String name = "";
@@ -9,6 +11,7 @@ class CalendarEvent {
     CalendarEvent() {
     }
 
+    @NonNull
     public String toString() {
         return name;
     }

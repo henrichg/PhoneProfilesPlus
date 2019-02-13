@@ -452,7 +452,6 @@
   <string name="permissions_for_event_big_text_notification">nécessite certaines autorisations.</string>
   <string name="permission_group_name_calendar">Calendrier</string>
   <string name="permission_group_name_contacts">Contacts</string>
-  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Emplacement</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Le scan WiFi/Bluetooth nécessite certaines autorisations.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">S\'il vous plaît validez les boîtes de dialogue suivante. Puis l\'analyse sera effectuée.</string>
@@ -1221,7 +1220,6 @@
     <string name="permission_why_event_call_preferences">pour lire les contacts, détecter la sonnerie d\'appel (pour les \"appels de nuit") dans le capteur d\'appe</string>
     <string name="important_info_accessibility_service_text3">En raison d\'un changement des règles de Google concernant l\'utilisation des permissions pour la réception d\'appels, vous devez installer PhoneProfilesPlusExtender pour utiliser le capteur d\'événement appel. Vérifiez les paramètres de ce capteur pour plus d\'informations.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
     <string name="phone_profiles_pref_notificationLayoutType">Layout type</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>

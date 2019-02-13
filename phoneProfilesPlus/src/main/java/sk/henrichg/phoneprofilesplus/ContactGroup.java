@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.support.annotation.NonNull;
+
 class ContactGroup {
     long groupId = 0;
     String name = "";
@@ -9,6 +11,7 @@ class ContactGroup {
     ContactGroup() {
     }
 
+    @NonNull
     public String toString() {
         return name;
     }

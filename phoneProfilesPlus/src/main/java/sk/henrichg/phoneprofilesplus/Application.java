@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.support.annotation.NonNull;
+
 class Application {
     int type = TYPE_APPLICATION;
     String appLabel = "";
@@ -17,6 +19,7 @@ class Application {
     Application() {
     }
 
+    @NonNull
     public String toString() {
         return appLabel;
     }

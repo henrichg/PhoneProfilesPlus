@@ -239,7 +239,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
 
     @SuppressLint("NewApi")
     static void setAlarmForRestartEvents(int delaySeconds, boolean clearOld, final boolean unblockEventsRun,
-                                         final boolean reactivateProfile, final int logType, Context context)
+                                         /*final boolean reactivateProfile,*/ final int logType, Context context)
     {
         final Context appContext = context.getApplicationContext();
 
@@ -268,7 +268,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
             //intent.setClass(context, PostDelayedBroadcastReceiver.class);
 
             intent.putExtra(EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
-            intent.putExtra(EXTRA_REACTIVATE_PROFILE, reactivateProfile);
+            intent.putExtra(EXTRA_REACTIVATE_PROFILE, true/*reactivateProfile*/);
             intent.putExtra(EXTRA_LOG_TYPE, logType);
 
             PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

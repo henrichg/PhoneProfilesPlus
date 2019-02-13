@@ -452,7 +452,6 @@
   <string name="permissions_for_event_big_text_notification">engedéllyel kell rendelkeznie.</string>
   <string name="permission_group_name_calendar">Naptár</string>
   <string name="permission_group_name_contacts">Kapcsolatok</string>
-  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Helyszín</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-Fi/Bluetooth kereséshez engedéllyel kell rendelkeznie.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Add meg az adatokat. Azután újra keresés lesz végrehajtva.</string>
@@ -1220,7 +1219,6 @@
     <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
     <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
     <string name="phone_profiles_pref_notificationLayoutType">Layout type</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>

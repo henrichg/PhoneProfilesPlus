@@ -81,6 +81,7 @@ public class MaterialListPreference extends ListPreference {
                                 MaterialListPreference.this.onClick(null, DialogInterface.BUTTON_POSITIVE);
                                 if (which >= 0 && getEntryValues() != null) {
                                     try {
+                                        //noinspection JavaReflectionMemberAccess
                                         Field clickedIndex =
                                                 ListPreference.class.getDeclaredField("mClickedDialogEntryIndex");
                                         clickedIndex.setAccessible(true);

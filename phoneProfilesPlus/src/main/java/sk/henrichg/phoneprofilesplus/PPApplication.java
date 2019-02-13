@@ -363,8 +363,8 @@ public class PPApplication extends Application {
     static final int GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID = 700423;
     static final int GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID = 700424;
     static final int GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID = 700425;
-    static final int LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID = 700426;
-    static final int LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID = 700427;
+    //static final int LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID = 700426;
+    //static final int LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID = 700427;
     static final int GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID = 700428;
     static final int GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID = 700429;
     static final int MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID = 700430;
@@ -377,7 +377,7 @@ public class PPApplication extends Application {
     static final int PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID = 700437;
     static final int MOBILE_CELLS_REGISTRATION_RESULT_NOTIFICATION_ID = 700438;
     static final int GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID = 700439;
-    static final int LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID = 700440;
+    //static final int LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID = 700440;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
     static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
@@ -1526,7 +1526,7 @@ public class PPApplication extends Application {
                 while (iField < length) {
                     Field field = declaredFields2[iField];
                     String name = field.getName();
-                    if (name == null || !name.equals("TRANSACTION_" + method)) {
+                    if (/*name == null ||*/ !name.equals("TRANSACTION_" + method)) {
                         iField++;
                     } else {
                         try {

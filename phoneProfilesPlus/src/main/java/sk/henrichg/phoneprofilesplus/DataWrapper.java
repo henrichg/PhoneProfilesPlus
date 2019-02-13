@@ -21,6 +21,7 @@ import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -154,6 +155,7 @@ public class DataWrapper {
 
     static Profile getNonInitializedProfile(String name, String icon, int order)
     {
+        //noinspection ConstantConditions
         return new Profile(
                 name,
                 icon + Profile.defaultValuesString.get("prf_pref_profileIcon_withoutIcon"),
@@ -1137,7 +1139,7 @@ public class DataWrapper {
             activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null/*, ""*/);
     }
 
-    void startEventsOnBoot(boolean startedFromService, boolean useHandler)
+    private void startEventsOnBoot(boolean startedFromService, boolean useHandler)
     {
         if (startedFromService) {
             if (ApplicationPreferences.applicationStartEvents(context)) {
@@ -2358,12 +2360,24 @@ public class DataWrapper {
                         if (android.os.Build.VERSION.SDK_INT >= 21) {
                             Network[] networks = connManager.getAllNetworks();
                             if ((networks != null) && (networks.length > 0)) {
-                                for (Network ntk : networks) {
+                                for (Network network : networks) {
                                     try {
-                                        NetworkInfo ntkInfo = connManager.getNetworkInfo(ntk);
-                                        if (ntkInfo != null) {
-                                            if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
-                                                if (wifiInfo != null) {
+                                        if (Build.VERSION.SDK_INT < 28) {
+                                            NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
+                                            if (ntkInfo != null) {
+                                                //noinspection deprecation
+                                                if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
+                                                    if (wifiInfo != null) {
+                                                        wifiConnected = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            if(connManager.getNetworkInfo(network).isConnected()){
+                                                NetworkCapabilities networkCapabilities=connManager.getNetworkCapabilities(network);
+                                                if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                                                     wifiConnected = true;
                                                     break;
                                                 }
@@ -2374,6 +2388,7 @@ public class DataWrapper {
                                 }
                             }
                         } else {
+                            //noinspection deprecation
                             NetworkInfo ntkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                             wifiConnected = (ntkInfo != null) && ntkInfo.isConnected();
                         }
@@ -3933,7 +3948,7 @@ public class DataWrapper {
 
     @SuppressLint("NewApi")
     // delay is in seconds, max 5
-    void restartEventsWithDelay(int delay, final boolean unblockEventsRun, final boolean reactivateProfile,
+    void restartEventsWithDelay(int delay, final boolean unblockEventsRun, /*final boolean reactivateProfile,*/
                                 boolean clearOld, final int logType)
     {
         PPApplication.logE("DataWrapper.restartEventsWithDelay","xxx");
@@ -3952,7 +3967,7 @@ public class DataWrapper {
                     dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                 }
             }, delay * 1000);*/
-            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, reactivateProfile, logType, context);
+            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, true, unblockEventsRun, /*reactivateProfile,*/ logType, context);
         }
         else {
             /*PPApplication.startHandlerThread("DataWrapper.restartEventsWithDelay");
@@ -3964,7 +3979,7 @@ public class DataWrapper {
                     dataWrapper.restartEvents(unblockEventsRun, true, true, false);
                 }
             }, delay * 1000);*/
-            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, reactivateProfile, logType, context);
+            PostDelayedBroadcastReceiver.setAlarmForRestartEvents(delay, false, unblockEventsRun, /*reactivateProfile,*/ logType, context);
         }
     }
 

@@ -95,8 +95,11 @@ public class FetchAddressIntentService extends IntentService {
             for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                 addressFragments.add(address.getAddressLine(i));
             }
+            String lineSeparator = System.getProperty("line.separator");
+            if (lineSeparator == null)
+                lineSeparator = "\n";
             deliverResultToReceiver(LocationGeofenceEditorActivity.SUCCESS_RESULT,
-                    TextUtils.join(System.getProperty("line.separator"), addressFragments));
+                    TextUtils.join(lineSeparator, addressFragments));
         }
 
     }

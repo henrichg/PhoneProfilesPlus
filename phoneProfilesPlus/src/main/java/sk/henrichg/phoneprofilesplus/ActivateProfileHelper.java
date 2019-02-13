@@ -25,6 +25,8 @@ import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
@@ -252,10 +254,26 @@ class ActivateProfileHelper {
                                     // Dual SIM?? Bug in Android ???
                                 }
                                 if (connManager != null) {
-                                    NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
-                                    boolean wifiConnected = (activeNetwork != null) &&
-                                            (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
-                                            activeNetwork.isConnected();
+                                    boolean wifiConnected = false;
+                                    if (Build.VERSION.SDK_INT < 28) {
+                                        NetworkInfo activeNetwork = connManager.getActiveNetworkInfo();
+                                        //noinspection deprecation
+                                        wifiConnected = (activeNetwork != null) &&
+                                                (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) &&
+                                                activeNetwork.isConnected();
+                                    }
+                                    else {
+                                        Network[] activeNetworks=connManager.getAllNetworks();
+                                        for(Network network:activeNetworks){
+                                            if(connManager.getNetworkInfo(network).isConnected()){
+                                                NetworkCapabilities networkCapabilities=connManager.getNetworkCapabilities(network);
+                                                if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                                                    wifiConnected = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
                                     WifiInfo wifiInfo = null;
                                     if (wifiConnected)
                                         wifiInfo = wifiManager.getConnectionInfo();
@@ -3089,30 +3107,34 @@ class ActivateProfileHelper {
                 if (transactionCode != -1) {
                     // Android 6?
                     if (Build.VERSION.SDK_INT >= 23) {
-                        SubscriptionManager mSubscriptionManager = SubscriptionManager.from(context);
-                        List<SubscriptionInfo> subscriptionList = null;
-                        try {
-                            // Loop through the subscription list i.e. SIM list.
-                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                        } catch (SecurityException ignored) {}
-                        if (subscriptionList != null) {
-                            for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
-                                // Get the active subscription ID for a given SIM card.
-                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                if (subscriptionInfo != null) {
-                                    int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                    synchronized (PPApplication.rootMutex) {
-                                        String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
-                                        if (command1 != null) {
-                                            Command command = new Command(0, false, command1);
-                                            try {
-                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command);
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager)context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                                //SubscriptionManager.from(context);
+                        if (mSubscriptionManager != null) {
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            } catch (SecurityException ignored) {
+                            }
+                            if (subscriptionList != null) {
+                                for (int i = 0; i < mSubscriptionManager.getActiveSubscriptionInfoCountMax(); i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                    if (subscriptionInfo != null) {
+                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
+                                            if (command1 != null) {
+                                                Command command = new Command(0, false, command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    PPApplication.commandWait(command);
                                             /*} catch (RootDeniedException e) {
                                                 PPApplication.rootMutex.rootGranted = false;
                                                 Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));*/
-                                            } catch (Exception e) {
-                                                Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                                } catch (Exception e) {
+                                                    Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                                }
                                             }
                                         }
                                     }

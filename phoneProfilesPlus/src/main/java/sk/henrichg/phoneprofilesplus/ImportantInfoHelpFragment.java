@@ -169,10 +169,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 
             int smsSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false);
             int callSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
-            boolean news_extender = true;
             if ((smsSensorsCount == 0) && (callSensorsCount == 0)) {
                 // extender is not needed
-                news_extender = false;
                 TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_text2);
                 infoText1.setVisibility(View.GONE);
             }

@@ -452,7 +452,6 @@
   <string name="permissions_for_event_big_text_notification">需要授予某些权限。</string>
   <string name="permission_group_name_calendar">日历</string>
   <string name="permission_group_name_contacts">联系人</string>
-  <string name="permission_group_name_sms">短信/彩信</string>
   <string name="permission_group_name_location">定位</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-fi/蓝牙扫描需要某些权限。</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">请在下一个对话框中授权，然后将执行重新扫描。</string>
@@ -1220,7 +1219,6 @@
     <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
     <string name="important_info_accessibility_service_text3">Due to a change of rules by Google, about usage of permissions for receive calls, you must install PhoneProfilesPlusExtender to use the Call event sensor. Check the parameters of this sensor for more information.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Dark background</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Use decoration</string>
     <string name="phone_profiles_pref_notificationLayoutType">Layout type</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Expandable</string>

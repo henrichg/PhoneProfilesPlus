@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.support.annotation.NonNull;
+
 class Contact {
     long contactId = 0;
     String name = "";
@@ -11,6 +13,7 @@ class Contact {
     Contact() {
     }
 
+    @NonNull
     public String toString() {
         return name;
     }

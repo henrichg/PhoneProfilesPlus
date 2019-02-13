@@ -146,6 +146,7 @@ final class WifiApManager {
         }
         if (mConnectivityManager != null) {
             try {
+                //noinspection JavaReflectionMemberAccess
                 Field internalConnectivityManagerField = ConnectivityManager.class.getDeclaredField("mService");
                 internalConnectivityManagerField.setAccessible(true);
 

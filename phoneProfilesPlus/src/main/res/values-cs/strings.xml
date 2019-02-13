@@ -452,7 +452,6 @@
   <string name="permissions_for_event_big_text_notification">vyžaduje udělení některých povolení.</string>
   <string name="permission_group_name_calendar">Kalendář</string>
   <string name="permission_group_name_contacts">Kontakty</string>
-  <string name="permission_group_name_sms">SMS/MMS</string>
   <string name="permission_group_name_location">Poloha</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-Fi/Bluetooth skenování vyžaduje některá povolení.</string>
   <string name="permissions_for_wifi_bt_scan_dialog_text2">Prosím, povolte je v následujících dialogových oknech. Pak se znovu provede skenování.</string>
@@ -1223,7 +1222,6 @@
     <string name="permission_why_event_call_preferences">pro čtení kontaktů, detekci vyzvánění hovoru (pro \"noční hovor\") v senzoru hovoru</string>
     <string name="important_info_accessibility_service_text3">Vzhledem k tomu, že společnost Google změnila pravidla o používání práv pro příjem hovorů, musíte pro událostní senzor hovorů nainstalovat PhoneProfilesPlusExtender. Podívejte se na parametry tohoto senzoru pro více informací.</string>
 
-    <string name="phone_profiles_pref_notificationDarkBackground">Tmavé pozadí</string>
     <string name="phone_profiles_pref_notificationUseDecoration">Použít dekoraci</string>
     <string name="phone_profiles_pref_notificationLayoutType">Typ rozložení</string>
     <string name="phone_profiles_pref_notificationLayoutType_expandable">Roztažitelné</string>
