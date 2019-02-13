@@ -26,5 +26,5 @@ android {
 
 dependencies {
     implementation project(':RootShell')
-    implementation "com.android.support:appcompat-v7:$ppVersions.supportLib"
+    api "com.android.support:appcompat-v7:$ppVersions.supportLib"
 }

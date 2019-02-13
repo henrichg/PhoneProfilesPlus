@@ -27,6 +27,6 @@ android {
 
 dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$ppVersions.supportLib"
+    api "com.android.support:appcompat-v7:$ppVersions.supportLib"
 }
 

@@ -56,15 +56,19 @@ android {
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation "com.android.support:support-core-ui:$ppVersions.supportLib"
     implementation "com.android.support:appcompat-v7:$ppVersions.supportLib"
     implementation "com.android.support:gridlayout-v7:$ppVersions.supportLib"
     implementation "com.android.support:cardview-v7:$ppVersions.supportLib"
     implementation "com.android.support:recyclerview-v7:$ppVersions.supportLib"
     implementation "com.android.support:design:$ppVersions.supportLib"
 
-    implementation 'com.google.android.gms:play-services-location:16.0.0'
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation ('com.google.android.gms:play-services-location:16.0.0') {
+        exclude group: 'com.android.support', module:'support-v4'
+    }
+    implementation ('com.google.android.gms:play-services-maps:16.1.0')  {
+        exclude group: 'com.android.support', module:'support-v4'
+    }
+
     implementation 'com.android.billingclient:billing:1.0'
     implementation 'com.google.code.gson:gson:2.8.2'
 
