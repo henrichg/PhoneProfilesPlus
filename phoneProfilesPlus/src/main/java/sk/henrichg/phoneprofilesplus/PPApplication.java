@@ -94,6 +94,7 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoNotification"*/
 
                                          +"|ActivateProfileHelper.updateGUI"
+                                         +"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|#### EventsHandler.handleEvents"
