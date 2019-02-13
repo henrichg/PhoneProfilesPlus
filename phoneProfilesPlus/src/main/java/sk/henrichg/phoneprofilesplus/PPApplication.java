@@ -1989,9 +1989,9 @@ public class PPApplication extends Application {
 
             Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
 
-            WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-            WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-            PhoneStateScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+            //WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+            //WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+            //PhoneStateScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
             //ActivateProfileHelper.setScreenUnlocked(context, true);
 
             PPApplication.logE("PPApplication._exitApp", "set application started = false");

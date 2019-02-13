@@ -65,9 +65,9 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
 
                     Permissions.setAllShowRequestPermissions(appContext, true);
 
-                    WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-                    WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-                    PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
+                    //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+                    //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+                    //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
                     //ActivateProfileHelper.setScreenUnlocked(appContext, true);
                     ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
                 } finally {

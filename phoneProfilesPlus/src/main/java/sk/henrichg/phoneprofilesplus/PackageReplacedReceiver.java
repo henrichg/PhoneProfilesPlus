@@ -62,9 +62,9 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         Permissions.setAllShowRequestPermissions(appContext, true);
 
-                        WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-                        WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-                        PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
+                        //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+                        //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+                        //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
                         //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "oldVersionCode=" + oldVersionCode);
