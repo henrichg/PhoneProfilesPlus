@@ -606,9 +606,9 @@ class EventsHandler {
 
             // refresh GUI
             /*Intent refreshIntent = new Intent();
-            refreshIntent.setAction(RefreshGUIBroadcastReceiver.INTENT_REFRESH_GUI);
+            refreshIntent.setAction(RefreshActivitiesBroadcastReceiver.INTENT_REFRESH_GUI);
             context.sendBroadcast(refreshIntent);*/
-            Intent refreshIntent = new Intent("RefreshGUIBroadcastReceiver");
+            Intent refreshIntent = new Intent("RefreshActivitiesBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
 
 

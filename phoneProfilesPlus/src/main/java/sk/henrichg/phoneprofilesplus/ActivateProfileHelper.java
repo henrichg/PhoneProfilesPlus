@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -2588,6 +2587,9 @@ class ActivateProfileHelper {
 
     static void updateGUI(Context context, boolean alsoEditor)
     {
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh="+lockRefresh);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "doImport="+EditorProfilesActivity.doImport);
+
         if (lockRefresh || EditorProfilesActivity.doImport)
             // no refresh widgets
             return;
@@ -2624,8 +2626,8 @@ class ActivateProfileHelper {
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
 
         // activities
-        Intent intent5 = new Intent("RefreshGUIBroadcastReceiver");
-        intent5.putExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
+        Intent intent5 = new Intent("RefreshActivitiesBroadcastReceiver");
+        intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
         // Samsung edge panel

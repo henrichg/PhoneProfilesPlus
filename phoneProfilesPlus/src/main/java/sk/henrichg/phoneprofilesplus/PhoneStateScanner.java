@@ -617,7 +617,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                     intent.setPackage(context.getPackageName());
                                     context.sendBroadcast(intent);
 
-                                    Intent refreshIntent = new Intent("RefreshGUIBroadcastReceiver");
+                                    Intent refreshIntent = new Intent("RefreshActivitiesBroadcastReceiver");
                                     refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
                                     LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
                                 }

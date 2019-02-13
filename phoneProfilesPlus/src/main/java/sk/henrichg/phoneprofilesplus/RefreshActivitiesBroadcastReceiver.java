@@ -5,15 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
-public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
+public class RefreshActivitiesBroadcastReceiver extends BroadcastReceiver {
 
     static final String EXTRA_REFRESH_ICONS = "refresh_icons";
     static final String EXTRA_REFRESH_ALSO_EDITOR = "refresh_also_editor";
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("##### RefreshGUIBroadcastReceiver.onReceive", "xxx");
-        CallsCounter.logCounter(context, "RefreshGUIBroadcastReceiver.onReceive", "RefreshGUIBroadcastReceiver_onReceive");
+        PPApplication.logE("##### RefreshActivitiesBroadcastReceiver.onReceive", "xxx");
+        CallsCounter.logCounter(context, "RefreshActivitiesBroadcastReceiver.onReceive", "RefreshGUIBroadcastReceiver_onReceive");
 
         boolean refreshIcons = intent.getBooleanExtra(EXTRA_REFRESH_ICONS, false);
         boolean refreshAlsoEditor = intent.getBooleanExtra(EXTRA_REFRESH_ALSO_EDITOR, true);
@@ -25,12 +25,12 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
         ActivateProfileActivity activateProfileActivity = ActivateProfileActivity.getInstance();
         if (activateProfileActivity != null)
         {
-            PPApplication.logE("$$$ RefreshGUIBroadcastReceiver","ActivateProfileActivity");
+            PPApplication.logE("$$$ RefreshActivitiesBroadcastReceiver","ActivateProfileActivity");
             activateProfileActivity.refreshGUI(refreshIcons);
         }
         */
 
-        PPApplication.logE("$$$ RefreshGUIBroadcastReceiver", "refreshAlsoEditor="+refreshAlsoEditor);
+        PPApplication.logE("$$$ RefreshActivitiesBroadcastReceiver", "refreshAlsoEditor="+refreshAlsoEditor);
 
         if (refreshAlsoEditor) {
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
@@ -42,9 +42,9 @@ public class RefreshGUIBroadcastReceiver extends BroadcastReceiver {
             refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, eventId);
             LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
             /*EditorProfilesActivity editorProfilesActivity = EditorProfilesActivity.getInstance();
-            PPApplication.logE("$$$ RefreshGUIBroadcastReceiver", "editorProfilesActivity="+editorProfilesActivity);
+            PPApplication.logE("$$$ RefreshActivitiesBroadcastReceiver", "editorProfilesActivity="+editorProfilesActivity);
             if (editorProfilesActivity != null) {
-                PPApplication.logE("$$$ RefreshGUIBroadcastReceiver", "EditorProfilesActivity");
+                PPApplication.logE("$$$ RefreshActivitiesBroadcastReceiver", "EditorProfilesActivity");
                 // not change selection in editor if refresh is outside editor
                 editorProfilesActivity.refreshGUI(refreshIcons, false);
             }

@@ -42,7 +42,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
-            boolean refreshIcons = intent.getBooleanExtra(RefreshGUIBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
+            boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
             ActivateProfileActivity.this.refreshGUI(refreshIcons);
         }
     };

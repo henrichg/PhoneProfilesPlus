@@ -93,6 +93,8 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
+                                         +"|ActivateProfileHelper.updateGUI"
+
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|#### EventsHandler.handleEvents"
                                          //+"|@@@ Event.pauseEvent"
@@ -114,7 +116,7 @@ public class PPApplication extends Application {
                                          +"|DataWrapper.restartEventsWithDelay"
                                          +"|DataWrapper.restartEvents"
                                          +"|DataWrapper._restartEvents"
-                                         +"|RefreshGUIBroadcastReceiver"
+                                         +"|RefreshActivitiesBroadcastReceiver"
                                          +"|$$$$$ EditorProfilesActivity"
                                          */
 
@@ -508,7 +510,7 @@ public class PPApplication extends Application {
     //public static boolean sLookCocktailBarEnabled = false;
 
     // this refresh GUI, must by called from GUI thread no IntentService, Job
-    private static final RefreshGUIBroadcastReceiver refreshGUIBroadcastReceiver = new RefreshGUIBroadcastReceiver();
+    private static final RefreshActivitiesBroadcastReceiver refreshActivitiesBroadcastReceiver = new RefreshActivitiesBroadcastReceiver();
     private static final DashClockBroadcastReceiver dashClockBroadcastReceiver = new DashClockBroadcastReceiver();
 
     public static final Random requestCodeForAlarm = new Random();
@@ -602,7 +604,7 @@ public class PPApplication extends Application {
 
         PACKAGE_NAME = this.getPackageName();
 
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.refreshGUIBroadcastReceiver, new IntentFilter("RefreshGUIBroadcastReceiver"));
+        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.refreshActivitiesBroadcastReceiver, new IntentFilter("RefreshActivitiesBroadcastReceiver"));
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.dashClockBroadcastReceiver, new IntentFilter("DashClockBroadcastReceiver"));
 
         startHandlerThread("PPApplication.onCreate");
