@@ -1,9 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.content.Context;
@@ -16,8 +13,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.List;
@@ -47,8 +42,8 @@ class WifiBluetoothScanner {
     static final int FORCE_ONE_SCAN_DISABLED = 0;
     static final int FORCE_ONE_SCAN_FROM_PREF_DIALOG = 3;
 
-    private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_WIFI = "show_enable_location_notification_wifi";
-    private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_BLUETOOTH = "show_enable_location_notification_bluetooth";
+    //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_WIFI = "show_enable_location_notification_wifi";
+    //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_BLUETOOTH = "show_enable_location_notification_bluetooth";
 
     public WifiBluetoothScanner(Context context) {
         this.context = context;
@@ -135,7 +130,7 @@ class WifiBluetoothScanner {
                         boolean scan = (wifiEventsExists || (forceScan == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                         if (scan) {
                             if (wifiEventsExists)
-                                scan = isLocationEnabled(context, scannerType);
+                                scan = isLocationEnabled(context/*, scannerType*/);
                         }
                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "wifiEventsExists=" + wifiEventsExists);
                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "forceScan=" + forceScan);
@@ -277,7 +272,7 @@ class WifiBluetoothScanner {
                                 (forceScanLE == FORCE_ONE_SCAN_FROM_PREF_DIALOG));
                         if (scan) {
                             if (leDevicesScan)
-                                leDevicesScan = isLocationEnabled(context, scannerType);
+                                leDevicesScan = isLocationEnabled(context/*, scannerType*/);
                         }
                         if (!scan) {
                             // bluetooth scan events not exists
@@ -745,7 +740,7 @@ class WifiBluetoothScanner {
                 PPApplication.hasSystemFeature(context, PackageManager.FEATURE_BLUETOOTH_LE));
     }
 
-    private static boolean isLocationEnabled(Context context, String scanType) {
+    private static boolean isLocationEnabled(Context context/*, String scanType*/) {
         if (Build.VERSION.SDK_INT >= 23) {
             // check for Location Settings
 
@@ -762,9 +757,11 @@ class WifiBluetoothScanner {
             }
             */
 
+            //noinspection RedundantIfStatement
             if ((locationMode == Settings.Secure.LOCATION_MODE_OFF)/* || (!isScanAlwaysAvailable)*/) {
                 // Location settings are not properly set, show notification about it
 
+                /*
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
 
                     if (getShowEnableLocationNotification(context, scanType)) {
@@ -824,28 +821,30 @@ class WifiBluetoothScanner {
                         setShowEnableLocationNotification(context, false, scanType);
                     }
                 }
+                */
 
                 return false;
             }
             else {
-                NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                /*NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null) {
                     if (scanType.equals(SCANNER_TYPE_WIFI))
                         notificationManager.cancel(PPApplication.LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_ID);
                     else
                         notificationManager.cancel(PPApplication.LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID);
                 }
-                setShowEnableLocationNotification(context, true, scanType);
+                setShowEnableLocationNotification(context, true, scanType);*/
                 return true;
             }
 
         }
         else {
-            setShowEnableLocationNotification(context, true, scanType);
+            //setShowEnableLocationNotification(context, true, scanType);
             return true;
         }
     }
 
+    /*
     private static boolean getShowEnableLocationNotification(Context context, String type)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -873,5 +872,6 @@ class WifiBluetoothScanner {
         }
         editor.apply();
     }
+    */
 
 }

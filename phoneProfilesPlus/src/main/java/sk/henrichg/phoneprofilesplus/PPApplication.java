@@ -263,7 +263,7 @@ public class PPApplication extends Application {
                                         +"|PhoneStateScanner.getCellLocation"
                                         +"|PhoneStateScanner.doAutoRegistration"
                                         +"|MobileCellsRegistrationDialogPreference.startRegistration"
-                                        //+"|MobileCellsRegistrationService"
+                                        +"|MobileCellsRegistrationService"
 
                                         //+"|[RJS] PhoneProfilesService.registerReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.unregisterReceiversAndJobs"

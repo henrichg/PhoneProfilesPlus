@@ -1,20 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.provider.Settings;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.CellIdentityCdma;
 import android.telephony.CellIdentityGsm;
@@ -53,7 +44,7 @@ class PhoneStateScanner extends PhoneStateListener {
     static String cellsNameForAutoRegistration = "";
     static private final List<Long> eventList = Collections.synchronizedList(new ArrayList<Long>());
 
-    private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
+    //private static final String PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE = "show_enable_location_notification_phone_state";
 
     //static MobileCellsRegistrationService autoRegistrationService = null;
 
@@ -129,7 +120,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
                     //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
                 );*/
-            checkLocationEnabled();
+            //checkLocationEnabled();
         }
         startAutoRegistration(context, true);
     }
@@ -152,6 +143,7 @@ class PhoneStateScanner extends PhoneStateListener {
     }
     */
 
+    /*
     private void checkLocationEnabled() {
         if (Build.VERSION.SDK_INT >= 28) {
             // check for Location Settings
@@ -217,6 +209,7 @@ class PhoneStateScanner extends PhoneStateListener {
             setShowEnableLocationNotification(context, true);
         }
     }
+    */
 
     static boolean isValidCellId(int cid) {
         return (cid != -1) /*&& (cid != 0) && (cid != 1)*/ && (cid != Integer.MAX_VALUE);
@@ -734,6 +727,7 @@ class PhoneStateScanner extends PhoneStateListener {
         return cells;
     }
 
+    /*
     private static boolean getShowEnableLocationNotification(Context context)
     {
         ApplicationPreferences.getSharedPreferences(context);
@@ -747,5 +741,6 @@ class PhoneStateScanner extends PhoneStateListener {
         editor.putBoolean(PhoneStateScanner.PREF_SHOW_ENABLE_LOCATION_NOTIFICATION_PHONE_STATE, show);
         editor.apply();
     }
+    */
 
 }
