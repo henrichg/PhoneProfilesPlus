@@ -1,5 +1,6 @@
 package com.codetroopers.betterpickers.numberpicker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -53,9 +54,12 @@ public class NumberView extends LinearLayout {
      */
     public void setTheme(int themeResId) {
         if (themeResId != -1) {
+            @SuppressLint("CustomViewStyleable")
             TypedArray a = getContext().obtainStyledAttributes(themeResId, R.styleable.BetterPickersDialogFragment);
 
             mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);
+
+            a.recycle();
         }
 
         restyleViews();
@@ -80,10 +84,10 @@ public class NumberView extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mNumber = (ZeroTopPaddingTextView) findViewById(R.id.number);
-        mDecimal = (ZeroTopPaddingTextView) findViewById(R.id.decimal);
-        mDecimalSeperator = (ZeroTopPaddingTextView) findViewById(R.id.decimal_separator);
-        mMinusLabel = (ZeroTopPaddingTextView) findViewById(R.id.minus_label);
+        mNumber = findViewById(R.id.number);
+        mDecimal = findViewById(R.id.decimal);
+        mDecimalSeperator = findViewById(R.id.decimal_separator);
+        mMinusLabel = findViewById(R.id.minus_label);
         if (mNumber != null) {
             mOriginalNumberTypeface = mNumber.getTypeface();
         }

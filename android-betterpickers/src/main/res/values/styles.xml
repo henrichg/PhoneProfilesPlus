@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="medium_bold">
         <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:textStyle">bold</item>
@@ -46,7 +46,7 @@
         <item name="android:singleLine">true</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:gravity">center</item>
-        <item name="android:stateListAnimator">@null</item>
+        <item name="android:stateListAnimator" tools:ignore="NewApi">@null</item>
         <item name="android:background">@drawable/bp_material_button_background</item>
         <item name="android:minWidth">@dimen/bp_material_button_minwidth</item>
         <item name="android:paddingLeft">@dimen/bp_material_button_textpadding_horizontal</item>

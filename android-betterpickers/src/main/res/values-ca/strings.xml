@@ -2,7 +2,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="picker_cancel">Cancel·lar</string>
     <string name="picker_set">Acceptar</string>
-    <string name="time_picker_time_seperator">:</string>
     <string name="number_picker_minus_label">—</string>
     <string name="number_picker_seperator">.</string>
     <string name="number_delete">Esborrar</string>

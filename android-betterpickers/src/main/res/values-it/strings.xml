@@ -2,7 +2,6 @@
 <resources>
     <string name="picker_cancel">Annulla</string>
     <string name="picker_set">OK</string>
-    <string name="time_picker_time_seperator">:</string>
     <string name="number_picker_minus_label">—</string>
     <string name="number_picker_seperator">.</string>
     <string name="number_delete">Elimina</string>

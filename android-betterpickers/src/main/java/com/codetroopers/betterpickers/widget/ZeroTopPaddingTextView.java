@@ -16,17 +16,16 @@
 
 package com.codetroopers.betterpickers.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
-import com.codetroopers.betterpickers.R;
 
 /**
  * Displays text with no padding at the top.
  */
+@SuppressLint("AppCompatCustomView")
 public class ZeroTopPaddingTextView extends TextView {
 
     private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
@@ -38,15 +37,15 @@ public class ZeroTopPaddingTextView extends TextView {
     private static final float BOLD_FONT_BOTTOM_PADDING_RATIO = 0.208f;
 
     // pre-ICS (Droid Sans) has weird empty space on the bottom
-    private static final float PRE_ICS_BOTTOM_PADDING_RATIO = 0.233f;
+    //private static final float PRE_ICS_BOTTOM_PADDING_RATIO = 0.233f;
 
     private static final Typeface SAN_SERIF_BOLD = Typeface.create("san-serif", Typeface.BOLD);
     private static final Typeface SAN_SERIF_CONDENSED_BOLD = Typeface.create("sans-serif-condensed", Typeface.BOLD);
 
     private int mPaddingRight = 0;
 
-    private String decimalSeperator = "";
-    private String timeSeperator = "";
+    //private String decimalSeperator = "";
+    //private String timeSeperator = "";
 
     public ZeroTopPaddingTextView(Context context) {
         this(context, null);
@@ -64,8 +63,8 @@ public class ZeroTopPaddingTextView extends TextView {
     }
 
     private void init() {
-        decimalSeperator = getResources().getString(R.string.number_picker_seperator);
-        timeSeperator = getResources().getString(R.string.time_picker_time_seperator);
+        //decimalSeperator = getResources().getString(R.string.number_picker_seperator);
+        //timeSeperator = getResources().getString(R.string.time_picker_time_seperator);
     }
 
     public void updatePadding() {
@@ -83,12 +82,14 @@ public class ZeroTopPaddingTextView extends TextView {
             paddingRatio = BOLD_FONT_PADDING_RATIO;
             bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
         }
+        /*
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH &&
                 getText() != null &&
                 (getText().toString().equals(decimalSeperator) ||
                         getText().toString().equals(timeSeperator))) {
             bottomPaddingRatio = PRE_ICS_BOTTOM_PADDING_RATIO;
         }
+        */
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
         setPadding(0, (int) (-paddingRatio * getTextSize()), mPaddingRight,
@@ -96,12 +97,12 @@ public class ZeroTopPaddingTextView extends TextView {
     }
 
     public void updatePaddingForBoldDate() {
-        float paddingRatio = BOLD_FONT_PADDING_RATIO;
-        float bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
+        //float paddingRatio = BOLD_FONT_PADDING_RATIO;
+        //float bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
-        setPadding(0, (int) (-paddingRatio * getTextSize()), mPaddingRight,
-                (int) (-bottomPaddingRatio * getTextSize()));
+        setPadding(0, (int) (-BOLD_FONT_PADDING_RATIO * getTextSize()), mPaddingRight,
+                (int) (-BOLD_FONT_BOTTOM_PADDING_RATIO * getTextSize()));
     }
 
     public void setPaddingRight(int padding) {

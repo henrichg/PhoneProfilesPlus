@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="dialpad_font_size">24sp</dimen>
-    <dimen name="dialog_body_height">210dp</dimen>
-    <dimen name="dialog_body_width">300dp</dimen>
+    <dimen name="dialog_body_height" tools:ignore="MissingDefaultResource">210dp</dimen>
+    <dimen name="dialog_body_width" tools:ignore="MissingDefaultResource">300dp</dimen>
 </resources>

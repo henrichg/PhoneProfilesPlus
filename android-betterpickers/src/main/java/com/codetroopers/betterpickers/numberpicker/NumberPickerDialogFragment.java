@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
     private Integer mCurrentSign = null;
     private int mPlusMinusVisibility = View.VISIBLE;
     private int mDecimalVisibility = View.VISIBLE;
-    private Vector<NumberPickerDialogHandlerV2> mNumberPickerDialogHandlersV2 = new Vector<NumberPickerDialogHandlerV2>();
+    private Vector<NumberPickerDialogHandlerV2> mNumberPickerDialogHandlersV2 = new Vector<>();
     private OnDialogDismissListener mDismissCallback;
 
 
@@ -109,7 +110,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 
@@ -156,19 +157,23 @@ public class NumberPickerDialogFragment extends DialogFragment {
         mDialogBackgroundResId = R.drawable.dialog_full_holo_dark;
 
         if (mTheme != -1) {
-            TypedArray a = getActivity().getApplicationContext().obtainStyledAttributes(mTheme, R.styleable.BetterPickersDialogFragment);
+            if (getActivity() != null) {
+                TypedArray a = getActivity().getApplicationContext().obtainStyledAttributes(mTheme, R.styleable.BetterPickersDialogFragment);
 
-            mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);
-            mDialogBackgroundResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpDialogBackground, mDialogBackgroundResId);
+                mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);
+                mDialogBackgroundResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpDialogBackground, mDialogBackgroundResId);
+
+                a.recycle();
+            }
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.number_picker_dialog, container, false);
-        Button doneButton = (Button) view.findViewById(R.id.done_button);
-        Button cancelButton = (Button) view.findViewById(R.id.cancel_button);
+        Button doneButton = view.findViewById(R.id.done_button);
+        Button cancelButton = view.findViewById(R.id.cancel_button);
 
         cancelButton.setTextColor(mTextColor);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +220,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
             }
         });
 
-        mPicker = (NumberPicker) view.findViewById(R.id.number_picker);
+        mPicker = view.findViewById(R.id.number_picker);
         mPicker.setSetButton(doneButton);
         mPicker.setTheme(mTheme);
         mPicker.setDecimalVisibility(mDecimalVisibility);
@@ -229,7 +234,8 @@ public class NumberPickerDialogFragment extends DialogFragment {
         }
         mPicker.setNumber(mCurrentNumber, mCurrentDecimal, mCurrentSign);
 
-        getDialog().getWindow().setBackgroundDrawableResource(mDialogBackgroundResId);
+        if (getDialog().getWindow() != null)
+            getDialog().getWindow().setBackgroundDrawableResource(mDialogBackgroundResId);
         return view;
     }
 

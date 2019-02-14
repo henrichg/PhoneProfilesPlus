@@ -1,5 +1,6 @@
 package com.codetroopers.betterpickers.numberpicker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -75,6 +76,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mContext = context;
         LayoutInflater layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //noinspection ConstantConditions
         layoutInflater.inflate(getLayoutId(), this);
 
         // Init defaults
@@ -97,6 +99,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     public void setTheme(int themeResId) {
         mTheme = themeResId;
         if (mTheme != -1) {
+            @SuppressLint("CustomViewStyleable")
             TypedArray a = getContext().obtainStyledAttributes(themeResId, R.styleable.BetterPickersDialogFragment);
 
             mTextColor = a.getColorStateList(R.styleable.BetterPickersDialogFragment_bpTextColor);
@@ -104,6 +107,8 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             mButtonBackgroundResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpButtonBackground, mButtonBackgroundResId);
             mDividerColor = a.getColor(R.styleable.BetterPickersDialogFragment_bpDividerColor, mDividerColor);
             mDeleteDrawableSrcResId = a.getResourceId(R.styleable.BetterPickersDialogFragment_bpDeleteIcon, mDeleteDrawableSrcResId);
+
+            a.recycle();
         }
 
         restyleViews();
@@ -144,7 +149,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         super.onFinishInflate();
 
         mDivider = findViewById(R.id.divider);
-        mError = (NumberPickerErrorTextView) findViewById(R.id.error);
+        mError = findViewById(R.id.error);
 
         for (int i = 0; i < mInput.length; i++) {
             mInput[i] = -1;
@@ -154,32 +159,32 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         View v2 = findViewById(R.id.second);
         View v3 = findViewById(R.id.third);
         View v4 = findViewById(R.id.fourth);
-        mEnteredNumber = (NumberView) findViewById(R.id.number_text);
-        mDelete = (ImageButton) findViewById(R.id.delete);
+        mEnteredNumber = findViewById(R.id.number_text);
+        mDelete = findViewById(R.id.delete);
         mDelete.setOnClickListener(this);
         mDelete.setOnLongClickListener(this);
 
-        mNumbers[1] = (Button) v1.findViewById(R.id.key_left);
-        mNumbers[2] = (Button) v1.findViewById(R.id.key_middle);
-        mNumbers[3] = (Button) v1.findViewById(R.id.key_right);
+        mNumbers[1] = v1.findViewById(R.id.key_left);
+        mNumbers[2] = v1.findViewById(R.id.key_middle);
+        mNumbers[3] = v1.findViewById(R.id.key_right);
 
-        mNumbers[4] = (Button) v2.findViewById(R.id.key_left);
-        mNumbers[5] = (Button) v2.findViewById(R.id.key_middle);
-        mNumbers[6] = (Button) v2.findViewById(R.id.key_right);
+        mNumbers[4] = v2.findViewById(R.id.key_left);
+        mNumbers[5] = v2.findViewById(R.id.key_middle);
+        mNumbers[6] = v2.findViewById(R.id.key_right);
 
-        mNumbers[7] = (Button) v3.findViewById(R.id.key_left);
-        mNumbers[8] = (Button) v3.findViewById(R.id.key_middle);
-        mNumbers[9] = (Button) v3.findViewById(R.id.key_right);
+        mNumbers[7] = v3.findViewById(R.id.key_left);
+        mNumbers[8] = v3.findViewById(R.id.key_middle);
+        mNumbers[9] = v3.findViewById(R.id.key_right);
 
-        mLeft = (Button) v4.findViewById(R.id.key_left);
-        mNumbers[0] = (Button) v4.findViewById(R.id.key_middle);
-        mRight = (Button) v4.findViewById(R.id.key_right);
+        mLeft = v4.findViewById(R.id.key_left);
+        mNumbers[0] = v4.findViewById(R.id.key_middle);
+        mRight = v4.findViewById(R.id.key_right);
         setLeftRightEnabled();
 
         for (int i = 0; i < 10; i++) {
             mNumbers[i].setOnClickListener(this);
-            mNumbers[i].setText(String.format("%d", i));
-            mNumbers[i].setTag(R.id.numbers_key, new Integer(i));
+            mNumbers[i].setText(String.valueOf(i));
+            mNumbers[i].setTag(R.id.numbers_key, i);
         }
         updateNumber();
 
@@ -188,7 +193,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mRight.setText(res.getString(R.string.number_picker_seperator));
         mLeft.setOnClickListener(this);
         mRight.setOnClickListener(this);
-        mLabel = (TextView) findViewById(R.id.label);
+        mLabel = findViewById(R.id.label);
         mSign = SIGN_POSITIVE;
 
         // Set the correct label state
@@ -272,6 +277,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             addClickedNumber(val);
         } else if (v == mDelete) {
             if (mInputPointer >= 0) {
+                //noinspection ManualArrayCopy
                 for (int i = 0; i < mInputPointer; i++) {
                     mInput[i] = mInput[i + 1];
                 }
@@ -340,6 +346,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     // Update the number displayed in the picker:
     protected void updateNumber() {
         String numberString = getEnteredNumberString();
+        //noinspection RegExpRedundantEscape
         numberString = numberString.replaceAll("\\-", "");
         String[] split = numberString.split("\\.");
         if (split.length >= 2) {
@@ -372,6 +379,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             if (mInput[0] == 0 && mInput[1] == -1 && !containsDecimal() && val != CLICKED_DECIMAL) {
                 mInput[0] = val;
             } else {
+                //noinspection ManualArrayCopy
                 for (int i = mInputPointer; i >= 0; i--) {
                     mInput[i + 1] = mInput[i];
                 }
@@ -423,11 +431,14 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     private String getEnteredNumberString() {
         String value = "";
         for (int i = mInputPointer; i >= 0; i--) {
+            //noinspection StatementWithEmptyBody
             if (mInput[i] == -1) {
                 // Don't add
             } else if (mInput[i] == CLICKED_DECIMAL) {
+                //noinspection StringConcatenationInLoop
                 value += ".";
             } else {
+                //noinspection StringConcatenationInLoop
                 value += mInput[i];
             }
         }
@@ -445,8 +456,10 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             if (mInput[i] == -1) {
                 break;
             } else if (mInput[i] == CLICKED_DECIMAL) {
+                //noinspection StringConcatenationInLoop
                 value += ".";
             } else {
+                //noinspection StringConcatenationInLoop
                 value += mInput[i];
             }
         }
