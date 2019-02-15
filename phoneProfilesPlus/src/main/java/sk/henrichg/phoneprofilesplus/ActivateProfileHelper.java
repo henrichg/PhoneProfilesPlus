@@ -533,7 +533,17 @@ class ActivateProfileHelper {
                 ((systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY) &&
                         (systemRingerMode != AudioManager.RINGER_MODE_VIBRATE));*/
 
-        boolean audibleRingerMode = systemRingerMode == AudioManager.RINGER_MODE_NORMAL;
+        PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "systemRingerMode="+systemRingerMode);
+        PPApplication.logE("ActivateProfileHelper.isAudibleSystemRingerMode", "systemZenMode="+systemZenMode);
+
+        boolean audibleRingerMode;
+        // In AOSP, when systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY, systemRingerMode == AudioManager.RINGER_MODE_SILENT :-/
+        if (systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY) {
+            audibleRingerMode = (systemRingerMode == AudioManager.RINGER_MODE_NORMAL) ||
+                                    (systemRingerMode == AudioManager.RINGER_MODE_SILENT);
+        }
+        else
+            audibleRingerMode = systemRingerMode == AudioManager.RINGER_MODE_NORMAL;
         boolean audibleZenMode = (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) ||
                                  (systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY);
         return audibleRingerMode && audibleZenMode;

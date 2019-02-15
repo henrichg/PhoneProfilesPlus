@@ -93,8 +93,8 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
-                                         +"|ActivateProfileHelper.updateGUI"
-                                         +"|OneRowWidgetProvider.onUpdate"
+                                         //+"|ActivateProfileHelper.updateGUI"
+                                         //+"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|#### EventsHandler.handleEvents"
@@ -153,11 +153,12 @@ public class PPApplication extends Application {
                                          //+"|Permissions.grantProfilePermissions"
                                          //+"|Permissions.checkProfileVibrateWhenRinging"
                                          //+"|Permissions.checkVibrateWhenRinging"
-                                         //+"|ActivateProfileHelper.setZenMode"
-                                         //+"|ActivateProfileHelper.setRingerMode"
-                                         //+"|ActivateProfileHelper.setVolumes"
-                                         //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
-                                         //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.setZenMode"
+                                         +"|ActivateProfileHelper.setRingerMode"
+                                         +"|ActivateProfileHelper.setVolumes"
+                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
+                                         +"|ActivateProfileHelper.isAudibleSystemRingerMode"
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
