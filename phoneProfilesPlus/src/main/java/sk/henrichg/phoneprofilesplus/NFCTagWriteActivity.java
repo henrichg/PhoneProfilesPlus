@@ -124,7 +124,9 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     returnIntent.putExtra(EXTRA_TAG_NAME, tagName);
                     returnIntent.putExtra(EXTRA_TAG_DB_ID, tagDbId);
                     NFCTagWriteActivity.this.setResult(Activity.RESULT_OK, returnIntent);
-                    NFCTagWriteActivity.this.finish();
+                    try {
+                        NFCTagWriteActivity.this.finish();
+                    } catch (Exception ignored) {};
                 }
             });
             nfcManager.setOnTagWriteErrorListener(new NFCTagReadWriteManager.TagWriteErrorListener() {
@@ -143,8 +145,9 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     writableTextView.setText(text);
                     //ToastCompat.makeText(getApplicationContext(), exception.getType().toString(), Toast.LENGTH_LONG).show();
                     //ToastCompat.makeText(getApplicationContext().this, R.string.write_nfc_tag_error, Toast.LENGTH_LONG).show();
-
-                    //NFCTagWriteActivity.this.finish();
+                    //try {
+                        //NFCTagWriteActivity.this.finish();
+                    //} catch (Exception ignored) {};
                 }
             });
         }

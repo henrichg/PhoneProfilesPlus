@@ -61,7 +61,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             public void run() {
                                 if (PhoneProfilesService.getInstance() != null) {
                                     if (PhoneProfilesService.getInstance().lockDeviceActivity != null) {
-                                        PhoneProfilesService.getInstance().lockDeviceActivity.finish();
+                                        try {
+                                            PhoneProfilesService.getInstance().lockDeviceActivity.finish();
+                                        } catch (Exception ignored) {};
                                     }
                                 }
                             }

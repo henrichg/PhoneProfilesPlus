@@ -2001,15 +2001,16 @@ public class PPApplication extends Application {
             PPApplication.setApplicationStarted(context, false);
 
             if (!shutdown) {
-                if (activity != null) {
-                    Handler _handler = new Handler(context.getMainLooper());
-                    Runnable r = new Runnable() {
-                        public void run() {
-                            activity.finish();
-                        }
-                    };
-                    _handler.post(r);
-                }
+                Handler _handler = new Handler(context.getMainLooper());
+                Runnable r = new Runnable() {
+                    public void run() {
+                        try {
+                            if (activity != null)
+                                activity.finish();
+                        } catch (Exception ignored) {};
+                    }
+                };
+                _handler.post(r);
                 /*if (killProcess) {
                     Handler _handler = new Handler(context.getMainLooper());
                     Runnable r = new Runnable() {

@@ -346,8 +346,10 @@ public class ShortcutCreatorListFragment extends Fragment {
                     getActivity().setResult(Activity.RESULT_OK, intent);
                 }
 
-                //noinspection ConstantConditions
-                getActivity().finish();
+                try {
+                    //noinspection ConstantConditions
+                    getActivity().finish();
+                } catch (Exception ignored) {};
             }
 
         }.execute();

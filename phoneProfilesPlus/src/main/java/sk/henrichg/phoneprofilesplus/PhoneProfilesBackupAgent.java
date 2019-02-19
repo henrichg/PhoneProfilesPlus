@@ -33,14 +33,18 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
         if (activateProfileActivity != null)
         {
             PPApplication.logE("PhoneProfilesBackupAgent","close ActivateProfileActivity");
-            activateProfileActivity.finish();
+            try {
+                activateProfileActivity.finish();
+            } catch (Exception ignored) {};
         }
 
         EditorProfilesActivity editorProfilesActivity = EditorProfilesActivity.getInstance();
         if (editorProfilesActivity != null)
         {
             PPApplication.logE("PhoneProfilesBackupAgent","close EditorProfilesActivity");
-            editorProfilesActivity.finish();
+            try {
+                editorProfilesActivity.finish();
+            } catch (Exception ignored) {};
         }
         */
 

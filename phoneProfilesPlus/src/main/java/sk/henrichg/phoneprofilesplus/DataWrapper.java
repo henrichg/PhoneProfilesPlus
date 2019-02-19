@@ -1734,7 +1734,9 @@ public class DataWrapper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    _activity.finish();
+                    try {
+                        _activity.finish();
+                    } catch (Exception ignored) {};
                 }
             });
         }
@@ -3937,7 +3939,9 @@ public class DataWrapper {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        activity.finish();
+                        try {
+                            activity.finish();
+                        } catch (Exception ignored) {};
                     }
                 });
             }
