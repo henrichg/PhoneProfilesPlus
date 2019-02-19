@@ -53,7 +53,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
         switch (intent.getAction()) {
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
-                PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.0");
+                PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
                 final Handler handler0 = new Handler(PPApplication.handlerThread.getLooper());
                 handler0.post(new Runnable() {
                     @Override
@@ -66,8 +66,12 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
+
                             if (PhoneProfilesService.getInstance() != null)
                                 PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, true);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -96,7 +100,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                         if (Event.getGlobalEventsRunning(appContext)) {
                             //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-                            PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.1");
+                            PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
                             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                             handler.post(new Runnable() {
                                 @Override
@@ -109,12 +113,16 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
+                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
+
                                         DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
                                         if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
                                         if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+
+                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {
@@ -135,7 +143,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 setApplicationInForeground(appContext, "");
 
                 //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_APPLICATION);
-                PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.2");
+                PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -148,12 +156,16 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+
                             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false) > 0)
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
                             if (databaseHandler.getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) > 0)
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -168,7 +180,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_FORCE_STOP_APPLICATIONS_END:
                 final long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
                 if (profileId != 0) {
-                    PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.3");
+                    PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END");
                     final Handler handler2 = new Handler(PPApplication.handlerThread.getLooper());
                     handler2.post(new Runnable() {
                         @Override
@@ -181,9 +193,13 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END");
+
                                 Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
                                 if (profile != null)
                                     ActivateProfileHelper.executeForInteractivePreferences(profile, appContext);
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -203,7 +219,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "time="+time);
 
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.4");
+                    PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
                     final Handler handler3 = new Handler(PPApplication.handlerThread.getLooper());
                     handler3.post(new Runnable() {
                         @Override
@@ -216,11 +232,15 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
+
                                 if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.setEventSMSParameters(origin, time);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
                                 }
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_SMS_MMS_RECEIVED");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {
@@ -245,7 +265,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "eventTime="+eventTime);
 
                 if (Event.getGlobalEventsRunning(appContext)) {
-                    PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.5");
+                    PPApplication.startHandlerThread("PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");
                     final Handler handler4 = new Handler(PPApplication.handlerThread.getLooper());
                     handler4.post(new Runnable() {
                         @Override
@@ -258,11 +278,15 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");
+
                                 if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
                                 }
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

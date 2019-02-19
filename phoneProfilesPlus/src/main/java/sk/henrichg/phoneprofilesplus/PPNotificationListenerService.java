@@ -112,9 +112,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationPosted");
+
                         EventsHandler eventsHandler = new EventsHandler(context);
                         //eventsHandler.setEventNotificationParameters("posted");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPNotificationListenerService.onNotificationPosted");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -166,9 +170,13 @@ public class PPNotificationListenerService extends NotificationListenerService {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPNotificationListenerService.onNotificationRemoved");
+
                         EventsHandler eventsHandler = new EventsHandler(context);
                         //eventsHandler.setEventNotificationParameters("removed");
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NOTIFICATION);
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPNotificationListenerService.onNotificationRemoved");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

@@ -333,6 +333,7 @@
         <activity
             android:name=".LockDeviceActivity"
             android:excludeFromRecents="true"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.lockDevice"
             android:theme="@style/LockDeviceActivity">
         </activity>
         <activity

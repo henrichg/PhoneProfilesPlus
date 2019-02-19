@@ -46,7 +46,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("PostDelayedBroadcastReceiver.onReceive", "action="+action);
 
             if (action.equals(ACTION_REMOVE_BRIGHTNESS_VIEW)) {
-                PPApplication.startHandlerThread("PostDelayedBroadcastReceiver.onReceive");
+                PPApplication.startHandlerThread("PostDelayedBroadcastReceiver.onReceive.ACTION_REMOVE_BRIGHTNESS_VIEW");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -59,6 +59,8 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PostDelayedBroadcastReceiver.onReceive.ACTION_REMOVE_BRIGHTNESS_VIEW");
+
                             WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
                             if (windowManager != null) {
                                 if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
@@ -69,6 +71,8 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                                     PhoneProfilesService.getInstance().brightnessView = null;
                                 }
                             }
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PostDelayedBroadcastReceiver.onReceive.ACTION_REMOVE_BRIGHTNESS_VIEW");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -92,7 +96,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
             if (action.equals(ACTION_HANDLE_EVENTS)) {
                 final String sensorType = intent.getStringExtra(EXTRA_SENSOR_TYPE);
 
-                PPApplication.startHandlerThread("PostDelayedBroadcastReceiver.onReceive");
+                PPApplication.startHandlerThread("PostDelayedBroadcastReceiver.onReceive.ACTION_HANDLE_EVENTS");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -105,8 +109,12 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PostDelayedBroadcastReceiver.onReceive.ACTION_HANDLE_EVENTS");
+
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PostDelayedBroadcastReceiver.onReceive.ACTION_HANDLE_EVENTS");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -155,7 +163,7 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
             }
 
             if (action.equals(ACTION_START_WIFI_SCAN)) {
-                PPApplication.startHandlerThread("PostDelayedBroadcastReceiver.onReceive");
+                PPApplication.startHandlerThread("PostDelayedBroadcastReceiver.onReceive.ACTION_START_WIFI_SCAN");
                 final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                 handler.post(new Runnable() {
                     @Override
@@ -168,7 +176,11 @@ public class PostDelayedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PostDelayedBroadcastReceiver.onReceive.ACTION_START_WIFI_SCAN");
+
                             WifiScanJob.startScan(appContext);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PostDelayedBroadcastReceiver.onReceive.ACTION_START_WIFI_SCAN");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

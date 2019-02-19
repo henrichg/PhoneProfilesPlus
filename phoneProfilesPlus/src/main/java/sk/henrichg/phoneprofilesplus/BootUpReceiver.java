@@ -55,6 +55,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BootUpReceiver.onReceive2");
+
                         if (ApplicationPreferences.applicationStartOnBoot(appContext)) {
                             PPApplication.logE("BootUpReceiver.onReceive", "PhoneProfilesService.getInstance()=" + PhoneProfilesService.getInstance());
 
@@ -102,6 +104,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                         } else {
                             PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BootUpReceiver.onReceive2");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

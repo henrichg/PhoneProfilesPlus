@@ -139,9 +139,13 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
+                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.1");
+
                                         event.pauseEvent(_dataWrapper, eventTimelineList, true, false,
                                                 false, /*true,*/ null, false, false); // activate return profile
                                         _dataWrapper.restartEvents(false, true, true, true, false);
+
+                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ActionForExternalApplicationActivity.onStart.1");
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {
@@ -196,9 +200,13 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
+                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ActionForExternalApplicationActivity.onStart.2");
+
                                         event.stopEvent(_dataWrapper, eventTimelineList, true, false,
                                                 true/*, true*/); // activate return profile
                                         _dataWrapper.restartEvents(false, true, true, true, false);
+
+                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ActionForExternalApplicationActivity.onStart.2");
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {

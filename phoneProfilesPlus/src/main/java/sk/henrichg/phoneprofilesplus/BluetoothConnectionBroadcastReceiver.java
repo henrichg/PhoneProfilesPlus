@@ -83,6 +83,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
+
                         getConnectedDevices(appContext);
 
                         if (device != null) {
@@ -147,6 +149,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 //}
                             }
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothConnectionBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

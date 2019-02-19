@@ -45,8 +45,12 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DockConnectionBroadcastReceiver.onReceive");
+
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DOCK_CONNECTION);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DockConnectionBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

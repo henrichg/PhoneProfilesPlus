@@ -78,6 +78,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneCallBroadcastReceiver.doCall");
+
                 switch (phoneEvent) {
                     case SERVICE_PHONE_EVENT_START:
                         callStarted(incoming, /*number, eventTime,*/ appContext);
@@ -89,6 +91,8 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                         callEnded(incoming, missed, /*number, eventTime,*/ appContext);
                         break;
                 }
+
+                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallBroadcastReceiver.doCall");
             }
         });
     }

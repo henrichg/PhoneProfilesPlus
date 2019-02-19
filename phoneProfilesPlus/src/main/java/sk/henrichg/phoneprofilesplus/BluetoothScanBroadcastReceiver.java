@@ -66,6 +66,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothScanBroadcastReceiver.onReceive");
+
                         if (BluetoothScanJob.bluetooth == null)
                             BluetoothScanJob.bluetooth = BluetoothScanJob.getBluetoothAdapter(appContext);
 
@@ -143,6 +145,8 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothScanBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

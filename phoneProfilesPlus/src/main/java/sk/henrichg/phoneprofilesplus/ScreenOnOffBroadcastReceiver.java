@@ -44,6 +44,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ScreenOnOffBroadcastReceiver.onReceive");
+
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
 
                     if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
@@ -103,12 +105,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         } catch (Exception ignored) {
                         }
 
-                    /*if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
-                    }
-                    return;*/
+                        /*if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {}
+                        }
+                        return;*/
                     }
 
                     if (Event.getGlobalEventsRunning(appContext)) {
@@ -124,6 +126,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     }
 
                     PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "end of handler post");
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
                 }
                 finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {

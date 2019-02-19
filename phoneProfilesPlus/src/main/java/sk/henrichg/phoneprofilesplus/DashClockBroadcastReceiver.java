@@ -22,11 +22,15 @@ public class DashClockBroadcastReceiver extends BroadcastReceiver {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DashClockBroadcastReceiver.onReceive");
+
                 PhoneProfilesDashClockExtension dashClockExtension = PhoneProfilesDashClockExtension.getInstance();
                 if (dashClockExtension != null)
                 {
                     dashClockExtension.updateExtension();
                 }
+
+                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DashClockBroadcastReceiver.onReceive");
             }
         });
 

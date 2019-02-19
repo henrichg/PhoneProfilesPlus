@@ -159,6 +159,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=GeofenceScanner.onConnected");
+
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                 GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                                 scanner.clearAllEventGeofences();
@@ -166,6 +168,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                 scanner.startLocationUpdates();
                                 scanner.updateTransitionsByLastKnownLocation(false);
                             }
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=GeofenceScanner.onConnected");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -471,6 +475,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
+                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
+
                                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                                             GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                                             scanner.updateGeofencesInDB();
@@ -482,6 +488,8 @@ class GeofencesScanner implements GoogleApiClient.ConnectionCallbacks,
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
                                         }
+
+                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=GeofenceScanner.updateTransitionsByLastKnownLocation");
                                     } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {

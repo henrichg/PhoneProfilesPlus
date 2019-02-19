@@ -183,8 +183,8 @@ class GeofenceScannerJob extends Job {
 
         //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted()) {
             if (useHandler && (_handler == null)) {
-                PPApplication.startHandlerThread("GeofenceScannerJob.scheduleJob");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                PPApplication.startHandlerThreadPPService();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -246,8 +246,8 @@ class GeofenceScannerJob extends Job {
         PPApplication.logE("GeofenceScannerJob.cancelJob", "xxx");
 
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThread("GeofenceScannerJob.cancelJob");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadPPService();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

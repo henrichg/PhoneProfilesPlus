@@ -150,8 +150,10 @@ class WifiBluetoothScanner {
                                 wifiBluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
+                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                         //lock();
                                         WifiScanJob.wifi.setWifiEnabled(false);
+                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                     }
                                 });
                                 //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -201,19 +203,6 @@ class WifiBluetoothScanner {
                                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "no data received from scanner");
                                         if (getForceOneWifiScan(context) != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG) // not start service for force scan
                                         {
-                                            /*// start job
-                                            final Context appContext = context.getApplicationContext();
-                                            PPApplication.startHandlerThread("WifiBluetoothScanner.doScan.2");
-                                            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                                            handler.postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    //EventsHandlerJob.startForSensor(context, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
-                                                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
-                                                }
-                                            }, 5000);*/
-                                            //WifiScanBroadcastReceiver.setAlarm(context);
                                             PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, context);
                                         }
                                     }
@@ -227,12 +216,16 @@ class WifiBluetoothScanner {
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+
                                 if (WifiScanJob.getWifiEnabledForScan(context)) {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
                                     //lock();
                                     WifiScanJob.wifi.setWifiEnabled(false);
                                 } else
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                             }
                         });
                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -291,8 +284,10 @@ class WifiBluetoothScanner {
                                     wifiBluetoothChangeHandler.post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                             //lock();
                                             BluetoothScanJob.bluetooth.disable();
+                                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                         }
                                     });
                                     //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -406,12 +401,16 @@ class WifiBluetoothScanner {
                                 wifiBluetoothChangeHandler.post(new Runnable() {
                                     @Override
                                     public void run() {
+                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+
                                         if (BluetoothScanJob.getBluetoothEnabledForScan(context)) {
                                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "disable bluetooth");
                                             //lock();
                                             BluetoothScanJob.bluetooth.disable();
                                         } else
                                             PPApplication.logE("$$$B WifiBluetoothScanner.doScan", "keep enabled bluetooth");
+
+                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                     }
                                 });
                                 //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -549,9 +548,13 @@ class WifiBluetoothScanner {
                         wifiBluetoothChangeHandler.post(new Runnable() {
                             @Override
                             public void run() {
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "before enable wifi");
                                 _wifi.setWifiEnabled(true);
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "after enable wifi");
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                             }
                         });
                         PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi","set enabled");
@@ -620,8 +623,12 @@ class WifiBluetoothScanner {
                     wifiBluetoothChangeHandler.post(new Runnable() {
                         @Override
                         public void run() {
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
+
                             //lock(); // lock is required for enabling bluetooth
                             _bluetooth.enable();
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                         }
                     });
                     return BluetoothAdapter.STATE_TURNING_ON;

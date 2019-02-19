@@ -48,6 +48,8 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
+
                         // remove connected devices list
                         if (bluetoothState == BluetoothAdapter.STATE_OFF) {
                             BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, false);
@@ -104,6 +106,8 @@ public class BluetoothStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                             }
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothStateChangedBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

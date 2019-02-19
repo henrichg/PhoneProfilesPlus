@@ -42,6 +42,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
+
                             if ((android.os.Build.VERSION.SDK_INT >= 21) &&
                                     ApplicationPreferences.applicationUseAlarmClock(appContext)) {
                                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
@@ -53,6 +55,8 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                             //dataWrapper.clearSensorsStartTime();
                             dataWrapper.restartEvents(false, true, false, false, false);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=TimeChangedReceiver.onReceive");
                         }
                     });
                 }

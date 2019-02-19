@@ -22,9 +22,13 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LocaleChangedReceiver.onReceive");
+
                         if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
                             PPApplication.showProfileNotification(/*appContext*/);
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocaleChangedReceiver.onReceive");
                     }
                 });
             }

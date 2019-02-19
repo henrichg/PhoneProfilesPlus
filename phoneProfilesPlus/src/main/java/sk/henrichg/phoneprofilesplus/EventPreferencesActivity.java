@@ -482,6 +482,8 @@ public class EventPreferencesActivity extends PreferenceActivity
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventPreferencesActivity.savePreferences.1");
+
                             if (_old_event_status != Event.ESTATUS_STOP) {
                                 // pause event - must be called, because status is ESTATUS_STOP
                                 event.pauseEvent(dataWrapper, eventTimelineList, true, false,
@@ -495,6 +497,8 @@ public class EventPreferencesActivity extends PreferenceActivity
                                 PPApplication.setBlockProfileEventActions(true);
                                 dataWrapper.restartEvents(false, true, true, true, false);
                             }
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventPreferencesActivity.savePreferences.1");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -519,6 +523,8 @@ public class EventPreferencesActivity extends PreferenceActivity
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventPreferencesActivity.savePreferences.2");
+
                             // pause event
                             event.pauseEvent(dataWrapper, eventTimelineList, true, false,
                                     false, /*false,*/ null, false, false);
@@ -529,6 +535,8 @@ public class EventPreferencesActivity extends PreferenceActivity
                             PPApplication.logE("$$$ restartEvents", "from EventPreferencesActivity.savePreferences");
                             PPApplication.setBlockProfileEventActions(true);
                             dataWrapper.restartEvents(false, true, true, true, false);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventPreferencesActivity.savePreferences.2");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

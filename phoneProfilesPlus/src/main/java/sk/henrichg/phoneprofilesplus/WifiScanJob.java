@@ -175,8 +175,8 @@ class WifiScanJob extends Job {
         if (Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (useHandler && (_handler == null)) {
-                PPApplication.startHandlerThread("WifiScanJob.scheduleJob");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                PPApplication.startHandlerThreadPPService();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -245,8 +245,8 @@ class WifiScanJob extends Job {
         PPApplication.logE("WifiScanJob.cancelJob", "xxx");
 
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThread("WifiScanJob.cancelJob");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadPPService();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {

@@ -38,10 +38,14 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.onReceive");
+
                         DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
                         Event event = databaseHandler.getEvent(event_id);
                         if (event != null)
                             event.notifyEventStart(appContext);
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

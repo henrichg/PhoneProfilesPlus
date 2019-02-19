@@ -50,8 +50,12 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=NFCEventEndBroadcastReceiver.onReceive");
+
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NFCEventEndBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

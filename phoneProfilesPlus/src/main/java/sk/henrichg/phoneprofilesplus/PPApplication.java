@@ -123,7 +123,7 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
 
-                                         //+"|PPApplication.startHandlerThread"
+                                         +"|PPApplication.startHandlerThread"
                                          //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
 
                                          //+"|PPApplication.startPPService"
@@ -137,7 +137,7 @@ public class PPApplication extends Application {
                                          +"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
                                          */
 
-                                         //+"|DataWrapper.activateProfileFromMainThread"
+                                         +"|DataWrapper.activateProfileFromMainThread"
                                          //+"|ActivateProfileHelper.execute"
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|SettingsContentObserver.onChange"
@@ -153,12 +153,12 @@ public class PPApplication extends Application {
                                          //+"|Permissions.grantProfilePermissions"
                                          //+"|Permissions.checkProfileVibrateWhenRinging"
                                          //+"|Permissions.checkVibrateWhenRinging"
-                                         +"|ActivateProfileHelper.setZenMode"
-                                         +"|ActivateProfileHelper.setRingerMode"
-                                         +"|ActivateProfileHelper.setVolumes"
-                                         +"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
-                                         +"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
-                                         +"|ActivateProfileHelper.isAudibleSystemRingerMode"
+                                         //+"|ActivateProfileHelper.setZenMode"
+                                         //+"|ActivateProfileHelper.setRingerMode"
+                                         //+"|ActivateProfileHelper.setVolumes"
+                                         //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
+                                         //+"|ActivateProfileHelper.changeNotificationVolumeForVolumeEqual0"
+                                         //+"|ActivateProfileHelper.isAudibleSystemRingerMode"
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
@@ -261,13 +261,13 @@ public class PPApplication extends Application {
                                         //+ "|PhoneStateScanner"
                                         //+"|MobileCellsPreference"
                                         //+"|MobileCellsPreference.refreshListView"
-                                        +"|PhoneStateScanner.startAutoRegistration"
-                                        +"|PhoneStateScanner.stopAutoRegistration"
-                                        +"|PhoneStateScanner.getAllCellInfo"
-                                        +"|PhoneStateScanner.getCellLocation"
-                                        +"|PhoneStateScanner.doAutoRegistration"
-                                        +"|MobileCellsRegistrationDialogPreference.startRegistration"
-                                        +"|MobileCellsRegistrationService"
+                                        //+"|PhoneStateScanner.startAutoRegistration"
+                                        //+"|PhoneStateScanner.stopAutoRegistration"
+                                        //+"|PhoneStateScanner.getAllCellInfo"
+                                        //+"|PhoneStateScanner.getCellLocation"
+                                        //+"|PhoneStateScanner.doAutoRegistration"
+                                        //+"|MobileCellsRegistrationDialogPreference.startRegistration"
+                                        //+"|MobileCellsRegistrationService"
 
                                         //+"|[RJS] PhoneProfilesService.registerReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.unregisterReceiversAndJobs"
@@ -294,7 +294,7 @@ public class PPApplication extends Application {
                                         //+"|TimeChangedReceiver.onReceive"
 
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
-                                        //+"|LockDeviceActivity"
+                                        +"|LockDeviceActivity"
 
                                         //+"|DialogHelpPopupWindow.showPopup"
 
@@ -2044,7 +2044,11 @@ public class PPApplication extends Application {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
+
                             _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
@@ -2210,8 +2214,12 @@ public class PPApplication extends Application {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PPApplication.setBlockProfileEventActions");
+
                     PPApplication.logE("PPApplication.setBlockProfileEventActions", "delayed boot up");
                     PPApplication.blockProfileEventActions = false;
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.setBlockProfileEventActions");
                 }
             }, 30000);
         }

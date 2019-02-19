@@ -63,6 +63,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesBackupAgent.onRestoreFinished");
+
                     PPApplication.exitApp(false, appContext, dataWrapper, null, false/*, false, false*/);
 
                     PPApplication.setSavedVersionCode(appContext, 0);
@@ -74,6 +76,8 @@ public class PhoneProfilesBackupAgent extends BackupAgentHelper {
                     //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
                     //ActivateProfileHelper.setScreenUnlocked(appContext, true);
                     ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesBackupAgent.onRestoreFinished");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

@@ -48,6 +48,8 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiConnectionBroadcastReceiver.onReceive");
+
                                 boolean isConnected;
                                 if (Build.VERSION.SDK_INT < 28)
                                     //noinspection deprecation
@@ -95,6 +97,8 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                             PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "wifi is scanned");
                                     //}
                                 }
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiConnectionBroadcastReceiver.onReceive");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

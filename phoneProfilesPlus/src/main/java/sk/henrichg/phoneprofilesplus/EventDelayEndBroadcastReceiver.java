@@ -41,8 +41,12 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=EventDelayEndBroadcastReceiver.onReceive");
+
                         EventsHandler eventsHandler = new EventsHandler(appContext);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_EVENT_DELAY_END);
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventDelayEndBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

@@ -52,6 +52,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
+
                             if (wifiState == WifiManager.WIFI_STATE_ENABLED) {
                                 if (!(WifiScanJob.getScanRequest(appContext) ||
                                         WifiScanJob.getWaitForResults(appContext) ||
@@ -144,7 +146,11 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                                             wakeLock.acquire(10 * 60 * 1000);
                                                         }
 
+                                                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiStateChangedBroadcastReceiver.onReceive.3");
+
                                                         WifiScanJob.fillWifiConfigurationList(appContext);
+
+                                                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiStateChangedBroadcastReceiver.onReceive.3");
                                                     } finally {
                                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                                             try {
@@ -172,6 +178,8 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
                             }
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiStateChangedBroadcastReceiver.onReceive.1");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {

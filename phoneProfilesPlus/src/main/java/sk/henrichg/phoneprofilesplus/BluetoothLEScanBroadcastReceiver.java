@@ -41,6 +41,8 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
+
                         boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
 
                         if (scanStarted) {
@@ -85,6 +87,8 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                 PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, appContext);
                             }
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

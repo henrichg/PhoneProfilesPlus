@@ -43,6 +43,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ProfileDurationAlarmBroadcastReceiver.onReceive");
+
                                 DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
                                 if (PPApplication.logEnabled())
@@ -104,6 +106,8 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
 
                                 dataWrapper.invalidateDataWrapper();
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=ProfileDurationAlarmBroadcastReceiver.onReceive");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

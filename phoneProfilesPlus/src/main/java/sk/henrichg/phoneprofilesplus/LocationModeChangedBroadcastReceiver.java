@@ -41,6 +41,8 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LocationModeChangedBroadcastReceiver.onReceive");
+
                         if ((action != null) && action.matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
                             //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
@@ -54,6 +56,8 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                                 PhoneProfilesService.getInstance().getGeofencesScanner().updateTransitionsByLastKnownLocation(true);
                             }
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocationModeChangedBroadcastReceiver.onReceive");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

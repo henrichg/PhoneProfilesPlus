@@ -2462,8 +2462,8 @@ public class PhoneProfilesService extends Service
         if (/*!forceStart &&*/ WifiSSIDPreference.forceRegister)
             return;
 
-        PPApplication.startHandlerThread("PhoneProfilesService.scheduleWifiJob");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        PPApplication.startHandlerThreadPPService();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -2525,8 +2525,8 @@ public class PhoneProfilesService extends Service
         if (/*!forceStart &&*/ BluetoothNamePreference.forceRegister)
             return;
 
-        PPApplication.startHandlerThread("PhoneProfilesService.scheduleBluetoothJob");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        PPApplication.startHandlerThreadPPService();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -2585,8 +2585,8 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleGeofenceScannerJob", "PhoneProfilesService_scheduleGeofenceScannerJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceScannerJob", "xxx");
 
-        PPApplication.startHandlerThread("PhoneProfilesService.scheduleGeofenceScannerJob");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        PPApplication.startHandlerThreadPPService();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -2647,8 +2647,8 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleSearchCalendarEventsJob", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "xxx");
 
-        PPApplication.startHandlerThread("PhoneProfilesService.scheduleSearchCalendarEventsJob");
-        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        PPApplication.startHandlerThreadPPService();
+        final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -3160,6 +3160,8 @@ public class PhoneProfilesService extends Service
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
+
                         // is called from PPApplication
                         //PPApplication.initRoot();
                         if (!ApplicationPreferences.applicationNeverAskForGrantRoot(appContext)) {
@@ -3180,6 +3182,8 @@ public class PhoneProfilesService extends Service
 
                         if (serviceHasFirstStart) {
                             PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "application already started");
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
                                     wakeLock.release();
@@ -3303,6 +3307,8 @@ public class PhoneProfilesService extends Service
                         dataWrapper.invalidateDataWrapper();
 
                         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart END");
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doForFirstStart");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -4116,11 +4122,15 @@ public class PhoneProfilesService extends Service
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
+                                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+
                                     if (PhoneProfilesService.getInstance() != null) {
                                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
                                         dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
                                         dataWrapper.invalidateDataWrapper();
                                     }
+
+                                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
                                 } finally {
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -5028,6 +5038,8 @@ public class PhoneProfilesService extends Service
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.runEventsHandlerForOrientationChange");
+
                         PPApplication.logE("@@@ PhoneProfilesService.runEventsHandlerForOrientationChange", "-----------");
 
                         if (mDeviceDistance == DEVICE_ORIENTATION_DEVICE_IS_NEAR)
@@ -5067,6 +5079,8 @@ public class PhoneProfilesService extends Service
                         // start events handler
                         EventsHandler eventsHandler = new EventsHandler(context);
                         eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.runEventsHandlerForOrientationChange");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

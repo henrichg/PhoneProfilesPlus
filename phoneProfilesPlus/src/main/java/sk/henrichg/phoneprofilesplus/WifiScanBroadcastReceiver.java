@@ -71,6 +71,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                     wakeLock.acquire(10 * 60 * 1000);
                                 }
 
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiScanBroadcastReceiver.onReceive.1");
+
                                 boolean scanStarted = (WifiScanJob.getWaitForResults(appContext));
                                 PPApplication.logE("%%%% WifiScanBroadcastReceiver.onReceive", "scanStarted=" + scanStarted);
 
@@ -130,6 +132,8 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                         PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER, 5, appContext);
                                     }
                                 }
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanBroadcastReceiver.onReceive.1");
                             } finally {
                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                     try {

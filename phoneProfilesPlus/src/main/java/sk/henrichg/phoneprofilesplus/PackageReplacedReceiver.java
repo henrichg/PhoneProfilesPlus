@@ -60,6 +60,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.1");
+
                         Permissions.setAllShowRequestPermissions(appContext, true);
 
                         //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
@@ -284,6 +286,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             }
                         } catch (Exception ignored) {
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PackageReplacedReceiver.onReceive.1");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -307,6 +311,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.2");
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
 
                         if (PhoneStateScanner.enabledAutoRegistration) {
@@ -358,6 +363,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PackageReplacedReceiver.onReceive.2");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {

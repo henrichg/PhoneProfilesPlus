@@ -161,9 +161,13 @@ class DonationNotificationJob extends Job {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DonationNotificationJob.scheduleJob");
+
                     _scheduleJob();
                     /*if (countDownLatch != null)
                         countDownLatch.countDown();*/
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DonationNotificationJob.scheduleJob");
                 }
             });
         }

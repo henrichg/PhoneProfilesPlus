@@ -797,7 +797,11 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
+
                     dataWrapper.setDynamicLauncherShortcuts();
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.setDynamicLauncherShortcutsFromMainThread");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -958,7 +962,11 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.stopEventsForProfileFromMainThread");
+
                     dataWrapper.stopEventsForProfile(profile, alsoUnlink);
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.stopEventsForProfileFromMainThread");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -1029,7 +1037,11 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.pauseAllEventsFromMainThread");
+
                     dataWrapper.pauseAllEvents(noSetSystemEvent, blockEvents);
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.pauseAllEventsFromMainThread");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -1079,7 +1091,11 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.stopAllEventsFromMainThread");
+
                     dataWrapper.stopAllEvents(saveEventStatus, alsoDelete);
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.stopAllEventsFromMainThread");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -1522,7 +1538,7 @@ public class DataWrapper {
     void activateProfileFromMainThread(final Profile _profile, final boolean merged, final int startupSource,
                                     final boolean interactive, final Activity _activity)
     {
-        PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start");
+        PPApplication.logE("$$$$$ DataWrapper.activateProfileFromMainThread", "start");
         final DataWrapper dataWrapper = copyDataWrapper();
 
         PPApplication.startHandlerThread("DataWrapper.activateProfileFromMainThread");
@@ -1537,13 +1553,16 @@ public class DataWrapper {
                         wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DataWrapper_activateProfileFromMainThread");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
-                    PPApplication.logE("DataWrapper.activateProfileFromMainThread", "start in handler");
+
+                    PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
+
                     dataWrapper._activateProfile(_profile, merged, startupSource);
                     if (interactive) {
                         DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(_profile);
                         dataWrapper.setDynamicLauncherShortcuts();
                     }
-                    PPApplication.logE("DataWrapper.activateProfileFromMainThread", "end in handler");
+
+                    PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "END run - from=DataWrapper.activateProfileFromMainThread");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -3771,7 +3790,11 @@ public class DataWrapper {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
+                        PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEvents");
+
                         _restartEvents(unblockEventsRun, notClearActivatedProfile, reactivateProfile, log);
+
+                        PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEvents");
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
@@ -3806,6 +3829,8 @@ public class DataWrapper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=DataWrapper.restartEventsWithRescan");
+
                     // remove all event delay alarms
                     dataWrapper.resetAllEventsInDelayStart(false);
                     dataWrapper.resetAllEventsInDelayEnd(false);
@@ -3825,6 +3850,8 @@ public class DataWrapper {
                     if (ApplicationPreferences.applicationEventMobileCellsRescan(dataWrapper.context).equals(PPApplication.RESCAN_TYPE_SCREEN_ON_RESTART_EVENTS)) {
                         PPApplication.restartPhoneStateScanner(dataWrapper.context, false);
                     }
+
+                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DataWrapper.restartEventsWithRescan");
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

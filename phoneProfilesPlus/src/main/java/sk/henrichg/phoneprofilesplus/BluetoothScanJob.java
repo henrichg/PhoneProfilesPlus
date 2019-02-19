@@ -171,8 +171,8 @@ class BluetoothScanJob extends Job {
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (useHandler && (_handler == null)) {
-                PPApplication.startHandlerThread("BluetoothScanJob.scheduleJob");
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+                PPApplication.startHandlerThreadPPService();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -245,8 +245,8 @@ class BluetoothScanJob extends Job {
         PPApplication.logE("BluetoothScanJob.cancelJob", "xxx");
 
         if (useHandler && (_handler == null)) {
-            PPApplication.startHandlerThread("BluetoothScanJob.cancelJob");
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            PPApplication.startHandlerThreadPPService();
+            final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -866,34 +866,6 @@ class BluetoothScanJob extends Job {
 
                 if (forceOneScan != WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)// not start service for force scan
                 {
-                    /*
-                    // start job
-                    final Context appContext = context.getApplicationContext();
-                    PPApplication.startHandlerThread("BluetoothScanJob.finishScan");
-                    final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "BluetoothScanJob.finishScan.Handler.postDelayed");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
-
-                            // start events handler
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                            } finaly (
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {}
-                            }
-                            }
-                        }
-                    }, 5000);*/
                     PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, context);
                 }
 

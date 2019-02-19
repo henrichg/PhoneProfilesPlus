@@ -533,6 +533,8 @@ public class BrightnessDialogPreference extends
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreference.setAdaptiveBrightness");
+
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(_context)) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
@@ -552,6 +554,8 @@ public class BrightnessDialogPreference extends
                                     }
                                 }
                             }
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BrightnessDialogPreference.setAdaptiveBrightness");
                         }
                     });
                 }

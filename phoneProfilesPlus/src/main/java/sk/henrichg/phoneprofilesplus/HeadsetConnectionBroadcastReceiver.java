@@ -109,16 +109,20 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                        /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                        boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
-                        dataWrapper.invalidateDataWrapper();
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
 
-                        if (peripheralEventsExists)
-                        {*/
+                            /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
+                            boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
+                            dataWrapper.invalidateDataWrapper();
+
+                            if (peripheralEventsExists)
+                            {*/
                             // start events handler
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION);
                             //}
+
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                 try {
