@@ -123,7 +123,7 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
 
-                                         +"|PPApplication.startHandlerThread"
+                                         //+"|PPApplication.startHandlerThread"
                                          //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
 
                                          //+"|PPApplication.startPPService"
@@ -137,7 +137,7 @@ public class PPApplication extends Application {
                                          +"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
                                          */
 
-                                         +"|DataWrapper.activateProfileFromMainThread"
+                                         //+"|DataWrapper.activateProfileFromMainThread"
                                          //+"|ActivateProfileHelper.execute"
                                          //+"|Profile.convertPercentsToBrightnessManualValue"
                                          //+"|SettingsContentObserver.onChange"
@@ -294,7 +294,7 @@ public class PPApplication extends Application {
                                         //+"|TimeChangedReceiver.onReceive"
 
                                         //+"|@@@ ScreenOnOffBroadcastReceiver"
-                                        +"|LockDeviceActivity"
+                                        //+"|LockDeviceActivity"
 
                                         //+"|DialogHelpPopupWindow.showPopup"
 
