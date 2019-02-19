@@ -87,7 +87,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
                                     profile._checked &&
                                     (!applicationEditorHeader),
                                     indicators, true, true,
-                                    editorFragment.activityDataWrapper, false);
+                                    editorFragment.activityDataWrapper, false, context);
 
         profileName.setText(_profileName);
 

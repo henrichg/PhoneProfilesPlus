@@ -1273,7 +1273,7 @@ public class Profile {
 
             String profileIcon = withProfile._icon;
             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                                    DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, dataWrapper, false),
+                                    DataWrapper.getProfileNameWithManualIndicatorAsString(withProfile, true, "", false, false, dataWrapper, false, dataWrapper.context),
                                     profileIcon, 0);
 
             /*

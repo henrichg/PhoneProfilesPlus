@@ -79,19 +79,19 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                                 activateProfileId = 0;
 
                                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_BACKGROUNDPROFILE, null,
-                                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false),
+                                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext),
                                                     profile._icon, 0);
                                         }
                                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_UNDOPROFILE) {
                                             activateProfileId = Profile.getActivatedProfileForDuration(appContext);
 
                                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_UNDOPROFILE, null,
-                                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false),
+                                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext),
                                                     profile._icon, 0);
                                         }
                                         if (profile._afterDurationDo == Profile.AFTERDURATIONDO_RESTARTEVENTS) {
                                             dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_AFTERDURATION_RESTARTEVENTS, null,
-                                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false),
+                                                    DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext),
                                                     profile._icon, 0);
 
                                             PPApplication.logE("ProfileDurationAlarmBroadcastReceiver.onReceive", "restart events");

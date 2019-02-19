@@ -67,13 +67,13 @@ public class DataWrapper {
 
     //static final String EXTRA_INTERACTIVE = "interactive";
 
-    DataWrapper(Context c,
+    DataWrapper(Context _context,
                         //boolean fgui,
                         boolean mono,
                         int monoVal,
                         boolean useMonoValForCustomIcon)
     {
-        context = c.getApplicationContext();
+        context = _context.getApplicationContext();
 
         setParameters(/*fgui, */mono, monoVal, useMonoValForCustomIcon);
     }
@@ -1497,7 +1497,7 @@ public class DataWrapper {
 
         if ((mappedProfile != null) && (!merged)) {
             addActivityLog(DatabaseHandler.ALTYPE_PROFILEACTIVATION, null,
-                    getProfileNameWithManualIndicatorAsString(mappedProfile, true, "", profileDuration > 0, false, this, false),
+                    getProfileNameWithManualIndicatorAsString(mappedProfile, true, "", profileDuration > 0, false, this, false, context),
                     profileIcon, profileDuration);
         }
 
@@ -1576,7 +1576,7 @@ public class DataWrapper {
     {
         //Log.d("DataWrapper.showToastAfterActivation", "xxx");
         try {
-            String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, this, false);
+            String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, this, false, context);
             Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                     context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
                             context.getResources().getString(R.string.toast_profile_activated_1),
@@ -4008,18 +4008,18 @@ public class DataWrapper {
 
     static private Spannable getProfileNameWithManualIndicator(Profile profile, List<EventTimeline> eventTimelineList,
                                                                boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-                                                               DataWrapper dataWrapper, boolean fromDB)
+                                                               DataWrapper dataWrapper, boolean fromDB, Context context)
     {
         if (profile == null) {
             return new SpannableString("");
         }
 
         String eventName = "";
-        if (addEventName)
+        if (addEventName && (dataWrapper != null))
         {
             String manualIndicators = "";
-            if (Event.getEventsBlocked(dataWrapper.context)) {
-                if (Event.getForceRunEventRunning(dataWrapper.context)) {
+            if (Event.getEventsBlocked(context)) {
+                if (Event.getForceRunEventRunning(context)) {
                     manualIndicators = "[\u00BB]";
                 } else {
                     manualIndicators = "[M]";
@@ -4036,7 +4036,7 @@ public class DataWrapper {
 
         Spannable sName;
         if (addDuration)
-            sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, dataWrapper.context);
+            sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, context);
         else {
             String name = profile._name;
             if (!eventName.isEmpty())
@@ -4051,15 +4051,20 @@ public class DataWrapper {
     }
 
     static Spannable getProfileNameWithManualIndicator(Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-                                                    DataWrapper dataWrapper, boolean fromDB) {
-        List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
-        return getProfileNameWithManualIndicator(profile, eventTimelineList, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB);
+                                                    DataWrapper dataWrapper, boolean fromDB, Context context) {
+        if (dataWrapper != null) {
+            List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList();
+            return getProfileNameWithManualIndicator(profile, eventTimelineList, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB, context);
+        }
+        else {
+            return getProfileNameWithManualIndicator(profile, null, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB, context);
+        }
     }
 
     @SuppressWarnings("SameParameterValue")
     static String getProfileNameWithManualIndicatorAsString(Profile profile, boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
-                                                            DataWrapper dataWrapper, boolean fromDB) {
-        Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB);
+                                                            DataWrapper dataWrapper, boolean fromDB, Context context) {
+        Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB, context);
         Spannable sbt = new SpannableString(sProfileName);
         Object spansToRemove[] = sbt.getSpans(0, sProfileName.length(), Object.class);
         for (Object span : spansToRemove) {

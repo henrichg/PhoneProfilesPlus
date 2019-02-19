@@ -216,7 +216,7 @@ class ActivateProfileListAdapter extends BaseAdapter
                             (!applicationActivatorHeader),
                     "", true,
                     true/*applicationActivatorGridLayout*/,
-                    activityDataWrapper, false);
+                    activityDataWrapper, false, activityDataWrapper.context);
             holder.profileName.setText(profileName);
 
 

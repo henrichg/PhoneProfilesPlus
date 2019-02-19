@@ -59,11 +59,11 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     public void onCreate() {
     }
-  
+
     public void onDestroy() {
-        if (dataWrapper != null)
+        /*if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+        dataWrapper = null;*/
     }
 
     public int getCount() {
@@ -161,7 +161,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 // hm, interesting, how to set bold style for RemoteView text ;-)
                 Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, !applicationWidgetListGridLayout,
                                             "", true,
-                                            true/*applicationWidgetListGridLayout*/, dataWrapper, false);
+                                            true/*applicationWidgetListGridLayout*/, dataWrapper, false, context);
                 Spannable sb = new SpannableString(profileName);
                 sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 row.setTextViewText(R.id.widget_profile_list_item_profile_name, sb);
@@ -248,11 +248,11 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             newProfileList.add(0, restartEvents);
         }
 
-        if (dataWrapper != null) {
+        //if (dataWrapper != null) {
             dataWrapper.invalidateProfileList();
             dataWrapper.setProfileList(newProfileList);
             profileList = newProfileList;
-        }
+        //}
     }
 
     private class ProfileComparator implements Comparator<Profile> {
