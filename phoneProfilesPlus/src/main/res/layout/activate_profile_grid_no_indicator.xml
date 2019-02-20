@@ -47,6 +47,7 @@
         android:layout_margin="12dp">
 
         <FrameLayout
+            android:id="@+id/act_prof_profiles_grid_divider"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="2dp"

@@ -14,6 +14,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ public class ActivateProfileListFragment extends Fragment {
     private ImageView activeProfileIcon;
     TextView textViewNoData;
     private LinearLayout progressBar;
+    FrameLayout gridViewDivider = null;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
@@ -110,8 +112,10 @@ public class ActivateProfileListFragment extends Fragment {
         activeProfileIcon = view.findViewById(R.id.act_prof_activated_profile_icon);
         if (!applicationActivatorGridLayout)
             listView = view.findViewById(R.id.act_prof_profiles_list);
-        else
+        else {
             gridView = view.findViewById(R.id.act_prof_profiles_grid);
+            gridViewDivider = view.findViewById(R.id.act_prof_profiles_grid_divider);
+        }
         textViewNoData = view.findViewById(R.id.act_prof_list_empty);
         progressBar = view.findViewById(R.id.act_prof_list_linla_progress);
 
@@ -203,6 +207,9 @@ public class ActivateProfileListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
                 fragment.textViewNoData.setVisibility(View.GONE);
                 fragment.progressBar.setVisibility(View.VISIBLE);
+                if (fragment.gridViewDivider != null)
+                    fragment.gridViewDivider.setBackgroundResource(
+                            GlobalGUIRoutines.getThemeActivatorGridDividerColor(false, fragment.getActivity()));
             }
         }
 

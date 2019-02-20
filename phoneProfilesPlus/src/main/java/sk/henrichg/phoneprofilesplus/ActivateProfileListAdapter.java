@@ -37,10 +37,12 @@ class ActivateProfileListAdapter extends BaseAdapter
 
     public int getCount()
     {
-        fragment.textViewNoData.setVisibility(
-                ((activityDataWrapper.profileListFilled &&
-                 (activityDataWrapper.profileList.size() > 0))
-                ) ? View.GONE : View.VISIBLE);
+        boolean someData = activityDataWrapper.profileListFilled &&
+                            (activityDataWrapper.profileList.size() > 0);
+        fragment.textViewNoData.setVisibility(someData ? View.GONE : View.VISIBLE);
+        if (fragment.gridViewDivider != null)
+            fragment.gridViewDivider.setBackgroundResource(
+                    GlobalGUIRoutines.getThemeActivatorGridDividerColor(someData, fragment.getActivity()));
 
         int count = 0;
         if (activityDataWrapper.profileListFilled) {
