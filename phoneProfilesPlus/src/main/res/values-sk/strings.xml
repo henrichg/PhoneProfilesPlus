@@ -888,8 +888,8 @@
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
   <string name="important_info_profile_grant_1_howTo_4">2. Rozbaľte zip súbor.</string>
   <string name="important_info_profile_grant_1_howTo_5">Ako udeliť povolenie WRITE_SECURE_SETTINGS:</string>
-  <string name="important_info_profile_grant_1_howTo_6">1. V telefóne, prejdite do ponuky Nastavenia &gt; informácie o telefóne &gt; informácie o softvéri a kliknite na Číslo zostavy 7-krát, a budete mať v Nastaveniach položku Vývojárske možnosti.</string>
-  <string name="important_info_profile_grant_1_howTo_7">2. V telefóne, prejdite do ponuky Nastavenia &gt; Možnosti pre vývojárov a povoľte Ladenie USB.</string>
+  <string name="important_info_profile_grant_1_howTo_6">1. V zariadení, prejdite do ponuky Nastavenia &gt; informácie o telefóne &gt; informácie o softvéri a kliknite na Číslo zostavy 7-krát, a budete mať v Nastaveniach položku Vývojárske možnosti.</string>
+  <string name="important_info_profile_grant_1_howTo_7">2. V zariadení, prejdite do ponuky Nastavenia &gt; Možnosti pre vývojárov a povoľte Ladenie USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">3. V počítači, spustite CMD (Windows), Terminál (Linux, OSX), prejdite do priečinka, v ktorom je nainštalovaný adb a spustite tento príkaz:</string>
   <string name="important_info_profile_grant_1_howTo_10">4. Po úspešnom vykonaní, všetky parametre profilu označené značkou (G1) budú povolené.</string>
   <string name="important_info_activity_title">Dôležité informácie</string>
@@ -1044,11 +1044,11 @@
   <string name="array_pref_do_not_close">Nezatvoriť</string>
   <string name="array_pref_close">Zatvoriť</string>
   <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simuluje stlačenie tlačidla Domov v navigačnom paneli.</string>
-  <string name="phone_profiles_pref_applicationEventLocation_info">Tieto nastavenia sú pre udalostný senzor polohy.</string>
+  <string name="phone_profiles_pref_applicationEventLocation_info">Tieto nastavenia sú pre udalostný senzor Polohy.</string>
   <string name="phone_profiles_pref_applicationEventWifi_info">Tieto nastavenia sú pre udalostný senzor Wi-Fi.</string>
   <string name="phone_profiles_pref_applicationEventBluetooth_info">Tieto nastavenia sú pre udalostný senzor Bluetooth.</string>
-  <string name="phone_profiles_pref_applicationEventMobileCell_info">Tieto nastavenia sú pre udalostný senzor mobilných buniek.</string>
-  <string name="phone_profiles_pref_applicationEventOrientation_info">Tieto nastavenia sú pre udalostný senzor orientácie.</string>
+  <string name="phone_profiles_pref_applicationEventMobileCell_info">Tieto nastavenia sú pre udalostný senzor Mobilných buniek.</string>
+  <string name="phone_profiles_pref_applicationEventOrientation_info">Tieto nastavenia sú pre udalostný senzor Orientácie.</string>
   <string name="profileicon_pref_dialog_custom_icon_image_too_large">Obrázok vlastnej ikony je príliš veľký. Povolené je max.</string>
   <string name="profile_preferences_category_touchEffects">Efekty klepnutia</string>
   <string name="profile_preferences_soundOnTouch">Tón pri klepnutí</string>
