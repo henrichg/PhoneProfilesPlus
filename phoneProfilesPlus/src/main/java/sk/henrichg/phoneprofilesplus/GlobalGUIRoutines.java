@@ -686,16 +686,22 @@ class GlobalGUIRoutines {
     }
 
     static void lockScreenOrientation(Activity activity) {
-        int currentOrientation = activity.getResources().getConfiguration().orientation;
-        if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-        } else {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-        }
+        try {
+            int currentOrientation = activity.getResources().getConfiguration().orientation;
+            if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            } else {
+                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            }
+            // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
+        } catch (Exception ignored) {}
     }
 
     static void unlockScreenOrientation(Activity activity) {
-        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+        try {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
+            // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
+        } catch (Exception ignored) {}
     }
 
 }
