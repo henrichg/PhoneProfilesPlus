@@ -270,7 +270,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         */
 
         text = findViewById(R.id.about_application_rate_application);
-        str1 = getString(R.string.about_application_rate_in_googlePlay);
+        str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
         sbt = new SpannableString(str1);
         clickableSpan = new ClickableSpan() {
             @Override
