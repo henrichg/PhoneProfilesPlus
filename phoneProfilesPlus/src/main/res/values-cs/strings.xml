@@ -222,7 +222,7 @@
   <string name="event_preferences_ForceRun">Ignoruj ​​manuální aktivaci</string>
   <string name="restart_events_alert_title">Restartovat události</string>
   <string name="restart_events_alert_message">Jste si jistí?</string>
-  <string name="event_preferences_ForceRun_summary">Spustit událost přesto, že byl manuálně aktivovaný profil</string>
+  <string name="event_preferences_ForceRun_summary">Spustit událost i přesto, že byl manuálně aktivovaný profil</string>
   <string name="event_preferences_category_startOfEvent">Start události</string>
   <string name="event_preferences_category_endOfEvent">Konec události</string>
   <string name="event_preference_profile_undone">Vrať zpět</string>
@@ -755,7 +755,7 @@
   <string name="profile_preferences_volumeRingtone0Info_title">Hlasitost vyzvánění = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Hlasitost vyzvánění = 0 nakonfiguruje zařízení do tichého režimu. Hlasitost notifikací se ignoruje.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">Důležitá informace!</string>
-  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Probíhající notifikace je vyžadována pro službu PhoneProfilesService. S notifikaci se PhoneProfilesService změní na \"služba v popředí\". A tento typ služby není zabíjen Androidem. PhoneProfilesService musí stále běžet.</string>
+  <string name="phone_profiles_pref_notificationStatusBarInfo_summary">Probíhající notifikace je vyžadována pro službu PhoneProfilesService. S notifikaci se PhoneProfilesService změní na \"služba v popředí\". A tento typ služby není zastaven Androidem. PhoneProfilesService musí stále běžet.</string>
   <string name="phone_profiles_pref_notificationStatusBarRequired">Vyžadováno pro službu v pozadí PhoneProfilesService</string>
   <string name="event_preferences_event_priorityInfo_summary">Funkcionalita priority: událost se nespustí, pokud je spuštěna událost s vyšší prioritou.</string>
   <string name="profile_preferences_preferenceTypesInfo_title">Typy parametrů</string>
