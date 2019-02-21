@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
@@ -48,7 +49,8 @@ public class InfoDialogPreference extends DialogPreference {
                 if (negative != null) negative.setAllCaps(false);
             }
         });*/
-        mDialog.show();
+        if (!((Activity)_context).isFinishing())
+            mDialog.show();
     }
 
     @Override

@@ -200,7 +200,8 @@ public class BrightnessDialogPreference extends
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
-        mDialog.show();
+        if (!((Activity)_context).isFinishing())
+            mDialog.show();
     }
 
     @Override

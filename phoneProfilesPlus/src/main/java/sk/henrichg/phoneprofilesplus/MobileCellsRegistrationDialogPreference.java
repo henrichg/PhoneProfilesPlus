@@ -207,7 +207,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
                     if (iValue > mMax) iValue = mMax;
 
                     mValueDialog.setDuration(iValue * 1000);
-                    mValueDialog.show();
+                    if (!((Activity)context).isFinishing())
+                        mValueDialog.show();
                 }
              }
         );
@@ -250,7 +251,8 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
 
         mDialog.setOnDismissListener(this);
 
-        mDialog.show();
+        if (!((Activity)context).isFinishing())
+            mDialog.show();
     }
 
     @Override

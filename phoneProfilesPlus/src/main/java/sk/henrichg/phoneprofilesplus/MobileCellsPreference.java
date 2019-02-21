@@ -313,7 +313,8 @@ public class MobileCellsPreference extends DialogPreference {
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        mDialog.show();
+        if (!((Activity)context).isFinishing())
+            mDialog.show();
     }
 
     @Override

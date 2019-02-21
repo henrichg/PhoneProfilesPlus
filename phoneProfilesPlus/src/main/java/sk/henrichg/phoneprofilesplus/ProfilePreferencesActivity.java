@@ -264,7 +264,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                         if (negative != null) negative.setAllCaps(false);
                     }
                 });*/
-                dialog.show();
+                if (!isFinishing())
+                    dialog.show();
             }
             else
                 ProfilePreferencesActivity.super.onBackPressed();

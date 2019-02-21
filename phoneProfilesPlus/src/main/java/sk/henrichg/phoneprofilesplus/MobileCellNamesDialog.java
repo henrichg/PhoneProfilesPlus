@@ -131,46 +131,43 @@ class MobileCellNamesDialog {
 
     @SuppressLint("StaticFieldLeak")
     public void show() {
-        mDialog.show();
+        if (!activity.isFinishing()) {
+            mDialog.show();
 
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
+            asyncTask = new AsyncTask<Void, Integer, Void>() {
 
-            final List<String> _cellNamesList = new ArrayList<>();
+                final List<String> _cellNamesList = new ArrayList<>();
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                rellaDialog.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                if (showFilterItems) {
-                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_selected));
-                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
-                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_new));
-                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_all));
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    rellaDialog.setVisibility(View.GONE);
+                    linlaProgress.setVisibility(View.VISIBLE);
                 }
-                DatabaseHandler.getInstance(activity.getApplicationContext()).addMobileCellNamesToList(_cellNamesList);
-                return null;
-            }
 
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                rellaDialog.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
-
-                cellNamesList = new ArrayList<>(_cellNamesList);
-
-                if (preference instanceof MobileCellsRegistrationDialogPreference) {
-                    cellName.setText(((MobileCellsRegistrationDialogPreference) preference).mCellsName.getText().toString());
+                @Override
+                protected Void doInBackground(Void... params) {
+                    if (showFilterItems) {
+                        _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_selected));
+                        _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
+                        _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_new));
+                        _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_all));
+                    }
+                    DatabaseHandler.getInstance(activity.getApplicationContext()).addMobileCellNamesToList(_cellNamesList);
+                    return null;
                 }
-                else
-                if (preference instanceof MobileCellsPreference) {
+
+                @Override
+                protected void onPostExecute(Void result) {
+                    super.onPostExecute(result);
+                    rellaDialog.setVisibility(View.VISIBLE);
+                    linlaProgress.setVisibility(View.GONE);
+
+                    cellNamesList = new ArrayList<>(_cellNamesList);
+
+                    if (preference instanceof MobileCellsRegistrationDialogPreference) {
+                        cellName.setText(((MobileCellsRegistrationDialogPreference) preference).mCellsName.getText().toString());
+                    } else if (preference instanceof MobileCellsPreference) {
                     /*if (showFilterItems) {
                         cellName.setText(((MobileCellsPreference) preference).cellFilter.getText().toString());
                         cellName.setInputType(InputType.TYPE_NULL);
@@ -183,20 +180,21 @@ class MobileCellNamesDialog {
                         });
                     }
                     else*/
-                    if (!showFilterItems)
-                        cellName.setText(((MobileCellsPreference) preference).cellName.getText().toString());
+                        if (!showFilterItems)
+                            cellName.setText(((MobileCellsPreference) preference).cellName.getText().toString());
+                    }
+
+                    listAdapter.notifyDataSetChanged();
+
+                    if (!showFilterItems) {
+                        cellName.setFocusable(true);
+                        cellName.requestFocus();
+                    }
+
                 }
 
-                listAdapter.notifyDataSetChanged();
-
-                if (!showFilterItems) {
-                    cellName.setFocusable(true);
-                    cellName.requestFocus();
-                }
-
-            }
-
-        }.execute();
+            }.execute();
+        }
     }
 
 }

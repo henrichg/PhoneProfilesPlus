@@ -129,7 +129,8 @@ public class ColorChooserPreference extends DialogPreference implements View.OnC
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        mDialog.show();
+        if (!((Activity)context).isFinishing())
+            mDialog.show();
     }
 
     @Override

@@ -598,7 +598,8 @@ public class EditorEventListFragment extends Fragment
                 if (negative != null) negative.setAllCaps(false);
             }
         });*/
-        dialog.show();
+        if (!getActivity().isFinishing())
+            dialog.show();
     }
 
     private void deleteAllEvents()
@@ -643,7 +644,8 @@ public class EditorEventListFragment extends Fragment
                     if (negative != null) negative.setAllCaps(false);
                 }
             });*/
-            dialog.show();
+            if (!getActivity().isFinishing())
+                dialog.show();
         }
     }
 

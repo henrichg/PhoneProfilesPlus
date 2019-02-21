@@ -132,7 +132,8 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        mDialog.show();
+        if (!((Activity)_context).isFinishing())
+            mDialog.show();
     }
 
     @SuppressLint("StaticFieldLeak")

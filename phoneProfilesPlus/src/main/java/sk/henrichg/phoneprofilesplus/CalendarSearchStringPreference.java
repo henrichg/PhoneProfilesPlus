@@ -98,7 +98,8 @@ class CalendarSearchStringPreference extends DialogPreference {
         if (state != null)
             mDialog.onRestoreInstanceState(state);
 
-        mDialog.show();
+        if (!((Activity)context).isFinishing())
+            mDialog.show();
     }
 
     @Override

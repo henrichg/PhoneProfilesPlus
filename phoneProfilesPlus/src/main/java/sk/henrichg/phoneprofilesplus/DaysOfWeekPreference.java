@@ -140,7 +140,8 @@ public class DaysOfWeekPreference extends DialogPreference {
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        mDialog.show();
+        if (!((Activity)_context).isFinishing())
+            mDialog.show();
     }
 
     @Override

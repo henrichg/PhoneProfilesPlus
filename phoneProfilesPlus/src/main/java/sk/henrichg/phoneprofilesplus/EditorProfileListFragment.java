@@ -549,7 +549,8 @@ public class EditorProfileListFragment extends Fragment
                 if (negative != null) negative.setAllCaps(false);
             }
         });*/
-        dialog.show();
+        if (!getActivity().isFinishing())
+            dialog.show();
     }
 
     private void deleteAllProfiles()
@@ -608,7 +609,8 @@ public class EditorProfileListFragment extends Fragment
                     if (negative != null) negative.setAllCaps(false);
                 }
             });*/
-            dialog.show();
+            if (!getActivity().isFinishing())
+                dialog.show();
         }
     }
 

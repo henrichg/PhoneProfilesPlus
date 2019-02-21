@@ -234,7 +234,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                                         if (negative != null) negative.setAllCaps(false);
                                     }
                                 });*/
-                                dialog.show();
+                                if (!getActivity().isFinishing())
+                                    dialog.show();
                             }
                             return false;
                         }
@@ -459,7 +460,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                                 if (negative != null) negative.setAllCaps(false);
                             }
                         });*/
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }

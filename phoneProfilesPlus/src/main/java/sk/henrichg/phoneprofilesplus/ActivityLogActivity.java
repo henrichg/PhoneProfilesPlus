@@ -145,7 +145,8 @@ public class ActivityLogActivity extends AppCompatActivity {
                         if (negative != null) negative.setAllCaps(false);
                     }
                 });*/
-                dialog.show();
+                if (!isFinishing())
+                    dialog.show();
                 return true;
             case R.id.menu_activity_log_play_pause:
                 boolean enabled = PPApplication.getActivityLogEnabled(getApplicationContext());

@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -130,7 +131,8 @@ public class MaterialMultiSelectListPreference extends MultiSelectListPreference
         if (state != null) {
             mDialog.onRestoreInstanceState(state);
         }
-        mDialog.show();
+        if (!((Activity)context).isFinishing())
+            mDialog.show();
     }
 
     @Override

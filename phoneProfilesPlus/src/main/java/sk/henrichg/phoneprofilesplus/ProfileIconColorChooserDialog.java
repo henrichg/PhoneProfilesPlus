@@ -172,7 +172,8 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
     }
 
     public void show() {
-        mDialog.show();
+        if (!activity.isFinishing())
+            mDialog.show();
     }
 
 }

@@ -136,7 +136,8 @@ class AddEventDialog
     }
 
     public void show() {
-        mDialog.show();
+        if (!activity.isFinishing())
+            mDialog.show();
     }
 
 }

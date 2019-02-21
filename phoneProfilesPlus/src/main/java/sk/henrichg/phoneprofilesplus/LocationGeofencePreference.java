@@ -184,7 +184,8 @@ public class LocationGeofencePreference extends DialogPreference {
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        mDialog.show();
+        if (!((Activity)context).isFinishing())
+            mDialog.show();
     }
 
     @Override
@@ -328,7 +329,8 @@ public class LocationGeofencePreference extends DialogPreference {
                                         if (negative != null) negative.setAllCaps(false);
                                     }
                                 });*/
-                                dialog.show();
+                                if (!((Activity)context).isFinishing())
+                                    dialog.show();
                             }
                         }
                         return true;

@@ -867,7 +867,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (negative != null) negative.setAllCaps(false);
                     }
                 });*/
-                dialog.show();
+                if (!isFinishing())
+                    dialog.show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -1387,7 +1388,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (negative != null) negative.setAllCaps(false);
             }
         });*/
-        dialog.show();
+        if (!isFinishing())
+            dialog.show();
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
@@ -1500,7 +1502,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     GlobalGUIRoutines.lockScreenOrientation(activity);
                     importProgressDialog.setCancelable(false);
                     importProgressDialog.setCanceledOnTouchOutside(false);
-                    importProgressDialog.show();
+                    if (!activity.isFinishing())
+                        importProgressDialog.show();
 
                     Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                     if (fragment != null) {
@@ -1665,7 +1668,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (negative != null) negative.setAllCaps(false);
             }
         });*/
-        dialog.show();
+        if (!isFinishing())
+            dialog.show();
     }
 
     private void importData()
@@ -1765,7 +1769,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (negative != null) negative.setAllCaps(false);
             }
         });*/
-        dialog.show();
+        if (!isFinishing())
+            dialog.show();
     }
 
     private void doExportData()
@@ -1799,7 +1804,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     GlobalGUIRoutines.lockScreenOrientation(activity);
                     exportProgressDialog.setCancelable(false);
                     exportProgressDialog.setCanceledOnTouchOutside(false);
-                    exportProgressDialog.show();
+                    if (!activity.isFinishing())
+                        exportProgressDialog.show();
                 }
 
                 @Override

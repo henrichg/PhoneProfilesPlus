@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -117,7 +118,8 @@ public class MaterialListPreference extends ListPreference {
             dialog.onRestoreInstanceState(state);
         }
         //onClick(dialog, DialogInterface.BUTTON_NEGATIVE);
-        dialog.show();
+        if (!((Activity)context).isFinishing())
+            dialog.show();
     }
 
     @Override

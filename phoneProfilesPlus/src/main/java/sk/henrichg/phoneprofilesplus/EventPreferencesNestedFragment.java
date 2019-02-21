@@ -164,7 +164,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                                 if (negative != null) negative.setAllCaps(false);
                             }
                         });*/
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -210,7 +211,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //        if (negative != null) negative.setAllCaps(false);
                         //    }
                         //});
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -248,7 +250,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -286,7 +289,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -309,7 +313,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -347,7 +352,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -408,7 +414,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //        if (negative != null) negative.setAllCaps(false);
                         //    }
                         //});
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -446,7 +453,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                         dialogBuilder.setPositiveButton(android.R.string.ok, null);
                         AlertDialog dialog = dialogBuilder.create();
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -522,7 +530,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //        if (negative != null) negative.setAllCaps(false);
                         //    }
                         //});
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -561,7 +570,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //        if (negative != null) negative.setAllCaps(false);
                         //    }
                         //});
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -608,7 +618,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //        if (negative != null) negative.setAllCaps(false);
                         //    }
                         //});
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }
@@ -647,7 +658,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                         //        if (negative != null) negative.setAllCaps(false);
                         //    }
                         //});
-                        dialog.show();
+                        if (!getActivity().isFinishing())
+                            dialog.show();
                     }
                     return false;
                 }

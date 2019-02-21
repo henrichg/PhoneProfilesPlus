@@ -35,6 +35,7 @@ class ApplicationEditorDialog
 
     private final ApplicationsDialogPreference preference;
     private final ApplicationEditorDialogAdapter listAdapter;
+    private final Activity activity;
 
     final AlertDialog mDialog;
     private final TextView mDelayValue;
@@ -63,6 +64,7 @@ class ApplicationEditorDialog
                             final Application application)
     {
         this.preference = preference;
+        this.activity = activity;
 
         this.editedApplication = application;
         this.selectedApplication = application;
@@ -118,7 +120,8 @@ class ApplicationEditorDialog
                 @Override
                 public void onClick(View view) {
                     mDelayValueDialog.setDuration(startApplicationDelay * 1000);
-                    mDelayValueDialog.show();
+                    if (!ApplicationEditorDialog.this.activity.isFinishing())
+                            mDelayValueDialog.show();
                 }
             }
         );
@@ -411,7 +414,8 @@ class ApplicationEditorDialog
     }
 
     public void show() {
-        mDialog.show();
+        if (!activity.isFinishing())
+            mDialog.show();
     }
 
 }

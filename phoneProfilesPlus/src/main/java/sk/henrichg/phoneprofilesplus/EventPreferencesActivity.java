@@ -249,7 +249,8 @@ public class EventPreferencesActivity extends PreferenceActivity
                         if (negative != null) negative.setAllCaps(false);
                     }
                 });*/
-                dialog.show();
+                if (!isFinishing())
+                    dialog.show();
             }
             else
                 super.onBackPressed();
@@ -415,7 +416,8 @@ public class EventPreferencesActivity extends PreferenceActivity
                         if (negative != null) negative.setAllCaps(false);
                     }
                 });*/
-                dialog.show();
+                if (!isFinishing())
+                    dialog.show();
                 return false;
             }
             //}

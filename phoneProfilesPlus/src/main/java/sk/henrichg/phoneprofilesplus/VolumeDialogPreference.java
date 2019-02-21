@@ -181,7 +181,8 @@ public class VolumeDialogPreference extends
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        mDialog.show();
+        if (!((Activity)_context).isFinishing())
+            mDialog.show();
     }
 
     public void onProgressChanged(SeekBar seek, int newValue,

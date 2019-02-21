@@ -231,7 +231,8 @@ public class NFCTagPreference extends DialogPreference {
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        mDialog.show();
+        if (!((Activity)context).isFinishing())
+            mDialog.show();
     }
 
     @Override
@@ -515,7 +516,8 @@ public class NFCTagPreference extends DialogPreference {
             //        if (negative != null) negative.setAllCaps(false);
             //    }
             //});
-            dialog.show();
+            if (!((Activity)context).isFinishing())
+                dialog.show();
             return;
         }
 

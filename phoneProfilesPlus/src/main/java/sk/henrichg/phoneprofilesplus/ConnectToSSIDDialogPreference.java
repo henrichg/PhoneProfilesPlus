@@ -111,7 +111,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             mDialog.onRestoreInstanceState(state);
 
         mDialog.setOnDismissListener(this);
-        mDialog.show();
+        if (!((Activity)context).isFinishing())
+            mDialog.show();
     }
 
     @SuppressLint("StaticFieldLeak")

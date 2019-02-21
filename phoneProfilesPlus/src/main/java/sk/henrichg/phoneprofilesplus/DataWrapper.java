@@ -4245,7 +4245,8 @@ public class DataWrapper {
                     if (negative != null) negative.setAllCaps(false);
                 }
             });*/
-            dialog.show();
+            if (!activity.isFinishing())
+                dialog.show();
         }
         else {
             if (runStopEvents(false)) {

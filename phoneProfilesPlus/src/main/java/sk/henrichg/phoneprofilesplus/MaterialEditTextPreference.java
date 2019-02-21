@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,15 +29,19 @@ public class MaterialEditTextPreference extends EditTextPreference {
     private AlertDialog dialog;
     private EditText editText;
 
+    private final Context context;
+
     @SuppressWarnings("unused")
     public MaterialEditTextPreference(Context context) {
         super(context);
+        this.context = context;
         init(context, null);
     }
 
     @SuppressWarnings("unused")
     public MaterialEditTextPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         init(context, attrs);
     }
 
@@ -44,6 +49,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MaterialEditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         init(context, attrs);
     }
 
@@ -52,6 +58,7 @@ public class MaterialEditTextPreference extends EditTextPreference {
     public MaterialEditTextPreference(
             Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        this.context = context;
         init(context, attrs);
     }
 
@@ -154,7 +161,8 @@ public class MaterialEditTextPreference extends EditTextPreference {
 
         requestInputMethod(dialog);
 
-        dialog.show();
+        if (!((Activity)context).isFinishing())
+            dialog.show();
     }
 
     @Override
