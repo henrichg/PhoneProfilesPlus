@@ -2127,7 +2127,7 @@ public class Profile {
     {
         releasePreferencesIndicator();
 
-        _preferencesIndicator = ProfilePreferencesIndicator.paint(this, context);
+        _preferencesIndicator = ProfilePreferencesIndicator.paint(this, monochrome, context);
         if (_preferencesIndicator != null) {
             if (monochrome)
                 _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, monochromeValue/*, context*/);

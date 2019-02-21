@@ -29,7 +29,7 @@ class ProfilePreferencesIndicator {
 
     }
 
-    static Bitmap paint(Profile _profile, Context context)
+    static Bitmap paint(Profile _profile, boolean monochrome, Context context)
     {
 
         int[] drawables = new int[30];
@@ -67,8 +67,12 @@ class ProfilePreferencesIndicator {
                         if ((profile._volumeRingerMode == 2) || (profile._volumeRingerMode == 3))
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
                         // volume off
-                        if (profile._volumeRingerMode == 4)
-                            drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off;
+                        if (profile._volumeRingerMode == 4) {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_off;
+                        }
                     }
                 }
             }
@@ -77,8 +81,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, context) == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing;
-                    if (profile._vibrateWhenRinging == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing_off;
+                    if (profile._vibrateWhenRinging == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibrate_when_ringing_off;
+                    }
                 }
             }*/
             // volume level
@@ -101,8 +109,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (profile._volumeSpeakerPhone == 1)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone;
-                    if (profile._volumeSpeakerPhone == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off;
+                    if (profile._volumeSpeakerPhone == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off;
+                    }
                 }
             }
             // sound
@@ -119,8 +131,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_ON_TOUCH, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._soundOnTouch == 1) || (profile._soundOnTouch == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch;
-                    if (profile._soundOnTouch == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off;
+                    if (profile._soundOnTouch == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off;
+                    }
                 }
             }
             // vibration on touch
@@ -128,8 +144,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._vibrationOnTouch == 1) || (profile._vibrationOnTouch == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
-                    if (profile._vibrationOnTouch == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
+                    if (profile._vibrationOnTouch == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
+                    }
                 }
             }
             // dtmf tone when dialing
@@ -137,8 +157,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._dtmfToneWhenDialing == 1) || (profile._dtmfToneWhenDialing == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing;
-                    if (profile._dtmfToneWhenDialing == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off;
+                    if (profile._dtmfToneWhenDialing == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off;
+                    }
                 }
             }
             // airplane mode
@@ -146,8 +170,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceAirplaneMode == 1) || (profile._deviceAirplaneMode == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode;
-                    if (profile._deviceAirplaneMode == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off;
+                    if (profile._deviceAirplaneMode == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off;
+                    }
                 }
             }
             // auto-sync
@@ -155,8 +183,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceAutoSync == 1) || (profile._deviceAutoSync == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync;
-                    if (profile._deviceAutoSync == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off;
+                    if (profile._deviceAutoSync == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off;
+                    }
                 }
             }
             // network type
@@ -174,8 +206,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceMobileData == 1) || (profile._deviceMobileData == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata;
-                    if (profile._deviceMobileData == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off;
+                    if (profile._deviceMobileData == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off;
+                    }
                 }
             }
             // mobile data preferences
@@ -188,8 +224,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceWiFi == 1) || (profile._deviceWiFi == 3) || (profile._deviceWiFi == 4) || (profile._deviceWiFi == 5))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi;
-                    if (profile._deviceWiFi == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off;
+                    if (profile._deviceWiFi == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off;
+                    }
                 }
             }
             // wifi AP
@@ -197,8 +237,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceWiFiAP == 1) || (profile._deviceWiFiAP == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
-                    if (profile._deviceWiFiAP == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
+                    if (profile._deviceWiFiAP == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
+                    }
                 }
             }
             // wifi AP preferences
@@ -211,8 +255,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceBluetooth == 1) || (profile._deviceBluetooth == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth;
-                    if (profile._deviceBluetooth == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off;
+                    if (profile._deviceBluetooth == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off;
+                    }
                 }
             }
             // gps
@@ -220,8 +268,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceGPS == 1) || (profile._deviceGPS == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_on;
-                    if (profile._deviceGPS == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off;
+                    if (profile._deviceGPS == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off;
+                    }
                 }
             }
             // location settings preferences
@@ -234,8 +286,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceNFC == 1) || (profile._deviceNFC == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc;
-                    if (profile._deviceNFC == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off;
+                    if (profile._deviceNFC == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off;
+                    }
                 }
             }
             // screen timeout
@@ -248,8 +304,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_KEYGUARD, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._deviceKeyguard == 1) || (profile._deviceKeyguard == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
-                    if (profile._deviceKeyguard == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
+                    if (profile._deviceKeyguard == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
+                    }
                 }
             }
             // brightness/auto-brightness
@@ -271,8 +331,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._notificationLed == 1) || (profile._notificationLed == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led;
-                    if (profile._notificationLed == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off;
+                    if (profile._notificationLed == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off;
+                    }
                 }
             }
             // heads-up notifications
@@ -280,8 +344,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._headsUpNotifications == 1) || (profile._headsUpNotifications == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications;
-                    if (profile._headsUpNotifications == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
+                    if (profile._headsUpNotifications == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
+                    }
                 }
             }
             /*
@@ -290,8 +358,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, context) == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._screenNightMode == 1) || (profile._screenNightMode == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode;
-                    if (profile._screenNightMode == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_off;
+                    if (profile._screenNightMode == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_night_mode_off;
+                    }
                 }
             }
             */
@@ -300,8 +372,12 @@ class ProfilePreferencesIndicator {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if ((profile._devicePowerSaveMode == 1) || (profile._devicePowerSaveMode == 3))
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode;
-                    if (profile._devicePowerSaveMode == 2)
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off;
+                    if (profile._devicePowerSaveMode == 2) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off;
+                    }
                 }
             }
             // run application
@@ -333,8 +409,12 @@ class ProfilePreferencesIndicator {
             // disable wifi scanning
             if (profile._applicationDisableWifiScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi;
+                    if ((profile._applicationDisableWifiScanning == 1) || (profile._applicationDisableWifiScanning == 3)) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi;
+                    }
                     if (profile._applicationDisableWifiScanning == 2)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_off;
                 }
@@ -342,8 +422,12 @@ class ProfilePreferencesIndicator {
             // disable bluetooth scanning
             if (profile._applicationDisableBluetoothScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth;
+                    if ((profile._applicationDisableBluetoothScanning == 1) || (profile._applicationDisableBluetoothScanning == 3)) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth;
+                    }
                     if (profile._applicationDisableBluetoothScanning == 2)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_off;
                 }
@@ -351,8 +435,12 @@ class ProfilePreferencesIndicator {
             // disable location scanning
             if (profile._applicationDisableLocationScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location;
+                    if ((profile._applicationDisableLocationScanning == 1) || (profile._applicationDisableLocationScanning == 3)) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location;
+                    }
                     if (profile._applicationDisableLocationScanning == 2)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_off;
                 }
@@ -360,8 +448,12 @@ class ProfilePreferencesIndicator {
             // disable mobile cell scanning
             if (profile._applicationDisableMobileCellScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell;
+                    if ((profile._applicationDisableMobileCellScanning == 1) || (profile._applicationDisableMobileCellScanning == 3)) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell;
+                    }
                     if (profile._applicationDisableMobileCellScanning == 2)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_off;
                 }
@@ -369,8 +461,12 @@ class ProfilePreferencesIndicator {
             // disable orientation scanning
             if (profile._applicationDisableOrientationScanning != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3))
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation;
+                    if ((profile._applicationDisableOrientationScanning == 1) || (profile._applicationDisableOrientationScanning == 3)) {
+                        if (monochrome)
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_mono;
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation;
+                    }
                     if (profile._applicationDisableOrientationScanning == 2)
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
                 }
