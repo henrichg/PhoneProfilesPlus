@@ -88,7 +88,7 @@ public class NFCTagReadActivity extends AppCompatActivity {
 
                 try {
                     NFCTagReadActivity.this.finish();
-                } catch (Exception ignored) {};
+                } catch (Exception ignored) {}
             }
         });
 

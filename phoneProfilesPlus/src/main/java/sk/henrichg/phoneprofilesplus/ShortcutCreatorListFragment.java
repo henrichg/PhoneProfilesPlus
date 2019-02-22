@@ -349,7 +349,7 @@ public class ShortcutCreatorListFragment extends Fragment {
                 try {
                     //noinspection ConstantConditions
                     getActivity().finish();
-                } catch (Exception ignored) {};
+                } catch (Exception ignored) {}
             }
 
         }.execute();

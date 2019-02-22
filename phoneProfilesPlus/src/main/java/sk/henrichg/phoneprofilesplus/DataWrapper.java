@@ -1755,7 +1755,7 @@ public class DataWrapper {
                 public void run() {
                     try {
                         _activity.finish();
-                    } catch (Exception ignored) {};
+                    } catch (Exception ignored) {}
                 }
             });
         }
@@ -3968,7 +3968,7 @@ public class DataWrapper {
                     public void run() {
                         try {
                             activity.finish();
-                        } catch (Exception ignored) {};
+                        } catch (Exception ignored) {}
                     }
                 });
             }
@@ -4088,7 +4088,7 @@ public class DataWrapper {
             return getProfileNameWithManualIndicator(profile, eventTimelineList, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB, context);
         }
         else {
-            return getProfileNameWithManualIndicator(profile, null, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB, context);
+            return getProfileNameWithManualIndicator(profile, null, addEventName, indicators, addDuration, multiLine, null, fromDB, context);
         }
     }
 

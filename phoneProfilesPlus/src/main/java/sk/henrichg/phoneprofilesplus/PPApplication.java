@@ -2023,7 +2023,7 @@ public class PPApplication extends Application {
                         try {
                             if (activity != null)
                                 activity.finish();
-                        } catch (Exception ignored) {};
+                        } catch (Exception ignored) {}
                     }
                 };
                 _handler.post(r);

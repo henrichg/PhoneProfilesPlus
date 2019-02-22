@@ -126,7 +126,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
                     NFCTagWriteActivity.this.setResult(Activity.RESULT_OK, returnIntent);
                     try {
                         NFCTagWriteActivity.this.finish();
-                    } catch (Exception ignored) {};
+                    } catch (Exception ignored) {}
                 }
             });
             nfcManager.setOnTagWriteErrorListener(new NFCTagReadWriteManager.TagWriteErrorListener() {

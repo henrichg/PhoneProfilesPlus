@@ -276,7 +276,7 @@ public class ActivateProfileListFragment extends Fragment {
 
                     try {
                         fragment.getActivity().finish();
-                    } catch (Exception ignored) {};
+                    } catch (Exception ignored) {}
 
                     return;
                 }
@@ -541,7 +541,7 @@ public class ActivateProfileListFragment extends Fragment {
                         //Log.d("ActivateProfileListFragment.showTargetHelps", "finish activity");
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception ignored) {};
+                        } catch (Exception ignored) {}
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }
@@ -585,7 +585,7 @@ public class ActivateProfileListFragment extends Fragment {
                         //Log.d("ActivateProfileListFragment.showAdapterTargetHelps", "finish activity");
                         try {
                             ActivatorTargetHelpsActivity.activity.finish();
-                        } catch (Exception ignored) {};
+                        } catch (Exception ignored) {}
                         ActivatorTargetHelpsActivity.activity = null;
                         //ActivatorTargetHelpsActivity.activatorActivity = null;
                     }
