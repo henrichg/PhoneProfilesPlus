@@ -558,7 +558,7 @@ class EventsHandler {
             } else {
                 if (!restartEventsAtEnd) {
                     // update only when will not be do restart events from paused events
-                    dataWrapper.updateNotificationAndWidgets();
+                    dataWrapper.updateNotificationAndWidgets(false);
                 }
             }
 

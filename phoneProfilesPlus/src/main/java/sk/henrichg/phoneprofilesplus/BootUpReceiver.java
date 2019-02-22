@@ -89,7 +89,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                     }
 
                                     dataWrapper.firstStartEvents(true, false);
-                                    dataWrapper.updateNotificationAndWidgets();
+                                    dataWrapper.updateNotificationAndWidgets(true);
                                 } else {
                                     PPApplication.logE("BootUpReceiver.onReceive", "global event run is not enabled, manually activate profile");
 
@@ -98,7 +98,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                     dataWrapper.pauseAllEvents(true, false/*, false*/);
 
                                     dataWrapper.activateProfileOnBoot();
-                                    dataWrapper.updateNotificationAndWidgets();
+                                    dataWrapper.updateNotificationAndWidgets(true);
                                 }
                             }
                         } else {

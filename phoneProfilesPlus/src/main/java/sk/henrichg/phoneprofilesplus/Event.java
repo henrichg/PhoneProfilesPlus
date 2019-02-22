@@ -1342,7 +1342,7 @@ class Event {
                     (this._fkProfileStart != activatedProfileId))
                 dataWrapper.activateProfileFromEvent(this._fkProfileStart, /*interactive,*/ false, false);
             else
-                dataWrapper.updateNotificationAndWidgets();
+                dataWrapper.updateNotificationAndWidgets(false);
         }
         else {
             mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
@@ -1473,7 +1473,7 @@ class Event {
 
         if (!profileActivated)
         {
-            dataWrapper.updateNotificationAndWidgets();
+            dataWrapper.updateNotificationAndWidgets(false);
         }
 
     }

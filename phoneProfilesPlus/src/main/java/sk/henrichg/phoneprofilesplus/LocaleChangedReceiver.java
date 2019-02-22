@@ -25,7 +25,7 @@ public class LocaleChangedReceiver extends BroadcastReceiver {
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=LocaleChangedReceiver.onReceive");
 
                         if (ApplicationPreferences.applicationLanguage(appContext).equals("system")) {
-                            PPApplication.showProfileNotification(/*appContext*/);
+                            PPApplication.showProfileNotification(/*appContext*/true);
                         }
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocaleChangedReceiver.onReceive");

@@ -1575,7 +1575,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (!isFinishing())
                         GlobalGUIRoutines.unlockScreenOrientation(activity);
 
-                    this.dataWrapper.updateNotificationAndWidgets();
+                    this.dataWrapper.updateNotificationAndWidgets(true);
 
                     PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                     Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);
@@ -2038,7 +2038,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
             fragment.updateHeader(activeProfile);
-            PPApplication.showProfileNotification(/*getApplicationContext()*/);
+            PPApplication.showProfileNotification(/*getApplicationContext()*/true);
             ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
 
             fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

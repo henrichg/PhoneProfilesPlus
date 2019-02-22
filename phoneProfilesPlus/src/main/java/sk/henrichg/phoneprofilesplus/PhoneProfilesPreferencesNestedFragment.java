@@ -1904,7 +1904,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
 
                     //Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
                     //dataWrapper.refreshProfileIcon(activatedProfile);
-                    PPApplication.showProfileNotification(/*context*/);
+                    PPApplication.showProfileNotification(/*context*/true);
                     ActivateProfileHelper.updateGUI(context, !finishActivity);
 
                     if (finishActivity) {

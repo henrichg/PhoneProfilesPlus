@@ -252,7 +252,7 @@ public class PhoneProfilesService extends Service
 
         if (Build.VERSION.SDK_INT >= 26)
             // show empty notification to avoid ANR
-            showProfileNotification();
+            showProfileNotification(true);
 
         Context appContext = getApplicationContext();
 
@@ -313,7 +313,7 @@ public class PhoneProfilesService extends Service
             stopSelf();
         }*/
         //if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
-            showProfileNotification();
+            showProfileNotification(true);
         //    stopSelf();
         //}
     }
@@ -3334,7 +3334,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "showProfileNotification()");
             // do not call this from handlerThread. In Android 8 handlerThread is not called
             // when for service is not displayed foreground notification
-            showProfileNotification();
+            showProfileNotification(false);
         //}
 
         //if (!PPApplication.getApplicationStarted(getApplicationContext(), false)) {
@@ -4160,7 +4160,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        showProfileNotification();
+        showProfileNotification(true);
         ActivateProfileHelper.updateGUI(getApplicationContext(), true);
     }
 
@@ -4169,7 +4169,7 @@ public class PhoneProfilesService extends Service
     // profile notification -------------------
 
     @SuppressLint("NewApi")
-    private void _showProfileNotification(Profile profile, boolean inHandlerThread, final DataWrapper dataWrapper)
+    private void _showProfileNotification(Profile profile, boolean inHandlerThread, final DataWrapper dataWrapper, boolean refresh)
     {
         PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
@@ -4185,17 +4185,7 @@ public class PhoneProfilesService extends Service
 
         if ((Build.VERSION.SDK_INT >= 26) || ApplicationPreferences.notificationStatusBar(appContext))
         {
-            PPApplication.logE("PhoneProfilesService._showProfileNotification", "show");
-
-            boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(appContext);
-            boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
-            //boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
-            boolean notificationUseDecoration = ApplicationPreferences.notificationUseDecoration(appContext);
-            boolean notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator(appContext);
-            boolean notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen(appContext);
-            String notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle(appContext);
-            String notificationTextColor = ApplicationPreferences.notificationTextColor(appContext);
-            String notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor(appContext);
+            PPApplication.logE("PhoneProfilesService._showProfileNotification", "show enabled");
 
             // intent to LauncherActivity, for click on notification
             Intent intent = new Intent(appContext, LauncherActivity.class);
@@ -4206,7 +4196,33 @@ public class PhoneProfilesService extends Service
             int requestCode = 0;
             if (inHandlerThread && (profile != null))
                 requestCode = (int)profile._id;
-            PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            if (!refresh && inHandlerThread) {
+                // not redraw notification when activated profile is not changed
+                // activated profile is in requestCode
+
+                // get old notification
+                PendingIntent oldPIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
+                if (oldPIntent != null) {
+                    String pNameNotification = PPApplication.getNotificationProfileName(appContext);
+
+                    String pName;
+                    if (profile != null)
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext);
+                    else
+                        pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+                    if (pName.equals(pNameNotification)) {
+                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile NOT changed");
+                        return;
+                    }
+                }
+            }
+
+            if (refresh)
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "refresh");
+            else
+                PPApplication.logE("PhoneProfilesService._showProfileNotification", "activated profile changed");
 
             PendingIntent pIntentRE = null;
             if (Event.getGlobalEventsRunning(getBaseContext().getApplicationContext()) &&
@@ -4216,6 +4232,16 @@ public class PhoneProfilesService extends Service
                 intentRE.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 pIntentRE = PendingIntent.getActivity(appContext, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
             }
+
+            boolean notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar(appContext);
+            boolean notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
+            //boolean notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
+            boolean notificationUseDecoration = ApplicationPreferences.notificationUseDecoration(appContext);
+            boolean notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator(appContext);
+            boolean notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen(appContext);
+            String notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle(appContext);
+            String notificationTextColor = ApplicationPreferences.notificationTextColor(appContext);
+            String notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor(appContext);
 
             Notification.Builder notificationBuilder;
 
@@ -4322,6 +4348,7 @@ public class PhoneProfilesService extends Service
 
             boolean isIconResourceID;
             String iconIdentifier;
+            String pName;
             Spannable profileName;
             Bitmap iconBitmap;
             Bitmap preferencesIndicator;
@@ -4331,6 +4358,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("PhoneProfilesService.showProfileNotification", "profile != null");
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
+                pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, appContext);
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false, appContext);
 
                 if (inHandlerThread) {
@@ -4349,7 +4377,6 @@ public class PhoneProfilesService extends Service
             {
                 isIconResourceID = true;
                 iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
-                String pName;
                 if (inHandlerThread)
                     pName = appContext.getResources().getString(R.string.profiles_header_profile_name_no_activated);
                 else
@@ -4358,6 +4385,10 @@ public class PhoneProfilesService extends Service
                 iconBitmap = null;
                 preferencesIndicator = null;
             }
+
+            PPApplication.setNotificationProfileName(appContext, pName);
+
+            PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             notificationBuilder = new Notification.Builder(appContext);
             notificationBuilder.setContentIntent(pIntent);
@@ -4657,7 +4688,7 @@ public class PhoneProfilesService extends Service
         }*/
     }
 
-    void showProfileNotification() {
+    void showProfileNotification(final boolean refresh) {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (BuildConfig.DEBUG)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
@@ -4668,7 +4699,7 @@ public class PhoneProfilesService extends Service
                 if (!runningInForeground || (instance == null)) {
                     //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                     DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                    _showProfileNotification(null, false, dataWrapper);
+                    _showProfileNotification(null, false, dataWrapper, true);
                     dataWrapper.invalidateDataWrapper();
                 }
             }
@@ -4688,7 +4719,7 @@ public class PhoneProfilesService extends Service
                         DataWrapper dataWrapper = new DataWrapper(instance.getApplicationContext(), false, 0, false);
                         Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
                         PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                        instance._showProfileNotification(profile, true, dataWrapper);
+                        instance._showProfileNotification(profile, true, dataWrapper, refresh);
                         dataWrapper.invalidateDataWrapper();
                     }
                 }
@@ -4769,7 +4800,6 @@ public class PhoneProfilesService extends Service
             alarmManager.set(AlarmManager.ELAPSED_REALTIME, time, pendingIntent);
         }
     }
-
 
     //--------------------------
 

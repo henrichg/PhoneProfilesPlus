@@ -80,6 +80,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.doForFirstStart"
                                          +"|PhoneProfilesService.isServiceRunningInForeground"
                                          +"|PhoneProfilesService.showProfileNotification"
+                                         +"|PhoneProfilesService._showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|DataWrapper.firstStartEvents"
@@ -403,6 +404,7 @@ public class PPApplication extends Application {
     private static final String PREF_DAYS_AFTER_FIRST_START = "days_after_first_start";
     private static final String PREF_DONATION_NOTIFICATION_COUNT = "donation_notification_count";
     private static final String PREF_DONATION_DONATED = "donation_donated";
+    private static final String PREF_NOTIFICATION_PROFILE_NAME = "notification_profile_name";
 
 
     // scanner start/stop types
@@ -1016,6 +1018,20 @@ public class PPApplication extends Application {
         editor.apply();
     }
 
+    static public String getNotificationProfileName(Context context)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getString(PREF_NOTIFICATION_PROFILE_NAME, "");
+    }
+
+    static public void setNotificationProfileName(Context context, String notificationProfileName)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putString(PREF_NOTIFICATION_PROFILE_NAME, notificationProfileName);
+        editor.apply();
+    }
+
     // --------------------------------
 
     // notification channels -------------------------
@@ -1202,7 +1218,7 @@ public class PPApplication extends Application {
         PPApplication.createNotifyEventStartNotificationChannel(appContext);
     }
 
-    static void showProfileNotification(/*Context context*/) {
+    static void showProfileNotification(/*Context context*/boolean refresh) {
         try {
             PPApplication.logE("PPApplication.showProfileNotification", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1210,7 +1226,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_SHOW_PROFILE_NOTIFICATION, true);
             PPApplication.startPPService(context, serviceIntent);*/
             if (PhoneProfilesService.getInstance() != null)
-                PhoneProfilesService.getInstance().showProfileNotification();
+                PhoneProfilesService.getInstance().showProfileNotification(refresh);
         } catch (Exception ignored) {}
     }
 
