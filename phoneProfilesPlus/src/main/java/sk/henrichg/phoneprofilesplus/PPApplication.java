@@ -78,9 +78,9 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
-                                         +"|PhoneProfilesService.isServiceRunningInForeground"
-                                         +"|PhoneProfilesService.showProfileNotification"
-                                         +"|PhoneProfilesService._showProfileNotification"
+                                         //+"|PhoneProfilesService.isServiceRunningInForeground"
+                                         //+"|PhoneProfilesService.showProfileNotification"
+                                         //+"|PhoneProfilesService._showProfileNotification"
                                          //+"|PPApplication.createProfileNotificationChannel"
                                          +"|PhoneProfilesService.onDestroy"
                                          +"|DataWrapper.firstStartEvents"
@@ -209,7 +209,7 @@ public class PPApplication extends Application {
 
                                          //+"|WifiScanJob"
                                          //+"|WifiScanBroadcastReceiver.onReceive"
-                                         //+"|----- DataWrapper.doHandleEvents"
+                                         //+"|[WiFi] DataWrapper.doHandleEvents"
                                          //+"|WifiSSIDPreference.refreshListView"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
