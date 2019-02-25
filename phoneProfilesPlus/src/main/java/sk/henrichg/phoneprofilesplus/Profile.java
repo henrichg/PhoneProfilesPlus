@@ -2823,7 +2823,7 @@ public class Profile {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
@@ -2859,7 +2859,7 @@ public class Profile {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
             }
             else
             {
@@ -2969,28 +2969,27 @@ public class Profile {
                     if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     }
-                    else {*/
-                        if (PPApplication.isRooted(fromUIThread)) {
-                            // device is rooted
+                    else*/
+                    if (PPApplication.isRooted(fromUIThread)) {
+                        // device is rooted
 
-                            if (profile != null) {
-                                // test if grant root is disabled
-                                if (profile.getDeviceBrightnessChange() && profile.getDeviceBrightnessAutomatic()) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                        // not needed to test all parameters
-                                        return preferenceAllowed;
-                                    }
+                        if (profile != null) {
+                            // test if grant root is disabled
+                            if (profile.getDeviceBrightnessChange() && profile.getDeviceBrightnessAutomatic()) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    // not needed to test all parameters
+                                    return preferenceAllowed;
                                 }
                             }
+                        }
 
-                            if (PPApplication.settingsBinaryExists(fromUIThread))
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                            else
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                        } else
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                    //}
+                        if (PPApplication.settingsBinaryExists(fromUIThread))
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+                    } else
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
                 else
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -3031,7 +3030,7 @@ public class Profile {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
                 else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
             }
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
@@ -3254,7 +3253,7 @@ public class Profile {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
                 else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
             }
             else
             if (value != -10)
