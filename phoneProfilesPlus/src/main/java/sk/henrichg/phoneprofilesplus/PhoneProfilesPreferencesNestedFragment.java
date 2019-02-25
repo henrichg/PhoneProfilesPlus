@@ -1590,85 +1590,107 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventLocationsUseGPS);
         }
         if (key.equals("wifiScanningCategory")) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiEnableScanning) + ": ";
-            if (ApplicationPreferences.applicationEventWifiEnableScanning(getActivity())) {
-                summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
-                if (!PhoneProfilesService.isLocationEnabled(getActivity())) {
-                    summary = summary + "\n";
-                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
-                }
-                else {
-                    summary = summary + "\n";
-                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
-                }
+            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity());
             }
-            else
-                summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
-            summary = summary + "\n\n";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanIfWifiOff);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanInterval);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+            else {
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiEnableScanning) + ": ";
+                if (ApplicationPreferences.applicationEventWifiEnableScanning(getActivity())) {
+                    summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
+                    if (!PhoneProfilesService.isLocationEnabled(getActivity())) {
+                        summary = summary + "\n";
+                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                                getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
+                    } else {
+                        summary = summary + "\n";
+                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                                getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+                    }
+                } else
+                    summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
+                summary = summary + "\n\n";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanIfWifiOff);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventWifiScanInterval);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+            }
         }
         if (key.equals("bluetoothScanningCategory")) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableScanning) + ": ";
-            if (ApplicationPreferences.applicationEventBluetoothEnableScanning(getActivity())) {
-                summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
-                if (!PhoneProfilesService.isLocationEnabled(getActivity())) {
-                    summary = summary + "\n";
-                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
-                }
-                else {
-                    summary = summary + "\n";
-                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
-                }
+            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext());
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity());
             }
-            else
-                summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
-            summary = summary + "\n\n";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanInterval);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothLEScanDuration);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+            else {
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothEnableScanning) + ": ";
+                if (ApplicationPreferences.applicationEventBluetoothEnableScanning(getActivity())) {
+                    summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
+                    if (!PhoneProfilesService.isLocationEnabled(getActivity())) {
+                        summary = summary + "\n";
+                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                                getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
+                    } else {
+                        summary = summary + "\n";
+                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                                getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+                    }
+                } else
+                    summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
+                summary = summary + "\n\n";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothScanInterval);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventBluetoothLEScanDuration);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+            }
         }
         if (key.equals("mobileCellsScanningCategory")) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
-            if (ApplicationPreferences.applicationEventMobileCellEnableScanning(getActivity())) {
-                summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
-                if ((Build.VERSION.SDK_INT >= 28) && (!PhoneProfilesService.isLocationEnabled(getActivity()))) {
-                    summary = summary + "\n";
-                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
-                }
-                else {
-                    summary = summary + "\n";
-                    summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
-                            getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
-                }
+            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext());
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity());
             }
-            else
-                summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
-            summary = summary + "\n\n";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+            else {
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
+                if (ApplicationPreferences.applicationEventMobileCellEnableScanning(getActivity())) {
+                    summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
+                    if ((Build.VERSION.SDK_INT >= 28) && (!PhoneProfilesService.isLocationEnabled(getActivity()))) {
+                        summary = summary + "\n";
+                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                                getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
+                    } else {
+                        summary = summary + "\n";
+                        summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
+                                getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+                    }
+                } else
+                    summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
+                summary = summary + "\n\n";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+            }
         }
         if (key.equals("orientationScanningCategory")) {
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning) + ": ";
-            if (ApplicationPreferences.applicationEventOrientationEnableScanning(getActivity()))
-                summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
-            else
-                summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
-            summary = summary + "\n\n";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationScanInterval);
-            if (!summary.isEmpty()) summary = summary + " • ";
-            summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext());
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity());
+            }
+            else {
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationEnableScanning) + ": ";
+                if (ApplicationPreferences.applicationEventOrientationEnableScanning(getActivity()))
+                    summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
+                else
+                    summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
+                summary = summary + "\n\n";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventOrientationScanInterval);
+                if (!summary.isEmpty()) summary = summary + " • ";
+                summary = summary + getString(R.string.phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn);
+            }
         }
         if (key.equals("categoryActivator")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);

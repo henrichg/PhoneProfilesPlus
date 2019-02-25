@@ -198,8 +198,7 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
 
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
-        if (preferenceAllowed.allowed
-                    != PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             /*prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL).setEnabled(false);
             prefMng.findPreference(PPApplication.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI).setEnabled(false);
@@ -209,11 +208,8 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_WIFI, false);
             editor.apply();
             Preference preference = prefMng.findPreference("wifiScanningCategory");
-            if (preference != null) {
-                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity()));
+            if (preference != null)
                 preference.setEnabled(false);
-            }
         }
 
         preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, getActivity().getApplicationContext());
@@ -229,22 +225,16 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_BLUETOOTH, false);
             editor.apply();
             Preference preference = prefMng.findPreference("bluetoothScanningCategory");
-            if (preference != null) {
-                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity()));
+            if (preference != null)
                 preference.setEnabled(false);
-            }
         }
 
         preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             Preference preference = prefMng.findPreference("orientationScanningCategory");
-            if (preference != null) {
-                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity()));
+            if (preference != null)
                 preference.setEnabled(false);
-            }
         }
 
         preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, getActivity().getApplicationContext());
@@ -252,11 +242,8 @@ public class PhoneProfilesPreferencesFragment extends PhoneProfilesPreferencesNe
         {
 
             Preference preference = prefMng.findPreference("mobileCellsScanningCategory");
-            if (preference != null) {
-                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity()));
+            if (preference != null)
                 preference.setEnabled(false);
-            }
         }
 
         if (!PhoneProfilesService.isLocationEnabled(getActivity().getApplicationContext())) {

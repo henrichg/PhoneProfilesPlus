@@ -2240,14 +2240,23 @@ class Event {
         if (checked)
             return preferenceAllowed;
 
-        if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED))
+        if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED) ||
+                preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
                 // device has telephony
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY))
-                    // sim card is ready
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (telephonyManager != null) {
+                    if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
+                        if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
+                            // sim card is ready
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                    }
+                    else
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
@@ -2270,13 +2279,23 @@ class Event {
         if (checked)
             return preferenceAllowed;
 
-        if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED))
+        if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED) ||
+                preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
                 // device has telephony
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY))
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (telephonyManager != null) {
+                    if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
+                        if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
+                            // sim card is ready
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                    }
+                    else
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
@@ -2287,13 +2306,23 @@ class Event {
         if (checked)
             return preferenceAllowed;
 
-        if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED))
+        if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED) ||
+                preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM))
         {
             if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY)) {
                 // device has telephony
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if ((telephonyManager != null) && (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY))
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (telephonyManager != null) {
+                    if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
+                        if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY)
+                            // sim card is ready
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                        else
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                    }
+                    else
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }

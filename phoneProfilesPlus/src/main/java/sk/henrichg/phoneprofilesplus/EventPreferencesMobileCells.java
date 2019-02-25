@@ -25,6 +25,8 @@ class EventPreferencesMobileCells extends EventPreferences {
     private static final String PREF_EVENT_MOBILE_CELLS_APP_SETTINGS = "eventMobileCellsScanningAppSettings";
     static final String PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = "eventMobileCellsLocationSystemSettings";
 
+    static final String PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM = "eventMobileCellsEnabledNoCheckSim";
+
     private static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
 
     //private DataWrapper dataWrapper = null;
@@ -77,13 +79,14 @@ class EventPreferencesMobileCells extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_mobile_cells_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (addBullet) {
-                    descr = descr + "<b>\u2022 ";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, DatabaseHandler.ETYPE_MOBILE_CELLS, context);
-                    descr = descr + ": </b>";
-                }
+            if (addBullet) {
+                descr = descr + "<b>\u2022 ";
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_mobile_cells), addPassStatus, DatabaseHandler.ETYPE_MOBILE_CELLS, context);
+                descr = descr + ": </b>";
+            }
 
+            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
+            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning(context)) {
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile(context))
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
@@ -106,6 +109,10 @@ class EventPreferencesMobileCells extends EventPreferences {
                 descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": " +selectedCells;
                 if (this._whenOutside)
                     descr = descr + "; " + context.getString(R.string.event_preferences_mobile_cells_when_outside_description);
+            }
+            else {
+                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
             }
         }
 
@@ -247,7 +254,7 @@ class EventPreferencesMobileCells extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesMobileCells tmp = new EventPreferencesMobileCells(this._event,
                     this._enabled, this._cells, this._whenOutside);

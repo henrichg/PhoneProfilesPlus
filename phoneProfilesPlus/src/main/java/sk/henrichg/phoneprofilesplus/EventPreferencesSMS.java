@@ -39,6 +39,8 @@ class EventPreferencesSMS extends EventPreferences {
     static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
     static final String PREF_EVENT_SMS_LAUNCH_EXTENDER = "eventSMSLaunchExtender";
 
+    static final String PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM = "eventSMSEnabledEnabledNoCheckSim";
+
     private static final String PREF_EVENT_SMS_CATEGORY = "eventSMSCategory";
 
     //static final int SMS_EVENT_UNDEFINED = -1;
@@ -123,13 +125,14 @@ class EventPreferencesSMS extends EventPreferences {
             if (!addBullet)
                 descr = context.getString(R.string.event_preference_sensor_sms_summary);
         } else {
-            if (Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if (addBullet) {
-                    descr = descr + "<b>\u2022 ";
-                    descr = descr + getPassStatusString(context.getString(R.string.event_type_sms), addPassStatus, DatabaseHandler.ETYPE_SMS, context);
-                    descr = descr + ": </b>";
-                }
+            if (addBullet) {
+                descr = descr + "<b>\u2022 ";
+                descr = descr + getPassStatusString(context.getString(R.string.event_type_sms), addPassStatus, DatabaseHandler.ETYPE_SMS, context);
+                descr = descr + ": </b>";
+            }
 
+            PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);
+            if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
                 if (extenderVersion == 0) {
                     descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
@@ -152,6 +155,10 @@ class EventPreferencesSMS extends EventPreferences {
                     else
                         descr = descr + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
                 }
+            }
+            else {
+                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
             }
         }
 
@@ -270,7 +277,7 @@ class EventPreferencesSMS extends EventPreferences {
 
     @Override
     public void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
-        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED, context);
+        PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType,
                                                                 this._permanentRun, this._duration);
