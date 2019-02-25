@@ -1264,6 +1264,9 @@
     <string name="phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary">Location disabled</string>
     <string name="phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary">Location enabled</string>
 
+    <string name="preference_not_allowed_reason_no_sim_card">no SIM card</string>
+    <string name="preference_not_allowed_reason_not_granted_g1_permission">not granted permission WRITE_SECURE_SETTINGS</string>
+
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
