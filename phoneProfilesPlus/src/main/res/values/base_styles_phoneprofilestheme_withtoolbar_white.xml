@@ -49,9 +49,9 @@
         <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="windowActionModeOverlay">true</item>
-        <item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background_white</item>
+        <!--<item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background_white</item>-->
         <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor_white</item>
-        <item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg_white</item>
+        <!--<item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg_white</item>-->
         <item name="dialogDivider">@color/dialog_divider_white</item>
         <!--<item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item>-->
         <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload_white</item>

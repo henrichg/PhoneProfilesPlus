@@ -91,7 +91,7 @@
     <attr name="importantInfoEventsRestartIcon" format="reference" />
     <attr name="toolbarTheme" format="reference" />
     <attr name="toolbarPopupMenu" format="reference" />
-    <attr name="editorDrawerListHeaderBackground" format="reference" />
+    <!--<attr name="editorDrawerListHeaderBackground" format="reference" />-->
     <attr name="editorDrawerListHeaderTitle" format="reference" />
     <attr name="dialogDivider" format="reference" />
     <!--<attr name="actionActivityLogIcon" format="reference" />-->
@@ -110,7 +110,7 @@
     <attr name="bottomToolbarTheme" format="reference" />
     <attr name="editorFilterTitleColor" format="reference" />
     <attr name="runEventsIndicatorAll" format="reference" />
-    <attr name="editorDrawerFilterHeaderBg" format="reference" />
+    <!--<attr name="editorDrawerFilterHeaderBg" format="reference" />-->
     <attr name="buttonBackground" format="reference" />
     <attr name="eventPauseTextColor" format="reference" />
     <attr name="eventStopStatusIndicator" format="reference" />
