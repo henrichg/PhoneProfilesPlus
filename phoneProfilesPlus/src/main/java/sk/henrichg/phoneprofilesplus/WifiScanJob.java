@@ -508,7 +508,7 @@ class WifiScanJob extends Job {
             PPApplication.logE("%%%% WifiScanJob.fillScanResults", "_scanResults="+_scanResults);
             if (_scanResults != null) {
                 //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                //boolean isScreenOn = pm.isScreenOn();
+                //boolean isScreenOn = PPApplication.isScreenOn(pm);
                 //PPApplication.logE("%%%% WifiScanJob.fillScanResults", "isScreenOn="+isScreenOn);
                 //if ((android.os.Build.VERSION.SDK_INT < 21) || (_scanResults.size() > 0) || isScreenOn) {
                 save = true;

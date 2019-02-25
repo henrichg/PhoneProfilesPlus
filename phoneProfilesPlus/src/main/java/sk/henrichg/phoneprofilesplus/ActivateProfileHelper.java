@@ -1838,7 +1838,7 @@ class ActivateProfileHelper {
         {
             if (profile._deviceMobileDataPrefs == 1)
             {
-                if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                if ((pm != null) && PPApplication.isScreenOn(pm) && (myKM != null) && !myKM.isKeyguardLocked()) {
                     boolean ok = true;
                     try {
                         Intent intent = new Intent(Intent.ACTION_MAIN, null);
@@ -1901,7 +1901,7 @@ class ActivateProfileHelper {
         {
             if (profile._deviceNetworkTypePrefs == 1)
             {
-                if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+                if ((pm != null) && PPApplication.isScreenOn(pm) && (myKM != null) && !myKM.isKeyguardLocked()) {
                     try {
                         final Intent intent = new Intent(Settings.ACTION_DATA_ROAMING_SETTINGS);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1924,7 +1924,7 @@ class ActivateProfileHelper {
         //{  No check only GPS
         if (profile._deviceLocationServicePrefs == 1)
         {
-            if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+            if ((pm != null) && PPApplication.isScreenOn(pm) && (myKM != null) && !myKM.isKeyguardLocked()) {
                 try {
                     final Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1945,7 +1945,7 @@ class ActivateProfileHelper {
         }
         //}
         if (profile._deviceWiFiAPPrefs == 1) {
-            if ((pm != null) && pm.isScreenOn() && (myKM != null) && !myKM.isKeyguardLocked()) {
+            if ((pm != null) && PPApplication.isScreenOn(pm) && (myKM != null) && !myKM.isKeyguardLocked()) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_MAIN, null);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2053,7 +2053,7 @@ class ActivateProfileHelper {
         // screen timeout
         if (Permissions.checkProfileScreenTimeout(context, profile, null)) {
             PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
-            if ((pm != null) && pm.isScreenOn()) {
+            if ((pm != null) && PPApplication.isScreenOn(pm)) {
                 //Log.d("ActivateProfileHelper.execute","screen on");
                 if (PPApplication.screenTimeoutHandler != null) {
                     PPApplication.screenTimeoutHandler.post(new Runnable() {
@@ -2092,17 +2092,9 @@ class ActivateProfileHelper {
         }
         if (setLockScreen) {
             boolean isScreenOn;
-            //if (android.os.Build.VERSION.SDK_INT >= 20)
-            //{
-            //	Display display = ((WindowManager)context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
-            //	isScreenOn = display.getState() != Display.STATE_OFF;
-            //}
-            //else
-            //{
             PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
             if (pm != null) {
-                isScreenOn = pm.isScreenOn();
-                //}
+                isScreenOn = PPApplication.isScreenOn(pm);
                 PPApplication.logE("$$$ ActivateProfileHelper.execute", "isScreenOn=" + isScreenOn);
                 boolean keyguardShowing;
                 KeyguardManager kgMgr = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
