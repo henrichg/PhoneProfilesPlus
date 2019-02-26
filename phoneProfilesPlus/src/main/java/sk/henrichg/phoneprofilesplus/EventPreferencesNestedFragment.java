@@ -145,8 +145,13 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
-                        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                    String activity;
+                    if (Build.VERSION.SDK_INT >= 22)
+                        activity = Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS;
+                    else
+                        activity = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
+                    if (GlobalGUIRoutines.activityActionExists(activity, context)) {
+                        Intent intent = new Intent();
                         startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                     }
                     else {
