@@ -59,7 +59,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     //static final int RESULT_LOCALE_SETTINGS = 1996;
     static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
-    private static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
+    static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
     private static final int RESULT_WIFI_KEEP_ON_SETTINGS = 1999;
     static final String PREF_NOTIFICATION_SYSTEM_SETTINGS = "notificationSystemSettings";
     static final String PREF_APPLICATION_POWER_MANAGER = "applicationPowerManager";
@@ -1465,6 +1465,18 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
             preference.setSummary(summary);
         }
+        if (key.equals(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS)) {
+            String summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
+            if (!PhoneProfilesService.isWifiSleepPolicySetToNever(getActivity().getApplicationContext())) {
+                summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n" +
+                        summary;
+            }
+            else {
+                summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
+                        summary;
+            }
+            preference.setSummary(summary);
+        }
     }
 
     private void setCategorySummary(PreferenceScreen preferenceCategory, String summary) {
@@ -1607,6 +1619,16 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                         summary = summary + "\n";
                         summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                                 getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+                    }
+                    if (!PhoneProfilesService.isWifiSleepPolicySetToNever(getActivity())) {
+                        summary = summary + "\n";
+                        summary = summary + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings) + ": " +
+                                getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary);
+                    }
+                    else {
+                        summary = summary + "\n";
+                        summary = summary + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings) + ": " +
+                                getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary);
                     }
                 } else
                     summary = summary + getString(R.string.array_pref_applicationDisableScanning_disabled);
@@ -1964,6 +1986,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             setSummary(PREF_WIFI_LOCATION_SYSTEM_SETTINGS);
             setSummary(PREF_BLUETOOTH_LOCATION_SYSTEM_SETTINGS);
             setSummary(PREF_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
+        }
+
+        if (resultCode == RESULT_WIFI_KEEP_ON_SETTINGS) {
+            setSummary(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS);
         }
 
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {

@@ -4834,6 +4834,15 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    public static boolean isWifiSleepPolicySetToNever(Context context) {
+        int wifiSleepPolicy = -1;
+        try {
+            wifiSleepPolicy = Settings.Global.getInt(context.getContentResolver(), Settings.Global.WIFI_SLEEP_POLICY);
+        } catch (Settings.SettingNotFoundException ignored) {
+        }
+        return wifiSleepPolicy == Settings.Global.WIFI_SLEEP_POLICY_NEVER;
+    }
+
     private void startGeofenceScanner(boolean resetUseGPS) {
         PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "xxx");
         if (geofencesScanner != null) {
