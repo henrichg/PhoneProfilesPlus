@@ -43,7 +43,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private static final String PRF_NOT_IS_RUNNABLE = "eventNotIsRunnable";
     private static final String PRF_NOT_ENABLED_SOME_SENSOR = "eventNotEnabledSomeSensors";
     private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "eventNotEnabledAccessibilityService";
-    private static final String PREF_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1981;
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1982;
     private static final int RESULT_LOCATION_APP_SETTINGS = 1983;
@@ -140,7 +139,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         event.checkPreferences(prefMng, context);
 
-        Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
+        Preference notificationAccessPreference = prefMng.findPreference(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
             //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

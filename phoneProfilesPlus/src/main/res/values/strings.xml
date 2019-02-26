@@ -1338,6 +1338,8 @@
     <string name="preference_not_allowed_reason_not_granted_g1_permission">not granted permission WRITE_SECURE_SETTINGS</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary">Set to Always</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Not set to Always</string>
+    <string name="event_preferences_notificationsAccessSettings_enabled_summary">Notification access enabled</string>
+    <string name="event_preferences_notificationsAccessSettings_disabled_summary">Notification access disabled</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

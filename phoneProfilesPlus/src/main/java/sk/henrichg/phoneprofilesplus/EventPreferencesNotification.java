@@ -21,6 +21,7 @@ class EventPreferencesNotification extends EventPreferences {
     private static final String PREF_EVENT_NOTIFICATION_APPLICATIONS = "eventNotificationApplications";
     private static final String PREF_EVENT_NOTIFICATION_IN_CALL = "eventNotificationInCall";
     private static final String PREF_EVENT_NOTIFICATION_MISSED_CALL = "eventNotificationMissedCall";
+    static final String PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
 
     private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategory";
 
@@ -87,11 +88,11 @@ class EventPreferencesNotification extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
-                String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context)) {
-                    selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
+                    descr = descr + "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *";
                 } else {
+                    descr = descr + context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + "<br>";
+
                     if (this._inCall) {
                         descr = descr + context.getString(R.string.event_preferences_notifications_inCall);
                     }
@@ -100,6 +101,7 @@ class EventPreferencesNotification extends EventPreferences {
                             descr = descr + "; ";
                         descr = descr + context.getString(R.string.event_preferences_notifications_missedCall);
                     }
+                    String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if (!this._applications.isEmpty() && !this._applications.equals("-")) {
                         String[] splits = this._applications.split("\\|");
                         if (splits.length == 1) {
@@ -125,10 +127,10 @@ class EventPreferencesNotification extends EventPreferences {
                         } else
                             selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                     }
+                    if (this._inCall || this._missedCall)
+                        descr = descr + "; ";
+                    descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
                 }
-                if (this._inCall || this._missedCall)
-                    descr = descr + "; ";
-                descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
             }
         }
 
@@ -142,6 +144,22 @@ class EventPreferencesNotification extends EventPreferences {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
                 GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+            }
+        }
+
+        if (key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary = context.getString(R.string.event_preferences_volumeNotificationsAccessSettings_summary);
+                if (!PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext())) {
+                    summary = "* " + context.getString(R.string.event_preferences_notificationsAccessSettings_disabled_summary) + "! *\n\n"+
+                            summary;
+                }
+                else {
+                    summary = context.getString(R.string.event_preferences_notificationsAccessSettings_enabled_summary) + ".\n\n"+
+                            summary;
+                }
+                preference.setSummary(summary);
             }
         }
 
@@ -175,7 +193,8 @@ class EventPreferencesNotification extends EventPreferences {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
         }
-        if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)/* ||
+        if (key.equals(PREF_EVENT_NOTIFICATION_APPLICATIONS)||
+            key.equals(PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS)/* ||
             key.equals(PREF_EVENT_NOTIFICATION_DURATION)*/)
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
@@ -189,6 +208,7 @@ class EventPreferencesNotification extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_IN_CALL, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_MISSED_CALL, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_APPLICATIONS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
     }
 
     @Override
@@ -249,6 +269,7 @@ class EventPreferencesNotification extends EventPreferences {
             }
 
             SharedPreferences preferences = prefMng.getSharedPreferences();
+            setSummary(prefMng, PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS, preferences, context);
             setCategorySummary(prefMng, preferences, context);
         /*}
         else {
