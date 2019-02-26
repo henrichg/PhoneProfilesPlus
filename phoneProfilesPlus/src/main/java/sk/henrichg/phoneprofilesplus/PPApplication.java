@@ -278,6 +278,7 @@ public class PPApplication extends Application {
 
                                         //+"|PhoneCallReceiver"
                                         //+"|PhoneCallBroadcastReceiver"
+                                        //+"|PhoneCallBroadcastReceiver.callAnswered"
                                         //+"|ActivateProfileHelper.executeForVolumes"
 
                                         //+"|#### EventsHandler.handleEvents"

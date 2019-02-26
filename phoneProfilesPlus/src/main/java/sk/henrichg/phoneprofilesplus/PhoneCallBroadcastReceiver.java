@@ -145,9 +145,10 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
                 SystemClock.sleep(100);
             else
                 break;
-        } while (SystemClock.uptimeMillis() - start < 2000);
+        } while (SystemClock.uptimeMillis() - start < 3000);
 
         // audio mode is set to MODE_IN_CALL by system
+        //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "audio mode="+audioManager.getMode());
 
         DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
 
@@ -157,13 +158,18 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         if (profile != null) {
             if (profile._volumeSpeakerPhone != 0) {
                 savedSpeakerphone = audioManager.isSpeakerphoneOn();
+                //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "savedSpeakerphone="+savedSpeakerphone);
+                //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
                 boolean changeSpeakerphone = false;
                 if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
                     changeSpeakerphone = true;
                 if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
                     changeSpeakerphone = true;
+                //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "changeSpeakerphone="+changeSpeakerphone);
                 if (changeSpeakerphone) {
                     /// activate SpeakerPhone
+                    // not working in EMUI :-/
+                    //audioManager.setMode(AudioManager.MODE_IN_CALL);
                     audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
                     speakerphoneSelected = true;
                 }
@@ -190,8 +196,10 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 
         if (speakerphoneSelected)
         {
-            if (audioManager != null)
+            if (audioManager != null) {
+                //audioManager.setMode(AudioManager.MODE_IN_CALL);
                 audioManager.setSpeakerphoneOn(savedSpeakerphone);
+            }
         }
 
         speakerphoneSelected = false;
