@@ -257,7 +257,8 @@ class ApplicationEditorDialog
                                 break;
                         }
                     }
-                    PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application="+_application);
+                    PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.intentId="+_application.intentId);
+                    PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.appLabel="+_application.appLabel);
                     applicationList.add(_application);
                     pos++;
                 }
@@ -454,13 +455,17 @@ class ApplicationEditorDialog
 
         if (position == selectedPosition) {
             Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            positive.setEnabled(true);
+            positive.setEnabled(false);
             selectedPosition = -1;
             updateSelectedAppViews();
+            if (editedApplication != null)
+                editedApplication.intentId = 0;
         }
 
         listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
+
+        ApplicationEditorDialog.this.preference.updateGUI();
     }
 
     public void show() {

@@ -44,6 +44,8 @@ class PPIntent implements Parcelable {
     String _categories;
     String _flags;
 
+    int _usedCount;
+
     PPIntent() {}
 
     PPIntent(
@@ -85,7 +87,8 @@ class PPIntent implements Parcelable {
         String extraValue10,
         int extraType10,
         String categories,
-        String flags
+        String flags,
+        int usedCount
     )
     {
         this._id = id;
@@ -127,6 +130,8 @@ class PPIntent implements Parcelable {
         this._extraType10 = extraType10;
         this._categories = categories;
         this._flags = flags;
+
+        this._usedCount = usedCount;
     }
 
     PPIntent(Parcel in) {
@@ -169,6 +174,8 @@ class PPIntent implements Parcelable {
         this._extraType10 = in.readInt();
         this._categories = in.readString();
         this._flags = in.readString();
+
+        this._usedCount = in.readInt();
     }
 
     @Override
@@ -217,6 +224,8 @@ class PPIntent implements Parcelable {
         dest.writeInt(this._extraType10);
         dest.writeString(this._categories);
         dest.writeString(this._flags);
+
+        dest.writeInt(this._usedCount);
     }
 
     public static final Parcelable.Creator<PPIntent> CREATOR = new Parcelable.Creator<PPIntent>() {

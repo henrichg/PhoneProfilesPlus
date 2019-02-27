@@ -133,11 +133,11 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
                             if (application.type != Application.TYPE_INTENT)
                                 value = value + application.packageName + "/" + application.activityName;
+                            else
+                                value = value + application.intentId;
 
                             if ((application.type == Application.TYPE_SHORTCUT)/* && (application.shortcutId > 0)*/)
                                 value = value + "#" + application.shortcutId;
-                            if ((application.type == Application.TYPE_INTENT)/* && (application.intentId > 0)*/)
-                                value = value + "#" + application.intentId;
 
                             value = value + "#" + application.startApplicationDelay;
                             PPApplication.logE("ApplicationsDialogPreference.onPositive","value="+value);
@@ -253,6 +253,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         setSummaryAMSDP();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void refreshListView(final boolean afterEdit) {
         asyncTask = new AsyncTask<Void, Integer, Void>() {
 
@@ -271,9 +272,10 @@ public class ApplicationsDialogPreference  extends DialogPreference
                         EditorProfilesActivity.getApplicationsCache().cacheApplicationsList(context);
 
                 List<PPIntent> _intentDBList = DatabaseHandler.getInstance(context.getApplicationContext()).getAllIntents();
+                intentDBList.clear();
                 intentDBList.addAll(_intentDBList);
 
-                PPApplication.logE("ApplicationsDialogPreference.onShow", "intentDBList.size="+intentDBList.size());
+                PPApplication.logE("ApplicationsDialogPreference.refreshListView", "intentDBList.size="+intentDBList.size());
 
                 getValueAMSDP();
 
@@ -311,10 +313,13 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
         if (EditorProfilesActivity.getApplicationsCache() != null) {
             List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);
-            if (cachedApplicationList != null) {
-                String[] splits = value.split("\\|");
-                for (String split : splits) {
 
+            String notPassedIntents = "";
+
+            String[] splits = value.split("\\|");
+            for (String split : splits) {
+
+                if (cachedApplicationList != null) {
                     boolean applicationPassed;
 
                     for (Application application : cachedApplicationList) {
@@ -343,9 +348,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                         if (shortcutIdDelay.length == 3) {
                                             shortcutId = shortcutIdDelay[1];
                                             startApplicationDelay = shortcutIdDelay[2];
-                                        }
-                                        else
-                                        if (shortcutIdDelay.length == 2)
+                                        } else if (shortcutIdDelay.length == 2)
                                             startApplicationDelay = shortcutIdDelay[1];
                                     } else {
                                         // activity not exists
@@ -353,9 +356,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
                                         if (packageNameShortcutIdDelay.length == 3) {
                                             shortcutId = packageNameShortcutIdDelay[1];
                                             startApplicationDelay = packageNameShortcutIdDelay[2];
-                                        }
-                                        else
-                                        if (packageNameShortcutIdDelay.length == 2) {
+                                        } else if (packageNameShortcutIdDelay.length == 2) {
                                             startApplicationDelay = packageNameShortcutIdDelay[1];
                                         }
                                     }
@@ -430,63 +431,86 @@ public class ApplicationsDialogPreference  extends DialogPreference
                             }
                         }
                     }
+                }
 
-                    boolean intentPassed = false;
+                boolean intentPassed = false;
 
-                    for (PPIntent ppIntent : intentDBList) {
-                        String intentId = "";
-                        String startApplicationDelay = "0";
-                        String shortcutIntent;
-                        String[] packageNameActivity = split.split("/"); // package name/activity
-                        if (split.length() > 2) {
-                            shortcutIntent = packageNameActivity[0].substring(0, 3);
+                for (PPIntent ppIntent : intentDBList) {
+                    String intentId = "";
+                    String startApplicationDelay = "0";
+                    String shortcutIntent;
+                    String[] intentIdDelay = split.split("#");
+                    if (split.length() > 2) {
+                        shortcutIntent = intentIdDelay[0].substring(0, 3);
 
-                            switch (shortcutIntent) {
-                                case "(i)":
-                                    // intent
-                                    String[] intentIdDelay = split.split("#");
-                                    if (intentIdDelay.length >= 2) {
-                                        intentId = intentIdDelay[0].substring(3);
-                                        startApplicationDelay = intentIdDelay[1];
-                                    } else {
-                                        startApplicationDelay = split.substring(3);
-                                    }
-
-                                    intentPassed = intentId.equals(String.valueOf(ppIntent._id));
-
-                                    break;
-                            }
-
-                            if (intentPassed) {
-                                Application _application = new Application();
-                                _application.type = Application.TYPE_INTENT;
-
-                                try {
-                                    _application.intentId = Long.parseLong(intentId);
-                                } catch (Exception e) {
-                                    _application.intentId = 0;
+                        switch (shortcutIntent) {
+                            case "(i)":
+                                // intent
+                                if (intentIdDelay.length >= 2) {
+                                    intentId = intentIdDelay[0].substring(3);
+                                    startApplicationDelay = intentIdDelay[1];
+                                } else {
+                                    intentId = split.substring(3);
                                 }
 
-                                try {
-                                    _application.startApplicationDelay = Integer.parseInt(startApplicationDelay);
-                                } catch (Exception e) {
-                                    _application.startApplicationDelay = 0;
-                                }
-
-                                _application.checked = true;
-
-                                applicationsList.add(_application);
-
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "intentId=" + intentId);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
-                                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
+                                intentPassed = intentId.equals(String.valueOf(ppIntent._id));
 
                                 break;
+                        }
+
+                        if (intentPassed) {
+                            Application _application = new Application();
+                            _application.type = Application.TYPE_INTENT;
+
+                            try {
+                                _application.intentId = Long.parseLong(intentId);
+                            } catch (Exception e) {
+                                _application.intentId = 0;
                             }
+
+                            try {
+                                _application.startApplicationDelay = Integer.parseInt(startApplicationDelay);
+                            } catch (Exception e) {
+                                _application.startApplicationDelay = 0;
+                            }
+
+                            _application.checked = true;
+
+                            applicationsList.add(_application);
+
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "intentId=" + intentId);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "startApplicationDelay=" + startApplicationDelay);
+                            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "checked=" + _application.checked);
+
+                            break;
                         }
                     }
                 }
+
+                if (!intentPassed) {
+                    if (!notPassedIntents.isEmpty())
+                        notPassedIntents = notPassedIntents + "|";
+                    notPassedIntents = notPassedIntents + split;
+                }
+            }
+
+            if (!notPassedIntents.isEmpty()) {
+                // add not passed intents
+                splits = notPassedIntents.split("\\|");
+                for (String split : splits) {
+                    String[] intentIdDelay = split.split("#");
+                    if (split.length() > 2) {
+                        Application _application = new Application();
+                        _application.type = Application.TYPE_INTENT;
+                        _application.intentId = 0;
+                        _application.startApplicationDelay = 0;
+                        _application.checked = true;
+
+                        applicationsList.add(_application);
+                    }
+                }
+                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "added not passed intent");
             }
         }
     }
@@ -707,6 +731,11 @@ public class ApplicationsDialogPreference  extends DialogPreference
         mEditorDialog.show();
     }
 
+    void updateGUI() {
+        applicationsListView.getRecycledViewPool().clear();
+        listAdapter.notifyDataSetChanged();
+    }
+
     private void deleteApplication(Application application) {
 
         if (application.shortcutId > 0)
@@ -820,6 +849,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
             PPApplication.logE("ApplicationsDialogPreference.updateIntent", "ppIntent._id="+ppIntent._id);
             if (ppIntent._id == 0) {
                 DatabaseHandler.getInstance(context.getApplicationContext()).addIntent(ppIntent);
+                PPApplication.logE("ApplicationsDialogPreference.updateIntent", "ppIntent._id="+ppIntent._id);
                 //intentDBList.add(ppIntent);
             }
             else

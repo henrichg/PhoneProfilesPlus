@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2270;
+    private static final int DATABASE_VERSION = 2280;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -416,6 +416,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_IN_EXTRA_TYPE_10 = "extraType10";
     private static final String KEY_IN_CATEGORIES = "categories";
     private static final String KEY_IN_FLAGS = "flags";
+    private static final String KEY_IN_USED_COUNT = "usedCount";
 
 
     private DatabaseHandler(Context context) {
@@ -789,7 +790,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_IN_EXTRA_TYPE_10 + " INTEGER,"
                 + KEY_IN_CATEGORIES + " TEXT,"
                 + KEY_IN_FLAGS + " TEXT,"
-                + KEY_IN_NAME + " TEXT"
+                + KEY_IN_NAME + " TEXT,"
+                + KEY_IN_USED_COUNT + " INTEGER"
                 + ")";
         db.execSQL(CREATE_INTENTS_TABLE);
 
@@ -2616,6 +2618,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             cursor.close();
+        }
+
+        if (oldVersion < 2280)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_USED_COUNT + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_USED_COUNT + "=0");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -8434,7 +8443,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 SQLiteDatabase db = getMyWritableDatabase();
 
                 ContentValues values = new ContentValues();
-                values.put(KEY_IN_ID, intent._id);
                 values.put(KEY_IN_NAME, intent._name);
                 values.put(KEY_IN_PACKAGE_NAME, intent._packageName);
                 values.put(KEY_IN_CLASS_NAME, intent._className);
@@ -8473,6 +8481,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_EXTRA_TYPE_10, intent._extraType10);
                 values.put(KEY_IN_CATEGORIES, intent._categories);
                 values.put(KEY_IN_FLAGS, intent._flags);
+
+                values.put(KEY_IN_USED_COUNT, intent._usedCount);
 
                 db.beginTransaction();
 
@@ -8543,7 +8553,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_IN_EXTRA_VALUE_10 + ", " +
                         KEY_IN_EXTRA_TYPE_10 + ", " +
                         KEY_IN_CATEGORIES + ", " +
-                        KEY_IN_FLAGS +
+                        KEY_IN_FLAGS + ", " +
+
+                        KEY_IN_USED_COUNT +
                         " FROM " + TABLE_INTENTS;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -8593,7 +8605,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_10)),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_10))),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
-                                cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)));
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_USED_COUNT)))
+                        );
                         intentList.add(ppIntent);
                     } while (cursor.moveToNext());
                 }
@@ -8658,6 +8672,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_EXTRA_TYPE_10, intent._extraType10);
                 values.put(KEY_IN_CATEGORIES, intent._categories);
                 values.put(KEY_IN_FLAGS, intent._flags);
+
+                values.put(KEY_IN_USED_COUNT, intent._usedCount);
 
                 db.beginTransaction();
 
@@ -8733,7 +8749,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_IN_EXTRA_VALUE_10,
                                 KEY_IN_EXTRA_TYPE_10,
                                 KEY_IN_CATEGORIES,
-                                KEY_IN_FLAGS
+                                KEY_IN_FLAGS,
+
+                                KEY_IN_USED_COUNT
                         },
                         KEY_IN_ID + "=?",
                         new String[]{String.valueOf(intentId)}, null, null, null, null);
@@ -8781,7 +8799,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_VALUE_10)),
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_10))),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
-                                cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)));
+                                cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_USED_COUNT)))
+                        );
                     }
 
                     cursor.close();
@@ -10281,6 +10301,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             // for non existent fields set default value
                                             if (exportedDBObj.getVersion() < 2200) {
                                                 values.put(KEY_IN_NAME, "");
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2280) {
+                                                values.put(KEY_IN_USED_COUNT, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper
