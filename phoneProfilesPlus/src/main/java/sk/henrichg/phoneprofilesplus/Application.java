@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
-class Application {
+class Application  implements Parcelable {
     int type = TYPE_APPLICATION;
     String appLabel = "";
     String packageName = "";
@@ -201,5 +203,44 @@ class Application {
         else
             return 0;
     }
+
+    Application(Parcel in) {
+        this.type = in.readInt();
+        this.appLabel = in.readString();
+        this.packageName = in.readString();
+        this.activityName = in.readString();
+        this.shortcutId = in.readLong();
+        this.intentId = in.readLong();
+        this.checked = in.readBoolean();
+        this.startApplicationDelay = in.readInt();
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.type);
+        dest.writeString(this.appLabel);
+        dest.writeString(this.packageName);
+        dest.writeString(this.activityName);
+        dest.writeLong(this.shortcutId);
+        dest.writeLong(this.intentId);
+        dest.writeBoolean(this.checked);
+        dest.writeInt(this.startApplicationDelay);
+    }
+
+    public static final Parcelable.Creator<Application> CREATOR = new Parcelable.Creator<Application>() {
+        public Application createFromParcel(Parcel source) {
+            return new Application(source);
+        }
+
+        public Application[] newArray(int size) {
+            return new Application[size];
+        }
+    };
 
 }

@@ -20,6 +20,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.provider.Settings;
+import android.providers.settings.GlobalSettingsProto;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
@@ -1942,6 +1943,17 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
 
                 ProfilePreferencesFragment.applicationsDialogPreference = null;
             }*/
+        }
+        if (requestCode == ApplicationEditorDialog.RESULT_INTENT_EDITOR) {
+            //TODO intent
+            if (resultCode == Activity.RESULT_OK) {
+                ApplicationsDialogPreference preference = (ApplicationsDialogPreference)prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+                if (preference != null) {
+                    preference.updateIntent((PPIntent) data.getParcelableExtra(ApplicationEditorDialog.EXTRA_PP_INTENT),
+                            (Application) data.getParcelableExtra(ApplicationEditorDialog.EXTRA_APPLICATION),
+                            data.getIntExtra(ApplicationEditorIntentActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
+                }
+            }
         }
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);

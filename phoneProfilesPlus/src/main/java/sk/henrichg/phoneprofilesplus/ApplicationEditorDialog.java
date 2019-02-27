@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
@@ -60,6 +61,10 @@ class ApplicationEditorDialog
 
     private FastScrollRecyclerView listView;
 
+    static final int RESULT_INTENT_EDITOR = 3100;
+    static final String EXTRA_APPLICATION = "application";
+    static final String EXTRA_PP_INTENT = "ppIntent";
+
     ApplicationEditorDialog(Activity activity, ApplicationsDialogPreference preference,
                             final Application application)
     {
@@ -79,9 +84,9 @@ class ApplicationEditorDialog
         dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (cachedApplicationList != null) {
+                //if (cachedApplicationList != null) {
                     ApplicationEditorDialog.this.preference.updateApplication(editedApplication, selectedApplication, startApplicationDelay);
-                }
+                //}
             }
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
@@ -179,6 +184,9 @@ class ApplicationEditorDialog
                     addButton.setVisibility(View.GONE);
 
                 fillApplicationList();
+                listView.getRecycledViewPool().clear();
+                listView.setAdapter(null);
+                listView.setAdapter(listAdapter);
                 listAdapter.notifyDataSetChanged();
                 //listView.setAdapter(listAdapter);
 
@@ -232,6 +240,8 @@ class ApplicationEditorDialog
         selectedPosition = -1;
         int pos = 0;
 
+        PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "selectedFilter="+selectedFilter);
+
         if (selectedFilter == 2) {
             if (preference.intentDBList != null) {
                 for (PPIntent ppIntent : preference.intentDBList) {
@@ -247,6 +257,7 @@ class ApplicationEditorDialog
                                 break;
                         }
                     }
+                    PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application="+_application);
                     applicationList.add(_application);
                     pos++;
                 }
@@ -255,7 +266,6 @@ class ApplicationEditorDialog
         }
 
         if (cachedApplicationList != null) {
-            PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "selectedFilter="+selectedFilter);
             for (Application _application : cachedApplicationList) {
                 boolean add = false;
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
@@ -288,6 +298,23 @@ class ApplicationEditorDialog
     }
 
     private Application getSelectedApplication() {
+        if (selectedFilter == 2) {
+            if (preference.intentDBList != null) {
+                int pos = 0;
+                for (PPIntent ppIntent : preference.intentDBList) {
+                    if (pos == selectedPosition) {
+                        Application _application = new Application();
+                        _application.type = Application.TYPE_INTENT;
+                        _application.intentId = ppIntent._id;
+                        _application.appLabel = ppIntent._name;
+
+                        return  _application;
+                    }
+                    pos++;
+                }
+            }
+        }
+
         if (cachedApplicationList != null) {
             // search filtered application in cachedApplicationList
             int pos = 0;
@@ -296,8 +323,6 @@ class ApplicationEditorDialog
                 if ((selectedFilter == 0) && (_application.type == Application.TYPE_APPLICATION))
                     search = true;
                 if ((selectedFilter == 1) && (_application.type == Application.TYPE_SHORTCUT))
-                    search = true;
-                if ((selectedFilter == 2) && (_application.type == Application.TYPE_INTENT))
                     search = true;
                 if (search) {
                     if (pos == selectedPosition) {
@@ -392,12 +417,27 @@ class ApplicationEditorDialog
     }
 
     private void startEditor(Application application) {
+        Intent intent = new Intent(activity, ApplicationEditorIntentActivity.class);
+        intent.putExtra(EXTRA_APPLICATION, application);
+        PPIntent ppIntent;
+        if ((application != null) && application.intentId > 0)
+            ppIntent = DatabaseHandler.getInstance(preference.context.getApplicationContext()).getIntent(application.intentId);
+        else
+            ppIntent = new PPIntent();
+        intent.putExtra(EXTRA_PP_INTENT, ppIntent);
+        intent.putExtra(ApplicationEditorIntentActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
 
+        activity.startActivityForResult(intent, RESULT_INTENT_EDITOR);
+    }
+
+    void updateAfterEdit() {
+        fillApplicationList();
+        listView.getRecycledViewPool().clear();
+        listAdapter.notifyDataSetChanged();
     }
 
     private void deleteIntent(Application application) {
-        if (application.intentId > 0)
-            DatabaseHandler.getInstance(preference.context.getApplicationContext()).deleteIntent(application.intentId);
+        DatabaseHandler.getInstance(preference.context.getApplicationContext()).deleteIntent(application.intentId);
 
         if (preference.intentDBList != null) {
             for (PPIntent ppIntent : preference.intentDBList) {
@@ -409,6 +449,16 @@ class ApplicationEditorDialog
         }
 
         applicationList.remove(application);
+
+        int position = applicationList.indexOf(application);
+
+        if (position == selectedPosition) {
+            Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setEnabled(true);
+            selectedPosition = -1;
+            updateSelectedAppViews();
+        }
+
         listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
     }

@@ -25,11 +25,14 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
 
         this.dialog = d;
 
-        imageViewIcon = itemView.findViewById(R.id.applications_editor_dialog_item_icon);
+        if (dialog.selectedFilter != 2)
+            imageViewIcon = itemView.findViewById(R.id.applications_editor_dialog_item_icon);
+        else
+            imageViewIcon = null;
         textViewAppName = itemView.findViewById(R.id.applications_editor_dialog_item_app_name);
         radioBtn = itemView.findViewById(R.id.applications_editor_dialog_item_radiobutton);
         if (dialog.selectedFilter == 2)
-            imageViewMenu = itemView.findViewById(R.id.applications_pref_dlg_item_edit_menu);
+            imageViewMenu = itemView.findViewById(R.id.applications_editor_dlg_item_edit_menu);
         else
             imageViewMenu = null;
 
@@ -42,6 +45,25 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
         });
 
         itemView.setOnClickListener(this);
+    }
+
+    @SuppressLint("SetTextI18n")
+    void bindApplication(Application application, int position) {
+        this.application = application;
+        //PPApplication.logE("ApplicationEditorDialogViewHolder.bindApplication", "this.application="+this.application);
+
+        // Display Application data
+        if (dialog.selectedFilter != 2) {
+            if (EditorProfilesActivity.getApplicationsCache() != null)
+                imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
+        }
+        textViewAppName.setText(application.appLabel);
+
+        if (dialog.selectedPosition == position)
+            radioBtn.setChecked(true);
+        else
+            radioBtn.setChecked(false);
+        radioBtn.setTag(position);
 
         if (imageViewMenu != null) {
             imageViewMenu.setTag(application);
@@ -52,23 +74,6 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
                 }
             });
         }
-
-    }
-
-    @SuppressLint("SetTextI18n")
-    void bindApplication(Application application, int position) {
-        this.application = application;
-
-        // Display Application data
-        if (EditorProfilesActivity.getApplicationsCache() != null)
-            imageViewIcon.setImageBitmap(EditorProfilesActivity.getApplicationsCache().getApplicationIcon(application, false));
-        textViewAppName.setText(application.appLabel);
-
-        if (dialog.selectedPosition == position)
-            radioBtn.setChecked(true);
-        else
-            radioBtn.setChecked(false);
-        radioBtn.setTag(position);
     }
 
     @Override

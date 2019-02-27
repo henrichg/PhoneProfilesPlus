@@ -1,6 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
-class PPIntent {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+class PPIntent implements Parcelable {
     long _id;
     String _name;
     String _packageName;
@@ -40,6 +43,8 @@ class PPIntent {
     int _extraType10;
     String _categories;
     String _flags;
+
+    PPIntent() {}
 
     PPIntent(
         long id,
@@ -124,4 +129,103 @@ class PPIntent {
         this._flags = flags;
     }
 
+    PPIntent(Parcel in) {
+        this._id = in.readLong();
+        this._name = in.readString();
+        this._packageName = in.readString();
+        this._className = in.readString();
+        this._action = in.readString();
+        this._data = in.readString();
+        this._mimeType = in.readString();
+        this._extraKey1 = in.readString();
+        this._extraValue1 = in.readString();
+        this._extraType1 = in.readInt();
+        this._extraKey2 = in.readString();
+        this._extraValue2 = in.readString();
+        this._extraType2 = in.readInt();
+        this._extraKey3 = in.readString();
+        this._extraValue3 = in.readString();
+        this._extraType3 = in.readInt();
+        this._extraKey4 = in.readString();
+        this._extraValue4 = in.readString();
+        this._extraType4 = in.readInt();
+        this._extraKey5 = in.readString();
+        this._extraValue5 = in.readString();
+        this._extraType5 = in.readInt();
+        this._extraKey6 = in.readString();
+        this._extraValue6 = in.readString();
+        this._extraType6 = in.readInt();
+        this._extraKey7 = in.readString();
+        this._extraValue7 = in.readString();
+        this._extraType7 = in.readInt();
+        this._extraKey8 = in.readString();
+        this._extraValue8 = in.readString();
+        this._extraType8 = in.readInt();
+        this._extraKey9 = in.readString();
+        this._extraValue9 = in.readString();
+        this._extraType9 = in.readInt();
+        this._extraKey10 = in.readString();
+        this._extraValue10 = in.readString();
+        this._extraType10 = in.readInt();
+        this._categories = in.readString();
+        this._flags = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this._id);
+        dest.writeString(this._name);
+        dest.writeString(this._packageName);
+        dest.writeString(this._className);
+        dest.writeString(this._action);
+        dest.writeString(this._data);
+        dest.writeString(this._mimeType);
+        dest.writeString(this._extraKey1);
+        dest.writeString(this._extraValue1);
+        dest.writeInt(this._extraType1);
+        dest.writeString(this._extraKey2);
+        dest.writeString(this._extraValue2);
+        dest.writeInt(this._extraType2);
+        dest.writeString(this._extraKey3);
+        dest.writeString(this._extraValue3);
+        dest.writeInt(this._extraType3);
+        dest.writeString(this._extraKey4);
+        dest.writeString(this._extraValue4);
+        dest.writeInt(this._extraType4);
+        dest.writeString(this._extraKey5);
+        dest.writeString(this._extraValue5);
+        dest.writeInt(this._extraType5);
+        dest.writeString(this._extraKey6);
+        dest.writeString(this._extraValue6);
+        dest.writeInt(this._extraType6);
+        dest.writeString(this._extraKey7);
+        dest.writeString(this._extraValue7);
+        dest.writeInt(this._extraType7);
+        dest.writeString(this._extraKey8);
+        dest.writeString(this._extraValue8);
+        dest.writeInt(this._extraType8);
+        dest.writeString(this._extraKey9);
+        dest.writeString(this._extraValue9);
+        dest.writeInt(this._extraType9);
+        dest.writeString(this._extraKey10);
+        dest.writeString(this._extraValue10);
+        dest.writeInt(this._extraType10);
+        dest.writeString(this._categories);
+        dest.writeString(this._flags);
+    }
+
+    public static final Parcelable.Creator<PPIntent> CREATOR = new Parcelable.Creator<PPIntent>() {
+        public PPIntent createFromParcel(Parcel source) {
+            return new PPIntent(source);
+        }
+
+        public PPIntent[] newArray(int size) {
+            return new PPIntent[size];
+        }
+    };
 }

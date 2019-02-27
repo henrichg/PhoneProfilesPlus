@@ -319,9 +319,11 @@ public class PPApplication extends Application {
 
                                         //+"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
-                                        + "|ApplicationsDialogPreference.getValueAMSDP"
+                                        + "|ApplicationsDialogPreference"
                                         + "|ApplicationEditorDialogAdapter"
+                                        + "|ApplicationEditorDialogViewHolder"
                                         + "|ApplicationEditorDialog"
+                                        + "|ApplicationEditorIntentActivity"
                                         //+ "|ApplicationsCache.cacheApplicationsList"
                                         + "|@ Application."
 

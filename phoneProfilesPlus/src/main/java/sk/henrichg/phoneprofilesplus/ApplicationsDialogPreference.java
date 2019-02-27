@@ -40,6 +40,8 @@ public class ApplicationsDialogPreference  extends DialogPreference
     final List<Application> applicationsList;
     final List<PPIntent> intentDBList;
 
+    PPIntent editedPPIntnet = null;
+
     private AlertDialog mDialog;
     private ApplicationEditorDialog mEditorDialog;
 
@@ -202,46 +204,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
     @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
-
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
-
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                rellaDialog.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                if (EditorProfilesActivity.getApplicationsCache() != null)
-                    if (!EditorProfilesActivity.getApplicationsCache().cached)
-                        EditorProfilesActivity.getApplicationsCache().cacheApplicationsList(context);
-
-                List<PPIntent> _intentDBList = DatabaseHandler.getInstance(context.getApplicationContext()).getAllIntents();
-                intentDBList.addAll(_intentDBList);
-
-                getValueAMSDP();
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                if (EditorProfilesActivity.getApplicationsCache() != null)
-                    if (!EditorProfilesActivity.getApplicationsCache().cached)
-                        EditorProfilesActivity.getApplicationsCache().clearCache(false);
-
-                applicationsListView.setAdapter(listAdapter);
-                rellaDialog.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
-            }
-
-        }.execute();
+        refreshListView(false);
     }
 
     @Override
@@ -288,6 +251,53 @@ public class ApplicationsDialogPreference  extends DialogPreference
             persistString("");
         }
         setSummaryAMSDP();
+    }
+
+    private void refreshListView(final boolean afterEdit) {
+        asyncTask = new AsyncTask<Void, Integer, Void>() {
+
+            @Override
+            protected void onPreExecute()
+            {
+                super.onPreExecute();
+                rellaDialog.setVisibility(View.GONE);
+                linlaProgress.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                if (EditorProfilesActivity.getApplicationsCache() != null)
+                    if (!EditorProfilesActivity.getApplicationsCache().cached)
+                        EditorProfilesActivity.getApplicationsCache().cacheApplicationsList(context);
+
+                List<PPIntent> _intentDBList = DatabaseHandler.getInstance(context.getApplicationContext()).getAllIntents();
+                intentDBList.addAll(_intentDBList);
+
+                PPApplication.logE("ApplicationsDialogPreference.onShow", "intentDBList.size="+intentDBList.size());
+
+                getValueAMSDP();
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                super.onPostExecute(result);
+
+                if (EditorProfilesActivity.getApplicationsCache() != null)
+                    if (!EditorProfilesActivity.getApplicationsCache().cached)
+                        EditorProfilesActivity.getApplicationsCache().clearCache(false);
+
+                applicationsListView.setAdapter(listAdapter);
+                rellaDialog.setVisibility(View.VISIBLE);
+                linlaProgress.setVisibility(View.GONE);
+
+                if (afterEdit && (mEditorDialog != null))
+                    mEditorDialog.updateAfterEdit();
+            }
+
+        }.execute();
     }
 
     private void getValueAMSDP()
@@ -671,6 +681,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
 
         final Application application = (Application) view.getTag();
+        PPApplication.logE("ApplicationsDialogPreference.showEditMenu", "application="+application);
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -803,4 +814,40 @@ public class ApplicationsDialogPreference  extends DialogPreference
         applicationsListView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
     }
+
+    void updateIntent(PPIntent ppIntent, Application application, int startApplicationDelay) {
+        if (ppIntent != null) {
+            PPApplication.logE("ApplicationsDialogPreference.updateIntent", "ppIntent._id="+ppIntent._id);
+            if (ppIntent._id == 0) {
+                DatabaseHandler.getInstance(context.getApplicationContext()).addIntent(ppIntent);
+                //intentDBList.add(ppIntent);
+            }
+            else
+                DatabaseHandler.getInstance(context.getApplicationContext()).updateIntent(ppIntent);
+            editedPPIntnet = ppIntent;
+            if (application != null) {
+                // update application
+                application.appLabel = ppIntent._name;
+                application.intentId = ppIntent._id;
+                application.startApplicationDelay = startApplicationDelay;
+            }
+            else {
+                // add new application
+                Application _application = new Application();
+                _application.type = Application.TYPE_INTENT;
+                _application.intentId = ppIntent._id;
+                _application.appLabel = ppIntent._name;
+                _application.startApplicationDelay = startApplicationDelay;
+                applicationsList.add(_application);
+            }
+
+            refreshListView(true);
+        }
+        else
+            PPApplication.logE("ApplicationsDialogPreference.updateIntent", "ppIntent=null");
+
+        applicationsListView.getRecycledViewPool().clear();
+        listAdapter.notifyDataSetChanged();
+    }
+
 }
