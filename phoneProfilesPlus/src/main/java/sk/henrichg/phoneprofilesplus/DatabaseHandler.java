@@ -8851,6 +8851,92 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    void updatePPIntentUsageCount(final List<Application> oldApplicationsList,
+                                   final List<Application> applicationsList) {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                db.beginTransaction();
+
+                try {
+
+                    for (Application application : oldApplicationsList) {
+                        if ((application.type == Application.TYPE_INTENT) && (application.intentId > 0)) {
+
+                            Cursor cursor = db.query(TABLE_INTENTS,
+                                    new String[]{ KEY_IN_USED_COUNT },
+                                    KEY_IN_ID + "=?",
+                                    new String[]{String.valueOf(application.intentId)}, null, null, null, null);
+
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+
+                                if (cursor.getCount() > 0) {
+                                    int usedCount = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_USED_COUNT)));
+                                    if (usedCount > 0) {
+                                        --usedCount;
+
+                                        ContentValues values = new ContentValues();
+                                        values.put(KEY_IN_USED_COUNT, usedCount);
+                                        db.update(TABLE_INTENTS, values, KEY_IN_ID + " = ?",
+                                                new String[]{String.valueOf(application.intentId)});
+
+                                    }
+                                }
+
+                                cursor.close();
+                            }
+                        }
+                    }
+
+                    for (Application application : applicationsList) {
+                        if ((application.type == Application.TYPE_INTENT) && (application.intentId > 0)) {
+
+                            Cursor cursor = db.query(TABLE_INTENTS,
+                                    new String[]{ KEY_IN_USED_COUNT },
+                                    KEY_IN_ID + "=?",
+                                    new String[]{String.valueOf(application.intentId)}, null, null, null, null);
+
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+
+                                if (cursor.getCount() > 0) {
+                                    int usedCount = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_USED_COUNT)));
+                                    ++usedCount;
+
+                                    ContentValues values = new ContentValues();
+                                    values.put(KEY_IN_USED_COUNT, usedCount);
+                                    db.update(TABLE_INTENTS, values, KEY_IN_ID + " = ?",
+                                            new String[]{String.valueOf(application.intentId)});
+                                }
+
+                                cursor.close();
+                            }
+                        }
+                    }
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    Log.e("DatabaseHandler.updatePPIntentUsageCount", Log.getStackTraceString(e));
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception ignored) {
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
 // OTHERS -------------------------------------------------------------------------
 
     void disableNotAllowedPreferences()

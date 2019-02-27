@@ -378,6 +378,7 @@ class ApplicationEditorDialog
             Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setEnabled(true);
 
+
             selectedPosition = position;
             listAdapter.notifyDataSetChanged();
 
@@ -394,9 +395,21 @@ class ApplicationEditorDialog
         popup = new PopupMenu(context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
-        new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
 
         final Application application = (Application) view.getTag();
+
+        boolean canDelete = true;
+        if ((application != null) && (application.intentId > 0)) {
+            for (PPIntent ppIntent : preference.intentDBList) {
+                canDelete = (ppIntent != null) && (ppIntent._usedCount == 0);
+                if (canDelete)
+                    break;
+            }
+        }
+        if (canDelete)
+            new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
+        else
+            new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit_no_delete, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -438,6 +451,9 @@ class ApplicationEditorDialog
     }
 
     private void deleteIntent(Application application) {
+        if (application == null)
+            return;
+
         DatabaseHandler.getInstance(preference.context.getApplicationContext()).deleteIntent(application.intentId);
 
         if (preference.intentDBList != null) {

@@ -37,6 +37,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
     private String value = "";
 
+    final List<Application> oldApplicationsList;
     final List<Application> applicationsList;
     final List<PPIntent> intentDBList;
 
@@ -78,6 +79,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
         this.context = context;
 
+        oldApplicationsList = new ArrayList<>();
         applicationsList = new ArrayList<>();
         intentDBList = new ArrayList<>();
 
@@ -117,6 +119,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist())
                 {
+                    DatabaseHandler.getInstance(context.getApplicationContext()).updatePPIntentUsageCount(oldApplicationsList, applicationsList);
                     // fill with application strings separated with |
                     value = "";
                     if (applicationsList != null)
@@ -278,6 +281,11 @@ public class ApplicationsDialogPreference  extends DialogPreference
                 PPApplication.logE("ApplicationsDialogPreference.refreshListView", "intentDBList.size="+intentDBList.size());
 
                 getValueAMSDP();
+
+                if (!afterEdit) {
+                    oldApplicationsList.clear();
+                    oldApplicationsList.addAll(applicationsList);
+                }
 
                 return null;
             }
@@ -706,18 +714,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
         final Application application = (Application) view.getTag();
         PPApplication.logE("ApplicationsDialogPreference.showEditMenu", "application="+application);
 
-        boolean canDelete = true;
-        if ((application != null) && (application.intentId > 0)) {
-            for (PPIntent ppIntent : intentDBList) {
-                canDelete = (ppIntent != null) && (ppIntent._usedCount == 0);
-                if (canDelete)
-                    break;
-            }
-        }
-        if (canDelete)
-            new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
-        else
-            new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit_no_delete, popup.getMenu());
+        new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -756,6 +753,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
             DatabaseHandler.getInstance(context.getApplicationContext()).deleteShortcut(application.shortcutId);
 
         applicationsList.remove(application);
+
+        DatabaseHandler.getInstance(context.getApplicationContext()).updatePPIntentUsageCount(oldApplicationsList, applicationsList);
+
         applicationsListView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
     }
