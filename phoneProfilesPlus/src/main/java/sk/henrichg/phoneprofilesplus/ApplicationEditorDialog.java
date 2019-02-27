@@ -379,7 +379,19 @@ class ApplicationEditorDialog
             positive.setEnabled(true);
 
 
+            Application application = applicationList.get(position);
+
+            if ((application != null) && (application.type == Application.TYPE_INTENT)) {
+                PPIntent ppIntent = preference.intentDBList.get(selectedPosition);
+                if (ppIntent != null)
+                    --ppIntent._usedCount;
+                ppIntent = preference.intentDBList.get(position);
+                if (ppIntent != null)
+                    ++ppIntent._usedCount;
+            }
+
             selectedPosition = position;
+
             listAdapter.notifyDataSetChanged();
 
             updateSelectedAppViews();
@@ -396,14 +408,16 @@ class ApplicationEditorDialog
         //else
         //    popup = new PopupMenu(context, view);
 
-        final Application application = (Application) view.getTag();
+        int position = (int) view.getTag();
+        final Application application = applicationList.get(position);
 
         boolean canDelete = true;
-        if ((application != null) && (application.intentId > 0)) {
+        if ((application != null) && (application.type == Application.TYPE_INTENT)) {
             for (PPIntent ppIntent : preference.intentDBList) {
-                canDelete = (ppIntent != null) && (ppIntent._usedCount == 0);
-                if (canDelete)
+                if (ppIntent._id == application.intentId) {
+                    canDelete = ppIntent._usedCount == 0;
                     break;
+                }
             }
         }
         if (canDelete)

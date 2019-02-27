@@ -66,7 +66,7 @@ class ApplicationEditorDialogViewHolder extends RecyclerView.ViewHolder implemen
         radioBtn.setTag(position);
 
         if (imageViewMenu != null) {
-            imageViewMenu.setTag(application);
+            imageViewMenu.setTag(position);
             imageViewMenu.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
