@@ -702,10 +702,22 @@ public class ApplicationsDialogPreference  extends DialogPreference
             popup = new PopupMenu(context, view, Gravity.END);
         //else
         //    popup = new PopupMenu(context, view);
-        new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
 
         final Application application = (Application) view.getTag();
         PPApplication.logE("ApplicationsDialogPreference.showEditMenu", "application="+application);
+
+        boolean canDelete = true;
+        if ((application != null) && (application.intentId > 0)) {
+            for (PPIntent ppIntent : intentDBList) {
+                canDelete = (ppIntent != null) && (ppIntent._usedCount == 0);
+                if (canDelete)
+                    break;
+            }
+        }
+        if (canDelete)
+            new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
+        else
+            new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit_no_delete, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
@@ -737,6 +749,8 @@ public class ApplicationsDialogPreference  extends DialogPreference
     }
 
     private void deleteApplication(Application application) {
+        if (application == null)
+            return;
 
         if (application.shortcutId > 0)
             DatabaseHandler.getInstance(context.getApplicationContext()).deleteShortcut(application.shortcutId);
