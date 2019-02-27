@@ -20,6 +20,14 @@ import static android.content.Context.POWER_SERVICE;
 
 class BluetoothConnectedDevices {
 
+    private static boolean bluetoothHeadsetStarted = false;
+    private static boolean bluetoothHealthStarted = false;
+    private static boolean bluetoothA2dpStarted = false;
+
+    private static BluetoothHeadset bluetoothHeadset = null;
+    private static BluetoothHealth bluetoothHealth = null;
+    private static BluetoothA2dp bluetoothA2dp = null;
+
     static void getConnectedDevices(final Context context) {
         final BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
         if (bluetoothAdapter != null) {
@@ -31,7 +39,8 @@ class BluetoothConnectedDevices {
                     if (profile == BluetoothProfile.HEADSET) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEADSET service connected");
 
-                        final BluetoothHeadset bluetoothHeadset = (BluetoothHeadset) proxy;
+                        bluetoothHeadsetStarted = true;
+                        bluetoothHeadset = (BluetoothHeadset) proxy;
 
                         final Context appContext = context.getApplicationContext();
                         PPApplication.startHandlerThreadBluetoothConnectedDevices();
@@ -74,7 +83,8 @@ class BluetoothConnectedDevices {
                     if (profile == BluetoothProfile.HEALTH) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "HEALTH service connected");
 
-                        final BluetoothHealth bluetoothHealth = (BluetoothHealth) proxy;
+                        bluetoothHealthStarted = true;
+                        bluetoothHealth = (BluetoothHealth) proxy;
 
                         final Context appContext = context.getApplicationContext();
                         PPApplication.startHandlerThreadBluetoothConnectedDevices();
@@ -117,7 +127,8 @@ class BluetoothConnectedDevices {
                     if (profile == BluetoothProfile.A2DP) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceConnected", "A2DP service connected");
 
-                        final BluetoothA2dp bluetoothA2dp = (BluetoothA2dp) proxy;
+                        bluetoothA2dpStarted = true;
+                        bluetoothA2dp = (BluetoothA2dp) proxy;
 
                         final Context appContext = context.getApplicationContext();
                         PPApplication.startHandlerThreadBluetoothConnectedDevices();
@@ -162,12 +173,15 @@ class BluetoothConnectedDevices {
                 public void onServiceDisconnected(int profile) {
                     if (profile == BluetoothProfile.HEADSET) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEADSET service disconnected");
+                        bluetoothHeadset = null;
                     }
                     if (profile == BluetoothProfile.HEALTH) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "HEALTH service disconnected");
+                        bluetoothHealth = null;
                     }
                     if (profile == BluetoothProfile.A2DP) {
                         PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices.onServiceDisconnected", "A2DP service disconnected");
+                        bluetoothA2dp = null;
                     }
                 }
             };
@@ -182,6 +196,13 @@ class BluetoothConnectedDevices {
 
                 PPApplication.logE("------ BluetoothConnectedDevices.getConnectedDevices", "HEALTH start");
                 bluetoothAdapter.getProfileProxy(context, profileListener, BluetoothProfile.HEALTH);
+
+                for (int i = 0; i < 100; i++) {
+                    if (!bluetoothHeadsetStarted || !bluetoothHealthStarted || !bluetoothA2dpStarted)
+                        PPApplication.sleep(100);
+                    else
+                        break;
+                }
 
                 final Context appContext = context.getApplicationContext();
                 PPApplication.startHandlerThreadBluetoothConnectedDevices();
@@ -223,6 +244,14 @@ class BluetoothConnectedDevices {
                         }
                     }
                 });
+
+                for (int i = 0; i < 100; i++) {
+                    if ((bluetoothHeadset != null) || (bluetoothHealth != null) || (bluetoothA2dp != null))
+                        PPApplication.sleep(100);
+                    else
+                        break;
+                }
+
             } catch (Exception e) {
                 Log.e("BluetoothConnectedDevices.getConnectedDevices", Log.getStackTraceString(e));
             }
