@@ -1276,7 +1276,55 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-
+    <string-array name="applicationEditorIntentActionArray">
+        <item>[None]</item>
+        <item>[Custom]</item>
+        <item>ACTION_ALL_APPS</item>
+        <item>ACTION_ANSWER</item>
+        <item>ACTION_APPLICATION_PREFERENCES</item>
+        <item>ACTION_APP_ERROR</item>
+        <item>ACTION_ASSIST</item>
+        <item>ACTION_ATTACH_DATA</item>
+        <item>ACTION_BUG_REPORT</item>
+        <item>ACTION_CALL</item>
+        <item>ACTION_CALL_BUTTON</item>
+        <item>ACTION_CARRIER_SETUP</item>
+        <item>ACTION_CHOOSER</item>
+        <item>ACTION_CREATE_DOCUMENT</item>
+        <item>ACTION_DELETE</item>
+        <item>ACTION_DIAL</item>
+        <item>ACTION_EDIT</item>
+        <item>ACTION_FACTORY_TEST</item>
+        <item>ACTION_GET_CONTENT</item>
+        <item>ACTION_INSERT</item>
+        <item>ACTION_INSERT_OR_EDIT</item>
+        <item>ACTION_INSTALL_PACKAGE</item>
+        <item>ACTION_MAIN</item>
+        <item>ACTION_MANAGE_NETWORK_USAGE</item>
+        <item>ACTION_OPEN_DOCUMENT</item>
+        <item>ACTION_OPEN_DOCUMENT_TREE</item>
+        <item>ACTION_PASTE</item>
+        <item>ACTION_PICK</item>
+        <item>ACTION_PICK_ACTIVITY</item>
+        <item>ACTION_POWER_USAGE_SUMMARY</item>
+        <item>ACTION_PROCESS_TEXT</item>
+        <item>ACTION_QUICK_CLOCK</item>
+        <item>ACTION_QUICK_VIEW</item>
+        <item>ACTION_RUN</item>
+        <item>ACTION_SEARCH</item>
+        <item>ACTION_SEARCH_LONG_PRESS</item>
+        <item>ACTION_SEND</item>
+        <item>ACTION_SENDTO</item>
+        <item>ACTION_SEND_MULTIPLE</item>
+        <item>ACTION_SET_WALLPAPER</item>
+        <item>ACTION_SHOW_APP_INFO</item>
+        <item>ACTION_SYNC</item>
+        <item>ACTION_SYSTEM_TUTORIAL</item>
+        <item>ACTION_UNINSTALL_PACKAGE</item>
+        <item>ACTION_VIEW</item>
+        <item>ACTION_VOICE_COMMAND</item>
+        <item>ACTION_WEB_SEARCH</item>
+    </string-array>
 
 <!--
     <string-array name="screenNightModeArray">

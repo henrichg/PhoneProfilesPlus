@@ -1342,7 +1342,20 @@
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Notification access disabled</string>
     <string name="application_editor_intent_intent_name">Intent name:</string>
     <string name="application_editor_intent_intent_name_hint">Intent name</string>
-
+    <string name="application_editor_intent_package_name">Package name:</string>
+    <string name="application_editor_intent_package_name_hint">Package name</string>
+    <string name="application_editor_intent_activity_name">Activity name:</string>
+    <string name="application_editor_intent_activity_name_hint">Activity name</string>
+    <string name="application_editor_intent_action">Action:</string>
+    <string name="application_editor_intent_action_hint">Action</string>
+    <string name="application_editor_intent_data">Data:</string>
+    <string name="application_editor_intent_data_hint">Data</string>
+    <string name="application_editor_intent_mime_type">Mime type:</string>
+    <string name="application_editor_intent_mime_type_hint">Mime type</string>
+    <string name="application_editor_intent_extras">Extras:</string>
+    <string name="application_editor_intent_categories">Categories:</string>
+    <string name="application_editor_intent_flags">Flags:</string>
+    <string name="application_editor_intent_test_button">Test</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
