@@ -6,10 +6,13 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -19,6 +22,9 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
     private PPIntent ppIntent = null;
 
     private int startApplicationDelay;
+
+    Button okButton;
+    private EditText intentNameEditText;
 
     public static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
 
@@ -72,10 +78,33 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
         startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
 
-        Button okButton = findViewById(R.id.application_editor_intent_ok);
+        intentNameEditText = findViewById(R.id.application_editor_intent_intent_name);
+        if (ppIntent != null)
+            intentNameEditText.setText(ppIntent._name);
+        intentNameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableOKButton();
+            }
+        });
+
+        okButton = findViewById(R.id.application_editor_intent_ok);
+        enableOKButton();
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ppIntent._name = intentNameEditText.getText().toString();
+                if (application != null)
+                    application.appLabel = ppIntent._name;
+
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(ApplicationEditorDialog.EXTRA_PP_INTENT, ppIntent);
                 returnIntent.putExtra(ApplicationEditorDialog.EXTRA_APPLICATION, application);
@@ -97,4 +126,10 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
         });
 
     }
+
+    private void enableOKButton() {
+        boolean enableOK = (!intentNameEditText.getText().toString().isEmpty());
+        okButton.setEnabled(enableOK);
+    }
+
 }

@@ -1340,6 +1340,8 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Not set to Always</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Notification access enabled</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Notification access disabled</string>
+    <string name="application_editor_intent_intent_name">Intent name:</string>
+    <string name="application_editor_intent_intent_name_hint">Intent name</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

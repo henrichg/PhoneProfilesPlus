@@ -62,6 +62,12 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
             if (shortcut != null)
                 text = shortcut._name;
         }
+        else
+        if (application.intentId > 0) {
+            PPIntent intent = DatabaseHandler.getInstance(context.getApplicationContext()).getIntent(application.intentId);
+            if (intent != null)
+                text = intent._name;
+        }
         textViewAppName.setText(text);
         boolean errorColor = false;
         if ((application.type == Application.TYPE_SHORTCUT) && (application.shortcutId == 0))
