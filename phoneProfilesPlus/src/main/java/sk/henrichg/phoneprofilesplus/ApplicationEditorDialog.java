@@ -382,10 +382,12 @@ class ApplicationEditorDialog
             Application application = applicationList.get(position);
 
             if ((application != null) && (application.type == Application.TYPE_INTENT)) {
-                PPIntent ppIntent = preference.intentDBList.get(selectedPosition);
-                if (ppIntent != null)
-                    --ppIntent._usedCount;
-                ppIntent = preference.intentDBList.get(position);
+                if (selectedPosition != -1) {
+                    PPIntent ppIntent = preference.intentDBList.get(selectedPosition);
+                    if (ppIntent != null)
+                        --ppIntent._usedCount;
+                }
+                PPIntent ppIntent = preference.intentDBList.get(position);
                 if (ppIntent != null)
                     ++ppIntent._usedCount;
             }
