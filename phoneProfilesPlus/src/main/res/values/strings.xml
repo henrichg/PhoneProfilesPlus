@@ -1354,7 +1354,9 @@
     <string name="application_editor_intent_mime_type_hint">Mime type</string>
     <string name="application_editor_intent_extras">Extras:</string>
     <string name="application_editor_intent_categories">Categories:</string>
+    <string name="application_editor_intent_categories_dlg_title">Categories</string>
     <string name="application_editor_intent_flags">Flags:</string>
+    <string name="application_editor_intent_flags_dlg_title">Flags</string>
     <string name="application_editor_intent_test_button">Test</string>
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

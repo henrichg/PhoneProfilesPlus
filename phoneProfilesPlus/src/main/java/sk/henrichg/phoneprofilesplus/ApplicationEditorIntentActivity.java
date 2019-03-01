@@ -1,11 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -36,8 +40,14 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
     private EditText intentActionEdit;
     private EditText intentData;
     private EditText intentMimeType;
+    private AppCompatImageButton intentCategoryButton;
+    private AppCompatImageButton intentFlagsButton;
 
     String[] actionsArray;
+    String[] categoryArray;
+    boolean[] categoryIndices;
+    String[] flagArray;
+    boolean[] flagIndices;
 
     public static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
 
@@ -136,6 +146,99 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
             }
         });
         intentActionEdit = findViewById(R.id.application_editor_intent_action_edit);
+
+        final Activity activity = this;
+
+        categoryArray = getResources().getStringArray(R.array.applicationEditorIntentCategoryArray);
+        categoryIndices = new boolean[categoryArray.length];
+        intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
+        intentCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(activity)
+                                .setTitle(R.string.application_editor_intent_categories_dlg_title)
+                                //.setIcon(getDialogIcon())
+                                .setMultiChoiceItems(R.array.applicationEditorIntentCategoryArray, categoryIndices,
+                                        new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                        categoryIndices[which] = isChecked;
+                                    }
+                                });
+                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        /*final Set<String> values = new HashSet<>();
+                        for (int i = 0; i < indices.length; i++) {
+                            if (indices[i])
+                                values.add(getEntryValues()[i].toString());
+                        }
+                        if (callChangeListener(values)) {
+                            setValues(values);
+                        }
+                        MaterialMultiSelectListPreference.this.onClick(
+                                dialog, DialogInterface.BUTTON_POSITIVE);*/
+                    }
+                });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        /*MaterialMultiSelectListPreference.this.onClick(
+                                dialog, DialogInterface.BUTTON_NEGATIVE);*/
+                    }
+                });
+
+                //AlertDialog mDialog = builder.create();
+                if (!isFinishing())
+                    builder.show();
+            }
+        });
+
+        flagArray = getResources().getStringArray(R.array.applicationEditorIntentFlagArray);
+        flagIndices = new boolean[flagArray.length];
+        intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
+        intentFlagsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(activity)
+                                .setTitle(R.string.application_editor_intent_flags_dlg_title)
+                                //.setIcon(getDialogIcon())
+                                .setMultiChoiceItems(R.array.applicationEditorIntentFlagArray, flagIndices, new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                        flagIndices[which] = isChecked;
+                                    }
+                                });
+                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        /*final Set<String> values = new HashSet<>();
+                        for (int i = 0; i < indices.length; i++) {
+                            if (indices[i])
+                                values.add(getEntryValues()[i].toString());
+                        }
+                        if (callChangeListener(values)) {
+                            setValues(values);
+                        }
+                        MaterialMultiSelectListPreference.this.onClick(
+                                dialog, DialogInterface.BUTTON_POSITIVE);*/
+                    }
+                });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        /*MaterialMultiSelectListPreference.this.onClick(
+                                dialog, DialogInterface.BUTTON_NEGATIVE);*/
+                    }
+                });
+
+                AlertDialog mDialog = builder.create();
+                if (!isFinishing())
+                    mDialog.show();
+            }
+        });
 
         actionsArray = getResources().getStringArray(R.array.applicationEditorIntentActionArray);
         if (ppIntent != null) {
