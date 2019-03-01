@@ -73,8 +73,8 @@
                     android:id="@+id/application_editor_intent_intent_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:selectAllOnFocus="true"
                     android:hint="@string/application_editor_intent_intent_name_hint"
                     android:inputType="textNoSuggestions"
@@ -99,8 +99,8 @@
                     android:id="@+id/application_editor_intent_package_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:selectAllOnFocus="true"
                     android:hint="@string/application_editor_intent_package_name_hint"
                     android:inputType="textNoSuggestions"
@@ -118,8 +118,8 @@
                     android:id="@+id/application_editor_intent_class_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:selectAllOnFocus="true"
                     android:hint="@string/application_editor_intent_class_name_hint"
                     android:inputType="textNoSuggestions"
@@ -152,8 +152,8 @@
                     android:id="@+id/application_editor_intent_action_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:selectAllOnFocus="true"
                     android:hint="@string/application_editor_intent_action_hint"
                     android:inputType="textNoSuggestions"
@@ -178,8 +178,8 @@
                     android:id="@+id/application_editor_intent_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:selectAllOnFocus="true"
                     android:hint="@string/application_editor_intent_data_hint"
                     android:inputType="textNoSuggestions"
@@ -198,8 +198,8 @@
                     android:id="@+id/application_editor_intent_mime_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:selectAllOnFocus="true"
                     android:hint="@string/application_editor_intent_mime_type_hint"
                     android:inputType="textNoSuggestions"
@@ -235,6 +235,30 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:text="@string/application_editor_intent_categories"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp" >
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/application_editor_intent_category_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_button_edit"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"/>
+                    <TextView
+                        android:id="@+id/application_editor_intent_category_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_toStartOf = "@id/application_editor_intent_category_btn"
+                        android:text="@string/empty_string"/>
+                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -250,6 +274,30 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:text="@string/application_editor_intent_flags"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp" >
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/application_editor_intent_flags_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_button_edit"
+                        android:background="?attr/selectableItemBackground"
+                        android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"/>
+                    <TextView
+                        android:id="@+id/application_editor_intent_flags_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginEnd="5dp"
+                        android:layout_toStartOf = "@id/application_editor_intent_flags_btn"
+                        android:text="@string/empty_string"/>
+                </RelativeLayout>
 
             </LinearLayout>
         </ScrollView>

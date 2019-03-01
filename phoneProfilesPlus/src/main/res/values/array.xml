@@ -1325,6 +1325,81 @@
         <item>ACTION_VOICE_COMMAND</item>
         <item>ACTION_WEB_SEARCH</item>
     </string-array>
+    <string-array name="applicationEditorIntentCategoryArray">
+        <item>CATEGORY_ALTERNATIVE</item>
+        <item>CATEGORY_APP_BROWSER</item>
+        <item>CATEGORY_APP_CALCULATOR</item>
+        <item>CATEGORY_APP_CALENDAR</item>
+        <item>CATEGORY_APP_CONTACTS</item>
+        <item>CATEGORY_APP_EMAIL</item>
+        <item>CATEGORY_APP_GALLERY</item>
+        <item>CATEGORY_APP_MAPS</item>
+        <item>CATEGORY_APP_MARKET</item>
+        <item>CATEGORY_APP_MESSAGING</item>
+        <item>CATEGORY_APP_MUSIC</item>
+        <item>CATEGORY_BROWSABLE</item>
+        <item>CATEGORY_CAR_DOCK</item>
+        <item>CATEGORY_CAR_MODE</item>
+        <item>CATEGORY_DEFAULT</item>
+        <item>CATEGORY_DESK_DOCK</item>
+        <item>CATEGORY_DEVELOPMENT_PREFERENCE</item>
+        <item>CATEGORY_EMBED</item>
+        <item>CATEGORY_FRAMEWORK_INSTRUMENTATION_TEST</item>
+        <item>CATEGORY_HE_DESK_DOCK</item>
+        <item>CATEGORY_HOME</item>
+        <item>CATEGORY_INFO</item>
+        <item>CATEGORY_LAUNCHER</item>
+        <item>CATEGORY_LEANBACK_LAUNCHER</item>
+        <item>CATEGORY_LE_DESK_DOCK</item>
+        <item>CATEGORY_MONKEY</item>
+        <item>CATEGORY_OPENABLE</item>
+        <item>CATEGORY_PREFERENCE</item>
+        <item>CATEGORY_SAMPLE_CODE</item>
+        <item>CATEGORY_SELECTED_ALTERNATIVE</item>
+        <item>CATEGORY_TAB</item>
+        <item>CATEGORY_TEST</item>
+        <item>CATEGORY_TYPED_OPENABLE</item>
+        <item>CATEGORY_UNIT_TEST</item>
+        <item>CATEGORY_VOICE</item>
+        <item>CATEGORY_VR_HOME</item>
+    </string-array>
+    <string-array name="applicationEditorIntentFlagArray">
+        <item>FLAG_ACTIVITY_BROUGHT_TO_FRONT</item>
+        <item>FLAG_ACTIVITY_CLEAR_TASK</item>
+        <item>FLAG_ACTIVITY_CLEAR_TOP</item>
+        <item>FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET</item>
+        <item>FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS</item>
+        <item>FLAG_ACTIVITY_FORWARD_RESULT</item>
+        <item>FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY</item>
+        <item>FLAG_ACTIVITY_LAUNCH_ADJACENT</item>
+        <item>FLAG_ACTIVITY_MATCH_EXTERNAL</item>
+        <item>FLAG_ACTIVITY_MULTIPLE_TASK</item>
+        <item>FLAG_ACTIVITY_NEW_DOCUMENT</item>
+        <item>FLAG_ACTIVITY_NEW_TASK</item>
+        <item>FLAG_ACTIVITY_NO_ANIMATION</item>
+        <item>FLAG_ACTIVITY_NO_HISTORY</item>
+        <item>FLAG_ACTIVITY_NO_USER_ACTION</item>
+        <item>FLAG_ACTIVITY_PREVIOUS_IS_TOP</item>
+        <item>FLAG_ACTIVITY_REORDER_TO_FRONT</item>
+        <item>FLAG_ACTIVITY_RESET_TASK_IF_NEEDED</item>
+        <item>FLAG_ACTIVITY_RETAIN_IN_RECENTS</item>
+        <item>FLAG_ACTIVITY_SINGLE_TOP</item>
+        <item>FLAG_ACTIVITY_TASK_ON_HOME</item>
+        <item>FLAG_DEBUG_LOG_RESOLUTION</item>
+        <item>FLAG_EXCLUDE_STOPPED_PACKAGES</item>
+        <item>FLAG_FROM_BACKGROUND</item>
+        <item>FLAG_GRANT_PERSISTABLE_URI_PERMISSION</item>
+        <item>FLAG_GRANT_PREFIX_URI_PERMISSION</item>
+        <item>FLAG_GRANT_READ_URI_PERMISSION</item>
+        <item>FLAG_GRANT_WRITE_URI_PERMISSION</item>
+        <item>FLAG_INCLUDE_STOPPED_PACKAGES</item>
+        <item>FLAG_RECEIVER_FOREGROUND</item>
+        <item>FLAG_RECEIVER_NO_ABORT</item>
+        <item>FLAG_RECEIVER_REGISTERED_ONLY</item>
+        <item>FLAG_RECEIVER_REPLACE_PENDING</item>
+        <item>FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS</item>
+    </string-array>
+
 
 <!--
     <string-array name="screenNightModeArray">
