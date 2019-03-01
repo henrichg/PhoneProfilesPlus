@@ -1344,8 +1344,8 @@
     <string name="application_editor_intent_intent_name_hint">Intent name</string>
     <string name="application_editor_intent_package_name">Package name:</string>
     <string name="application_editor_intent_package_name_hint">Package name</string>
-    <string name="application_editor_intent_activity_name">Activity name:</string>
-    <string name="application_editor_intent_activity_name_hint">Activity name</string>
+    <string name="application_editor_intent_class_name">Class name:</string>
+    <string name="application_editor_intent_class_name_hint">Class name</string>
     <string name="application_editor_intent_action">Action:</string>
     <string name="application_editor_intent_action_hint">Action</string>
     <string name="application_editor_intent_data">Data:</string>

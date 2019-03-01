@@ -11,10 +11,14 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import java.util.Arrays;
 
 public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
@@ -24,7 +28,16 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
     private int startApplicationDelay;
 
     Button okButton;
+
     private EditText intentNameEditText;
+    private EditText intentPackageName;
+    private EditText intentClassName;
+    private Spinner intentActionSpinner;
+    private EditText intentActionEdit;
+    private EditText intentData;
+    private EditText intentMimeType;
+
+    String[] actionsArray;
 
     public static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
 
@@ -78,9 +91,9 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
         startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
 
+        okButton = findViewById(R.id.application_editor_intent_ok);
+
         intentNameEditText = findViewById(R.id.application_editor_intent_intent_name);
-        if (ppIntent != null)
-            intentNameEditText.setText(ppIntent._name);
         intentNameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -96,7 +109,69 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
             }
         });
 
-        okButton = findViewById(R.id.application_editor_intent_ok);
+        intentPackageName = findViewById(R.id.application_editor_intent_package_name);
+        intentClassName = findViewById(R.id.application_editor_intent_class_name);
+        intentData = findViewById(R.id.application_editor_intent_data);
+        intentMimeType = findViewById(R.id.application_editor_intent_mime_type);
+
+        intentActionSpinner = findViewById(R.id.application_editor_intent_action_spinner);
+        intentActionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setEnabled(false);
+                }
+                else
+                if (position == 1) {
+                    intentActionEdit.setEnabled(true);
+                }
+                else {
+                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setEnabled(false);
+                }
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        intentActionEdit = findViewById(R.id.application_editor_intent_action_edit);
+
+        actionsArray = getResources().getStringArray(R.array.applicationEditorIntentActionArray);
+        if (ppIntent != null) {
+            intentNameEditText.setText(ppIntent._name);
+            intentPackageName.setText(ppIntent._packageName);
+            intentClassName.setText(ppIntent._className);
+            intentData.setText(ppIntent._data);
+            intentMimeType.setText(ppIntent._mimeType);
+
+            if ((ppIntent._action == null) || ppIntent._action.isEmpty()) {
+                intentActionSpinner.setSelection(0);
+                intentActionEdit.setText(R.string.empty_string);
+                intentActionEdit.setEnabled(false);
+            } else {
+                boolean custom = true;
+                for (String action : actionsArray) {
+                    if (action.equals(ppIntent._action)) {
+                        custom = false;
+                        break;
+                    }
+                }
+                if (custom) {
+                    intentActionSpinner.setSelection(1);
+                    intentActionEdit.setText(ppIntent._action);
+                    intentActionEdit.setEnabled(false);
+                } else {
+                    intentActionSpinner.setSelection(Arrays.asList(actionsArray).indexOf(ppIntent._action));
+                    intentActionEdit.setText(R.string.empty_string);
+                    intentActionEdit.setEnabled(false);
+                }
+            }
+        }
+        else {
+            intentActionEdit.setEnabled(false);
+        }
+
         enableOKButton();
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +179,20 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                 ppIntent._name = intentNameEditText.getText().toString();
                 if (application != null)
                     application.appLabel = ppIntent._name;
+                ppIntent._packageName = intentPackageName.getText().toString();
+                ppIntent._className = intentClassName.getText().toString();
+                ppIntent._data = intentData.getText().toString();
+                ppIntent._mimeType = intentMimeType.getText().toString();
+
+                int actionSpinnerId = intentActionSpinner.getSelectedItemPosition();
+                if (actionSpinnerId == 0)
+                    ppIntent._action = "";
+                else
+                if (actionSpinnerId == 1)
+                    ppIntent._action = intentActionEdit.getText().toString();
+                else {
+                    ppIntent._action = actionsArray[actionSpinnerId];
+                }
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(ApplicationEditorDialog.EXTRA_PP_INTENT, ppIntent);

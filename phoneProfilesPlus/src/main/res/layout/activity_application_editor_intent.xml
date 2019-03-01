@@ -66,7 +66,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_intent_name"/>
                 <EditText
                     android:id="@+id/application_editor_intent_intent_name"
@@ -91,7 +92,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_package_name"/>
                 <EditText
                     android:id="@+id/application_editor_intent_package_name"
@@ -109,17 +111,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
-                    android:layout_marginTop="10dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/application_editor_intent_activity_name"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="@string/application_editor_intent_class_name"/>
                 <EditText
-                    android:id="@+id/application_editor_intent_activity_name"
+                    android:id="@+id/application_editor_intent_class_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:selectAllOnFocus="true"
-                    android:hint="@string/application_editor_intent_activity_name_hint"
+                    android:hint="@string/application_editor_intent_class_name_hint"
                     android:inputType="textNoSuggestions"
                     android:importantForAutofill="no"
                     tools:ignore="UnusedAttribute"/>
@@ -135,7 +137,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_action"/>
                 <Spinner
                     android:id="@+id/application_editor_intent_action_spinner"
@@ -168,7 +171,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_data"/>
                 <EditText
                     android:id="@+id/application_editor_intent_data"
@@ -187,10 +191,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
                     android:layout_marginTop="10dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_mime_type"/>
                 <EditText
-                    android:id="@+id/application_editor_intent_mime_type_edit"
+                    android:id="@+id/application_editor_intent_mime_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -212,7 +217,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_extras"/>
 
                 <View
@@ -226,7 +232,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_categories"/>
 
                 <View
@@ -240,7 +247,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="19dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_flags"/>
 
             </LinearLayout>
