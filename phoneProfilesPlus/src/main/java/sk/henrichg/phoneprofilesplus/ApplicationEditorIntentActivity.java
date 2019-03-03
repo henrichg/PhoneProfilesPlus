@@ -22,7 +22,9 @@ import android.widget.Spinner;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
@@ -270,6 +272,22 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                     intentActionEdit.setEnabled(false);
                 }
             }
+
+            List<String> stringList = new ArrayList<>(Arrays.asList(categoryArray));
+            String[] splits = ppIntent._categories.split("\\|");
+            for (String category : splits) {
+                int i = stringList.indexOf(category);
+                if (i != -1)
+                categoryIndices[i] = true;
+            }
+
+            stringList = new ArrayList<>(Arrays.asList(flagArray));
+            splits = ppIntent._flags.split("\\|");
+            for (String flag : splits) {
+                int i = stringList.indexOf(flag);
+                if (i != -1)
+                    flagIndices[i] = true;
+            }
         }
         else {
             intentActionEdit.setEnabled(false);
@@ -295,6 +313,28 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                     ppIntent._action = intentActionEdit.getText().toString();
                 else {
                     ppIntent._action = actionsArray[actionSpinnerId];
+                }
+
+                ppIntent._categories = "";
+                int i = 0;
+                for (boolean selected : categoryIndices) {
+                    if (selected) {
+                        if (!ppIntent._categories.isEmpty())
+                            ppIntent._categories = ppIntent._categories + "|";
+                        ppIntent._categories = ppIntent._categories + categoryArray[i];
+                    }
+                    ++i;
+                }
+
+                ppIntent._flags = "";
+                i = 0;
+                for (boolean selected : flagIndices) {
+                    if (selected) {
+                        if (!ppIntent._flags.isEmpty())
+                            ppIntent._flags = ppIntent._flags + "|";
+                        ppIntent._flags = ppIntent._flags + flagArray[i];
+                    }
+                    ++i;
                 }
 
                 Intent returnIntent = new Intent();
