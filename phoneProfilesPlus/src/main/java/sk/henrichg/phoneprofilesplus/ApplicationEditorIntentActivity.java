@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -34,6 +35,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
     Button okButton;
 
+    //private ScrollView intentScrollView;
     private EditText intentNameEditText;
     private EditText intentPackageName;
     private EditText intentClassName;
@@ -41,6 +43,8 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
     private EditText intentActionEdit;
     private EditText intentData;
     private EditText intentMimeType;
+    private TextView categoryTextView;
+    private TextView flagsTextView;
 
     String[] actionsArray;
     String[] categoryArray;
@@ -101,6 +105,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
         startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
 
         okButton = findViewById(R.id.application_editor_intent_ok);
+        //intentScrollView = findViewById(R.id.application_editor_intent_scroll_view);
 
         intentNameEditText = findViewById(R.id.application_editor_intent_intent_name);
         intentNameEditText.addTextChangedListener(new TextWatcher() {
@@ -148,6 +153,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
         final Activity activity = this;
 
+        categoryTextView = findViewById(R.id.application_editor_intent_category_value);
         categoryArray = getResources().getStringArray(R.array.applicationEditorIntentCategoryArray);
         categoryIndices = new boolean[categoryArray.length];
         AppCompatImageButton intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
@@ -168,23 +174,36 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /*final Set<String> values = new HashSet<>();
-                        for (int i = 0; i < indices.length; i++) {
-                            if (indices[i])
-                                values.add(getEntryValues()[i].toString());
+                        intentNameEditText.clearFocus();
+                        intentPackageName.clearFocus();
+                        intentClassName.clearFocus();
+                        intentActionEdit.clearFocus();
+                        intentData.clearFocus();
+                        intentMimeType.clearFocus();
+
+                        String categoryValue = "";
+                        int i = 0;
+                        for (boolean selected : categoryIndices) {
+                            if (selected) {
+                                if (!categoryValue.isEmpty())
+                                    //noinspection StringConcatenationInLoop
+                                    categoryValue = categoryValue + "\n";
+                                //noinspection StringConcatenationInLoop
+                                categoryValue = categoryValue + categoryArray[i];
+                            }
+                            ++i;
                         }
-                        if (callChangeListener(values)) {
-                            setValues(values);
-                        }
-                        MaterialMultiSelectListPreference.this.onClick(
-                                dialog, DialogInterface.BUTTON_POSITIVE);*/
+                        categoryTextView.setText(categoryValue);
+                        /*intentScrollView.post(new Runnable() {
+                            public void run() {
+                                intentScrollView.scrollTo(0, categoryTextView.getBottom());
+                            }
+                        });*/
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /*MaterialMultiSelectListPreference.this.onClick(
-                                dialog, DialogInterface.BUTTON_NEGATIVE);*/
                     }
                 });
 
@@ -194,6 +213,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
             }
         });
 
+        flagsTextView = findViewById(R.id.application_editor_intent_flags_value);
         flagArray = getResources().getStringArray(R.array.applicationEditorIntentFlagArray);
         flagIndices = new boolean[flagArray.length];
         AppCompatImageButton intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
@@ -213,23 +233,36 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /*final Set<String> values = new HashSet<>();
-                        for (int i = 0; i < indices.length; i++) {
-                            if (indices[i])
-                                values.add(getEntryValues()[i].toString());
+                        intentNameEditText.clearFocus();
+                        intentPackageName.clearFocus();
+                        intentClassName.clearFocus();
+                        intentActionEdit.clearFocus();
+                        intentData.clearFocus();
+                        intentMimeType.clearFocus();
+
+                        String flagsValue = "";
+                        int i = 0;
+                        for (boolean selected : flagIndices) {
+                            if (selected) {
+                                if (!flagsValue.isEmpty())
+                                    //noinspection StringConcatenationInLoop
+                                    flagsValue = flagsValue + "\n";
+                                //noinspection StringConcatenationInLoop
+                                flagsValue = flagsValue + flagArray[i];
+                            }
+                            ++i;
                         }
-                        if (callChangeListener(values)) {
-                            setValues(values);
-                        }
-                        MaterialMultiSelectListPreference.this.onClick(
-                                dialog, DialogInterface.BUTTON_POSITIVE);*/
+                        flagsTextView.setText(flagsValue);
+                        /*intentScrollView.post(new Runnable() {
+                            public void run() {
+                                intentScrollView.scrollTo(0, flagsTextView.getBottom());
+                            }
+                        });*/
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        /*MaterialMultiSelectListPreference.this.onClick(
-                                dialog, DialogInterface.BUTTON_NEGATIVE);*/
                     }
                 });
 
@@ -270,20 +303,29 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                 }
             }
 
-            List<String> stringList = new ArrayList<>(Arrays.asList(categoryArray));
-            String[] splits = ppIntent._categories.split("\\|");
-            for (String category : splits) {
-                int i = stringList.indexOf(category);
-                if (i != -1)
-                categoryIndices[i] = true;
+            if (ppIntent._categories != null) {
+                String categoryValue = ppIntent._categories.replaceAll("\\|", "\n");
+                categoryTextView.setText(categoryValue);
+                List<String> stringList = new ArrayList<>(Arrays.asList(categoryArray));
+                String[] splits = ppIntent._categories.split("\\|");
+                for (String category : splits) {
+                    int i = stringList.indexOf(category);
+                    if (i != -1) {
+                        categoryIndices[i] = true;
+                    }
+                }
             }
 
-            stringList = new ArrayList<>(Arrays.asList(flagArray));
-            splits = ppIntent._flags.split("\\|");
-            for (String flag : splits) {
-                int i = stringList.indexOf(flag);
-                if (i != -1)
-                    flagIndices[i] = true;
+            if (ppIntent._flags != null) {
+                String flagsValue = ppIntent._flags.replaceAll("\\|", "\n");
+                flagsTextView.setText(flagsValue);
+                List<String> stringList = new ArrayList<>(Arrays.asList(flagArray));
+                String[] splits = ppIntent._flags.split("\\|");
+                for (String flag : splits) {
+                    int i = stringList.indexOf(flag);
+                    if (i != -1)
+                        flagIndices[i] = true;
+                }
             }
         }
         else {
