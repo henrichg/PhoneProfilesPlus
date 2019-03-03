@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -42,8 +41,6 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
     private EditText intentActionEdit;
     private EditText intentData;
     private EditText intentMimeType;
-    private AppCompatImageButton intentCategoryButton;
-    private AppCompatImageButton intentFlagsButton;
 
     String[] actionsArray;
     String[] categoryArray;
@@ -153,7 +150,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
         categoryArray = getResources().getStringArray(R.array.applicationEditorIntentCategoryArray);
         categoryIndices = new boolean[categoryArray.length];
-        intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
+        AppCompatImageButton intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
         intentCategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,7 +196,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
         flagArray = getResources().getStringArray(R.array.applicationEditorIntentFlagArray);
         flagIndices = new boolean[flagArray.length];
-        intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
+        AppCompatImageButton intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
         intentFlagsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -320,7 +317,9 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                 for (boolean selected : categoryIndices) {
                     if (selected) {
                         if (!ppIntent._categories.isEmpty())
+                            //noinspection StringConcatenationInLoop
                             ppIntent._categories = ppIntent._categories + "|";
+                        //noinspection StringConcatenationInLoop
                         ppIntent._categories = ppIntent._categories + categoryArray[i];
                     }
                     ++i;
@@ -331,7 +330,9 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                 for (boolean selected : flagIndices) {
                     if (selected) {
                         if (!ppIntent._flags.isEmpty())
+                            //noinspection StringConcatenationInLoop
                             ppIntent._flags = ppIntent._flags + "|";
+                        //noinspection StringConcatenationInLoop
                         ppIntent._flags = ppIntent._flags + flagArray[i];
                     }
                     ++i;
