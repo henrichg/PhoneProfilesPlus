@@ -634,11 +634,19 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     // restart Events
                     PPApplication.logE("$$$ restartEvents","from ProfilePreferencesActivity.savePreferences");
                     PPApplication.setBlockProfileEventActions(true);
-                    if (Event.getGlobalEventsRunning(getApplicationContext()))
-                        dataWrapper.restartEvents(false, true, true, true, true);
+                    if (Event.getGlobalEventsRunning(getApplicationContext())) {
+                        if (!dataWrapper.getIsManualProfileActivation(false))
+                            dataWrapper.restartEvents(false, true, true, true, true);
+                        else {
+                            if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
+                                dataWrapper.activateProfileFromMainThread(profile, false, startupSource, false, null);
+                            }
+                        }
+                    }
                     else {
-                        if ((activatedProfile != null) && (activatedProfile._id == profile._id))
+                        if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
                             dataWrapper.activateProfileFromMainThread(profile, false, startupSource, false, null);
+                        }
                     }
                 }
             }
