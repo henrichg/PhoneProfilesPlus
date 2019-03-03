@@ -698,7 +698,7 @@
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Quel montant?</string>
   <string name="donation_google_android_market_donate_button">Donner</string>
-  <string name="about_application_releases">Publications</string>
+  <string name="about_application_releases">Publications:</string>
   <string name="permission_group_name_draw_overlays">Dessiner sur les applications</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Vous n’avez pas activé « Dessiner sur les applications ». Ne plus demander à pour cela ?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Dessiner sur les applications</string>

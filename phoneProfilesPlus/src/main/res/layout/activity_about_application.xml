@@ -46,6 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="15dp"
             android:text="@string/about_application_rate_in_googlePlay"
             android:textSize="15sp"
@@ -57,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_author"
             android:textSize="15sp"/>
 
@@ -66,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_support"
             android:textSize="15sp"/>
 
@@ -75,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_translations"
             android:textSize="15sp"/>
 
@@ -84,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_privacy_policy"
             android:textSize="15sp"/>
 
@@ -93,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_releases"
             android:textSize="15sp"/>
 
@@ -102,6 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_source_code"
             android:textSize="15sp"/>
 
@@ -111,6 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_extender_source_code"
             android:textSize="15sp"/>
 
@@ -120,6 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_xda_developers_community"
             android:textSize="15sp"/>
 
@@ -130,6 +140,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/about_application_google_plus_community"
             android:textSize="15sp"/>
         -->

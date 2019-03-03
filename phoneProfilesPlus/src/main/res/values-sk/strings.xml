@@ -698,7 +698,7 @@
   <string name="donation_google_android_market">Obchod Play</string>
   <string name="donation_google_android_market_text">Koľko to stojí?</string>
   <string name="donation_google_android_market_donate_button">Prispejte</string>
-  <string name="about_application_releases">Vydania</string>
+  <string name="about_application_releases">Vydania:</string>
   <string name="permission_group_name_draw_overlays">Vykresliť cez ďalšie aplikácie</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Nepovolili ste \"Vykresliť cez ďalšie aplikácie\". Nabudúce sa už nepýtať?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Vykresliť cez ďalšie aplikácie</string>

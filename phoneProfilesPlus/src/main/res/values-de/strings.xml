@@ -698,7 +698,7 @@
     <string name="donation_google_android_market">Google Play Store</string>
     <string name="donation_google_android_market_text">Wie viel?</string>
     <string name="donation_google_android_market_donate_button">Spenden</string>
-    <string name="about_application_releases">Versionen</string>
+    <string name="about_application_releases">Versionen:</string>
     <string name="permission_group_name_draw_overlays">Über andere Apps zeichnen</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">Sie haben \"Über andere Apps zeichnen\" nicht erlaubt. Nicht mehr nachfragen?</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions">Über andere Apps zeichnen</string>

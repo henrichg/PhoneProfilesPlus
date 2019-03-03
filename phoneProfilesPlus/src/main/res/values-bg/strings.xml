@@ -698,7 +698,7 @@
   <string name="donation_google_android_market">Магазинът Google Play</string>
   <string name="donation_google_android_market_text">Колко?</string>
   <string name="donation_google_android_market_donate_button">Дарения</string>
-  <string name="about_application_releases">Издания</string>
+  <string name="about_application_releases">Издания:</string>
   <string name="permission_group_name_draw_overlays">Draw over apps</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">You have not enabled \"Draw over apps\". Never ask again?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Draw over apps</string>

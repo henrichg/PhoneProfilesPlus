@@ -698,7 +698,7 @@
   <string name="donation_google_android_market">חנות Google Play</string>
   <string name="donation_google_android_market_text">גובה הסכום?</string>
   <string name="donation_google_android_market_donate_button">תרומה</string>
-  <string name="about_application_releases">מהדורות</string>
+  <string name="about_application_releases">מהדורות:</string>
   <string name="permission_group_name_draw_overlays">Draw over apps</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">לא התרת \"הצגה מעל יישומים אחרים\". לא לבקש זאת שוב בכלל?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">הצגה מעל יישומים אחרים</string>

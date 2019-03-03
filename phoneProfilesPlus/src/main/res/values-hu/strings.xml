@@ -698,7 +698,7 @@
   <string name="donation_google_android_market">Google Play Áruház</string>
   <string name="donation_google_android_market_text">Mennyit?</string>
   <string name="donation_google_android_market_donate_button">Adomány</string>
-  <string name="about_application_releases">Kiadások</string>
+  <string name="about_application_releases">Kiadások:</string>
   <string name="permission_group_name_draw_overlays">Alkalmazások felett való működés</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Nincs engedélyezve \"Más alkalmazások eltakarására képes alkalmazások\". Ne kérdezze újra?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Más alkalmazások eltakarására képes alkalmazások</string>

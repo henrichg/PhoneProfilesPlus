@@ -698,7 +698,7 @@
     <string name="donation_google_android_market">Google Play Mağaza</string>
     <string name="donation_google_android_market_text">Ne kadar?</string>
     <string name="donation_google_android_market_donate_button">Bağış Yap</string>
-    <string name="about_application_releases">Sürümler</string>
+    <string name="about_application_releases">Sürümler:</string>
     <string name="permission_group_name_draw_overlays">Diğer uygulamaların üzerinde çalışsın</string>
     <string name="permissions_draw_overlays_not_allowed_confirm">\"Diğer uygulamaların üzerinde çalış\"a izin vermediniz. Bunun için tekrar sorulmasın mı?</string>
     <string name="phone_profiles_pref_drawOverlaysPermissions">Diğer uygulamaların üzerinde çalış</string>

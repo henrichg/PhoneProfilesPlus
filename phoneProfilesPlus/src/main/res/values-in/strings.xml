@@ -698,7 +698,7 @@
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Berapa banyak?</string>
   <string name="donation_google_android_market_donate_button">Menyumbangkan</string>
-  <string name="about_application_releases">Rilis</string>
+  <string name="about_application_releases">Rilis:</string>
   <string name="permission_group_name_draw_overlays">Menggambar aplikasi</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Anda belum mengaktifkan \"Menggambar aplikasi\". Tidak pernah bertanya lagi</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Menggambar aplikasi</string>

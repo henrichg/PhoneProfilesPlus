@@ -698,7 +698,7 @@
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Сколько?</string>
   <string name="donation_google_android_market_donate_button">Пожертвовать</string>
-  <string name="about_application_releases">Релизы</string>
+  <string name="about_application_releases">Релизы:</string>
   <string name="permission_group_name_draw_overlays">Отображать поверх других приложений</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Отображение поверх других приложений отключено. Не спрашивать больше?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Отображать поверх других приложений</string>
