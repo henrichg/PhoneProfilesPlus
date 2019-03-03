@@ -345,7 +345,8 @@
         </activity>
         <activity
             android:name=".ApplicationEditorIntentActivity"
-            android:label="@string/intent_editor_title">
+            android:label="@string/intent_editor_title"
+            android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
