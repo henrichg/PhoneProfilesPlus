@@ -41,7 +41,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     final List<Application> applicationsList;
     final List<PPIntent> intentDBList;
 
-    PPIntent editedPPIntnet = null;
+    //PPIntent editedPPIntnet = null;
 
     private AlertDialog mDialog;
     private ApplicationEditorDialog mEditorDialog;
@@ -326,9 +326,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
             String[] splits = value.split("\\|");
             for (String split : splits) {
+                boolean applicationPassed = false;
 
                 if (cachedApplicationList != null) {
-                    boolean applicationPassed;
 
                     for (Application application : cachedApplicationList) {
                         application.checked = false;
@@ -439,6 +439,9 @@ public class ApplicationsDialogPreference  extends DialogPreference
                             }
                         }
                     }
+
+                    if (applicationPassed)
+                        continue;
                 }
 
                 boolean intentPassed = false;
@@ -496,18 +499,24 @@ public class ApplicationsDialogPreference  extends DialogPreference
                     }
                 }
 
-                if (!intentPassed) {
-                    if (!notPassedIntents.isEmpty())
-                        notPassedIntents = notPassedIntents + "|";
-                    notPassedIntents = notPassedIntents + split;
-                }
+                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "intentPassed=" + intentPassed);
+
+                if (intentPassed)
+                    continue;
+
+                PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "split=" + split);
+                if (!notPassedIntents.isEmpty())
+                    //noinspection StringConcatenationInLoop
+                    notPassedIntents = notPassedIntents + "|";
+                //noinspection StringConcatenationInLoop
+                notPassedIntents = notPassedIntents + split;
             }
 
+            PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "notPassedIntents=" + notPassedIntents);
             if (!notPassedIntents.isEmpty()) {
                 // add not passed intents
                 splits = notPassedIntents.split("\\|");
                 for (String split : splits) {
-                    String[] intentIdDelay = split.split("#");
                     if (split.length() > 2) {
                         Application _application = new Application();
                         _application.type = Application.TYPE_INTENT;
@@ -868,7 +877,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
             }
             else
                 DatabaseHandler.getInstance(context.getApplicationContext()).updateIntent(ppIntent);
-            editedPPIntnet = ppIntent;
+            //editedPPIntnet = ppIntent;
             if (application != null) {
                 // update application
                 application.appLabel = ppIntent._name;
