@@ -787,6 +787,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
             intent = null;
         }
 
+        PPApplication.logE("ApplicationEditorIntentActivity.createIntent", "intent="+intent);
         return intent;
     }
 
