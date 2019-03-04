@@ -46,6 +46,22 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
     private TextView categoryTextView;
     private TextView flagsTextView;
 
+    private EditText intentExtraKeyName1;
+    private EditText intentExtraKeyValue1;
+    private Spinner intentExtraSpinner1;
+    private EditText intentExtraKeyName2;
+    private EditText intentExtraKeyValue2;
+    private Spinner intentExtraSpinner2;
+    private EditText intentExtraKeyName3;
+    private EditText intentExtraKeyValue3;
+    private Spinner intentExtraSpinner3;
+    private EditText intentExtraKeyName4;
+    private EditText intentExtraKeyValue4;
+    private Spinner intentExtraSpinner4;
+    private EditText intentExtraKeyName5;
+    private EditText intentExtraKeyValue5;
+    private Spinner intentExtraSpinner5;
+
     String[] actionsArray;
     String[] categoryArray;
     boolean[] categoryIndices;
@@ -272,6 +288,22 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
             }
         });
 
+        intentExtraKeyName1 = findViewById(R.id.application_editor_intent_extra_key_1);
+        intentExtraKeyValue1 = findViewById(R.id.application_editor_intent_extra_value_1);
+        intentExtraSpinner1  = findViewById(R.id.application_editor_intent_extra_type_spinner_1);
+        intentExtraKeyName2 = findViewById(R.id.application_editor_intent_extra_key_2);
+        intentExtraKeyValue2 = findViewById(R.id.application_editor_intent_extra_value_2);
+        intentExtraSpinner2  = findViewById(R.id.application_editor_intent_extra_type_spinner_2);
+        intentExtraKeyName3 = findViewById(R.id.application_editor_intent_extra_key_3);
+        intentExtraKeyValue3 = findViewById(R.id.application_editor_intent_extra_value_3);
+        intentExtraSpinner3  = findViewById(R.id.application_editor_intent_extra_type_spinner_3);
+        intentExtraKeyName4 = findViewById(R.id.application_editor_intent_extra_key_4);
+        intentExtraKeyValue4 = findViewById(R.id.application_editor_intent_extra_value_4);
+        intentExtraSpinner4  = findViewById(R.id.application_editor_intent_extra_type_spinner_4);
+        intentExtraKeyName5 = findViewById(R.id.application_editor_intent_extra_key_5);
+        intentExtraKeyValue5 = findViewById(R.id.application_editor_intent_extra_value_5);
+        intentExtraSpinner5  = findViewById(R.id.application_editor_intent_extra_type_spinner_5);
+
         actionsArray = getResources().getStringArray(R.array.applicationEditorIntentActionArray);
         if (ppIntent != null) {
             intentNameEditText.setText(ppIntent._name);
@@ -327,6 +359,33 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                         flagIndices[i] = true;
                 }
             }
+
+            if (ppIntent._extraKey1 != null) {
+                intentExtraKeyName1.setText(ppIntent._extraKey1);
+                intentExtraKeyValue1.setText(ppIntent._extraValue1);
+                intentExtraSpinner1.setSelection(ppIntent._extraType1);
+            }
+            if (ppIntent._extraKey2 != null) {
+                intentExtraKeyName2.setText(ppIntent._extraKey2);
+                intentExtraKeyValue2.setText(ppIntent._extraValue2);
+                intentExtraSpinner2.setSelection(ppIntent._extraType2);
+            }
+            if (ppIntent._extraKey3 != null) {
+                intentExtraKeyName3.setText(ppIntent._extraKey3);
+                intentExtraKeyValue3.setText(ppIntent._extraValue3);
+                intentExtraSpinner3.setSelection(ppIntent._extraType3);
+            }
+            if (ppIntent._extraKey4 != null) {
+                intentExtraKeyName4.setText(ppIntent._extraKey4);
+                intentExtraKeyValue4.setText(ppIntent._extraValue4);
+                intentExtraSpinner4.setSelection(ppIntent._extraType4);
+            }
+            if (ppIntent._extraKey5 != null) {
+                intentExtraKeyName5.setText(ppIntent._extraKey5);
+                intentExtraKeyValue5.setText(ppIntent._extraValue5);
+                intentExtraSpinner5.setSelection(ppIntent._extraType5);
+            }
+
         }
         else {
             intentActionEdit.setEnabled(false);
@@ -379,6 +438,22 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                     }
                     ++i;
                 }
+
+                ppIntent._extraKey1 = intentExtraKeyName1.getText().toString();
+                ppIntent._extraValue1 = intentExtraKeyValue1.getText().toString();
+                ppIntent._extraType1 = intentExtraSpinner1.getSelectedItemPosition();
+                ppIntent._extraKey2 = intentExtraKeyName2.getText().toString();
+                ppIntent._extraValue2 = intentExtraKeyValue2.getText().toString();
+                ppIntent._extraType2 = intentExtraSpinner2.getSelectedItemPosition();
+                ppIntent._extraKey3 = intentExtraKeyName3.getText().toString();
+                ppIntent._extraValue3 = intentExtraKeyValue3.getText().toString();
+                ppIntent._extraType3 = intentExtraSpinner3.getSelectedItemPosition();
+                ppIntent._extraKey4 = intentExtraKeyName4.getText().toString();
+                ppIntent._extraValue4 = intentExtraKeyValue4.getText().toString();
+                ppIntent._extraType4 = intentExtraSpinner4.getSelectedItemPosition();
+                ppIntent._extraKey5 = intentExtraKeyName5.getText().toString();
+                ppIntent._extraValue5 = intentExtraKeyValue5.getText().toString();
+                ppIntent._extraType5 = intentExtraSpinner5.getSelectedItemPosition();
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra(ApplicationEditorDialog.EXTRA_PP_INTENT, ppIntent);
