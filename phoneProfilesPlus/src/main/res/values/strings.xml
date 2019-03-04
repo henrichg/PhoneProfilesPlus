@@ -1363,8 +1363,8 @@
     <string name="application_editor_intent_extra_type">Key type:</string>
     <string name="application_editor_intent_extra_select_categories">Select categories</string>
     <string name="application_editor_intent_extra_select_flags">Select flags</string>
-
-
+    <string name="application_editor_intent_test_title">Test</string>
+    <string name="application_editor_intent_test_bad_data">Bad data. Error during start of activity.</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
