@@ -105,13 +105,12 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
             }
         }
 
-        /*
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setHomeButtonEnabled(true);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle(R.string.intent_editor_title);
             getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
-        }*/
+        }
 
         Intent intent = getIntent();
         application = intent.getParcelableExtra(ApplicationEditorDialog.EXTRA_APPLICATION);
