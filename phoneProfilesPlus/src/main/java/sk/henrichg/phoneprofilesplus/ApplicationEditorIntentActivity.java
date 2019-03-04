@@ -516,7 +516,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
         okButton.setEnabled(enableOK);
     }
 
-    private static Intent createIntent(PPIntent ppIntent) {
+    static Intent createIntent(PPIntent ppIntent) {
         /*
         intent = new Intent("android.intent.action.MAIN");
         intent.setComponent(new ComponentName("com.kuma.smartnotify","com.kuma.smartnotify.SmartNotifyMain"));

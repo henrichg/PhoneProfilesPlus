@@ -56,6 +56,20 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             else
             if (Application.isIntent(runApplicationData)) {
                 //TODO intent
+                long intentId = Application.getIntentId(runApplicationData);
+                if (intentId > 0) {
+                    PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
+                    if (ppIntent != null) {
+                        appIntent = ApplicationEditorIntentActivity.createIntent(ppIntent);
+                        if (appIntent != null) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            try {
+                                context.startActivity(appIntent);
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                }
             } else {
                 String packageName = Application.getPackageName(runApplicationData);
                 appIntent = packageManager.getLaunchIntentForPackage(packageName);

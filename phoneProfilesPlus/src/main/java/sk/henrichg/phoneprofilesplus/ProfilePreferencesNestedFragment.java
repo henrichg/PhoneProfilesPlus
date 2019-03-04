@@ -1945,7 +1945,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             }*/
         }
         if (requestCode == ApplicationEditorDialog.RESULT_INTENT_EDITOR) {
-            //TODO intent
             if (resultCode == Activity.RESULT_OK) {
                 ApplicationsDialogPreference preference = (ApplicationsDialogPreference)prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
                 if (preference != null) {
