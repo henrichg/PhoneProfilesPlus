@@ -37,7 +37,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
 
     private String value = "";
 
-    final List<Application> oldApplicationsList;
+    private final List<Application> oldApplicationsList;
     final List<Application> applicationsList;
     final List<PPIntent> intentDBList;
 
