@@ -142,7 +142,7 @@
                     android:id="@+id/application_editor_intent_action_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginTop="8dp"
                     android:entries="@array/applicationEditorIntentActionArray" />
@@ -214,21 +214,6 @@
                     android:layout_marginStart="19dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="@string/application_editor_intent_extras"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="?attr/dialogDivider" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="19dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_categories"/>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -245,13 +230,13 @@
                         android:focusable="true"
                         android:src="@drawable/ic_button_edit"
                         android:background="?attr/selectableItemBackground"
-                        android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"/>
+                        android:contentDescription="@string/application_editor_intent_extra_select_categories"/>
                     <TextView
                         android:id="@+id/application_editor_intent_category_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="3dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_toStartOf = "@id/application_editor_intent_category_btn"
                         android:text="@string/empty_string"/>
@@ -286,17 +271,257 @@
                         android:focusable="true"
                         android:src="@drawable/ic_button_edit"
                         android:background="?attr/selectableItemBackground"
-                        android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"/>
+                        android:contentDescription="@string/application_editor_intent_extra_select_flags"/>
                     <TextView
                         android:id="@+id/application_editor_intent_flags_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="3dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_toStartOf = "@id/application_editor_intent_flags_btn"
                         android:text="@string/empty_string"/>
                 </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="?attr/dialogDivider" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="@string/application_editor_intent_extras"/>
+
+                <LinearLayout
+                    android:id="@+id/application_editor_intent_extra_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_key_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_key"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_value_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_value"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="19dp"
+                            android:textSize="18sp"
+                            android:text="@string/application_editor_intent_extra_type"/>
+                        <Spinner
+                            android:id="@+id/application_editor_intent_extra_type_spinner_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="10dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/application_editor_intent_extra_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_key_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_key"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_value_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_value"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="19dp"
+                            android:textSize="18sp"
+                            android:text="@string/application_editor_intent_extra_type"/>
+                        <Spinner
+                            android:id="@+id/application_editor_intent_extra_type_spinner_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="10dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/application_editor_intent_extra_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_key_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_key"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_value_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_value"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="19dp"
+                            android:textSize="18sp"
+                            android:text="@string/application_editor_intent_extra_type"/>
+                        <Spinner
+                            android:id="@+id/application_editor_intent_extra_type_spinner_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="10dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/application_editor_intent_extra_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_key_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_key"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_value_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_value"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="19dp"
+                            android:textSize="18sp"
+                            android:text="@string/application_editor_intent_extra_type"/>
+                        <Spinner
+                            android:id="@+id/application_editor_intent_extra_type_spinner_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="10dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/application_editor_intent_extra_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_key_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_key"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <EditText
+                        android:id="@+id/application_editor_intent_extra_value_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:hint="@string/application_editor_intent_extra_value"
+                        android:inputType="textNoSuggestions"
+                        android:importantForAutofill="no"
+                        tools:ignore="UnusedAttribute"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="19dp"
+                            android:textSize="18sp"
+                            android:text="@string/application_editor_intent_extra_type"/>
+                        <Spinner
+                            android:id="@+id/application_editor_intent_extra_type_spinner_5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="10dp"
+                            android:entries="@array/applicationEditorIntentExtraTypeArray" />
+                    </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

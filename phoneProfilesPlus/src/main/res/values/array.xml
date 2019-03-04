@@ -1399,6 +1399,14 @@
         <item>FLAG_RECEIVER_REPLACE_PENDING</item>
         <item>FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS</item>
     </string-array>
+    <string-array name="applicationEditorIntentExtraTypeArray">
+        <item>string</item>
+        <item>int</item>
+        <item>long</item>
+        <item>float</item>
+        <item>double</item>
+        <item>boolean</item>
+    </string-array>
 
 
 <!--
