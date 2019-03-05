@@ -1407,6 +1407,10 @@
         <item>double</item>
         <item>boolean</item>
     </string-array>
+    <string-array name="applicationEditorIntentIntentTypeArray">
+        <item>@string/array_intent_type_activity</item>
+        <item>@string/array_intent_type_broadcast</item>
+    </string-array>
 
 
 <!--

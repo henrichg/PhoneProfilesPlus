@@ -39,6 +39,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
     //private ScrollView intentScrollView;
     private EditText intentNameEditText;
+    private Spinner intentIntentTypeSpinner;
     private EditText intentPackageName;
     private EditText intentClassName;
     private Spinner intentActionSpinner;
@@ -141,6 +142,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
             }
         });
 
+        intentIntentTypeSpinner = findViewById(R.id.application_editor_intent_intent_type_spinner);
         intentPackageName = findViewById(R.id.application_editor_intent_package_name);
         intentClassName = findViewById(R.id.application_editor_intent_class_name);
         intentData = findViewById(R.id.application_editor_intent_data);
@@ -309,6 +311,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
         actionsArray = getResources().getStringArray(R.array.applicationEditorIntentActionArray);
         if (ppIntent != null) {
             intentNameEditText.setText(ppIntent._name);
+            intentIntentTypeSpinner.setSelection(ppIntent._intentType);
             intentPackageName.setText(ppIntent._packageName);
             intentClassName.setText(ppIntent._className);
             intentData.setText(ppIntent._data);
@@ -426,18 +429,38 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                 Intent testIntent = createIntent(ppIntent);
                 boolean ok = false;
                 if (testIntent != null) {
-                    try {
-                        testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(testIntent);
-                        ok = true;
-                    } catch (Exception ignored) {}
+                    if (ppIntent._intentType == 0) {
+                        try {
+                            testIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(testIntent);
+                            ok = true;
+                        } catch (Exception ignored) {
+                        }
+                    }
+                    else {
+                        try {
+                            sendBroadcast(testIntent);
+                            ok = true;
+                        } catch (Exception ignored) {
+                        }
+                    }
                 }
                 if (!ok) {
-                    AlertDialog.Builder builder =
-                            new AlertDialog.Builder(activity)
-                                    .setTitle(R.string.application_editor_intent_test_title)
-                                    //.setIcon(getDialogIcon())
-                                    .setMessage(R.string.application_editor_intent_test_bad_data);
+                    AlertDialog.Builder builder;
+                    if (ppIntent._intentType == 0) {
+                        builder =
+                                new AlertDialog.Builder(activity)
+                                        .setTitle(R.string.application_editor_intent_test_title)
+                                        //.setIcon(getDialogIcon())
+                                        .setMessage(R.string.application_editor_intent_test_activity_bad_data);
+                    }
+                    else {
+                        builder =
+                                new AlertDialog.Builder(activity)
+                                        .setTitle(R.string.application_editor_intent_test_title)
+                                        //.setIcon(getDialogIcon())
+                                        .setMessage(R.string.application_editor_intent_test_broadcast_bad_data);
+                    }
                     builder.setPositiveButton(android.R.string.ok, null);
 
                     AlertDialog mDialog = builder.create();
@@ -452,6 +475,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
         ppIntent._name = intentNameEditText.getText().toString();
         if (application != null)
             application.appLabel = ppIntent._name;
+        ppIntent._intentType = intentIntentTypeSpinner.getSelectedItemPosition();
         ppIntent._packageName = intentPackageName.getText().toString().replaceAll(" ","");
         ppIntent._className = intentClassName.getText().toString().replaceAll(" ","");
         ppIntent._data = intentData.getText().toString();

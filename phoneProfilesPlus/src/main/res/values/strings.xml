@@ -1364,7 +1364,11 @@
     <string name="application_editor_intent_extra_select_categories">Select categories</string>
     <string name="application_editor_intent_extra_select_flags">Select flags</string>
     <string name="application_editor_intent_test_title">Test</string>
-    <string name="application_editor_intent_test_bad_data">Bad data. Error during start of activity.</string>
+    <string name="application_editor_intent_test_activity_bad_data">Bad data. Error during start of activity.</string>
+    <string name="application_editor_intent_intent_type">Intent type:</string>
+    <string name="array_intent_type_activity">Activity</string>
+    <string name="array_intent_type_broadcast">Broadcast</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Bad data. Error during send of broadcast.</string>
 
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

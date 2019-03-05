@@ -94,6 +94,29 @@
                     android:layout_marginStart="19dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
+                    android:text="@string/application_editor_intent_intent_type"/>
+                <Spinner
+                    android:id="@+id/application_editor_intent_intent_type_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="8dp"
+                    android:entries="@array/applicationEditorIntentIntentTypeArray" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="?attr/dialogDivider" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="19dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:text="@string/application_editor_intent_package_name"/>
                 <EditText
                     android:id="@+id/application_editor_intent_package_name"

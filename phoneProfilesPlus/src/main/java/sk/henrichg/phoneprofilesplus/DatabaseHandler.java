@@ -33,7 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2280;
+    private static final int DATABASE_VERSION = 2290;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -417,6 +417,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_IN_CATEGORIES = "categories";
     private static final String KEY_IN_FLAGS = "flags";
     private static final String KEY_IN_USED_COUNT = "usedCount";
+    private static final String KEY_IN_INTENT_TYPE = "intentType";
 
 
     private DatabaseHandler(Context context) {
@@ -791,7 +792,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_IN_CATEGORIES + " TEXT,"
                 + KEY_IN_FLAGS + " TEXT,"
                 + KEY_IN_NAME + " TEXT,"
-                + KEY_IN_USED_COUNT + " INTEGER"
+                + KEY_IN_USED_COUNT + " INTEGER,"
+                + KEY_IN_INTENT_TYPE + " INTEGER"
                 + ")";
         db.execSQL(CREATE_INTENTS_TABLE);
 
@@ -2625,6 +2627,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_USED_COUNT + " INTEGER");
 
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_USED_COUNT + "=0");
+        }
+
+        if (oldVersion < 2290)
+        {
+            db.execSQL("ALTER TABLE " + TABLE_INTENTS + " ADD COLUMN " + KEY_IN_INTENT_TYPE + " INTEGER");
+
+            db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_INTENT_TYPE + "=0");
         }
 
         PPApplication.logE("DatabaseHandler.onUpgrade", "END");
@@ -8481,6 +8490,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_EXTRA_TYPE_10, intent._extraType10);
                 values.put(KEY_IN_CATEGORIES, intent._categories);
                 values.put(KEY_IN_FLAGS, intent._flags);
+                values.put(KEY_IN_INTENT_TYPE, intent._intentType);
 
                 values.put(KEY_IN_USED_COUNT, intent._usedCount);
 
@@ -8554,6 +8564,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_IN_EXTRA_TYPE_10 + ", " +
                         KEY_IN_CATEGORIES + ", " +
                         KEY_IN_FLAGS + ", " +
+                        KEY_IN_INTENT_TYPE + ", " +
 
                         KEY_IN_USED_COUNT +
                         " FROM " + TABLE_INTENTS;
@@ -8606,7 +8617,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_10))),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_USED_COUNT)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_USED_COUNT))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_INTENT_TYPE)))
                         );
                         intentList.add(ppIntent);
                     } while (cursor.moveToNext());
@@ -8672,6 +8684,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_EXTRA_TYPE_10, intent._extraType10);
                 values.put(KEY_IN_CATEGORIES, intent._categories);
                 values.put(KEY_IN_FLAGS, intent._flags);
+                values.put(KEY_IN_INTENT_TYPE, intent._intentType);
 
                 values.put(KEY_IN_USED_COUNT, intent._usedCount);
 
@@ -8750,6 +8763,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_IN_EXTRA_TYPE_10,
                                 KEY_IN_CATEGORIES,
                                 KEY_IN_FLAGS,
+                                KEY_IN_INTENT_TYPE,
 
                                 KEY_IN_USED_COUNT
                         },
@@ -8800,7 +8814,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_10))),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)),
-                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_USED_COUNT)))
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_USED_COUNT))),
+                                Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_IN_INTENT_TYPE)))
                         );
                     }
 
@@ -10391,6 +10406,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (exportedDBObj.getVersion() < 2280) {
                                                 values.put(KEY_IN_USED_COUNT, 0);
+                                            }
+
+                                            if (exportedDBObj.getVersion() < 2290) {
+                                                values.put(KEY_IN_INTENT_TYPE, 0);
                                             }
 
                                             // Inserting Row do db z SQLiteOpenHelper

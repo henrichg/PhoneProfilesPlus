@@ -1722,13 +1722,24 @@ class ActivateProfileHelper {
                                         if (ppIntent != null) {
                                             intent = ApplicationEditorIntentActivity.createIntent(ppIntent);
                                             if (intent != null) {
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                try {
-                                                    context.startActivity(intent);
-                                                    //try { Thread.sleep(1000); } catch (InterruptedException e) { }
-                                                    //SystemClock.sleep(1000);
-                                                    PPApplication.sleep(1000);
-                                                } catch (Exception ignored) {
+                                                if (ppIntent._intentType == 0) {
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    try {
+                                                        context.startActivity(intent);
+                                                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                                        //SystemClock.sleep(1000);
+                                                        PPApplication.sleep(1000);
+                                                    } catch (Exception ignored) {
+                                                    }
+                                                }
+                                                else {
+                                                    try {
+                                                        context.sendBroadcast(intent);
+                                                        //try { Thread.sleep(1000); } catch (InterruptedException e) { }
+                                                        //SystemClock.sleep(1000);
+                                                        PPApplication.sleep(1000);
+                                                    } catch (Exception ignored) {
+                                                    }
                                                 }
                                             }
                                         }

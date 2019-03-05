@@ -62,10 +62,18 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     if (ppIntent != null) {
                         appIntent = ApplicationEditorIntentActivity.createIntent(ppIntent);
                         if (appIntent != null) {
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            try {
-                                context.startActivity(appIntent);
-                            } catch (Exception ignored) {
+                            if (ppIntent._intentType == 0) {
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                try {
+                                    context.startActivity(appIntent);
+                                } catch (Exception ignored) {
+                                }
+                            }
+                            else {
+                                try {
+                                    context.sendBroadcast(appIntent);
+                                } catch (Exception ignored) {
+                                }
                             }
                         }
                     }
