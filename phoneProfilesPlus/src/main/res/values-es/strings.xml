@@ -600,9 +600,6 @@
   <string name="permissions_for_play_ringtone_notification_text1">Has seleccionado un timbre/notificación desde la SDCard. El tono no puede ser reproducido porque este requiere de algunos permisos.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Por favor, concédalos en el próximo diálogo. Entonces el tono será reproducido.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Para reproducir el tono/notificación seleccionado, se tienen que conceder algunos permisos.</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplicaciones, atajos</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Ejecutar aplicaciones, atajos</string>
-  <string name="applications_editor_dialog_title">Establecer la aplicación, atajos</string>
   <string name="important_info_profile_interactive">Algunas preferencias de perfil son interactivas. Estas preferencias muestran pantallas de configuración del sistema, y están marcadas con \"(l)\".</string>
   <string name="important_info_orange_text">A esta información en texto naranja se le puede hacer click. Hacer click en este texto abre la pantalla de configuración relevante.</string>
   <string name="default_event_name_night_call">Llamada nocturna</string>
@@ -1287,6 +1284,21 @@
     <string name="application_editor_intent_flags">Flags:</string>
     <string name="application_editor_intent_flags_dlg_title">Flags</string>
     <string name="application_editor_intent_test_button">Test</string>
+    <string name="application_editor_intent_extra_key">Key name</string>
+    <string name="application_editor_intent_extra_value">Key value</string>
+    <string name="application_editor_intent_extra_type">Key type:</string>
+    <string name="application_editor_intent_extra_select_categories">Select categories</string>
+    <string name="application_editor_intent_extra_select_flags">Select flags</string>
+    <string name="application_editor_intent_test_title">Test</string>
+    <string name="application_editor_intent_test_activity_bad_data">Bad data. Error during start of activity.</string>
+    <string name="application_editor_intent_intent_type">Intent type:</string>
+    <string name="array_intent_type_activity">Activity</string>
+    <string name="array_intent_type_broadcast">Broadcast</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Bad data. Error during send of broadcast.</string>
+
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
+    <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
 
 
 

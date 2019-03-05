@@ -600,9 +600,6 @@
   <string name="permissions_for_play_ringtone_notification_text1">Máte nastavený zvuk vyzvánění/notifikací z SD karty. Tón nebude přehrán, protože to vyžaduje některá povolení.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Prosím, povolte je v následujících dialogových oknech. Pak zvuk bude přehráván.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Přehrávání nastaveného zvuku vyzvánění/notifikací vyžaduje udělení některých povolení.</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikace, odkazy</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustit aplikace, odkazy</string>
-  <string name="applications_editor_dialog_title">Vyber aplikaci, odkaz</string>
   <string name="important_info_profile_interactive">Některé předvolby profilu jsou interaktivní. Tyto preference se zobrazí v systémovém nastavení obrazovky. Tyto předvolby jsou označeny \"(I)\".</string>
   <string name="important_info_orange_text">Poznámka: Oranžový text v této informaci jde otevřít. Kliknutím na tento text se otevřou příslušné obrazovky nastavení.</string>
   <string name="default_event_name_night_call">Noční hovor</string>
@@ -1287,6 +1284,21 @@
     <string name="application_editor_intent_flags">Flags:</string>
     <string name="application_editor_intent_flags_dlg_title">Flags</string>
     <string name="application_editor_intent_test_button">Test</string>
+    <string name="application_editor_intent_extra_key">Key name</string>
+    <string name="application_editor_intent_extra_value">Key value</string>
+    <string name="application_editor_intent_extra_type">Key type:</string>
+    <string name="application_editor_intent_extra_select_categories">Select categories</string>
+    <string name="application_editor_intent_extra_select_flags">Select flags</string>
+    <string name="application_editor_intent_test_title">Test</string>
+    <string name="application_editor_intent_test_activity_bad_data">Bad data. Error during start of activity.</string>
+    <string name="application_editor_intent_intent_type">Intent type:</string>
+    <string name="array_intent_type_activity">Activity</string>
+    <string name="array_intent_type_broadcast">Broadcast</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Bad data. Error during send of broadcast.</string>
+
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikace, odkazy, záměry které spustit</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustit aplikace, odkazy, záměry</string>
+    <string name="applications_editor_dialog_title">Vyber aplikaci, odkaz, záměr</string>
 
 
 

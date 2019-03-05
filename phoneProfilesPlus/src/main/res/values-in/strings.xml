@@ -600,9 +600,6 @@
   <string name="permissions_for_play_ringtone_notification_text1">Anda telah memilih nada dering / notifikasi dari SDCard. Nada tidak bisa dimainkan karena ini memerlukan beberapa izin.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Tolong berikan mereka di dialog berikutnya. Nada kemudian akan dimainkan.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Memutar dering / pemberitahuan yang dipilih memerlukan beberapa izin untuk diberikan.</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikasi, jalan pintas</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Jalankan aplikasi, jalan pintas</string>
-  <string name="applications_editor_dialog_title">Setel aplikasi, shortcut</string>
   <string name="important_info_profile_interactive">Beberapa preferensi profil bersifat interaktif. Preferensi ini menampilkan layar pengaturan sistem, dan ditandai dengan \"(I)\".</string>
   <string name="important_info_orange_text">Catatan: Teks oranye dalam informasi ini dapat diklik. Mengklik pada teks ini akan membuka layar penyiapan yang relevan.</string>
   <string name="default_event_name_night_call">Panggilan malam</string>
@@ -1287,6 +1284,21 @@
     <string name="application_editor_intent_flags">Flags:</string>
     <string name="application_editor_intent_flags_dlg_title">Flags</string>
     <string name="application_editor_intent_test_button">Test</string>
+    <string name="application_editor_intent_extra_key">Key name</string>
+    <string name="application_editor_intent_extra_value">Key value</string>
+    <string name="application_editor_intent_extra_type">Key type:</string>
+    <string name="application_editor_intent_extra_select_categories">Select categories</string>
+    <string name="application_editor_intent_extra_select_flags">Select flags</string>
+    <string name="application_editor_intent_test_title">Test</string>
+    <string name="application_editor_intent_test_activity_bad_data">Bad data. Error during start of activity.</string>
+    <string name="application_editor_intent_intent_type">Intent type:</string>
+    <string name="array_intent_type_activity">Activity</string>
+    <string name="array_intent_type_broadcast">Broadcast</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Bad data. Error during send of broadcast.</string>
+
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
+    <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
 
 
 

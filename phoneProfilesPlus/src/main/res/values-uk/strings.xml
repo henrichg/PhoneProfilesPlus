@@ -600,9 +600,6 @@
   <string name="permissions_for_play_ringtone_notification_text1">Ви вибрали сигнал дзвінка/сповіщення із SD-карти. Сигнал не буде відтворюватись, тому що це вимагає деяких дозволів.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього сигнал буде відтворено.</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">Відтворення вибраного дзвінка/сповіщення вимагає надання деяких дозволів.</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Додатки, ярлики щоб запустити їх</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запустити додатки, ярлики</string>
-  <string name="applications_editor_dialog_title">Вибрати додаток, ярлик</string>
   <string name="important_info_profile_interactive">Деякі параметри профілю інтерактивні. Вони показують вікно налаштувань системи. Ці параметри помічені знаком «(I)».</string>
   <string name="important_info_orange_text">Примітка: помаранчевий текст в цій інформації є активним. Натисніть на нього, щоб відкрити відповідні налаштування.</string>
   <string name="default_event_name_night_call">Нічний виклик</string>
@@ -1287,6 +1284,21 @@
     <string name="application_editor_intent_flags">Flags:</string>
     <string name="application_editor_intent_flags_dlg_title">Flags</string>
     <string name="application_editor_intent_test_button">Test</string>
+    <string name="application_editor_intent_extra_key">Key name</string>
+    <string name="application_editor_intent_extra_value">Key value</string>
+    <string name="application_editor_intent_extra_type">Key type:</string>
+    <string name="application_editor_intent_extra_select_categories">Select categories</string>
+    <string name="application_editor_intent_extra_select_flags">Select flags</string>
+    <string name="application_editor_intent_test_title">Test</string>
+    <string name="application_editor_intent_test_activity_bad_data">Bad data. Error during start of activity.</string>
+    <string name="application_editor_intent_intent_type">Intent type:</string>
+    <string name="array_intent_type_activity">Activity</string>
+    <string name="array_intent_type_broadcast">Broadcast</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Bad data. Error during send of broadcast.</string>
+
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
+    <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
 
 
 

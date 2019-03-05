@@ -600,9 +600,6 @@
   <string name="permissions_for_play_ringtone_notification_text1">您已从 SD 卡选择铃声/通知音。由于需要某些权限，铃声不会被播放。</string>
   <string name="permissions_for_play_ringtone_notification_text2">请在下一个对话框中授权，然后铃声才会播放。</string>
   <string name="permissions_for_play_ringtone_notification_big_text_notification">播放选定的铃声/通知音需要授予某些必要权限。</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">应用程序/快捷方式</string>
-  <string name="profile_preferences_deviceRunApplicationsShortcutsChange">运行应用程序/快捷方式</string>
-  <string name="applications_editor_dialog_title">设置应用程序/快捷方式</string>
   <string name="important_info_profile_interactive">某些配置文件首选项是需要交互的，这些首选项将会调用系统设置页面，标记为“(I)”。</string>
   <string name="important_info_orange_text">注意：本信息中的橙色文本可以点击。点击此文本打开相关设置界面。</string>
   <string name="default_event_name_night_call">夜间电话</string>
@@ -1287,6 +1284,21 @@
     <string name="application_editor_intent_flags">Flags:</string>
     <string name="application_editor_intent_flags_dlg_title">Flags</string>
     <string name="application_editor_intent_test_button">Test</string>
+    <string name="application_editor_intent_extra_key">Key name</string>
+    <string name="application_editor_intent_extra_value">Key value</string>
+    <string name="application_editor_intent_extra_type">Key type:</string>
+    <string name="application_editor_intent_extra_select_categories">Select categories</string>
+    <string name="application_editor_intent_extra_select_flags">Select flags</string>
+    <string name="application_editor_intent_test_title">Test</string>
+    <string name="application_editor_intent_test_activity_bad_data">Bad data. Error during start of activity.</string>
+    <string name="application_editor_intent_intent_type">Intent type:</string>
+    <string name="array_intent_type_activity">Activity</string>
+    <string name="array_intent_type_broadcast">Broadcast</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Bad data. Error during send of broadcast.</string>
+
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
+    <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
 
 
 
