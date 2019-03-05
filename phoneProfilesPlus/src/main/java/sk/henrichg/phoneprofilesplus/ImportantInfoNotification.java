@@ -7,13 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 class ImportantInfoNotification {
 
     // this version code must by <= version code in dependencies.gradle
-    static final int VERSION_CODE_FOR_NEWS = 4540;
+    static final int VERSION_CODE_FOR_NEWS = 4550;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
@@ -68,7 +69,8 @@ class ImportantInfoNotification {
         if (newsLatest) {
             // change to false for not show notification
             //noinspection ConstantConditions
-            news = false;
+            if (Build.VERSION.SDK_INT >= 28)
+                news = true;
         }
 
         if (news4340) {
