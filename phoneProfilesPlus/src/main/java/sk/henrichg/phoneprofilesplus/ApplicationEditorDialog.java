@@ -423,18 +423,22 @@ class ApplicationEditorDialog
             }
         }
         if (canDelete)
-            new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit, popup.getMenu());
+            new MenuInflater(context).inflate(R.menu.applications_intent_editor_dlg_item_edit, popup.getMenu());
         else
-            new MenuInflater(context).inflate(R.menu.applications_pref_dlg_item_edit_no_delete, popup.getMenu());
+            new MenuInflater(context).inflate(R.menu.applications_intent_editor_dlg_item_edit_no_delete, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.applications_pref_dlg_item_menu_edit:
+                    case R.id.applications_intent_editor_dlg_item_menu_edit:
                         startEditor(application);
                         return true;
-                    case R.id.applications_pref_dlg_item_menu_delete:
+                    case R.id.applications_intent_editor_dlg_item_menu_duplicate:
+                        Application newApplication = duplicateIntent(application);
+                        startEditor(newApplication);
+                        return true;
+                    case R.id.applications_intent_editor_dlg_item_menu_delete:
                         deleteIntent(application);
                         return true;
                     default:
@@ -464,6 +468,43 @@ class ApplicationEditorDialog
         fillApplicationList();
         listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
+    }
+
+    private Application duplicateIntent(Application originalApplication) {
+        if (originalApplication == null)
+            return null;
+
+        Application newApplication = null;
+        PPIntent newPPIntent = null;
+
+        if (preference.intentDBList != null) {
+            for (PPIntent ppIntent : preference.intentDBList) {
+                if (ppIntent._id == originalApplication.intentId) {
+                    newPPIntent = ppIntent.duplicate();
+                    break;
+                }
+            }
+        }
+
+        if (newPPIntent != null) {
+            DatabaseHandler.getInstance(preference.context.getApplicationContext()).addIntent(newPPIntent);
+
+            preference.intentDBList.add(newPPIntent);
+
+            fillApplicationList();
+
+            for (Application application : applicationList) {
+                if (application.intentId == newPPIntent._id) {
+                    newApplication = application;
+                    break;
+                }
+            }
+
+            listView.getRecycledViewPool().clear();
+            listAdapter.notifyDataSetChanged();
+        }
+
+        return newApplication;
     }
 
     private void deleteIntent(Application application) {

@@ -233,6 +233,52 @@ class PPIntent implements Parcelable {
         dest.writeInt(this._usedCount);
     }
 
+    PPIntent duplicate() {
+        PPIntent newPPIntent = new PPIntent();
+        newPPIntent._name = _name + "_d";
+        newPPIntent._packageName = _packageName;
+        newPPIntent._className = _className;
+        newPPIntent._action = _action;
+        newPPIntent._data = _data;
+        newPPIntent._mimeType = _mimeType;
+        newPPIntent._extraKey1 = _extraKey1;
+        newPPIntent._extraValue1 = _extraValue1;
+        newPPIntent._extraType1 = _extraType1;
+        newPPIntent._extraKey2 = _extraKey2;
+        newPPIntent._extraValue2 = _extraValue2;
+        newPPIntent._extraType2 = _extraType2;
+        newPPIntent._extraKey3 = _extraKey3;
+        newPPIntent._extraValue3 = _extraValue3;
+        newPPIntent._extraType3 = _extraType3;
+        newPPIntent._extraKey4 = _extraKey4;
+        newPPIntent._extraValue4 = _extraValue4;
+        newPPIntent._extraType4 = _extraType4;
+        newPPIntent._extraKey5 = _extraKey5;
+        newPPIntent._extraValue5 = _extraValue5;
+        newPPIntent._extraType5 = _extraType5;
+        newPPIntent._extraKey6 = _extraKey6;
+        newPPIntent._extraValue6 = _extraValue6;
+        newPPIntent._extraType6 = _extraType6;
+        newPPIntent._extraKey7 = _extraKey7;
+        newPPIntent._extraValue7 = _extraValue7;
+        newPPIntent._extraType7 = _extraType7;
+        newPPIntent._extraKey8 = _extraKey8;
+        newPPIntent._extraValue8 = _extraValue8;
+        newPPIntent._extraType8 = _extraType8;
+        newPPIntent._extraKey9 = _extraKey9;
+        newPPIntent._extraValue9 = _extraValue9;
+        newPPIntent._extraType9 = _extraType9;
+        newPPIntent._extraKey10 = _extraKey10;
+        newPPIntent._extraValue10 = _extraValue10;
+        newPPIntent._extraType10 = _extraType10;
+        newPPIntent._categories = _categories;
+        newPPIntent._flags = _flags;
+        newPPIntent._intentType = _intentType;
+
+        return newPPIntent;
+    }
+
+
     public static final Parcelable.Creator<PPIntent> CREATOR = new Parcelable.Creator<PPIntent>() {
         public PPIntent createFromParcel(Parcel source) {
             return new PPIntent(source);
@@ -242,4 +288,5 @@ class PPIntent implements Parcelable {
             return new PPIntent[size];
         }
     };
+
 }
