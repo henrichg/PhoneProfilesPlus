@@ -3843,6 +3843,8 @@ public class DataWrapper {
                         event._blocked = false;
                 }
             }
+            PPApplication.logE("DataWrapper._restartEvents", "after synchronized (eventList)");
+
             DatabaseHandler.getInstance(context).unblockAllEvents();
             Event.setForceRunEventRunning(context, false);
         }

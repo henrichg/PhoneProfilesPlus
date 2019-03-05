@@ -94,6 +94,8 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
 
+                                         //+"|PPApplication.startHandlerThread"
+
                                          //+"|ActivateProfileHelper.updateGUI"
                                          //+"|OneRowWidgetProvider.onUpdate"
 
@@ -124,7 +126,6 @@ public class PPApplication extends Application {
 
                                          //+"|ActivateProfileHelper.doExecuteForRadios"
 
-                                         //+"|PPApplication.startHandlerThread"
                                          //+"|[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers"
 
                                          //+"|PPApplication.startPPService"
@@ -208,7 +209,7 @@ public class PPApplication extends Application {
                                          //+"|PostDelayedBroadcastReceiver.onReceive"
 
                                          //+"|WifiScanJob"
-                                         //+"|WifiScanBroadcastReceiver.onReceive"
+                                         //+"|%%%% WifiScanBroadcastReceiver.onReceive"
                                          //+"|[WiFi] DataWrapper.doHandleEvents"
                                          //+"|WifiSSIDPreference.refreshListView"
 
@@ -319,13 +320,13 @@ public class PPApplication extends Application {
 
                                         //+"|DatabaseHandler.importDB"
                                         //+ "|ApplicationsMultiSelectDialogPreference.getValueAMSDP"
-                                        + "|ApplicationsDialogPreference"
-                                        + "|ApplicationEditorDialogAdapter"
-                                        + "|ApplicationEditorDialogViewHolder"
-                                        + "|ApplicationEditorDialog"
-                                        + "|ApplicationEditorIntentActivity"
+                                        //+ "|ApplicationsDialogPreference"
+                                        //+ "|ApplicationEditorDialogAdapter"
+                                        //+ "|ApplicationEditorDialogViewHolder"
+                                        //+ "|ApplicationEditorDialog"
+                                        //+ "|ApplicationEditorIntentActivity"
                                         //+ "|ApplicationsCache.cacheApplicationsList"
-                                        + "|@ Application."
+                                        //+ "|@ Application."
 
                                         //+ "|BitmapManipulator.resampleBitmapUri"
             ;
