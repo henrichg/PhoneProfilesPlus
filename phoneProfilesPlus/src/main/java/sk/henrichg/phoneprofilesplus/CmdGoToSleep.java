@@ -4,7 +4,8 @@ import android.os.IPowerManager;
 import android.os.ServiceManager;
 import android.os.SystemClock;
 
-class CmdGoToSleep {
+@SuppressWarnings("WeakerAccess")
+public class CmdGoToSleep {
 
     public static void main(String[] args) {
         if (!(run())) {
