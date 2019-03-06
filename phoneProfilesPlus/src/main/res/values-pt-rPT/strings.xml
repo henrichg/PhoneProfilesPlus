@@ -7,7 +7,7 @@
   <string name="menu_settings">Definições</string>
   <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Preferências do Perfil</string>
-  <string name="title_activity_event_preferences">Preferências do Evento</string>
+  <string name="title_activity_event_preferences">Event preferences</string>
   <string name="menu_new_profile">Novo perfil</string>
   <string name="menu_delete_all_profiles">Apagar todos os perfis</string>
   <string name="menu_new_event">Novo evento</string>
@@ -1110,12 +1110,12 @@
   <string name="phone_profiles_pref_systemAutoStartManager">Automatic start manager</string>
   <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
   <string name="important_info_power_manager">Concerning problems with run of PhoneProfilesPlus in background, click here to allow PhoneProfilesPlus to run in the background, add it to not optimized/not monitored applications.</string>
-  <string name="array_pref_screenTimeoutArray_30minutes">30 minutes</string>
+  <string name="array_pref_screenTimeoutArray_30minutes">30 minutos</string>
   <string name="event_preferences_calendar_all_events">All calendar events</string>
   <string name="event_preference_sensor_alarm_clock_summary">This sensor will start an event by alarm clock. Parameters: Permanent run, Duration (event run duration).</string>
   <string name="event_type_alarm_clock">Alarm clock</string>
   <string name="event_preferences_category_eventAlarmClockParameters">Alarm clock sensor</string>
-  <string name="phone_profiles_pref_grantRootPermission">Grant root</string>
+  <string name="phone_profiles_pref_grantRootPermission">Permitir root</string>
   <string name="phone_profiles_pref_grantRootPermission_summary">Please grant root for PhoneProfilesPlus. Is required for profile and event parameters, which requires root.</string>
   <string name="phone_profiles_pref_grantRootPermission_summary_pp">Please grant root for PhoneProfiles. Is required for profile parameters, which requires root.</string>
   <string name="phone_profiles_pref_grantRootPermission_otherManagers">Please open root manager installed in your device and grant root for PhoneProfilesPlus.</string>
@@ -1242,16 +1242,16 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Dark</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
-    <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
+    <string name="phone_profiles_pref_applicationTheme_nightMode">Modo noturno</string>
+    <string name="important_info_profile_mobileCellsScanning_location">Em Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
     <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
     <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
     <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
-    <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
+    <string name="start_event_notification_text2">Limpar a notificação para que não volte a aparecer</string>
 
-    <string name="event_preferences_battery_plugged">Charger type</string>
+    <string name="event_preferences_battery_plugged">Tipo de carregamento</string>
     <string name="array_pref_battery_plugged_ac">Accumulator</string>
     <string name="array_pref_battery_plugged_usb">USB</string>
     <string name="array_pref_battery_plugged_wireless">Wireless</string>
@@ -1260,7 +1260,7 @@
     <string name="phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary">Location disabled</string>
     <string name="phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary">Location enabled</string>
 
-    <string name="preference_not_allowed_reason_no_sim_card">no SIM card</string>
+    <string name="preference_not_allowed_reason_no_sim_card">Sem Cartão SIM</string>
     <string name="preference_not_allowed_reason_not_granted_g1_permission">not granted permission WRITE_SECURE_SETTINGS</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary">Set to Always</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Not set to Always</string>
@@ -1273,7 +1273,7 @@
     <string name="application_editor_intent_class_name">Class name:</string>
     <string name="application_editor_intent_class_name_hint">Class name</string>
     <string name="application_editor_intent_action">Action:</string>
-    <string name="application_editor_intent_action_hint">Action</string>
+    <string name="application_editor_intent_action_hint">Acao</string>
     <string name="application_editor_intent_data">Data:</string>
     <string name="application_editor_intent_data_hint">Data</string>
     <string name="application_editor_intent_mime_type">Mime type:</string>
@@ -1313,7 +1313,7 @@
     <string name="extender_accessibility_service_event_sensor_applications_orientation">• Accessibility service for event parameters \"Application sensor\" and \"Orientation sensor\":</string>
     <string name="extender_accessibility_service_enabled">Ativo</string>
     <string name="extender_accessibility_service_disabled">Desativado</string>
-    <string name="extender_accessibility_service_button">Enable/Disable\nServiço de acessibilidade</string>
+    <string name="extender_accessibility_service_button">Ativar/Desativar\nServiço de acessibilidade</string>
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
 

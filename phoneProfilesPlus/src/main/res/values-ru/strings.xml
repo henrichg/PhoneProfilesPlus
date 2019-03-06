@@ -1278,7 +1278,7 @@
     <string name="application_editor_intent_data_hint">Данные</string>
     <string name="application_editor_intent_mime_type">MIME-тип:</string>
     <string name="application_editor_intent_mime_type_hint">MIME-тип</string>
-    <string name="application_editor_intent_extras">Parameters:</string>
+    <string name="application_editor_intent_extras">Параметры:</string>
     <string name="application_editor_intent_categories">Категории:</string>
     <string name="application_editor_intent_categories_dlg_title">Категории</string>
     <string name="application_editor_intent_flags">Флаги:</string>
