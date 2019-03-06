@@ -210,12 +210,12 @@ class EventPreferencesWifi extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
-                if (!PhoneProfilesService.isWifiSleepPolicySetToNever(context.getApplicationContext())) {
-                    summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n"+
+                if (PhoneProfilesService.isWifiSleepPolicySetToNever(context.getApplicationContext())) {
+                    summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n"+
                             summary;
                 }
                 else {
-                    summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n"+
+                    summary = context.getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n"+
                             summary;
                 }
                 preference.setSummary(summary);

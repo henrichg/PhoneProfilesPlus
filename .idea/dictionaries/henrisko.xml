@@ -35,6 +35,7 @@
       <w>bluetoothconnected</w>
       <w>bluetoothinfront</w>
       <w>bottombar</w>
+      <w>browsable</w>
       <w>bssid</w>
       <w>cdma</w>
       <w>chainfire</w>
@@ -128,6 +129,7 @@
       <w>porder</w>
       <w>poweron</w>
       <w>pphelper</w>
+      <w>pppe</w>
       <w>profileactivation</w>
       <w>profiledeleted</w>
       <w>profileicon</w>
@@ -136,6 +138,8 @@
       <w>quickboot</w>
       <w>quickscroll</w>
       <w>radiobtn</w>
+      <w>realtime</w>
+      <w>recents</w>
       <w>reenable</w>
       <w>rella</w>
       <w>reregister</w>
@@ -152,6 +156,7 @@
       <w>securitycenter</w>
       <w>seekbar</w>
       <w>selinux</w>
+      <w>sendto</w>
       <w>sharedpref</w>
       <w>sharedprofile</w>
       <w>sharedprofilepreferenceschanged</w>

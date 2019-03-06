@@ -137,7 +137,7 @@ class PPIntent implements Parcelable {
         this._usedCount = usedCount;
     }
 
-    PPIntent(Parcel in) {
+    private PPIntent(Parcel in) {
         this._id = in.readLong();
         this._name = in.readString();
         this._packageName = in.readString();

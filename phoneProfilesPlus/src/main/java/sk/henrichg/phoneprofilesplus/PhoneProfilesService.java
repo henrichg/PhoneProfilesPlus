@@ -559,7 +559,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "not registered pppExtenderBroadcastReceiver");
             if (pppExtenderBroadcastReceiver != null) {
                 CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER pppExtenderBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER pppExtenderBroadcastReceiverr");
+                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER pppExtenderBroadcastReceiver");
                 try {
                     appContext.unregisterReceiver(pppExtenderBroadcastReceiver);
                     pppExtenderBroadcastReceiver = null;
@@ -1823,7 +1823,7 @@ public class PhoneProfilesService extends Service
                                 List<BluetoothDeviceData> connectedDevices = BluetoothConnectedDevices.getConnectedDevices(appContext);
                                 BluetoothConnectionBroadcastReceiver.addConnectedDeviceData(connectedDevices);
                                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
-                                } finaly (
+                                } finally (
                                 if ((wakeLock != null) && wakeLock.isHeld())
                                     wakeLock.release();
                                 }

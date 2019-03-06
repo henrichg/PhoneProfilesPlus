@@ -120,7 +120,7 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
                                             //EventsHandlerJob.startForSensor(appContext, EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
                                             EventsHandler eventsHandler = new EventsHandler(appContext);
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_SCANNER);
-                                            } finaly (
+                                            } finally (
                                             if ((wakeLock != null) && wakeLock.isHeld()) {
                                                 try {
                                                     wakeLock.release();

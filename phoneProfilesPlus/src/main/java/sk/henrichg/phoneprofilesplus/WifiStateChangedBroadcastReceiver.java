@@ -112,7 +112,7 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                                                 PPApplication.logE("$$$ WifiStateChangedBroadcastReceiver.onReceive", "startScan");
                                                 WifiScanJob.startScan(appContext);
-                                                } finaly (
+                                                } finally (
                                                 if ((wakeLock != null) && wakeLock.isHeld()) {
                                                     try {
                                                         wakeLock.release();

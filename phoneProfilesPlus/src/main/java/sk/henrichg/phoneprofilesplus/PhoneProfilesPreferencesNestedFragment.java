@@ -1508,12 +1508,12 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS)) {
             String summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary);
-            if (!PhoneProfilesService.isWifiSleepPolicySetToNever(getActivity().getApplicationContext())) {
-                summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n" +
+            if (PhoneProfilesService.isWifiSleepPolicySetToNever(getActivity().getApplicationContext())) {
+                summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
                         summary;
             }
             else {
-                summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary) + ".\n\n" +
+                summary = getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary) + ".\n\n" +
                         summary;
             }
             preference.setSummary(summary);
@@ -1666,14 +1666,14 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                                 getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
                     }
                     if (Build.VERSION.SDK_INT < 27) {
-                        if (!PhoneProfilesService.isWifiSleepPolicySetToNever(getActivity())) {
-                            summary = summary + "\n";
-                            summary = summary + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings) + ": " +
-                                    getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary);
-                        } else {
+                        if (PhoneProfilesService.isWifiSleepPolicySetToNever(getActivity())) {
                             summary = summary + "\n";
                             summary = summary + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings) + ": " +
                                     getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary);
+                        } else {
+                            summary = summary + "\n";
+                            summary = summary + getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings) + ": " +
+                                    getString(R.string.phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary);
                         }
                     }
                 } else {

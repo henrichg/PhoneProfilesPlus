@@ -35,7 +35,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
 
     private int startApplicationDelay;
 
-    Button okButton;
+    private Button okButton;
 
     //private ScrollView intentScrollView;
     private EditText intentNameEditText;
@@ -65,11 +65,11 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
     private EditText intentExtraKeyValue5;
     private Spinner intentExtraSpinner5;
 
-    String[] actionsArray;
-    String[] categoryArray;
-    boolean[] categoryIndices;
-    String[] flagArray;
-    boolean[] flagIndices;
+    private String[] actionsArray;
+    private String[] categoryArray;
+    private boolean[] categoryIndices;
+    private String[] flagArray;
+    private boolean[] flagIndices;
 
     public static final String EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY = "dialogPreferenceStartApplicationDelay";
 

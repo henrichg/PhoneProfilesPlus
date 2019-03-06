@@ -145,6 +145,24 @@ public class BillingManager implements PurchasesUpdatedListener {
         startServiceConnectionIfNeeded(executeOnConnectedService);
     }
 
+    public void startPurchaseFlow(final SkuDetails skuDetails) {
+        // Specify a runnable to start when connection to Billing client is established
+        Runnable executeOnConnectedService = new Runnable() {
+            @Override
+            public void run() {
+                BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                        .setSkuDetails(skuDetails)
+                        .build();
+                int responseCode = mBillingClient.launchBillingFlow(mActivity, billingFlowParams);
+                PPApplication.logE(TAG, "startPurchaseFlow responseCode="+responseCode);
+                getFragment().displayAnErrorIfNeeded(responseCode);
+            }
+        };
+
+        // If Billing client was disconnected, we retry 1 time and if success, execute the query
+        startServiceConnectionIfNeeded(executeOnConnectedService);
+    }
+    /*
     public void startPurchaseFlow(final String skuId, final String billingType) {
         // Specify a runnable to start when connection to Billing client is established
         Runnable executeOnConnectedService = new Runnable() {
@@ -163,6 +181,7 @@ public class BillingManager implements PurchasesUpdatedListener {
         // If Billing client was disconnected, we retry 1 time and if success, execute the query
         startServiceConnectionIfNeeded(executeOnConnectedService);
     }
+    */
 
     private void consumePurchase(final Purchase purchase) {
         // Specify a runnable to start when connection to Billing client is established

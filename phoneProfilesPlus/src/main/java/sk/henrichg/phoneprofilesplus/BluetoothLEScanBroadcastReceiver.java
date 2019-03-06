@@ -75,7 +75,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                                     // start events handler
                                     EventsHandler eventsHandler = new EventsHandler(appContext);
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER);
-                                    } finaly {
+                                    } finally {
                                         if ((wakeLock != null) && wakeLock.isHeld()) {
                                             try {
                                                 wakeLock.release();

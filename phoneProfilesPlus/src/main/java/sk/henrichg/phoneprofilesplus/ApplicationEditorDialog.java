@@ -46,7 +46,7 @@ class ApplicationEditorDialog
     private final AppCompatImageButton addButton;
 
 
-    private List<Application> cachedApplicationList;
+    private final List<Application> cachedApplicationList;
     final List<Application> applicationList;
 
     private final Application editedApplication;

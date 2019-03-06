@@ -41,7 +41,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
     final List<Application> applicationsList;
     final List<PPIntent> intentDBList;
 
-    //PPIntent editedPPIntnet = null;
+    //PPIntent editedPPIntent = null;
 
     private AlertDialog mDialog;
     private ApplicationEditorDialog mEditorDialog;
@@ -877,7 +877,7 @@ public class ApplicationsDialogPreference  extends DialogPreference
             }
             else
                 DatabaseHandler.getInstance(context.getApplicationContext()).updateIntent(ppIntent);
-            //editedPPIntnet = ppIntent;
+            //editedPPIntent = ppIntent;
             if (application != null) {
                 // update application
                 application.appLabel = ppIntent._name;

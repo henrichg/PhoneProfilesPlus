@@ -204,7 +204,7 @@ class Application  implements Parcelable {
             return 0;
     }
 
-    Application(Parcel in) {
+    private Application(Parcel in) {
         this.type = in.readInt();
         this.appLabel = in.readString();
         this.packageName = in.readString();
