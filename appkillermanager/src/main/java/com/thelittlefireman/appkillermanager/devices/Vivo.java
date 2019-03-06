@@ -8,6 +8,7 @@ import android.os.Build;
 import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
 import com.thelittlefireman.appkillermanager.utils.Manufacturer;
 
+@SuppressWarnings("unused")
 public class Vivo extends DeviceAbstract {
 // TODO multiple intent in a same actions !
     // Starting: Intent { cmp=com.vivo.permissionmanager/.activity.BgStartUpManagerActivity }

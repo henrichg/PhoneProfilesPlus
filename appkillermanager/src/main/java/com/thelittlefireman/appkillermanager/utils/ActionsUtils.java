@@ -44,6 +44,7 @@ public class ActionsUtils {
     }
 
     public static boolean isIntentAvailable(@NonNull Context ctx, @NonNull Intent intent) {
+        //noinspection ConstantConditions
         if (ctx != null && intent != null) {
             final PackageManager mgr = ctx.getPackageManager();
             List<ResolveInfo> list =

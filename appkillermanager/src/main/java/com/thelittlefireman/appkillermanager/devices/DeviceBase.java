@@ -12,6 +12,7 @@ public interface DeviceBase {
     boolean isActionPowerSavingAvailable(Context context);
     boolean isActionAutoStartAvailable(Context context);
     boolean isActionNotificationAvailable(Context context);
+    @SuppressWarnings("unused")
     boolean needToUseAlongwithActionDoseMode();
     Intent getActionPowerSaving(Context context);
     Intent getActionAutoStart(Context context);
@@ -25,9 +26,14 @@ public interface DeviceBase {
      * @param context the current context
      * @return the Intent to open the doze mode settings
      */
+    @SuppressWarnings("unused")
     Intent getActionDozeMode(Context context);
+    @SuppressWarnings("unused")
     boolean isActionDozeModeNotNecessary(Context context);
+    @SuppressWarnings({"SameReturnValue", "unused"})
     @DrawableRes int getHelpImagePowerSaving();
+    @SuppressWarnings({"SameReturnValue", "unused"})
     @DrawableRes int getHelpImageAutoStart();
+    @SuppressWarnings({"SameReturnValue", "unused"})
     @DrawableRes int getHelpImageNotification();
 }

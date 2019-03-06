@@ -3,13 +3,8 @@ package com.thelittlefireman.appkillermanager.devices;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Build;
-import android.text.TextUtils;
-import android.util.Log;
 
-import com.thelittlefireman.appkillermanager.R;
 import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
 import com.thelittlefireman.appkillermanager.utils.Manufacturer;
 
@@ -41,6 +36,7 @@ public class Huawei extends DeviceAbstract {
                 Build.FINGERPRINT.toLowerCase().contains(getDeviceManufacturer().toString());
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static boolean isEmotionUI_23() {
         return "EmotionUI_2.3".equalsIgnoreCase(getEmuiRomName()) || Build.DISPLAY.toLowerCase().contains("emui2.3") || "EMUI 2.3".equalsIgnoreCase(getEmuiRomName());
     }
@@ -62,6 +58,7 @@ public class Huawei extends DeviceAbstract {
     }
     */
 
+    @SuppressWarnings("WeakerAccess")
     public static boolean isEmotionUI() {
         String romName = getEmuiRomName();
         if (romName != null)

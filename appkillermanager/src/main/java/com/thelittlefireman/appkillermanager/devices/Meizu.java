@@ -84,7 +84,7 @@ public class Meizu extends DeviceAbstract {
         stringBuilder.append("MeizuSecVersionMethod:").append(getMeizuSecVersion(context));
 
         PackageManager manager = context.getPackageManager();
-        PackageInfo info = null;
+        PackageInfo info;
         String versionStr ="";
         try {
             info = manager.getPackageInfo(MEIZU_DEFAULT_PACKAGE, 0);

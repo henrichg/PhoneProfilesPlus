@@ -35,11 +35,11 @@ public class SystemUtils {
         ApplicationInfo applicationInfo = null;
         try {
             applicationInfo = packageManager.getApplicationInfo(context.getApplicationInfo().packageName, 0);
-        } catch (final PackageManager.NameNotFoundException e) {
-        }
+        } catch (final PackageManager.NameNotFoundException ignored) {}
         return (String) (applicationInfo != null ? packageManager.getApplicationLabel(applicationInfo) : "Unknown");
     }
 
+    @SuppressWarnings("unused")
     public static String getMiuiRomName() {
         try {
             return SystemUtils.getSystemProperty("ro.miui.ui.version.name");
@@ -57,6 +57,7 @@ public class SystemUtils {
             line = input.readLine();
             input.close();
         } catch (IOException ex) {
+            //noinspection ClassGetClass
             Log.e(SystemUtils.class.getClass().getName(), "Unable to read system property " + propName, ex);
             return null;
         } finally {
@@ -64,6 +65,7 @@ public class SystemUtils {
                 try {
                     input.close();
                 } catch (IOException e) {
+                    //noinspection ClassGetClass
                     Log.e(SystemUtils.class.getClass().getName(), "Exception while closing InputStream", e);
                 }
             }
@@ -79,14 +81,17 @@ public class SystemUtils {
      * @param packageName  pacakge name of the target application (exemple: com.huawei.systemmanager)
      * @param activityPackage activity name of the target application (exemple: .optimize.process.ProtectActivity)
      */
+    @SuppressWarnings("unused")
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static void startActivityByAMSystem(Context context, String packageName, String activityPackage)
             throws IOException {
         String cmd = "am start -n "+packageName+"/"+activityPackage;
         UserManager um = (UserManager)context.getSystemService(Context.USER_SERVICE);
-        cmd += " --user " +um.getSerialNumberForUser(Process.myUserHandle());
-        Runtime.getRuntime().exec(cmd);
+        if (um != null) {
+            cmd += " --user " + um.getSerialNumberForUser(Process.myUserHandle());
+            Runtime.getRuntime().exec(cmd);
+        }
     }
     /**
      * Open an Action by using Application Manager System (prevent from crash permission exception)
@@ -94,13 +99,16 @@ public class SystemUtils {
      * @param context current application Context
      * @param intentAction  action of the target application (exemple: com.huawei.systemmanager)
      */
+    @SuppressWarnings("unused")
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static void startActionByAMSystem(Context context, String intentAction)
             throws IOException {
         String cmd = "am start -a "+intentAction;
         UserManager um = (UserManager)context.getSystemService(Context.USER_SERVICE);
-        cmd += " --user " +um.getSerialNumberForUser(Process.myUserHandle());
-        Runtime.getRuntime().exec(cmd);
+        if (um != null) {
+            cmd += " --user " + um.getSerialNumberForUser(Process.myUserHandle());
+            Runtime.getRuntime().exec(cmd);
+        }
     }
 }

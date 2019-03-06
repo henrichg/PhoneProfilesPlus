@@ -13,13 +13,16 @@ public class Xiaomi extends DeviceAbstract {
 
 
     // TODO TEST new Intent().setComponent(ComponentName("com.miui.securitycenter", "com.miui.powercenter.PowerSettings"))
+    @SuppressWarnings("unused")
     private static final String MIUI_ACTION_PERMS = "miui.intent.action.APP_PERM_EDITOR";
+    @SuppressWarnings("unused")
     private static final String MIUI_ACTION_PERMS_EXTRA = "extra_pkgname";
 
     // ONE SPECIFIQUE APP
     private static final String[] MIUI_ACTION_POWERSAVE = {"com.miui.powerkeeper", "com.miui.powerkeeper.ui.HiddenAppsConfigActivity"};
 
     // OPEN DEFAULT LIST BATTERYSAVER
+    @SuppressWarnings("unused")
     private static final String MIUI_ACTION_POWER_SAVE_LIST = "miui.intent.action.POWER_HIDE_MODE_APP_LIST";
     private static final String MIUI_ACTION_POWER_SAVE_EXTRA_NAME = "package_name";
     private static final String MIUI_ACTION_POWER_SAVE_EXTRA_LABEL = "package_label";

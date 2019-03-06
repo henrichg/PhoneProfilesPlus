@@ -2,6 +2,7 @@ package com.thelittlefireman.appkillermanager.managers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.thelittlefireman.appkillermanager.devices.DeviceBase;
@@ -16,12 +17,13 @@ public class KillerManager {
         ACTION_NOTIFICATIONS("ACTION_NOTIFICATIONS"),
         ACTION_POWERSAVING("ACTION_POWERSAVING");
 
-        private String mValue;
+        private final String mValue;
 
         Actions(String value) {
             this.mValue = value;
         }
 
+        @NonNull
         public String toString() {
             return this.mValue;
         }
@@ -29,11 +31,12 @@ public class KillerManager {
 
     private static DeviceBase sDevice;
 
+    @SuppressWarnings("unused")
     public static DeviceBase getDevice() {
         return sDevice;
     }
 
-    public static void init(Context context) {
+    public static void init(@SuppressWarnings("unused") Context context) {
         // log error into a distant request bin logs for helps to debug
         // please do no change the adress
         /*HyperLog.initialize(context);
@@ -113,6 +116,7 @@ public class KillerManager {
      * @param actions the wanted action to execute
      * @return true : action succeed; false action failed
      */
+    @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
     public static boolean doAction(Context context, Actions actions) {
         // Avoid main app to crash when intent denied by using try catch
         try {
@@ -135,6 +139,7 @@ public class KillerManager {
         doAction(context, Actions.ACTION_AUTOSTART);
     }
 
+    @SuppressWarnings("unused")
     public static void doActionNotification(Context context) {
         doAction(context, Actions.ACTION_NOTIFICATIONS);
     }

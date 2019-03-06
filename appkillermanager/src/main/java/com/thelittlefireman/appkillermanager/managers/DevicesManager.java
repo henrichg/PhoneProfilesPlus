@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DevicesManager {
+class DevicesManager {
 
-    private static List<DeviceAbstract> deviceBaseList = new ArrayList<>(Arrays.asList(
+    private static final List<DeviceAbstract> deviceBaseList = new ArrayList<>(Arrays.asList(
             new Asus(),
             new Huawei(),
             new Letv(),
@@ -41,6 +41,7 @@ public class DevicesManager {
         if(currentDeviceBase.size()>1){
             String logDevices="";
             for (DeviceBase deviceBase : currentDeviceBase) {
+                //noinspection StringConcatenationInLoop
                 logDevices+=deviceBase.getDeviceManufacturer();
             }
             LogUtils.e(DevicesManager.class.getName(),"MORE THAN ONE CORRESPONDING:"+logDevices+"|"+

@@ -31,6 +31,7 @@ public class LogUtils {
                                                 + "|KillerManager.isActionNotificationAvailable"
             ;
 
+    @SuppressWarnings("WeakerAccess")
     public static final String EXPORT_PATH = "/PhoneProfilesPlus";
     private static final String LOG_FILENAME = "log.txt";
 

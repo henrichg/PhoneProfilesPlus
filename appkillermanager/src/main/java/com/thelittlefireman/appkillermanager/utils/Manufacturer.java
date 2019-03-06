@@ -13,13 +13,17 @@ public enum Manufacturer {
     ZTE("zte"),
     VIVO("vivo");
 
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final String name;
 
-    private Manufacturer(String device){
+    Manufacturer(String device){
         name = device;
     }
+
+    /*
     @Override
     public String toString() {
         return super.toString();
     }
+    */
 }

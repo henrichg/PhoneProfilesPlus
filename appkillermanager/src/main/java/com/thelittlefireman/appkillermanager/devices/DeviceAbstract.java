@@ -8,7 +8,6 @@ import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.DrawableRes;
 
-import com.thelittlefireman.appkillermanager.managers.KillerManager;
 import com.thelittlefireman.appkillermanager.utils.ActionsUtils;
 import com.thelittlefireman.appkillermanager.utils.LogUtils;
 import com.thelittlefireman.appkillermanager.utils.Manufacturer;
@@ -43,7 +42,10 @@ public abstract class DeviceAbstract implements DeviceBase {
     public boolean isActionDozeModeNotNecessary(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            return pm.isIgnoringBatteryOptimizations(context.getPackageName());
+            if (pm != null)
+                return pm.isIgnoringBatteryOptimizations(context.getPackageName());
+            else
+                return false;
         }
         return false;
     }
@@ -53,7 +55,7 @@ public abstract class DeviceAbstract implements DeviceBase {
         //Android 7.0+ Doze
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            boolean ignoringBatteryOptimizations = pm.isIgnoringBatteryOptimizations(context.getPackageName());
+            boolean ignoringBatteryOptimizations = (pm != null) && pm.isIgnoringBatteryOptimizations(context.getPackageName());
             if (!ignoringBatteryOptimizations) {
                 Intent dozeIntent = ActionsUtils.createIntent();
                 // Cannot fire Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
