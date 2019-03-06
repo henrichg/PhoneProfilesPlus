@@ -883,7 +883,8 @@ public class TapTargetView extends View {
     }
 
     if (debugLayout == null) {
-      debugLayout = new DynamicLayout(debugText, debugTextPaint, getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
+        //noinspection deprecation
+        debugLayout = new DynamicLayout(debugText, debugTextPaint, getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
     }
 
     final int saveCount = c.save();
@@ -923,11 +924,13 @@ public class TapTargetView extends View {
       return;
     }
 
-    titleLayout = new StaticLayout(title, titlePaint, textWidth,
+      //noinspection deprecation
+      titleLayout = new StaticLayout(title, titlePaint, textWidth,
             Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
 
     if (description != null) {
-      descriptionLayout = new StaticLayout(description, descriptionPaint, textWidth,
+        //noinspection deprecation
+        descriptionLayout = new StaticLayout(description, descriptionPaint, textWidth,
               Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
     } else {
       descriptionLayout = null;
@@ -1080,7 +1083,8 @@ public class TapTargetView extends View {
 
   @SuppressWarnings("WeakerAccess")
   void invalidateViewAndOutline(Rect bounds) {
-    invalidate(bounds);
+      //noinspection deprecation
+      invalidate(bounds);
     if (outlineProvider != null && Build.VERSION.SDK_INT >= 21) {
       invalidateOutline();
     }
