@@ -22,6 +22,7 @@
 
 package com.stericson.RootTools;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -110,6 +111,7 @@ public class SanityCheckRootTools extends Activity {
         new SanityCheckThread(this, new TestHandler()).start();
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected void print(CharSequence text) {
         mTextView.append(text);
         mScrollView.post(new Runnable() {
@@ -122,12 +124,13 @@ public class SanityCheckRootTools extends Activity {
     // Run our long-running tests in their separate thread so as to
     // not interfere with proper rendering.
     private class SanityCheckThread extends Thread {
-        private Handler mHandler;
+        private final Handler mHandler;
 
-        public SanityCheckThread(Context context, Handler handler) {
+        SanityCheckThread(@SuppressWarnings("unused") Context context, Handler handler) {
             mHandler = handler;
         }
 
+        @SuppressLint("SdCardPath")
         public void run() {
             visualUpdate(TestHandler.ACTION_SHOW, null);
 
@@ -424,13 +427,14 @@ public class SanityCheckRootTools extends Activity {
         }
     }
 
+    @SuppressLint("HandlerLeak")
     private class TestHandler extends Handler {
-        static final public String ACTION = "action";
-        static final public int ACTION_SHOW = 0x01;
-        static final public int ACTION_HIDE = 0x02;
-        static final public int ACTION_DISPLAY = 0x03;
-        static final public int ACTION_PDISPLAY = 0x04;
-        static final public String TEXT = "text";
+        static final String ACTION = "action";
+        static final int ACTION_SHOW = 0x01;
+        static final int ACTION_HIDE = 0x02;
+        static final int ACTION_DISPLAY = 0x03;
+        static final int ACTION_PDISPLAY = 0x04;
+        static final String TEXT = "text";
 
         public void handleMessage(Message msg) {
             int action = msg.getData().getInt(ACTION);

@@ -49,13 +49,14 @@ class Installer
     //# Installer #
     //-------------
 
-    static final String LOG_TAG = "RootTools::Installer";
+    private static final String LOG_TAG = "RootTools::Installer";
 
-    static final String BOGUS_FILE_NAME = "bogus";
+    private static final String BOGUS_FILE_NAME = "bogus";
 
-    Context context;
-    String filesPath;
+    private final Context context;
+    private String filesPath;
 
+    @SuppressWarnings("WeakerAccess")
     public Installer(Context context)
             throws IOException
     {
@@ -76,6 +77,7 @@ class Installer
      * @return a <code>boolean</code> which indicates whether or not we were
      * able to create the new file.
      */
+    @SuppressWarnings("WeakerAccess")
     protected boolean installBinary(int sourceId, String destName, String mode)
     {
         File mf = new File(filesPath + File.separator + destName);
@@ -97,6 +99,7 @@ class Installer
             catch (FileNotFoundException e)
             {
                 FileOutputStream fos = null;
+                //noinspection TryFinallyCanBeTryWithResources
                 try
                 {
                     fos = context.openFileOutput("bogus", Context.MODE_PRIVATE);
@@ -119,7 +122,7 @@ class Installer
                             fos.close();
                             context.deleteFile(BOGUS_FILE_NAME);
                         }
-                        catch (IOException e1)
+                        catch (IOException ignored)
                         {
                         }
                     }
@@ -138,6 +141,7 @@ class Installer
             InputStream iss = context.getResources().openRawResource(sourceId);
             ReadableByteChannel rfc = Channels.newChannel(iss);
             FileOutputStream oss = null;
+            //noinspection TryFinallyCanBeTryWithResources
             try
             {
                 oss = new FileOutputStream(mf);
@@ -146,9 +150,10 @@ class Installer
                 try
                 {
                     long size = iss.available();
+                    //noinspection StatementWithEmptyBody
                     while ((pos += ofc.transferFrom(rfc, pos, size - pos)) < size)
                     {
-                        ;
+
                     }
                 }
                 catch (IOException ex)
@@ -178,7 +183,7 @@ class Installer
                         oss.getFD().sync();
                         oss.close();
                     }
-                    catch (Exception e)
+                    catch (Exception ignored)
                     {
                     }
                 }
@@ -203,13 +208,14 @@ class Installer
                 commandWait(command);
 
             }
-            catch (Exception e)
+            catch (Exception ignored)
             {
             }
         }
         return true;
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected boolean isBinaryInstalled(String destName)
     {
         boolean installed = false;
@@ -222,6 +228,7 @@ class Installer
         return installed;
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected String getFileSignature(File f)
     {
         String signature = "";
@@ -239,6 +246,7 @@ class Installer
     /*
      * Note: this method will close any string passed to it
      */
+    @SuppressWarnings("WeakerAccess")
     protected String getStreamSignature(InputStream is)
     {
         String signature = "";
@@ -247,16 +255,17 @@ class Installer
             MessageDigest md = MessageDigest.getInstance("MD5");
             DigestInputStream dis = new DigestInputStream(is, md);
             byte[] buffer = new byte[4096];
+            //noinspection StatementWithEmptyBody
             while (-1 != dis.read(buffer))
             {
-                ;
+
             }
             byte[] digest = md.digest();
+            @SuppressWarnings("StringBufferMayBeStringBuilder")
             StringBuffer sb = new StringBuffer();
 
-            for (int i = 0; i < digest.length; i++)
-            {
-                sb.append(Integer.toHexString(digest[i] & 0xFF));
+            for (byte aDigest : digest) {
+                sb.append(Integer.toHexString(aDigest & 0xFF));
             }
 
             signature = sb.toString();
@@ -275,7 +284,7 @@ class Installer
             {
                 is.close();
             }
-            catch (IOException e)
+            catch (IOException ignored)
             {
             }
         }
@@ -284,6 +293,7 @@ class Installer
 
     private void commandWait(Command cmd)
     {
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd)
         {
             try

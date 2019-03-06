@@ -36,9 +36,12 @@ public class Runner extends Thread
 
     private static final String LOG_TAG = "RootTools::Runner";
 
-    Context context;
-    String binaryName;
-    String parameter;
+    @SuppressWarnings("WeakerAccess")
+    final Context context;
+    @SuppressWarnings("WeakerAccess")
+    final String binaryName;
+    @SuppressWarnings("WeakerAccess")
+    final String parameter;
 
     public Runner(Context context, String binaryName, String parameter)
     {
@@ -71,7 +74,7 @@ public class Runner extends Thread
                 commandWait(command);
 
             }
-            catch (Exception e)
+            catch (Exception ignored)
             {
             }
         }
@@ -79,6 +82,7 @@ public class Runner extends Thread
 
     private void commandWait(Command cmd)
     {
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd)
         {
             try

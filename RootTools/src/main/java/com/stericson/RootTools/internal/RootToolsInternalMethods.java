@@ -26,7 +26,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.util.Log;
@@ -48,12 +47,14 @@ import java.util.Locale;
 import java.util.concurrent.TimeoutException;
 import java.util.regex.Matcher;
 
+@SuppressWarnings("JavaDoc")
 public final class RootToolsInternalMethods {
 
     // --------------------
     // # Internal methods #
     // --------------------
 
+    @SuppressWarnings("WeakerAccess")
     protected RootToolsInternalMethods() {
     }
 
@@ -62,6 +63,7 @@ public final class RootToolsInternalMethods {
         RootTools.setRim(new RootToolsInternalMethods());
     }
 
+    @SuppressWarnings("WeakerAccess")
     public Permissions getPermissions(String line) {
 
         String[] lineArray = line.split(" ");
@@ -93,6 +95,7 @@ public final class RootToolsInternalMethods {
 
             RootTools.log(permissions.getOtherPermissions());
 
+            //noinspection StringBufferReplaceableByString
             StringBuilder finalPermissions = new StringBuilder();
             finalPermissions.append(parseSpecialPermissions(rawPermissions));
             finalPermissions.append(parsePermissions(permissions.getUserPermissions()));
@@ -107,6 +110,7 @@ public final class RootToolsInternalMethods {
         return null;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public int parsePermissions(String permission) {
         permission = permission.toLowerCase(Locale.US);
         int tmp;
@@ -141,6 +145,7 @@ public final class RootToolsInternalMethods {
         return tmp;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public int parseSpecialPermissions(String permission) {
         int tmp = 0;
         if (permission.charAt(2) == 's') {
@@ -228,6 +233,7 @@ public final class RootToolsInternalMethods {
                         if (preserveFileAttributes) {
                             // get permissions of source before overwriting
                             Permissions permissions = getFilePermissionsSymlinks(source);
+                            //noinspection ConstantConditions
                             filePermission = permissions.getPermissions();
                         }
 
@@ -388,7 +394,7 @@ public final class RootToolsInternalMethods {
             }
 
             RootTools.remount("/system", "ro");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -403,6 +409,7 @@ public final class RootToolsInternalMethods {
      * exceptions.
      * @throws Exception if the operation cannot be completed.
      */
+    @SuppressWarnings("RedundantThrows")
     public boolean fixUtils(String[] utils) throws Exception {
 
         for (String util : utils) {
@@ -442,7 +449,7 @@ public final class RootToolsInternalMethods {
             throw new Exception("Path is null, please specifiy a path");
         }
 
-        final List<String> results = new ArrayList<String>();
+        final List<String> results = new ArrayList<>();
 
         Command command = new Command(Constants.BBA, false, path + "busybox --list") {
             @Override
@@ -508,7 +515,9 @@ public final class RootToolsInternalMethods {
 
                         String[] temp = line.split(" ");
 
+                        //noinspection ConstantConditions,ConstantConditions
                         if (temp.length > 1 && temp[1].contains("v1.") && !foundVersion) {
+                            //noinspection UnusedAssignment
                             foundVersion = true;
                             version.append(temp[1]);
                             RootTools.log("Found Version: " + version.toString());
@@ -539,7 +548,9 @@ public final class RootToolsInternalMethods {
 
                             String[] temp = line.split(" ");
 
+                            //noinspection ConstantConditions,ConstantConditions
                             if (temp.length > 1 && temp[1].contains("v1.") && !foundVersion) {
+                                //noinspection UnusedAssignment
                                 foundVersion = true;
                                 version.append(temp[1]);
                                 RootTools.log("Found Version: " + version.toString());
@@ -569,10 +580,12 @@ public final class RootToolsInternalMethods {
     /**
      * @return long Size, converted to kilobytes (from xxx or xxxm or xxxk etc.)
      */
+    @SuppressWarnings("WeakerAccess")
     public long getConvertedSpace(String spaceStr) {
         try {
             double multiplier = 1.0;
             char c;
+            @SuppressWarnings("StringBufferMayBeStringBuilder")
             StringBuffer sb = new StringBuffer();
             for (int i = 0; i < spaceStr.length(); i++) {
                 c = spaceStr.charAt(i);
@@ -683,7 +696,7 @@ public final class RootToolsInternalMethods {
                                     RootTools.log("Symlink found.");
                                     symlink_final = symlink[symlink.length - 1];
                                 }
-                            } catch (Exception e) {
+                            } catch (Exception ignored) {
                             }
 
                             try {
@@ -726,6 +739,7 @@ public final class RootToolsInternalMethods {
 
         InternalVariables.mounts = new ArrayList<>();
 
+        //noinspection ConstantConditions,ConstantConditions
         if(null == InternalVariables.mounts || InternalVariables.mounts.isEmpty()) {
             Shell shell = RootTools.getShell(true);
 
@@ -777,6 +791,7 @@ public final class RootToolsInternalMethods {
 
                 if (mp.equals("/")) {
                     if (path.equals("/")) {
+                        //noinspection ConstantConditions
                         return (String) mount.getFlags().toArray()[0];
                     } else {
                         continue;
@@ -784,7 +799,9 @@ public final class RootToolsInternalMethods {
                 }
 
                 if (path.equals(mp) || path.startsWith(mp + "/")) {
+                    //noinspection ConstantConditions
                     RootTools.log((String) mount.getFlags().toArray()[0]);
+                    //noinspection ConstantConditions
                     return (String) mount.getFlags().toArray()[0];
                 }
             }
@@ -824,7 +841,7 @@ public final class RootToolsInternalMethods {
             Shell.startRootShell().add(command);
             commandWait(Shell.startRootShell(), command);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         if (InternalVariables.space != null) {
@@ -878,7 +895,7 @@ public final class RootToolsInternalMethods {
         RootTools.log("Looking for Symlink for " + file);
 
         try {
-            final List<String> results = new ArrayList<String>();
+            final List<String> results = new ArrayList<>();
 
             Command command = new Command(Constants.GSYM, false, "ls -l " + file) {
 
@@ -1007,15 +1024,15 @@ public final class RootToolsInternalMethods {
         }
         File path = Environment.getExternalStorageDirectory();
         StatFs stat = new StatFs(path.getPath());
-        long blockSize = 0;
-        long availableBlocks = 0;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        long blockSize;// = 0;
+        long availableBlocks;// = 0;
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
             blockSize = stat.getBlockSize();
             availableBlocks = stat.getAvailableBlocks();
-        } else {
+        } else {*/
             blockSize = stat.getBlockSizeLong();
             availableBlocks = stat.getAvailableBlocksLong();
-        }
+        //}
         return (updateSize < availableBlocks * blockSize);
     }
 
@@ -1304,6 +1321,7 @@ public final class RootToolsInternalMethods {
         return i;
     }
 
+    @SuppressWarnings("RedundantThrows")
     private void commandWait(Shell shell, Command cmd) throws Exception {
 
         while (!cmd.isFinished()) {
@@ -1311,6 +1329,7 @@ public final class RootToolsInternalMethods {
             RootTools.log(Constants.TAG, shell.getCommandQueuePositionString(cmd));
             RootTools.log(Constants.TAG, "Processed " + cmd.totalOutputProcessed + " of " + cmd.totalOutput + " output from command.");
 
+            //noinspection SynchronizationOnLocalVariableOrMethodParameter
             synchronized (cmd) {
                 try {
                     if (!cmd.isFinished()) {

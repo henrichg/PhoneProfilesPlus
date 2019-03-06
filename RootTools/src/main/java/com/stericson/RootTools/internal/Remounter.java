@@ -138,7 +138,7 @@ public class Remounter
                     commandWait(command);
 
                 }
-                catch (Exception e)
+                catch (Exception ignored)
                 {
                 }
 
@@ -178,6 +178,7 @@ public class Remounter
         {
             ArrayList<Mount> mounts = RootTools.getMounts();
 
+            //noinspection ConstantConditions,LoopConditionNotUpdatedInsideLoop
             for (File path = new File(file); path != null; )
             {
                 for (Mount mount : mounts)
@@ -212,6 +213,7 @@ public class Remounter
 
     private void commandWait(Command cmd)
     {
+        //noinspection SynchronizationOnLocalVariableOrMethodParameter
         synchronized (cmd)
         {
             try

@@ -24,11 +24,17 @@ package com.stericson.RootTools.containers;
 
 public class Permissions
 {
+    @SuppressWarnings("WeakerAccess")
     String type;
+    @SuppressWarnings("WeakerAccess")
     String user;
+    @SuppressWarnings("WeakerAccess")
     String group;
+    @SuppressWarnings("WeakerAccess")
     String other;
+    @SuppressWarnings("WeakerAccess")
     String symlink;
+    @SuppressWarnings("WeakerAccess")
     int permissions;
 
     public String getSymlink()
@@ -91,31 +97,37 @@ public class Permissions
         this.other = other;
     }
 
+    @SuppressWarnings("unused")
     public String getUser()
     {
         return user;
     }
 
+    @SuppressWarnings("unused")
     public void setUser(String user)
     {
         this.user = user;
     }
 
+    @SuppressWarnings("unused")
     public String getGroup()
     {
         return group;
     }
 
+    @SuppressWarnings("unused")
     public void setGroup(String group)
     {
         this.group = group;
     }
 
+    @SuppressWarnings("unused")
     public String getOther()
     {
         return other;
     }
 
+    @SuppressWarnings("unused")
     public void setOther(String other)
     {
         this.other = other;

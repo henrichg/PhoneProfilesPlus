@@ -26,7 +26,9 @@ import java.io.File;
 
 public class Symlink
 {
+    @SuppressWarnings("WeakerAccess")
     protected final File file;
+    @SuppressWarnings("WeakerAccess")
     protected final File symlinkPath;
 
     public Symlink(File file, File path)
@@ -35,11 +37,13 @@ public class Symlink
         symlinkPath = path;
     }
 
+    @SuppressWarnings("unused")
     public File getFile()
     {
         return this.file;
     }
 
+    @SuppressWarnings("unused")
     public File getSymlinkPath()
     {
         return symlinkPath;
