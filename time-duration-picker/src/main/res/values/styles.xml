@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- text appearance -->
     <style name="TextAppearance.TimeDurationPicker" parent="TextAppearance.AppCompat.Body1"/>
 
@@ -19,14 +19,14 @@
     <style name="TextAppearance.TimeDurationPicker.Unit.Large">
         <item name="android:textSize">12sp</item>
     </style>
-    <style name="TextAppearance.TimeDurationPicker.Button.Large">
+    <style name="TextAppearance.TimeDurationPicker.Button.Large" tools:ignore="UnusedResources">
         <item name="android:textSize">34sp</item>
     </style>
 
-    <style name="TextAppearance.TimeDurationPicker.Display.Dark">
+    <style name="TextAppearance.TimeDurationPicker.Display.Dark" tools:ignore="UnusedResources">
         <item name="android:textColor">@android:color/primary_text_dark</item>
     </style>
-    <style name="TextAppearance.TimeDurationPicker.Unit.Dark">
+    <style name="TextAppearance.TimeDurationPicker.Unit.Dark" tools:ignore="UnusedResources">
         <item name="android:textColor">@android:color/primary_text_dark</item>
     </style>
 
@@ -45,17 +45,17 @@
         <item name="backspaceIcon">@drawable/ic_backspace</item>
         <item name="clearIcon">@drawable/ic_clear</item>
     </style>
-    <style name="Widget.TimeDurationPicker.Large">
+    <style name="Widget.TimeDurationPicker.Large" tools:ignore="UnusedResources">
         <item name="textAppearanceDisplay">@style/TextAppearance.TimeDurationPicker.Display.Large</item>
         <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Unit.Large</item>
         <item name="textAppearanceButton">@style/TextAppearance.TimeDurationPicker.Button.Large</item>
     </style>
 
-    <style name="Widget.TimeDurationPicker.Light">
+    <style name="Widget.TimeDurationPicker.Light" tools:ignore="UnusedResources">
         <item name="backspaceIcon">@drawable/ic_backspace_light</item>
         <item name="clearIcon">@drawable/ic_backspace_light</item>
     </style>
-    <style name="Widget.TimeDurationPicker.Large.Light">
+    <style name="Widget.TimeDurationPicker.Large.Light" tools:ignore="UnusedResources">
         <item name="backspaceIcon">@drawable/ic_backspace_light</item>
         <item name="clearIcon">@drawable/ic_backspace_light</item>
     </style>

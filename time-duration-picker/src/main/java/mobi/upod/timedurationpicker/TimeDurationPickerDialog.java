@@ -1,8 +1,10 @@
 package mobi.upod.timedurationpicker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,11 +41,13 @@ public class TimeDurationPickerDialog extends AlertDialog implements DialogInter
      * @param listener the listener to be informed about entered duration
      * @param duration the initial duration to be shown in the dialog
      */
+    @SuppressWarnings("WeakerAccess")
     public TimeDurationPickerDialog(Context context, OnDurationSetListener listener, long duration) {
         super(context);
         durationSetListener = listener;
 
         final LayoutInflater inflater = LayoutInflater.from(context);
+        @SuppressLint("InflateParams")
         final View view = inflater.inflate(R.layout.time_duration_picker_dialog, null);
         setView(view);
         setButton(BUTTON_POSITIVE, context.getString(android.R.string.ok), this);
@@ -70,6 +74,7 @@ public class TimeDurationPickerDialog extends AlertDialog implements DialogInter
      * Gets the current entered duration.
      * @return the current duration in milliseconds.
      */
+    @SuppressWarnings("unused")
     public TimeDurationPicker getDurationInput() {
         return durationInputView;
     }
@@ -100,6 +105,7 @@ public class TimeDurationPickerDialog extends AlertDialog implements DialogInter
         }
     }
 
+    @NonNull
     @Override
     public Bundle onSaveInstanceState() {
         final Bundle state = super.onSaveInstanceState();
@@ -108,7 +114,7 @@ public class TimeDurationPickerDialog extends AlertDialog implements DialogInter
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         final long duration = savedInstanceState.getLong(DURATION);
         durationInputView.setDuration(duration);

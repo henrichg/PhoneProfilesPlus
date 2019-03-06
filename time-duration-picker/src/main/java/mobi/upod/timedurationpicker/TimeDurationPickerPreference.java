@@ -1,5 +1,6 @@
 package mobi.upod.timedurationpicker;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -22,12 +23,16 @@ import android.view.View;
  * @see TimeDurationPicker
  * @see TimeDurationPickerDialog
  */
-public class TimeDurationPickerPreference extends DialogPreference {
+@SuppressWarnings("unused")
+class TimeDurationPickerPreference extends DialogPreference {
     /** Placeholder in the summary that will be replaced by the current duration value. */
+    @SuppressWarnings("WeakerAccess")
     public static final String PLACEHOLDER_HOURS_MINUTES_SECONDS = "${h:mm:ss}";
     /** Placeholder in the summary that will be replaced by the current duration value. */
+    @SuppressWarnings("WeakerAccess")
     public static final String PLACEHOLDER_MINUTES_SECONDS = "${m:ss}";
     /** Placeholder in the summary that will be replaced by the current duration value. */
+    @SuppressWarnings("WeakerAccess")
     public static final String PLACEHOLDER_SECONDS = "${s}";
 
     private long duration = 0;
@@ -38,6 +43,7 @@ public class TimeDurationPickerPreference extends DialogPreference {
         this(context, null);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public TimeDurationPickerPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         setPositiveButtonText(android.R.string.ok);
@@ -59,6 +65,7 @@ public class TimeDurationPickerPreference extends DialogPreference {
      * Get the current duration.
      * @return duration in milliseconds.
      */
+    @SuppressWarnings("unused")
     public long getDuration() {
         return duration;
     }
@@ -91,6 +98,7 @@ public class TimeDurationPickerPreference extends DialogPreference {
         super.onPrepareDialogBuilder(builder.setTitle(null).setIcon(null));
     }
 
+    @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView() {
         final LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -98,6 +106,7 @@ public class TimeDurationPickerPreference extends DialogPreference {
         return picker;
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected TimeDurationPicker initPicker(TimeDurationPicker timePicker) {
         return timePicker;
     }

@@ -1,14 +1,19 @@
 package mobi.upod.timedurationpicker;
 
+import android.annotation.SuppressLint;
+
 /**
  * Utility class for handling duration values.
  */
-public class TimeDurationUtil {
+class TimeDurationUtil {
     /** The number of milliseconds within a second. */
+    @SuppressWarnings("WeakerAccess")
     public static final int MILLIS_PER_SECOND = 1000;
     /** The number of milliseconds within a minute. */
+    @SuppressWarnings("WeakerAccess")
     public static final int MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
     /** The number of milliseconds within an hour. */
+    @SuppressWarnings("WeakerAccess")
     public static final int MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
 
     /**
@@ -16,7 +21,7 @@ public class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return number of hours within the specified duration.
      */
-    public static int hoursOf(long duration) {
+    static int hoursOf(long duration) {
         return (int) duration / MILLIS_PER_HOUR;
     }
 
@@ -25,7 +30,7 @@ public class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return number of minutes within the specified duration.
      */
-    public static int minutesOf(long duration) {
+    static int minutesOf(long duration) {
         return (int) duration / MILLIS_PER_MINUTE;
     }
 
@@ -34,7 +39,7 @@ public class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return number of minutes within the specified duration.
      */
-    public static int minutesInHourOf(long duration) {
+    static int minutesInHourOf(long duration) {
         return (int) (duration - hoursOf(duration) * MILLIS_PER_HOUR) / MILLIS_PER_MINUTE;
     }
 
@@ -43,6 +48,7 @@ public class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return number of seconds within the specified duration.
      */
+    @SuppressWarnings("unused")
     public static int secondsOf(long duration) {
         return (int) duration / MILLIS_PER_SECOND;
     }
@@ -52,7 +58,7 @@ public class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return number of seconds within the specified duration.
      */
-    public static int secondsInMinuteOf(long duration) {
+    static int secondsInMinuteOf(long duration) {
         return (int) (duration - hoursOf(duration) * MILLIS_PER_HOUR - minutesInHourOf(duration) * MILLIS_PER_MINUTE) / MILLIS_PER_SECOND;
     }
 
@@ -63,7 +69,7 @@ public class TimeDurationUtil {
      * @param seconds full seconds of the duration
      * @return duration in milliseconds.
      */
-    public static long durationOf(int hours, int minutes, int seconds) {
+    static long durationOf(int hours, int minutes, int seconds) {
         return hours * MILLIS_PER_HOUR + minutes * MILLIS_PER_MINUTE + seconds * MILLIS_PER_SECOND;
     }
 
@@ -72,7 +78,8 @@ public class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    public static String formatHoursMinutesSeconds(long duration) {
+    @SuppressLint("DefaultLocale")
+    static String formatHoursMinutesSeconds(long duration) {
         return String.format("%d:%02d:%02d", hoursOf(duration), minutesInHourOf(duration), secondsInMinuteOf(duration));
     }
 
@@ -81,7 +88,8 @@ public class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    public static String formatMinutesSeconds(long duration) {
+    @SuppressLint("DefaultLocale")
+    static String formatMinutesSeconds(long duration) {
         return String.format("%d:%02d", minutesOf(duration), secondsInMinuteOf(duration));
     }
 
@@ -90,7 +98,8 @@ public class TimeDurationUtil {
      * @param duration duration in milliseconds
      * @return string representation of the duration.
      */
-    public static String formatSeconds(long duration) {
+    @SuppressLint("DefaultLocale")
+    static String formatSeconds(long duration) {
         return String.format("%d", secondsInMinuteOf(duration));
     }
 }

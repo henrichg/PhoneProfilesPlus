@@ -29,7 +29,9 @@ import java.util.Locale;
 public class TimeDurationPicker extends FrameLayout {
 
     public static final int HH_MM_SS = 0;
+    @SuppressWarnings("WeakerAccess")
     public static final int HH_MM = 1;
+    @SuppressWarnings("WeakerAccess")
     public static final int MM_SS = 2;
 
     private int timeUnits = HH_MM_SS;
@@ -49,14 +51,15 @@ public class TimeDurationPicker extends FrameLayout {
     private final Button[] numPadButtons;
     private final Button numPadMeasureButton;
     private OnDurationChangedListener changeListener = null;
-    private TextView secondsLabel;
-    private TextView hoursLabel;
-    private TextView minutesLabel;
+    private final TextView secondsLabel;
+    private final TextView hoursLabel;
+    @SuppressWarnings("FieldCanBeLocal")
+    private final TextView minutesLabel;
 
     /**
      * Implement this interface and set it using #setOnDurationChangeListener to get informed about input changes.
      */
-    public interface OnDurationChangedListener {
+    interface OnDurationChangedListener {
         /**
          * Called whenever the input (the displayed duration string) changes.
          * @param view the view that fired the event
@@ -82,28 +85,28 @@ public class TimeDurationPicker extends FrameLayout {
         //
         displayRow = findViewById(R.id.displayRow);
         durationView = findViewById(R.id.duration);
-        hoursView = (TextView) findViewById(R.id.hours);
-        minutesView = (TextView) findViewById(R.id.minutes);
-        secondsView = (TextView) findViewById(R.id.seconds);
+        hoursView = findViewById(R.id.hours);
+        minutesView = findViewById(R.id.minutes);
+        secondsView = findViewById(R.id.seconds);
         displayViews = new TextView[] { hoursView, minutesView, secondsView };
 
-        hoursLabel = (TextView) findViewById(R.id.hoursLabel);
-        minutesLabel = (TextView) findViewById(R.id.minutesLabel);
-        secondsLabel = (TextView) findViewById(R.id.secondsLabel);
+        hoursLabel = findViewById(R.id.hoursLabel);
+        minutesLabel = findViewById(R.id.minutesLabel);
+        secondsLabel = findViewById(R.id.secondsLabel);
         unitLabelViews = new TextView[] { hoursLabel, minutesLabel, secondsLabel };
 
-        backspaceButton = (ImageButton) findViewById(R.id.backspace);
-        clearButton = (ImageButton) findViewById(R.id.clear);
+        backspaceButton = findViewById(R.id.backspace);
+        clearButton = findViewById(R.id.clear);
 
         separatorView = findViewById(R.id.separator);
 
         numPad = findViewById(R.id.numPad);
-        numPadMeasureButton = (Button) findViewById(R.id.numPadMeasure);
+        numPadMeasureButton = findViewById(R.id.numPadMeasure);
         numPadButtons = new Button[] {
-                (Button) findViewById(R.id.numPad1), (Button) findViewById(R.id.numPad2), (Button) findViewById(R.id.numPad3),
-                (Button) findViewById(R.id.numPad4), (Button) findViewById(R.id.numPad5), (Button) findViewById(R.id.numPad6),
-                (Button) findViewById(R.id.numPad7), (Button) findViewById(R.id.numPad8), (Button) findViewById(R.id.numPad9),
-                (Button) findViewById(R.id.numPad0), (Button) findViewById(R.id.numPad00)
+                findViewById(R.id.numPad1), findViewById(R.id.numPad2), findViewById(R.id.numPad3),
+                findViewById(R.id.numPad4), findViewById(R.id.numPad5), findViewById(R.id.numPad6),
+                findViewById(R.id.numPad7), findViewById(R.id.numPad8), findViewById(R.id.numPad9),
+                findViewById(R.id.numPad0), findViewById(R.id.numPad00)
         };
 
         //
@@ -213,6 +216,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets a listener to be informed of updates to the entered duration.
      * @param listener the listener to be informed or {@code null} if no one should be informed.
      */
+    @SuppressWarnings("unused")
     public void setOnDurationChangeListener(OnDurationChangedListener listener) {
         changeListener = listener;
     }
@@ -221,6 +225,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the text appearance for the entered duration (the large numbers in the upper area).
      * @param resId resource id of the style describing the text appearance.
      */
+    @SuppressWarnings("unused")
     public void setDisplayTextAppearance(int resId) {
         applyTextAppearance(getContext(), resId, displayViews);
     }
@@ -229,6 +234,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the text appearance for the small unit lables ("h", "m", "s") in the upper display area.
      * @param resId resource id of the style describing the text appearance.
      */
+    @SuppressWarnings("unused")
     public void setUnitTextAppearance(int resId) {
         applyTextAppearance(getContext(), resId, unitLabelViews);
     }
@@ -237,6 +243,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the text appearance for the number pad buttons.
      * @param resId resource id of the style describing the text appearance.
      */
+    @SuppressWarnings("unused")
     public void setButtonTextAppearance(int resId) {
         applyTextAppearance(getContext(), resId, numPadButtons);
     }
@@ -245,6 +252,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the icon to be shown on the backspace button.
      * @param icon backspace drawable
      */
+    @SuppressWarnings("unused")
     public void setBackspaceIcon(Drawable icon) {
         backspaceButton.setImageDrawable(icon);
     }
@@ -253,6 +261,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the icon for the clear button.
      * @param icon clear drawable
      */
+    @SuppressWarnings("unused")
     public void setClearIcon(Drawable icon) {
         clearButton.setImageDrawable(icon);
     }
@@ -261,6 +270,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the color of the separator line between the duration display and the number pad.
      * @param color color value
      */
+    @SuppressWarnings("unused")
     public void setSeparatorColor(int color) {
         separatorView.setBackgroundColor(color);
     }
@@ -269,6 +279,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the background color of the upper duration display area.
      * @param color color value
      */
+    @SuppressWarnings("unused")
     public void setDurationDisplayBackgroundColor(int color) {
         displayRow.setBackgroundColor(color);
     }
@@ -277,6 +288,7 @@ public class TimeDurationPicker extends FrameLayout {
      * Sets the padding to be used for the number pad buttons.
      * @param padding padding in pixels
      */
+    @SuppressWarnings("unused")
     public void setNumPadButtonPadding(int padding) {
         applyPadding(padding, numPadButtons);
     }
@@ -409,6 +421,7 @@ public class TimeDurationPicker extends FrameLayout {
 
         // measure the display
         final int displayRowWidth = Math.max(minDisplayWidth, preferredWidth);
+        @SuppressWarnings("UnnecessaryLocalVariable")
         final int displayRowHeight = minDisplayHeight;
         displayRow.measure(MeasureSpec.makeMeasureSpec(displayRowWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(displayRowHeight, MeasureSpec.EXACTLY));
 
@@ -438,6 +451,7 @@ public class TimeDurationPicker extends FrameLayout {
         final int numPadWidth = numPad.getMeasuredWidth();
         final int numPadHeight = numPad.getMeasuredHeight();
         final int numPadX = (width - numPadWidth) / 2;
+        @SuppressWarnings("UnnecessaryLocalVariable")
         final int numPadY = displayRowHeight;
         numPad.layout(numPadX, numPadY, numPadX + numPadWidth, numPadY + numPadHeight);
     }
@@ -472,7 +486,7 @@ public class TimeDurationPicker extends FrameLayout {
         private long duration = 0;
         private final StringBuilder input = new StringBuilder(maxDigits);
 
-        public TimeDurationString() {
+        TimeDurationString() {
             padWithZeros();
         }
 
@@ -489,12 +503,12 @@ public class TimeDurationPicker extends FrameLayout {
             setDuration(duration);
         }
 
-        public void pushNumber(final CharSequence digits) {
+        void pushNumber(final CharSequence digits) {
             for (int i = 0; i < digits.length(); ++i)
                 pushDigit(digits.charAt(i));
         }
 
-        public void pushDigit(final char digit) {
+        void pushDigit(final char digit) {
             if (!Character.isDigit(digit))
                 throw new IllegalArgumentException("Only numbers are allowed");
 
@@ -505,45 +519,45 @@ public class TimeDurationPicker extends FrameLayout {
             padWithZeros();
         }
 
-        public void popDigit() {
+        void popDigit() {
             if (input.length() > 0)
                 input.deleteCharAt(input.length() - 1);
             padWithZeros();
         }
 
-        public void clear() {
+        void clear() {
             input.setLength(0);
             padWithZeros();
         }
 
-        public String getHoursString() {
+        String getHoursString() {
             return timeUnits == HH_MM_SS || timeUnits == HH_MM ? input.substring(0, 2) : "00";
         }
 
-        public String getMinutesString() {
+        String getMinutesString() {
             if (timeUnits == HH_MM_SS || timeUnits == HH_MM) return input.substring(2, 4);
             else if (timeUnits == MM_SS) return input.substring(0, 2);
             else return "00";
         }
 
-        public String getSecondsString() {
+        String getSecondsString() {
             if (timeUnits == HH_MM_SS) return input.substring(4, 6);
             else if (timeUnits == MM_SS) return input.substring(2, 4);
             else return "00";
         }
 
-        public String getInputString() {
+        String getInputString() {
             return input.toString();
         }
 
-        public long getDuration() {
+        long getDuration() {
             final int hours = Integer.parseInt(getHoursString());
             final int minutes = Integer.parseInt(getMinutesString());
             final int seconds = Integer.parseInt(getSecondsString());
             return TimeDurationUtil.durationOf(hours, minutes, seconds);
         }
 
-        public void setDuration(long millis) {
+        void setDuration(long millis) {
             duration = millis;
             setDuration(
                 TimeDurationUtil.hoursOf(millis),
@@ -589,7 +603,7 @@ public class TimeDurationPicker extends FrameLayout {
     public static class SavedState extends BaseSavedState {
         final String durationInput;
 
-        public SavedState(Parcelable superState, String durationInput) {
+        SavedState(Parcelable superState, String durationInput) {
             super(superState);
             this.durationInput = durationInput;
         }
