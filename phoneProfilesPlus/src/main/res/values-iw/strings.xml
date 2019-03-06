@@ -1282,7 +1282,7 @@
     <string name="application_editor_intent_data_hint">Data</string>
     <string name="application_editor_intent_mime_type">Mime type:</string>
     <string name="application_editor_intent_mime_type_hint">Mime type</string>
-    <string name="application_editor_intent_extras">Extras:</string>
+    <string name="application_editor_intent_extras">Parameters:</string>
     <string name="application_editor_intent_categories">Categories:</string>
     <string name="application_editor_intent_categories_dlg_title">Categories</string>
     <string name="application_editor_intent_flags">Flags:</string>
