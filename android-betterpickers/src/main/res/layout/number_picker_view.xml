@@ -85,10 +85,11 @@
             android:layout_below="@id/number_view_container"
             android:background="@color/default_divider_color_dark"/>
     <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/divider"
-            android:orientation="vertical">
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:orientation="vertical"
+        tools:ignore="DuplicateIncludedIds">
         <include
                 layout="@layout/three_keys_view"
                 android:id="@+id/first"/>

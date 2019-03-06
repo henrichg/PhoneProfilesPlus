@@ -62,6 +62,8 @@ public class ZeroTopPaddingTextView extends TextView {
         updatePadding();
     }
 
+
+    @SuppressWarnings("EmptyMethod")
     private void init() {
         //decimalSeperator = getResources().getString(R.string.number_picker_seperator);
         //timeSeperator = getResources().getString(R.string.time_picker_time_seperator);
@@ -105,6 +107,7 @@ public class ZeroTopPaddingTextView extends TextView {
                 (int) (-BOLD_FONT_BOTTOM_PADDING_RATIO * getTextSize()));
     }
 
+    @SuppressWarnings("unused")
     public void setPaddingRight(int padding) {
         mPaddingRight = padding;
         updatePadding();

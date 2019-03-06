@@ -26,13 +26,23 @@ import java.text.DecimalFormat;
 public class NumberPicker extends LinearLayout implements Button.OnClickListener,
         Button.OnLongClickListener {
 
-    protected int mInputSize = 20;
+    @SuppressWarnings("WeakerAccess")
+    protected final int mInputSize = 20;
+    @SuppressWarnings("WeakerAccess")
     protected final Button mNumbers[] = new Button[10];
+    @SuppressWarnings("WeakerAccess")
     protected int mInput[] = new int[mInputSize];
+    @SuppressWarnings("WeakerAccess")
     protected int mInputPointer = -1;
-    protected Button mLeft, mRight;
+    @SuppressWarnings("WeakerAccess")
+    protected Button mLeft;
+    @SuppressWarnings("WeakerAccess")
+    protected Button mRight;
+    @SuppressWarnings("WeakerAccess")
     protected ImageButton mDelete;
+    @SuppressWarnings("WeakerAccess")
     protected NumberView mEnteredNumber;
+    @SuppressWarnings("WeakerAccess")
     protected final Context mContext;
 
     private TextView mLabel;
@@ -45,6 +55,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     public static final int SIGN_POSITIVE = 0;
     public static final int SIGN_NEGATIVE = 1;
 
+    @SuppressWarnings("WeakerAccess")
     protected View mDivider;
     private ColorStateList mTextColor;
     private int mKeyBackgroundResId;
@@ -53,7 +64,9 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     private int mDeleteDrawableSrcResId;
     private int mTheme = -1;
 
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private BigDecimal mMinNumber = null;
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private BigDecimal mMaxNumber = null;
 
     /**
@@ -87,6 +100,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         mDividerColor = getResources().getColor(R.color.default_divider_color_dark);
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected int getLayoutId() {
         return R.layout.number_picker_view;
     }
@@ -246,7 +260,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     /**
      * Update the delete button to determine whether it is able to be clicked.
      */
-    public void updateDeleteButton() {
+    private void updateDeleteButton() {
         boolean enabled = mInputPointer != -1;
         if (mDelete != null) {
             mDelete.setEnabled(enabled);
@@ -270,6 +284,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         updateDeleteButton();
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected void doOnClick(View v) {
         Integer val = (Integer) v.getTag(R.id.numbers_key);
         if (val != null) {
@@ -335,7 +350,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     /**
      * Reset all inputs.
      */
-    public void reset() {
+    private void reset() {
         for (int i = 0; i < mInputSize; i++) {
             mInput[i] = -1;
         }
@@ -344,6 +359,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     }
 
     // Update the number displayed in the picker:
+    @SuppressWarnings("WeakerAccess")
     protected void updateNumber() {
         String numberString = getEnteredNumberString();
         //noinspection RegExpRedundantEscape
@@ -365,6 +381,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected void setLeftRightEnabled() {
         mLeft.setEnabled(true);
         mRight.setEnabled(canAddDecimal());
@@ -608,7 +625,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
         int[] mInput;
         int mSign;
 
-        public SavedState(Parcelable superState) {
+        SavedState(Parcelable superState) {
             super(superState);
         }
 

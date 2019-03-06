@@ -14,6 +14,7 @@ import java.util.Vector;
 /**
  * User: derek Date: 5/2/13 Time: 7:55 PM
  */
+@SuppressWarnings("unused")
 public class NumberPickerBuilder {
 
     private FragmentManager manager; // Required
@@ -25,7 +26,7 @@ public class NumberPickerBuilder {
     private Integer decimalVisibility;
     private String labelText;
     private int mReference;
-    private Vector<NumberPickerDialogHandlerV2> mNumberPickerDialogHandlersV2 = new Vector<>();
+    private final Vector<NumberPickerDialogHandlerV2> mNumberPickerDialogHandlersV2 = new Vector<>();
     private Integer currentNumberValue;
     private Double currentDecimalValue;
     private Integer currentSignValue;
@@ -183,6 +184,7 @@ public class NumberPickerBuilder {
      * @param handler an Object implementing the appropriate Picker Handler
      * @return the current Builder object
      */
+    @SuppressWarnings("unused")
     public NumberPickerBuilder addNumberPickerDialogHandler(NumberPickerDialogHandlerV2 handler) {
         this.mNumberPickerDialogHandlersV2.add(handler);
         return this;

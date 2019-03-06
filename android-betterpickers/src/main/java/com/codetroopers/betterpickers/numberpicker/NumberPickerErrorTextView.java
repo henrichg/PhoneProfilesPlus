@@ -50,16 +50,16 @@ public class NumberPickerErrorTextView extends TextView {
         startAnimation(fadeIn);
     }
 
-    private Runnable hideRunnable = new Runnable() {
+    private final Runnable hideRunnable = new Runnable() {
         @Override
         public void run() {
             hide();
         }
     };
 
-    private Handler fadeInEndHandler = new Handler();
+    private final Handler fadeInEndHandler = new Handler();
 
-    public void hide() {
+    private void hide() {
         fadeInEndHandler.removeCallbacks(hideRunnable);
         Animation fadeOut = AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out);
         fadeOut.setAnimationListener(new Animation.AnimationListener() {

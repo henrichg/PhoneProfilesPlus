@@ -109,10 +109,12 @@ public class NumberPickerDialogFragment extends DialogFragment {
         return frag;
     }
 
+    /*
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+    */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -275,8 +277,10 @@ public class NumberPickerDialogFragment extends DialogFragment {
         this.mNumberPickerDialogHandlersV2 = handlers;
     }
 
+    /*
     @Override
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
     }
+    */
 }
