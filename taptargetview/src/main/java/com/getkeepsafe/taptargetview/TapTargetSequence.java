@@ -55,6 +55,7 @@ public class TapTargetSequence {
      *                      unless you have set {@link #continueOnCancel(boolean)} and the user
      *                      clicks outside of the target
      */
+    @SuppressWarnings({"EmptyMethod", "unused"})
     void onSequenceStep(TapTarget lastTarget, boolean targetClicked);
 
     /**
@@ -62,7 +63,7 @@ public class TapTargetSequence {
      * {@link #continueOnCancel(boolean)} is not set.
      * @param lastTarget The last displayed target
      */
-    void onSequenceCanceled(TapTarget lastTarget);
+    void onSequenceCanceled(@SuppressWarnings("unused") TapTarget lastTarget);
   }
 
   public TapTargetSequence(@Nullable Activity activity) {
@@ -87,6 +88,7 @@ public class TapTargetSequence {
   }
 
   /** Adds the given targets, in order, to the pending queue of {@link TapTarget}s */
+  @SuppressWarnings("UnusedReturnValue")
   public TapTargetSequence targets(TapTarget... targets) {
     Collections.addAll(this.targets, targets);
     return this;
@@ -106,12 +108,14 @@ public class TapTargetSequence {
   }
 
   /** Whether or not to consider taps on the outer circle as a cancellation **/
+  @SuppressWarnings("UnusedReturnValue")
   public TapTargetSequence considerOuterCircleCanceled(boolean status) {
     this.considerOuterCircleCanceled = status;
     return this;
   }
 
   /** Specify the listener for this sequence **/
+  @SuppressWarnings("UnusedReturnValue")
   public TapTargetSequence listener(Listener listener) {
     this.listener = listener;
     return this;

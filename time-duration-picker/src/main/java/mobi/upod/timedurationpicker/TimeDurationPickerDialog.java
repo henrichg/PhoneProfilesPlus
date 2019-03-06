@@ -32,7 +32,7 @@ public class TimeDurationPickerDialog extends AlertDialog implements DialogInter
          * @param view the picker view.
          * @param duration the duration that was entered.
          */
-        void onDurationSet(TimeDurationPicker view, long duration);
+        void onDurationSet(@SuppressWarnings("unused") TimeDurationPicker view, long duration);
     }
 
     /**

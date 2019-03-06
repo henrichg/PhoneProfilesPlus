@@ -228,6 +228,7 @@ public class Command {
         return sb.toString();
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public final boolean isExecuting() {
         return executing;
     }

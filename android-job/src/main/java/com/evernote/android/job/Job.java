@@ -140,7 +140,7 @@ public abstract class Job {
      *
      * @param newJobId The new ID of the rescheduled {@link JobRequest}.
      */
-    @SuppressWarnings("UnusedParameters")
+    @SuppressWarnings({"UnusedParameters","EmptyMethod"})
     @WorkerThread
     protected void onReschedule(int newJobId) {
         // override me
@@ -370,7 +370,7 @@ public abstract class Job {
 
         private final JobRequest mRequest;
         private PersistableBundleCompat mExtras;
-        private Bundle mTransientExtras;
+        private final Bundle mTransientExtras;
 
         private Params(@NonNull JobRequest request, @NonNull Bundle transientExtras) {
             mRequest = request;
