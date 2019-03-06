@@ -113,6 +113,7 @@ public abstract class Job {
      *
      * @see #isCanceled()
      */
+    @SuppressWarnings("EmptyMethod")
     protected void onCancel() {
         // override me
     }
