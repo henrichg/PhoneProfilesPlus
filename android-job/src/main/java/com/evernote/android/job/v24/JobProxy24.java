@@ -37,6 +37,7 @@ public class JobProxy24 extends JobProxy21 {
         this(context, TAG);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public JobProxy24(Context context, String tag) {
         super(context, tag);
     }

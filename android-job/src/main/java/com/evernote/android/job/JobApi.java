@@ -92,7 +92,9 @@ public enum JobApi {
         return mFlexSupport;
     }
 
-    /*package*/ boolean supportsTransientJobs() {
+    /*package*/
+    @SuppressWarnings("unused")
+    boolean supportsTransientJobs() {
         return mSupportsTransientJobs;
     }
 
@@ -161,7 +163,9 @@ public enum JobApi {
         }
     }
 
-    private static boolean isServiceEnabledAndHasPermission(@NonNull Context context, @NonNull Class<? extends Service> clazz, @NonNull String permission) {
+    private static boolean isServiceEnabledAndHasPermission(@NonNull Context context,
+                                                            @SuppressWarnings("SameParameterValue") @NonNull Class<? extends Service> clazz,
+                                                            @SuppressWarnings("SameParameterValue") @NonNull String permission) {
         try {
             Intent intent = new Intent(context, clazz);
             List<ResolveInfo> resolveInfos = context.getPackageManager().queryIntentServices(intent, 0);
@@ -181,7 +185,8 @@ public enum JobApi {
         }
     }
 
-    private boolean isBroadcastEnabled(@NonNull Context context, @NonNull Class<? extends BroadcastReceiver> clazz) {
+    private boolean isBroadcastEnabled(@NonNull Context context,
+                                       @SuppressWarnings("SameParameterValue") @NonNull Class<? extends BroadcastReceiver> clazz) {
         // on some rooted devices user can disable receivers
         try {
             Intent intent = new Intent(context, clazz);

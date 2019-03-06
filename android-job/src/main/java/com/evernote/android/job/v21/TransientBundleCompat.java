@@ -56,7 +56,8 @@ import java.util.concurrent.TimeUnit;
         long when = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1000);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.RTC, when, pendingIntent);
+        if (alarmManager != null)
+            alarmManager.setExact(AlarmManager.RTC, when, pendingIntent);
     }
 
     public static boolean startWithTransientBundle(@NonNull Context context, @NonNull JobRequest request) {
@@ -100,7 +101,8 @@ import java.util.concurrent.TimeUnit;
             }
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            alarmManager.cancel(pendingIntent);
+            if (alarmManager != null)
+                alarmManager.cancel(pendingIntent);
 
             pendingIntent.cancel();
         } catch (Exception e) {

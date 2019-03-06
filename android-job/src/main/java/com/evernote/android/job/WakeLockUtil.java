@@ -45,10 +45,11 @@ import java.util.concurrent.TimeUnit;
     @Nullable
     static PowerManager.WakeLock acquireWakeLock(@NonNull Context context, @NonNull String tag, long timeoutMillis) {
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (powerManager == null)
+            return null;
 
         PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, tag);
         wakeLock.setReferenceCounted(false);
-
         return acquireWakeLock(context, wakeLock, timeoutMillis) ? wakeLock : null;
     }
 

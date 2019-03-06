@@ -52,7 +52,7 @@ class FastXmlSerializer implements XmlSerializer {
 
     private static final int BUFFER_LEN = 8192;
 
-    private static String sSpace = "                                                              ";
+    private static final String sSpace = "                                                              ";
 
     private final char[] mText = new char[BUFFER_LEN];
     private int mPos;
@@ -61,7 +61,7 @@ class FastXmlSerializer implements XmlSerializer {
 
     private OutputStream mOutputStream;
     private CharsetEncoder mCharset;
-    private ByteBuffer mBytes = ByteBuffer.allocate(BUFFER_LEN);
+    private final ByteBuffer mBytes = ByteBuffer.allocate(BUFFER_LEN);
 
     private boolean mIndent = false;
     private boolean mInTag;
@@ -132,13 +132,13 @@ class FastXmlSerializer implements XmlSerializer {
     private void escapeAndAppendString(final String string) throws IOException {
         final int n = string.length();
         final char ne = (char) ESCAPE_TABLE.length;
-        final String[] escapes = ESCAPE_TABLE;
+        //final String[] escapes = ESCAPE_TABLE;
         int lastPos = 0;
         int pos;
         for (pos=0; pos<n; pos++) {
             char c = string.charAt(pos);
             if (c >= ne) continue;
-            String escape = escapes[c];
+            String escape = ESCAPE_TABLE[c];
             if (escape == null) continue;
             if (lastPos < pos) append(string, lastPos, pos-lastPos);
             lastPos = pos + 1;
@@ -149,14 +149,14 @@ class FastXmlSerializer implements XmlSerializer {
 
     private void escapeAndAppendString(char[] buf, int start, int len) throws IOException {
         final char ne = (char) ESCAPE_TABLE.length;
-        final String[] escapes = ESCAPE_TABLE;
+        //final String[] escapes = ESCAPE_TABLE;
         int end = start+len;
         int lastPos = start;
         int pos;
         for (pos=start; pos<end; pos++) {
             char c = buf[pos];
             if (c >= ne) continue;
-            String escape = escapes[c];
+            String escape = ESCAPE_TABLE[c];
             if (escape == null) continue;
             if (lastPos < pos) append(buf, lastPos, pos-lastPos);
             lastPos = pos + 1;
@@ -181,16 +181,19 @@ class FastXmlSerializer implements XmlSerializer {
         return this;
     }
 
+    @SuppressWarnings("RedundantThrows")
     public void cdsect(String text) throws IOException, IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
 
+    @SuppressWarnings("RedundantThrows")
     public void comment(String text) throws IOException, IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
 
+    @SuppressWarnings("RedundantThrows")
     public void docdecl(String text) throws IOException, IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
@@ -222,6 +225,7 @@ class FastXmlSerializer implements XmlSerializer {
         return this;
     }
 
+    @SuppressWarnings("RedundantThrows")
     public void entityRef(String text) throws IOException, IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
@@ -287,11 +291,13 @@ class FastXmlSerializer implements XmlSerializer {
         throw new UnsupportedOperationException();
     }
 
+    @SuppressWarnings("RedundantThrows")
     public void ignorableWhitespace(String text) throws IOException, IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
     }
 
+    @SuppressWarnings("RedundantThrows")
     public void processingInstruction(String text) throws IOException, IllegalArgumentException,
             IllegalStateException {
         throw new UnsupportedOperationException();
@@ -329,11 +335,13 @@ class FastXmlSerializer implements XmlSerializer {
         }
     }
 
+    @SuppressWarnings("RedundantThrows")
     public void setOutput(Writer writer) throws IOException, IllegalArgumentException,
             IllegalStateException {
         mWriter = writer;
     }
 
+    @SuppressWarnings("RedundantThrows")
     public void setPrefix(String prefix, String namespace) throws IOException,
             IllegalArgumentException, IllegalStateException {
         throw new UnsupportedOperationException();

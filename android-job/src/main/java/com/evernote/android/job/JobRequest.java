@@ -1228,6 +1228,6 @@ public final class JobRequest {
          * @param tag The tag of the scheduled request.
          * @param exception If scheduling the request failed, then the exception won't be {@code null}.
          */
-        void onJobScheduled(int jobId, @NonNull String tag, @Nullable Exception exception);
+        void onJobScheduled(@SuppressWarnings("unused") int jobId, @NonNull String tag, @Nullable Exception exception);
     }
 }

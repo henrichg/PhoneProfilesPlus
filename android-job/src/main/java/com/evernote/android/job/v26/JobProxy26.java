@@ -64,6 +64,7 @@ public class JobProxy26 extends JobProxy24 {
     protected int convertNetworkType(@NonNull JobRequest.NetworkType networkType) {
         switch (networkType) {
             case METERED:
+                //noinspection deprecation
                 return JobInfo.NETWORK_TYPE_METERED;
             default:
                 return super.convertNetworkType(networkType);

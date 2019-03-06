@@ -327,7 +327,8 @@ public abstract class Job {
         return mResult;
     }
 
-    /*package*/ final boolean isDeleted() {
+    /*package*/ @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    final boolean isDeleted() {
         synchronized (mMonitor) {
             return mDeleted;
         }
@@ -348,6 +349,7 @@ public abstract class Job {
         return mParams.hashCode();
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public String toString() {
         return "job{"

@@ -330,11 +330,13 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
         }
     }
 
+    @SuppressWarnings("unused")
     @VisibleForTesting
     /*package*/ void injectDatabase(SQLiteDatabase database) {
         mInjectedDatabase = database;
     }
 
+    @SuppressWarnings("unused")
     @VisibleForTesting
     /*package*/ Set<String> getFailedDeleteIds() {
         return mFailedDeleteIds;

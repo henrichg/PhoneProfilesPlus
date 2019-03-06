@@ -59,7 +59,7 @@ public final class JobRescheduleService extends SafeJobIntentService {
     }
 
     @VisibleForTesting
-    /*package*/ static CountDownLatch latch;
+    /*package*/ private static CountDownLatch latch;
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
@@ -93,12 +93,12 @@ public final class JobRescheduleService extends SafeJobIntentService {
         }
     }
 
-    @SuppressWarnings("UnusedReturnValue")
+    @SuppressWarnings({"UnusedReturnValue", "unused"})
     /*package*/ int rescheduleJobs(JobManager manager) {
         return rescheduleJobs(manager, manager.getAllJobRequests(null, true, true));
     }
 
-    /*package*/ int rescheduleJobs(JobManager manager, Collection<JobRequest> requests) {
+    /*package*/ private int rescheduleJobs(JobManager manager, Collection<JobRequest> requests) {
         int rescheduledCount = 0;
         boolean exceptionThrown = false;
         for (JobRequest request : requests) {

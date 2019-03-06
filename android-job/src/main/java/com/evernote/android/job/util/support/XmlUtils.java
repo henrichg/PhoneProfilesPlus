@@ -355,6 +355,7 @@ final class XmlUtils {
      * @see #writeMapXml
      * @see #writeValueXml
      */
+    @SuppressWarnings("RedundantThrows")
     public static final void writeByteArrayXml(byte[] val, String name,
                                                XmlSerializer out)
             throws XmlPullParserException, java.io.IOException {
@@ -377,6 +378,7 @@ final class XmlUtils {
         for (int i=0; i<n; i++) {
             int b = val[i];
             int h = b>>4;
+            //noinspection ConstantConditions
             sb.append(h >= 10 ? ('a'+h-10) : ('0'+h));
             h = b&0xff;
             sb.append(h >= 10 ? ('a'+h-10) : ('0'+h));
@@ -400,6 +402,7 @@ final class XmlUtils {
      * @see #writeValueXml
      * @see #readThisIntArrayXml
      */
+    @SuppressWarnings("RedundantThrows")
     public static final void writeIntArrayXml(int[] val, String name,
                                               XmlSerializer out)
             throws XmlPullParserException, java.io.IOException {
@@ -440,6 +443,7 @@ final class XmlUtils {
      * @see #writeValueXml
      * @see #readThisIntArrayXml
      */
+    @SuppressWarnings("RedundantThrows")
     public static final void writeLongArrayXml(long[] val, String name, XmlSerializer out)
             throws XmlPullParserException, java.io.IOException {
 
@@ -479,6 +483,7 @@ final class XmlUtils {
      * @see #writeValueXml
      * @see #readThisIntArrayXml
      */
+    @SuppressWarnings("RedundantThrows")
     public static final void writeDoubleArrayXml(double[] val, String name, XmlSerializer out)
             throws XmlPullParserException, java.io.IOException {
 
@@ -518,6 +523,7 @@ final class XmlUtils {
      * @see #writeValueXml
      * @see #readThisIntArrayXml
      */
+    @SuppressWarnings("RedundantThrows")
     public static final void writeStringArrayXml(String[] val, String name, XmlSerializer out)
             throws XmlPullParserException, java.io.IOException {
 
@@ -1295,6 +1301,7 @@ final class XmlUtils {
                 "Unexpected end of document in <" + tagName + ">");
     }
 
+    @SuppressWarnings("RedundantThrows")
     private static final Object readThisPrimitiveValueXml(XmlPullParser parser, String tagName)
             throws XmlPullParserException, java.io.IOException {
         try {
@@ -1499,6 +1506,7 @@ final class XmlUtils {
          * @throws XmlPullParserException on unrecognized Object type.
          * @throws IOException on XmlSerializer serialization errors.
          */
+        @SuppressWarnings("RedundantThrows")
         public void writeUnknownObject(Object v, String name, XmlSerializer out)
                 throws XmlPullParserException, IOException;
     }
@@ -1515,6 +1523,7 @@ final class XmlUtils {
          * @throws XmlPullParserException if the START_TAG is not recognized.
          * @throws IOException on XmlPullParser serialization errors.
          */
+        @SuppressWarnings("RedundantThrows")
         public Object readThisUnknownObjectXml(XmlPullParser in, String tag)
                 throws XmlPullParserException, IOException;
     }

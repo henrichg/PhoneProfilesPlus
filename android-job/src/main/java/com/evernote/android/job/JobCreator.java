@@ -68,8 +68,7 @@ public interface JobCreator {
 
             try {
                 addJobCreator(context, JobManager.create(context));
-            } catch (JobManagerCreateException e) {
-            }
+            } catch (JobManagerCreateException ignored) {}
         }
 
         /**

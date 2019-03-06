@@ -120,6 +120,7 @@ public class JobProxyGcm implements JobProxy {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected <T extends Task.Builder> T prepareBuilder(T builder, JobRequest request) {
         builder.setTag(createTag(request))
                 .setService(PlatformGcmService.class)
@@ -131,14 +132,17 @@ public class JobProxyGcm implements JobProxy {
         return builder;
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected String createTag(JobRequest request) {
         return createTag(request.getJobId());
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected String createTag(int jobId) {
         return String.valueOf(jobId);
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected int convertNetworkType(@NonNull JobRequest.NetworkType networkType) {
         switch (networkType) {
             case ANY:

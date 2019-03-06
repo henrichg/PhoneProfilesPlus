@@ -25,6 +25,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -47,6 +48,7 @@ public final class PersistableBundleCompat {
         this(new HashMap<String, Object>());
     }
 
+    @SuppressWarnings("CopyConstructorMissesField")
     public PersistableBundleCompat(PersistableBundleCompat bundle) {
         this(new HashMap<>(bundle.mValues));
     }
@@ -173,6 +175,7 @@ public final class PersistableBundleCompat {
     }
 
     public void putPersistableBundleCompat(String key, PersistableBundleCompat value) {
+        //noinspection ConstantConditions
         mValues.put(key, value == null ? null : value.mValues);
     }
 
@@ -190,6 +193,7 @@ public final class PersistableBundleCompat {
         mValues.clear();
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean containsKey(String key) {
         return mValues.containsKey(key);
     }
@@ -221,6 +225,7 @@ public final class PersistableBundleCompat {
     @NonNull
     public String saveToXml() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        //noinspection TryFinallyCanBeTryWithResources
         try {
             XmlUtils.writeMapXml(mValues, outputStream);
             return outputStream.toString(UTF_8);
@@ -247,8 +252,9 @@ public final class PersistableBundleCompat {
     @NonNull
     public static PersistableBundleCompat fromXml(@NonNull String xml) {
         ByteArrayInputStream inputStream = null;
+        //noinspection TryFinallyCanBeTryWithResources
         try {
-            inputStream = new ByteArrayInputStream(xml.getBytes(UTF_8));
+            inputStream = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));
             HashMap<String, ?> map = XmlUtils.readMapXml(inputStream);
             return new PersistableBundleCompat((Map<String, Object>) map);
 

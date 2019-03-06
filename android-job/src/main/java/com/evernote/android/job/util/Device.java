@@ -56,7 +56,7 @@ public final class Device {
         int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
         boolean charging = plugged == BatteryManager.BATTERY_PLUGGED_AC
                 || plugged == BatteryManager.BATTERY_PLUGGED_USB
-                || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS);
+                || (/*Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 &&*/ plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS);
 
         return new BatteryStatus(charging, batteryPct);
     }
@@ -64,18 +64,21 @@ public final class Device {
     @SuppressWarnings("deprecation")
     public static boolean isIdle(Context context) {
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            /*
-             * isDeviceIdleMode() is a very strong requirement and could cause a job
-             * to be never run. isDeviceIdleMode() returns true in doze mode, but jobs
-             * are delayed until the device leaves doze mode
-             */
-            return powerManager.isDeviceIdleMode() || !powerManager.isInteractive();
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
-            return !powerManager.isInteractive();
-        } else {
-            return !powerManager.isScreenOn();
+        if (powerManager != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                /*
+                 * isDeviceIdleMode() is a very strong requirement and could cause a job
+                 * to be never run. isDeviceIdleMode() returns true in doze mode, but jobs
+                 * are delayed until the device leaves doze mode
+                 */
+                return powerManager.isDeviceIdleMode() || !powerManager.isInteractive();
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+                return !powerManager.isInteractive();
+            } else {
+                return !powerManager.isScreenOn();
+            }
         }
+        return false;
     }
 
     /**
@@ -91,11 +94,13 @@ public final class Device {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo;
         try {
+            //noinspection ConstantConditions
             networkInfo = connectivityManager.getActiveNetworkInfo();
         } catch (Throwable t) {
             return JobRequest.NetworkType.ANY;
         }
 
+        //noinspection deprecation
         if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
             return JobRequest.NetworkType.ANY;
         }
@@ -105,6 +110,7 @@ public final class Device {
             return JobRequest.NetworkType.UNMETERED;
         }
 
+        //noinspection deprecation
         if (networkInfo.isRoaming()) {
             return JobRequest.NetworkType.CONNECTED;
         } else {
@@ -112,6 +118,7 @@ public final class Device {
         }
     }
 
+    @SuppressWarnings("SameReturnValue")
     public static boolean isStorageLow() {
         // figure this out
         return false;

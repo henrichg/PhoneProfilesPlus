@@ -108,11 +108,11 @@ import java.util.List;
         CAT.e("deleting the database file: " + fileName);
         try {
             File databaseFile = new File(fileName);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 deleteApi16(databaseFile);
-            } else {
+            /*} else {
                 deleteApi14(JobManager.instance().getContext(), databaseFile);
-            }
+            }*/
         } catch (Exception e) {
             /* print warning and ignore exception */
             CAT.w(e, "delete failed: " + e.getMessage());
@@ -125,6 +125,7 @@ import java.util.List;
         SQLiteDatabase.deleteDatabase(databaseFile);
     }
 
+    @SuppressWarnings("unused")
     @VisibleForTesting
     /*package*/ void deleteApi14(Context context, File databaseFile) {
         context.deleteDatabase(databaseFile.getName());

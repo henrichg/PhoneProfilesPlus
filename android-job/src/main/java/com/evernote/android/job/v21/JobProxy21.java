@@ -43,6 +43,7 @@ public class JobProxy21 implements JobProxy {
 
     private static final int ERROR_BOOT_PERMISSION = -123;
 
+    @SuppressWarnings("WeakerAccess")
     protected final Context mContext;
     protected final JobCat mCat;
 
@@ -162,6 +163,7 @@ public class JobProxy21 implements JobProxy {
         return setTransientBundle(request, builder);
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected JobInfo.Builder createBuilderOneOff(JobInfo.Builder builder, long startMs, long endMs) {
         return builder.setMinimumLatency(startMs).setOverrideDeadline(endMs);
     }
@@ -199,6 +201,7 @@ public class JobProxy21 implements JobProxy {
         return (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected final int schedule(JobInfo jobInfo) {
         JobScheduler jobScheduler = getJobScheduler();
         if (jobScheduler == null) {
@@ -232,6 +235,7 @@ public class JobProxy21 implements JobProxy {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected static String scheduleResultToString(int scheduleResult) {
         return scheduleResult == JobScheduler.RESULT_SUCCESS ? "success" : "failure";
     }

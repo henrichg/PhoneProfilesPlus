@@ -94,6 +94,7 @@ public final class JobConfig {
      * device may not support it.
      */
     public static boolean isApiEnabled(@NonNull JobApi api) {
+        //noinspection ConstantConditions
         return ENABLED_APIS.get(api);
     }
 

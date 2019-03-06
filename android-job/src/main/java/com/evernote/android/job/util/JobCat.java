@@ -26,6 +26,7 @@ import java.util.Arrays;
  *
  * @author rwondratschek
  */
+@SuppressWarnings("unused")
 public class JobCat implements JobLogger {
 
     private static volatile JobLogger[] loggers = new JobLogger[0]; // use array to avoid synchronization while printing log statements
@@ -93,7 +94,9 @@ public class JobCat implements JobLogger {
         return logcatEnabled;
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected final String mTag;
+    @SuppressWarnings("WeakerAccess")
     protected final boolean mEnabled;
 
     public JobCat(Class<?> clazz) {
@@ -125,6 +128,7 @@ public class JobCat implements JobLogger {
         log(Log.DEBUG, mTag, String.format(message, args), null);
     }
 
+    @SuppressWarnings("unused")
     public void d(@NonNull Throwable t, String message, Object... args) {
         log(Log.DEBUG, mTag, String.format(message, args), t);
     }

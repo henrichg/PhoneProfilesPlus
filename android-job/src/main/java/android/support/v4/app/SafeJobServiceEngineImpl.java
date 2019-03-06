@@ -12,14 +12,14 @@ import android.util.Log;
  * Implementation of a JobServiceEngine for interaction with JobIntentService.
  */
 @RequiresApi(26)
-public class SafeJobServiceEngineImpl extends JobServiceEngine implements SafeJobIntentService.CompatJobEngine {
-    static final String TAG = "JobServiceEngineImpl";
+class SafeJobServiceEngineImpl extends JobServiceEngine implements SafeJobIntentService.CompatJobEngine {
+    static private final String TAG = "JobServiceEngineImpl";
 
-    static final boolean DEBUG = false;
+    static private final boolean DEBUG = false;
 
-    final JobIntentService mService;
-    final Object mLock = new Object();
-    JobParameters mParams;
+    private final JobIntentService mService;
+    private final Object mLock = new Object();
+    private JobParameters mParams;
 
     final class WrapperWorkItem implements JobIntentService.GenericWorkItem {
         final JobWorkItem mJobWork;

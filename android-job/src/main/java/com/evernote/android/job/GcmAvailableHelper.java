@@ -102,6 +102,7 @@ import java.util.List;
         return gcmServiceAvailable;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private static boolean hasPermission(List<ResolveInfo> resolveInfos) {
         if (resolveInfos == null || resolveInfos.isEmpty()) {
             return false;
@@ -114,11 +115,12 @@ import java.util.List;
         return false;
     }
 
-    private static void setServiceEnabled(Context context, boolean enabled) {
+    private static void setServiceEnabled(Context context, @SuppressWarnings("SameParameterValue") boolean enabled) {
         try {
             PackageManager packageManager = context.getPackageManager();
 
             // use a string, the class object probably cannot be instantiated
+            @SuppressWarnings("ConstantConditions")
             String className = JobProxyGcm.class.getPackage().getName() + ".PlatformGcmService";
             ComponentName component = new ComponentName(context, className);
 

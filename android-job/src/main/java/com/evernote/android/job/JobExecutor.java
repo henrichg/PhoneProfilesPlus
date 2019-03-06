@@ -140,6 +140,7 @@ import java.util.concurrent.TimeUnit;
     /*package*/ void cleanUpRoutine(LruCache<Integer, WeakReference<Job>> cache) {
         Map<Integer, WeakReference<Job>> snapshot = new HashMap<>(cache.snapshot());
         for (Integer key : snapshot.keySet()) {
+            //noinspection ConstantConditions
             if (snapshot.get(key) == null || snapshot.get(key).get() == null) {
                 cache.remove(key);
             }
@@ -158,6 +159,7 @@ import java.util.concurrent.TimeUnit;
             mWakeLock = WakeLockUtil.acquireWakeLock(context, "JobExecutor", WAKE_LOCK_TIMEOUT);
         }
 
+        @SuppressWarnings("RedundantThrows")
         @Override
         public Job.Result call() throws Exception {
             try {

@@ -40,6 +40,7 @@ public final class BatteryStatus {
     /**
      * @return The battery percent from 0..1
      */
+    @SuppressWarnings("unused")
     public float getBatteryPercent() {
         return mBatteryPercent;
     }

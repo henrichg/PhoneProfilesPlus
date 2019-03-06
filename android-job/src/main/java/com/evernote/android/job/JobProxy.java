@@ -46,6 +46,7 @@ public interface JobProxy {
 
     void cancel(int jobId);
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     boolean isPlatformJobScheduled(JobRequest request);
 
     @SuppressWarnings("UnusedReturnValue")
