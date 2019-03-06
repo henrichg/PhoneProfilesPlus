@@ -9,6 +9,7 @@ public class JavaCommand extends Command
      *
      * @param context     needed to execute java command.
      */
+    @SuppressWarnings("unused")
     public JavaCommand(int id, Context context, String... command) {
         super(id, command);
         this.context = context;
@@ -20,6 +21,7 @@ public class JavaCommand extends Command
      *
      * @param context     needed to execute java command.
      */
+    @SuppressWarnings("unused")
     public JavaCommand(int id, boolean handlerEnabled, Context context, String... command) {
         super(id, handlerEnabled, command);
         this.context = context;
@@ -31,18 +33,20 @@ public class JavaCommand extends Command
      *
      * @param context     needed to execute java command.
      */
+    @SuppressWarnings("unused")
     public JavaCommand(int id, int timeout, Context context, String... command) {
         super(id, timeout, command);
         this.context = context;
         this.javaCommand = true;
     }
 
-
+    /*
     @Override
     public void commandOutput(int id, String line)
     {
         super.commandOutput(id, line);
     }
+    */
 
     @Override
     public void commandTerminated(int id, String reason)

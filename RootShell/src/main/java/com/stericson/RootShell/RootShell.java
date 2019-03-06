@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeoutException;
 
+@SuppressWarnings("JavaDoc")
 public class RootShell {
 
     // --------------------
@@ -45,6 +46,7 @@ public class RootShell {
 
     public static boolean debugMode = false;
 
+    @SuppressWarnings("WeakerAccess")
     public static final String version = "RootShell v1.6";
 
     /**
@@ -54,7 +56,7 @@ public class RootShell {
      * By disabling this all callbacks will be called from a thread other than
      * the main UI thread.
      */
-    public static boolean handlerEnabled = true;
+    public static final boolean handlerEnabled = true;
 
 
     /**
@@ -62,9 +64,9 @@ public class RootShell {
      * <p/>
      * The default is 20000ms
      */
-    public static int defaultCommandTimeout = 20000;
+    public static final int defaultCommandTimeout = 20000;
 
-    public static enum LogLevel {
+    public enum LogLevel {
         VERBOSE,
         ERROR,
         DEBUG,
@@ -108,6 +110,7 @@ public class RootShell {
      *             file and its name.
      * @return a boolean that will indicate whether or not the file exists.
      */
+    @SuppressWarnings("WeakerAccess")
     public static boolean exists(final String file) {
         return exists(file, false);
     }
@@ -121,7 +124,7 @@ public class RootShell {
      * @return a boolean that will indicate whether or not the file exists.
      */
     public static boolean exists(final String file, boolean isDir) {
-        final List<String> result = new ArrayList<String>();
+        final List<String> result = new ArrayList<>();
 
         String cmdToExecute = "ls " + (isDir ? "-d " : " ");
 
@@ -173,7 +176,8 @@ public class RootShell {
         }
 
         //Avoid concurrent modification...
-        List<String> final_result = new ArrayList<String>();
+        List<String> final_result = new ArrayList<>();
+        //noinspection CollectionAddAllCanBeReplacedWithConstructor
         final_result.addAll(result);
 
         for (String line : final_result) {
@@ -203,9 +207,10 @@ public class RootShell {
      *
      * @return <code>List<String></code> containing the locations the binary was found at.
      */
+    @SuppressWarnings("WeakerAccess")
     public static List<String> findBinary(final String binaryName, List<String> searchPaths, boolean singlePath) {
 
-        final List<String> foundPaths = new ArrayList<String>();
+        final List<String> foundPaths = new ArrayList<>();
 
         boolean found = false;
 
@@ -295,6 +300,7 @@ public class RootShell {
      * @throws com.stericson.RootShell.exceptions.RootDeniedException
      * @throws IOException
      */
+    @SuppressWarnings("RedundantThrows")
     public static Shell getCustomShell(String shellPath, int timeout) throws IOException, TimeoutException, RootDeniedException
     {
         return RootShell.getCustomShell(shellPath, timeout);
@@ -305,6 +311,7 @@ public class RootShell {
      *
      * @return <code>List<String></code> A List of Strings representing the environment variable $PATH
      */
+    @SuppressWarnings({"WeakerAccess", "ConstantConditions"})
     public static List<String> getPath() {
         return Arrays.asList(System.getenv("PATH").split(":"));
     }
@@ -334,6 +341,7 @@ public class RootShell {
      * @param timeout      an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
      * @param shellContext the context to execute the shell with
      */
+    @SuppressWarnings("unused")
     public static Shell getShell(boolean root, int timeout, Shell.ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, timeout, shellContext, 3);
     }
@@ -345,6 +353,7 @@ public class RootShell {
      * @param root         a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param shellContext the context to execute the shell with
      */
+    @SuppressWarnings("unused")
     public static Shell getShell(boolean root, Shell.ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, 0, shellContext, 3);
     }
@@ -356,6 +365,7 @@ public class RootShell {
      * @param root    a <code>boolean</code> to Indicate whether or not you want to open a root shell or a standard shell
      * @param timeout an <code>int</code> to Indicate the length of time to wait before giving up on opening a shell.
      */
+    @SuppressWarnings("WeakerAccess")
     public static Shell getShell(boolean root, int timeout) throws IOException, TimeoutException, RootDeniedException {
         return getShell(root, timeout, Shell.defaultContext, 3);
     }
@@ -374,6 +384,7 @@ public class RootShell {
      * @return <code>true</code> if your app has been given root access.
      * @throws TimeoutException if this operation times out. (cannot determine if access is given)
      */
+    @SuppressWarnings("unused")
     public static boolean isAccessGiven() {
         return isAccessGiven(0, 3);
     }
@@ -388,7 +399,7 @@ public class RootShell {
      * @throws TimeoutException if this operation times out. (cannot determine if access is given)
      */
     public static boolean isAccessGiven(int timeout, int retries) {
-        final Set<String> ID = new HashSet<String>();
+        final Set<String> ID = new HashSet<>();
         final int IAG = 158;
 
         try {
@@ -437,6 +448,7 @@ public class RootShell {
     /**
      * @return <code>true</code> if BusyBox or Toybox was found.
      */
+    @SuppressWarnings("WeakerAccess")
     public static boolean isBusyboxAvailable(boolean includeToybox)
     {
         if(includeToybox) {
@@ -522,6 +534,7 @@ public class RootShell {
      *
      * @return true if logging is enabled
      */
+    @SuppressWarnings("unused")
     public static boolean islog() {
         return debugMode;
     }
@@ -541,6 +554,7 @@ public class RootShell {
      * @param type The type of log, 1 for verbose, 2 for error, 3 for debug
      * @param e    The exception that was thrown (Needed for errors)
      */
+    @SuppressWarnings("WeakerAccess")
     public static void log(String TAG, String msg, LogLevel type, Exception e) {
         if (msg != null && !msg.equals("")) {
             if (debugMode) {
@@ -570,12 +584,14 @@ public class RootShell {
     // # Public Methods #
     // --------------------
 
+    @SuppressWarnings("RedundantThrows")
     private static void commandWait(Shell shell, Command cmd) throws Exception {
         while (!cmd.isFinished()) {
 
             RootShell.log(version, shell.getCommandQueuePositionString(cmd));
             RootShell.log(version, "Processed " + cmd.totalOutputProcessed + " of " + cmd.totalOutput + " output from command.");
 
+            //noinspection SynchronizationOnLocalVariableOrMethodParameter
             synchronized (cmd) {
                 try {
                     if (!cmd.isFinished()) {

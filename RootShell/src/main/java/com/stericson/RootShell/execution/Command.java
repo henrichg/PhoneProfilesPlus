@@ -22,6 +22,7 @@
 
 package com.stericson.RootShell.execution;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,34 +37,46 @@ import java.io.IOException;
 public class Command {
 
     //directly modified by JavaCommand
+    @SuppressWarnings("WeakerAccess")
     protected boolean javaCommand = false;
+    @SuppressWarnings("WeakerAccess")
     protected Context context = null;
 
     public int totalOutput = 0;
 
     public int totalOutputProcessed = 0;
 
+    @SuppressWarnings("WeakerAccess")
     ExecutionMonitor executionMonitor = null;
 
+    @SuppressWarnings("WeakerAccess")
     Handler mHandler = null;
 
     //Has this command already been used?
+    @SuppressWarnings("WeakerAccess")
     protected boolean used = false;
 
+    @SuppressWarnings("WeakerAccess")
     boolean executing = false;
 
-    String[] command = {};
+    @SuppressWarnings({"WeakerAccess"})
+    final String[] command;
 
+    @SuppressWarnings("WeakerAccess")
     boolean finished = false;
 
+    @SuppressWarnings("WeakerAccess")
     boolean terminated = false;
 
+    @SuppressWarnings("WeakerAccess")
     boolean handlerEnabled = true;
 
+    @SuppressWarnings("WeakerAccess")
     int exitCode = -1;
 
-    int id = 0;
+    final int id;
 
+    @SuppressWarnings("WeakerAccess")
     int timeout = RootShell.defaultCommandTimeout;
 
     /**
@@ -117,14 +130,17 @@ public class Command {
         totalOutputProcessed++;
     }
 
+    @SuppressWarnings("unused")
     public void commandTerminated(int id, String reason) {
         //pass
     }
 
+    @SuppressWarnings("unused")
     public void commandCompleted(int id, int exitcode) {
         //pass
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected final void commandFinished() {
         if (!terminated) {
             synchronized (this) {
@@ -156,12 +172,14 @@ public class Command {
         }
     }
 
+    @SuppressWarnings("unused")
     public final void finish()
     {
         RootShell.log("Command finished at users request!");
         commandFinished();
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected final void finishCommand() {
         this.executing = false;
         this.finished = true;
@@ -175,7 +193,7 @@ public class Command {
         if(javaCommand) {
             String filePath = context.getFilesDir().getPath();
 
-            for (int i = 0; i < command.length; i++) {
+            for (String aCommand : command) {
                 /*
                  * TODO Make withFramework optional for applications
                  * that do not require access to the fw. -CFR
@@ -183,24 +201,26 @@ public class Command {
                 //export CLASSPATH=/data/user/0/ch.masshardt.emailnotification/files/anbuild.dex ; app_process /system/bin
                 if (Build.VERSION.SDK_INT > 22) {
                     //dalvikvm command is not working in Android Marshmallow
+                    //noinspection StringConcatenationInsideStringBufferAppend
                     sb.append(
                             "export CLASSPATH=" + filePath + "/anbuild.dex;"
                                     + " app_process /system/bin "
-                                    + command[i]);
+                                    + aCommand);
                 } else {
+                    //noinspection StringConcatenationInsideStringBufferAppend
                     sb.append(
                             "dalvikvm -cp " + filePath + "/anbuild.dex"
                                     + " com.android.internal.util.WithFramework"
                                     + " com.stericson.RootTools.containers.RootClass "
-                                    + command[i]);
+                                    + aCommand);
                 }
 
                 sb.append('\n');
             }
         }
         else {
-            for (int i = 0; i < command.length; i++) {
-                sb.append(command[i]);
+            for (String aCommand : command) {
+                sb.append(aCommand);
                 sb.append('\n');
             }
         }
@@ -212,10 +232,12 @@ public class Command {
         return executing;
     }
 
+    @SuppressWarnings("unused")
     public final boolean isHandlerEnabled() {
         return handlerEnabled;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public final boolean isFinished() {
         return finished;
     }
@@ -224,12 +246,14 @@ public class Command {
         return this.exitCode;
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected final void setExitCode(int code) {
         synchronized (this) {
             exitCode = code;
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected final void startExecution() {
         this.used = true;
         executionMonitor = new ExecutionMonitor(this);
@@ -238,21 +262,23 @@ public class Command {
         executing = true;
     }
 
+    @SuppressWarnings("unused")
     public final void terminate()
     {
         RootShell.log("Terminating command at users request!");
         terminated("Terminated at users request!");
     }
 
-    protected final void terminate(String reason) {
+    @SuppressWarnings("WeakerAccess")
+    protected final void terminate(@SuppressWarnings("SameParameterValue") String reason) {
         try {
             Shell.closeAll();
             RootShell.log("Terminating all shells.");
             terminated(reason);
-        } catch (IOException e) {
-        }
+        } catch (IOException ignored) {}
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected final void terminated(String reason) {
         synchronized (Command.this) {
 
@@ -274,6 +300,7 @@ public class Command {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected final void output(int id, String line) {
         totalOutput++;
 
@@ -293,7 +320,7 @@ public class Command {
 
         private final Command command;
 
-        public ExecutionMonitor(Command command) {
+        ExecutionMonitor(Command command) {
             this.command = command;
         }
 
@@ -318,17 +345,18 @@ public class Command {
         }
     }
 
+    @SuppressLint("HandlerLeak")
     private class CommandHandler extends Handler {
 
-        static final public String ACTION = "action";
+        static final String ACTION = "action";
 
-        static final public String TEXT = "text";
+        static final String TEXT = "text";
 
-        static final public int COMMAND_OUTPUT = 0x01;
+        static final int COMMAND_OUTPUT = 0x01;
 
-        static final public int COMMAND_COMPLETED = 0x02;
+        static final int COMMAND_COMPLETED = 0x02;
 
-        static final public int COMMAND_TERMINATED = 0x03;
+        static final int COMMAND_TERMINATED = 0x03;
 
         public final void handleMessage(Message msg) {
             int action = msg.getData().getInt(ACTION);

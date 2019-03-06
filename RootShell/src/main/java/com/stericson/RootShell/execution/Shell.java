@@ -37,20 +37,22 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 public class Shell {
 
-    public static enum ShellType {
+    public enum ShellType {
         NORMAL,
         ROOT,
         CUSTOM
     }
 
     //this is only used with root shells
-    public static enum ShellContext {
+    @SuppressWarnings("unused")
+    public enum ShellContext {
         NORMAL("normal"), //The normal context...
         SHELL("u:r:shell:s0"), //unprivileged shell (such as an adb shell)
         SYSTEM_SERVER("u:r:system_server:s0"), // system_server, u:r:system:s0 on some firmwares
@@ -60,12 +62,13 @@ public class Shell {
         RECOVERY("u:r:recovery:s0"), //Recovery
         SUPERSU("u:r:supersu:s0"); //SUPER SU default
 
-        private String value;
+        private final String value;
 
-        private ShellContext(String value) {
+        ShellContext(String value) {
             this.value = value;
         }
 
+        @SuppressWarnings("WeakerAccess")
         public String getValue() {
             return this.value;
         }
@@ -81,18 +84,19 @@ public class Shell {
 
     private static Shell customShell = null;
 
-    private static String[] suVersion = new String[]{
+    private static final String[] suVersion = new String[]{
             null, null
     };
 
     //the default context for root shells...
-    public static ShellContext defaultContext = ShellContext.NORMAL;
+    public static final ShellContext defaultContext = ShellContext.NORMAL;
 
     //per shell
     private int shellTimeout = 25000;
 
-    private ShellType shellType = null;
+    private final ShellType shellType; // = null;
 
+    @SuppressWarnings("UnusedAssignment")
     private ShellContext shellContext = Shell.ShellContext.NORMAL;
 
     private String error = "";
@@ -105,7 +109,7 @@ public class Shell {
 
     private final OutputStreamWriter outputStream;
 
-    private final List<Command> commands = new ArrayList<Command>();
+    private final List<Command> commands = new ArrayList<>();
 
     //indicates whether or not to close the shell
     private boolean close = false;
@@ -116,9 +120,10 @@ public class Shell {
 
     public boolean isReading = false;
 
+    @SuppressWarnings({"WeakerAccess", "unused"})
     public boolean isClosed = false;
 
-    private int maxCommands = 5000;
+    private final int maxCommands = 5000;
 
     private int read = 0;
 
@@ -165,18 +170,18 @@ public class Shell {
 
         }
 
-        this.inputStream = new BufferedReader(new InputStreamReader(this.proc.getInputStream(), "UTF-8"));
-        this.errorStream = new BufferedReader(new InputStreamReader(this.proc.getErrorStream(), "UTF-8"));
-        this.outputStream = new OutputStreamWriter(this.proc.getOutputStream(), "UTF-8");
+        this.inputStream = new BufferedReader(new InputStreamReader(this.proc.getInputStream(), StandardCharsets.UTF_8));
+        this.errorStream = new BufferedReader(new InputStreamReader(this.proc.getErrorStream(), StandardCharsets.UTF_8));
+        this.outputStream = new OutputStreamWriter(this.proc.getOutputStream(), StandardCharsets.UTF_8);
 
-        /**
+        /*
          * Thread responsible for carrying out the requested operations
          */
         Worker worker = new Worker(this);
         worker.start();
 
         try {
-            /**
+            /*
              * The flow of execution will wait for the thread to die or wait until the
              * given timeout has expired.
              *
@@ -186,14 +191,14 @@ public class Shell {
              */
             worker.join(this.shellTimeout);
 
-            /**
+            /*
              * The operation could not be completed before the timeout occurred.
              */
             if (worker.exit == -911) {
 
                 try {
                     this.proc.destroy();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
 
                 closeQuietly(this.inputStream);
@@ -202,14 +207,14 @@ public class Shell {
 
                 throw new TimeoutException(this.error);
             }
-            /**
+            /*
              * Root access denied?
              */
             else if (worker.exit == -42) {
 
                 try {
                     this.proc.destroy();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
 
                 closeQuietly(this.inputStream);
@@ -218,11 +223,11 @@ public class Shell {
 
                 throw new RootDeniedException("Root Access Denied");
             }
-            /**
+            /*
              * Normal exit
              */
             else {
-                /**
+                /*
                  * The shell is open.
                  *
                  * Start two threads, one to handle the input and one to handle the output.
@@ -245,6 +250,7 @@ public class Shell {
     }
 
 
+    @SuppressWarnings("RedundantThrows")
     public Command add(Command command) throws IOException {
         if (this.close) {
             throw new IllegalStateException(
@@ -257,9 +263,9 @@ public class Shell {
                     "This command has already been executed. (Don't re-use command instances.)");
         }
 
+        //noinspection StatementWithEmptyBody
         while (this.isCleaning) {
             //Don't add commands while cleaning
-            ;
         }
 
         this.commands.add(command);
@@ -269,6 +275,7 @@ public class Shell {
         return command;
     }
 
+    @SuppressWarnings({"RedundantThrows", "unused"})
     public final void useCWD(Context context) throws IOException, TimeoutException, RootDeniedException {
         add(
                 new Command(
@@ -283,6 +290,7 @@ public class Shell {
         int toClean = Math.abs(this.maxCommands - (this.maxCommands / 4));
         RootShell.log("Cleaning up: " + toClean);
 
+        //noinspection ListRemoveInLoop
         for (int i = 0; i < toClean; i++) {
             this.commands.remove(0);
         }
@@ -310,6 +318,7 @@ public class Shell {
         }
     }
 
+    @SuppressWarnings({"WeakerAccess", "RedundantThrows"})
     public void close() throws IOException {
         RootShell.log("Request to close shell!");
 
@@ -326,7 +335,7 @@ public class Shell {
         }
 
         synchronized (this.commands) {
-            /**
+            /*
              * instruct the two threads monitoring input and output
              * of the shell to close.
              */
@@ -381,6 +390,7 @@ public class Shell {
         Shell.closeCustomShell();
     }
 
+    @SuppressWarnings("WeakerAccess")
     public int getCommandQueuePosition(Command cmd) {
         return this.commands.indexOf(cmd);
     }
@@ -389,6 +399,7 @@ public class Shell {
         return "Command is in position " + getCommandQueuePosition(cmd) + " currently executing command at position " + this.write + " and the number of commands is " + commands.size();
     }
 
+    @SuppressWarnings("unused")
     public static Shell getOpenShell() {
         if (Shell.customShell != null) {
             return Shell.customShell;
@@ -441,28 +452,29 @@ public class Shell {
             }
 
             // From libsuperuser:StreamGobbler
-            List<String> stdout = new ArrayList<String>();
+            List<String> stdout = new ArrayList<>();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             try {
-                String line = null;
+                String line; // = null;
                 while ((line = reader.readLine()) != null) {
                     stdout.add(line);
                 }
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
             // make sure our stream is closed and resources will be freed
             try {
                 reader.close();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
 
             process.destroy();
 
-            List<String> ret = stdout;
+            //List<String> ret = stdout;
 
-            if (ret != null) {
-                for (String line : ret) {
+            //noinspection ConstantConditions
+            if (stdout != null) {
+                for (String line : stdout) {
                     if (!internal) {
                         if (line.contains(".")) {
                             version = line;
@@ -474,7 +486,7 @@ public class Shell {
                                 version = line;
                                 break;
                             }
-                        } catch (NumberFormatException e) {
+                        } catch (NumberFormatException ignored) {
                         }
                     }
                 }
@@ -485,18 +497,22 @@ public class Shell {
         return suVersion[idx];
     }
 
+    @SuppressWarnings("unused")
     public static boolean isShellOpen() {
         return Shell.shell == null;
     }
 
+    @SuppressWarnings("unused")
     public static boolean isCustomShellOpen() {
         return Shell.customShell == null;
     }
 
+    @SuppressWarnings("unused")
     public static boolean isRootShellOpen() {
         return Shell.rootShell == null;
     }
 
+    @SuppressWarnings("unused")
     public static boolean isAnyShellOpen() {
         return Shell.shell != null || Shell.rootShell != null || Shell.customShell != null;
     }
@@ -509,25 +525,27 @@ public class Shell {
      * @return true if SELinux set to enforcing, or false in the case of
      * permissive or not present
      */
+    @SuppressWarnings("WeakerAccess")
     public synchronized boolean isSELinuxEnforcing() {
         if (isSELinuxEnforcing == null) {
             Boolean enforcing = null;
 
             // First known firmware with SELinux built-in was a 4.2 (17)
             // leak
-            if (android.os.Build.VERSION.SDK_INT >= 17) {
+            //if (android.os.Build.VERSION.SDK_INT >= 17) {
 
                 // Detect enforcing through sysfs, not always present
                 File f = new File("/sys/fs/selinux/enforce");
                 if (f.exists()) {
                     try {
                         InputStream is = new FileInputStream("/sys/fs/selinux/enforce");
+                        //noinspection TryFinallyCanBeTryWithResources
                         try {
                             enforcing = (is.read() == '1');
                         } finally {
                             is.close();
                         }
-                    } catch (Exception e) {
+                    } catch (Exception ignored) {
                     }
                 }
 
@@ -535,8 +553,9 @@ public class Shell {
                 if (enforcing == null) {
                     enforcing = (android.os.Build.VERSION.SDK_INT >= 19);
                 }
-            }
+            //}
 
+            //noinspection ConstantConditions
             if (enforcing == null) {
                 enforcing = false;
             }
@@ -554,14 +573,15 @@ public class Shell {
      * <p/>
      * The notification of a new command is handled by the method add in this class
      */
-    private Runnable input = new Runnable() {
+    @SuppressWarnings("FieldCanBeLocal")
+    private final Runnable input = new Runnable() {
         public void run() {
 
             try {
                 while (true) {
 
                     synchronized (commands) {
-                        /**
+                        /*
                          * While loop is used in the case that notifyAll is called
                          * and there are still no commands to be written, a rare
                          * case but one that could happen.
@@ -574,19 +594,19 @@ public class Shell {
 
                     if (write >= maxCommands) {
 
-                        /**
+                        /*
                          * wait for the read to catch up.
                          */
                         while (read != write) {
                             RootShell.log("Waiting for read and write to catch up before cleanup.");
                         }
-                        /**
+                        /*
                          * Clean up the commands, stay neat.
                          */
                         cleanCommands();
                     }
 
-                    /**
+                    /*
                      * Write the new command
                      *
                      * We write the command followed by the token to indicate
@@ -614,7 +634,7 @@ public class Shell {
                             totalExecuted++;
                         }
                     } else if (close) {
-                        /**
+                        /*
                          * close the thread, the shell is closing.
                          */
                         isExecuting = false;
@@ -634,6 +654,7 @@ public class Shell {
         }
     };
 
+    @SuppressWarnings("WeakerAccess")
     protected void notifyThreads() {
         Thread t = new Thread() {
             public void run() {
@@ -651,7 +672,8 @@ public class Shell {
      *
      * This include the output and error stream
      */
-    private Runnable output = new Runnable() {
+    @SuppressWarnings("FieldCanBeLocal")
+    private final Runnable output = new Runnable() {
         public void run() {
             try {
                 Command command = null;
@@ -662,7 +684,7 @@ public class Shell {
                     String outputLine = inputStream.readLine();
                     isReading = true;
 
-                    /**
+                    /*
                      * If we receive EOF then the shell closed?
                      */
                     if (outputLine == null) {
@@ -681,22 +703,22 @@ public class Shell {
                         command = commands.get(read);
                     }
 
-                    /**
+                    /*
                      * trying to determine if all commands have been completed.
                      *
                      * if the token is present then the command has finished execution.
                      */
-                    int pos = -1;
+                    int pos; // = -1;
 
                     pos = outputLine.indexOf(token);
 
                     if (pos == -1) {
-                        /**
+                        /*
                          * send the output for the implementer to process
                          */
                         command.output(command.id, outputLine);
                     } else if (pos > 0) {
-                        /**
+                        /*
                          * token is suffix of output, send output part to implementer
                          */
                         RootShell.log("Found token, line: " + outputLine);
@@ -712,21 +734,21 @@ public class Shell {
 
                             try {
                                 id = Integer.parseInt(fields[1]);
-                            } catch (NumberFormatException e) {
+                            } catch (NumberFormatException ignored) {
                             }
 
                             int exitCode = -1;
 
                             try {
                                 exitCode = Integer.parseInt(fields[2]);
-                            } catch (NumberFormatException e) {
+                            } catch (NumberFormatException ignored) {
                             }
 
                             if (id == totalRead) {
                                 processErrors(command);
 
 
-                                /**
+                                /*
                                  * wait for output to be processed...
                                  *
                                  */
@@ -759,6 +781,7 @@ public class Shell {
 
                                 read++;
                                 totalRead++;
+                                //noinspection UnnecessaryContinue
                                 continue;
                             }
                         }
@@ -768,7 +791,7 @@ public class Shell {
                 try {
                     proc.waitFor();
                     proc.destroy();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
 
                 while (read < commands.size()) {
@@ -806,19 +829,20 @@ public class Shell {
         }
     };
 
+    @SuppressWarnings("WeakerAccess")
     public void processErrors(Command command) {
         try {
             while (errorStream.ready() && command != null) {
                 String line = errorStream.readLine();
 
-                /**
+                /*
                  * If we recieve EOF then the shell closed?
                  */
                 if (line == null) {
                     break;
                 }
 
-                /**
+                /*
                  * send the output for the implementer to process
                  */
                 command.output(command.id, line);
@@ -828,10 +852,12 @@ public class Shell {
         }
     }
 
+    @SuppressWarnings("unused")
     public static Command runRootCommand(Command command) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startRootShell().add(command);
     }
 
+    @SuppressWarnings("unused")
     public static Command runCommand(Command command) throws IOException, TimeoutException {
         return Shell.startShell().add(command);
     }
@@ -840,6 +866,7 @@ public class Shell {
         return Shell.startRootShell(0, 3);
     }
 
+    @SuppressWarnings("unused")
     public static Shell startRootShell(int timeout) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startRootShell(timeout, 3);
     }
@@ -882,16 +909,19 @@ public class Shell {
                 RootShell.log("Context is different than open shell, switching context... " + Shell.rootShell.shellContext + " VS " + shellContext);
                 Shell.rootShell.switchRootShellContext(shellContext);
             } catch (IOException e) {
+                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("IOException, could not switch context!");
                     throw e;
                 }
             } catch (RootDeniedException e) {
+                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("RootDeniedException, could not switch context!");
                     throw e;
                 }
             } catch (TimeoutException e) {
+                //noinspection UnusedAssignment
                 if (retries++ >= retry) {
                     RootShell.log("TimeoutException, could not switch context!");
                     throw e;
@@ -904,10 +934,12 @@ public class Shell {
         return Shell.rootShell;
     }
 
+    @SuppressWarnings("unused")
     public static Shell startCustomShell(String shellPath) throws IOException, TimeoutException, RootDeniedException {
         return Shell.startCustomShell(shellPath, 0);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static Shell startCustomShell(String shellPath, int timeout) throws IOException, TimeoutException, RootDeniedException {
 
         if (Shell.customShell == null) {
@@ -920,6 +952,7 @@ public class Shell {
         return Shell.customShell;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static Shell startShell() throws IOException, TimeoutException {
         return Shell.startShell(0);
     }
@@ -940,6 +973,7 @@ public class Shell {
         }
     }
 
+    @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
     public Shell switchRootShellContext(ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         if (this.shellType == ShellType.ROOT) {
             try {
@@ -958,11 +992,12 @@ public class Shell {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     protected static class Worker extends Thread {
 
         public int exit = -911;
 
-        public Shell shell;
+        public final Shell shell;
 
         private Worker(Shell shell) {
             this.shell = shell;
@@ -970,7 +1005,7 @@ public class Shell {
 
         public void run() {
 
-            /**
+            /*
              * Trying to open the shell.
              *
              * We echo "Started" and we look for it in the output.

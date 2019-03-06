@@ -27,12 +27,14 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     }
     */
 
+    @SuppressWarnings("unused")
     static String PATH_TO_DX = "/Users/Chris/Projects/android-sdk-macosx/build-tools/18.0.1/dx";
 
     enum READ_STATE {
-        STARTING, FOUND_ANNOTATION;
+        STARTING, FOUND_ANNOTATION
     }
 
+    @SuppressWarnings("WeakerAccess")
     public RootClass(String[] args) throws ClassNotFoundException, NoSuchMethodException,
             IllegalAccessException, InvocationTargetException, InstantiationException {
 
@@ -50,17 +52,18 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
         classConstructor.newInstance(actualArgs);
     }
 
+    @SuppressWarnings("unused")
     public @interface Candidate {
 
     }
 
-    ;
-
+    @SuppressWarnings("WeakerAccess")
     public class RootArgs {
 
-        public String args[];
+        String args[];
     }
 
+    @SuppressWarnings("WeakerAccess")
     static void displayError(Exception e) {
         // Not using system.err to make it easier to capture from
         // calling library.
@@ -71,15 +74,16 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     // I reckon it would be better to investigate classes using getAttribute()
     // however this method allows the developer to simply select "Run" on RootClass
     // and immediately re-generate the necessary jar file.
+    @SuppressWarnings("WeakerAccess")
     static public class AnnotationsFinder {
 
         private final String AVOIDDIRPATH = "stericson" + File.separator + "RootShell" + File.separator;
 
-        private List<File> classFiles;
+        private final List<File> classFiles;
 
         public AnnotationsFinder() throws IOException {
             System.out.println("Discovering root class annotations...");
-            classFiles = new ArrayList<File>();
+            classFiles = new ArrayList<>();
             lookup(new File("src"), classFiles);
             System.out.println("Done discovering annotations. Building jar file.");
             File builtPath = getBuiltPath();
@@ -111,12 +115,14 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                         + "containers" + File.separator
                         + "RootClass$AnnotationsFinder$2.class";
                 String[] cmd;
+                @SuppressWarnings({"IndexOfReplaceableByContains", "ConstantConditions"})
                 boolean onWindows = (-1 != System.getProperty("os.name").toLowerCase().indexOf("win"));
                 if (onWindows) {
                     StringBuilder sb = new StringBuilder(
                             " " + rc1 + " " + rc2 + " " + rc3 + " " + rc4 + " " + rc5
                     );
                     for (File file : classFiles) {
+                        //noinspection StringConcatenationInsideStringBufferAppend
                         sb.append(" " + file.getPath());
                     }
                     cmd = new String[]{
@@ -126,7 +132,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                                     sb.toString()
                     };
                 } else {
-                    ArrayList<String> al = new ArrayList<String>();
+                    ArrayList<String> al = new ArrayList<>();
                     al.add("jar");
                     al.add("cf");
                     al.add("anbuild.jar");
@@ -138,22 +144,25 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                     for (File file : classFiles) {
                         al.add(file.getPath());
                     }
+                    //noinspection ToArrayCallWithZeroLengthArrayArgument
                     cmd = al.toArray(new String[al.size()]);
                 }
                 ProcessBuilder jarBuilder = new ProcessBuilder(cmd);
                 jarBuilder.directory(builtPath);
                 try {
                     jarBuilder.start().waitFor();
-                } catch (IOException e) {
-                } catch (InterruptedException e) {
+                } catch (IOException ignored) {
+                } catch (InterruptedException ignored) {
                 }
 
-                String strRawFolder = "res" + File.separator + "raw";
+                String strRawFolder; // = "res" + File.separator + "raw";
+                //noinspection StatementWithEmptyBody
                 if (builtPath.toString().startsWith("build")); //Check if running in AndroidStudio
                 strRawFolder = "src" + File.separator + "main" + File.separator + "res" + File.separator + "raw";
 
                 File rawFolder = new File(strRawFolder);
                 if (!rawFolder.exists()) {
+                    //noinspection ResultOfMethodCallIgnored
                     rawFolder.mkdirs();
                 }
 
@@ -175,8 +184,8 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                 ProcessBuilder dexBuilder = new ProcessBuilder(cmd);
                 try {
                     dexBuilder.start().waitFor();
-                } catch (IOException e) {
-                } catch (InterruptedException e) {
+                } catch (IOException ignored) {
+                } catch (InterruptedException ignored) {
                 }
             }
             System.out.println("All done. ::: anbuild.dex should now be in your project's src" + File.separator + "main" + File.separator + "res" + File.separator + "raw" + File.separator + " folder :::");
@@ -193,6 +202,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
             });
             for (File file : files) {
                 if (file.isDirectory()) {
+                    //noinspection IndexOfReplaceableByContains
                     if (-1 == file.getAbsolutePath().indexOf(AVOIDDIRPATH)) {
                         lookup(file, fileList);
                     }
@@ -226,6 +236,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
                 while (null != (line = reader.readLine())) {
                     switch (readState) {
                         case STARTING:
+                            //noinspection IndexOfReplaceableByContains
                             if (-1 < line.indexOf("@RootClass.Candidate")) {
                                 readState = READ_STATE.FOUND_ANNOTATION;
                             }
@@ -261,7 +272,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
             int recentSdkVersion = 0;
             for (File file : files) {
 
-                String fileName = null;
+                String fileName; // = null;
                 if (file.getName().contains("-")) {
                     String[] splitFileName = file.getName().split("-");
                     if (splitFileName[1].contains("W")) {
