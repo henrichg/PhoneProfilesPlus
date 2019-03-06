@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Keepsafe Software, Inc.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,9 +40,9 @@ public class TapTargetSequence {
   @Nullable
   private TapTargetView currentView;
 
-  Listener listener;
-  boolean considerOuterCircleCanceled;
-  boolean continueOnCancel;
+  private Listener listener;
+  private boolean considerOuterCircleCanceled;
+  private boolean continueOnCancel;
 
   public interface Listener {
     /** Called when there are no more tap targets to display */
@@ -65,14 +65,15 @@ public class TapTargetSequence {
     void onSequenceCanceled(TapTarget lastTarget);
   }
 
-  public TapTargetSequence(Activity activity) {
+  public TapTargetSequence(@Nullable Activity activity) {
     if (activity == null) throw new IllegalArgumentException("Activity is null");
     this.activity = activity;
     this.dialog = null;
     this.targets = new LinkedList<>();
   }
 
-  public TapTargetSequence(Dialog dialog) {
+  @SuppressWarnings("unused")
+  public TapTargetSequence(@Nullable Dialog dialog) {
     if (dialog == null) throw new IllegalArgumentException("Given null Dialog");
     this.dialog = dialog;
     this.activity = null;
@@ -92,6 +93,7 @@ public class TapTargetSequence {
   }
 
   /** Adds the given target to the pending queue of {@link TapTarget}s */
+  @SuppressWarnings("unused")
   public TapTargetSequence target(TapTarget target) {
     this.targets.add(target);
     return this;
@@ -127,12 +129,14 @@ public class TapTargetSequence {
   }
 
   /** Immediately starts the sequence from the given targetId's position in the queue */
+  @SuppressWarnings("unused")
   public void startWith(int targetId) {
     if (active) {
       return;
     }
 
-    while (targets.peek() != null && targets.peek().id() != targetId) {
+      //noinspection ConstantConditions
+      while (targets.peek() != null && targets.peek().id() != targetId) {
       targets.poll();
     }
 
@@ -145,6 +149,7 @@ public class TapTargetSequence {
   }
 
   /** Immediately starts the sequence at the specified zero-based index in the queue */
+  @SuppressWarnings("unused")
   public void startAt(int index) {
     if (active) {
       return;
@@ -173,6 +178,7 @@ public class TapTargetSequence {
    * @return whether the sequence was canceled or not
    */
   @UiThread
+  @SuppressWarnings("unused")
   public boolean cancel() {
     if (!active || currentView == null || !currentView.cancelable) {
       return false;
@@ -186,6 +192,7 @@ public class TapTargetSequence {
     return true;
   }
 
+  @SuppressWarnings("WeakerAccess")
   void showNext() {
     try {
       TapTarget tapTarget = targets.remove();

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Keepsafe Software, Inc.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 class ViewTapTarget extends TapTarget {
-  final View view;
+  private final View view;
 
   ViewTapTarget(View view, CharSequence title, @Nullable CharSequence description) {
     super(title, description);

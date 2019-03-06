@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Keepsafe Software, Inc.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,11 +17,9 @@ package com.getkeepsafe.taptargetview;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Build;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
 import android.util.TypedValue;
 
+@SuppressWarnings("unused")
 class UiUtil {
   UiUtil() {
   }
@@ -58,7 +56,7 @@ class UiUtil {
   }
 
   /** Modifies the alpha value of the given ARGB color **/
-  static int setAlpha(int argb, float alpha) {
+  static int setAlpha(int argb, @SuppressWarnings("SameParameterValue") float alpha) {
     if (alpha > 1.0f) {
       alpha = 1.0f;
     } else if (alpha <= 0.0f) {

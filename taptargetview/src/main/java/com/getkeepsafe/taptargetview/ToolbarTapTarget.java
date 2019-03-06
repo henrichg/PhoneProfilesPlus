@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Keepsafe Software, Inc.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -58,8 +58,13 @@ class ToolbarTapTarget extends ViewTapTarget {
 
     if (instance instanceof Toolbar) {
       return new SupportToolbarProxy((Toolbar) instance);
-    } else if (instance instanceof android.widget.Toolbar) {
-      return new StandardToolbarProxy((android.widget.Toolbar) instance);
+    }
+    else {
+        if (Build.VERSION.SDK_INT >= 21) {
+            if (instance instanceof android.widget.Toolbar) {
+                return new StandardToolbarProxy((android.widget.Toolbar) instance);
+            }
+        }
     }
 
     throw new IllegalStateException("Couldn't provide proper toolbar proxy instance");

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Keepsafe Software, Inc.
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,12 +15,12 @@
  */
 package com.getkeepsafe.taptargetview;
 
-import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewManager;
 import android.view.ViewTreeObserver;
 
+@SuppressWarnings("unused")
 class ViewUtil {
   ViewUtil() {
   }
@@ -59,11 +59,11 @@ class ViewUtil {
   @SuppressWarnings("deprecation")
   static void removeOnGlobalLayoutListener(ViewTreeObserver observer,
                                            ViewTreeObserver.OnGlobalLayoutListener listener) {
-    if (Build.VERSION.SDK_INT >= 16) {
+    //if (Build.VERSION.SDK_INT >= 16) {
       observer.removeOnGlobalLayoutListener(listener);
-    } else {
+    /*} else {
       observer.removeGlobalOnLayoutListener(listener);
-    }
+    }*/
   }
 
   static void removeView(ViewManager parent, View child) {
