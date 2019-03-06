@@ -95,7 +95,7 @@ public class TapTargetView extends View {
   final int SHADOW_JITTER_DIM;
 
   @Nullable
-  private final ViewGroup boundingParent;
+  //private final ViewGroup boundingParent;
   private final ViewManager parent;
   final TapTarget target;
   private final Rect targetBounds;
@@ -114,7 +114,7 @@ public class TapTargetView extends View {
   private CharSequence description;
   @Nullable
   private StaticLayout descriptionLayout;
-  private boolean isDark;
+  //private boolean isDark;
   private boolean debug;
   private boolean shouldTintTarget;
   private boolean shouldDrawShadow;
@@ -380,8 +380,9 @@ public class TapTargetView extends View {
    * @param target The {@link TapTarget} to target
    * @param userListener Optional. The {@link Listener} instance for this view
    */
+  @SuppressWarnings("WeakerAccess")
   public TapTargetView(final Context context,
-                       final ViewManager parent,
+                       @Nullable final ViewManager parent,
                        @Nullable final ViewGroup boundingParent,
                        final TapTarget target,
                        @Nullable final Listener userListener) {
@@ -390,7 +391,7 @@ public class TapTargetView extends View {
 
     this.target = target;
     this.parent = parent;
-    this.boundingParent = boundingParent;
+    //ViewGroup boundingParent = boundingParent;
     this.listener = userListener != null ? userListener : new Listener();
     this.title = target.title;
     this.description = target.description;
@@ -601,7 +602,7 @@ public class TapTargetView extends View {
     //}
 
     final Resources.Theme theme = context.getTheme();
-    isDark = UiUtil.themeIntAttr(context, "isLightTheme") == 0;
+    boolean isDark = UiUtil.themeIntAttr(context, "isLightTheme") == 0;
 
     final Integer outerCircleColor = target.outerCircleColorInt(context);
     if (outerCircleColor != null) {
