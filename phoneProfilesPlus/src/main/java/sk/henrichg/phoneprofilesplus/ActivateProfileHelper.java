@@ -1715,7 +1715,6 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 } else if (Application.isIntent(split)) {
-                                    //TODO intent
                                     long intentId = Application.getIntentId(split);
                                     if (intentId > 0) {
                                         PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);

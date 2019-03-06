@@ -55,7 +55,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             }
             else
             if (Application.isIntent(runApplicationData)) {
-                //TODO intent
                 long intentId = Application.getIntentId(runApplicationData);
                 if (intentId > 0) {
                     PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
