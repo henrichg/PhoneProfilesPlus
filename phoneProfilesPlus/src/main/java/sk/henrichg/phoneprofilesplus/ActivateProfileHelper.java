@@ -2723,7 +2723,7 @@ class ActivateProfileHelper {
 
     static boolean isMobileData(Context context)
     {
-        if (android.os.Build.VERSION.SDK_INT < 21)
+        /*if (android.os.Build.VERSION.SDK_INT < 21)
         {
             ConnectivityManager connectivityManager = null;
             try {
@@ -2779,13 +2779,13 @@ class ActivateProfileHelper {
                 return false;
         }
         else
-        {
-            Method getDataEnabledMethod;
-            Class<?> telephonyManagerClass;
-
+        {*/
             TelephonyManager telephonyManager = (TelephonyManager) context
                     .getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
+                /*Method getDataEnabledMethod;
+                Class<?> telephonyManagerClass;
+
                 try {
                     //TODO Android P - used reflections!!
                     telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
@@ -2796,11 +2796,24 @@ class ActivateProfileHelper {
 
                 } catch (Exception e) {
                     return false;
+                }*/
+
+                if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY) {
+        //          if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1)
+        //          {
+        //              mobileYN = Settings.Global.getInt(context.getContentResolver(), "mobile_data", 0) == 1;
+        //          }
+        //          else{
+        //              mobileYN = Settings.Secure.getInt(context.getContentResolver(), "mobile_data", 0) == 1;
+        //          }
+                    int dataState = telephonyManager.getDataState();
+                    return dataState != TelephonyManager.DATA_DISCONNECTED;
                 }
+                return false;
             }
             else
                 return false;
-        }
+        //}
 
     }
 
