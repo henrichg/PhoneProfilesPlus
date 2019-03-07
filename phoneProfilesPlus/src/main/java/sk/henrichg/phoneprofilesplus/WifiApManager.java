@@ -1,7 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-//TODO Android P - used reflections!!
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -163,7 +161,7 @@ final class WifiApManager {
                 Method stopTetheringMethod = ConnectivityManager.class.getDeclaredMethod("stopTethering", int.class);
                 stopTetheringMethod.invoke(mConnectivityManager, 0);
             } catch (Exception e) {
-                Log.e("WifiApManager.startTethering", Log.getStackTraceString(e));
+                Log.e("WifiApManager.stopTethering", Log.getStackTraceString(e));
             }
         }
     }

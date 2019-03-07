@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
 
@@ -19,7 +20,12 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
 
         if (Event.getGlobalEventsRunning(appContext))
         {
-            if (WifiApManager.isWifiAPEnabled(appContext)) {
+            boolean isWifiAPEnabled;
+            if (Build.VERSION.SDK_INT < 28)
+                isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
+            else
+                isWifiAPEnabled = CmdWifiAP.isEnabled();
+            if (isWifiAPEnabled) {
                 // Wifi AP is enabled - cancel wifi scan job
                 PPApplication.logE("WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP enabled");
                 WifiScanJob.cancelJob(appContext, true,null);

@@ -25,7 +25,6 @@ public class CmdMobileData {
     private static boolean run(int subId, boolean enable) {
         try {
             ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone"));
-            //adapter.getDataEnabled(subId); // hm podpora pre dual sim
             adapter.setUserDataEnabled(subId, enable); // hm podpora pre dual sim
             return true;
         } catch (Throwable e) {

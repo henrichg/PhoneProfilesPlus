@@ -146,14 +146,47 @@ class ActivateProfileHelper {
         if (profile._deviceWiFiAP != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
-                WifiApManager wifiApManager = null;
-                try {
-                    wifiApManager = new WifiApManager(context);
-                } catch (Exception ignored) {
+                if (Build.VERSION.SDK_INT < 28) {
+                    WifiApManager wifiApManager = null;
+                    try {
+                        wifiApManager = new WifiApManager(context);
+                    } catch (Exception ignored) {
+                    }
+                    if (wifiApManager != null) {
+                        boolean setWifiAPState = false;
+                        boolean isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
+                        switch (profile._deviceWiFiAP) {
+                            case 1:
+                                if (!isWifiAPEnabled) {
+                                    isWifiAPEnabled = true;
+                                    setWifiAPState = true;
+                                    canChangeWifi = false;
+                                }
+                                break;
+                            case 2:
+                                if (isWifiAPEnabled) {
+                                    isWifiAPEnabled = false;
+                                    setWifiAPState = true;
+                                    canChangeWifi = true;
+                                }
+                                break;
+                            case 3:
+                                isWifiAPEnabled = !isWifiAPEnabled;
+                                setWifiAPState = true;
+                                canChangeWifi = !isWifiAPEnabled;
+                                break;
+                        }
+                        if (setWifiAPState) {
+                            setWifiAP(wifiApManager, isWifiAPEnabled, context);
+                            //try { Thread.sleep(200); } catch (InterruptedException e) { }
+                            //SystemClock.sleep(200);
+                            PPApplication.sleep(200);
+                        }
+                    }
                 }
-                if (wifiApManager != null) {
+                else {
                     boolean setWifiAPState = false;
-                    boolean isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
+                    boolean isWifiAPEnabled = CmdWifiAP.isEnabled();
                     switch (profile._deviceWiFiAP) {
                         case 1:
                             if (!isWifiAPEnabled) {
@@ -176,7 +209,7 @@ class ActivateProfileHelper {
                             break;
                     }
                     if (setWifiAPState) {
-                        setWifiAP(wifiApManager, isWifiAPEnabled, context);
+                        CmdWifiAP.setWifiAP(isWifiAPEnabled);
                         //try { Thread.sleep(200); } catch (InterruptedException e) { }
                         //SystemClock.sleep(200);
                         PPApplication.sleep(200);
@@ -190,7 +223,11 @@ class ActivateProfileHelper {
             if (profile._deviceWiFi != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
-                    boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+                    boolean isWifiAPEnabled;
+                    if (Build.VERSION.SDK_INT < 28)
+                        isWifiAPEnabled = WifiApManager.isWifiAPEnabled(context);
+                    else
+                        isWifiAPEnabled = CmdWifiAP.isEnabled();
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi == 4)) { // only when wifi AP is not enabled, change wifi
                         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                         if (wifiManager != null) {

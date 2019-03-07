@@ -2883,10 +2883,6 @@ public class Profile {
                         preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
                 }
-                /*else {
-                    preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION;
-                    PPApplication.notAllowedReasonDetail = Build.VERSION.RELEASE;
-                }*/
                 else
                 if (PPApplication.isRooted(fromUIThread))
                 {
@@ -2914,10 +2910,14 @@ public class Profile {
                     }
                 }
                 else
-                if (WifiApManager.canExploitWifiTethering(context))
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                if (Build.VERSION.SDK_INT < 28) {
+                    if (WifiApManager.canExploitWifiTethering(context))
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    else
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                }
                 else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;

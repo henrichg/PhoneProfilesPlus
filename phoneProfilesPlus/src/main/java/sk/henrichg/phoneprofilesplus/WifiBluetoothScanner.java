@@ -113,7 +113,10 @@ class WifiBluetoothScanner {
 
                     boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (canScan) {
-                        canScan = !WifiApManager.isWifiAPEnabled(context);
+                        if (Build.VERSION.SDK_INT < 28)
+                            canScan = !WifiApManager.isWifiAPEnabled(context);
+                        else
+                            canScan = !CmdWifiAP.isEnabled();
                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "canScan=" + canScan);
                         PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "isWifiAPEnabled=" + !canScan);
                     }
@@ -565,13 +568,17 @@ class WifiBluetoothScanner {
             else
             {
                 boolean isWifiAPEnabled = false;
-                WifiApManager wifiApManager = null;
-                try {
-                    wifiApManager = new WifiApManager(context);
-                } catch (Exception ignored) {
+                if (Build.VERSION.SDK_INT < 28) {
+                    WifiApManager wifiApManager = null;
+                    try {
+                        wifiApManager = new WifiApManager(context);
+                    } catch (Exception ignored) {
+                    }
+                    if (wifiApManager != null)
+                        isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
                 }
-                if (wifiApManager != null)
-                    isWifiAPEnabled = wifiApManager.isWifiAPEnabled();
+                else
+                    isWifiAPEnabled = CmdWifiAP.isEnabled();
 
                 if (isScanAlwaysAvailable  && !isWifiAPEnabled) {
                     PPApplication.logE("@@@ WifiBluetoothScanner.enableWifi", "scan always available");
