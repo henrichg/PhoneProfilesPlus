@@ -2884,33 +2884,32 @@ public class Profile {
                     }
                 }
                 else
-                if (PPApplication.isRooted(fromUIThread))
-                {
-                    // device is rooted
+                if (Build.VERSION.SDK_INT < 28) {
+                    if (PPApplication.isRooted(fromUIThread)) {
+                        // device is rooted
 
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._deviceWiFiAP != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
+                        if (profile != null) {
+                            // test if grant root is disabled
+                            if (profile._deviceWiFiAP != 0) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    // not needed to test all parameters
+                                    return preferenceAllowed;
+                                }
                             }
                         }
-                    }
 
-                    if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
-                        if (PPApplication.serviceBinaryExists(fromUIThread))
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        else
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
+                            if (PPApplication.serviceBinaryExists(fromUIThread))
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                            else
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                        } else {
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                            preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                        }
                     }
-                }
-                else
-                if (Build.VERSION.SDK_INT < 28) {
+                    else
                     if (WifiApManager.canExploitWifiTethering(context))
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                     else

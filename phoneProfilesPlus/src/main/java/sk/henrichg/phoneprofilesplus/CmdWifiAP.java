@@ -24,9 +24,9 @@ public class CmdWifiAP {
     static boolean setWifiAP(boolean enable) {
         final String packageName = "sk.henrichg.phoneprofilesplus";
         try {
-            IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));
+            IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));  // service list | grep IConnectivityManager
             if (enable) {
-                IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));
+                IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
                 int wifiState = wifiAdapter.getWifiEnabledState();
                 boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                 if (isWifiEnabled)
@@ -49,7 +49,7 @@ public class CmdWifiAP {
     static boolean isEnabled() {
         try {
             boolean enabled;
-            IWifiManager adapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));
+            IWifiManager adapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
             enabled = adapter.getWifiApEnabledState() == WifiManager.WIFI_AP_STATE_ENABLED;
             PPApplication.logE("CmdWifiAP.isEnabled", "enabled="+enabled);
             return enabled;

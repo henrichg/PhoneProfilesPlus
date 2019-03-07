@@ -24,7 +24,7 @@ public class CmdMobileData {
 
     private static boolean run(int subId, boolean enable) {
         try {
-            ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone"));
+            ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
             adapter.setUserDataEnabled(subId, enable); // hm podpora pre dual sim
             return true;
         } catch (Throwable e) {
@@ -36,7 +36,7 @@ public class CmdMobileData {
         try {
             boolean enabled = false;
             boolean ok = false;
-            ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone"));
+            ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
             if (Build.VERSION.SDK_INT >= 22) {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                 //SubscriptionManager.from(context);
