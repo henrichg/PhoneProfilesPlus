@@ -2632,7 +2632,7 @@ class ActivateProfileHelper {
         }
     }
 
-    static void updateGUI(Context context, boolean alsoEditor)
+    static void updateGUI(Context context, boolean alsoEditor, boolean refresh)
     {
         PPApplication.logE("ActivateProfileHelper.updateGUI", "lockRefresh="+lockRefresh);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "doImport="+EditorProfilesActivity.doImport);
@@ -2650,7 +2650,8 @@ class ActivateProfileHelper {
             context.sendBroadcast(intent);*/
             int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
             IconWidgetProvider myWidget = new IconWidgetProvider();
-            myWidget.onUpdate(context, AppWidgetManager.getInstance(context),ids);
+            myWidget.refreshWidget = refresh;
+            myWidget.onUpdate(context, AppWidgetManager.getInstance(context), ids);
         } catch (Exception ignored) {}
 
         // one row widget
@@ -2662,7 +2663,8 @@ class ActivateProfileHelper {
             context.sendBroadcast(intent4);*/
             int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
             OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
-            myWidget.onUpdate(context, AppWidgetManager.getInstance(context),ids);
+            myWidget.refreshWidget = refresh;
+            myWidget.onUpdate(context, AppWidgetManager.getInstance(context), ids);
         } catch (Exception ignored) {}
 
         // list widget
@@ -2672,10 +2674,21 @@ class ActivateProfileHelper {
             int ids2[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
             intent2.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids2);
             context.sendBroadcast(intent2);*/
-            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
             ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
-            myWidget.updateWidgets(context, ids);
+            myWidget.updateWidgets(context, refresh);
         } catch (Exception ignored) {}
+
+        // Samsung edge panel
+        if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
+            try {
+                /*Intent intent2 = new Intent(context, SamsungEdgeProvider.class);
+                intent2.setAction(SamsungEdgeProvider.INTENT_REFRESH_EDGEPANEL);
+                context.sendBroadcast(intent2);*/
+                SamsungEdgeProvider myWidget = new SamsungEdgeProvider();
+                myWidget.updateWidgets(context, refresh);
+            } catch (Exception ignored) {
+            }
+        }
 
         // dash clock extension
         Intent intent3 = new Intent("DashClockBroadcastReceiver");
@@ -2686,15 +2699,6 @@ class ActivateProfileHelper {
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
 
-        // Samsung edge panel
-        if ((PPApplication.sLook != null) && PPApplication.sLookCocktailPanelEnabled) {
-            try {
-                Intent intent2 = new Intent(context, SamsungEdgeProvider.class);
-                intent2.setAction(SamsungEdgeProvider.INTENT_REFRESH_EDGEPANEL);
-                context.sendBroadcast(intent2);
-            } catch (Exception ignored) {
-            }
-        }
     }
 
     static boolean isAirplaneMode(Context context)

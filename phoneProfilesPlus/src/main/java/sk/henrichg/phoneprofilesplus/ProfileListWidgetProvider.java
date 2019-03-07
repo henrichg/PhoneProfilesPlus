@@ -438,7 +438,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 else
                 if ((action != null) &&
                         (action.equalsIgnoreCase(INTENT_REFRESH_LISTWIDGET)))
-                    updateWidgets(context);
+                    _updateWidgets(context);
 
                 if (dataWrapper != null)
                     dataWrapper.invalidateDataWrapper();
@@ -474,7 +474,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     else
                     if ((action != null) &&
                             (action.equalsIgnoreCase(INTENT_REFRESH_LISTWIDGET)))
-                        updateWidgets(context);
+                        _updateWidgets(context);
 
                     if (dataWrapper != null)
                         dataWrapper.invalidateDataWrapper();
@@ -625,7 +625,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    private void updateWidgets(Context context) {
+    private void _updateWidgets(Context context) {
         try {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
@@ -636,7 +636,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         } catch (Exception ignored) {}
     }
 
-    void updateWidgets(final Context context, final int[] appWidgetIds) {
+    void updateWidgets(final Context context, final boolean refresh) {
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
@@ -645,7 +645,26 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
                 createProfilesDataWrapper(context);
 
-                updateWidgets(context);
+                Profile profile = dataWrapper.getActivatedProfile(false, false);
+
+                String pName;
+                if (profile != null)
+                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, context);
+                else
+                    pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+                if (!refresh) {
+                    String pNameWidget = PPApplication.getWidgetProfileName(context, 3);
+
+                    if (pName.equals(pNameWidget)) {
+                        PPApplication.logE("ProfileListWidgetProvider.onUpdate", "activated profile NOT changed");
+                        return;
+                    }
+                }
+
+                PPApplication.setWidgetProfileName(context, 3, pName);
+
+                _updateWidgets(context);
 
                 if (dataWrapper != null)
                     dataWrapper.invalidateDataWrapper();

@@ -15,6 +15,8 @@ import android.widget.RemoteViews;
 
 public class IconWidgetProvider extends AppWidgetProvider {
 
+    boolean refreshWidget = true;
+
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
@@ -51,31 +53,53 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 Profile profile = dataWrapper.getActivatedProfile(true, false);
 
                 try {
+                    if (!refreshWidget) {
+                        String pNameWidget = PPApplication.getWidgetProfileName(context, 1);
+
+                        String pName;
+                        if (profile != null)
+                            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, context);
+                        else
+                            pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+                        if (pName.equals(pNameWidget)) {
+                            PPApplication.logE("IconWidgetProvider.onUpdate", "activated profile NOT changed");
+                            return;
+                        }
+                    }
+
+
+                    boolean isIconResourceID;
+                    String iconIdentifier;
+                    String pName;
+                    Spannable profileName;
+                    if (profile != null) {
+                        isIconResourceID = profile.getIsIconResourceID();
+                        iconIdentifier = profile.getIconIdentifier();
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", true, true, dataWrapper, false, context);
+                        profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, dataWrapper, false, context);
+                    } else {
+                        // create empty profile and set icon resource
+                        profile = new Profile();
+                        profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                        profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
+
+                        profile.generateIconBitmap(context,
+                                applicationWidgetIconColor.equals("1"), monochromeValue,
+                                applicationWidgetIconCustomIconLightness);
+                        isIconResourceID = profile.getIsIconResourceID();
+                        iconIdentifier = profile.getIconIdentifier();
+                        pName = profile._name;
+                        profileName = new SpannableString(profile._name);
+                    }
+
+                    PPApplication.setWidgetProfileName(context, 1, pName);
+
                     // get all IconWidgetProvider widgets in launcher
                     ComponentName thisWidget = new ComponentName(context, IconWidgetProvider.class);
                     int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
                     for (int widgetId : allWidgetIds) {
-                        boolean isIconResourceID;
-                        String iconIdentifier;
-                        Spannable profileName;
-                        if (profile != null) {
-                            isIconResourceID = profile.getIsIconResourceID();
-                            iconIdentifier = profile.getIconIdentifier();
-                            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, false, "", true, true, dataWrapper, false, context);
-                        } else {
-                            // create empty profile and set icon resource
-                            profile = new Profile();
-                            profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
-                            profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
-
-                            profile.generateIconBitmap(context,
-                                    applicationWidgetIconColor.equals("1"), monochromeValue,
-                                    applicationWidgetIconCustomIconLightness);
-                            isIconResourceID = profile.getIsIconResourceID();
-                            iconIdentifier = profile.getIconIdentifier();
-                            profileName = new SpannableString(profile._name);
-                        }
 
                         // prepare view for widget update
                         RemoteViews remoteViews;

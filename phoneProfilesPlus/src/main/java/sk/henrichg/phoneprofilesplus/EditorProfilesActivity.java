@@ -2041,7 +2041,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             fragment.updateHeader(activeProfile);
             PPApplication.showProfileNotification(/*getApplicationContext()*/true);
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-            ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
+            ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true, true);
 
             fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
         }

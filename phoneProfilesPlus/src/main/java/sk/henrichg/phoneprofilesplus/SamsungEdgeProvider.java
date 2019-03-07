@@ -300,7 +300,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
                 if ((action != null) &&
                         (action.equalsIgnoreCase(INTENT_REFRESH_EDGEPANEL))) {
-                    updateWidgets(context);
+                    _updateWidgets(context);
                 }
 
                 if (dataWrapper != null)
@@ -323,7 +323,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         } catch (Exception ignored) {}
     }
 
-    private void updateWidgets(Context context) {
+    private void _updateWidgets(Context context) {
         try {
             SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
             int cocktailIds[] = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
@@ -339,6 +339,43 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     @Override
     public void onVisibilityChanged(Context context, int cocktailId, int visibility) {
 
+    }
+
+    void updateWidgets(final Context context, final boolean refresh) {
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                createProfilesDataWrapper(context);
+
+                Profile profile = dataWrapper.getActivatedProfile(false, false);
+
+                String pName;
+                if (profile != null)
+                    pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, context);
+                else
+                    pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+                if (!refresh) {
+                    String pNameWidget = PPApplication.getWidgetProfileName(context, 4);
+
+                    if (pName.equals(pNameWidget)) {
+                        PPApplication.logE("SamsungEdgeProvider.onUpdate", "activated profile NOT changed");
+                        return;
+                    }
+                }
+
+                PPApplication.setWidgetProfileName(context, 4, pName);
+
+                _updateWidgets(context);
+
+                if (dataWrapper != null)
+                    dataWrapper.invalidateDataWrapper();
+                dataWrapper = null;
+            }
+        });
     }
 
 }

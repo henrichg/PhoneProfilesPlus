@@ -2012,7 +2012,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     //dataWrapper.refreshProfileIcon(activatedProfile);
                     PPApplication.showProfileNotification(/*context*/true);
                     PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPreferencesNestedFragment.doOnActivityResult");
-                    ActivateProfileHelper.updateGUI(context, !finishActivity);
+                    ActivateProfileHelper.updateGUI(context, !finishActivity, true);
 
                     if (finishActivity) {
                         getActivity().setResult(Activity.RESULT_CANCELED);

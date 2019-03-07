@@ -17,6 +17,8 @@ import android.widget.RemoteViews;
 
 public class OneRowWidgetProvider extends AppWidgetProvider {
 
+    boolean refreshWidget = true;
+
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
@@ -55,32 +57,54 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         applicationWidgetOneRowPrefIndicator);
 
                 try {
+                    if (!refreshWidget) {
+                        String pNameWidget = PPApplication.getWidgetProfileName(context, 2);
+
+                        String pName;
+                        if (profile != null)
+                            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, context);
+                        else
+                            pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+                        if (pName.equals(pNameWidget)) {
+                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "activated profile NOT changed");
+                            return;
+                        }
+                    }
+
+
+                    boolean isIconResourceID;
+                    String iconIdentifier;
+                    String pName;
+                    Spannable profileName;
+                    if (profile != null) {
+                        isIconResourceID = profile.getIsIconResourceID();
+                        iconIdentifier = profile.getIconIdentifier();
+                        pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, dataWrapper, false, context);
+                        profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false, context);
+                    } else {
+                        // create empty profile and set icon resource
+                        profile = new Profile();
+                        profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                        profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
+
+                        profile.generateIconBitmap(context,
+                                applicationWidgetOneRowIconColor.equals("1"),
+                                monochromeValue,
+                                applicationWidgetOneRowCustomIconLightness);
+                        isIconResourceID = profile.getIsIconResourceID();
+                        iconIdentifier = profile.getIconIdentifier();
+                        pName = profile._name;
+                        profileName = new SpannableString(profile._name);
+                    }
+
+                    PPApplication.setWidgetProfileName(context, 2, pName);
+
                     // get all OneRowWidgetProvider widgets in launcher
                     ComponentName thisWidget = new ComponentName(context, OneRowWidgetProvider.class);
                     int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
                     for (int widgetId : allWidgetIds) {
-                        boolean isIconResourceID;
-                        String iconIdentifier;
-                        Spannable profileName;
-                        if (profile != null) {
-                            isIconResourceID = profile.getIsIconResourceID();
-                            iconIdentifier = profile.getIconIdentifier();
-                            profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, dataWrapper, false, context);
-                        } else {
-                            // create empty profile and set icon resource
-                            profile = new Profile();
-                            profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
-                            profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
-
-                            profile.generateIconBitmap(context,
-                                    applicationWidgetOneRowIconColor.equals("1"),
-                                    monochromeValue,
-                                    applicationWidgetOneRowCustomIconLightness);
-                            isIconResourceID = profile.getIsIconResourceID();
-                            iconIdentifier = profile.getIconIdentifier();
-                            profileName = new SpannableString(profile._name);
-                        }
 
                         RemoteViews remoteViews;
                         if (applicationWidgetOneRowPrefIndicator)

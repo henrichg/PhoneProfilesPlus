@@ -511,11 +511,11 @@ public class DataWrapper {
         }
     }
 
-    void updateNotificationAndWidgets(boolean refreshNotification)
+    void updateNotificationAndWidgets(boolean refresh)
     {
-        PPApplication.showProfileNotification(/*context*/refreshNotification);
+        PPApplication.showProfileNotification(/*context*/refresh);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.updateNotificationAndWidgets");
-        ActivateProfileHelper.updateGUI(context, true);
+        ActivateProfileHelper.updateGUI(context, true, refresh);
     }
 
     private Profile getProfileByIdFromDB(long id, boolean generateIcon, boolean generateIndicators, boolean merged)
@@ -1506,7 +1506,7 @@ public class DataWrapper {
 
         PPApplication.showProfileNotification(/*context*/false);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-        ActivateProfileHelper.updateGUI(context, true);
+        ActivateProfileHelper.updateGUI(context, true, false);
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","after update GUI");
 
@@ -1849,7 +1849,7 @@ public class DataWrapper {
 
             PPApplication.showProfileNotification(/*context*/false);
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
-            ActivateProfileHelper.updateGUI(context, true);
+            ActivateProfileHelper.updateGUI(context, true, false);
 
             // for startActivityForResult
             if (activity != null)
@@ -1875,7 +1875,7 @@ public class DataWrapper {
             Profile.setActivatedProfileForDuration(context, 0);
             PPApplication.showProfileNotification(/*context*/false);
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
-            ActivateProfileHelper.updateGUI(context, true);
+            ActivateProfileHelper.updateGUI(context, true, false);
             return;
         }
         if (Permissions.grantProfilePermissions(context, profile, false, true,
@@ -3999,7 +3999,8 @@ public class DataWrapper {
                         finish = ApplicationPreferences.applicationClose(context);
                     else
                     //noinspection RedundantIfStatement
-                    if (activity instanceof RestartEventsFromNotificationActivity)
+                    if ((activity instanceof RestartEventsFromNotificationActivity) ||
+                            (activity instanceof BackgroundActivateProfileActivity))
                         finish = true;
                     else
                         finish = false;
@@ -4321,7 +4322,7 @@ public class DataWrapper {
                         else if (activity instanceof ActivateProfileActivity)
                             ((ActivateProfileActivity) activity).refreshGUI(false);
                         PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                        ActivateProfileHelper.updateGUI(activity, false);
+                        ActivateProfileHelper.updateGUI(activity, false, true);
                     }
                 }
             });
@@ -4353,7 +4354,7 @@ public class DataWrapper {
                 else if (activity instanceof ActivateProfileActivity)
                     ((ActivateProfileActivity) activity).refreshGUI(false);
                 PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                ActivateProfileHelper.updateGUI(activity, false);
+                ActivateProfileHelper.updateGUI(activity, false, true);
             }
         }
     }

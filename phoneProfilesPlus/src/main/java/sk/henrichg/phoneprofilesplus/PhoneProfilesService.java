@@ -4154,7 +4154,7 @@ public class PhoneProfilesService extends Service
         super.onConfigurationChanged(newConfig);
         showProfileNotification(true);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
-        ActivateProfileHelper.updateGUI(getApplicationContext(), true);
+        ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
     }
 
     //------------------------
