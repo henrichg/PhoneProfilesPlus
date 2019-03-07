@@ -20,12 +20,13 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
+        PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
         PPApplication.startHandlerThreadWidget();
         final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
+                PPApplication.logE("OneRowWidgetProvider.onUpdate", "in handler");
                 String applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness(context);
                 String applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor(context);
                 boolean applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness(context);

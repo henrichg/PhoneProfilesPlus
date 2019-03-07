@@ -1341,8 +1341,10 @@ class Event {
             if (this._manualProfileActivation || forRestartEvents ||
                     (this._fkProfileStart != activatedProfileId))
                 dataWrapper.activateProfileFromEvent(this._fkProfileStart, /*interactive,*/ false, false);
-            else
+            else {
+                PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
                 dataWrapper.updateNotificationAndWidgets(false);
+            }
         }
         else {
             mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper, true);
@@ -1473,6 +1475,7 @@ class Event {
 
         if (!profileActivated)
         {
+            PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
             dataWrapper.updateNotificationAndWidgets(false);
         }
 

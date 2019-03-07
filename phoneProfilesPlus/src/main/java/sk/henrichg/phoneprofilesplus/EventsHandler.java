@@ -558,6 +558,7 @@ class EventsHandler {
             } else {
                 if (!restartEventsAtEnd) {
                     // update only when will not be do restart events from paused events
+                    PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EventsHandler.handleEvents");
                     dataWrapper.updateNotificationAndWidgets(false);
                 }
             }

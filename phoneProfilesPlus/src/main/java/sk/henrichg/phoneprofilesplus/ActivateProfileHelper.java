@@ -2643,29 +2643,38 @@ class ActivateProfileHelper {
 
         // icon widget
         try {
-            Intent intent = new Intent(context, IconWidgetProvider.class);
+            /*Intent intent = new Intent(context, IconWidgetProvider.class);
             intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             int ids[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-            context.sendBroadcast(intent);
+            context.sendBroadcast(intent);*/
+            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
+            IconWidgetProvider myWidget = new IconWidgetProvider();
+            myWidget.onUpdate(context, AppWidgetManager.getInstance(context),ids);
         } catch (Exception ignored) {}
 
         // one row widget
         try {
-            Intent intent4 = new Intent(context, OneRowWidgetProvider.class);
+            /*Intent intent4 = new Intent(context, OneRowWidgetProvider.class);
             intent4.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
             int ids4[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
             intent4.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids4);
-            context.sendBroadcast(intent4);
+            context.sendBroadcast(intent4);*/
+            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
+            OneRowWidgetProvider myWidget = new OneRowWidgetProvider();
+            myWidget.onUpdate(context, AppWidgetManager.getInstance(context),ids);
         } catch (Exception ignored) {}
 
         // list widget
         try {
-            Intent intent2 = new Intent(context, ProfileListWidgetProvider.class);
+            /*Intent intent2 = new Intent(context, ProfileListWidgetProvider.class);
             intent2.setAction(ProfileListWidgetProvider.INTENT_REFRESH_LISTWIDGET);
             int ids2[] = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
             intent2.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids2);
-            context.sendBroadcast(intent2);
+            context.sendBroadcast(intent2);*/
+            int[] ids = AppWidgetManager.getInstance(context).getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
+            ProfileListWidgetProvider myWidget = new ProfileListWidgetProvider();
+            myWidget.updateWidgets(context, ids);
         } catch (Exception ignored) {}
 
         // dash clock extension

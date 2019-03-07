@@ -96,6 +96,7 @@ public class PPApplication extends Application {
 
                                          //+"|PPApplication.startHandlerThread"
 
+                                         //+"|DataWrapper.updateNotificationAndWidgets"
                                          //+"|ActivateProfileHelper.updateGUI"
                                          //+"|OneRowWidgetProvider.onUpdate"
 
@@ -2027,6 +2028,9 @@ public class PPApplication extends Application {
 
             PPApplication.logE("PPApplication._exitApp", "set application started = false");
             PPApplication.setApplicationStarted(context, false);
+
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from PPApplication._exitApp");
+            ActivateProfileHelper.updateGUI(context, false);
 
             if (!shutdown) {
                 Handler _handler = new Handler(context.getMainLooper());

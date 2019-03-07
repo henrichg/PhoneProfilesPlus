@@ -335,6 +335,7 @@ public class EditorProfileListFragment extends Fragment
 
                 if (defaultProfilesGenerated)
                 {
+                    PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.LoadProfileListAsyncTask");
                     ActivateProfileHelper.updateGUI(_dataWrapper.context, true);
                     Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
                             fragment.getResources().getString(R.string.toast_default_profiles_generated),
@@ -470,6 +471,7 @@ public class EditorProfileListFragment extends Fragment
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
             PPApplication.showProfileNotification(/*activityDataWrapper.context*/true);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteProfile");
             ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
         }
         else
@@ -586,6 +588,7 @@ public class EditorProfileListFragment extends Fragment
                     //Profile profile = profileListAdapter.getActivatedProfile();
                     updateHeader(null);
                     PPApplication.showProfileNotification(/*activityDataWrapper.context*/true);
+                    PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteAllProfiles");
                     ActivateProfileHelper.updateGUI(activityDataWrapper.context, true);
 
                     activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

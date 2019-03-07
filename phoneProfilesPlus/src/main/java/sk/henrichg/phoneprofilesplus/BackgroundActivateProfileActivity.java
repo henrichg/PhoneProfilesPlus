@@ -47,8 +47,23 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
-            if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID)
-                dataWrapper.restartEventsWithRescan();
+            if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
+                if (Event.getGlobalEventsRunning(getApplicationContext())) {
+                    // set theme and language for dialog alert ;-)
+                    // not working on Android 2.3.x
+                    GlobalGUIRoutines.setTheme(this, true, true, false);
+                    GlobalGUIRoutines.setLanguage(getBaseContext());
+
+                    dataWrapper.restartEventsWithAlert(this);
+                }
+                else {
+                    /*Toast msg = ToastCompat.makeText(getApplicationContext(),
+                            getResources().getString(R.string.activate_profile_application_not_started),
+                            Toast.LENGTH_LONG);
+                    msg.show();*/
+                    finish();
+                }
+            }
             else
                 dataWrapper.activateProfile(profile_id, startupSource, this/*, ""*/);
         }

@@ -169,6 +169,7 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
                 PPApplication.startPPService(context, serviceIntent);
             }
         }, 500);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPreferencesActivity.onStop");
         ActivateProfileHelper.updateGUI(getApplicationContext(), true);
     }
 

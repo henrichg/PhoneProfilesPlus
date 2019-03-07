@@ -1195,6 +1195,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             if (permissionsChanged) {
                 PPApplication.showProfileNotification(/*context*/true);
+                PPApplication.logE("ActivateProfileHelper.updateGUI", "from GrantPermissionActivity.onActivityResult");
                 ActivateProfileHelper.updateGUI(context, !finishActivity);
 
                 if (finishActivity) {
@@ -1613,6 +1614,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         //if (grantType != Permissions.GRANT_TYPE_PROFILE) {
             PPApplication.showProfileNotification(/*context*/true);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "from GrantPermissionActivity.finishGrant");
             ActivateProfileHelper.updateGUI(getApplicationContext(), true);
         //}
     }

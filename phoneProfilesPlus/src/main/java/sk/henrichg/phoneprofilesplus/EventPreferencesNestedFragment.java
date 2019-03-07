@@ -880,6 +880,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             event._eventPreferencesSMS.checkPreferences(prefMng, context);
             event._eventPreferencesCall.checkPreferences(prefMng, context);
             setPreferencesStatusPreference();
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true);
         }
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {

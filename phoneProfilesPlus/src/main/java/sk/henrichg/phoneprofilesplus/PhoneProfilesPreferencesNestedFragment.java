@@ -2011,6 +2011,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                     //Profile activatedProfile = dataWrapper.getActivatedProfile(true, true);
                     //dataWrapper.refreshProfileIcon(activatedProfile);
                     PPApplication.showProfileNotification(/*context*/true);
+                    PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPreferencesNestedFragment.doOnActivityResult");
                     ActivateProfileHelper.updateGUI(context, !finishActivity);
 
                     if (finishActivity) {

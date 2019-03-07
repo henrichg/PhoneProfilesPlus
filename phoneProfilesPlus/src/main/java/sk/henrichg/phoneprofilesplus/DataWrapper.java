@@ -514,6 +514,7 @@ public class DataWrapper {
     void updateNotificationAndWidgets(boolean refreshNotification)
     {
         PPApplication.showProfileNotification(/*context*/refreshNotification);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.updateNotificationAndWidgets");
         ActivateProfileHelper.updateGUI(context, true);
     }
 
@@ -1504,6 +1505,7 @@ public class DataWrapper {
         PPApplication.logE("$$$ DataWrapper._activateProfile","before update GUI");
 
         PPApplication.showProfileNotification(/*context*/false);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
         ActivateProfileHelper.updateGUI(context, true);
 
         PPApplication.logE("$$$ DataWrapper._activateProfile","after update GUI");
@@ -1846,6 +1848,7 @@ public class DataWrapper {
             setProfileActive(profile);
 
             PPApplication.showProfileNotification(/*context*/false);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
             ActivateProfileHelper.updateGUI(context, true);
 
             // for startActivityForResult
@@ -1871,6 +1874,7 @@ public class DataWrapper {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
             Profile.setActivatedProfileForDuration(context, 0);
             PPApplication.showProfileNotification(/*context*/false);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
             ActivateProfileHelper.updateGUI(context, true);
             return;
         }
@@ -4316,6 +4320,7 @@ public class DataWrapper {
                             ((EditorProfilesActivity) activity).refreshGUI(false, true, 0, 0);
                         else if (activity instanceof ActivateProfileActivity)
                             ((ActivateProfileActivity) activity).refreshGUI(false);
+                        PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
                         ActivateProfileHelper.updateGUI(activity, false);
                     }
                 }
@@ -4347,6 +4352,7 @@ public class DataWrapper {
                     ((EditorProfilesActivity) activity).refreshGUI(false, true, 0, 0);
                 else if (activity instanceof ActivateProfileActivity)
                     ((ActivateProfileActivity) activity).refreshGUI(false);
+                PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
                 ActivateProfileHelper.updateGUI(activity, false);
             }
         }

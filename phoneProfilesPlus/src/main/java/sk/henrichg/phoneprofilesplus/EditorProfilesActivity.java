@@ -1575,6 +1575,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (!isFinishing())
                         GlobalGUIRoutines.unlockScreenOrientation(activity);
 
+                    PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
                     this.dataWrapper.updateNotificationAndWidgets(true);
 
                     PPApplication.setApplicationStarted(this.dataWrapper.context, true);
@@ -2039,6 +2040,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         ApplicationPreferences.applicationEditorPrefIndicator(fragment.activityDataWrapper.context));
             fragment.updateHeader(activeProfile);
             PPApplication.showProfileNotification(/*getApplicationContext()*/true);
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
             ActivateProfileHelper.updateGUI(fragment.activityDataWrapper.context, true);
 
             fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

@@ -636,4 +636,22 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         } catch (Exception ignored) {}
     }
 
+    void updateWidgets(final Context context, final int[] appWidgetIds) {
+        PPApplication.startHandlerThreadWidget();
+        final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                createProfilesDataWrapper(context);
+
+                updateWidgets(context);
+
+                if (dataWrapper != null)
+                    dataWrapper.invalidateDataWrapper();
+                dataWrapper = null;
+            }
+        });
+    }
+
 }
