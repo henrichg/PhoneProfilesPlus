@@ -156,6 +156,7 @@ public class PPApplication extends Application {
                                          //+"|Permissions.grantProfilePermissions"
                                          //+"|Permissions.checkProfileVibrateWhenRinging"
                                          //+"|Permissions.checkVibrateWhenRinging"
+                                         //+"|ActivateProfileHelper.executeForVolumes"
                                          //+"|ActivateProfileHelper.setZenMode"
                                          //+"|ActivateProfileHelper.setRingerMode"
                                          //+"|ActivateProfileHelper.setVolumes"
@@ -281,7 +282,6 @@ public class PPApplication extends Application {
                                         //+"|PhoneCallReceiver"
                                         //+"|PhoneCallBroadcastReceiver"
                                         //+"|PhoneCallBroadcastReceiver.callAnswered"
-                                        //+"|ActivateProfileHelper.executeForVolumes"
 
                                         //+"|#### EventsHandler.handleEvents"
                                         //+"|[CALL] EventsHandler.handleEvents"

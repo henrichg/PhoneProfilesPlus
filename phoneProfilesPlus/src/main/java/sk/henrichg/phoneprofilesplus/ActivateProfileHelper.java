@@ -544,7 +544,8 @@ class ActivateProfileHelper {
         }
         else
             audibleRingerMode = systemRingerMode == AudioManager.RINGER_MODE_NORMAL;
-        boolean audibleZenMode = (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) ||
+        boolean audibleZenMode = (systemZenMode == -1) ||
+                                 (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) ||
                                  (systemZenMode == ActivateProfileHelper.ZENMODE_PRIORITY);
         return audibleRingerMode && audibleZenMode;
     }
