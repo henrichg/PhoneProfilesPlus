@@ -409,6 +409,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         editorToolbar = findViewById(R.id.editor_toolbar);
         setSupportActionBar(editorToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.title_activity_editor);
+        }
 
         // Enable ActionBar app icon to behave as action to toggle nav drawer
         if (getSupportActionBar() != null) {
@@ -1082,7 +1085,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         // header is position=0
         drawerListView.setItemChecked(drawerSelectedItem, true);
         // Get the title and icon followed by the position
-        setTitle(drawerItemsTitle[drawerSelectedItem - 1]);
+        //editorToolbar.setSubtitle(drawerItemsTitle[drawerSelectedItem - 1]);
         //setIcon(drawerItemsIcon[drawerSelectedItem-1]);
         drawerHeaderFilterImage.setImageResource(drawerItemsIcon[drawerSelectedItem -1]);
         drawerHeaderFilterTitle.setText(drawerItemsTitle[drawerSelectedItem - 1]);
@@ -1918,6 +1921,7 @@ public class EditorProfilesActivity extends AppCompatActivity
      }
      */
 
+     @SuppressLint("SetTextI18n")
      private void setStatusBarTitle()
      {
         // set filter status bar title
@@ -1934,7 +1938,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     orderItems[orderSelectedItem];
         }*/
         String text = drawerItemsSubtitle[drawerSelectedItem-1];
-        filterStatusBarTitle.setText(text);
+        filterStatusBarTitle.setText(drawerItemsTitle[drawerSelectedItem - 1] + " - " + text);
         drawerHeaderFilterSubtitle.setText(text);
      }
 
