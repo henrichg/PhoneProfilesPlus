@@ -42,8 +42,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
+            boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
             boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
-            ActivateProfileActivity.this.refreshGUI(refreshIcons);
+            ActivateProfileActivity.this.refreshGUI(refresh, refreshIcons);
         }
     };
 
@@ -231,7 +232,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                 new IntentFilter("ShowActivatorTargetHelpsBroadcastReceiver"));
 
-        refreshGUI(false);
+        refreshGUI(true, false);
 
     //-----------------------------------------------------------------------------------------		
 
@@ -366,8 +367,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     }
     */
 
-    public void refreshGUI(boolean refreshIcons)
+    public void refreshGUI(boolean refresh, boolean refreshIcons)
     {
+        final boolean _refresh = refresh;
         final boolean _refreshIcons = refreshIcons;
 
         runOnUiThread(new Runnable() {
@@ -380,7 +382,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
                 if (fragment != null)
                 {
-                    ((ActivateProfileListFragment)fragment).refreshGUI(_refreshIcons);
+                    ((ActivateProfileListFragment)fragment).refreshGUI(_refresh, _refreshIcons);
                 }
             }
         });

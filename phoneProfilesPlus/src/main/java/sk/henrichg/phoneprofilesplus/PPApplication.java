@@ -411,6 +411,7 @@ public class PPApplication extends Application {
     private static final String PREF_DONATION_DONATED = "donation_donated";
     private static final String PREF_NOTIFICATION_PROFILE_NAME = "notification_profile_name";
     private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
+    private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
 
     // scanner start/stop types
     static final int SCANNER_START_GEOFENCE_SCANNER = 1;
@@ -1043,11 +1044,25 @@ public class PPApplication extends Application {
         return ApplicationPreferences.preferences.getString(PREF_WIDGET_PROFILE_NAME + "_" + widgetType, "");
     }
 
-    static public void setWidgetProfileName(Context context, int widgetType, String notificationProfileName)
+    static public void setWidgetProfileName(Context context, int widgetType, String widgetProfileName)
     {
         ApplicationPreferences.getSharedPreferences(context);
         Editor editor = ApplicationPreferences.preferences.edit();
-        editor.putString(PREF_WIDGET_PROFILE_NAME + "_" + widgetType, notificationProfileName);
+        editor.putString(PREF_WIDGET_PROFILE_NAME + "_" + widgetType, widgetProfileName);
+        editor.apply();
+    }
+
+    static public String getActivityProfileName(Context context, int activityType)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        return ApplicationPreferences.preferences.getString(PREF_ACTIVITY_PROFILE_NAME + "_" + activityType, "");
+    }
+
+    static public void setActivityProfileName(Context context, int activityType, String activityProfileName)
+    {
+        ApplicationPreferences.getSharedPreferences(context);
+        Editor editor = ApplicationPreferences.preferences.edit();
+        editor.putString(PREF_ACTIVITY_PROFILE_NAME + "_" + activityType, activityProfileName);
         editor.apply();
     }
 

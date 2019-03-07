@@ -850,10 +850,32 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    public void refreshGUI(boolean refreshIcons, boolean setPosition, long eventId)
+    public void refreshGUI(boolean refresh, boolean refreshIcons, boolean setPosition, long eventId)
     {
+        if (activityDataWrapper == null)
+            return;
+
+        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+
+        String pName;
+        if (profileFromDB != null)
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context);
+        else
+            pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+        if (!refresh) {
+            String pNameWidget = PPApplication.getActivityProfileName(activityDataWrapper.context, 3);
+
+            if (pName.equals(pNameWidget)) {
+                PPApplication.logE("EditorEventListFragment.refreshGUI", "activated profile NOT changed");
+                return;
+            }
+        }
+
+        PPApplication.setActivityProfileName(activityDataWrapper.context, 3, pName);
+
         synchronized (activityDataWrapper.eventList) {
-            if ((activityDataWrapper == null) || (!activityDataWrapper.eventListFilled))
+            if (!activityDataWrapper.eventListFilled)
                 return;
 
             //noinspection ForLoopReplaceableByForEach
@@ -871,7 +893,7 @@ public class EditorEventListFragment extends Fragment
                 DatabaseHandler.getInstance(activityDataWrapper.context).getAlarmClockStartTime(event);
             }
         }
-        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+
         if (profileFromDB != null) {
             PPApplication.logE("EditorEventListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,

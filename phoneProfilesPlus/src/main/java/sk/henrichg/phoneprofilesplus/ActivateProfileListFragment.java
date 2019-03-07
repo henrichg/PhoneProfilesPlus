@@ -462,10 +462,29 @@ public class ActivateProfileListFragment extends Fragment {
         }
     }
 
-    public void refreshGUI(boolean refreshIcons)
+    public void refreshGUI(boolean refresh, boolean refreshIcons)
     {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
+
+        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+
+        String pName;
+        if (profileFromDB != null)
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context);
+        else
+            pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+        if (!refresh) {
+            String pNameWidget = PPApplication.getActivityProfileName(activityDataWrapper.context, 1);
+
+            if (pName.equals(pNameWidget)) {
+                PPApplication.logE("ActivateProfileListFragment.refreshGUI", "activated profile NOT changed");
+                return;
+            }
+        }
+
+        PPApplication.setActivityProfileName(activityDataWrapper.context, 1, pName);
 
         //noinspection ConstantConditions
         ((ActivateProfileActivity) getActivity()).setEventsRunStopIndicator();
@@ -474,7 +493,6 @@ public class ActivateProfileListFragment extends Fragment {
         if (profileFromAdapter != null)
             profileFromAdapter._checked = false;
 
-        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,
                     ApplicationPreferences.applicationActivatorPrefIndicator(activityDataWrapper.context), false);

@@ -4318,9 +4318,9 @@ public class DataWrapper {
                     if (runStopEvents(true)) {
                         PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true);
                         if (activity instanceof EditorProfilesActivity)
-                            ((EditorProfilesActivity) activity).refreshGUI(false, true, 0, 0);
+                            ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
                         else if (activity instanceof ActivateProfileActivity)
-                            ((ActivateProfileActivity) activity).refreshGUI(false);
+                            ((ActivateProfileActivity) activity).refreshGUI(true, false);
                         PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
                         ActivateProfileHelper.updateGUI(activity, false, true);
                     }
@@ -4350,9 +4350,9 @@ public class DataWrapper {
             if (runStopEvents(false)) {
                 PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true);
                 if (activity instanceof EditorProfilesActivity)
-                    ((EditorProfilesActivity) activity).refreshGUI(false, true, 0, 0);
+                    ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
                 else if (activity instanceof ActivateProfileActivity)
-                    ((ActivateProfileActivity) activity).refreshGUI(false);
+                    ((ActivateProfileActivity) activity).refreshGUI(true, false);
                 PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
                 ActivateProfileHelper.updateGUI(activity, false, true);
             }

@@ -797,18 +797,36 @@ public class EditorProfileListFragment extends Fragment
         Collections.sort(profileList, new ByPOrderComparator());
     }
 
-    public void refreshGUI(boolean refreshIcons, boolean setPosition, long profileId)
+    public void refreshGUI(boolean refresh, boolean refreshIcons, boolean setPosition, long profileId)
     {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
 
         PPApplication.logE("EditorProfileListFragment.refreshGUI", "refresh");
 
+        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
+
+        String pName;
+        if (profileFromDB != null)
+            pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context);
+        else
+            pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+
+        if (!refresh) {
+            String pNameWidget = PPApplication.getActivityProfileName(activityDataWrapper.context, 2);
+
+            if (pName.equals(pNameWidget)) {
+                PPApplication.logE("EditorProfileListFragment.refreshGUI", "activated profile NOT changed");
+                return;
+            }
+        }
+
+        PPApplication.setActivityProfileName(activityDataWrapper.context, 2, pName);
+
         Profile profileFromAdapter = profileListAdapter.getActivatedProfile();
         if (profileFromAdapter != null)
             profileFromAdapter._checked = false;
 
-        Profile profileFromDB = DatabaseHandler.getInstance(activityDataWrapper.context).getActivatedProfile();
         if (profileFromDB != null) {
             PPApplication.logE("EditorProfileListFragment.refreshGUI", "profile activated");
             Profile profileFromDataWrapper = activityDataWrapper.getProfileById(profileFromDB._id, true,

@@ -158,11 +158,12 @@ public class EditorProfilesActivity extends AppCompatActivity
     private final BroadcastReceiver refreshGUIBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
+            boolean refresh = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
             boolean refreshIcons = intent.getBooleanExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ICONS, false);
             long profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
             long eventId = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
             // not change selection in editor if refresh is outside editor
-            EditorProfilesActivity.this.refreshGUI(refreshIcons, false, profileId, eventId);
+            EditorProfilesActivity.this.refreshGUI(refresh, refreshIcons, false, profileId, eventId);
         }
     };
 
@@ -554,7 +555,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
                 new IntentFilter("ShowEditorTargetHelpsBroadcastReceiver"));
 
-        refreshGUI(false, true, 0, 0);
+        refreshGUI(true, false, true, 0, 0);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
                 new IntentFilter("FinishEditorBroadcastReceiver"));
@@ -2240,7 +2241,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    public void refreshGUI(final boolean refreshIcons, final boolean setPosition, final long profileId, final long eventId)
+    public void refreshGUI(final boolean refresh, final boolean refreshIcons, final boolean setPosition, final long profileId, final long eventId)
     {
         runOnUiThread(new Runnable() {
             @Override
@@ -2254,9 +2255,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment != null) {
                     if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).refreshGUI(refreshIcons, setPosition, profileId);
+                        ((EditorProfileListFragment) fragment).refreshGUI(refresh, refreshIcons, setPosition, profileId);
                     else
-                        ((EditorEventListFragment) fragment).refreshGUI(refreshIcons, setPosition, eventId);
+                        ((EditorEventListFragment) fragment).refreshGUI(refresh, refreshIcons, setPosition, eventId);
                 }
             }
         });
