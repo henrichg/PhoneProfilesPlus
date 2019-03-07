@@ -2723,7 +2723,7 @@ class ActivateProfileHelper {
 
     static boolean isMobileData(Context context)
     {
-        /*if (android.os.Build.VERSION.SDK_INT < 21)
+        if (android.os.Build.VERSION.SDK_INT < 21)
         {
             ConnectivityManager connectivityManager = null;
             try {
@@ -2734,7 +2734,6 @@ class ActivateProfileHelper {
             }
             if (connectivityManager != null) {
                 try {
-                    //TODO Android P - used reflections!!
                     final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
                     final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
                     getMobileDataEnabledMethod.setAccessible(true);
@@ -2758,7 +2757,6 @@ class ActivateProfileHelper {
                     .getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 try {
-                    //TODO Android P - used reflections!!
                     telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
                     Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
                     getITelephonyMethod.setAccessible(true);
@@ -2779,15 +2777,15 @@ class ActivateProfileHelper {
                 return false;
         }
         else
-        {*/
+        if (android.os.Build.VERSION.SDK_INT < 28)
+        {
             TelephonyManager telephonyManager = (TelephonyManager) context
                     .getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
-                /*Method getDataEnabledMethod;
+                Method getDataEnabledMethod;
                 Class<?> telephonyManagerClass;
 
                 try {
-                    //TODO Android P - used reflections!!
                     telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
                     getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
                     getDataEnabledMethod.setAccessible(true);
@@ -2796,29 +2794,21 @@ class ActivateProfileHelper {
 
                 } catch (Exception e) {
                     return false;
-                }*/
-
-                if (telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY) {
-        //          if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1)
-        //          {
-        //              mobileYN = Settings.Global.getInt(context.getContentResolver(), "mobile_data", 0) == 1;
-        //          }
-        //          else{
-        //              mobileYN = Settings.Secure.getInt(context.getContentResolver(), "mobile_data", 0) == 1;
-        //          }
-                    int dataState = telephonyManager.getDataState();
-                    return dataState != TelephonyManager.DATA_DISCONNECTED;
                 }
-                return false;
             }
             else
                 return false;
-        //}
 
+        }
+        else
+            return CmdMobileData.isEnabled(context);
     }
 
     static boolean canSetMobileData(Context context)
     {
+        if (android.os.Build.VERSION.SDK_INT >= 28)
+            return true;
+        else
         if (android.os.Build.VERSION.SDK_INT >= 22)
         {
             Class<?> telephonyManagerClass;
@@ -2827,7 +2817,6 @@ class ActivateProfileHelper {
                     .getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 try {
-                    //TODO Android P - used reflections!!
                     telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
                     Method getDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("getDataEnabled");
                     getDataEnabledMethod.setAccessible(true);
@@ -2848,7 +2837,6 @@ class ActivateProfileHelper {
                     .getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 try {
-                    //TODO Android P - used reflections!!
                     telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
                     Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
                     getITelephonyMethod.setAccessible(true);
@@ -2871,7 +2859,6 @@ class ActivateProfileHelper {
             }
             if (connectivityManager != null) {
                 try {
-                    //TODO Android P - used reflections!!
                     final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
                     final Method getMobileDataEnabledMethod = connectivityManagerClass.getDeclaredMethod("getMobileDataEnabled");
                     getMobileDataEnabledMethod.setAccessible(true);
@@ -2891,7 +2878,7 @@ class ActivateProfileHelper {
         {
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
             // not working :-/
-            if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
+            /*if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
                 if (android.os.Build.VERSION.SDK_INT == 21)
                 {
                     Method dataConnSwitchMethod;
@@ -2903,7 +2890,6 @@ class ActivateProfileHelper {
                             .getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
                         try {
-                            //TODO Android P - used reflections!!
                             telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
                             Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
                             getITelephonyMethod.setAccessible(true);
@@ -2927,7 +2913,6 @@ class ActivateProfileHelper {
                             .getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
                         try {
-                            //TODO Android P - used reflections!!
                             telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
                             setDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
                             setDataEnabledMethod.setAccessible(true);
@@ -2939,7 +2924,7 @@ class ActivateProfileHelper {
                     }
                 }
             }
-            else
+            else*/
             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
                     (PPApplication.isRooted(false)))
             {
@@ -3043,7 +3028,6 @@ class ActivateProfileHelper {
             if (connectivityManager != null) {
                 boolean OK = false;
                 try {
-                    //TODO Android P - used reflections!!
                     final Class<?> connectivityManagerClass = Class.forName(connectivityManager.getClass().getName());
                     final Field iConnectivityManagerField = connectivityManagerClass.getDeclaredField("mService");
                     iConnectivityManagerField.setAccessible(true);
@@ -3061,7 +3045,6 @@ class ActivateProfileHelper {
 
                 if (!OK) {
                     try {
-                        //TODO Android P - used reflections!!
                         //noinspection JavaReflectionMemberAccess
                         @SuppressLint("PrivateApi")
                         Method setMobileDataEnabledMethod = ConnectivityManager.class.getDeclaredMethod("setMobileDataEnabled", boolean.class);
