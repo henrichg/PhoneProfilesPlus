@@ -265,7 +265,8 @@ class ActivateProfileHelper {
                                     else {
                                         Network[] activeNetworks=connManager.getAllNetworks();
                                         for(Network network:activeNetworks){
-                                            if(connManager.getNetworkInfo(network).isConnected()){
+                                            NetworkInfo networkInfo = connManager.getNetworkInfo(network);
+                                            if((networkInfo != null) && networkInfo.isConnected()) {
                                                 NetworkCapabilities networkCapabilities=connManager.getNetworkCapabilities(network);
                                                 if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                                                     wifiConnected = true;
