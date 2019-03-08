@@ -4139,9 +4139,8 @@ public class DataWrapper {
                                                                boolean addEventName, String indicators, boolean addDuration, boolean multiLine,
                                                                DataWrapper dataWrapper, boolean fromDB, Context context)
     {
-        if (profile == null) {
+        if (profile == null)
             return new SpannableString("");
-        }
 
         String eventName = "";
         if (addEventName && (dataWrapper != null))
@@ -4162,6 +4161,9 @@ public class DataWrapper {
             if (!manualIndicators.isEmpty())
                 eventName = manualIndicators + " " + eventName;
         }
+
+        if (!PPApplication.getApplicationStarted(context, true))
+            eventName = eventName + " ";
 
         Spannable sName;
         if (addDuration)

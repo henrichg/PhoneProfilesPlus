@@ -233,6 +233,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                                 remoteViews.setImageViewResource(R.id.widget_one_row_header_restart_events, R.drawable.ic_widget_restart_events);
                         }
 
+                        PPApplication.logE("OneRowWidgetProvider.onUpdate", "events running="+Event.getGlobalEventsRunning(context));
+                        PPApplication.logE("OneRowWidgetProvider.onUpdate", "application started="+PPApplication.getApplicationStarted(context, true));
                         if (Event.getGlobalEventsRunning(context) && PPApplication.getApplicationStarted(context, true)) {
                             remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, View.VISIBLE);
                             Intent intentRE = new Intent(context, RestartEventsFromNotificationActivity.class);

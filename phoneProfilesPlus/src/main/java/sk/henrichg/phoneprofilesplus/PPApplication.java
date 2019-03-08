@@ -98,7 +98,7 @@ public class PPApplication extends Application {
 
                                          //+"|DataWrapper.updateNotificationAndWidgets"
                                          //+"|ActivateProfileHelper.updateGUI"
-                                         //+"|OneRowWidgetProvider.onUpdate"
+                                         +"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|#### EventsHandler.handleEvents"
