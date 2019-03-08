@@ -620,7 +620,7 @@
                     android:layout="@layout/mp_preference_material_widget" />
                 <Preference
                     android:key="prf_pref_deviceForceStopApplicationInstallExtender"
-                    android:title="@string/profile_preferences_deviceForceStopApplications_PPPExtender_title"
+                    android:title="@string/extender_app_name"
                     android:summary="@string/profile_preferences_deviceForceStopApplications_PPPExtender_install_summary"
                     android:widgetLayout="@layout/start_activity_preference"
                     android:layout="@layout/mp_preference_material_widget" >
@@ -675,14 +675,40 @@
                 android:entries="@array/wallpaperForArray"
                 android:entryValues="@array/wallpaperForValues"
                 android:layout="@layout/mp_preference_material_widget" />
-            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            <PreferenceScreen
                 android:title="@string/profile_preferences_lockDevice"
-                android:summary="@string/array_pref_no_change"
-                android:key="prf_pref_lockDevice"
-                android:defaultValue="0"
-                android:entries="@array/lockDeviceArray"
-                android:entryValues="@array/lockDeviceValues"
-                android:layout="@layout/mp_preference_material_widget" />
+                android:key="prf_pref_lockDeviceCategory"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
+                <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                    android:title="@string/profile_preferences_lockDevice"
+                    android:summary="@string/array_pref_no_change"
+                    android:key="prf_pref_lockDevice"
+                    android:defaultValue="0"
+                    android:entries="@array/lockDeviceArray"
+                    android:entryValues="@array/lockDeviceValues"
+                    android:layout="@layout/mp_preference_material_widget" />
+                <Preference
+                    android:key="prf_pref_lockDeviceInstallExtender"
+                    android:title="@string/extender_app_name"
+                    android:summary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
+                    android:widgetLayout="@layout/start_activity_preference"
+                    android:layout="@layout/mp_preference_material_widget" >
+                </Preference>
+                <Preference
+                    android:key="prf_pref_lockDeviceInstallExtenderInfo"
+                    android:title="@string/event_preferences_PPPExtenderInstallInfo_text"
+                    android:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
+                    android:widgetLayout="@layout/info_preference"
+                    android:layout="@layout/mp_preference_material_widget" />
+                <Preference
+                    android:key="prf_pref_lockDeviceAccessibilitySettings"
+                    android:title="@string/profile_preferences_lockDevice_AccessibilitySettings_title"
+                    android:summary="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"
+                    android:widgetLayout="@layout/start_activity_preference"
+                    android:layout="@layout/mp_preference_material_widget" >
+                </Preference>
+            </PreferenceScreen>
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>    

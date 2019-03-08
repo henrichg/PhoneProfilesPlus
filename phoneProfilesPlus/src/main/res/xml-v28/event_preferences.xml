@@ -416,7 +416,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventCallInstallExtender"
-                android:title="@string/event_preferences_call_PPPExtender_title"
+                android:title="@string/extender_app_name"
                 android:summary="@string/event_preferences_call_PPPExtender_install_summary"
                 android:dependency="eventCallEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
@@ -504,7 +504,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventSMSInstallExtender"
-                android:title="@string/event_preferences_sms_PPPExtender_title"
+                android:title="@string/extender_app_name"
                 android:summary="@string/event_preferences_sms_PPPExtender_install_summary"
                 android:dependency="eventSMSEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
@@ -936,7 +936,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventApplicationInstallExtender"
-                android:title="@string/event_preferences_applications_PPPExtender_title"
+                android:title="@string/extender_app_name"
                 android:summary="@string/event_preferences_applications_PPPExtender_install_summary"
                 android:dependency="eventApplicationEnabled"
                 android:widgetLayout="@layout/start_activity_preference"
@@ -1013,7 +1013,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="eventOrientationInstallExtender"
-                android:title="@string/event_preferences_orientation_PPPExtender_title"
+                android:title="@string/extender_app_name"
                 android:summary="@string/event_preferences_orientation_PPPExtender_install_summary"
                 android:dependency="eventOrientationEnabled"
                 android:widgetLayout="@layout/start_activity_preference"

@@ -995,9 +995,7 @@
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">not enabled Accessibility settings for PhoneProfilesPlusExtender</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">To enable \"Applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
-    <string name="event_preferences_applications_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">To enable \"Applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
-    <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_orientation_PPPExtender_install_summary">To enable \"Ignore for applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_upgrade_summary">Click here to check for changes and upgrade PhoneProfilesPlusExtender.</string>
     <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>
@@ -1094,7 +1092,6 @@
     <string name="array_pref_force_stop">Force stop</string>
     <string name="profile_preferences_deviceForceStopApplicationsChange">Force stop applications</string>
     <string name="profile_preferences_deviceForceStopApplicationsPackageName">Applications to force stop it</string>
-    <string name="profile_preferences_deviceForceStopApplications_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">To enable \"Force stop applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
     <string name="event_preferences_applications_PPPExtender_new_version_summary">New version of PhoneProfilesPlusExtender is required. Click here to upgrade it.</string>
     <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Accessibility settings</string>
@@ -1245,7 +1242,6 @@
     <string name="phone_profiles_pref_applicationWidgetShowBorder">Show border</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Show border (widget)</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving SMS and MMS.</string>
-    <string name="event_preferences_sms_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving SMS and MMS.</string>
     <string name="important_info_accessibility_service_text2">Due to a change of rules by Google, about usage of permissions for receive SMS and MMS, you must install PhoneProfilesPlusExtender to use the SMS/MMS event sensor. Check the parameters of this sensor for more information.</string>
     <string name="permission_not_granted">Not granted</string>
@@ -1280,7 +1276,6 @@
     <string name="profile_preferences_volumeVoiceCall">Voice call volume</string>
     <string name="pref_event_permanentRun_summary">Pause event after manual profile activation and the restart events</string>
     <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Allow PhoneProfilesPlusExtender \"Accessibility\" in system settings. Accessibility function is not used, running service is needed for receiving calls.</string>
-    <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_PPPExtender_install_summary">Click here to install PhoneProfilesPlusExtender. Running service is needed for receiving calls.</string>
     <string name="permission_why_event_sms_preferences">for read contacts in SMS/MMS sensor</string>
     <string name="permission_why_event_call_preferences">for read contacts, detect ringing call (for \"night call\") in Call sensor</string>
@@ -1371,6 +1366,12 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
     <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
 
+    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+    <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
+
+    <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1397,6 +1398,8 @@
     <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
     <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
     <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
+
+    <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
 
     <!--<string name="profile_preferences_screenNightMode">Night mode</string>-->
     <!--<string name="array_pref_screenNightMode_automatic">Automatic</string> -->

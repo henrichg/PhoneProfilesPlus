@@ -1473,6 +1473,12 @@ public class PhoneProfilesService extends Service
             intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
             sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
         }
+        if (type == PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER) {
+            Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+            intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+            intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
+            sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+        }
     }
 
     void registerPPPPExtenderReceiver(boolean register, boolean checkDatabase) {
@@ -1484,9 +1490,10 @@ public class PhoneProfilesService extends Service
             unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FOREGROUND_APPLICATION_UNREGISTER);
             unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_SMS_UNREGISTER);
             unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_CALL_UNREGISTER);
+            unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
         }
         if (register) {
-            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, false, appContext).allowed ==
+            boolean forceStopAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, false, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean applicationsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
@@ -1496,22 +1503,34 @@ public class PhoneProfilesService extends Service
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
             boolean callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
-            if (profileAllowed || applicationsAllowed || orientationAllowed || smsAllowed || callAllowed) {
+            boolean lockDeviceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, false, appContext).allowed ==
+                                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (forceStopAllowed || applicationsAllowed || orientationAllowed || smsAllowed || callAllowed || lockDeviceAllowed) {
                 PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "profile or event allowed");
-                int profileCount = 0;
+                int forceStopCount = 0;
                 int applicationCount = 0;
                 int orientationCount = 0;
                 int smsCount = 0;
                 int callCount = 0;
+                int lockDeviceCount = 0;
                 if (checkDatabase) {
-                    if (profileAllowed) {
+                    if (forceStopAllowed) {
                         if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (profile._deviceForceStopApplicationChange != 0)
-                                ++profileCount;
+                                ++forceStopCount;
                         }
                         else
-                            profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, false);
+                            forceStopCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, false);
+                    }
+                    if (lockDeviceAllowed) {
+                        if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_LOCK_DEVICE, true) > 0) {
+                            Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
+                            if (profile._lockDevice != 0)
+                                ++lockDeviceCount;
+                        }
+                        else
+                            lockDeviceCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_LOCK_DEVICE, false);
                     }
                     if (applicationsAllowed)
                         applicationCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
@@ -1523,19 +1542,21 @@ public class PhoneProfilesService extends Service
                         callCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false);
                 }
                 else {
-                    profileCount = 1;
+                    forceStopCount = 1;
                     applicationCount = 1;
                     orientationCount = 1;
                     smsCount = 1;
                     callCount = 1;
+                    lockDeviceCount = 1;
                 }
-                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "profileCount="+profileCount);
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "forceStopCount="+forceStopCount);
                 PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "applicationCount="+applicationCount);
                 PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "orientationCount="+orientationCount);
                 PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "smsCount="+smsCount);
                 PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "callCount="+callCount);
+                PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "lockDeviceCount="+lockDeviceCount);
 
-                if (profileCount > 0) {
+                if (forceStopCount > 0) {
                     if (pppExtenderForceStopApplicationBroadcastReceiver == null) {
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderForceStopApplicationBroadcastReceiver");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER pppExtenderForceStopApplicationBroadcastReceiver");
@@ -1555,6 +1576,14 @@ public class PhoneProfilesService extends Service
                 }
                 else
                     unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER);
+                if (lockDeviceCount > 0) {
+                    Intent intent = new Intent(PPApplication.ACTION_REGISTER_PPPE_FUNCTION);
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_APP, "PhoneProfilesPlus");
+                    intent.putExtra(PPApplication.EXTRA_REGISTRATION_TYPE, PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_REGISTER);
+                    sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
+                }
+                else
+                    unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
 
                 if ((applicationCount > 0) || (orientationCount > 0)) {
                     if (pppExtenderForegroundApplicationBroadcastReceiver == null) {

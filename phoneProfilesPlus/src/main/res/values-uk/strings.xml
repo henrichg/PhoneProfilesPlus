@@ -926,9 +926,7 @@
   <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">не увімкнено параметри спеціальних можливостей для PhoneProfilesPlusExtender</string>
   <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Щоб увімкнути параметр \"Додатки\", дозвольте доступ службі PhoneProfilesPlusExtender у розділі \"Спец. можливості\" системних налаштувань.</string>
   <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Щоб увімкнути параметр \"Ігнорувати для додатків\", дозвольте доступ службі PhoneProfilesPlusExtender у розділі \"Спец. можливості\" системних налаштувань.</string>
-  <string name="event_preferences_applications_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_applications_PPPExtender_install_summary">Щоб увімкнути параметр \"Додатки\", натисніть сюди для встановлення PhoneProfilesPlusExtender.</string>
-  <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_orientation_PPPExtender_install_summary">Щоб увімкнути параметр \"Ігнорувати для додатків\", натисніть сюди для встановлення PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_applications_PPPExtender_upgrade_summary">Натисніть сюди, щоб перевірити зміни і оновити PhoneProfilesPlusExtender.</string>
   <string name="important_info_accessibility_service_text1">Через зміни Google\'ом правил використання служб Спец. можливостей, ви маєте встановити PhoneProfilesPlusExtender для використання датчика Додатків та датчика Орієнтації екрану. Більш детальну інформацію можна переглянути в параметрах цих датчиків.</string>
@@ -1025,7 +1023,6 @@
   <string name="array_pref_force_stop">Примусово припиняти</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Примусова зупинка додатків</string>
   <string name="profile_preferences_deviceForceStopApplicationsPackageName">Додатки, які потрібно примусово зупиняти</string>
-  <string name="profile_preferences_deviceForceStopApplications_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Щоб увімкнути параметр \"Примусова зупинка додатків\", натисніть сюди для встановлення PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_applications_PPPExtender_new_version_summary">Необхідна нова версія PhoneProfilesPlusExtender. Натисніть тут для оновлення.</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Налаштування спеціальних можливостей</string>
@@ -1175,7 +1172,6 @@
     <string name="phone_profiles_pref_applicationWidgetShowBorder">Показати рамку</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Показати рамку (віджет)</string>
     <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Дозволити PhoneProfilesPlusExtender \"Спец. можливості\" в налаштуваннях системи. Спец. можливості не використовуються, запущена служба потрібна для отримання SMS та MMS.</string>
-    <string name="event_preferences_sms_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_sms_PPPExtender_install_summary">Натисніть аби встановити PhoneProfilesPlusExtender. Запущена служба потрібна для отримання SMS та MMS.</string>
     <string name="important_info_accessibility_service_text2">Завдяки змінам в правилах Google, нарахунок використання дозволів для отримання SMS та MMS, потрібно встановити PhoneProfilesPlusExtender щоб використовувати Датчик SMS/MMS . Для додаткової інформації перевірте параметри цього датчику.</string>
     <string name="permission_not_granted">Не дозволено</string>
@@ -1210,7 +1206,6 @@
     <string name="profile_preferences_volumeVoiceCall">Гучність мелодії виклику</string>
     <string name="pref_event_permanentRun_summary">Призупинити подію після ручної активації профілю та перезапустити події</string>
     <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Дозволити PhoneProfilesPlusExtender \"Служба спец. можливостей\" в налаштуваннях системи. Служба спец. можливостей не використовується, вона потрібна для отримання викликів.</string>
-    <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_PPPExtender_install_summary">Натисність щоб встановити PhoneProfilesPlusExtender. Запущена служба необхідна для отримання викликів.</string>
     <string name="permission_why_event_sms_preferences">для читання контактів SMS/MMS датчиком</string>
     <string name="permission_why_event_call_preferences">для читання контактів, виявлення виклику для \"нічний виклик\") Датчиком викликів</string>
@@ -1300,7 +1295,12 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запустити додаток, ярлик, ціль</string>
     <string name="applications_editor_dialog_title">Встановити додаток, ярлик, ціль</string>
 
+    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+    <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
+    <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1327,4 +1327,6 @@
     <string name="extender_permissions_event_sensor_call">• Дозволи до параметру подій \"Датчик викликів\" - дозвіл Телефон:</string>
     <string name="extender_permissions_event_sensor_call_28">• Дозволи до параметру подій \"Датчик викликів\" - дозвіл Телефон, Журнал викликів:</string>
     <string name="extender_toast_permissions_not_granted">Дозволи не надані</string>
+
+    <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
 </resources>

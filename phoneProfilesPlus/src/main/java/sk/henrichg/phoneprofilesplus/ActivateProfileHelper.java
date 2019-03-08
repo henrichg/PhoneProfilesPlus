@@ -3767,9 +3767,15 @@ class ActivateProfileHelper {
         handler.post(new Runnable() {
             @Override
             public void run() {
+                PPApplication.logE("ActivateProfileHelper.lockDevice", "in hanlder");
+
                 if (PPApplication.blockProfileEventActions)
                     // not lock device after boot
                     return;
+
+                PPApplication.logE("ActivateProfileHelper.lockDevice", "not blocked");
+
+                PPApplication.logE("ActivateProfileHelper.lockDevice", "profile._lockDevice="+profile._lockDevice);
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -3780,6 +3786,20 @@ class ActivateProfileHelper {
                     }
 
                     switch (profile._lockDevice) {
+                        case 1:
+                            if (PhoneProfilesService.getInstance() != null) {
+                                if (Permissions.checkLockDevice(context) && (PhoneProfilesService.getInstance().lockDeviceActivity == null)) {
+                                    try {
+                                        Intent intent = new Intent(context, LockDeviceActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                        context.startActivity(intent);
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                            break;
                         case 2:
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
                                     (PPApplication.isRooted(false))) {
@@ -3810,42 +3830,31 @@ class ActivateProfileHelper {
                                     }
                                 }
                             }
-                        /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
-                                (PPApplication.isRooted() && PPApplication.serviceBinaryExists())) {
-                            synchronized (PPApplication.rootMutex) {
-                                try {
-                                    // Get the value of the "TRANSACTION_goToSleep" field.
-                                    String transactionCode = PPApplication.getTransactionCode("android.os.IPowerManager", "TRANSACTION_goToSleep");
-                                    String command1 = "service call power " + transactionCode + " i64 " + SystemClock.uptimeMillis();
-                                    Command command = new Command(0, false, command1);
+                            /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                                    (PPApplication.isRooted() && PPApplication.serviceBinaryExists())) {
+                                synchronized (PPApplication.rootMutex) {
                                     try {
-                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        commandWait(command);
-                                    } catch (RootDeniedException e) {
-                                        PPApplication.rootMutex.rootGranted = false;
-                                        Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                    } catch (Exception e) {
-                                        Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                        // Get the value of the "TRANSACTION_goToSleep" field.
+                                        String transactionCode = PPApplication.getTransactionCode("android.os.IPowerManager", "TRANSACTION_goToSleep");
+                                        String command1 = "service call power " + transactionCode + " i64 " + SystemClock.uptimeMillis();
+                                        Command command = new Command(0, false, command1);
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            commandWait(command);
+                                        } catch (RootDeniedException e) {
+                                            PPApplication.rootMutex.rootGranted = false;
+                                            Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                        } catch (Exception e) {
+                                            Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                        }
+                                    } catch(Exception ignored) {
                                     }
-                                } catch(Exception ignored) {
                                 }
-                            }
-                        */
+                            */
                             break;
-                        case 1:
                         case 3:
-                            if (PhoneProfilesService.getInstance() != null) {
-                                if (Permissions.checkLockDevice(context) && (PhoneProfilesService.getInstance().lockDeviceActivity == null)) {
-                                    try {
-                                        Intent intent = new Intent(context, LockDeviceActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                        context.startActivity(intent);
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                            }
+                            Intent intent = new Intent(PPApplication.ACTION_LOCK_DEVICE);
+                            context.sendBroadcast(intent, PPApplication.ACCESSIBILITY_SERVICE_PERMISSION);
                             break;
                     }
                 } finally {

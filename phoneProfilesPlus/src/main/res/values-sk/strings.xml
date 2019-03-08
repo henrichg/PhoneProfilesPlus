@@ -928,9 +928,7 @@
   <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">nie je zapnutá Dostupnosť pre PhoneProfilesPlusExtender</string>
   <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Aplikácie\".</string>
   <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Ignorovať pre aplikácie\".</string>
-  <string name="event_preferences_applications_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_applications_PPPExtender_install_summary">Pre povolenie parametra \"Aplikácie\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
-  <string name="event_preferences_orientation_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_orientation_PPPExtender_install_summary">Pre povolenie parametra \"Ignorovať pre aplikácie\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_applications_PPPExtender_upgrade_summary">Kliknite tu pre kontrolu zmien a upgrade PhoneProfilesPlusExtender.</string>
   <string name="important_info_accessibility_service_text1">Vzhľadom na to, že spoločnosť Google zmenila pravidlá o používaní služieb dostupnosti, musíte pre udalostný senzor aplikácií a udalostný senzor orientácie nainštalovať PhoneProfilesPlusExtender. Pozrite sa na parametre týchto senzorov pre viac informácií.</string>
@@ -1028,7 +1026,6 @@
   <string name="array_pref_force_stop">Vynucovať zastavenie</string>
   <string name="profile_preferences_deviceForceStopApplicationsChange">Vynútiť zastavenie aplikácií</string>
   <string name="profile_preferences_deviceForceStopApplicationsPackageName">Aplikácie, ktorým vynútiť zastavenie</string>
-  <string name="profile_preferences_deviceForceStopApplications_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="profile_preferences_deviceForceStopApplications_PPPExtender_install_summary">Pre povolenie parametra \"Vynútiť zastavenie aplikácií\", kliknite tu pre inštaláciu PhoneProfilesPlusExtender.</string>
   <string name="event_preferences_applications_PPPExtender_new_version_summary">Je potrebná nová verzia PhoneProfilesPlusExtender. Kliknutím sem ho môžete aktualizovať.</string>
   <string name="profile_preferences_deviceForceStopApplications_AccessibilitySettings_title">Dostupnosť</string>
@@ -1178,7 +1175,6 @@
   <string name="phone_profiles_pref_applicationWidgetShowBorder">Zobraziť okraj</string>
   <string name="phone_profiles_pref_applicationWidgetIconShowBorder">Zobraziť okraj (miniaplikácia)</string>
   <string name="event_preferences_sms_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\". Funkcia dostupnosti nie je použitá, bežiaci servis je potrebný pre príjem SMS a MMS.</string>
-  <string name="event_preferences_sms_PPPExtender_title">PhoneProfilesPlusExtender</string>
   <string name="event_preferences_sms_PPPExtender_install_summary">Kliknite tu pre inštaláciu PhoneProfilesPlusExtender. Bežiaci servis je potrebný pre príjem SMS a MMS.</string>
   <string name="important_info_accessibility_service_text2">Vzhľadom k tomu, že spoločnosť Google zmenila pravidlá o používaní práv pre príjem SMS a MMS, musíte pre udalostný senzor SMS/MMS nainštalovať PhoneProfilesPlusExtender. Pozrite sa na parametre tohoto senzora pre viac informácií.</string>
   <string name="permission_not_granted">Odoprené</string>
@@ -1213,7 +1209,6 @@
     <string name="profile_preferences_volumeVoiceCall">Hlasitosť hlasového hovoru</string>
     <string name="pref_event_permanentRun_summary">Pozastav udalosť po manuálnej aktivácii profilu a po reštarte udalostí</string>
     <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Povoľ PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\". Funkcia dostupnosti nie je použitá, bežiaci servis je potrebný pre príjem hovorov.</string>
-    <string name="event_preferences_call_PPPExtender_title">PhoneProfilesPlusExtender</string>
     <string name="event_preferences_call_PPPExtender_install_summary">Kliknite tu pre inštaláciu PhoneProfilesPlusExtender. Bežiaci servis je potrebný pre príjem hovorov.</string>
     <string name="permission_why_event_sms_preferences">pre čítanie kontaktov v senzore SMS/MMS</string>
     <string name="permission_why_event_call_preferences">pre čítanie kontaktov, detekciu zvonenia hovoru (pre \"nočný hovor\") v senzore hovoru</string>
@@ -1300,8 +1295,12 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustiť aplikácie, odkazy, zámery</string>
     <string name="applications_editor_dialog_title">Vyber aplikáciu, odkaz, zámer</string>
 
+    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
+    <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
-
+    <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1328,4 +1327,6 @@
     <string name="extender_permissions_event_sensor_call">• Povolenia pre parametre udalosti \"Senzor hovoru\" - povolenie Telefón:</string>
     <string name="extender_permissions_event_sensor_call_28">• Povolenia pre parametre udalosti \"Senzor hovoru\" - povolenie Telefón, Denníky hovorov:</string>
     <string name="extender_toast_permissions_not_granted">Povolenia nie sú udelené</string>
+
+    <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
 </resources>
