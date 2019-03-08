@@ -3,91 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="rootScreen"
-    android:title="@string/title_activity_profile_preferences" >
-    <PreferenceCategory
-        android:summary="@string/profile_preferences_category_profileIdentification"
-        android:title="@string/profile_preferences_category_profileIdentification"
-        android:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.MaterialEditTextPreference
-            android:key="prf_pref_profileName"
-            android:summary="@string/profile_preferences_profileName"
-            android:title="@string/profile_preferences_profileName"
-            android:selectAllOnFocus="true"
-            android:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.ProfileIconPreference
-            android:defaultValue="ic_profile_default|1|0|0"
-            android:key="prf_pref_profileIcon"
-            android:title="@string/profile_preferences_profileIcon"
-            android:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
-            android:key="prf_pref_showInActivator"
-            android:title="@string/profile_preferences_showInActivator"
-            android:defaultValue="true"
-            android:layout="@layout/mp_preference_material_widget"
-            android:widgetLayout="@layout/mp_preference_switch" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:key="prf_pref_activationParametersCategory"
-        android:summary="@string/profile_preferences_category_profileActivationParameters"
-        android:title="@string/profile_preferences_category_profileActivationParameters"
-        android:layout="@layout/mp_preference_category" >
-        <PreferenceScreen
-            android:title="@string/profile_preferences_category_activation_duration"
-            android:key="prf_pref_activationDurationCategory"
-            android:widgetLayout="@layout/start_activity_preference"  >
-            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
-                android:key="prf_pref_duration"
-                android:summary="@string/profile_preferences_duration"
-                android:title="@string/profile_preferences_duration"
-                android:defaultValue="0"
-                android:layout="@layout/mp_preference_material_widget"
-                app:dMin="0"
-                app:dMax="86400"
-                android:dependency="prf_pref_askForDuration" />
-            <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                android:title="@string/profile_preferences_afterDurationDo"
-                android:summary="@string/array_pref_afterProfileDurationDo_nothing"
-                android:key="prf_pref_afterDurationDo"
-                android:defaultValue="0"
-                android:entries="@array/afterProfileDurationDoArray"
-                android:entryValues="@array/afterProfileDurationDoValues"
-                android:dependency="prf_pref_askForDuration"
-                android:layout="@layout/mp_preference_material_widget" />
-            <CheckBoxPreference
-                android:key="prf_pref_askForDuration"
-                android:title="@string/profile_preferences_askForDuration"
-                android:defaultValue="false"
-                android:widgetLayout="@layout/mp_preference_switch"
-                android:layout="@layout/mp_preference_material_widget"
-                android:disableDependentsState="true"/>
-            <Preference
-                android:key="prf_pref_durationNotificationSoundInfo"
-                android:title="@string/profile_preferences_durationNotificationSound"
-                android:summary="@string/preferences_durationNotificationSoundInfo_summary"
-                android:layout="@layout/mp_preference_material_widget"
-                android:widgetLayout="@layout/info_preference" />
-            <sk.henrichg.phoneprofilesplus.RingtonePreference
-                android:key="prf_pref_durationNotificationSound"
-                android:summary="@string/array_pref_no_change"
-                android:title="@string/profile_preferences_durationNotificationSound"
-                android:layout="@layout/mp_preference_material_widget"
-                app:ringtoneType="notification"
-                app:showSilent="true"
-                app:showDefault="true" />
-            <CheckBoxPreference
-                android:key="prf_pref_durationNotificationVibrate"
-                android:title="@string/profile_preferences_durationNotificationVibrate"
-                android:defaultValue="false"
-                android:layout="@layout/mp_preference_material_widget"
-                android:widgetLayout="@layout/mp_preference_switch"/>
-        </PreferenceScreen>
-        <CheckBoxPreference
-            android:key="prf_pref_hideStatusBarIcon"
-            android:title="@string/profile_preferences_hideStatusBarIcon"
-            android:defaultValue="false"
-            android:widgetLayout="@layout/mp_preference_switch"
-            android:layout="@layout/mp_preference_material_widget" />
-    </PreferenceCategory>
+    android:title="@string/title_activity_default_profile_preferences" >
+    <Preference
+        android:key="prf_pref_sharedProfileInfo"
+        android:title="@string/profile_preferences_sourceProfileInfoX_title"
+        android:summary="@string/profile_preferences_sourceProfileInfoX_summary"
+        android:widgetLayout="@layout/info_preference"
+        android:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
         android:summary="@string/profile_preferences_category_profileDeviceParameters"
         android:title="@string/profile_preferences_category_profileDeviceParameters"
@@ -103,7 +25,7 @@
             android:title="@string/profile_preferences_category_sound_profile"
             android:key="prf_pref_soundProfileCategory"
             android:widgetLayout="@layout/start_activity_preference"
-            android:layout="@layout/mp_preference_material_widget" >
+            android:layout="@layout/mp_preference_material_widget"  >
             <Preference
                 android:key="prf_pref_volumeVibrateWhenRingingRootInfo"
                 android:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
@@ -115,8 +37,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_volumeRingerMode"
                 android:defaultValue="0"
-                android:entries="@array/ringerModeArray"
-                android:entryValues="@array/ringerModeValues"
+                android:entries="@array/ringerModeDPArray"
+                android:entryValues="@array/ringerModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="prf_pref_volumeNotificationsAccessSettings"
@@ -130,16 +52,16 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_volumeZenMode"
                 android:defaultValue="0"
-                android:entries="@array/zenModeArray"
-                android:entryValues="@array/zenModeValues"
+                android:entries="@array/zenModeDPArray"
+                android:entryValues="@array/zenModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_vibrateWhenRinging"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_vibrateWhenRinging"
                 android:defaultValue="0"
-                android:entries="@array/vibrateWhenRingingArray"
-                android:entryValues="@array/vibrateWhenRingingValues"
+                android:entries="@array/vibrateWhenRingingDPArray"
+                android:entryValues="@array/vibrateWhenRingingDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
@@ -158,10 +80,10 @@
                 app:volumeType="ringtone"
                 app:vNoChange="1"
                 app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
-                android:layout="@layout/mp_preference_material_widget"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeRingtone"
-                android:summary="@string/volume_pref_dialog_no_change_chb" />
+                android:summary="@string/volume_pref_dialog_no_change_chb"
+                android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="prf_pref_volumeRingtone0Info"
                 android:title="@string/profile_preferences_volumeRingtone0Info_title"
@@ -173,10 +95,10 @@
                 app:volumeType="notification"
                 app:vNoChange="1"
                 app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
-                android:layout="@layout/mp_preference_material_widget"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeNotification"
-                android:summary="@string/volume_pref_dialog_no_change_chb" />
+                android:summary="@string/volume_pref_dialog_no_change_chb"
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.NotificationVolume0DialogPreference
                 android:key="prf_pref_volumeNotificationVolume0"
                 android:title="@string/profile_preferences_volumeNotificationVolume0_title"
@@ -187,7 +109,7 @@
                 app:volumeType="media"
                 app:vNoChange="1"
                 app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeMedia"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -196,7 +118,7 @@
                 app:volumeType="alarm"
                 app:vNoChange="1"
                 app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeAlarm"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -205,7 +127,7 @@
                 app:volumeType="system"
                 app:vNoChange="1"
                 app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeSystem"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -214,7 +136,7 @@
                 app:volumeType="voice"
                 app:vNoChange="1"
                 app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
+                app:vDisableSharedProfile="1"
                 android:title="@string/profile_preferences_volumeVoiceCall"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -223,8 +145,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_volumeSpeakerPhone"
                 android:defaultValue="0"
-                android:entries="@array/volumeSpeakerPhoneArray"
-                android:entryValues="@array/volumeSpeakerPhoneValues"
+                android:entries="@array/volumeSpeakerPhoneDPArray"
+                android:entryValues="@array/volumeSpeakerPhoneDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
@@ -243,8 +165,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_soundRingtoneChange"
                 android:defaultValue="0"
-                android:entries="@array/soundChangeArray"
-                android:entryValues="@array/soundChangeValues"
+                android:entries="@array/soundChangeDPArray"
+                android:entryValues="@array/soundChangeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundRingtone"
@@ -260,8 +182,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_soundNotificationChange"
                 android:defaultValue="0"
-                android:entries="@array/soundChangeArray"
-                android:entryValues="@array/soundChangeValues"
+                android:entries="@array/soundChangeDPArray"
+                android:entryValues="@array/soundChangeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundNotification"
@@ -277,8 +199,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_soundAlarmChange"
                 android:defaultValue="0"
-                android:entries="@array/soundChangeArray"
-                android:entryValues="@array/soundChangeValues"
+                android:entries="@array/soundChangeDPArray"
+                android:entryValues="@array/soundChangeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundAlarm"
@@ -300,24 +222,24 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_soundOnTouch"
                 android:defaultValue="0"
-                android:entries="@array/soundOnTouchArray"
-                android:entryValues="@array/soundOnTouchValues"
+                android:entries="@array/soundOnTouchDPArray"
+                android:entryValues="@array/soundOnTouchDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_vibrationOnTouch"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_vibrationOnTouch"
                 android:defaultValue="0"
-                android:entries="@array/vibrationOnTouchArray"
-                android:entryValues="@array/vibrationOnTouchValues"
+                android:entries="@array/vibrationOnTouchDPArray"
+                android:entryValues="@array/vibrationOnTouchDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_dtmfToneWhenDialing"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_dtmfToneWhenDialing"
                 android:defaultValue="0"
-                android:entries="@array/dtmfToneWhenDialingArray"
-                android:entryValues="@array/dtmfToneWhenDialingValues"
+                android:entries="@array/dtmfToneWhenDialingDPArray"
+                android:entryValues="@array/dtmfToneWhenDialingDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
@@ -330,16 +252,16 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceAirplaneMode"
                 android:defaultValue="0"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/hardwareModeDPArray"
+                android:entryValues="@array/hardwareModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceAutosync"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceAutosync"
                 android:defaultValue="0"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/hardwareModeDPArray"
+                android:entryValues="@array/hardwareModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceNetworkType"
@@ -354,37 +276,37 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceNetworkTypePrefs"
                 android:defaultValue="0"
-                android:entries="@array/networkTypePrefsArray"
-                android:entryValues="@array/networkTypePrefsValues"
+                android:entries="@array/networkTypePrefsDPArray"
+                android:entryValues="@array/networkTypePrefsDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceMobileData"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceMobileData"
                 android:defaultValue="0"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/hardwareModeDPArray"
+                android:entryValues="@array/hardwareModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceMobileDataPrefs"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceMobileDataPrefs"
                 android:defaultValue="0"
-                android:entries="@array/mobileDataPrefsArray"
-                android:entryValues="@array/mobileDataPrefsValues"
+                android:entries="@array/mobileDataPrefsDPArray"
+                android:entryValues="@array/mobileDataPrefsDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceWiFi"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceWiFi"
                 android:defaultValue="0"
-                android:entries="@array/wifiModeArray"
-                android:entryValues="@array/wifiModeValues"
+                android:entries="@array/wifiModeDPArray"
+                android:entryValues="@array/wifiModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.ConnectToSSIDDialogPreference
                 android:key="prf_pref_deviceConnectToSSID"
                 android:defaultValue="^just_any^"
-                app:cDisableSharedProfile="0"
+                app:cDisableSharedProfile="1"
                 android:title="@string/profile_preferences_deviceConnectToSSID"
                 android:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -399,48 +321,48 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceWiFiAP"
                 android:defaultValue="0"
-                android:entries="@array/wifiAPArray"
-                android:entryValues="@array/wifiAPValues"
+                android:entries="@array/wifiAPDPArray"
+                android:entryValues="@array/wifiAPDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceWiFiAPPrefs"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceWiFiAPPrefs"
                 android:defaultValue="0"
-                android:entries="@array/wiFiAPPrefsArray"
-                android:entryValues="@array/wiFiAPPrefsValues"
+                android:entries="@array/wiFiAPPrefsDPArray"
+                android:entryValues="@array/wiFiAPPrefsDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceBluetooth"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceBluetooth"
                 android:defaultValue="0"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/hardwareModeDPArray"
+                android:entryValues="@array/hardwareModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceGPS"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceGPS"
                 android:defaultValue="0"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/hardwareModeDPArray"
+                android:entryValues="@array/hardwareModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceLocationServicePrefs"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceLocationServicePrefs"
                 android:defaultValue="0"
-                android:entries="@array/locationServicePrefsArray"
-                android:entryValues="@array/locationServicePrefsValues"
+                android:entries="@array/locationServicePrefsDPArray"
+                android:entryValues="@array/locationServicePrefsDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceNFC"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceNFC"
                 android:defaultValue="0"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/hardwareModeDPArray"
+                android:entryValues="@array/hardwareModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
@@ -459,23 +381,23 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceScreenTimeout"
                 android:defaultValue="0"
-                android:entries="@array/screenTimeoutArray"
-                android:entryValues="@array/screenTimeoutValues"
+                android:entries="@array/screenTimeoutDPArray"
+                android:entryValues="@array/screenTimeoutDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceKeyguard"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceKeyguard"
                 android:defaultValue="0"
-                android:entries="@array/keyguardArray"
-                android:entryValues="@array/keyguardValues"
+                android:entries="@array/keyguardDPArray"
+                android:entryValues="@array/keyguardDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.BrightnessDialogPreference
                 android:key="prf_pref_deviceBrightness"
                 app:bNoChange="1"
                 app:bAutomatic="0"
                 app:bSharedProfile="0"
-                app:bDisableSharedProfile="0"
+                app:bDisableSharedProfile="1"
                 android:title="@string/profile_preferences_deviceBrightness"
                 android:summary="@string/brightness_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -484,8 +406,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceAutoRotation"
                 android:defaultValue="0"
-                android:entries="@array/displayRotationArray"
-                android:entryValues="@array/displayRotationValues"
+                android:entries="@array/displayRotationDPArray"
+                android:entryValues="@array/displayRotationDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <Preference
                 android:key="prf_pref_notificationLedInfo"
@@ -499,16 +421,16 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_notificationLed"
                 android:defaultValue="0"
-                android:entries="@array/notificationLedArray"
-                android:entryValues="@array/notificationLedValues"
+                android:entries="@array/notificationLedDPArray"
+                android:entryValues="@array/notificationLedDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_headsUpNotifications"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_headsUpNotifications"
                 android:defaultValue="0"
-                android:entries="@array/headsUpNotificationsArray"
-                android:entryValues="@array/headsUpNotificationsValues"
+                android:entries="@array/headsUpNotificationsDPArray"
+                android:entryValues="@array/headsUpNotificationsDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <!--
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
@@ -516,8 +438,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_screenNightMode"
                 android:defaultValue="0"
-                android:entries="@array/screenNightModeArray"
-                android:entryValues="@array/screenNightModeValues"
+                android:entries="@array/screenNightModeDPArray"
+                android:entryValues="@array/screenNightModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             -->
         </PreferenceScreen>
@@ -531,40 +453,40 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_applicationDisableWifiScanning"
                 android:defaultValue="0"
-                android:entries="@array/applicationDisableScanningArray"
-                android:entryValues="@array/applicationDisableScanningValues"
+                android:entries="@array/applicationDisableScanningDPArray"
+                android:entryValues="@array/applicationDisableScanningDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_applicationDisableBluetoothScanning"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_applicationDisableBluetoothScanning"
                 android:defaultValue="0"
-                android:entries="@array/applicationDisableScanningArray"
-                android:entryValues="@array/applicationDisableScanningValues"
+                android:entries="@array/applicationDisableScanningDPArray"
+                android:entryValues="@array/applicationDisableScanningDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_applicationDisableLocationScanning"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_applicationDisableLocationScanning"
                 android:defaultValue="0"
-                android:entries="@array/applicationDisableScanningArray"
-                android:entryValues="@array/applicationDisableScanningValues"
+                android:entries="@array/applicationDisableScanningDPArray"
+                android:entryValues="@array/applicationDisableScanningDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_applicationDisableMobileCellScanning"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_applicationDisableMobileCellScanning"
                 android:defaultValue="0"
-                android:entries="@array/applicationDisableScanningArray"
-                android:entryValues="@array/applicationDisableScanningValues"
+                android:entries="@array/applicationDisableScanningDPArray"
+                android:entryValues="@array/applicationDisableScanningDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_applicationDisableOrientationScanning"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_applicationDisableOrientationScanning"
                 android:defaultValue="0"
-                android:entries="@array/applicationDisableScanningArray"
-                android:entryValues="@array/applicationDisableScanningValues"
+                android:entries="@array/applicationDisableScanningDPArray"
+                android:entryValues="@array/applicationDisableScanningDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
         <PreferenceScreen
@@ -577,16 +499,16 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_devicePowerSaveMode"
                 android:defaultValue="0"
-                android:entries="@array/hardwareModeArray"
-                android:entryValues="@array/hardwareModeValues"
+                android:entries="@array/hardwareModeDPArray"
+                android:entryValues="@array/hardwareModeDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceRunApplicationsShortcutsChange"
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceRunApplicationChange"
                 android:defaultValue="0"
-                android:entries="@array/runApplicationArray"
-                android:entryValues="@array/runApplicationValues"
+                android:entries="@array/runApplicationDPArray"
+                android:entryValues="@array/runApplicationDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreference
                 android:defaultValue="-"
@@ -604,8 +526,8 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceCloseAllApplications"
                 android:defaultValue="0"
-                android:entries="@array/closeAllApplicationsArray"
-                android:entryValues="@array/closeAllApplicationsValues"
+                android:entries="@array/closeAllApplicationsDPArray"
+                android:entryValues="@array/closeAllApplicationsDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <PreferenceScreen
                 android:title="@string/profile_preferences_deviceForceStopApplicationsChange"
@@ -643,8 +565,8 @@
                     android:summary="@string/array_pref_no_change"
                     android:key="prf_pref_deviceForceStopApplicationChange"
                     android:defaultValue="0"
-                    android:entries="@array/forceStopApplicationArray"
-                    android:entryValues="@array/forceStopApplicationValues"
+                    android:entries="@array/forceStopApplicationDPArray"
+                    android:entryValues="@array/forceStopApplicationDPValues"
                     android:layout="@layout/mp_preference_material_widget" />
                 <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreference
                     android:defaultValue="@string/dash_string"
@@ -659,11 +581,11 @@
                 android:summary="@string/array_pref_no_change"
                 android:key="prf_pref_deviceWallpaperChange"
                 android:defaultValue="0"
-                android:entries="@array/changeWallpaperArray"
-                android:entryValues="@array/changeWallpaperValues"
+                android:entries="@array/changeWallpaperDPArray"
+                android:entryValues="@array/changeWallpaperDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.WallpaperViewPreference
-                android:defaultValue="-"
+                android:defaultValue="-|0"
                 android:key="prf_pref_deviceWallpaper"
                 android:title="@string/profile_preferences_deviceWallpaper"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -672,17 +594,43 @@
                 android:summary="@string/array_pref_device_wallpaper_homescreen"
                 android:key="prf_pref_deviceWallpaperFor"
                 android:defaultValue="0"
-                android:entries="@array/wallpaperForArray"
-                android:entryValues="@array/wallpaperForValues"
+                android:entries="@array/wallpaperForDPArray"
+                android:entryValues="@array/wallpaperForDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
-            <sk.henrichg.phoneprofilesplus.MaterialListPreference
+            <PreferenceScreen
                 android:title="@string/profile_preferences_lockDevice"
-                android:summary="@string/array_pref_no_change"
-                android:key="prf_pref_lockDevice"
-                android:defaultValue="0"
-                android:entries="@array/lockDeviceArray"
-                android:entryValues="@array/lockDeviceValues"
-                android:layout="@layout/mp_preference_material_widget" />
+                android:key="prf_pref_lockDeviceCategory"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:layout="@layout/mp_preference_material_widget" >
+                <sk.henrichg.phoneprofilesplus.MaterialListPreference
+                    android:title="@string/profile_preferences_lockDevice"
+                    android:summary="@string/array_pref_no_change"
+                    android:key="prf_pref_lockDevice"
+                    android:defaultValue="0"
+                    android:entries="@array/lockDeviceDPArray"
+                    android:entryValues="@array/lockDeviceDPValues"
+                    android:layout="@layout/mp_preference_material_widget" />
+                <Preference
+                    android:key="prf_pref_lockDeviceInstallExtender"
+                    android:title="@string/extender_app_name"
+                    android:summary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
+                    android:widgetLayout="@layout/start_activity_preference"
+                    android:layout="@layout/mp_preference_material_widget" >
+                </Preference>
+                <Preference
+                    android:key="prf_pref_lockDeviceInstallExtenderInfo"
+                    android:title="@string/event_preferences_PPPExtenderInstallInfo_text"
+                    android:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
+                    android:widgetLayout="@layout/info_preference"
+                    android:layout="@layout/mp_preference_material_widget" />
+                <Preference
+                    android:key="prf_pref_lockDeviceAccessibilitySettings"
+                    android:title="@string/profile_preferences_lockDevice_AccessibilitySettings_title"
+                    android:summary="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"
+                    android:widgetLayout="@layout/start_activity_preference"
+                    android:layout="@layout/mp_preference_material_widget" >
+                </Preference>
+            </PreferenceScreen>
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>    

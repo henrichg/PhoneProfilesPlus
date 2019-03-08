@@ -946,31 +946,27 @@
         <item>2</item>
     </string-array>
     -->
-    <string-array name="lockDeviceArray">
+    <string-array name="lockDeviceArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_lockDevice_screenOff</item>
         <item>@string/array_pref_lockDevice_root</item>
-        <item>@string/array_pref_lockDevice_extender</item>
     </string-array>
-    <string-array name="lockDeviceValues">
+    <string-array name="lockDeviceValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>99</item>
         <item>1</item>
         <item>2</item>
-        <item>3</item>
     </string-array>
-    <string-array name="lockDeviceDPArray">
+    <string-array name="lockDeviceDPArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_lockDevice_screenOff</item>
         <item>@string/array_pref_lockDevice_root</item>
-        <item>@string/array_pref_lockDevice_extender</item>
     </string-array>
-    <string-array name="lockDeviceDPValues">
+    <string-array name="lockDeviceDPValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
         <item>2</item>
-        <item>3</item>
     </string-array>
     <string-array name="eventRadioSwitchArray">
         <item>@string/array_pref_radioSwitch_notDetect</item>

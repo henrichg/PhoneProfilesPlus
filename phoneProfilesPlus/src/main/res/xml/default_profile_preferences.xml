@@ -597,40 +597,14 @@
                 android:entries="@array/wallpaperForDPArray"
                 android:entryValues="@array/wallpaperForDPValues"
                 android:layout="@layout/mp_preference_material_widget" />
-            <PreferenceScreen
+            <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_lockDevice"
-                android:key="prf_pref_lockDeviceCategory"
-                android:widgetLayout="@layout/start_activity_preference"
-                android:layout="@layout/mp_preference_material_widget" >
-                <sk.henrichg.phoneprofilesplus.MaterialListPreference
-                    android:title="@string/profile_preferences_lockDevice"
-                    android:summary="@string/array_pref_no_change"
-                    android:key="prf_pref_lockDevice"
-                    android:defaultValue="0"
-                    android:entries="@array/lockDeviceDPArray"
-                    android:entryValues="@array/lockDeviceDPValues"
-                    android:layout="@layout/mp_preference_material_widget" />
-                <Preference
-                    android:key="prf_pref_lockDeviceInstallExtender"
-                    android:title="@string/extender_app_name"
-                    android:summary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
-                    android:widgetLayout="@layout/start_activity_preference"
-                    android:layout="@layout/mp_preference_material_widget" >
-                </Preference>
-                <Preference
-                    android:key="prf_pref_lockDeviceInstallExtenderInfo"
-                    android:title="@string/event_preferences_PPPExtenderInstallInfo_text"
-                    android:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
-                    android:widgetLayout="@layout/info_preference"
-                    android:layout="@layout/mp_preference_material_widget" />
-                <Preference
-                    android:key="prf_pref_lockDeviceAccessibilitySettings"
-                    android:title="@string/profile_preferences_lockDevice_AccessibilitySettings_title"
-                    android:summary="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"
-                    android:widgetLayout="@layout/start_activity_preference"
-                    android:layout="@layout/mp_preference_material_widget" >
-                </Preference>
-            </PreferenceScreen>
+                android:summary="@string/array_pref_no_change"
+                android:key="prf_pref_lockDevice"
+                android:defaultValue="0"
+                android:entries="@array/lockDeviceDPArray"
+                android:entryValues="@array/lockDeviceDPValues"
+                android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>    
