@@ -242,8 +242,8 @@ public class PPApplication extends Application {
                                          //+"|@@@ EventsHandler.handleEvents"
                                          //+"|EventsHandler.doEndService"
 
-                                         +"|ActivateProfileHelper.doExecuteForRadios"
-                                         +"|CmdMobileData.isEnabled"
+                                         //+"|ActivateProfileHelper.doExecuteForRadios"
+                                         //+"|CmdMobileData.isEnabled"
                                          //+"|$$$ WifiAP"
 
                                          //+"|BatteryBroadcastReceiver.onReceive"
@@ -331,6 +331,9 @@ public class PPApplication extends Application {
                                         //+ "|@ Application."
 
                                         //+ "|BitmapManipulator.resampleBitmapUri"
+
+                                        //+"|CmdGoToSleep"
+                                        //+"|CmdNfc"
             ;
 
 
