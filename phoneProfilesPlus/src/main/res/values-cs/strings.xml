@@ -1229,76 +1229,79 @@
     <string name="default_profile_name_battery_ok">OK baterie</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Aplikace</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Odkazy</string>
-    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenty</string>
 
     <string name="applications_editor_dialog_not_selected">[nevybrané]</string>
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="activate_profile_application_not_started">Aplikace není spuštěna</string>
-    <string name="intent_editor_title">Editor intentu</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor">Background color</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_android">Native</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_dark">Dark</string>
-    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">By night mode</string>
-    <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
-    <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
-    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor">Barva pozadí</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_android">Nativní</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_dark">Tmavá</string>
+    <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Podle nočního módu</string>
+    <string name="phone_profiles_pref_nightModeOffApplicationTheme">Téma pro vypnutý noční mód</string>
+    <string name="phone_profiles_pref_applicationTheme_nightMode">Podle nočního módu</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Prosím, zapněte Polohu v nastaveních systému. Bez tohoto, skenování mobilních buněk nebude fungovat.</string>
 
     <string name="phone_profiles_pref_applicationAutoCloseDrawer">Automatické schování bočního panelu</string>
 
-    <string name="event_preferences_battery_plugged">Charger type</string>
-    <string name="array_pref_battery_plugged_ac">Accumulator</string>
+    <string name="event_preferences_battery_plugged">Typ nabíječky</string>
+    <string name="array_pref_battery_plugged_ac">Akumulátor</string>
     <string name="array_pref_battery_plugged_usb">USB</string>
-    <string name="array_pref_battery_plugged_wireless">Wireless</string>
-    <string name="pref_dlg_info_about_wildcards_5">Use \"!\" at the beginning of the string when the string should not be present.</string>
-    <string name="pref_dlg_info_about_wildcards_6">\"!\" at the beginning of the string</string>
-    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary">Location disabled</string>
-    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary">Location enabled</string>
+    <string name="array_pref_battery_plugged_wireless">Bezdrátová</string>
+    <string name="pref_dlg_info_about_wildcards_5">Použijte \"!\" na začátku řetězce, když řetězec by neměl být přítomen.</string>
+    <string name="pref_dlg_info_about_wildcards_6">\"!\" na začátku řetězce</string>
+    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary">Poloha je vypnutá</string>
+    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary">Poloha je zapnutá</string>
 
-    <string name="preference_not_allowed_reason_no_sim_card">no SIM card</string>
-    <string name="preference_not_allowed_reason_not_granted_g1_permission">not granted permission WRITE_SECURE_SETTINGS</string>
-    <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary">Set to Always</string>
-    <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Not set to Always</string>
+    <string name="preference_not_allowed_reason_no_sim_card">není SIM karta</string>
+    <string name="preference_not_allowed_reason_not_granted_g1_permission">udělena povolení WRITE_SECURE_SETTINGS</string>
+    <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_setToAlways_summary">Nastavené na Vždy</string>
+    <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Nenastaveno na Vždy</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Notification access enabled</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Notification access disabled</string>
-    <string name="application_editor_intent_intent_name">Intent name:</string>
-    <string name="application_editor_intent_intent_name_hint">Intent name</string>
-    <string name="application_editor_intent_package_name">Package name:</string>
-    <string name="application_editor_intent_package_name_hint">Package name</string>
-    <string name="application_editor_intent_class_name">Class name:</string>
-    <string name="application_editor_intent_class_name_hint">Class name</string>
-    <string name="application_editor_intent_action">Action:</string>
-    <string name="application_editor_intent_action_hint">Action</string>
-    <string name="application_editor_intent_data">Data:</string>
-    <string name="application_editor_intent_data_hint">Data</string>
-    <string name="application_editor_intent_mime_type">Mime type:</string>
-    <string name="application_editor_intent_mime_type_hint">Mime type</string>
-    <string name="application_editor_intent_extras">Parameters:</string>
-    <string name="application_editor_intent_categories">Categories:</string>
-    <string name="application_editor_intent_categories_dlg_title">Categories</string>
-    <string name="application_editor_intent_flags">Flags:</string>
-    <string name="application_editor_intent_flags_dlg_title">Flags</string>
+
+    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
+    <string name="applications_preference_applicationType_intent">intent</string>
+    <string name="intent_editor_title">Editor intentu</string>
+    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intenty</string>
+    <string name="application_editor_intent_intent_name">Název intentu:</string>
+    <string name="application_editor_intent_intent_name_hint">Název intentu</string>
+    <string name="application_editor_intent_package_name">Název balíčku:</string>
+    <string name="application_editor_intent_package_name_hint">Název balíčku</string>
+    <string name="application_editor_intent_class_name">Název třídy:</string>
+    <string name="application_editor_intent_class_name_hint">Název třídy</string>
+    <string name="application_editor_intent_action">Akce:</string>
+    <string name="application_editor_intent_action_hint">Akce</string>
+    <string name="application_editor_intent_data">Údaje:</string>
+    <string name="application_editor_intent_data_hint">Údaje</string>
+    <string name="application_editor_intent_mime_type">MIME typ:</string>
+    <string name="application_editor_intent_mime_type_hint">MIME typ</string>
+    <string name="application_editor_intent_extras">Parametry:</string>
+    <string name="application_editor_intent_categories">Kategorie:</string>
+    <string name="application_editor_intent_categories_dlg_title">Kategorie</string>
+    <string name="application_editor_intent_flags">Příznaky:</string>
+    <string name="application_editor_intent_flags_dlg_title">Příznaky</string>
     <string name="application_editor_intent_test_button">Test</string>
-    <string name="application_editor_intent_extra_key">Key name</string>
-    <string name="application_editor_intent_extra_value">Key value</string>
-    <string name="application_editor_intent_extra_type">Key type:</string>
-    <string name="application_editor_intent_extra_select_categories">Select categories</string>
-    <string name="application_editor_intent_extra_select_flags">Select flags</string>
+    <string name="application_editor_intent_extra_key">Název klíče</string>
+    <string name="application_editor_intent_extra_value">Hodnota klíče</string>
+    <string name="application_editor_intent_extra_type">Typ klíče:</string>
+    <string name="application_editor_intent_extra_select_categories">Vyberte kategorie</string>
+    <string name="application_editor_intent_extra_select_flags">Vyberte příznaky</string>
     <string name="application_editor_intent_test_title">Test</string>
-    <string name="application_editor_intent_test_activity_bad_data">Bad data. Error during start of activity.</string>
-    <string name="application_editor_intent_intent_type">Intent type:</string>
-    <string name="array_intent_type_activity">Activity</string>
+    <string name="application_editor_intent_test_activity_bad_data">Chyba při startu aktivity.</string>
+    <string name="application_editor_intent_intent_type">Typ intentu:</string>
+    <string name="array_intent_type_activity">Aktivita</string>
     <string name="array_intent_type_broadcast">Broadcast</string>
-    <string name="application_editor_intent_test_broadcast_bad_data">Bad data. Error during send of broadcast.</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Chyba při odesílání broadcastu.</string>
 
-    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikace, odkazy, záměry které spustit</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustit aplikace, odkazy, záměry</string>
-    <string name="applications_editor_dialog_title">Vyber aplikaci, odkaz, záměr</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Aplikace, odkazy, intenty které spustit</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Spustit aplikace, odkazy, intenty</string>
+    <string name="applications_editor_dialog_title">Vyber aplikaci, odkaz, intent</string>
 
-    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
-    <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
+    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">Pro typ zamčení \"Použij PhoneProfilesPlusExtender\", klikněte zde pro instalaci PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Dostupnost</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovém nastavení \"Dostupnost\", pro typ zamčení \"Použij PhoneProfilesPlusExtender\".</string>
+    <string name="array_pref_lockDevice_extender">Použij PhoneProfilesPlusExtender</string>
+
+    <string name="important_info_profile_mobileCellsScanning_location">V Android 9+, aby fungovalo skenování mobilních buněk, musíte povolit Polohu v systémových nastaveních.</string>
 
     <!-- **************************************************************************************** -->
 
@@ -1328,5 +1331,5 @@
     <string name="extender_permissions_event_sensor_call_28">• Povolení pro parametry události \"Senzor hovoru\" - povolení Telefon, Deníky hovorů:</string>
     <string name="extender_toast_permissions_not_granted">Povolení nejsou udělena</string>
 
-    <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
+    <string name="extender_accessibility_service_profile_lock_device">• Služba Dostupnost pro parametr profilu \ "Zamknutí zařízení \":</string>
 </resources>

@@ -1296,12 +1296,8 @@
     <string name="default_profile_name_battery_ok">OK battery</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
-    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
-
     <string name="applications_editor_dialog_not_selected">[not selected]</string>
-    <string name="applications_preference_applicationType_intent">intent</string>
     <string name="activate_profile_application_not_started">Application is not started</string>
-    <string name="intent_editor_title">Intent editor</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Background color</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Native</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Dark</string>
@@ -1309,7 +1305,6 @@
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Theme for night mode off</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="array_pref_value_nightMode" translatable="false">night_mode</string>
-    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location settings.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
     <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
@@ -1332,6 +1327,11 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Not set to Always</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Notification access enabled</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Notification access disabled</string>
+
+    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
+    <string name="applications_preference_applicationType_intent">intent</string>
+    <string name="intent_editor_title">Intent editor</string>
+    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
     <string name="application_editor_intent_intent_name">Intent name:</string>
     <string name="application_editor_intent_intent_name_hint">Intent name</string>
     <string name="application_editor_intent_package_name">Package name:</string>
@@ -1342,8 +1342,8 @@
     <string name="application_editor_intent_action_hint">Action</string>
     <string name="application_editor_intent_data">Data:</string>
     <string name="application_editor_intent_data_hint">Data</string>
-    <string name="application_editor_intent_mime_type">Mime type:</string>
-    <string name="application_editor_intent_mime_type_hint">Mime type</string>
+    <string name="application_editor_intent_mime_type">MIME type:</string>
+    <string name="application_editor_intent_mime_type_hint">MIME type</string>
     <string name="application_editor_intent_extras">Parameters:</string>
     <string name="application_editor_intent_categories">Categories:</string>
     <string name="application_editor_intent_categories_dlg_title">Categories</string>
@@ -1356,11 +1356,11 @@
     <string name="application_editor_intent_extra_select_categories">Select categories</string>
     <string name="application_editor_intent_extra_select_flags">Select flags</string>
     <string name="application_editor_intent_test_title">Test</string>
-    <string name="application_editor_intent_test_activity_bad_data">Bad data. Error during start of activity.</string>
+    <string name="application_editor_intent_test_activity_bad_data">Error during start of activity.</string>
     <string name="application_editor_intent_intent_type">Intent type:</string>
     <string name="array_intent_type_activity">Activity</string>
     <string name="array_intent_type_broadcast">Broadcast</string>
-    <string name="application_editor_intent_test_broadcast_bad_data">Bad data. Error during send of broadcast.</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Error during send of broadcast.</string>
 
     <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
@@ -1370,6 +1370,8 @@
     <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
+
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
 
     <!-- **************************************************************************************** -->
 

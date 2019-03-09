@@ -1226,19 +1226,15 @@
     <string name="default_profile_name_battery_ok">Батарея заряжена</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Приложения</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Ярлыки</string>
-    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Намерения</string>
 
 	<string name="applications_editor_dialog_not_selected">[не выбрано]</string>
-    <string name="applications_preference_applicationType_intent">намерение</string>
 	<string name="activate_profile_application_not_started">Приложение не запущено</string>
-    <string name="intent_editor_title">Редактор намерений</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Цвет фона</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Родной (Android)</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Тёмный</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">По ночному режиму</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Тема ночного режима отключена</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">По ночному режиму</string>
-    <string name="important_info_profile_mobileCellsScanning_location">В Android 9+ для работы сканера мобильных вышек нужно включить определение местоположения.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Включите, пожалуйста, определение местоположения в настройках системы. Без этого сканирование мобильных вышек работать не будет.</string>
 
     <string name="phone_profiles_pref_applicationAutoCloseDrawer">Автоскрытие бокового меню</string>
@@ -1261,8 +1257,13 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Не установлено на \"Всегда работает\"</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Доступ к уведомлениям разрешён</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Доступ к уведомлениям запрещён</string>
-    <string name="application_editor_intent_intent_name">Имя намерения:</string>
-    <string name="application_editor_intent_intent_name_hint">Имя намерения</string>
+
+    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
+    <string name="applications_preference_applicationType_intent">intent</string>
+    <string name="intent_editor_title">Intent editor</string>
+    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
+    <string name="application_editor_intent_intent_name">Intent name:</string>
+    <string name="application_editor_intent_intent_name_hint">Intent name</string>
     <string name="application_editor_intent_package_name">Имя пакета:</string>
     <string name="application_editor_intent_package_name_hint">Имя пакета</string>
     <string name="application_editor_intent_class_name">Имя класса:</string>
@@ -1285,20 +1286,22 @@
     <string name="application_editor_intent_extra_select_categories">Выберите категории</string>
     <string name="application_editor_intent_extra_select_flags">Выберите флаги</string>
     <string name="application_editor_intent_test_title">Проверить</string>
-    <string name="application_editor_intent_test_activity_bad_data">Неверные данные. Ошибка при запуске активности.</string>
-    <string name="application_editor_intent_intent_type">Тип намерения:</string>
+    <string name="application_editor_intent_test_activity_bad_data">Ошибка при запуске активности.</string>
+    <string name="application_editor_intent_intent_type">Intent type:</string>
     <string name="array_intent_type_activity">Активность</string>
-    <string name="array_intent_type_broadcast">Широковещательное сообщение</string>
-    <string name="application_editor_intent_test_broadcast_bad_data">Неверные данные. Ошибка при отправке широковещательного сообщения.</string>
+    <string name="array_intent_type_broadcast">Broadcast</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Error during send of broadcast.</string>
 
-    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Приложения, ярлыки, намерения для запуска</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запуск приложений, ярлыков, намерений</string>
-    <string name="applications_editor_dialog_title">Выберите приложение, ярлык, намерение</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
+    <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
 
     <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
+
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
 
     <!-- **************************************************************************************** -->
 

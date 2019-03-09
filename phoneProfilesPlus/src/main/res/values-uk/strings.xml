@@ -1226,19 +1226,15 @@
     <string name="default_profile_name_battery_ok">OK аккумулятор</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Додатки</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Ярлики</string>
-    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Цілі</string>
 
     <string name="applications_editor_dialog_not_selected">[не вибрано]</string>
-    <string name="applications_preference_applicationType_intent">ціль</string>
     <string name="activate_profile_application_not_started">Додаток не запущено</string>
-    <string name="intent_editor_title">Редактор цілей</string>
     <string name="phone_profiles_pref_notificationBackgroundColor">Колір фону</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Оригінальний</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Темний</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Нічний режим</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Тема до нічного режиму вимкнута</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">Нічний режим</string>
-    <string name="important_info_profile_mobileCellsScanning_location">В Android 9+, щоб працювало сканування мобільних вишок, потрібно увімкнути Розташування в налаштуваннях.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Увімкніть Розташування в Налаштуваннях системи. Без цього, сканування мобільних вишок не буде працювати.</string>
 
     <string name="phone_profiles_pref_applicationAutoCloseDrawer">Автоматично ховати бічну панель</string>
@@ -1261,8 +1257,13 @@
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings_notSetToAlways_summary">Не встановлено Завжди</string>
     <string name="event_preferences_notificationsAccessSettings_enabled_summary">Доступ до Сповіщень надано</string>
     <string name="event_preferences_notificationsAccessSettings_disabled_summary">Доступ до Сповіщень НЕ надано</string>
-    <string name="application_editor_intent_intent_name">Назва цілі:</string>
-    <string name="application_editor_intent_intent_name_hint">Назва цілі</string>
+
+    <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
+    <string name="applications_preference_applicationType_intent">intent</string>
+    <string name="intent_editor_title">Intent editor</string>
+    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
+    <string name="application_editor_intent_intent_name">Intent name:</string>
+    <string name="application_editor_intent_intent_name_hint">Intent name</string>
     <string name="application_editor_intent_package_name">Назва пакету:</string>
     <string name="application_editor_intent_package_name_hint">Назва пакету</string>
     <string name="application_editor_intent_class_name">Назва класу:</string>
@@ -1271,8 +1272,8 @@
     <string name="application_editor_intent_action_hint">Дія</string>
     <string name="application_editor_intent_data">Дані:</string>
     <string name="application_editor_intent_data_hint">Дані</string>
-    <string name="application_editor_intent_mime_type">Mime тип:</string>
-    <string name="application_editor_intent_mime_type_hint">Mime тип</string>
+    <string name="application_editor_intent_mime_type">MIME тип:</string>
+    <string name="application_editor_intent_mime_type_hint">MIME тип</string>
     <string name="application_editor_intent_extras">Параметри:</string>
     <string name="application_editor_intent_categories">Категорії:</string>
     <string name="application_editor_intent_categories_dlg_title">Категорії</string>
@@ -1285,20 +1286,22 @@
     <string name="application_editor_intent_extra_select_categories">Вибрати категорії</string>
     <string name="application_editor_intent_extra_select_flags">Вибрати мітки</string>
     <string name="application_editor_intent_test_title">Тест</string>
-    <string name="application_editor_intent_test_activity_bad_data">Погані дані. Помилка на початку дії.</string>
-    <string name="application_editor_intent_intent_type">Тип цілі:</string>
+    <string name="application_editor_intent_test_activity_bad_data">Помилка на початку дії.</string>
+    <string name="application_editor_intent_intent_type">Intent type:</string>
     <string name="array_intent_type_activity">Дія</string>
-    <string name="array_intent_type_broadcast">Мовлення</string>
-    <string name="application_editor_intent_test_broadcast_bad_data">Погані дані. Помилка під час мовлення.</string>
+    <string name="array_intent_type_broadcast">Broadcast</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Error during send of broadcast.</string>
 
-    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Додатки, ярлики, цілі щоб запустити</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запустити додаток, ярлик, ціль</string>
-    <string name="applications_editor_dialog_title">Встановити додаток, ярлик, ціль</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
+    <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
 
     <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
+
+    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
 
     <!-- **************************************************************************************** -->
 
