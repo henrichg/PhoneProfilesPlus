@@ -695,7 +695,7 @@
   <string name="donation_google_android_market">Google Play Store</string>
   <string name="donation_google_android_market_text">Сколько?</string>
   <string name="donation_google_android_market_donate_button">Пожертвовать</string>
-  <string name="about_application_releases">Релизы</string>
+  <string name="about_application_releases">Релизы:</string>
   <string name="permission_group_name_draw_overlays">Отображать поверх других приложений</string>
   <string name="permissions_draw_overlays_not_allowed_confirm">Отображение поверх других приложений отключено. Не спрашивать больше?</string>
   <string name="phone_profiles_pref_drawOverlaysPermissions">Отображать поверх других приложений</string>
@@ -1260,10 +1260,10 @@
 
     <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
     <string name="applications_preference_applicationType_intent">intent</string>
-    <string name="intent_editor_title">Intent editor</string>
-    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
-    <string name="application_editor_intent_intent_name">Intent name:</string>
-    <string name="application_editor_intent_intent_name_hint">Intent name</string>
+    <string name="intent_editor_title">Редактор intent\'ов</string>
+    <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intent\'ы</string>
+    <string name="application_editor_intent_intent_name">Имя intent\'а:</string>
+    <string name="application_editor_intent_intent_name_hint">Имя intent\'а</string>
     <string name="application_editor_intent_package_name">Имя пакета:</string>
     <string name="application_editor_intent_package_name_hint">Имя пакета</string>
     <string name="application_editor_intent_class_name">Имя класса:</string>
@@ -1287,23 +1287,23 @@
     <string name="application_editor_intent_extra_select_flags">Выберите флаги</string>
     <string name="application_editor_intent_test_title">Проверить</string>
     <string name="application_editor_intent_test_activity_bad_data">Ошибка при запуске активности.</string>
-    <string name="application_editor_intent_intent_type">Intent type:</string>
+    <string name="application_editor_intent_intent_type">Тип intent\'а:</string>
     <string name="array_intent_type_activity">Активность</string>
     <string name="array_intent_type_broadcast">Broadcast</string>
-    <string name="application_editor_intent_test_broadcast_bad_data">Error during send of broadcast.</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Ошибка при отправке broadcast\'а.</string>
 
-    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
-    <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Приложения, ярлыки, intent\'ы для запуска</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запуск приложений, ярлыков, intent\'ов</string>
+    <string name="applications_editor_dialog_title">Выберите приложение, ярлык, intent</string>
 
-    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
-    <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
+    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">Для использования типа блокировки \"Использовать PhoneProfilesPlusExtender\" нужно установить PhoneProfilesPlusExtender. Нажмите сюда, чтобы сделать это.</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Настройки спец. возможностей</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Для использования типа блокировки \"Использовать PhoneProfilesPlusExtender\" разрешите доступ службе PhoneProfilesPlusExtender в разделе \"Спец. возможности\" системных настроек.</string>
+    <string name="array_pref_lockDevice_extender">Использовать PhoneProfilesPlusExtender</string>
 
-    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+    <string name="important_info_profile_mobileCellsScanning_location">В Android 9+ для работы сканера мобильных вышек нужно включить определение местоположения в настройках системы.</string>
 
-    <!-- **************************************************************************************** -->
+   <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
     <string name="extender_accessibility_service_name">PhoneProfilesPlusExtender</string>
@@ -1331,5 +1331,5 @@
     <string name="extender_permissions_event_sensor_call_28">• Разрешения для параметра события \"Датчик вызовов\" - разрешения \"Телефон\“, \"Журнал звонков\":</string>
     <string name="extender_toast_permissions_not_granted">Разрешения не предоставлены</string>
 
-    <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
+    <string name="extender_accessibility_service_profile_lock_device">• Служба спец. возможностей для параметра профиля \"Блокировка устройства\":</string>
 </resources>
