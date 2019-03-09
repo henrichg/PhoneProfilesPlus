@@ -814,7 +814,7 @@
   <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">Цей профіль буде активовано, якщо немає будь-яких подій.</string>
   <string name="altype_applicationStartOnBoot">запуск при увімкненні</string>
   <string name="profile_preferences_hideStatusBarIcon">Приховати іконку статус бару</string>
-  <string name="profile_preferences_lockDevice">Блокування пристрою</string>
+  <string name="profile_preferences_lockDevice">Блокування телефону</string>
   <string name="array_pref_lockDevice_root">(R) Потрібен ROOT</string>
   <string name="array_pref_lockDevice_screenOff">Використовуйте швидке вимкнення екрану</string>
   <string name="lockDevice_screenOff_text">Швидке блокування вимкнення екрану</string>
@@ -1141,7 +1141,7 @@
   <string name="permission_why_profile_vibrate_when_ringing">для вкл/вимк вібрування під час дзвінка</string>
   <string name="permission_why_play_ringtone_notification">для відтворення мелодій виклику та сповіщень</string>
   <string name="permission_why_profile_access_notification_policy">для зміни звукового профілю, гучності дзвінка, повідомлень, звуків системи</string>
-  <string name="permission_why_profile_lock_device">для блокування пристрою</string>
+  <string name="permission_why_profile_lock_device">для блокування телефону</string>
   <string name="permission_why_ringtone_preference">для завантаження мелодій дзвінка з сховища</string>
   <string name="permission_why_profile_dtmf_tone_when_dialing">для вкл/вимк DTMF тону при наборі номеру</string>
   <string name="permission_why_profile_sound_on_touch">для вкл/вимк звуку при натисканні</string>
@@ -1260,10 +1260,10 @@
 
     <!-- DO NOT TRANSLATE words "intent", "broadcast" -->
     <string name="applications_preference_applicationType_intent">intent</string>
-    <string name="intent_editor_title">Intent editor</string>
+    <string name="intent_editor_title">Intent редактор</string>
     <string name="array_pref_applicationsEditorDialogFilter_intents">(I) Intents</string>
-    <string name="application_editor_intent_intent_name">Intent name:</string>
-    <string name="application_editor_intent_intent_name_hint">Intent name</string>
+    <string name="application_editor_intent_intent_name">Intent назва:</string>
+    <string name="application_editor_intent_intent_name_hint">Intent назва</string>
     <string name="application_editor_intent_package_name">Назва пакету:</string>
     <string name="application_editor_intent_package_name_hint">Назва пакету</string>
     <string name="application_editor_intent_class_name">Назва класу:</string>
@@ -1287,21 +1287,21 @@
     <string name="application_editor_intent_extra_select_flags">Вибрати мітки</string>
     <string name="application_editor_intent_test_title">Тест</string>
     <string name="application_editor_intent_test_activity_bad_data">Помилка на початку дії.</string>
-    <string name="application_editor_intent_intent_type">Intent type:</string>
+    <string name="application_editor_intent_intent_type">Intent тип:</string>
     <string name="array_intent_type_activity">Дія</string>
     <string name="array_intent_type_broadcast">Broadcast</string>
-    <string name="application_editor_intent_test_broadcast_bad_data">Error during send of broadcast.</string>
+    <string name="application_editor_intent_test_broadcast_bad_data">Помилка broadcast.</string>
 
-    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Applications, shortcuts, intents to run it</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Run applications, shortcuts, intents</string>
-    <string name="applications_editor_dialog_title">Set application, shortcut, intent</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Додатки, ярлики, intents щоб запустити</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsChange">Запустити додатки, ярлики, intents</string>
+    <string name="applications_editor_dialog_title">Встановити додатки, ярлики, intent</string>
 
-    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">For lock type \"Use PhoneProfilesPlusExtender\", click here to install PhoneProfilesPlusExtender.</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Accessibility settings</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">For lock type \"Use PhoneProfilesPlusExtender\", allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
-    <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
+    <string name="profile_preferences_lockDevice_PPPExtender_install_summary">Для типу блокування \"Use PhoneProfilesPlusExtender\", натисніть тут щоб встановити PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettings_title"> Налаштування Спец. можливостей</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Для типу блокування \"Use PhoneProfilesPlusExtender\", дайте дозвіл PhoneProfilesPlusExtender \"Accessibility\" в налаштуваннях телефону.</string>
+    <string name="array_pref_lockDevice_extender">Використвувати PhoneProfilesPlusExtender</string>
 
-    <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+    <string name="important_info_profile_mobileCellsScanning_location"> Android 9+, щоб працювало сканування по стільниковим вишкам, потрібно активувати доступ до Розташування в налаштуваннях телефону.</string>
 
     <!-- **************************************************************************************** -->
 
@@ -1326,10 +1326,10 @@
     <string name="extender_permissions_granted">Надано</string>
     <string name="extender_permissions_button">Надати/Заборонити\nдозволи</string>
 
-    <string name="extender_accessibility_service_event_sensor_call">• Служба спец. можливостей для параметру подій \"Датчик викликів\". Служба спец. можливостей не використовується, служба потрібна для отримання викликів.:</string>
+    <string name="extender_accessibility_service_event_sensor_call">• Служба спец. можливостей до параметру подій \"Датчик викликів\". Служба спец. можливостей не використовується, служба потрібна для отримання викликів.:</string>
     <string name="extender_permissions_event_sensor_call">• Дозволи до параметру подій \"Датчик викликів\" - дозвіл Телефон:</string>
     <string name="extender_permissions_event_sensor_call_28">• Дозволи до параметру подій \"Датчик викликів\" - дозвіл Телефон, Журнал викликів:</string>
     <string name="extender_toast_permissions_not_granted">Дозволи не надані</string>
 
-    <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
+    <string name="extender_accessibility_service_profile_lock_device">• Служба спец. можливостей для параметра профілю \"Блокування телефону\":</string>
 </resources>
