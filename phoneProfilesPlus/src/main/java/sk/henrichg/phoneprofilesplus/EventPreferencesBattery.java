@@ -145,7 +145,7 @@ class EventPreferencesBattery extends EventPreferences {
                     descr = descr + ": " + charging[this._charging];
 
                     String selectedPlugged = context.getString(R.string.applications_multiselect_summary_text_not_selected);
-                    if (!this._plugged.isEmpty() && !this._plugged.equals("-")) {
+                    if ((this._plugged != null) && !this._plugged.isEmpty() && !this._plugged.equals("-")) {
                         String[] splits = this._plugged.split("\\|");
                         String[] pluggedValues = context.getResources().getStringArray(R.array.eventBatteryPluggedValues);
                         String[] pluggedNames = context.getResources().getStringArray(R.array.eventBatteryPluggedArray);

@@ -1377,7 +1377,7 @@ public class DataWrapper {
                     event._eventPreferencesBattery._powerSaveMode = false;
                 }
                 event._eventPreferencesBattery._charging = 0;
-                event._eventPreferencesBattery._plugged = null;
+                event._eventPreferencesBattery._plugged = "";
                 break;
             default:
                 event = null;
