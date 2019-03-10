@@ -503,6 +503,7 @@ public class PPApplication extends Application {
     public static Handler brightnessHandler;
     public static Handler screenTimeoutHandler;
 
+    public static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
     public static final RootMutex rootMutex = new RootMutex();
     private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     //public static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();

@@ -241,7 +241,7 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "android.os.Build.VERSION.SDK_INT=" + android.os.Build.VERSION.SDK_INT);
 
-        synchronized (PhoneProfilesService.class) {
+        synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
 
@@ -341,7 +341,7 @@ public class PhoneProfilesService extends Service
         } catch (Exception ignored) {
         }
 
-        synchronized (PhoneProfilesService.class) {
+        synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = null;
         }
 
@@ -353,7 +353,9 @@ public class PhoneProfilesService extends Service
     }
 
     static PhoneProfilesService getInstance() {
-        return instance;
+        synchronized (PPApplication.phoneProfilesServiceMutex) {
+            return instance;
+        }
     }
 
     boolean getServiceHasFirstStart() {
@@ -4717,7 +4719,7 @@ public class PhoneProfilesService extends Service
 
             PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
 
-            synchronized (PhoneProfilesService.class) {
+        synchronized (PPApplication.phoneProfilesServiceMutex) {
                 if (!runningInForeground || (instance == null)) {
                     //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                     DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
@@ -4736,7 +4738,7 @@ public class PhoneProfilesService extends Service
             @Override
             public void run() {
                 PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","instance="+PhoneProfilesService.getInstance());
-                synchronized (PhoneProfilesService.class) {
+                synchronized (PPApplication.phoneProfilesServiceMutex) {
                     if (instance != null) {
                         DataWrapper dataWrapper = new DataWrapper(instance.getApplicationContext(), false, 0, false);
                         Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
