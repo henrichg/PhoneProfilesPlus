@@ -2021,13 +2021,15 @@ public class DataWrapper {
                         batteryPassed = true;
 
                     if ((event._eventPreferencesBattery._charging > 0) ||
-                            (!event._eventPreferencesBattery._plugged.isEmpty())){
+                            ((event._eventPreferencesBattery._plugged != null) &&
+                             (!event._eventPreferencesBattery._plugged.isEmpty()))){
                         if (event._eventPreferencesBattery._charging == 1)
                             batteryPassed = batteryPassed && isCharging;
                         else
                         if (event._eventPreferencesBattery._charging == 2)
                             batteryPassed = batteryPassed && (!isCharging);
-                        if (!event._eventPreferencesBattery._plugged.isEmpty()) {
+                        if ((event._eventPreferencesBattery._plugged != null) &&
+                            (!event._eventPreferencesBattery._plugged.isEmpty())) {
                             String[] splits = event._eventPreferencesBattery._plugged.split("\\|");
                             if (splits.length > 0) {
                                 boolean passed = false;
