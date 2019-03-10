@@ -72,7 +72,11 @@ class EventPreferencesBattery extends EventPreferences {
         //editor.putBoolean(PREF_EVENT_BATTERY_CHARGING, this._charging);
         editor.putString(PREF_EVENT_BATTERY_CHARGING, String.valueOf(this._charging));
 
-        String[] splits = this._plugged.split("\\|");
+        String[] splits;
+        if (this._plugged != null)
+            splits = this._plugged.split("\\|");
+        else
+            splits = new String[]{};
         Set<String> set = new HashSet<>(Arrays.asList(splits));
         editor.putStringSet(PREF_EVENT_BATTERY_PLUGGED, set);
 
