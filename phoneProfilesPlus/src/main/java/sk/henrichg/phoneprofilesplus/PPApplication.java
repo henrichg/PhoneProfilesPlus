@@ -695,7 +695,7 @@ public class PPApplication extends Application {
             try {
                 PPApplication.logE("##### PPApplication.onCreate", "start service");
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 startPPService(getApplicationContext(), serviceIntent);
@@ -1682,7 +1682,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
             PPApplication.runCommand(context, commandIntent);
@@ -1698,7 +1698,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
             PPApplication.runCommand(context, commandIntent);
@@ -1715,7 +1715,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_WIFI_SCANNER);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
@@ -1732,7 +1732,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
             PPApplication.runCommand(context, commandIntent);
@@ -1748,7 +1748,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
             PPApplication.runCommand(context, commandIntent);
@@ -1765,7 +1765,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BLUETOOTH_SCANNER);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
@@ -1783,7 +1783,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_GEOFENCE_SCANNER);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
@@ -1801,7 +1801,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
@@ -1818,7 +1818,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
             PPApplication.runCommand(context, commandIntent);
@@ -1835,7 +1835,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
@@ -1853,7 +1853,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ALL_SCANNERS);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
@@ -1871,7 +1871,7 @@ public class PPApplication extends Application {
             serviceIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, reactivateProfile);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
             commandIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
             commandIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, reactivateProfile);

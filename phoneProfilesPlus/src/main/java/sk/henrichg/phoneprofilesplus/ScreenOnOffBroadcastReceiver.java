@@ -103,7 +103,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
                             PPApplication.startPPService(appContext, serviceIntent);*/
                             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                             commandIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
                             PPApplication.runCommand(appContext, commandIntent);
                         } catch (Exception ignored) {

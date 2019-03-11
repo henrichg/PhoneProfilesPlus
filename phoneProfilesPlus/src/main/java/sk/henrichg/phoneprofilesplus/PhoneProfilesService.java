@@ -152,7 +152,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_STOP_SCANNER_TYPE = "start_stop_scanner_type";
     static final String EXTRA_START_ON_BOOT = "start_on_boot";
     static final String EXTRA_START_ON_PACKAGE_REPLACE = "start_on_package_replace";
-    static final String EXTRA_ONLY_START = "only_start";
+    //static final String EXTRA_ONLY_START = "only_start";
     static final String EXTRA_INITIALIZE_START = "initialize_start";
     static final String EXTRA_ACTIVATE_PROFILES = "activate_profiles";
     //static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
@@ -3153,22 +3153,22 @@ public class PhoneProfilesService extends Service
     private void/*boolean*/ doForFirstStart(Intent intent/*, int flags, int startId*/) {
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart START");
 
-        boolean onlyStart = true;
+        //boolean onlyStart = true;
         boolean initializeStart = false;
         boolean activateProfiles = false;
         boolean startOnBoot = false;
         boolean startOnPackageReplace = false;
 
         if (intent != null) {
-            onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
+            //onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
             initializeStart = intent.getBooleanExtra(EXTRA_INITIALIZE_START, false);
             activateProfiles = intent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
             startOnBoot = intent.getBooleanExtra(EXTRA_START_ON_BOOT, false);
             startOnPackageReplace = intent.getBooleanExtra(EXTRA_START_ON_PACKAGE_REPLACE, false);
         }
 
-        if (onlyStart)
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
+        //if (onlyStart)
+        //    PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_ONLY_START");
         if (initializeStart)
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "EXTRA_INITIALIZE_START");
         if (activateProfiles)
@@ -3180,8 +3180,8 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "serviceRunning="+serviceRunning);
 
-        if (serviceRunning && onlyStart && !startOnBoot && !startOnPackageReplace && !initializeStart) {
-            PPApplication.logE("PhoneProfilesService.doForFirstStart", "only EXTRA_ONLY_START, service already running");
+        if (serviceRunning && /*onlyStart &&*/ !startOnBoot && !startOnPackageReplace && !initializeStart) {
+            PPApplication.logE("PhoneProfilesService.doForFirstStart", "service already running");
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
             return;// true;
         }
@@ -3198,7 +3198,7 @@ public class PhoneProfilesService extends Service
 
         final Context appContext = getApplicationContext();
 
-        if (onlyStart) {
+        //if (onlyStart) {
             /*
             registerReceiversAndJobs();
             DonationNotificationJob.scheduleJob(getApplicationContext(), true);
@@ -3381,7 +3381,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
             });
-        }
+        //}
 
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
 

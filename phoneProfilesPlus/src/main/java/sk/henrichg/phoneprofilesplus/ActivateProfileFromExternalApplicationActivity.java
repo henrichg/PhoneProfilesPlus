@@ -54,7 +54,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true)) {
             PPApplication.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
             PPApplication.startPPService(this, serviceIntent);

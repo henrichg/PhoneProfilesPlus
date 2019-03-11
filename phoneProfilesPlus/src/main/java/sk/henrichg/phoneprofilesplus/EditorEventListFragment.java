@@ -441,7 +441,7 @@ public class EditorEventListFragment extends Fragment
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
             PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
             PPApplication.runCommand(activityDataWrapper.context, commandIntent);
         }
@@ -519,7 +519,7 @@ public class EditorEventListFragment extends Fragment
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
         PPApplication.startPPService(getActivity(), serviceIntent);*/
         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-        commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
         PPApplication.runCommand(getActivity(), commandIntent);
 
@@ -637,7 +637,7 @@ public class EditorEventListFragment extends Fragment
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
                         PPApplication.startPPService(getActivity(), serviceIntent);*/
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
                         PPApplication.runCommand(getActivity(), commandIntent);
                     }

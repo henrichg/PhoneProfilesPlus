@@ -484,7 +484,7 @@ public class EditorProfileListFragment extends Fragment
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
         PPApplication.startPPService(getActivity(), serviceIntent);*/
         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-        commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
         PPApplication.runCommand(getActivity(), commandIntent);
 
@@ -602,7 +602,7 @@ public class EditorProfileListFragment extends Fragment
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                     PPApplication.startPPService(getActivity(), serviceIntent);*/
                     Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                    commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                    //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                     PPApplication.runCommand(getActivity(), commandIntent);
 

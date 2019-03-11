@@ -781,7 +781,7 @@ class EventsHandler {
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
                                 PPApplication.startPPService(context, serviceIntent);*/
                                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                                 commandIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
                                 // add saved ringer mode, zen mode, ringtone before handle events as parameters
                                 // ringing call simulator compare this with new (actual values), changed by currently activated profile

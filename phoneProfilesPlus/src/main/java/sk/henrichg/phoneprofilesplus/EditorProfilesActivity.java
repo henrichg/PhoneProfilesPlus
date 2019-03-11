@@ -585,7 +585,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             //PPApplication.firstStartServiceStarted = false;
             PPApplication.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+            //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
             PPApplication.startPPService(this, serviceIntent);
@@ -600,7 +600,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
                 PPApplication.startPPService(this, serviceIntent);
@@ -1207,7 +1207,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.startPPService(this, serviceIntent);*/
                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.runCommand(this, commandIntent);
             }
@@ -1246,7 +1246,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.startPPService(this, serviceIntent);*/
                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.runCommand(this, commandIntent);
             }
@@ -1269,7 +1269,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.startPPService(this, serviceIntent);*/
                 Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
                 PPApplication.runCommand(this, commandIntent);
 
@@ -1596,7 +1596,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     PPApplication.setApplicationStarted(this.dataWrapper.context, true);
                     Intent serviceIntent = new Intent(this.dataWrapper.context, PhoneProfilesService.class);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
                     PPApplication.startPPService(activity, serviceIntent);
