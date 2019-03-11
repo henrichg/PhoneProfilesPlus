@@ -248,6 +248,7 @@ public class PhoneProfilesService extends Service
     private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            PPApplication.logE("PhoneProfilesService.stopReceiver", "xxx");
             context.removeStickyBroadcast(intent);
             stopForeground(true);
             stopSelf();
