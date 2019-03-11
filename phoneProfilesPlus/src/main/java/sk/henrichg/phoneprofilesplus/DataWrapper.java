@@ -4010,6 +4010,15 @@ public class DataWrapper {
                     if (finish)
                         activity.finish();
 
+                    if (!PPApplication.getApplicationStarted(context, true)) {
+                        PPApplication.setApplicationStarted(context, true);
+                        Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_INITIALIZE_START, true);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, false);
+                        PPApplication.startPPService(context, serviceIntent);
+                    }
+
                     restartEventsWithRescan();
                 }
             });
