@@ -322,11 +322,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                         //if (restartService) {
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, false)) {
-                                restartService = true;
                                 // application was started before upgrade
                                 if (!PPApplication.getApplicationStarted(appContext, true)) {
                                     // service is not started, start it
                                     PPApplication.logE("PackageReplacedReceiver.onReceive", "restart PhoneProfilesService");
+                                    restartService = true;
                                     startService(dataWrapper);
                                 }
                                 else
