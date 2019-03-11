@@ -151,10 +151,9 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                     else
                         activity = "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS";
                     if (GlobalGUIRoutines.activityActionExists(activity, context)) {
-                        Intent intent = new Intent();
+                        Intent intent = new Intent(activity);
                         startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
-                    }
-                    else {
+                    } else {
                         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                         dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
                         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
