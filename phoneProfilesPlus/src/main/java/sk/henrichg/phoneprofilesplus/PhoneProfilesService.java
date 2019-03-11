@@ -349,8 +349,13 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("PhoneProfilesService.onDestroy", "xxx");
 
-        unregisterReceiver(commandReceiver);
-        unregisterReceiver(stopReceiver);
+        try {
+            unregisterReceiver(commandReceiver);
+        } catch (Exception ignored) {}
+        try {
+            unregisterReceiver(stopReceiver);
+        } catch (Exception ignored) {}
+
         unregisterReceiversAndJobs();
 
         stopSimulatingRingingCall(/*true*/);
