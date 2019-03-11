@@ -95,6 +95,7 @@ public class MobileCellsRegistrationService extends Service {
         }
         else {
             setMobileCellsAutoRegistration(context, true);
+            stopForeground(true);
             stopSelf();
         }
     }

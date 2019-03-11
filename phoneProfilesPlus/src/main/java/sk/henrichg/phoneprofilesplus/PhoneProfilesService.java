@@ -12,6 +12,7 @@ import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothHeadset;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -231,6 +232,20 @@ public class PhoneProfilesService extends Service
     String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
     boolean connectToSSIDStarted = false;
 
+
+    //--------------------------
+
+    private static final String ACTION_STOP = "sk.henrichg.phoneprofilesplus.ACTION_STOP";
+
+    private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            context.removeStickyBroadcast(intent);
+            stopForeground(true);
+            stopSelf();
+        }
+    };
+
     //--------------------------
 
     //public static SipManager mSipManager = null;
@@ -253,6 +268,9 @@ public class PhoneProfilesService extends Service
         if (Build.VERSION.SDK_INT >= 26)
             // show empty notification to avoid ANR
             showProfileNotification(true);
+
+        registerReceiver(
+                stopReceiver, new IntentFilter(ACTION_STOP));
 
         Context appContext = getApplicationContext();
 
@@ -323,6 +341,7 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("PhoneProfilesService.onDestroy", "xxx");
 
+        unregisterReceiver(stopReceiver);
         unregisterReceiversAndJobs();
 
         stopSimulatingRingingCall(/*true*/);
@@ -356,6 +375,10 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             return instance;
         }
+    }
+
+    public static void stop(Context context) {
+        context.sendStickyBroadcast(new Intent(ACTION_STOP));
     }
 
     boolean getServiceHasFirstStart() {

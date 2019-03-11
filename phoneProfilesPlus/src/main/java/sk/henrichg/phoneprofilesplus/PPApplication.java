@@ -2056,7 +2056,10 @@ public class PPApplication extends Application {
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 
             PPApplication.logE("PPApplication._exitApp", "stop service");
-            context.stopService(new Intent(context, PhoneProfilesService.class));
+            // maybe fixes ANR Context.startForegroundService() did not then call Service.startForeground
+            //PhoneProfilesService.getInstance().showProfileNotification(false);
+            //context.stopService(new Intent(context, PhoneProfilesService.class));
+            PhoneProfilesService.stop(context);
 
             Permissions.setAllShowRequestPermissions(context.getApplicationContext(), true);
 
