@@ -16,7 +16,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
         CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
 
         if (intent != null)
-            PPApplication.logE("ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
         else
             return;
 
@@ -98,10 +98,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         // enable/disable keyguard
                         try {
                             // start PhoneProfilesService
-                            Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
+                            /*Intent serviceIntent = new Intent(appContext, PhoneProfilesService.class);
                             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                             serviceIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
-                            PPApplication.startPPService(appContext, serviceIntent);
+                            PPApplication.startPPService(appContext, serviceIntent);*/
+                            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                            commandIntent.putExtra(PhoneProfilesService.EXTRA_SWITCH_KEYGUARD, true);
+                            PPApplication.runCommand(appContext, commandIntent);
                         } catch (Exception ignored) {
                         }
 

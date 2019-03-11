@@ -155,8 +155,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_ONLY_START = "only_start";
     static final String EXTRA_INITIALIZE_START = "initialize_start";
     static final String EXTRA_ACTIVATE_PROFILES = "activate_profiles";
-    static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
-    static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
+    //static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
+    //static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
     static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
     static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
@@ -235,7 +235,15 @@ public class PhoneProfilesService extends Service
 
     //--------------------------
 
-    private static final String ACTION_STOP = "sk.henrichg.phoneprofilesplus.ACTION_STOP";
+    static final String ACTION_COMMAND = "sk.henrichg.phoneprofilesplus.PhoneProfilesService.ACTION_COMMAND";
+    private static final String ACTION_STOP = "sk.henrichg.phoneprofilesplus.PhoneProfilesService.ACTION_STOP";
+
+    private final BroadcastReceiver commandReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            doCommand(intent);
+        }
+    };
 
     private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
         @Override
@@ -269,8 +277,8 @@ public class PhoneProfilesService extends Service
             // show empty notification to avoid ANR
             showProfileNotification(true);
 
-        registerReceiver(
-                stopReceiver, new IntentFilter(ACTION_STOP));
+        registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
+        LocalBroadcastManager.getInstance(this).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
         Context appContext = getApplicationContext();
 
@@ -341,6 +349,7 @@ public class PhoneProfilesService extends Service
     {
         PPApplication.logE("PhoneProfilesService.onDestroy", "xxx");
 
+        unregisterReceiver(commandReceiver);
         unregisterReceiver(stopReceiver);
         unregisterReceiversAndJobs();
 
@@ -3141,7 +3150,7 @@ public class PhoneProfilesService extends Service
     }
 
     // start service for first start
-    private boolean doForFirstStart(Intent intent/*, int flags, int startId*/) {
+    private void/*boolean*/ doForFirstStart(Intent intent/*, int flags, int startId*/) {
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart START");
 
         boolean onlyStart = true;
@@ -3174,7 +3183,7 @@ public class PhoneProfilesService extends Service
         if (serviceRunning && onlyStart && !startOnBoot && !startOnPackageReplace && !initializeStart) {
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "only EXTRA_ONLY_START, service already running");
             PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
-            return true;
+            return;// true;
         }
 
         /*
@@ -3376,7 +3385,7 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("PhoneProfilesService.doForFirstStart", "PhoneProfilesService.doForFirstStart END");
 
-        return onlyStart;
+        //return onlyStart;
     }
 
     @Override
@@ -3411,772 +3420,210 @@ public class PhoneProfilesService extends Service
             }
         }*/
 
-        if (!doForFirstStart(intent/*, flags, startId*/)) {
-            if (intent != null) {
-                /*if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
-                    // not needed, is already called in start of onStartCommand
-                    //showProfileNotification();
-                }
-                else*/
-                if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
-                    clearProfileNotification(/*this*/);
-                }
-                else
-                if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SET_SERVICE_FOREGROUND");
-                    // not needed, is already called in start of onStartCommand
-                    //showProfileNotification();
-                }
-                else
-                if (intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SWITCH_KEYGUARD");
+        /*if (!doForFirstStart(intent)) {
+        }*/
+        doForFirstStart(intent);
 
-                    Context appContext = getApplicationContext();
+        // We want this service to continue running until it is explicitly
+        // stopped, so return sticky.
+        return START_STICKY;
+    }
 
-                    boolean isScreenOn;
-                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
+    private void doCommand(Intent intent) {
+        if (intent != null) {
+            /*if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
+                // not needed, is already called in start of onStartCommand
+                //showProfileNotification();
+            }
+            else
+            if (intent.getBooleanExtra(EXTRA_CLEAR_SERVICE_FOREGROUND, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_CLEAR_SERVICE_FOREGROUND");
+                clearProfileNotification();
+            }
+            else
+            if (intent.getBooleanExtra(EXTRA_SET_SERVICE_FOREGROUND, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_SET_SERVICE_FOREGROUND");
+                // not needed, is already called in start of onStartCommand
+                //showProfileNotification();
+            }
+            else*/
+            if (intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_SWITCH_KEYGUARD");
 
-                    boolean secureKeyguard;
-                    if (keyguardManager == null)
-                        keyguardManager = (KeyguardManager) appContext.getSystemService(Activity.KEYGUARD_SERVICE);
-                    if (keyguardManager != null) {
-                        secureKeyguard = keyguardManager.isKeyguardSecure();
-                        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "secureKeyguard=" + secureKeyguard);
-                        if (!secureKeyguard) {
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand xxx", "getLockScreenDisabled=" + ActivateProfileHelper.getLockScreenDisabled(appContext));
+                Context appContext = getApplicationContext();
 
-                            if (isScreenOn) {
-                                PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "screen on");
+                boolean isScreenOn;
+                PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
 
-                                if (ActivateProfileHelper.getLockScreenDisabled(appContext)) {
-                                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "disableKeyguard(), START_STICKY");
-                                    reenableKeyguard();
-                                    disableKeyguard();
-                                } else {
-                                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "reenableKeyguard(), stopSelf(), START_NOT_STICKY");
-                                    reenableKeyguard();
-                                }
+                boolean secureKeyguard;
+                if (keyguardManager == null)
+                    keyguardManager = (KeyguardManager) appContext.getSystemService(Activity.KEYGUARD_SERVICE);
+                if (keyguardManager != null) {
+                    secureKeyguard = keyguardManager.isKeyguardSecure();
+                    PPApplication.logE("$$$ PhoneProfilesService.doCommand", "secureKeyguard=" + secureKeyguard);
+                    if (!secureKeyguard) {
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand xxx", "getLockScreenDisabled=" + ActivateProfileHelper.getLockScreenDisabled(appContext));
+
+                        if (isScreenOn) {
+                            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "screen on");
+
+                            if (ActivateProfileHelper.getLockScreenDisabled(appContext)) {
+                                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "disableKeyguard(), START_STICKY");
+                                reenableKeyguard();
+                                disableKeyguard();
+                            } else {
+                                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "reenableKeyguard(), stopSelf(), START_NOT_STICKY");
+                                reenableKeyguard();
                             }
                         }
                     }
                 }
-
-                /*
-                else
-                if (intent.getBooleanExtra(EXTRA_START_LOCATION_UPDATES, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_LOCATION_UPDATES");
-                    //synchronized (PPApplication.geofenceScannerMutex) {
-                        if (PhoneProfilesService.getGeofencesScanner() != null) {
-                            GeofencesScanner.useGPS = true;
-                            PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
-                        }
-                    //}
-                }
-                else
-                if (intent.getBooleanExtra(EXTRA_STOP_LOCATION_UPDATES, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_STOP_LOCATION_UPDATES");
-                    //synchronized (PPApplication.geofenceScannerMutex) {
-                    if (PhoneProfilesService.getGeofencesScanner() != null)
-                        PhoneProfilesService.getGeofencesScanner().stopLocationUpdates();
-                    //}
-                }
-                */
-
-                else
-                if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_JOBS, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REGISTER_RECEIVERS_AND_JOBS");
-                    final Context appContext = getApplicationContext();
-                    PPApplication.startHandlerThreadPPService();
-                    final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_EXTRA_REGISTER_RECEIVERS_AND_JOBS");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                if (PhoneProfilesService.getInstance() != null)
-                                    PhoneProfilesService.getInstance().registerReceiversAndJobs();
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-                else
-                if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
-                    final Context appContext = getApplicationContext();
-                    PPApplication.startHandlerThreadPPService();
-                    final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneProfilesService_onStartCommand_EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                if (PhoneProfilesService.getInstance() != null)
-                                    PhoneProfilesService.getInstance().unregisterReceiversAndJobs();
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-                else
-                if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_JOBS, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
-                    final Context appContext = getApplicationContext();
-                    PPApplication.startHandlerThreadPPService();
-                    final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
-
-                                if (PhoneProfilesService.getInstance() != null)
-                                    PhoneProfilesService.getInstance().reregisterReceiversAndJobs();
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-                else
-                if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_SIMULATE_RINGING_CALL");
-                    doSimulatingRingingCall(intent);
-                }
-                //else
-                //if (intent.getBooleanExtra(EventsHandler.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
-                //    doSimulatingNotificationTone(intent);
-                else
-                if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_START_STOP_SCANNER");
-                    final boolean forScreenOn = intent.getBooleanExtra(EXTRA_FOR_SCREEN_ON, false);
-                    final Context appContext = getApplicationContext();
-                    switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
-                        case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_GEOFENCE_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler1 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler1.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_START_GEOFENCE_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startGeofenceScanner(true, true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*false,*/ false);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler2 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler2.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_STOP_GEOFENCE_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startGeofenceScanner(false, true, false, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(false, false, /*false,*/ false);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_ORIENTATION_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler3 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler3.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_START_ORIENTATION_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startOrientationScanner(true, true, true);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler4 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler4.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_STOP_ORIENTATION_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startOrientationScanner(false, true, false);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_START_PHONE_STATE_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler5 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler5.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_START_PHONE_STATE_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null) {
-                                            PhoneStateScanner.forceStart = false;
-                                            PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, false);
-                                        }
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler6 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler6.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_STOP_PHONE_STATE_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startPhoneStateScanner(false, true, false, false, false);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler7 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler7.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler8 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler8.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, false, true);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, false, true);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, false, true);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, false, true);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler9 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler9.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        //if (instance != null)
-                                        //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler10 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler10.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        //if (instance != null)
-                                        //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, false, true);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, false, true);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_WIFI_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler11 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler11.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_WIFI_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler12 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler12.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_BLUETOOTH_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        //if (instance != null)
-                                        //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler13 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler13.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (!MobileCellsRegistrationService.serviceStarted) {
-                                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                        PowerManager.WakeLock wakeLock = null;
-                                        try {
-                                            if (powerManager != null) {
-                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_PHONE_STATE_SCANNER");
-                                                wakeLock.acquire(10 * 60 * 1000);
-                                            }
-
-                                            if (PhoneProfilesService.getInstance() != null) {
-                                                PhoneStateScanner.forceStart = false;
-                                                PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, true);
-                                            }
-                                        } finally {
-                                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                                try {
-                                                    wakeLock.release();
-                                                } catch (Exception ignored) {
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler14 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler14.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_FORCE_START_PHONE_STATE_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null) {
-                                            PhoneStateScanner.forceStart = true;
-                                            PhoneProfilesService.getInstance().startPhoneStateScanner(true, false, false, true, false);
-                                        }
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler15 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler15.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_GEOFENCE_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerLocationModeChangedBroadcastReceiver(true, true);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startGeofenceScanner(true, true, true, forScreenOn);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler16 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler16.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_ORIENTATION_SCANNER");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startOrientationScanner(true, false, true);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
-                        case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
-                            PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "SCANNER_RESTART_ALL_SCANNERS");
-                            PPApplication.startHandlerThreadPPService();
-                            final Handler handler17 = new Handler(PPApplication.handlerThreadPPService.getLooper());
-                            handler17.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                    PowerManager.WakeLock wakeLock = null;
-                                    try {
-                                        if (powerManager != null) {
-                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_SCANNER_RESTART_ALL_SCANNERS");
-                                            wakeLock.acquire(10 * 60 * 1000);
-                                        }
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
-
-                                        //if (instance != null)
-                                        //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
-
-                                        PhoneStateScanner.forceStart = false;
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, true);
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().registerLocationModeChangedBroadcastReceiver(true, true);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startGeofenceScanner(true, false, true, forScreenOn);
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
-
-                                        if (PhoneProfilesService.getInstance() != null)
-                                            PhoneProfilesService.getInstance().startOrientationScanner(true, false, true);
-                                    } finally {
-                                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                                            try {
-                                                wakeLock.release();
-                                            } catch (Exception ignored) {
-                                            }
-                                        }
-                                    }
-                                }
-                            });
-                            break;
+            }
+            /*
+            else
+            if (intent.getBooleanExtra(EXTRA_START_LOCATION_UPDATES, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_START_LOCATION_UPDATES");
+                //synchronized (PPApplication.geofenceScannerMutex) {
+                    if (PhoneProfilesService.getGeofencesScanner() != null) {
+                        GeofencesScanner.useGPS = true;
+                        PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
                     }
-                }
-                else
-                if (intent.getBooleanExtra(EXTRA_RESTART_EVENTS, false)) {
-                    PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "EXTRA_RESTART_EVENTS");
-                    final boolean unblockEventsRun = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, false);
-                    final boolean reactivateProfile = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, false);
-                    final Context appContext = getApplicationContext();
-                    PPApplication.startHandlerThread("PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
-                    final Handler handler13 = new Handler(PPApplication.handlerThread.getLooper());
-                    handler13.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (!MobileCellsRegistrationService.serviceStarted) {
+                //}
+            }
+            else
+            if (intent.getBooleanExtra(EXTRA_STOP_LOCATION_UPDATES, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_STOP_LOCATION_UPDATES");
+                //synchronized (PPApplication.geofenceScannerMutex) {
+                if (PhoneProfilesService.getGeofencesScanner() != null)
+                    PhoneProfilesService.getGeofencesScanner().stopLocationUpdates();
+                //}
+            }
+            */
+            else
+            if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_JOBS, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_JOBS");
+                final Context appContext = getApplicationContext();
+                PPApplication.startHandlerThreadPPService();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_EXTRA_REGISTER_RECEIVERS_AND_JOBS");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().registerReceiversAndJobs();
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
+                final Context appContext = getApplicationContext();
+                PPApplication.startHandlerThreadPPService();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME+":PhoneProfilesService_doCommand_EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().unregisterReceiversAndJobs();
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_JOBS, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
+                final Context appContext = getApplicationContext();
+                PPApplication.startHandlerThreadPPService();
+                final Handler handler = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            if (PhoneProfilesService.getInstance() != null)
+                                PhoneProfilesService.getInstance().reregisterReceiversAndJobs();
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_SIMULATE_RINGING_CALL");
+                doSimulatingRingingCall(intent);
+            }
+            //else
+            //if (intent.getBooleanExtra(EventsHandler.EXTRA_SIMULATE_NOTIFICATION_TONE, false))
+            //    doSimulatingNotificationTone(intent);
+            else
+            if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_START_STOP_SCANNER");
+                final boolean forScreenOn = intent.getBooleanExtra(EXTRA_FOR_SCREEN_ON, false);
+                final Context appContext = getApplicationContext();
+                switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
+                    case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_GEOFENCE_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler1 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler1.post(new Runnable() {
+                            @Override
+                            public void run() {
                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
                                     if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_onStartCommand_EXTRA_RESTART_EVENTS");
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_START_GEOFENCE_SCANNER");
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
-                                    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
-
-                                    if (PhoneProfilesService.getInstance() != null) {
-                                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                                        dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
-                                        dataWrapper.invalidateDataWrapper();
-                                    }
-
-                                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.onStartCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*false,*/ false);
                                 } finally {
                                     if ((wakeLock != null) && wakeLock.isHeld()) {
                                         try {
@@ -4186,16 +3633,581 @@ public class PhoneProfilesService extends Service
                                     }
                                 }
                             }
-                        }
-                    });
+                        });
+                        break;
+                    case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler2 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler2.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_STOP_GEOFENCE_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startGeofenceScanner(false, true, false, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(false, false, /*false,*/ false);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_ORIENTATION_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler3 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler3.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_START_ORIENTATION_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startOrientationScanner(true, true, true);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler4 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler4.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_STOP_ORIENTATION_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startOrientationScanner(false, true, false);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_PHONE_STATE_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler5 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler5.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_START_PHONE_STATE_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null) {
+                                        PhoneStateScanner.forceStart = false;
+                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, false);
+                                    }
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler6 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler6.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_STOP_PHONE_STATE_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startPhoneStateScanner(false, true, false, false, false);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler7 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler7.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler8 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler8.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, false, true);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, false, true);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, false, true);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, false, true);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler9 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler9.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    //if (instance != null)
+                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler10 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler10.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    //if (instance != null)
+                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, false, true);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, false, true);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler11 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler11.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_RESTART_WIFI_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler12 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler12.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_RESTART_BLUETOOTH_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    //if (instance != null)
+                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler13 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler13.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!MobileCellsRegistrationService.serviceStarted) {
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_RESTART_PHONE_STATE_SCANNER");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
+
+                                        if (PhoneProfilesService.getInstance() != null) {
+                                            PhoneStateScanner.forceStart = false;
+                                            PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, true);
+                                        }
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler14 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler14.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_FORCE_START_PHONE_STATE_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null) {
+                                        PhoneStateScanner.forceStart = true;
+                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, false, false, true, false);
+                                    }
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler15 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler15.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_RESTART_GEOFENCE_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerLocationModeChangedBroadcastReceiver(true, true);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, true, true, forScreenOn);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler16 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler16.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_RESTART_ORIENTATION_SCANNER");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startOrientationScanner(true, false, true);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
+                    case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
+                        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
+                        PPApplication.startHandlerThreadPPService();
+                        final Handler handler17 = new Handler(PPApplication.handlerThreadPPService.getLooper());
+                        handler17.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                                PowerManager.WakeLock wakeLock = null;
+                                try {
+                                    if (powerManager != null) {
+                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_SCANNER_RESTART_ALL_SCANNERS");
+                                        wakeLock.acquire(10 * 60 * 1000);
+                                    }
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
+
+                                    //if (instance != null)
+                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
+
+                                    PhoneStateScanner.forceStart = false;
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, true);
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().registerLocationModeChangedBroadcastReceiver(true, true);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, false, true, forScreenOn);
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
+
+                                    if (PhoneProfilesService.getInstance() != null)
+                                        PhoneProfilesService.getInstance().startOrientationScanner(true, false, true);
+                                } finally {
+                                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                                        try {
+                                            wakeLock.release();
+                                        } catch (Exception ignored) {
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                        break;
                 }
             }
-        }
+            else
+            if (intent.getBooleanExtra(EXTRA_RESTART_EVENTS, false)) {
+                PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_RESTART_EVENTS");
+                final boolean unblockEventsRun = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, false);
+                final boolean reactivateProfile = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, false);
+                final Context appContext = getApplicationContext();
+                PPApplication.startHandlerThread("PhoneProfilesService.doCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+                final Handler handler13 = new Handler(PPApplication.handlerThread.getLooper());
+                handler13.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (!MobileCellsRegistrationService.serviceStarted) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doCommand_EXTRA_RESTART_EVENTS");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-        // We want this service to continue running until it is explicitly
-        // stopped, so return sticky.
-        return START_STICKY;
+                                PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+
+                                if (PhoneProfilesService.getInstance() != null) {
+                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                                    dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
+                                    dataWrapper.invalidateDataWrapper();
+                                }
+
+                                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.doCommand.SCANNER_RESTART_PHONE_STATE_SCANNER");
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
     }
+
 
     @Override
     public IBinder onBind(Intent intent)
@@ -4774,7 +4786,7 @@ public class PhoneProfilesService extends Service
         });
     }
 
-    private void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
+    void clearProfileNotification(/*Context context, boolean onlyEmpty*/)
     {
         /*if (onlyEmpty) {
             final Context appContext = getApplicationContext();

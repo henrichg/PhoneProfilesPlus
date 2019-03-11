@@ -436,10 +436,14 @@ public class EditorEventListFragment extends Fragment
             PPApplication.logE("$$$ restartEvents","from EditorEventListFragment.runStopEvent");
             activityDataWrapper.restartEvents(false, true, true, true, true);
 
-            Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);
+            PPApplication.startPPService(activityDataWrapper.context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+            PPApplication.runCommand(activityDataWrapper.context, commandIntent);
         }
         else
         {
@@ -510,10 +514,14 @@ public class EditorEventListFragment extends Fragment
         eventListAdapter.notifyDataSetChanged();
 
         //noinspection ConstantConditions
-        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+        /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-        PPApplication.startPPService(getActivity(), serviceIntent);
+        PPApplication.startPPService(getActivity(), serviceIntent);*/
+        Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+        PPApplication.runCommand(getActivity(), commandIntent);
 
         onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);
     }
@@ -624,10 +632,14 @@ public class EditorEventListFragment extends Fragment
                     //eventListAdapter.notifyDataSetChanged();
 
                     if (getActivity() != null) {
-                        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+                        /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
-                        PPApplication.startPPService(getActivity(), serviceIntent);
+                        PPApplication.startPPService(getActivity(), serviceIntent);*/
+                        Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
+                        PPApplication.runCommand(getActivity(), commandIntent);
                     }
 
                     onStartEventPreferencesCallback.onStartEventPreferences(null, EDIT_MODE_DELETE, 0);

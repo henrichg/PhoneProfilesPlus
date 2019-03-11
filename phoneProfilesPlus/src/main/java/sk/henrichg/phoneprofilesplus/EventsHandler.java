@@ -769,7 +769,7 @@ class EventsHandler {
                                 }
                             }
                             if (simulateRingingCall) {
-                                Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                                /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
                                 // add saved ringer mode, zen mode, ringtone before handle events as parameters
@@ -779,7 +779,18 @@ class EventsHandler {
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
                                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                                PPApplication.startPPService(context, serviceIntent);
+                                PPApplication.startPPService(context, serviceIntent);*/
+                                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                                commandIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
+                                // add saved ringer mode, zen mode, ringtone before handle events as parameters
+                                // ringing call simulator compare this with new (actual values), changed by currently activated profile
+                                commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+                                commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                                commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
+                                commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+                                commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                                PPApplication.runCommand(context, commandIntent);
                             }
                         } catch (Exception ignored) {
                         }

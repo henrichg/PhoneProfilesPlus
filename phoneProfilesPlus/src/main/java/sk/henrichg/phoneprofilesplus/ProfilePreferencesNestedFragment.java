@@ -1962,10 +1962,14 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                     Permissions.grantProfilePermissions(context, sharedProfile, false, true,
                             /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, false);
 
-                    Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                    /*Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-                    PPApplication.startPPService(context, serviceIntent);
+                    PPApplication.startPPService(context, serviceIntent);*/
+                    Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                    commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                    commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                    PPApplication.runCommand(context, commandIntent);
                 }
             }
         }

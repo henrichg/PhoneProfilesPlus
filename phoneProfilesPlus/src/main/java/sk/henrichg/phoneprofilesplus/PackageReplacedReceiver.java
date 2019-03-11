@@ -319,9 +319,10 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             PPApplication.sleep(2000);
                         }
 
-                        if (restartService) {
+                        //if (restartService) {
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, false)) {
+                                restartService = true;
                                 // application was started before upgrade
                                 if (!PPApplication.getApplicationStarted(appContext, true)) {
                                     // service is not started, start it
@@ -331,7 +332,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 else
                                     restartService = false;
                             }
-                        }
+                        //}
                         if (!restartService) {
                             //PPApplication.sleep(3000);
                             if (PPApplication.getApplicationStarted(appContext, true)) {
@@ -346,7 +347,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     if (!dataWrapper.getIsManualProfileActivation(false)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
-                                        dataWrapper.pauseAllEvents(true, false/*, false*/);
+                                        dataWrapper.pauseAllEvents(true, false);
                                     }
 
                                     dataWrapper.firstStartEvents(true, false);
@@ -357,7 +358,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                                     ////// unblock all events for first start
                                     //     that may be blocked in previous application run
-                                    dataWrapper.pauseAllEvents(true, false/*, false*/);
+                                    dataWrapper.pauseAllEvents(true, false);
 
                                     dataWrapper.activateProfileOnBoot();
                                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from PackageReplacedReceiver.onReceive");

@@ -1202,10 +1202,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                             /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, false);
                 }
 
-                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-                PPApplication.startPPService(this, serviceIntent);
+                PPApplication.startPPService(this, serviceIntent);*/
+                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                PPApplication.runCommand(this, commandIntent);
             }
             else
             if (data != null) {
@@ -1237,10 +1241,14 @@ public class EditorProfilesActivity extends AppCompatActivity
                     Permissions.grantEventPermissions(getApplicationContext(), event, false, false);
                 }
 
-                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-                PPApplication.startPPService(this, serviceIntent);
+                PPApplication.startPPService(this, serviceIntent);*/
+                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                PPApplication.runCommand(this, commandIntent);
             }
             else
             if (data != null) {
@@ -1256,10 +1264,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         {
             if (resultCode == RESULT_OK)
             {
-                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-                PPApplication.startPPService(this, serviceIntent);
+                PPApplication.startPPService(this, serviceIntent);*/
+                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                PPApplication.runCommand(this, commandIntent);
 
                 //if (PhoneProfilesService.getInstance() != null) {
                     /*

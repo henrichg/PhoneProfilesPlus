@@ -479,10 +479,14 @@ public class EditorProfileListFragment extends Fragment
 
         activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
-        Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
+        /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-        PPApplication.startPPService(getActivity(), serviceIntent);
+        PPApplication.startPPService(getActivity(), serviceIntent);*/
+        Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+        PPApplication.runCommand(getActivity(), commandIntent);
 
         onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
     }
@@ -593,10 +597,14 @@ public class EditorProfileListFragment extends Fragment
 
                     activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
-                    Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
+                    /*Intent serviceIntent = new Intent(activityDataWrapper.context, PhoneProfilesService.class);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-                    PPApplication.startPPService(getActivity(), serviceIntent);
+                    PPApplication.startPPService(getActivity(), serviceIntent);*/
+                    Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                    commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                    commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
+                    PPApplication.runCommand(getActivity(), commandIntent);
 
                     onStartProfilePreferencesCallback.onStartProfilePreferences(null, EDIT_MODE_DELETE, 0);
                 }

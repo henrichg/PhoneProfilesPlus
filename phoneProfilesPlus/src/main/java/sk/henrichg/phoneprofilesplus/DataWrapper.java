@@ -4377,10 +4377,14 @@ public class DataWrapper {
                 pauseAllEventsFromMainThread(true, false/*, false*/);
                 Event.setGlobalEventsRunning(context, false);
 
-                Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                /*Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
-                PPApplication.startPPService(context, serviceIntent);
+                PPApplication.startPPService(context, serviceIntent);*/
+                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, true);
+                PPApplication.runCommand(context, commandIntent);
                 return true;
             }
         }
@@ -4391,10 +4395,14 @@ public class DataWrapper {
 
                 Event.setGlobalEventsRunning(context, true);
 
-                Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
+                /*Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_JOBS, true);
-                PPApplication.startPPService(context, serviceIntent);
+                PPApplication.startPPService(context, serviceIntent);*/
+                Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_REGISTER_RECEIVERS_AND_JOBS, true);
+                PPApplication.runCommand(context, commandIntent);
 
                 // setup for next start
                 firstStartEvents(false, true);

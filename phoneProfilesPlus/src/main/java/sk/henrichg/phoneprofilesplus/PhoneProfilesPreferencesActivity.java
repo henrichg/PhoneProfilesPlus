@@ -153,20 +153,30 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
     {
         super.onStop();
 
-        Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+        /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
-        PPApplication.startPPService(this, serviceIntent);
+        PPApplication.startPPService(this, serviceIntent);*/
+        /*Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+        commandIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
+        PPApplication.runCommand(this, commandIntent);*/
+        PhoneProfilesService.getInstance().clearProfileNotification();
 
         final Context context = this;
         Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+                /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_SET_SERVICE_FOREGROUND, true);
-                PPApplication.startPPService(context, serviceIntent);
+                PPApplication.startPPService(context, serviceIntent);*/
+                /*Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+                commandIntent.putExtra(PhoneProfilesService.EXTRA_SET_SERVICE_FOREGROUND, true);
+                PPApplication.runCommand(context, commandIntent);*/
+                PhoneProfilesService.getInstance().showProfileNotification(true);
             }
         }, 500);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPreferencesActivity.onStop");

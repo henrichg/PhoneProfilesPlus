@@ -79,6 +79,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
                                          +"|PhoneProfilesService.doForFirstStart"
+                                         +"|PhoneProfilesService.doCommand"
                                          //+"|PhoneProfilesService.isServiceRunningInForeground"
                                          //+"|PhoneProfilesService.showProfileNotification"
                                          //+"|PhoneProfilesService._showProfileNotification"
@@ -94,6 +95,11 @@ public class PPApplication extends Application {
                                          +"|PPApplication.setBlockProfileEventActions"
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
+
+                                         //+"|[RJS] PPApplication"
+                                         //+"|##### ScreenOnOffBroadcastReceiver.onReceive"
+                                         //+"|@@@ ScreenOnOffBroadcastReceiver.onReceive"
+                                         //+"|[XXX] ScreenOnOffBroadcastReceiver.onReceive"
 
                                          //+"|PPApplication.startHandlerThread"
 
@@ -945,6 +951,11 @@ public class PPApplication extends Application {
             context.getApplicationContext().startForegroundService(serviceIntent);
     }
 
+    static void runCommand(Context context, Intent intent) {
+        PPApplication.logE("PPApplication.runCommand", "xxx");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
     //--------------------------------------------------------------
 
     static public boolean getApplicationStarted(Context context, boolean testService)
@@ -1665,220 +1676,206 @@ public class PPApplication extends Application {
     public static void forceRegisterReceiversForWifiScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.forceRegisterReceiversForWifiScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
     public static void reregisterReceiversForWifiScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.reregisterReceiversForWifiScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
     public static void restartWifiScanner(Context context, boolean forScreenOn) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_WIFI_SCANNER);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_WIFI_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
     public static void forceRegisterReceiversForBluetoothScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.forceRegisterReceiversForBluetoothScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
     public static void reregisterReceiversForBluetoothScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PPApplication.reregisterReceiversForBluetoothScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
     public static void restartBluetoothScanner(Context context, boolean forScreenOn) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartBluetoothScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BLUETOOTH_SCANNER);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BLUETOOTH_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
-
-    /*
-    public static void startGeofenceScanner(Context context) {
-        try {
-            PPApplication.logE("[RJS] PPApplication.startGeofenceScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_GEOFENCE_SCANNER);
-            PPApplication.startPPService(context, serviceIntent);
-        } catch (Exception ignored) {}
-    }
-    */
-
-    /*
-    private static void stopGeofenceScanner(Context context) {
-        try {
-            PPApplication.logE("[RJS] PPApplication.stopGeofenceScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_GEOFENCE_SCANNER);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
-            PPApplication.startPPService(context, serviceIntent);
-        } catch (Exception ignored) {}
-    }
-    */
 
     public static void restartGeofenceScanner(Context context, boolean forScreenOn) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartGeofenceScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_GEOFENCE_SCANNER);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_GEOFENCE_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
-
-    /*
-    public static void startOrientationScanner(Context context) {
-        try {
-            PPApplication.logE("[RJS] PPApplication.startOrientationScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_ORIENTATION_SCANNER);
-            PPApplication.startPPService(context, serviceIntent);
-        } catch (Exception ignored) {}
-    }
-    */
-
-    /*
-    private static void stopOrientationScanner(Context context) {
-        try {
-            PPApplication.logE("[RJS] PPApplication.stopOrientationScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_ORIENTATION_SCANNER);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
-            PPApplication.startPPService(context, serviceIntent);
-        } catch (Exception ignored) {}
-    }
-    */
 
     public static void restartOrientationScanner(Context context/*, boolean forScreenOn*/) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartOrientationScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true/*forScreenOn*/);
-            PPApplication.startPPService(context, serviceIntent);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ORIENTATION_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, true);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
-
-    /*
-    public static void startPhoneStateScanner(Context context) {
-        try {
-            PPApplication.logE("[RJS] PPApplication.startPhoneStateScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_START_PHONE_STATE_SCANNER);
-            PPApplication.startPPService(context, serviceIntent);
-        } catch (Exception ignored) {}
-    }
-    */
-
-    /*
-    private static void stopPhoneStateScanner(Context context) {
-        try {
-            PPApplication.logE("[RJS] PPApplication.stopPhoneStateScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_STOP_PHONE_STATE_SCANNER);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
-            PPApplication.startPPService(context, serviceIntent);
-        } catch (Exception ignored) {}
-    }
-    */
 
     public static void forceStartPhoneStateScanner(Context context) {
         try {
             PPApplication.logE("[RJS] PhoneProfilesService.forceStartPhoneStateScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
     public static void restartPhoneStateScanner(Context context, boolean forScreenOn) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartPhoneStateScanner", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
     public static void restartAllScanners(Context context, boolean forScreenOn) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartAllScanners", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ALL_SCANNERS);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_ALL_SCANNERS);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
     public static void restartEvents(Context context, boolean unblockEventsRun, boolean reactivateProfile) {
         try {
             PPApplication.logE("[RJS] PPApplication.restartEvents", "xxx");
-            Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
+            /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
             serviceIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
             serviceIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, reactivateProfile);
-            PPApplication.startPPService(context, serviceIntent);
+            PPApplication.startPPService(context, serviceIntent);*/
+            Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_RESTART_EVENTS, true);
+            commandIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, unblockEventsRun);
+            commandIntent.putExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, reactivateProfile);
+            PPApplication.runCommand(context, commandIntent);
         } catch (Exception ignored) {}
     }
 
