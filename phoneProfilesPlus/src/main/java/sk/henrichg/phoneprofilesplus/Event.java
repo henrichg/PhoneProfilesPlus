@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.SystemClock;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -21,6 +23,8 @@ import android.telephony.TelephonyManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 class Event {
 
@@ -2227,9 +2231,12 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED))
         {
-            boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
-                    (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null) &&
-                    (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
+            SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
+            boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
+            boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
+
+            boolean enabled = hasAccelerometer && hasMagneticField && hasProximity;
             if (enabled) {
                 //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;

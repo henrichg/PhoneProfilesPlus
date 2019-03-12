@@ -4525,56 +4525,38 @@ public class PhoneProfilesService extends Service
         stopListeningOrientationSensors();
     }
 
-    public static boolean isOrientationScannerStarted() {
-        return (PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().mStartedOrientationSensors;
+    boolean isOrientationScannerStarted() {
+        return mStartedOrientationSensors;
     }
 
-    public static Sensor getAccelerometerSensor(Context context) {
-        if (PhoneProfilesService.getInstance() != null) {
-            synchronized (PPApplication.orientationScannerMutex) {
-                if (PhoneProfilesService.getInstance().mOrientationSensorManager == null)
-                    PhoneProfilesService.getInstance().mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-                if (PhoneProfilesService.getInstance().mOrientationSensorManager != null)
-                    return PhoneProfilesService.getInstance().mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                else
-                    return null;
-            }
-        }
+    private Sensor getAccelerometerSensor(Context context) {
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        if (mOrientationSensorManager != null)
+            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         else
             return null;
     }
 
-    public static Sensor getMagneticFieldSensor(Context context) {
-        if (PhoneProfilesService.getInstance() != null) {
-            synchronized (PPApplication.orientationScannerMutex) {
-                if (PhoneProfilesService.getInstance().mOrientationSensorManager == null)
-                    PhoneProfilesService.getInstance().mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-                if (PhoneProfilesService.getInstance().mOrientationSensorManager != null)
-                    return PhoneProfilesService.getInstance().mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-                else
-                    return null;
-            }
-        }
+    private Sensor getMagneticFieldSensor(Context context) {
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        if (mOrientationSensorManager != null)
+            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
         else
             return null;
     }
 
-    public static Sensor getProximitySensor(Context context) {
-        if (PhoneProfilesService.getInstance() != null) {
-            synchronized (PPApplication.orientationScannerMutex) {
-                if (PhoneProfilesService.getInstance().mOrientationSensorManager == null)
-                    PhoneProfilesService.getInstance().mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
-                if (PhoneProfilesService.getInstance().mOrientationSensorManager != null)
-                    return PhoneProfilesService.getInstance().mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-                else
-                    return null;
-            }
-        }
+    private Sensor getProximitySensor(Context context) {
+        if (mOrientationSensorManager == null)
+            mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        if (mOrientationSensorManager != null)
+            return mOrientationSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         else
             return null;
     }
     /*
-    public static Sensor getOrientationSensor(Context context) {
+    private Sensor getOrientationSensor(Context context) {
         synchronized (PPApplication.orientationScannerMutex) {
             if (mOrientationSensorManager == null)
                 mOrientationSensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
@@ -4603,6 +4585,7 @@ public class PhoneProfilesService extends Service
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval(this);
             if (/*PPApplication.*/isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("1"))
                 interval *= 2;
+
             Sensor accelerometer = getAccelerometerSensor(getApplicationContext());
             PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","accelerometer="+accelerometer);
             if (accelerometer != null) {

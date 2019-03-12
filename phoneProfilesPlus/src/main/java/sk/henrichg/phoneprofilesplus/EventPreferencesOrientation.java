@@ -8,6 +8,8 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -20,6 +22,8 @@ import android.text.style.ForegroundColorSpan;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 class EventPreferencesOrientation extends EventPreferences {
 
@@ -155,7 +159,9 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
                 descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": " + selectedSides;
 
-                if (PhoneProfilesService.getMagneticFieldSensor(context) != null) {
+                SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+
+                if ((sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null)) {
                     selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if (!this._sides.isEmpty() && !this._sides.equals("-")) {
                         String[] splits = this._sides.split("\\|");
@@ -460,7 +466,9 @@ class EventPreferencesOrientation extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        if (PhoneProfilesService.getMagneticFieldSensor(context) != null)
+        SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+
+        if ((sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null))
             runnable = runnable && (!_display.isEmpty() || !_sides.isEmpty() || (_distance != 0));
         else
             runnable = runnable && (!_display.isEmpty() || (_distance != 0));
@@ -470,15 +478,17 @@ class EventPreferencesOrientation extends EventPreferences {
 
     @Override
     public void checkPreferences(PreferenceManager prefMng, Context context) {
-        boolean enabledAccelerometer = PhoneProfilesService.getAccelerometerSensor(context) != null;
-        boolean enabledMagneticField = PhoneProfilesService.getMagneticFieldSensor(context) != null;
-        boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
+        SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
+        boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
+        boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
+        boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
-            if (!enabledAccelerometer)
+            if (!hasAccelerometer)
                 preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
-            preference.setEnabled(enabledAccelerometer);
+            preference.setEnabled(hasAccelerometer);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
@@ -487,7 +497,7 @@ class EventPreferencesOrientation extends EventPreferences {
                         ": "+context.getString(R.string.preference_not_allowed_reason_no_hardware));
             preference.setEnabled(enabledAll);
         }
-        boolean enabled = PPApplication.hasSystemFeature(context, PackageManager.FEATURE_SENSOR_PROXIMITY);
+        boolean enabled = hasProximity;
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (preference != null) {
             if (!enabled)

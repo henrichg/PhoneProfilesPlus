@@ -17,6 +17,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.location.LocationManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
@@ -51,6 +53,7 @@ import java.util.List;
 import me.drakeet.support.toast.ToastCompat;
 
 import static android.content.Context.POWER_SERVICE;
+import static android.content.Context.SENSOR_SERVICE;
 
 public class DataWrapper {
 
@@ -3175,7 +3178,7 @@ public class DataWrapper {
                         notAllowedOrientation = true;
                 } else {
                     synchronized (PPApplication.orientationScannerMutex) {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isOrientationScannerStarted()) {
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isOrientationScannerStarted()) {
                             boolean lApplicationPassed = false;
                             if (!event._eventPreferencesOrientation._ignoredApplications.isEmpty()) {
                                 if (PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0)) {
@@ -3198,10 +3201,13 @@ public class DataWrapper {
                                 boolean lDisplayPassed = true;
                                 boolean lSidePassed = true;
 
-                                boolean enabledAccelerometer = PhoneProfilesService.getAccelerometerSensor(context) != null;
-                                boolean enabledMagneticField = PhoneProfilesService.getMagneticFieldSensor(context) != null;
-                                boolean enabledAll = (enabledAccelerometer) && (enabledMagneticField);
-                                if (enabledAccelerometer) {
+                                SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+                                boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
+                                boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
+                                boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
+
+                                boolean enabledAll = (hasAccelerometer) && (hasMagneticField);
+                                if (hasAccelerometer) {
                                     if (!event._eventPreferencesOrientation._display.isEmpty()) {
                                         String[] splits = event._eventPreferencesOrientation._display.split("\\|");
                                         if (splits.length > 0) {
@@ -3247,8 +3253,7 @@ public class DataWrapper {
                                 }
 
                                 boolean lDistancePassed = true;
-                                boolean enabled = PhoneProfilesService.getProximitySensor(context) != null;
-                                if (enabled) {
+                                if (hasProximity) {
                                     if (event._eventPreferencesOrientation._distance != 0) {
                                         lDistancePassed = event._eventPreferencesOrientation._distance == PhoneProfilesService.getInstance().mDeviceDistance;
                                     }

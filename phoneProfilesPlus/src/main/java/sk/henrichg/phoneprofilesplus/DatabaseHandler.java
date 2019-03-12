@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -20,6 +22,8 @@ import java.util.TimeZone;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -9235,8 +9239,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                             }
                             if (Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ORIENTATION_ENABLED))) != 0) {
-                                boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context) != null) &&
-                                        (PhoneProfilesService.getMagneticFieldSensor(context) != null);
+                                SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+                                boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
+                                boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
+                                boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
+
+                                boolean enabled = hasAccelerometer && hasMagneticField;
                                 if (!enabled) {
                                     values.clear();
                                     values.put(KEY_E_ORIENTATION_DISPLAY, "");
@@ -9244,14 +9252,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                                 }
-                                enabled = (PhoneProfilesService.getAccelerometerSensor(context) != null);
+                                enabled = hasAccelerometer;
                                 if (!enabled) {
                                     values.clear();
                                     values.put(KEY_E_ORIENTATION_SIDES, "");
                                     db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
                                             new String[]{String.valueOf(Integer.parseInt(eventsCursor.getString(eventsCursor.getColumnIndex(KEY_E_ID))))});
                                 }
-                                enabled = (PhoneProfilesService.getProximitySensor(context) != null);
+                                enabled = hasProximity;
                                 if (!enabled) {
                                     values.clear();
                                     values.put(KEY_E_ORIENTATION_DISTANCE, 0);

@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -27,6 +29,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 public class Profile {
 
@@ -3212,9 +3216,12 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
         {
-            boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
-                    (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null) &&
-                    (PhoneProfilesService.getProximitySensor(context.getApplicationContext()) != null);
+            SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+            boolean hasAccelerometer = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null);
+            boolean hasMagneticField = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null);
+            boolean hasProximity = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null);
+
+            boolean enabled = hasAccelerometer && hasMagneticField && hasProximity;
             if (enabled)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
