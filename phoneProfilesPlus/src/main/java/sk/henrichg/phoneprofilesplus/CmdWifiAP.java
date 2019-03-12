@@ -42,6 +42,7 @@ public class CmdWifiAP {
 
             return true;
         } catch (Throwable e) {
+            PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
             return false;
         }
     }

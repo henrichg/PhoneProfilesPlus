@@ -342,8 +342,10 @@ public class PPApplication extends Application {
 
                                         //+"|CmdGoToSleep"
                                         //+"|CmdNfc"
+                                        +"|CmdWifiAP"
+                                        +"|ActivateProfileHelper.wifiServiceExists"
 
-                                        +"|ActivateProfileHelper.lockDevice"
+                                        //+"|ActivateProfileHelper.lockDevice"
             ;
 
 

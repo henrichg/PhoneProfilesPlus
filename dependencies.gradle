@@ -15,8 +15,8 @@
 // 4600 = support for "NOT LIKE" in calendar sensor
 
 ext.ppVersions = [
-    publishVersion: '3.6.8.3',
-    publishVersionCode: 4630,
+    publishVersion: '3.6.8.4b',
+    publishVersionCode: 4631,
 
     minSdk: 19,
     targetSdk: 28,

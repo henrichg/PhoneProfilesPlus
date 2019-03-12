@@ -2920,7 +2920,7 @@ public class Profile {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
                 else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
             }
             else
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
