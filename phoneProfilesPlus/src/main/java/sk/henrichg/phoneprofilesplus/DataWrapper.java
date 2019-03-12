@@ -2457,37 +2457,36 @@ public class DataWrapper {
                             i++;
                         }
 
-                        if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) ||
-                                (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)) {
+                        if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
                             wifiPassed = true;
                             for (boolean conn : connected) {
                                 if (conn) {
-                                    done = true;
                                     wifiPassed = false;
                                     break;
                                 }
                             }
-                            if (!done && (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
-                                // for this connectionTypes, wifi must not be connected to event SSID
-                                done = true;
-                                wifiPassed = true;
-                            }
+                            // not use scanner data
+                            done = true;
                         }
                         else {
                             wifiPassed = false;
                             for (boolean conn : connected) {
                                 if (conn) {
+                                    // when is connected to configured ssid, is also nearby
                                     done = true;
                                     wifiPassed = true;
                                     break;
                                 }
                             }
+                            if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED)
+                                // not use scanner data
+                                done = true;
                         }
                     } else {
                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi not connected");
 
                         if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) {
-                            // for this connectionTypes, wifi must not be connected to event SSID
+                            // not use scanner data
                             done = true;
                             wifiPassed = true;
                         }
@@ -2496,7 +2495,7 @@ public class DataWrapper {
                     PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiStateEnabled=false");
                     if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) ||
                             (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
-                        // for this connectionTypes, wifi must not be connected to event SSID
+                        // not use scanner data
                         done = true;
                         wifiPassed = (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED);
                     }
@@ -2712,37 +2711,36 @@ public class DataWrapper {
                                 i++;
                             }
 
-                            if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) ||
-                                    (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)) {
+                            if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)) {
                                 bluetoothPassed = true;
                                 for (boolean conn : connected) {
                                     if (conn) {
-                                        done = true;
                                         bluetoothPassed = false;
                                         break;
                                     }
                                 }
-                                if (!done && (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)) {
-                                    // for this connectionTypes, BT must not be connected to event BT adapter
-                                    done = true;
-                                    bluetoothPassed = true;
-                                }
+                                // not use scanner data
+                                done = true;
                             }
                             else {
                                 bluetoothPassed = false;
                                 for (boolean conn : connected) {
                                     if (conn) {
+                                        // when is connected to configured bt name, is also nearby
                                         done = true;
                                         bluetoothPassed = true;
                                         break;
                                     }
                                 }
+                                if (event._eventPreferencesBluetooth._connectionType == EventPreferencesWifi.CTYPE_CONNECTED)
+                                    // not use scanner data
+                                    done = true;
                             }
                         } else {
                             PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "not any device connected");
 
                             if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
-                                // for this connectionTypes, BT must not be connected to event BT adapter
+                                // not use scanner data
                                 done = true;
                                 bluetoothPassed = true;
                             }
@@ -2752,7 +2750,7 @@ public class DataWrapper {
 
                         if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) ||
                                 (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)) {
-                            // for this connectionTypes, BT must not be connected to event BT adapter
+                            // not use scanner data
                             done = true;
                             bluetoothPassed = (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED);
                         }
