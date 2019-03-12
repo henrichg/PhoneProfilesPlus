@@ -387,9 +387,9 @@ public class PhoneProfilesService extends Service
     }
 
     static PhoneProfilesService getInstance() {
-        synchronized (PPApplication.phoneProfilesServiceMutex) {
+        //synchronized (PPApplication.phoneProfilesServiceMutex) {
             return instance;
-        }
+        //}
     }
 
     public static void stop(Context context) {

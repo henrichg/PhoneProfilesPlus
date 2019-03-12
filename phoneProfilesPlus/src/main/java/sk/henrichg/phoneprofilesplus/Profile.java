@@ -3214,7 +3214,7 @@ public class Profile {
         {
             boolean enabled = (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null) &&
                     (PhoneProfilesService.getMagneticFieldSensor(context.getApplicationContext()) != null) &&
-                    (PhoneProfilesService.getAccelerometerSensor(context.getApplicationContext()) != null);
+                    (PhoneProfilesService.getProximitySensor(context.getApplicationContext()) != null);
             if (enabled)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else
