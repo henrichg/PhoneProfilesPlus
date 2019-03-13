@@ -1188,7 +1188,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         Profile mappedProfile = Profile.getMappedProfile(profile, getApplicationContext());
                         Permissions.grantProfilePermissions(getApplicationContext(), mappedProfile, false, false,
-                                /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, false);
+                                /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
                     }
                 }
                 else
@@ -1199,7 +1199,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     Profile sharedProfile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
                     Permissions.grantProfilePermissions(getApplicationContext(), sharedProfile, false, false,
-                            /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, false, false);
+                            /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
                 }
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
