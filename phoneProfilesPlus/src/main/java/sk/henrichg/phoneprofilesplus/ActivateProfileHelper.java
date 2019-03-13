@@ -3357,9 +3357,9 @@ class ActivateProfileHelper {
                     try {
                         RootTools.getShell(true, Shell.ShellContext.NORMAL).add(command);
                         PPApplication.commandWait(command);
-                    /*} catch (RootDeniedException e) {
-                        PPApplication.rootMutex.rootGranted = false;
-                        Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));*/
+                    //} catch (RootDeniedException e) {
+                    //    PPApplication.rootMutex.rootGranted = false;
+                    //    Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
                     } catch (Exception e) {
                         Log.e("ActivateProfileHelper.setNFC", Log.getStackTraceString(e));
                     }
