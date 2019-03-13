@@ -347,8 +347,8 @@ public class PPApplication extends Application {
 
                                         //+"|ActivateProfileHelper.lockDevice"
 
-                                        +"|#### setWifiEnabled"
-                                        +"|@@@ WifiBluetoothScanner.enableWifi"
+                                        //+"|#### setWifiEnabled"
+                                        //+"|@@@ WifiBluetoothScanner.enableWifi"
             ;
 
 

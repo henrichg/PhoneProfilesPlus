@@ -2457,7 +2457,7 @@ public class DataWrapper {
                             i++;
                         }
 
-                        if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED)) {
+                        if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTCONNECTED) {
                             wifiPassed = true;
                             for (boolean conn : connected) {
                                 if (conn) {
@@ -2468,7 +2468,8 @@ public class DataWrapper {
                             // not use scanner data
                             done = true;
                         }
-                        else {
+                        else
+                        if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED) {
                             wifiPassed = false;
                             for (boolean conn : connected) {
                                 if (conn) {
@@ -2478,9 +2479,8 @@ public class DataWrapper {
                                     break;
                                 }
                             }
-                            if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_CONNECTED)
-                                // not use scanner data
-                                done = true;
+                            // not use scanner data
+                            done = true;
                         }
                     } else {
                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi not connected");
@@ -2711,7 +2711,7 @@ public class DataWrapper {
                                 i++;
                             }
 
-                            if ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED)) {
+                            if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTCONNECTED) {
                                 bluetoothPassed = true;
                                 for (boolean conn : connected) {
                                     if (conn) {
@@ -2722,7 +2722,8 @@ public class DataWrapper {
                                 // not use scanner data
                                 done = true;
                             }
-                            else {
+                            else
+                            if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_CONNECTED) {
                                 bluetoothPassed = false;
                                 for (boolean conn : connected) {
                                     if (conn) {
@@ -2732,9 +2733,8 @@ public class DataWrapper {
                                         break;
                                     }
                                 }
-                                if (event._eventPreferencesBluetooth._connectionType == EventPreferencesWifi.CTYPE_CONNECTED)
-                                    // not use scanner data
-                                    done = true;
+                                // not use scanner data
+                                done = true;
                             }
                         } else {
                             PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "not any device connected");
