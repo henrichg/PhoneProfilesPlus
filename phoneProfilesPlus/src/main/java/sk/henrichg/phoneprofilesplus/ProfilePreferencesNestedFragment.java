@@ -1727,6 +1727,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         else
                             categorySummary = changeSummary;
                     }
+                    else
+                        categorySummary = changeSummary;
 
                     listPreference.setSummary(changeSummary);
                     GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);

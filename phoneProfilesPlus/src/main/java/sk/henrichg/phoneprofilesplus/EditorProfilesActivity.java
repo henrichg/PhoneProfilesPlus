@@ -1453,12 +1453,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                             prefEdit.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
                     }
 
-                    if (what == 2) {
+                    /*if (what == 2) {
                         if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
                             if (v.equals("3"))
                             prefEdit.putString(Profile.PREF_PROFILE_LOCK_DEVICE, "1");
                         }
-                    }
+                    }*/
                 }
                 prefEdit.apply();
                 if (what == 1) {

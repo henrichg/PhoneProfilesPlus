@@ -209,7 +209,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
                                 }
 
-                                if (actualVersionCode <= 4200) {
+                                /*if (actualVersionCode <= 4200) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
@@ -223,7 +223,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     }
 
                                     restartService = true;
-                                }
+                                }*/
 
                                 if (actualVersionCode <= 4400) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
