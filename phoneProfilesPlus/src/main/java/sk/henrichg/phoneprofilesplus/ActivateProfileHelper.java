@@ -259,6 +259,7 @@ class ActivateProfileHelper {
                                 WifiScanJob.setWifiEnabledForScan(context, false);
                             if (setWifiState) {
                                 try {
+                                    PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.doExecuteForRadio");
                                     wifiManager.setWifiEnabled(isWifiEnabled);
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.doExecuteForRadios", Log.getStackTraceString(e));
@@ -3298,6 +3299,7 @@ class ActivateProfileHelper {
                                 boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                                 PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled="+isWifiEnabled);
                                 if (isWifiEnabled) {
+                                    PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.setWifiAP");
                                     wifiManager.setWifiEnabled(false);
                                     PPApplication.sleep(1000);
                                 }

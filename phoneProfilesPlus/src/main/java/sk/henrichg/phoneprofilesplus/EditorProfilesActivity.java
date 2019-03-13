@@ -1477,6 +1477,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
             } catch (IOException ignored) {
             }
+
+            WifiScanJob.setScanRequest(getApplicationContext(), false);
+            WifiScanJob.setWaitForResults(getApplicationContext(), false);
+            WifiScanJob.setWifiEnabledForScan(getApplicationContext(), false);
+
+            BluetoothScanJob.setScanRequest(getApplicationContext(), false);
+            BluetoothScanJob.setLEScanRequest(getApplicationContext(), false);
+            BluetoothScanJob.setWaitForResults(getApplicationContext(), false);
+            BluetoothScanJob.setWaitForLEResults(getApplicationContext(), false);
+            BluetoothScanJob.setBluetoothEnabledForScan(getApplicationContext(), false);
+
         }
         return res;
     }

@@ -384,6 +384,7 @@ class WifiScanJob extends Job {
             if (!startScan) {
                 if (getWifiEnabledForScan(context)) {
                     PPApplication.logE("$$$ WifiScanJob.startScan", "disable wifi");
+                    PPApplication.logE("#### setWifiEnabled", "from WifiScanJob.startScan 1");
                     wifi.setWifiEnabled(false);
                 }
                 unlock();
@@ -393,6 +394,7 @@ class WifiScanJob extends Job {
         } catch (Exception e) {
             if (getWifiEnabledForScan(context)) {
                 PPApplication.logE("$$$ WifiScanJob.startScan", "disable wifi");
+                PPApplication.logE("#### setWifiEnabled", "from WifiScanJob.startScan 2");
                 wifi.setWifiEnabled(false);
             }
             unlock();

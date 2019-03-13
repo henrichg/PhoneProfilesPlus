@@ -69,7 +69,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PPApplication.isMIUI"
@@ -271,7 +271,7 @@ public class PPApplication extends Application {
                                         //+"|BrightnessDialogPreference"
 
                                         //+ "|[RJS] PhoneProfilesService.startPhoneStateScanner"
-                                        + "|PhoneStateScanner"
+                                        //+ "|PhoneStateScanner"
                                         //+"|MobileCellsPreference"
                                         //+"|MobileCellsPreference.refreshListView"
                                         //+"|PhoneStateScanner.startAutoRegistration"
@@ -340,12 +340,15 @@ public class PPApplication extends Application {
 
                                         //+ "|BitmapManipulator.resampleBitmapUri"
 
-                                        +"|CmdGoToSleep"
-                                        +"|CmdNfc"
-                                        +"|CmdWifiAP"
+                                        //+"|CmdGoToSleep"
+                                        //+"|CmdNfc"
+                                        //+"|CmdWifiAP"
                                         //+"|ActivateProfileHelper.wifiServiceExists"
 
                                         //+"|ActivateProfileHelper.lockDevice"
+
+                                        +"|#### setWifiEnabled"
+                                        +"|@@@ WifiBluetoothScanner.enableWifi"
             ;
 
 

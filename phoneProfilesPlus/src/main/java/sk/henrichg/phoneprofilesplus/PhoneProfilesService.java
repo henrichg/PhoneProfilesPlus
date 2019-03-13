@@ -3321,6 +3321,16 @@ public class PhoneProfilesService extends Service
                             // not needed clearConnectedDevices(.., true) call it
                             //BluetoothConnectionBroadcastReceiver.getConnectedDevices(appContext);
                             BluetoothConnectedDevices.getConnectedDevices(appContext);
+
+                            WifiScanJob.setScanRequest(appContext, false);
+                            WifiScanJob.setWaitForResults(appContext, false);
+                            WifiScanJob.setWifiEnabledForScan(appContext, false);
+
+                            BluetoothScanJob.setScanRequest(appContext, false);
+                            BluetoothScanJob.setLEScanRequest(appContext, false);
+                            BluetoothScanJob.setWaitForResults(appContext, false);
+                            BluetoothScanJob.setWaitForLEResults(appContext, false);
+                            BluetoothScanJob.setBluetoothEnabledForScan(appContext, false);
                         }
 
                         if (PhoneProfilesService.getInstance() != null)

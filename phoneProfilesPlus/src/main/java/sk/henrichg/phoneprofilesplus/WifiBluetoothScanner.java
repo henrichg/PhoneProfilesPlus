@@ -155,6 +155,7 @@ class WifiBluetoothScanner {
                                     public void run() {
                                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
                                         //lock();
+                                        PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 1");
                                         WifiScanJob.wifi.setWifiEnabled(false);
                                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiBluetoothScanner.doScan.1");
                                     }
@@ -224,6 +225,7 @@ class WifiBluetoothScanner {
                                 if (WifiScanJob.getWifiEnabledForScan(context)) {
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "disable wifi");
                                     //lock();
+                                    PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.doScan 2");
                                     WifiScanJob.wifi.setWifiEnabled(false);
                                 } else
                                     PPApplication.logE("$$$W WifiBluetoothScanner.doScan", "keep enabled wifi");
@@ -554,6 +556,7 @@ class WifiBluetoothScanner {
                                 PPApplication.logE("PPApplication.startHandlerThread", "START run - from=WifiBluetoothScanner.doScan.1");
 
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "before enable wifi");
+                                PPApplication.logE("#### setWifiEnabled", "from WifiBluetoothScanner.enableWifi");
                                 _wifi.setWifiEnabled(true);
                                 PPApplication.logE("$$$ WifiBluetoothScanner.enableWifi", "after enable wifi");
 
