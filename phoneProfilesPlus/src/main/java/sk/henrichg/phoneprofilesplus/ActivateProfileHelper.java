@@ -184,7 +184,7 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                /*else {
+                else {
                     boolean setWifiAPState = false;
                     boolean isWifiAPEnabled = CmdWifiAP.isEnabled();
                     switch (profile._deviceWiFiAP) {
@@ -214,7 +214,7 @@ class ActivateProfileHelper {
                         //SystemClock.sleep(200);
                         PPApplication.sleep(200);
                     }
-                }*/
+                }
             }
         }
 

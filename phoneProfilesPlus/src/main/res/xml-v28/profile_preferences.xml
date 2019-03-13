@@ -388,7 +388,7 @@
                 android:title="@string/profile_preferences_deviceConnectToSSID"
                 android:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
                 android:layout="@layout/mp_preference_material_widget" />
-            <!--<Preference
+            <Preference
                 android:key="prf_pref_deviceWiFiAPInfo"
                 android:title="@string/profile_preferences_deviceWiFiAP"
                 android:summary="@string/profile_preferences_deviceWiFiAPInfo_summary"
@@ -401,7 +401,7 @@
                 android:defaultValue="0"
                 android:entries="@array/wifiAPArray"
                 android:entryValues="@array/wifiAPValues"
-                android:layout="@layout/mp_preference_material_widget" /> -->
+                android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.MaterialListPreference
                 android:title="@string/profile_preferences_deviceWiFiAPPrefs"
                 android:summary="@string/array_pref_no_change"
