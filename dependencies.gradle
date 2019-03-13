@@ -19,7 +19,7 @@ ext.ppVersions = [
     publishVersionCode: 4641,
 
     minSdk: 19,
-    targetSdk: 27,
+    targetSdk: 27, // do not set it to 28! wifi hotspot and other cmdXXX not working with 28.
     compileSdk: 28,
     buildTools: '28.0.3',
 
