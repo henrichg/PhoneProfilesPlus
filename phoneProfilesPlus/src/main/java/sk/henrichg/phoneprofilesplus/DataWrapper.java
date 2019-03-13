@@ -2474,7 +2474,6 @@ public class DataWrapper {
                             for (boolean conn : connected) {
                                 if (conn) {
                                     // when is connected to configured ssid, is also nearby
-                                    done = true;
                                     wifiPassed = true;
                                     break;
                                 }
