@@ -340,10 +340,10 @@ public class PPApplication extends Application {
 
                                         //+ "|BitmapManipulator.resampleBitmapUri"
 
-                                        //+"|CmdGoToSleep"
-                                        //+"|CmdNfc"
+                                        +"|CmdGoToSleep"
+                                        +"|CmdNfc"
                                         +"|CmdWifiAP"
-                                        +"|ActivateProfileHelper.wifiServiceExists"
+                                        //+"|ActivateProfileHelper.wifiServiceExists"
 
                                         //+"|ActivateProfileHelper.lockDevice"
             ;
