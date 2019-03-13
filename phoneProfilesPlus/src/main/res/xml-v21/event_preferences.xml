@@ -773,6 +773,14 @@
                 android:widgetLayout="@layout/start_activity_preference"
                 android:layout="@layout/mp_preference_material_widget" >
             </Preference>
+            <Preference
+                android:key="eventMobileCellsLocationSystemSettings"
+                android:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+                android:summary="@string/phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary"
+                android:widgetLayout="@layout/start_activity_preference"
+                android:dependency="eventMobileCellsEnabled"
+                android:layout="@layout/mp_preference_material_widget" >
+            </Preference>
             <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
                 android:key="eventMobileCellsRegistration"
                 android:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"

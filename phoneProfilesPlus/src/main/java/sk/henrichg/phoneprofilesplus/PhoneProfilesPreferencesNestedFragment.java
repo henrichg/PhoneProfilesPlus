@@ -1735,7 +1735,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning(getActivity())) {
                     summary = summary + getString(R.string.array_pref_applicationDisableScanning_enabled);
-                    if ((Build.VERSION.SDK_INT >= 28) && (!PhoneProfilesService.isLocationEnabled(getActivity()))) {
+                    if (!PhoneProfilesService.isLocationEnabled(getActivity())) {
                         summary = summary + "\n";
                         summary = summary + getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ": " +
                                 getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);

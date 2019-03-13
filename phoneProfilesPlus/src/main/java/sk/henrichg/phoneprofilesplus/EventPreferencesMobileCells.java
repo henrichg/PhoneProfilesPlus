@@ -94,11 +94,11 @@ class EventPreferencesMobileCells extends EventPreferences {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
                 else
-                if (Build.VERSION.SDK_INT >= 28) {
+                //if (Build.VERSION.SDK_INT >= 28) {
                     if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
                         descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
                     }
-                }
+                //}
 
                 String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._cells.isEmpty()) {
