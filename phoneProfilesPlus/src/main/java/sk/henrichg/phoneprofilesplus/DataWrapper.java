@@ -2727,7 +2727,6 @@ public class DataWrapper {
                                 for (boolean conn : connected) {
                                     if (conn) {
                                         // when is connected to configured bt name, is also nearby
-                                        done = true;
                                         bluetoothPassed = true;
                                         break;
                                     }
