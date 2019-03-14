@@ -885,26 +885,14 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         if (requestCode == RESULT_WIFI_SCANNING_APP_SETTINGS) {
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
         }
+        if (requestCode == RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS) {
+            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+        }
         if (requestCode == RESULT_BLUETOOTH_SCANNING_APP_SETTINGS) {
             event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
         }
         if (requestCode == RESULT_LOCATION_APP_SETTINGS) {
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
-        }
-        if (requestCode == RESULT_WIFI_LOCATION_SYSTEM_SETTINGS) {
-            event._eventPreferencesWifi.checkPreferences(prefMng, context);
-        }
-        if (requestCode == RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS) {
-            event._eventPreferencesWifi.checkPreferences(prefMng, context);
-        }
-        if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
-            event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
-        }
-        if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
-            event._eventPreferencesLocation.checkPreferences(prefMng, context);
-        }
-        if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
-            event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
         }
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
@@ -927,6 +915,30 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
         if (requestCode == RESULT_MOBILE_CELLS_SCANNING_SETTINGS) {
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_WIFI_LOCATION_SYSTEM_SETTINGS) {
+            event._eventPreferencesWifi.checkPreferences(prefMng, context);
+            setPreferencesStatusPreference();
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
+        }
+        if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
+            event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
+            setPreferencesStatusPreference();
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
+        }
+        if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
+            event._eventPreferencesLocation.checkPreferences(prefMng, context);
+            setPreferencesStatusPreference();
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
+        }
+        if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
+            event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
+            setPreferencesStatusPreference();
+            PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
+            ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context);
