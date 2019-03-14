@@ -294,6 +294,12 @@ class PhoneStateScanner extends PhoneStateListener {
                     }
                 }
 
+                if (cellInfo.size() == 0) {
+                    PPApplication.logE("PhoneStateScanner.getAllCellInfo", "empty cellInfo");
+                    registeredCell = Integer.MAX_VALUE;
+                    doAutoRegistration(registeredCell);
+                }
+
                 PPApplication.logE("PhoneStateScanner.getAllCellInfo", "---- end ----------------------------");
             }
 
