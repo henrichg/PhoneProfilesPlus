@@ -1495,7 +1495,11 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             preference.setSummary(summary);
         }
         if (key.equals(PREF_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS)) {
-            String summary = getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
+            String summary;
+            if (Build.VERSION.SDK_INT < 28)
+                summary = getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary);
+            else
+                summary = getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
             if (!PhoneProfilesService.isLocationEnabled(getActivity().getApplicationContext())) {
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" +
                         summary;

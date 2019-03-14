@@ -94,11 +94,12 @@ class EventPreferencesMobileCells extends EventPreferences {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
                 else
-                //if (Build.VERSION.SDK_INT >= 28) {
-                    if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                    if (Build.VERSION.SDK_INT < 28)
+                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".<br>";
+                    else
                         descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
-                    }
-                //}
+                }
 
                 String selectedCells = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._cells.isEmpty()) {
@@ -174,10 +175,16 @@ class EventPreferencesMobileCells extends EventPreferences {
         if (key.equals(PREF_EVENT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
-                String summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
+                String summary;
+                if (Build.VERSION.SDK_INT < 28)
+                    summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary);
+                else
+                    summary = context.getString(R.string.phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary);
                 if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
-                    summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n" +
-                            summary;
+                    if (Build.VERSION.SDK_INT < 28)
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + ".\n\n" + summary;
+                    else
+                        summary = "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *\n\n" + summary;
                 }
                 else {
                     summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary) + ".\n\n"+
