@@ -226,6 +226,8 @@ class PhoneStateScanner extends PhoneStateListener {
 
                 PPApplication.logE("PhoneStateScanner.getAllCellInfo", "---- start ----------------------------");
 
+                boolean anyRegistered = false;
+
                 for (CellInfo _cellInfo : cellInfo) {
                     //PPApplication.logE("PhoneStateScanner.getAllCellInfo", "registered="+_cellInfo.isRegistered());
 
@@ -285,6 +287,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     }
 
                     if (isRegistered) {
+                        anyRegistered = true;
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "registeredCell=" + registeredCell);
 
                         PPApplication.logE("PhoneStateScanner.getAllCellInfo", "is registered, save it");
@@ -294,7 +297,7 @@ class PhoneStateScanner extends PhoneStateListener {
                     }
                 }
 
-                if (cellInfo.size() == 0) {
+                if (!anyRegistered) {
                     PPApplication.logE("PhoneStateScanner.getAllCellInfo", "empty cellInfo");
                     registeredCell = Integer.MAX_VALUE;
                     doAutoRegistration(registeredCell);
