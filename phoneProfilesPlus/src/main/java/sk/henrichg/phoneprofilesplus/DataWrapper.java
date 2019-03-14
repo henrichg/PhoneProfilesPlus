@@ -2500,7 +2500,7 @@ public class DataWrapper {
                     }
                 }
 
-                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
+                PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - connected =" + wifiPassed);
 
                 if ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_INFRONT) ||
                         (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)) {
@@ -2591,7 +2591,18 @@ public class DataWrapper {
                                         if (done)
                                             break;
                                     }
-                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed=" + wifiPassed);
+                                    PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - in front =" + wifiPassed);
+
+                                    if (!done) {
+                                        if (scanResults.size() == 0) {
+                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResult is empty");
+
+                                            if (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOTINFRONT)
+                                                wifiPassed = true;
+
+                                            PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiPassed - in front - for empty scanResult =" + wifiPassed);
+                                        }
+                                    }
 
                                 } else
                                     PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanResults == null");
@@ -2858,15 +2869,20 @@ public class DataWrapper {
                                         }
                                         if (done)
                                             break;
-
                                     }
+                                    PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetoothPassed=" + bluetoothPassed);
 
-                                    if (!bluetoothPassed)
-                                        PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "bluetooth not found");
+                                    if (!done) {
+                                        if (scanResults.size() == 0) {
+                                            PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "scanResult is empty");
+
+                                            if (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT)
+                                                wifiPassed = true;
+                                        }
+                                    }
 
                                 } else
                                     PPApplication.logE("[BTScan] DataWrapper.doHandleEvents", "scanResults == null");
-
                             }
                         }
                     }

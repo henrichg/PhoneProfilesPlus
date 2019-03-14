@@ -69,7 +69,7 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PPApplication.isMIUI"
@@ -209,7 +209,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.stopGeofenceScanner"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
 
-                                         +"|%%%% WifiBluetoothScanner.doScan"
+                                         //+"|%%%% WifiBluetoothScanner.doScan"
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$BCL WifiBluetoothScanner"
                                          //+"|BluetoothScanJob.onRunJob"
@@ -221,7 +221,7 @@ public class PPApplication extends Application {
 
                                          //+"|WifiScanJob"
                                          //+"|%%%% WifiScanBroadcastReceiver.onReceive"
-                                         //+"|[WiFi] DataWrapper.doHandleEvents"
+                                         +"|[WiFi] DataWrapper.doHandleEvents"
                                          //+"|WifiSSIDPreference.refreshListView"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
