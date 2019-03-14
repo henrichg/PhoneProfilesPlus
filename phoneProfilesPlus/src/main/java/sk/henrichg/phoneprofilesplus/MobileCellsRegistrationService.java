@@ -45,6 +45,7 @@ public class MobileCellsRegistrationService extends Service {
         context = this;
 
         removeResultNotification();
+        showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
         int remainingDuration = getMobileCellsAutoRegistrationRemainingDuration(this);
 
@@ -55,8 +56,6 @@ public class MobileCellsRegistrationService extends Service {
             forceStart = true;
 
             //PhoneStateScanner.autoRegistrationService = this;
-
-            showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
 
             if (mobileCellsRegistrationStopButtonBroadcastReceiver == null) {
                 IntentFilter intentFilter = new IntentFilter();

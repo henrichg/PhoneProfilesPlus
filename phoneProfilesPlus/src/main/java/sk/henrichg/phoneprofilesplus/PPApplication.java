@@ -209,6 +209,7 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.stopGeofenceScanner"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
 
+                                         +"|%%%% WifiBluetoothScanner.doScan"
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$BCL WifiBluetoothScanner"
                                          //+"|BluetoothScanJob.onRunJob"
@@ -348,7 +349,6 @@ public class PPApplication extends Application {
                                         //+"|ActivateProfileHelper.lockDevice"
 
                                         +"|#### setWifiEnabled"
-                                        //+"|@@@ WifiBluetoothScanner.enableWifi"
             ;
 
 
