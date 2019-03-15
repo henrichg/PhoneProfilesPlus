@@ -185,3 +185,15 @@ Extender:
 - Aby nemuseli byt pri kazdom profil/event parametri 3 dalsie kvoli Extenderu.
 - Pridaj dakde v Editore daku indikaciu, ze je Extender vyzadovany v novej verzii.
   Nieco uz o tom mas v Important info, notifikacia o tom sa zobrazi po upgrade PPP.
+
+Kde je treba Extender:
+
+Profily:
+- Force stop application
+- Lock device
+
+Eventy:
+- Call sensor
+- SMS/MMS sensor
+- Application sensor
+- Orientation sensor
