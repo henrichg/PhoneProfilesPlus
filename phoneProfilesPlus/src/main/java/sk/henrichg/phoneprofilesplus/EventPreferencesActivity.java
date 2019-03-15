@@ -437,9 +437,13 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private void savePreferences(int new_event_mode, int predefinedEventIndex)
     {
+        PPApplication.logE("EventPreferencesActivity.savePreferences","new_event_mode="+new_event_mode);
+
         final Event event = getEventFromPreferences(event_id, new_event_mode, predefinedEventIndex);
         if (event == null)
             return;
+
+        PPApplication.logE("EventPreferencesActivity.savePreferences","event._name="+event._name);
 
         event.setSensorsWaiting();
 

@@ -186,6 +186,9 @@ Extender:
 - Pridaj dakde v Editore daku indikaciu, ze je Extender vyzadovany v novej verzii.
   Nieco uz o tom mas v Important info, notifikacia o tom sa zobrazi po upgrade PPP.
 
+- Zatial pridaj aspon upozornenie, ze je stary Extender. Mozno to uz mam, kukni.
+  Sprav to ako pri pravach a podobne. Pis aj verziu, ktora je vyzadovana.
+
 Kde je treba Extender:
 
 Profily:
@@ -197,3 +200,60 @@ Eventy:
 - SMS/MMS sensor
 - Application sensor
 - Orientation sensor
+
+----------------------------------------------
+
+Android Q beta 1 - emulator:
+
+2019-03-15 19:40:37.496 9209-9209/sk.henrichg.phoneprofilesplus W/System.err: java.io.FileNotFoundException: /system/build.prop: open failed: EACCES (Permission denied)
+2019-03-15 19:40:37.520 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.IoBridge.open(IoBridge.java:496)
+2019-03-15 19:40:37.520 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at java.io.FileInputStream.<init>(FileInputStream.java:159)
+2019-03-15 19:40:37.520 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at sk.henrichg.phoneprofilesplus.PPApplication.isMIUI(PPApplication.java:1945)
+2019-03-15 19:40:37.520 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at sk.henrichg.phoneprofilesplus.PPApplication.<clinit>(PPApplication.java:59)
+2019-03-15 19:40:37.520 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at java.lang.Class.newInstance(Native Method)
+2019-03-15 19:40:37.520 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.AppComponentFactory.instantiateApplication(AppComponentFactory.java:62)
+2019-03-15 19:40:37.520 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.support.v4.app.CoreComponentFactory.instantiateApplication(CoreComponentFactory.java:49)
+2019-03-15 19:40:37.520 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.Instrumentation.newApplication(Instrumentation.java:1144)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.LoadedApk.makeApplication(LoadedApk.java:1211)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.ActivityThread.handleBindApplication(ActivityThread.java:6144)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.ActivityThread.access$1100(ActivityThread.java:208)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1769)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.os.Handler.dispatchMessage(Handler.java:106)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.os.Looper.loop(Looper.java:209)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.ActivityThread.main(ActivityThread.java:7021)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at java.lang.reflect.Method.invoke(Native Method)
+2019-03-15 19:40:37.521 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:486)
+2019-03-15 19:40:37.522 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:872)
+2019-03-15 19:40:37.523 9209-9209/sk.henrichg.phoneprofilesplus W/System.err: Caused by: android.system.ErrnoException: open failed: EACCES (Permission denied)
+2019-03-15 19:40:37.523 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.Linux.open(Native Method)
+2019-03-15 19:40:37.523 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.ForwardingOs.open(ForwardingOs.java:167)
+2019-03-15 19:40:37.523 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.BlockGuardOs.open(BlockGuardOs.java:237)
+2019-03-15 19:40:37.523 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.IoBridge.open(IoBridge.java:482)
+2019-03-15 19:40:37.523 9209-9209/sk.henrichg.phoneprofilesplus W/System.err: 	... 17 more
+2019-03-15 19:40:37.524 9209-9209/sk.henrichg.phoneprofilesplus W/System.err: java.io.FileNotFoundException: /system/build.prop: open failed: EACCES (Permission denied)
+2019-03-15 19:40:37.524 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.IoBridge.open(IoBridge.java:496)
+2019-03-15 19:40:37.524 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at java.io.FileInputStream.<init>(FileInputStream.java:159)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at sk.henrichg.phoneprofilesplus.PPApplication.getEmuiRomName(PPApplication.java:1969)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at sk.henrichg.phoneprofilesplus.PPApplication.isEMUI(PPApplication.java:1990)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at sk.henrichg.phoneprofilesplus.PPApplication.<clinit>(PPApplication.java:60)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at java.lang.Class.newInstance(Native Method)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.AppComponentFactory.instantiateApplication(AppComponentFactory.java:62)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.support.v4.app.CoreComponentFactory.instantiateApplication(CoreComponentFactory.java:49)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.Instrumentation.newApplication(Instrumentation.java:1144)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.LoadedApk.makeApplication(LoadedApk.java:1211)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.ActivityThread.handleBindApplication(ActivityThread.java:6144)
+2019-03-15 19:40:37.525 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.ActivityThread.access$1100(ActivityThread.java:208)
+2019-03-15 19:40:37.526 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1769)
+2019-03-15 19:40:37.526 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.os.Handler.dispatchMessage(Handler.java:106)
+2019-03-15 19:40:37.526 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.os.Looper.loop(Looper.java:209)
+2019-03-15 19:40:37.526 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at android.app.ActivityThread.main(ActivityThread.java:7021)
+2019-03-15 19:40:37.526 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at java.lang.reflect.Method.invoke(Native Method)
+2019-03-15 19:40:37.526 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:486)
+2019-03-15 19:40:37.526 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:872)
+2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err: Caused by: android.system.ErrnoException: open failed: EACCES (Permission denied)
+2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.Linux.open(Native Method)
+2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.ForwardingOs.open(ForwardingOs.java:167)
+2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.BlockGuardOs.open(BlockGuardOs.java:237)
+2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.IoBridge.open(IoBridge.java:482)
+2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err: 	... 18 more
+

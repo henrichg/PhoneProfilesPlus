@@ -460,6 +460,8 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state PAUSE
 
+        PPApplication.logE("EventPreferencesTime.setSystemEventForStart","xxx");
+
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
 
@@ -476,6 +478,8 @@ class EventPreferencesTime extends EventPreferences {
     public void setSystemEventForPause(Context context)
     {
         // set alarm for state RUNNING
+
+        PPApplication.logE("EventPreferencesTime.setSystemEventForPause","xxx");
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
