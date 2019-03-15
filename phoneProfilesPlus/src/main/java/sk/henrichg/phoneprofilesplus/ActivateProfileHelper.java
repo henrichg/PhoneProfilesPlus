@@ -1706,6 +1706,9 @@ class ActivateProfileHelper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    if (PPApplication.blockProfileEventActions)
+                        // not start applications after boot
+                        return;
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -1774,8 +1777,7 @@ class ActivateProfileHelper {
                                                         PPApplication.sleep(1000);
                                                     } catch (Exception ignored) {
                                                     }
-                                                }
-                                                else {
+                                                } else {
                                                     try {
                                                         context.sendBroadcast(intent);
                                                         //try { Thread.sleep(1000); } catch (InterruptedException e) { }
@@ -1815,7 +1817,8 @@ class ActivateProfileHelper {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
                             try {
                                 wakeLock.release();
-                            } catch (Exception ignored) {}
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
                 }
