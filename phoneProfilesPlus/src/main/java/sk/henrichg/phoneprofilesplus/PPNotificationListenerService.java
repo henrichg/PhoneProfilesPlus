@@ -56,6 +56,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
+        super.onNotificationPosted(sbn);
+
         CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationPosted", "PPNotificationListenerService_onNotificationPosted");
 
         PPApplication.logE("PPNotificationListenerService.onNotificationPosted","sbn="+sbn);
@@ -133,6 +135,8 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
+        super.onNotificationRemoved(sbn);
+
         CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onNotificationRemoved", "PPNotificationListenerService_onNotificationRemoved");
 
         PPApplication.logE("PPNotificationListenerService.onNotificationRemoved","sbn="+sbn);
@@ -191,13 +195,20 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     // Android 5.0 Lollipop
 
-    @Override public void onListenerConnected() {
+    @Override
+    public void onListenerConnected() {
+        super.onListenerConnected();
     }
-    @Override public void onListenerHintsChanged(int hints) {
+
+    @Override
+    public void onListenerHintsChanged(int hints) {
+        super.onListenerHintsChanged(hints);
     }
 
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
+        super.onInterruptionFilterChanged(interruptionFilter);
+
         CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onInterruptionFilterChanged", "PPNotificationListenerService_onInterruptionFilterChanged");
 
         boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");

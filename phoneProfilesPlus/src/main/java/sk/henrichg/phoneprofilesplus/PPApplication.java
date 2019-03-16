@@ -181,7 +181,7 @@ public class PPApplication extends Application {
                                          //+"|StartEventNotificationDeletedReceiver"
                                          //+"|PhoneProfilesService.playNotificationSound"
 
-                                         //+"|PPNotificationListenerService"
+                                         +"|PPNotificationListenerService"
                                          //+"|[NOTIF] EventsHandler.handleEvents"
                                          //+"|EventPreferencesNotification"
 
@@ -290,15 +290,15 @@ public class PPApplication extends Application {
                                         //+"|[RJS] PhoneProfilesService.reregisterReceiversAndJobs"
                                         //+"|[RJS] PhoneProfilesService.registerReceiverForTimeSensor"
 
-                                        +"|EventPreferencesActivity.savePreferences"
-                                        +"|$$$ restartEvents"
-                                        +"|DataWrapper._restartEvents"
-                                        +"|DataWrapper.restartEvents"
-                                        +"|PPApplication.startHandlerThread"
-                                        +"|Event.startEvent"
-                                        +"|Event.pauseEvent"
-                                        +"|EventTimeBroadcastReceiver.onReceive"
-                                        +"|EventPreferencesTime"
+                                        //+"|EventPreferencesActivity.savePreferences"
+                                        //+"|$$$ restartEvents"
+                                        //+"|DataWrapper._restartEvents"
+                                        //+"|DataWrapper.restartEvents"
+                                        //+"|PPApplication.startHandlerThread"
+                                        //+"|Event.startEvent"
+                                        //+"|Event.pauseEvent"
+                                        //+"|EventTimeBroadcastReceiver.onReceive"
+                                        //+"|EventPreferencesTime"
 
                                         //+"|PhoneCallReceiver"
                                         //+"|PhoneCallBroadcastReceiver"
