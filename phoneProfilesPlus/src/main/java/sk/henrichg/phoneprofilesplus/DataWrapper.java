@@ -2407,8 +2407,8 @@ public class DataWrapper {
                                         else {
                                             NetworkInfo networkInfo = connManager.getNetworkInfo(network);
                                             if((networkInfo != null) && networkInfo.isConnected()) {
-                                                NetworkCapabilities networkCapabilities=connManager.getNetworkCapabilities(network);
-                                                if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                                                NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                                if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                                                     wifiConnected = true;
                                                     break;
                                                 }

@@ -2705,8 +2705,8 @@ public class Profile {
                                         }
                                     }
                                     else {
-                                        NetworkCapabilities networkCapabilities=connManager.getNetworkCapabilities(network);
-                                        if (networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                                        NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                        if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                                             mobileDataSupported = true;
                                             break;
                                         }
