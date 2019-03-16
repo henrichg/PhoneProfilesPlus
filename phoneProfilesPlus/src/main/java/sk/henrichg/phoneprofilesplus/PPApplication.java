@@ -181,7 +181,7 @@ public class PPApplication extends Application {
                                          //+"|StartEventNotificationDeletedReceiver"
                                          //+"|PhoneProfilesService.playNotificationSound"
 
-                                         +"|PPNotificationListenerService"
+                                         //+"|PPNotificationListenerService"
                                          //+"|[NOTIF] EventsHandler.handleEvents"
                                          //+"|EventPreferencesNotification"
 
