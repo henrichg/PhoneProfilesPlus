@@ -10,7 +10,6 @@ import android.os.PowerManager;
 
 import static android.content.Context.POWER_SERVICE;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 class BluetoothLEScanCallback18 implements BluetoothAdapter.LeScanCallback {
 
     private final Context context;

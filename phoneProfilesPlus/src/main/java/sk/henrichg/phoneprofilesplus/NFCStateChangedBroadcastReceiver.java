@@ -13,7 +13,6 @@ import static android.content.Context.POWER_SERVICE;
 
 public class NFCStateChangedBroadcastReceiver extends BroadcastReceiver {
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onReceive(Context context, Intent intent) {
         PPApplication.logE("##### NFCStateChangedBroadcastReceiver.onReceive", "xxx");
