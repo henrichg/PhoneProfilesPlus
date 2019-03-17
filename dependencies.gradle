@@ -15,8 +15,8 @@
 // 4600 = support for "NOT LIKE" in calendar sensor
 
 ext.ppVersions = [
-    publishVersion: '3.6.8.5b',
-    publishVersionCode: 4645,
+    publishVersion: '3.6.8.5',
+    publishVersionCode: 4650,
 
     minSdk: 19,
     targetSdk: 27, // do not set it to 28! wifi hotspot and other cmdXXX not working with 28.
