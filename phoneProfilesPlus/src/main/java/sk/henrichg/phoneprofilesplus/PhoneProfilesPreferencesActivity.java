@@ -161,7 +161,8 @@ public class PhoneProfilesPreferencesActivity extends PreferenceActivity
         commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         commandIntent.putExtra(PhoneProfilesService.EXTRA_CLEAR_SERVICE_FOREGROUND, true);
         PPApplication.runCommand(this, commandIntent);*/
-        PhoneProfilesService.getInstance().clearProfileNotification();
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().clearProfileNotification();
 
         final Context context = this;
         Handler handler = new Handler(getMainLooper());
