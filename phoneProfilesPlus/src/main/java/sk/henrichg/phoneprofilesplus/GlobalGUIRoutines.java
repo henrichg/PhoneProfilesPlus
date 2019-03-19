@@ -519,16 +519,20 @@ class GlobalGUIRoutines {
         else
             return null;
     }
-
     static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
+        //int result = 0;
+        //int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        //if (resourceId > 0) {
+        //    result = context.getResources().getDimensionPixelSize(resourceId);
+        //}
+        //return result;
+        final Resources resources = context.getResources();
+        final int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0)
+            return resources.getDimensionPixelSize(resourceId);
+        else
+            return (int) Math.ceil((Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? 24 : 25) * resources.getDisplayMetrics().density);
     }
-
     static int getNavigationBarHeight(Context context) {
         int result = 0;
         int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");

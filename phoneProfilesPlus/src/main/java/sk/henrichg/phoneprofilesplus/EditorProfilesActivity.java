@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.Rect;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.BroadcastReceiver;
@@ -32,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -211,6 +213,25 @@ public class EditorProfilesActivity extends AppCompatActivity
         else
             setContentView(R.layout.activity_editor_list_onepane);
 
+        drawerLayout = findViewById(R.id.editor_list_drawer_layout);
+
+        /*
+        if (Build.VERSION.SDK_INT >= 21) {
+            drawerLayout.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                    @Override
+                    public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                        int statusBarHeight = insets.getSystemWindowInsetTop();
+                        PPApplication.logE("EditorProfilesActivity.onApplyWindowInsets", "statusBarHeight="+statusBarHeight);
+                        Rect rect = insets.getSystemWindowInsets();
+                        PPApplication.logE("EditorProfilesActivity.onApplyWindowInsets", "rect.top="+rect.top);
+                        rect.top = rect.top + statusBarHeight;
+                        return insets.replaceSystemWindowInsets(rect);
+                    }
+                }
+            );
+        }
+        */
+
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
@@ -328,7 +349,6 @@ public class EditorProfilesActivity extends AppCompatActivity
             fragmentManager.executePendingTransactions();
         }
 
-        drawerLayout = findViewById(R.id.editor_list_drawer_layout);
         drawerRoot = findViewById(R.id.editor_drawer_root);
 
         // set status bar background for Activity body layout
