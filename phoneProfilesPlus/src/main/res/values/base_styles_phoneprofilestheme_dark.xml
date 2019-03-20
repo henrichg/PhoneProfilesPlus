@@ -33,8 +33,10 @@
         <item name="actionProfileButtonTextStyle">@style/TextAppearance.AppCompat.Widget.ActionBar.Title</item>
         <item name="navigationDrawerBackground">@color/navigationDrawerBackground_dark</item>
         <item name="navigationDrawerText">@color/navigationDrawerTextColor_dark</item>
-        <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor_dark</item>
-        <item name="navigationDrawerSelector">@drawable/editor_drawer_selector_dark</item>
+<!--        <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor_dark</item> -->
+        <item name="navigationDrawerItemBackgroundColor">@color/navigationDrawerItemBackground_dark</item>
+        <item name="navigationDrawerItemBackgroundPressedColor">@color/navigationDrawerItemBackgroundPressed_dark</item>
+<!--        <item name="navigationDrawerSelector">@drawable/editor_drawer_selector_dark</item> -->
         <item name="filterStatusBarBackground">@color/primary_dark</item>
 <!--         <item name="editorDrawerSpinner">@style/editorDrawerSpinnerStyle</item>  --> 
         <item name="preferenceDialogBackground">@color/preferenceDialogBackground_dark</item>

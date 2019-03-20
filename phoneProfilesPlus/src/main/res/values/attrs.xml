@@ -81,8 +81,10 @@
     <attr name="actionProfileButtonTextStyle" format="reference" />
     <attr name="navigationDrawerBackground" format="reference" />
     <attr name="navigationDrawerText" format="reference"/>
-    <attr name="navigationDrawerSubText" format="reference"/>
-    <attr name="navigationDrawerSelector" format="reference"/>
+    <!--<attr name="navigationDrawerSubText" format="reference"/>-->
+    <attr name="navigationDrawerItemBackgroundColor" format="reference"/>
+    <attr name="navigationDrawerItemBackgroundPressedColor" format="reference"/>
+    <!--<attr name="navigationDrawerSelector" format="reference"/>-->
     <attr name="filterStatusBarBackground" format="reference" />
     <!-- <attr name="editorDrawerSpinner" format="reference" /> -->
     <attr name="preferenceDialogBackground" format="reference" />

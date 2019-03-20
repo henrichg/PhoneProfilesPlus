@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                style="?attr/spinnerDropDownItemStyle"
-                android:background="?attr/navigationDrawerSelector"
+                android:background="@drawable/editor_drawer_list_item_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="7dp" >
@@ -12,11 +11,24 @@
         android:layout_height="30dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="10dp"
         android:contentDescription="@string/empty_string"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_events_drawer_profile_filter_0" />
+
+    <TextView
+        android:id="@+id/editor_drawer_list_item_subtitle"
+        android:textColor="?attr/navigationDrawerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editor_drawer_list_item_title"
+        android:layout_toEndOf="@id/editor_drawer_list_item_icon"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:ellipsize="end"
+        android:textSize="14sp"
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/editor_drawer_list_item_title"
@@ -28,19 +40,7 @@
         android:paddingStart="14dp"
         android:paddingEnd="14dp"
         android:ellipsize="end"
-        android:maxLines="1"/>
-
-    <TextView
-        android:id="@+id/editor_drawer_list_item_subtitle"
-        android:textColor="?attr/navigationDrawerSubText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editor_drawer_list_item_title"
-        android:layout_toEndOf="@id/editor_drawer_list_item_icon"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:ellipsize="end"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="17sp"
         android:maxLines="1"/>
 
 </RelativeLayout>

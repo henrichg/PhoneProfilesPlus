@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:left="9dp"
+        android:right="9dp"
+        android:top="2dp"
+        android:bottom="2dp">
+
+        <shape>
+            <solid android:color="@color/editor_drawer_list_item_background"/>
+            <corners android:radius="5dp"/>
+        </shape>
+
+    </item>
+</layer-list>

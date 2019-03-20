@@ -32,8 +32,9 @@
         <item name="actionProfileButtonTextStyle">@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</item>
         <item name="navigationDrawerBackground">@color/navigationDrawerBackground</item>
         <item name="navigationDrawerText">@color/navigationDrawerTextColor</item>
-        <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor</item>
-        <item name="navigationDrawerSelector">@drawable/editor_drawer_selector</item>
+<!--        <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor</item> -->
+        <item name="navigationDrawerItemBackgroundColor">@color/navigationDrawerItemBackground</item>
+        <item name="navigationDrawerItemBackgroundPressedColor">@color/navigationDrawerItemBackgroundPressed</item>
         <item name="filterStatusBarBackground">@color/primary_dark</item>
 <!--         <item name="editorDrawerSpinner">@style/editorDrawerSpinnerStyle</item>   --> 
         <item name="preferenceDialogBackground">@color/preferenceDialogBackground</item>
