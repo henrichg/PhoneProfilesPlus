@@ -379,6 +379,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerHeaderFilterTitle = findViewById(R.id.editor_drawer_list_header_title);
         drawerHeaderFilterSubtitle = findViewById(R.id.editor_drawer_list_header_subtitle);
 
+        // set header padding for notches
         if (Build.VERSION.SDK_INT >= 21) {
             drawerRoot.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
                 @Override
