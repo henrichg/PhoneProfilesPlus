@@ -142,6 +142,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private ActionBarDrawerToggle drawerToggle;
     private TextView filterStatusBarTitle;
     private AppCompatSpinner orderSpinner;
+    private View headerView;
     private ImageView drawerHeaderFilterImage;
     private TextView drawerHeaderFilterTitle;
     private TextView drawerHeaderFilterSubtitle;
@@ -371,12 +372,28 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         drawerListView = findViewById(R.id.editor_drawer_list);
         //noinspection ConstantConditions
-        @SuppressLint("InflateParams")
-        View headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.editor_drawer_list_header, null, false);
+        headerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
+                            inflate(R.layout.editor_drawer_list_header, drawerListView, false);
         drawerListView.addHeaderView(headerView, null, false);
         drawerHeaderFilterImage = findViewById(R.id.editor_drawer_list_header_icon);
         drawerHeaderFilterTitle = findViewById(R.id.editor_drawer_list_header_title);
         drawerHeaderFilterSubtitle = findViewById(R.id.editor_drawer_list_header_subtitle);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            drawerRoot.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+                @Override
+                public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                    headerView.setPadding(
+                            headerView.getPaddingLeft(),
+                            headerView.getPaddingTop() + insets.getSystemWindowInsetTop(),
+                            headerView.getPaddingRight(),
+                            headerView.getPaddingBottom());
+                    insets.consumeSystemWindowInsets();
+                    drawerRoot.setOnApplyWindowInsetsListener(null);
+                    return insets;
+                }
+            });
+        }
 
         if (Build.VERSION.SDK_INT < 21)
             drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);

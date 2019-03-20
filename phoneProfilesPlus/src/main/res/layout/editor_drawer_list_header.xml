@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- FrameLayout is used for proper header height -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="wrap_content" >
 
@@ -9,8 +8,8 @@
         android:id="@+id/editor_drawer_list_header_background"
         android:background="?attr/colorPrimary"
         android:layout_width="match_parent"
-        android:layout_height="84dp"
-        tools:ignore="UselessParent">
+        android:layout_height="85dp"
+        android:paddingTop="10dp" >
 
         <!--
         <ImageView
@@ -46,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/editor_drawer_list_header_icon"
-            android:paddingStart="11dp"
+            android:paddingStart="14dp"
             android:paddingEnd="5dp"
             android:paddingTop="14dp"
             android:ellipsize="end"
@@ -59,9 +58,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editor_drawer_list_header_icon"
+            android:layout_toEndOf="@id/editor_drawer_list_header_icon"
             android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="0dp"
             android:ellipsize="end"
             android:textSize="15sp"
             android:maxLines="1"/>
