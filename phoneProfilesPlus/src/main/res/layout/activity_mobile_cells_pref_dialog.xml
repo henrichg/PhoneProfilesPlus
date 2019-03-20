@@ -45,15 +45,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="5dp" >
-
-                <TextView
-                    android:id="@+id/mobile_cells_pref_dlg_connectedCell"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mobile_cells_pref_dlg_connected_cell"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true" />
+                android:layout_marginBottom="10dp" >
 
                 <android.support.v7.widget.AppCompatImageButton
                     android:id="@+id/mobile_cells_pref_dlg_addCellButton"
@@ -64,6 +56,43 @@
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
                     android:background="?attr/selectableItemBackground" />
+
+                <TextView
+                    android:id="@+id/mobile_cells_pref_dlg_connectedCell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mobile_cells_pref_dlg_connected_cell"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@id/mobile_cells_pref_dlg_addCellButton"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="5dp" >
+
+                <android.support.v7.widget.AppCompatImageButton
+                    android:id="@+id/mobile_cells_pref_dlg_locationSystemSettingsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_button_settings"
+                    android:background="?attr/selectableItemBackground" />
+
+                <TextView
+                    android:id="@+id/mobile_cells_pref_dlg_locationEnableStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/phone_profiles_pref_eventLocationSystemSettings"
+                    android:layout_toStartOf="@id/mobile_cells_pref_dlg_locationSystemSettingsButton" />
 
             </RelativeLayout>
 
@@ -133,6 +162,13 @@
                     android:focusable="true" />
 
             </RelativeLayout>
+
+            <View
+                android:id="@+id/mobile_cells_pref_dlg_buttonBarDivider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/dialogDivider" />
 
         </LinearLayout>
 

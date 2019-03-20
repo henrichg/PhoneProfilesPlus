@@ -9,6 +9,7 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.DialogPreference;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
@@ -21,6 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 public class LocationGeofencePreference extends DialogPreference {
 
@@ -177,6 +179,47 @@ public class LocationGeofencePreference extends DialogPreference {
         else {
             unselectAllButton.setVisibility(View.GONE);
         }
+
+        final TextView locationEnabledStatusTextView = layout.findViewById(R.id.location_pref_dlg_locationEnableStatus);
+        String statusText;
+        if (!PhoneProfilesService.isLocationEnabled(context)) {
+            statusText = context.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                    "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
+        } else {
+            statusText = context.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                    context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+        }
+        locationEnabledStatusTextView.setText(statusText);
+
+        AppCompatImageButton locationSystemSettingsButton = layout.findViewById(R.id.location_pref_dlg_locationSystemSettingsButton);
+        locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context.getApplicationContext())) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    context.startActivity(intent);
+                }
+                else {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = dialogBuilder.create();
+                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    @Override
+                                    public void onShow(DialogInterface dialog) {
+                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                        if (positive != null) positive.setAllCaps(false);
+                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                        if (negative != null) negative.setAllCaps(false);
+                                    }
+                                });*/
+                    if (!((Activity)context).isFinishing())
+                        dialog.show();
+                }
+            }
+        });
 
         GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
 
