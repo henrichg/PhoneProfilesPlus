@@ -132,7 +132,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private PPScrimInsetsFrameLayout drawerRoot;
     private ListView drawerListView;
-    private ActionBarDrawerToggle drawerToggle;
+    //private ActionBarDrawerToggle drawerToggle;
     private TextView filterStatusBarTitle;
     private AppCompatSpinner orderSpinner;
     private View headerView;
@@ -454,8 +454,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.editor_drawer_open, R.string.editor_drawer_open)
-        {
+        //drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.editor_drawer_open, R.string.editor_drawer_open)
+        //{
             /*
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -465,7 +465,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 super.onDrawerOpened(drawerView);
             }
             */
-            
+            /*
             // this disable animation 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) 
@@ -475,9 +475,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                   }else{
                         super.onDrawerSlide(drawerView, slideOffset);
                   }
-            }            
-        };
-        drawerLayout.addDrawerListener(drawerToggle);
+            }
+            */
+        //};
+        //drawerLayout.addDrawerListener(drawerToggle);
         
         filterStatusBarTitle = findViewById(R.id.editor_filter_title);
         filterStatusBarTitle.setOnClickListener(new View.OnClickListener() {
@@ -947,15 +948,14 @@ public class EditorProfilesActivity extends AppCompatActivity
     private class DrawerItemClickListener implements
             ListView.OnItemClickListener {
 
-        public void onItemClick(AdapterView<?> parent, View view, int position,
-                long id) {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             // header is position=0
             if (position > 0)
                 selectDrawerItem(position, true, false, true);
         }
     }
- 
-    private void selectDrawerItem(int position, boolean removePreferences, boolean orientationChange, boolean startTargetHelps) {
+
+    private void _selectDrawerItem(int position, boolean removePreferences, boolean startTargetHelps) {
         PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "position="+position);
         PPApplication.logE("EditorProfilesActivity.selectDrawerItem", "drawerSelectedItem="+drawerSelectedItem);
 
@@ -1128,12 +1128,22 @@ public class EditorProfilesActivity extends AppCompatActivity
         // set filter status bar title
         setStatusBarTitle();
         
-        
+    }
+
+    private void selectDrawerItem(final int position, final boolean removePreferences, boolean orientationChange, final boolean startTargetHelps) {
         // Close drawer
         if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))
             drawerLayout.closeDrawer(drawerRoot);
+
+        // this fixes drawer close lag
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                _selectDrawerItem(position, removePreferences, startTargetHelps);
+            }
+        }, 200);
     }
-    
+
     private void changeEventOrder(int position, boolean orientationChange) {
         orderSelectedItem = position;
 
@@ -1926,7 +1936,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        drawerToggle.syncState();
+        //drawerToggle.syncState();
     }
  
     @Override
