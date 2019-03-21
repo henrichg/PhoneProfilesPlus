@@ -25,7 +25,7 @@ android {
 
 dependencies {
     compileOnly "com.google.android.gms:play-services-gcm:16.0.0"
-    api "androidx.core:core:$ppVersions.supportLib"
+    api "androidx.core:core:$ppVersions.coreXLib"
 }
 
 

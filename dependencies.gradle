@@ -23,5 +23,7 @@ ext.ppVersions = [
     compileSdk: 28,
     buildTools: '28.0.3',
 
-    supportLib: '1.0.0'
+    coreXLib: '1.0.0',
+    appcompatXLib: '1.0.2',
+    otherXLib: '1.0.0'
 ]

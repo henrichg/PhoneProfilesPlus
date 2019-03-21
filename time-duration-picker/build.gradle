@@ -27,6 +27,6 @@ android {
 
 dependencies {
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
-    api "androidx.appcompat:appcompat:$ppVersions.supportLib"
+    api "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
 }
 
