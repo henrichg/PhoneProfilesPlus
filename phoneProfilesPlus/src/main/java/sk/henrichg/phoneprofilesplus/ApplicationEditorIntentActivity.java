@@ -599,7 +599,8 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
                             break;
                         case "FLAG_ACTIVITY_MATCH_EXTERNAL":
-                            intent.addFlags(Intent.FLAG_ACTIVITY_MATCH_EXTERNAL);
+                            if (Build.VERSION.SDK_INT >= 28)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_MATCH_EXTERNAL);
                             break;
                         case "FLAG_ACTIVITY_MULTIPLE_TASK":
                             intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
