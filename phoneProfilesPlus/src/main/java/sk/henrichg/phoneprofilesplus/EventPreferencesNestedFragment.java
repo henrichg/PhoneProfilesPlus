@@ -1084,10 +1084,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (preference != null) {
-                //Log.d("MobileCellsRegistrationStoppedBroadcastReceiver", "xxx");
+            if (preference != null)
                 preference.refreshListView(true, Integer.MAX_VALUE);
-            }
         }
     }
 }

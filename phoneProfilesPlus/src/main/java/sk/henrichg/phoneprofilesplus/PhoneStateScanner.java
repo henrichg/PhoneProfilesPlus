@@ -663,8 +663,6 @@ class PhoneStateScanner extends PhoneStateListener {
 
                         dataWrapper.invalidateDataWrapper();
                     }
-                    else
-                        PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is saved");
                 }
                 else
                     PPApplication.logE("PhoneStateScanner.doAutoRegistration", "cellId is NOT valid");
@@ -676,6 +674,16 @@ class PhoneStateScanner extends PhoneStateListener {
                 }
             }
         }
+
+        if (forceStart) {
+            if (isValidCellId(cellIdToRegister)) {
+                PPApplication.logE("PhoneStateScanner.doAutoRegistration", "send broadcast for force start");
+                // broadcast for event preferences
+                Intent refreshIntent = new Intent("MobileCellsPreference_refreshListView");
+                LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
+            }
+        }
+
     }
 
     static void startAutoRegistration(Context context, boolean forConnect) {

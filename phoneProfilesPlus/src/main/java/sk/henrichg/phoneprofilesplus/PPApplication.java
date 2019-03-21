@@ -276,7 +276,7 @@ public class PPApplication extends Application {
                                         //+ "|[RJS] PhoneProfilesService.startPhoneStateScanner"
                                         + "|PhoneStateScanner"
                                         //+"|MobileCellsPreference"
-                                        //+"|MobileCellsPreference.refreshListView"
+                                        +"|MobileCellsPreference.refreshListView"
                                         //+"|PhoneStateScanner.startAutoRegistration"
                                         //+"|PhoneStateScanner.stopAutoRegistration"
                                         //+"|PhoneStateScanner.getAllCellInfo"
