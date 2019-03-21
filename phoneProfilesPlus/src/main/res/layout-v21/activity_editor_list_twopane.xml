@@ -172,7 +172,7 @@
         android:background="?attr/navigationDrawerBackground"
         android:fitsSystemWindows="true"
         android:elevation="1dp"
-        app:insetForeground="?attr/colorPrimary"  >
+        app:insetForeground="?attr/navigationDrawerInsetForeground"  >
 
         <RelativeLayout
             android:layout_width="match_parent"

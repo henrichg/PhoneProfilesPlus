@@ -15,10 +15,11 @@
     <color name="navigationDrawerTextColor">#ff000000</color>
 <!--    <color name="navigationDrawerSubTextColor">#80000000</color> -->
     <color name="navigationDrawerBackground">#fffafafa</color>
+    <color name="navigationDrawerInsetForeground">#A7A7A7</color>
     <color name="navigationDrawerItemBackground">#80DC8160</color>
     <color name="navigationDrawerItemBackgroundPressed">#0F000000</color>
     <color name="preferenceDialogBackground">#FFFFFFFF</color>
-    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>
+    <color name="editorDrawerListHeaderTitleColor">#FF000000</color>
     <color name="dialog_divider">#10000000</color>
 
     <color name="altype_profile">#FF0000FF</color>

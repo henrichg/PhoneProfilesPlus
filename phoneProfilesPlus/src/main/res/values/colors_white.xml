@@ -16,6 +16,7 @@
     <color name="navigationDrawerTextColor_white">#ff000000</color>
 <!--    <color name="navigationDrawerSubTextColor_white">#80000000</color> -->
     <color name="navigationDrawerBackground_white">#fffafafa</color>
+    <color name="navigationDrawerInsetForeground_white">#A7A7A7</color>
     <color name="navigationDrawerItemBackground_white">#80DC8160</color>
     <color name="navigationDrawerItemBackgroundPressed_white">#0F000000</color>
     <color name="preferenceDialogBackground_white">#FFFFFFFF</color>

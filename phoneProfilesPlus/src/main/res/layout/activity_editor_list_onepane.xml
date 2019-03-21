@@ -140,7 +140,7 @@
         style="@style/NavDrawer"
         android:background="?attr/navigationDrawerBackground"
         android:fitsSystemWindows="true"
-        app:insetForeground="?attr/colorPrimaryDark" >
+        app:insetForeground="?attr/navigationDrawerInsetForeground" >
 
         <RelativeLayout
             android:layout_width="match_parent"

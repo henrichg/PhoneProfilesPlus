@@ -6,7 +6,6 @@
 
     <RelativeLayout
         android:id="@+id/editor_drawer_list_header_background"
-        android:background="?attr/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="85dp"
         android:paddingTop="10dp" >
@@ -70,8 +69,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_dropShadow_height"
-        android:background="@drawable/bottombar_dropshadow"
+        android:layout_height="1dp"
+        android:background="?attr/dialogDivider"
         android:layout_gravity="bottom" />
 
 </FrameLayout>

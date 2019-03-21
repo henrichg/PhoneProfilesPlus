@@ -16,6 +16,7 @@
 <!--    <color name="navigationDrawerSubTextColor_dark">#80ffffff</color> -->
     <color name="navigationDrawerBackground_dark">#FF252525</color>
     <color name="navigationDrawerItemBackground_dark">#80DC8160</color>
+    <color name="navigationDrawerInsetForeground_dark">#202020</color>
     <color name="navigationDrawerItemBackgroundPressed_dark">#1FFFFFFF</color>
     <color name="preferenceDialogBackground_dark">#FF000000</color>
     <color name="editorDrawerListHeaderTitleColor_dark">#FFFFFFFF</color>

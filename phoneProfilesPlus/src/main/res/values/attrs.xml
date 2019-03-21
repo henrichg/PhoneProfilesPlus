@@ -80,6 +80,7 @@
     <attr name="actionProfilePrefCancel" format="reference" />
     <attr name="actionProfileButtonTextStyle" format="reference" />
     <attr name="navigationDrawerBackground" format="reference" />
+    <attr name="navigationDrawerInsetForeground" format="reference" />
     <attr name="navigationDrawerText" format="reference"/>
     <!--<attr name="navigationDrawerSubText" format="reference"/>-->
     <attr name="navigationDrawerItemBackgroundColor" format="reference"/>

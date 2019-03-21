@@ -32,6 +32,7 @@
         <item name="actionProfilePrefCancel">@drawable/ic_action_profile_pref_cancel_dark</item>
         <item name="actionProfileButtonTextStyle">@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</item>
         <item name="navigationDrawerBackground">@color/navigationDrawerBackground</item>
+        <item name="navigationDrawerInsetForeground">@color/navigationDrawerInsetForeground</item>
         <item name="navigationDrawerText">@color/navigationDrawerTextColor</item>
 <!--        <item name="navigationDrawerSubText">@color/navigationDrawerSubTextColor</item> -->
         <item name="navigationDrawerItemBackgroundColor">@color/navigationDrawerItemBackground</item>
