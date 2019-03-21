@@ -5,7 +5,7 @@
     android:paddingTop="3dp"
     android:paddingBottom="3dp">
 
-    <android.support.v7.widget.AppCompatImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/applications_editor_dlg_item_edit_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -48,7 +48,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="5dp" >
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/wifi_ssid_pref_dlg_locationSystemSettingsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/wifi_ssid_pref_dlg_helpIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/menu_help"/>
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/wifi_ssid_pref_dlg_changeSelection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/pref_dlg_change_selection_title"/>
 
-                <android.support.v7.widget.AppCompatImageButton
+                <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/wifi_ssid_pref_dlg_addIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

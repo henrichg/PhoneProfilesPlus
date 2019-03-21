@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 class Contact {
     long contactId = 0;

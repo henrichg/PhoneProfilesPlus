@@ -6,8 +6,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.util.LruCache;
+import androidx.core.content.ContextCompat;
+import androidx.collection.LruCache;
 
 import java.util.ArrayList;
 import java.util.Collections;

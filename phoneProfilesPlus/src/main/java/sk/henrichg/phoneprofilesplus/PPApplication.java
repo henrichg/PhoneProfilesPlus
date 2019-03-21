@@ -16,8 +16,8 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
-import android.support.multidex.MultiDex;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.multidex.MultiDex;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 import android.util.Pair;
 

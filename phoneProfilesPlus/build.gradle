@@ -54,13 +54,13 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'androidx.multidex:multidex:2.0.0'
 
-    implementation "com.android.support:appcompat-v7:$ppVersions.supportLib"
-    implementation "com.android.support:gridlayout-v7:$ppVersions.supportLib"
-    implementation "com.android.support:cardview-v7:$ppVersions.supportLib"
-    implementation "com.android.support:recyclerview-v7:$ppVersions.supportLib"
-    implementation "com.android.support:design:$ppVersions.supportLib"
+    implementation "androidx.appcompat:appcompat:$ppVersions.supportLib"
+    implementation "androidx.gridlayout:gridlayout:$ppVersions.supportLib"
+    implementation "androidx.cardview:cardview:$ppVersions.supportLib"
+    implementation "androidx.recyclerview:recyclerview:$ppVersions.supportLib"
+    implementation "com.google.android.material:material:$ppVersions.supportLib"
 
     implementation ('com.google.android.gms:play-services-location:16.0.0') {
         exclude group: 'com.android.support', module:'support-v4'
@@ -90,7 +90,7 @@ dependencies {
     //implementation 'mobi.upod:time-duration-picker:1.1.3'
 
     // Has appcompat dependencies, but in 1.0.20 it is 28.0.0. This is OK for switch to API 28.
-    implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.20'
+    implementation 'com.simplecityapps:recyclerview-fastscroll:2.0.0'
 
     //implementation 'com.thelittlefireman:AppKillerManager:2.1.1'
 

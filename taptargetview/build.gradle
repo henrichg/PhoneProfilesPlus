@@ -26,8 +26,8 @@ android {
 }
 
 dependencies {
-    api "com.android.support:support-annotations:$ppVersions.supportLib"
-    api "com.android.support:appcompat-v7:$ppVersions.supportLib"
-    api "com.android.support:support-compat:$ppVersions.supportLib"
+    api "androidx.annotation:annotation:$ppVersions.supportLib"
+    api "androidx.appcompat:appcompat:$ppVersions.supportLib"
+    api "androidx.core:core:$ppVersions.supportLib"
 }
 

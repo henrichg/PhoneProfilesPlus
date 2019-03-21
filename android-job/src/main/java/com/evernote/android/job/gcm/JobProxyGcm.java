@@ -16,7 +16,7 @@
 package com.evernote.android.job.gcm;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.evernote.android.job.JobProxy;
 import com.evernote.android.job.JobProxyIllegalStateException;

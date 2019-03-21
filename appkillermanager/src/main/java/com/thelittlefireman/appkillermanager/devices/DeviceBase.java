@@ -2,7 +2,7 @@ package com.thelittlefireman.appkillermanager.devices;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.DrawableRes;
+import androidx.annotation.DrawableRes;
 
 import com.thelittlefireman.appkillermanager.utils.Manufacturer;
 

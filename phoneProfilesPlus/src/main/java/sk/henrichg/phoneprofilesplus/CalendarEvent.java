@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 class CalendarEvent {
     long calendarId = 0;

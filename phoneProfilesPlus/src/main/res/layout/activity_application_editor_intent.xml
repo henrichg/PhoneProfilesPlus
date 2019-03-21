@@ -243,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp" >
-                    <android.support.v7.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/application_editor_intent_category_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -284,7 +284,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp" >
-                    <android.support.v7.widget.AppCompatImageButton
+                    <androidx.appcompat.widget.AppCompatImageButton
                         android:id="@+id/application_editor_intent_flags_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

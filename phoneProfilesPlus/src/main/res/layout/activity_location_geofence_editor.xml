@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <android.support.v7.widget.AppCompatImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/location_editor_my_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                 android:src="@drawable/ic_button_location_my_location"
                 android:background="?attr/selectableItemBackground" />
 
-            <android.support.v7.widget.AppCompatImageButton
+            <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/location_editor_address_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

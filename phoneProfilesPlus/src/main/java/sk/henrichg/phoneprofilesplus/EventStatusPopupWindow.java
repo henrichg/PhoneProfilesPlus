@@ -2,7 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 
 import android.annotation.SuppressLint;
-import android.support.v7.widget.SwitchCompat;
+import androidx.appcompat.widget.SwitchCompat;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 

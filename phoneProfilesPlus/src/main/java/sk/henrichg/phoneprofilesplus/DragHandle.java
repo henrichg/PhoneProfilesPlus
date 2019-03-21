@@ -3,7 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.util.AttributeSet;
 
-class DragHandle extends android.support.v7.widget.AppCompatImageView {
+class DragHandle extends androidx.appcompat.widget.AppCompatImageView {
 
     public DragHandle(Context context) {
         super(context);

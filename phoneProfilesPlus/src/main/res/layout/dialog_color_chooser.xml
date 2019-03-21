@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:scrollbarStyle="outsideOverlay" >
 
-            <android.support.v7.widget.GridLayout
+            <androidx.gridlayout.widget.GridLayout
                 android:id="@+id/dialog_color_chooser_grid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -328,7 +328,7 @@
 
                 </FrameLayout>
 
-            </android.support.v7.widget.GridLayout>
+            </androidx.gridlayout.widget.GridLayout>
 
         </HorizontalScrollView>
     </ScrollView>

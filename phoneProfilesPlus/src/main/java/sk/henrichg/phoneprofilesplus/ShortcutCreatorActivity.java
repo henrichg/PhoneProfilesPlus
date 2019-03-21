@@ -2,7 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
@@ -38,7 +38,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
         // action bar height
         TypedValue tv = new TypedValue();
-        if (getTheme().resolveAttribute(android.support.v7.appcompat.R.attr.actionBarSize, tv, true))
+        if (getTheme().resolveAttribute(androidx.appcompat.R.attr.actionBarSize, tv, true))
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,getResources().getDisplayMetrics());
 
         // set max. dimensions for display orientation

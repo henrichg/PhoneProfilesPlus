@@ -19,7 +19,7 @@ import android.annotation.TargetApi;
 import android.app.job.JobInfo;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.v21.JobProxy21;

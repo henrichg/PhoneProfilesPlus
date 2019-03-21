@@ -15,14 +15,14 @@
         android:elevation="1dp"
         tools:ignore="UnusedAttribute">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/act_prof_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:theme="?attr/toolbarTheme"
             app:popupTheme="?attr/toolbarPopupMenu" />
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/act_prof_subToolbar"
             android:layout_width="match_parent"
             android:layout_height="25dp"
@@ -46,7 +46,7 @@
 
             </RelativeLayout>
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
     
     </LinearLayout>
 

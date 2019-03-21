@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/mp_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

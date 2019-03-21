@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.preference.DialogPreference;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;

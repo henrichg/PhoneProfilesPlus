@@ -7,7 +7,7 @@
               android:paddingEnd="20dp"
               android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <android.support.v7.widget.AppCompatImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/calendar_search_string_pref_dlg_helpIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
