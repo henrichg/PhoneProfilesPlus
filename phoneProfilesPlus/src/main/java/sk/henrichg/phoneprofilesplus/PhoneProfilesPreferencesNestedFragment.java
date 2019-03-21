@@ -799,12 +799,14 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
                 }
             });
         }
+        /*
         if (android.os.Build.VERSION.SDK_INT < 21) {
             PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("categoryNotificationsStatusBar");
             preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
             if (preference != null)
                 preferenceCategory.removePreference(preference);
         }
+        */
         if ((PPApplication.sLook == null) || (!PPApplication.sLookCocktailPanelEnabled)) {
             PreferenceScreen preferenceScreen = (PreferenceScreen) findPreference("rootScreen");
             PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("categorySamsungEdgePanel");

@@ -4,18 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ListView;
 
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 
 public class ActivityLogActivity extends AppCompatActivity {
@@ -35,7 +30,8 @@ public class ActivityLogActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_activity_log);
 
-        if (/*(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) &&*/ (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
+        /*
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -57,6 +53,7 @@ public class ActivityLogActivity extends AppCompatActivity {
                     break;
             }
         }
+        */
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);

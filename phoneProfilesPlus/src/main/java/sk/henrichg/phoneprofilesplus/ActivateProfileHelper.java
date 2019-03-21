@@ -2772,6 +2772,7 @@ class ActivateProfileHelper {
 
     static boolean isMobileData(Context context)
     {
+        /*
         if (android.os.Build.VERSION.SDK_INT < 21)
         {
             ConnectivityManager connectivityManager = null;
@@ -2794,7 +2795,7 @@ class ActivateProfileHelper {
             else
                 return false;
         }
-        else
+        else*/
         if (android.os.Build.VERSION.SDK_INT < 22)
         {
             Method getDataEnabledMethod;

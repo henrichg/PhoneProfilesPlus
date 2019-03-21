@@ -1374,6 +1374,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             cursor.close();
         }
 
+        /*
         if (oldVersion < 1175)
         {
             if (android.os.Build.VERSION.SDK_INT < 21)
@@ -1414,6 +1415,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.close();
             }
         }
+        */
 
         if (oldVersion < 1180)
         {
@@ -9457,6 +9459,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                             value = percentage + "|" + splits[1] + "|" + splits[2] + "|0";
                                                     }
                                                 }
+                                                /*
                                                 if (exportedDBObj.getVersion() < 1175) {
                                                     if (columnNamesExportedDB[i].equals(KEY_DEVICE_BRIGHTNESS)) {
                                                         if (android.os.Build.VERSION.SDK_INT < 21) {
@@ -9476,6 +9479,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                         }
                                                     }
                                                 }
+                                                */
 
                                                 values.put(columnNamesExportedDB[i], value);
                                             }

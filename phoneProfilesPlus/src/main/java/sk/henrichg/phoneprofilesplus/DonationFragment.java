@@ -1,12 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.res.TypedArray;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +65,7 @@ public class DonationFragment extends Fragment {
         //noinspection ConstantConditions
         mLoadingView = root.findViewById(R.id.donation_google_android_market_loading);
 
+        /*
         if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) && (getActivity() != null)) {
             TypedValue typedValue = new TypedValue();
             TypedArray a = getActivity().obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
@@ -76,6 +73,7 @@ public class DonationFragment extends Fragment {
             a.recycle();
             mLoadingView.getIndeterminateDrawable().setColorFilter(accentColor, PorterDuff.Mode.SRC_IN);
         }
+        */
 
         mErrorTextView = root.findViewById(R.id.donation_google_android_market_error_textview);
 

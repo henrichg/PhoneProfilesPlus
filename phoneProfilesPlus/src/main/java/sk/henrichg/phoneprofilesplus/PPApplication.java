@@ -1903,11 +1903,10 @@ public class PPApplication extends Application {
     // others ------------------------------------------------------------------
 
     static boolean isScreenOn(PowerManager powerManager) {
-        if (Build.VERSION.SDK_INT >= 20)
+        //if (Build.VERSION.SDK_INT >= 20)
             return powerManager.isInteractive();
-        else
-            //noinspection deprecation
-            return powerManager.isScreenOn();
+        //else
+        //    return powerManager.isScreenOn();
     }
 
     public static void sleep(long ms) {

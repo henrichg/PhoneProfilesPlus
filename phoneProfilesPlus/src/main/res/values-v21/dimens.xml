@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<resources >
-    <dimen name="important_info_top_margin">15dp</dimen>
-    <dimen name="important_info_left_margin">15dp</dimen>
-    <dimen name="important_info_right_margin">15dp</dimen>
-    <dimen name="important_info_bottom_margin">15dp</dimen>
-
-    <dimen name="toolbar_dropShadow_height">1dp</dimen>
-</resources>

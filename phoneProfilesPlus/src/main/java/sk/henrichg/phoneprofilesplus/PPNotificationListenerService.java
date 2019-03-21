@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -194,6 +193,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
     // Android 5.0 Lollipop
 
+    /*
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
@@ -203,6 +203,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     public void onListenerHintsChanged(int hints) {
         super.onListenerHintsChanged(hints);
     }
+    */
 
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {

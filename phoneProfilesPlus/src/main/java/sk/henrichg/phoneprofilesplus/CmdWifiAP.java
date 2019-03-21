@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
 import android.net.IConnectivityManager;
 import android.net.wifi.IWifiManager;
 import android.net.wifi.WifiManager;

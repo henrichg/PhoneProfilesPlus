@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources>
+<resources >
     <!-- Match 56dp default ActionBar height on portrait orientation -->
     <dimen name="naw_drawer_margin_offset">-8dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines.
@@ -8,16 +8,15 @@
 
     <dimen name="run_stop_indicator_margin_end">10dp</dimen>
 
-    <dimen name="important_info_top_margin">15dp</dimen>
-    <dimen name="important_info_left_margin">15dp</dimen>
-    <dimen name="important_info_right_margin">15dp</dimen>
-    <dimen name="important_info_bottom_margin">15dp</dimen>
-
-    <dimen name="toolbar_dropShadow_height">2dp</dimen>
-
     <dimen name="popup_corner_radius">4dp</dimen>
     <dimen name="button_corner_radius">4dp</dimen>
 
     <dimen name="alert_dialog_top_padding">10dp</dimen>
 
+    <dimen name="important_info_top_margin">15dp</dimen>
+    <dimen name="important_info_left_margin">15dp</dimen>
+    <dimen name="important_info_right_margin">15dp</dimen>
+    <dimen name="important_info_bottom_margin">15dp</dimen>
+
+    <dimen name="toolbar_dropShadow_height">1dp</dimen>
 </resources>

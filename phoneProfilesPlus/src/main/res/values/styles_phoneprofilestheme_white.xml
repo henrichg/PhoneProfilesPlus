@@ -4,6 +4,7 @@
     <style name="Theme.PhoneProfilesTheme_white" parent="@style/Base.Theme.PhoneProfilesTheme_white">
         <item name="android:popupMenuStyle">@style/PopupMenu_white</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu_white</item>
+        <item name="android:navigationBarColor">@color/navigationBar_white</item>
     </style>
 
 </resources>

@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -20,12 +19,8 @@ import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class AboutApplicationActivity extends AppCompatActivity {
 
@@ -43,7 +38,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_about_application);
 
-        if (/*(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) &&*/ (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
+        /*
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -65,6 +61,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     break;
             }
         }
+        */
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
@@ -279,14 +276,14 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
                 // To count with Play market back stack, After pressing back button,
                 // to taken back to our application, we need to add following flags to intent.
-                if (android.os.Build.VERSION.SDK_INT >= 21)
+                //if (android.os.Build.VERSION.SDK_INT >= 21)
                     goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                         Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
                         Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                else
+                /*else
                     goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                             Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);*/
                 try {
                     startActivity(goToMarket);
                 } catch (ActivityNotFoundException e) {

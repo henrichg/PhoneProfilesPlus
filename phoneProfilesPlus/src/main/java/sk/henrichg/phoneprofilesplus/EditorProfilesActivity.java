@@ -2,8 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Rect;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.BroadcastReceiver;
@@ -20,7 +18,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -33,13 +30,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.view.WindowInsets;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -48,7 +42,6 @@ import android.widget.Toast;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -211,9 +204,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         createContactsCache();
         createContactGroupsCache();
 
-        if (/*(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) &&*/ (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP))
+        /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             setContentView(R.layout.activity_editor_list_onepane_19);
-        else
+        else*/
             setContentView(R.layout.activity_editor_list_onepane);
 
         drawerLayout = findViewById(R.id.editor_list_drawer_layout);
@@ -239,6 +232,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
+        /*
         if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             //w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -261,6 +255,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     break;
             }
         }
+        */
 
         //if (android.os.Build.VERSION.SDK_INT >= 21)
         //	getWindow().setNavigationBarColor(R.attr.colorPrimary);
@@ -396,8 +391,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             });
         }
 
-        if (Build.VERSION.SDK_INT < 21)
-            drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        //if (Build.VERSION.SDK_INT < 21)
+        //    drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         // actionbar titles
         drawerItemsTitle = new String[] {

@@ -24,7 +24,7 @@ public class MobileCellsRegistrationService extends Service {
 
     private CountDownTimer countDownTimer = null;
 
-    static boolean serviceStarted = false;
+    private static boolean serviceStarted = false;
     static boolean forceStart;
     private Context context;
 

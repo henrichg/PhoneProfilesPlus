@@ -529,12 +529,14 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText10a.setVisibility(View.GONE);
         }
 
+        /*
         if (android.os.Build.VERSION.SDK_INT < 21) {
             TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
             infoText13.setVisibility(View.GONE);
             TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
             infoText14.setVisibility(View.GONE);
         }
+        */
 
         if (ActivateProfileHelper.getMergedRingNotificationVolumes(context)) {
             TextView infoText3 = view.findViewById(R.id.activity_info_notification_unlink_ringer_notification_volumes);

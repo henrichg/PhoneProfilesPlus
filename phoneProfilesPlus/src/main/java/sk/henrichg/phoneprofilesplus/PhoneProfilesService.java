@@ -249,6 +249,7 @@ public class PhoneProfilesService extends Service
         @Override
         public void onReceive(Context context, Intent intent) {
             PPApplication.logE("PhoneProfilesService.stopReceiver", "xxx");
+            //noinspection deprecation
             context.removeStickyBroadcast(intent);
             stopForeground(true);
             stopSelf();
@@ -393,6 +394,7 @@ public class PhoneProfilesService extends Service
     }
 
     public static void stop(Context context) {
+        //noinspection deprecation
         context.sendStickyBroadcast(new Intent(ACTION_STOP));
     }
 
@@ -1331,8 +1333,8 @@ public class PhoneProfilesService extends Service
     }
 
     private void registerReceiverForAlarmClockSensor(boolean register, boolean checkDatabase) {
-        if (android.os.Build.VERSION.SDK_INT < 21)
-            return;
+        //if (android.os.Build.VERSION.SDK_INT < 21)
+        //    return;
 
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForAlarmClockSensor", "PhoneProfilesService_registerReceiverForAlarmClockSensor");

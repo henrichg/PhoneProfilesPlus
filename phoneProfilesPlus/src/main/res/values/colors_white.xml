@@ -2,7 +2,6 @@
 <resources>
     <color name="primary_white">#F7F7F7</color>
     <color name="primaryDark_white">#A7A7A7</color>
-    <color name="primaryDark19_white">#000000</color>
     <color name="accent_white">#DC8160</color>
     <color name="accent_white_disabled">#70DC8160</color>
     <color name="navigationBar_white">#A7A7A7</color>

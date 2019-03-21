@@ -8,7 +8,8 @@
         <item>@string/array_pref_ringerModeArray_ring</item>
         <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
         <item>@string/array_pref_ringerModeArray_vibrate</item>
-        <item>@string/array_pref_ringerModeArray_silent</item>
+        <item>@string/array_pref_ringerModeArray_silentL</item>
+        <item>@string/array_pref_ringerModeArray_ZenMode</item>
     </string-array>
     <string-array name="ringerModeValues" tools:ignore="InconsistentArrays">
         <item>0</item>
@@ -17,6 +18,23 @@
         <item>2</item>
         <item>3</item>
         <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="ringerModeDPArray" tools:ignore="InconsistentArrays">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_ringerModeArray_ring</item>
+        <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
+        <item>@string/array_pref_ringerModeArray_vibrate</item>
+        <item>@string/array_pref_ringerModeArray_silentL</item>
+        <item>@string/array_pref_ringerModeArray_ZenMode</item>
+    </string-array>
+    <string-array name="ringerModeDPValues" tools:ignore="InconsistentArrays">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
     </string-array>
     <string-array name="hardwareModeArray">
         <item>@string/array_pref_no_change</item>
@@ -251,20 +269,6 @@
         <item>1</item>
     </string-array>
 
-    <string-array name="ringerModeDPArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_ringerModeArray_ring</item>
-        <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
-        <item>@string/array_pref_ringerModeArray_vibrate</item>
-        <item>@string/array_pref_ringerModeArray_silent</item>
-    </string-array>
-    <string-array name="ringerModeDPValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-    </string-array>
     <string-array name="hardwareModeDPArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
@@ -676,16 +680,18 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string-array name="powerSaveModeArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_powerSaveMode_off</item>
-        <item>@string/array_pref_powerSaveMode_5</item>
-        <item>@string/array_pref_powerSaveMode_15</item>
-    </string-array>
-    <string-array name="powerSaveModeValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
+        <string-array name="powerSaveModeArray" tools:ignore="InconsistentArrays">
+            <item>@string/array_pref_powerSaveMode_off</item>
+            <item>@string/array_pref_powerSaveMode_5</item>
+            <item>@string/array_pref_powerSaveMode_15</item>
+            <item>@string/array_pref_powerSaveMode_useSystem</item>
+        </string-array>
+        <string-array name="powerSaveModeValues" tools:ignore="InconsistentArrays">
+            <item>0</item>
+            <item>1</item>
+            <item>2</item>
+            <item>3</item>
+        </string-array>
     <string-array name="eventBluetoothDevicesTypeArray">
         <item>@string/array_event_pref_bluetoothDevicesType_classic</item>
         <item>@string/array_event_pref_bluetoothDevicesType_le</item>
@@ -1228,14 +1234,14 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-<!--    <string-array name="applicationsEditorDialogFilterArray">
-        <item>@string/array_pref_applicationsEditorDialogFilter_applications</item>
-        <item>@string/array_pref_applicationsEditorDialogFilter_shortcuts</item>
-    </string-array>
-    <string-array name="applicationsEditorDialogFilterValues">
-        <item>0</item>
-        <item>1</item>
-    </string-array> -->
+    <!--    <string-array name="applicationsEditorDialogFilterArray">
+            <item>@string/array_pref_applicationsEditorDialogFilter_applications</item>
+            <item>@string/array_pref_applicationsEditorDialogFilter_shortcuts</item>
+        </string-array>
+        <string-array name="applicationsEditorDialogFilterValues">
+            <item>0</item>
+            <item>1</item>
+        </string-array> -->
     <string-array name="applicationsEditorDialogFilterArray">
         <item>@string/array_pref_applicationsEditorDialogFilter_applications</item>
         <item>@string/array_pref_applicationsEditorDialogFilter_shortcuts</item>

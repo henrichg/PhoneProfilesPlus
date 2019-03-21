@@ -917,8 +917,8 @@
                 android:summary="@string/event_preferences_duration"
                 android:title="@string/event_preferences_duration"
                 android:defaultValue="5"
-                henrichg:dMin="5"
-                henrichg:dMax="86400"
+                app:dMin="5"
+                app:dMax="86400"
                 android:dependency="eventNotificationEnabled"
                 android:layout="@layout/mp_preference_material_widget" /> -->
         </PreferenceScreen>
@@ -1077,6 +1077,36 @@
                 app:dMin="5"
                 app:dMax="86400"
                 android:dependency="eventNFCEnabled"
+                android:layout="@layout/mp_preference_material_widget" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="@string/event_preferences_category_eventAlarmClockParameters"
+            android:summary="@string/event_preference_sensor_alarm_clock_summary"
+            android:key="eventAlarmClockCategory"
+            android:widgetLayout="@layout/start_activity_preference"
+            android:layout="@layout/mp_preference_material_widget" >
+            <CheckBoxPreference
+                android:key="eventAlarmClockEnabled"
+                android:title="@string/event_preferences_enable_sensor"
+                android:defaultValue="false"
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
+            <CheckBoxPreference
+                android:key="eventAlarmClockPermanentRun"
+                android:title="@string/pref_event_permanentRun"
+                android:summary="@string/pref_event_permanentRun_summary"
+                android:defaultValue="true"
+                android:dependency="eventAlarmClockEnabled"
+                android:widgetLayout="@layout/mp_preference_switch"
+                android:layout="@layout/mp_preference_material_widget" />
+            <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+                android:key="eventAlarmClockDuration"
+                android:summary="@string/event_preferences_duration"
+                android:title="@string/event_preferences_duration"
+                android:defaultValue="5"
+                app:dMin="5"
+                app:dMax="86400"
+                android:dependency="eventAlarmClockEnabled"
                 android:layout="@layout/mp_preference_material_widget" />
         </PreferenceScreen>
     </PreferenceCategory>

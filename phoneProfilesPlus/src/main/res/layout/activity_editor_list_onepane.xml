@@ -11,6 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:fitsSystemWindows="false" >
 
         <LinearLayout
@@ -21,8 +22,7 @@
             android:paddingBottom="3dp"
             android:orientation="vertical"
             android:background="?attr/colorPrimary"
-            android:elevation="1dp"
-            tools:ignore="UnusedAttribute" >
+            android:elevation="1dp" >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/editor_toolbar"
@@ -49,8 +49,8 @@
                         android:layout_centerVertical="true"
                         android:layout_toStartOf="@id/editor_list_run_stop_indicator"
                         android:ellipsize="end"
-                        android:textColor="?attr/editorFilterTitleColor"
                         android:textSize="15sp"
+                        android:textColor="?attr/editorFilterTitleColor"
                         android:maxLines="1"/>
 
                     <ImageView
@@ -113,8 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/editor_list_toolbar"
-            android:layout_above="@id/editor_list_bottom_bar"
-            android:foreground="?android:windowContentOverlay" >
+            android:layout_above="@id/editor_list_bottom_bar" >
 
             <FrameLayout
                 android:id="@+id/editor_list_container"
@@ -130,9 +129,8 @@
 
         </FrameLayout>
 
-
     </RelativeLayout>
-    
+
     <sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout
         android:id="@+id/editor_drawer_root"
         android:layout_height="match_parent"
@@ -140,6 +138,7 @@
         style="@style/NavDrawer"
         android:background="?attr/navigationDrawerBackground"
         android:fitsSystemWindows="true"
+        android:elevation="1dp"
         app:insetForeground="?attr/navigationDrawerInsetForeground" >
 
         <RelativeLayout
@@ -170,5 +169,5 @@
         </RelativeLayout>
 
     </sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout>
-    
+
 </android.support.v4.widget.DrawerLayout>

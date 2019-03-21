@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true" >
-
-<android.support.v4.widget.DrawerLayout
+    xmlns:tools="http://schemas.android.com/tools" 
     android:id="@+id/editor_list_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,9 +21,8 @@
             android:layout_alignParentTop="true"
             android:paddingBottom="3dp"
             android:orientation="vertical"
-            android:background="?attr/colorPrimary"
-            android:elevation="1dp"
-            tools:ignore="UnusedAttribute" >
+            android:background="?attr/colorPrimaryDark"
+            android:elevation="1dp" >
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/editor_toolbar"
@@ -128,9 +122,7 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal"
                 android:background="?attr/activityPopupBackground"
-                android:foreground="?android:windowContentOverlay"
-                tools:context=".EditorProfileListActivity"
-                tools:ignore="UnusedAttribute">
+                tools:context=".EditorProfileListActivity" >
 
                 <!--
                 This layout is a two-pane layout for the Profiles
@@ -179,6 +171,7 @@
         style="@style/NavDrawer"
         android:background="?attr/navigationDrawerBackground"
         android:fitsSystemWindows="true"
+        android:elevation="1dp"
         app:insetForeground="?attr/navigationDrawerInsetForeground"  >
 
         <RelativeLayout
@@ -211,5 +204,3 @@
     </sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout>
 
 </android.support.v4.widget.DrawerLayout>    
-
-</FrameLayout>

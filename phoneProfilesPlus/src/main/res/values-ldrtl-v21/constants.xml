@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer name="profilePrefIndicatorScaleType">4</integer>
-    <dimen name="gridView_horizontalSpacing">1dp</dimen>
-</resources>
