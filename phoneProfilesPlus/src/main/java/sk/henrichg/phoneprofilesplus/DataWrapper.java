@@ -507,6 +507,8 @@ public class DataWrapper {
         if (manual)
             startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
         Profile profile = getProfileById(profile_id, false, false, merged);
+        if (profile == null)
+            return;
         if (Permissions.grantProfilePermissions(context, profile, merged, true,
                 /*false, monochrome, monochromeValue,*/
                 startupSource, false,true, false)) {
