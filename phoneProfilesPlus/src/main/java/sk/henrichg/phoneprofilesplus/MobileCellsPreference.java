@@ -522,6 +522,11 @@ public class MobileCellsPreference extends DialogPreference {
                             }
                         }
 
+                        if (PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell))
+                            PPApplication.logE("MobileCellsPreference.refreshListView", " **** registeredCell="+PhoneStateScanner.registeredCell);
+                        else
+                            PPApplication.logE("MobileCellsPreference.refreshListView", "**** registeredCell=NOT valid");
+
                         // add all from table
                         DatabaseHandler db = DatabaseHandler.getInstance(context);
                         db.addMobileCellsToList(_cellsList/*, false*/);
@@ -532,34 +537,40 @@ public class MobileCellsPreference extends DialogPreference {
 
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
                             // add registered cell
-                            PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell");
+                            PPApplication.logE("MobileCellsPreference.refreshListView", "search registered cell from scanner");
                             for (MobileCellsData cell : _cellsList) {
                                 if (cell.cellId == PhoneStateScanner.registeredCell) {
                                     cell.connected = true;
                                     registeredCellData = cell;
                                     registeredCellInTable = true;
-                                    PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell - found");
+                                    PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell from scanner - found");
                                     break;
                                 }
                             }
                             if (!registeredCellInTable && PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
-                                PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell - not found");
+                                PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell from scanner - not found - add it to list");
                                 registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
                                         _cellName, true, true, PhoneStateScanner.lastConnectedTime);
                                 _cellsList.add(registeredCellData);
                             }
+                            if (!registeredCellInTable) {
+                                PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell from scanner - NOT added into list");
+                            }
+                            else {
+                                PPApplication.logE("MobileCellsPreference.refreshListView", "add registered cell from scanner - registeredCellData.cellId="+registeredCellData.cellId);
+                            }
                         }
 
-                        boolean found;
                         // add all from value
+                        PPApplication.logE("MobileCellsPreference.refreshListView", "search cells from preference value");
+                        PPApplication.logE("MobileCellsPreference.refreshListView", "_value="+_value);
                         String[] splits = value.split("\\|");
                         for (String cell : splits) {
-                            found = false;
+                            boolean found = false;
                             for (MobileCellsData mCell : _cellsList) {
                                 if (cell.equals(Integer.toString(mCell.cellId))) {
                                     found = true;
-                                    if (registeredCellData != null)
-                                        registeredCellInValue = (mCell.cellId == registeredCellData.cellId);
+                                    PPApplication.logE("MobileCellsPreference.refreshListView", "add cells from preference value - found");
                                     break;
                                 }
                             }
@@ -567,9 +578,22 @@ public class MobileCellsPreference extends DialogPreference {
                                 try {
                                     int iCell = Integer.parseInt(cell);
                                     _cellsList.add(new MobileCellsData(iCell, _cellName, false, false, 0));
+                                    PPApplication.logE("MobileCellsPreference.refreshListView", "add cells from preference value - not found - add it to list");
                                 } catch (Exception ignored) {
                                 }
                             }
+                            if (registeredCellData != null) {
+                                //PPApplication.logE("MobileCellsPreference.refreshListView", "add cells from preference value - registeredCellData.cellId="+registeredCellData.cellId);
+                                //PPApplication.logE("MobileCellsPreference.refreshListView", "add cells from preference value - cell="+cell);
+                                if (Integer.valueOf(cell) == registeredCellData.cellId)
+                                    registeredCellInValue = true;
+                            }
+                        }
+                        if (!registeredCellInValue) {
+                            PPApplication.logE("MobileCellsPreference.refreshListView", "add cells from preference value - registered cell is NOT in value");
+                        }
+                        else {
+                            PPApplication.logE("MobileCellsPreference.refreshListView", "add cells from preference value - registered cell is in value");
                         }
 
                         // save all from value + registeredCell to table
@@ -583,14 +607,15 @@ public class MobileCellsPreference extends DialogPreference {
 
                         Collections.sort(_cellsList, new SortList());
 
+
+                        PPApplication.logE("MobileCellsPreference.refreshListView", "add cells into filtered list");
                         _filteredCellsList.clear();
                         splits = _value.split("\\|");
-                        PPApplication.logE("MobileCellsPreference.refreshListView", "_value="+_value);
                         for (MobileCellsData cellData : _cellsList) {
                             if (_cellFilterValue.equals(context.getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
                                 for (String cell : splits) {
                                     if (cell.equals(Integer.toString(cellData.cellId))) {
-                                        PPApplication.logE("MobileCellsPreference.refreshListView", "added cellId="+cellData.cellId);
+                                        PPApplication.logE("MobileCellsPreference.refreshListView", "add cells into filtered list - added selected cellId="+cellData.cellId);
                                         _filteredCellsList.add(cellData);
                                         break;
                                     }
