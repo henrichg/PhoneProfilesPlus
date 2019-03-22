@@ -132,7 +132,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     private DrawerLayout drawerLayout;
     private PPScrimInsetsFrameLayout drawerRoot;
     private ListView drawerListView;
-    //private ActionBarDrawerToggle drawerToggle;
+    private ActionBarDrawerToggle drawerToggle;
     private TextView filterStatusBarTitle;
     private AppCompatSpinner orderSpinner;
     private View headerView;
@@ -454,8 +454,9 @@ public class EditorProfilesActivity extends AppCompatActivity
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        //drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.editor_drawer_open, R.string.editor_drawer_open)
-        //{
+        // is required. This adds hamburger icon in toolbar
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.editor_drawer_open, R.string.editor_drawer_open)
+        {
             /*
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -466,7 +467,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             */
             /*
-            // this disable animation 
+            // this disable animation
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) 
             {
@@ -477,8 +478,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                   }
             }
             */
-        //};
-        //drawerLayout.addDrawerListener(drawerToggle);
+        };
+        drawerLayout.addDrawerListener(drawerToggle);
         
         filterStatusBarTitle = findViewById(R.id.editor_filter_title);
         filterStatusBarTitle.setOnClickListener(new View.OnClickListener() {
@@ -1936,7 +1937,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         // Sync the toggle state after onRestoreInstanceState has occurred.
-        //drawerToggle.syncState();
+        drawerToggle.syncState();
     }
  
     @Override
