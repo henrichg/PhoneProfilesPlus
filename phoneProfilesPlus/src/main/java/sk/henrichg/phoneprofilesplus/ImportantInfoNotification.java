@@ -108,9 +108,9 @@ class ImportantInfoNotification {
         }
 
         if (news1772) {
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 news = true;
-            }
+            //}
         }
 
         if ((extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST))
@@ -141,12 +141,12 @@ class ImportantInfoNotification {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
-        mBuilder.setPriority(Notification.PRIORITY_MAX);
-        if (android.os.Build.VERSION.SDK_INT >= 21)
-        {
-            mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-        }
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
         NotificationManager mNotificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (mNotificationManager != null)
             mNotificationManager.notify(PPApplication.IMPORTANT_INFO_NOTIFICATION_ID, mBuilder.build());

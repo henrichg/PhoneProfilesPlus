@@ -838,12 +838,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
-            mBuilder.setPriority(Notification.PRIORITY_MAX);
+            mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
             mBuilder.setOnlyAlertOnce(true);
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-                mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-            }
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
+                mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+            //}
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             if (mNotificationManager != null)
                 mNotificationManager.notify(notificationID, mBuilder.build());

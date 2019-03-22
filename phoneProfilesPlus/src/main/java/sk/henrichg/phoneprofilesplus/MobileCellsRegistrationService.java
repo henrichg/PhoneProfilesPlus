@@ -162,12 +162,12 @@ public class MobileCellsRegistrationService extends Service {
                 context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
                 stopRegistrationPendingIntent);
 
-        mBuilder.setPriority(Notification.PRIORITY_MAX);
-        if (android.os.Build.VERSION.SDK_INT >= 21)
-        {
-            mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-        }
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
 
         Notification notification = mBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR | Notification.FLAG_ONGOING_EVENT;
@@ -204,12 +204,12 @@ public class MobileCellsRegistrationService extends Service {
                 .setContentText(text) // message for notification
                 .setAutoCancel(true); // clear notification after click
 
-        //mBuilder.setPriority(Notification.PRIORITY_MAX);
-        if (android.os.Build.VERSION.SDK_INT >= 21)
-        {
-            mBuilder.setCategory(Notification.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-        }
+        //mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
 
         Notification notification = mBuilder.build();
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

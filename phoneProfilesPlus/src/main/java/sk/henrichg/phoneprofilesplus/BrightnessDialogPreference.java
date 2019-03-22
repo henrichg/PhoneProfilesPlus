@@ -100,7 +100,7 @@ public class BrightnessDialogPreference extends
         savedBrightness = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                             Profile.convertPercentsToBrightnessManualValue(defaultValue, _context));
         savedBrightnessMode = Settings.System.getInt(_context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-        if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+        //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
             savedAdaptiveBrightness = Settings.System.getFloat(_context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);
     }
 
@@ -157,9 +157,9 @@ public class BrightnessDialogPreference extends
         levelText = layout.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot);
 
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
+        //if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
             automaticChBox.setText(R.string.preference_profile_adaptiveBrightness);
-        }
+        //}
 
         seekBar.setOnSeekBarChangeListener(this);
         seekBar.setKeyProgressIncrement(stepSize);
@@ -217,11 +217,11 @@ public class BrightnessDialogPreference extends
                 automaticChBox.setEnabled((noChange == 0) && (sharedProfile == 0));
                 changeLevelChBox.setEnabled((adaptiveAllowed || automatic == 0) && (noChange == 0) && (sharedProfile == 0));
                 if (adaptiveAllowed) {
-                    if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
+                    //if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
                         levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
                         levelText.setEnabled((automatic != 0) && (noChange == 0) && (sharedProfile == 0) && (changeLevel != 0));
-                    } else
-                        levelText.setVisibility(View.GONE);
+                    //} else
+                    //    levelText.setVisibility(View.GONE);
                 } else {
                     levelText.setEnabled((automatic != 0) && (noChange == 0) && (sharedProfile == 0) && (changeLevel != 0));
                 }
@@ -503,10 +503,10 @@ public class BrightnessDialogPreference extends
         {
             if (automatic == 1)
             {
-                if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
+                //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
                     prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_adaptiveBrightness);
-                else
-                    prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_autoBrightness);
+                //else
+                //    prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_autoBrightness);
             }
             else
                 prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_manual_brightness);

@@ -93,7 +93,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                         ApplicationPreferences.applicationUseAlarmClock(context)) {
 
                     Calendar now = Calendar.getInstance();

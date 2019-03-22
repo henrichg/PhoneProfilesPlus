@@ -25,7 +25,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         //if (!PPApplication.getApplicationStarted(context.getApplicationContext(), true))
         //    return;
 
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        //if (android.os.Build.VERSION.SDK_INT >= 21) {
             String action = intent.getAction();
             if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -94,7 +94,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                     }
                 }
             }
-        }
+        //}
     }
 
     private void removeAlarm(AlarmManager alarmManager, Context context) {

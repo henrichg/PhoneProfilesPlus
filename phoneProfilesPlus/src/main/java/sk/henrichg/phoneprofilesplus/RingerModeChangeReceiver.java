@@ -32,7 +32,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
 
         // convert to profile ringerMode
         int pRingerMode = 0;
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        //if (android.os.Build.VERSION.SDK_INT >= 21) {
             int systemZenMode = ActivateProfileHelper.getSystemZenMode(context/*, -1*/);
             PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "systemZenMode=" + systemZenMode);
             if (systemZenMode == ActivateProfileHelper.ZENMODE_ALL) {
@@ -53,11 +53,11 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
             }
             else
                 pRingerMode = 5;
-        }
+        /*}
         else {
             switch (ringerMode) {
                 case AudioManager.RINGER_MODE_NORMAL:
-                    if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, false))
+                    if (ActivateProfileHelper.vibrationIsOn(audioManager, false))
                         pRingerMode = 2;
                     else
                         pRingerMode = 1;
@@ -69,7 +69,7 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
                     pRingerMode = 4;
                     break;
             }
-        }
+        }*/
 
         PPApplication.logE("RingerModeChangeReceiver.getRingerMode", "pRingerMode=" + pRingerMode);
 

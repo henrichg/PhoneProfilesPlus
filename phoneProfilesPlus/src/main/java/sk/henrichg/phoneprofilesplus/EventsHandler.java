@@ -746,7 +746,7 @@ class EventsHandler {
             if (eventsExists(sensorType, true)) {
                 PPApplication.logE("EventsHandler.doEndHandler", "running event exists");
                 // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                //if (android.os.Build.VERSION.SDK_INT >= 21) {
                     boolean inRinging = false;
                     if (telephony != null) {
                         int callState = telephony.getCallState();
@@ -795,7 +795,7 @@ class EventsHandler {
                         } catch (Exception ignored) {
                         }
                     }
-                }
+                //}
             }
             else
                 PPApplication.logE("EventsHandler.doEndService", "running event NOT exists");

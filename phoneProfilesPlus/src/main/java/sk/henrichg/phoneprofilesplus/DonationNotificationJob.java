@@ -82,11 +82,11 @@ class DonationNotificationJob extends Job {
 
                 PendingIntent pi = PendingIntent.getActivity(context, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
-                mBuilder.setPriority(Notification.PRIORITY_MAX);
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    mBuilder.setCategory(Notification.CATEGORY_EVENT);
-                    mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-                }
+                mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+                //if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                //}
                 NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                 if (mNotificationManager != null)
                     mNotificationManager.notify(PPApplication.ABOUT_APPLICATION_DONATE_NOTIFICATION_ID, mBuilder.build());

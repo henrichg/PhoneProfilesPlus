@@ -419,7 +419,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         if (news1772) {
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);
                 infoText14.setVisibility(View.GONE);
 
@@ -462,7 +462,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                     });
                     news = true;
                 }
-            }
+            //}
         }
         else {
             TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);

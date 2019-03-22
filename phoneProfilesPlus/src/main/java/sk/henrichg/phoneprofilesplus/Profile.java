@@ -2689,7 +2689,7 @@ public class Profile {
                     // Dual SIM?? Bug in Android ???
                 }
                 if (connManager != null) {
-                    if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    //if (android.os.Build.VERSION.SDK_INT >= 21) {
                         Network[] networks = connManager.getAllNetworks();
                         if ((networks != null) && (networks.length > 0)) {
                             for (Network network : networks) {
@@ -2715,11 +2715,11 @@ public class Profile {
                                 }
                             }
                         }
-                    } else {
+                    /*} else {
                         //noinspection deprecation
                         NetworkInfo ni = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
                         mobileDataSupported = ni != null;
-                    }
+                    }*/
                 }
                 //else
                 //    mobileDataSupported = false;
@@ -2729,8 +2729,8 @@ public class Profile {
             if (mobileDataSupported)
             {
                 //Log.d("Profile.isProfilePreferenceAllowed", "mobile data supported");
-                if (android.os.Build.VERSION.SDK_INT >= 21)
-                {
+                //if (android.os.Build.VERSION.SDK_INT >= 21)
+                //{
                     // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
                     // not working :-/
                     if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
@@ -2757,7 +2757,7 @@ public class Profile {
                     }
                     else
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                }
+                /*}
                 else
                 {
                     if (ActivateProfileHelper.canSetMobileData(context))
@@ -2766,7 +2766,7 @@ public class Profile {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                         preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
-                }
+                }*/
             }
             else {
                 //Log.d("Profile.isProfilePreferenceAllowed", "mobile data not supported");
@@ -2965,7 +2965,7 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
         {
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (android.os.Build.VERSION.SDK_INT >= 23)
                 {
                     /* not working (private secure settings) :-/
@@ -2996,11 +2996,11 @@ public class Profile {
                 }
                 else
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
+            /*}
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            }
+            }*/
             checked = true;
         }
         if (checked && (profile == null))
@@ -3008,7 +3008,7 @@ public class Profile {
 
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
         {
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
@@ -3034,11 +3034,11 @@ public class Profile {
                 }
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-            }
+            /*}
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            }
+            }*/
             checked = true;
         }
         if (checked && (profile == null))
@@ -3234,7 +3234,7 @@ public class Profile {
         if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
         {
             int value = Settings.Global.getInt(context.getContentResolver(), "heads_up_notifications_enabled", -10);
-            if ((value != -10) && (android.os.Build.VERSION.SDK_INT >= 21)) {
+            if ((value != -10)/* && (android.os.Build.VERSION.SDK_INT >= 21)*/) {
                 if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
@@ -3261,12 +3261,12 @@ public class Profile {
                 else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
             }
-            else
-            if (value != -10)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            //else
+            //if (value != -10)
+            //    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_old_android);
+                preferenceAllowed.notAllowedReasonDetail = context.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
             }
             checked = true;
         }

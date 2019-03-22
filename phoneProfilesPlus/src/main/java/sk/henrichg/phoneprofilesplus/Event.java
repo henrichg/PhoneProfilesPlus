@@ -538,10 +538,10 @@ class Event {
                             this._eventPreferencesMobileCells._enabled ||
                             this._eventPreferencesNFC._enabled ||
                             this._eventPreferencesRadioSwitch._enabled;
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 someEnabled = someEnabled ||
                         this._eventPreferencesAlarmClock._enabled;
-            }
+            //}
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -577,10 +577,10 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesNFC.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesRadioSwitch._enabled)
                 accessibilityEnabled = this._eventPreferencesRadioSwitch.isAccessibilityServiceEnabled(context);
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
+            //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 if (this._eventPreferencesAlarmClock._enabled)
                     accessibilityEnabled = this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context);
-            }
+            //}
         }
 
         return accessibilityEnabled;
@@ -1916,7 +1916,7 @@ class Event {
 
             AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                         ApplicationPreferences.applicationUseAlarmClock(_context)) {
 
                     Calendar now = Calendar.getInstance();
@@ -2061,7 +2061,7 @@ class Event {
             AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
 
             if (alarmManager != null) {
-                if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                         ApplicationPreferences.applicationUseAlarmClock(_context)) {
 
                     Calendar now = Calendar.getInstance();
@@ -2357,10 +2357,10 @@ class Event {
 
         if (preferenceKey.equals(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED))
         {
-            if (android.os.Build.VERSION.SDK_INT >= 21)
+            //if (android.os.Build.VERSION.SDK_INT >= 21)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+            //else
+            //    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
             checked = true;
         }
         if (checked)
@@ -2445,11 +2445,11 @@ class Event {
 
                 PendingIntent pi = PendingIntent.getActivity(context, 0, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
-                mBuilder.setPriority(Notification.PRIORITY_MAX);
-                if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    mBuilder.setCategory(Notification.CATEGORY_EVENT);
-                    mBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-                }
+                mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+                //if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+                    mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                //}
 
                 Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
                 PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, 0, deleteIntent, 0);

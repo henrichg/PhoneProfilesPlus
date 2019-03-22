@@ -44,7 +44,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                         public void run() {
                             PPApplication.logE("PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
-                            if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                            if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                                     ApplicationPreferences.applicationUseAlarmClock(appContext)) {
                                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(appContext);
                                 Profile.setActivatedProfileForDuration(appContext, 0);

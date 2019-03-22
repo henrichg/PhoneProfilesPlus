@@ -2095,7 +2095,7 @@ public class PhoneProfilesService extends Service
                     eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BATTERY, false);
                 }
                 if (eventCount > 0) {
-                    if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    //if (android.os.Build.VERSION.SDK_INT >= 21) {
                         if (powerSaveModeReceiver == null) {
                             CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPowerSaveModeReceiver->REGISTER", "PhoneProfilesService_registerPowerSaveModeReceiver");
                             PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER");
@@ -2106,7 +2106,7 @@ public class PhoneProfilesService extends Service
                         }
                         else
                             PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "registered");
-                    }
+                    //}
                 } else {
                     registerPowerSaveModeReceiver(false, false);
                 }
@@ -4250,6 +4250,8 @@ public class PhoneProfilesService extends Service
                 notificationBuilder.addAction(actionBuilder.build());
             }
 
+            notificationBuilder.setOnlyAlertOnce(true);
+
             Notification phoneProfilesNotification;
             try {
                 phoneProfilesNotification = notificationBuilder.build();
@@ -4997,7 +4999,7 @@ public class PhoneProfilesService extends Service
                 boolean simulateRinging = false;
                 int stream = AudioManager.STREAM_RING;
 
-                if ((android.os.Build.VERSION.SDK_INT >= 21)) {
+                //if ((android.os.Build.VERSION.SDK_INT >= 21)) {
                     //if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
                     //        ((newRingerMode == Profile.RINGERMODE_ZENMODE) &&
                     //                ((newZenMode == Profile.ZENMODE_NONE) || (newZenMode == Profile.ZENMODE_ALARMS))))) {
@@ -5058,7 +5060,7 @@ public class PhoneProfilesService extends Service
                         }
                     }
 
-                }
+                //}
 
                 if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
                     simulateRinging = true;

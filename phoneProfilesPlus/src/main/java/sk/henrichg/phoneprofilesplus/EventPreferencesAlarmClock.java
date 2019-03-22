@@ -177,10 +177,10 @@ class EventPreferencesAlarmClock extends EventPreferences {
     @Override
     public boolean isRunnable(Context context)
     {
-        if (android.os.Build.VERSION.SDK_INT >= 21)
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
             return super.isRunnable(context);
-        else
-            return false;
+        //else
+        //    return false;
     }
 
     long computeAlarm()
@@ -277,7 +277,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
-                    if ((android.os.Build.VERSION.SDK_INT >= 21) &&
+                    if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/
                             ApplicationPreferences.applicationUseAlarmClock(context)) {
                         Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);

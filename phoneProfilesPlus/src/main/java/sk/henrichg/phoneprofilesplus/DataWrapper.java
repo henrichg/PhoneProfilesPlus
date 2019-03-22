@@ -261,14 +261,16 @@ public class DataWrapper {
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
-                        if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 1; // ALL
+                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 1; // ALL
                         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 1; // ALL
                         } else
-                            profile._volumeRingerMode = 1;
+                            profile._volumeRingerMode = 1;*/
                     } else
                         profile._volumeRingerMode = 1;
                 //} else
@@ -285,14 +287,16 @@ public class DataWrapper {
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
-                        if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 1; // ALL
+                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 1; // ALL
                         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 1; // ALL
                         } else
-                            profile._volumeRingerMode = 2;
+                            profile._volumeRingerMode = 2;*/
                     } else
                         profile._volumeRingerMode = 2;
                 //} else
@@ -309,14 +313,16 @@ public class DataWrapper {
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
-                        if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 4; // ALL with vibration
+                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 4; // ALL with vibration
                         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 4; // ALL with vibration
                         } else
-                            profile._volumeRingerMode = 1;
+                            profile._volumeRingerMode = 1;*/
                     } else
                         profile._volumeRingerMode = 1;
                 //} else
@@ -333,14 +339,16 @@ public class DataWrapper {
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
-                        if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 3; // NONE
+                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 3; // NONE
                         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 3; // NONE
                         } else
-                            profile._volumeRingerMode = 4;
+                            profile._volumeRingerMode = 4;*/
                     } else
                         profile._volumeRingerMode = 4;
                 //} else
@@ -357,14 +365,16 @@ public class DataWrapper {
                 profile._showInActivator = true;
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {
                     if (ActivateProfileHelper.canChangeZenMode(context, true)) {
-                        if (android.os.Build.VERSION.SDK_INT >= 23) {
+                        profile._volumeRingerMode = 5;
+                        profile._volumeZenMode = 6; // ALARMS
+                        /*if (android.os.Build.VERSION.SDK_INT >= 23) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 6; // ALARMS
                         } else if (android.os.Build.VERSION.SDK_INT >= 21) {
                             profile._volumeRingerMode = 5;
                             profile._volumeZenMode = 3; // NONE
                         } else
-                            profile._volumeRingerMode = 4;
+                            profile._volumeRingerMode = 4;*/
                     } else
                         profile._volumeRingerMode = 4;
                 //} else
@@ -2389,7 +2399,7 @@ public class DataWrapper {
                         // Dual SIM?? Bug in Android ???
                     }
                     if (connManager != null) {
-                        if (android.os.Build.VERSION.SDK_INT >= 21) {
+                        //if (android.os.Build.VERSION.SDK_INT >= 21) {
                             Network[] networks = connManager.getAllNetworks();
                             if ((networks != null) && (networks.length > 0)) {
                                 for (Network network : networks) {
@@ -2420,11 +2430,11 @@ public class DataWrapper {
                                     }
                                 }
                             }
-                        } else {
+                        /*} else {
                             //noinspection deprecation
                             NetworkInfo ntkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
                             wifiConnected = (ntkInfo != null) && ntkInfo.isConnected();
-                        }
+                        }*/
                     }
 
                     if (wifiConnected) {
