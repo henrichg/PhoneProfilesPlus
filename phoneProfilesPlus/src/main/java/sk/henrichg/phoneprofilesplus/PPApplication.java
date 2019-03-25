@@ -228,7 +228,7 @@ public class PPApplication extends Application {
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
-                                         //+"|BluetoothConnectedDevices"
+                                         +"|BluetoothConnectedDevices"
                                          //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
