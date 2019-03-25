@@ -851,14 +851,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (!theme.equals("night_mode")) {
                     if (theme.equals("dark")) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                        theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "color");
+                        //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "color");
+                        theme = ApplicationPreferences.applicationNightModeOffTheme(getApplicationContext());
                         Editor editor = preferences.edit();
                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, theme);
                         editor.apply();
                     } else {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
                         Editor editor = preferences.edit();
-                        editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
+                        //editor.putString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, theme);
                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
                         editor.apply();
                     }
