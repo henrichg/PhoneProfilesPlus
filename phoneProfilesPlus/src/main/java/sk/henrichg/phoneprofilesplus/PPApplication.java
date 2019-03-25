@@ -1112,7 +1112,7 @@ public class PPApplication extends Application {
         if (Build.VERSION.SDK_INT >= 26) {
             int importance;
             //PPApplication.logE("PPApplication.createProfileNotificationChannel","show in status bar="+ApplicationPreferences.notificationShowInStatusBar(context));
-            if (ApplicationPreferences.notificationShowInStatusBar(context)) {
+            //if (ApplicationPreferences.notificationShowInStatusBar(context)) {
                 /*KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
                 if (myKM != null) {
                     //boolean screenUnlocked = !myKM.inKeyguardRestrictedInputMode();
@@ -1125,10 +1125,11 @@ public class PPApplication extends Application {
                         importance = NotificationManager.IMPORTANCE_LOW;
                 }
                 else*/
-                    importance = NotificationManager.IMPORTANCE_DEFAULT;
-            }
-            else
-                importance = NotificationManager.IMPORTANCE_MIN;
+            //        importance = NotificationManager.IMPORTANCE_DEFAULT;
+            //}
+            //else
+            //    importance = NotificationManager.IMPORTANCE_MIN;
+            importance = NotificationManager.IMPORTANCE_LOW;
 
             // The user-visible name of the channel.
             CharSequence name = context.getString(R.string.notification_channel_activated_profile);
