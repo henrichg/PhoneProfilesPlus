@@ -9,11 +9,10 @@
         app:summary="@string/phone_profiles_pref_applicationEventLocation_info"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventLocationEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventLocationEnableScanning"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventLocationSystemSettings"
@@ -55,11 +54,10 @@
         app:entryValues="@array/scanInPowerSaveModeValues"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventLocationScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
@@ -71,11 +69,10 @@
         app:entryValues="@array/applicationEventRescanValues"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventLocationUseGPS"
         app:title="@string/phone_profiles_pref_applicationEventLocationsUseGPS"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     

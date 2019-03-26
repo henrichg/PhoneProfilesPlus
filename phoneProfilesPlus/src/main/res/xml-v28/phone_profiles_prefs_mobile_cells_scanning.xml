@@ -9,11 +9,10 @@
         app:summary="@string/phone_profiles_pref_applicationEventMobileCell_info"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventMobileCellEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellEnableScanning"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventMobileCellsLocationSystemSettings"
@@ -43,11 +42,10 @@
         app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

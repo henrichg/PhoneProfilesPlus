@@ -9,11 +9,10 @@
         app:summary="@string/phone_profiles_pref_applicationEventWifi_info"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventWifiEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventWifiEnableScanning"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventWiFiLocationSystemSettings"
@@ -31,11 +30,10 @@
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" >
     </Preference>
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventWifiScanIfWifiOff"
         app:title="@string/phone_profiles_pref_applicationEventWifiScanIfWifiOff"
         app:defaultValue="true"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
@@ -63,11 +61,10 @@
         app:entryValues="@array/scanInPowerSaveModeValues"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventWifiScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

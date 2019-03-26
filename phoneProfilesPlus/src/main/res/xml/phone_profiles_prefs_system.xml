@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/phone_profiles_pref_category_system">
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationUnlinkRingerNotificationVolumes"
         app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
         app:summary="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <!--<Preference
         app:key="applicationRingerNotificationVolumesUnlinkedInfo"
@@ -30,12 +29,11 @@
         app:entries="@array/forceSetMergeRingNotificationVolumesArray"
         app:entryValues="@array/forceSetMergeRingNotificationVolumesValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationUseAlarmClock"
         app:title="@string/phone_profiles_pref_applicationUseAlarmClock"
         app:summary="@string/phone_profiles_pref_applicationUseAlarmClock_summary"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationBatteryOptimization"

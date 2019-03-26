@@ -9,11 +9,10 @@
         app:summary="@string/phone_profiles_pref_applicationEventOrientation_info"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventOrientationEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventOrientationEnableScanning"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventOrientationScanIntervalInfo"
@@ -40,11 +39,10 @@
         app:entryValues="@array/scanInPowerSaveModeValues"
         app:dependency="applicationEventOrientationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventOrientationScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
         app:defaultValue="true"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventOrientationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     

@@ -15,12 +15,11 @@
         app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
         app:layout="@layout/mp_preference_material_widget"
         app:addNoActivateItem="1" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationBackgroundProfileUsage"
         app:title="@string/phone_profiles_pref_backgroundProfileUsage"
         app:summary="@string/phone_profiles_pref_backgroundProfileUsage_summary"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget"/>
     <Preference
         app:key="applicationBackgroundProfileNotificationSoundInfo"
@@ -36,20 +35,18 @@
         app:layout="@layout/mp_preference_material_widget"
         app:showSilent="true"
         app:showDefault="true" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationBackgroundProfileNotificationVibrate"
         app:title="@string/phone_profiles_pref_backgroundProfileNotificationVibrate"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget"/>
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_manualProfileActivation"
         app:layout="@layout/mp_preference_category" >
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="applicationAlert"
             app:title="@string/phone_profiles_pref_applicationAlert"
             app:defaultValue="true"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     

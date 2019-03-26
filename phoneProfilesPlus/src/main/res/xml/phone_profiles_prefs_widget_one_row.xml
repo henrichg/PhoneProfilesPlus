@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/phone_profiles_pref_category_widget_one_row">
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowPrefIndicator"
         app:title="@string/phone_profiles_pref_applicationPrefIndicator"
         app:defaultValue="true"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
@@ -17,11 +16,10 @@
         app:entries="@array/widgetBackgroundArray"
         app:entryValues="@array/widgetBackgroundValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowBackgroundType"
         app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
@@ -36,11 +34,10 @@
         app:key="applicationWidgetOneRowBackgroundColor"
         app:defaultValue="-1"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowShowBorder"
         app:title="@string/phone_profiles_pref_applicationWidgetShowBorder"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
@@ -50,11 +47,10 @@
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowRoundedCorners"
         app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
         app:defaultValue="true"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
@@ -80,11 +76,10 @@
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowCustomIconLightness"
         app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

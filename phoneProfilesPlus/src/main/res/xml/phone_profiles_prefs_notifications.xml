@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/phone_profiles_pref_category_notifications">
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="notificationsToast"
         app:title="@string/phone_profiles_pref_notificationsToast"
         app:defaultValue="true"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
         app:key="categoryNotificationsStatusBar"
@@ -19,21 +18,19 @@
             app:summary="@string/phone_profiles_pref_notificationStatusBarInfo_summary"
             app:widgetLayout="@layout/info_preference"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationStatusBar"
             app:title="@string/phone_profiles_pref_notificationStatusBar"
             app:summary="@string/phone_profiles_pref_notificationStatusBarRequired"
             app:defaultValue="true"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationStatusBarPermanent"
             app:title="@string/phone_profiles_pref_notificationStatusBarPermanent"
             app:summary="@string/phone_profiles_pref_notificationStatusBarRequired"
             app:defaultValue="true"
             app:disableDependentsState="true"
             app:dependency="notificationStatusBar"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
             app:key="notificationStatusBarCancel"
@@ -44,19 +41,17 @@
             app:dMax="300"
             app:dependency="notificationStatusBarPermanent"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationShowInStatusBar"
             app:title="@string/phone_profiles_pref_notificationShowInStatusBar"
             app:defaultValue="true"
             app:dependency="notificationStatusBar"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationHideInLockscreen"
             app:title="@string/phone_profiles_pref_notificationHideInLockscreen"
             app:defaultValue="false"
             app:dependency="notificationStatusBar"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationLayoutType"
@@ -82,12 +77,11 @@
             app:entryValues="@array/notificationIconStyleValues"
             app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
             app:defaultValue="true"
             app:dependency="notificationStatusBar"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
@@ -107,18 +101,16 @@
             app:entryValues="@array/notificationTextColorValues"
             app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"
             app:defaultValue="true"
             app:dependency="notificationStatusBar"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationShowButtonExit"
             app:title="@string/phone_profiles_pref_notificationShowButtonExit"
             app:defaultValue="false"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     

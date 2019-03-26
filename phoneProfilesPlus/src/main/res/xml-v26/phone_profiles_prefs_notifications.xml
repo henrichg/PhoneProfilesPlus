@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/phone_profiles_pref_category_notifications">
 
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="notificationsToast"
         app:title="@string/phone_profiles_pref_notificationsToast"
         app:defaultValue="true"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
         app:key="categoryNotificationsStatusBar"
@@ -42,11 +41,10 @@
             app:entries="@array/notificationIconStyleArray"
             app:entryValues="@array/notificationIconStyleValues"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
             app:defaultValue="true"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
@@ -64,17 +62,15 @@
             app:entries="@array/notificationTextColorArray"
             app:entryValues="@array/notificationTextColorValues"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"
             app:defaultValue="true"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
-        <CheckBoxPreference
+        <SwitchPreferenceCompat
             app:key="notificationShowButtonExit"
             app:title="@string/phone_profiles_pref_notificationShowButtonExit"
             app:defaultValue="false"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     

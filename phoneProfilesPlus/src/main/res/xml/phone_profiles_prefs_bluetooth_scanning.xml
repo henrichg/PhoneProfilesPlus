@@ -9,11 +9,10 @@
         app:summary="@string/phone_profiles_pref_applicationEventBluetooth_info"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventBluetoothEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothEnableScanning"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventBluetoothLocationSystemSettings"
@@ -23,11 +22,10 @@
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" >
     </Preference>
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventBluetoothScanIfBluetoothOff"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff"
         app:defaultValue="true"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
@@ -64,11 +62,10 @@
         app:entryValues="@array/scanInPowerSaveModeValues"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <CheckBoxPreference
+    <SwitchPreferenceCompat
         app:key="applicationEventBluetoothScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
         app:defaultValue="false"
-        app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
