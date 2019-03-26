@@ -257,3 +257,10 @@ Android Q beta 1 - emulator:
 2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err:     at libcore.io.IoBridge.open(IoBridge.java:482)
 2019-03-15 19:40:37.527 9209-9209/sk.henrichg.phoneprofilesplus W/System.err: 	... 18 more
 
+----------------------------------------------------------------
+
+Zmenit moje preferences na AndroidX verziu
+- PreferenceActivity a PreferenceFragment vyhodit, nahradit za AppCompatActivity a PreferenceFragmentCompat
+- vid youtube: https://www.youtube.com/watch?v=PS9jhuHECEQ&feature=youtu.be&t=547
+
+
