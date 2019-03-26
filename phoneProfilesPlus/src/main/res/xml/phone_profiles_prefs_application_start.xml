@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_start">
+
+    <CheckBoxPreference
+        app:key="applicationStartOnBoot"
+        app:title="@string/phone_profiles_pref_applicationStartOnBoot"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationAutoStartManager"
+        app:title="@string/phone_profiles_pref_systemAutoStartManager"
+        app:summary="@string/phone_profiles_pref_systemAutoStartManager_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget">
+    </Preference>
+    <CheckBoxPreference
+        app:key="applicationActivate"
+        app:title="@string/phone_profiles_pref_applicationActivate"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationStartEvents"
+        app:title="@string/phone_profiles_pref_applicationStartEvents"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:dependency="applicationActivate"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

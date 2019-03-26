@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_bluetooth_scanning">
+
+    <Preference
+        app:key="applicationEventBluetoothInfo"
+        app:title="@string/phone_profiles_pref_category_bluetooth_scanning"
+        app:summary="@string/phone_profiles_pref_applicationEventBluetooth_info"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationEventBluetoothEnableScannig"
+        app:title="@string/phone_profiles_pref_applicationEventBluetoothEnableScanning"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventBluetoothLocationSystemSettings"
+        app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+        app:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:dependency="applicationEventBluetoothEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" >
+    </Preference>
+    <CheckBoxPreference
+        app:key="applicationEventBluetoothScanIfBluetoothOff"
+        app:title="@string/phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:dependency="applicationEventBluetoothEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventBluetoothScanIntervalInfo"
+        app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+        app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+        app:widgetLayout="@layout/exclamation_preference"
+        app:dependency="applicationEventBluetoothEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+        app:key="applicationEventBluetoothScanInterval"
+        app:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+        app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+        app:defaultValue="15"
+        app:min="1"
+        app:max="300"
+        app:dependency="applicationEventBluetoothEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+        app:key="applicationEventBluetoothLEScanDuration"
+        app:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
+        app:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
+        app:defaultValue="10"
+        app:min="5"
+        app:max="30"
+        app:dependency="applicationEventBluetoothEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:key="applicationEventBluetoothScanInPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode"
+        app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+        app:defaultValue="1"
+        app:entries="@array/scanInPowerSaveModeArray"
+        app:entryValues="@array/scanInPowerSaveModeValues"
+        app:dependency="applicationEventBluetoothEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationEventBluetoothScanOnlyWhenScreenIsOn"
+        app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:dependency="applicationEventBluetoothEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
+        app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
+        app:key="applicationEventBluetoothRescan"
+        app:defaultValue="1"
+        app:entries="@array/applicationEventRescanArray"
+        app:entryValues="@array/applicationEventRescanValues"
+        app:dependency="applicationEventBluetoothEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>

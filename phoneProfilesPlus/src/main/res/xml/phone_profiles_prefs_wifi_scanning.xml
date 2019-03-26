@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_wifi_scanning">
+
+    <Preference
+        app:key="applicationEventWifiInfo"
+        app:title="@string/phone_profiles_pref_category_wifi_scanning"
+        app:summary="@string/phone_profiles_pref_applicationEventWifi_info"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationEventWifiEnableScannig"
+        app:title="@string/phone_profiles_pref_applicationEventWifiEnableScanning"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventWiFiLocationSystemSettings"
+        app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+        app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" >
+    </Preference>
+    <Preference
+        app:key="applicationEventWiFiKeepOnSystemSettings"
+        app:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
+        app:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" >
+    </Preference>
+    <CheckBoxPreference
+        app:key="applicationEventWifiScanIfWifiOff"
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanIfWifiOff"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventWifiScanIntervalInfo"
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+        app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+        app:widgetLayout="@layout/exclamation_preference"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+        app:key="applicationEventWifiScanInterval"
+        app:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+        app:defaultValue="15"
+        app:min="1"
+        app:max="300"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:key="applicationEventWifiScanInPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
+        app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+        app:defaultValue="1"
+        app:entries="@array/scanInPowerSaveModeArray"
+        app:entryValues="@array/scanInPowerSaveModeValues"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationEventWifiScanOnlyWhenScreenIsOn"
+        app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationEventWifiRescan"
+        app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
+        app:key="applicationEventWifiRescan"
+        app:defaultValue="1"
+        app:entries="@array/applicationEventRescanArray"
+        app:entryValues="@array/applicationEventRescanValues"
+        app:dependency="applicationEventWifiEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>

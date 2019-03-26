@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_widget_list">
+
+    <CheckBoxPreference
+        app:key="applicationWidgetListPrefIndicator"
+        app:title="@string/phone_profiles_pref_applicationPrefIndicator"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationWidgetListHeader"
+        app:title="@string/phone_profiles_pref_applicationHeader"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationWidgetListGridLayout"
+        app:title="@string/phone_profiles_pref_applicationGridLayout"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetBackground"
+        app:summary="25%%"
+        app:key="applicationWidgetListBackground"
+        app:defaultValue="25"
+        app:entries="@array/widgetBackgroundArray"
+        app:entryValues="@array/widgetBackgroundValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationWidgetListBackgroundType"
+        app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
+        app:summary="0%%"
+        app:key="applicationWidgetListLightnessB"
+        app:defaultValue="0"
+        app:entries="@array/widgetLightnessArray"
+        app:entryValues="@array/widgetLightnessValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetColorB"
+        app:key="applicationWidgetListBackgroundColor"
+        app:defaultValue="-1"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationWidgetListShowBorder"
+        app:title="@string/phone_profiles_pref_applicationWidgetShowBorder"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
+        app:summary="100%%"
+        app:key="applicationWidgetListLightnessBorder"
+        app:defaultValue="100"
+        app:entries="@array/widgetLightnessArray"
+        app:entryValues="@array/widgetLightnessValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationWidgetListRoundedCorners"
+        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+        app:summary="100%%"
+        app:key="applicationWidgetListLightnessT"
+        app:defaultValue="100"
+        app:entries="@array/widgetLightnessArray"
+        app:entryValues="@array/widgetLightnessValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+        app:summary="0"
+        app:key="applicationWidgetListIconColor"
+        app:defaultValue="0"
+        app:entries="@array/widgetColorArray"
+        app:entryValues="@array/widgetColorValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
+        app:summary="100%%"
+        app:key="applicationWidgetListIconLightness"
+        app:defaultValue="100"
+        app:entries="@array/widgetLightnessArray"
+        app:entryValues="@array/widgetLightnessValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationWidgetListCustomIconLightness"
+        app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>

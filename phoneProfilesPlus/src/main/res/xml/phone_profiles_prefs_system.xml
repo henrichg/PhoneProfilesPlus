@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_system">
+
+    <CheckBoxPreference
+        app:key="applicationUnlinkRingerNotificationVolumes"
+        app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
+        app:summary="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <!--<Preference
+        app:key="applicationRingerNotificationVolumesUnlinkedInfo"
+        app:title="@string/phone_profiles_pref_applicationRingerNotificationVolumesUnlinked"
+        app:summary="@string/phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />-->
+    <Preference
+        app:key="applicationForceSetMergeRingNotificationVolumesInfo"
+        app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
+        app:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:key="applicationForceSetMergeRingNotificationVolumes"
+        app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
+        app:summary="@string/array_pref_forceSetMergeRingNotificationVolumes_keepDetected"
+        app:defaultValue="0"
+        app:entries="@array/forceSetMergeRingNotificationVolumesArray"
+        app:entryValues="@array/forceSetMergeRingNotificationVolumesValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationUseAlarmClock"
+        app:title="@string/phone_profiles_pref_applicationUseAlarmClock"
+        app:summary="@string/phone_profiles_pref_applicationUseAlarmClock_summary"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationBatteryOptimization"
+        app:title="@string/phone_profiles_pref_applicationBatteryOptimization"
+        app:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget">
+    </Preference>
+    <Preference
+        app:key="applicationPowerManager"
+        app:title="@string/phone_profiles_pref_applicationPowerManager"
+        app:summary="@string/phone_profiles_pref_applicationPowerManager_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget">
+    </Preference>
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:key="applicationPowerSaveModeInternal"
+        app:title="@string/phone_profiles_pref_applicationPowerSaveMode"
+        app:summary="@string/array_pref_powerSaveMode_15"
+        app:defaultValue="@string/applicationPowerSaveModeInternal_defaultValue"
+        app:entries="@array/powerSaveModeArray"
+        app:entryValues="@array/powerSaveModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationBatterySaver"
+        app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget">
+    </Preference>
+    
+</androidx.preference.PreferenceScreen>

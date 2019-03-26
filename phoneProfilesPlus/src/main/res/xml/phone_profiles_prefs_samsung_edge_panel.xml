@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_samsung_edge_panel">
+
+    <!--
+    <CheckBoxPreference
+        app:key="applicationSamsungEdgePrefIndicator"
+        app:title="@string/phone_profiles_pref_applicationPrefIndicator"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    -->
+    <CheckBoxPreference
+        app:key="applicationSamsungEdgeHeader"
+        app:title="@string/phone_profiles_pref_applicationHeader"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <!--
+    <CheckBoxPreference
+        app:key="applicationSamsungEdgeGridLayout"
+        app:title="@string/phone_profiles_pref_applicationGridLayout"
+        app:defaultValue="true"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    -->
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetBackground"
+        app:summary="25%%"
+        app:key="applicationSamsungEdgeBackground"
+        app:defaultValue="25"
+        app:entries="@array/widgetBackgroundArray"
+        app:entryValues="@array/widgetBackgroundValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationSamsungEdgeBackgroundType"
+        app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
+        app:summary="0%%"
+        app:key="applicationSamsungEdgeLightnessB"
+        app:defaultValue="0"
+        app:entries="@array/widgetLightnessArray"
+        app:entryValues="@array/widgetLightnessValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetColorB"
+        app:key="applicationSamsungEdgeBackgroundColor"
+        app:defaultValue="-1"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+        app:summary="100%%"
+        app:key="applicationSamsungEdgeLightnessT"
+        app:defaultValue="100"
+        app:entries="@array/widgetLightnessArray"
+        app:entryValues="@array/widgetLightnessValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+        app:summary="0"
+        app:key="applicationSamsungEdgeIconColor"
+        app:defaultValue="0"
+        app:entries="@array/widgetColorArray"
+        app:entryValues="@array/widgetColorValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
+        app:summary="100%%"
+        app:key="applicationSamsungEdgeIconLightness"
+        app:defaultValue="100"
+        app:entries="@array/widgetLightnessArray"
+        app:entryValues="@array/widgetLightnessValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationSamsungEdgeCustomIconLightness"
+        app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>

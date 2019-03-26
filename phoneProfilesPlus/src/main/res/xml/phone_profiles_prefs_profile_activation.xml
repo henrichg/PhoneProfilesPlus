@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_activation">
+
+    <Preference
+        app:key="applicationBackgroundProfileInfo"
+        app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
+        app:summary="@string/phone_profiles_pref_applicationBackgroundProfileInfo_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ProfilePreference
+        app:defaultValue="-999"
+        app:key="applicationBackgroundProfile"
+        app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
+        app:layout="@layout/mp_preference_material_widget"
+        app:addNoActivateItem="1" />
+    <CheckBoxPreference
+        app:key="applicationBackgroundProfileUsage"
+        app:title="@string/phone_profiles_pref_backgroundProfileUsage"
+        app:summary="@string/phone_profiles_pref_backgroundProfileUsage_summary"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <Preference
+        app:key="applicationBackgroundProfileNotificationSoundInfo"
+        app:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
+        app:summary="@string/preferences_durationNotificationSoundInfo_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.RingtonePreference
+        app:key="applicationBackgroundProfileNotificationSound"
+        app:summary="@string/array_pref_no_change"
+        app:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
+        app:ringtoneType="notification"
+        app:layout="@layout/mp_preference_material_widget"
+        app:showSilent="true"
+        app:showDefault="true" />
+    <CheckBoxPreference
+        app:key="applicationBackgroundProfileNotificationVibrate"
+        app:title="@string/phone_profiles_pref_backgroundProfileNotificationVibrate"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget"/>
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_manualProfileActivation"
+        app:layout="@layout/mp_preference_category" >
+        <CheckBoxPreference
+            app:key="applicationAlert"
+            app:title="@string/phone_profiles_pref_applicationAlert"
+            app:defaultValue="true"
+            app:widgetLayout="@layout/mp_preference_switch"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    
+</androidx.preference.PreferenceScreen>

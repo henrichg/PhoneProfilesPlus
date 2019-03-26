@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_gui">
+
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationLanguage"
+        app:summary="@string/phone_profiles_pref_applicationLanguage_system"
+        app:key="applicationLanguage"
+        app:defaultValue="@string/array_pref_value_system"
+        app:entries="@array/languageArray"
+        app:entryValues="@array/languageValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationLanguage24"
+        app:title="@string/phone_profiles_pref_applicationLanguage"
+        app:summary="@string/phone_profiles_pref_systemLanguage_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget">
+    </Preference>
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationHomeLauncher"
+        app:summary="@string/array_pref_launcher_activator"
+        app:key="applicationHomeLauncher"
+        app:defaultValue="@string/activator_string"
+        app:entries="@array/launcherArray"
+        app:entryValues="@array/launcherValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetLauncher"
+        app:summary="@string/array_pref_launcher_activator"
+        app:key="applicationWidgetLauncher"
+        app:defaultValue="@string/activator_string"
+        app:entries="@array/launcherArray"
+        app:entryValues="@array/launcherValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_notificationLauncher"
+        app:summary="@string/array_pref_launcher_activator"
+        app:key="applicationNotificationLauncher"
+        app:defaultValue="@string/activator_string"
+        app:entries="@array/launcherArray"
+        app:entryValues="@array/launcherValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationTheme"
+        app:summary="@string/phone_profiles_pref_applicationTheme_color"
+        app:key="applicationTheme"
+        app:defaultValue="@string/array_pref_value_color"
+        app:entries="@array/themeArray"
+        app:entryValues="@array/themeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_nightModeOffApplicationTheme"
+        app:summary="@string/phone_profiles_pref_applicationTheme_color"
+        app:key="applicationNightModeOffTheme"
+        app:defaultValue="@string/array_pref_value_color"
+        app:entries="@array/nightModeOffThemeArray"
+        app:entryValues="@array/nightModeOffThemeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>

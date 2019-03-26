@@ -262,5 +262,8 @@ Android Q beta 1 - emulator:
 Zmenit moje preferences na AndroidX verziu
 - PreferenceActivity a PreferenceFragment vyhodit, nahradit za AppCompatActivity a PreferenceFragmentCompat
 - vid youtube: https://www.youtube.com/watch?v=PS9jhuHECEQ&feature=youtu.be&t=547
+- Nezabudni po kliknuti na preference, co otvori sub-screen zobrazit v titulku:
+  - title: nazov sunscreenu
+  - subtitle: nazov profilu/udalosti/Application settings
 
 

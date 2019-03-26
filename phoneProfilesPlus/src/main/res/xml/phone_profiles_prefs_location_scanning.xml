@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/phone_profiles_pref_category_location">
+
+    <Preference
+        app:key="applicationEventLocationInfo"
+        app:title="@string/phone_profiles_pref_category_location"
+        app:summary="@string/phone_profiles_pref_applicationEventLocation_info"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationEventLocationEnableScannig"
+        app:title="@string/phone_profiles_pref_applicationEventLocationEnableScanning"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventLocationSystemSettings"
+        app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+        app:summary="@string/phone_profiles_pref_eventLocationSystemSettings_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" >
+    </Preference>
+    <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
+        app:defaultValue="0"
+        app:key="applicationEventLocationsEditor"
+        app:title="@string/phone_profiles_pref_applicationEventLocationsEditor"
+        app:onlyEdit="1"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="applicationEventLocationUpdateIntervalInfo"
+        app:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+        app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
+        app:widgetLayout="@layout/exclamation_preference"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+        app:key="applicationEventLocationUpdateInterval"
+        app:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+        app:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+        app:defaultValue="15"
+        app:min="1"
+        app:max="300"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:key="applicationEventLocationUpdateInPowerSaveMode"
+        app:title="@string/phone_profiles_pref_applicationEventLocationScanInPowerSaveMode"
+        app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
+        app:defaultValue="1"
+        app:entries="@array/scanInPowerSaveModeArray"
+        app:entryValues="@array/scanInPowerSaveModeValues"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationEventLocationScanOnlyWhenScreenIsOn"
+        app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        app:title="@string/phone_profiles_pref_applicationEventLocationRescan"
+        app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
+        app:key="applicationEventLocationRescan"
+        app:defaultValue="1"
+        app:entries="@array/applicationEventRescanArray"
+        app:entryValues="@array/applicationEventRescanValues"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    <CheckBoxPreference
+        app:key="applicationEventLocationUseGPS"
+        app:title="@string/phone_profiles_pref_applicationEventLocationsUseGPS"
+        app:defaultValue="false"
+        app:widgetLayout="@layout/mp_preference_switch"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>
