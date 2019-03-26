@@ -24,6 +24,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
     private Context context;
     private DurationDialogPreferenceX preference;
 
+    @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(Context context)
     {

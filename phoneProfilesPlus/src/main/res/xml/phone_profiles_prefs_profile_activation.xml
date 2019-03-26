@@ -9,7 +9,7 @@
         app:summary="@string/phone_profiles_pref_applicationBackgroundProfileInfo_summary"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ProfilePreference
+    <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
         app:defaultValue="-999"
         app:key="applicationBackgroundProfile"
         app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"

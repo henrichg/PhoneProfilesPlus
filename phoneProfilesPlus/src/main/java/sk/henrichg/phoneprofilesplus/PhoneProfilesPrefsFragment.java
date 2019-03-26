@@ -347,7 +347,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             } catch (Exception e) {
                 lProfileId = 0;
             }
-            ProfilePreference profilePreference = (ProfilePreference) preference;
+            ProfilePreferenceX profilePreference = (ProfilePreferenceX) preference;
             profilePreference.setSummary(lProfileId);
 
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_BACKGROUND_PROFILE_NOTIFICATION_SOUND);
