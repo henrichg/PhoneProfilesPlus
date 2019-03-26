@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/phone_profiles_pref_category_gui">
 
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationLanguage"
         app:summary="@string/phone_profiles_pref_applicationLanguage_system"
         app:key="applicationLanguage"
@@ -18,7 +18,7 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget">
     </Preference>
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationHomeLauncher"
         app:summary="@string/array_pref_launcher_activator"
         app:key="applicationHomeLauncher"
@@ -26,7 +26,7 @@
         app:entries="@array/launcherArray"
         app:entryValues="@array/launcherValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLauncher"
         app:summary="@string/array_pref_launcher_activator"
         app:key="applicationWidgetLauncher"
@@ -34,7 +34,7 @@
         app:entries="@array/launcherArray"
         app:entryValues="@array/launcherValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_notificationLauncher"
         app:summary="@string/array_pref_launcher_activator"
         app:key="applicationNotificationLauncher"
@@ -42,7 +42,7 @@
         app:entries="@array/launcherArray"
         app:entryValues="@array/launcherValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationTheme"
         app:summary="@string/phone_profiles_pref_applicationTheme_color"
         app:key="applicationTheme"
@@ -50,7 +50,7 @@
         app:entries="@array/themeArray"
         app:entryValues="@array/themeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_nightModeOffApplicationTheme"
         app:summary="@string/phone_profiles_pref_applicationTheme_color"
         app:key="applicationNightModeOffTheme"

@@ -189,6 +189,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".PhoneProfilesPrefsActivity"
+            android:label="@string/title_activity_phone_profiles_preferences">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
+            </intent-filter>-->
+        </activity>
+        <activity
             android:name=".ShortcutCreatorActivity"
             android:excludeFromRecents="true"
             android:icon="@drawable/ic_shortcut"

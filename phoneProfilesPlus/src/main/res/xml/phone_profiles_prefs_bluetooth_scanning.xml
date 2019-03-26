@@ -55,7 +55,7 @@
         app:max="30"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:key="applicationEventBluetoothScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode"
         app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
@@ -71,7 +71,7 @@
         app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
         app:key="applicationEventBluetoothRescan"

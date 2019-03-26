@@ -54,7 +54,7 @@
         app:max="300"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:key="applicationEventWifiScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
         app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
@@ -70,7 +70,7 @@
         app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationEventWifiRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
         app:key="applicationEventWifiRescan"

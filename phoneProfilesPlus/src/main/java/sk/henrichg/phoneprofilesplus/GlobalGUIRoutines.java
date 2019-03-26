@@ -261,6 +261,35 @@ class GlobalGUIRoutines {
         }
     }
 
+    public static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
+    {
+        if (preference != null) {
+            CharSequence title = preference.getTitle();
+            if (systemSettings) {
+                String s = title.toString();
+                if (!s.contains("(S)"))
+                    title = TextUtils.concat("(S) ", title);
+            }
+            Spannable sbt = new SpannableString(title);
+            Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
+            for (Object span : spansToRemove) {
+                if (span instanceof CharacterStyle)
+                    sbt.removeSpan(span);
+            }
+            if (bold || underline) {
+                if (bold)
+                    sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (underline)
+                    sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                if (errorColor && enabled)
+                    sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                preference.setTitle(sbt);
+            } else {
+                preference.setTitle(sbt);
+            }
+        }
+    }
+
     /**
      * Sets the specified image button to the given state, while modifying or
      * "graying-out" the icon as well

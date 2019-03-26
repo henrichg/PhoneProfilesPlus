@@ -22,7 +22,7 @@
         app:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
         app:widgetLayout="@layout/info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:key="applicationForceSetMergeRingNotificationVolumes"
         app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
         app:summary="@string/array_pref_forceSetMergeRingNotificationVolumes_keepDetected"
@@ -51,7 +51,7 @@
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget">
     </Preference>
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:key="applicationPowerSaveModeInternal"
         app:title="@string/phone_profiles_pref_applicationPowerSaveMode"
         app:summary="@string/array_pref_powerSaveMode_15"

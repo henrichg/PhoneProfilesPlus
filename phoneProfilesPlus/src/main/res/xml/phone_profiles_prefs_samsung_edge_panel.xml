@@ -25,7 +25,7 @@
         app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
     -->
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
         app:summary="25%%"
         app:key="applicationSamsungEdgeBackground"
@@ -39,7 +39,7 @@
         app:defaultValue="false"
         app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
         app:summary="0%%"
         app:key="applicationSamsungEdgeLightnessB"
@@ -52,7 +52,7 @@
         app:key="applicationSamsungEdgeBackgroundColor"
         app:defaultValue="-1"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
         app:summary="100%%"
         app:key="applicationSamsungEdgeLightnessT"
@@ -60,7 +60,7 @@
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
         app:summary="0"
         app:key="applicationSamsungEdgeIconColor"
@@ -68,7 +68,7 @@
         app:entries="@array/widgetColorArray"
         app:entryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
         app:summary="100%%"
         app:key="applicationSamsungEdgeIconLightness"

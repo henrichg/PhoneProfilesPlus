@@ -57,7 +57,7 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
-    implementation "androidx.preference:preference:$ppVersions.otherXLib"
+    implementation "androidx.preference:preference:$ppVersions.preferenceXLib"
     implementation "androidx.gridlayout:gridlayout:$ppVersions.otherXLib"
     implementation "androidx.cardview:cardview:$ppVersions.otherXLib"
     implementation "androidx.recyclerview:recyclerview:$ppVersions.otherXLib"

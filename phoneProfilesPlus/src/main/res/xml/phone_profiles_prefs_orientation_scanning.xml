@@ -31,7 +31,7 @@
         app:max="60"
         app:dependency="applicationEventOrientationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:key="applicationEventOrientationScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode"
         app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"

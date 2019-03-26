@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/phone_profiles_pref_category_widget_icon_shortcut">
 
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconBackground"
         app:summary="0%%"
         app:key="applicationWidgetIconBackground"
@@ -17,7 +17,7 @@
         app:defaultValue="false"
         app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconLightnessB"
         app:summary="0%%"
         app:key="applicationWidgetIconLightnessB"
@@ -36,7 +36,7 @@
         app:defaultValue="false"
         app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconLightnessBorder"
         app:summary="100%%"
         app:key="applicationWidgetIconLightnessBorder"
@@ -57,7 +57,7 @@
         app:disableDependentsState="true"
         app:widgetLayout="@layout/mp_preference_switch"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconLightnessT"
         app:summary="100%%"
         app:key="applicationWidgetIconLightnessT"
@@ -66,7 +66,7 @@
         app:entryValues="@array/widgetLightnessValues"
         app:dependency="applicationWidgetIconHideProfileName"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
         app:summary="0"
         app:key="applicationWidgetIconColor"
@@ -74,7 +74,7 @@
         app:entries="@array/widgetColorArray"
         app:entryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
         app:summary="100%%"
         app:key="applicationWidgetIconLightness"

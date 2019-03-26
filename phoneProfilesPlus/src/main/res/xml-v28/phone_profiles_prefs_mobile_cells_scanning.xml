@@ -34,7 +34,7 @@
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     -->
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:key="applicationEventMobileCellScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode"
         app:summary="@string/array_pref_scanInPowerSaveMode_scan"
@@ -50,7 +50,7 @@
         app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
         app:key="applicationEventMobileCellsRescan"

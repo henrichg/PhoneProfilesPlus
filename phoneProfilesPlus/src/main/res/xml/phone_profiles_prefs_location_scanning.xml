@@ -46,7 +46,7 @@
         app:max="300"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:key="applicationEventLocationUpdateInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventLocationScanInPowerSaveMode"
         app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
@@ -62,7 +62,7 @@
         app:widgetLayout="@layout/mp_preference_switch"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.MaterialListPreference
+    <ListPreference
         app:title="@string/phone_profiles_pref_applicationEventLocationRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
         app:key="applicationEventLocationRescan"

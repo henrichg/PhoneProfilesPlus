@@ -35,7 +35,7 @@
             app:dependency="notificationStatusBar"
             app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.DurationDialogPreference
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
             app:key="notificationStatusBarCancel"
             app:summary="@string/phone_profiles_pref_notificationStatusBarCancel"
             app:title="@string/phone_profiles_pref_notificationStatusBarCancel"
@@ -58,7 +58,7 @@
             app:dependency="notificationStatusBar"
             app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        <ListPreference
             app:title="@string/phone_profiles_pref_notificationLayoutType"
             app:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
             app:key="notificationLayoutType"
@@ -73,7 +73,7 @@
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
             app:widgetLayout="@layout/info_preference"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        <ListPreference
             app:title="@string/phone_profiles_pref_notificationStatusBarStyle"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
             app:key="notificationStatusBarStyle"
@@ -89,7 +89,7 @@
             app:dependency="notificationStatusBar"
             app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        <ListPreference
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
             app:summary="@string/phone_profiles_pref_notificationBackgroundColor_android"
             app:key="notificationBackgroundColor"
@@ -98,7 +98,7 @@
             app:entryValues="@array/notificationBackgroundColorValues"
             app:dependency="notificationStatusBar"
             app:layout="@layout/mp_preference_material_widget" />
-        <sk.henrichg.phoneprofilesplus.MaterialListPreference
+        <ListPreference
             app:title="@string/phone_profiles_pref_notificationTextColor"
             app:summary="@string/array_pref_no_change"
             app:key="notificationTextColor"
