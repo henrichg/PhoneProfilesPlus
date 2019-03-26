@@ -60,13 +60,14 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         PPApplication.logE("PhoneProfilesPrefsFragment.onCreate", "xxx");
 
-        prefMng = getPreferenceManager();
-        preferences = prefMng.getSharedPreferences();
+        initPreferenceFragment();
+        //prefMng = getPreferenceManager();
+        //preferences = prefMng.getSharedPreferences();
     }
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        initPreferenceFragment();
+        //initPreferenceFragment();
     }
 
     @Override
@@ -125,7 +126,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(key);
     }
 
-    void initPreferenceFragment() {
+    private void initPreferenceFragment() {
         prefMng = getPreferenceManager();
         prefMng.setSharedPreferencesName(PPApplication.APPLICATION_PREFS_NAME);
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);

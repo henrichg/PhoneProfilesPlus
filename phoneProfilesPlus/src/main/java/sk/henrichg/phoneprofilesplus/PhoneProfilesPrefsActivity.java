@@ -54,7 +54,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_root, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -64,7 +64,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_interface, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -74,7 +74,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_application_start, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -84,7 +84,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_system, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -94,7 +94,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_permissions, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -104,7 +104,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_notifications, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -114,7 +114,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_profile_activation, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -124,7 +124,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_event_run, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -134,7 +134,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_location_scanning, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -144,7 +144,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_wifi_scanning, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -154,7 +154,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_bluetooth_scanning, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -164,7 +164,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_mobile_cells_scanning, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -174,7 +174,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_orientation_scanning, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -184,7 +184,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_activator, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -194,7 +194,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_editor, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -204,7 +204,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_widget_list, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -214,7 +214,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_widget_one_row, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -224,7 +224,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_widget_icon, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
@@ -234,7 +234,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_samsung_edge_panel, rootKey);
-            initPreferenceFragment();
+            //initPreferenceFragment();
         }
 
     }
