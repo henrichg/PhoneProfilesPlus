@@ -295,7 +295,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (requestCode == LocationGeofencePreference.RESULT_GEOFENCE_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
-                LocationGeofencePreference preference = (LocationGeofencePreference)prefMng.findPreference(PREF_LOCATION_EDITOR);
+                LocationGeofencePreferenceX preference = prefMng.findPreference(PREF_LOCATION_EDITOR);
                 if (preference != null) {
                     preference.setGeofenceFromEditor(/*geofenceId*/);
                 }
