@@ -1,14 +1,39 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+
+import com.crashlytics.android.Crashlytics;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 public class PhoneProfilesPrefsActivity extends AppCompatActivity {
+
+    private boolean showEditorPrefIndicator;
+    private boolean showEditorHeader;
+    private String activeLanguage;
+    private String activeTheme;
+    private String activeNightModeOffTheme;
+    private boolean locationScannerEnabled;
+    private boolean wifiScannerEnabled;
+    private boolean bluetoothScannerEnabled;
+    private boolean orientationScannerEnabled;
+    private boolean mobileCellScannerEnabled;
+    private int wifiScanInterval;
+    private int bluetoothScanInterval;
+    private int locationScanInterval;
+    private int orientationScanInterval;
+    //private String activeBackgroundProfile;
+    private boolean useAlarmClockEnabled;
+
+    private boolean invalidateEditor = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +54,28 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(GlobalGUIRoutines.dpToPx(1));
         }
 
+        invalidateEditor = false;
+
+        ApplicationPreferences.getSharedPreferences(this);
+        activeLanguage = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
+        activeTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, "color");
+        activeNightModeOffTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "color");
+        showEditorPrefIndicator = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
+        showEditorHeader = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER, true);
+
+        locationScannerEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, true);
+        wifiScannerEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, true);
+        bluetoothScannerEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, true);
+        orientationScannerEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, true);
+        mobileCellScannerEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, true);
+
+        wifiScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "15"));
+        bluetoothScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "15"));
+        locationScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "15"));
+        orientationScanInterval = Integer.valueOf(ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, "10"));
+
+        useAlarmClockEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.preferences_activity_settings, new PhoneProfilesPrefsRoot())
@@ -44,6 +91,20 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+
+        if (PhoneProfilesService.getInstance() != null)
+            PhoneProfilesService.getInstance().clearProfileNotification();
+
+        Handler handler = new Handler(getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PhoneProfilesService.getInstance().showProfileNotification(true);
+            }
+        }, 500);
+        PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
+        ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
+
         GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
@@ -61,7 +122,141 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.preferences_activity_settings);
+        if (fragment != null)
+            ((PhoneProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
+    }
 
+    @Override
+    public void finish() {
+        Context appContext = getApplicationContext();
+
+        try {
+            if ((Build.VERSION.SDK_INT < 26)) {
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, ApplicationPreferences.notificationStatusBarPermanent(this));
+                Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar(this));
+            }
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning(appContext));
+            Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext));
+            Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, ApplicationPreferences.applicationEventBluetoothScanInterval(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventLocationEnableScanning(appContext));
+            Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, ApplicationPreferences.applicationEventLocationUpdateInterval(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext));
+            Crashlytics.setBool(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, ApplicationPreferences.applicationEventOrientationEnableScanning(appContext));
+            Crashlytics.setInt(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_INTERVAL, ApplicationPreferences.applicationEventOrientationScanInterval(appContext));
+        } catch (Exception ignored) {}
+
+        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+        if (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning(appContext))
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
+        if (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext))
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
+        if (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning(appContext))
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
+        if (mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext))
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
+        if (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning(appContext))
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
+        editor.apply();
+
+        boolean permissionsChanged = Permissions.getPermissionsChanged(appContext);
+        if (permissionsChanged) {
+            invalidateEditor = true;
+        }
+
+        if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
+        {
+            GlobalGUIRoutines.setLanguage(getBaseContext());
+            invalidateEditor = true;
+        }
+        else
+        if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
+        {
+            //EditorProfilesActivity.setTheme(this, false);
+            invalidateEditor = true;
+        }
+        else
+        if (!activeNightModeOffTheme.equals(ApplicationPreferences.applicationNightModeOffTheme(appContext)))
+        {
+            //EditorProfilesActivity.setTheme(this, false);
+            invalidateEditor = true;
+        }
+        else
+        if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator(appContext))
+        {
+            invalidateEditor = true;
+        }
+        else
+        if (showEditorHeader != ApplicationPreferences.applicationEditorHeader(appContext))
+        {
+            invalidateEditor = true;
+        }
+
+        if (permissionsChanged ||
+                (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) ||
+                (wifiScanInterval != ApplicationPreferences.applicationEventWifiScanInterval(appContext))) {
+            PPApplication.restartWifiScanner(appContext, false);
+        }
+
+        if (permissionsChanged ||
+                (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) ||
+                (bluetoothScanInterval != ApplicationPreferences.applicationEventBluetoothScanInterval(appContext))) {
+            PPApplication.restartBluetoothScanner(appContext, false);
+        }
+
+        if (permissionsChanged ||
+                (locationScannerEnabled != ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) ||
+                (locationScanInterval != ApplicationPreferences.applicationEventLocationUpdateInterval(appContext))) {
+            PPApplication.restartGeofenceScanner(appContext, false);
+        }
+
+        if (permissionsChanged ||
+                (orientationScannerEnabled != ApplicationPreferences.applicationEventOrientationEnableScanning(appContext)) ||
+                orientationScanInterval != ApplicationPreferences.applicationEventOrientationScanInterval(appContext)) {
+            PPApplication.restartOrientationScanner(appContext);
+        }
+
+        if (permissionsChanged ||
+                mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning(appContext)) {
+            PPApplication.restartPhoneStateScanner(appContext, false);
+        }
+
+        if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock(appContext)) {
+            // unblockEventsRun must be true to reset alarms
+            PPApplication.restartEvents(appContext, true, true);
+        }
+
+        /*
+        if (activeBackgroundProfile != PPApplication.applicationBackgroundProfile)
+        {
+            long lApplicationBackgroundProfile = Long.valueOf(PPApplication.applicationBackgroundProfile);
+            if (lApplicationBackgroundProfile != PPApplication.PROFILE_NO_ACTIVATE)
+            {
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), true, false, 0);
+                if (dataWrapper.getActivatedProfile() == null)
+                {
+                    dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, getApplicationContext());
+                    dataWrapper.activateProfile(lApplicationBackgroundProfile, PPApplication.STARTUP_SOURCE_SERVICE, null, "");
+                }
+                //invalidateEditor = true;
+            }
+        }
+        */
+
+        // for startActivityForResult
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, invalidateEditor);
+        setResult(RESULT_OK,returnIntent);
+
+        super.finish();
+    }
+
+//--------------------------------------------------------------------------------------------------
 
     static public class PhoneProfilesPrefsRoot extends PhoneProfilesPrefsFragment {
 
