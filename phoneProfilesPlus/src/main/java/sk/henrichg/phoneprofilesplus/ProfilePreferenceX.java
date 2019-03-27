@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -84,7 +85,14 @@ public class ProfilePreferenceX extends DialogPreference {
                 //else
                     profileIcon.setImageResource(R.drawable.ic_empty); // icon resource
             }
-            setSummary(Long.parseLong(profileId));
+
+            Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    setSummary(Long.parseLong(profileId));
+                }
+            }, 200);
         }
     }
 

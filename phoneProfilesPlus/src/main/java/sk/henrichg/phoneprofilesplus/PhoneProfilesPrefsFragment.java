@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     PreferenceManager prefMng;
     SharedPreferences preferences;
+    SharedPreferences appPrefNameSharedPreferences;
 
     static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
     private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
@@ -45,7 +47,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_LOCATION_SYSTEM_SETTINGS = 1994;
     static final String PREF_LOCATION_EDITOR = "applicationEventLocationsEditor";
     static final String PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS = "applicationBatteryOptimization";
-    private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
+    //private static final String PREF_APPLICATION_LANGUAGE_24 = "applicationLanguage24";
     //static final int RESULT_LOCALE_SETTINGS = 1996;
     static final String PREF_AUTOSTART_MANAGER = "applicationAutoStartManager";
     static final String PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS = "applicationEventWiFiKeepOnSystemSettings";
@@ -59,6 +61,8 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         super.onCreate(savedInstanceState);
 
         PPApplication.logE("PhoneProfilesPrefsFragment.onCreate", "xxx");
+
+        //setRetainInstance(true);
 
         initPreferenceFragment();
         //prefMng = getPreferenceManager();
@@ -116,6 +120,13 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     {
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
+
+            SharedPreferences.Editor editor = appPrefNameSharedPreferences.edit();
+            updateSharedPreferences(editor, preferences);
+            editor.apply();
+
+            PPApplication.logE("PhoneProfilesPrefsFragment.onDestroy", "xxx");
+
         } catch (Exception ignored) {}
 
         super.onDestroy();
@@ -128,11 +139,26 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private void initPreferenceFragment() {
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(PPApplication.APPLICATION_PREFS_NAME);
-        prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
+
+        //prefMng.setSharedPreferencesName(PPApplication.APPLICATION_PREFS_NAME);
+        //prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         preferences = prefMng.getSharedPreferences();
+
+        PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "getContext()="+getContext());
+
+        if (getContext() != null) {
+            appPrefNameSharedPreferences = getContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+
+            SharedPreferences.Editor editor = preferences.edit();
+            updateSharedPreferences(editor, appPrefNameSharedPreferences);
+            editor.apply();
+        }
+
         preferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -616,10 +642,10 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             if (!summary.isEmpty()) summary = summary +" • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationPowerSaveMode);
-            if (Build.VERSION.SDK_INT >= 21) {
+            //if (Build.VERSION.SDK_INT >= 21) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_applicationBatterySaver);
-            }
+            //}
         }
         if (key.equals("categoryPermissions")) {
             if (PPApplication.isRooted(true)) {

@@ -72,14 +72,14 @@ class ProfileIconPreferenceAdapter extends BaseAdapter {
         //String iconResName = context.getResources().getResourceEntryName(Profile.profileIconId[position]);
         String iconResName = ProfileIconPreferenceAdapter.getImageResourceName(position);
         if (iconResName.equals(imageIdentifier) && isImageResourceID) {
-            if (Build.VERSION.SDK_INT >= 21)
+            //if (Build.VERSION.SDK_INT >= 21)
                 holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
-            else {
+            /*else {
                 if (ApplicationPreferences.applicationTheme(context, true).equals("dark"))
                     holder.icon.setBackgroundResource(R.drawable.abc_list_selector_background_transition_holo_dark);
                 else
                     holder.icon.setBackgroundResource(R.drawable.abc_list_selector_background_transition_holo_light);
-            }
+            }*/
         }
         else
             holder.icon.setBackgroundResource(0);

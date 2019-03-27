@@ -606,7 +606,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                             break;
                         case "FLAG_ACTIVITY_NEW_DOCUMENT":
-                            if (Build.VERSION.SDK_INT >= 21)
+                            //if (Build.VERSION.SDK_INT >= 21)
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
                             break;
                         case "FLAG_ACTIVITY_NEW_TASK":
@@ -631,7 +631,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
                             break;
                         case "FLAG_ACTIVITY_RETAIN_IN_RECENTS":
-                            if (Build.VERSION.SDK_INT >= 21)
+                            //if (Build.VERSION.SDK_INT >= 21)
                                 intent.addFlags(Intent.FLAG_ACTIVITY_RETAIN_IN_RECENTS);
                             break;
                         case "FLAG_ACTIVITY_SINGLE_TOP":
@@ -653,7 +653,7 @@ public class ApplicationEditorIntentActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                             break;
                         case "FLAG_GRANT_PREFIX_URI_PERMISSION":
-                            if (Build.VERSION.SDK_INT >= 21)
+                            //if (Build.VERSION.SDK_INT >= 21)
                                 intent.addFlags(Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
                             break;
                         case "FLAG_GRANT_READ_URI_PERMISSION":

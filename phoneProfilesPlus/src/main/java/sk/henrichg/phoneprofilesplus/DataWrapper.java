@@ -1381,16 +1381,16 @@ public class DataWrapper {
                 event._forceRun = true;
                 event._noPauseByManualActivation = false;
                 event._eventPreferencesBattery._enabled = true;
-                if (Build.VERSION.SDK_INT >= 21) {
+                //if (Build.VERSION.SDK_INT >= 21) {
                     event._eventPreferencesBattery._levelLow = 0;
                     event._eventPreferencesBattery._levelHight = 100;
                     event._eventPreferencesBattery._powerSaveMode = true;
-                }
+                /*}
                 else {
                     event._eventPreferencesBattery._levelLow = 0;
                     event._eventPreferencesBattery._levelHight = 10;
                     event._eventPreferencesBattery._powerSaveMode = false;
-                }
+                }*/
                 event._eventPreferencesBattery._charging = 0;
                 event._eventPreferencesBattery._plugged = "";
                 break;

@@ -4005,7 +4005,7 @@ public class PhoneProfilesService extends Service
             notificationBuilder = new Notification.Builder(appContext);
             notificationBuilder.setContentIntent(pIntent);
 
-            if (Build.VERSION.SDK_INT >= 21)
+            //if (Build.VERSION.SDK_INT >= 21)
                 notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.primary));
 
             if (Build.VERSION.SDK_INT >= 26) {
@@ -4035,11 +4035,11 @@ public class PhoneProfilesService extends Service
                 else
                     notificationBuilder.setPriority(Notification.PRIORITY_MIN);
             }
-            if (Build.VERSION.SDK_INT >= 21)
-            {
+            //if (Build.VERSION.SDK_INT >= 21)
+            //{
                 notificationBuilder.setCategory(Notification.CATEGORY_STATUS);
                 notificationBuilder.setVisibility(Notification.VISIBILITY_PUBLIC);
-            }
+            //}
 
             //notificationBuilder.setTicker(profileName);
 

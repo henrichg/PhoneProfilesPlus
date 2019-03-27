@@ -11,13 +11,13 @@
         app:entries="@array/languageArray"
         app:entryValues="@array/languageValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
+    <!--<Preference
         app:key="applicationLanguage24"
         app:title="@string/phone_profiles_pref_applicationLanguage"
         app:summary="@string/phone_profiles_pref_systemLanguage_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget">
-    </Preference>
+    </Preference>-->
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationHomeLauncher"
         app:summary="@string/array_pref_launcher_activator"

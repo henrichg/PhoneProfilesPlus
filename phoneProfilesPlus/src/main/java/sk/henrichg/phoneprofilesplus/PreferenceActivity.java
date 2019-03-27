@@ -39,11 +39,11 @@ abstract class PreferenceActivity extends AppCompatPreferenceActivity
 
         setContentView(R.layout.mp_activity_settings);
 
-        if (Build.VERSION.SDK_INT >= 21) {
+        //if (Build.VERSION.SDK_INT >= 21) {
             View toolbarShadow = findViewById(R.id.mp_activity_settings_toolbar_shadow);
             if (toolbarShadow != null)
                 toolbarShadow.setVisibility(View.GONE);
-        }
+        //}
 
         toolbar = findViewById(R.id.mp_toolbar);
         setSupportActionBar(toolbar);

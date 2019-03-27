@@ -18,13 +18,13 @@
             android:entries="@array/languageArray"
             android:entryValues="@array/languageValues"
             android:layout="@layout/mp_preference_material_widget" />
-        <Preference
+        <!--<Preference
             android:key="applicationLanguage24"
             android:title="@string/phone_profiles_pref_applicationLanguage"
             android:summary="@string/phone_profiles_pref_systemLanguage_summary"
             android:widgetLayout="@layout/start_activity_preference"
             android:layout="@layout/mp_preference_material_widget">
-        </Preference>
+        </Preference>-->
         <sk.henrichg.phoneprofilesplus.MaterialListPreference
             android:title="@string/phone_profiles_pref_applicationHomeLauncher"
             android:summary="@string/array_pref_launcher_activator"

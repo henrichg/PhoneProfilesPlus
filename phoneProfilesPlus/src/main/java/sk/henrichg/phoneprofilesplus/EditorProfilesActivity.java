@@ -375,7 +375,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         drawerHeaderFilterSubtitle = findViewById(R.id.editor_drawer_list_header_subtitle);
 
         // set header padding for notches
-        if (Build.VERSION.SDK_INT >= 21) {
+        //if (Build.VERSION.SDK_INT >= 21) {
             drawerRoot.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
                 @Override
                 public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
@@ -389,7 +389,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     return insets;
                 }
             });
-        }
+        //}
 
         //if (Build.VERSION.SDK_INT < 21)
         //    drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -841,10 +841,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 startActivity(intent);
                 return true;
             case R.id.menu_settings:
-                intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
-                //intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
-                //startActivity(intent);
+                //intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
+                //startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
+                intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
+                startActivity(intent);
 
                 return true;
             case R.id.menu_dark_theme:
