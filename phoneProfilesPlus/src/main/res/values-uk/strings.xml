@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Режим енергозбереження</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Налаштування режиму енергозбереження</string>
   <string name="array_pref_powerSaveMode_off">Вимк</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Увімкнути при 5% заряді батареї</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Увімкнути при 15% заряді батареї</string>
+  <string name="array_pref_powerSaveMode_5" formatted="false">Увімкнути при 5% заряді батареї</string>
+  <string name="array_pref_powerSaveMode_15" formatted="false">Увімкнути при 15% заряді батареї</string>
   <string name="important_info_profile_ringerMode_root">В Android 6 неможливо змінити системний параметр \"Вібрація під час дзвінка\" без прав ROOT.</string>
   <string name="important_info_profile_adaptiveBrightness_root">В Android 6+ неможливо змінити системний параметр \"Адаптивне регулювання\" без прав ROOT.</string>
   <string name="important_info_profile_wifiScanning_location">В Android 6+ для Wi-Fi сканування повинен бути увімкнений режим \"По всім джерелам\" в налаштуваннях \"Місцезнаходження\".</string>

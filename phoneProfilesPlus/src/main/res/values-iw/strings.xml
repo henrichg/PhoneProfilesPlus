@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">מצב חיסכון בחשמל</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">הגדרות מצב חיסכון בחשמל</string>
   <string name="array_pref_powerSaveMode_off">כבוי</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">הפעלה ב- 5% סוללה</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">הפעלה ב- 15% סוללה</string>
+  <string name="array_pref_powerSaveMode_5" formatted="false">הפעלה ב- 5% סוללה</string>
+  <string name="array_pref_powerSaveMode_15" formatted="false">הפעלה ב- 15% סוללה</string>
   <string name="important_info_profile_ringerMode_root">באנדרואיד 6, אין אפשרות לשנות את הגדרת \"רטט בעת צלצול\" במכשיר ללא הרשאות ROOT.</string>
   <string name="important_info_profile_adaptiveBrightness_root">באנדרואיד 6+, אין אפשרות לשנות רמת \"בהירות מסתגלת\" במכשיר ללא הרשאות ROOT.</string>
   <string name="important_info_profile_wifiScanning_location">באנדרואיד 6+, סריקת Wi-Fi מחייבת אפשור של מיקום וסריקת Wi-Fi בהגדרות המיקום.</string>

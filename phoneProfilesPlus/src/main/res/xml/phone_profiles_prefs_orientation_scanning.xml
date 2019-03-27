@@ -21,7 +21,7 @@
         app:widgetLayout="@layout/exclamation_preference"
         app:dependency="applicationEventOrientationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationEventOrientationScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
         app:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"

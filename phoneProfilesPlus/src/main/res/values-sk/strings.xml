@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Režim Šetrič batérie</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Režim šetrenia batérie</string>
   <string name="array_pref_powerSaveMode_off">Vypnúť</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Zapnúť pri 5% batérie</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Zapnúť pri 15% batérie</string>
+  <string name="array_pref_powerSaveMode_5" formatted="false">Zapnúť pri 5% batérie</string>
+  <string name="array_pref_powerSaveMode_15" formatted="false">Zapnúť pri 15% batérie</string>
   <string name="important_info_profile_ringerMode_root">V Android 6, nie je možné zmeniť nastavenie \"Vibrovať pri zvonení\" ak zariadenie nemá root.</string>
   <string name="important_info_profile_adaptiveBrightness_root">V Android 6+, nie je možné zmeniť úroveň pre nastavenie \"Prispôsobovať jas\" ak zariadenie nemá root.</string>
   <string name="important_info_profile_wifiScanning_location">V Android 6+, pre skenovanie Wi-fi musí byť povolená Poloha a \"Vyhľadávanie sietí Wi-fi\" na nastaveniach Polohy.</string>

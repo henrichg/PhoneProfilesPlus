@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">省电模式</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">省电模式设置</string>
   <string name="array_pref_powerSaveMode_off">关闭</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">剩余 5% 电量时启用</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">剩余 15% 电量时启用</string>
+  <string name="array_pref_powerSaveMode_5" formatted="false">剩余 5% 电量时启用</string>
+  <string name="array_pref_powerSaveMode_15" formatted="false">剩余 15% 电量时启用</string>
   <string name="important_info_profile_ringerMode_root">在未 root 的 Android 6 设备中，不能更改系统设置“响铃时震动”。</string>
   <string name="important_info_profile_adaptiveBrightness_root">在未 root 的 Android 6+ 设备中，不能更改系统设置“自适应亮度”。</string>
   <string name="important_info_profile_wifiScanning_location">在 Android 6+ 设备中，必须在定位设置中启用定位和“Wi-Fi 扫描”选项以启用 Wi-Fi 扫描。</string>

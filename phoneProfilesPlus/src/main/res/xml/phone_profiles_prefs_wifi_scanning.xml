@@ -43,7 +43,7 @@
         app:widgetLayout="@layout/exclamation_preference"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationEventWifiScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
         app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"

@@ -468,8 +468,8 @@
     <string name="event_preferences_battery_power_save_mode">Güç tasarrufu modu açıkken</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Güç tasarrufu modu ayarları</string>
     <string name="array_pref_powerSaveMode_off">Kapalı</string>
-    <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Pil %5 iken aç</string>
-    <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Pil %15 iken aç</string>
+    <string name="array_pref_powerSaveMode_5" formatted="false">Pil %5 iken aç</string>
+    <string name="array_pref_powerSaveMode_15" formatted="false">Pil %15 iken aç</string>
     <string name="important_info_profile_ringerMode_root">Android 6\'da sistem ayarı olan \"Çalarken titret\"i değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
     <string name="important_info_profile_adaptiveBrightness_root">Android 6+\'da sistem ayarı olan \"Otomatik parlaklık\"ı değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
     <string name="important_info_profile_wifiScanning_location">Android 6+\'da Wi-Fi tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Wi-Fi tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>

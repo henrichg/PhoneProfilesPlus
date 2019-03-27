@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">省電模式</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">省電模式設定</string>
   <string name="array_pref_powerSaveMode_off">關閉</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">打開在 5% 的電池</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">打開在 15% 的電池</string>
+  <string name="array_pref_powerSaveMode_5" formatted="false">打開在 5% 的電池</string>
+  <string name="array_pref_powerSaveMode_15" formatted="false">打開在 15% 的電池</string>
   <string name="important_info_profile_ringerMode_root">在 Android 6, 沒有 root 的裝置無法修改 \"來電時震動\" 的系統設定.</string>
   <string name="important_info_profile_adaptiveBrightness_root">在 Android 6 之後, 沒有 root 的裝置無法修改 \"自動調整亮度\" 的級別.</string>
   <string name="important_info_profile_wifiScanning_location">在 Android 6+，Wi-Fi 掃描必須在位置設定中啟用位置和\"Wi-Fi 掃描\"。</string>

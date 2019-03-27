@@ -35,7 +35,7 @@
         app:widgetLayout="@layout/exclamation_preference"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationEventBluetoothScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
@@ -44,7 +44,7 @@
         app:max="300"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationEventBluetoothLEScanDuration"
         app:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"

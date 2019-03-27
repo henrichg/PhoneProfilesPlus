@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Energiatakarékos üzemmód</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Energiatakarékos üzemmód beállításai</string>
   <string name="array_pref_powerSaveMode_off">Kikapcsolva</string>
-  <string name="array_pref_powerSaveMode_5" tools:ignore="StringFormatCount,StringFormatInvalid">Kapcsolja be ha 5 %-os akkumulátor</string>
-  <string name="array_pref_powerSaveMode_15" tools:ignore="StringFormatCount,StringFormatInvalid">Kapcsolja be ha 15 %-os akkumulátor</string>
+  <string name="array_pref_powerSaveMode_5" formatted="false">Kapcsolja be ha 5 %-os akkumulátor</string>
+  <string name="array_pref_powerSaveMode_15" formatted="false">Kapcsolja be ha 15 %-os akkumulátor</string>
   <string name="important_info_profile_ringerMode_root">Android 6-ban nem lehetséges a \"Rezeg amikor cseng\" rendszer beállítás ha nem root-olt a rendszer.</string>
   <string name="important_info_profile_adaptiveBrightness_root">Android 6+ nincs lehetőség a \"Automatikus fényerő\"-re ha nem root-olt a rendszer.</string>
   <string name="important_info_profile_wifiScanning_location">Android 6+ Wi-Fi kereséshez engedélyezni kell helyzet és a \"Wi-Fi keresés\" a Hely beállításokban.</string>

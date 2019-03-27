@@ -23,7 +23,7 @@
         app:title="@string/phone_profiles_pref_applicationAutoCloseDrawer"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationDeleteOldActivityLogs"
         app:summary="@string/phone_profiles_pref_deleteOldActivityLogs"
         app:title="@string/phone_profiles_pref_deleteOldActivityLogs"

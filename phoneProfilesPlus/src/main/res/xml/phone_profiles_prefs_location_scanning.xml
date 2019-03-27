@@ -36,7 +36,7 @@
         app:widgetLayout="@layout/exclamation_preference"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreference
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationEventLocationUpdateInterval"
         app:summary="@string/phone_profiles_pref_applicationEventLocationScanInterval"
         app:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
