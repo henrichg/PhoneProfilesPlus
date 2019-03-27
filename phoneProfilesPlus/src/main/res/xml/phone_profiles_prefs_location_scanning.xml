@@ -22,7 +22,7 @@
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" >
     </Preference>
-    <sk.henrichg.phoneprofilesplus.LocationGeofencePreference
+    <sk.henrichg.phoneprofilesplus.LocationGeofencePreferenceX
         app:defaultValue="0"
         app:key="applicationEventLocationsEditor"
         app:title="@string/phone_profiles_pref_applicationEventLocationsEditor"

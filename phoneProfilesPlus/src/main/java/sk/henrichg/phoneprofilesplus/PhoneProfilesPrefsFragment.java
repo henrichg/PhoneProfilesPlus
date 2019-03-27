@@ -102,6 +102,20 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof LocationGeofencePreferenceX)
+        {
+            dialogFragment = new LocationGeofencePreferenceFragmentX();
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        if (preference instanceof BetterNumberPickerPreferenceX)
+        {
+            dialogFragment = new BetterNumberPickerPreferenceFragmentX();
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {

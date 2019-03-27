@@ -45,12 +45,6 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         if (preference.onlyEdit == 0) {
             String value = preference.getPersistedGeofence();
             DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence(value, 1);
-        }
-
-        if (preference.onlyEdit == 0) {
-            preference.setNegativeButtonText(null);
-        }
-        else {
             preference.setPositiveButtonText(null);
         }
 
@@ -187,7 +181,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         if (cursor != null)
             cursor.close();
 
-        if (positiveResult)
+        if (positiveResult && (preference.onlyEdit != 0))
             preference.persistGeofence(false);
     }
 
