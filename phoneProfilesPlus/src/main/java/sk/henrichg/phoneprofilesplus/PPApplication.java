@@ -176,6 +176,8 @@ public class PPApplication extends Application {
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
                                          +"|PhoneProfilesPrefsFragment"
+                                         +"|LocationGeofencePreferenceX"
+
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
                                          //+"|Event.notifyEventStart"
@@ -362,6 +364,8 @@ public class PPApplication extends Application {
                                         //+"|ActivateProfileHelper.lockDevice"
 
                                         //+"|#### setWifiEnabled"
+
+                                        +"|PPNumberPicker"
             ;
 
 

@@ -65,9 +65,9 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     private int mTheme = -1;
 
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private BigDecimal mMinNumber = null;
+    protected BigDecimal mMinNumber = null;
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private BigDecimal mMaxNumber = null;
+    protected BigDecimal mMaxNumber = null;
 
     /**
      * Instantiates a NumberPicker object
@@ -665,4 +665,5 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
             }
         };
     }
+
 }

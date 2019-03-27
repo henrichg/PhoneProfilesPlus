@@ -5,15 +5,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.codetroopers.betterpickers.numberpicker.NumberPicker;
-
 import java.math.BigDecimal;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
-    private NumberPicker mNumberPicker;
+    private PPNumberPicker mNumberPicker;
 
     private Context context;
     private BetterNumberPickerPreferenceX preference;

@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Modo de ahorro de energía</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Ajustes del modo de ahorro de energía</string>
   <string name="array_pref_powerSaveMode_off">Desactivado</string>
-  <string name="array_pref_powerSaveMode_5" formatted="false">Activar con batería al 5%</string>
-  <string name="array_pref_powerSaveMode_15" formatted="false">Activar con batería al 15%</string>
+  <string name="array_pref_powerSaveMode_5">Activar con batería al 5%%</string>
+  <string name="array_pref_powerSaveMode_15">Activar con batería al 15%%</string>
   <string name="important_info_profile_ringerMode_root">En Android 6, no es posible cambiar el ajuste de sistema \"Vibrar al sonar\" en un dispositivo no rooteado.</string>
   <string name="important_info_profile_adaptiveBrightness_root">En Android 6+ no es posible cambiar el nivel de \"Brillo adaptativo\" en dispositivos no \'rooteados\'.</string>
   <string name="important_info_profile_wifiScanning_location">En Android 6+ para la detección de Wi-Fi debe estar activada Ubicación y \"Detección de Wi-fi\" en Ajustes de ubicación.</string>

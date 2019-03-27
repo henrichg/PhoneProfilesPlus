@@ -24,7 +24,7 @@
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ColorChooserPreference
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetIconColorB"
         app:key="applicationWidgetIconBackgroundColor"
         app:defaultValue="-1"

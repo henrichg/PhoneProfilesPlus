@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Energiebesparende modus</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Energiebesparende modus instellingen</string>
   <string name="array_pref_powerSaveMode_off">Uit</string>
-  <string name="array_pref_powerSaveMode_5" formatted="false">Inschakelen bij 5% batterij</string>
-  <string name="array_pref_powerSaveMode_15" formatted="false">Inschakelen bij 15% batterij</string>
+  <string name="array_pref_powerSaveMode_5">Inschakelen bij 5%% batterij</string>
+  <string name="array_pref_powerSaveMode_15">Inschakelen bij 15%% batterij</string>
   <string name="important_info_profile_ringerMode_root">In Android 6, is niet mogelijk om de systeem instelling \"Trillen bij oproepen\" te wijzigen in een non-rooted apparaat.</string>
   <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, is het niet mogelijk om het niveau van \"Adaptieve helderheid\" in een non-rooted telefoon te wijzigen.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6+, moet je voor het scannen van Wi-Fi de locatie modus \"Grote nauwkeurigheid\" kiezen in de locatie-instellingen.</string>

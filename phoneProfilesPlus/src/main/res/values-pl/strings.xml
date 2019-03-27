@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Tryb oszczędzania baterii</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Włącz tryb oszczędzania baterii</string>
   <string name="array_pref_powerSaveMode_off">Nigdy</string>
-  <string name="array_pref_powerSaveMode_5" formatted="false">Włącz przy 5% baterii</string>
-  <string name="array_pref_powerSaveMode_15" formatted="false">Włącz przy 15% baterii</string>
+  <string name="array_pref_powerSaveMode_5">Włącz przy 5%% baterii</string>
+  <string name="array_pref_powerSaveMode_15">Włącz przy 15%% baterii</string>
   <string name="important_info_profile_ringerMode_root">W Androidzie 6 nie jest możliwa zmiana ustawienia systemu \"Wibracje podczas dzwonienia\" na niezrootowanym urządzeniu.</string>
   <string name="important_info_profile_adaptiveBrightness_root">W Androidzie 6+ nie jest możliwa zmiana automatycznie dopasowywanej jasności ekranu na niezrootowanym urządzeniu.</string>
   <string name="important_info_profile_wifiScanning_location">W Androidzie 6+, aby działało skanowanie WiFi, należy włączyć \"skanowanie WiFi\" w ustawieniach Lokacji.</string>

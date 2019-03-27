@@ -34,6 +34,9 @@ public class LocationGeofencePreferenceX extends DialogPreference {
         this.context = context;
 
         dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+
+        if (onlyEdit != 0)
+            setNegativeButtonText(null);
     }
 
     @Override
@@ -88,7 +91,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     }
 
     void setGeofenceFromEditor(/*long geofenceId*/) {
-        //Log.d("LocationGeofencePreference.setGeofenceFromEditor", "geofenceId=" + geofenceId);
+        PPApplication.logE("LocationGeofencePreferenceX.setGeofenceFromEditor", "xxx");
         persistGeofence(true);
         refreshListView();
         //updateGUIWithGeofence(geofenceId);

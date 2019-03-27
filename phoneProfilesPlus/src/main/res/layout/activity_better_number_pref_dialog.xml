@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
-    <com.codetroopers.betterpickers.numberpicker.NumberPicker
+    <sk.henrichg.phoneprofilesplus.PPNumberPicker
         android:id="@+id/better_number_picker"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

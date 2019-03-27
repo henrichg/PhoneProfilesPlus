@@ -42,11 +42,12 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
     {
         super.onBindDialogView(view);
 
-        if (preference.onlyEdit == 0) {
+        /*if (preference.onlyEdit == 0) {
             String value = preference.getPersistedGeofence();
             DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence(value, 1);
-            preference.setPositiveButtonText(null);
         }
+        else
+            preference.setNegativeButtonText(null);*/
 
         AppCompatImageButton addButton = view.findViewById(R.id.location_pref_dlg_add);
 
@@ -186,17 +187,18 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
     }
 
     private void startEditor(long geofenceId) {
-        Intent intent = new Intent(prefContext, LocationGeofenceEditorActivity.class);
-        intent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofenceId);
+        if (getActivity() != null) {
+            Intent intent = new Intent(prefContext, LocationGeofenceEditorActivity.class);
+            intent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofenceId);
 
-        // is not possible to get activity from preference, used is static method
-        if (preference.onlyEdit == 0) {
-            //EventPreferencesFragment.setChangedLocationGeofencePreference(this);
-            startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
-        }
-        else {
-            //PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
-            startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
+            // is not possible to get activity from preference, used is static method
+            if (preference.onlyEdit == 0) {
+                //EventPreferencesFragment.setChangedLocationGeofencePreference(this);
+                getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
+            } else {
+                //PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
+                getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
+            }
         }
     }
 

@@ -34,6 +34,7 @@ class BetterNumberPickerPreferenceX extends DialogPreference {
     @Override
     protected void onSetInitialValue(Object defaultValue) {
         value = getPersistedString((String) defaultValue);
+        setSummary(value);
     }
 
     void persistValue() {

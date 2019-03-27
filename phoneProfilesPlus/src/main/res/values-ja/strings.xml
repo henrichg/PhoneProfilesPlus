@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">省電力モード</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">省電力モード設定</string>
   <string name="array_pref_powerSaveMode_off">Off</string>
-  <string name="array_pref_powerSaveMode_5" formatted="false">バッテリー残量5%でon</string>
-  <string name="array_pref_powerSaveMode_15" formatted="false">バッテリー残量15%でon</string>
+  <string name="array_pref_powerSaveMode_5">バッテリー残量5%%でon</string>
+  <string name="array_pref_powerSaveMode_15">バッテリー残量15%%でon</string>
   <string name="important_info_profile_ringerMode_root">In Android 6, it is not possible to change the \"Vibrate when ringing\" system setting on non-rooted devices.</string>
   <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, it is not possible to change the level of \"Adaptive brightness\" on non-rooted devices.</string>
   <string name="important_info_profile_wifiScanning_location">In Android 6+, for Wi-Fi scanning to work, you must enable Location and Wi-Fi scanning in Location settings.</string>

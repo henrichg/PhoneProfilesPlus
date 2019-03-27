@@ -505,8 +505,8 @@
     <string name="event_preferences_battery_power_save_mode">Power save mode</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
     <string name="array_pref_powerSaveMode_off">Off</string>
-    <string name="array_pref_powerSaveMode_5" formatted="false">Turn on at 5% battery</string>
-    <string name="array_pref_powerSaveMode_15" formatted="false">Turn on at 15% battery</string>
+    <string name="array_pref_powerSaveMode_5">Turn on at 5%% battery</string>
+    <string name="array_pref_powerSaveMode_15">Turn on at 15%% battery</string>
     <string name="important_info_profile_ringerMode_root">In Android 6, it is not possible to change the \"Vibrate when ringing\" system setting on non-rooted devices.</string>
     <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, it is not possible to change the level of \"Adaptive brightness\" on non-rooted devices.</string>
     <string name="important_info_profile_wifiScanning_location">In Android 6+, for Wi-Fi scanning to work, you must enable Location and Wi-Fi scanning in Location settings.</string>
