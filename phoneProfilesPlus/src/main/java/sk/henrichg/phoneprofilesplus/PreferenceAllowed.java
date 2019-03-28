@@ -7,19 +7,19 @@ class PreferenceAllowed {
     int notAllowedReason;
     String notAllowedReasonDetail;
 
-    public static final int PREFERENCE_NOT_ALLOWED = 0;
-    public static final int PREFERENCE_ALLOWED = 1;
-    public static final int PREFERENCE_NOT_ALLOWED_NO_HARDWARE = 0;
-    public static final int PREFERENCE_NOT_ALLOWED_NOT_ROOTED = 1;
-    public static final int PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND = 2;
-    public static final int PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND = 3;
-    public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM = 4;
-    private static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 5;
-    public static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 6;
-    private static final int PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED = 7;
-    private static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION = 8;
-    static final int PREFERENCE_NOT_ALLOWED_NO_SIM_CARD = 9;
-    static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION = 10;
+    static final int PREFERENCE_NOT_ALLOWED = 0;
+    static final int PREFERENCE_ALLOWED = 1;
+    static final int PREFERENCE_NOT_ALLOWED_NO_HARDWARE = 1;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_ROOTED = 2;
+    static final int PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND = 3;
+    static final int PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND = 4;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM = 5;
+    private static final int PREFERENCE_NOT_ALLOWED_NOT_CONFIGURED_IN_SYSTEM_SETTINGS = 6;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION = 7;
+    private static final int PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED = 8;
+    private static final int PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_ANDROID_VERSION = 9;
+    static final int PREFERENCE_NOT_ALLOWED_NO_SIM_CARD = 10;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION = 11;
 
     String getNotAllowedPreferenceReasonString(Context context) {
         switch (notAllowedReason) {
