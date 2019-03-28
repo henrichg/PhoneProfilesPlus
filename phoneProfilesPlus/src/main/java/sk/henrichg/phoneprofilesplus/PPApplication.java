@@ -367,6 +367,7 @@ public class PPApplication extends Application {
 
                                         //+"|PPNumberPicker"
                                         +"|RingtonePreference.setRingtone"
+                                        +"|RingtonePreferenceX"
                                         +"|PhoneProfilesService.playNotificationSound"
             ;
 

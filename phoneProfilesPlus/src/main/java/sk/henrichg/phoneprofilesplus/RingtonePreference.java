@@ -67,18 +67,21 @@ public class RingtonePreference extends DialogPreference {
         showSilent = typedArray.getBoolean(R.styleable.RingtonePreference_showSilent, false);
         showDefault = typedArray.getBoolean(R.styleable.RingtonePreference_showDefault, false);
 
+        // set ringtoneUri to default tone
         ringtoneUri = "";
-        if (ringtoneType != null) {
-            switch (ringtoneType) {
-                case "ringtone":
-                    ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
-                    break;
-                case "notification":
-                    ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
-                    break;
-                case "alarm":
-                    ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
-                    break;
+        if (!showSilent && showDefault) {
+            if (ringtoneType != null) {
+                switch (ringtoneType) {
+                    case "ringtone":
+                        ringtoneUri = Settings.System.DEFAULT_RINGTONE_URI.toString();
+                        break;
+                    case "notification":
+                        ringtoneUri = Settings.System.DEFAULT_NOTIFICATION_URI.toString();
+                        break;
+                    case "alarm":
+                        ringtoneUri = Settings.System.DEFAULT_ALARM_ALERT_URI.toString();
+                        break;
+                }
             }
         }
 
@@ -108,11 +111,16 @@ public class RingtonePreference extends DialogPreference {
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist())
                 {
-                    // save to preferences
-                    persistString(ringtoneUri);
+                    List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
+                    final int position = uris.indexOf(ringtoneUri);
 
-                    // and notify
-                    notifyChanged();
+                    if (position != -1) {
+                        // save to preferences
+                        persistString(ringtoneUri);
+
+                        // and notify
+                        notifyChanged();
+                    }
                 }
             }
         });
@@ -147,6 +155,7 @@ public class RingtonePreference extends DialogPreference {
         listAdapter = new RingtonePreferenceAdapter(this, prefContext, toneList);
         listView.setAdapter(listAdapter);
 
+        // set ringtone uri from preference value
         String value;
         try {
             value = getPersistedString(ringtoneUri);
@@ -264,6 +273,7 @@ public class RingtonePreference extends DialogPreference {
     {
         if (restoreValue) {
             // restore state
+            // set ringtone uri from preference value
             String value;
             try {
                 value = getPersistedString(ringtoneUri);
@@ -327,15 +337,15 @@ public class RingtonePreference extends DialogPreference {
 
             asyncTask = new AsyncTask<Void, Integer, Void>() {
 
-                Ringtone defaultRingtone;
+                //Ringtone defaultRingtone;
                 private final Map<String, String> _toneList = new LinkedHashMap<>();
 
                 @Override
                 protected Void doInBackground(Void... params) {
                     RingtoneManager manager = new RingtoneManager(prefContext);
 
-                    Uri uri = null;
-                    switch (ringtoneType) {
+                    Uri uri;// = null;
+                    /*switch (ringtoneType) {
                         case "ringtone":
                             uri = Settings.System.DEFAULT_RINGTONE_URI;
                             break;
@@ -347,7 +357,7 @@ public class RingtonePreference extends DialogPreference {
                             break;
                     }
 
-                    defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);
+                    defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);*/
 
                     Ringtone _ringtone;
 
@@ -426,17 +436,22 @@ public class RingtonePreference extends DialogPreference {
                     toneList.clear();
                     toneList.putAll(_toneList);
 
-                    if (defaultRingtone == null) {
+                    /*if (defaultRingtone == null) {
                         // ringtone not found
                         View positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
                         positive.setEnabled(false);
-                    }
+                    }*/
 
                     listAdapter.notifyDataSetChanged();
 
                     List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
                     final int position = uris.indexOf(ringtoneUri);
                     listView.setSelection(position);
+                    if (position == -1) {
+                        // ringtone is not selected
+                        View positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                        positive.setEnabled(false);
+                    }
                 }
 
             }.execute();
