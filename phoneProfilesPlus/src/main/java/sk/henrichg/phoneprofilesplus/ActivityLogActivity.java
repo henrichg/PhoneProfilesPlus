@@ -24,7 +24,7 @@ public class ActivityLogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, false, false); // must by called before super.onCreate()
-        GlobalGUIRoutines.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 

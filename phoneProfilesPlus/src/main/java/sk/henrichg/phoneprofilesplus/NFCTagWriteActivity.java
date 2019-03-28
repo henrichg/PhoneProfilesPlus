@@ -31,7 +31,7 @@ public class NFCTagWriteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false, false); // must by called before super.onCreate()
-        GlobalGUIRoutines.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 

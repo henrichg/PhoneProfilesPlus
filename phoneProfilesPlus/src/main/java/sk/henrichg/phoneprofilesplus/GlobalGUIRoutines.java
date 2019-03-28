@@ -84,7 +84,7 @@ class GlobalGUIRoutines {
             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             //    Context context  = context.createConfigurationContext(appConfig);
             //else
-                context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
+            context.getResources().updateConfiguration(appConfig, context.getResources().getDisplayMetrics());
         //}
 
         // collator for application locale sorting
@@ -261,7 +261,7 @@ class GlobalGUIRoutines {
         }
     }
 
-    public static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
+    static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();

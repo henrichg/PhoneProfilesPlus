@@ -47,7 +47,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
         // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, true, false);
-        GlobalGUIRoutines.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 

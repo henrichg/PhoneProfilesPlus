@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import android.content.BroadcastReceiver;
@@ -191,7 +193,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         GlobalGUIRoutines.setTheme(this, false, true, true);
-        GlobalGUIRoutines.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setLanguage(this);
 
         /*synchronized (EditorProfilesActivity.class) {
             PPApplication.logE("$$$$$ EditorProfilesActivity.onCreate", "instance set");
@@ -1943,7 +1945,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
  
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         savedInstanceStateChanged = true;

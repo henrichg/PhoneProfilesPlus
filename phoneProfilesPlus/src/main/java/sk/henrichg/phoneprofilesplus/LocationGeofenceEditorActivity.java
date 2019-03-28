@@ -102,7 +102,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         GlobalGUIRoutines.setTheme(this, false, false, false);
-        GlobalGUIRoutines.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
@@ -350,7 +350,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(STATE_RESOLVING_ERROR, mResolvingError);
     }
@@ -647,7 +647,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         }
 
         @Override
-        public void onDismiss(DialogInterface dialog) {
+        public void onDismiss(@NonNull DialogInterface dialog) {
             if (getActivity() != null)
                 ((LocationGeofenceEditorActivity) getActivity()).onDialogDismissed();
         }

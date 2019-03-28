@@ -15,7 +15,7 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         GlobalGUIRoutines.setTheme(this, true, false, false);
-        GlobalGUIRoutines.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setLanguage(this);
 
     // set window dimensions ----------------------------------------------------------
 

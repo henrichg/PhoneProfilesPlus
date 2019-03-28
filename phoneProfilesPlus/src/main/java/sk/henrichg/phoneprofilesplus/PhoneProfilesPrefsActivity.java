@@ -39,7 +39,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, true, false); // must by called before super.onCreate()
-        GlobalGUIRoutines.setLanguage(getBaseContext());
+        GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
 
@@ -171,7 +171,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         if (!activeLanguage.equals(ApplicationPreferences.applicationLanguage(appContext)))
         {
-            GlobalGUIRoutines.setLanguage(getBaseContext());
+            GlobalGUIRoutines.setLanguage(this);
             invalidateEditor = true;
         }
         else
