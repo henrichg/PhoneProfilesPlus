@@ -1530,6 +1530,8 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
     private void setCategorySummary(PreferenceScreen preferenceCategory, String summary) {
         String key = preferenceCategory.getKey();
 
+        boolean addEnd = true;
+
         if (key.equals("applicationInterfaceCategory")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationLanguage);
             if (!summary.isEmpty()) summary = summary +" • ";
@@ -1737,6 +1739,7 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(getActivity());
+                addEnd = false;
             }
             else {
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
@@ -1888,8 +1891,10 @@ public class PhoneProfilesPreferencesNestedFragment extends PreferenceFragment
             }
         }
 
-        if (!summary.isEmpty()) summary = summary +" • ";
-        summary = summary + "…";
+        if (addEnd) {
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + "…";
+        }
 
         preferenceCategory.setSummary(summary);
     }

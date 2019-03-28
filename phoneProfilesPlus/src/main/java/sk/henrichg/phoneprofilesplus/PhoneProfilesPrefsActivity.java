@@ -35,6 +35,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     private boolean invalidateEditor = false;
 
+    public static final String EXTRA_RESET_EDITOR = "reset_editor";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
@@ -43,9 +45,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.preferences_activity);
+        setContentView(R.layout.activity_preferences);
 
-        Toolbar toolbar = findViewById(R.id.preferences_activity_toolbar);
+        Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -78,7 +80,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.preferences_activity_settings, new PhoneProfilesPrefsRoot())
+                .replace(R.id.activity_preferences_settings, new PhoneProfilesPrefsRoot())
                 .commit();
     }
 
@@ -125,7 +127,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.preferences_activity_settings);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null)
             ((PhoneProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
     }
@@ -250,7 +252,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         // for startActivityForResult
         Intent returnIntent = new Intent();
-        returnIntent.putExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, invalidateEditor);
+        returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
         setResult(RESULT_OK,returnIntent);
 
         super.finish();
@@ -261,6 +263,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsRoot extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_root, rootKey);
             //initPreferenceFragment();
@@ -269,6 +276,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsInterface extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -291,6 +303,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsApplicationStart extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_application_start, rootKey);
             //initPreferenceFragment();
@@ -306,6 +323,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsSystem extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -326,6 +348,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsPermissions extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_permissions, rootKey);
             //initPreferenceFragment();
@@ -334,6 +361,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsNotifications extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -363,6 +395,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsProfileActivation extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_profile_activation, rootKey);
             //initPreferenceFragment();
@@ -382,6 +419,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsEventRun extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_event_run, rootKey);
             //initPreferenceFragment();
@@ -395,6 +437,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsLocationScanning extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -417,6 +464,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsWifiScanning extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_wifi_scanning, rootKey);
             //initPreferenceFragment();
@@ -434,6 +486,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsBluetoothScanning extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -456,6 +513,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsMobileCellsScanning extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_mobile_cells_scanning, rootKey);
             //initPreferenceFragment();
@@ -473,6 +535,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsOrientationScanning extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_orientation_scanning, rootKey);
             //initPreferenceFragment();
@@ -488,6 +555,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsActivator extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -508,6 +580,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsEditor extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_editor, rootKey);
             //initPreferenceFragment();
@@ -524,6 +601,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsWidgetList extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -553,6 +635,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     static public class PhoneProfilesPrefsWidgetOneRow extends PhoneProfilesPrefsFragment {
 
         @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_widget_one_row, rootKey);
             //initPreferenceFragment();
@@ -576,6 +663,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsWidgetIcon extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -602,6 +694,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     static public class PhoneProfilesPrefsSamsungEdgePanel extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {

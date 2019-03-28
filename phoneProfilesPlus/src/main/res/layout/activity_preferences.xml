@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/preferences_activity_toolbar"
+        android:id="@+id/activity_preferences_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -22,10 +22,10 @@
         tools:ignore="UnusedAttribute" />
 
     <FrameLayout
-        android:id="@+id/preferences_activity_settings"
+        android:id="@+id/activity_preferences_settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/preferences_activity_toolbar">
+        android:layout_below="@id/activity_preferences_toolbar">
 
     </FrameLayout>
 
