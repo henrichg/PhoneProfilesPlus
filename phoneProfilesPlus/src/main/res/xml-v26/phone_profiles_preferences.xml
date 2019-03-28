@@ -325,7 +325,7 @@
             android:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.RingtonePreference
             android:key="applicationBackgroundProfileNotificationSound"
-            android:summary="@string/array_pref_no_change"
+            android:summary="@string/ringtone_preference_not_set"
             android:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
             app:ringtoneType="notification"
             android:layout="@layout/mp_preference_material_widget"

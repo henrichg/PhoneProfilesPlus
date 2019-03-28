@@ -29,7 +29,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
         app:key="applicationBackgroundProfileNotificationSound"
-        app:summary="@string/array_pref_no_change"
+        app:summary="@string/ringtone_preference_not_set"
         app:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
         app:ringtoneType="notification"
         app:layout="@layout/mp_preference_material_widget"

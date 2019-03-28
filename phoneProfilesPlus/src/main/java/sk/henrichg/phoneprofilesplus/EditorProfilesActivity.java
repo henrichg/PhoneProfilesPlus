@@ -846,7 +846,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 intent = new Intent(getBaseContext(), PhoneProfilesPreferencesActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
                 //intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
-                //startActivity(intent);
+                //startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
 
                 return true;
             case R.id.menu_dark_theme:

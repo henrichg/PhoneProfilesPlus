@@ -175,8 +175,8 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
-                                         +"|PhoneProfilesPrefsFragment"
-                                         +"|LocationGeofencePreferenceX"
+                                         //+"|PhoneProfilesPrefsFragment"
+                                         //+"|LocationGeofencePreferenceX"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
@@ -232,7 +232,7 @@ public class PPApplication extends Application {
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
                                          //+"|[BTScan] DataWrapper.doHandleEvents"
-                                         +"|BluetoothConnectedDevices"
+                                         //+"|BluetoothConnectedDevices"
                                          //+"|BluetoothConnectionBroadcastReceiver"
                                          //+"|BluetoothStateChangedBroadcastReceiver"
                                          //+"|BluetoothScanBroadcastReceiver"
@@ -365,7 +365,8 @@ public class PPApplication extends Application {
 
                                         //+"|#### setWifiEnabled"
 
-                                        +"|PPNumberPicker"
+                                        //+"|PPNumberPicker"
+                                        +"|RingtonePreference.setRingtone"
             ;
 
 

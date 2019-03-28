@@ -283,6 +283,8 @@ public class RingtonePreference extends DialogPreference {
 
     void setRingtone(String newRingtoneUri, boolean onlySetName)
     {
+        PPApplication.logE("RingtonePreference.setRingtone", "ringtoneUri="+ringtoneUri);
+
         if (!onlySetName)
             ringtoneUri = newRingtoneUri;
 

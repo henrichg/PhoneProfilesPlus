@@ -170,7 +170,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundRingtone"
-                android:summary="@string/array_pref_no_change"
+                android:summary="@string/ringtone_preference_not_set"
                 android:title="@string/profile_preferences_soundRingtone"
                 app:ringtoneType="ringtone"
                 app:showSilent="true"
@@ -187,7 +187,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundNotification"
-                android:summary="@string/array_pref_no_change"
+                android:summary="@string/ringtone_preference_not_set"
                 android:title="@string/profile_preferences_soundNotification"
                 app:ringtoneType="notification"
                 app:showSilent="true"
@@ -204,7 +204,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="prf_pref_soundAlarm"
-                android:summary="@string/array_pref_no_change"
+                android:summary="@string/ringtone_preference_not_set"
                 android:title="@string/profile_preferences_soundAlarm"
                 app:ringtoneType="alarm"
                 app:showSilent="true"

@@ -93,7 +93,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="eventStartNotificationSound"
-                android:summary="@string/array_pref_no_change"
+                android:summary="@string/ringtone_preference_not_set"
                 android:title="@string/event_preferences_notificationSound"
                 app:ringtoneType="notification"
                 app:showSilent="true"
@@ -162,7 +162,7 @@
                 android:layout="@layout/mp_preference_material_widget" />
             <sk.henrichg.phoneprofilesplus.RingtonePreference
                 android:key="eventEndNotificationSound"
-                android:summary="@string/array_pref_no_change"
+                android:summary="@string/ringtone_preference_not_set"
                 android:title="@string/event_preferences_notificationSound"
                 app:ringtoneType="notification"
                 app:showSilent="true"
