@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,6 +36,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     private boolean invalidateEditor = false;
 
+    public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
+    //public static final String EXTRA_SCROLL_TO_TYPE = "extra_phone_profile_preferences_scroll_to_type";
     public static final String EXTRA_RESET_EDITOR = "reset_editor";
 
     @Override
@@ -78,9 +81,79 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         useAlarmClockEnabled = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_USE_ALARM_CLOCK, false);
 
+        String extraScrollTo;
+        Intent intent = getIntent();
+        if (intent.hasCategory(Notification.INTENT_CATEGORY_NOTIFICATION_PREFERENCES)) {
+            // activity is started from notification, scroll to notifications category
+            extraScrollTo = "categoryNotificationsRoot";
+            //extraScrollToType = "category";
+        }
+        else {
+            extraScrollTo = intent.getStringExtra(EXTRA_SCROLL_TO);
+            //extraScrollToType = intent.getStringExtra(EXTRA_SCROLL_TO_TYPE);
+        }
+
+        PhoneProfilesPrefsFragment preferenceFragment = new PhoneProfilesPrefsRoot();
+        switch (extraScrollTo) {
+            case "applicationInterfaceCategoryRoot":
+                preferenceFragment = new PhoneProfilesPrefsInterface();
+                break;
+            case "categoryApplicationStartRoot":
+                preferenceFragment = new PhoneProfilesPrefsApplicationStart();
+                break;
+            case "categorySystemRoot":
+                preferenceFragment = new PhoneProfilesPrefsSystem();
+                break;
+            case "categoryPermissionsRoot":
+                preferenceFragment = new PhoneProfilesPrefsPermissions();
+                break;
+            case "categoryNotificationsRoot":
+                preferenceFragment = new PhoneProfilesPrefsNotifications();
+                break;
+            case "profileActivationCategoryRoot":
+                preferenceFragment = new PhoneProfilesPrefsProfileActivation();
+                break;
+            case "eventRunCategoryRoot":
+                preferenceFragment = new PhoneProfilesPrefsEventRun();
+                break;
+            case "locationScanningCategoryRoot":
+                preferenceFragment = new PhoneProfilesPrefsLocationScanning();
+                break;
+            case "wifiScanningCategoryRoot":
+                preferenceFragment = new PhoneProfilesPrefsWifiScanning();
+                break;
+            case "bluetoothScanningCategoryRoot":
+                preferenceFragment = new PhoneProfilesPrefsBluetoothScanning();
+                break;
+            case "mobileCellsScanningCategoryRoot":
+                preferenceFragment = new PhoneProfilesPrefsMobileCellsScanning();
+                break;
+            case "orientationScanningCategoryRoot":
+                preferenceFragment = new PhoneProfilesPrefsOrientationScanning();
+                break;
+            case "categoryActivatorRoot":
+                preferenceFragment = new PhoneProfilesPrefsActivator();
+                break;
+            case "categoryEditorRoot":
+                preferenceFragment = new PhoneProfilesPrefsEditor();
+                break;
+            case "categoryWidgetListRoot":
+                preferenceFragment = new PhoneProfilesPrefsWidgetList();
+                break;
+            case "categoryWidgetOneRowRoot":
+                preferenceFragment = new PhoneProfilesPrefsWidgetOneRow();
+                break;
+            case "categoryWidgetIconRoot":
+                preferenceFragment = new PhoneProfilesPrefsWidgetIcon();
+                break;
+            case "categorySamsungEdgePanelRoot":
+                preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
+                break;
+        }
+
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.activity_preferences_settings, new PhoneProfilesPrefsRoot())
+                .replace(R.id.activity_preferences_settings, preferenceFragment)
                 .commit();
     }
 

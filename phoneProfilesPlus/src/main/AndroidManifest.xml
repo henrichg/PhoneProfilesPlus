@@ -179,6 +179,7 @@
             android:name=".EventPreferencesActivity"
             android:label="@string/title_activity_event_preferences">
         </activity>
+        <!--
         <activity
             android:name=".PhoneProfilesPreferencesActivity"
             android:label="@string/title_activity_phone_profiles_preferences">
@@ -188,14 +189,15 @@
                 <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
             </intent-filter>
         </activity>
+        -->
         <activity
             android:name=".PhoneProfilesPrefsActivity"
             android:label="@string/title_activity_phone_profiles_preferences">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.NOTIFICATION_PREFERENCES"/>
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".ShortcutCreatorActivity"

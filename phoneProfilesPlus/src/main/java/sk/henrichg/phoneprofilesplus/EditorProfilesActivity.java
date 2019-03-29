@@ -847,7 +847,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
                 intent = new Intent(getBaseContext(), PhoneProfilesPrefsActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_APPLICATION_PREFERENCES);
-
                 return true;
             case R.id.menu_dark_theme:
                 String theme = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
@@ -1263,7 +1262,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             else
             if (data != null) {
-                boolean restart = data.getBooleanExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, false);
+                boolean restart = data.getBooleanExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, false);
                 if (restart) {
                     // refresh activity for special changes
                     GlobalGUIRoutines.reloadActivity(this, true);
@@ -1302,7 +1301,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             else
             if (data != null) {
-                boolean restart = data.getBooleanExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, false);
+                boolean restart = data.getBooleanExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, false);
                 if (restart) {
                     // refresh activity for special changes
                     GlobalGUIRoutines.reloadActivity(this, true);
@@ -1335,7 +1334,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     */
                 //}
 
-                boolean restart = data.getBooleanExtra(PhoneProfilesPreferencesActivity.EXTRA_RESET_EDITOR, false);
+                boolean restart = data.getBooleanExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, false);
 
                 if (restart)
                 {
