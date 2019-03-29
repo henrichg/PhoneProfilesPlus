@@ -172,7 +172,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
                 boolean nestedFragment = !(fragment instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsRoot);
-                PPApplication.logE("PhoneProfilesPrefsFragment.onStart", "nestedFragment="+nestedFragment);
+                PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "nestedFragment="+nestedFragment);
                 if (nestedFragment) {
                     toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
                     toolbar.setSubtitle(getString(R.string.title_activity_phone_profiles_preferences));
