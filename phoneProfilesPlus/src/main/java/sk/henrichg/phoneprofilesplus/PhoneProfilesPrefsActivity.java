@@ -94,61 +94,63 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         PhoneProfilesPrefsFragment preferenceFragment = new PhoneProfilesPrefsRoot();
-        switch (extraScrollTo) {
-            case "applicationInterfaceCategoryRoot":
-                preferenceFragment = new PhoneProfilesPrefsInterface();
-                break;
-            case "categoryApplicationStartRoot":
-                preferenceFragment = new PhoneProfilesPrefsApplicationStart();
-                break;
-            case "categorySystemRoot":
-                preferenceFragment = new PhoneProfilesPrefsSystem();
-                break;
-            case "categoryPermissionsRoot":
-                preferenceFragment = new PhoneProfilesPrefsPermissions();
-                break;
-            case "categoryNotificationsRoot":
-                preferenceFragment = new PhoneProfilesPrefsNotifications();
-                break;
-            case "profileActivationCategoryRoot":
-                preferenceFragment = new PhoneProfilesPrefsProfileActivation();
-                break;
-            case "eventRunCategoryRoot":
-                preferenceFragment = new PhoneProfilesPrefsEventRun();
-                break;
-            case "locationScanningCategoryRoot":
-                preferenceFragment = new PhoneProfilesPrefsLocationScanning();
-                break;
-            case "wifiScanningCategoryRoot":
-                preferenceFragment = new PhoneProfilesPrefsWifiScanning();
-                break;
-            case "bluetoothScanningCategoryRoot":
-                preferenceFragment = new PhoneProfilesPrefsBluetoothScanning();
-                break;
-            case "mobileCellsScanningCategoryRoot":
-                preferenceFragment = new PhoneProfilesPrefsMobileCellsScanning();
-                break;
-            case "orientationScanningCategoryRoot":
-                preferenceFragment = new PhoneProfilesPrefsOrientationScanning();
-                break;
-            case "categoryActivatorRoot":
-                preferenceFragment = new PhoneProfilesPrefsActivator();
-                break;
-            case "categoryEditorRoot":
-                preferenceFragment = new PhoneProfilesPrefsEditor();
-                break;
-            case "categoryWidgetListRoot":
-                preferenceFragment = new PhoneProfilesPrefsWidgetList();
-                break;
-            case "categoryWidgetOneRowRoot":
-                preferenceFragment = new PhoneProfilesPrefsWidgetOneRow();
-                break;
-            case "categoryWidgetIconRoot":
-                preferenceFragment = new PhoneProfilesPrefsWidgetIcon();
-                break;
-            case "categorySamsungEdgePanelRoot":
-                preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
-                break;
+        if (extraScrollTo != null) {
+            switch (extraScrollTo) {
+                case "applicationInterfaceCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsInterface();
+                    break;
+                case "categoryApplicationStartRoot":
+                    preferenceFragment = new PhoneProfilesPrefsApplicationStart();
+                    break;
+                case "categorySystemRoot":
+                    preferenceFragment = new PhoneProfilesPrefsSystem();
+                    break;
+                case "categoryPermissionsRoot":
+                    preferenceFragment = new PhoneProfilesPrefsPermissions();
+                    break;
+                case "categoryNotificationsRoot":
+                    preferenceFragment = new PhoneProfilesPrefsNotifications();
+                    break;
+                case "profileActivationCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsProfileActivation();
+                    break;
+                case "eventRunCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsEventRun();
+                    break;
+                case "locationScanningCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsLocationScanning();
+                    break;
+                case "wifiScanningCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsWifiScanning();
+                    break;
+                case "bluetoothScanningCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsBluetoothScanning();
+                    break;
+                case "mobileCellsScanningCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsMobileCellsScanning();
+                    break;
+                case "orientationScanningCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsOrientationScanning();
+                    break;
+                case "categoryActivatorRoot":
+                    preferenceFragment = new PhoneProfilesPrefsActivator();
+                    break;
+                case "categoryEditorRoot":
+                    preferenceFragment = new PhoneProfilesPrefsEditor();
+                    break;
+                case "categoryWidgetListRoot":
+                    preferenceFragment = new PhoneProfilesPrefsWidgetList();
+                    break;
+                case "categoryWidgetOneRowRoot":
+                    preferenceFragment = new PhoneProfilesPrefsWidgetOneRow();
+                    break;
+                case "categoryWidgetIconRoot":
+                    preferenceFragment = new PhoneProfilesPrefsWidgetIcon();
+                    break;
+                case "categorySamsungEdgePanelRoot":
+                    preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
+                    break;
+            }
         }
 
         getSupportFragmentManager()
@@ -160,6 +162,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        PPApplication.logE("PhoneProfilesPrefsActivity.onStart", "xxx");
         GlobalGUIRoutines.lockScreenOrientation(this);
     }
 
@@ -443,6 +446,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.phone_profiles_prefs_notifications, rootKey);
+            PPApplication.logE("PhoneProfilesPrefsNotifications.onCreatePreferences", "xxx");
             //initPreferenceFragment();
         }
 

@@ -175,7 +175,9 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
-                                         //+"|PhoneProfilesPrefsFragment"
+                                         +"|PhoneProfilesPrefsActivity"
+                                         +"|PhoneProfilesPrefsFragment"
+                                         +"|PhoneProfilesPrefsNotifications"
                                          //+"|LocationGeofencePreferenceX"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
