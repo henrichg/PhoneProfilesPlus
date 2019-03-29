@@ -16,8 +16,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.PowerManager;
-import androidx.multidex.MultiDex;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.util.Log;
 import android.util.Pair;
 
@@ -47,6 +45,8 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.multidex.MultiDex;
 import io.fabric.sdk.android.Fabric;
 
 //import com.google.firebase.analytics.FirebaseAnalytics;

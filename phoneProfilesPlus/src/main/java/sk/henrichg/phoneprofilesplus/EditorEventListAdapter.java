@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +13,9 @@ import com.getkeepsafe.taptargetview.TapTargetSequence;
 
 import java.util.Collections;
 import java.util.Iterator;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHolder>
                                  implements ItemTouchHelperAdapter

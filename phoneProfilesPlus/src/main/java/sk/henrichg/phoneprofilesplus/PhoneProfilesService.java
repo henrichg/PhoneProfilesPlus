@@ -45,8 +45,6 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.provider.Settings;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -58,6 +56,9 @@ import com.crashlytics.android.Crashlytics;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 
 public class PhoneProfilesService extends Service

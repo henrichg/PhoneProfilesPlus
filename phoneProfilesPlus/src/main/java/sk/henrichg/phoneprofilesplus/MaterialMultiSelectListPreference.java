@@ -11,12 +11,13 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.MultiSelectListPreference;
-import androidx.appcompat.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.appcompat.app.AlertDialog;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MaterialMultiSelectListPreference extends MultiSelectListPreference {

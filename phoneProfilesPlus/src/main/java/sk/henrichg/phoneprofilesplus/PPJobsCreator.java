@@ -1,9 +1,9 @@
 package sk.henrichg.phoneprofilesplus;
 
-import androidx.annotation.NonNull;
-
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobCreator;
+
+import androidx.annotation.NonNull;
 
 class PPJobsCreator implements JobCreator {
 

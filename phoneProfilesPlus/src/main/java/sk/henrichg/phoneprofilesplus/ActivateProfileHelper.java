@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.WallpaperManager;
@@ -38,9 +37,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.provider.Settings.Global;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -56,9 +52,12 @@ import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.List;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import static android.content.Context.POWER_SERVICE;
 
@@ -3718,7 +3717,7 @@ class ActivateProfileHelper {
 
                             if (powerManager != null) {
                                 //PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
-                                boolean _isPowerSaveMode = false;
+                                boolean _isPowerSaveMode;
                                 //if (Build.VERSION.SDK_INT >= 21)
                                     _isPowerSaveMode = powerManager.isPowerSaveMode();
                                 boolean _setPowerSaveMode = false;

@@ -12,7 +12,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.provider.Settings;
-import androidx.appcompat.app.AlertDialog;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +27,8 @@ import android.widget.TextView;
 import com.stericson.RootShell.execution.Command;
 import com.stericson.RootShell.execution.Shell;
 import com.stericson.RootTools.RootTools;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class BrightnessDialogPreference extends
         DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
@@ -63,7 +64,7 @@ public class BrightnessDialogPreference extends
     private final Profile _sharedProfile;
 
     private final int savedBrightness;
-    private float savedAdaptiveBrightness;
+    private final float savedAdaptiveBrightness;
     private final int savedBrightnessMode;
 
     public BrightnessDialogPreference(Context context, AttributeSet attrs) {

@@ -2,8 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 
 import android.app.Activity;
-import androidx.appcompat.widget.SwitchCompat;
 import android.widget.CompoundButton;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
 

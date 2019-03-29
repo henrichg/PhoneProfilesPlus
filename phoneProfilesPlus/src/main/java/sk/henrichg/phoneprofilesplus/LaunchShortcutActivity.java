@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class LaunchShortcutActivity extends AppCompatActivity {

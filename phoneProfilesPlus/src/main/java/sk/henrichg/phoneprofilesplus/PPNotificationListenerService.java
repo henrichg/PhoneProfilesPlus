@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-import androidx.core.app.NotificationManagerCompat;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
@@ -21,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import androidx.core.app.NotificationManagerCompat;
 
 public class PPNotificationListenerService extends NotificationListenerService {
 

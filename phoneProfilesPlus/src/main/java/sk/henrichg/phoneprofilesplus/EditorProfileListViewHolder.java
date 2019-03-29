@@ -3,12 +3,13 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.recyclerview.widget.RecyclerView;
 
 class EditorProfileListViewHolder extends RecyclerView.ViewHolder
                     implements View.OnClickListener, View.OnLongClickListener

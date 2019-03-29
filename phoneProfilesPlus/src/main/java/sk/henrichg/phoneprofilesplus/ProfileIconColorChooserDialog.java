@@ -10,11 +10,12 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
-import androidx.appcompat.app.AlertDialog;
-import androidx.gridlayout.widget.GridLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.gridlayout.widget.GridLayout;
 
 class ProfileIconColorChooserDialog implements View.OnClickListener {
 

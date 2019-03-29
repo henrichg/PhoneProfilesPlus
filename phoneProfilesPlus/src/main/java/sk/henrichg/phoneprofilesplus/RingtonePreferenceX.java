@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.media.AudioManager;
@@ -16,7 +15,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,7 +26,6 @@ import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
-import androidx.preference.Preference;
 
 public class RingtonePreferenceX extends DialogPreference {
     String ringtoneUri;

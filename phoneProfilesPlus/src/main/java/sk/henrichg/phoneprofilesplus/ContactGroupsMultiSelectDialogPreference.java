@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.provider.ContactsContract;
-import androidx.appcompat.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import java.util.List;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
 {

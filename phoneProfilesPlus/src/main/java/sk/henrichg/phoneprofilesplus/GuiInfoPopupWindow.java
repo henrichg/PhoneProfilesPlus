@@ -4,13 +4,14 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
 
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
+
+import androidx.annotation.NonNull;
 
 class GuiInfoPopupWindow extends RelativePopupWindow {
 

@@ -2,9 +2,10 @@ package sk.henrichg.phoneprofilesplus;
 
 
 import android.annotation.SuppressLint;
-import androidx.appcompat.widget.SwitchCompat;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.SwitchCompat;
 
 class EventStatusPopupWindow extends GuiInfoPopupWindow {
 

@@ -16,9 +16,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.AppCompatImageButton;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -40,6 +37,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.core.content.ContextCompat;
 
 class GlobalGUIRoutines {
 

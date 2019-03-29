@@ -10,7 +10,7 @@ class BetterNumberPickerPreferenceX extends DialogPreference {
 
     String value;
 
-    int mMin, mMax;
+    final int mMin, mMax;
 
     public BetterNumberPickerPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);

@@ -4,9 +4,10 @@ import android.annotation.TargetApi;
 import android.app.FragmentTransaction;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.widget.Toolbar;
 
 @SuppressWarnings("deprecation")
 abstract class PreferenceActivity extends AppCompatPreferenceActivity

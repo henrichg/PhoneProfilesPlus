@@ -11,11 +11,12 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.ListPreference;
-import androidx.appcompat.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.View;
 
 import java.lang.reflect.Field;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class MaterialListPreference extends ListPreference {
 

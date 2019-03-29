@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import androidx.appcompat.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -16,6 +15,8 @@ import android.widget.TimePicker;
 
 import java.sql.Date;
 import java.util.Calendar;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class TimePreference extends DialogPreference {
     

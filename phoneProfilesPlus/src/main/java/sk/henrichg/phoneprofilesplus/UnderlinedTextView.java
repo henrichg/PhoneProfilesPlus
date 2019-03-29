@@ -5,10 +5,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import androidx.annotation.ColorInt;
-import androidx.appcompat.widget.AppCompatTextView;
 import android.text.Layout;
 import android.util.AttributeSet;
+
+import androidx.annotation.ColorInt;
+import androidx.appcompat.widget.AppCompatTextView;
 
 @SuppressWarnings("unused")
 public class UnderlinedTextView extends AppCompatTextView {

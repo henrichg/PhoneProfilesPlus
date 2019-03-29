@@ -9,7 +9,6 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.SystemClock;
-import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.evernote.android.job.Job;
@@ -22,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.NonNull;
 
 class WifiScanJob extends Job {
 

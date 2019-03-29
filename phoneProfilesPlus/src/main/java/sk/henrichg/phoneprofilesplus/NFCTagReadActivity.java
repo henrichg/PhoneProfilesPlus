@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
+import androidx.appcompat.app.AppCompatActivity;
 import me.drakeet.support.toast.ToastCompat;
 
 public class NFCTagReadActivity extends AppCompatActivity {

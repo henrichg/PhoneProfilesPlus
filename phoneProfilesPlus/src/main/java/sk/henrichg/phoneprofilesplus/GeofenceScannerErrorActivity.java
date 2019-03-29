@@ -4,11 +4,12 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.GoogleApiAvailability;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
@@ -100,7 +101,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onDismiss(DialogInterface dialog) {
+        public void onDismiss(@NonNull DialogInterface dialog) {
             if (activity != null)
                 activity.onDialogDismissed();
         }

@@ -33,8 +33,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.SwitchCompat;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -50,6 +48,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SwitchCompat;
 import me.drakeet.support.toast.ToastCompat;
 
 import static android.content.Context.POWER_SERVICE;

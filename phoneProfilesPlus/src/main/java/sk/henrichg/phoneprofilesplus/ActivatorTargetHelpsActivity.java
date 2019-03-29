@@ -2,8 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class ActivatorTargetHelpsActivity extends AppCompatActivity {
 

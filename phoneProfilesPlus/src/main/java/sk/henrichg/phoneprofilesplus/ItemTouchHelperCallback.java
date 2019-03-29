@@ -1,8 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 class ItemTouchHelperCallback extends ItemTouchHelper.Callback {
 

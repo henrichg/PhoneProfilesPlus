@@ -4,11 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 class ContactsMultiSelectDialogPreferenceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

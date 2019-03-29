@@ -52,11 +52,13 @@ public class LocationGeofencePreferenceX extends DialogPreference {
             String value = getPersistedString((String) defaultValue);
             DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
         }
-    }    
+    }
 
+    /*
     String getPersistedGeofence() {
         return getPersistedString("");
     }
+    */
 
     void persistGeofence(boolean reset) {
         if (onlyEdit == 0) {

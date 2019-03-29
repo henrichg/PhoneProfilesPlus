@@ -2,9 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
 import me.drakeet.support.toast.ToastCompat;
 
 public class BackgroundActivateProfileActivity extends AppCompatActivity {

@@ -6,8 +6,9 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import androidx.appcompat.app.AlertDialog;
 import android.util.AttributeSet;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class InfoDialogPreference extends DialogPreference {
 

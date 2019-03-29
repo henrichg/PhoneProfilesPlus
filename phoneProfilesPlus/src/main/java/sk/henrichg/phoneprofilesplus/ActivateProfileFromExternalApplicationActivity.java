@@ -1,13 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class ActivateProfileFromExternalApplicationActivity extends AppCompatActivity {
 

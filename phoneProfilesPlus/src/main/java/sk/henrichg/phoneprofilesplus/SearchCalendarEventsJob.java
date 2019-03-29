@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.os.Handler;
 import android.os.SystemClock;
-import androidx.annotation.NonNull;
 
 import com.evernote.android.job.Job;
 import com.evernote.android.job.JobManager;
@@ -12,6 +11,8 @@ import com.evernote.android.job.util.support.PersistableBundleCompat;
 
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
+import androidx.annotation.NonNull;
 
 class SearchCalendarEventsJob extends Job {
 

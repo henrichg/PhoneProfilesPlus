@@ -3,8 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -14,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
+
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.recyclerview.widget.RecyclerView;
 
 class EditorEventListViewHolder extends RecyclerView.ViewHolder
                                     implements View.OnClickListener

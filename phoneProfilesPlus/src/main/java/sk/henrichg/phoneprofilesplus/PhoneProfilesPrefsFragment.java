@@ -24,20 +24,20 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.preference.PreferenceCategory;
-import androidx.preference.PreferenceManager;
-import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
 
 public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    PreferenceManager prefMng;
-    SharedPreferences preferences;
+    private PreferenceManager prefMng;
+    private SharedPreferences preferences;
     private SharedPreferences appPrefNameSharedPreferences;
 
     private static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
@@ -1611,7 +1611,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     }
 
-    void setSummary(String key) {
+    private void setSummary(String key) {
 
         Preference preference = prefMng.findPreference(key);
 

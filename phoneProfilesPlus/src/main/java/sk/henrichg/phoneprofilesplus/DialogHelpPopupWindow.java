@@ -1,13 +1,14 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import androidx.appcompat.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
+
+import androidx.appcompat.app.AlertDialog;
 
 class DialogHelpPopupWindow extends GuiInfoPopupWindow {
 

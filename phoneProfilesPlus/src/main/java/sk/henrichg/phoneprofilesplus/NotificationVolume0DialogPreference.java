@@ -7,8 +7,9 @@ import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import androidx.appcompat.app.AlertDialog;
 import android.util.AttributeSet;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class NotificationVolume0DialogPreference extends DialogPreference {
 

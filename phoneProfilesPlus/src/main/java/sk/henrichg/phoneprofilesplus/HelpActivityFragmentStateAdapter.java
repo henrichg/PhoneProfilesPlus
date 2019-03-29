@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -13,16 +14,14 @@ class HelpActivityFragmentStateAdapter extends FragmentStatePagerAdapter {
         this.mNumOfTabs = NumOfTabs;
     }
 
+    @NonNull
     @Override
     public Fragment getItem(int position) {
-
         switch (position) {
-            case 0:
-                return new ImportantInfoHelpFragment();
             case 1:
                 return new QuickGuideHelpFragment();
             default:
-                return null;
+                return new ImportantInfoHelpFragment();
         }
     }
 

@@ -1,14 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Collections;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 class ApplicationsDialogPreferenceAdapter extends RecyclerView.Adapter<ApplicationsDialogPreferenceViewHolder>
                                             implements ItemTouchHelperAdapter

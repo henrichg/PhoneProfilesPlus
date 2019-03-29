@@ -2,11 +2,12 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ShortcutCreatorActivity extends AppCompatActivity {
 

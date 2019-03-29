@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.preference.DialogPreference;
-import androidx.appcompat.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,8 @@ import android.view.View;
 import com.codetroopers.betterpickers.numberpicker.NumberPicker;
 
 import java.math.BigDecimal;
+
+import androidx.appcompat.app.AlertDialog;
 
 class BetterNumberPickerPreference extends DialogPreference {
 

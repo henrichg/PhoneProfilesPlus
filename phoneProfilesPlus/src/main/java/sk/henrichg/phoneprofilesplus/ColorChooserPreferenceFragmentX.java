@@ -16,7 +16,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                                 implements View.OnClickListener {
 
-    ColorChooserPreferenceX preference;
+    private ColorChooserPreferenceX preference;
 
     @SuppressLint("InflateParams")
     @Override
