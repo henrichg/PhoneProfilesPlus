@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceManager;
@@ -162,6 +161,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        // must be used handler for rewrite toolbar title/subtitle
         final PhoneProfilesPrefsFragment fragment = this;
         Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(new Runnable() {
