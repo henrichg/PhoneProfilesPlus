@@ -399,11 +399,13 @@ public class PhoneProfilesService extends Service
     }
 
     public static void stop(Context context) {
-        try {
-            //noinspection deprecation
-            context.sendStickyBroadcast(new Intent(ACTION_STOP));
-            //context.sendBroadcast(new Intent(ACTION_STOP));
-        } catch (Exception ignored) {
+        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().getServiceHasFirstStart()) {
+            try {
+                //noinspection deprecation
+                context.sendStickyBroadcast(new Intent(ACTION_STOP));
+                //context.sendBroadcast(new Intent(ACTION_STOP));
+            } catch (Exception ignored) {
+            }
         }
     }
 
