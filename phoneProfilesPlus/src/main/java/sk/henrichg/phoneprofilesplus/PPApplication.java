@@ -76,6 +76,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication.isMIUI"
                                          +"|PPApplication.isEMUI"
                                          +"|PPApplication.isSamsung"
+                                         +"|PPApplication.exitApp"
                                          +"|PPApplication._exitApp"
                                          +"|PhoneProfilesService.onCreate"
                                          +"|PhoneProfilesService.onStartCommand"
@@ -175,9 +176,9 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
-                                         +"|PhoneProfilesPrefsActivity"
-                                         +"|PhoneProfilesPrefsFragment"
-                                         +"|PhoneProfilesPrefsNotifications"
+                                         //+"|PhoneProfilesPrefsActivity"
+                                         //+"|PhoneProfilesPrefsFragment"
+                                         //+"|PhoneProfilesPrefsNotifications"
                                          //+"|LocationGeofencePreferenceX"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
@@ -368,8 +369,8 @@ public class PPApplication extends Application {
                                         //+"|#### setWifiEnabled"
 
                                         //+"|PPNumberPicker"
-                                        +"|RingtonePreference.setRingtone"
-                                        +"|RingtonePreferenceX"
+                                        //+"|RingtonePreference.setRingtone"
+                                        //+"|RingtonePreferenceX"
                                         +"|PhoneProfilesService.playNotificationSound"
             ;
 

@@ -104,6 +104,8 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 }
                             }
                         } else {
+                            PPApplication.logE("BootUpReceiver.onReceive", "ApplicationPreferences.applicationStartOnBoot()=false");
+                            PPApplication.logE("PPApplication.exitApp", "from BootUpReceiver.onReceive shutdown=false");
                             PPApplication.exitApp(false, appContext, null, null, false/*, true, true*/);
                         }
 

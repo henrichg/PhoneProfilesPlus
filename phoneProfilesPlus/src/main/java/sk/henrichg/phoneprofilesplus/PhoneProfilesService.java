@@ -237,7 +237,7 @@ public class PhoneProfilesService extends Service
     //--------------------------
 
     static final String ACTION_COMMAND = "sk.henrichg.phoneprofilesplus.PhoneProfilesService.ACTION_COMMAND";
-    private static final String ACTION_STOP = "sk.henrichg.phoneprofilesplus.PhoneProfilesService.ACTION_STOP";
+    private static final String ACTION_STOP = "sk.henrichg.phoneprofilesplus.PhoneProfilesService.ACTION_STOP_SERVICE";
 
     private final BroadcastReceiver commandReceiver = new BroadcastReceiver() {
         @Override
@@ -253,7 +253,9 @@ public class PhoneProfilesService extends Service
             try {
                 //noinspection deprecation
                 context.removeStickyBroadcast(intent);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                PPApplication.logE("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
+            }
             stopForeground(true);
             stopSelf();
         }
@@ -400,7 +402,9 @@ public class PhoneProfilesService extends Service
         try {
             //noinspection deprecation
             context.sendStickyBroadcast(new Intent(ACTION_STOP));
-        } catch (Exception ignored) {}
+            //context.sendBroadcast(new Intent(ACTION_STOP));
+        } catch (Exception ignored) {
+        }
     }
 
     boolean getServiceHasFirstStart() {

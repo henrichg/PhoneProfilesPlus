@@ -894,6 +894,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
                         PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),
                                 EditorProfilesActivity.this, false/*, true, true*/);
                     }
@@ -1590,6 +1591,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 @Override
                 protected Integer doInBackground(Void... params) {
+                    PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
                     PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
                     dbError = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
