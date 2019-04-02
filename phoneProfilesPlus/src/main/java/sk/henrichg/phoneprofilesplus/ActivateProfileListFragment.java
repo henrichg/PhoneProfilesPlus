@@ -36,7 +36,7 @@ public class ActivateProfileListFragment extends Fragment {
     private ImageView activeProfileIcon;
     TextView textViewNoData;
     private LinearLayout progressBar;
-    FrameLayout gridViewDivider = null;
+    //FrameLayout gridViewDivider = null;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
@@ -115,7 +115,7 @@ public class ActivateProfileListFragment extends Fragment {
             listView = view.findViewById(R.id.act_prof_profiles_list);
         else {
             gridView = view.findViewById(R.id.act_prof_profiles_grid);
-            gridViewDivider = view.findViewById(R.id.act_prof_profiles_grid_divider);
+            //gridViewDivider = view.findViewById(R.id.act_prof_profiles_grid_divider);
         }
         textViewNoData = view.findViewById(R.id.act_prof_list_empty);
         progressBar = view.findViewById(R.id.act_prof_list_linla_progress);
@@ -208,9 +208,9 @@ public class ActivateProfileListFragment extends Fragment {
             if ((fragment != null) && (fragment.isAdded())) {
                 fragment.textViewNoData.setVisibility(View.GONE);
                 fragment.progressBar.setVisibility(View.VISIBLE);
-                if (fragment.gridViewDivider != null)
+                /*if (fragment.gridViewDivider != null)
                     fragment.gridViewDivider.setBackgroundResource(
-                            GlobalGUIRoutines.getThemeActivatorGridDividerColor(false, fragment.getActivity()));
+                            GlobalGUIRoutines.getThemeActivatorGridDividerColor(false, fragment.getActivity()));*/
             }
         }
 

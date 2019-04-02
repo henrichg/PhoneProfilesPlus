@@ -110,14 +110,14 @@ class AddProfileDialog
                 listView.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
 
-                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(activity, profileList);
+                AddProfileAdapter addProfileAdapter = new AddProfileAdapter(AddProfileDialog.this, activity, profileList);
                 listView.setAdapter(addProfileAdapter);
             }
 
         }.execute();
     }
 
-    private void doOnItemSelected(int position)
+    void doOnItemSelected(int position)
     {
         profileListFragment.startProfilePreferencesActivity(null, position);
         mDialog.dismiss();

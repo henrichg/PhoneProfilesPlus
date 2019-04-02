@@ -3,8 +3,8 @@
     android:orientation="horizontal" 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp">
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <FrameLayout
         android:id="@+id/activity_log_row_color"

@@ -76,13 +76,6 @@ class AddEventDialog
 
     @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
-        //noinspection ConstantConditions
-        listView.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                doOnItemSelected(position);
-            }
-
-        });
 
         new AsyncTask<Void, Integer, Void>() {
 
@@ -130,7 +123,7 @@ class AddEventDialog
         }.execute();
     }
 
-    private void doOnItemSelected(int position)
+    void doOnItemSelected(int position)
     {
         eventListFragment.startEventPreferencesActivity(null, position);
         mDialog.dismiss();

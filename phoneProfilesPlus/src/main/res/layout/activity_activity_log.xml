@@ -12,6 +12,7 @@
         android:padding="5dip"
         android:choiceMode="singleChoice"
         android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay" />
+        android:scrollbarStyle="outsideOverlay"
+        android:divider="@android:color/transparent" />
 
 </RelativeLayout>

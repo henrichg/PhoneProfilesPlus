@@ -67,7 +67,8 @@
             android:padding="10dip"
             android:drawSelectorOnTop="true"
             android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay" />
+            android:scrollbarStyle="outsideOverlay"
+            android:divider="@android:color/transparent" />
 
         <TextView
             android:id="@+id/act_prof_list_empty"

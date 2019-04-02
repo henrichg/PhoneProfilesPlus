@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -56,6 +57,7 @@ class AddEventAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        RadioButton radioButton;
         TextView eventName;
         TextView eventPreferencesDescription;
         ImageView profileStartIcon;
@@ -85,6 +87,7 @@ class AddEventAdapter extends BaseAdapter {
                 //noinspection ConstantConditions
                 vi = inflater.inflate(R.layout.add_event_list_item_no_indicator, parent, false);
             holder = new ViewHolder();
+            holder.radioButton = vi.findViewById(R.id.event_pref_dlg_item_radio_button);
             holder.eventName = vi.findViewById(R.id.event_pref_dlg_item_event_name);
             holder.profileStartName = vi.findViewById(R.id.event_pref_dlg_item_profile_start_name);
             holder.profileStartIcon = vi.findViewById(R.id.event_pref_dlg_item_profile_start_icon);
@@ -281,6 +284,14 @@ class AddEventAdapter extends BaseAdapter {
             }
 
         }
+
+        holder.radioButton.setTag(position);
+        holder.radioButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                RadioButton rb = (RadioButton) v;
+                dialog.doOnItemSelected((Integer)rb.getTag());
+            }
+        });
 
         return vi;
     }

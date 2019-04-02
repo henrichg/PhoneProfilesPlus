@@ -52,7 +52,6 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         else
             dragHandle = null;
 
-        //listItemRoot = vi.findViewById(R.id.event_list_item_root);
         eventName = itemView.findViewById(R.id.event_list_item_event_name);
         eventStatus = itemView.findViewById(R.id.event_list_item_status);
         eventItemEditMenu = itemView.findViewById(R.id.event_list_item_edit_menu);

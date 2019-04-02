@@ -192,7 +192,7 @@ public class EditorEventListFragment extends Fragment
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
         //noinspection ConstantConditions
-        listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
         textViewNoData = view.findViewById(R.id.editor_events_list_empty);
