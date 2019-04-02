@@ -62,9 +62,9 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
     }
   
     public void onDestroy() {
-        if (dataWrapper != null)
+        /*if (dataWrapper != null)
             dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+        dataWrapper = null;*/
     }
 
     public int getCount() {
