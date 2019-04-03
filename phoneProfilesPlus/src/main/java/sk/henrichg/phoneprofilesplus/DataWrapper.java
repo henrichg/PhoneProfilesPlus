@@ -4206,14 +4206,31 @@ public class DataWrapper {
             eventName = eventName + " ";
 
         Spannable sName;
-        if (addDuration && manualIndicators.equals("[M]"))
-            sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, context);
+        if (addDuration) {
+            if (!addEventName || manualIndicators.equals("[M]"))
+                sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, context);
+            else {
+                String name = profile._name;
+                if (!eventName.isEmpty())
+                    name = name + " " + eventName;
+                if (!indicators.isEmpty()) {
+                    if (multiLine)
+                        name = name + "\n" + indicators;
+                    else
+                        name = name + " " + indicators;
+                }
+                sName = new SpannableString(name);
+            }
+        }
         else {
             String name = profile._name;
             if (!eventName.isEmpty())
                 name = name + " " + eventName;
             if (!indicators.isEmpty()) {
-                name = name + " " + indicators;
+                if (multiLine)
+                    name = name + "\n" + indicators;
+                else
+                    name = name + " " + indicators;
             }
             sName = new SpannableString(name);
         }
