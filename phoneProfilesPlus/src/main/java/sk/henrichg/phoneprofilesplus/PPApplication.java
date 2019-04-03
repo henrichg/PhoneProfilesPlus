@@ -111,8 +111,8 @@ public class PPApplication extends Application {
                                          //+"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                         +"|#### EventsHandler.handleEvents"
-                                         +"|[DEFPROF] EventsHandler"
+                                         //+"|#### EventsHandler.handleEvents"
+                                         //+"|[DEFPROF] EventsHandler"
                                          //+"|$$$ EventsHandler.handleEvents"
                                          //+"|[NOTIFY] EventsHandler"
                                          //+"|Profile.mergeProfiles"
@@ -217,7 +217,7 @@ public class PPApplication extends Application {
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
 
                                          //+"|WifiStateChangedBroadcastReceiver"
-                                         +"|WifiConnectionBroadcastReceiver"
+                                         //+"|WifiConnectionBroadcastReceiver"
                                          //+"|%%%% WifiBluetoothScanner.doScan"
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$BCL WifiBluetoothScanner"
@@ -246,7 +246,7 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
-                                         //+"|PPPExtenderBroadcastReceiver"
+                                         +"|PPPExtenderBroadcastReceiver"
 
 
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
