@@ -4183,9 +4183,9 @@ public class DataWrapper {
             return new SpannableString("");
 
         String eventName = "";
+        String manualIndicators = "";
         if (addEventName && (dataWrapper != null))
         {
-            String manualIndicators = "";
             if (Event.getEventsBlocked(context)) {
                 if (Event.getForceRunEventRunning(context)) {
                     manualIndicators = "[\u00BB]";
@@ -4206,7 +4206,7 @@ public class DataWrapper {
             eventName = eventName + " ";
 
         Spannable sName;
-        if (addDuration)
+        if (addDuration && manualIndicators.equals("[M]"))
             sName = profile.getProfileNameWithDuration(eventName, indicators, multiLine, context);
         else {
             String name = profile._name;
