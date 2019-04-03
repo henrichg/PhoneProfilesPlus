@@ -111,7 +111,11 @@ public class PPApplication extends Application {
                                          //+"|OneRowWidgetProvider.onUpdate"
 
                                          //+"|%%%%%%% DataWrapper.doHandleEvents"
-                                         //+"|#### EventsHandler.handleEvents"
+                                         +"|#### EventsHandler.handleEvents"
+                                         +"|[DEFPROF] EventsHandler"
+                                         //+"|$$$ EventsHandler.handleEvents"
+                                         //+"|[NOTIFY] EventsHandler"
+                                         //+"|Profile.mergeProfiles"
                                          //+"|@@@ Event.pauseEvent"
                                          //+"|@@@ Event.stopEvent"
                                          //+"|### DataWrapper._activateProfile"
@@ -122,10 +126,6 @@ public class PPApplication extends Application {
 
                                          //+"|PostDelayedBroadcastReceiver"
 
-                                         //+"|#### EventsHandler.handleEvents"
-                                         //+"|$$$ EventsHandler.handleEvents"
-                                         //+"|[NOTIFY] EventsHandler"
-                                         //+"|Profile.mergeProfiles"
 
                                          /*
                                          +"|DataWrapper.restartEventsWithDelay"
@@ -216,6 +216,8 @@ public class PPApplication extends Application {
                                          //+"|PhoneProfilesService.stopGeofenceScanner"
                                          //+"|[GeoSensor] DataWrapper.doHandleEvents"
 
+                                         //+"|WifiStateChangedBroadcastReceiver"
+                                         +"|WifiConnectionBroadcastReceiver"
                                          //+"|%%%% WifiBluetoothScanner.doScan"
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$BCL WifiBluetoothScanner"

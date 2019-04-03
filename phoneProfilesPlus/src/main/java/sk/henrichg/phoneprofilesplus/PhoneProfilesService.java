@@ -2914,15 +2914,12 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerReceiversAndJobs() {
+    private void registerReceiversAndJobs(boolean fromCommand) {
         PPApplication.logE("[RJS] PhoneProfilesService.registerReceiversAndJobs", "xxx");
 
         // --- receivers and content observers for events -- register it only if any event exists
 
         Context appContext = getApplicationContext();
-
-        WifiScanJob.initialize(appContext);
-        BluetoothScanJob.initialize(appContext);
 
         // get actual battery status
         Intent batteryStatus = null;
@@ -3075,6 +3072,9 @@ public class PhoneProfilesService extends Service
 
         // register receiver for geofences scanner
         registerGeofencesScannerReceiver(true, true);
+
+        WifiScanJob.initialize(appContext, !fromCommand);
+        BluetoothScanJob.initialize(appContext, !fromCommand);
 
         scheduleWifiJob(true,  true, /*false, false, false,*/ false);
         scheduleBluetoothJob(true,  true, /*false, false,*/ false);
@@ -3347,7 +3347,7 @@ public class PhoneProfilesService extends Service
                         }
 
                         if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().registerReceiversAndJobs();
+                            PhoneProfilesService.getInstance().registerReceiversAndJobs(false);
                         DonationNotificationJob.scheduleJob(appContext, false);
 
                         if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
@@ -3549,7 +3549,7 @@ public class PhoneProfilesService extends Service
                         if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_JOBS, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_JOBS");
                             if (PhoneProfilesService.getInstance() != null)
-                                PhoneProfilesService.getInstance().registerReceiversAndJobs();
+                                PhoneProfilesService.getInstance().registerReceiversAndJobs(true);
                         }
                         else
                         if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, false)) {

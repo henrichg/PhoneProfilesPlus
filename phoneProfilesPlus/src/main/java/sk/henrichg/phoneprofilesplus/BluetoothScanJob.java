@@ -292,7 +292,7 @@ class BluetoothScanJob extends Job {
         return adapter;
     }
 
-    public static void initialize(Context context)
+    public static void initialize(Context context, boolean clearScanResult)
     {
         setScanRequest(context, false);
         setLEScanRequest(context, false);
@@ -308,7 +308,8 @@ class BluetoothScanJob extends Job {
         if (bluetooth == null)
             return;
 
-        clearScanResults(context);
+        if (clearScanResult)
+            clearScanResults(context);
 
         /*SharedPreferences preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
         Editor editor = preferences.edit();

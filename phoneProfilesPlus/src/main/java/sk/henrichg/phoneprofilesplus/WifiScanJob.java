@@ -278,7 +278,7 @@ class WifiScanJob extends Job {
 
     //---------------------------------------------------------------
 
-    public static void initialize(Context context)
+    public static void initialize(Context context, boolean clearScanResult)
     {
         setScanRequest(context, false);
         setWaitForResults(context, false);
@@ -292,7 +292,9 @@ class WifiScanJob extends Job {
 
         unlock();
 
-        clearScanResults(context);
+        if (clearScanResult)
+            clearScanResults(context);
+
         /*
         ConnectivityManager connManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         //NetworkInfo networkInfo = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);

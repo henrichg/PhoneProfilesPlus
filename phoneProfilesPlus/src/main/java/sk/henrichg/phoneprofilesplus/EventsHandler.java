@@ -187,6 +187,8 @@ class EventsHandler {
                 return;
             }
 
+            PPApplication.logE("#### EventsHandler.handleEvents", "do EventsHandler");
+
             dataWrapper.fillEventList();
 
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS);
@@ -451,18 +453,18 @@ class EventsHandler {
             boolean notifyBackgroundProfile = false;
 
             if (!dataWrapper.getIsManualProfileActivation(false)) {
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "active profile is NOT activated manually");
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
+                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is NOT activated manually");
+                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCount0=" + runningEventCount0);
+                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
                 // no manual profile activation
                 if ((runningEventCountE == 0) && (!restartEventsAtEnd)) {
                     // activate default profile, only when will not be do restart events from paused events
 
-                    PPApplication.logE("$$$ EventsHandler.handleEvents", "no events running");
+                    PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "no events running");
                     // no events running
                     backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                     if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "default profile is set");
+                        PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "default profile is set");
                         long activatedProfileId = 0;
                         if (activatedProfile != null)
                             activatedProfileId = activatedProfile._id;
@@ -473,12 +475,12 @@ class EventsHandler {
                             if (!anyEventPaused && (mergedProfile._id == 0) && (mergedPausedProfile._id == 0))
                                 activateProfileAtEnd = true;
 
-                            PPApplication.logE("$$$ EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
-                            PPApplication.logE("$$$ EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
-                            PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
-                            PPApplication.logE("$$$ EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
-                            PPApplication.logE("$$$ EventsHandler.handleEvents", "isRestart=" + isRestart);
-                            PPApplication.logE("$$$ EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "anyEventPaused=" + anyEventPaused);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activatedProfileId=" + activatedProfileId);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedProfile._id=" + mergedProfile._id);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "mergedPausedProfile._id=" + mergedPausedProfile._id);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "isRestart=" + isRestart);
+                            PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activateProfileAtEnd=" + activateProfileAtEnd);
                             if ((activatedProfileId == 0) ||
                                     isRestart ||
                                     // activate default profile when is not activated profile at end of events
@@ -487,20 +489,20 @@ class EventsHandler {
                                     ) {
                                 notifyBackgroundProfile = true;
                                 mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper, false);
-                                PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                             }
                         }
                         else {
                             if ((activatedProfileId != backgroundProfileId) || isRestart) {
                                 notifyBackgroundProfile = true;
                                 mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper, false);
-                                PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");
+                                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                             }
                         }
                     }
                 }
             } else {
-                PPApplication.logE("$$$ EventsHandler.handleEvents", "active profile is activated manually");
+                PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "active profile is activated manually");
                 // manual profile activation
                 backgroundProfileId = Long.valueOf(ApplicationPreferences.applicationBackgroundProfile(context));
                 if (backgroundProfileId != Profile.PROFILE_NO_ACTIVATE) {
@@ -508,7 +510,7 @@ class EventsHandler {
                         // if not profile activated, activate Default profile
                         notifyBackgroundProfile = true;
                         mergedProfile.mergeProfiles(backgroundProfileId, dataWrapper, false);
-                        PPApplication.logE("$$$ EventsHandler.handleEvents", "activated default profile");
+                        PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "activated default profile");
                     }
                 }
             }
