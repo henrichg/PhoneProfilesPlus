@@ -19,6 +19,8 @@ import androidx.preference.PreferenceViewHolder;
 
 public class ColorChooserPreferenceX extends DialogPreference {
 
+    ColorChooserPreferenceFragmentX fragment;
+
     String value;
 
     private final Context context;

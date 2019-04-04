@@ -8,6 +8,8 @@ import androidx.preference.DialogPreference;
 
 class BetterNumberPickerPreferenceX extends DialogPreference {
 
+    BetterNumberPickerPreferenceFragmentX fragment;
+
     String value;
 
     final int mMin, mMax;

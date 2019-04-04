@@ -8,6 +8,8 @@ import androidx.preference.DialogPreference;
 
 public class LocationGeofencePreferenceX extends DialogPreference {
 
+    LocationGeofencePreferenceFragmentX fragment;
+
     private final Context context;
 
     final int onlyEdit;

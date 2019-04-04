@@ -13,6 +13,8 @@ import androidx.preference.PreferenceViewHolder;
 
 public class ProfilePreferenceX extends DialogPreference {
 
+    ProfilePreferenceFragmentX fragment;
+
     String profileId;
     int addNoActivateItem;
     int noActivateAsDoNotApply;

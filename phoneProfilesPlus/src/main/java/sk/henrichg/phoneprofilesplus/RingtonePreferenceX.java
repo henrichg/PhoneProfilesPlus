@@ -28,6 +28,9 @@ import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
 
 public class RingtonePreferenceX extends DialogPreference {
+
+    RingtonePreferenceFragmentX fragment;
+
     String ringtoneUri;
     String oldRingtoneUri;
     private String ringtoneName;
@@ -140,8 +143,7 @@ public class RingtonePreferenceX extends DialogPreference {
     }
 
     void refreshListView() {
-        //if ((getDialog() != null) && getDialog().isShowing()) {
-        if (isShown()) {
+        if ((fragment != null) && (fragment.getDialog() != null) && fragment.getDialog().isShowing()) {
 
             asyncTask = new AsyncTask<Void, Integer, Void>() {
 

@@ -8,6 +8,8 @@ import androidx.preference.DialogPreference;
 
 public class DurationDialogPreferenceX extends DialogPreference {
 
+    DurationDialogPreferenceFragmentX fragment;
+
     String value;
 
     final int mMin, mMax;
