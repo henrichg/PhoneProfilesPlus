@@ -153,17 +153,19 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             }
         }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.activity_preferences_settings, preferenceFragment)
-                .commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.activity_preferences_settings, preferenceFragment)
+                    .commit();
+        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         PPApplication.logE("PhoneProfilesPrefsActivity.onStart", "xxx");
-        GlobalGUIRoutines.lockScreenOrientation(this);
+        //GlobalGUIRoutines.lockScreenOrientation(this);
     }
 
     @Override
@@ -183,7 +185,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
         ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);
 
-        GlobalGUIRoutines.unlockScreenOrientation(this);
+        //GlobalGUIRoutines.unlockScreenOrientation(this);
     }
 
     @Override
