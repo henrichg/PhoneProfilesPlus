@@ -77,7 +77,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         PPApplication.logE("PhoneProfilesPrefsFragment.onCreate", "xxx");
 
-        //setRetainInstance(true);
+        setRetainInstance(true);
 
         initPreferenceFragment(savedInstanceState);
         //prefMng = getPreferenceManager();

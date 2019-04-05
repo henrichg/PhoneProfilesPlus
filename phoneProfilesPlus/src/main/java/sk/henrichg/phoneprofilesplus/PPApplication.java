@@ -176,8 +176,8 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
-                                         //+"|PhoneProfilesPrefsActivity"
-                                         //+"|PhoneProfilesPrefsFragment"
+                                         +"|PhoneProfilesPrefsActivity"
+                                         +"|PhoneProfilesPrefsFragment"
                                          //+"|PhoneProfilesPrefsNotifications"
                                          //+"|LocationGeofencePreferenceX"
 
@@ -246,7 +246,7 @@ public class PPApplication extends Application {
                                          //+"|[RJS] PhoneProfilesService.registerForegroundApplicationChangedReceiver"
                                          //+"|PhoneProfilesService.runEventsHandlerForOrientationChange"
                                          //+"|PhoneProfilesService.onSensorChanged"
-                                         +"|PPPExtenderBroadcastReceiver"
+                                         //+"|PPPExtenderBroadcastReceiver"
 
 
                                          //+"|PhoneProfilesService.doSimulatingRingingCall"
