@@ -32,7 +32,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="13dp"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="17dp"
             android:contentDescription="@string/empty_string"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
@@ -40,11 +40,11 @@
 
         <TextView
             android:id="@+id/editor_drawer_list_header_title"
-            android:textColor="?attr/editorDrawerListHeaderTitle"
+            android:textColor="?attr/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/editor_drawer_list_header_icon"
-            android:paddingStart="14dp"
+            android:paddingStart="13dp"
             android:paddingEnd="5dp"
             android:paddingTop="14dp"
             android:ellipsize="end"
@@ -53,12 +53,12 @@
 
         <TextView
             android:id="@+id/editor_drawer_list_header_subtitle"
-            android:textColor="?attr/editorDrawerListHeaderTitle"
+            android:textColor="?attr/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/editor_drawer_list_header_icon"
             android:layout_toEndOf="@id/editor_drawer_list_header_icon"
-            android:paddingStart="14dp"
+            android:paddingStart="13dp"
             android:paddingEnd="5dp"
             android:paddingTop="0dp"
             android:ellipsize="end"
