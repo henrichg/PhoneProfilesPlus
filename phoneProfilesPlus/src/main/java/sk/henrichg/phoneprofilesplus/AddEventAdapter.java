@@ -122,9 +122,9 @@ class AddEventAdapter extends BaseAdapter {
             //else
             //    eventPriority = "[P:" + "5" + "] ";
             if (event._forceRun) {
-                eventName = eventPriority + "[\u00BB] " + eventName;
+                eventName = eventName + "\n" + eventPriority + "[\u00BB]";
             } else
-                eventName = eventPriority + eventName;
+                eventName = eventName + "\n" + eventPriority;
 
             if (!event._startWhenActivatedProfile.isEmpty()) {
                 String[] splits = event._startWhenActivatedProfile.split("\\|");
@@ -132,9 +132,9 @@ class AddEventAdapter extends BaseAdapter {
                 if (splits.length == 1) {
                     profile = dialog.eventListFragment.activityDataWrapper.getProfileById(Long.valueOf(event._startWhenActivatedProfile), false, false, false);
                     if (profile != null)
-                        eventName = eventName + "\n" + "[#] " + profile._name;
+                        eventName = eventName + " " + "[#] " + profile._name;
                 } else {
-                    eventName = eventName + "\n" + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
+                    eventName = eventName + " " + "[#] " + context.getString(R.string.profile_multiselect_summary_text_selected) + " " + splits.length;
                 }
             }
 
