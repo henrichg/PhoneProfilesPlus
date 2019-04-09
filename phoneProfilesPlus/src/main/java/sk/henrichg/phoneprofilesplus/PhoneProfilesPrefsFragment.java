@@ -1216,6 +1216,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "xxx");
         setSummary(key);
     }
 

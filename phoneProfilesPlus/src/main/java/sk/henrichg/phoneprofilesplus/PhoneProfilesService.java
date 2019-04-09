@@ -3346,8 +3346,7 @@ public class PhoneProfilesService extends Service
                             BluetoothScanJob.setBluetoothEnabledForScan(appContext, false);
                         }
 
-                        if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().registerReceiversAndJobs(false);
+                        registerReceiversAndJobs(false);
                         DonationNotificationJob.scheduleJob(appContext, false);
 
                         if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
@@ -3548,20 +3547,17 @@ public class PhoneProfilesService extends Service
                         else
                         if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_JOBS, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_JOBS");
-                            if (PhoneProfilesService.getInstance() != null)
-                                PhoneProfilesService.getInstance().registerReceiversAndJobs(true);
+                            registerReceiversAndJobs(true);
                         }
                         else
                         if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_JOBS, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_JOBS");
-                            if (PhoneProfilesService.getInstance() != null)
-                                PhoneProfilesService.getInstance().unregisterReceiversAndJobs();
+                            unregisterReceiversAndJobs();
                         }
                         else
                         if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_JOBS, false)) {
                             PPApplication.logE("$$$ PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_JOBS");
-                            if (PhoneProfilesService.getInstance() != null)
-                                PhoneProfilesService.getInstance().reregisterReceiversAndJobs();
+                            reregisterReceiversAndJobs();
                         }
                         else
                         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
@@ -3578,167 +3574,113 @@ public class PhoneProfilesService extends Service
                             switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
                                 case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_GEOFENCE_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*false,*/ false);
+                                    startGeofenceScanner(true, true, true, false);
+                                    scheduleGeofenceScannerJob(true, true, /*false,*/ false);
                                     break;
                                 case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startGeofenceScanner(false, true, false, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(false, false, /*false,*/ false);
+                                    startGeofenceScanner(false, true, false, false);
+                                    scheduleGeofenceScannerJob(false, false, /*false,*/ false);
                                     break;
                                 case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_ORIENTATION_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startOrientationScanner(true, true, true);
+                                    startOrientationScanner(true, true, true);
                                     break;
                                 case PPApplication.SCANNER_STOP_ORIENTATION_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_ORIENTATION_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startOrientationScanner(false, true, false);
+                                    startOrientationScanner(false, true, false);
                                     break;
                                 case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_START_PHONE_STATE_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null) {
-                                        PhoneStateScanner.forceStart = false;
-                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, false);
-                                    }
+                                    PhoneStateScanner.forceStart = false;
+                                    startPhoneStateScanner(true, true, true, false, false);
                                     break;
                                 case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_STOP_PHONE_STATE_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startPhoneStateScanner(false, true, false, false, false);
+                                    startPhoneStateScanner(false, true, false, false, false);
                                     break;
                                 case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
+                                    registerWifiConnectionBroadcastReceiver(true, true, false);
+                                    registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                    registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                    registerWifiScannerReceiver(true, true, false);
                                     break;
                                 case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, false, true);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, false, true);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, false, true);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, false, true);
+                                    registerWifiConnectionBroadcastReceiver(true, false, true);
+                                    registerWifiStateChangedBroadcastReceiver(true, false, true);
+                                    registerWifiAPStateChangeBroadcastReceiver(true, false, true);
+                                    registerWifiScannerReceiver(true, false, true);
                                     break;
                                 case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                                    //if (instance != null)
-                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
+                                    //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                    registerBluetoothScannerReceivers(true, true, false);
                                     break;
                                 case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                                    //if (instance != null)
-                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, false, true);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, false, true);
+                                    //registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
+                                    registerBluetoothStateChangedBroadcastReceiver(true, false, true);
+                                    registerBluetoothScannerReceivers(true, false, true);
                                     break;
                                 case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
+                                    registerWifiConnectionBroadcastReceiver(true, true, false);
+                                    registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                    registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                    registerWifiScannerReceiver(true, true, false);
+                                    scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
                                     break;
                                 case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
-                                    //if (instance != null)
-                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
+                                    //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                    registerBluetoothScannerReceivers(true, true, false);
+                                    scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
                                     break;
                                 case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null) {
-                                        PhoneStateScanner.forceStart = false;
-                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, true);
-                                    }
+                                    PhoneStateScanner.forceStart = false;
+                                    startPhoneStateScanner(true, true, true, false, true);
                                     break;
                                 case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null) {
-                                        PhoneStateScanner.forceStart = true;
-                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, false, false, true, false);
-                                    }
+                                    PhoneStateScanner.forceStart = true;
+                                    startPhoneStateScanner(true, false, false, true, false);
                                     break;
                                 case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerLocationModeChangedBroadcastReceiver(true, true);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, true, true, forScreenOn);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
+                                    registerLocationModeChangedBroadcastReceiver(true, true);
+                                    startGeofenceScanner(true, true, true, forScreenOn);
+                                    scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
                                     break;
                                 case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startOrientationScanner(true, false, true);
+                                    startOrientationScanner(true, false, true);
                                     break;
                                 case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiConnectionBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiStateChangedBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiAPStateChangeBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerWifiScannerReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
+                                    registerWifiConnectionBroadcastReceiver(true, true, false);
+                                    registerWifiStateChangedBroadcastReceiver(true, true, false);
+                                    registerWifiAPStateChangeBroadcastReceiver(true, true, false);
+                                    registerWifiScannerReceiver(true, true, false);
+                                    scheduleWifiJob(true, true, /*forScreenOn, false, false,*/ true);
 
-                                    //if (instance != null)
-                                    //    PhoneProfilesService.getInstance().registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerBluetoothStateChangedBroadcastReceiver(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerBluetoothScannerReceivers(true, true, false);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
+                                    //registerBluetoothConnectionBroadcastReceiver(true, false, true, false);
+                                    registerBluetoothStateChangedBroadcastReceiver(true, true, false);
+                                    registerBluetoothScannerReceivers(true, true, false);
+                                    scheduleBluetoothJob(true, true, /*forScreenOn, false,*/ true);
 
                                     PhoneStateScanner.forceStart = false;
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startPhoneStateScanner(true, true, true, false, true);
+                                    startPhoneStateScanner(true, true, true, false, true);
 
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().registerLocationModeChangedBroadcastReceiver(true, true);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startGeofenceScanner(true, false, true, forScreenOn);
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
+                                    registerLocationModeChangedBroadcastReceiver(true, true);
+                                    startGeofenceScanner(true, false, true, forScreenOn);
+                                    scheduleGeofenceScannerJob(true, true, /*forScreenOn,*/ true);
 
-                                    if (PhoneProfilesService.getInstance() != null)
-                                        PhoneProfilesService.getInstance().startOrientationScanner(true, false, true);
+                                    startOrientationScanner(true, false, true);
                                     break;
                             }
                         }
@@ -3748,11 +3690,9 @@ public class PhoneProfilesService extends Service
                             final boolean unblockEventsRun = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_UNBLOCK_EVENTS_RUN, false);
                             final boolean reactivateProfile = intent.getBooleanExtra(PostDelayedBroadcastReceiver.EXTRA_REACTIVATE_PROFILE, false);
                             final Context appContext = getApplicationContext();
-                            if (PhoneProfilesService.getInstance() != null) {
-                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                                dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
-                                dataWrapper.invalidateDataWrapper();
-                            }
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                            dataWrapper.restartEvents(unblockEventsRun, true, reactivateProfile, false, false);
+                            dataWrapper.invalidateDataWrapper();
                         }
 
                     } finally {
@@ -4316,13 +4256,11 @@ public class PhoneProfilesService extends Service
 
             PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","runningInForeground="+runningInForeground);
 
-        synchronized (PPApplication.phoneProfilesServiceMutex) {
-                if (!runningInForeground || (instance == null)) {
-                    //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-                    DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                    _showProfileNotification(null, false, dataWrapper, true);
-                    dataWrapper.invalidateDataWrapper();
-                }
+            if (!runningInForeground) {
+                //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                _showProfileNotification(null, false, dataWrapper, true);
+                dataWrapper.invalidateDataWrapper();
             }
         //}
 
@@ -4334,16 +4272,11 @@ public class PhoneProfilesService extends Service
         handler.post(new Runnable() {
             @Override
             public void run() {
-                PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","instance="+PhoneProfilesService.getInstance());
-                synchronized (PPApplication.phoneProfilesServiceMutex) {
-                    if (instance != null) {
-                        DataWrapper dataWrapper = new DataWrapper(instance.getApplicationContext(), false, 0, false);
-                        Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-                        PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                        instance._showProfileNotification(profile, true, dataWrapper, refresh);
-                        dataWrapper.invalidateDataWrapper();
-                    }
-                }
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
+                _showProfileNotification(profile, true, dataWrapper, refresh);
+                dataWrapper.invalidateDataWrapper();
             }
         });
     }
