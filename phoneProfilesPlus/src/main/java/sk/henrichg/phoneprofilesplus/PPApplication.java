@@ -180,6 +180,7 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesPrefsFragment"
                                          //+"|PhoneProfilesPrefsNotifications"
                                          //+"|LocationGeofencePreferenceX"
+                                         +"|ProfilePreferenceX"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 

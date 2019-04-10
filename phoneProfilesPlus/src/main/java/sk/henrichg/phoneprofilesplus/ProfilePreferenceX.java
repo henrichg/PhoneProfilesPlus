@@ -16,17 +16,20 @@ public class ProfilePreferenceX extends DialogPreference {
     ProfilePreferenceFragmentX fragment;
 
     String profileId;
+
     int addNoActivateItem;
     int noActivateAsDoNotApply;
     int showDuration;
 
     private final Context prefContext;
 
-    DataWrapper dataWrapper;
+    final DataWrapper dataWrapper;
 
     public ProfilePreferenceX(Context context, AttributeSet attrs)
     {
         super(context, attrs);
+
+        PPApplication.logE("ProfilePreferenceX.ProfilePreferenceX", "xxx");
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ProfilePreference);
 
@@ -118,53 +121,11 @@ public class ProfilePreferenceX extends DialogPreference {
     }
 
     @Override
-    protected Parcelable onSaveInstanceState()
-    {
-        final Parcelable superState = super.onSaveInstanceState();
-        /*if (isPersistent()) {
-            return superState;
-        }*/
-
-        final SavedState myState = new SavedState(superState);
-        myState.profileId = profileId;
-        myState.addNoActivateItem = addNoActivateItem;
-        myState.noActivateAsDoNotApply = noActivateAsDoNotApply;
-        myState.showDuration = showDuration;
-        return myState;
-
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state)
-    {
-        if (dataWrapper == null)
-            dataWrapper = new DataWrapper(prefContext, false, 0, false);
-
-        if (!state.getClass().equals(SavedState.class)) {
-            // Didn't save state for us in onSaveInstanceState
-            super.onRestoreInstanceState(state);
-            setSummary(Long.parseLong(profileId));
-            return;
-        }
-
-        // restore instance state
-        SavedState myState = (SavedState)state;
-        super.onRestoreInstanceState(myState.getSuperState());
-        profileId = myState.profileId;
-        addNoActivateItem = myState.addNoActivateItem;
-        noActivateAsDoNotApply = myState.noActivateAsDoNotApply;
-        showDuration = myState.showDuration;
-
-        setSummary(Long.parseLong(profileId));
-        notifyChanged();
-    }
-
-    @Override
     protected void onPrepareForRemoval()
     {
         super.onPrepareForRemoval();
-        dataWrapper.invalidateDataWrapper();
-        dataWrapper = null;
+        //dataWrapper.invalidateDataWrapper();
+        //dataWrapper = null;
     }
 
     /*
@@ -218,13 +179,55 @@ public class ProfilePreferenceX extends DialogPreference {
         }
     }
 
+
+    @Override
+    protected Parcelable onSaveInstanceState()
+    {
+        final Parcelable superState = super.onSaveInstanceState();
+        /*if (isPersistent()) {
+            return superState;
+        }*/
+
+        final SavedState myState = new SavedState(superState);
+        myState.profileId = profileId;
+        /*myState.addNoActivateItem = addNoActivateItem;
+        myState.noActivateAsDoNotApply = noActivateAsDoNotApply;
+        myState.showDuration = showDuration;*/
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state)
+    {
+        //if (dataWrapper == null)
+        //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
+
+        if (!state.getClass().equals(SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            setSummary(Long.parseLong(profileId));
+            return;
+        }
+
+        // restore instance state
+        SavedState myState = (SavedState)state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        profileId = myState.profileId;
+        /*addNoActivateItem = myState.addNoActivateItem;
+        noActivateAsDoNotApply = myState.noActivateAsDoNotApply;
+        showDuration = myState.showDuration;*/
+
+        setSummary(Long.parseLong(profileId));
+        //notifyChanged();
+    }
+
     // SavedState class
     private static class SavedState extends BaseSavedState
     {
         String profileId;
-        int addNoActivateItem;
+        /*int addNoActivateItem;
         int noActivateAsDoNotApply;
-        int showDuration;
+        int showDuration;*/
 
         SavedState(Parcel source)
         {
@@ -232,9 +235,9 @@ public class ProfilePreferenceX extends DialogPreference {
 
             // restore profileId
             profileId = source.readString();
-            addNoActivateItem = source.readInt();
+            /*addNoActivateItem = source.readInt();
             noActivateAsDoNotApply = source.readInt();
-            showDuration = source.readInt();
+            showDuration = source.readInt();*/
         }
 
         @Override
@@ -244,9 +247,9 @@ public class ProfilePreferenceX extends DialogPreference {
 
             // save profileId
             dest.writeString(profileId);
-            dest.writeInt(addNoActivateItem);
+            /*dest.writeInt(addNoActivateItem);
             dest.writeInt(noActivateAsDoNotApply);
-            dest.writeInt(showDuration);
+            dest.writeInt(showDuration);*/
         }
 
         SavedState(Parcelable superState)

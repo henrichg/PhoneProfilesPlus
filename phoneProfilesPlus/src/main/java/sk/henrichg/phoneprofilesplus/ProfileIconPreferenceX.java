@@ -9,6 +9,8 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -333,18 +335,60 @@ public class ProfileIconPreferenceX extends DialogPreference {
             fragment.dismiss();
     }
 
-    /*
+
+    @Override
+    protected Parcelable onSaveInstanceState()
+    {
+        final Parcelable superState = super.onSaveInstanceState();
+        /*if (isPersistent()) {
+            return superState;
+        }*/
+
+        final ProfileIconPreferenceX.SavedState myState = new ProfileIconPreferenceX.SavedState(superState);
+        myState.imageIdentifier = imageIdentifier;
+        myState.isImageResourceID = isImageResourceID;
+        myState.useCustomColor = useCustomColor;
+        myState.customColor = customColor;
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state)
+    {
+        //if (dataWrapper == null)
+        //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
+
+        if (!state.getClass().equals(ProfileIconPreferenceX.SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        // restore instance state
+        ProfileIconPreferenceX.SavedState myState = (ProfileIconPreferenceX.SavedState)state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        imageIdentifier = myState.imageIdentifier;
+        isImageResourceID = myState.isImageResourceID;
+        useCustomColor = myState.useCustomColor;
+        customColor = myState.customColor;
+    }
+
     // SavedState class
     private static class SavedState extends BaseSavedState
     {
-        String imageIdentifierAndType;
+        String imageIdentifier;
+        boolean isImageResourceID;
+        boolean useCustomColor;
+        int customColor;
 
-        public SavedState(Parcel source)
+        SavedState(Parcel source)
         {
             super(source);
 
-            // restore image identifier and type
-            imageIdentifierAndType = source.readString();
+            imageIdentifier = source.readString();
+            isImageResourceID = source.readInt() == 1;
+            useCustomColor = source.readInt() == 1;
+            customColor = source.readInt();
         }
 
         @Override
@@ -352,30 +396,31 @@ public class ProfileIconPreferenceX extends DialogPreference {
         {
             super.writeToParcel(dest, flags);
 
-            // save image identifier and type
-            dest.writeString(imageIdentifierAndType);
+            dest.writeString(imageIdentifier);
+            dest.writeInt(isImageResourceID ? 1 : 0);
+            dest.writeInt(useCustomColor ? 1 : 0);
+            dest.writeInt(customColor);
         }
 
-        public SavedState(Parcelable superState)
+        SavedState(Parcelable superState)
         {
             super(superState);
         }
 
         @SuppressWarnings("unused")
-        public static final Creator<SavedState> CREATOR =
-                new Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in)
-            {
-                return new SavedState(in);
-            }
-            public SavedState[] newArray(int size)
-            {
-                return new SavedState[size];
-            }
+        public static final Creator<ProfileIconPreferenceX.SavedState> CREATOR =
+                new Creator<ProfileIconPreferenceX.SavedState>() {
+                    public ProfileIconPreferenceX.SavedState createFromParcel(Parcel in)
+                    {
+                        return new ProfileIconPreferenceX.SavedState(in);
+                    }
+                    public ProfileIconPreferenceX.SavedState[] newArray(int size)
+                    {
+                        return new ProfileIconPreferenceX.SavedState[size];
+                    }
 
-        };
+                };
 
     }
-    */
 
 }

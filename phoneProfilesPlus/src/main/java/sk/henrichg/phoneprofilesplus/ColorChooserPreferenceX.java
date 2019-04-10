@@ -10,6 +10,8 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -147,6 +149,78 @@ public class ColorChooserPreferenceX extends DialogPreference {
         stateListDrawable.addState(new int[]{-android.R.attr.state_pressed}, coloredCircle);
         stateListDrawable.addState(new int[]{android.R.attr.state_pressed}, darkerCircle);
         return stateListDrawable;
+    }
+
+
+    @Override
+    protected Parcelable onSaveInstanceState()
+    {
+        final Parcelable superState = super.onSaveInstanceState();
+        /*if (isPersistent()) {
+            return superState;
+        }*/
+
+        final ColorChooserPreferenceX.SavedState myState = new ColorChooserPreferenceX.SavedState(superState);
+        myState.value = value;
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state)
+    {
+        if (!state.getClass().equals(ColorChooserPreferenceX.SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        // restore instance state
+        ColorChooserPreferenceX.SavedState myState = (ColorChooserPreferenceX.SavedState)state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        value = myState.value;
+    }
+
+    // SavedState class
+    private static class SavedState extends BaseSavedState
+    {
+        String value;
+
+        SavedState(Parcel source)
+        {
+            super(source);
+
+            // restore profileId
+            value = source.readString();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags)
+        {
+            super.writeToParcel(dest, flags);
+
+            // save profileId
+            dest.writeString(value);
+        }
+
+        SavedState(Parcelable superState)
+        {
+            super(superState);
+        }
+
+        @SuppressWarnings("unused")
+        public static final Creator<ColorChooserPreferenceX.SavedState> CREATOR =
+                new Creator<ColorChooserPreferenceX.SavedState>() {
+                    public ColorChooserPreferenceX.SavedState createFromParcel(Parcel in)
+                    {
+                        return new ColorChooserPreferenceX.SavedState(in);
+                    }
+                    public ColorChooserPreferenceX.SavedState[] newArray(int size)
+                    {
+                        return new ColorChooserPreferenceX.SavedState[size];
+                    }
+
+                };
+
     }
 
 }

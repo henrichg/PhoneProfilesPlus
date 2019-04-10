@@ -1,10 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
-import android.os.Bundle;
 import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
