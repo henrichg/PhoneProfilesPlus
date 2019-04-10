@@ -3,6 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,9 +141,10 @@ class AddEventAdapter extends BaseAdapter {
                 }
             }
 
-            //if (!isRunnable)
-            //    eventName = eventName + "\n\n" + vi.getResources().getString(R.string.event_preferences_error);
-            holder.eventName.setText(eventName);
+            Spannable sbt = new SpannableString(eventName);
+            sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            holder.eventName.setText(sbt);
+            //holder.eventName.setText(eventName);
 
             if (applicationEditorPrefIndicator)
             {
