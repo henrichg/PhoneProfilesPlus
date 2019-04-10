@@ -1115,8 +1115,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onDestroy()
     {
         try {
-            if (!nestedFragment || scrollToSet)
-                preferences.unregisterOnSharedPreferenceChangeListener(this);
+            preferences.unregisterOnSharedPreferenceChangeListener(this);
 
             SharedPreferences.Editor editor = appPrefNameSharedPreferences.edit();
             updateSharedPreferences(editor, preferences);
@@ -1344,8 +1343,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (!nestedFragment || scrollToSet)
-            preferences.registerOnSharedPreferenceChangeListener(this);
+        preferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
