@@ -142,15 +142,23 @@ class AddEventAdapter extends BaseAdapter {
             }
 
             Spannable sbt = new SpannableString(eventName);
-            sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            if (position == 0)
+                sbt.setSpan(new RelativeSizeSpan(0.8f), context.getString(R.string.new_empty_event).length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            else
+                sbt.setSpan(new RelativeSizeSpan(0.8f), event._name.length(), eventName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             holder.eventName.setText(sbt);
             //holder.eventName.setText(eventName);
 
             if (applicationEditorPrefIndicator)
             {
                 if (holder.eventPreferencesDescription != null) {
-                    String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
-                    holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription));
+                    if (position == 0)
+                        holder.eventPreferencesDescription.setVisibility(View.GONE);
+                    else {
+                        String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
+                        holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription));
+                        holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
