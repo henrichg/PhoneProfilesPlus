@@ -41,6 +41,9 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private SharedPreferences preferences;
     private SharedPreferences appPrefNameSharedPreferences;
 
+    boolean scrollToSet = false;
+    boolean nestedFragment = false;
+
     private static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";
     private static final int RESULT_APPLICATION_PERMISSIONS = 1990;
     private static final String PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS = "permissionsWriteSystemSettingsPermissions";
@@ -79,6 +82,9 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         // is requred for to not call onCreate and onDestroy on orientation change
         setRetainInstance(true);
+
+        nestedFragment = !(this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsRoot);
+        PPApplication.logE("PhoneProfilesPrefsFragment.onCreate", "nestedFragment="+nestedFragment);
 
         initPreferenceFragment(savedInstanceState);
         //prefMng = getPreferenceManager();
@@ -197,8 +203,6 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     return;
 
                 Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
-                boolean nestedFragment = !(fragment instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsRoot);
-                PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "nestedFragment="+nestedFragment);
                 if (nestedFragment) {
                     toolbar.setTitle(fragment.getPreferenceScreen().getTitle());
                     toolbar.setSubtitle(getString(R.string.title_activity_phone_profiles_preferences));
@@ -220,7 +224,6 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         preferences.registerOnSharedPreferenceChangeListener(this);
         */
 
-        boolean nestedFragment = !(this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsRoot);
         if (!nestedFragment) {
             Preference preferenceCategoryScreen;
             preferenceCategoryScreen = findPreference("applicationInterfaceCategoryRoot");
@@ -1113,7 +1116,8 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onDestroy()
     {
         try {
-            preferences.unregisterOnSharedPreferenceChangeListener(this);
+            if (!nestedFragment || scrollToSet)
+                preferences.unregisterOnSharedPreferenceChangeListener(this);
 
             SharedPreferences.Editor editor = appPrefNameSharedPreferences.edit();
             updateSharedPreferences(editor, preferences);
@@ -1124,94 +1128,6 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         } catch (Exception ignored) {}
 
         super.onDestroy();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        PPApplication.logE("PhoneProfilesPrefsFragment.onStart", "xxx");
-
-        /*
-        if (getActivity() == null)
-            return;
-
-        Toolbar toolbar = getActivity().findViewById(R.id.activity_preferences_toolbar);
-        boolean nestedFragment = !(this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsRoot);
-        PPApplication.logE("PhoneProfilesPrefsFragment.onStart", "nestedFragment="+nestedFragment);
-        if (nestedFragment) {
-            String title = "";
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsInterface)
-                title = getString(R.string.phone_profiles_pref_category_gui);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsApplicationStart)
-                title = getString(R.string.phone_profiles_pref_category_start);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsSystem)
-                title = getString(R.string.phone_profiles_pref_category_system);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsPermissions)
-                title = getString(R.string.phone_profiles_pref_category_permissions);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsNotifications)
-                title = getString(R.string.phone_profiles_pref_category_notifications);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsProfileActivation)
-                title = getString(R.string.phone_profiles_pref_category_activation);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsEventRun)
-                title = getString(R.string.phone_profiles_pref_category_eventRun);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsLocationScanning)
-                title = getString(R.string.phone_profiles_pref_category_location);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsWifiScanning)
-                title = getString(R.string.phone_profiles_pref_category_wifi_scanning);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsBluetoothScanning)
-                title = getString(R.string.phone_profiles_pref_category_bluetooth_scanning);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsMobileCellsScanning)
-                title = getString(R.string.phone_profiles_pref_category_mobile_cells_scanning);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsOrientationScanning)
-                title = getString(R.string.phone_profiles_pref_category_orientation_scanning);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsActivator)
-                title = getString(R.string.phone_profiles_pref_category_activator);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsEditor)
-                title = getString(R.string.phone_profiles_pref_category_editor);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsWidgetList)
-                title = getString(R.string.phone_profiles_pref_category_widget_list);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsWidgetOneRow)
-                title = getString(R.string.phone_profiles_pref_category_widget_one_row);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsWidgetIcon)
-                title = getString(R.string.phone_profiles_pref_category_widget_icon_shortcut);
-            else
-            if (this instanceof PhoneProfilesPrefsActivity.PhoneProfilesPrefsSamsungEdgePanel)
-                title = getString(R.string.phone_profiles_pref_category_samsung_edge_panel);
-
-            PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", "title="+title);
-
-            if (title.isEmpty()) {
-                toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
-                toolbar.setSubtitle(null);
-            }
-            else {
-                toolbar.setTitle(title);
-                //toolbar.setTitle(getPreferenceScreen().getTitle());
-                toolbar.setSubtitle(getString(R.string.title_activity_phone_profiles_preferences));
-            }
-        }
-        else {
-            toolbar.setTitle(getString(R.string.title_activity_phone_profiles_preferences));
-            toolbar.setSubtitle(null);
-        }
-        */
     }
 
     @Override
@@ -1429,7 +1345,8 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        preferences.registerOnSharedPreferenceChangeListener(this);
+        if (!nestedFragment || scrollToSet)
+            preferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {

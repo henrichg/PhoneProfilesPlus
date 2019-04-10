@@ -151,6 +151,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                     preferenceFragment = new PhoneProfilesPrefsSamsungEdgePanel();
                     break;
             }
+            preferenceFragment.scrollToSet = true;
         }
 
         if (savedInstanceState == null) {
