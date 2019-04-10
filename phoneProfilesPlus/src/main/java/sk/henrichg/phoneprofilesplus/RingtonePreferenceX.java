@@ -99,6 +99,12 @@ public class RingtonePreferenceX extends DialogPreference {
     }
 
     void refreshListView() {
+        PPApplication.logE("RingtonePreferenceX.refreshListView", "fragment="+fragment);
+        if (fragment != null) {
+            PPApplication.logE("RingtonePreferenceX.refreshListView", "fragment.getDialog()=" + fragment.getDialog());
+            if (fragment.getDialog() != null)
+                PPApplication.logE("RingtonePreferenceX.refreshListView", "fragment.getDialog().isShowing()=" + fragment.getDialog().isShowing());
+        }
         if ((fragment != null) && (fragment.getDialog() != null) && fragment.getDialog().isShowing()) {
 
             asyncTask = new AsyncTask<Void, Integer, Void>() {

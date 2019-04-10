@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -51,8 +52,14 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         preference.initRingtoneUri();
 
         if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext)) {
-            preference.oldRingtoneUri = preference.ringtoneUri;
-            preference.refreshListView();
+            Handler handler = new Handler(prefContext.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    preference.oldRingtoneUri = preference.ringtoneUri;
+                    preference.refreshListView();
+                }
+            }, 200);
         }
 
     }
