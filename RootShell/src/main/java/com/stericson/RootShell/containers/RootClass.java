@@ -60,7 +60,7 @@ public class RootClass /* #ANNOTATIONS extends AbstractProcessor */ {
     @SuppressWarnings("WeakerAccess")
     public class RootArgs {
 
-        String args[];
+        String[] args;
     }
 
     @SuppressWarnings("WeakerAccess")

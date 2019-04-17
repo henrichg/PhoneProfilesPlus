@@ -98,7 +98,6 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                 PPApplication.startPPService(this, serviceIntent);
             }
 
-            //noinspection SingleStatementInBlock
             switch (action) {
                 case ACTION_ACTIVATE_PROFILE:
                     if (profile_id != 0) {

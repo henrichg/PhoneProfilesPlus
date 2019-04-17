@@ -147,6 +147,8 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_CODE_IMPORTANT_INFO)
         {
             endOnStart();

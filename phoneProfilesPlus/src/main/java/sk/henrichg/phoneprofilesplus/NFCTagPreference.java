@@ -73,7 +73,6 @@ public class NFCTagPreference extends DialogPreference {
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist()) {
@@ -95,7 +94,6 @@ public class NFCTagPreference extends DialogPreference {
         //progressLinearLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_linla_progress);
         //dataRelativeLayout = layout.findViewById(R.id.nfc_tag_pref_dlg_rella_data);
 
-        //noinspection ConstantConditions
         addIcon = layout.findViewById(R.id.nfc_tag_pref_dlg_addIcon);
         addIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +113,6 @@ public class NFCTagPreference extends DialogPreference {
             }
         });
 
-        //noinspection ConstantConditions
         nfcTagName = layout.findViewById(R.id.nfc_tag_pref_dlg_bt_name);
         nfcTagName.addTextChangedListener(new TextWatcher() {
             @Override

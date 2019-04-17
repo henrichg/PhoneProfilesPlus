@@ -60,7 +60,6 @@ public class DurationDialogPreference extends DialogPreference
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int hours = mSeekBarHours.getProgress();
@@ -88,7 +87,6 @@ public class DurationDialogPreference extends DialogPreference
 
         mDialog = dialogBuilder.create();
 
-        //noinspection ConstantConditions
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
 
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);

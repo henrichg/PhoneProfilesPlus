@@ -32,6 +32,8 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == GeofencesScanner.REQUEST_RESOLVE_ERROR) {
             synchronized (PPApplication.geofenceScannerMutex) {
                 if (PhoneProfilesService.getInstance() != null) {
@@ -71,7 +73,7 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     }
 
     /* A fragment to display an error dialog */
-    public static class ErrorDialogFragment extends DialogFragment {
+    static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() {
             super();
         }

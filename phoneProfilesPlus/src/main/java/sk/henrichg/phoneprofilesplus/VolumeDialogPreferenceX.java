@@ -21,10 +21,10 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     MediaPlayer mediaPlayer = null;
 
     // Custom xml attributes.
-    String volumeType;
+    final String volumeType;
     int noChange;
     int sharedProfile;
-    int disableSharedProfile;
+    final int disableSharedProfile;
 
     int maximumValue = 7;
     final int minimumValue = 0;
@@ -61,6 +61,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
 
         if (audioManager != null) {
             // get max. values from audio manager
+            //noinspection ConstantConditions
             if (volumeType.equalsIgnoreCase("RINGTONE"))
                 maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
             else if (volumeType.equalsIgnoreCase("NOTIFICATION"))
@@ -160,14 +161,15 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         if (sharedProfile == 1)
             prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);
         else
-            prefVolumeDataSummary = String.valueOf(value) + " / " + String.valueOf(maximumValue);
+            prefVolumeDataSummary = value + " / " + maximumValue;
         setSummary(prefVolumeDataSummary);
     }
 
     String getSValue() {
-        return Integer.toString(value + minimumValue)
-                + "|" + Integer.toString(noChange)
-                + "|" + Integer.toString(sharedProfile);
+        int _value = value + minimumValue;
+        return _value
+                + "|" + noChange
+                + "|" + sharedProfile;
     }
 
     void persistValue() {

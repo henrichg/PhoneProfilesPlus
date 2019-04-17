@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 
 import androidx.appcompat.app.AlertDialog;
 
-class BetterNumberPickerPreference extends DialogPreference {
+public class BetterNumberPickerPreference extends DialogPreference {
 
     private String value;
 
@@ -55,7 +55,6 @@ class BetterNumberPickerPreference extends DialogPreference {
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 BigDecimal number = mNumberPicker.getEnteredNumber();
@@ -100,7 +99,6 @@ class BetterNumberPickerPreference extends DialogPreference {
             mMin = getSharedPreferences().getInt(mMinExternalKey, mMin);
         }
 
-        //noinspection ConstantConditions
         mNumberPicker = layout.findViewById(R.id.better_number_picker);
 
         // Initialize state

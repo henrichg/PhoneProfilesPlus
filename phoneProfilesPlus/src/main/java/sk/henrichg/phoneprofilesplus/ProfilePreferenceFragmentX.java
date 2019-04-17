@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
+class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private LinearLayout linlaProgress;
     private ListView listView;
@@ -39,10 +39,8 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
     {
         super.onBindDialogView(view);
 
-        //noinspection ConstantConditions
         linlaProgress = view.findViewById(R.id.profile_pref_dlg_linla_progress);
 
-        //noinspection ConstantConditions
         listView = view.findViewById(R.id.profile_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

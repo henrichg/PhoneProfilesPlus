@@ -184,8 +184,8 @@ public class PhoneProfilesService extends Service
 
     private int mEventCountSinceGZChanged = 0;
     private static final int MAX_COUNT_GZ_CHANGE = 5;
-    private float mGravity[] = new float[3];
-    private float mGeomagnetic[] = new float[3];
+    private float[] mGravity = new float[3];
+    private float[] mGeomagnetic = new float[3];
     private float mMaxProximityDistance;
     private float mGravityZ = 0;  //gravity acceleration along the z axis
 
@@ -4377,7 +4377,6 @@ public class PhoneProfilesService extends Service
 
     // Location ----------------------------------------------------------------
 
-    @SuppressWarnings("deprecation")
     public static boolean isLocationEnabled(Context context) {
         if (Build.VERSION.SDK_INT >= 28) {
             LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -4723,11 +4722,11 @@ public class PhoneProfilesService extends Service
                         mGeomagnetic[2] = event.values[2];
                     }*/
                     if (mGravity != null && mGeomagnetic != null) {
-                        float R[] = new float[9];
-                        float I[] = new float[9];
+                        float[] R = new float[9];
+                        float[] I = new float[9];
                         boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
                         if (success) {
-                            float orientation[] = new float[3];
+                            float[] orientation = new float[3];
                             //orientation[0]: azimuth, rotation around the -Z axis, i.e. the opposite direction of Z axis.
                             //orientation[1]: pitch, rotation around the -X axis, i.e the opposite direction of X axis.
                             //orientation[2]: roll, rotation around the Y axis.
@@ -5139,6 +5138,7 @@ public class PhoneProfilesService extends Service
 
                 try {
                     if (ringingCallIsSimulating)
+                        //noinspection ConstantConditions
                         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, 0);
                 } catch (Exception ignored) {
                 }

@@ -15,7 +15,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AlertDialog;
 
-class CalendarSearchStringPreference extends DialogPreference {
+public class CalendarSearchStringPreference extends DialogPreference {
 
     private final Context context;
 
@@ -38,7 +38,6 @@ class CalendarSearchStringPreference extends DialogPreference {
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist()) {

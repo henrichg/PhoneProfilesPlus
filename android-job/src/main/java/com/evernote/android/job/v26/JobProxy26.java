@@ -62,6 +62,7 @@ public class JobProxy26 extends JobProxy24 {
 
     @Override
     protected int convertNetworkType(@NonNull JobRequest.NetworkType networkType) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (networkType) {
             case METERED:
                 //noinspection deprecation

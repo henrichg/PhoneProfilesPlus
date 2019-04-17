@@ -55,7 +55,6 @@ class ProfileIconColorChooserDialog implements View.OnClickListener {
 
         this.defaultColor = defaultColor;
 
-        //noinspection ConstantConditions
         final FrameLayout defaultColorLayout = layout.findViewById(R.id.dialog_color_chooser_default_color);
 
         defaultColorLayout.setTag(-1);

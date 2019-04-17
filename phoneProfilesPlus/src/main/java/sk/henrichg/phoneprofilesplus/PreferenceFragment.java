@@ -20,7 +20,6 @@ import java.util.HashMap;
 
 import androidx.annotation.NonNull;
 
-@SuppressWarnings("deprecation")
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public abstract class PreferenceFragment extends android.preference.PreferenceFragment {
 

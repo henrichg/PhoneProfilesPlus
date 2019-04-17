@@ -159,7 +159,7 @@ class EventPreferencesLocation extends EventPreferences {
                 }
                 CharSequence sTitle = preference.getTitle();
                 Spannable sbt = new SpannableString(sTitle);
-                Object spansToRemove[] = sbt.getSpans(0, sTitle.length(), Object.class);
+                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
                 for(Object span: spansToRemove){
                     if(span instanceof CharacterStyle)
                         sbt.removeSpan(span);

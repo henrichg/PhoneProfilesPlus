@@ -125,13 +125,13 @@ public class VolumeDialogPreference extends
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist()) {
-                    persistString(Integer.toString(value + minimumValue)
-                            + "|" + Integer.toString(noChange)
-                            + "|" + Integer.toString(sharedProfile));
+                    int _value = value + minimumValue;
+                    persistString(_value
+                            + "|" + noChange
+                            + "|" + sharedProfile);
                     setSummaryVDP();
                 }
             }
@@ -144,13 +144,9 @@ public class VolumeDialogPreference extends
 
         mDialog = dialogBuilder.create();
 
-        //noinspection ConstantConditions
         seekBar = layout.findViewById(R.id.volumePrefDialogSeekbar);
-        //noinspection ConstantConditions
         valueText = layout.findViewById(R.id.volumePrefDialogValueText);
-        //noinspection ConstantConditions
         noChangeChBox = layout.findViewById(R.id.volumePrefDialogNoChange);
-        //noinspection ConstantConditions
         sharedProfileChBox = layout.findViewById(R.id.volumePrefDialogSharedProfile);
 
         seekBar.setOnSeekBarChangeListener(this);
@@ -262,9 +258,10 @@ public class VolumeDialogPreference extends
             value = 0;
             noChange = 1;
             sharedProfile = 0;
-            persistString(Integer.toString(value + minimumValue)
-                    + "|" + Integer.toString(noChange)
-                    + "|" + Integer.toString(sharedProfile));
+            int _value = value + minimumValue;
+            persistString(_value
+                    + "|" + noChange
+                    + "|" + sharedProfile);
         }
         setSummaryVDP();
     }
@@ -327,7 +324,7 @@ public class VolumeDialogPreference extends
         if (sharedProfile == 1)
             prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);
         else
-            prefVolumeDataSummary = String.valueOf(value) + " / " + String.valueOf(maximumValue);
+            prefVolumeDataSummary = value + " / " + maximumValue;
         setSummary(prefVolumeDataSummary);
     }
 

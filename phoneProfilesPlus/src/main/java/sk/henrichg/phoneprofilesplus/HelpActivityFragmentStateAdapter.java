@@ -17,6 +17,7 @@ class HelpActivityFragmentStateAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (position) {
             case 1:
                 return new QuickGuideHelpFragment();

@@ -119,7 +119,6 @@ public class MobileCellsPreference extends DialogPreference {
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist()) {
@@ -153,7 +152,6 @@ public class MobileCellsPreference extends DialogPreference {
         //progressLinearLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_linla_progress);
         //dataRelativeLayout = layout.findViewById(R.id.mobile_cells_pref_dlg_rella_data);
 
-        //noinspection ConstantConditions
         cellFilter = layout.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
         if (value.isEmpty())
             cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
@@ -437,7 +435,6 @@ public class MobileCellsPreference extends DialogPreference {
     }
     */
 
-    @SuppressWarnings("StringConcatenationInLoop")
     void addCellId(int cellId) {
         String[] splits = value.split("\\|");
         String sCellId = Integer.toString(cellId);
@@ -745,6 +742,7 @@ public class MobileCellsPreference extends DialogPreference {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
 
             public boolean onMenuItemClick(android.view.MenuItem item) {
+                //noinspection SwitchStatementWithTooFewBranches
                 switch (item.getItemId()) {
                     case R.id.mobile_cells_pref_item_menu_delete:
                         DatabaseHandler db = DatabaseHandler.getInstance(_context);

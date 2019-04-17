@@ -67,7 +67,6 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (callChangeListener(value))
@@ -92,9 +91,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
             }
         });
 
-        //noinspection ConstantConditions
         listView = layout.findViewById(R.id.connect_to_ssid_pref_dlg_listview);
-        //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.connect_to_ssid_pref_dlg_linla_progress);
 
         listAdapter = new ConnectToSSIDPreferenceAdapter(context, this);

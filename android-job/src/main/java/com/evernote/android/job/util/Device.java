@@ -100,7 +100,6 @@ public final class Device {
             return JobRequest.NetworkType.ANY;
         }
 
-        //noinspection deprecation
         if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
             return JobRequest.NetworkType.ANY;
         }
@@ -110,7 +109,6 @@ public final class Device {
             return JobRequest.NetworkType.UNMETERED;
         }
 
-        //noinspection deprecation
         if (networkInfo.isRoaming()) {
             return JobRequest.NetworkType.CONNECTED;
         } else {

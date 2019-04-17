@@ -114,15 +114,15 @@ public class BrightnessDialogPreference extends
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist()) {
-                    persistString(Integer.toString(value + minimumValue)
-                            + "|" + Integer.toString(noChange)
-                            + "|" + Integer.toString(automatic)
-                            + "|" + Integer.toString(sharedProfile)
-                            + "|" + Integer.toString(changeLevel));
+                    int _value = value + minimumValue;
+                    persistString(_value
+                            + "|" + noChange
+                            + "|" + automatic
+                            + "|" + sharedProfile
+                            + "|" + changeLevel);
                     setSummaryBDP();
                 }
             }
@@ -142,19 +142,12 @@ public class BrightnessDialogPreference extends
             }
         });
 
-        //noinspection ConstantConditions
         seekBar = layout.findViewById(R.id.brightnessPrefDialogSeekbar);
-        //noinspection ConstantConditions
         valueText = layout.findViewById(R.id.brightnessPrefDialogValueText);
-        //noinspection ConstantConditions
         noChangeChBox = layout.findViewById(R.id.brightnessPrefDialogNoChange);
-        //noinspection ConstantConditions
         automaticChBox = layout.findViewById(R.id.brightnessPrefDialogAutomatic);
-        //noinspection ConstantConditions
         sharedProfileChBox = layout.findViewById(R.id.brightnessPrefDialogSharedProfile);
-        //noinspection ConstantConditions
         changeLevelChBox = layout.findViewById(R.id.brightnessPrefDialogLevel);
-        //noinspection ConstantConditions
         levelText = layout.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot);
 
 
@@ -434,11 +427,12 @@ public class BrightnessDialogPreference extends
             automatic = 1;
             sharedProfile = 0;
             changeLevel = 1;
-            persistString(Integer.toString(value + minimumValue)
-                    + "|" + Integer.toString(noChange)
-                    + "|" + Integer.toString(automatic)
-                    + "|" + Integer.toString(sharedProfile)
-                    + "|" + Integer.toString(changeLevel));
+            int _value = value + minimumValue;
+            persistString(_value
+                    + "|" + noChange
+                    + "|" + automatic
+                    + "|" + sharedProfile
+                    + "|" + changeLevel);
         }
         setSummaryBDP();
     }
@@ -513,7 +507,7 @@ public class BrightnessDialogPreference extends
                 prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_manual_brightness);
 
             if ((changeLevel == 1) && (adaptiveAllowed || automatic == 0)) {
-                String _value = String.valueOf(value) + " / " + maximumValue;
+                String _value = value + " / " + maximumValue;
                 prefVolumeDataSummary = prefVolumeDataSummary + "; " + _value;
             }
         }
@@ -540,8 +534,7 @@ public class BrightnessDialogPreference extends
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(_context)) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
-                                    String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " +
-                                            Float.toString(value);
+                                    String command1 = "settings put system " + ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME + " " + value;
                                     //if (PPApplication.isSELinuxEnforcing())
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     Command command = new Command(0, false, command1); //, command2);

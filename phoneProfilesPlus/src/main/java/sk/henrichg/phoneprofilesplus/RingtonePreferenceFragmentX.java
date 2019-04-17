@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -11,7 +10,7 @@ import android.widget.AdapterView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat {
+class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     RingtonePreferenceX preference;
 
@@ -33,7 +32,6 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
     {
         super.onBindDialogView(view);
 
-        //noinspection ConstantConditions
         preference.listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
 
         preference.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -29,9 +29,9 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     @SuppressWarnings("WeakerAccess")
     protected final int mInputSize = 20;
     @SuppressWarnings("WeakerAccess")
-    protected final Button mNumbers[] = new Button[10];
+    protected final Button[] mNumbers = new Button[10];
     @SuppressWarnings("WeakerAccess")
-    protected int mInput[] = new int[mInputSize];
+    protected int[] mInput = new int[mInputSize];
     @SuppressWarnings("WeakerAccess")
     protected int mInputPointer = -1;
     @SuppressWarnings("WeakerAccess")
@@ -55,7 +55,6 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     public static final int SIGN_POSITIVE = 0;
     public static final int SIGN_NEGATIVE = 1;
 
-    @SuppressWarnings("WeakerAccess")
     protected View mDivider;
     private ColorStateList mTextColor;
     private int mKeyBackgroundResId;

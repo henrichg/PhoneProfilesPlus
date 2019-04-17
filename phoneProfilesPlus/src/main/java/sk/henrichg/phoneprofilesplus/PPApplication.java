@@ -788,7 +788,6 @@ public class PPApplication extends Application {
     */
 
     static int getVersionCode(PackageInfo pInfo) {
-        //noinspection deprecation
         return pInfo.versionCode;
     }
 
@@ -807,7 +806,6 @@ public class PPApplication extends Application {
         logFile.delete();
     }
 
-    @SuppressWarnings("UnusedAssignment")
     @SuppressLint("SimpleDateFormat")
     static private void logIntoFile(String type, String tag, String text)
     {
@@ -860,7 +858,6 @@ public class PPApplication extends Application {
     }
 
     static public boolean logEnabled() {
-        //noinspection ConstantConditions
         return (logIntoLogCat || logIntoFile);
     }
 

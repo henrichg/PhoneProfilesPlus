@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
+class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
 
     private Context context;
@@ -59,13 +59,9 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "noChange="+preference.noChange);
         PPApplication.logE("VolumeDialogPreferenceFragmentX.onBindDialogView", "sharedProfile="+preference.sharedProfile);
 
-        //noinspection ConstantConditions
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
-        //noinspection ConstantConditions
         valueText = view.findViewById(R.id.volumePrefDialogValueText);
-        //noinspection ConstantConditions
         noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
-        //noinspection ConstantConditions
         sharedProfileChBox = view.findViewById(R.id.volumePrefDialogSharedProfile);
 
         seekBar.setKeyProgressIncrement(preference.stepSize);
@@ -174,6 +170,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
     public void onStopTrackingTouch(SeekBar seekBar) {
         if (preference.mediaPlayer != null) {
             int volume;
+            //noinspection ConstantConditions
             if (preference.volumeType.equalsIgnoreCase("MEDIA"))
                 volume = preference.value;
             else {

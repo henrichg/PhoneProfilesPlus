@@ -191,6 +191,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
@@ -206,6 +207,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
+
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null)
             ((PhoneProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);

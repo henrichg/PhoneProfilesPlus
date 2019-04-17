@@ -9,7 +9,6 @@ import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
-@SuppressWarnings("deprecation")
 abstract class PreferenceActivity extends AppCompatPreferenceActivity
 {
     Toolbar toolbar;
@@ -70,6 +69,7 @@ abstract class PreferenceActivity extends AppCompatPreferenceActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (getFragmentManager().getBackStackEntryCount() > 0) {

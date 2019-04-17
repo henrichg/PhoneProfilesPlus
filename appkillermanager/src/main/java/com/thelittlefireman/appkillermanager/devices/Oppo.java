@@ -15,17 +15,17 @@ public class Oppo extends DeviceAbstract {
     * java.lang.SecurityException: Permission Denial: starting Intent { cmp=com.coloros.safecenter/.startupapp.StartupAppListActivity } from ProcessRecord{7eba0ba 27527:crb.call.follow.mycrm/u0a229} (pid=27527, uid=10229) requires oppo.permission.OPPO_COMPONENT_SAFE*/
     //coloros3.0
 
-    private static final String OPPO_ACTION_POWERSAVE_V1[] = {"com.coloros.oppoguardelf", "com.coloros.powermanager.fuelgaue.PowerConsumptionActivity"};
-    private static final String OPPO_ACTION_POWERSAVE_V2[] = {"com.coloros.oppoguardelf", "com.coloros.powermanager.fuelgaue.PowerUsageModelActivity"};
+    private static final String[] OPPO_ACTION_POWERSAVE_V1 = {"com.coloros.oppoguardelf", "com.coloros.powermanager.fuelgaue.PowerConsumptionActivity"};
+    private static final String[] OPPO_ACTION_POWERSAVE_V2 = {"com.coloros.oppoguardelf", "com.coloros.powermanager.fuelgaue.PowerUsageModelActivity"};
 
-    private static final String OPPO_ACTION_AUTOSTART_V1[] = {"com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"};
-    private static final String OPPO_ACTION_AUTOSTART_V2[] = {"com.coloros.safecenter", "com.coloros.safecenter.startupapp.StartupAppListActivity"};
+    private static final String[] OPPO_ACTION_AUTOSTART_V1 = {"com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"};
+    private static final String[] OPPO_ACTION_AUTOSTART_V2 = {"com.coloros.safecenter", "com.coloros.safecenter.startupapp.StartupAppListActivity"};
 
     //OLD == ColorOS V2.1
-    private static final String OPPO_ACTION_AUTOSTART_V3[] = {"com.color.oppoguardelf", "com.color.safecenter.permission.startup.StartupAppListActivity"};
-    private static final String OPPO_ACTION_AUTOSTART_V4[] = {"com.color.oppoguardelf", "com.color.safecenter.startupapp.StartupAppListActivity"};
+    private static final String[] OPPO_ACTION_AUTOSTART_V3 = {"com.color.oppoguardelf", "com.color.safecenter.permission.startup.StartupAppListActivity"};
+    private static final String[] OPPO_ACTION_AUTOSTART_V4 = {"com.color.oppoguardelf", "com.color.safecenter.startupapp.StartupAppListActivity"};
 
-    private static final String OPPO_ACTION_AUTOSTART_V5[] = {"com.oppo.safe", "com.oppo.safe.permission.startup.StartupAppListActivity"};
+    private static final String[] OPPO_ACTION_AUTOSTART_V5 = {"com.oppo.safe", "com.oppo.safe.permission.startup.StartupAppListActivity"};
 
     @Override
     public boolean isThatRom() {

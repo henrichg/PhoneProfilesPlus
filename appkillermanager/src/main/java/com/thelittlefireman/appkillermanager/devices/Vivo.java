@@ -14,10 +14,10 @@ public class Vivo extends DeviceAbstract {
     // Starting: Intent { cmp=com.vivo.permissionmanager/.activity.BgStartUpManagerActivity }
     //java.lang.SecurityException: Permission Denial: starting Intent { flg=0x10000000 cmp=com.vivo.permissionmanager/.activity.BgStartUpManagerActivity } from null (pid=28141, uid=2000) not exported from uid 1000
 
-    private final String VIVO_ACTION_POWERSAVE_V1[] = {"com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.AddWhiteListActivity"};
-    private final String VIVO_ACTION_POWERSAVE_V2[] = {"com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.BgStartUpManager"};
+    private final String[] VIVO_ACTION_POWERSAVE_V1 = {"com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.AddWhiteListActivity"};
+    private final String[] VIVO_ACTION_POWERSAVE_V2 = {"com.iqoo.secure", "com.iqoo.secure.ui.phoneoptimize.BgStartUpManager"};
 
-    private final String VIVO_ACTION_AUTOSTART_V1[] = {"com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"};
+    private final String[] VIVO_ACTION_AUTOSTART_V1 = {"com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.BgStartUpManagerActivity"};
 
    // "com.vivo.abe", "com.vivo.applicationbehaviorengine.ui.ExcessivePowerManagerActivity"
     //com.iqoo.secure.MainGuideActivity ??

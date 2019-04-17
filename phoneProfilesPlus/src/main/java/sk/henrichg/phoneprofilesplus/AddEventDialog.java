@@ -55,14 +55,10 @@ class AddEventDialog
             }
         });
 
-        //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.event_pref_dlg_linla_progress);
-        //noinspection ConstantConditions
         rellaData = layout.findViewById(R.id.event_pref_dlg_rella_data);
 
-        //noinspection ConstantConditions
         listView = layout.findViewById(R.id.event_pref_dlg_listview);
-        //noinspection ConstantConditions
         help = layout.findViewById(R.id.event_pref_dlg_help);
 
         listView.setOnItemClickListener(new OnItemClickListener() {

@@ -236,6 +236,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
         }
         mPicker.setNumber(mCurrentNumber, mCurrentDecimal, mCurrentSign);
 
+        //noinspection ConstantConditions
         if (getDialog().getWindow() != null)
             getDialog().getWindow().setBackgroundDrawableResource(mDialogBackgroundResId);
         return view;
@@ -250,7 +251,7 @@ public class NumberPickerDialogFragment extends DialogFragment {
     }
 
     @Override
-    public void onDismiss(DialogInterface dialoginterface) {
+    public void onDismiss(@NonNull DialogInterface dialoginterface) {
         super.onDismiss(dialoginterface);
         if (mDismissCallback != null) {
             mDismissCallback.onDialogDismiss(dialoginterface);

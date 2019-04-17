@@ -20,7 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmentCompat {
+class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     LocationGeofencePreferenceX preference;
 
@@ -51,7 +51,6 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
         AppCompatImageButton addButton = view.findViewById(R.id.location_pref_dlg_add);
 
-        //noinspection ConstantConditions
         ListView geofencesListView = view.findViewById(R.id.location_pref_dlg_listview);
 
         preference.listAdapter = new LocationGeofencesPreferenceAdapterX(prefContext, DatabaseHandler.getInstance(prefContext.getApplicationContext()).getGeofencesCursor(), this);

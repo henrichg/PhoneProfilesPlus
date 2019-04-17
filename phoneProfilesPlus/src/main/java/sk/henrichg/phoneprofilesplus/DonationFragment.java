@@ -62,7 +62,6 @@ public class DonationFragment extends Fragment {
         PPApplication.logE(TAG, "onCreateView");
         View root = inflater.inflate(R.layout.donation_fragment, container, true);
 
-        //noinspection ConstantConditions
         mLoadingView = root.findViewById(R.id.donation_google_android_market_loading);
 
         /*

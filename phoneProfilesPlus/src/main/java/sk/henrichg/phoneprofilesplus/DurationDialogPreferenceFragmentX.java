@@ -12,7 +12,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
-public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
+class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                 implements SeekBar.OnSeekBarChangeListener {
 
     private TextView mValue;
@@ -41,7 +41,6 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
     {
         super.onBindDialogView(view);
 
-        //noinspection ConstantConditions
         TextView mTextViewRange = view.findViewById(R.id.duration_pref_dlg_range);
 
         mValue = view.findViewById(R.id.duration_pref_dlg_value);

@@ -90,7 +90,6 @@ public class ProfileIconPreference extends DialogPreference {
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist()) {
@@ -106,7 +105,6 @@ public class ProfileIconPreference extends DialogPreference {
 
         mDialog = dialogBuilder.create();
 
-        //noinspection ConstantConditions
         GridView gridView = layout.findViewById(R.id.profileicon_pref_dlg_gridview);
         adapter = new ProfileIconPreferenceAdapter(prefContext, imageIdentifier, isImageResourceID, useCustomColor, customColor);
         gridView.setAdapter(adapter);

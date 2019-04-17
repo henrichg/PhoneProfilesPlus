@@ -3263,7 +3263,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     }
                                 }
                                 values = new ContentValues();
-                                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles.toString()));
+                                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, newFkProfiles.toString());
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                             }
                         } while (cursor.moveToNext());
@@ -4467,7 +4467,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     }
                                 }
                                 values = new ContentValues();
-                                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, String.valueOf(newFkProfiles.toString()));
+                                values.put(KEY_E_START_WHEN_ACTIVATED_PROFILE, newFkProfiles.toString());
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
                             }
                         } while (cursor.moveToNext());
@@ -7478,7 +7478,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 final String countQuery = "SELECT " + KEY_G_NAME +
                         " FROM " + TABLE_GEOFENCES +
-                        " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
+                        " WHERE " + KEY_G_ID + "=" + geofenceId;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -7633,7 +7633,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 final String countQuery = "SELECT " + KEY_G_TRANSITION +
                         " FROM " + TABLE_GEOFENCES +
-                        " WHERE " + KEY_G_ID + "=" + String.valueOf(geofenceId);
+                        " WHERE " + KEY_G_ID + "=" + geofenceId;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -9657,7 +9657,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_EVENTS, null);
 
                                     int batteryLevel = 15;
-                                    int batteryDetectorType = 0;
+                                    //int batteryDetectorType = 0;
                                     long fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
                                     long startTime = 0;
                                     long endTime = 0;
@@ -9773,14 +9773,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                             if (exportedDBObj.getVersion() < 1023) {
                                                 values.put(KEY_E_BATTERY_LEVEL_LOW, 0);
-                                                values.put(KEY_E_BATTERY_LEVEL_HIGHT, 100);
+                                                //values.put(KEY_E_BATTERY_LEVEL_HIGHT, 100);
                                                 values.put(KEY_E_BATTERY_CHARGING, 0);
-                                                if (batteryDetectorType == 0)
+                                                //if (batteryDetectorType == 0)
                                                     values.put(KEY_E_BATTERY_LEVEL_HIGHT, batteryLevel);
-                                                if (batteryDetectorType == 1)
-                                                    values.put(KEY_E_BATTERY_LEVEL_LOW, batteryLevel);
-                                                if (batteryDetectorType == 2)
-                                                    values.put(KEY_E_BATTERY_CHARGING, 1);
+                                                //if (batteryDetectorType == 1)
+                                                //    values.put(KEY_E_BATTERY_LEVEL_LOW, batteryLevel);
+                                                //if (batteryDetectorType == 2)
+                                                //    values.put(KEY_E_BATTERY_CHARGING, 1);
                                             }
 
                                             if (exportedDBObj.getVersion() < 1030) {

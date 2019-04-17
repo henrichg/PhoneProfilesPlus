@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import androidx.gridlayout.widget.GridLayout;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCompat
+class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                                 implements View.OnClickListener {
 
     private ColorChooserPreferenceX preference;
@@ -40,7 +40,6 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
             }
         }
 
-        //noinspection ConstantConditions
         final GridLayout list = view.findViewById(R.id.dialog_color_chooser_grid);
 
         for (int i = 0; i < list.getChildCount(); i++) {

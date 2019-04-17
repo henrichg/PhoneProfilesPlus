@@ -819,7 +819,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }
                 return super.onOptionsItemSelected(item);
             case R.id.menu_restart_events:
-                //noinspection ConstantConditions
                 //getDataWrapper().addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);
 
                 // ignore manual profile activation
@@ -1207,6 +1206,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_CODE_ACTIVATE_PROFILE)
         {
             EditorProfileListFragment fragment = (EditorProfileListFragment)getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1224,7 +1225,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 if (profile_id > 0)
                 {
-                    //noinspection ConstantConditions
                     Profile profile = DatabaseHandler.getInstance(getApplicationContext()).getProfile(profile_id, false);
                     if (profile != null) {
                         // generate bitmaps
@@ -1280,7 +1280,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 if (event_id > 0)
                 {
-                    //noinspection ConstantConditions
                     Event event = DatabaseHandler.getInstance(getApplicationContext()).getEvent(event_id);
 
                     // redraw list fragment , notifications, widgets after finish EventPreferencesActivity

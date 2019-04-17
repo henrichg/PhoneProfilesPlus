@@ -140,7 +140,6 @@ public class RingtonePreference extends DialogPreference {
             }
         });
 
-        //noinspection ConstantConditions
         listView = layout.findViewById(R.id.ringtone_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

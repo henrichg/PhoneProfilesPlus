@@ -56,6 +56,8 @@ public class LaunchShortcutActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == 100) {
             if ((resultCode == RESULT_OK) && (data != null)) {
                 data.putExtra(EXTRA_DIALOG_PREFERENCE_POSITION, dialogPreferencePosition);

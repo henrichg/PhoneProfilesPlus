@@ -5,7 +5,7 @@
              android:padding="5dp"
              tools:context="sk.henrichg.phoneprofilesplus.EventDetailsFragment">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
                     android:id="@+id/event_detail_root"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

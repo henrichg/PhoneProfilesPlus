@@ -82,7 +82,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             System.exit(2);
     }
 
-    @SuppressWarnings({"SameParameterValue", "UnusedAssignment"})
+    @SuppressWarnings("SameParameterValue")
     @SuppressLint("SimpleDateFormat")
     private void logIntoFile(String type, String tag, String text)
     {

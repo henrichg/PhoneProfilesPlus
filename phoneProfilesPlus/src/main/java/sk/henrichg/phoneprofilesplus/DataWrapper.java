@@ -672,7 +672,6 @@ public class DataWrapper {
         useCustomColor = profile.getUseCustomColorForIcon();
 
         if (isIconResourceID) {
-            //noinspection ConstantConditions
             if (profile._iconBitmap != null)
                 profileBitmap = profile._iconBitmap;
             else {
@@ -724,7 +723,6 @@ public class DataWrapper {
             shortcutIntent = new Intent(context.getApplicationContext(), BackgroundActivateProfileActivity.class);
             shortcutIntent.setAction(Intent.ACTION_MAIN);
             shortcutIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SHORTCUT);
-            //noinspection ConstantConditions
             shortcutIntent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
         }
 
@@ -2407,7 +2405,6 @@ public class DataWrapper {
                                         if (Build.VERSION.SDK_INT < 28) {
                                             NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                             if (ntkInfo != null) {
-                                                //noinspection deprecation
                                                 if (ntkInfo.getType() == ConnectivityManager.TYPE_WIFI && ntkInfo.isConnected()) {
                                                     if (wifiInfo != null) {
                                                         wifiConnected = true;
@@ -2548,7 +2545,7 @@ public class DataWrapper {
                                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanSSID=" + result.ssid);
                                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "scanBSSID=" + result.bssid);
                                         String[] splits = event._eventPreferencesWifi._SSID.split("\\|");
-                                        boolean inFront[] = new boolean[splits.length];
+                                        boolean[] inFront = new boolean[splits.length];
                                         int i = 0;
                                         for (String _ssid : splits) {
                                             inFront[i] = false;
@@ -2807,7 +2804,7 @@ public class DataWrapper {
 
                                     for (BluetoothDeviceData device : scanResults) {
                                         String[] splits = event._eventPreferencesBluetooth._adapterName.split("\\|");
-                                        boolean inFront[] = new boolean[splits.length];
+                                        boolean[] inFront = new boolean[splits.length];
                                         int i = 0;
                                         for (String _bluetoothName : splits) {
                                             inFront[i] = false;
@@ -3332,7 +3329,7 @@ public class DataWrapper {
                                     String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);
 
                                     String[] splits = event._eventPreferencesMobileCells._cells.split("\\|");
-                                    boolean registered[] = new boolean[splits.length];
+                                    boolean[] registered = new boolean[splits.length];
                                     int i = 0;
                                     for (String cell : splits) {
                                         registered[i] = cell.equals(registeredCell);
@@ -4254,7 +4251,7 @@ public class DataWrapper {
                                                             DataWrapper dataWrapper, boolean fromDB, Context context) {
         Spannable sProfileName = getProfileNameWithManualIndicator(profile, addEventName, indicators, addDuration, multiLine, dataWrapper, fromDB, context);
         Spannable sbt = new SpannableString(sProfileName);
-        Object spansToRemove[] = sbt.getSpans(0, sProfileName.length(), Object.class);
+        Object[] spansToRemove = sbt.getSpans(0, sProfileName.length(), Object.class);
         for (Object span : spansToRemove) {
             if (span instanceof CharacterStyle)
                 sbt.removeSpan(span);
@@ -4422,7 +4419,6 @@ public class DataWrapper {
     private boolean runStopEvents(boolean stop) {
         if (stop) {
             if (Event.getGlobalEventsRunning(context)) {
-                //noinspection ConstantConditions
                 addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_DISABLE, null, null, null, 0);
 
                 // no setup for next start
@@ -4445,7 +4441,6 @@ public class DataWrapper {
         }
         else {
             if (!Event.getGlobalEventsRunning(context)) {
-                //noinspection ConstantConditions
                 addActivityLog(DatabaseHandler.ALTYPE_RUNEVENTS_ENABLE, null, null, null, 0);
 
                 Event.setGlobalEventsRunning(context, true);

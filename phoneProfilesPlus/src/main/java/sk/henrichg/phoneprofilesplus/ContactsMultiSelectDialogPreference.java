@@ -100,13 +100,10 @@ public class ContactsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
-        //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.contacts_multiselect_pref_dlg_linla_progress);
-        //noinspection ConstantConditions
         rellaData = layout.findViewById(R.id.contacts_multiselect_pref_dlg_rella_data);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        //noinspection ConstantConditions
         FastScrollRecyclerView listView = layout.findViewById(R.id.contacts_multiselect_pref_dlg_listview);
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);

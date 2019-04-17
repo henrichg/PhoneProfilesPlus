@@ -727,7 +727,7 @@ public class Shell {
 
                     if (pos >= 0) {
                         outputLine = outputLine.substring(pos);
-                        String fields[] = outputLine.split(" ");
+                        String[] fields = outputLine.split(" ");
 
                         if (fields.length >= 2 && fields[1] != null) {
                             int id = 0;

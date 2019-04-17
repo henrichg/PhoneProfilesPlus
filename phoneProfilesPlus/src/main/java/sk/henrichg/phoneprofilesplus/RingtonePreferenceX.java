@@ -134,7 +134,6 @@ public class RingtonePreferenceX extends DialogPreference {
 
                     Ringtone _ringtone;
 
-                    //noinspection ConstantConditions
                     switch (ringtoneType) {
                         case "ringtone":
                             manager.setType(RingtoneManager.TYPE_RINGTONE);

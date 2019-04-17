@@ -12,7 +12,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,7 +25,7 @@ import java.util.Comparator;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-public class ActivateProfileListFragment extends Fragment {
+class ActivateProfileListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
     private ActivateProfileListAdapter profileListAdapter = null;

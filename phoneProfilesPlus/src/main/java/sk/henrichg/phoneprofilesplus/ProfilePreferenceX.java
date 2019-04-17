@@ -17,9 +17,9 @@ public class ProfilePreferenceX extends DialogPreference {
 
     String profileId;
 
-    int addNoActivateItem;
-    int noActivateAsDoNotApply;
-    int showDuration;
+    final int addNoActivateItem;
+    final int noActivateAsDoNotApply;
+    final int showDuration;
 
     private final Context prefContext;
 
@@ -120,6 +120,7 @@ public class ProfilePreferenceX extends DialogPreference {
         profileId = value;
     }
 
+    /*
     @Override
     protected void onPrepareForRemoval()
     {
@@ -127,6 +128,7 @@ public class ProfilePreferenceX extends DialogPreference {
         //dataWrapper.invalidateDataWrapper();
         //dataWrapper = null;
     }
+    */
 
     /*
     public String getProfileId()

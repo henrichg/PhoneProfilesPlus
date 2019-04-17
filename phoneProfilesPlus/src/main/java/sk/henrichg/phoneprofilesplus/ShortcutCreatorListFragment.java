@@ -30,7 +30,7 @@ import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.Fragment;
 
-public class ShortcutCreatorListFragment extends Fragment {
+class ShortcutCreatorListFragment extends Fragment {
 
     private DataWrapper activityDataWrapper;
     private ShortcutCreatorListAdapter profileListAdapter;
@@ -272,7 +272,6 @@ public class ShortcutCreatorListFragment extends Fragment {
             protected Void doInBackground(Void... params) {
                 if (profile != null) {
                     if (isIconResourceID) {
-                        //noinspection ConstantConditions
                         if (profile._iconBitmap != null)
                             profileBitmap = profile._iconBitmap;
                         else {

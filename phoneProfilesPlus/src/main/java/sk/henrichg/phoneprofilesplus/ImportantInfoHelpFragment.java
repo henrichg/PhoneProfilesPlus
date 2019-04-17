@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-public class ImportantInfoHelpFragment extends Fragment {
+class ImportantInfoHelpFragment extends Fragment {
 
     public ImportantInfoHelpFragment() {
         // Required empty public constructor
@@ -77,7 +77,6 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
-        //noinspection StatementWithEmptyBody
         if (newsLatest) {
             // move this to newXXX, for switch off news
 

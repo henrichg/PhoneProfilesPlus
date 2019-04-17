@@ -182,6 +182,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
     }
     */
 
+    @SuppressWarnings("SameParameterValue")
     void setImageIdentifierAndType(String newImageIdentifier, boolean newIsImageResourceID, boolean saveToPreference)
     {
         String newValue = newImageIdentifier+"|"+((newIsImageResourceID) ? "1" : "0");

@@ -97,11 +97,8 @@ public class ContactGroupsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
-        //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_linla_progress);
-        //noinspection ConstantConditions
         rellaData = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_rella_data);
-        //noinspection ConstantConditions
         ListView listView = layout.findViewById(R.id.contact_groups_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -98,7 +98,6 @@ class ApplicationEditorDialog
 
         mDialog = dialogBuilder.create();
 
-        //noinspection ConstantConditions
         mDelayValue = layout.findViewById(R.id.applications_editor_dialog_startApplicationDelay);
         mDelayValue.setText(GlobalGUIRoutines.getDurationString(startApplicationDelay));
 
@@ -212,7 +211,6 @@ class ApplicationEditorDialog
         });
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
-        //noinspection ConstantConditions
         listView = layout.findViewById(R.id.applications_editor_dialog_listview);
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
@@ -250,11 +248,9 @@ class ApplicationEditorDialog
                     _application.intentId = ppIntent._id;
                     _application.appLabel = ppIntent._name;
                     if (selectedApplication != null) {
-                        switch (selectedApplication.type) {
-                            case Application.TYPE_INTENT:
-                                if (selectedApplication.intentId == _application.intentId)
-                                    selectedPosition = pos;
-                                break;
+                        if (selectedApplication.type == Application.TYPE_INTENT) {
+                            if (selectedApplication.intentId == _application.intentId)
+                                selectedPosition = pos;
                         }
                     }
                     PPApplication.logE("ApplicationEditorDialog.fillApplicationList", "_application.intentId="+_application.intentId);

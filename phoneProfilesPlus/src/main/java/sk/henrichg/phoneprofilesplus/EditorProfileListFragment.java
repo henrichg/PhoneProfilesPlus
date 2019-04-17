@@ -35,7 +35,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -165,6 +164,7 @@ public class EditorProfileListFragment extends Fragment
             showTargetHelps();
     }
 
+    @SuppressWarnings("ConstantConditions")
     @SuppressLint("InflateParams")
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
@@ -180,7 +180,6 @@ public class EditorProfileListFragment extends Fragment
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_profiles_list);
-        //noinspection ConstantConditions
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
@@ -217,7 +216,6 @@ public class EditorProfileListFragment extends Fragment
             }
         });
 
-        //noinspection ConstantConditions
         LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
         orderLayout.setVisibility(View.GONE);
 

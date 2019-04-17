@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
 
-class BetterNumberPickerPreferenceX extends DialogPreference {
+public class BetterNumberPickerPreferenceX extends DialogPreference {
 
     BetterNumberPickerPreferenceFragmentX fragment;
 

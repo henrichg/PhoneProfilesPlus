@@ -73,7 +73,6 @@ public class LocationGeofencePreference extends DialogPreference {
         if (onlyEdit == 0) {
             dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
             dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-                @SuppressWarnings("StringConcatenationInLoop")
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     persistGeofence(false);
@@ -97,10 +96,8 @@ public class LocationGeofencePreference extends DialogPreference {
         //geofenceName = layout.findViewById(R.id.location_pref_dlg_geofence_name);
         //updateGUIWithGeofence(dataWrapper.getDatabaseHandler().getCheckedGeofences());
 
-        //noinspection ConstantConditions
         AppCompatImageButton addButton = layout.findViewById(R.id.location_pref_dlg_add);
 
-        //noinspection ConstantConditions
         ListView geofencesListView = layout.findViewById(R.id.location_pref_dlg_listview);
 
         listAdapter = new LocationGeofencesPreferenceAdapter(context, DatabaseHandler.getInstance(context.getApplicationContext()).getGeofencesCursor(), this);

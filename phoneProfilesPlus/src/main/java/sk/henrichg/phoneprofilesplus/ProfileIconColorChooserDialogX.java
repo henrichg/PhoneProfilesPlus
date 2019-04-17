@@ -20,7 +20,7 @@ import androidx.gridlayout.widget.GridLayout;
 class ProfileIconColorChooserDialogX implements View.OnClickListener {
 
     private final ProfileIconPreferenceX profileIconPreference;
-    final AlertDialog mDialog;
+    private final AlertDialog mDialog;
     private final Activity activity;
 
     private final int[] mColors;
@@ -55,7 +55,6 @@ class ProfileIconColorChooserDialogX implements View.OnClickListener {
 
         this.defaultColor = ProfileIconPreferenceAdapterX.getIconColor(preference.imageIdentifier/*, prefContext*/);
 
-        //noinspection ConstantConditions
         final FrameLayout defaultColorLayout = layout.findViewById(R.id.dialog_color_chooser_default_color);
 
         defaultColorLayout.setTag(-1);

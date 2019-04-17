@@ -243,7 +243,7 @@ class GlobalGUIRoutines {
                     title = TextUtils.concat("(S) ", title);
             }
             Spannable sbt = new SpannableString(title);
-            Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
+            Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
             for (Object span : spansToRemove) {
                 if (span instanceof CharacterStyle)
                     sbt.removeSpan(span);
@@ -262,6 +262,7 @@ class GlobalGUIRoutines {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
     {
         if (preference != null) {
@@ -272,7 +273,7 @@ class GlobalGUIRoutines {
                     title = TextUtils.concat("(S) ", title);
             }
             Spannable sbt = new SpannableString(title);
-            Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
+            Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
             for (Object span : spansToRemove) {
                 if (span instanceof CharacterStyle)
                     sbt.removeSpan(span);
@@ -652,6 +653,7 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getThemeActivatorGridDividerColor(final boolean show, final Context context) {
         final TypedValue value = new TypedValue();
         if (show)
@@ -660,6 +662,7 @@ class GlobalGUIRoutines {
             context.getTheme().resolveAttribute(R.attr.activityBackgroundColor, value, false);
         return value.data;
     }
+    */
 
     /*
     static int getThemeActivityLogTypeOtherColor(final Context context) {

@@ -68,7 +68,6 @@ class ImportantInfoNotification {
 
         if (newsLatest) {
             // change to false for not show notification
-            //noinspection ConstantConditions
             if (Build.VERSION.SDK_INT >= 28)
                 news = true;
         }
@@ -82,7 +81,6 @@ class ImportantInfoNotification {
 
             //noinspection RedundantIfStatement
             if ((smsSensorsCount == 0) && (callSensorsCount == 0))
-                //noinspection ConstantConditions
                 news = false;
             else {
                 news = true;
@@ -94,7 +92,6 @@ class ImportantInfoNotification {
             int orientationSensorsCount = DatabaseHandler.getInstance(context).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false);
             //noinspection RedundantIfStatement
             if ((applicationSensorsCount == 0) && (orientationSensorsCount == 0))
-                //noinspection ConstantConditions
                 news = false;
             else {
                 news = true;

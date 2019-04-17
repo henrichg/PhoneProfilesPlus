@@ -2,8 +2,7 @@
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
     android:insetBottom="6dp"
     android:insetTop="6dp">
-    <shape xmlns:android="http://schemas.android.com/apk/res/android"
-        android:shape="rectangle">
+    <shape android:shape="rectangle">
         <corners android:radius="2dp" />
         <solid android:color="@color/done_text_color_disabled" />
         <padding

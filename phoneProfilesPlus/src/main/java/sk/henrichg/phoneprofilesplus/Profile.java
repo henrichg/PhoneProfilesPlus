@@ -1296,6 +1296,7 @@ public class Profile {
     {
         PPApplication.logE("$$$ Profile.compareProfiles","withProfile="+withProfile._name);
 
+        //noinspection ConstantConditions
         if (withProfile != null) {
             if (this._id != withProfile._id)
                 return false;
@@ -2697,7 +2698,6 @@ public class Profile {
                                     if (Build.VERSION.SDK_INT < 28) {
                                         NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
                                         if (ntkInfo != null) {
-                                            //noinspection deprecation
                                             if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
                                                 mobileDataSupported = true;
                                                 break;

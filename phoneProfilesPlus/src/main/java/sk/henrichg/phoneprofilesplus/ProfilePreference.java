@@ -84,10 +84,8 @@ public class ProfilePreference extends DialogPreference {
             }
         });
 
-        //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
 
-        //noinspection ConstantConditions
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

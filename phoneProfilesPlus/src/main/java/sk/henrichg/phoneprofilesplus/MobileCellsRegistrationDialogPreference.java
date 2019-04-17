@@ -74,7 +74,6 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(R.string.mobile_cells_registration_pref_dlg_start_button, new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (Permissions.grantMobileCellsRegistrationDialogPermissions(context)) {
@@ -107,21 +106,13 @@ public class MobileCellsRegistrationDialogPreference extends DialogPreference
             }
         });
 
-        //noinspection ConstantConditions
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
-        //noinspection ConstantConditions
         mValue = layout.findViewById(R.id.duration_pref_dlg_value);
-        //noinspection ConstantConditions
         mSeekBarHours = layout.findViewById(R.id.duration_pref_dlg_hours);
-        //noinspection ConstantConditions
         mSeekBarMinutes = layout.findViewById(R.id.duration_pref_dlg_minutes);
-        //noinspection ConstantConditions
         mSeekBarSeconds = layout.findViewById(R.id.duration_pref_dlg_seconds);
-        //noinspection ConstantConditions
         mCellsName = layout.findViewById(R.id.mobile_cells_registration_cells_name);
-        //noinspection ConstantConditions
         mStatus = layout.findViewById(R.id.mobile_cells_registration_status);
-        //noinspection ConstantConditions
         mRemainingTime = layout.findViewById(R.id.mobile_cells_registration_remaining_time);
 
         mCellsName.addTextChangedListener(new TextWatcher() {

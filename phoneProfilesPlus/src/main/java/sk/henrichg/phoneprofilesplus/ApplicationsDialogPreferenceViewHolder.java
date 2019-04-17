@@ -119,7 +119,7 @@ class ApplicationsDialogPreferenceViewHolder extends RecyclerView.ViewHolder imp
         if (textView != null) {
             CharSequence title = textView.getText();
             Spannable sbt = new SpannableString(title);
-            Object spansToRemove[] = sbt.getSpans(0, title.length(), Object.class);
+            Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
             for (Object span : spansToRemove) {
                 if (span instanceof CharacterStyle)
                     sbt.removeSpan(span);

@@ -111,11 +111,8 @@ public class CalendarsMultiSelectDialogPreference extends DialogPreference
             }
         });
 
-        //noinspection ConstantConditions
         linlaProgress = layout.findViewById(R.id.calendars_multiselect_pref_dlg_linla_progress);
-        //noinspection ConstantConditions
         rellaData = layout.findViewById(R.id.calendars_multiselect_pref_dlg_rella_data);
-        //noinspection ConstantConditions
         listView = layout.findViewById(R.id.calendars_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

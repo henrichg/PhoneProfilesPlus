@@ -190,8 +190,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         if (geofence == null) {
             geofenceId = 0;
             geofence = new Geofence();
-            geofence._name = getString(R.string.event_preferences_location_new_location_name) + "_" +
-                                String.valueOf(DatabaseHandler.getInstance(getApplicationContext()).getGeofenceCount()+1);
+            int _count = DatabaseHandler.getInstance(getApplicationContext()).getGeofenceCount()+1;
+            geofence._name = getString(R.string.event_preferences_location_new_location_name) + "_" + _count;
             geofence._radius = 100;
         }
 
@@ -332,6 +332,8 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQUEST_RESOLVE_ERROR) {
             mResolvingError = false;
             if (resultCode == RESULT_OK) {
@@ -633,7 +635,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     /* A fragment to display an error dialog */
-    public static class ErrorDialogFragment extends DialogFragment {
+    static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() { }
 
         @NonNull

@@ -103,6 +103,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                         addConnectedDevice(device);
                                         break;
                                     case BluetoothDevice.ACTION_NAME_CHANGED:
+                                        //noinspection ConstantConditions
                                         if (newName != null) {
                                             PPApplication.logE("$$$ BluetoothConnectionBroadcastReceiver.onReceive", "newName=" + newName);
                                             changeDeviceName(device, newName);

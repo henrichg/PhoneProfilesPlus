@@ -10,9 +10,9 @@ import com.thelittlefireman.appkillermanager.utils.Manufacturer;
 
 public class Letv extends DeviceAbstract {
 
-    private final String LETV_ACTION_POWERSAVE_V1[] = {"com.letv.android.letvsafe", "com.letv.android.letvsafe.BackgroundAppManageActivity"};
+    private final String[] LETV_ACTION_POWERSAVE_V1 = {"com.letv.android.letvsafe", "com.letv.android.letvsafe.BackgroundAppManageActivity"};
 
-    private final String LETV_ACTION_AUTOSTART_V1[] = {"com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity"};
+    private final String[] LETV_ACTION_AUTOSTART_V1 = {"com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity"};
 
 
     @Override

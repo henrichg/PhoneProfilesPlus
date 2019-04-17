@@ -82,7 +82,6 @@ public class BluetoothNamePreference extends DialogPreference {
         dialogBuilder.setCancelable(true);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
         dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (shouldPersist()) {
@@ -118,9 +117,7 @@ public class BluetoothNamePreference extends DialogPreference {
             }
         });
 
-        //noinspection ConstantConditions
         progressLinearLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_linla_progress);
-        //noinspection ConstantConditions
         dataRelativeLayout = layout.findViewById(R.id.bluetooth_name_pref_dlg_rella_data);
 
         addIcon = layout.findViewById(R.id.bluetooth_name_pref_dlg_addIcon);

@@ -11,7 +11,7 @@ import android.widget.GridView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentCompat {
+class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
     ProfileIconPreferenceX preference;

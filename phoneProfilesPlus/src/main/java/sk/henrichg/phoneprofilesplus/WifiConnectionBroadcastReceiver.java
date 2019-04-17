@@ -52,7 +52,6 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
 
                                 boolean isConnected;
                                 if (Build.VERSION.SDK_INT < 28)
-                                    //noinspection deprecation
                                     isConnected = info.getState() == NetworkInfo.State.CONNECTED;
                                 else
                                     isConnected = info.isConnected();

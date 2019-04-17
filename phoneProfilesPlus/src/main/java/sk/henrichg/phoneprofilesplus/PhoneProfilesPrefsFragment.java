@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
-import androidx.preference.CheckBoxPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -33,7 +32,7 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
 
-public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
+class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private PreferenceManager prefMng;
@@ -911,7 +910,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         long jobMinInterval = TimeUnit.MILLISECONDS.toMinutes(JobRequest.MIN_INTERVAL);
         String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +
-                Long.toString(jobMinInterval) + " " +
+                jobMinInterval + " " +
                 getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary2);
         preference = findPreference("applicationEventLocationUpdateIntervalInfo");
         if (preference != null) {
@@ -1081,28 +1080,29 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if (KillerManager.isActionAvailable(getActivity(), KillerManager.Actions.ACTION_POWERSAVING)) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                    @SuppressWarnings({"SingleStatementInBlock", "ConstantConditions"})
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         try {
                             KillerManager.doActionPowerSaving(getActivity());
                         }catch (Exception e) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-                            //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            //    @Override
-                            //    public void onShow(DialogInterface dialog) {
-                            //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            //        if (positive != null) positive.setAllCaps(false);
-                            //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            //        if (negative != null) negative.setAllCaps(false);
-                            //    }
-                            //});
-                            if (!getActivity().isFinishing())
-                                dialog.show();
+                            if (getActivity() != null) {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = dialogBuilder.create();
+                                //dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                //    @Override
+                                //    public void onShow(DialogInterface dialog) {
+                                //        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                //        if (positive != null) positive.setAllCaps(false);
+                                //        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                //        if (negative != null) negative.setAllCaps(false);
+                                //    }
+                                //});
+                                if (!getActivity().isFinishing())
+                                    dialog.show();
+                            }
                         }
                         return false;
                     }
@@ -1788,7 +1788,7 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         // Do not bind toggles.
-        if (preference instanceof CheckBoxPreference || preference instanceof TwoStatePreference) {
+        if (/*preference instanceof CheckBoxPreference ||*/ preference instanceof TwoStatePreference) {
             return;
         }
 
@@ -2015,7 +2015,6 @@ public class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     private void setCategorySummary(Preference preferenceCategory, String summary) {
         if (getActivity() == null)
             return;

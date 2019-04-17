@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,7 +33,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -182,6 +180,7 @@ public class EditorEventListFragment extends Fragment
             showTargetHelps();
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void doOnViewCreated(View view/*, Bundle savedInstanceState*/)
     {
         //super.onActivityCreated(savedInstanceState);
@@ -191,7 +190,6 @@ public class EditorEventListFragment extends Fragment
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
-        //noinspection ConstantConditions
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
@@ -204,7 +202,6 @@ public class EditorEventListFragment extends Fragment
         listView.addFooterView(footerView, null, false);
         */
 
-        final Activity activity = getActivity();
         final EditorEventListFragment fragment = this;
 
         bottomToolbar = getActivity().findViewById(R.id.editor_list_bottom_bar);
@@ -217,15 +214,15 @@ public class EditorEventListFragment extends Fragment
                 switch (item.getItemId()) {
                     case R.id.menu_add_event:
                         if (eventListAdapter != null) {
-                            ((EditorProfilesActivity) activity).addEventDialog = new AddEventDialog(activity, fragment);
-                            ((EditorProfilesActivity) activity).addEventDialog.show();
+                            ((EditorProfilesActivity) getActivity()).addEventDialog = new AddEventDialog(getActivity(), fragment);
+                            ((EditorProfilesActivity) getActivity()).addEventDialog.show();
                         }
                         return true;
                     case R.id.menu_delete_all_events:
                         deleteAllEvents();
                         return true;
                     case R.id.menu_default_profile:
-                        Intent intent = new Intent(activity, PhoneProfilesPrefsActivity.class);
+                        Intent intent = new Intent(getActivity(), PhoneProfilesPrefsActivity.class);
                         intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
                         startActivity(intent);
                         return true;
@@ -234,7 +231,6 @@ public class EditorEventListFragment extends Fragment
             }
         });
 
-        //noinspection ConstantConditions
         LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             orderLayout.setVisibility(View.GONE);
@@ -514,7 +510,6 @@ public class EditorEventListFragment extends Fragment
 
         eventListAdapter.notifyDataSetChanged();
 
-        //noinspection ConstantConditions
         /*Intent serviceIntent = new Intent(getActivity().getApplicationContext(), PhoneProfilesService.class);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
         serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);

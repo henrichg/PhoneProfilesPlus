@@ -545,7 +545,6 @@ class Event {
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
-                //noinspection ConstantConditions
                 accessibilityEnabled = this._eventPreferencesTime.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesBattery._enabled)
                 accessibilityEnabled = this._eventPreferencesBattery.isAccessibilityServiceEnabled(context);
@@ -1393,7 +1392,6 @@ class Event {
         }
 
         boolean profileActivated = false;
-        //noinspection ConstantConditions
         if (activateReturnProfile/* && canActivateReturnProfile()*/)
         {
             if (mergedProfile == null) {

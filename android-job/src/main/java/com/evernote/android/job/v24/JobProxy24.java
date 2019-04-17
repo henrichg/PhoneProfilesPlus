@@ -65,6 +65,7 @@ public class JobProxy24 extends JobProxy21 {
 
     @Override
     protected int convertNetworkType(@NonNull JobRequest.NetworkType networkType) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (networkType) {
             case NOT_ROAMING:
                 return JobInfo.NETWORK_TYPE_NOT_ROAMING;
