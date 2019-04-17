@@ -1,60 +1,44 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.util.Log;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
 
-public class VolumeDialogPreferenceX extends
-        DialogPreference implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener {
-    // Layout widgets.
+public class VolumeDialogPreferenceX extends DialogPreference {
+
+    VolumeDialogPreferenceFragmentX fragment;
 
     private final Context _context;
-    private AlertDialog mDialog;
-    private SeekBar seekBar = null;
-    private TextView valueText = null;
-    private CheckBox noChangeChBox = null;
-    private CheckBox sharedProfileChBox = null;
 
-    private final AudioManager audioManager;
-    private MediaPlayer mediaPlayer = null;
+    final AudioManager audioManager;
+    MediaPlayer mediaPlayer = null;
 
     // Custom xml attributes.
-    private String volumeType;
-    private int noChange;
-    private int sharedProfile;
-    private int disableSharedProfile;
+    String volumeType;
+    int noChange;
+    int sharedProfile;
+    int disableSharedProfile;
 
-    private int maximumValue = 7;
-    private final int minimumValue = 0;
-    private int maximumMediaValue = 15;
+    int maximumValue = 7;
+    final int minimumValue = 0;
+    int maximumMediaValue = 15;
     private int defaultValueRing = 0;
     private int defaultValueNotification = 0;
-    private int defaultValueMusic = 0;
+    int defaultValueMusic = 0;
     private int defaultValueAlarm = 0;
     private int defaultValueSystem = 0;
     private int defaultValueVoice = 0;
-    private final int stepSize = 1;
+    final int stepSize = 1;
 
     private String sValue = "0|1";
-    private int value = 0;
+    int value = 0;
 
     public VolumeDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -104,176 +88,19 @@ public class VolumeDialogPreferenceX extends
     }
 
     @Override
-    protected void showDialog(Bundle state) {
-
-        PPApplication.startHandlerThreadPlayTone();
-        final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
-                    if (mediaPlayer != null)
-                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                } catch (Exception ignored) {}
-            }
-        });
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
-        dialogBuilder.setTitle(getDialogTitle());
-        dialogBuilder.setIcon(getDialogIcon());
-        dialogBuilder.setCancelable(true);
-        dialogBuilder.setNegativeButton(getNegativeButtonText(), null);
-        dialogBuilder.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
-            @SuppressWarnings("StringConcatenationInLoop")
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (shouldPersist()) {
-                    persistString(Integer.toString(value + minimumValue)
-                            + "|" + Integer.toString(noChange)
-                            + "|" + Integer.toString(sharedProfile));
-                    setSummaryVDP();
-                }
-            }
-        });
-
-        LayoutInflater inflater = ((Activity)getContext()).getLayoutInflater();
-        @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.activity_volume_pref_dialog, null);
-        dialogBuilder.setView(layout);
-
-        mDialog = dialogBuilder.create();
-
-        //noinspection ConstantConditions
-        seekBar = layout.findViewById(R.id.volumePrefDialogSeekbar);
-        //noinspection ConstantConditions
-        valueText = layout.findViewById(R.id.volumePrefDialogValueText);
-        //noinspection ConstantConditions
-        noChangeChBox = layout.findViewById(R.id.volumePrefDialogNoChange);
-        //noinspection ConstantConditions
-        sharedProfileChBox = layout.findViewById(R.id.volumePrefDialogSharedProfile);
-
-        seekBar.setOnSeekBarChangeListener(this);
-        seekBar.setKeyProgressIncrement(stepSize);
-        seekBar.setMax(maximumValue - minimumValue);
-
-        getValueVDP();
-
-        seekBar.setProgress(value);
-
-        noChangeChBox.setOnCheckedChangeListener(this);
-        noChangeChBox.setChecked((noChange == 1));
-
-        sharedProfileChBox.setOnCheckedChangeListener(this);
-        sharedProfileChBox.setChecked((sharedProfile == 1));
-        sharedProfileChBox.setEnabled(disableSharedProfile == 0);
-
-        if (noChange == 1)
-            sharedProfileChBox.setChecked(false);
-        if (sharedProfile == 1)
-            noChangeChBox.setChecked(false);
-
-        valueText.setEnabled((noChange == 0) && (sharedProfile == 0));
-        seekBar.setEnabled((noChange == 0) && (sharedProfile == 0));
-
-        GlobalGUIRoutines.registerOnActivityDestroyListener(this, this);
-
-        if (state != null)
-            mDialog.onRestoreInstanceState(state);
-
-        mDialog.setOnDismissListener(this);
-        if (!((Activity)_context).isFinishing())
-            mDialog.show();
-    }
-
-    public void onProgressChanged(SeekBar seek, int newValue,
-            boolean fromTouch) {
-        // Round the value to the closest integer value.
-        //noinspection ConstantConditions
-        if (stepSize >= 1) {
-            value = Math.round((float)newValue/stepSize)*stepSize;
-        }
-        else {
-            value = newValue;
-        }
-
-        // Set the valueText text.
-        valueText.setText(String.valueOf(value + minimumValue));
-
-        callChangeListener(value);
-    }
-
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        if (buttonView.getId() == R.id.volumePrefDialogNoChange)
-        {
-            noChange = (isChecked)? 1 : 0;
-
-            valueText.setEnabled((noChange == 0) && (sharedProfile == 0));
-            seekBar.setEnabled((noChange == 0) && (sharedProfile == 0));
-            if (isChecked)
-                sharedProfileChBox.setChecked(false);
-        }
-
-        if (buttonView.getId() == R.id.volumePrefDialogSharedProfile)
-        {
-            sharedProfile = (isChecked)? 1 : 0;
-
-            valueText.setEnabled((noChange == 0) && (sharedProfile == 0));
-            seekBar.setEnabled((noChange == 0) && (sharedProfile == 0));
-            if (isChecked)
-                noChangeChBox.setChecked(false);
-        }
-
-        callChangeListener(noChange);
-    }
-
-    public void onStartTrackingTouch(SeekBar seek) {
-    }
-
-    public void onStopTrackingTouch(SeekBar seek) {
-        if (mediaPlayer != null) {
-            int volume;
-            if (volumeType.equalsIgnoreCase("MEDIA"))
-                volume = value;
-            else {
-                float percentage = (float) value / maximumValue * 100.0f;
-                volume = Math.round(maximumMediaValue / 100.0f * percentage);
-            }
-
-            ActivateProfileHelper.setMediaVolume(_context, audioManager, volume);
-
-            try {
-                mediaPlayer.start();
-            } catch (Exception ignored) {
-            }
-        }
-    }
-
-    @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
+    protected void onSetInitialValue(Object defaultValue)
     {
-        if (restoreValue) {
-            // restore state
-            getValueVDP();
-        }
-        else {
-            // set state
-            value = 0;
-            noChange = 1;
-            sharedProfile = 0;
-            persistString(Integer.toString(value + minimumValue)
-                    + "|" + Integer.toString(noChange)
-                    + "|" + Integer.toString(sharedProfile));
-        }
+        // Get the persistent value and correct it for the minimum value.
+        sValue = getPersistedString((String) defaultValue);
+
+        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
+        getValueVDP();
         setSummaryVDP();
     }
 
     private void getValueVDP()
     {
-        // Get the persistent value and correct it for the minimum value.
-        sValue = getPersistedString(sValue);
-
+        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sValue="+sValue);
         String[] splits = sValue.split("\\|");
         try {
             value = Integer.parseInt(splits[0]);
@@ -298,9 +125,11 @@ public class VolumeDialogPreferenceX extends
                     value =  defaultValueVoice;
             }
         } catch (Exception e) {
+            PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));
             value = 0;
         }
         value = value - minimumValue;
+
         try {
             noChange = Integer.parseInt(splits[1]);
         } catch (Exception e) {
@@ -316,6 +145,10 @@ public class VolumeDialogPreferenceX extends
         if (value < 0) {
             value = 0;
         }
+
+        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "value="+value);
+        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "noChange="+noChange);
+        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sharedProfile="+sharedProfile);
     }
 
     private void setSummaryVDP()
@@ -331,38 +164,17 @@ public class VolumeDialogPreferenceX extends
         setSummary(prefVolumeDataSummary);
     }
 
-    @Override
-    public void onDismiss(DialogInterface dialog)
-    {
-        super.onDismiss(dialog);
-
-        PPApplication.startHandlerThreadPlayTone();
-        final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (audioManager != null) {
-                    ActivateProfileHelper.setMediaVolume(_context, audioManager, defaultValueMusic);
-                    if (mediaPlayer != null) {
-                        try {
-                            if (mediaPlayer.isPlaying())
-                                mediaPlayer.stop();
-                            mediaPlayer.release();
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            }
-        });
-
-        GlobalGUIRoutines.unregisterOnActivityDestroyListener(this, this);
+    String getSValue() {
+        return Integer.toString(value + minimumValue)
+                + "|" + Integer.toString(noChange)
+                + "|" + Integer.toString(sharedProfile);
     }
 
-    @Override
-    public void onActivityDestroy() {
-        super.onActivityDestroy();
-        if ((mDialog != null) && mDialog.isShowing())
-            mDialog.dismiss();
+    void persistValue() {
+        if (shouldPersist()) {
+            persistString(getSValue());
+            setSummaryVDP();
+        }
     }
 
     static boolean changeEnabled(String value) {
@@ -386,57 +198,44 @@ public class VolumeDialogPreferenceX extends
             return superState;
         }*/
 
-        final SavedState myState = new SavedState(superState);
-        myState.value = value;
-        myState.volumeType = volumeType;
-        myState.noChange = noChange;
-        myState.sharedProfile = sharedProfile;
-        myState.disableSharedProfile = disableSharedProfile;
+        final VolumeDialogPreferenceX.SavedState myState = new VolumeDialogPreferenceX.SavedState(superState);
+        myState.sValue = sValue;
         return myState;
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(SavedState.class)) {
+        if (!state.getClass().equals(VolumeDialogPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
+            PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");
+            getValueVDP();
             setSummaryVDP();
             return;
         }
 
         // restore instance state
-        SavedState myState = (SavedState)state;
+        VolumeDialogPreferenceX.SavedState myState = (VolumeDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
-        value = myState.value;
-        volumeType = myState.volumeType;
-        noChange = myState.noChange;
-        sharedProfile = myState.sharedProfile;
-        disableSharedProfile = myState.disableSharedProfile;
+        sValue = myState.sValue;
 
+        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onRestoreInstanceState");
+        getValueVDP();
         setSummaryVDP();
-        notifyChanged();
     }
 
     // SavedState class
     private static class SavedState extends BaseSavedState
     {
-        int value = 0;
-        String volumeType = null;
-        int noChange = 0;
-        int sharedProfile = 0;
-        int disableSharedProfile = 0;
+        String sValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             // restore profileId
-            value = source.readInt();
-            volumeType = source.readString();
-            noChange = source.readInt();
-            sharedProfile = source.readInt();
-            disableSharedProfile = source.readInt();
+            sValue = source.readString();
         }
 
         @Override
@@ -445,11 +244,7 @@ public class VolumeDialogPreferenceX extends
             super.writeToParcel(dest, flags);
 
             // save profileId
-            dest.writeInt(value);
-            dest.writeString(volumeType);
-            dest.writeInt(noChange);
-            dest.writeInt(sharedProfile);
-            dest.writeInt(disableSharedProfile);
+            dest.writeString(sValue);
         }
 
         SavedState(Parcelable superState)

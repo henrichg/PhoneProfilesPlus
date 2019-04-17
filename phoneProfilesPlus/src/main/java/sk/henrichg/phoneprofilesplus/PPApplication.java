@@ -182,6 +182,8 @@ public class PPApplication extends Application {
                                          //+"|LocationGeofencePreferenceX"
                                          +"|ProfilePreferenceX"
                                          +"|RingtonePreferenceX"
+                                         +"|VolumeDialogPreferenceX"
+                                         +"|VolumeDialogPreferenceFragmentX"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 
