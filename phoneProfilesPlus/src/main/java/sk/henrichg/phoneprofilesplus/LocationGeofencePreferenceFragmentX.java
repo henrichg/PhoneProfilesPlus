@@ -20,7 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     LocationGeofencePreferenceX preference;
 

@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
-class EventDetailsFragment extends Fragment {
+public class EventDetailsFragment extends Fragment {
 
     public long event_id;
     //public int editMode;

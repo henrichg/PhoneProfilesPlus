@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     InfoDialogPreferenceX preference;
 

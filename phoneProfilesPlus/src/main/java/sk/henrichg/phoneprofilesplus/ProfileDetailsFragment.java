@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 
-class ProfileDetailsFragment extends Fragment {
+public class ProfileDetailsFragment extends Fragment {
 
     public long profile_id;
     //public int editMode;

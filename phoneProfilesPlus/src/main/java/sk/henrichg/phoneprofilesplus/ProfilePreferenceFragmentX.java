@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private LinearLayout linlaProgress;
     private ListView listView;

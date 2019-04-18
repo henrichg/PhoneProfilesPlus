@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     RingtonePreferenceX preference;
 

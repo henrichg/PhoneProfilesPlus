@@ -16,7 +16,7 @@ import java.util.List;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
+public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
     ConnectToSSIDDialogPreferenceX preference;

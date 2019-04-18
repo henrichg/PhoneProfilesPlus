@@ -25,7 +25,7 @@ import java.util.Comparator;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-class ActivateProfileListFragment extends Fragment {
+public class ActivateProfileListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
     private ActivateProfileListAdapter profileListAdapter = null;

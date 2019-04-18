@@ -23,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
-class ImportantInfoHelpFragment extends Fragment {
+public class ImportantInfoHelpFragment extends Fragment {
 
     public ImportantInfoHelpFragment() {
         // Required empty public constructor

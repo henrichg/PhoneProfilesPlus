@@ -24,7 +24,7 @@ import android.view.View;
  * @see TimeDurationPickerDialog
  */
 @SuppressWarnings("unused")
-class TimeDurationPickerPreference extends DialogPreference {
+public class TimeDurationPickerPreference extends DialogPreference {
     /** Placeholder in the summary that will be replaced by the current duration value. */
     @SuppressWarnings("WeakerAccess")
     public static final String PLACEHOLDER_HOURS_MINUTES_SECONDS = "${h:mm:ss}";

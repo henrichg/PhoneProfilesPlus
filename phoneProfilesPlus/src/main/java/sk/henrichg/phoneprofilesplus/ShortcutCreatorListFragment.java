@@ -30,7 +30,7 @@ import androidx.core.content.pm.ShortcutManagerCompat;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.fragment.app.Fragment;
 
-class ShortcutCreatorListFragment extends Fragment {
+public class ShortcutCreatorListFragment extends Fragment {
 
     private DataWrapper activityDataWrapper;
     private ShortcutCreatorListAdapter profileListAdapter;

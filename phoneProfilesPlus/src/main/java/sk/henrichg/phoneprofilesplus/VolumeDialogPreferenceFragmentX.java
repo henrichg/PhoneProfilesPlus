@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
+public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
 
     private Context context;

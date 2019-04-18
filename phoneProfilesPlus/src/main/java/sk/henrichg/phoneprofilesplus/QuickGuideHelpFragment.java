@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-class QuickGuideHelpFragment extends Fragment {
+public class QuickGuideHelpFragment extends Fragment {
 
 
     public QuickGuideHelpFragment() {

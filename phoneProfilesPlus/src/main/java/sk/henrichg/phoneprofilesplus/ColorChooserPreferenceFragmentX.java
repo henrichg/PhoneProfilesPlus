@@ -13,7 +13,7 @@ import android.widget.FrameLayout;
 import androidx.gridlayout.widget.GridLayout;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCompat
+public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                                 implements View.OnClickListener {
 
     private ColorChooserPreferenceX preference;

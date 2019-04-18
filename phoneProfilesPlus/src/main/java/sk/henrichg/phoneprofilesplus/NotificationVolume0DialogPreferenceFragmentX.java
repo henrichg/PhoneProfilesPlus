@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDialogFragmentCompat {
+public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDialogFragmentCompat {
 
     NotificationVolume0DialogPreferenceX preference;
 
