@@ -60,4 +60,12 @@
         app:entryValues="@array/nightModeOffThemeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.ConnectToSSIDDialogPreferenceX
+        app:key="applicationDeviceConnectToSSID"
+        app:defaultValue="^just_any^"
+        app:cDisableSharedProfile="1"
+        app:title="@string/profile_preferences_deviceConnectToSSID"
+        app:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>
