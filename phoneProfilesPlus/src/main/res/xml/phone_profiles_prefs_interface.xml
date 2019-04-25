@@ -60,14 +60,4 @@
         app:entryValues="@array/nightModeOffThemeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.BrightnessDialogPreferenceX
-        app:key="prf_pref_deviceBrightness"
-        app:bNoChange="1"
-        app:bAutomatic="0"
-        app:bSharedProfile="0"
-        app:bDisableSharedProfile="1"
-        app:title="@string/profile_preferences_deviceBrightness"
-        app:summary="@string/brightness_pref_dialog_no_change_chb"
-        app:layout="@layout/mp_preference_material_widget" />
-
 </androidx.preference.PreferenceScreen>

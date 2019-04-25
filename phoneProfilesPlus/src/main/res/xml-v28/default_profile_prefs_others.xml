@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_category_others"
+    app:key="prf_pref_othersCategory">
+
+    <ListPreference
+        app:title="@string/profile_preferences_devicePowerSaveMode"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_devicePowerSaveMode"
+        app:defaultValue="0"
+        app:entries="@array/hardwareModeDPArray"
+        app:entryValues="@array/hardwareModeDPValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceRunApplicationsShortcutsChange"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceRunApplicationChange"
+        app:defaultValue="0"
+        app:entries="@array/runApplicationDPArray"
+        app:entryValues="@array/runApplicationDPValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreferenceX
+        app:defaultValue="-"
+        app:key="prf_pref_deviceRunApplicationPackageName"
+        app:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_deviceCloseAllApplicationsInfo"
+        app:title="@string/profile_preferences_deviceCloseAllApplications"
+        app:summary="@string/profile_preferences_deviceCloseAllApplicationsInfo_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceCloseAllApplications"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceCloseAllApplications"
+        app:defaultValue="0"
+        app:entries="@array/closeAllApplicationsDPArray"
+        app:entryValues="@array/closeAllApplicationsDPValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
+        app:key="prf_pref_forceStopApplicationsCategoryRoot"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsForceStopApplications" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_deviceWallpaperChange"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceWallpaperChange"
+        app:defaultValue="0"
+        app:entries="@array/changeWallpaperDPArray"
+        app:entryValues="@array/changeWallpaperDPValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.WallpaperViewPreferenceX
+        app:defaultValue="-|0"
+        app:key="prf_pref_deviceWallpaper"
+        app:title="@string/profile_preferences_deviceWallpaper"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceWallpaperFor"
+        app:summary="@string/array_pref_device_wallpaper_homescreen"
+        app:key="prf_pref_deviceWallpaperFor"
+        app:defaultValue="0"
+        app:entries="@array/wallpaperForDPArray"
+        app:entryValues="@array/wallpaperForDPValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:title="@string/profile_preferences_lockDevice"
+        app:key="prf_pref_lockDeviceCategoryRoot"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
+
+</androidx.preference.PreferenceScreen>
