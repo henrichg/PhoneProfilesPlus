@@ -30,6 +30,7 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
     {
         this.context = context;
         preference = (DurationDialogPreferenceX) getPreference();
+        preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.activity_duration_pref_dialog, null, false);

@@ -31,6 +31,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
     {
         this.context = context;
         preference = (VolumeDialogPreferenceX) getPreference();
+        preference.fragment = this;
 
         final Context _context = context;
         PPApplication.startHandlerThreadPlayTone();

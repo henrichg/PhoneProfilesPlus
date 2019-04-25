@@ -23,6 +23,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
     protected View onCreateDialogView(Context context)
     {
         preference = (ColorChooserPreferenceX) getPreference();
+        preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.dialog_color_chooser, null, false);

@@ -42,6 +42,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
     {
         this.context = context;
         preference = (BrightnessDialogPreferenceX) getPreference();
+        preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.activity_brightness_pref_dialog, null, false);

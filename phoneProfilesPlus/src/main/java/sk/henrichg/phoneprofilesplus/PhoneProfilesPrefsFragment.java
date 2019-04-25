@@ -99,6 +99,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onDisplayPreferenceDialog(Preference preference)
     {
+        PPApplication.logE("PhoneProfilesPrefsFragment.onDisplayPreferenceDialog", "xxx");
+
         PreferenceDialogFragmentCompat dialogFragment = null;
 
         if (preference instanceof DurationDialogPreferenceX)

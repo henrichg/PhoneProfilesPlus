@@ -22,6 +22,7 @@ public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragm
     {
         this.context = context;
         preference = (BetterNumberPickerPreferenceX) getPreference();
+        preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.activity_better_number_pref_dialog, null, false);

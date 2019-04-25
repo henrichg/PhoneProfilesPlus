@@ -92,7 +92,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     protected void onSetInitialValue(Object defaultValue)
     {
         // Get the persistent value
-        value = getPersistedString(value);
+        value = getPersistedString((String)defaultValue);
         getValueAMSDP();
         setSummaryAMSDP();
     }
@@ -374,36 +374,41 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
+    private String getValue() {
+        String _value = "";
+        if (applicationsList != null)
+        {
+            for (Application application : applicationsList)
+            {
+                if (!_value.isEmpty())
+                    _value = _value + "|";
+
+                if (application.type == Application.TYPE_SHORTCUT)
+                    _value = _value + "(s)";
+                if (application.type == Application.TYPE_INTENT)
+                    _value = _value + "(i)";
+
+                if (application.type != Application.TYPE_INTENT)
+                    _value = _value + application.packageName + "/" + application.activityName;
+                else
+                    _value = _value + application.intentId;
+
+                if ((application.type == Application.TYPE_SHORTCUT)/* && (application.shortcutId > 0)*/)
+                    _value = _value + "#" + application.shortcutId;
+
+                _value = _value + "#" + application.startApplicationDelay;
+                PPApplication.logE("ApplicationsDialogPreference.onPositive","value="+value);
+            }
+        }
+        return _value;
+    }
+
     void persistValue() {
         if (shouldPersist())
         {
             DatabaseHandler.getInstance(context.getApplicationContext()).updatePPIntentUsageCount(oldApplicationsList, applicationsList);
             // fill with application strings separated with |
-            value = "";
-            if (applicationsList != null)
-            {
-                for (Application application : applicationsList)
-                {
-                    if (!value.isEmpty())
-                        value = value + "|";
-
-                    if (application.type == Application.TYPE_SHORTCUT)
-                        value = value + "(s)";
-                    if (application.type == Application.TYPE_INTENT)
-                        value = value + "(i)";
-
-                    if (application.type != Application.TYPE_INTENT)
-                        value = value + application.packageName + "/" + application.activityName;
-                    else
-                        value = value + application.intentId;
-
-                    if ((application.type == Application.TYPE_SHORTCUT)/* && (application.shortcutId > 0)*/)
-                        value = value + "#" + application.shortcutId;
-
-                    value = value + "#" + application.startApplicationDelay;
-                    PPApplication.logE("ApplicationsDialogPreference.onPositive","value="+value);
-                }
-            }
+            value = getValue();
 
             persistString(value);
 
@@ -734,7 +739,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
         }*/
 
         final ApplicationsDialogPreferenceX.SavedState myState = new ApplicationsDialogPreferenceX.SavedState(superState);
-        myState.value = value;
+        myState.value = getValue();
         return myState;
     }
 

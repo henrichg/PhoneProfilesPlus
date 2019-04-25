@@ -17,6 +17,7 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         preference = (InfoDialogPreferenceX) getPreference();
+        preference.fragment = this;
 
         return new AlertDialog.Builder(preference.getContext())
                 .setIcon(preference.getIcon())

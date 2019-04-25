@@ -32,6 +32,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
     {
         prefContext = context;
         preference = (LocationGeofencePreferenceX) getPreference();
+        preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.activity_location_pref_dialog, null, false);

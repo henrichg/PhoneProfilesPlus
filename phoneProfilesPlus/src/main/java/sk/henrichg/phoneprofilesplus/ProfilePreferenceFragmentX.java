@@ -29,6 +29,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
     {
         prefContext = context;
         preference = (ProfilePreferenceX) getPreference();
+        preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.activity_profile_pref_dialog, null, false);

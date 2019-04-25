@@ -22,6 +22,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
     {
         prefContext = context;
         preference = (RingtonePreferenceX) getPreference();
+        preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.activity_ringtone_pref_dialog, null, false);

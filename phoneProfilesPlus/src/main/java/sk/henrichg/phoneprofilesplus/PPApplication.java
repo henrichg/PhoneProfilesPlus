@@ -184,6 +184,8 @@ public class PPApplication extends Application {
                                          +"|RingtonePreferenceX"
                                          +"|VolumeDialogPreferenceX"
                                          +"|VolumeDialogPreferenceFragmentX"
+                                         +"|ApplicationsDialogPreferenceX"
+                                         +"|ApplicationsDialogPreferenceFragmentX"
 
                                          //+"|ProfilePreferencesNestedFragment.onActivityCreated"
 

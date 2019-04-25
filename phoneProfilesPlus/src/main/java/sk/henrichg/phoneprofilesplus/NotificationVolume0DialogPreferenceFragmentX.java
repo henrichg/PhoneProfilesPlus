@@ -19,6 +19,7 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         preference = (NotificationVolume0DialogPreferenceX) getPreference();
+        preference.fragment = this;
 
         final SharedPreferences preferences = preference.getSharedPreferences();
 

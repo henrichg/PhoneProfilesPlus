@@ -39,6 +39,9 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         prefContext = context;
         preference = (ApplicationsDialogPreferenceX) getPreference();
 
+        PPApplication.logE("ApplicationsDialogPreferenceFragmentX.onCreateDialogView", "xxx");
+        preference.fragment = this;
+
         LayoutInflater inflater = LayoutInflater.from(context);
         return inflater.inflate(R.layout.activity_applications_pref_dialog, null, false);
     }
