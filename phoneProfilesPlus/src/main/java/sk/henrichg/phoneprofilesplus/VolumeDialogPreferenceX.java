@@ -236,7 +236,6 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         {
             super(source);
 
-            // restore profileId
             sValue = source.readString();
         }
 
@@ -245,7 +244,6 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         {
             super.writeToParcel(dest, flags);
 
-            // save profileId
             dest.writeString(sValue);
         }
 
