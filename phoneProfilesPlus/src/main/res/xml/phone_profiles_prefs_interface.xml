@@ -60,10 +60,4 @@
         app:entryValues="@array/nightModeOffThemeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreferenceX
-        app:defaultValue="-"
-        app:key="applicationDeviceRunApplicationPackageName"
-        app:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
-        app:layout="@layout/mp_preference_material_widget" />
-
 </androidx.preference.PreferenceScreen>
