@@ -70,7 +70,7 @@ public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-
+        preference.fragment = null;
     }
 
     @Override

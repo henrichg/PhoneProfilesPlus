@@ -94,6 +94,8 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         if (positiveResult) {
             preference.persistIcon();
         }
+
+        preference.fragment = null;
     }
 
     private void showCustomColorChooser() {

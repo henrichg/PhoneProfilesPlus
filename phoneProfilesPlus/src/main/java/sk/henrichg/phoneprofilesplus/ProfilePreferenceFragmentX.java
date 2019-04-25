@@ -119,6 +119,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
+        preference.fragment = null;
     }
 
     void doOnItemSelected(int position)

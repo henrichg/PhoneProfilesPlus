@@ -93,6 +93,8 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
             if (!EditorProfilesActivity.getApplicationsCache().cached)
                 EditorProfilesActivity.getApplicationsCache().clearCache(false);
         }
+
+        preference.fragment = null;
     }
 
     @Override

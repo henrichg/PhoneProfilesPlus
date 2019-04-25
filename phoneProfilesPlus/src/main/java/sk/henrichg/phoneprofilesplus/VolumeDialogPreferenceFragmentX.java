@@ -114,6 +114,8 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 }
             }
         });
+
+        preference.fragment = null;
     }
 
     @Override

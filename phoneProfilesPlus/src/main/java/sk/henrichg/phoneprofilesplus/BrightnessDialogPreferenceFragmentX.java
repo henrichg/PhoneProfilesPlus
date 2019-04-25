@@ -114,7 +114,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             layoutParams.screenBrightness = preference.savedBrightness / (float) 255;
         win.setAttributes(layoutParams);
 
-
+        preference.fragment = null;
     }
 
     @Override

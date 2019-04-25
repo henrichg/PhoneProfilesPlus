@@ -29,6 +29,6 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-
+        preference.fragment = null;
     }
 }

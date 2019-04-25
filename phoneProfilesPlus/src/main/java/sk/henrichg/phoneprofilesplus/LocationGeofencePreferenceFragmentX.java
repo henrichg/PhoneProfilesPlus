@@ -184,6 +184,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
         if (positiveResult && (preference.onlyEdit != 0))
             preference.persistGeofence(false);
+
+        preference.fragment = null;
     }
 
     private void startEditor(long geofenceId) {

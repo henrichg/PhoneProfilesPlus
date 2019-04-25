@@ -127,6 +127,8 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
             preference.persistValue();
             preference.setSummaryCTSDP();
         }
+
+        preference.fragment = null;
     }
 
     private class SortList implements Comparator<WifiSSIDData> {

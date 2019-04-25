@@ -81,6 +81,6 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-
+        preference.fragment = null;
     }
 }

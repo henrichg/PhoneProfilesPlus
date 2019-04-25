@@ -73,6 +73,8 @@ public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragm
             preference.value = String.valueOf(mNumberPicker.getNumber());
             preference.persistValue();
         }
+
+        preference.fragment = null;
     }
 
     private boolean isBigger(BigDecimal number) {
