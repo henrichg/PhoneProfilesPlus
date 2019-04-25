@@ -360,6 +360,11 @@
             android:label="@string/intent_editor_title"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
+        <activity
+            android:name=".ApplicationEditorIntentActivityX"
+            android:label="@string/intent_editor_title"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
 
         <!-- implicit broadcast receivers, in Android O exception group -->
         <!-- https://developer.android.com/guide/components/broadcast-exceptions.html -->

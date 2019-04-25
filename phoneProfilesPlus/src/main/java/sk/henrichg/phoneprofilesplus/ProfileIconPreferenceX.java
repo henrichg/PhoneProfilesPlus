@@ -129,48 +129,6 @@ public class ProfileIconPreferenceX extends DialogPreference {
     }
 
     /*
-    @Override
-    protected Parcelable onSaveInstanceState()
-    {
-        final Parcelable superState = super.onSaveInstanceState();
-        if (isPersistent()) {
-            return superState;
-        }
-
-        final SavedState myState = new SavedState(superState);
-        myState.imageIdentifierAndType = imageIdentifier+"|"+((isImageResourceID) ? "1" : "0");
-        return myState;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state)
-    {
-        if (!state.getClass().equals(SavedState.class)) {
-            // Didn't save state for us in onSaveInstanceState
-            super.onRestoreInstanceState(state);
-            return;
-        }
-
-        // restore instance state
-        SavedState myState = (SavedState)state;
-        super.onRestoreInstanceState(myState.getSuperState());
-        String value = (String) myState.imageIdentifierAndType;
-        String[] splits = value.split("\\|");
-        try {
-            imageIdentifier = splits[0];
-        } catch (Exception e) {
-            imageIdentifier = PPApplication.PROFILE_ICON_DEFAULT;
-        }
-        try {
-            isImageResourceID = splits[1].equals("1");
-        } catch (Exception e) {
-            isImageResourceID = true;
-        }
-        notifyChanged();
-    }
-    */
-
-    /*
     public String getImageIdentifier()
     {
         return imageIdentifier;
