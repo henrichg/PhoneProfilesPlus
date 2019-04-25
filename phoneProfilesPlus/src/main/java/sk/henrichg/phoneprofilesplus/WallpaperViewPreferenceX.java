@@ -99,20 +99,9 @@ public class WallpaperViewPreferenceX extends Preference {
     }
 
     @Override
-    protected void onSetInitialValue(boolean restoreValue, Object defaultValue)
+    protected void onSetInitialValue(Object defaultValue)
     {
-        if (restoreValue) {
-            // restore state
-            imageIdentifier = getPersistedString(imageIdentifier);
-            //Log.d("---- WallpaperViewPreference.onSetInitialValue","getBitmap");
-            //getBitmap();
-        }
-        else {
-            // set state
-            imageIdentifier = (String) defaultValue;
-            //getBitmap();
-            persistString(imageIdentifier);
-        }
+        imageIdentifier = getPersistedString((String)defaultValue);
     }
 
     @Override
