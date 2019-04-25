@@ -55,7 +55,7 @@
         app:entries="@array/changeWallpaperDPArray"
         app:entryValues="@array/changeWallpaperDPValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.WallpaperViewPreference
+    <sk.henrichg.phoneprofilesplus.WallpaperViewPreferenceX
         app:defaultValue="-|0"
         app:key="prf_pref_deviceWallpaper"
         app:title="@string/profile_preferences_deviceWallpaper"
