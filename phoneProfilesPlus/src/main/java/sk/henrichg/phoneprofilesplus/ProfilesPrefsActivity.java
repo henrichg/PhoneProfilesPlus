@@ -5,15 +5,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 public class ProfilesPrefsActivity extends AppCompatActivity {
 
-    private long profile_id = 0;
-    private int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
-    private int predefinedProfileIndex = 0;
+    long profile_id = 0;
+    int newProfileMode = EditorProfileListFragment.EDIT_MODE_UNDEFINED;
+    int predefinedProfileIndex = 0;
+    int startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
     private int resultCode = RESULT_CANCELED;
 
@@ -47,17 +49,10 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         ProfilesPrefsFragment preferenceFragment = new ProfilesPrefsActivity.ProfilesPrefsRoot();
 
-        //TODO - test if, bundle is filled in nested fragments!!!!
-        Bundle arguments = new Bundle();
-        arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
-        arguments.putInt(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
         if (profile_id == Profile.SHARED_PROFILE_ID)
-            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE);
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE;
         else
-            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
-        arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
-        //arguments.putBoolean(PreferenceFragment.EXTRA_NESTED, nested);
-        preferenceFragment.setArguments(arguments);
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -65,7 +60,16 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     .replace(R.id.activity_preferences_settings, preferenceFragment)
                     .commit();
         }
+        else {
+            profile_id = savedInstanceState.getLong("profile_id", 0);
+            if (profile_id == Profile.SHARED_PROFILE_ID)
+                resultCode = RESULT_OK;
+            newProfileMode = savedInstanceState.getInt("newProfileMode", EditorProfileListFragment.EDIT_MODE_UNDEFINED);
+            predefinedProfileIndex = savedInstanceState.getInt("predefinedProfileIndex", 0);
+            startupSource = savedInstanceState.getInt("startupSource", PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
 
+            showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
+        }
     }
 
     @Override
@@ -93,15 +97,29 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             ((ProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
     }
 
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putLong("profile_id", profile_id);
+        savedInstanceState.putInt("newProfileMode", newProfileMode);
+        savedInstanceState.putInt("predefinedProfileIndex", predefinedProfileIndex);
+        savedInstanceState.putInt("startupSource", startupSource);
+
+        savedInstanceState.putBoolean("showSaveMenu", showSaveMenu);
+    }
+
+
 //--------------------------------------------------------------------------------------------------
 
     static public class ProfilesPrefsRoot extends ProfilesPrefsFragment {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_root, rootKey);
                 else
@@ -125,9 +143,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_activation_duration, rootKey);
             }
@@ -150,9 +168,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_sound_profile, rootKey);
                 else
@@ -174,9 +192,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_volumes, rootKey);
                 else
@@ -198,9 +216,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_sounds, rootKey);
                 else
@@ -222,9 +240,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_touch_effects, rootKey);
                 else
@@ -246,9 +264,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_radios, rootKey);
                 else
@@ -270,9 +288,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_screen, rootKey);
                 else
@@ -294,9 +312,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_application, rootKey);
                 else
@@ -318,9 +336,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_others, rootKey);
                 else
@@ -342,9 +360,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_force_stop, rootKey);
                 else
@@ -366,9 +384,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //TODO - test if, bundle is filled in nested fragments!!!!
-            if (bundle != null) {
-                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+            if (getActivity() != null) {
+                startupSource = ((ProfilesPrefsActivity)getActivity()).startupSource;
+                String prefsName = getPreferenceName(startupSource);
                 if (prefsName.equals(PREFS_NAME_ACTIVITY))
                     setPreferencesFromResource(R.xml.profile_prefs_lock_device, rootKey);
                 else

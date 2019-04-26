@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -38,11 +39,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         nestedFragment = !(this instanceof ProfilesPrefsActivity.ProfilesPrefsRoot);
         PPApplication.logE("ProfilesPrefsFragment.onCreate", "nestedFragment="+nestedFragment);
-
-        //TODO - test if, bundle is filled in nested fragments!!!!
-        Bundle bundle = this.getArguments();
-        if (bundle != null)
-            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
 
         initPreferenceFragment(savedInstanceState);
         //prefMng = getPreferenceManager();
@@ -167,6 +163,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (getActivity() == null)
             return;
+
+        if (savedInstanceState != null) {
+            startupSource = savedInstanceState.getInt("startupSource", PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+        }
+
+
     }
 
     @Override
@@ -189,7 +191,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "xxx");
-        setSummary(key);
+        //setSummary(key);
     }
 
     void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/) {
@@ -204,6 +206,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         doOnActivityResult(requestCode, resultCode);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("startupSource", startupSource);
+    }
 
     static String getPreferenceName(int startupSource) {
         String PREFS_NAME;
