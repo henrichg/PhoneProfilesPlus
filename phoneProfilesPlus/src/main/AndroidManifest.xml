@@ -176,6 +176,10 @@
             android:label="@string/title_activity_profile_preferences">
         </activity>
         <activity
+            android:name=".ProfilesPrefsActivity"
+            android:label="@string/title_activity_profile_preferences">
+        </activity>
+        <activity
             android:name=".EventPreferencesActivity"
             android:label="@string/title_activity_event_preferences">
         </activity>

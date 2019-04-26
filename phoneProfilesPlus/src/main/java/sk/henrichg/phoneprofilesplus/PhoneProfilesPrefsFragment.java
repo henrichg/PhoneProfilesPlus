@@ -37,7 +37,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
-    private SharedPreferences appPrefNameSharedPreferences;
+    private SharedPreferences applicationPreferences;
 
     boolean scrollToSet = false;
     private boolean nestedFragment = false;
@@ -147,72 +147,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             ((ColorChooserPreferenceX)preference).fragment = new ColorChooserPreferenceFragmentX();
             dialogFragment = ((ColorChooserPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-
-        // profile preferences dialogs
-        if (preference instanceof InfoDialogPreferenceX)
-        {
-            ((InfoDialogPreferenceX)preference).fragment = new InfoDialogPreferenceFragmentX();
-            dialogFragment = ((InfoDialogPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        if (preference instanceof ProfileIconPreferenceX)
-        {
-            ((ProfileIconPreferenceX)preference).fragment = new ProfileIconPreferenceFragmentX();
-            dialogFragment = ((ProfileIconPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        if (preference instanceof VolumeDialogPreferenceX)
-        {
-            ((VolumeDialogPreferenceX)preference).fragment = new VolumeDialogPreferenceFragmentX();
-            dialogFragment = ((VolumeDialogPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        if (preference instanceof NotificationVolume0DialogPreferenceX)
-        {
-            ((NotificationVolume0DialogPreferenceX)preference).fragment = new NotificationVolume0DialogPreferenceFragmentX();
-            dialogFragment = ((NotificationVolume0DialogPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        if (preference instanceof ConnectToSSIDDialogPreferenceX)
-        {
-            ((ConnectToSSIDDialogPreferenceX)preference).fragment = new ConnectToSSIDDialogPreferenceFragmentX();
-            dialogFragment = ((ConnectToSSIDDialogPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        if (preference instanceof BrightnessDialogPreferenceX)
-        {
-            ((BrightnessDialogPreferenceX)preference).fragment = new BrightnessDialogPreferenceFragmentX();
-            dialogFragment = ((BrightnessDialogPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        if (preference instanceof ApplicationsDialogPreferenceX)
-        {
-            ((ApplicationsDialogPreferenceX)preference).fragment = new ApplicationsDialogPreferenceFragmentX();
-            dialogFragment = ((ApplicationsDialogPreferenceX)preference).fragment;
-            Bundle bundle = new Bundle(1);
-            bundle.putString("key", preference.getKey());
-            dialogFragment.setArguments(bundle);
-        }
-        if (preference instanceof ApplicationsMultiSelectDialogPreferenceX)
-        {
-            ((ApplicationsMultiSelectDialogPreferenceX)preference).fragment = new ApplicationsMultiSelectDialogPreferenceFragmentX();
-            dialogFragment = ((ApplicationsMultiSelectDialogPreferenceX)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -1167,7 +1101,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         try {
             preferences.unregisterOnSharedPreferenceChangeListener(this);
 
-            SharedPreferences.Editor editor = appPrefNameSharedPreferences.edit();
+            SharedPreferences.Editor editor = applicationPreferences.edit();
             updateSharedPreferences(editor, preferences);
             editor.apply();
 
@@ -1385,10 +1319,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (savedInstanceState == null) {
             if (getContext() != null) {
-                appPrefNameSharedPreferences = getContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+                applicationPreferences = getContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = preferences.edit();
-                updateSharedPreferences(editor, appPrefNameSharedPreferences);
+                updateSharedPreferences(editor, applicationPreferences);
                 editor.apply();
             }
         }
