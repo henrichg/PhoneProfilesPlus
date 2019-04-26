@@ -146,4 +146,244 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
+    static public class ProfilesPrefsSoundProfiles extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_sound_profile, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_sound_profile, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsVolumes extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_volumes, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_volumes, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsSounds extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_sounds, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_sounds, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsTouchEffects extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_touch_effects, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_touch_effects, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsRadios extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_radios, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_radios, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsScreen extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_screen, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_screen, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsApplication extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_application, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_application, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsOthers extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_others, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_others, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsForceStopApplications extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_force_stop, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_force_stop, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
+    static public class ProfilesPrefsLockDevice extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //TODO - test if, bundle is filled in nested fragments!!!!
+            if (bundle != null) {
+                String prefsName = getPreferenceName(bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0));
+                if (prefsName.equals(PREFS_NAME_ACTIVITY))
+                    setPreferencesFromResource(R.xml.profile_prefs_lock_device, rootKey);
+                else
+                    setPreferencesFromResource(R.xml.default_profile_prefs_lock_device, rootKey);
+            }
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            editor.putString(Profile.PREF_PROFILE_NAME, fromPreference.getString(Profile.PREF_PROFILE_NAME, "Profile"));
+            editor.putString(Profile.PREF_PROFILE_ICON, fromPreference.getString(Profile.PREF_PROFILE_ICON, "ic_profile_default|1|0|0"));
+            editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, fromPreference.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true));
+            editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, fromPreference.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false));
+        }
+
+    }
+
 }
