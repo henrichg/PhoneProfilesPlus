@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_lockDevice"
+    app:key="prf_pref_lockDeviceCategory" >
+
+    <ListPreference
+        app:title="@string/profile_preferences_lockDevice"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_lockDevice"
+        app:defaultValue="0"
+        app:entries="@array/lockDeviceArray"
+        app:entryValues="@array/lockDeviceValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_lockDeviceInstallExtender"
+        app:title="@string/extender_app_name"
+        app:summary="@string/profile_preferences_lockDevice_PPPExtender_install_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_lockDeviceInstallExtenderInfo"
+        app:title="@string/event_preferences_PPPExtenderInstallInfo_text"
+        app:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_lockDeviceAccessibilitySettings"
+        app:title="@string/profile_preferences_lockDevice_AccessibilitySettings_title"
+        app:summary="@string/profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

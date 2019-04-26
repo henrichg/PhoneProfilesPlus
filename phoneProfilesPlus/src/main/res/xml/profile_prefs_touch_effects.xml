@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_category_touchEffects"
+    app:key="prf_pref_touchEffectsCategory" >
+
+    <ListPreference
+        app:title="@string/profile_preferences_soundOnTouch"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_soundOnTouch"
+        app:defaultValue="0"
+        app:entries="@array/soundOnTouchArray"
+        app:entryValues="@array/soundOnTouchValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_vibrationOnTouch"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_vibrationOnTouch"
+        app:defaultValue="0"
+        app:entries="@array/vibrationOnTouchArray"
+        app:entryValues="@array/vibrationOnTouchValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_dtmfToneWhenDialing"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_dtmfToneWhenDialing"
+        app:defaultValue="0"
+        app:entries="@array/dtmfToneWhenDialingArray"
+        app:entryValues="@array/dtmfToneWhenDialingValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

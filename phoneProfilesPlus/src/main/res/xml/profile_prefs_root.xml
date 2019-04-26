@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="rootScreen"
-    app:title="@string/title_activity_default_profile_preferences">
+    app:title="@string/title_activity_profile_preferences">
 
     <PreferenceCategory
         app:summary="@string/profile_preferences_category_profileIdentification"
@@ -36,7 +36,7 @@
 
         <Preference
             app:title="@string/profile_preferences_category_activation_duration"
-            app:key="prf_pref_activationDurationCategory"
+            app:key="prf_pref_activationDurationCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsActivationDuration" />

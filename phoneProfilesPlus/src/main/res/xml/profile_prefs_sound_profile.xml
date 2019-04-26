@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_category_sound_profile"
+    app:key="prf_pref_soundProfileCategory" >
+
+    <Preference
+        app:key="prf_pref_volumeVibrateWhenRingingRootInfo"
+        app:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
+        app:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfoM_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_volumeRingerMode"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_volumeRingerMode"
+        app:defaultValue="0"
+        app:entries="@array/ringerModeArray"
+        app:entryValues="@array/ringerModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_volumeNotificationsAccessSettings"
+        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+        app:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" >
+    </Preference>
+    <ListPreference
+        app:title="@string/profile_preferences_volumeZenMode"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_volumeZenMode"
+        app:defaultValue="0"
+        app:entries="@array/zenModeArray"
+        app:entryValues="@array/zenModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_vibrateWhenRinging"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_vibrateWhenRinging"
+        app:defaultValue="0"
+        app:entries="@array/vibrateWhenRingingArray"
+        app:entryValues="@array/vibrateWhenRingingValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>
