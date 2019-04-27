@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Shared profile</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string>
-  <string name="preference_profile_default_profile">Shared profile</string>
-  <string name="volume_pref_dialog_default_profile_chb">Shared profile</string>
-  <string name="array_pref_default_profile">Shared profile</string>
+<!--  <string name="default_profile_name">Shared profile</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Shared profile</string> -->
+<!--  <string name="preference_profile_default_profile">Shared profile</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Shared profile</string> -->
+<!--  <string name="array_pref_default_profile">Shared profile</string> -->
   <string name="array_pref_change">Промени</string>
   <string name="array_pref_no_show">Не показвай</string>
   <string name="array_pref_show">Покажи</string>
   <string name="array_pref_no_run">Не изпълнявай</string>
   <string name="array_pref_run">Изпълни</string>
-  <string name="title_activity_default_profile_preferences">Shared profile</string>
+<!--  <string name="title_activity_default_profile_preferences">Shared profile</string> -->
   <string name="profile_list_item_menu_activate">Активирай</string>
   <string name="profile_list_item_menu_duplicate">Дублиране</string>
   <string name="profile_list_item_menu_delete">Изтрий</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Event status indicator</string>
   <string name="editor_event_list_item_profile_start_icon">Start of event profile icon</string>
   <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
   <string name="run_stop_events_indicator">Enable/disable events run indicator</string>
   <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">This important information can be viewed In Editor through the question mark icon in the toolbar.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>
   <string name="about_application_extender_source_code">Source code - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Default profile</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">This profile will activate when no event is running. Click this to configure it.</string>
   <string name="mobile_cell_names_dialog_title">Cell names</string>

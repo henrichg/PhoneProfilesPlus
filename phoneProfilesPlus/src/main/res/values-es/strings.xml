@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Perfil compartido</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Perfil Compartido</string>
-  <string name="preference_profile_default_profile">Perfil Compartido</string>
-  <string name="volume_pref_dialog_default_profile_chb">Perfil Compartido</string>
-  <string name="array_pref_default_profile">Perfil Compartido</string>
+<!--  <string name="default_profile_name">Perfil compartido</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Perfil Compartido</string> -->
+<!--  <string name="preference_profile_default_profile">Perfil Compartido</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Perfil Compartido</string> -->
+<!--  <string name="array_pref_default_profile">Perfil Compartido</string> -->
   <string name="array_pref_change">Cambiar</string>
   <string name="array_pref_no_show">No mostrar</string>
   <string name="array_pref_show">Mostrar</string>
   <string name="array_pref_no_run">No ejecutar</string>
   <string name="array_pref_run">Ejecutar</string>
-  <string name="title_activity_default_profile_preferences">Perfil Compartido</string>
+<!--  <string name="title_activity_default_profile_preferences">Perfil Compartido</string> -->
   <string name="profile_list_item_menu_activate">Activar</string>
   <string name="profile_list_item_menu_duplicate">Duplicar</string>
   <string name="profile_list_item_menu_delete">Borrar</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Indicador del estado del evento</string>
   <string name="editor_event_list_item_profile_start_icon">Icono del perfil de inicio del evento</string>
   <string name="editor_event_list_item_profile_end_icon">Icono del perfil del fin del evento</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Puede configurar cada parámetro del perfil para utilizar \"Perfil compartido\" y durante la activación se utilizarán valores de perfiles compartidos. Haga click aquí para configurar los parámetros del perfil compartido.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">Puede configurar cada parámetro del perfil para utilizar \"Perfil compartido\" y durante la activación se utilizarán valores de perfiles compartidos. Haga click aquí para configurar los parámetros del perfil compartido.</string> -->
   <string name="run_stop_events_indicator">Activar/desactivar indicador de ejecución de eventos</string>
   <string name="run_stop_indicator_popup_window_important_info">Para más información, lea la \"información importante\" en la pantalla del Editor tocando el ícono de interrogación de la barra de herramientas</string>
   <string name="important_info_how_to_show">Esta información importante puede ser vista en el Editor mediante el icono del signo de interrogación en la barra de herramientas.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">Debido al cambio de normas por parte de Google respecto a los servicios de accesibilidad, debe instalar PhoneProfilesPlusExtender para usar el sensor de eventos de aplicación y el sensor de eventos de orientación. Compruebe los parámetros de dichos sensores para más información.</string>
   <string name="about_application_extender_source_code">Código fuente - extensor:</string>
   <string name="pref_dlg_info_about_wildcards_4">Puede configurar más cadenas. Separándolas con el carácter \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Perfil de funcionalidad compartido.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Puede configurar cada parámetro de perfil al usar \"Perfil compartido\" y durante la activación se utilizarán valores del perfil compartido.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Perfil de funcionalidad compartido.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Puede configurar cada parámetro de perfil al usar \"Perfil compartido\" y durante la activación se utilizarán valores del perfil compartido.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Perfil predeterminado</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Este perfil se activará cuando no hayan eventos en funcionamiento. Haga clic aquí para configurar.</string>
   <string name="mobile_cell_names_dialog_title">Nombres de celda</string>

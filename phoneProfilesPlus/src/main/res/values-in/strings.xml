@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Profil bersama</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Profil bersama</string>
-  <string name="preference_profile_default_profile">Profil bersama</string>
-  <string name="volume_pref_dialog_default_profile_chb">Profil bersama</string>
-  <string name="array_pref_default_profile">Profil bersama</string>
+<!--  <string name="default_profile_name">Profil bersama</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Profil bersama</string> -->
+<!--  <string name="preference_profile_default_profile">Profil bersama</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Profil bersama</string> -->
+<!--  <string name="array_pref_default_profile">Profil bersama</string> -->
   <string name="array_pref_change">Perubahan</string>
   <string name="array_pref_no_show">Jangan tunjukan</string>
   <string name="array_pref_show">Menunjukkan</string>
   <string name="array_pref_no_run">Jangan lari</string>
   <string name="array_pref_run">Menjalankan</string>
-  <string name="title_activity_default_profile_preferences">Profil bersama</string>
+<!--  <string name="title_activity_default_profile_preferences">Profil bersama</string> -->
   <string name="profile_list_item_menu_activate">Mengaktifkan</string>
   <string name="profile_list_item_menu_duplicate">Duplikat</string>
   <string name="profile_list_item_menu_delete">Menghapus</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Indikator status acara</string>
   <string name="editor_event_list_item_profile_start_icon">Mulai ikon profil acara</string>
   <string name="editor_event_list_item_profile_end_icon">Akhir ikon profil acara</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Anda dapat mengkonfigurasi setiap parameter profil untuk menggunakan \"Profil bersama\" dan selama aktivasi akan digunakan nilai dari profil bersama. Klik di sini untuk mengkonfigurasi parameter profil Bersama.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">Anda dapat mengkonfigurasi setiap parameter profil untuk menggunakan \"Profil bersama\" dan selama aktivasi akan digunakan nilai dari profil bersama. Klik di sini untuk mengkonfigurasi parameter profil Bersama.</string> -->
   <string name="run_stop_events_indicator">Aktifkan / nonaktifkan indikator aktivitas</string>
   <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">Informasi penting ini dapat dilihat di Editor melalui ikon tanda tanya di toolbar.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>
   <string name="about_application_extender_source_code">Kode sumber - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">Anda dapat mengkonfigurasi lebih banyak string. Pisahkan dengan karakter \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Fungsionalitas profil bersama.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Anda dapat mengkonfigurasi setiap parameter profil untuk menggunakan \"Profil bersama\" dan selama aktivasi akan digunakan nilai dari profil bersama.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Fungsionalitas profil bersama.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Anda dapat mengkonfigurasi setiap parameter profil untuk menggunakan \"Profil bersama\" dan selama aktivasi akan digunakan nilai dari profil bersama.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Profil standar</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Profil ini akan aktif bila tidak ada acara yang sedang berjalan. Klik ini untuk mengkonfigurasinya.</string>
   <string name="mobile_cell_names_dialog_title">Nama sel</string>

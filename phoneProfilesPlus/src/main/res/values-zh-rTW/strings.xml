@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">共用設定檔</string>
-  <string name="brightness_pref_dialog_default_profile_chb">共用設定檔</string>
-  <string name="preference_profile_default_profile">共用設定檔</string>
-  <string name="volume_pref_dialog_default_profile_chb">共用設定檔</string>
-  <string name="array_pref_default_profile">共用設定檔</string>
+<!--  <string name="default_profile_name">共用設定檔</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">共用設定檔</string> -->
+<!--  <string name="preference_profile_default_profile">共用設定檔</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">共用設定檔</string> -->
+<!--  <string name="array_pref_default_profile">共用設定檔</string> -->
   <string name="array_pref_change">變更</string>
   <string name="array_pref_no_show">不顯示</string>
   <string name="array_pref_show">顯示</string>
   <string name="array_pref_no_run">不執行</string>
   <string name="array_pref_run">執行</string>
-  <string name="title_activity_default_profile_preferences">共用設定檔</string>
+<!--  <string name="title_activity_default_profile_preferences">共用設定檔</string> -->
   <string name="profile_list_item_menu_activate">啟動</string>
   <string name="profile_list_item_menu_duplicate">複製</string>
   <string name="profile_list_item_menu_delete">刪除</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">事件狀態指示器</string>
   <string name="editor_event_list_item_profile_start_icon">Start of event profile icon</string>
   <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
   <string name="run_stop_events_indicator">啟用/禁用事件執行指示器</string>
   <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">This important information can be viewed In Editor through the question mark icon in the toolbar.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>
   <string name="about_application_extender_source_code">Source code - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Shared profile functionality.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">預設設定檔</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">此設定檔將在沒有事件執行中時啟動. 點擊此處配置此設定檔.</string>
   <string name="mobile_cell_names_dialog_title">Cell names</string>

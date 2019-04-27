@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">共享情景</string>
-  <string name="brightness_pref_dialog_default_profile_chb">共享情景</string>
-  <string name="preference_profile_default_profile">共享情景</string>
-  <string name="volume_pref_dialog_default_profile_chb">共享情景</string>
-  <string name="array_pref_default_profile">共享情景</string>
+<!--  <string name="default_profile_name">共享情景</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">共享情景</string> -->
+<!--  <string name="preference_profile_default_profile">共享情景</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">共享情景</string> -->
+<!--  <string name="array_pref_default_profile">共享情景</string> -->
   <string name="array_pref_change">更改</string>
   <string name="array_pref_no_show">不显示</string>
   <string name="array_pref_show">显示</string>
   <string name="array_pref_no_run">不要运行</string>
   <string name="array_pref_run">运行</string>
-  <string name="title_activity_default_profile_preferences">共享情景</string>
+<!--  <string name="title_activity_default_profile_preferences">共享情景</string> -->
   <string name="profile_list_item_menu_activate">激活</string>
   <string name="profile_list_item_menu_duplicate">制作副本</string>
   <string name="profile_list_item_menu_delete">删除</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">事件状态指示器</string>
   <string name="editor_event_list_item_profile_start_icon">事件情景开始图标</string>
   <string name="editor_event_list_item_profile_end_icon">事件情景结束图标</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">您可以将每个配置文件参数配置用于“共享配置文件”，并且在激活期间将使用共享配置文件中的值。单击此处配置共享配置文件参数。</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">您可以将每个配置文件参数配置用于“共享配置文件”，并且在激活期间将使用共享配置文件中的值。单击此处配置共享配置文件参数。</string> -->
   <string name="run_stop_events_indicator">启用/停止事件运行指示器</string>
   <string name="run_stop_indicator_popup_window_important_info">有关详细信息，请通过工具栏中的问号图标查看编辑器中的“重要信息”屏幕。</string>
   <string name="important_info_how_to_show">此重要信息可以通过点击编辑器底部工具栏中的问号图标查看。</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">由于Google更改了规则，关于辅助功能服务的使用，您必须安装PhoneProfilesPlusExtender才能使用Application事件传感器和Orientation事件传感器。有关更多信息，请检查这些传感器的参数。</string>
   <string name="about_application_extender_source_code">源代码 - 扩展器：</string>
   <string name="pref_dlg_info_about_wildcards_4">您可以配置更多字符串。用字符分开 “|”.</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">共享配置文件功能。</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">您可以将每个配置文件参数配置为使用“共享配置文件”，并且在激活期间将使用共享配置文件中的值。</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">共享配置文件功能。</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">您可以将每个配置文件参数配置为使用“共享配置文件”，并且在激活期间将使用共享配置文件中的值。</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">默认配置文件</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">没有事件运行时，此配置文件将激活。单击此按钮进行配置。</string>
   <string name="mobile_cell_names_dialog_title">单元名称</string>

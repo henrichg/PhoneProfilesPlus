@@ -281,9 +281,9 @@ public class Profile {
     static final long RESTART_EVENTS_PROFILE_ID = -888L;
 
     static final int NO_CHANGE_VALUE = 0;
-    static final int SHARED_PROFILE_VALUE = 99;
+    //static final int SHARED_PROFILE_VALUE = 99;
     static final String NO_CHANGE_VALUE_STR = "0";
-    static final String SHARED_PROFILE_VALUE_STR = "99";
+    //static final String SHARED_PROFILE_VALUE_STR = "99";
 
     private static final String PREF_ACTIVATED_PROFILE_FOR_DURATION = "activatedProfileForDuration";
     private static final String PREF_ACTIVATED_PROFILE_END_DURATION_TIME = "activatedProfileEndDurationTime";
@@ -2278,7 +2278,7 @@ public class Profile {
         }
         else {*/
             profile._id = preferences.getLong(PREF_PROFILE_ID, 0);
-            profile._name = preferences.getString(PREF_PROFILE_NAME, context.getResources().getString(R.string.default_profile_name));
+            profile._name = preferences.getString(PREF_PROFILE_NAME, context.getResources().getString(R.string.profile_name_default));
             profile._icon = preferences.getString(PREF_PROFILE_ICON, Profile.PROFILE_ICON_DEFAULT+"1|0|0");
             profile._checked = preferences.getBoolean(PREF_PROFILE_CHECKED, false);
         //}

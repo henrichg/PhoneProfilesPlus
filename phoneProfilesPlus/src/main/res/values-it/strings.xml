@@ -165,17 +165,17 @@
     <string name="array_pref_90_degrees" formatted="false">90°</string>
     <string name="array_pref_180_degrees" formatted="false">180°</string>
     <string name="array_pref_270_degrees" formatted="false">270°</string>
-    <string name="default_profile_name">Profilo base</string>
-    <string name="brightness_pref_dialog_default_profile_chb">Profilo base</string>
-    <string name="preference_profile_default_profile">Profilo base</string>
-    <string name="volume_pref_dialog_default_profile_chb">Profilo base</string>
-    <string name="array_pref_default_profile">Profilo base</string>
+<!--    <string name="default_profile_name">Profilo base</string> -->
+<!--    <string name="brightness_pref_dialog_default_profile_chb">Profilo base</string> -->
+<!--    <string name="preference_profile_default_profile">Profilo base</string> -->
+<!--    <string name="volume_pref_dialog_default_profile_chb">Profilo base</string> -->
+<!--    <string name="array_pref_default_profile">Profilo base</string> -->
     <string name="array_pref_change">Modifica</string>
     <string name="array_pref_no_show">Non visualizzare</string>
     <string name="array_pref_show">Visualizza</string>
     <string name="array_pref_no_run">Non eseguire</string>
     <string name="array_pref_run">Esegui</string>
-    <string name="title_activity_default_profile_preferences">Profilo base</string>
+<!--    <string name="title_activity_default_profile_preferences">Profilo base</string> -->
     <string name="profile_list_item_menu_activate">Attiva</string>
     <string name="profile_list_item_menu_duplicate">Duplica</string>
     <string name="profile_list_item_menu_delete">Elimina</string>
@@ -714,7 +714,7 @@
     <string name="editor_event_list_item_event_status">Indicatore di stato evento</string>
     <string name="editor_event_list_item_profile_start_icon">Icona del profilo di inizio evento</string>
     <string name="editor_event_list_item_profile_end_icon">Icona del profilo di fine evento</string>
-    <string name="profile_preferences_sourceProfileInfo_summary">È possibile configurare ogni parametro del profilo utilizzando \"Profili condivisi\" e durante l\'attivazione sarà valori utilizzati dal profilo condiviso. Clicca qui per configurare i parametri del profilo condiviso.</string>
+<!--    <string name="profile_preferences_sourceProfileInfo_summary">È possibile configurare ogni parametro del profilo utilizzando \"Profili condivisi\" e durante l\'attivazione sarà valori utilizzati dal profilo condiviso. Clicca qui per configurare i parametri del profilo condiviso.</string> -->
     <string name="run_stop_events_indicator">Abilita/disabilita indicatore eventi eseguiti</string>
     <string name="run_stop_indicator_popup_window_important_info">Per ulteriori informazioni, consulta la schermata \"Informazioni importanti\" nell\'Editor tramite l\'icona punto interrogativo nella barra superiore.</string>
     <string name="important_info_how_to_show">Questa importante informazione può essere visualizzata nell\'Editor tramite l\'icona punto interrogativo nella barra degli strumenti.</string>
@@ -932,8 +932,8 @@
     <string name="important_info_accessibility_service_text1">Due to a change of rules by Google, about usage of accessibility services, you must install PhoneProfilesPlusExtender to use the Application event sensor and Orientation event sensor. Check the parameters of these sensors for more information.</string>
     <string name="about_application_extender_source_code">Codice sorgente - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">È possibile configurare più stringhe. Usare il carattere \"|\" per separarle.</string>
-    <string name="profile_preferences_sourceProfileInfoX_title">Funzionalità di profilo condiviso.</string>
-    <string name="profile_preferences_sourceProfileInfoX_summary">Ogni parametro può essere configurato in modo da usare il \"Profilo condiviso\" e durante l\'attivazione verranno utilizzati i valori indicati nel profilo condiviso.</string>
+<!--    <string name="profile_preferences_sourceProfileInfoX_title">Funzionalità di profilo condiviso.</string> -->
+<!--    <string name="profile_preferences_sourceProfileInfoX_summary">Ogni parametro può essere configurato in modo da usare il \"Profilo condiviso\" e durante l\'attivazione verranno utilizzati i valori indicati nel profilo condiviso.</string> -->
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Profilo predefinito</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Questo profilo si attiva quando non ci sono eventi è in esecuzione. Fare clic per configurarlo.</string>
     <string name="mobile_cell_names_dialog_title">Nomi delle celle</string>

@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Nazwa profilu domyślnego</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Jasność profilu domyślnego</string>
-  <string name="preference_profile_default_profile">Ustawienia profilu domyślnego</string>
-  <string name="volume_pref_dialog_default_profile_chb">Głośność profilu domyślnego</string>
-  <string name="array_pref_default_profile">Jak w profilu domyślnym</string>
+<!--  <string name="default_profile_name">Nazwa profilu domyślnego</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Jasność profilu domyślnego</string> -->
+<!--  <string name="preference_profile_default_profile">Ustawienia profilu domyślnego</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Głośność profilu domyślnego</string> -->
+<!--  <string name="array_pref_default_profile">Jak w profilu domyślnym</string> -->
   <string name="array_pref_change">Zmień</string>
   <string name="array_pref_no_show">Nie pokazuj</string>
   <string name="array_pref_show">Pokazuj</string>
   <string name="array_pref_no_run">Nie uruchamiaj</string>
   <string name="array_pref_run">Uruchom</string>
-  <string name="title_activity_default_profile_preferences">Ustawienia profilu domyślnego</string>
+<!--  <string name="title_activity_default_profile_preferences">Ustawienia profilu domyślnego</string> -->
   <string name="profile_list_item_menu_activate">Aktywuj</string>
   <string name="profile_list_item_menu_duplicate">Stwórz kopię</string>
   <string name="profile_list_item_menu_delete">Usuń</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Wskaźnik statusu wydarzeń</string>
   <string name="editor_event_list_item_profile_start_icon">Początek ikony profilu wydarzenia</string>
   <string name="editor_event_list_item_profile_end_icon">Koniec ikony profilu wydarzenia</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Możesz konfigurować każdy parametr profilu, aby użyć \"Udostępniony profil\" i podczas aktywacji będą używane wartości z udostępnionego profilu. Kliknij tutaj, aby skonfigurować parametry udostępnionego profilu.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">Możesz konfigurować każdy parametr profilu, aby użyć \"Udostępniony profil\" i podczas aktywacji będą używane wartości z udostępnionego profilu. Kliknij tutaj, aby skonfigurować parametry udostępnionego profilu.</string> -->
   <string name="run_stop_events_indicator">Włącz/wyłącz wskaźnik włączonych wydarzeń</string>
   <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
   <string name="important_info_how_to_show">Ta ważna informacja może być wyświetlona w Edytorze przez ikonę znaku zapytania na pasku narzędzi.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">Z powodu zmiany zasad użycia usług ułatwień dostępu przez Google, musisz zainstalować PhoneProfilesPlusExtender, aby móc korzystać z Czujnika Aplikacji i Orientacji Ekranu. Więcej informacji - w konfiguracji tych czujników.</string>
   <string name="about_application_extender_source_code">Kod źródłowy - Wypełniacz:</string>
   <string name="pref_dlg_info_about_wildcards_4">Możesz konfigurować więcej ciągów tekstu. Oddziel je znakiem \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Udostępniono funkcjonalność profilu.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Możesz konfigurować każdy parametr profilu, aby użyć \"Udostępniony profil\" i podczas aktywacji będą używane wartości z udostępnionego profilu.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Udostępniono funkcjonalność profilu.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Możesz konfigurować każdy parametr profilu, aby użyć \"Udostępniony profil\" i podczas aktywacji będą używane wartości z udostępnionego profilu.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Domyślny profil</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Ten profil zostanie aktywowany, kiedy żadne zdarzenie nie jest uruchomione. Kliknij tutaj, aby go skonfigurować.</string>
   <string name="mobile_cell_names_dialog_title">Nazwy komórek</string>

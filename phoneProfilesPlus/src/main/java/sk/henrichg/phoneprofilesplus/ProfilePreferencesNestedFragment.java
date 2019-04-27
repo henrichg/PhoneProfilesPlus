@@ -1218,7 +1218,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
                         int iValue = Integer.parseInt(sValue);
                         int index = listPreference.findIndexOfValue(sValue);
                         CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                        if ((iValue != Profile.NO_CHANGE_VALUE) && (iValue != Profile.SHARED_PROFILE_VALUE)) {
+                        if ((iValue != Profile.NO_CHANGE_VALUE) /*&& (iValue != Profile.SHARED_PROFILE_VALUE)*/) {
                             if (!((iValue == 6) && (android.os.Build.VERSION.SDK_INT < 23))) {
                                 String[] summaryArray = getResources().getStringArray(R.array.zenModeSummaryArray);
                                 summary = summary + " - " + summaryArray[iValue - 1];
@@ -1809,28 +1809,28 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE))
         {
-            boolean enabled = !(sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) || sValue.equals(Profile.NO_CHANGE_VALUE_STR));
+            boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
         if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE))
         {
-            boolean enabled = !(sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) || sValue.equals(Profile.NO_CHANGE_VALUE_STR));
+            boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
         if (key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE))
         {
-            boolean enabled = !(sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) || sValue.equals(Profile.NO_CHANGE_VALUE_STR));
+            boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_ALARM);
             if (preference != null)
                 preference.setEnabled(enabled);
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE))
         {
-            boolean enabled = !(sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) || sValue.equals(Profile.NO_CHANGE_VALUE_STR));
+            boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
                 preference.setEnabled(enabled);
@@ -1840,7 +1840,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
-            boolean enabled = !(sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) || sValue.equals(Profile.NO_CHANGE_VALUE_STR));
+            boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
             if (preference != null)
                 preference.setEnabled(enabled);
@@ -1889,7 +1889,7 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             ApplicationsMultiSelectDialogPreference appPreference =
                     (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME);
             if (appPreference != null) {
-                appPreference.setEnabled(ok && (!(sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) || sValue.equals(Profile.NO_CHANGE_VALUE_STR))));
+                appPreference.setEnabled(ok && (!(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR))));
                 appPreference.setSummaryAMSDP();
             }
         }

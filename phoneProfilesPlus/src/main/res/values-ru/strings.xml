@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Исходный профиль</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Исходный профиль</string>
-  <string name="preference_profile_default_profile">Исходный профиль</string>
-  <string name="volume_pref_dialog_default_profile_chb">Исходный профиль</string>
-  <string name="array_pref_default_profile">Исходный профиль</string>
+<!--  <string name="default_profile_name">Исходный профиль</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Исходный профиль</string> -->
+<!--  <string name="preference_profile_default_profile">Исходный профиль</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Исходный профиль</string> -->
+<!--  <string name="array_pref_default_profile">Исходный профиль</string> -->
   <string name="array_pref_change">Изменить</string>
   <string name="array_pref_no_show">Не показывать</string>
   <string name="array_pref_show">Показывать</string>
   <string name="array_pref_no_run">Не запускать</string>
   <string name="array_pref_run">Запускать</string>
-  <string name="title_activity_default_profile_preferences">Исходный профиль</string>
+<!--  <string name="title_activity_default_profile_preferences">Исходный профиль</string> -->
   <string name="profile_list_item_menu_activate">Активировать</string>
   <string name="profile_list_item_menu_duplicate">Создать копию</string>
   <string name="profile_list_item_menu_delete">Удалить</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Индикатор состояния события</string>
   <string name="editor_event_list_item_profile_start_icon">Значок начала события</string>
   <string name="editor_event_list_item_profile_end_icon">Значок окончания события</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">При настройке каждого параметра профиля вы можете выбрать значение \"Исходный профиль\", и тогда при активации будут использованы значения этого параметра из Исходного профиля. Нажмите сюда, чтобы настроить параметры Исходного профиля.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">При настройке каждого параметра профиля вы можете выбрать значение \"Исходный профиль\", и тогда при активации будут использованы значения этого параметра из Исходного профиля. Нажмите сюда, чтобы настроить параметры Исходного профиля.</string> -->
   <string name="run_stop_events_indicator">Включить/остановить индикатор запуска событий</string>
   <string name="run_stop_indicator_popup_window_important_info">Дополнительную информацию можно посмотреть на экране \"Важная информация\"; для этого надо нажать на вопросительный знак на панели инструментов.</string>
   <string name="important_info_how_to_show">Эта важная информация может быть просмотрена в Редакторе при нажатии на значке вопросительного знака в панели инструментов.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">Из-за изменения Google\'ом правил использования служб Спец. возможностей, для использования Датчика приложений и Датчика ориентации нужно установить PhoneProfilesPlusExtender. Более подробную информацию можно посмотреть в параметрах этих датчиков.</string>
   <string name="about_application_extender_source_code">Исходный код - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">Можно настроить несколько строк. Разделитель - \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Назначение Исходного профиля.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Для каждого параметра профиля вы можете выбрать опцию \"Исходный профиль\", и тогда во время активации значения этого параметра будут подставлены из него.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Назначение Исходного профиля.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Для каждого параметра профиля вы можете выбрать опцию \"Исходный профиль\", и тогда во время активации значения этого параметра будут подставлены из него.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Профиль по умолчанию</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Этот профиль будет активирован, когда никакое событие не выполняется. Нажмите здесь, чтобы настроить его.</string>
   <string name="mobile_cell_names_dialog_title">Имя вышки</string>

@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Profil megosztása</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Profil megosztása</string>
-  <string name="preference_profile_default_profile">Profil megosztása</string>
-  <string name="volume_pref_dialog_default_profile_chb">Profil megosztása</string>
-  <string name="array_pref_default_profile">Profil megosztása</string>
+<!--  <string name="default_profile_name">Profil megosztása</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Profil megosztása</string> -->
+<!--  <string name="preference_profile_default_profile">Profil megosztása</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Profil megosztása</string> -->
+<!--  <string name="array_pref_default_profile">Profil megosztása</string> -->
   <string name="array_pref_change">Változtatás</string>
   <string name="array_pref_no_show">Ne jelenjen meg</string>
   <string name="array_pref_show">Megjelenít</string>
   <string name="array_pref_no_run">Ne fuss</string>
   <string name="array_pref_run">Fut</string>
-  <string name="title_activity_default_profile_preferences">Profil megosztása</string>
+<!--  <string name="title_activity_default_profile_preferences">Profil megosztása</string> -->
   <string name="profile_list_item_menu_activate">Aktiválás</string>
   <string name="profile_list_item_menu_duplicate">Duplikálás</string>
   <string name="profile_list_item_menu_delete">Törlés</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Esemény állapot visszajelző</string>
   <string name="editor_event_list_item_profile_start_icon">Esemény kezdés ikon</string>
   <string name="editor_event_list_item_profile_end_icon">Esemény végződés ikon</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">A profil paramétereket megoszthatja a megosztandó paramétereket jelölheti \"Megosztott profil\" Az aktiválás során használt értékek, közös profil lesz és konfigurálható minden profil paraméter. Kattintson ide, hogy a Megosztott profil paramétereket beállítása.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">A profil paramétereket megoszthatja a megosztandó paramétereket jelölheti \"Megosztott profil\" Az aktiválás során használt értékek, közös profil lesz és konfigurálható minden profil paraméter. Kattintson ide, hogy a Megosztott profil paramétereket beállítása.</string> -->
   <string name="run_stop_events_indicator">Endegélyezet/álló esemény futási visszajelzését</string>
   <string name="run_stop_indicator_popup_window_important_info">További információért tekintse át a \"Fontos tudnivalók\" megjelenítheti a szerkesztőn keresztül a kérdőjel ikonra kattint az eszköztáron.</string>
   <string name="important_info_how_to_show">Fontos információ megtekinthető a szerkesztőn keresztül, ha a kérdőjel ikonra kattintasz az eszköztáron.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">A Google szabályainak megváltoztatása miatt a kisegítő szolgáltatások használatával aktiválni kell a PhoneProfilesPlusExtender programot az Alkalmazás esemény érzékelő és az esemény Irány érzékelők számára. További információért olvassa el az érzékelők paramétereit.</string>
   <string name="about_application_extender_source_code">Forráskód - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">Több karakterláncot is beállíthat. Különítse el a \"|\" karakterrel.</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Közös profil szolgáltatás.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Minden profilparamétert beállíthat a \"Megosztott profil\" használatával, és az aktiválás során a megosztott profilból származó értékeket fogja használni.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Közös profil szolgáltatás.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Minden profilparamétert beállíthat a \"Megosztott profil\" használatával, és az aktiválás során a megosztott profilból származó értékeket fogja használni.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Alapértelmezett profil</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Ez a profil aktiválódik, ha nincs futó esemény. Kattints erre a beállításhoz.</string>
   <string name="mobile_cell_names_dialog_title">Cella neve</string>

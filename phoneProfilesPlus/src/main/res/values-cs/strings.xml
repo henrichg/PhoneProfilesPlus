@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Sdílený profil</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Sdílený profil</string>
-  <string name="preference_profile_default_profile">Sdílený profil</string>
-  <string name="volume_pref_dialog_default_profile_chb">Sdílený profil</string>
-  <string name="array_pref_default_profile">Sdílený profil</string>
+<!--  <string name="default_profile_name">Sdílený profil</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Sdílený profil</string> -->
+<!--  <string name="preference_profile_default_profile">Sdílený profil</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Sdílený profil</string> -->
+<!--  <string name="array_pref_default_profile">Sdílený profil</string> -->
   <string name="array_pref_change">Změnit</string>
   <string name="array_pref_no_show">Nezobrazovat</string>
   <string name="array_pref_show">Zobrazovat</string>
   <string name="array_pref_no_run">Nespouštět</string>
   <string name="array_pref_run">Spouštět</string>
-  <string name="title_activity_default_profile_preferences">Sdílený profil</string>
+<!--  <string name="title_activity_default_profile_preferences">Sdílený profil</string> -->
   <string name="profile_list_item_menu_activate">Aktivuj</string>
   <string name="profile_list_item_menu_duplicate">Duplikuj</string>
   <string name="profile_list_item_menu_delete">Smaž</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Indikátor stavu události</string>
   <string name="editor_event_list_item_profile_start_icon">Ikona profilu začátku události</string>
   <string name="editor_event_list_item_profile_end_icon">Ikona profilu konce události</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Každý parametr profilu můžete nakonfigurovat tak, že použijete \"Sdílený profil\" a během aktivace se použijí hodnoty ze sdíleného profilu. Klikněte sem pro nakonfigurování parametrů sdíleného profilu.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">Každý parametr profilu můžete nakonfigurovat tak, že použijete \"Sdílený profil\" a během aktivace se použijí hodnoty ze sdíleného profilu. Klikněte sem pro nakonfigurování parametrů sdíleného profilu.</string> -->
   <string name="run_stop_events_indicator">Povol/zastav běh událostí</string>
   <string name="run_stop_indicator_popup_window_important_info">Více informací vyhledejte v Editoru přes ikonu otazníku v nástrojové liště a podívejte se na \"Důležité informace\".</string>
   <string name="important_info_how_to_show">Tyto důležité informace lze zobrazit v Editoru pomocí ikony otazníku v panelu nástrojů.</string>
@@ -934,8 +934,8 @@
   <string name="important_info_accessibility_service_text1">Vzhledem k tomu, že společnost Google změnila pravidla o používání služeb dostupnosti, musíte pro událostní senzor aplikací a událostní senzor orientace nainstalovat PhoneProfilesExtender. Podívejte se na parametry těchto senzorů pro více informací.</string>
   <string name="about_application_extender_source_code">Zdrojový kód - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">Můžete nakonfigurovat více řetězců. Oddělte je znakem \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Funkcionalita sdíleného profilu.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Každý parametr profilu můžete nakonfigurovat tak, že použijete \"Sdílený profil\" a během aktivace se použijí hodnoty ze sdíleného profilu.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Funkcionalita sdíleného profilu.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Každý parametr profilu můžete nakonfigurovat tak, že použijete \"Sdílený profil\" a během aktivace se použijí hodnoty ze sdíleného profilu.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Předvolený profil</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Tento profil se aktivuje, pokud neběží žádná událost. Klikněte sem pro jeho nakonfigurování.</string>
   <string name="mobile_cell_names_dialog_title">Názvy buněk</string>

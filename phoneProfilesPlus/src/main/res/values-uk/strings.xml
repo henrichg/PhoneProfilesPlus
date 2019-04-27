@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Спільний профіль</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Спільний профіль</string>
-  <string name="preference_profile_default_profile">Спільний профіль</string>
-  <string name="volume_pref_dialog_default_profile_chb">Спільний профіль</string>
-  <string name="array_pref_default_profile">Спільний профіль</string>
+<!--  <string name="default_profile_name">Спільний профіль</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Спільний профіль</string> -->
+<!--  <string name="preference_profile_default_profile">Спільний профіль</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Спільний профіль</string> -->
+<!--  <string name="array_pref_default_profile">Спільний профіль</string> -->
   <string name="array_pref_change">Змінити</string>
   <string name="array_pref_no_show">Не показувати</string>
   <string name="array_pref_show">Показати</string>
   <string name="array_pref_no_run">Не запускати</string>
   <string name="array_pref_run">Запустити</string>
-  <string name="title_activity_default_profile_preferences">Спільний профіль</string>
+<!--  <string name="title_activity_default_profile_preferences">Спільний профіль</string> -->
   <string name="profile_list_item_menu_activate">Активувати</string>
   <string name="profile_list_item_menu_duplicate">Створити копію</string>
   <string name="profile_list_item_menu_delete">Вилучити</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Індикатор стану події</string>
   <string name="editor_event_list_item_profile_start_icon">Іконка запуску події</string>
   <string name="editor_event_list_item_profile_end_icon">Іконка завершення події</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">При налаштуванні кожного параметру профілю ви можете вибрати значення \"Спільний профіль\", і тоді при активації будуть використані значення цього параметра із Спільного профілю. Натисніть сюди, щоб налаштувати параметри Спільного профілю.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">При налаштуванні кожного параметру профілю ви можете вибрати значення \"Спільний профіль\", і тоді при активації будуть використані значення цього параметра із Спільного профілю. Натисніть сюди, щоб налаштувати параметри Спільного профілю.</string> -->
   <string name="run_stop_events_indicator">Увімкнути/зупинити індикатор запуску подій</string>
   <string name="run_stop_indicator_popup_window_important_info">Ви отримаєте більше відомостей на сторінці \"Важлива інформація\" натиснувши на знак питання в верхній панелі інструментів Редактора.</string>
   <string name="important_info_how_to_show">Цю важливу інформацію можна переглядати в редакторі через іконку \"знак питання\" в панелі інструментів.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">Через зміни Google\'ом правил використання служб Спец. можливостей, ви маєте встановити PhoneProfilesPlusExtender для використання датчика Додатків та датчика Орієнтації екрану. Більш детальну інформацію можна переглянути в параметрах цих датчиків.</string>
   <string name="about_application_extender_source_code">Початковий код - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">Можна налаштувати кілька рядків. Роздільник «|».</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Призначення Спільного профілю.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Для кожного параметра ви можете вибрати опцію \"Спільний профіль\", і тоді під час активації значення цього параметра будуть підставлені із нього.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Призначення Спільного профілю.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Для кожного параметра ви можете вибрати опцію \"Спільний профіль\", і тоді під час активації значення цього параметра будуть підставлені із нього.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Профіль за замовчуванням</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Цей профіль буде активовано, коли ніяка подія не виконується. Натисніть тут, щоб налаштувати його.</string>
   <string name="mobile_cell_names_dialog_title">Ім\'я вишок</string>

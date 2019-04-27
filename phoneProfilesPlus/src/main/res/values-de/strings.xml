@@ -165,17 +165,17 @@
     <string name="array_pref_90_degrees" formatted="false">90°</string>
     <string name="array_pref_180_degrees" formatted="false">180°</string>
     <string name="array_pref_270_degrees" formatted="false">270°</string>
-    <string name="default_profile_name">Gemeinsames Profil</string>
-    <string name="brightness_pref_dialog_default_profile_chb">Gemeinsames Profil</string>
-    <string name="preference_profile_default_profile">Gemeinsames Profil</string>
-    <string name="volume_pref_dialog_default_profile_chb">Gemeinsames Profil</string>
-    <string name="array_pref_default_profile">Gemeinsames Profil</string>
+<!--    <string name="default_profile_name">Gemeinsames Profil</string> -->
+<!--    <string name="brightness_pref_dialog_default_profile_chb">Gemeinsames Profil</string> -->
+<!--    <string name="preference_profile_default_profile">Gemeinsames Profil</string> -->
+<!--    <string name="volume_pref_dialog_default_profile_chb">Gemeinsames Profil</string> -->
+<!--    <string name="array_pref_default_profile">Gemeinsames Profil</string> -->
     <string name="array_pref_change">Ändern</string>
     <string name="array_pref_no_show">Nicht zeigen</string>
     <string name="array_pref_show">Zeigen</string>
     <string name="array_pref_no_run">Nicht ausführen</string>
     <string name="array_pref_run">Ausführen</string>
-    <string name="title_activity_default_profile_preferences">Gemeinsames Profil</string>
+<!--    <string name="title_activity_default_profile_preferences">Gemeinsames Profil</string> -->
     <string name="profile_list_item_menu_activate">Aktivieren</string>
     <string name="profile_list_item_menu_duplicate">Kopieren</string>
     <string name="profile_list_item_menu_delete">Löschen</string>
@@ -714,7 +714,7 @@
     <string name="editor_event_list_item_event_status">Ereignis-Status-Anzeige</string>
     <string name="editor_event_list_item_profile_start_icon">Starte Ereignis-Profil</string>
     <string name="editor_event_list_item_profile_end_icon">Beende Ereignis-Profil</string>
-    <string name="profile_preferences_sourceProfileInfo_summary">Jeder Profilparameter kann über das \"globale Profil\" eingestellt werden, beim Starten der App werden diese als Voreinstellung geladen. Klicken sie hier um das \"globale Profil\" einzustellen.</string>
+<!--    <string name="profile_preferences_sourceProfileInfo_summary">Jeder Profilparameter kann über das \"globale Profil\" eingestellt werden, beim Starten der App werden diese als Voreinstellung geladen. Klicken sie hier um das \"globale Profil\" einzustellen.</string> -->
     <string name="run_stop_events_indicator">Indikator für Ereignisse laufend/angehalten</string>
     <string name="run_stop_indicator_popup_window_important_info">Um weitere Informationen zu erhalten, schauen sie im Menü Hilfe (?) den Eintrag \"wichtige Informationen\" an.</string>
     <string name="important_info_how_to_show">Diese wichtigen Informationen können im Editor über das Fragezeichen-Symbol in der Symbolleiste angezeigt werden.</string>
@@ -932,8 +932,8 @@
     <string name="important_info_accessibility_service_text1">Aufgrund einer Änderung der Regeln von Google, über die Nutzung der Eingabehilfen installieren Sie PhoneProfilesPlusExtender um die Event Sensoren \"Anwendungen\" und \"Ausrichtungsparameter\" zu verwenden. Überprüfen Sie die Parameter dieser Sensoren für weitere Informationen.</string>
     <string name="about_application_extender_source_code">Quellcode - Erweiterer:</string>
     <string name="pref_dlg_info_about_wildcards_4">Weitere Strings können konfiguriert werden. \"|\" für deren Separierung verwenden.</string>
-    <string name="profile_preferences_sourceProfileInfoX_title">\"Geteiltes Profil\"-Funktionalität.</string>
-    <string name="profile_preferences_sourceProfileInfoX_summary">Jedes Profil kann so konfiguriert werden, dass es entweder Einstellungen aus dem \"gemeinsamen Profil\" verwendet oder eigene Einstellungen.</string>
+<!--    <string name="profile_preferences_sourceProfileInfoX_title">\"Geteiltes Profil\"-Funktionalität.</string> -->
+<!--    <string name="profile_preferences_sourceProfileInfoX_summary">Jedes Profil kann so konfiguriert werden, dass es entweder Einstellungen aus dem \"gemeinsamen Profil\" verwendet oder eigene Einstellungen.</string> -->
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Standardprofil</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Dieses Profil wird verwendet, wenn kein Event aktiv ist. Klicken sie hier um es einzustellen.</string>
     <string name="mobile_cell_names_dialog_title">Zellnamen</string>

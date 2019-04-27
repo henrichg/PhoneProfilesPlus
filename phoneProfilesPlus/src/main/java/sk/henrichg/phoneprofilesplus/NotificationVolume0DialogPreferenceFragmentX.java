@@ -44,11 +44,11 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
             String message = "";
             if (!notificationToneChange.equals("0")) {
                 message = getString(R.string.profile_preferences_volumeNotificationVolume0_questionNowConfigured);
-                if (notificationToneChange.equals(Profile.SHARED_PROFILE_VALUE_STR))
-                    message = message + " " + getString(R.string.default_profile_name);
-                else {
+                //if (notificationToneChange.equals(Profile.SHARED_PROFILE_VALUE_STR))
+                //    message = message + " " + getString(R.string.default_profile_name);
+                //else {
                     message = message + " " + TonesHandler.getToneName(preference._context, RingtoneManager.TYPE_NOTIFICATION, notificationTone);
-                }
+                //}
                 message = message + "\n\n";
             }
             message = message + getString(R.string.profile_preferences_volumeNotificationVolume0_question);

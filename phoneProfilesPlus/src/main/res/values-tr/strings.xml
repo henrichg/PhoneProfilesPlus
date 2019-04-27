@@ -165,17 +165,17 @@
     <string name="array_pref_90_degrees" formatted="false">90°</string>
     <string name="array_pref_180_degrees" formatted="false">180°</string>
     <string name="array_pref_270_degrees" formatted="false">270°</string>
-    <string name="default_profile_name">Paylaşılan tercih</string>
-    <string name="brightness_pref_dialog_default_profile_chb">Paylaşılan tercih</string>
-    <string name="preference_profile_default_profile">Paylaşılan tercih</string>
-    <string name="volume_pref_dialog_default_profile_chb">Paylaşılan tercih</string>
-    <string name="array_pref_default_profile">Paylaşılan tercih</string>
+<!--    <string name="default_profile_name">Paylaşılan tercih</string> -->
+<!--    <string name="brightness_pref_dialog_default_profile_chb">Paylaşılan tercih</string> -->
+<!--    <string name="preference_profile_default_profile">Paylaşılan tercih</string> -->
+<!--    <string name="volume_pref_dialog_default_profile_chb">Paylaşılan tercih</string> -->
+<!--    <string name="array_pref_default_profile">Paylaşılan tercih</string> -->
     <string name="array_pref_change">Değiştir</string>
     <string name="array_pref_no_show">Gösterilmesin</string>
     <string name="array_pref_show">Göster</string>
     <string name="array_pref_no_run">Çalışmasın</string>
     <string name="array_pref_run">Çalştr</string>
-    <string name="title_activity_default_profile_preferences">Paylaşılan tercih</string>
+<!--    <string name="title_activity_default_profile_preferences">Paylaşılan tercih</string> -->
     <string name="profile_list_item_menu_activate">Faaliyete geçir</string>
     <string name="profile_list_item_menu_duplicate">Kopyasını üret</string>
     <string name="profile_list_item_menu_delete">Sil</string>
@@ -714,7 +714,7 @@
     <string name="editor_event_list_item_event_status">Durum göstergesi</string>
     <string name="editor_event_list_item_profile_start_icon">Durum tercih başlatma simgesi</string>
     <string name="editor_event_list_item_profile_end_icon">Durum tercih bitirme simgesi</string>
-    <string name="profile_preferences_sourceProfileInfo_summary">Herbir tercih şartını, \"Paylaşılan Tercih\"i kullanmak için ayarlayabilirsiniz. faaliyete geçirme sırasında değerler, paylaşılan tercihten kullanılacaktır. Paylaşılan tercih şartlarını ayarlamak için buraya dokunun.</string>
+<!--    <string name="profile_preferences_sourceProfileInfo_summary">Herbir tercih şartını, \"Paylaşılan Tercih\"i kullanmak için ayarlayabilirsiniz. faaliyete geçirme sırasında değerler, paylaşılan tercihten kullanılacaktır. Paylaşılan tercih şartlarını ayarlamak için buraya dokunun.</string> -->
     <string name="run_stop_events_indicator">Durumları Çalıştır/Durdur başlatma göstergesi</string>
     <string name="run_stop_indicator_popup_window_important_info">Daha fazla malumat için Düzenleyici\'de araç çubuğundaki soru işareti butonu vasıtasıyla \"Mühim Malumat\"ı gözden geçiriniz.</string>
     <string name="important_info_how_to_show">Bu mühim malumat, Düzenleyici üzerinde araç çubuğundaki soru işareti simgesi vasıtasıyla da görüntülenebilir.</string>
@@ -932,8 +932,8 @@
     <string name="important_info_accessibility_service_text1">Erişebilirlik hizmetleri hakkında Google kuralları değişikliği sebebiyle, sensör durumları \"Uygulama şartları\" ve \"Ekran döndürme şartları\" için PhoneProfilesExtender\'ı yüklemeniz icab ediyor. Daha fazla malumat için bu sensörlerin şartlarına bakınız.</string>
     <string name="about_application_extender_source_code">Kaynak kod - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">Daha fazla kelime ayarlayabilirsiniz. \"|\" karakteri ile ayırın.</string>
-    <string name="profile_preferences_sourceProfileInfoX_title">Paylaşılan tercih kabiliyeti.</string>
-    <string name="profile_preferences_sourceProfileInfoX_summary">Herbir tercih şartını, \"Paylaşılan Tercih\"i kullanmak için ayarlayabilirsiniz. Faaliyete geçirme sırasında değerler, paylaşılan tercihten kullanılacaktır.</string>
+<!--    <string name="profile_preferences_sourceProfileInfoX_title">Paylaşılan tercih kabiliyeti.</string> -->
+<!--    <string name="profile_preferences_sourceProfileInfoX_summary">Herbir tercih şartını, \"Paylaşılan Tercih\"i kullanmak için ayarlayabilirsiniz. Faaliyete geçirme sırasında değerler, paylaşılan tercihten kullanılacaktır.</string> -->
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">Varsayılan tercih</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_description">Bu tercih herhangi bir durum çalışmıyorken faal olacak. Ayarlamak için buraya dokunun.</string>
     <string name="mobile_cell_names_dialog_title">Hücre isimleri</string>

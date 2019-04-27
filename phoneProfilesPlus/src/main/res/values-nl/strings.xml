@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Gedeeld profiel</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Gedeeld profiel</string>
-  <string name="preference_profile_default_profile">Gedeeld profiel</string>
-  <string name="volume_pref_dialog_default_profile_chb">Gedeeld profiel</string>
-  <string name="array_pref_default_profile">Gedeeld profiel</string>
+<!--  <string name="default_profile_name">Gedeeld profiel</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Gedeeld profiel</string> -->
+<!--  <string name="preference_profile_default_profile">Gedeeld profiel</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Gedeeld profiel</string> -->
+<!--  <string name="array_pref_default_profile">Gedeeld profiel</string> -->
   <string name="array_pref_change">Veranderen</string>
   <string name="array_pref_no_show">Niet weergeven</string>
   <string name="array_pref_show">Weergeven</string>
   <string name="array_pref_no_run">Niet uitvoeren</string>
   <string name="array_pref_run">Uitvoeren</string>
-  <string name="title_activity_default_profile_preferences">Gedeeld profiel</string>
+<!--  <string name="title_activity_default_profile_preferences">Gedeeld profiel</string> -->
   <string name="profile_list_item_menu_activate">Activeren</string>
   <string name="profile_list_item_menu_duplicate">Dupliceren</string>
   <string name="profile_list_item_menu_delete">Verwijderen</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Event status indicator</string>
   <string name="editor_event_list_item_profile_start_icon">Begin van de gebeurtenis profiel icoon</string>
   <string name="editor_event_list_item_profile_end_icon">Einde van de event profiel icoon</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Je kunt elke profiel parameter instellen om het \"Gedeeld profiel\" te gebruiken. Bij activering worden de waarden gebruikt vanuit het \"Gedeeld profiel\". Klik hier om de Gedeelde profielparameters te configureren.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">Je kunt elke profiel parameter instellen om het \"Gedeeld profiel\" te gebruiken. Bij activering worden de waarden gebruikt vanuit het \"Gedeeld profiel\". Klik hier om de Gedeelde profielparameters te configureren.</string> -->
   <string name="run_stop_events_indicator">Inschakelen/stop event uitvoeren indicator</string>
   <string name="run_stop_indicator_popup_window_important_info">Voor meer informatie ga je naar het ”belangrijke informatie” scherm. Tik op het vraagteken-pictogram in de menubalk.</string>
   <string name="important_info_how_to_show">Deze belangrijke informatie kan worden bekeken in de Editor via het vraagteken-pictogram in de werkbalk.</string>
@@ -932,8 +932,8 @@
   <string name="important_info_accessibility_service_text1">Als gevolg van een wijziging van regels vanuit Google over gebruik van toegankelijkheidsdiensten moet u PhoneProfilesPlusExtender installeren om sensoren \"Applicatie-parameters\" en \"Oriëntatie-parameters\" te gebruiken. Bekijk de parameters van deze sensors voor meer informatie.</string>
   <string name="about_application_extender_source_code">Broncode - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">Je kunt meer teksten configureren. Scheidt deze met het karakter \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Gedeeld profiel functionaliteit.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Je kunt elke profiel parameter instellen om het \"Gedeeld profiel\" te gebruiken. Bij activering worden de waarden gebruikt vanuit het \"Gedeeld profiel\".</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Gedeeld profiel functionaliteit.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Je kunt elke profiel parameter instellen om het \"Gedeeld profiel\" te gebruiken. Bij activering worden de waarden gebruikt vanuit het \"Gedeeld profiel\".</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Standaardprofiel</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Dit profiel wordt actief zodra er geen event loopt. Klik hierop om dit te configureren.</string>
   <string name="mobile_cell_names_dialog_title">Cel namen</string>

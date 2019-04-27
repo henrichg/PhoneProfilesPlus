@@ -165,17 +165,17 @@
   <string name="array_pref_90_degrees" formatted="false">90°</string>
   <string name="array_pref_180_degrees" formatted="false">180°</string>
   <string name="array_pref_270_degrees" formatted="false">270°</string>
-  <string name="default_profile_name">Zdieľaný profil</string>
-  <string name="brightness_pref_dialog_default_profile_chb">Zdieľaný profil</string>
-  <string name="preference_profile_default_profile">Zdieľaný profil</string>
-  <string name="volume_pref_dialog_default_profile_chb">Zdieľaný profil</string>
-  <string name="array_pref_default_profile">Zdieľaný profil</string>
+<!--  <string name="default_profile_name">Zdieľaný profil</string> -->
+<!--  <string name="brightness_pref_dialog_default_profile_chb">Zdieľaný profil</string> -->
+<!--  <string name="preference_profile_default_profile">Zdieľaný profil</string> -->
+<!--  <string name="volume_pref_dialog_default_profile_chb">Zdieľaný profil</string> -->
+<!--  <string name="array_pref_default_profile">Zdieľaný profil</string> -->
   <string name="array_pref_change">Zmeniť</string>
   <string name="array_pref_no_show">Nezobrazovať</string>
   <string name="array_pref_show">Zobrazovať</string>
   <string name="array_pref_no_run">Nespúšťať</string>
   <string name="array_pref_run">Spúšťať</string>
-  <string name="title_activity_default_profile_preferences">Zdieľaný profil</string>
+<!--  <string name="title_activity_default_profile_preferences">Zdieľaný profil</string> -->
   <string name="profile_list_item_menu_activate">Aktivuj</string>
   <string name="profile_list_item_menu_duplicate">Duplikuj</string>
   <string name="profile_list_item_menu_delete">Zmaž</string>
@@ -714,7 +714,7 @@
   <string name="editor_event_list_item_event_status">Indikátor stavu udalosti</string>
   <string name="editor_event_list_item_profile_start_icon">Ikona profilu začiatku udalosti</string>
   <string name="editor_event_list_item_profile_end_icon">Ikona profilu konca udalosti</string>
-  <string name="profile_preferences_sourceProfileInfo_summary">Každý parameter profilu môžete nakonfigurovať tak, aby ste použili \"Zdieľaný profil\" a počas aktivácie sa použijú hodnoty zo zdieľaného profilu. Kliknite sem pre nakonfigurovanie parametrov Zdieľaného profilu.</string>
+<!--  <string name="profile_preferences_sourceProfileInfo_summary">Každý parameter profilu môžete nakonfigurovať tak, aby ste použili \"Zdieľaný profil\" a počas aktivácie sa použijú hodnoty zo zdieľaného profilu. Kliknite sem pre nakonfigurovanie parametrov Zdieľaného profilu.</string> -->
   <string name="run_stop_events_indicator">Povoľ/zastav beh udalostí</string>
   <string name="run_stop_indicator_popup_window_important_info">Pre viac informácií pozrite obrazovku \"Dôležité informácie\" v Editore cez ikonu otáznika v nástrojovej lište.</string>
   <string name="important_info_how_to_show">Tieto dôležité informácie môžete zobraziť v Editore cez ikonu otáznika v nástrojovej lište.</string>
@@ -934,8 +934,8 @@
   <string name="important_info_accessibility_service_text1">Vzhľadom na to, že spoločnosť Google zmenila pravidlá o používaní služieb dostupnosti, musíte pre udalostný senzor aplikácií a udalostný senzor orientácie nainštalovať PhoneProfilesPlusExtender. Pozrite sa na parametre týchto senzorov pre viac informácií.</string>
   <string name="about_application_extender_source_code">Zdrojový kód - Extender:</string>
   <string name="pref_dlg_info_about_wildcards_4">Môžete nakonfigurovať viac reťazcov. Oddeľte ich znakom \"|\".</string>
-  <string name="profile_preferences_sourceProfileInfoX_title">Funkcionalita zdieľaného profilu.</string>
-  <string name="profile_preferences_sourceProfileInfoX_summary">Každý parameter profilu môžete nakonfigurovať tak, aby ste použili \"Zdieľaný profil\" a počas aktivácie sa použijú hodnoty zo zdieľaného profilu.</string>
+<!--  <string name="profile_preferences_sourceProfileInfoX_title">Funkcionalita zdieľaného profilu.</string> -->
+<!--  <string name="profile_preferences_sourceProfileInfoX_summary">Každý parameter profilu môžete nakonfigurovať tak, aby ste použili \"Zdieľaný profil\" a počas aktivácie sa použijú hodnoty zo zdieľaného profilu.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Predvolený profil</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Tento profil sa aktivuje, ak nebeží žiadna udalosť. Kliknite sem pre jeho nakonfigurovanie.</string>
   <string name="mobile_cell_names_dialog_title">Názvy buniek</string>
