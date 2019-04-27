@@ -61,9 +61,9 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
     void setSummaryCTSDP()
     {
         String prefSummary = context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
-        if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_SHAREDPROFILE))
-            prefSummary = context.getString(R.string.array_pref_default_profile);
-        else
+        //if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_SHAREDPROFILE))
+        //    prefSummary = context.getString(R.string.array_pref_default_profile);
+        //else
         if (!value.isEmpty() && !value.equals(Profile.CONNECTTOSSID_JUSTANY))
             prefSummary = value;
         setSummary(prefSummary);

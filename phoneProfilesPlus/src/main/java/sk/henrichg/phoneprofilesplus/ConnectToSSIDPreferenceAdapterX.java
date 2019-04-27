@@ -66,9 +66,9 @@ class ConnectToSSIDPreferenceAdapterX extends BaseAdapter
             case Profile.CONNECTTOSSID_JUSTANY:
                 holder.SSIDName.setText(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
                 break;
-            case Profile.CONNECTTOSSID_SHAREDPROFILE:
-                holder.SSIDName.setText(R.string.array_pref_default_profile);
-                break;
+            //case Profile.CONNECTTOSSID_SHAREDPROFILE:
+            //    holder.SSIDName.setText(R.string.array_pref_default_profile);
+            //    break;
             default:
                 holder.SSIDName.setText(wifiSSID.ssid);
                 break;

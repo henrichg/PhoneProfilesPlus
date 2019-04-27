@@ -273,7 +273,7 @@ public class Profile {
     static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
 
     static final String CONNECTTOSSID_JUSTANY = "^just_any^";
-    static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
+    //static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
 
     //static final long SHARED_PROFILE_ID = -999L;
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";

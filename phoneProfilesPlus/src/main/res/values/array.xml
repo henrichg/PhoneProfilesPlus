@@ -4,7 +4,6 @@
     <string-array name="emptyArray"></string-array>
     <string-array name="ringerModeArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_ringerModeArray_ring</item>
         <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
         <item>@string/array_pref_ringerModeArray_vibrate</item>
@@ -12,23 +11,6 @@
         <item>@string/array_pref_ringerModeArray_ZenMode</item>
     </string-array>
     <string-array name="ringerModeValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-    <string-array name="ringerModeDPArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_ringerModeArray_ring</item>
-        <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
-        <item>@string/array_pref_ringerModeArray_vibrate</item>
-        <item>@string/array_pref_ringerModeArray_silentL</item>
-        <item>@string/array_pref_ringerModeArray_ZenMode</item>
-    </string-array>
-    <string-array name="ringerModeDPValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -38,21 +20,18 @@
     </string-array>
     <string-array name="hardwareModeArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
         <item>@string/array_pref_hardwareModeArray_toggle</item>
     </string-array>
     <string-array name="hardwareModeValues">
         <item>0</item>
-        <item>99</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
     </string-array>
     <string-array name="screenTimeoutArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_screenTimeoutArray_15seconds</item>
         <item>@string/array_pref_screenTimeoutArray_30seconds</item>
         <item>@string/array_pref_screenTimeoutArray_1minute</item>
@@ -65,7 +44,6 @@
     </string-array>
     <string-array name="screenTimeoutValues">
         <item>0</item>
-        <item>99</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -210,7 +188,6 @@
     </string-array>
     <string-array name="displayRotationArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_auto_rotate_on</item>
         <item>@string/array_pref_auto_rotate_off</item>
         <item>@string/array_pref_0_degrees</item>
@@ -220,7 +197,6 @@
     </string-array>
     <string-array name="displayRotationValues">
         <item>0</item>
-        <item>99</item>
         <item>1</item>
         <item>6</item>
         <item>2</item>
@@ -230,131 +206,37 @@
     </string-array>
     <string-array name="soundChangeArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_change</item>
     </string-array>
     <string-array name="soundChangeValues">
         <item>0</item>
-        <item>99</item>
         <item>1</item>
     </string-array>
     <string-array name="mobileDataPrefsArray">
         <item>@string/array_pref_no_show</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_show</item>
     </string-array>
     <string-array name="mobileDataPrefsValues">
         <item>0</item>
-        <item>99</item>
         <item>1</item>
     </string-array>
     <string-array name="runApplicationArray">
         <item>@string/array_pref_no_run</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_run</item>
     </string-array>
     <string-array name="runApplicationValues">
         <item>0</item>
-        <item>99</item>
         <item>1</item>
     </string-array>
     <string-array name="changeWallpaperArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_change</item>
     </string-array>
     <string-array name="changeWallpaperValues">
         <item>0</item>
-        <item>99</item>
         <item>1</item>
     </string-array>
 
-    <string-array name="hardwareModeDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-        <item>@string/array_pref_hardwareModeArray_toggle</item>
-    </string-array>
-    <string-array name="hardwareModeDPValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string-array name="screenTimeoutDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_screenTimeoutArray_15seconds</item>
-        <item>@string/array_pref_screenTimeoutArray_30seconds</item>
-        <item>@string/array_pref_screenTimeoutArray_1minute</item>
-        <item>@string/array_pref_screenTimeoutArray_2minutes</item>
-        <item>@string/array_pref_screenTimeoutArray_5minutes</item>
-        <item>@string/array_pref_screenTimeoutArray_10minutes</item>
-        <item>@string/array_pref_screenTimeoutArray_30minutes</item>
-        <item>@string/array_pref_screenTimeoutArray_24hours</item>
-        <item>@string/array_pref_screenTimeoutArray_alwaysOn</item>
-    </string-array>
-    <string-array name="screenTimeoutDPValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>7</item>
-        <item>5</item>
-        <item>9</item>
-        <item>6</item>
-        <item>8</item>
-    </string-array>
-    <string-array name="displayRotationDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_auto_rotate_on</item>
-        <item>@string/array_pref_auto_rotate_off</item>
-        <item>@string/array_pref_0_degrees</item>
-        <item>@string/array_pref_90_degrees</item>
-        <item>@string/array_pref_180_degrees</item>
-        <item>@string/array_pref_270_degrees</item>
-    </string-array>
-    <string-array name="displayRotationDPValues">
-        <item>0</item>
-        <item>1</item>
-        <item>6</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-    <string-array name="soundChangeDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_change</item>
-    </string-array>
-    <string-array name="soundChangeDPValues">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="mobileDataPrefsDPArray">
-        <item>@string/array_pref_no_show</item>
-        <item>@string/array_pref_show</item>
-    </string-array>
-    <string-array name="mobileDataPrefsDPValues">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="runApplicationDPArray">
-        <item>@string/array_pref_no_run</item>
-        <item>@string/array_pref_run</item>
-    </string-array>
-    <string-array name="runApplicationDPValues">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="changeWallpaperDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_change</item>
-    </string-array>
-    <string-array name="changeWallpaperDPValues">
-        <item>0</item>
-        <item>1</item>
-    </string-array>
     <string-array name="launcherArray">
         <item>@string/array_pref_launcher_activator</item>
         <item>@string/array_pref_launcher_editor</item>
@@ -365,40 +247,18 @@
     </string-array>
     <string-array name="locationServicePrefsArray">
         <item>@string/array_pref_no_show</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_show</item>
     </string-array>
     <string-array name="locationServicePrefsValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="locationServicePrefsDPArray">
-        <item>@string/array_pref_no_show</item>
-        <item>@string/array_pref_show</item>
-    </string-array>
-    <string-array name="locationServicePrefsDPValues">
         <item>0</item>
         <item>1</item>
     </string-array>
     <string-array name="volumeSpeakerPhoneArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="volumeSpeakerPhoneValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="volumeSpeakerPhoneDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="volumeSpeakerPhoneDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -543,7 +403,6 @@
     </string-array>
     <string-array name="zenModeArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_zenModeArray_all</item>
         <item>@string/array_pref_zenModeArray_allWithVibration</item>
         <item>@string/array_pref_zenModeArray_priority</item>
@@ -551,23 +410,6 @@
         <item>@string/array_pref_zenModeArray_none</item>
     </string-array>
     <string-array name="zenModeValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>4</item>
-        <item>2</item>
-        <item>5</item>
-        <item>3</item>
-    </string-array>
-    <string-array name="zenModeDPArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_zenModeArray_all</item>
-        <item>@string/array_pref_zenModeArray_allWithVibration</item>
-        <item>@string/array_pref_zenModeArray_priority</item>
-        <item>@string/array_pref_zenModeArray_priorityWithVibration</item>
-        <item>@string/array_pref_zenModeArray_none</item>
-    </string-array>
-    <string-array name="zenModeDPValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
         <item>4</item>
@@ -584,44 +426,20 @@
     </string-array>
     <string-array name="keyguardArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="keyguardValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="keyguardDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="keyguardDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
     <string-array name="vibrationOnTouchArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="vibrationOnTouchValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="vibrationOnTouchDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="vibrationOnTouchDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -720,7 +538,6 @@
     </string-array>
     <string-array name="networkTypeGSMArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>3G/2G - WCDMA/GSM (WCDMA preferred)</item>
         <item>2G - GSM</item>
         <item>3G - WCDMA</item>
@@ -730,27 +547,6 @@
         <item>3G/4G - WCDMA/LTE</item>
     </string-array>
     <string-array name="networkTypeGSMValues">
-        <item>0</item>
-        <item>99</item>
-        <item>100</item>
-        <item>101</item>
-        <item>102</item>
-        <item>103</item>
-        <item>109</item>
-        <item>111</item>
-        <item>112</item>
-    </string-array>
-    <string-array name="networkTypeGSMDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>3G/2G - WCDMA/GSM (WCDMA preferred)</item>
-        <item>2G - GSM</item>
-        <item>3G - WCDMA</item>
-        <item>2G/3G - GSM/WCDMA (auto)</item>
-        <item>2G/3G/4G - GSM/WCDMA, LTE</item>
-        <item>4G - LTE</item>
-        <item>3G/4G - WCDMA/LTE</item>
-    </string-array>
-    <string-array name="networkTypeGSMDPValues">
         <item>0</item>
         <item>100</item>
         <item>101</item>
@@ -762,7 +558,6 @@
     </string-array>
     <string-array name="networkTypeCDMAArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>2G/3G - CDMA, EvDo</item>
         <item>2G - CDMA</item>
         <item>3G - EvDo</item>
@@ -771,25 +566,6 @@
         <item>2G/3G/4G - GSM/WCDMA, CDMA, EvDo, LTE</item>
     </string-array>
     <string-array name="networkTypeCDMAValues">
-        <item>0</item>
-        <item>99</item>
-        <item>104</item>
-        <item>105</item>
-        <item>106</item>
-        <item>107</item>
-        <item>108</item>
-        <item>110</item>
-    </string-array>
-    <string-array name="networkTypeCDMADPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>2G/3G - CDMA, EvDo</item>
-        <item>2G - CDMA</item>
-        <item>3G - EvDo</item>
-        <item>2G/3G - GSM/WCDMA, CDMA, EvDo</item>
-        <item>2G/3G/4G - CDMA, EvDo, LTE</item>
-        <item>2G/3G/4G - GSM/WCDMA, CDMA, EvDo, LTE</item>
-    </string-array>
-    <string-array name="networkTypeCDMADPValues">
         <item>0</item>
         <item>104</item>
         <item>105</item>
@@ -816,22 +592,10 @@
     </string-array>
     <string-array name="notificationLedArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="notificationLedValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="notificationLedDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="notificationLedDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -870,22 +634,10 @@
     </string-array>
     <string-array name="vibrateWhenRingingArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="vibrateWhenRingingValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="vibrateWhenRingingDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="vibrateWhenRingingDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -896,16 +648,6 @@
         <item>@string/array_pref_device_wallpaper_lockscreen</item>
     </string-array>
     <string-array name="wallpaperForValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="wallpaperForDPArray">
-        <item>@string/array_pref_device_wallpaper_all</item>
-        <item>@string/array_pref_device_wallpaper_homescreen</item>
-        <item>@string/array_pref_device_wallpaper_lockscreen</item>
-    </string-array>
-    <string-array name="wallpaperForDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -954,22 +696,10 @@
     -->
     <string-array name="lockDeviceArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_lockDevice_screenOff</item>
         <item>@string/array_pref_lockDevice_root</item>
     </string-array>
     <string-array name="lockDeviceValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="lockDeviceDPArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_lockDevice_screenOff</item>
-        <item>@string/array_pref_lockDevice_root</item>
-    </string-array>
-    <string-array name="lockDeviceDPValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -996,29 +726,16 @@
     </string-array>
     <string-array name="applicationDisableScanningArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_applicationDisableScanning_disabled</item>
         <item>@string/array_pref_applicationDisableScanning_enabled</item>
     </string-array>
     <string-array name="applicationDisableScanningValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="applicationDisableScanningDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_applicationDisableScanning_disabled</item>
-        <item>@string/array_pref_applicationDisableScanning_enabled</item>
-    </string-array>
-    <string-array name="applicationDisableScanningDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
     <string-array name="wifiModeArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_wifiModeArray_on_ignoreHotspot</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
@@ -1026,23 +743,6 @@
         <item>@string/array_pref_wifiModeArray_toggle_ignoreHotspot</item>
     </string-array>
     <string-array name="wifiModeValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>4</item>
-        <item>2</item>
-        <item>3</item>
-        <item>5</item>
-    </string-array>
-    <string-array name="wifiModeDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_wifiModeArray_on_ignoreHotspot</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-        <item>@string/array_pref_hardwareModeArray_toggle</item>
-        <item>@string/array_pref_wifiModeArray_toggle_ignoreHotspot</item>
-    </string-array>
-    <string-array name="wifiModeDPValues">
         <item>0</item>
         <item>1</item>
         <item>4</item>
@@ -1052,40 +752,18 @@
     </string-array>
     <string-array name="wiFiAPPrefsArray">
         <item>@string/array_pref_no_show</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_show</item>
     </string-array>
     <string-array name="wiFiAPPrefsValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="wiFiAPPrefsDPArray">
-        <item>@string/array_pref_no_show</item>
-        <item>@string/array_pref_show</item>
-    </string-array>
-    <string-array name="wiFiAPPrefsDPValues">
         <item>0</item>
         <item>1</item>
     </string-array>
     <string-array name="headsUpNotificationsArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="headsUpNotificationsValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="headsUpNotificationsDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="headsUpNotificationsDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -1102,123 +780,55 @@
     </string-array>
     <string-array name="forceStopApplicationArray">
         <item>@string/array_pref_no_force_stop</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_force_stop</item>
     </string-array>
     <string-array name="forceStopApplicationValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="forceStopApplicationDPArray">
-        <item>@string/array_pref_no_force_stop</item>
-        <item>@string/array_pref_force_stop</item>
-    </string-array>
-    <string-array name="forceStopApplicationDPValues">
         <item>0</item>
         <item>1</item>
     </string-array>
     <string-array name="networkTypePrefsArray">
         <item>@string/array_pref_no_show</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_show</item>
     </string-array>
     <string-array name="networkTypePrefsValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="networkTypePrefsDPArray">
-        <item>@string/array_pref_no_show</item>
-        <item>@string/array_pref_show</item>
-    </string-array>
-    <string-array name="networkTypePrefsDPValues">
         <item>0</item>
         <item>1</item>
     </string-array>
     <string-array name="closeAllApplicationsArray">
         <item>@string/array_pref_do_not_close</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_close</item>
     </string-array>
     <string-array name="closeAllApplicationsValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-    </string-array>
-    <string-array name="closeAllApplicationsDPArray">
-        <item>@string/array_pref_do_not_close</item>
-        <item>@string/array_pref_close</item>
-    </string-array>
-    <string-array name="closeAllApplicationsDPValues">
         <item>0</item>
         <item>1</item>
     </string-array>
     <string-array name="soundOnTouchArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="soundOnTouchValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="soundOnTouchDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="soundOnTouchDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
     <string-array name="dtmfToneWhenDialingArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="dtmfToneWhenDialingValues">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="dtmfToneWhenDialingDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-    </string-array>
-    <string-array name="dtmfToneWhenDialingDPValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
     <string-array name="wifiAPArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
         <item>@string/array_pref_hardwareModeArray_toggle</item>
     </string-array>
     <string-array name="wifiAPValues" tools:ignore="InconsistentArrays">
-        <item>0</item>
-        <item>99</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-    <string-array name="wifiAPDPArray" tools:ignore="InconsistentArrays">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-        <item>@string/array_pref_hardwareModeArray_toggle</item>
-    </string-array>
-    <string-array name="wifiAPDPValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -1422,28 +1032,15 @@
 <!--
     <string-array name="screenNightModeArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_default_profile</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
         <item>@string/array_pref_hardwareModeArray_off</item>
         <item>@string/array_pref_screenNightMode_automatic</item>
     </string-array>
     <string-array name="screenNightModeValues">
         <item>0</item>
-        <item>99</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
     </string-array>
-    <string-array name="screenNightModeDPArray">
-        <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_hardwareModeArray_on</item>
-        <item>@string/array_pref_hardwareModeArray_off</item>
-        <item>@string/array_pref_screenNightMode_automatic</item>
-    </string-array>
-    <string-array name="screenNightModeDPValues">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array> -->
+-->
 </resources>
