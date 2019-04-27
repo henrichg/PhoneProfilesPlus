@@ -23,8 +23,8 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     // Custom xml attributes.
     final String volumeType;
     int noChange;
-    int sharedProfile;
-    final int disableSharedProfile;
+    //int sharedProfile;
+    //final int disableSharedProfile;
 
     int maximumValue = 7;
     final int minimumValue = 0;
@@ -52,10 +52,10 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             R.styleable.VolumeDialogPreference_volumeType);
         noChange = typedArray.getInteger(
             R.styleable.VolumeDialogPreference_vNoChange, 1);
-        sharedProfile = typedArray.getInteger(
+        /*sharedProfile = typedArray.getInteger(
                 R.styleable.VolumeDialogPreference_vSharedProfile, 0);
         disableSharedProfile = typedArray.getInteger(
-                R.styleable.VolumeDialogPreference_vDisableSharedProfile, 0);
+                R.styleable.VolumeDialogPreference_vDisableSharedProfile, 0);*/
 
         audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
@@ -136,11 +136,11 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         } catch (Exception e) {
             noChange = 1;
         }
-        try {
+        /*try {
             sharedProfile = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             sharedProfile = 0;
-        }
+        }*/
 
         // You're never know...
         if (value < 0) {
@@ -149,7 +149,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
 
         PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "value="+value);
         PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "noChange="+noChange);
-        PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sharedProfile="+sharedProfile);
+        //PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "sharedProfile="+sharedProfile);
     }
 
     private void setSummaryVDP()
@@ -157,9 +157,9 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         String prefVolumeDataSummary;
         if (noChange == 1)
             prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_no_change);
-        else
+        /*else
         if (sharedProfile == 1)
-            prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);
+            prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);*/
         else
             prefVolumeDataSummary = value + " / " + maximumValue;
         setSummary(prefVolumeDataSummary);
@@ -169,7 +169,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
         int _value = value + minimumValue;
         return _value
                 + "|" + noChange
-                + "|" + sharedProfile;
+                + "|" + "0";
     }
 
     void persistValue() {

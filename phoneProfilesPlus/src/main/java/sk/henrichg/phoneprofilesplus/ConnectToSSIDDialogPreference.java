@@ -27,7 +27,7 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     private final Context context;
 
     String value = "";
-    private final int disableSharedProfile;
+    //private final int disableSharedProfile;
 
     List<WifiSSIDData> ssidList;
 
@@ -43,18 +43,18 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
     public ConnectToSSIDDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs,
+        /*TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ConnectToSSIDDialogPreference);
 
         disableSharedProfile = typedArray.getInteger(
-                R.styleable.ConnectToSSIDDialogPreference_cDisableSharedProfile, 0);
+                R.styleable.ConnectToSSIDDialogPreference_cDisableSharedProfile, 0);*/
 
         this.context = context;
         ssidList = new ArrayList<>();
 
         //setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        typedArray.recycle();
+        //typedArray.recycle();
     }
 
     @Override
@@ -151,8 +151,8 @@ public class ConnectToSSIDDialogPreference extends DialogPreference {
 
                 Collections.sort(_SSIDList, new ConnectToSSIDDialogPreference.SortList());
 
-                if (disableSharedProfile == 0)
-                    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
+                //if (disableSharedProfile == 0)
+                //    _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_SHAREDPROFILE, "", false, false, false));
                 _SSIDList.add(0, new WifiSSIDData(Profile.CONNECTTOSSID_JUSTANY, "", false, false, false));
 
                 return null;

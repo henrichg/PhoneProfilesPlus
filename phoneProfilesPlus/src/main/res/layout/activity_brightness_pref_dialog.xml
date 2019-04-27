@@ -14,11 +14,13 @@
         android:layout_height="wrap_content"
         android:text="@string/brightness_pref_dialog_no_change_chb" />
 
+    <!--
     <CheckBox
         android:id="@+id/brightnessPrefDialogSharedProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/brightness_pref_dialog_default_profile_chb" />
+    -->
     
     <CheckBox
         android:id="@+id/brightnessPrefDialogAutomatic"

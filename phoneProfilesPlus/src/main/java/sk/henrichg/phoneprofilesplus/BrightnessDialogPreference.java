@@ -273,15 +273,17 @@ public class BrightnessDialogPreference extends
             //    sharedProfileChBox.setChecked(false);
         }
 
+        /*
         if (buttonView.getId() == R.id.brightnessPrefDialogSharedProfile)
         {
-            //sharedProfile = (isChecked)? 1 : 0;
+            sharedProfile = (isChecked)? 1 : 0;
 
             enableViews();
 
             if (isChecked)
                 noChangeChBox.setChecked(false);
         }
+        */
 
         if (buttonView.getId() == R.id.brightnessPrefDialogAutomatic)
         {

@@ -18,24 +18,24 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
     private final Context context;
 
     String value = "";
-    final int disableSharedProfile;
+    //final int disableSharedProfile;
 
     List<WifiSSIDData> ssidList;
 
     public ConnectToSSIDDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs,
+        /*TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ConnectToSSIDDialogPreference);
 
         disableSharedProfile = typedArray.getInteger(
-                R.styleable.ConnectToSSIDDialogPreference_cDisableSharedProfile, 0);
+                R.styleable.ConnectToSSIDDialogPreference_cDisableSharedProfile, 0);*/
 
         this.context = context;
 
         //setWidgetLayoutResource(R.layout.applications_preference); // resource na layout custom preference - TextView-ImageView
 
-        typedArray.recycle();
+        //typedArray.recycle();
 
         ssidList = new ArrayList<>();
     }

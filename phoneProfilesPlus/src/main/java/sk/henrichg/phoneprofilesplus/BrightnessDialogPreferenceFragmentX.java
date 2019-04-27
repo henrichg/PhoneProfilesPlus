@@ -129,15 +129,17 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
             //    sharedProfileChBox.setChecked(false);
         }
 
+        /*
         if (buttonView.getId() == R.id.brightnessPrefDialogSharedProfile)
         {
-            //preference.sharedProfile = (isChecked)? 1 : 0;
+            preference.sharedProfile = (isChecked)? 1 : 0;
 
             enableViews();
 
             if (isChecked)
                 noChangeChBox.setChecked(false);
         }
+        */
 
         if (buttonView.getId() == R.id.brightnessPrefDialogAutomatic)
         {

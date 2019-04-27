@@ -157,8 +157,6 @@
                 android:key="prf_pref_volumeRingtone"
                 app:volumeType="ringtone"
                 app:vNoChange="1"
-                app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
                 android:layout="@layout/mp_preference_material_widget"
                 android:title="@string/profile_preferences_volumeRingtone"
                 android:summary="@string/volume_pref_dialog_no_change_chb" />
@@ -172,8 +170,6 @@
                 android:key="prf_pref_volumeNotification"
                 app:volumeType="notification"
                 app:vNoChange="1"
-                app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
                 android:layout="@layout/mp_preference_material_widget"
                 android:title="@string/profile_preferences_volumeNotification"
                 android:summary="@string/volume_pref_dialog_no_change_chb" />
@@ -186,8 +182,6 @@
                 android:key="prf_pref_volumeMedia"
                 app:volumeType="media"
                 app:vNoChange="1"
-                app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
                 android:title="@string/profile_preferences_volumeMedia"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -195,8 +189,6 @@
                 android:key="prf_pref_volumeAlarm"
                 app:volumeType="alarm"
                 app:vNoChange="1"
-                app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
                 android:title="@string/profile_preferences_volumeAlarm"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -204,8 +196,6 @@
                 android:key="prf_pref_volumeSystem"
                 app:volumeType="system"
                 app:vNoChange="1"
-                app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
                 android:title="@string/profile_preferences_volumeSystem"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -213,8 +203,6 @@
                 android:key="prf_pref_volumeVoice"
                 app:volumeType="voice"
                 app:vNoChange="1"
-                app:vSharedProfile="0"
-                app:vDisableSharedProfile="0"
                 android:title="@string/profile_preferences_volumeVoiceCall"
                 android:summary="@string/volume_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -384,7 +372,6 @@
             <sk.henrichg.phoneprofilesplus.ConnectToSSIDDialogPreference
                 android:key="prf_pref_deviceConnectToSSID"
                 android:defaultValue="^just_any^"
-                app:cDisableSharedProfile="0"
                 android:title="@string/profile_preferences_deviceConnectToSSID"
                 android:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
                 android:layout="@layout/mp_preference_material_widget" />
@@ -474,8 +461,6 @@
                 android:key="prf_pref_deviceBrightness"
                 app:bNoChange="1"
                 app:bAutomatic="0"
-                app:bSharedProfile="0"
-                app:bDisableSharedProfile="0"
                 android:title="@string/profile_preferences_deviceBrightness"
                 android:summary="@string/brightness_pref_dialog_no_change_chb"
                 android:layout="@layout/mp_preference_material_widget" />
