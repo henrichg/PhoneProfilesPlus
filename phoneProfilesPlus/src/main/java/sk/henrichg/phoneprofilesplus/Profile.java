@@ -1516,7 +1516,6 @@ public class Profile {
         return getVolumeRingtoneChange(_volumeRingtone);
     }
 
-    /*
     private boolean getVolumeRingtoneSharedProfile()
     {
         int value;
@@ -1528,7 +1527,6 @@ public class Profile {
         }
         return value == 1;
     }
-    */
 
     @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
     void setVolumeRingtoneValue(int value) {
@@ -1569,7 +1567,6 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    /*
     private boolean getVolumeNotificationSharedProfile()
     {
         int value;
@@ -1581,7 +1578,6 @@ public class Profile {
         }
         return value == 1;
     }
-    */
 
     @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
     void setVolumeNotificationValue(int value) {
@@ -1623,7 +1619,6 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    /*
     private boolean getVolumeMediaSharedProfile()
     {
         int value;
@@ -1635,7 +1630,6 @@ public class Profile {
         }
         return value == 1;
     }
-    */
 
     int getVolumeAlarmValue()
     {
@@ -1661,7 +1655,6 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    /*
     private boolean getVolumeAlarmSharedProfile()
     {
         int value;
@@ -1673,7 +1666,6 @@ public class Profile {
         }
         return value == 1;
     }
-    */
 
     int getVolumeSystemValue()
     {
@@ -1699,7 +1691,6 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    /*
     private boolean getVolumeSystemSharedProfile()
     {
         int value;
@@ -1711,7 +1702,6 @@ public class Profile {
         }
         return value == 1;
     }
-    */
 
     int getVolumeVoiceValue()
     {
@@ -1737,7 +1727,6 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    /*
     private boolean getVolumeVoiceSharedProfile()
     {
         int value;
@@ -1749,9 +1738,8 @@ public class Profile {
         }
         return value == 1;
     }
-    */
 
-    int getDeviceBrightnessValue()
+    private int getDeviceBrightnessValue()
     {
         int maximumValue = 100;
         int defaultValue = 50;
@@ -1779,7 +1767,6 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    /*
     private boolean getDeviceBrightnessSharedProfile()
     {
         int value;
@@ -1791,7 +1778,6 @@ public class Profile {
         }
         return value == 1;
     }
-    */
 
     boolean getDeviceBrightnessAutomatic()
     {
@@ -2416,12 +2402,14 @@ public class Profile {
         editor.apply();
     }
 
-    /*
-    static Profile getMappedProfile(Profile profile, Context context)
+    static Profile getMappedProfile(Profile profile, Profile sharedProfile/*, Context context*/)
     {
+        final int SHARED_PROFILE_VALUE = 99;
+        final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
+
         if (profile != null)
         {
-            Profile sharedProfile = getProfileFromSharedPreferences(context, PPApplication.SHARED_PROFILE_PREFS_NAME);
+            //Profile sharedProfile = getProfileFromSharedPreferences(context, PPApplication.SHARED_PROFILE_PREFS_NAME);
 
             Profile mappedProfile = new Profile(
                     profile._id,
@@ -2583,7 +2571,7 @@ public class Profile {
                 mappedProfile._vibrateWhenRinging = sharedProfile._vibrateWhenRinging;
             if (profile._lockDevice == SHARED_PROFILE_VALUE)
                 mappedProfile._lockDevice = sharedProfile._lockDevice;
-            if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_SHAREDPROFILE)))
+            if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(CONNECTTOSSID_SHAREDPROFILE)))
                 mappedProfile._deviceConnectToSSID = sharedProfile._deviceConnectToSSID;
             if (profile._applicationDisableWifiScanning == SHARED_PROFILE_VALUE)
                 mappedProfile._applicationDisableWifiScanning = sharedProfile._applicationDisableWifiScanning;
@@ -2623,7 +2611,6 @@ public class Profile {
         else
             return null;
     }
-    */
 
     static PreferenceAllowed isProfilePreferenceAllowed(String preferenceKey, Profile profile,
                                                         boolean fromUIThread, Context context)
