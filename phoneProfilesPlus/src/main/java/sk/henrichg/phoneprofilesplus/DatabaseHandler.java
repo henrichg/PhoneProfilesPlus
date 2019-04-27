@@ -9801,6 +9801,159 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     changePictureFilePathToUri(null/*, false*/);
                                 }
 
+                                if (exportedDBObj.getVersion() < 2300) {
+                                    Profile sharedProfile = Profile.getProfileFromSharedPreferences(context, "profile_preferences_default_profile");
+
+                                    if (cursorImportDB.moveToFirst()) {
+                                        do {
+                                            Profile profile = new Profile(Long.parseLong(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_ID))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_NAME)),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_ICON)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_CHECKED))) == 1,
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_PORDER))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_RINGER_MODE))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_RINGTONE)),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_NOTIFICATION)),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_MEDIA)),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_ALARM)),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_SYSTEM)),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_VOICE)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_RINGTONE)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_NOTIFICATION)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_ALARM_CHANGE))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_ALARM)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_AIRPLANE_MODE))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_WIFI))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_BLUETOOTH))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_SCREEN_TIMEOUT))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_BRIGHTNESS)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_WALLPAPER_CHANGE))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_WALLPAPER)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_MOBILE_DATA))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_MOBILE_DATA_PREFS))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_GPS))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_CHANGE))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_AUTOSYNC))),
+                                                    cursorImportDB.isNull(cursorImportDB.getColumnIndex(KEY_SHOW_IN_ACTIVATOR)) || (Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SHOW_IN_ACTIVATOR))) == 1),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_AUTOROTATE))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_LOCATION_SERVICE_PREFS))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_SPEAKER_PHONE))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_NFC))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DURATION))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_AFTER_DURATION_DO))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VOLUME_ZEN_MODE))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_KEYGUARD))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VIBRATE_ON_TOUCH))),
+                                                    cursorImportDB.isNull(cursorImportDB.getColumnIndex(KEY_DEVICE_WIFI_AP)) ? 0 : Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_WIFI_AP))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_POWER_SAVE_MODE))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_ASK_FOR_DURATION))) == 1,
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_NETWORK_TYPE))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_NOTIFICATION_LED))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_VIBRATE_WHEN_RINGING))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON))) == 1,
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_LOCK_DEVICE))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_CONNECT_TO_SSID)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_APPLICATION_DISABLE_WIFI_SCANNING))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DURATION_NOTIFICATION_SOUND)),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DURATION_NOTIFICATION_VIBRATE))) == 1,
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_WIFI_AP_PREFS))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_APPLICATION_DISABLE_LOCATION_SCANNING))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_HEADS_UP_NOTIFICATIONS))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE))),
+                                                    cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME)),
+                                                    Long.parseLong(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_ACTIVATION_BY_USER_COUNT))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_PREFS))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DEVICE_CLOSE_ALL_APPLICATIONS))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SCREEN_NIGHT_MODE))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_DTMF_TONE_WHEN_DIALING))),
+                                                    Integer.parseInt(cursorImportDB.getString(cursorImportDB.getColumnIndex(KEY_SOUND_ON_TOUCH)))
+                                            );
+
+                                            profile = Profile.getMappedProfile(profile, sharedProfile);
+
+                                            values = new ContentValues();
+                                            values.put(KEY_NAME, profile._name);
+                                            values.put(KEY_ICON, profile._icon);
+                                            values.put(KEY_CHECKED, (profile._checked) ? 1 : 0);
+                                            values.put(KEY_PORDER, profile._porder);
+                                            values.put(KEY_VOLUME_RINGER_MODE, profile._volumeRingerMode);
+                                            values.put(KEY_VOLUME_ZEN_MODE, profile._volumeZenMode);
+                                            values.put(KEY_VOLUME_RINGTONE, profile._volumeRingtone);
+                                            values.put(KEY_VOLUME_NOTIFICATION, profile._volumeNotification);
+                                            values.put(KEY_VOLUME_MEDIA, profile._volumeMedia);
+                                            values.put(KEY_VOLUME_ALARM, profile._volumeAlarm);
+                                            values.put(KEY_VOLUME_SYSTEM, profile._volumeSystem);
+                                            values.put(KEY_VOLUME_VOICE, profile._volumeVoice);
+                                            values.put(KEY_SOUND_RINGTONE_CHANGE, profile._soundRingtoneChange);
+                                            values.put(KEY_SOUND_RINGTONE, profile._soundRingtone);
+                                            values.put(KEY_SOUND_NOTIFICATION_CHANGE, profile._soundNotificationChange);
+                                            values.put(KEY_SOUND_NOTIFICATION, profile._soundNotification);
+                                            values.put(KEY_SOUND_ALARM_CHANGE, profile._soundAlarmChange);
+                                            values.put(KEY_SOUND_ALARM, profile._soundAlarm);
+                                            values.put(KEY_DEVICE_AIRPLANE_MODE, profile._deviceAirplaneMode);
+                                            values.put(KEY_DEVICE_WIFI, profile._deviceWiFi);
+                                            values.put(KEY_DEVICE_BLUETOOTH, profile._deviceBluetooth);
+                                            values.put(KEY_DEVICE_SCREEN_TIMEOUT, profile._deviceScreenTimeout);
+                                            values.put(KEY_DEVICE_BRIGHTNESS, profile._deviceBrightness);
+                                            values.put(KEY_DEVICE_WALLPAPER_CHANGE, profile._deviceWallpaperChange);
+                                            values.put(KEY_DEVICE_WALLPAPER, profile._deviceWallpaper);
+                                            values.put(KEY_DEVICE_MOBILE_DATA, profile._deviceMobileData);
+                                            values.put(KEY_DEVICE_MOBILE_DATA_PREFS, profile._deviceMobileDataPrefs);
+                                            values.put(KEY_DEVICE_GPS, profile._deviceGPS);
+                                            values.put(KEY_DEVICE_RUN_APPLICATION_CHANGE, profile._deviceRunApplicationChange);
+                                            values.put(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
+                                            values.put(KEY_DEVICE_AUTOSYNC, profile._deviceAutoSync);
+                                            values.put(KEY_SHOW_IN_ACTIVATOR, (profile._showInActivator) ? 1 : 0);
+                                            values.put(KEY_DEVICE_AUTOROTATE, profile._deviceAutoRotate);
+                                            values.put(KEY_DEVICE_LOCATION_SERVICE_PREFS, profile._deviceLocationServicePrefs);
+                                            values.put(KEY_VOLUME_SPEAKER_PHONE, profile._volumeSpeakerPhone);
+                                            values.put(KEY_DEVICE_NFC, profile._deviceNFC);
+                                            values.put(KEY_DURATION, profile._duration);
+                                            values.put(KEY_AFTER_DURATION_DO, profile._afterDurationDo);
+                                            values.put(KEY_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
+                                            values.put(KEY_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
+                                            values.put(KEY_DEVICE_KEYGUARD, profile._deviceKeyguard);
+                                            values.put(KEY_VIBRATE_ON_TOUCH, profile._vibrationOnTouch);
+                                            values.put(KEY_DEVICE_WIFI_AP, profile._deviceWiFiAP);
+                                            values.put(KEY_DEVICE_POWER_SAVE_MODE, profile._devicePowerSaveMode);
+                                            values.put(KEY_ASK_FOR_DURATION, (profile._askForDuration) ? 1 : 0);
+                                            values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
+                                            values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
+                                            values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                                            values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
+                                            values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
+                                            values.put(KEY_LOCK_DEVICE, profile._lockDevice);
+                                            values.put(KEY_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
+                                            values.put(KEY_APPLICATION_DISABLE_WIFI_SCANNING, profile._applicationDisableWifiScanning);
+                                            values.put(KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING, profile._applicationDisableBluetoothScanning);
+                                            values.put(KEY_DEVICE_WIFI_AP_PREFS, profile._deviceWiFiAPPrefs);
+                                            values.put(KEY_APPLICATION_DISABLE_LOCATION_SCANNING, profile._applicationDisableLocationScanning);
+                                            values.put(KEY_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, profile._applicationDisableMobileCellScanning);
+                                            values.put(KEY_APPLICATION_DISABLE_ORIENTATION_SCANNING, profile._applicationDisableOrientationScanning);
+                                            values.put(KEY_HEADS_UP_NOTIFICATIONS, profile._headsUpNotifications);
+                                            values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE, profile._deviceForceStopApplicationChange);
+                                            values.put(KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
+                                            values.put(KEY_ACTIVATION_BY_USER_COUNT, profile._activationByUserCount);
+                                            values.put(KEY_DEVICE_NETWORK_TYPE_PREFS, profile._deviceNetworkTypePrefs);
+                                            values.put(KEY_DEVICE_CLOSE_ALL_APPLICATIONS, profile._deviceCloseAllApplications);
+                                            values.put(KEY_SCREEN_NIGHT_MODE, profile._screenNightMode);
+                                            values.put(KEY_DTMF_TONE_WHEN_DIALING, profile._dtmfToneWhenDialing);
+                                            values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
+
+                                            // updating row
+                                            db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                                    new String[]{String.valueOf(profile._id)});
+                                        } while (cursorImportDB.moveToNext());
+                                    }
+                                }
+                                
                                 cursorExportedDB.close();
                                 cursorImportDB.close();
 

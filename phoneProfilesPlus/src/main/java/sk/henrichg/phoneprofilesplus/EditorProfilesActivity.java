@@ -1593,6 +1593,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                     PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
                     PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false/*, false, true*/);
 
+                    File sd = Environment.getExternalStorageDirectory();
+                    File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                    appSettingsError = !importApplicationPreferences(exportFile, 1);
+                    exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                    if (exportFile.exists())
+                        sharedProfileError = !importApplicationPreferences(exportFile, 2);
+
                     dbError = DatabaseHandler.getInstance(this.dataWrapper.context).importDB(_applicationDataPath);
                     if (dbError == DatabaseHandler.IMPORT_OK) {
                         DatabaseHandler.getInstance(this.dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
@@ -1606,12 +1613,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                         DatabaseHandler.getInstance(this.dataWrapper.context).unblockAllEvents();
                         Event.setForceRunEventRunning(getApplicationContext(), false);
                     }
-
-                    File sd = Environment.getExternalStorageDirectory();
-                    File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                    appSettingsError = !importApplicationPreferences(exportFile, 1);
-                    exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                    sharedProfileError = !importApplicationPreferences(exportFile, 2);
 
                     PPApplication.logE("EditorProfilesActivity.doImportData", "dbError="+dbError);
                     PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError="+appSettingsError);
