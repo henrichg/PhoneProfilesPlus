@@ -32,7 +32,7 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
     @Override
     public void addPreferencesFromResource(int preferenceResId) {
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(getPreferenceName(startupSource));
+        prefMng.setSharedPreferencesName(EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY);
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         super.addPreferencesFromResource(preferenceResId);
@@ -40,9 +40,9 @@ public class EventPreferencesFragment extends EventPreferencesNestedFragment
 
     @Override
     public int addPreferencesFromResource() {
-        Bundle bundle = this.getArguments();
+        /*Bundle bundle = this.getArguments();
         if (bundle != null)
-            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);*/
 
         return R.xml.event_preferences;
     }

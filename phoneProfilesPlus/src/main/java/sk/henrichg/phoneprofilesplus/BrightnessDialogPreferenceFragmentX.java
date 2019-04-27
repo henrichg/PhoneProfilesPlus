@@ -32,7 +32,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
     private TextView valueText = null;
     private CheckBox noChangeChBox = null;
     private CheckBox automaticChBox = null;
-    private CheckBox sharedProfileChBox = null;
+    //private CheckBox sharedProfileChBox = null;
     private CheckBox changeLevelChBox = null;
     private TextView levelText = null;
 
@@ -57,7 +57,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         valueText = view.findViewById(R.id.brightnessPrefDialogValueText);
         noChangeChBox = view.findViewById(R.id.brightnessPrefDialogNoChange);
         automaticChBox = view.findViewById(R.id.brightnessPrefDialogAutomatic);
-        sharedProfileChBox = view.findViewById(R.id.brightnessPrefDialogSharedProfile);
+        //sharedProfileChBox = view.findViewById(R.id.brightnessPrefDialogSharedProfile);
         changeLevelChBox = view.findViewById(R.id.brightnessPrefDialogLevel);
         levelText = view.findViewById(R.id.brightnessPrefDialogAdaptiveLevelRoot);
 
@@ -78,17 +78,17 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         automaticChBox.setOnCheckedChangeListener(this);
         automaticChBox.setChecked(preference.automatic == 1);
 
-        sharedProfileChBox.setOnCheckedChangeListener(this);
-        sharedProfileChBox.setChecked((preference.sharedProfile == 1));
-        sharedProfileChBox.setEnabled(preference.disableSharedProfile == 0);
+        //sharedProfileChBox.setOnCheckedChangeListener(this);
+        //sharedProfileChBox.setChecked((preference.sharedProfile == 1));
+        //sharedProfileChBox.setEnabled(preference.disableSharedProfile == 0);
 
         changeLevelChBox.setOnCheckedChangeListener(this);
         changeLevelChBox.setChecked(preference.changeLevel == 1);
 
-        if (preference.noChange == 1)
-            sharedProfileChBox.setChecked(false);
-        if (preference.sharedProfile == 1)
-            noChangeChBox.setChecked(false);
+        //if (preference.noChange == 1)
+        //    sharedProfileChBox.setChecked(false);
+        //if (preference.sharedProfile == 1)
+        //    noChangeChBox.setChecked(false);
 
         enableViews();
     }
@@ -125,13 +125,13 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
             enableViews();
 
-            if (isChecked)
-                sharedProfileChBox.setChecked(false);
+            //if (isChecked)
+            //    sharedProfileChBox.setChecked(false);
         }
 
         if (buttonView.getId() == R.id.brightnessPrefDialogSharedProfile)
         {
-            preference.sharedProfile = (isChecked)? 1 : 0;
+            //preference.sharedProfile = (isChecked)? 1 : 0;
 
             enableViews();
 
@@ -158,13 +158,13 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         int _noChange = preference.noChange;
         int _value = preference.value;
         int _changeLevel = preference.changeLevel;
-        if (preference.sharedProfile == 1)
+        /*if (preference.sharedProfile == 1)
         {
             _automatic = (preference._sharedProfile.getDeviceBrightnessAutomatic()) ? 1 : 0;
             _noChange = (preference._sharedProfile.getDeviceBrightnessChange()) ? 0 : 1;
             _value = preference._sharedProfile.getDeviceBrightnessValue();
             _changeLevel = (preference._sharedProfile.getDeviceBrightnessChangeLevel()) ? 1 : 0;
-        }
+        }*/
 
         if (_noChange == 1)
         {
@@ -248,18 +248,18 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
     void enableViews() {
         if (Permissions.checkScreenBrightness(context, null)) {
-            valueText.setEnabled((preference.adaptiveAllowed || preference.automatic == 0) && (preference.noChange == 0) && (preference.sharedProfile == 0) && (preference.changeLevel != 0));
-            seekBar.setEnabled((preference.adaptiveAllowed || preference.automatic == 0) && (preference.noChange == 0) && (preference.sharedProfile == 0) && (preference.changeLevel != 0));
-            automaticChBox.setEnabled((preference.noChange == 0) && (preference.sharedProfile == 0));
-            changeLevelChBox.setEnabled((preference.adaptiveAllowed || preference.automatic == 0) && (preference.noChange == 0) && (preference.sharedProfile == 0));
+            valueText.setEnabled((preference.adaptiveAllowed || preference.automatic == 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
+            seekBar.setEnabled((preference.adaptiveAllowed || preference.automatic == 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
+            automaticChBox.setEnabled((preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
+            changeLevelChBox.setEnabled((preference.adaptiveAllowed || preference.automatic == 0) && (preference.noChange == 0) /*&& (preference.sharedProfile == 0)*/);
             if (preference.adaptiveAllowed) {
                 //if (android.os.Build.VERSION.SDK_INT >= 21) { // for Android 5.0: adaptive brightness
                 levelText.setText(R.string.brightness_pref_dialog_adaptive_level_may_not_working);
-                levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && (preference.sharedProfile == 0) && (preference.changeLevel != 0));
+                levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
                 //} else
                 //    levelText.setVisibility(View.GONE);
             } else {
-                levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && (preference.sharedProfile == 0) && (preference.changeLevel != 0));
+                levelText.setEnabled((preference.automatic != 0) && (preference.noChange == 0) && /*(preference.sharedProfile == 0) &&*/ (preference.changeLevel != 0));
             }
         } else {
             valueText.setEnabled(false);

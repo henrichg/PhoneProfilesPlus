@@ -15,8 +15,6 @@ import androidx.preference.PreferenceManager;
 public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    int startupSource;
-
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
     private SharedPreferences profilesPreferences;
@@ -25,7 +23,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     static final String PREFS_NAME_ACTIVITY = "profile_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "profile_preferences_fragment";
-    private static final String PREFS_NAME_SHARED_PROFILE = PPApplication.SHARED_PROFILE_PREFS_NAME;
+    //private static final String PREFS_NAME_SHARED_PROFILE = PPApplication.SHARED_PROFILE_PREFS_NAME;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -165,7 +163,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             return;
 
         if (savedInstanceState != null) {
-            startupSource = savedInstanceState.getInt("startupSource", PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+            //startupSource = savedInstanceState.getInt("startupSource", PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         }
 
 
@@ -210,22 +208,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt("startupSource", startupSource);
-    }
-
-    static String getPreferenceName(int startupSource) {
-        String PREFS_NAME;
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
-            PREFS_NAME = PREFS_NAME_ACTIVITY;
-        /*else
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-            PREFS_NAME = PREFS_NAME_FRAGMENT;*/
-        else
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
-            PREFS_NAME = PREFS_NAME_SHARED_PROFILE;
-        else
-            PREFS_NAME = PREFS_NAME_ACTIVITY;
-        return PREFS_NAME;
+        //outState.putInt("startupSource", startupSource);
     }
 
     private void initPreferenceFragment(Bundle savedInstanceState) {
@@ -240,7 +223,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (savedInstanceState == null) {
             if (getContext() != null) {
-                profilesPreferences = getContext().getSharedPreferences(getPreferenceName(startupSource), Activity.MODE_PRIVATE);
+                profilesPreferences = getContext().getSharedPreferences(PREFS_NAME_ACTIVITY, Activity.MODE_PRIVATE);
 
                 SharedPreferences.Editor editor = preferences.edit();
                 updateSharedPreferences(editor, profilesPreferences);

@@ -77,8 +77,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         profile_id = getIntent().getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-        if (profile_id == Profile.SHARED_PROFILE_ID)
-            resultCode = RESULT_OK;
+        //if (profile_id == Profile.SHARED_PROFILE_ID)
+        //    resultCode = RESULT_OK;
         newProfileMode = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
         predefinedProfileIndex = getIntent().getIntExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
 
@@ -109,10 +109,10 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         Bundle arguments = new Bundle();
         arguments.putLong(PPApplication.EXTRA_PROFILE_ID, profile_id);
         arguments.putInt(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, newProfileMode);
-        if (profile_id == Profile.SHARED_PROFILE_ID)
+        /*if (profile_id == Profile.SHARED_PROFILE_ID)
             arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE);
         else
-            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+            arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);*/
         arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, predefinedProfileIndex);
         arguments.putBoolean(PreferenceFragment.EXTRA_NESTED, nested);
         fragment.setArguments(arguments);
@@ -141,15 +141,15 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         if (showSaveMenu) {
             // for shared profile is not needed, for shared profile is used PPApplication.SHARED_PROFILE_PREFS_NAME
             // and this is used in Profile.getSharedProfile()
-            if (profile_id != Profile.SHARED_PROFILE_ID) {
+            //if (profile_id != Profile.SHARED_PROFILE_ID) {
                 toolbar.inflateMenu(R.menu.profile_preferences_save);
-            }
+            //}
         }
         else {
             // no menu for shared profile
-            if (profile_id != Profile.SHARED_PROFILE_ID) {
+            //if (profile_id != Profile.SHARED_PROFILE_ID) {
                 toolbar.inflateMenu(R.menu.profile_preferences);
-            }
+            //}
         }
         return true;
     }
@@ -178,7 +178,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean ret = super.onPrepareOptionsMenu(menu);
 
-        if (profile_id != Profile.SHARED_PROFILE_ID) {
+        //if (profile_id != Profile.SHARED_PROFILE_ID) {
             // no menu for shared profile
 
             onNextLayout(toolbar, new Runnable() {
@@ -187,7 +187,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                     showTargetHelps();
                 }
             });
-        }
+        //}
 
         /*final Handler handler = new Handler(getMainLooper());
         handler.postDelayed(new Runnable() {
@@ -206,14 +206,14 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.profile_preferences_shared_profile:
+            /*case R.id.profile_preferences_shared_profile:
                 // start preferences activity for default profile
                 Intent intent = new Intent(this, ProfilePreferencesActivity.class);
                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.SHARED_PROFILE_ID);
                 intent.putExtra(EditorProfilesActivity.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
                 intent.putExtra(EditorProfilesActivity.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                 startActivityForResult(intent, EditorProfilesActivity.REQUEST_CODE_PROFILE_PREFERENCES);
-                return true;
+                return true;*/
             case R.id.profile_preferences_save:
                 savePreferences(newProfileMode, predefinedProfileIndex);
                 resultCode = RESULT_OK;
@@ -278,24 +278,24 @@ public class ProfilePreferencesActivity extends PreferenceActivity
             ((ProfilePreferencesNestedFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
-    private Profile createProfile(int startupSource, long profile_id,
+    private Profile createProfile(/*int startupSource,*/ long profile_id,
                                   int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+        //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
             // no change this in shared profile
             if (!leaveSaveMenu)
                 showSaveMenu = false;
-        }
+        //}
 
         //Log.d("------ ProfilePreferencesActivity.createProfile", "startupSource="+startupSource);
 
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
+        /*if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         {
             profile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
         }
-        else
+        else*/
         if (new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT)
         {
             // create new profile
@@ -396,30 +396,30 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     }
 
     private void loadPreferences(int new_profile_mode, int predefinedProfileIndex) {
-        int startupSource;
+        /*int startupSource;
         if (profile_id == Profile.SHARED_PROFILE_ID)
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE;
         else
-            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;*/
 
-        Profile profile = createProfile(startupSource, profile_id, new_profile_mode, predefinedProfileIndex, false);
+        Profile profile = createProfile(/*startupSource,*/ profile_id, new_profile_mode, predefinedProfileIndex, false);
         if (profile == null)
-            profile = createProfile(startupSource, profile_id, EditorProfileListFragment.EDIT_MODE_INSERT, predefinedProfileIndex, false);
+            profile = createProfile(/*startupSource,*/ profile_id, EditorProfileListFragment.EDIT_MODE_INSERT, predefinedProfileIndex, false);
 
         if (profile != null)
         {
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+            //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 Toolbar toolbar = findViewById(R.id.mp_toolbar);
                 toolbar.setSubtitle(getString(R.string.profile_string_0) + ": " + profile._name);
-            }
+            //}
 
-            String PREFS_NAME = ProfilePreferencesNestedFragment.getPreferenceName(startupSource);
+            String PREFS_NAME = ProfilePreferencesNestedFragment.PREFS_NAME_ACTIVITY;
 
             SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
             SharedPreferences.Editor editor = preferences.edit();
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
-            {
+            //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
+            //{
                 /*
                 editor.remove(Profile.PREF_PROFILE_NAME).putString(Profile.PREF_PROFILE_NAME, profile._name);
                 editor.remove(Profile.PREF_PROFILE_ICON).putString(Profile.PREF_PROFILE_ICON, profile._icon);
@@ -436,7 +436,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 editor.putString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, profile._durationNotificationSound);
                 editor.putBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, profile._durationNotificationVibrate);
                 editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, profile._hideStatusBarIcon);
-            }
+            //}
             editor.putString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(profile._volumeRingerMode));
             editor.putString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(profile._volumeZenMode));
             editor.putString(Profile.PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
@@ -497,21 +497,21 @@ public class ProfilePreferencesActivity extends PreferenceActivity
     }
 
     Profile getProfileFromPreferences(long profile_id, int new_profile_mode, int predefinedProfileIndex) {
-        int startupSource;
+        /*int startupSource;
         if (profile_id == Profile.SHARED_PROFILE_ID)
             startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE;
         else
-            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
+            startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;*/
 
-        Profile profile = createProfile(startupSource, profile_id, new_profile_mode, predefinedProfileIndex, true);
+        Profile profile = createProfile(/*startupSource,*/ profile_id, new_profile_mode, predefinedProfileIndex, true);
 
         if (profile != null) {
-            String PREFS_NAME = ProfilePreferencesNestedFragment.getPreferenceName(startupSource);
+            String PREFS_NAME = ProfilePreferencesNestedFragment.PREFS_NAME_ACTIVITY;
 
             SharedPreferences preferences = getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
 
             // save preferences into profile
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+            //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 profile._name = preferences.getString(Profile.PREF_PROFILE_NAME, "");
                 profile._icon = preferences.getString(Profile.PREF_PROFILE_ICON, "");
                 profile._showInActivator = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, true);
@@ -523,7 +523,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 profile._durationNotificationVibrate = preferences.getBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
 
                 profile._hideStatusBarIcon = preferences.getBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
-            }
+            //}
             profile._volumeRingerMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, ""));
             profile._volumeZenMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, ""));
             profile._volumeRingtone = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGTONE, "");
@@ -604,13 +604,13 @@ public class ProfilePreferencesActivity extends PreferenceActivity
         if (profile != null) {
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 
-            int startupSource;
+            /*int startupSource;
             if (profile_id == Profile.SHARED_PROFILE_ID)
                 startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE;
             else
-                startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;
+                startupSource = PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY;*/
 
-            if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+            //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
                 Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
                 if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
                     // set alarm for profile duration
@@ -637,17 +637,17 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                             dataWrapper.restartEvents(false, true, true, true, true);
                         else {
                             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                                dataWrapper.activateProfileFromMainThread(profile, false, startupSource, false, null);
+                                dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null);
                             }
                         }
                     }
                     else {
                         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
-                            dataWrapper.activateProfileFromMainThread(profile, false, startupSource, false, null);
+                            dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EDITOR, false, null);
                         }
                     }
                 }
-            }
+            /*}
             else {
                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_SHAREDPROFILEPREFERENCESCHANGED, null, null, null, 0);
 
@@ -655,7 +655,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 PPApplication.logE("$$$ restartEvents","from ProfilePreferencesActivity.savePreferences");
                 PPApplication.setBlockProfileEventActions(true);
                 dataWrapper.restartEvents(false, true, true, true, true);
-            }
+            }*/
         }
     }
 

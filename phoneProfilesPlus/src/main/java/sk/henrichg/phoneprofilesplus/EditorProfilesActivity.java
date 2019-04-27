@@ -1234,12 +1234,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // redraw list fragment , notifications, widgets after finish ProfilePreferencesActivity
                         redrawProfileListFragment(profile, newProfileMode, predefinedProfileIndex);
 
-                        Profile mappedProfile = Profile.getMappedProfile(profile, getApplicationContext());
+                        Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
                         Permissions.grantProfilePermissions(getApplicationContext(), mappedProfile, false, false,
                                 /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
                     }
                 }
-                else
+                /*else
                 if (profile_id == Profile.SHARED_PROFILE_ID)
                 {
                     // refresh activity for changes of shared profile
@@ -1247,8 +1247,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     Profile sharedProfile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
                     Permissions.grantProfilePermissions(getApplicationContext(), sharedProfile, false, false,
-                            /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
-                }
+                            PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
+                }*/
 
                 /*Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -1466,7 +1466,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (what == 1)
                     prefEdit = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE).edit();
                 else
-                    prefEdit = getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE).edit();
+                    prefEdit = getSharedPreferences("profile_preferences_default_profile", Activity.MODE_PRIVATE).edit();
                 prefEdit.clear();
                 //noinspection unchecked
                 Map<String, ?> entries = (Map<String, ?>) input.readObject();
@@ -1789,17 +1789,17 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     @SuppressLint("ApplySharedPref")
-    private boolean exportApplicationPreferences(File dst, int what) {
+    private boolean exportApplicationPreferences(File dst/*, int what*/) {
         boolean res = true;
         ObjectOutputStream output = null;
         try {
             try {
                 output = new ObjectOutputStream(new FileOutputStream(dst));
                 SharedPreferences pref;
-                if (what == 1)
+                //if (what == 1)
                     pref = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-                else
-                    pref = getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE);
+                //else
+                //    pref = getSharedPreferences(PPApplication.SHARED_PROFILE_PREFS_NAME, Activity.MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.commit();
                 output.writeObject(pref.getAll());
@@ -1891,10 +1891,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (ret == 1) {
                         File sd = Environment.getExternalStorageDirectory();
                         File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                        if (exportApplicationPreferences(exportFile, 1)) {
-                            exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                        if (exportApplicationPreferences(exportFile/*, 1*/)) {
+                            /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
                             if (!exportApplicationPreferences(exportFile, 2))
-                                ret = 0;
+                                ret = 0;*/
+                            ret = 1;
                         }
                         else
                             ret = 0;

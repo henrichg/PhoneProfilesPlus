@@ -1568,22 +1568,22 @@ public class PhoneProfilesService extends Service
                 int lockDeviceCount = 0;
                 if (checkDatabase) {
                     if (forceStopAllowed) {
-                        if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, true) > 0) {
+                        /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (profile._deviceForceStopApplicationChange != 0)
                                 ++forceStopCount;
                         }
-                        else
-                            forceStopCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP, false);
+                        else*/
+                            forceStopCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_FORCE_STOP/*, false*/);
                     }
                     if (lockDeviceAllowed) {
-                        if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_LOCK_DEVICE, true) > 0) {
+                        /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_LOCK_DEVICE, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (profile._lockDevice != 0)
                                 ++lockDeviceCount;
                         }
-                        else
-                            lockDeviceCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_LOCK_DEVICE, false);
+                        else*/
+                            lockDeviceCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_LOCK_DEVICE/*, false*/);
                     }
                     if (applicationsAllowed)
                         applicationCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_APPLICATION, false);
@@ -2159,13 +2159,13 @@ public class PhoneProfilesService extends Service
                 if (checkDatabase/* || (wifiStateChangedBroadcastReceiver == null)*/) {
                     if (profileAllowed) {
                         profileCount = 0;
-                        if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
+                        /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
                                 ++profileCount;
                         }
-                        else
-                            profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, false);
+                        else*/
+                            profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID/*, false*/);
                     }
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
@@ -2238,13 +2238,13 @@ public class PhoneProfilesService extends Service
                 if (checkDatabase/* || (wifiConnectionBroadcastReceiver == null)*/) {
                     if (profileAllowed) {
                         profileCount = 0;
-                        if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
+                        /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
                                 ++profileCount;
                         }
-                        else
-                            profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, false);
+                        else*/
+                            profileCount = DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID/*, false*/);
                     }
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {

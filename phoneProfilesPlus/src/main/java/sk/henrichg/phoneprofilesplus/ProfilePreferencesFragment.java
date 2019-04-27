@@ -38,14 +38,14 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 
     @Override
     public int addPreferencesFromResource() {
-        Bundle bundle = this.getArguments();
+        /*Bundle bundle = this.getArguments();
         if (bundle != null)
-            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);*/
 
         //Log.d("------ ProfilePreferencesFragment.addPreferencesFromResource", "startupSource="+startupSource);
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
+        /*if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
             return R.xml.default_profile_preferences;
-        else
+        else*/
             return R.xml.profile_preferences;
     }
 
@@ -71,8 +71,8 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
 
         setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
 
-        if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
-        {
+        //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
+        //{
             setSummary(Profile.PREF_PROFILE_NAME);
             setSummary(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
             setSummary(Profile.PREF_PROFILE_DURATION);
@@ -81,7 +81,7 @@ public class ProfilePreferencesFragment extends ProfilePreferencesNestedFragment
             setSummary(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND);
             setSummary(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE);
             setSummary(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
-        }
+        //}
         setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
         setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
         setSummary(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);

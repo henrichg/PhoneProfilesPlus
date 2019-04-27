@@ -26,7 +26,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                                         implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private long event_id;
-    int startupSource;
+    //int startupSource;
 
     private Event event;
     //private boolean first_start_activity;
@@ -37,7 +37,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
     private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
     private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationStoppedBroadcastReceiver = null;
 
-    private static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
+    static final String PREFS_NAME_ACTIVITY = "event_preferences_activity";
     //static final String PREFS_NAME_FRAGMENT = "event_preferences_fragment";
 
     private static final String PRF_GRANT_PERMISSIONS = "eventGrantPermissions";
@@ -81,7 +81,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             event_id = bundle.getLong(PPApplication.EXTRA_EVENT_ID, 0);
-            startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+            //startupSource = bundle.getInt(PPApplication.EXTRA_STARTUP_SOURCE, 0);
         }
 
         context = getActivity().getBaseContext();
@@ -110,24 +110,26 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         }
     }
 
+    /*
     public static String getPreferenceName(int startupSource) {
         String PREFS_NAME;
         if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY)
             PREFS_NAME = PREFS_NAME_ACTIVITY;
-        /*else
-        if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
-            PREFS_NAME = PREFS_NAME_FRAGMENT;*/
+        //else
+        //if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_FRAGMENT)
+        //    PREFS_NAME = PREFS_NAME_FRAGMENT;
         else
             PREFS_NAME = PREFS_NAME_ACTIVITY;
         return PREFS_NAME;
     }
+    */
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(EventPreferencesNestedFragment.getPreferenceName(startupSource));
+        prefMng.setSharedPreferencesName(PREFS_NAME_ACTIVITY);
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         preferences = prefMng.getSharedPreferences();

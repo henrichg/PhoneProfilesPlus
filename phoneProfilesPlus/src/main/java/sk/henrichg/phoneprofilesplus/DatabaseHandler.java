@@ -3881,7 +3881,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //}
     }
 
-    int getTypeProfilesCount(int profileType, boolean sharedProfile)
+    int getTypeProfilesCount(int profileType/*, boolean sharedProfile*/)
     {
         importExportLock.lock();
         try {
@@ -3893,26 +3893,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 String whereString = "";
                 if (profileType == PTYPE_CONNECT_TO_SSID) {
                     String profileTypeChecked;
-                    if (!sharedProfile)
+                    //if (!sharedProfile)
                         profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "!=\"" + Profile.CONNECTTOSSID_JUSTANY + "\"";
-                    else
-                        profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "=\"" + Profile.CONNECTTOSSID_SHAREDPROFILE + "\"";
+                    //else
+                    //    profileTypeChecked = KEY_DEVICE_CONNECT_TO_SSID + "=\"" + Profile.CONNECTTOSSID_SHAREDPROFILE + "\"";
                     whereString = " WHERE " + profileTypeChecked;
                 }
                 if (profileType == PTYPE_FORCE_STOP) {
                     String profileTypeChecked;
-                    if (!sharedProfile)
+                    //if (!sharedProfile)
                         profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "!="+Profile.NO_CHANGE_VALUE_STR;
-                    else
-                        profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "="+Profile.SHARED_PROFILE_VALUE_STR;
+                    //else
+                    //    profileTypeChecked = KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE + "="+Profile.SHARED_PROFILE_VALUE_STR;
                     whereString = " WHERE " + profileTypeChecked;
                 }
                 if (profileType == PTYPE_LOCK_DEVICE) {
                     String profileTypeChecked;
-                    if (!sharedProfile)
+                    //if (!sharedProfile)
                         profileTypeChecked = KEY_LOCK_DEVICE + "!="+Profile.NO_CHANGE_VALUE_STR;
-                    else
-                        profileTypeChecked = KEY_LOCK_DEVICE + "="+Profile.SHARED_PROFILE_VALUE_STR;
+                    //else
+                    //    profileTypeChecked = KEY_LOCK_DEVICE + "="+Profile.SHARED_PROFILE_VALUE_STR;
                     whereString = " WHERE " + profileTypeChecked;
                 }
 

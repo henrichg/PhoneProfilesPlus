@@ -275,7 +275,7 @@ public class Profile {
     static final String CONNECTTOSSID_JUSTANY = "^just_any^";
     static final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
 
-    static final long SHARED_PROFILE_ID = -999L;
+    //static final long SHARED_PROFILE_ID = -999L;
     static final String PROFILE_ICON_DEFAULT = "ic_profile_default";
     static final long PROFILE_NO_ACTIVATE = -999;
     static final long RESTART_EVENTS_PROFILE_ID = -888L;
@@ -1516,6 +1516,7 @@ public class Profile {
         return getVolumeRingtoneChange(_volumeRingtone);
     }
 
+    /*
     private boolean getVolumeRingtoneSharedProfile()
     {
         int value;
@@ -1527,6 +1528,7 @@ public class Profile {
         }
         return value == 1;
     }
+    */
 
     @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
     void setVolumeRingtoneValue(int value) {
@@ -1567,6 +1569,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
+    /*
     private boolean getVolumeNotificationSharedProfile()
     {
         int value;
@@ -1578,6 +1581,7 @@ public class Profile {
         }
         return value == 1;
     }
+    */
 
     @SuppressWarnings({"StringConcatenationInLoop", "SameParameterValue"})
     void setVolumeNotificationValue(int value) {
@@ -1619,6 +1623,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
+    /*
     private boolean getVolumeMediaSharedProfile()
     {
         int value;
@@ -1630,6 +1635,7 @@ public class Profile {
         }
         return value == 1;
     }
+    */
 
     int getVolumeAlarmValue()
     {
@@ -1655,6 +1661,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
+    /*
     private boolean getVolumeAlarmSharedProfile()
     {
         int value;
@@ -1666,6 +1673,7 @@ public class Profile {
         }
         return value == 1;
     }
+    */
 
     int getVolumeSystemValue()
     {
@@ -1691,6 +1699,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
+    /*
     private boolean getVolumeSystemSharedProfile()
     {
         int value;
@@ -1702,6 +1711,7 @@ public class Profile {
         }
         return value == 1;
     }
+    */
 
     int getVolumeVoiceValue()
     {
@@ -1727,6 +1737,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
+    /*
     private boolean getVolumeVoiceSharedProfile()
     {
         int value;
@@ -1738,6 +1749,7 @@ public class Profile {
         }
         return value == 1;
     }
+    */
 
     int getDeviceBrightnessValue()
     {
@@ -1767,6 +1779,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
+    /*
     private boolean getDeviceBrightnessSharedProfile()
     {
         int value;
@@ -1778,6 +1791,7 @@ public class Profile {
         }
         return value == 1;
     }
+    */
 
     boolean getDeviceBrightnessAutomatic()
     {
@@ -2256,18 +2270,18 @@ public class Profile {
 
         Profile profile = new Profile();
 
-        if (prefsName.equals(PPApplication.SHARED_PROFILE_PREFS_NAME)) {
+        /*if (prefsName.equals(PPApplication.SHARED_PROFILE_PREFS_NAME)) {
             profile._id = Profile.SHARED_PROFILE_ID;
             profile._name = context.getResources().getString(R.string.default_profile_name);
             profile._icon = Profile.PROFILE_ICON_DEFAULT+"1|0|0";
             profile._checked = false;
         }
-        else {
+        else {*/
             profile._id = preferences.getLong(PREF_PROFILE_ID, 0);
             profile._name = preferences.getString(PREF_PROFILE_NAME, context.getResources().getString(R.string.default_profile_name));
             profile._icon = preferences.getString(PREF_PROFILE_ICON, Profile.PROFILE_ICON_DEFAULT+"1|0|0");
             profile._checked = preferences.getBoolean(PREF_PROFILE_CHECKED, false);
-        }
+        //}
 
         profile._porder = 0;
         profile._duration = 0;
@@ -2402,6 +2416,7 @@ public class Profile {
         editor.apply();
     }
 
+    /*
     static Profile getMappedProfile(Profile profile, Context context)
     {
         if (profile != null)
@@ -2608,6 +2623,7 @@ public class Profile {
         else
             return null;
     }
+    */
 
     static PreferenceAllowed isProfilePreferenceAllowed(String preferenceKey, Profile profile,
                                                         boolean fromUIThread, Context context)

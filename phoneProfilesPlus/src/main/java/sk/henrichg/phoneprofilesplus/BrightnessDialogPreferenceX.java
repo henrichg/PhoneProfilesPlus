@@ -17,8 +17,8 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     // Custom xml attributes.
     int noChange;
     int automatic;
-    int sharedProfile;
-    int disableSharedProfile;
+    //int sharedProfile;
+    //int disableSharedProfile;
     int changeLevel;
 
     final int defaultValue = 50;
@@ -30,7 +30,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     int value = 0;
 
     final boolean adaptiveAllowed;
-    final Profile _sharedProfile;
+    //final Profile _sharedProfile;
 
     final int savedBrightness;
     final float savedAdaptiveBrightness;
@@ -48,16 +48,16 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
                 R.styleable.BrightnessDialogPreference_bNoChange, 1);
         automatic = typedArray.getInteger(
                 R.styleable.BrightnessDialogPreference_bAutomatic, 1);
-        sharedProfile = typedArray.getInteger(
+        /*sharedProfile = typedArray.getInteger(
                 R.styleable.BrightnessDialogPreference_bSharedProfile, 0);
         disableSharedProfile = typedArray.getInteger(
-                R.styleable.BrightnessDialogPreference_bDisableSharedProfile, 0);
+                R.styleable.BrightnessDialogPreference_bDisableSharedProfile, 0);*/
         changeLevel = typedArray.getInteger(
                 R.styleable.BrightnessDialogPreference_bChangeLevel, 1);
 
         typedArray.recycle();
 
-        _sharedProfile = Profile.getProfileFromSharedPreferences(_context, PPApplication.SHARED_PROFILE_PREFS_NAME);
+        //_sharedProfile = Profile.getProfileFromSharedPreferences(_context, PPApplication.SHARED_PROFILE_PREFS_NAME);
 
         adaptiveAllowed = (android.os.Build.VERSION.SDK_INT <= 21) ||
                 (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, true, _context).allowed
@@ -119,11 +119,11 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         } catch (Exception e) {
             automatic = 1;
         }
-        try {
+        /*try {
             sharedProfile = Integer.parseInt(splits[3]);
         } catch (Exception e) {
             sharedProfile = 0;
-        }
+        }*/
         try {
             changeLevel = Integer.parseInt(splits[4]);
         } catch (Exception e) {
@@ -143,9 +143,9 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         String prefVolumeDataSummary;
         if (noChange == 1)
             prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_no_change);
-        else
+        /*else
         if (sharedProfile == 1)
-            prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);
+            prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);*/
         else
         {
             if (automatic == 1)
@@ -171,7 +171,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         return _value
                 + "|" + noChange
                 + "|" + automatic
-                + "|" + sharedProfile
+                + "|" + "0"
                 + "|" + changeLevel;
     }
 

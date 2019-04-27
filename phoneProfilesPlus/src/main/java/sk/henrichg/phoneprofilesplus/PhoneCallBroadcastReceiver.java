@@ -153,7 +153,7 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
         DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
 
         Profile profile = dataWrapper.getActivatedProfile(false, false);
-        profile = Profile.getMappedProfile(profile, context);
+        //profile = Profile.getMappedProfile(profile, context);
 
         if (profile != null) {
             if (profile._volumeSpeakerPhone != 0) {

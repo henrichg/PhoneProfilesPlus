@@ -35,7 +35,7 @@ class ProfilePreferencesIndicator {
         int[] drawables = new int[30];
         int countDrawables = 0;
 
-        Profile profile = Profile.getMappedProfile(_profile, context);
+        Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
         if (profile != null)
         {

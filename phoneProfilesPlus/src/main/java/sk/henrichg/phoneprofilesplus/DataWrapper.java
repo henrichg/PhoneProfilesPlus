@@ -1436,7 +1436,7 @@ public class DataWrapper {
         ProfileDurationAlarmBroadcastReceiver.removeAlarm(context);
         Profile.setActivatedProfileForDuration(context, 0);
 
-        final Profile mappedProfile = Profile.getMappedProfile(_profile, context);
+        final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
         //profile = filterProfileWithBatteryEvents(profile);
 
         if (mappedProfile != null)
@@ -1591,7 +1591,7 @@ public class DataWrapper {
         // for startActivityForResult
         if (_activity != null)
         {
-            final Profile profile = Profile.getMappedProfile(_profile, context);
+            final Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
             Intent returnIntent = new Intent();
             if (profile == null)

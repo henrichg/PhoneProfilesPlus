@@ -2040,7 +2040,7 @@ class ActivateProfileHelper {
         // unlink ring and notifications - it is @Hide :-(
         //Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
 
-        final Profile profile = Profile.getMappedProfile(_profile, context);
+        final Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
         // setup volume
         ActivateProfileHelper.executeForVolumes(profile, PhoneCallBroadcastReceiver.LINKMODE_NONE,true, context);

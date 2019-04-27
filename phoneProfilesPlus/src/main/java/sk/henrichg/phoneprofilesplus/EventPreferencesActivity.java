@@ -108,7 +108,7 @@ public class EventPreferencesActivity extends PreferenceActivity
         arguments.putLong(PPApplication.EXTRA_EVENT_ID, event_id);
         arguments.putInt(EditorProfilesActivity.EXTRA_NEW_EVENT_MODE, newEventMode);
         arguments.putInt(EditorProfilesActivity.EXTRA_PREDEFINED_EVENT_INDEX, predefinedEventIndex);
-        arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+        //arguments.putInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         arguments.putBoolean(PreferenceFragment.EXTRA_NESTED, nested);
         fragment.setArguments(arguments);
 
@@ -335,7 +335,7 @@ public class EventPreferencesActivity extends PreferenceActivity
             Toolbar toolbar = findViewById(R.id.mp_toolbar);
             toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + event._name);
 
-            SharedPreferences preferences=getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
+            SharedPreferences preferences=getSharedPreferences(EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY, Activity.MODE_PRIVATE);
 
             event.loadSharedPreferences(preferences);
         }
@@ -343,7 +343,7 @@ public class EventPreferencesActivity extends PreferenceActivity
 
     private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
     {
-        final SharedPreferences preferences = getSharedPreferences(EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY), Activity.MODE_PRIVATE);
+        final SharedPreferences preferences = getSharedPreferences(EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY, Activity.MODE_PRIVATE);
         boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
         if (!enabled) {
             if (!ApplicationPreferences.applicationEventNeverAskForEnableRun(this)) {
@@ -386,7 +386,7 @@ public class EventPreferencesActivity extends PreferenceActivity
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
                         editor.apply();
 
-                        String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+                        String PREFS_NAME = EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY;
                         SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
                         editor = preferences.edit();
                         editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
@@ -426,7 +426,7 @@ public class EventPreferencesActivity extends PreferenceActivity
     Event getEventFromPreferences(long event_id, int new_event_mode, int predefinedEventIndex) {
         final Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
         if (event != null) {
-            String PREFS_NAME = EventPreferencesNestedFragment.getPreferenceName(PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
+            String PREFS_NAME = EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY;
             SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
             event.saveSharedPreferences(preferences, getApplicationContext());
         }

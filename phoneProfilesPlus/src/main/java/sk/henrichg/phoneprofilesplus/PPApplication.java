@@ -404,9 +404,9 @@ public class PPApplication extends Application {
     static final int STARTUP_SOURCE_SERVICE_MANUAL = 12;
     static final int STARTUP_SOURCE_EXTERNAL_APP = 13;
 
-    static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
+    //static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
     //static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;
-    static final int PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE = 3;
+    //static final int PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE = 3;
 
     static final String PROFILE_NOTIFICATION_CHANNEL = "phoneProfilesPlus_activated_profile";
     static final String MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_mobile_cells_registration";
@@ -437,7 +437,7 @@ public class PPApplication extends Application {
     //static final int LOCATION_SETTINGS_FOR_MOBILE_CELLS_SCANNING_NOTIFICATION_ID = 700440;
 
     static final String APPLICATION_PREFS_NAME = "phone_profile_preferences";
-    static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
+    //static final String SHARED_PROFILE_PREFS_NAME = "profile_preferences_default_profile";
     static final String ACTIVATED_PROFILE_PREFS_NAME = "profile_preferences_activated_profile";
     static final String WIFI_CONFIGURATION_LIST_PREFS_NAME = "wifi_configuration_list";
     static final String WIFI_SCAN_RESULTS_PREFS_NAME = "wifi_scan_results";

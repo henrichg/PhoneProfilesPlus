@@ -109,7 +109,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         startupSource = intent.getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
         interactive = intent.getBooleanExtra(Permissions.EXTRA_INTERACTIVE, true);
         applicationDataPath = intent.getStringExtra(Permissions.EXTRA_APPLICATION_DATA_PATH);
-        activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true) && (profile_id != Profile.SHARED_PROFILE_ID);
+        activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true)/* && (profile_id != Profile.SHARED_PROFILE_ID)*/;
         grantAlsoContacts = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, true);
         //forceStartScanner = intent.getBooleanExtra(Permissions.EXTRA_FORCE_START_SCANNER, false);
 
@@ -118,10 +118,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
         long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 
         dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false);
-        if (profile_id != Profile.SHARED_PROFILE_ID)
+        //if (profile_id != Profile.SHARED_PROFILE_ID)
             profile = dataWrapper.getProfileById(profile_id, false, false, mergedProfile);
-        else
-            profile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
+        //else
+        //    profile = Profile.getProfileFromSharedPreferences(getApplicationContext(), PPApplication.SHARED_PROFILE_PREFS_NAME);
         event = dataWrapper.getEventById(event_id);
 
         restoredInstanceState = savedInstanceState != null;
