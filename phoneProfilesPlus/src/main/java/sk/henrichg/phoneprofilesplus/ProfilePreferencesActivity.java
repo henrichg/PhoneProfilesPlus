@@ -674,7 +674,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
         String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
-        if (!showSaveMenu) {
+        /*if (!showSaveMenu) {
             if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
                 //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
@@ -736,8 +736,8 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                 //targetHelpsSequenceStarted = true;
                 sequence.start();
             }
-        }
-        else {
+        }*/
+        if (showSaveMenu) {
             if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_SAVE, true)) {
                 //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_SAVE=true");
 
@@ -769,7 +769,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
 
                     List<TapTarget> targets = new ArrayList<>();
                     int id = 1;
-                    try {
+                    /*try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_shared_profile, getString(R.string.title_activity_default_profile_preferences), getString(R.string.profile_preferences_sourceProfileInfo_summary))
                                         .targetCircleColor(circleColor)
@@ -779,7 +779,7 @@ public class ProfilePreferencesActivity extends PreferenceActivity
                                         .id(id)
                         );
                         ++id;
-                    } catch (Exception ignored) {} // not in action bar?
+                    } catch (Exception ignored) {} // not in action bar?*/
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))

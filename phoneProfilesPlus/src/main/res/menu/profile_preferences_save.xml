@@ -1,12 +1,12 @@
 <menu xmlns:tools="http://schemas.android.com/tools"
       xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto" >
-    <item android:id="@+id/profile_preferences_shared_profile"
+    <!--<item android:id="@+id/profile_preferences_shared_profile"
           android:title="@string/default_profile_name"
           android:orderInCategory="99"
           app:showAsAction="always"
           android:icon="?attr/actionSharedProfileIcon"
-          tools:ignore="AlwaysShowAction"/>
+          tools:ignore="AlwaysShowAction"/>-->
     <item android:id="@+id/profile_preferences_save"
           android:title="@string/phone_preferences_actionMode_save"
           android:orderInCategory="100"

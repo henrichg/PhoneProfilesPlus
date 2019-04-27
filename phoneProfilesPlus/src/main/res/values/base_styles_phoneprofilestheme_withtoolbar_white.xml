@@ -61,7 +61,7 @@
         <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause_white</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleWhite</item>
         <item name="dialogTheme">@style/DialogStyleWhite</item>
-        <item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile_white</item>
+        <!--<item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile_white</item>-->
         <item name="actionHelpIcon">@drawable/ic_action_help_white</item>
         <item name="fastScrollTrackPP">@color/fastScrollTrackPP_white</item>
         <item name="fastScrollThumbPP">@color/fastScrollThumbPP_white</item>
