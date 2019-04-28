@@ -5,25 +5,34 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
+import me.drakeet.support.toast.ToastCompat;
 
 public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -41,14 +50,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
     private static final String PRF_GRANT_PERMISSIONS = "prf_pref_grantPermissions";
-    private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategory";
-    static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
+    private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategoryRoot";
+    private static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
     private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 1983;
     private static final String PRF_GRANT_ROOT = "prf_pref_grantRoot";
     private static final String PREF_INSTALL_SILENT_TONE = "prf_pref_soundInstallSilentTone";
-    private static final String PREF_LOCK_DEVICE_CATEGORY = "prf_pref_lockDeviceCategory";
-    static final String PREF_LOCK_DEVICE_INSTALL_EXTENDER = "prf_pref_lockDeviceInstallExtender";
+    private static final String PREF_LOCK_DEVICE_CATEGORY = "prf_pref_lockDeviceCategoryRoot";
+    private static final String PREF_LOCK_DEVICE_INSTALL_EXTENDER = "prf_pref_lockDeviceInstallExtender";
     private static final String PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS = "prf_pref_lockDeviceAccessibilitySettings";
 
     @Override
@@ -186,6 +195,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        final Context context = getActivity().getBaseContext();
+
         // must be used handler for rewrite toolbar title/subtitle
         final ProfilesPrefsFragment fragment = this;
         Handler handler = new Handler(getActivity().getMainLooper());
@@ -206,9 +217,435 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }, 200);
 
+        /*
         if (savedInstanceState != null) {
             //startupSource = savedInstanceState.getInt("startupSource", PPApplication.PREFERENCES_STARTUP_SOURCE_ACTIVITY);
         }
+        */
+
+        setPermissionsPreference();
+
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+        ListPreference ringerModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+            /*if (ringerModePreference.findIndexOfValue("5") < 0) {
+                // add zen mode option to preference Ringer mode
+                CharSequence[] entries = ringerModePreference.getEntries();
+                CharSequence[] entryValues = ringerModePreference.getEntryValues();
+
+                CharSequence[] newEntries = new CharSequence[entries.length + 1];
+                CharSequence[] newEntryValues = new CharSequence[entries.length + 1];
+
+                for (int i = 0; i < entries.length; i++) {
+                    newEntries[i] = entries[i];
+                    newEntryValues[i] = entryValues[i];
+                }
+
+                newEntries[entries.length] = context.getString(R.string.array_pref_ringerModeArray_ZenMode);
+                newEntryValues[entries.length] = "5";
+
+                ringerModePreference.setEntries(newEntries);
+                ringerModePreference.setEntryValues(newEntryValues);
+                ringerModePreference.setValue(Integer.toString(profile._volumeRingerMode));
+                setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, profile._volumeRingerMode);
+            }
+            */
+
+            /*final boolean canEnableZenMode =
+                    (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
+                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
+                    );*/
+        final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), false);
+        PPApplication.logE("ProfilePreferencesNestedFragment.onActivityCreated","canEnableZenMode="+canEnableZenMode);
+
+        ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+        if (zenModePreference != null) {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                zenModePreference.setTitle(R.string.profile_preferences_volumeZenModeM);
+                zenModePreference.setDialogTitle(R.string.profile_preferences_volumeZenModeM);
+            }
+            String value = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "");
+            zenModePreference.setEnabled((value.equals("5")) && canEnableZenMode);
+        }
+
+        Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
+        if (notificationAccessPreference != null) {
+            if (canEnableZenMode) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(notificationAccessPreference);
+            } else {
+                if (ringerModePreference != null) {
+                    CharSequence[] entries = ringerModePreference.getEntries();
+                    entries[5] = "(S) " + getString(R.string.array_pref_ringerModeArray_ZenMode);
+                    ringerModePreference.setEntries(entries);
+                }
+
+                boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                @SuppressLint("InlinedApi")
+                final boolean showDoNotDisturbPermission =
+                        (android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
+                if (showDoNotDisturbPermission) {
+                    notificationAccessPreference.setTitle(getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions));
+                    notificationAccessPreference.setSummary(getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions_summary));
+                }
+
+                //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                notificationAccessPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        //boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        if (showDoNotDisturbPermission) {
+                            @SuppressLint("InlinedApi")
+                            Intent intent = new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                        }
+                        else
+                        if (GlobalGUIRoutines.activityActionExists("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS", context)) {
+                            Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                            startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
+                        }
+                        else {
+                            if (getActivity() != null) {
+                                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog dialog = dialogBuilder.create();
+                                /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    @Override
+                                    public void onShow(DialogInterface dialog) {
+                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                        if (positive != null) positive.setAllCaps(false);
+                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                        if (negative != null) negative.setAllCaps(false);
+                                    }
+                                });*/
+                                if (!getActivity().isFinishing())
+                                    dialog.show();
+                            }
+                        }
+                        return false;
+                    }
+                });
+            }
+        }
+
+        if (ringerModePreference != null) {
+            ringerModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String sNewValue = (String) newValue;
+                    int iNewValue;
+                    if (sNewValue.isEmpty())
+                        iNewValue = 0;
+                    else
+                        iNewValue = Integer.parseInt(sNewValue);
+
+                    /*final boolean canEnableZenMode =
+                            (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
+                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
+                            );*/
+                    final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext(), true);
+
+                    Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+                    if (zenModePreference != null) {
+                        zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode);
+
+                        boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        @SuppressLint("InlinedApi")
+                        boolean addS = !((android.os.Build.VERSION.SDK_INT >= 23) && (!a60) &&
+                                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(zenModePreference, true, false, false, false, addS);
+                    }
+
+                    return true;
+                }
+            });
+        }
+        /*}
+        else
+        {
+            // remove zen mode preferences from preferences screen
+            // for Android version < 5.0 this is not supported
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+            if (preference != null)
+            {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
+                preferenceCategory.removePreference(preference);
+            }
+            preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
+            if (preference != null)
+            {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
+                preferenceCategory.removePreference(preference);
+            }
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            if (preference != null)
+            {
+                PreferenceScreen preferenceCategory = (PreferenceScreen) findPreference("prf_pref_soundProfileCategory");
+                preferenceCategory.removePreference(preference);
+            }
+        }*/
+        if ((android.os.Build.VERSION.SDK_INT < 23) || (android.os.Build.VERSION.SDK_INT > 23)) {
+            Preference preference = prefMng.findPreference("prf_pref_volumeVibrateWhenRingingRootInfo");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
+        if (android.os.Build.VERSION.SDK_INT == 23) {
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+            if (preference != null)
+            {
+                preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateWhenRinging));
+                String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "");
+                setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
+            }
+        }
+        if (android.os.Build.VERSION.SDK_INT < 24) {
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_othersCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
+        if (android.os.Build.VERSION.SDK_INT >= 26) {
+            /*Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
+            if (preference != null)
+            {
+                preference.setTitle("(R) "+getString(R.string.profile_preferences_deviceWiFiAP));
+                String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "");
+                setSummary(Profile.PREF_PROFILE_DEVICE_WIFI_AP, value);
+            }*/
+            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON);
+            if (preference != null) {
+                PreferenceCategory preferenceCategory = findPreference("prf_pref_activationParametersCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
+        if (PPApplication.hasSystemFeature(context, PackageManager.FEATURE_TELEPHONY))
+        {
+            ListPreference networkTypePreference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE);
+            if (networkTypePreference != null) {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                int phoneType = TelephonyManager.PHONE_TYPE_GSM;
+                if (telephonyManager != null)
+                    phoneType = telephonyManager.getPhoneType();
+
+                if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+                    /*if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
+                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
+                    } else {*/
+                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMArray));
+                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMValues));
+                    //}
+                    String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
+                    networkTypePreference.setValue(value);
+                    setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
+                }
+
+                if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
+                    /*if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
+                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
+                    } else {*/
+                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMAArray));
+                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMAValues));
+                    //}
+                    String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
+                    networkTypePreference.setValue(value);
+                    setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
+                }
+            }
+        }
+        Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
+        if (preference != null)
+        {
+            preference.setTitle("[M] " + context.getString(R.string.profile_preferences_duration));
+            String value = preferences.getString(Profile.PREF_PROFILE_DURATION, "");
+            setSummary(Profile.PREF_PROFILE_DURATION, value);
+        }
+        if (!ActivateProfileHelper.getMergedRingNotificationVolumes(context)) {
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_volumeCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
+        else {
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
+            if (preference != null) {
+                preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        // start preferences activity for default profile
+                        if (getActivity() != null) {
+                            Intent intent = new Intent(getActivity().getBaseContext(), PhoneProfilesPrefsActivity.class);
+                            intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "categorySystemRoot");
+                            //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                            getActivity().startActivityForResult(intent, RESULT_UNLINK_VOLUMES_APP_PREFERENCES);
+                        }
+                        return false;
+                    }
+                });
+            }
+        }
+
+        InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("prf_pref_preferenceTypesInfo");
+        if (infoDialogPreference != null) {
+            infoDialogPreference.setInfoText(
+                    getString(R.string.important_info_profile_grant)+"\n"+
+                            getString(R.string.profile_preferences_typesInfoGrant)+"\n\n"+
+                            getString(R.string.important_info_profile_root)+"\n\n"+
+                            getString(R.string.important_info_profile_settings)+"\n\n"+
+                            getString(R.string.important_info_profile_interactive));
+        }
+
+        Preference showInActivatorPreference = prefMng.findPreference(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
+        if (showInActivatorPreference != null) {
+            showInActivatorPreference.setTitle("[A] " + getResources().getString(R.string.profile_preferences_showInActivator));
+            boolean value = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
+            setSummary(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, value);
+        }
+
+        Preference extenderPreference = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
+        if (extenderPreference != null) {
+            //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    } catch (Exception ignored) {}
+                    return false;
+                }
+            });
+        }
+        Preference accessibilityPreference = prefMng.findPreference(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
+        if (accessibilityPreference != null) {
+            //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
+                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                    } else {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });*/
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
+        boolean toneInstalled = TonesHandler.isToneInstalled(TonesHandler.TONE_ID, getActivity().getApplicationContext());
+        if (!toneInstalled) {
+            Preference installTonePreference = prefMng.findPreference(PREF_INSTALL_SILENT_TONE);
+            if (installTonePreference != null) {
+                installTonePreference.setSummary(R.string.profile_preferences_installSilentTone_summary);
+                installTonePreference.setEnabled(true);
+                installTonePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        if (!TonesHandler.isToneInstalled(TonesHandler.TONE_ID, context.getApplicationContext()))
+                            TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, context.getApplicationContext());
+                        else {
+                            Toast msg = ToastCompat.makeText(context.getApplicationContext(),
+                                    context.getResources().getString(R.string.profile_preferences_installSilentTone_installed_summary),
+                                    Toast.LENGTH_SHORT);
+                            msg.show();
+                        }
+                        return false;
+                    }
+                });
+            }
+        }
+        else {
+            Preference installTonePreference = prefMng.findPreference(PREF_INSTALL_SILENT_TONE);
+            if (installTonePreference != null) {
+                installTonePreference.setSummary(R.string.profile_preferences_installSilentTone_installed_summary);
+                installTonePreference.setEnabled(false);
+            }
+        }
+
+        extenderPreference = prefMng.findPreference(PREF_LOCK_DEVICE_INSTALL_EXTENDER);
+        if (extenderPreference != null) {
+            //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            extenderPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    } catch (Exception ignored) {}
+                    return false;
+                }
+            });
+        }
+        accessibilityPreference = prefMng.findPreference(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
+        if (accessibilityPreference != null) {
+            //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            accessibilityPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, context)) {
+                        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                        startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                    } else {
+                        if (getActivity() != null) {
+                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                            AlertDialog dialog = dialogBuilder.create();
+                            /*dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                                @Override
+                                public void onShow(DialogInterface dialog) {
+                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                                    if (positive != null) positive.setAllCaps(false);
+                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                                    if (negative != null) negative.setAllCaps(false);
+                                }
+                            });*/
+                            if (!getActivity().isFinishing())
+                                dialog.show();
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
     }
 
     @Override
@@ -239,7 +676,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             value = sharedPreferences.getString(key, "");
             if (getActivity() != null) {
                 // must be used handler for rewrite toolbar title/subtitle
-                final ProfilesPrefsFragment fragment = this;
                 final String _value = value;
                 Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(new Runnable() {
@@ -276,16 +712,176 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
-    void doOnActivityResult(int requestCode, int resultCode/*, Intent data*/) {
+    void doOnActivityResult(int requestCode, int resultCode, Intent data) {
         PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "xxx");
         PPApplication.logE("ProfilesPrefsFragment.doOnActivityResult", "requestCode=" + requestCode);
+
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_PROFILE) {
+            setPermissionsPreference();
+        }
+        /*if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT) {
+            Log.e("------ ProfilePreferencesNestedFragment.doOnActivityResult", "requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT");
+            PPApplication.isRootGranted();
+            setPermissionsPreference();
+        }*/
+        if (requestCode == WallpaperViewPreferenceX.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
+        {
+            //Uri selectedImage = data.getData();
+            String  d = data.getDataString();
+            if (d != null) {
+                Uri selectedImage = Uri.parse(d);
+                /*//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    try {
+                        final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                        ContentResolver resolver = getActivity().getContentResolver();
+                        resolver.takePersistableUriPermission(selectedImage, takeFlags);
+                    } catch (Exception e) {
+                        Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", Log.getStackTraceString(e));
+                    }
+                //}*/
+                WallpaperViewPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+                if (preference != null)
+                    preference.setImageIdentifier(selectedImage.toString());
+                /*
+                if (ProfilePreferencesFragment.changedWallpaperViewPreference != null) {
+                    // set image identifier for get bitmap path
+                    ProfilePreferencesFragment.changedWallpaperViewPreference.setImageIdentifier(selectedImage.toString());
+                    ProfilePreferencesFragment.changedWallpaperViewPreference = null;
+                }
+                */
+            }
+        }
+        if (requestCode == ProfileIconPreferenceX.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
+        {
+            //Uri selectedImage = data.getData();
+            String  d = data.getDataString();
+            if (d != null) {
+                Uri selectedImage = Uri.parse(d);
+                /*//if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    try {
+                        final int takeFlags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+                        ContentResolver resolver = getActivity().getContentResolver();
+                        resolver.takePersistableUriPermission(selectedImage, takeFlags);
+                    } catch (Exception e) {
+                        Log.e("ProfilePreferencesNestedFragment.doOnActivityResult", Log.getStackTraceString(e));
+                    }
+                //}*/
+
+                Resources resources = getResources();
+                int height = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                int width = (int) resources.getDimension(android.R.dimen.app_icon_size);
+                if (BitmapManipulator.checkBitmapSize(selectedImage.toString(), width, height, getContext())) {
+                    ProfileIconPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_ICON);
+                    if (preference != null) {
+                        preference.dismissDialog();
+                        preference.setImageIdentifierAndType(selectedImage.toString(), false, true);
+                    }
+                    /*if (ProfilePreferencesFragment.changedProfileIconPreference != null) {
+                        // set image identifier ant type for get bitmap path
+                        ProfilePreferencesFragment.changedProfileIconPreference.dismissDialog();
+                        ProfilePreferencesFragment.changedProfileIconPreference.setImageIdentifierAndType(selectedImage.toString(), false, true);
+                        ProfilePreferencesFragment.changedProfileIconPreference = null;
+                    }*/
+                }
+                else {
+                    if (getActivity() != null) {
+                        String text = getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
+                        text = text + " " + (width * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
+                        text = text + "x" + (height * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
+                        Toast msg = ToastCompat.makeText(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG);
+                        msg.show();
+                    }
+                }
+            }
+        }
+        if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
+            /*final boolean canEnableZenMode =
+                    (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
+                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
+                    );*/
+
+            final String sZenModeType = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
+            setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
+        }
+        if (requestCode == ApplicationsDialogPreferenceX.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
+        {
+            ApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            if (preference != null) {
+                preference.updateShortcut(
+                        (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
+                        data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
+                        /*(Bitmap)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_ICON),*/
+                        data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, -1),
+                        data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
+            }
+            /*
+            if (ProfilePreferencesFragment.applicationsDialogPreference != null) {
+                ProfilePreferencesFragment.applicationsDialogPreference.updateShortcut(
+                        (Intent)data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
+                        data.getStringExtra(Intent.EXTRA_SHORTCUT_NAME),
+                        data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, -1),
+                        data.getIntExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
+
+                ProfilePreferencesFragment.applicationsDialogPreference = null;
+            }*/
+        }
+        if (requestCode == ApplicationEditorDialogX.RESULT_INTENT_EDITOR) {
+            if (resultCode == Activity.RESULT_OK) {
+                ApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+                if ((preference != null) && (data != null)) {
+                    preference.updateIntent((PPIntent) data.getParcelableExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT),
+                            (Application) data.getParcelableExtra(ApplicationEditorDialogX.EXTRA_APPLICATION),
+                            data.getIntExtra(ApplicationEditorIntentActivityX.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
+                }
+            }
+        }
+        if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
+            disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
+            disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+        }
+        if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
+            disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
+            disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+            // show save menu
+            ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
+            if (activity != null) {
+                activity.showSaveMenu = true;
+                activity.invalidateOptionsMenu();
+            }
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WALLPAPER) {
+            WallpaperViewPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+            if (preference != null)
+                preference.startGallery();
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON) {
+            ProfileIconPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_ICON);
+            if (preference != null)
+                preference.startGallery();
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_BRIGHTNESS_DIALOG) {
+            BrightnessDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS);
+            if (preference != null)
+                preference.enableViews();
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
+            RingtonePreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE);
+            if (preference != null)
+                preference.refreshListView();
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION);
+            if (preference != null)
+                preference.refreshListView();
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_ALARM);
+            if (preference != null)
+                preference.refreshListView();
+        }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        doOnActivityResult(requestCode, resultCode);
+        doOnActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -295,7 +891,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //outState.putInt("startupSource", startupSource);
     }
 
-    private void initPreferenceFragment(Bundle savedInstanceState) {
+    private void initPreferenceFragment(@SuppressWarnings("unused") Bundle savedInstanceState) {
         prefMng = getPreferenceManager();
 
         preferences = prefMng.getSharedPreferences();
@@ -408,7 +1004,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = summary + title;
                 }
             }
-            preferenceScreen = prefMng.findPreference("prf_pref_activationDurationCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_activationDurationCategoryRoot");
         }
 
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
@@ -435,7 +1031,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            preferenceScreen = prefMng.findPreference("prf_pref_soundProfileCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_soundProfileCategoryRoot");
         }
 
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGTONE) ||
@@ -490,7 +1086,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            preferenceScreen = prefMng.findPreference("prf_pref_volumeCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_volumeCategoryRoot");
         }
 
         if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
@@ -519,7 +1115,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title;
             }
             //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_ALARM);
-            preferenceScreen = prefMng.findPreference("prf_pref_soundsCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_soundsCategoryRoot");
         }
 
         if (key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
@@ -543,7 +1139,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            preferenceScreen = prefMng.findPreference("prf_pref_touchEffectsCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_touchEffectsCategoryRoot");
         }
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
@@ -643,7 +1239,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            preferenceScreen = prefMng.findPreference("prf_pref_radiosCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_radiosCategoryRoot");
         }
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT) ||
@@ -694,7 +1290,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            preferenceScreen = prefMng.findPreference("prf_pref_screenCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_screenCategoryRoot");
         }
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
@@ -738,7 +1334,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            preferenceScreen = prefMng.findPreference("prf_pref_othersCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_othersCategoryRoot");
         }
 
         if (key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING) ||
@@ -775,7 +1371,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (!summary.isEmpty()) summary = summary +" • ";
                 summary = summary + title;
             }
-            preferenceScreen = prefMng.findPreference("prf_pref_applicationCategory");
+            preferenceScreen = prefMng.findPreference("prf_pref_applicationCategoryRoot");
         }
 
         if (preferenceScreen != null) {
@@ -1649,7 +2245,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
-    void disableDependedPref(String key) {
+    private void disableDependedPref(String key) {
         String value;
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR)) {
             boolean b = preferences.getBoolean(key, false);

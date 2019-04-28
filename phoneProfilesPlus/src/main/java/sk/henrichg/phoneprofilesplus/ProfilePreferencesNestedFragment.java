@@ -110,10 +110,8 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
     */
 
     void setPreferencesManager() {
-        String PREFS_NAME = PREFS_NAME_ACTIVITY;
-
         prefMng = getPreferenceManager();
-        prefMng.setSharedPreferencesName(PREFS_NAME);
+        prefMng.setSharedPreferencesName(PREFS_NAME_ACTIVITY);
         prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
     }
 
@@ -1956,33 +1954,6 @@ public class ProfilePreferencesNestedFragment extends PreferenceFragment
             PPApplication.isRootGranted();
             setPermissionsPreference();
         }*/
-        if (requestCode == EditorProfilesActivity.REQUEST_CODE_PROFILE_PREFERENCES)
-        {
-            if ((resultCode == Activity.RESULT_OK) && (data != null))
-            {
-                long profile_id = data.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-                //int newProfileMode = data.getIntExtra(PPApplication.EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_UNDEFINED);
-                //int predefinedProfileIndex = data.getIntExtra(PPApplication.EXTRA_PREDEFINED_PROFILE_INDEX, 0);
-
-                /*
-                if (profile_id == Profile.SHARED_PROFILE_ID)
-                {
-                    Profile sharedProfile = Profile.getProfileFromSharedPreferences(context, PPApplication.SHARED_PROFILE_PREFS_NAME);
-                    Permissions.grantProfilePermissions(context, sharedProfile, false, true,
-                            PPApplication.STARTUP_SOURCE_EDITOR, false, false, false);
-
-                    //Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-                    //PPApplication.startPPService(context, serviceIntent);
-                    Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                    //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                    commandIntent.putExtra(PhoneProfilesService.EXTRA_REREGISTER_RECEIVERS_AND_JOBS, true);
-                    PPApplication.runCommand(context, commandIntent);
-                }
-                */
-            }
-        }
         if (requestCode == WallpaperViewPreference.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
             //Uri selectedImage = data.getData();

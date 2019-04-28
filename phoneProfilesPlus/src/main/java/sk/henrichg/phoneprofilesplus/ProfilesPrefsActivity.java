@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -92,7 +91,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null)
-            ((ProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode);
+            ((ProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
 
