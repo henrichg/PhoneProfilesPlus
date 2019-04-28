@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
@@ -30,7 +31,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
-import androidx.preference.TwoStatePreference;
+import androidx.preference.SwitchPreferenceCompat;
 
 class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -778,7 +779,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        Permissions.grantRoot(null, getActivity());
+                        Permissions.grantRootX(null, getActivity());
                         return false;
                     }
                 });
@@ -1756,7 +1757,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         // Do not bind toggles.
-        if (/*preference instanceof CheckBoxPreference ||*/ preference instanceof TwoStatePreference) {
+        if (preference instanceof CheckBoxPreference || preference instanceof SwitchPreferenceCompat) {
             return;
         }
 
