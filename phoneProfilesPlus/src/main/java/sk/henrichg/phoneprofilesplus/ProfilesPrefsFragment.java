@@ -40,7 +40,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
 
-    boolean nestedFragment = false;
+    private boolean nestedFragment = false;
 
     private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
@@ -706,6 +706,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setPermissionsPreference();
 
         ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
+        PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "activity="+activity);
         if (activity != null) {
             activity.showSaveMenu = true;
             activity.invalidateOptionsMenu();
