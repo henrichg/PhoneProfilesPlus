@@ -147,8 +147,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
-    String getSummaryAMSDP()
-    {
+    static String getSummaryForPreferenceCategory(String value, String systemSettings, Context _context) {
         String prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
         boolean ok = true;
         if (systemSettings.equals("notifications") && (!PPNotificationListenerService.isNotificationListenerServiceEnabled(_context))) {
@@ -214,6 +213,12 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                 }
             }
         }
+        return prefDataSummary;
+    }
+
+    private String getSummaryAMSDP()
+    {
+        String prefDataSummary = getSummaryForPreferenceCategory(value, systemSettings, _context);
         setSummary(prefDataSummary);
         return prefDataSummary;
     }
