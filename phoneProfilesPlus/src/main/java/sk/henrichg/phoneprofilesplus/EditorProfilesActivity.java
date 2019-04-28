@@ -2016,7 +2016,7 @@ public class EditorProfilesActivity extends AppCompatActivity
      }
 
     private void startProfilePreferenceActivity(Profile profile, int editMode, int predefinedProfileIndex) {
-        Intent intent = new Intent(getBaseContext(), ProfilePreferencesActivity.class);
+        Intent intent = new Intent(getBaseContext(), ProfilesPrefsActivity.class);
         if (editMode == EditorProfileListFragment.EDIT_MODE_INSERT)
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0L);
         else

@@ -40,7 +40,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private PreferenceManager prefMng;
     private SharedPreferences preferences;
 
-    private boolean nestedFragment = false;
+    boolean nestedFragment = false;
 
     private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
@@ -888,7 +888,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        //outState.putInt("startupSource", startupSource);
+        //outState.putBoolean("nestedFragment", nestedFragment);
     }
 
     private void initPreferenceFragment(@SuppressWarnings("unused") Bundle savedInstanceState) {
