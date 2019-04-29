@@ -96,7 +96,7 @@ class ActivateProfileHelper {
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                 // in array.xml, networkTypeGSMValues are 100+ values
                 setPreferredNetworkType(context, profile._deviceNetworkType - 100);
@@ -108,7 +108,7 @@ class ActivateProfileHelper {
 
         // setup mobile data
         if (profile._deviceMobileData != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData");
                 boolean _isMobileData = isMobileData(context);
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -143,7 +143,7 @@ class ActivateProfileHelper {
         // setup WiFi AP
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
                 if (Build.VERSION.SDK_INT < 28) {
                     WifiApManager wifiApManager = null;
@@ -220,7 +220,7 @@ class ActivateProfileHelper {
         if (canChangeWifi) {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
                     boolean isWifiAPEnabled;
                     if (Build.VERSION.SDK_INT < 28)
@@ -273,7 +273,7 @@ class ActivateProfileHelper {
             }
 
             // connect to SSID
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                     PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID");
                     if (Permissions.checkLocation(context)) {
@@ -356,7 +356,7 @@ class ActivateProfileHelper {
 
         // setup bluetooth
         if (profile._deviceBluetooth != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","setBluetooth");
                 BluetoothAdapter bluetoothAdapter = BluetoothScanJob.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
@@ -399,7 +399,7 @@ class ActivateProfileHelper {
 
         // setup GPS
         if (profile._deviceGPS != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
                 boolean isEnabled = false;
@@ -436,7 +436,7 @@ class ActivateProfileHelper {
 
         // setup NFC
         if (profile._deviceNFC != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(context);
                 if (nfcAdapter != null) {
                     switch (profile._deviceNFC) {
@@ -480,7 +480,7 @@ class ActivateProfileHelper {
                     boolean _isAirplaneMode = false;
                     boolean _setAirplaneMode = false;
                     if (profile._deviceAirplaneMode != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, false, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             _isAirplaneMode = isAirplaneMode(context);
                             switch (profile._deviceAirplaneMode) {
                                 case 1:
@@ -990,7 +990,7 @@ class ActivateProfileHelper {
 
         PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "lValue="+lValue);
         if (lValue != -1) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, false, context).allowed
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, null, false, context).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(context)) {
                     if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
@@ -1191,7 +1191,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, false, appContext).allowed
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                             Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
@@ -1247,7 +1247,7 @@ class ActivateProfileHelper {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, false, appContext).allowed
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, null, false, appContext).allowed
                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         //if (android.os.Build.VERSION.SDK_INT >= 21) {
                             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -1899,7 +1899,7 @@ class ActivateProfileHelper {
 
         PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
         KeyguardManager myKM = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             if (profile._deviceMobileDataPrefs == 1)
             {
@@ -1962,7 +1962,7 @@ class ActivateProfileHelper {
             }
         }
 
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             if (profile._deviceNetworkTypePrefs == 1)
             {
@@ -2200,7 +2200,7 @@ class ActivateProfileHelper {
                         Settings.System.putInt(context.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS,
                                 profile.getDeviceBrightnessManualValue(context));
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, true, context).allowed
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, context).allowed
                                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                                 Settings.System.putFloat(context.getContentResolver(),
@@ -3697,7 +3697,7 @@ class ActivateProfileHelper {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;

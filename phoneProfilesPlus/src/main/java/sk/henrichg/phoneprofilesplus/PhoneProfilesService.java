@@ -1546,7 +1546,7 @@ public class PhoneProfilesService extends Service
             unregisterPPPPExtenderReceiver(PPApplication.REGISTRATION_TYPE_LOCK_DEVICE_UNREGISTER);
         }
         if (register) {
-            boolean forceStopAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, false, appContext).allowed ==
+            boolean forceStopAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, null, false, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean applicationsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
@@ -1556,7 +1556,7 @@ public class PhoneProfilesService extends Service
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
             boolean callAllowed = (Event.isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
-            boolean lockDeviceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, false, appContext).allowed ==
+            boolean lockDeviceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_LOCK_DEVICE, null, null, false, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED;
             if (forceStopAllowed || applicationsAllowed || orientationAllowed || smsAllowed || callAllowed || lockDeviceAllowed) {
                 PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "profile or event allowed");
@@ -2148,7 +2148,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerWifiStateChangedBroadcastReceiver", "not registered");
         }
         if (register) {
-            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, false, appContext).allowed ==
+            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -2227,7 +2227,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("[RJS] PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "not registered");
         }
         if (register) {
-            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, false, appContext).allowed ==
+            boolean profileAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             boolean eventAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;

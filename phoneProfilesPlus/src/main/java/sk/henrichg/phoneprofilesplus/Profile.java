@@ -2613,6 +2613,7 @@ public class Profile {
     }
 
     static PreferenceAllowed isProfilePreferenceAllowed(String preferenceKey, Profile profile,
+                                                        SharedPreferences sharedPreferences,
                                                         boolean fromUIThread, Context context)
     {
         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
