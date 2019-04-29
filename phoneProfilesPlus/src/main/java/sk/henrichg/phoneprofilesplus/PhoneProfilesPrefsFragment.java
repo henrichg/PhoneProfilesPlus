@@ -1140,6 +1140,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (requestCode == RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS) {
                         boolean canWrite = Settings.System.canWrite(context);
                         permissionsChanged = Permissions.getWriteSystemSettingsPermission(context) != canWrite;
+                        PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "canWrite=" + permissionsChanged);
                         if (canWrite)
                             Permissions.setShowRequestWriteSettingsPermission(context, true);
                     }
@@ -1147,12 +1148,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         boolean notificationPolicyGranted = (mNotificationManager != null) && (mNotificationManager.isNotificationPolicyAccessGranted());
                         permissionsChanged = Permissions.getNotificationPolicyPermission(context) != notificationPolicyGranted;
+                        PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "notificationPolicyGranted=" + permissionsChanged);
                         if (notificationPolicyGranted)
                             Permissions.setShowRequestAccessNotificationPolicyPermission(context, true);
                     }
                     if (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS) {
                         boolean canDrawOverlays = Settings.canDrawOverlays(context);
                         permissionsChanged = Permissions.getDrawOverlayPermission(context) != canDrawOverlays;
+                        PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "canDrawOverlays=" + permissionsChanged);
                         if (canDrawOverlays)
                             Permissions.setShowRequestDrawOverlaysPermission(context, true);
                     }
@@ -1237,6 +1240,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             activity.setResult(Activity.RESULT_CANCELED);
                             activity.finishAffinity();
                         } else {
+                            setSummary(PREF_APPLICATION_PERMISSIONS);
+                            setSummary(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
+                            setSummary(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS);
+                            setSummary(PREF_DRAW_OVERLAYS_PERMISSIONS);
+
                             activity.setResult(Activity.RESULT_OK);
                         }
                     } else
