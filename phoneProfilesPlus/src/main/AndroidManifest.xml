@@ -172,10 +172,6 @@
             android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_withDrawerLayout_color">
         </activity>
         <activity
-            android:name=".ProfilePreferencesActivity"
-            android:label="@string/title_activity_profile_preferences">
-        </activity>
-        <activity
             android:name=".ProfilesPrefsActivity"
             android:label="@string/title_activity_profile_preferences">
         </activity>

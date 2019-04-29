@@ -127,8 +127,8 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.putBoolean(EditorEventListFragment.PREF_START_TARGET_HELPS, false);
                                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS, false);
                                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
-                                    editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, false);
-                                    editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS_SAVE, false);
+                                    editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
                                     editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, false);
                                     editor.apply();
 
@@ -137,7 +137,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 if (actualVersionCode <= 3200) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                                    editor.putBoolean(ProfilePreferencesActivity.PREF_START_TARGET_HELPS, true);
+                                    editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
                                     editor.apply();
 
                                     restartService = true;

@@ -469,13 +469,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._volumeVoice = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE, "");
             profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
             profile._soundRingtone = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
-            PPApplication.logE("ProfilePreferencesActivity.savePreferences", "profile._soundRingtone=" + profile._soundRingtone);
+            PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundRingtone=" + profile._soundRingtone);
             profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
             profile._soundNotification = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
-            PPApplication.logE("ProfilePreferencesActivity.savePreferences", "profile._soundNotification=" + profile._soundNotification);
+            PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundNotification=" + profile._soundNotification);
             profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
             profile._soundAlarm = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
-            PPApplication.logE("ProfilePreferencesActivity.savePreferences", "profile._soundAlarm=" + profile._soundAlarm);
+            PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundAlarm=" + profile._soundAlarm);
             profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
             profile._deviceWiFi = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI, ""));
             profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, ""));
@@ -589,73 +589,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         String applicationTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
-        /*if (!showSaveMenu) {
-            if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true)) {
-                //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
-
-                SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
-                editor.putBoolean(PREF_START_TARGET_HELPS, false);
-                editor.apply();
-
-                Toolbar toolbar = findViewById(R.id.mp_toolbar);
-
-                //TypedValue tv = new TypedValue();
-                //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);
-
-                //final Display display = getWindowManager().getDefaultDisplay();
-
-                int circleColor = R.color.tabTargetHelpCircleColor;
-                if (applicationTheme.equals("dark"))
-                    circleColor = R.color.tabTargetHelpCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor;
-                if (applicationTheme.equals("white"))
-                    textColor = R.color.tabTargetHelpTextColor_white;
-                boolean tintTarget = !applicationTheme.equals("white");
-
-                final TapTargetSequence sequence = new TapTargetSequence(this);
-                List<TapTarget> targets = new ArrayList<>();
-                int id = 1;
-                try {
-                    targets.add(
-                            TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_shared_profile, getString(R.string.title_activity_default_profile_preferences), getString(R.string.profile_preferences_sourceProfileInfo_summary))
-                                    .targetCircleColor(circleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(tintTarget)
-                                    .drawShadow(true)
-                                    .id(id)
-                    );
-                    ++id;
-                } catch (Exception ignored) {} // not in action bar?
-
-                sequence.targets(targets);
-                sequence.listener(new TapTargetSequence.Listener() {
-                    // This listener will tell us when interesting(tm) events happen in regards
-                    // to the sequence
-                    @Override
-                    public void onSequenceFinish() {
-                        //targetHelpsSequenceStarted = false;
-                    }
-
-                    @Override
-                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                        //Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                    }
-
-                    @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {
-                        //targetHelpsSequenceStarted = false;
-                    }
-                });
-                sequence.continueOnCancel(true)
-                        .considerOuterCircleCanceled(true);
-                //targetHelpsSequenceStarted = true;
-                sequence.start();
-            }
-        }*/
         if (showSaveMenu) {
             if (ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_SAVE, true)) {
-                //Log.d("ProfilePreferencesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_SAVE=true");
-
                 SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS_SAVE, false);
                 editor.apply();

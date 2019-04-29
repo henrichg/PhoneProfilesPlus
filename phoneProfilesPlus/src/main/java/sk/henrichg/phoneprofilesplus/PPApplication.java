@@ -189,8 +189,6 @@ public class PPApplication extends Application {
                                          +"|ApplicationsDialogPreferenceX"
                                          +"|ApplicationsDialogPreferenceFragmentX"
 
-                                         //+"|ProfilePreferencesNestedFragment.onActivityCreated"
-
                                          //+"|Event.notifyEventStart"
                                          //+"|StartEventNotificationBroadcastReceiver"
                                          //+"|StartEventNotificationDeletedReceiver"

@@ -179,7 +179,7 @@ public class WallpaperViewPreferenceX extends Preference {
             intent.setType("image/*");
 
             // is not possible to get activity from preference, used is static method
-            //ProfilePreferencesFragment.setChangedWallpaperViewPreference(this);
+            //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
             ((Activity)prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
         } catch (Exception ignored) {}
         /*} catch (ActivityNotFoundException e) {
@@ -190,7 +190,7 @@ public class WallpaperViewPreferenceX extends Preference {
                 intent.setType("image/*");
 
                 // is not possible to get activity from preference, used is static method
-                ProfilePreferencesFragment.setChangedWallpaperViewPreference(this);
+                ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
                 ((Activity) prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
             } catch (Exception ignored) {}
         }*/

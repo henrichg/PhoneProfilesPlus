@@ -109,7 +109,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
-    // request code for startActivityForResult with intent ProfilePreferencesActivity
+    // request code for startActivityForResult with intent ProfilesPrefsActivity
     static final int REQUEST_CODE_PROFILE_PREFERENCES = 6221;
     // request code for startActivityForResult with intent EventPreferencesActivity
     private static final int REQUEST_CODE_EVENT_PREFERENCES = 6222;
@@ -1231,7 +1231,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         profile.generateIconBitmap(getBaseContext(), false, 0, false);
                         profile.generatePreferencesIndicator(getBaseContext(), false, 0);
 
-                        // redraw list fragment , notifications, widgets after finish ProfilePreferencesActivity
+                        // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
                         redrawProfileListFragment(profile, newProfileMode, predefinedProfileIndex);
 
                         Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());

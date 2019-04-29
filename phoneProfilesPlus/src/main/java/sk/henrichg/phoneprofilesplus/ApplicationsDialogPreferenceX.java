@@ -652,7 +652,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                     intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_POSITION, _position);
                     intent.putExtra(LaunchShortcutActivity.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
 
-                    //ProfilePreferencesFragment.setApplicationsDialogPreference(this);
+                    //ProfilesPrefsFragment.setApplicationsDialogPreference(this);
                     ((Activity) context).startActivityForResult(intent, RESULT_APPLICATIONS_EDITOR);
                 }
             }
