@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 
 public class InfoDialogPreference extends DialogPreference {
 
-    private String infoText;
+    private final String infoText;
 
     private final Context _context;
 

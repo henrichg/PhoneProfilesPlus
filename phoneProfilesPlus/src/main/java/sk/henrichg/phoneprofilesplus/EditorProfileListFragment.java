@@ -57,18 +57,18 @@ public class EditorProfileListFragment extends Fragment
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
-    public static final int EDIT_MODE_UNDEFINED = 0;
-    public static final int EDIT_MODE_INSERT = 1;
-    public static final int EDIT_MODE_DUPLICATE = 2;
-    public static final int EDIT_MODE_EDIT = 3;
-    public static final int EDIT_MODE_DELETE = 4;
+    static final int EDIT_MODE_UNDEFINED = 0;
+    static final int EDIT_MODE_INSERT = 1;
+    static final int EDIT_MODE_DUPLICATE = 2;
+    static final int EDIT_MODE_EDIT = 3;
+    static final int EDIT_MODE_DELETE = 4;
 
-    public static final String FILTER_TYPE_ARGUMENT = "filter_type";
-    public static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    static final String FILTER_TYPE_ARGUMENT = "filter_type";
+    static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
-    public static final int FILTER_TYPE_ALL = 0;
-    public static final int FILTER_TYPE_SHOW_IN_ACTIVATOR = 1;
-    public static final int FILTER_TYPE_NO_SHOW_IN_ACTIVATOR = 2;
+    static final int FILTER_TYPE_ALL = 0;
+    static final int FILTER_TYPE_SHOW_IN_ACTIVATOR = 1;
+    static final int FILTER_TYPE_NO_SHOW_IN_ACTIVATOR = 2;
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profile_list_fragment_start_target_helps";
@@ -390,7 +390,7 @@ public class EditorProfileListFragment extends Fragment
         itemTouchHelper.startDrag(viewHolder);
     }
 
-    public void startProfilePreferencesActivity(Profile profile, int predefinedProfileIndex)
+    void startProfilePreferencesActivity(Profile profile, int predefinedProfileIndex)
     {
         int editMode;
 
@@ -623,7 +623,7 @@ public class EditorProfileListFragment extends Fragment
         }
     }
 
-    public void updateHeader(Profile profile)
+    void updateHeader(Profile profile)
     {
         if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
             return;
@@ -731,7 +731,7 @@ public class EditorProfileListFragment extends Fragment
             showAdapterTargetHelps();
     }
 
-    public void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition, long loadProfileId)
+    void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition, long loadProfileId)
     {
         /*if (listView != null)
             listView.cancelDrag();*/
@@ -803,7 +803,7 @@ public class EditorProfileListFragment extends Fragment
         Collections.sort(profileList, new ByPOrderComparator());
     }
 
-    public void refreshGUI(boolean refresh, boolean refreshIcons, boolean setPosition, long profileId)
+    void refreshGUI(boolean refresh, boolean refreshIcons, boolean setPosition, long profileId)
     {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;
@@ -848,7 +848,7 @@ public class EditorProfileListFragment extends Fragment
         }
     }
 
-    public void removeAdapter() {
+    void removeAdapter() {
         if (listView != null)
             listView.setAdapter(null);
     }

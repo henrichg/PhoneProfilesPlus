@@ -44,7 +44,7 @@ public class ActivateProfileListFragment extends Fragment {
     //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
 
-    public static final int PORDER_FOR_IGNORED_PROFILE = 1000000;
+    static final int PORDER_FOR_IGNORED_PROFILE = 1000000;
 
     public ActivateProfileListFragment() {
     }
@@ -462,7 +462,7 @@ public class ActivateProfileListFragment extends Fragment {
         }
     }
 
-    public void refreshGUI(boolean refresh, boolean refreshIcons)
+    void refreshGUI(boolean refresh, boolean refreshIcons)
     {
         if ((activityDataWrapper == null) || (profileListAdapter == null))
             return;

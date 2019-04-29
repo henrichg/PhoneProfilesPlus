@@ -54,26 +54,26 @@ public class EditorEventListFragment extends Fragment
 
     private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
 
-    public static final int EDIT_MODE_UNDEFINED = 0;
-    public static final int EDIT_MODE_INSERT = 1;
-    public static final int EDIT_MODE_DUPLICATE = 2;
-    public static final int EDIT_MODE_EDIT = 3;
-    public static final int EDIT_MODE_DELETE = 4;
+    static final int EDIT_MODE_UNDEFINED = 0;
+    static final int EDIT_MODE_INSERT = 1;
+    static final int EDIT_MODE_DUPLICATE = 2;
+    static final int EDIT_MODE_EDIT = 3;
+    static final int EDIT_MODE_DELETE = 4;
 
-    public static final String FILTER_TYPE_ARGUMENT = "filter_type";
-    public static final String ORDER_TYPE_ARGUMENT = "order_type";
-    public static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
+    static final String FILTER_TYPE_ARGUMENT = "filter_type";
+    static final String ORDER_TYPE_ARGUMENT = "order_type";
+    static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
-    public static final int FILTER_TYPE_ALL = 0;
-    public static final int FILTER_TYPE_RUNNING = 1;
-    public static final int FILTER_TYPE_PAUSED = 2;
-    public static final int FILTER_TYPE_STOPPED = 3;
-    public static final int FILTER_TYPE_START_ORDER = 4;
+    static final int FILTER_TYPE_ALL = 0;
+    static final int FILTER_TYPE_RUNNING = 1;
+    static final int FILTER_TYPE_PAUSED = 2;
+    static final int FILTER_TYPE_STOPPED = 3;
+    static final int FILTER_TYPE_START_ORDER = 4;
 
-    public static final int ORDER_TYPE_START_ORDER = 0;
-    public static final int ORDER_TYPE_EVENT_NAME = 1;
-    public static final int ORDER_TYPE_PROFILE_NAME = 2;
-    public static final int ORDER_TYPE_PRIORITY = 3;
+    static final int ORDER_TYPE_START_ORDER = 0;
+    static final int ORDER_TYPE_EVENT_NAME = 1;
+    static final int ORDER_TYPE_PROFILE_NAME = 2;
+    static final int ORDER_TYPE_PRIORITY = 3;
 
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_event_list_fragment_start_target_helps";
@@ -373,7 +373,7 @@ public class EditorEventListFragment extends Fragment
         itemTouchHelper.startDrag(viewHolder);
     }
 
-    public void startEventPreferencesActivity(Event event, int predefinedEventIndex)
+    void startEventPreferencesActivity(Event event, int predefinedEventIndex)
     {
         int editMode;
 
@@ -657,7 +657,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    public void updateHeader(Profile profile)
+    void updateHeader(Profile profile)
     {
         if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
             return;
@@ -712,7 +712,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    public void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition, long loadEventId)
+    void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition, long loadEventId)
     {
         /*if (listView != null)
             listView.cancelDrag();*/
@@ -780,7 +780,7 @@ public class EditorEventListFragment extends Fragment
     }
     */
 
-    public void changeListOrder(int orderType)
+    void changeListOrder(int orderType)
     {
         if (isAsyncTaskPendingOrRunning()) {
             this.asyncTaskContext.get().cancel(true);
@@ -858,7 +858,7 @@ public class EditorEventListFragment extends Fragment
         }
     }
 
-    public void refreshGUI(boolean refresh, boolean refreshIcons, boolean setPosition, long eventId)
+    void refreshGUI(boolean refresh, boolean refreshIcons, boolean setPosition, long eventId)
     {
         if (activityDataWrapper == null)
             return;
@@ -916,7 +916,7 @@ public class EditorEventListFragment extends Fragment
         updateListView(null, false, refreshIcons, setPosition, eventId);
     }
 
-    public void removeAdapter() {
+    void removeAdapter() {
         if (listView != null)
             listView.setAdapter(null);
     }
