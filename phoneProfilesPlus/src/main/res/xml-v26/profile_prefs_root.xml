@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="rootScreen"
+    app:title="@string/title_activity_profile_preferences">
+
+    <PreferenceCategory
+        app:summary="@string/profile_preferences_category_profileIdentification"
+        app:title="@string/profile_preferences_category_profileIdentification"
+        app:layout="@layout/mp_preference_category" >
+        <EditTextPreference
+            app:key="prf_pref_profileName"
+            app:summary="@string/profile_preferences_profileName"
+            app:title="@string/profile_preferences_profileName"
+            android:selectAllOnFocus="true"
+            app:defaultValue="Profil"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.ProfileIconPreferenceX
+            app:defaultValue="ic_profile_default|1|0|0"
+            app:key="prf_pref_profileIcon"
+            app:title="@string/profile_preferences_profileIcon"
+            app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="prf_pref_showInActivator"
+            app:title="@string/profile_preferences_showInActivator"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="prf_pref_activationParametersCategory"
+        app:summary="@string/profile_preferences_category_profileActivationParameters"
+        app:title="@string/profile_preferences_category_profileActivationParameters"
+        app:layout="@layout/mp_preference_category" >
+
+        <Preference
+            app:title="@string/profile_preferences_category_activation_duration"
+            app:key="prf_pref_activationDurationCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsActivationDuration" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:summary="@string/profile_preferences_category_profileDeviceParameters"
+        app:title="@string/profile_preferences_category_profileDeviceParameters"
+        app:layout="@layout/mp_preference_category" >
+
+        <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
+            app:key="prf_pref_preferenceTypesInfo"
+            app:title="@string/profile_preferences_preferenceTypesInfo_title"
+            app:summary="@string/info_preference_click_here"
+            app:infoText="@string/empty_string"
+            app:widgetLayout="@layout/info_preference_clickable"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <Preference
+            app:title="@string/profile_preferences_category_sound_profile"
+            app:key="prf_pref_soundProfileCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsSoundProfiles" />
+
+        <Preference
+            app:title="@string/profile_preferences_category_volumes"
+            app:key="prf_pref_volumeCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsVolumes"  />
+
+        <Preference
+            app:title="@string/profile_preferences_category_sounds"
+            app:key="prf_pref_soundsCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsSounds" />
+
+        <Preference
+            app:title="@string/profile_preferences_category_touchEffects"
+            app:key="prf_pref_touchEffectsCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsTouchEffects" />
+
+        <Preference
+            app:title="@string/profile_preferences_category_radios"
+            app:key="prf_pref_radiosCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsRadios" />
+
+        <Preference
+            app:title="@string/profile_preferences_category_screen"
+            app:key="prf_pref_screenCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsScreen" />
+
+        <Preference
+            app:title="@string/profile_preferences_category_application"
+            app:key="prf_pref_applicationCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsApplication" />
+
+        <Preference
+            app:title="@string/profile_preferences_category_others"
+            app:key="prf_pref_othersCategoryRoot"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsOthers" />
+        
+    </PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>
