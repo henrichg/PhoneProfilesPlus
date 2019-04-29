@@ -22,7 +22,6 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     private SeekBar seekBar = null;
     private TextView valueText = null;
-    private CheckBox noChangeChBox = null;
     //private CheckBox sharedProfileChBox = null;
 
     @SuppressLint("InflateParams")
@@ -62,7 +61,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
         seekBar = view.findViewById(R.id.volumePrefDialogSeekbar);
         valueText = view.findViewById(R.id.volumePrefDialogValueText);
-        noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
+        CheckBox noChangeChBox = view.findViewById(R.id.volumePrefDialogNoChange);
         //sharedProfileChBox = view.findViewById(R.id.volumePrefDialogSharedProfile);
 
         seekBar.setKeyProgressIncrement(preference.stepSize);

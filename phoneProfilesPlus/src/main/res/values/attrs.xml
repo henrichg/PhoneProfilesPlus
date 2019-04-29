@@ -7,23 +7,10 @@
         <attr name="stepSize" format="integer" />
         <attr name="units" format="string" />
     </declare-styleable>
-<!--    <declare-styleable name="VolumeDialogPreference">
-        <attr name="volumeType" format="string" />
-        <attr name="vNoChange" format="integer" />
-        <attr name="vSharedProfile" format="integer" />
-        <attr name="vDisableSharedProfile" format="integer" />
-    </declare-styleable>-->
     <declare-styleable name="VolumeDialogPreference">
         <attr name="volumeType" format="string" />
         <attr name="vNoChange" format="integer" />
     </declare-styleable>
-<!--    <declare-styleable name="BrightnessDialogPreference">
-        <attr name="bNoChange" format="integer" />
-        <attr name="bAutomatic" format="integer" />
-        <attr name="bSharedProfile" format="integer" />
-        <attr name="bDisableSharedProfile" format="integer" />
-        <attr name="bChangeLevel" format="integer" />
-    </declare-styleable>-->
     <declare-styleable name="BrightnessDialogPreference">
         <attr name="bNoChange" format="integer" />
         <attr name="bAutomatic" format="integer" />
@@ -56,9 +43,6 @@
     <declare-styleable name="InfoDialogPreference">
         <attr name="infoText" format="string" />
     </declare-styleable>
-<!--    <declare-styleable name="ConnectToSSIDDialogPreference">
-        <attr name="cDisableSharedProfile" format="integer" />
-    </declare-styleable> -->
     <declare-styleable name="RingtonePreference">
         <attr name="ringtoneType" format="string" />
         <attr name="showSilent" format="boolean" />

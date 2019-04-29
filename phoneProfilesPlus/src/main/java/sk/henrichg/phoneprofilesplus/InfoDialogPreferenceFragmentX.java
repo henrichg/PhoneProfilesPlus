@@ -9,7 +9,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
-    InfoDialogPreferenceX preference;
+    private InfoDialogPreferenceX preference;
 
 
     @NonNull

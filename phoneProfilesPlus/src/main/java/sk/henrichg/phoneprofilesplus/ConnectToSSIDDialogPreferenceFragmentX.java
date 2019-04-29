@@ -19,7 +19,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    ConnectToSSIDDialogPreferenceX preference;
+    private ConnectToSSIDDialogPreferenceX preference;
 
     private ListView listView;
     private LinearLayout linlaProgress;

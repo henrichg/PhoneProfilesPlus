@@ -38,7 +38,7 @@ class ApplicationEditorDialogX
     private final ApplicationEditorDialogAdapterX listAdapter;
     private final Activity activity;
 
-    final AlertDialog mDialog;
+    private final AlertDialog mDialog;
     private final TextView mDelayValue;
     private final TimeDurationPickerDialog mDelayValueDialog;
     private final ImageView mSelectedAppIcon;

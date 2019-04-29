@@ -2158,7 +2158,7 @@ public class PhoneProfilesService extends Service
                 int eventScannerCount = 1;
                 if (checkDatabase/* || (wifiStateChangedBroadcastReceiver == null)*/) {
                     if (profileAllowed) {
-                        profileCount = 0;
+                        //profileCount = 0;
                         /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
@@ -2237,7 +2237,7 @@ public class PhoneProfilesService extends Service
                 int eventScannerCount = 1;
                 if (checkDatabase/* || (wifiConnectionBroadcastReceiver == null)*/) {
                     if (profileAllowed) {
-                        profileCount = 0;
+                        //profileCount = 0;
                         /*if (DatabaseHandler.getInstance(appContext).getTypeProfilesCount(DatabaseHandler.PTYPE_CONNECT_TO_SSID, true) > 0) {
                             Profile profile = Profile.getProfileFromSharedPreferences(appContext, PPApplication.SHARED_PROFILE_PREFS_NAME);
                             if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))

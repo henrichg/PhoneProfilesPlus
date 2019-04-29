@@ -209,7 +209,7 @@ class GlobalGUIRoutines {
         }
     }
 
-    static void reloadActivity(final Activity activity, boolean newIntent)
+    static void reloadActivity(final Activity activity, @SuppressWarnings("SameParameterValue") boolean newIntent)
     {
         if (newIntent)
         {

@@ -336,7 +336,7 @@ public class ApplicationsMultiSelectDialogPreference extends DialogPreference
         }
     }
 
-    String getSummaryAMSDP()
+    private String getSummaryAMSDP()
     {
         String prefDataSummary = _context.getString(R.string.applications_multiselect_summary_text_not_selected);
         boolean ok = true;

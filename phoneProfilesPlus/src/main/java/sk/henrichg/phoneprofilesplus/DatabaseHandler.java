@@ -3980,7 +3980,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "isIconResourceId=" + isIconResourceId);
 
                                 if (!isIconResourceId.equals("1")) {
-                                    Uri imageUri = WallpaperViewPreference.getImageContentUri(context, iconIdentifier);
+                                    Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, iconIdentifier);
                                     PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "icon uri=" + imageUri);
                                     if (imageUri != null)
                                         values.put(KEY_ICON, imageUri.toString() + "|" +
@@ -3997,7 +3997,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             if (wallpaperChange == 1) {
                                 try {
                                     String[] splits = wallpaper.split("\\|");
-                                    Uri imageUri = WallpaperViewPreference.getImageContentUri(context, splits[0]);
+                                    Uri imageUri = WallpaperViewPreferenceX.getImageContentUri(context, splits[0]);
                                     PPApplication.logE("DatabaseHandler.changePictureFilePathToUri", "wallpaper uri=" + imageUri);
                                     if (imageUri != null)
                                         values.put(KEY_DEVICE_WALLPAPER, imageUri.toString());

@@ -12,7 +12,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDialogFragmentCompat {
 
-    NotificationVolume0DialogPreferenceX preference;
+    private NotificationVolume0DialogPreferenceX preference;
 
     @NonNull
     @Override
@@ -23,7 +23,7 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
         final SharedPreferences preferences = preference.getSharedPreferences();
 
-        //Log.d("NotificationVolume0DialogPreference.showDialog","toneInstalled="+ToneHandler.isToneInstalled(TonesHandler.TONE_ID, _context));
+        //Log.d("NotificationVolume0DialogPreferenceFragmentX.showDialog","toneInstalled="+ToneHandler.isToneInstalled(TonesHandler.TONE_ID, _context));
 
         final String uriId = TonesHandler.getPhoneProfilesSilentUri(preference._context, RingtoneManager.TYPE_NOTIFICATION);
 
@@ -37,8 +37,8 @@ public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDia
 
             String notificationToneChange = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
             String notificationTone = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
-            //Log.d("NotificationVolume0DialogPreference.showDialog","notificationToneChange="+notificationToneChange);
-            //Log.d("NotificationVolume0DialogPreference.showDialog","notificationTone="+notificationTone);
+            //Log.d("NotificationVolume0DialogPreferenceFragmentX.showDialog","notificationToneChange="+notificationToneChange);
+            //Log.d("NotificationVolume0DialogPreferenceFragmentX.showDialog","notificationTone="+notificationTone);
 
 
             String message = "";

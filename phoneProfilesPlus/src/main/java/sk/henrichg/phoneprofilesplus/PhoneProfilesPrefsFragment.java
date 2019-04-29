@@ -40,7 +40,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     private SharedPreferences preferences;
     private SharedPreferences applicationPreferences;
 
-    boolean scrollToSet = false;
+    //boolean scrollToSet = false;
     private boolean nestedFragment = false;
 
     private static final String PREF_APPLICATION_PERMISSIONS = "permissionsApplicationPermissions";

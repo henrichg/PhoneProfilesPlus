@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ApplicationsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    ApplicationsMultiSelectDialogPreferenceX preference;
+    private ApplicationsMultiSelectDialogPreferenceX preference;
 
     // Layout widgets.
     private LinearLayout linlaProgress;
@@ -95,7 +95,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
     }
 
     @SuppressLint("StaticFieldLeak")
-    void refreshListView(final boolean notForUnselect) {
+    private void refreshListView(final boolean notForUnselect) {
         asyncTask = new AsyncTask<Void, Integer, Void>() {
 
             @Override

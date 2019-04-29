@@ -21,7 +21,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     //int disableSharedProfile;
     int changeLevel;
 
-    final int defaultValue = 50;
+    //private final int defaultValue = 50;
     final int maximumValue = 100;
     final int minimumValue = 0;
     final int stepSize = 1;
@@ -69,7 +69,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         }*/
 
         savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
-                Profile.convertPercentsToBrightnessManualValue(defaultValue, context));
+                Profile.convertPercentsToBrightnessManualValue(50, context));
         savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
         //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
         savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, 0f);

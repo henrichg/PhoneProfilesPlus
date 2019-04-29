@@ -29,13 +29,13 @@ class ProfilePreferencesIndicator {
 
     }
 
-    static Bitmap paint(Profile _profile, boolean monochrome, Context context)
+    static Bitmap paint(Profile profile, boolean monochrome, Context context)
     {
 
         int[] drawables = new int[30];
         int countDrawables = 0;
 
-        Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
+        //Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
         if (profile != null)
         {

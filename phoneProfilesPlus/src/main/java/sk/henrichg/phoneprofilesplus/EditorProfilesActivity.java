@@ -110,7 +110,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     // request code for startActivityForResult with intent BackgroundActivateProfileActivity
     static final int REQUEST_CODE_ACTIVATE_PROFILE = 6220;
     // request code for startActivityForResult with intent ProfilesPrefsActivity
-    static final int REQUEST_CODE_PROFILE_PREFERENCES = 6221;
+    private static final int REQUEST_CODE_PROFILE_PREFERENCES = 6221;
     // request code for startActivityForResult with intent EventPreferencesActivity
     private static final int REQUEST_CODE_EVENT_PREFERENCES = 6222;
     // request code for startActivityForResult with intent PhoneProfilesActivity
@@ -1234,8 +1234,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
                         redrawProfileListFragment(profile, newProfileMode, predefinedProfileIndex);
 
-                        Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
-                        Permissions.grantProfilePermissions(getApplicationContext(), mappedProfile, false, false,
+                        //Profile mappedProfile = profile; //Profile.getMappedProfile(profile, getApplicationContext());
+                        Permissions.grantProfilePermissions(getApplicationContext(), profile, false, false,
                                 /*true, false, 0,*/ PPApplication.STARTUP_SOURCE_EDITOR, false, true, false);
                     }
                 }

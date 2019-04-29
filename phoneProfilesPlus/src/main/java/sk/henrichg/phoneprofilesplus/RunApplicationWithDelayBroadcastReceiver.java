@@ -59,7 +59,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 if (intentId > 0) {
                     PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
                     if (ppIntent != null) {
-                        appIntent = ApplicationEditorIntentActivity.createIntent(ppIntent);
+                        appIntent = ApplicationEditorIntentActivityX.createIntent(ppIntent);
                         if (appIntent != null) {
                             if (ppIntent._intentType == 0) {
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

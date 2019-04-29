@@ -26,7 +26,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -954,11 +953,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             key.equals(Profile.PREF_PROFILE_VOLUME_ALARM) ||
                             key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
                             key.equals(Profile.PREF_PROFILE_VOLUME_VOICE)) {
-                        if (VolumeDialogPreference.changeEnabled(value))
+                        if (VolumeDialogPreferenceX.changeEnabled(value))
                             title = getString(preferenceTitleId);
                     } else
                     if (key.equals(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS)) {
-                        if (BrightnessDialogPreference.changeEnabled(value))
+                        if (BrightnessDialogPreferenceX.changeEnabled(value))
                             title = getString(preferenceTitleId);
                     } else {
                         if (!value.equals(defaultValue)) {
@@ -1896,7 +1895,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String sValue = value.toString();
-                boolean change = VolumeDialogPreference.changeEnabled(sValue);
+                boolean change = VolumeDialogPreferenceX.changeEnabled(sValue);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, false);
                 //setCategorySummary(preference, change, context);
             }
@@ -1909,7 +1908,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 String sValue = value.toString();
-                boolean change = BrightnessDialogPreference.changeEnabled(sValue);
+                boolean change = BrightnessDialogPreferenceX.changeEnabled(sValue);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, false);
                 //setCategorySummary(preference, change, context);
             }
@@ -2052,7 +2051,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     }
 
-    void setSummary(String key) {
+    private void setSummary(String key) {
         String value;
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR) ||
                 key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||

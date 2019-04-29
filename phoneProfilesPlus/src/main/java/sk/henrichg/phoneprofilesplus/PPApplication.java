@@ -286,8 +286,6 @@ public class PPApplication extends Application {
                                         //+"|SMSEventEndBroadcastReceiver.onReceive"
                                         //+"|[SMS sensor]"
 
-                                        //+"|BrightnessDialogPreference"
-
                                         //+ "|[RJS] PhoneProfilesService.startPhoneStateScanner"
                                         //+ "|PhoneStateScanner"
                                         //+"|MobileCellsPreference"

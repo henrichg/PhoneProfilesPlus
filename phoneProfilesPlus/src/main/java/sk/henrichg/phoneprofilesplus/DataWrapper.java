@@ -1550,7 +1550,7 @@ public class DataWrapper {
         }
     }
 
-    void activateProfileFromMainThread(final Profile _profile, final boolean merged, final int startupSource,
+    void activateProfileFromMainThread(final Profile profile, final boolean merged, final int startupSource,
                                     final boolean interactive, final Activity _activity)
     {
         PPApplication.logE("$$$$$ DataWrapper.activateProfileFromMainThread", "start");
@@ -1571,9 +1571,9 @@ public class DataWrapper {
 
                     PPApplication.logE("$$$$$ PPApplication.startHandlerThread", "START run - from=DataWrapper.activateProfileFromMainThread");
 
-                    dataWrapper._activateProfile(_profile, merged, startupSource);
+                    dataWrapper._activateProfile(profile, merged, startupSource);
                     if (interactive) {
-                        DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(_profile);
+                        DatabaseHandler.getInstance(dataWrapper.context).increaseActivationByUserCount(profile);
                         dataWrapper.setDynamicLauncherShortcuts();
                     }
 
@@ -1591,7 +1591,7 @@ public class DataWrapper {
         // for startActivityForResult
         if (_activity != null)
         {
-            final Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
+            //final Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
             Intent returnIntent = new Intent();
             if (profile == null)

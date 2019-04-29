@@ -14,7 +14,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    ProfileIconPreferenceX preference;
+    private ProfileIconPreferenceX preference;
 
     private Button colorChooserButton;
 

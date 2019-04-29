@@ -1757,7 +1757,7 @@ class ActivateProfileHelper {
                                     if (intentId > 0) {
                                         PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
                                         if (ppIntent != null) {
-                                            intent = ApplicationEditorIntentActivity.createIntent(ppIntent);
+                                            intent = ApplicationEditorIntentActivityX.createIntent(ppIntent);
                                             if (intent != null) {
                                                 if (ppIntent._intentType == 0) {
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2033,14 +2033,14 @@ class ActivateProfileHelper {
         }
     }
 
-    static void execute(final Context context, final Profile _profile/*, boolean merged, *//*boolean _interactive*/)
+    static void execute(final Context context, final Profile profile/*, boolean merged, *//*boolean _interactive*/)
     {
         PPApplication.logE("##### ActivateProfileHelper.execute", "xxx");
 
         // unlink ring and notifications - it is @Hide :-(
         //Settings.System.putInt(context.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
 
-        final Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
+        //final Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
         // setup volume
         ActivateProfileHelper.executeForVolumes(profile, PhoneCallBroadcastReceiver.LINKMODE_NONE,true, context);

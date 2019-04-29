@@ -33,7 +33,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     boolean showSaveMenu = false;
 
-    Toolbar toolbar;
+    private Toolbar toolbar;
 
     public static final String PREF_START_TARGET_HELPS = "profile_preferences_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";

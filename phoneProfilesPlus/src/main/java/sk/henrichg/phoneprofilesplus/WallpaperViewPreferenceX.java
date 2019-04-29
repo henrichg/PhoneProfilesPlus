@@ -15,7 +15,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -53,7 +52,7 @@ public class WallpaperViewPreferenceX extends Preference {
     {
         super.onBindViewHolder(holder);
 
-        final ImageView imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);;
+        final ImageView imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);
 
         //imageTitle = view.findViewById(R.id.imageview_pref_label);
         //imageTitle.setText(preferenceTitle);
@@ -248,12 +247,12 @@ public class WallpaperViewPreferenceX extends Preference {
                 new String[] { MediaStore.Images.Media._ID },
                 MediaStore.Images.Media.DATA + "=? ",
                 new String[] { imageFile }, null);
-        //PPApplication.logE("WallpaperViewPreference.getImageContentUri","cursor="+cursor);
+        //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","cursor="+cursor);
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
             cursor.close();
             Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);
-            PPApplication.logE("WallpaperViewPreference.getImageContentUri","uri1="+uri);
+            PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri1="+uri);
             return uri;
         } else {
             if (cursor != null)
@@ -269,7 +268,7 @@ public class WallpaperViewPreferenceX extends Preference {
                     ContentResolver resolver = context.getApplicationContext().getContentResolver();
                     resolver.takePersistableUriPermission(uri, takeFlags);
                 }*/
-                PPApplication.logE("WallpaperViewPreference.getImageContentUri","uri2="+uri);
+                PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","uri2="+uri);
                 return uri;
             } else {
                 return null;

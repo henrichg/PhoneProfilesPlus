@@ -30,7 +30,6 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
     // Layout widgets.
     private SeekBar seekBar = null;
     private TextView valueText = null;
-    private CheckBox noChangeChBox = null;
     private CheckBox automaticChBox = null;
     //private CheckBox sharedProfileChBox = null;
     private CheckBox changeLevelChBox = null;
@@ -55,7 +54,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
 
         seekBar = view.findViewById(R.id.brightnessPrefDialogSeekbar);
         valueText = view.findViewById(R.id.brightnessPrefDialogValueText);
-        noChangeChBox = view.findViewById(R.id.brightnessPrefDialogNoChange);
+        CheckBox noChangeChBox = view.findViewById(R.id.brightnessPrefDialogNoChange);
         automaticChBox = view.findViewById(R.id.brightnessPrefDialogAutomatic);
         //sharedProfileChBox = view.findViewById(R.id.brightnessPrefDialogSharedProfile);
         changeLevelChBox = view.findViewById(R.id.brightnessPrefDialogLevel);
@@ -90,7 +89,8 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         //if (preference.sharedProfile == 1)
         //    noChangeChBox.setChecked(false);
 
-        enableViews();
+        if (Permissions.grantBrightnessDialogPermissions(context))
+            enableViews();
     }
 
     @Override
@@ -192,7 +192,7 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                 else
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                 if (_changeLevel == 1) {
-                    //PPApplication.logE("BrightnessDialogPreference.onCheckedChanged", "putInt value="+
+                    //PPApplication.logE("BrightnessDialogPreferenceX.onCheckedChanged", "putInt value="+
                     //        Profile.convertPercentsToBrightnessManualValue(_value + minimumValue, _context));
                     Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,
                             Profile.convertPercentsToBrightnessManualValue(_value + preference.minimumValue, context));
@@ -282,12 +282,12 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                     Settings.System.putFloat(context.getContentResolver(),
                             ActivateProfileHelper.ADAPTIVE_BRIGHTNESS_SETTING_NAME, value);
                 } catch (Exception ee) {
-                    PPApplication.startHandlerThread("BrightnessDialogPreference.setAdaptiveBrightness");
+                    PPApplication.startHandlerThread("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreference.setAdaptiveBrightness");
+                            PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
 
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -301,14 +301,14 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
                                         PPApplication.commandWait(command);
                                 /*} catch (RootDeniedException e) {
                                     PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));*/
+                                    Log.e("BrightnessDialogPreferenceX.setAdaptiveBrightness", Log.getStackTraceString(e));*/
                                     } catch (Exception e) {
-                                        Log.e("BrightnessDialogPreference.setAdaptiveBrightness", Log.getStackTraceString(e));
+                                        Log.e("BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness", Log.getStackTraceString(e));
                                     }
                                 }
                             }
 
-                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BrightnessDialogPreference.setAdaptiveBrightness");
+                            PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BrightnessDialogPreferenceFragmentX.setAdaptiveBrightness");
                         }
                     });
                 }

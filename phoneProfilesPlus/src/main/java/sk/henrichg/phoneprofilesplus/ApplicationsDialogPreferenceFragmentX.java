@@ -20,7 +20,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         implements OnStartDragItemListener {
 
     private Context prefContext;
-    ApplicationsDialogPreferenceX preference;
+    private ApplicationsDialogPreferenceX preference;
 
     private RecyclerView applicationsListView;
     private ItemTouchHelper itemTouchHelper;
