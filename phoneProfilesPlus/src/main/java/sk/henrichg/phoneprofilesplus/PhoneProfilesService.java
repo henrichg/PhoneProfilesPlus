@@ -313,6 +313,7 @@ public class PhoneProfilesService extends Service
         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true);
         editor.putBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
