@@ -206,7 +206,7 @@ class EventPreferencesCalendar extends EventPreferences {
         if (key.equals(PREF_EVENT_CALENDAR_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -223,7 +223,7 @@ class EventPreferencesCalendar extends EventPreferences {
         if (key.equals(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_CALENDAR_AVAILABILITY)) {
@@ -232,7 +232,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_CALENDAR_START_BEFORE_EVENT)) {
@@ -243,7 +243,7 @@ class EventPreferencesCalendar extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 0, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 0, true, false, false, false);
         }
 
         Event event = new Event();
@@ -255,12 +255,12 @@ class EventPreferencesCalendar extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CALENDARS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_CALENDARS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_ALL_EVENTS);
         if (preference != null) {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, false);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
         }
 
         CheckBoxPreference allEventsPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALENDAR_ALL_EVENTS);
@@ -269,13 +269,13 @@ class EventPreferencesCalendar extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_FIELD);
         if (preference != null) {
             preference.setEnabled(allEventsNotChecked);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, true, false, false, false, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_STRING);
         if (preference != null) {
             preference.setEnabled(allEventsNotChecked);
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_SEARCH_STRING, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
         }
     }
 
@@ -326,7 +326,7 @@ class EventPreferencesCalendar extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALENDAR_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

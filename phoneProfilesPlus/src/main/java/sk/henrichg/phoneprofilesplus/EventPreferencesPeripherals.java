@@ -86,7 +86,7 @@ class EventPreferencesPeripherals extends EventPreferences {
         if (key.equals(PREF_EVENT_PERIPHERAL_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -133,7 +133,7 @@ class EventPreferencesPeripherals extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_PERIPHERAL_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

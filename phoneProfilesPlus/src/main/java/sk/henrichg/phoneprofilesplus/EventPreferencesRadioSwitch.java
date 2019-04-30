@@ -157,7 +157,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         if (key.equals(PREF_EVENT_RADIO_SWITCH_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -185,32 +185,32 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         ListPreference preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
         if (preference != null) {
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, true, !isRunnable, false);
         }
         preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
         if (preference != null) {
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, true, !isRunnable, false);
         }
         preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
         if (preference != null) {
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, true, !isRunnable, false);
         }
         preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
         if (preference != null) {
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, true, !isRunnable, false);
         }
         preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
         if (preference != null) {
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, true, !isRunnable, false);
         }
         preference = (ListPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
         if (preference != null) {
             int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, index > 0, true, true, !isRunnable, false);
         }
     }
 
@@ -270,7 +270,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

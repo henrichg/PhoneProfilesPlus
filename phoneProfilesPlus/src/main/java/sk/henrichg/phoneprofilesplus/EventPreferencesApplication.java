@@ -138,7 +138,7 @@ class EventPreferencesApplication extends EventPreferences {
         if (key.equals(PREF_EVENT_APPLICATION_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -165,12 +165,12 @@ class EventPreferencesApplication extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_APPLICATION_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, true);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, true);
         }
         boolean isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isAccessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !isAccessibilityEnabled, false);
     }
 
     @Override
@@ -208,7 +208,7 @@ class EventPreferencesApplication extends EventPreferences {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !runnable, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -259,7 +259,7 @@ class EventPreferencesApplication extends EventPreferences {
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !accessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !accessibilityEnabled, false);
 
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setCategorySummary(prefMng, preferences, context);

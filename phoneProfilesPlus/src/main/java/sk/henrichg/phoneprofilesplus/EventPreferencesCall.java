@@ -184,7 +184,7 @@ class EventPreferencesCall extends EventPreferences {
         if (key.equals(PREF_EVENT_CALL_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -219,7 +219,7 @@ class EventPreferencesCall extends EventPreferences {
         if (key.equals(PREF_EVENT_CALL_PERMANENT_RUN)) {
             CheckBoxPreference permanentRunPreference = (CheckBoxPreference) prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
             }
             SharedPreferences preferences = prefMng.getSharedPreferences();
             String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
@@ -245,7 +245,7 @@ class EventPreferencesCall extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, true, false, false, false);
         }
         if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
@@ -270,20 +270,20 @@ class EventPreferencesCall extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_GROUPS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACT_GROUPS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACTS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACTS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_LIST_TYPE);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !isRunnable, false);
         boolean isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !isAccessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !isAccessibilityEnabled, false);
     }
 
     @Override
@@ -330,7 +330,7 @@ class EventPreferencesCall extends EventPreferences {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_CALL_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !runnable, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         } else {
@@ -376,7 +376,7 @@ class EventPreferencesCall extends EventPreferences {
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, !accessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !accessibilityEnabled, false);
 
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setCategorySummary(prefMng, preferences, context);

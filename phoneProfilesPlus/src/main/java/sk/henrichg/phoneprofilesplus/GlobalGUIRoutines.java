@@ -234,14 +234,31 @@ class GlobalGUIRoutines {
             activity.recreate();
     }
 
-    public static void setPreferenceTitleStyle(Preference preference, boolean enabled, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
+    public static void setPreferenceTitleStyle(Preference preference, boolean enabled,
+                                               boolean bold, boolean addBullet,
+                                               boolean underline, boolean errorColor, boolean systemSettings)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
             if (systemSettings) {
                 String s = title.toString();
-                if (!s.contains("(S)"))
-                    title = TextUtils.concat("(S) ", title);
+                if (!s.contains("(S)")) {
+                    if (bold && addBullet)
+                        title = TextUtils.concat("• (S) ", title);
+                    else
+                        title = TextUtils.concat("(S) ", title);
+                }
+            }
+            if (addBullet) {
+                if (bold) {
+                    String s = title.toString();
+                    if (!s.startsWith("• "))
+                        title = TextUtils.concat("• ", title);
+                } else {
+                    String s = title.toString();
+                    if (s.startsWith("• "))
+                        title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
+                }
             }
             Spannable sbt = new SpannableString(title);
             Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
@@ -266,14 +283,31 @@ class GlobalGUIRoutines {
     }
 
     @SuppressWarnings("SameParameterValue")
-    static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled, boolean bold, boolean underline, boolean errorColor, boolean systemSettings)
+    static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
+                                         boolean bold, boolean addBullet,
+                                         boolean underline, boolean errorColor, boolean systemSettings)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
             if (systemSettings) {
                 String s = title.toString();
-                if (!s.contains("(S)"))
-                    title = TextUtils.concat("(S) ", title);
+                if (!s.contains("(S)")) {
+                    if (bold && addBullet)
+                        title = TextUtils.concat("• (S) ", title);
+                    else
+                        title = TextUtils.concat("(S) ", title);
+                }
+            }
+            if (addBullet) {
+                if (bold) {
+                    String s = title.toString();
+                    if (!s.startsWith("• "))
+                        title = TextUtils.concat("• ", title);
+                } else {
+                    String s = title.toString();
+                    if (s.startsWith("• "))
+                        title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
+                }
             }
             Spannable sbt = new SpannableString(title);
             Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
@@ -284,7 +318,7 @@ class GlobalGUIRoutines {
             if (bold || underline) {
                 if (bold) {
                     sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    sbt.setSpan(new RelativeSizeSpan(1.05f), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    //sbt.setSpan(new RelativeSizeSpan(1.05f), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
                 if (underline)
                     sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

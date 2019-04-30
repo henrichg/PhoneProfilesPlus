@@ -143,7 +143,7 @@ class EventPreferencesNotification extends EventPreferences {
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -171,16 +171,16 @@ class EventPreferencesNotification extends EventPreferences {
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         CheckBoxPreference preference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
         if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, preference.isChecked(), true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, preference.isChecked(), true, true, !isRunnable, false);
         }
         preference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
         if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, preference.isChecked(), true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, preference.isChecked(), true, true, !isRunnable, false);
         }
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(applicationsPreference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(applicationsPreference, enabled, bold, true, true, !isRunnable, false);
         }
     }
 
@@ -225,7 +225,7 @@ class EventPreferencesNotification extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

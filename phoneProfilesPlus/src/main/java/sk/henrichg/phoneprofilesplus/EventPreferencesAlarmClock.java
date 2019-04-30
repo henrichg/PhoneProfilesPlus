@@ -100,14 +100,14 @@ class EventPreferencesAlarmClock extends EventPreferences {
         if (key.equals(PREF_EVENT_ALARM_CLOCK_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
         if (key.equals(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN)) {
             CheckBoxPreference permanentRunPreference = (CheckBoxPreference) prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_DURATION);
             if (preference != null) {
@@ -122,7 +122,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, true, false, false, false);
         }
     }
 
@@ -160,7 +160,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

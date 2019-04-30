@@ -121,7 +121,7 @@ class EventPreferencesNFC extends EventPreferences {
         if (key.equals(PREF_EVENT_NFC_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -151,7 +151,7 @@ class EventPreferencesNFC extends EventPreferences {
         if (key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             CheckBoxPreference permanentRunPreference = (CheckBoxPreference) prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
             if (preference != null) {
@@ -166,7 +166,7 @@ class EventPreferencesNFC extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, true, false, false, false);
         }
 
         Event event = new Event();
@@ -178,7 +178,7 @@ class EventPreferencesNFC extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NFC_NFC_TAGS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
         }
     }
 
@@ -229,7 +229,7 @@ class EventPreferencesNFC extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

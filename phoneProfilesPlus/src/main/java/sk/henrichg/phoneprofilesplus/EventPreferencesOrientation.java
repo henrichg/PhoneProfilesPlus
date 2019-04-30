@@ -232,7 +232,7 @@ class EventPreferencesOrientation extends EventPreferences {
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED)) {
             CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -314,7 +314,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), false, false, true);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), true, false, false, true);
         }
 
         Event event = new Event();
@@ -335,7 +335,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
@@ -349,12 +349,12 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
         }
         ListPreference distancePreference = (ListPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (distancePreference != null) {
             int index = distancePreference.findIndexOfValue(distancePreference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyle(distancePreference, enabled, index > 0, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyle(distancePreference, enabled, index > 0, true, true, !isRunnable, false);
         }
     }
 
@@ -446,7 +446,7 @@ class EventPreferencesOrientation extends EventPreferences {
             if (preference != null) {
                 CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

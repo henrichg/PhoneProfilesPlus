@@ -1564,24 +1564,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             boolean notificationStatusBarPermanent = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT, true);
             PreferenceScreen preferenceCategoryNotifications = findPreference("categoryNotificationsRoot");
             if (!(notificationStatusBar && notificationStatusBarPermanent)) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryNotifications, true, true, false, true, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryNotifications, true, true, false, false, true, false);
                 if (preferenceCategoryNotifications != null) {
                     String summary = getString(R.string.phone_profiles_pref_notificationStatusBarNotEnabled_summary) + " " +
                             getString(R.string.phone_profiles_pref_notificationStatusBarRequired) + "\n\n";
                     setCategorySummary(preferenceCategoryNotifications, summary);
                 }
             } else {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryNotifications, true, false, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceCategoryNotifications, true, false, false, false, false, false);
                 if (preferenceCategoryNotifications != null) {
                     String summary = "";
                     setCategorySummary(preferenceCategoryNotifications, summary);
                 }
             }
             if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR)) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !notificationStatusBar, false, !notificationStatusBar, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !notificationStatusBar, false, false, !notificationStatusBar, false);
             }
             if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT)) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !notificationStatusBarPermanent, false, !notificationStatusBarPermanent, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !notificationStatusBarPermanent, false, false, !notificationStatusBarPermanent, false);
             }
         }
 
