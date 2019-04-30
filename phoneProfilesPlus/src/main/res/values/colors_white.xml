@@ -20,7 +20,7 @@
     <color name="navigationDrawerItemBackgroundPressed_white">#0F000000</color>
     <color name="preferenceDialogBackground_white">#FFFFFFFF</color>
     <color name="editorDrawerListHeaderTitleColor_white">#FF000000</color>
-    <color name="dialog_divider_white">#10000000</color>
+    <color name="dialog_divider_white">#17000000</color>
 
     <color name="altype_other_white">#FFD0D0D0</color>
 
