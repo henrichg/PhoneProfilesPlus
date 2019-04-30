@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/notification_activated_profile_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" >
+
+    <ImageView
+        android:id="@+id/notification_activated_profile_icon"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/profile_preferences_profileIcon"
+        android:layout_marginEnd="5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_profile_default" />
+
+    <TextView
+        android:id="@+id/notification_activated_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/notification_activated_profile_icon"
+        android:text="@string/profile_name_default"
+        style="@style/TextAppearance.Compat.Notification.Title"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+</RelativeLayout>
