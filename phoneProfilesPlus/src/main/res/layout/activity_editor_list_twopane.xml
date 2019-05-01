@@ -174,6 +174,20 @@
         android:elevation="1dp"
         app:insetForeground="?attr/navigationDrawerInsetForeground"  >
 
+        <ListView
+            android:id="@+id/editor_drawer_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:clipToPadding="false"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:listSelector="@drawable/editor_drawer_list_item_background" />
+
+        <!--
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
@@ -200,6 +214,7 @@
                 android:listSelector="@drawable/editor_drawer_list_item_background" />
 
         </RelativeLayout>
+        -->
 
     </sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout>
 

@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/editor_drawer_list_header_background"
         android:layout_width="match_parent"
-        android:layout_height="85dp"
+        android:layout_height="80dp"
         android:paddingTop="10dp" >
 
         <!--
