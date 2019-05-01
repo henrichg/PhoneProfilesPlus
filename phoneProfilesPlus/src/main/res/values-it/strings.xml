@@ -468,8 +468,8 @@
     <string name="event_preferences_battery_power_save_mode">Modalità di risparmio energetico</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Impostazioni della modalità di risparmio energetico</string>
     <string name="array_pref_powerSaveMode_off">Spento</string>
-    <string name="array_pref_powerSaveMode_5">Attiva con batteria al 5%%</string>
-    <string name="array_pref_powerSaveMode_15">Attiva con batteria al 15%%</string>
+    <string name="array_pref_powerSaveMode_5" formated="false">Attiva con batteria al 5%</string>
+    <string name="array_pref_powerSaveMode_15" formated="false">Attiva con batteria al 15%</string>
     <string name="important_info_profile_ringerMode_root">In Android 6, non è possibile cambiare l\'impostazione \"Vibra quando squilla\" senza i privilegi di ROOT.</string>
     <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, non è possibile cambiare il livello di \"Luminosità adattiva\" senza i privilegi di ROOT.</string>
     <string name="important_info_profile_wifiScanning_location">In Android 6+, per la scansione Wi-Fi devono essere abilitati Posizione e \"Scansione Wi-Fi\" nelle impostazioni di Posizione.</string>

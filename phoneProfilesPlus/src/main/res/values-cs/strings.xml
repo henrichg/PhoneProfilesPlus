@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Úsporný režim</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Nastavení Úsporného režimu</string>
   <string name="array_pref_powerSaveMode_off">Vypnout</string>
-  <string name="array_pref_powerSaveMode_5">Zapnout při 5 %% baterie</string>
-  <string name="array_pref_powerSaveMode_15">Zapnout při 15 %% baterie</string>
+  <string name="array_pref_powerSaveMode_5" formated="false">Zapnout při 5 % baterie</string>
+  <string name="array_pref_powerSaveMode_15" formated="false">Zapnout při 15 % baterie</string>
   <string name="important_info_profile_ringerMode_root">V Androidu 6 není možné změnit nastavení \"Vibrovat při vyzvánění\" pokud nemáte práva ROOT.</string>
   <string name="important_info_profile_adaptiveBrightness_root">V Androidu 6+ není možné měnit úrovně \"Adaptivní jas\" pokud nemáte práva ROOT.</string>
   <string name="important_info_profile_wifiScanning_location">V Android 6+, pro skenování Wi-Fi musí být povolena Poloha a \"Vyhledávání sítí Wi-Fi\" v nastaveních Polohy.</string>

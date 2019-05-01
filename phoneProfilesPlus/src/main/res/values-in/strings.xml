@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Mode hemat daya</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Pengaturan mode hemat daya</string>
   <string name="array_pref_powerSaveMode_off">Mati</string>
-  <string name="array_pref_powerSaveMode_5">Hidupkan baterai 5%%</string>
-  <string name="array_pref_powerSaveMode_15">Hidupkan baterai 15%%</string>
+  <string name="array_pref_powerSaveMode_5" formated="false">Hidupkan baterai 5%</string>
+  <string name="array_pref_powerSaveMode_15" formated="false">Hidupkan baterai 15%</string>
   <string name="important_info_profile_ringerMode_root">Di Android 6, tidak mungkin mengubah pengaturan sistem \"Getar saat berbunyi\" pada perangkat yang tidak berakar.</string>
   <string name="important_info_profile_adaptiveBrightness_root">Di Android 6+, tidak mungkin mengubah tingkat \"Kecerahan adaptif\" pada perangkat yang tidak berakar.</string>
   <string name="important_info_profile_wifiScanning_location">Di Android 6+, agar pemindaian Wi-Fi berfungsi, Anda harus mengaktifkan pemindaian Lokasi dan Wi-Fi di setelan Lokasi.</string>

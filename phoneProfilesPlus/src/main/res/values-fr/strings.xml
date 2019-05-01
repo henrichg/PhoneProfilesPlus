@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Mode économie d\'énergie</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Paramètres du mode économie d\'énergie</string>
   <string name="array_pref_powerSaveMode_off">Désativé</string>
-  <string name="array_pref_powerSaveMode_5">Mettre en marche à 5 %% de batterie</string>
-  <string name="array_pref_powerSaveMode_15">Mettre en marche à 5 %% de batterie</string>
+  <string name="array_pref_powerSaveMode_5" formated="false">Mettre en marche à 5 % de batterie</string>
+  <string name="array_pref_powerSaveMode_15" formated="false">Mettre en marche à 5 % de batterie</string>
   <string name="important_info_profile_ringerMode_root">Dans Android 6, il n\'est pas possible de changer le réglage « Vibrer avec la sonnerie » sur un téléphone non rooté.</string>
   <string name="important_info_profile_adaptiveBrightness_root">Dans Android 6+, il n\'est pas possible de changer le réglage « Éclairage automatique» sur un téléphone non rooté.</string>
   <string name="important_info_profile_wifiScanning_location">Dans Android 6+, pour pouvoir scanner le wifi il faut valider la localisation wifi dans les paramètre de localisation.</string>

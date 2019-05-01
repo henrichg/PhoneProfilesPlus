@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Режим энергосбережения</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Настройки режима энергосбережения</string>
   <string name="array_pref_powerSaveMode_off">Выключить</string>
-  <string name="array_pref_powerSaveMode_5">Включить при 5%% заряде батареи</string>
-  <string name="array_pref_powerSaveMode_15">Включить при 15%% заряде батареи</string>
+  <string name="array_pref_powerSaveMode_5" formated="false">Включить при 5% заряде батареи</string>
+  <string name="array_pref_powerSaveMode_15" formated="false">Включить при 15% заряде батареи</string>
   <string name="important_info_profile_ringerMode_root">В Android 6 невозможно изменить системную настройку «Вибрация при звонке» без прав Суперпользователя.</string>
   <string name="important_info_profile_adaptiveBrightness_root">В Android 6+ невозможно изменить системную настройку «Адаптивная регулировка» без прав Суперпользователя.</string>
   <string name="important_info_profile_wifiScanning_location">В Android 6+ для Wi-Fi сканирования должен быть включен режим \"По всем источникам\" в настройках \"Местоположение\".</string>

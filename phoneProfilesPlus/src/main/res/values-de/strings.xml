@@ -468,8 +468,8 @@
     <string name="event_preferences_battery_power_save_mode">Energiesparmodus</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Energiesparmodus-Einstellungen</string>
     <string name="array_pref_powerSaveMode_off">Aus</string>
-    <string name="array_pref_powerSaveMode_5">Einschalten bei 5%% Akkuleistung</string>
-    <string name="array_pref_powerSaveMode_15">Einschalten bei 15%% Akkuleistung</string>
+    <string name="array_pref_powerSaveMode_5" formated="false">Einschalten bei 5% Akkuleistung</string>
+    <string name="array_pref_powerSaveMode_15" formated="false">Einschalten bei 15% Akkuleistung</string>
     <string name="important_info_profile_ringerMode_root">In Android 6 ist es ohne Root nicht möglich, die Vibration im Stumm-Modus zu ändern.</string>
     <string name="important_info_profile_adaptiveBrightness_root">In Android 6+ ist es ohne Root nicht möglich, die adaptive Helligkeit zu ändern.</string>
     <string name="important_info_profile_wifiScanning_location">In Android 6+ müssen GPS und WLAN-Scan in den Standorteinstellungen aktiviert sein, damit WLAN-Scan funktioniert.</string>
