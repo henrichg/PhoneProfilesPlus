@@ -1520,6 +1520,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.toString().isEmpty(), true, false, false, false);
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_ICON))
+        {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                //preference.setSummary(value.toString());
+                boolean valueChanged = !value.toString().equals(Profile.defaultValuesString.get(Profile.PREF_PROFILE_ICON));
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, valueChanged, true, false, false, false);
+            }
+        }
         if (key.equals(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR)) {
             String sValue = value.toString();
             //Log.e("ProfilesPrefsFragment.setSummary","PREF_PROFILE_SHOW_IN_ACTIVATOR sValue="+sValue);
@@ -2061,6 +2070,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
         setSummary(Profile.PREF_PROFILE_NAME);
+        setSummary(Profile.PREF_PROFILE_ICON);
         setSummary(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
         setSummary(Profile.PREF_PROFILE_DURATION);
         setSummary(Profile.PREF_PROFILE_AFTER_DURATION_DO);
