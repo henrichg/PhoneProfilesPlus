@@ -64,9 +64,12 @@
             android:id="@+id/act_prof_profiles_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dip"
-            android:drawSelectorOnTop="true"
+            android:paddingStart="10dip"
+            android:paddingEnd="10dip"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:clipToPadding="false"
+            android:drawSelectorOnTop="true"
             android:scrollbarStyle="outsideOverlay"
             android:divider="@android:color/transparent" />
 

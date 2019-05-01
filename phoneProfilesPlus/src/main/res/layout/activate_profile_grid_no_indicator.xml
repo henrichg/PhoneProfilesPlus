@@ -58,17 +58,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="12dp">
-
-        <!--
-        <FrameLayout
-            android:id="@+id/act_prof_profiles_grid_divider"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:background="?android:attr/listDivider"/>
-        -->
+        android:layout_height="match_parent">
 
         <GridView
             android:id="@+id/act_prof_profiles_grid"
@@ -80,6 +70,10 @@
             android:verticalSpacing="1dp"
             android:numColumns="3"
             android:stretchMode="columnWidth"
+            android:paddingStart="12dip"
+            android:paddingEnd="12dip"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:drawSelectorOnTop="true" />
