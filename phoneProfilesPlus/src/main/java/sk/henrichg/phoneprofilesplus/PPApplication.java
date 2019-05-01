@@ -20,7 +20,6 @@ import android.util.Log;
 import android.util.Pair;
 
 import com.crashlytics.android.Crashlytics;
-import com.crashlytics.android.core.CrashlyticsCore;
 import com.evernote.android.job.JobApi;
 import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobManager;
@@ -596,12 +595,17 @@ public class PPApplication extends Application {
             // Obtain the FirebaseAnalytics instance.
             //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+            /*
             // Set up Crashlytics, disabled for debug builds
             Crashlytics crashlyticsKit = new Crashlytics.Builder()
                     .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
                     .build();
 
             Fabric.with(this, crashlyticsKit);
+            */
+            if (!BuildConfig.DEBUG) {
+                Fabric.with(this, new Crashlytics());
+            }
             // Crashlytics.getInstance().core.logException(exception); -- this log will be associated with crash log.
         } catch (Exception e) {
             /*
