@@ -107,6 +107,7 @@ class Event {
     private static final String PREF_EVENT_NOTIFICATION_VIBRATE_END = "eventEndNotificationVibrate";
     private static final String PREF_EVENT_FORCE_RUN = "eventForceRun";
     //static final String PREF_EVENT_UNDONE_PROFILE = "eventUndoneProfile";
+    static final String PREF_EVENT_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
     static final String PREF_EVENT_PRIORITY = "eventPriority";
     private static final String PREF_EVENT_DELAY_START = "eventDelayStart";
     private static final String PREF_EVENT_AT_END_DO = "eventAtEndDo";
@@ -601,6 +602,7 @@ class Event {
         editor.putBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_END, this._notificationVibrateEnd);
         editor.putBoolean(PREF_EVENT_FORCE_RUN, this._forceRun);
         //editor.putBoolean(PREF_EVENT_UNDONE_PROFILE, this._undoneProfile);
+        editor.putString(PREF_EVENT_PRIORITY_APP_SETTINGS, Integer.toString(this._priority));
         editor.putString(PREF_EVENT_PRIORITY, Integer.toString(this._priority));
         editor.putString(PREF_EVENT_DELAY_START, Integer.toString(this._delayStart));
         editor.putString(PREF_EVENT_AT_END_DO, Integer.toString(this._atEndDo));
@@ -726,6 +728,21 @@ class Event {
             Preference preference = prefMng.findPreference(key);
             GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), true, false, false, false);
         }
+        if (key.equals(PREF_EVENT_PRIORITY_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority(context);
+                String summary = context.getString(R.string.event_preferences_event_priorityInfo_summary);
+                if (applicationEventUsePriority)
+                    summary = context.getString(R.string.event_preferences_priority_appSettings_enabled) + "\n\n" + summary;
+                else {
+                    summary = context.getString(R.string.event_preferences_priority_appSettings_disabled) + "\n\n" + summary + "\n"+
+                            context.getString(R.string.phone_profiles_pref_eventUsePriorityAppSettings_summary);
+                }
+                preference.setSummary(summary);
+                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, applicationEventUsePriority, true, false, false, false);
+            }
+        }
         if (key.equals(PREF_EVENT_PRIORITY))
         {
             ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
@@ -735,8 +752,10 @@ class Event {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, !value.equals("0"), true, false, false, false);
                 } else {
                     listPreference.setSummary(R.string.event_preferences_priority_notUse);
+                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, true, false, false, false);
                 }
                 listPreference.setEnabled(applicationEventUsePriority);
             }
@@ -967,6 +986,9 @@ class Event {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, Boolean.toString(value), context);
         }
+        if (key.equals(PREF_EVENT_PRIORITY_APP_SETTINGS)) {
+            setSummary(prefMng, key, "", context);
+        }
         setCategorySummary(prefMng, key, preferences, context);
         _eventPreferencesTime.setSummary(prefMng, key, preferences, context);
         _eventPreferencesTime.setCategorySummary(prefMng, preferences, context);
@@ -1021,6 +1043,7 @@ class Event {
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL_START, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_SOUND_END, preferences, context);
         setSummary(prefMng, PREF_EVENT_NOTIFICATION_VIBRATE_END, preferences, context);
+        setSummary(prefMng, PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context);
         setSummary(prefMng, PREF_EVENT_PRIORITY, preferences, context);
         setSummary(prefMng, PREF_EVENT_DELAY_START, preferences, context);
         setSummary(prefMng, PREF_EVENT_DELAY_END, preferences, context);

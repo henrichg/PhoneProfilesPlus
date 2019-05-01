@@ -1342,6 +1342,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
     }
 
+    void updateSharedPreferences() {
+        SharedPreferences.Editor editor = applicationPreferences.edit();
+        updateSharedPreferences(editor, preferences);
+        editor.apply();
+    }
+
     private void updateAllSummary()
     {
         if (getActivity() == null)

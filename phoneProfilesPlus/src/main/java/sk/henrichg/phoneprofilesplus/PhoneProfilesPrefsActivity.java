@@ -219,6 +219,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     public void finish() {
         Context appContext = getApplicationContext();
 
+        PhoneProfilesPrefsFragment fragment = (PhoneProfilesPrefsFragment)getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+        if (fragment != null) {
+            fragment.updateSharedPreferences();
+        }
+
         try {
             if ((Build.VERSION.SDK_INT < 26)) {
                 Crashlytics.setBool(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR, ApplicationPreferences.notificationStatusBar(this));

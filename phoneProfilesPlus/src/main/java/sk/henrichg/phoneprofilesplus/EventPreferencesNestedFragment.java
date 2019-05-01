@@ -479,8 +479,6 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
         preference = prefMng.findPreference(PREF_USE_PRIORITY_APP_SETTINGS);
         if (preference != null) {
             //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            preference.setSummary(getString(R.string.event_preferences_event_priorityInfo_summary)+"\n"+
-                                  getString(R.string.phone_profiles_pref_eventUsePriorityAppSettings_summary));
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -944,6 +942,8 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
+
+            event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY_APP_SETTINGS, preferences, context);
             event.setSummary(prefMng, Event.PREF_EVENT_PRIORITY, preferences, context);
         }
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_RINGTONE_PREFERENCE) {
