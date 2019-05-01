@@ -63,12 +63,15 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$ppVersions.otherXLib"
     implementation "com.google.android.material:material:$ppVersions.otherXLib"
 
-    implementation ('com.google.android.gms:play-services-location:16.0.0') {
-        exclude group: 'com.android.support', module:'support-v4'
-    }
-    implementation ('com.google.android.gms:play-services-maps:16.1.0')  {
-        exclude group: 'com.android.support', module:'support-v4'
-    }
+    implementation "com.google.android.gms:play-services-location:16.0.0"
+    implementation "com.google.android.gms:play-services-maps:16.1.0"
+
+    //implementation ('com.google.android.gms:play-services-location:16.0.0') {
+    //    exclude group: 'com.android.support', module:'support-v4'
+    //}
+    //implementation ('com.google.android.gms:play-services-maps:16.1.0')  {
+    //    exclude group: 'com.android.support', module:'support-v4'
+    //}
 
     implementation 'com.android.billingclient:billing:1.2.2'
     implementation 'com.google.code.gson:gson:2.8.2'
