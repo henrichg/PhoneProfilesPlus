@@ -2676,7 +2676,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesBluetooth._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
-                    && Permissions.checkEventLocation(context, event, null)) {
+                    && Permissions.checkEventLocation(context, event, null)
+                    && Permissions.checkEventBluetoothForEMUI(context, event, null)) {
                 bluetoothPassed = false;
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanJob.getBoundedDevicesList(context);

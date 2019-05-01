@@ -65,6 +65,7 @@ class Permissions {
     static final int PERMISSION_EVENT_BLUETOOTH_PREFERENCES = 35;
     static final int PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES = 36;
     static final int PERMISSION_LOG_TO_FILE = 37;
+    static final int PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES = 38;
 
     static final int GRANT_TYPE_PROFILE = 1;
     static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -686,6 +687,17 @@ class Permissions {
                     if (grantedWriteSettings)
                         setShowRequestWriteSettingsPermission(context, true);
                 }
+                if (grantedWriteSettings) {
+                    if (profile._deviceBluetooth != 0) {
+                        if (PPApplication.romIsEMUI) {
+                            if (android.os.Build.VERSION.SDK_INT >= 28) {
+                                grantedWriteSettings = Settings.System.canWrite(context);
+                                if (grantedWriteSettings)
+                                    setShowRequestWriteSettingsPermission(context, true);
+                            }
+                        }
+                    }
+                }
                 boolean grantedReadPhoneState = true;
                 if ((profile._deviceMobileData != 0) || (profile._deviceNetworkType != 0))
                     grantedReadPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
@@ -735,6 +747,25 @@ class Permissions {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    static boolean checkBluetoothForEMUI(Context context) {
+        if (PPApplication.romIsEMUI) {
+            if (android.os.Build.VERSION.SDK_INT >= 28) {
+                try {
+                    boolean grantedWriteSettings = Settings.System.canWrite(context);
+                    if (grantedWriteSettings)
+                        setShowRequestWriteSettingsPermission(context, true);
+                    return grantedWriteSettings;
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+            else
+                return true;
+        }
+        else
+            return true;
     }
 
     private static void checkProfilePhoneBroadcast(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
@@ -920,6 +951,7 @@ class Permissions {
             checkEventCallContacts(context, event, permissions);
             checkEventSMSContacts(context, event, permissions);
             checkEventLocation(context, event, permissions);
+            checkEventBluetoothForEMUI(context, event, permissions);
 
             return permissions;
         }
@@ -1169,6 +1201,39 @@ class Permissions {
                         (event._eventPreferencesMobileCells._enabled)) {
                     return hasPermission(context, permission.ACCESS_COARSE_LOCATION) &&
                             hasPermission(context, permission.ACCESS_FINE_LOCATION);
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+    }
+
+    static boolean checkEventBluetoothForEMUI(Context context, Event event, ArrayList<PermissionType>  permissions) {
+        if (event == null) return true;
+        if (android.os.Build.VERSION.SDK_INT >= 23) {
+            try {
+                if (event._eventPreferencesBluetooth._enabled &&
+                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
+                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) {
+                    boolean granted = checkBluetoothForEMUI(context);
+                    if (permissions != null) {
+                        if (!granted)
+                            permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES, permission.WRITE_SETTINGS));
+                    }
+                    return granted;
+                } else
+                    return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else {
+            try {
+                if (event._eventPreferencesBluetooth._enabled &&
+                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_INFRONT) ||
+                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOTINFRONT))) {
+                    return hasPermission(context, permission.WRITE_SETTINGS);
                 } else
                     return true;
             } catch (Exception e) {

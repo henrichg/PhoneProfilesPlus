@@ -407,7 +407,8 @@ class BluetoothScanJob extends Job {
                 if (!startScan) {
                     if (getBluetoothEnabledForScan(context)) {
                         PPApplication.logE("@@@ BluetoothScanJob.startScan", "disable bluetooth");
-                        bluetooth.disable();
+                        if (Permissions.checkBluetoothForEMUI(context))
+                            bluetooth.disable();
                     }
                 }
                 setWaitForResults(context, startScan);
