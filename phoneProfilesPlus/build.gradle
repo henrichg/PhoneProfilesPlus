@@ -85,7 +85,7 @@ dependencies {
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     //implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     implementation 'com.labo.kaji:relativepopupwindow:0.3.1'
-    //implementation 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
+    implementation 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
     //implementation 'com.getkeepsafe.taptargetview:taptargetview:1.12.0'
     //implementation 'com.code-troopers.betterpickers:library:3.1.0'
     //implementation 'mobi.upod:time-duration-picker:1.1.3'
@@ -105,7 +105,7 @@ dependencies {
     implementation project(':android-job')
     implementation project(':appkillermanager')
     implementation project(':android-betterpickers')
-    implementation project(':taptargetview')
+    //implementation project(':taptargetview')
     implementation project(':time-duration-picker')
 
     //compileOnly files('libs/hidden-apis.jar')

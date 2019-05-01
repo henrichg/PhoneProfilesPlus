@@ -9,7 +9,6 @@
       <module fileurl="file://$PROJECT_DIR$/android-job/android-job.iml" filepath="$PROJECT_DIR$/android-job/android-job.iml" />
       <module fileurl="file://$PROJECT_DIR$/appkillermanager/appkillermanager.iml" filepath="$PROJECT_DIR$/appkillermanager/appkillermanager.iml" />
       <module fileurl="file://$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" filepath="$PROJECT_DIR$/phoneProfilesPlus/phoneProfilesPlus.iml" />
-      <module fileurl="file://$PROJECT_DIR$/taptargetview/taptargetview.iml" filepath="$PROJECT_DIR$/taptargetview/taptargetview.iml" />
       <module fileurl="file://$PROJECT_DIR$/time-duration-picker/time-duration-picker.iml" filepath="$PROJECT_DIR$/time-duration-picker/time-duration-picker.iml" />
     </modules>
   </component>
