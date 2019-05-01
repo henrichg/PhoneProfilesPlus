@@ -64,6 +64,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                 // com.kog.alarmclock - I Can't Wake Up! Alarm Clock
                                 // com.urbandroid.sleep - Sleep as Android
                                 // ch.bitspin.timely - Timely
+                                // com.angrydoughnuts.android.alarmclock - Alarm Klock
 
                                 if (packageName.equals("com.google.android.deskclock") ||
                                     packageName.equals("com.sec.android.app.clockpackage") ||
