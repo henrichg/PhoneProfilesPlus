@@ -76,7 +76,8 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                     packageName.equals("com.apalon.alarmclock.smart") ||
                                     packageName.equals("com.kog.alarmclock") ||
                                     packageName.equals("com.urbandroid.sleep") ||
-                                    packageName.equals("ch.bitspin.timely")) {
+                                    packageName.equals("ch.bitspin.timely") ||
+                                    packageName.equals("com.angrydoughnuts.android.alarmclock")) {
                                     setAlarm(_time, alarmManager, context);
                                 }
                             } else {
