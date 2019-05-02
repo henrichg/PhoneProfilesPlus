@@ -70,7 +70,8 @@ public class PPApplication extends Application {
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
     static final boolean logIntoFile = false;
-    static final boolean crashIntoFile = true;
+    @SuppressWarnings("PointlessBooleanExpression")
+    static final boolean crashIntoFile = true && BuildConfig.DEBUG;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                          +"|PPApplication.isMIUI"

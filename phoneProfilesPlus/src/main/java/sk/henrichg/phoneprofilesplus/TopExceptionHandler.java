@@ -41,7 +41,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             }
         } catch (Exception ignored) {}
 
-        if (BuildConfig.DEBUG) {
+        if (PPApplication.crashIntoFile) {
             StackTraceElement[] arr = e.getStackTrace();
             String report = e.toString() + "\n\n";
 
