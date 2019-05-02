@@ -477,7 +477,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         Preference preference;
-        if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)) {
+        /*if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)) {
             // detection of volumes merge = volumes are not merged
             preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {
@@ -486,7 +486,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
-        else {
+        else {*/
             preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -503,7 +503,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 });
             }
-        }
+        //}
 
         InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("prf_pref_preferenceTypesInfo");
         if (infoDialogPreference != null) {
@@ -1627,7 +1627,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 else
                     summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled);
-                summary = summary + "\n\n" + getString(R.string.info_notification_unlink_ringer_notification_volumes);
+
+                summary = summary + "\n" + getString(R.string.phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes) + ": ";
+                int forceMergeValue = ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes(context);
+                String[] valuesArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesValues);
+                String[] labelsArray = getResources().getStringArray(R.array.forceSetMergeRingNotificationVolumesArray);
+                int index = 0;
+                for (String _value : valuesArray) {
+                    if (_value.equals(String.valueOf(forceMergeValue))) {
+                        summary = summary + labelsArray[index];
+                        break;
+                    }
+                    ++index;
+                }
+
+                if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true))
+                    // detection of volumes merge = volumes are not merged
+                    summary = summary + "\n\n" + getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged);
+                else
+                    // detection of volumes merge = volumes are merged
+                    summary = summary + "\n\n" + getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_merged);
+
                 preference.setSummary(summary);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false, false);
             }

@@ -1376,10 +1376,12 @@
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
     <string name="permission_why_profile_radio_preferences_emui">for enable/disable mobile data, change mobile network type, connect to SSID, enable/disable Bluetooth</string>
     <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
-    <string name="event_preferences_priority_appSettings_enabled">Priority enabled</string>
-    <string name="event_preferences_priority_appSettings_disabled">Priority disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes enabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes disabled</string>
+    <string name="event_preferences_priority_appSettings_enabled">Priority is enabled</string>
+    <string name="event_preferences_priority_appSettings_disabled">Priority is disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes is enabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes is disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Your device has linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
 
     <!-- **************************************************************************************** -->
 
