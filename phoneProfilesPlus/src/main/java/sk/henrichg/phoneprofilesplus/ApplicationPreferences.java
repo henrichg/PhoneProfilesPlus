@@ -352,7 +352,6 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, true);
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationWidgetListGridLayout(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, true);
     }
@@ -371,10 +370,6 @@ class ApplicationPreferences {
 
     static boolean applicationWidgetIconHideProfileName(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
-    }
-
-    static boolean applicationUnlinkRingerNotificationVolumes(Context context) {
-        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, false);
     }
 
     static boolean applicationShortcutEmblem(Context context) {
@@ -452,6 +447,10 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_USE_PRIORITY, false);
     }
 
+    static boolean applicationUnlinkRingerNotificationVolumes(Context context) {
+        return getSharedPreferences(context).getBoolean(PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, false);
+    }
+
     static int applicationForceSetMergeRingNotificationVolumes(Context context) {
         return Integer.valueOf(getSharedPreferences(context).getString(PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, "0"));
     }
@@ -496,12 +495,10 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventWifiScanOnlyWhenScreenIsOn(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventBluetoothScanOnlyWhenScreenIsOn(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
@@ -588,27 +585,22 @@ class ApplicationPreferences {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_ENABLE_SCANNING, false);
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventWifiDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventBluetoothDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BLUETOOTH_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventLocationDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_LOCATION_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventMobileCellDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_MOBILE_CELL_DISABLED_SCANNING_BY_PROFILE, false);
     }
 
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean applicationEventOrientationDisabledScannigByProfile(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_ORIENTATION_DISABLED_SCANNING_BY_PROFILE, false);
     }

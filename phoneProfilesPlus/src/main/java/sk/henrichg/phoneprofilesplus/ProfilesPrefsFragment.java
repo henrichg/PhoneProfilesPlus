@@ -475,8 +475,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String value = preferences.getString(Profile.PREF_PROFILE_DURATION, "");
             setSummary(Profile.PREF_PROFILE_DURATION, value);
         }
+
         Preference preference;
-        if (!ActivateProfileHelper.getMergedRingNotificationVolumes(context)) {
+        if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)) {
+            // detection of volumes merge = volumes are not merged
             preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference("prf_pref_volumeCategory");
@@ -673,7 +675,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "xxx");
+        PPApplication.logE("ProfilesPrefsFragment.onSharedPreferenceChanged", "key="+key);
 
         String value;
         if (key.equals(Profile.PREF_PROFILE_NAME)) {
@@ -701,8 +703,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
         }
-        else
-            value = sharedPreferences.getString(key, "");
+        else {
+            if (prefMng.findPreference(key) != null)
+                value = sharedPreferences.getString(key, "");
+            else
+                value = "";
+        }
         setSummary(key, value);
 
         // disable depended preferences
@@ -844,6 +850,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_UNLINK_VOLUMES_APP_PREFERENCES) {
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGTONE);
             disableDependedPref(Profile.PREF_PROFILE_VOLUME_NOTIFICATION);
+            setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
         }
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
             disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
@@ -1609,6 +1616,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             //}
         }
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                String summary;
+                boolean bold = false;
+                if (ApplicationPreferences.applicationUnlinkRingerNotificationVolumes(context)) {
+                    summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled);
+                    bold = true;
+                }
+                else
+                    summary = getString(R.string.profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled);
+                summary = summary + "\n\n" + getString(R.string.info_notification_unlink_ringer_notification_volumes);
+                preference.setSummary(summary);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false, false);
+            }
+        }
         if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE) ||
                 key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE) ||
                 key.equals(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE))
@@ -2065,8 +2088,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
         disableDependedPref(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
 
-        setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
-
         //if (startupSource != PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE)
         //{
         setSummary(Profile.PREF_PROFILE_NAME);
@@ -2081,6 +2102,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         //}
         setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
         setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+        setSummary(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
         setSummary(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE);
         setSummary(Profile.PREF_PROFILE_SOUND_RINGTONE);
         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE);

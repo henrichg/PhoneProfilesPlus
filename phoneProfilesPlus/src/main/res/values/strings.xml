@@ -1378,6 +1378,8 @@
     <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
     <string name="event_preferences_priority_appSettings_enabled">Priority enabled</string>
     <string name="event_preferences_priority_appSettings_disabled">Priority disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes enabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes disabled</string>
 
     <!-- **************************************************************************************** -->
 
