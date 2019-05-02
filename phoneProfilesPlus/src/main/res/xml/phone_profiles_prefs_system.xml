@@ -4,18 +4,17 @@
     app:key="categorySystem"
     app:title="@string/phone_profiles_pref_category_system">
 
+    <Preference
+        app:key="applicationUnlinkRingerNotificationVolumesInfo"
+        app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
+        app:summary="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
+        app:widgetLayout="@layout/info_preference"
+        app:layout="@layout/mp_preference_material_widget" />-
     <SwitchPreferenceCompat
         app:key="applicationUnlinkRingerNotificationVolumes"
         app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
-        app:summary="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <!--<Preference
-        app:key="applicationRingerNotificationVolumesUnlinkedInfo"
-        app:title="@string/phone_profiles_pref_applicationRingerNotificationVolumesUnlinked"
-        app:summary="@string/phone_profiles_pref_applicationRingerNotificationVolumesUnlinked_info"
-        app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />-->
     <Preference
         app:key="applicationForceSetMergeRingNotificationVolumesInfo"
         app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"

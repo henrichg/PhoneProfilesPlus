@@ -254,7 +254,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)) {
             // detection of volumes merge = volumes are not merged
             //Log.e("PhoneProfilesPrefsFragment.onActivityCreated","volumes are merged=false");
-            Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
+            Preference preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
             if (preference != null) {
                 //preference.setEnabled(false);
                 preference.setSummary(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumesUnlinked_summary);
@@ -262,7 +262,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         else {
-            Preference preference = findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
+            Preference preference = findPreference("applicationUnlinkRingerNotificationVolumesInfo");
             if (preference != null) {
                 //preference.setEnabled(true);
                 preference.setSummary(R.string.phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary);
