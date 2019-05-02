@@ -86,7 +86,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
     @SuppressLint("SimpleDateFormat")
     private void logIntoFile(String type, String tag, String text)
     {
-        if (PPApplication.logIntoFile) {
+        if (PPApplication.crashIntoFile) {
             try {
                 File sd = Environment.getExternalStorageDirectory();
                 File exportDir = new File(sd, PPApplication.EXPORT_PATH);
