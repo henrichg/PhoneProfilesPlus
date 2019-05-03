@@ -693,6 +693,18 @@ class ActivateProfileHelper {
         PPApplication.logE("ActivateProfileHelper.setVolumes", "linkUnlink=" + linkUnlink);
         PPApplication.logE("ActivateProfileHelper.setVolumes", "forProfileActivation=" + forProfileActivation);
 
+        if (forProfileActivation) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                if (profile.getVolumeAccessibilityChange()) {
+                    try {
+                        audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), 0);
+                        //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        }
+
         //if (isAudibleRinging(ringerMode, zenMode, true) || (ringerMode == 0)) {
         if (isAudibleSystemRingerMode(audioManager, context) || (ringerMode == 0)) {
             // test only system ringer mode
@@ -702,6 +714,13 @@ class ActivateProfileHelper {
             //if (Permissions.checkAccessNotificationPolicy(context)) {
 
                 if (forProfileActivation) {
+                    if (profile.getVolumeDTMFChange()) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        try {
+                            audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), 0);
+                            //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_DTMF, profile.getVolumeDTMFValue());
+                        } catch (Exception ignored) {}
+                    }
                     if (profile.getVolumeSystemChange()) {
                         RingerModeChangeReceiver.notUnlinkVolumes = false;
                         try {
@@ -844,21 +863,6 @@ class ActivateProfileHelper {
                     audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception ignored) {}
-            }
-            if (profile.getVolumeDTMFChange()) {
-                try {
-                    audioManager.setStreamVolume(AudioManager.STREAM_DTMF /* 8 */, profile.getVolumeDTMFValue(), 0);
-                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_DTMF, profile.getVolumeDTMFValue());
-                } catch (Exception ignored) {}
-            }
-            if (Build.VERSION.SDK_INT >= 26) {
-                if (profile.getVolumeAccessibilityChange()) {
-                    try {
-                        audioManager.setStreamVolume(AudioManager.STREAM_ACCESSIBILITY /* 10 */, profile.getVolumeAccessibilityValue(), 0);
-                        //Settings.System.putInt(getContentResolver(), Settings.System.STREAM_ACCESSIBILITY, profile.getVolumeAccessibilityValue());
-                    } catch (Exception ignored) {
-                    }
-                }
             }
         }
 
