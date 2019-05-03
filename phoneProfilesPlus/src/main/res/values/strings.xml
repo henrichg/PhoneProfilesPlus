@@ -1384,6 +1384,9 @@
     <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
     <string name="phone_profiles_pref_applicationPowerParametersCategory">Battery and power</string>
     <string name="phone_profiles_pref_applicationOtherParametersCategory">Other</string>
+    <string name="activity_log_header_log_time">Log time</string>
+    <string name="activity_log_header_data_type">Data type</string>
+    <string name="activity_log_header_data">Data</string>
 
     <!-- **************************************************************************************** -->
 
