@@ -10,7 +10,6 @@
             app:key="eventEnabled"
             app:title="@string/event_preferences_eventEnabled"
             app:defaultValue="false"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
         <EditTextPreference
             app:key="eventName"
@@ -48,7 +47,6 @@
             app:title="@string/event_preferences_ForceRun"
             app:defaultValue="false"
             app:summary="@string/event_preferences_ForceRun_summary"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="eventNoPauseByManualActivation"
@@ -56,7 +54,6 @@
             app:defaultValue="false"
             app:summary="@string/event_preferences_noPauseByManualActivation_summary"
             app:dependency="eventForceRun"
-            app:widgetLayout="@layout/mp_preference_switch"
             app:layout="@layout/mp_preference_material_widget" />
 
         <Preference
