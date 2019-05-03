@@ -2263,6 +2263,7 @@ class Permissions {
                     try {
                         // startActivityForResult not working, it is external application
                         activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
+                        PPApplication.initRoot();
                         ok = true;
                     } catch (Exception ignore) {
                     }
@@ -2277,6 +2278,7 @@ class Permissions {
                             intent.putExtra("section", "superuser");
                             // startActivityForResult not working, it is external application
                             activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
+                            PPApplication.initRoot();
                             ok = true;
                         } catch (Exception ignore) {
                         }
