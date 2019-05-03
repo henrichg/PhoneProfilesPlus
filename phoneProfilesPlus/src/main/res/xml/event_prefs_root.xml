@@ -101,7 +101,7 @@
         app:title="@string/event_preferences_category_sensors"
         app:key="eventEventsCategory"
         app:layout="@layout/mp_preference_category" >
-        <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceC
+        <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
             app:key="eventSensorsInfo"
             app:title="@string/event_preferences_sensorsInfo_title"
             app:summary="@string/info_preference_click_here"
