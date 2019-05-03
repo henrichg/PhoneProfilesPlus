@@ -38,6 +38,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     private int defaultValueVoice = 0;
     private int defaultValueDTMF = 0;
     private int defaultValueAccessibility = 0;
+    private int defaultValueBluetoothSCO = 0;
     final int stepSize = 1;
 
     private String sValue = "0|1";
@@ -81,6 +82,8 @@ public class VolumeDialogPreferenceX extends DialogPreference {
                 maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
             else if ((Build.VERSION.SDK_INT >= 26) && volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                 maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
+            else if (volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
+                maximumValue = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
             maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
             // get actual values from audio manager
@@ -93,6 +96,7 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             defaultValueDTMF = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
             if (Build.VERSION.SDK_INT >= 26)
                 defaultValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
+            defaultValueBluetoothSCO = audioManager.getStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
             PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueRing="+defaultValueRing);
             PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueDTMF="+defaultValueDTMF);
             PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueNotification="+defaultValueNotification);
@@ -144,6 +148,9 @@ public class VolumeDialogPreferenceX extends DialogPreference {
                 else
                 if (volumeType.equalsIgnoreCase("ACCESSIBILITY"))
                     value =  defaultValueAccessibility;
+                else
+                if (volumeType.equalsIgnoreCase("BLUETOOTHSCO"))
+                    value =  defaultValueBluetoothSCO;
             }
         } catch (Exception e) {
             PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));

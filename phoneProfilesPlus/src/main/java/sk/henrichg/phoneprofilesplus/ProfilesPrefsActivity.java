@@ -340,7 +340,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._dtmfToneWhenDialing,
                         origProfile._soundOnTouch,
                         origProfile._volumeDTMF,
-                        origProfile._volumeAccessibility);
+                        origProfile._volumeAccessibility,
+                        origProfile._volumeBluetoothSCO);
                 showSaveMenu = true;
             }
             else
@@ -440,6 +441,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, Integer.toString(profile._soundOnTouch));
             editor.putString(Profile.PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
             editor.putString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
+            editor.putString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
             editor.apply();
         }
     }
@@ -534,6 +536,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, ""));
             profile._volumeDTMF = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF, "");
             profile._volumeAccessibility = preferences.getString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, "");
+            profile._volumeBluetoothSCO = preferences.getString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, "");
         }
 
         return profile;

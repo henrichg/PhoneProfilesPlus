@@ -64,6 +64,13 @@
         app:summary="@string/volume_pref_dialog_no_change_chb"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
+        app:key="prf_pref_volumeBluetoothSCO"
+        app:volumeType="bluetoothSco"
+        app:vNoChange="1"
+        app:title="@string/profile_preferences_volumeBluetoothSCO"
+        app:summary="@string/volume_pref_dialog_no_change_chb"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
         app:key="prf_pref_volumeDTMF"
         app:volumeType="dtmf"
         app:vNoChange="1"

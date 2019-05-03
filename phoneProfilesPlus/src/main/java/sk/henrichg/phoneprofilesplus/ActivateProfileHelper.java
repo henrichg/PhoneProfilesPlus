@@ -67,6 +67,9 @@ class ActivateProfileHelper {
 
     static boolean disableScreenTimeoutInternalChange = false;
 
+    // bluetooth calls volume stream
+    static int STREAM_BLUETOOTH_SCO = 6;
+
     static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
     // Setting.Global "zen_mode"
@@ -861,6 +864,12 @@ class ActivateProfileHelper {
             if (profile.getVolumeVoiceChange()) {
                 try {
                     audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL /* 0 */, profile.getVolumeVoiceValue(), 0);
+                    //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
+                } catch (Exception ignored) {}
+            }
+            if (profile.getVolumeBluetoothSCOChange()) {
+                try {
+                    audioManager.setStreamVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO, profile.getVolumeBluetoothSCOValue(), 0);
                     //Settings.System.putInt(getContentResolver(), Settings.System.VOLUME_VOICE, profile.getVolumeVoiceValue());
                 } catch (Exception ignored) {}
             }

@@ -145,7 +145,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 profile.getVolumeSystemChange() ||
                 profile.getVolumeVoiceChange() ||
                 profile.getVolumeDTMFChange()  ||
-                profile.getVolumeAccessibilityChange()) {
+                profile.getVolumeAccessibilityChange() ||
+                profile.getVolumeBluetoothSCOChange()) {
                 if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
@@ -153,7 +154,8 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
                     indicator1 = addIntoIndicator(indicator1, "vol");
             }
             // speaker phone

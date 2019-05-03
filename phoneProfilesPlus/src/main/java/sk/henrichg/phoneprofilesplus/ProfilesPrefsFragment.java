@@ -961,7 +961,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
                             key.equals(Profile.PREF_PROFILE_VOLUME_VOICE) ||
                             key.equals(Profile.PREF_PROFILE_VOLUME_DTMF) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY)) {
+                            key.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY) ||
+                            key.equals(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO)) {
                         if (VolumeDialogPreferenceX.changeEnabled(value))
                             title = getString(preferenceTitleId);
                     } else
@@ -1118,6 +1119,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title;
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, R.string.profile_preferences_volumeAccessibility, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, R.string.profile_preferences_volumeBluetoothSCO, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -1939,7 +1946,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_VOICE) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_DTMF) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY))
+                key.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -2194,6 +2202,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_LOCK_DEVICE_INSTALL_EXTENDER);
         setSummary(Profile.PREF_PROFILE_VOLUME_DTMF);
         setSummary(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY);
+        setSummary(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

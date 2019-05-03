@@ -228,7 +228,8 @@ public class DataWrapper {
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_dtmfToneWhenDialing")),
                 Integer.valueOf(Profile.defaultValuesString.get("prf_pref_soundOnTouch")),
                 Profile.defaultValuesString.get("prf_pref_volumeDTMF"),
-                Profile.defaultValuesString.get("prf_pref_volumeAccessibility")
+                Profile.defaultValuesString.get("prf_pref_volumeAccessibility"),
+                Profile.defaultValuesString.get("prf_pref_volumeBluetoothSCO")
             );
     }
 

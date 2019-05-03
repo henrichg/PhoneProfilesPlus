@@ -104,6 +104,7 @@ public class Profile {
     int _soundOnTouch;
     String _volumeDTMF;
     String _volumeAccessibility;
+    String _volumeBluetoothSCO;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -179,6 +180,7 @@ public class Profile {
     static final String PREF_PROFILE_SOUND_ON_TOUCH = "prf_pref_soundOnTouch";
     static final String PREF_PROFILE_VOLUME_DTMF = "prf_pref_volumeDTMF";
     static final String PREF_PROFILE_VOLUME_ACCESSIBILITY = "prf_pref_volumeAccessibility";
+    static final String PREF_PROFILE_VOLUME_BLUETOOTH_SCO = "prf_pref_volumeBluetoothSCO";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -256,6 +258,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_soundOnTouch", "0");
         defaultValuesString.put("prf_pref_volumeDTMF", "-1|1|0");
         defaultValuesString.put("prf_pref_volumeAccessibility", "-1|1|0");
+        defaultValuesString.put("prf_pref_volumeBluetoothSCO", "-1|1|0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -752,7 +755,8 @@ public class Profile {
                    int dtmfToneWhenDialing,
                    int soundOnTouch,
                    String volumeDTMF,
-                   String volumeAccessibility)
+                   String volumeAccessibility,
+                   String volumeBluetoothSCO)
     {
         this._id = id;
         this._name = name;
@@ -823,6 +827,7 @@ public class Profile {
         this._soundOnTouch = soundOnTouch;
         this._volumeDTMF = volumeDTMF;
         this._volumeAccessibility = volumeAccessibility;
+        this._volumeBluetoothSCO = volumeBluetoothSCO;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -898,7 +903,8 @@ public class Profile {
                    int dtmfToneWhenDialing,
                    int soundOnTouch,
                    String volumeDTMF,
-                   String volumeAccessibility)
+                   String volumeAccessibility,
+                   String volumeBluetoothSCO)
     {
         this._name = name;
         this._icon = icon;
@@ -968,6 +974,7 @@ public class Profile {
         this._soundOnTouch = soundOnTouch;
         this._volumeDTMF = volumeDTMF;
         this._volumeAccessibility = volumeAccessibility;
+        this._volumeBluetoothSCO = volumeBluetoothSCO;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1045,6 +1052,7 @@ public class Profile {
         this._soundOnTouch = profile._soundOnTouch;
         this._volumeDTMF = profile._volumeDTMF;
         this._volumeAccessibility = profile._volumeAccessibility;
+        this._volumeBluetoothSCO = profile._volumeBluetoothSCO;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1290,6 +1298,8 @@ public class Profile {
                 this._volumeDTMF = withProfile._volumeDTMF;
             if (withProfile.getVolumeAccessibilityChange())
                 this._volumeAccessibility = withProfile._volumeAccessibility;
+            if (withProfile.getVolumeBluetoothSCOChange())
+                this._volumeBluetoothSCO = withProfile._volumeBluetoothSCO;
 
             // set merged profile as activated
             DatabaseHandler.getInstance(dataWrapper.context).activateProfile(withProfile);
@@ -1442,8 +1452,13 @@ public class Profile {
                 return false;
             if (this._dtmfToneWhenDialing != withProfile._dtmfToneWhenDialing)
                 return false;
-            //noinspection RedundantIfStatement
             if (this._soundOnTouch != withProfile._soundOnTouch)
+                return false;
+            if (!this._volumeDTMF.equals(withProfile._volumeDTMF))
+                return false;
+            if (!this._volumeAccessibility.equals(withProfile._volumeAccessibility))
+                return false;
+            if (!this._volumeBluetoothSCO.equals(withProfile._volumeBluetoothSCO))
                 return false;
 
             return true;
@@ -1824,6 +1839,42 @@ public class Profile {
         int value;
         try {
             String[] splits = _volumeAccessibility.split("\\|");
+            value = Integer.parseInt(splits[2]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value == 1;
+    }
+
+    int getVolumeBluetoothSCOValue()
+    {
+        int value;
+        try {
+            String[] splits = _volumeBluetoothSCO.split("\\|");
+            value = Integer.parseInt(splits[0]);
+        } catch (Exception e) {
+            value = 0;
+        }
+        return value;
+    }
+
+    boolean getVolumeBluetoothSCOChange()
+    {
+        int value;
+        try {
+            String[] splits = _volumeBluetoothSCO.split("\\|");
+            value = Integer.parseInt(splits[1]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value == 0; // in preference dialog is checked=No change
+    }
+
+    private boolean getVolumeBluetoothSCOSharedProfile()
+    {
+        int value;
+        try {
+            String[] splits = _volumeBluetoothSCO.split("\\|");
             value = Integer.parseInt(splits[2]);
         } catch (Exception e) {
             value = 0;
@@ -2361,6 +2412,7 @@ public class Profile {
         int maximumValueVoiceCall = 7;
         int maximumValueDTMF = 7;
         int maximumValueAccessibility = 7;
+        int maximumValueBluetoothSCO = 7;
         if (audioManager != null) {
             maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
             maximumValueNotification = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
@@ -2371,6 +2423,7 @@ public class Profile {
             maximumValueDTMF = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
             if (Build.VERSION.SDK_INT >= 26)
                 maximumValueAccessibility = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
+            maximumValueBluetoothSCO = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
         }
 
         SharedPreferences preferences = context.getSharedPreferences(prefsName, Context.MODE_PRIVATE);
@@ -2453,6 +2506,7 @@ public class Profile {
         profile._soundOnTouch = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_ON_TOUCH, "0"));
         profile._volumeDTMF = preferences.getString(PREF_PROFILE_VOLUME_DTMF, getVolumeLevelString(70, maximumValueDTMF)+"|0|0");
         profile._volumeAccessibility = preferences.getString(PREF_PROFILE_VOLUME_ACCESSIBILITY, getVolumeLevelString(80, maximumValueAccessibility)+"|0|0");
+        profile._volumeBluetoothSCO = preferences.getString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, getVolumeLevelString(80, maximumValueBluetoothSCO)+"|0|0");
 
         return profile;
     }
@@ -2523,6 +2577,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_SOUND_ON_TOUCH, String.valueOf(profile._soundOnTouch));
         editor.putString(PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
         editor.putString(PREF_PROFILE_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
+        editor.putString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
 
         editor.apply();
     }
@@ -2606,7 +2661,8 @@ public class Profile {
                     profile._dtmfToneWhenDialing,
                     profile._soundOnTouch,
                     profile._volumeDTMF,
-                    profile._volumeAccessibility);
+                    profile._volumeAccessibility,
+                    profile._volumeBluetoothSCO);
 
             boolean zenModeMapped = false;
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {
@@ -2733,6 +2789,8 @@ public class Profile {
                 mappedProfile._volumeDTMF = sharedProfile._volumeDTMF;
             if (profile.getVolumeAccessibilitySharedProfile())
                 mappedProfile._volumeAccessibility = sharedProfile._volumeAccessibility;
+            if (profile.getVolumeBluetoothSCOSharedProfile())
+                mappedProfile._volumeBluetoothSCO = sharedProfile._volumeBluetoothSCO;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
