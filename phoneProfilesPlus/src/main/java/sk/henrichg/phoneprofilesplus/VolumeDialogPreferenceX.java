@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -35,6 +36,8 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     private int defaultValueAlarm = 0;
     private int defaultValueSystem = 0;
     private int defaultValueVoice = 0;
+    private int defaultValueDTMF = 0;
+    private int defaultValueAccessibility = 0;
     final int stepSize = 1;
 
     private String sValue = "0|1";
@@ -74,6 +77,10 @@ public class VolumeDialogPreferenceX extends DialogPreference {
                 maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
             else if (volumeType.equalsIgnoreCase("VOICE"))
                 maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
+            else if (volumeType.equalsIgnoreCase("DTMF"))
+                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
+            else if ((Build.VERSION.SDK_INT >= 26) && volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                maximumValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
             maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
             // get actual values from audio manager
@@ -83,6 +90,13 @@ public class VolumeDialogPreferenceX extends DialogPreference {
             defaultValueAlarm = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
             defaultValueSystem = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
             defaultValueVoice = audioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            defaultValueDTMF = audioManager.getStreamVolume(AudioManager.STREAM_DTMF);
+            if (Build.VERSION.SDK_INT >= 26)
+                defaultValueAccessibility = audioManager.getStreamVolume(AudioManager.STREAM_ACCESSIBILITY);
+            PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueRing="+defaultValueRing);
+            PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueDTMF="+defaultValueDTMF);
+            PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueNotification="+defaultValueNotification);
+            PPApplication.logE("VolumeDialogPreferenceX.VolumeDialogPreferenceX", "defaultValueAccessibility="+defaultValueAccessibility);
         }
 
         typedArray.recycle();
@@ -124,6 +138,12 @@ public class VolumeDialogPreferenceX extends DialogPreference {
                 else
                 if (volumeType.equalsIgnoreCase("VOICE"))
                     value =  defaultValueVoice;
+                else
+                if (volumeType.equalsIgnoreCase("DTMF"))
+                    value =  defaultValueDTMF;
+                else
+                if (volumeType.equalsIgnoreCase("ACCESSIBILITY"))
+                    value =  defaultValueAccessibility;
             }
         } catch (Exception e) {
             PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", Log.getStackTraceString(e));

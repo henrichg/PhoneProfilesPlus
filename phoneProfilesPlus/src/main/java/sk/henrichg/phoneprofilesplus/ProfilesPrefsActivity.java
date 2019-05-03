@@ -338,7 +338,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceCloseAllApplications,
                         origProfile._screenNightMode,
                         origProfile._dtmfToneWhenDialing,
-                        origProfile._soundOnTouch);
+                        origProfile._soundOnTouch,
+                        origProfile._volumeDTMF,
+                        origProfile._volumeAccessibility);
                 showSaveMenu = true;
             }
             else
@@ -436,6 +438,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, Integer.toString(profile._screenNightMode));
             editor.putString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, Integer.toString(profile._dtmfToneWhenDialing));
             editor.putString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, Integer.toString(profile._soundOnTouch));
+            editor.putString(Profile.PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
+            editor.putString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
             editor.apply();
         }
     }
@@ -528,6 +532,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._screenNightMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SCREEN_NIGHT_MODE, ""));
             profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, ""));
             profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, ""));
+            profile._volumeDTMF = preferences.getString(Profile.PREF_PROFILE_VOLUME_DTMF, "");
+            profile._volumeAccessibility = preferences.getString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, "");
         }
 
         return profile;

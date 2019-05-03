@@ -95,13 +95,17 @@ class ProfilePreferencesIndicator {
                 profile.getVolumeNotificationChange() ||
                 profile.getVolumeRingtoneChange() ||
                 profile.getVolumeSystemChange() ||
-                profile.getVolumeVoiceChange()) {
+                profile.getVolumeVoiceChange() ||
+                profile.getVolumeDTMFChange() ||
+                profile.getVolumeAccessibilityChange()) {
                 if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
             }
             // speaker phone

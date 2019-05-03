@@ -143,13 +143,17 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                 profile.getVolumeNotificationChange() ||
                 profile.getVolumeRingtoneChange() ||
                 profile.getVolumeSystemChange() ||
-                profile.getVolumeVoiceChange()) {
+                profile.getVolumeVoiceChange() ||
+                profile.getVolumeDTMFChange()  ||
+                profile.getVolumeAccessibilityChange()) {
                 if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ALARM, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_MEDIA, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_RINGTONE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
                     (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_SYSTEM, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_VOICE, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_DTMF, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, null, null, true, this).allowed == PreferenceAllowed.PREFERENCE_ALLOWED))
                     indicator1 = addIntoIndicator(indicator1, "vol");
             }
             // speaker phone

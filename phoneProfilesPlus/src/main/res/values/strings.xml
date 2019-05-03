@@ -1387,6 +1387,8 @@
     <string name="activity_log_header_log_time">Log time</string>
     <string name="activity_log_header_data_type">Data type</string>
     <string name="activity_log_header_data">Data</string>
+    <string name="profile_preferences_volumeDTMF">DTMF tones volume</string>
+    <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
 
     <!-- **************************************************************************************** -->
 

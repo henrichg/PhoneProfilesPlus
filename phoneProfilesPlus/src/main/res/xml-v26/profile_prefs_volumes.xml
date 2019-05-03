@@ -70,6 +70,13 @@
         app:title="@string/profile_preferences_volumeDTMF"
         app:summary="@string/volume_pref_dialog_no_change_chb"
         app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
+        app:key="prf_pref_volumeAccessibility"
+        app:volumeType="accessibility"
+        app:vNoChange="1"
+        app:title="@string/profile_preferences_volumeAccessibility"
+        app:summary="@string/volume_pref_dialog_no_change_chb"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_volumeSpeakerPhone"
         app:summary="@string/array_pref_no_change"

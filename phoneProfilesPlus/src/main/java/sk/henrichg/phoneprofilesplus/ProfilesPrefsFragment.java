@@ -959,7 +959,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             key.equals(Profile.PREF_PROFILE_VOLUME_MEDIA) ||
                             key.equals(Profile.PREF_PROFILE_VOLUME_ALARM) ||
                             key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
-                            key.equals(Profile.PREF_PROFILE_VOLUME_VOICE)) {
+                            key.equals(Profile.PREF_PROFILE_VOLUME_VOICE) ||
+                            key.equals(Profile.PREF_PROFILE_VOLUME_DTMF) ||
+                            key.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY)) {
                         if (VolumeDialogPreferenceX.changeEnabled(value))
                             title = getString(preferenceTitleId);
                     } else
@@ -1104,6 +1106,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title;
             }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_VOICE, R.string.profile_preferences_volumeVoiceCall, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_DTMF, R.string.profile_preferences_volumeDTMF, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+                summary = summary + title;
+            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, R.string.profile_preferences_volumeAccessibility, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
@@ -1923,7 +1937,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_VOLUME_MEDIA) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_ALARM) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_SYSTEM) ||
-                key.equals(Profile.PREF_PROFILE_VOLUME_VOICE))
+                key.equals(Profile.PREF_PROFILE_VOLUME_VOICE) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_DTMF) ||
+                key.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -2176,6 +2192,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING);
         setSummary(Profile.PREF_PROFILE_SOUND_ON_TOUCH);
         setSummary(PREF_LOCK_DEVICE_INSTALL_EXTENDER);
+        setSummary(Profile.PREF_PROFILE_VOLUME_DTMF);
+        setSummary(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
