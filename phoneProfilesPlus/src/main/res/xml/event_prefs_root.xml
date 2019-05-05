@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         app:summary="@string/event_preferences_category_eventIdentification"
@@ -15,7 +16,7 @@
             app:key="eventName"
             app:summary="@string/event_preferences_eventName"
             app:title="@string/event_preferences_eventName"
-            app:selectAllOnFocus="true"
+            android:selectAllOnFocus="true"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
             app:key="eventUsePriorityAppSettings"

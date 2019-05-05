@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     app:key="rootScreen"
     app:title="@string/title_activity_profile_preferences">
 
@@ -12,7 +13,7 @@
             app:key="prf_pref_profileName"
             app:summary="@string/profile_preferences_profileName"
             app:title="@string/profile_preferences_profileName"
-            app:selectAllOnFocus="true"
+            android:selectAllOnFocus="true"
             app:defaultValue="Profil"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.ProfileIconPreferenceX
