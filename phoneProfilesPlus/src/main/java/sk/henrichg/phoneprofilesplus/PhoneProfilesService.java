@@ -3179,6 +3179,9 @@ public class PhoneProfilesService extends Service
         boolean startOnBoot = false;
         boolean startOnPackageReplace = false;
 
+        // after kill and restart:
+        // - EXTRA_INITIALIZE_START = true, configured is in PPApplication.OnCreate()
+        // - EXTRA_ACTIVATE_PROFILES = false, configured is in PPApplication.OnCreate()
         if (intent != null) {
             //onlyStart = intent.getBooleanExtra(EXTRA_ONLY_START, true);
             initializeStart = intent.getBooleanExtra(EXTRA_INITIALIZE_START, false);
@@ -3359,27 +3362,29 @@ public class PhoneProfilesService extends Service
                             if (_activateProfiles)
                                 dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_APPLICATIONSTART, null, null, null, 0);
 
-                            if (_activateProfiles) {
-                                // start events
-                                if (Event.getGlobalEventsRunning(appContext)) {
-                                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
+                            // start events
+                            if (Event.getGlobalEventsRunning(appContext)) {
+                                PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is enabled, first start events");
 
+                                if (_activateProfiles) {
                                     if (!dataWrapper.getIsManualProfileActivation(false)) {
                                         ////// unblock all events for first start
                                         //     that may be blocked in previous application run
                                         dataWrapper.pauseAllEvents(true, false/*, false*/);
                                     }
+                                }
 
-                                    dataWrapper.firstStartEvents(true, false);
-                                } else {
-                                    PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
+                                dataWrapper.firstStartEvents(true, false);
+                            } else {
+                                PPApplication.logE("$$$ PhoneProfilesService.doForFirstStart - handler", "global event run is not enabled, manually activate profile");
 
+                                if (_activateProfiles) {
                                     ////// unblock all events for first start
                                     //     that may be blocked in previous application run
                                     dataWrapper.pauseAllEvents(true, false/*, false*/);
-
-                                    dataWrapper.activateProfileOnBoot();
                                 }
+
+                                dataWrapper.activateProfileOnBoot();
                             }
                         }
 
