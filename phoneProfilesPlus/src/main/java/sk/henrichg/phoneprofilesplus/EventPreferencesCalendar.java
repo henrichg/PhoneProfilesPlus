@@ -150,22 +150,22 @@ class EventPreferencesCalendar extends EventPreferences {
                 }
 
                 if (this._allEvents) {
-                    descr = descr + context.getString(R.string.event_preferences_calendar_all_events) + "; ";
+                    descr = descr + context.getString(R.string.event_preferences_calendar_all_events) + " • ";
                 } else {
                     String[] searchFields = context.getResources().getStringArray(R.array.eventCalendarSearchFieldArray);
                     descr = descr + searchFields[this._searchField] + ": ";
 
-                    descr = descr + "\"" + this._searchString + "\"" + "; ";
+                    descr = descr + "\"" + this._searchString + "\"" + " • ";
                 }
 
                 if (this._ignoreAllDayEvents)
-                    descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "; ";
+                    descr = descr + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + " • ";
 
                 String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
                 descr = descr + context.getString(R.string.event_preference_calendar_availability) + ": " +availabilities[this._availability];
 
                 if (this._startBeforeEvent > 0)
-                    descr = descr + "; " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + GlobalGUIRoutines.getDurationString(this._startBeforeEvent);
+                    descr = descr + " • " + context.getString(R.string.event_preferences_calendar_start_before_event) + ": " + GlobalGUIRoutines.getDurationString(this._startBeforeEvent);
 
                 if (addBullet) {
                     if (Event.getGlobalEventsRunning(context)) {

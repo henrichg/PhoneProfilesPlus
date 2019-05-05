@@ -142,9 +142,9 @@ class EventPreferencesBattery extends EventPreferences {
                 descr = descr + ": " + this._levelLow + "% - " + this._levelHight + "%";
 
                 if (this._powerSaveMode)
-                    descr = descr + "; " + context.getString(R.string.pref_event_battery_power_save_mode);
+                    descr = descr + " • " + context.getString(R.string.pref_event_battery_power_save_mode);
                 else {
-                    descr = descr + "; " + context.getString(R.string.pref_event_battery_charging);
+                    descr = descr + " • " + context.getString(R.string.pref_event_battery_charging);
                     String[] charging = context.getResources().getStringArray(R.array.eventBatteryChargingArray);
                     descr = descr + ": " + charging[this._charging];
 
@@ -160,7 +160,7 @@ class EventPreferencesBattery extends EventPreferences {
                             selectedPlugged = selectedPlugged + pluggedNames[Arrays.asList(pluggedValues).indexOf(s)];
                         }
                     }
-                    descr = descr + "; " + context.getString(R.string.event_preferences_battery_plugged) + ": " + selectedPlugged;
+                    descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": " + selectedPlugged;
                 }
             }
         }

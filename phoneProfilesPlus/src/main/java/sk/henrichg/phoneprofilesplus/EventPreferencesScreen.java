@@ -85,9 +85,9 @@ class EventPreferencesScreen extends EventPreferences {
                 descr = descr + eventListTypeNames[index];
                 if (this._whenUnlocked) {
                     if (this._eventType == 0)
-                        descr = descr + "; " + context.getString(R.string.pref_event_screen_startWhenUnlocked);
+                        descr = descr + " • " + context.getString(R.string.pref_event_screen_startWhenUnlocked);
                     else
-                        descr = descr + "; " + context.getString(R.string.pref_event_screen_endWhenUnlocked);
+                        descr = descr + " • " + context.getString(R.string.pref_event_screen_endWhenUnlocked);
                 }
             }
         }

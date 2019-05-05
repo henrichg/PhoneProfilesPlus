@@ -174,14 +174,14 @@ class EventPreferencesOrientation extends EventPreferences {
                             selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
                         }
                     }
-                    descr = descr + "; " + context.getString(R.string.event_preferences_orientation_sides) + ": " + selectedSides;
+                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": " + selectedSides;
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
                 String[] distanceNames = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeArray);
                 int i = Arrays.asList(distanceValues).indexOf(String.valueOf(this._distance));
                 if (i != -1)
-                    descr = descr + "; " + context.getString(R.string.event_preferences_orientation_distance) + ": " + distanceNames[i];
+                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_distance) + ": " + distanceNames[i];
 
                 String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext());
@@ -219,7 +219,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     } else
                         selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                 }
-                descr = descr + "; " + /*"(S) "+*/context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": " + selectedApplications;
+                descr = descr + " • " + /*"(S) "+*/context.getString(R.string.event_preferences_orientation_ignoreForApplications) + ": " + selectedApplications;
             }
         }
 

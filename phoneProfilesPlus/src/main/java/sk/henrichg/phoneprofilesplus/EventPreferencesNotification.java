@@ -98,7 +98,7 @@ class EventPreferencesNotification extends EventPreferences {
                     }
                     if (this._missedCall) {
                         if (this._inCall)
-                            descr = descr + "; ";
+                            descr = descr + " • ";
                         descr = descr + context.getString(R.string.event_preferences_notifications_missedCall);
                     }
                     String selectedApplications = context.getString(R.string.applications_multiselect_summary_text_not_selected);
@@ -128,7 +128,7 @@ class EventPreferencesNotification extends EventPreferences {
                             selectedApplications = context.getString(R.string.applications_multiselect_summary_text_selected) + ": " + splits.length;
                     }
                     if (this._inCall || this._missedCall)
-                        descr = descr + "; ";
+                        descr = descr + " • ";
                     descr = descr + /*"(S) "+*/context.getString(R.string.event_preferences_notifications_applications) + ": " + selectedApplications;// + "; ";
                 }
             }

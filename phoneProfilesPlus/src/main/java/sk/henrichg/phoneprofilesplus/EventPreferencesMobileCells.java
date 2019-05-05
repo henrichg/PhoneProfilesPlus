@@ -109,7 +109,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 }
                 descr = descr + context.getString(R.string.event_preferences_mobile_cells_cells) + ": " +selectedCells;
                 if (this._whenOutside)
-                    descr = descr + "; " + context.getString(R.string.event_preferences_mobile_cells_when_outside_description);
+                    descr = descr + " • " + context.getString(R.string.event_preferences_mobile_cells_when_outside_description);
             }
             else {
                 descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+

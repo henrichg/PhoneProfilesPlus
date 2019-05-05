@@ -155,7 +155,7 @@ class EventPreferencesCall extends EventPreferences {
                 } else {
                     descr = descr + context.getString(R.string.pref_event_call_event);
                     String[] callEvents = context.getResources().getStringArray(R.array.eventCallEventsArray);
-                    descr = descr + ": " + callEvents[this._callEvent] + "; ";
+                    descr = descr + ": " + callEvents[this._callEvent] + " • ";
                     descr = descr + context.getString(R.string.pref_event_call_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
                     descr = descr + ": " + contactListTypes[this._contactListType];
@@ -164,9 +164,9 @@ class EventPreferencesCall extends EventPreferences {
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
                         if (this._permanentRun)
-                            descr = descr + "; " + context.getString(R.string.pref_event_permanentRun);
+                            descr = descr + " • " + context.getString(R.string.pref_event_permanentRun);
                         else
-                            descr = descr + "; " + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
+                            descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": " + GlobalGUIRoutines.getDurationString(this._duration);
                     }
                 }
             }

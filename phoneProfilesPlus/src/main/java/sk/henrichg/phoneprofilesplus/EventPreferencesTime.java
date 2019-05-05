@@ -198,7 +198,7 @@ class EventPreferencesTime extends EventPreferences {
 
                 calendar.set(Calendar.HOUR_OF_DAY, _startTime / 60);
                 calendar.set(Calendar.MINUTE, _startTime % 60);
-                descr = descr + "- ";
+                descr = descr + "• ";
                 descr = descr + DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
                 //if (tmp._useEndTime)
                 //{

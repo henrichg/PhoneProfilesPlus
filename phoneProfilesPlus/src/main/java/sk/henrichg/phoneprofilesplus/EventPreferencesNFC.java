@@ -104,7 +104,7 @@ class EventPreferencesNFC extends EventPreferences {
                         break;
                     }
                 }
-                descr = descr + selectedNfcTags + "; ";
+                descr = descr + selectedNfcTags + " • ";
                 if (this._permanentRun)
                     descr = descr + context.getString(R.string.pref_event_permanentRun);
                 else
