@@ -12,6 +12,10 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.Preference;
@@ -521,6 +525,124 @@ class GlobalGUIRoutines {
         int minutes = (duration % 3600) / 60;
         int seconds = duration % 60;
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+    }
+
+    static String getListPreferenceString(String value, int arrayValuesRes,
+                                          int arrayStringsRes, Context context) {
+        String[] arrayValues = context.getResources().getStringArray(arrayValuesRes);
+        String[] arrayStrings = context.getResources().getStringArray(arrayStringsRes);
+        int index = 0;
+        for (String arrayValue : arrayValues) {
+            if (arrayValue.equals(value))
+                break;
+            ++index;
+        }
+        return arrayStrings[index];
+    }
+
+    static String getZenModePreferenceString(String value, Context context) {
+        String[] arrayValues = context.getResources().getStringArray(R.array.zenModeValues);
+        String[] arrayStrings = context.getResources().getStringArray(R.array.zenModeArray);
+        String[] arraySummaryStrings = context.getResources().getStringArray(R.array.zenModeSummaryArray);
+        int index = 0;
+        for (String arrayValue : arrayValues) {
+            if (arrayValue.equals(value))
+                break;
+            ++index;
+        }
+        return arrayStrings[index] + " - " + arraySummaryStrings[Integer.valueOf(value)-1];
+    }
+
+    static void setRingtonePreferenceSummary(final String initSummary, final String ringtoneUri,
+                                             final androidx.preference.Preference preference, final Context context) {
+        new AsyncTask<Void, Integer, Void>() {
+
+            private String ringtoneName;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                if ((ringtoneUri == null) || ringtoneUri.isEmpty())
+                    ringtoneName = context.getString(R.string.ringtone_preference_none);
+                else {
+                    Uri uri = Uri.parse(ringtoneUri);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        ringtoneName = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        ringtoneName = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                preference.setSummary(TextUtils.replace(initSummary, new String[]{"<ringtone_name>"}, new String[]{ringtoneName}));
+            }
+
+        }.execute();
+    }
+
+    static void setProfileSoundsPreferenceSummary(final String initSummary,
+                                             final String ringtoneUri, final String notificationUri, final String alarmUri,
+                                             final androidx.preference.Preference preference, final Context context) {
+        new AsyncTask<Void, Integer, Void>() {
+
+            private String ringtoneName;
+            private String notificationName;
+            private String alarmName;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                if ((ringtoneUri == null) || ringtoneUri.isEmpty())
+                    ringtoneName = context.getString(R.string.ringtone_preference_none);
+                else {
+                    Uri uri = Uri.parse(ringtoneUri);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        ringtoneName = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        ringtoneName = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((notificationUri == null) || notificationUri.isEmpty())
+                    notificationName = context.getString(R.string.ringtone_preference_none);
+                else {
+                    Uri uri = Uri.parse(notificationUri);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        notificationName = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        notificationName = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((alarmUri == null) || alarmUri.isEmpty())
+                    alarmName = context.getString(R.string.ringtone_preference_none);
+                else {
+                    Uri uri = Uri.parse(alarmUri);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        alarmName = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        alarmName = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                preference.setSummary(TextUtils.replace(initSummary,
+                        new String[]{"<ringtone_name>", "<notification_name>", "<alarm_name>"},
+                        new String[]{ringtoneName, notificationName, alarmName}));
+            }
+
+        }.execute();
     }
 
     @SuppressLint("DefaultLocale")

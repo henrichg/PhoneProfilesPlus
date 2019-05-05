@@ -1322,6 +1322,7 @@ public class Profile {
         }
     }
 
+    @SuppressWarnings("RedundantIfStatement")
     boolean compareProfile(Profile withProfile)
     {
         PPApplication.logE("$$$ Profile.compareProfiles","withProfile="+withProfile._name);
@@ -1898,6 +1899,22 @@ public class Profile {
         return value;
     }
 
+    static int getDeviceBrightnessValue(String _deviceBrightness)
+    {
+        int maximumValue = 100;
+        int defaultValue = 50;
+        int value;
+        try {
+            String[] splits = _deviceBrightness.split("\\|");
+            value = Integer.parseInt(splits[0]);
+            if ((value < 0) || (value > maximumValue))
+                value = defaultValue;
+        } catch (Exception e) {
+            value = defaultValue;
+        }
+        return value;
+    }
+
     boolean getDeviceBrightnessChange()
     {
         int value;
@@ -1946,7 +1963,7 @@ public class Profile {
         return value == 1;
     }
 
-    static private boolean getDeviceBrightnessAutomatic(String _deviceBrightness)
+    static boolean getDeviceBrightnessAutomatic(String _deviceBrightness)
     {
         int value;
         try {
@@ -1969,6 +1986,19 @@ public class Profile {
         }
         return value == 1;
     }
+
+    static boolean getDeviceBrightnessChangeLevel(String _deviceBrightness)
+    {
+        int value;
+        try {
+            String[] splits = _deviceBrightness.split("\\|");
+            value = Integer.parseInt(splits[4]);
+        } catch (Exception e) {
+            value = 1;
+        }
+        return value == 1;
+    }
+
 
     /*
     private static int getMinimumScreenBrightnessSetting ()

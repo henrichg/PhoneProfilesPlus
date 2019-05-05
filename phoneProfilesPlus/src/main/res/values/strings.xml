@@ -1390,6 +1390,7 @@
     <string name="profile_preferences_volumeDTMF">DTMF tones volume</string>
     <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
     <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
+    <string name="profile_preferences_enabled">Enabled</string>
 
     <!-- **************************************************************************************** -->
 
