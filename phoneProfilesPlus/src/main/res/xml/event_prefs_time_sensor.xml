@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preferencePreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/event_preferences_category_eventTimeParameters"
+    app:key="eventTimeCategory" >
+
+    <SwitchPreferenceCompat
+        app:key="eventTimeEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.DaysOfWeekPreferenceX
+        app:key="eventTimeDays"
+        app:defaultValue="@string/empty_string"
+        app:title="@string/event_preferences_time_timeDays"
+        app:dependency="eventTimeEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.TimePreferenceX
+        app:key="eventTimeStartTime"
+        app:defaultValue="0"
+        app:title="@string/event_preferences_time_startTime"
+        app:dependency="eventTimeEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <!--
+    <SwitchPreferenceCompat
+        app:key="eventTimeUseEndTime"
+        app:title="@string/event_preferences_time_useEndTime"
+        app:defaultValue="false"
+        app:dependency="eventTimeEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    -->
+    <sk.henrichg.phoneprofilesplus.TimePreferenceX
+        app:key="eventTimeEndTime"
+        app:defaultValue="0"
+        app:title="@string/event_preferences_time_endTime"
+        app:dependency="eventTimeEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preferencePreferenceScreen>

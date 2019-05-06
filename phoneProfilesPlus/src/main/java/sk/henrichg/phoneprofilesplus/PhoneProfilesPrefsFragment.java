@@ -153,6 +153,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             dialogFragment.setArguments(bundle);
         }
 
+        // event preferences
+        if (preference instanceof ProfileMultiSelectPreferenceX)
+        {
+            ((ProfileMultiSelectPreferenceX)preference).fragment = new ProfileMultiSelectPreferenceFragmentX();
+            dialogFragment = ((ProfileMultiSelectPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        if (preference instanceof DaysOfWeekPreferenceX)
+        {
+            ((DaysOfWeekPreferenceX)preference).fragment = new DaysOfWeekPreferenceFragmentX();
+            dialogFragment = ((DaysOfWeekPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        if (preference instanceof TimePreferenceX)
+        {
+            ((TimePreferenceX)preference).fragment = new TimePreferenceFragmentX();
+            dialogFragment = ((TimePreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+
+
         if (dialogFragment != null)
         {
             FragmentManager fragmentManager = getFragmentManager();
