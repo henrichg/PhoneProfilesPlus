@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/event_preferences_category_eventBatteryParameters"
+    app:key="eventBatteryCategory" >
+
+    <SwitchPreferenceCompat
+        app:key="eventBatteryEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        app:key="eventBatteryLevelLow"
+        app:summary="@string/event_preferences_battery_level_low"
+        app:title="@string/event_preferences_battery_level_low"
+        app:defaultValue="0"
+        app:min="0"
+        app:max="100"
+        app:dependency="eventBatteryEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        app:key="eventBatteryLevelHight"
+        app:summary="@string/event_preferences_battery_level_hight"
+        app:title="@string/event_preferences_battery_level_hight"
+        app:defaultValue="100"
+        app:min="0"
+        app:max="100"
+        app:dependency="eventBatteryEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/event_preferences_battery_charging"
+        app:summary="@string/array_event_pref_battery_charging_not_use"
+        app:key="eventBatteryCharging"
+        app:defaultValue="0"
+        app:entries="@array/eventBatteryChargingArray"
+        app:entryValues="@array/eventBatteryChargingValues"
+        app:dependency="eventBatteryEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <MultiSelectListPreference
+        app:key="eventBatteryPlugged"
+        app:title="@string/event_preferences_battery_plugged"
+        app:defaultValue="@array/emptyArray"
+        app:entries="@array/eventBatteryPluggedArray"
+        app:entryValues="@array/eventBatteryPluggedValues"
+        app:dependency="eventBatteryEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="eventBatteryPowerSaveMode"
+        app:title="@string/event_preferences_battery_power_save_mode"
+        app:defaultValue="false"
+        app:dependency="eventBatteryEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+
+</androidx.preference.PreferenceScreen>

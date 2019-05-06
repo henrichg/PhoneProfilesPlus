@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preferencePreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/event_preferences_category_eventTimeParameters"
     app:key="eventTimeCategory" >
@@ -36,4 +36,4 @@
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     
-</androidx.preferencePreferenceScreen>
+</androidx.preference.PreferenceScreen>

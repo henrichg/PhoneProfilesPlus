@@ -15,7 +15,7 @@ public class CalendarSearchStringPreferenceFragmentX extends PreferenceDialogFra
     private Context prefContext;
     CalendarSearchStringPreferenceX preference;
 
-    EditText editText;
+    private EditText editText;
 
     @SuppressLint("InflateParams")
     @Override
