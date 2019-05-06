@@ -93,13 +93,15 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
+        if (positiveResult) {
+            preference.persistValue();
+        }
+
         if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             asyncTask.cancel(true);
         }
 
-        if (positiveResult) {
-            preference.persistValue();
-        }
+        preference.fragment = null;
     }
 
     @SuppressLint("StaticFieldLeak")

@@ -118,14 +118,14 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
-            asyncTask.cancel(true);
-        }
-
         if (preference.callChangeListener(preference.value))
         {
             preference.persistValue();
             preference.setSummaryCTSDP();
+        }
+
+        if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
+            asyncTask.cancel(true);
         }
 
         preference.fragment = null;

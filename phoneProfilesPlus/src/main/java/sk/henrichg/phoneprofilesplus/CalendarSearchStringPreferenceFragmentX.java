@@ -60,6 +60,8 @@ public class CalendarSearchStringPreferenceFragmentX extends PreferenceDialogFra
         if (positiveResult) {
             preference.persistValue(editText.getText().toString());
         }
+
+        preference.fragment = null;
     }
 
 }

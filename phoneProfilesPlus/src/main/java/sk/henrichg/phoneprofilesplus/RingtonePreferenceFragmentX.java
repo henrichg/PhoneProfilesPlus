@@ -65,6 +65,13 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
+        if (positiveResult) {
+            preference.persistValue();
+        }
+        else {
+            preference.setRingtone(preference.oldRingtoneUri, false);
+        }
+
         if ((preference.asyncTask != null) && !preference.asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             preference.asyncTask.cancel(true);
         }
@@ -78,13 +85,6 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
                 preference.stopPlayRingtone();
             }
         });
-
-        if (positiveResult) {
-            preference.persistValue();
-        }
-        else {
-            preference.setRingtone(preference.oldRingtoneUri, false);
-        }
 
         preference.fragment = null;
     }

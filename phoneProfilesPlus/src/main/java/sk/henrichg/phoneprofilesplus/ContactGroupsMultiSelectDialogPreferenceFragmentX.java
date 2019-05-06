@@ -86,6 +86,8 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
         EditorProfilesActivity.getContactGroupsCache().cancelCaching();
         if (!EditorProfilesActivity.getContactGroupsCache().cached)
             EditorProfilesActivity.getContactGroupsCache().clearCache(false);
+
+        preference.fragment = null;
     }
 
     @SuppressLint("StaticFieldLeak")
