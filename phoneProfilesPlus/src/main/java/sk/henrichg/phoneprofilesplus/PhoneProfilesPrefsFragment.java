@@ -186,6 +186,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof CalendarSearchStringPreferenceX)
+        {
+            ((CalendarSearchStringPreferenceX)preference).fragment = new CalendarSearchStringPreferenceFragmentX();
+            dialogFragment = ((CalendarSearchStringPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
 
         if (dialogFragment != null)

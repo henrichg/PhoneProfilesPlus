@@ -14,7 +14,7 @@ public class TimePreferenceFragmentX extends PreferenceDialogFragmentCompat {
     private Context prefContext;
     TimePreferenceX preference;
 
-    TimePicker picker;
+    private TimePicker picker;
 
     @SuppressLint("InflateParams")
     @Override
@@ -42,7 +42,7 @@ public class TimePreferenceFragmentX extends PreferenceDialogFragmentCompat {
     @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
-            preference.persistValue();
+            preference.persistValue(picker);
         }
         preference.fragment = null;
     }

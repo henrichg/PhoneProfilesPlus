@@ -6,6 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
+import android.widget.TimePicker;
 
 import java.sql.Date;
 import java.util.Calendar;
@@ -57,11 +58,11 @@ public class TimePreferenceX extends DialogPreference {
         return DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
     }
 
-    void persistValue() {
+    void persistValue(TimePicker picker) {
         if (shouldPersist()) {
-            fragment.picker.clearFocus();
+            picker.clearFocus();
 
-            value = fragment.picker.getCurrentHour() * 60 + fragment.picker.getCurrentMinute();
+            value = picker.getCurrentHour() * 60 + picker.getCurrentMinute();
 
             setSummary(getSummary());
             if (callChangeListener(value)) {
