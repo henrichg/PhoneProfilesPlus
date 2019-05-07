@@ -51,10 +51,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                     if ((action != null) && action.equals(Intent.ACTION_SCREEN_ON)) {
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
                         PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
+                        PPApplication.isScreenOn = true;
+
                         PPApplication.restartAllScanners(appContext, true);
                     } else if ((action != null) && action.equals(Intent.ACTION_SCREEN_OFF)) {
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
                         PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
+                        PPApplication.isScreenOn = false;
+
                         PPApplication.restartAllScanners(appContext, true);
 
                         final Handler handler = new Handler(appContext.getMainLooper());

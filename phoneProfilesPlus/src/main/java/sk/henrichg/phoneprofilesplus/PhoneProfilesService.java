@@ -1741,8 +1741,8 @@ public class PhoneProfilesService extends Service
                 if (checkDatabase/* || (locationModeChangedBroadcastReceiver == null)*/) {
                     if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                         // location scanner is enabled
-                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_GPS, false);
                             eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION, false);
@@ -1808,8 +1808,8 @@ public class PhoneProfilesService extends Service
                 int eventScannerCount = 1;
                 if (checkDatabase/* || (bluetoothStateChangedBroadcastReceiver == null)*/) {
                     if (ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) {
-                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_RADIO_SWITCH_BLUETOOTH, false);
                             eventCount = eventCount + DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED, false);
@@ -1872,8 +1872,8 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 int eventScannerCount = 1;
                 if (checkDatabase) {
-                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
+                    //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
                         eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHCONNECTED);
                         eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT);
@@ -1972,8 +1972,8 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 if (checkDatabase) {
                     if (ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) {
-                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_BLUETOOTHINFRONT, false);
                         } else
@@ -2037,8 +2037,8 @@ public class PhoneProfilesService extends Service
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
-                    PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                    //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                         // start only for screen On
                         int eventCount = 1;
                         if (checkDatabase/* || (wifiAPStateChangeBroadcastReceiver == null)*/) {
@@ -2171,8 +2171,8 @@ public class PhoneProfilesService extends Service
                     }
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
-                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                            //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
                                 eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
                                 eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED, false);
@@ -2250,8 +2250,8 @@ public class PhoneProfilesService extends Service
                     }
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
-                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                            //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
                                 eventScannerCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
                                 eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFICONNECTED, false);
@@ -2313,8 +2313,8 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 if (checkDatabase) {
                     if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
-                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_WIFIINFRONT, false);
                         } else
@@ -2497,8 +2497,8 @@ public class PhoneProfilesService extends Service
                 int eventCount = 1;
                 if (checkDatabase) {
                     if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
-                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             eventCount = DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_LOCATION, false);
                         } else
@@ -2559,8 +2559,8 @@ public class PhoneProfilesService extends Service
                             PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventWifiEnableScanning(appContext)) {
-                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
+                            //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
                                 int eventCount = 1;
                                 if (checkDatabase/* || (!WifiScanJob.isJobScheduled())*/) {
@@ -2622,8 +2622,8 @@ public class PhoneProfilesService extends Service
                             PreferenceAllowed.PREFERENCE_ALLOWED;
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventBluetoothEnableScanning(appContext)) {
-                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
+                            //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
                                 int eventCount = 1;
                                 if (checkDatabase/* || (!BluetoothScanJob.isJobScheduled())*/) {
@@ -2683,8 +2683,8 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
                         if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                             // location scanner is enabled
-                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
+                            //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext)) {
                                 // start only for screen On
                                 int eventCount = 1;
                                 if (checkDatabase/* || (!GeofenceScannerJob.isJobScheduled())*/) {
@@ -2786,8 +2786,8 @@ public class PhoneProfilesService extends Service
                     boolean applicationEventLocationScanOnlyWhenScreenIsOn = ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(appContext);
                     if (ApplicationPreferences.applicationEventLocationEnableScanning(appContext)) {
                         // location scanner is enabled
-                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && PPApplication.isScreenOn(pm)) || !applicationEventLocationScanOnlyWhenScreenIsOn) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if ((PPApplication.isScreenOn) || !applicationEventLocationScanOnlyWhenScreenIsOn) {
                             // start only for screen On
                             int eventCount = 1;
                             if (checkDatabase/* || (!isGeofenceScannerStarted())*/) {
@@ -2797,7 +2797,7 @@ public class PhoneProfilesService extends Service
                                 if (!isGeofenceScannerStarted()) {
                                     CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
                                     PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START");
-                                    if (forScreenOn && (pm != null) && PPApplication.isScreenOn(pm) &&
+                                    if (forScreenOn && PPApplication.isScreenOn &&
                                             applicationEventLocationScanOnlyWhenScreenIsOn)
                                         startGeofenceScanner(true);
                                     else
@@ -2842,8 +2842,8 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled="+applicationEventMobileCellEnableScanning);
                     PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "PhoneStateScanner.forceStart="+PhoneStateScanner.forceStart);
                     if (applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
-                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             int eventCount = 1;
                             if (checkDatabase/* || (!isPhoneStateScannerStarted())*/) {
@@ -2890,8 +2890,8 @@ public class PhoneProfilesService extends Service
                         PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (eventAllowed) {
                     if (ApplicationPreferences.applicationEventOrientationEnableScanning(appContext)) {
-                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        if (((pm != null) && PPApplication.isScreenOn(pm)) || !ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(appContext)) {
+                        //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        if ((PPApplication.isScreenOn) || !ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(appContext)) {
                             // start only for screen On
                             int eventCount = 1;
                             if (checkDatabase/* || (!isOrientationScannerStarted())*/) {
@@ -3503,9 +3503,9 @@ public class PhoneProfilesService extends Service
 
                             Context appContext = getApplicationContext();
 
-                            boolean isScreenOn;
-                            PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
+                            //boolean isScreenOn;
+                            //PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            //isScreenOn = ((pm != null) && PPApplication.isScreenOn(pm));
 
                             boolean secureKeyguard;
                             if (keyguardManager == null)
@@ -3516,7 +3516,7 @@ public class PhoneProfilesService extends Service
                                 if (!secureKeyguard) {
                                     PPApplication.logE("$$$ PhoneProfilesService.doCommand xxx", "getLockScreenDisabled=" + ActivateProfileHelper.getLockScreenDisabled(appContext));
 
-                                    if (isScreenOn) {
+                                    if (PPApplication.isScreenOn) {
                                         PPApplication.logE("$$$ PhoneProfilesService.doCommand", "screen on");
 
                                         if (ActivateProfileHelper.getLockScreenDisabled(appContext)) {

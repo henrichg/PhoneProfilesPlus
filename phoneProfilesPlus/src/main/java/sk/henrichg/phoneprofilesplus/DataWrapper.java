@@ -2524,8 +2524,8 @@ public class DataWrapper {
                                 // not allowed for disabled scanning
                                 notAllowedWifi = true;
                         } else {
-                            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                            if (!PPApplication.isScreenOn(pm) && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
+                            //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                            if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventWifiScanOnlyWhenScreenIsOn(context)) {
                                 if (forRestartEvents)
                                     wifiPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesWifi.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                                 else
@@ -2640,9 +2640,8 @@ public class DataWrapper {
 
         if (event._eventPreferencesScreen._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesScreen.PREF_EVENT_SCREEN_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                boolean isScreenOn;
-                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                isScreenOn = PPApplication.isScreenOn(pm);
+                //boolean isScreenOn;
+                //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean keyguardShowing = false;
 
                 if (event._eventPreferencesScreen._whenUnlocked) {
@@ -2653,15 +2652,15 @@ public class DataWrapper {
                 if (event._eventPreferencesScreen._eventType == EventPreferencesScreen.ETYPE_SCREENON) {
                     if (event._eventPreferencesScreen._whenUnlocked)
                         // passed if screen is on and unlocked => start only when unlocked
-                        screenPassed = isScreenOn && (!keyguardShowing);
+                        screenPassed = PPApplication.isScreenOn && (!keyguardShowing);
                     else
-                        screenPassed = isScreenOn;
+                        screenPassed = PPApplication.isScreenOn;
                 } else {
                     if (event._eventPreferencesScreen._whenUnlocked)
                         // passed if screen is off or locked => locked is the same as screen off
-                        screenPassed = (!isScreenOn) || keyguardShowing;
+                        screenPassed = (!PPApplication.isScreenOn) || keyguardShowing;
                     else
-                        screenPassed = !isScreenOn;
+                        screenPassed = !PPApplication.isScreenOn;
                 }
 
                 if (!notAllowedScreen) {
@@ -2791,8 +2790,8 @@ public class DataWrapper {
                                 // not allowed for disabled scanning
                                 notAllowedBluetooth = true;
                         } else {
-                            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                            if (!PPApplication.isScreenOn(pm) && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
+                            //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                            if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventBluetoothScanOnlyWhenScreenIsOn(context)) {
                                 if (forRestartEvents)
                                     bluetoothPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesBluetooth.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                                 else
@@ -3096,8 +3095,8 @@ public class DataWrapper {
                         notAllowedLocation = true;
                     }
                 } else {
-                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    if (!PPApplication.isScreenOn(pm) && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
+                    //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn(context)) {
                         if (forRestartEvents)
                             locationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesLocation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                         else {
@@ -3179,7 +3178,7 @@ public class DataWrapper {
         if (event._eventPreferencesOrientation._enabled) {
             if ((Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
                 ApplicationPreferences.getSharedPreferences(context);
-                PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                 boolean inCall = false;
                 TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephony != null) {
@@ -3195,7 +3194,7 @@ public class DataWrapper {
                     else
                         // not allowed for disabled orientation scanner
                         notAllowedOrientation = true;
-                } else if (!PPApplication.isScreenOn(pm) && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
+                } else if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn(context)) {
                     if (forRestartEvents)
                         orientationPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesOrientation.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                     else
@@ -3319,8 +3318,8 @@ public class DataWrapper {
                         // not allowed for disabled mobile cells scanner
                         notAllowedMobileCell = true;
                 } else {
-                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    if (!PPApplication.isScreenOn(pm) && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
+                    //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    if (!PPApplication.isScreenOn && ApplicationPreferences.applicationEventMobileCellScanOnlyWhenScreenIsOn(context)) {
                         if (forRestartEvents)
                             mobileCellPassed = (EventPreferences.SENSOR_PASSED_PASSED & event._eventPreferencesMobileCells.getSensorPassed()) == EventPreferences.SENSOR_PASSED_PASSED;
                         else
