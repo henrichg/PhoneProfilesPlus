@@ -34,7 +34,6 @@
         app:key="eventCalendarSearchString"
         app:summary="@string/event_preferences_calendar_search_string"
         app:title="@string/event_preferences_calendar_search_string"
-        app:selectAllOnFocus="true"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat

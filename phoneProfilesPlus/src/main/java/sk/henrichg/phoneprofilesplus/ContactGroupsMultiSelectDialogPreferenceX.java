@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
 
@@ -123,6 +125,84 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
 
             setSummaryCMSDP();
         }
+    }
+
+
+    @Override
+    protected Parcelable onSaveInstanceState()
+    {
+        final Parcelable superState = super.onSaveInstanceState();
+        /*if (isPersistent()) {
+            return superState;
+        }*/
+
+        final ContactGroupsMultiSelectDialogPreferenceX.SavedState myState = new ContactGroupsMultiSelectDialogPreferenceX.SavedState(superState);
+        myState.value = value;
+
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state)
+    {
+        //if (dataWrapper == null)
+        //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
+
+        if (!state.getClass().equals(ContactGroupsMultiSelectDialogPreferenceX.SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            setSummaryCMSDP();
+            return;
+        }
+
+        // restore instance state
+        ContactGroupsMultiSelectDialogPreferenceX.SavedState myState = (ContactGroupsMultiSelectDialogPreferenceX.SavedState)state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        value = myState.value;
+
+        setSummaryCMSDP();
+        //notifyChanged();
+    }
+
+    // SavedState class
+    private static class SavedState extends BaseSavedState
+    {
+        String value;
+
+        SavedState(Parcel source)
+        {
+            super(source);
+
+            value = source.readString();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags)
+        {
+            super.writeToParcel(dest, flags);
+
+            dest.writeString(value);
+        }
+
+        SavedState(Parcelable superState)
+        {
+            super(superState);
+        }
+
+        @SuppressWarnings("unused")
+        public static final Creator<ContactGroupsMultiSelectDialogPreferenceX.SavedState> CREATOR =
+                new Creator<ContactGroupsMultiSelectDialogPreferenceX.SavedState>() {
+                    public ContactGroupsMultiSelectDialogPreferenceX.SavedState createFromParcel(Parcel in)
+                    {
+                        return new ContactGroupsMultiSelectDialogPreferenceX.SavedState(in);
+                    }
+                    public ContactGroupsMultiSelectDialogPreferenceX.SavedState[] newArray(int size)
+                    {
+                        return new ContactGroupsMultiSelectDialogPreferenceX.SavedState[size];
+                    }
+
+                };
+
     }
 
 }
