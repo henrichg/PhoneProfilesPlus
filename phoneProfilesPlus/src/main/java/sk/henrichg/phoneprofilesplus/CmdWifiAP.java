@@ -21,7 +21,7 @@ public class CmdWifiAP {
     }
 
     static boolean setWifiAP(boolean enable) {
-        final String packageName = "sk.henrichg.phoneprofilesplus";
+        final String packageName = PPApplication.PACKAGE_NAME;
         try {
             IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));  // service list | grep IConnectivityManager
             if (enable) {

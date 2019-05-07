@@ -36,6 +36,11 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         setSummaryCMSDP();
     }
 
+    void refreshListView(final boolean notForUnselect) {
+        if (fragment != null)
+            fragment.refreshListView(notForUnselect);
+    }
+
     void getValueCMSDP()
     {
         // change checked state by value

@@ -49,7 +49,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
     //static MobileCellsRegistrationService autoRegistrationService = null;
 
-    //static String ACTION_PHONE_STATE_CHANGED = "sk.henrichg.phoneprofilesplus.ACTION_PHONE_STATE_CHANGED";
+    //static String ACTION_PHONE_STATE_CHANGED = PPApplication.PACKAGE_NAME + ".ACTION_PHONE_STATE_CHANGED";
 
     PhoneStateScanner(Context context) {
         PPApplication.logE("PhoneStateScanner.constructor", "xxx");
@@ -596,7 +596,7 @@ class PhoneStateScanner extends PhoneStateListener {
 
         /*
         // broadcast for cells editor
-        Intent intent = new Intent("PhoneStateChangedBroadcastReceiver_preference");
+        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".PhoneStateChangedBroadcastReceiver_preference");
         //intent.putExtra("state", mode);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         */
@@ -655,7 +655,7 @@ class PhoneStateScanner extends PhoneStateListener {
                                     intent.setPackage(context.getPackageName());
                                     context.sendBroadcast(intent);
 
-                                    Intent refreshIntent = new Intent("RefreshActivitiesBroadcastReceiver");
+                                    Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
                                     refreshIntent.putExtra(PPApplication.EXTRA_EVENT_ID, event_id);
                                     LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
                                 }
@@ -680,7 +680,7 @@ class PhoneStateScanner extends PhoneStateListener {
             if (isValidCellId(cellIdToRegister)) {
                 PPApplication.logE("PhoneStateScanner.doAutoRegistration", "send broadcast for force start");
                 // broadcast for event preferences
-                Intent refreshIntent = new Intent("MobileCellsPreference_refreshListView");
+                Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView");
                 LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
             }
         }

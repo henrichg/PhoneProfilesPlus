@@ -177,7 +177,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             FragmentManager fragmentManager = getFragmentManager();
             if (fragmentManager != null) {
                 dialogFragment.setTargetFragment(this, 0);
-                dialogFragment.show(fragmentManager, "sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity.DIALOG");
+                dialogFragment.show(fragmentManager, PPApplication.PACKAGE_NAME + ".ProfilesPrefsActivity.DIALOG");
             }
         }
         else

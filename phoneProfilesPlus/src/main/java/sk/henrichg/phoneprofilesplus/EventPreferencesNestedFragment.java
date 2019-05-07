@@ -559,7 +559,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 public boolean onPreferenceClick(Preference preference) {
                     if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
                         PackageManager packageManager = context.getPackageManager();
-                        Intent intent = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofilesplusextender");
+                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                         if (intent != null) {
                             intent.addCategory(Intent.CATEGORY_LAUNCHER);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -647,7 +647,7 @@ public class EventPreferencesNestedFragment extends PreferenceFragment
                 public boolean onPreferenceClick(Preference preference) {
                     if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
                         PackageManager packageManager = context.getPackageManager();
-                        Intent intent = packageManager.getLaunchIntentForPackage("sk.henrichg.phoneprofilesplusextender");
+                        Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                         if (intent != null) {
                             intent.addCategory(Intent.CATEGORY_LAUNCHER);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

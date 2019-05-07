@@ -229,16 +229,16 @@ public class ActivateProfileActivity extends AppCompatActivity {
         });
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                new IntentFilter("RefreshActivatorGUIBroadcastReceiver"));
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshActivatorGUIBroadcastReceiver"));
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                new IntentFilter("ShowActivatorTargetHelpsBroadcastReceiver"));
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver"));
 
         refreshGUI(true, false);
 
     //-----------------------------------------------------------------------------------------		
 
         LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
-                new IntentFilter("FinishActivatorBroadcastReceiver"));
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishActivatorBroadcastReceiver"));
 
     }
 
@@ -579,7 +579,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent("ShowActivatorTargetHelpsBroadcastReceiver");
+                        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowActivatorTargetHelpsBroadcastReceiver");
                         intent.putExtra(ActivateProfileActivity.EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                         /*if (ActivateProfileActivity.getInstance() != null) {

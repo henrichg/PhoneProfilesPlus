@@ -18,17 +18,17 @@ abstract class PreferenceActivity extends AppCompatPreferenceActivity
 
         //First check if it's already loaded (configuration change) so we don't overlap fragments
         if(getFragmentManager()
-                .findFragmentByTag("sk.henrichg.phoneprofilesplus.MainFragment") != null){
+                .findFragmentByTag(PPApplication.PACKAGE_NAME + ".MainFragment") != null){
             return;
         }
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         //if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             fragmentTransaction.replace(R.id.content, preferenceFragment,
-                    "sk.henrichg.phoneprofilesplus.MainFragment");
+                    PPApplication.PACKAGE_NAME + ".MainFragment");
         //}else{
         //    fragmentTransaction.replace(android.R.id.content, preferenceFragment,
-        //            "sk.henrichg.phoneprofilesplus.MainFragment");
+        //            PPApplication.PACKAGE_NAME + ".MainFragment");
         //}
         fragmentTransaction.commit();
     }

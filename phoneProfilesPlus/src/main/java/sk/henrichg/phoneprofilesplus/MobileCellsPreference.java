@@ -95,11 +95,13 @@ public class MobileCellsPreference extends DialogPreference {
         //intentFilter.addAction(PhoneStateScanner.ACTION_PHONE_STATE_CHANGED);
         phoneStateChangedBroadcastReceiver = new PhoneStateChangedBroadcastReceiver(this);
         //context.registerReceiver(EventPreferencesNestedFragment.phoneStateChangedBroadcastReceiver, intentFilter);
-        LocalBroadcastManager.getInstance(context).registerReceiver(phoneStateChangedBroadcastReceiver, new IntentFilter("PhoneStateChangedBroadcastReceiver_preference"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(phoneStateChangedBroadcastReceiver,
+                        new IntentFilter(PPApplication.PACKAGE_NAME + ".PhoneStateChangedBroadcastReceiver_preference"));
         */
 
         refreshListViewBroadcastReceiver = new RefreshListViewBroadcastReceiver(this);
-        LocalBroadcastManager.getInstance(context).registerReceiver(refreshListViewBroadcastReceiver, new IntentFilter("MobileCellsPreference_refreshListView"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(refreshListViewBroadcastReceiver,
+                                new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
 
         PPApplication.forceStartPhoneStateScanner(context);
         forceStart = true;

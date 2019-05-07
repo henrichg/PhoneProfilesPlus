@@ -22,16 +22,16 @@ import static android.content.Context.POWER_SERVICE;
 
 public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String EXTRA_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender.package_name";
-    private static final String EXTRA_CLASS_NAME = "sk.henrichg.phoneprofilesplusextender.class_name";
+    private static final String EXTRA_PACKAGE_NAME = PPApplication.PACKAGE_NAME_EXTENDER + ".package_name";
+    private static final String EXTRA_CLASS_NAME = PPApplication.PACKAGE_NAME_EXTENDER + ".class_name";
 
-    private static final String EXTRA_ORIGIN = "sk.henrichg.phoneprofilesplusextender.origin";
-    private static final String EXTRA_TIME = "sk.henrichg.phoneprofilesplusextender.time";
+    private static final String EXTRA_ORIGIN = PPApplication.PACKAGE_NAME_EXTENDER + ".origin";
+    private static final String EXTRA_TIME = PPApplication.PACKAGE_NAME_EXTENDER + ".time";
 
-    //private static final String EXTRA_SERVICE_PHONE_EVENT = "sk.henrichg.phoneprofilesplusextender.service_phone_event";
-    private static final String EXTRA_CALL_EVENT_TYPE = "sk.henrichg.phoneprofilesplusextender.call_event_type";
-    private static final String EXTRA_PHONE_NUMBER = "sk.henrichg.phoneprofilesplusextender.phone_number";
-    private static final String EXTRA_EVENT_TIME = "sk.henrichg.phoneprofilesplusextender.event_time";
+    //private static final String EXTRA_SERVICE_PHONE_EVENT = PPApplication.PACKAGE_NAME_EXTENDER + ".service_phone_event";
+    private static final String EXTRA_CALL_EVENT_TYPE = PPApplication.PACKAGE_NAME_EXTENDER + ".call_event_type";
+    private static final String EXTRA_PHONE_NUMBER = PPApplication.PACKAGE_NAME_EXTENDER + ".phone_number";
+    private static final String EXTRA_EVENT_TIME = PPApplication.PACKAGE_NAME_EXTENDER + ".event_time";
 
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
@@ -336,7 +336,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     static int isExtenderInstalled(Context context) {
         try {
             PackageManager packageManager = context.getPackageManager();
-            ApplicationInfo appInfo = packageManager.getApplicationInfo("sk.henrichg.phoneprofilesplusextender", 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(PPApplication.PACKAGE_NAME_EXTENDER, 0);
             boolean installed = appInfo.enabled;
             if (installed) {
                 PPApplication.logE("PPPExtenderBroadcastReceiver.isExtenderInstalled", "installed=true");

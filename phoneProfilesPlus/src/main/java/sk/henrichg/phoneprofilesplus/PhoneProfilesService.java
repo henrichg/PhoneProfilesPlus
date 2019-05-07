@@ -132,21 +132,21 @@ public class PhoneProfilesService extends Service
     private SettingsContentObserver settingsContentObserver = null;
     private MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
 
-    static final String ACTION_EVENT_TIME_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventTimeBroadcastReceiver";
-    static final String ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventCalendarBroadcastReceiver";
-    static final String ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventDelayStartBroadcastReceiver";
-    static final String ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.EventDelayEndBroadcastReceiver";
-    static final String ACTION_PROFILE_DURATION_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver";
-    static final String ACTION_SMS_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.SMSEventEndBroadcastReceiver";
-    private static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NotificationCancelAlarmBroadcastReceiver";
-    static final String ACTION_NFC_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.NFCEventEndBroadcastReceiver";
-    static final String ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.RunApplicationWithDelayBroadcastReceiver";
-    static final String ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.MissedCallEventEndBroadcastReceiver";
-    static final String ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.StartEventNotificationBroadcastReceiver";
-    static final String ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.GeofencesScannerSwitchGPSBroadcastReceiver";
-    static final String ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.LockDeviceActivityFinishBroadcastReceiver";
-    static final String ACTION_ALARM_CLOCK_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.AlarmClockBroadcastReceiver";
-    static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = "sk.henrichg.phoneprofilesplus.AlarmClockEventEndBroadcastReceiver";
+    static final String ACTION_EVENT_TIME_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventTimeBroadcastReceiver";
+    static final String ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventCalendarBroadcastReceiver";
+    static final String ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventDelayStartBroadcastReceiver";
+    static final String ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".EventDelayEndBroadcastReceiver";
+    static final String ACTION_PROFILE_DURATION_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".ProfileDurationAlarmBroadcastReceiver";
+    static final String ACTION_SMS_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".SMSEventEndBroadcastReceiver";
+    private static final String ACTION_NOTIFICATION_CANCEL_ALARM_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NotificationCancelAlarmBroadcastReceiver";
+    static final String ACTION_NFC_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".NFCEventEndBroadcastReceiver";
+    static final String ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RunApplicationWithDelayBroadcastReceiver";
+    static final String ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MissedCallEventEndBroadcastReceiver";
+    static final String ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".StartEventNotificationBroadcastReceiver";
+    static final String ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".GeofencesScannerSwitchGPSBroadcastReceiver";
+    static final String ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".LockDeviceActivityFinishBroadcastReceiver";
+    static final String ACTION_ALARM_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockBroadcastReceiver";
+    static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -236,8 +236,8 @@ public class PhoneProfilesService extends Service
 
     //--------------------------
 
-    static final String ACTION_COMMAND = "sk.henrichg.phoneprofilesplus.PhoneProfilesService.ACTION_COMMAND";
-    private static final String ACTION_STOP = "sk.henrichg.phoneprofilesplus.PhoneProfilesService.ACTION_STOP_SERVICE";
+    static final String ACTION_COMMAND = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_COMMAND";
+    private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".PhoneProfilesService.ACTION_STOP_SERVICE";
 
     private final BroadcastReceiver commandReceiver = new BroadcastReceiver() {
         @Override
@@ -1998,7 +1998,8 @@ public class PhoneProfilesService extends Service
                         CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers->REGISTER bluetoothLEScanReceiver", "PhoneProfilesService_registerBluetoothScannerReceivers");
                         PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "REGISTER bluetoothLEScanReceiver");
                         bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
-                        LocalBroadcastManager.getInstance(appContext).registerReceiver(bluetoothLEScanReceiver, new IntentFilter("BluetoothLEScanBroadcastReceiver"));
+                        LocalBroadcastManager.getInstance(appContext).registerReceiver(bluetoothLEScanReceiver,
+                                new IntentFilter(PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver"));
                     }
                     else
                         PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "registered bluetoothLEScanReceiver");
@@ -3053,7 +3054,7 @@ public class PhoneProfilesService extends Service
                 sipProfile = builder.build();
 
                 Intent intent = new Intent();
-                intent.setAction("sk.henrichg.phoneprofilesplus.INCOMING_SIPCALL");
+                intent.setAction(PPApplication.PACKAGE_NAME + ".INCOMING_SIPCALL");
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(appContext, 0, intent, Intent.FILL_IN_DATA);
                 mSipManager.open(sipProfile, pendingIntent, null);
 

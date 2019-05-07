@@ -25,8 +25,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 public class PPNotificationListenerService extends NotificationListenerService {
 
-    private static final String ACTION_REQUEST_INTERRUPTION_FILTER = "sk.henrichg.phoneprofilesplus.ACTION_REQUEST_INTERRUPTION_FILTER";
-            //PPNotificationListenerService.class.getPackage().getName() + '.' + "ACTION_REQUEST_INTERRUPTION_FILTER";
+    private static final String ACTION_REQUEST_INTERRUPTION_FILTER = PPApplication.PACKAGE_NAME + ".ACTION_REQUEST_INTERRUPTION_FILTER";
     private static final String EXTRA_FILTER = "filter";
 
     private static final String TAG = PPNotificationListenerService.class.getSimpleName();

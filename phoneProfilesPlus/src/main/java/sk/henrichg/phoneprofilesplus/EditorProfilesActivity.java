@@ -591,14 +591,14 @@ public class EditorProfilesActivity extends AppCompatActivity
 
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
-                new IntentFilter("RefreshEditorGUIBroadcastReceiver"));
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
         LocalBroadcastManager.getInstance(this).registerReceiver(showTargetHelpsBroadcastReceiver,
-                new IntentFilter("ShowEditorTargetHelpsBroadcastReceiver"));
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver"));
 
         refreshGUI(true, false, true, 0, 0);
 
         LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
-                new IntentFilter("FinishEditorBroadcastReceiver"));
+                new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishEditorBroadcastReceiver"));
     }
 
     /*public static EditorProfilesActivity getInstance()
@@ -2562,7 +2562,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent("ShowEditorTargetHelpsBroadcastReceiver");
+                        Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ShowEditorTargetHelpsBroadcastReceiver");
                         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
                         /*if (EditorProfilesActivity.getInstance() != null) {
                             Fragment fragment = EditorProfilesActivity.getInstance().getFragmentManager().findFragmentById(R.id.editor_list_container);

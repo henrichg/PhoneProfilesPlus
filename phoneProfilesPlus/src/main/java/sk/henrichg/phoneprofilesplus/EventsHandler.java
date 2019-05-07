@@ -607,10 +607,7 @@ class EventsHandler {
             doEndHandler(dataWrapper);
 
             // refresh GUI
-            /*Intent refreshIntent = new Intent();
-            refreshIntent.setAction(RefreshActivitiesBroadcastReceiver.INTENT_REFRESH_GUI);
-            context.sendBroadcast(refreshIntent);*/
-            Intent refreshIntent = new Intent("RefreshActivitiesBroadcastReceiver");
+            Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshActivitiesBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
 
 

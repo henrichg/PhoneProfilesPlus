@@ -6,7 +6,7 @@ import android.content.Intent;
 
 public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 
-    static final String START_EVENT_NOTIFICATION_DELETED_ACTION = "sk.henrichg.phoneprofilesplus.START_EVENT_NOTIFICATION_DELETED";
+    static final String START_EVENT_NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".START_EVENT_NOTIFICATION_DELETED";
 
     @Override
     public void onReceive(Context context, Intent intent) {

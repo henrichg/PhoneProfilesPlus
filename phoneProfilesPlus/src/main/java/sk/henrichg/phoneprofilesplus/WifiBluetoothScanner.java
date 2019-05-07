@@ -392,7 +392,7 @@ class WifiBluetoothScanner {
                                             // send broadcast for start EventsHandler
                                             /*Intent btLEIntent = new Intent(context, BluetoothLEScanBroadcastReceiver.class);
                                             sendBroadcast(btLEIntent);*/
-                                            Intent btLEIntent = new Intent("BluetoothLEScanBroadcastReceiver");
+                                            Intent btLEIntent = new Intent(PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver");
                                             LocalBroadcastManager.getInstance(context).sendBroadcast(btLEIntent);
                                         }
 
