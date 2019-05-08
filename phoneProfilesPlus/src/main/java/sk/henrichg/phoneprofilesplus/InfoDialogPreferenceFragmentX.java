@@ -11,7 +11,6 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
     private InfoDialogPreferenceX preference;
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

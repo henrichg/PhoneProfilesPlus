@@ -226,6 +226,22 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof MobileCellsRegistrationDialogPreferenceX)
+        {
+            ((MobileCellsRegistrationDialogPreferenceX)preference).fragment = new MobileCellsRegistrationDialogPreferenceFragmentX();
+            dialogFragment = ((MobileCellsRegistrationDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        if (preference instanceof MobileCellsPreferenceX)
+        {
+            ((MobileCellsPreferenceX)preference).fragment = new MobileCellsPreferenceFragmentX();
+            dialogFragment = ((MobileCellsPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
