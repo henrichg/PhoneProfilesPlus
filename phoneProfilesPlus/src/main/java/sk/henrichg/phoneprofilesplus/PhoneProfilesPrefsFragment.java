@@ -218,7 +218,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-
+        if (preference instanceof BluetoothNamePreferenceX)
+        {
+            ((BluetoothNamePreferenceX)preference).fragment = new BluetoothNamePreferenceFragmentX();
+            dialogFragment = ((BluetoothNamePreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {

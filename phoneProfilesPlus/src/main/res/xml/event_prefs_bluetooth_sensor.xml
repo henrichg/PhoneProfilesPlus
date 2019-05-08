@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="eventBluetoothCategory"
+    app:title="@string/event_preferences_category_eventBluetoothParameters" >
+
+    <SwitchPreferenceCompat
+        app:key="eventBluetoothEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="eventEnableBluetoothScanningAppSettings"
+        app:title="@string/phone_profiles_pref_category_bluetooth_scanning"
+        app:summary="@string/phone_profiles_pref_eventBluetoothAppSettings_summary"
+        app:dependency="eventBluetoothEnabled"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="eventBluetoothLocationSystemSettings"
+        app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
+        app:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:dependency="eventBluetoothEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/event_preferences_bluetooth_connection_type"
+        app:summary="@string/array_event_pref_bluetoothConnectionType_connected"
+        app:key="eventBluetoothConnectionType"
+        app:defaultValue="0"
+        app:entries="@array/eventBluetoothConnectionTypeArray"
+        app:entryValues="@array/eventBluetoothConnectionTypeValues"
+        app:dependency="eventBluetoothEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/event_preferences_bluetooth_devices_type"
+        app:summary="@string/array_event_pref_bluetoothDevicesType_classic"
+        app:key="eventBluetoothDevicesType"
+        app:defaultValue="0"
+        app:entries="@array/eventBluetoothDevicesTypeArray"
+        app:entryValues="@array/eventBluetoothDevicesTypeValues"
+        app:dependency="eventBluetoothEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BluetoothNamePreferenceX
+        app:key="eventBluetoothAdapterNAME"
+        app:summary="@string/event_preferences_bluetooth_adapter_name"
+        app:title="@string/event_preferences_bluetooth_adapter_name"
+        app:dependency="eventBluetoothEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>
