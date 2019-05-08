@@ -300,10 +300,10 @@ public class RootShell {
      * @throws com.stericson.RootShell.exceptions.RootDeniedException
      * @throws IOException
      */
-    @SuppressWarnings({"RedundantThrows", "InfiniteRecursion"})
     public static Shell getCustomShell(String shellPath, int timeout) throws IOException, TimeoutException, RootDeniedException
     {
-        return RootShell.getCustomShell(shellPath, timeout);
+        //return RootShell.getCustomShell(shellPath, timeout);
+        return Shell.startCustomShell(shellPath, timeout);
     }
 
     /**
