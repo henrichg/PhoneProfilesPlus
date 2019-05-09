@@ -7,10 +7,10 @@ import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 
 public class ImportantInfoActivity extends AppCompatActivity {
@@ -74,26 +74,27 @@ public class ImportantInfoActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.important_info_quick_guide_tab));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = findViewById(R.id.activity_important_info_pager);
-        final PagerAdapter adapter = new HelpActivityFragmentStateAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        final ViewPager2 viewPager = findViewById(R.id.activity_important_info_pager);
+        HelpActivityFragmentStateAdapterX adapter = new HelpActivityFragmentStateAdapterX(getSupportFragmentManager(), getLifecycle());
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+        // add Fragments in your ViewPagerFragmentAdapter class
+        adapter.addFragment(new ImportantInfoHelpFragment());
+        adapter.addFragment(new QuickGuideHelpFragment());
 
-            }
+        viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager,
+                new TabLayoutMediator.OnConfigureTabCallback() {
+                    @Override
+                    public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                        if (position == 1)
+                            tab.setText(R.string.important_info_quick_guide_tab);
+                        else
+                            tab.setText(R.string.important_info_important_info_tab);
+                    }
+                });
+        tabLayoutMediator.attach();
 
         Intent intent = getIntent();
         if (intent.getBooleanExtra(EXTRA_SHOW_QUICK_GUIDE, false)) {

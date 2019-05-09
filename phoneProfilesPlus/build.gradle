@@ -61,6 +61,7 @@ dependencies {
     implementation "androidx.gridlayout:gridlayout:$ppVersions.otherXLib"
     implementation "androidx.cardview:cardview:$ppVersions.otherXLib"
     implementation "androidx.recyclerview:recyclerview:$ppVersions.otherXLib"
+    implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha04'
     implementation "com.google.android.material:material:$ppVersions.otherXLib"
 
     implementation "com.google.android.gms:play-services-location:16.0.0"

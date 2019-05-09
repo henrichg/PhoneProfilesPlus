@@ -41,7 +41,7 @@
             android:background="@drawable/topbar_dropshadow"
             android:layout_gravity="top" />
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/activity_important_info_pager"
             android:layout_width="match_parent"
             android:layout_height="fill_parent" />
