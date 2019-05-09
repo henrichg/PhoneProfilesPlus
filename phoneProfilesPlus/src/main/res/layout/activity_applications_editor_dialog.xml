@@ -59,6 +59,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:layout_marginEnd="5dp"
+                android:scrollbars="none"
                 app:fastScrollAutoHide="false"
                 app:fastScrollPopupTextSize="44sp"
                 app:fastScrollPopupBackgroundSize="70dp"

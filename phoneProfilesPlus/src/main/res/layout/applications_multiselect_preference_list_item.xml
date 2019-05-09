@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_toEndOf="@id/applications_multiselect_pref_dlg_item_icon"
         android:text="@string/empty_string"
         android:textSize="14sp"
