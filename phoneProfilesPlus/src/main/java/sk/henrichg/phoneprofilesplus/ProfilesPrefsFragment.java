@@ -1050,8 +1050,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 GlobalGUIRoutines.setRingtonePreferenceSummary(summary,
                         preferences.getString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO)),
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND)),
                         preferenceScreen, context);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, true, false, false, false);
                 return;
             }
         }
@@ -1316,6 +1317,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM)),
                         preferenceScreen, context);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, true, false, false, false);
                 return;
             }
 
