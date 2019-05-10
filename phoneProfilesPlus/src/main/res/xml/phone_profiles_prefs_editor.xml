@@ -8,22 +8,22 @@
         app:key="applicationEditorPrefIndicator"
         app:title="@string/phone_profiles_pref_applicationPrefIndicator"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="applicationEditorHeader"
         app:title="@string/phone_profiles_pref_applicationHeader"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="applicationEditorSaveEditorState"
         app:title="@string/phone_profiles_pref_applicationEditorSaveEditorState"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="applicationEditorAutoCloseDrawer"
         app:title="@string/phone_profiles_pref_applicationAutoCloseDrawer"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationDeleteOldActivityLogs"
         app:summary="@string/phone_profiles_pref_deleteOldActivityLogs"
@@ -31,6 +31,6 @@
         app:defaultValue="7"
         app:min="0"
         app:max="30"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     
 </androidx.preference.PreferenceScreen>

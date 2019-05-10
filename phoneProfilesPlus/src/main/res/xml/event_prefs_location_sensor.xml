@@ -8,33 +8,33 @@
         app:key="eventLocationEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="eventLocationScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_location"
         app:summary="@string/phone_profiles_pref_eventLocationAppSettings_summary"
         app:dependency="eventLocationEnabled"
         app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="eventLocationLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventLocationSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="eventLocationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.LocationGeofencePreferenceX
         app:defaultValue="0"
         app:key="eventLocationGeofences"
         app:title="@string/event_preferences_locations_location"
         app:onlyEdit="0"
         app:dependency="eventLocationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="eventLocationStartWhenOutside"
         app:title="@string/event_preferences_location_when_outside_pref_name"
         app:defaultValue="false"
         app:dependency="eventLocationEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
 
 </androidx.preference.PreferenceScreen>

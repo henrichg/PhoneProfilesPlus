@@ -9,7 +9,7 @@
         app:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
         app:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfoM_summary"
         app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_volumeRingerMode"
         app:summary="@string/array_pref_no_change"
@@ -17,13 +17,13 @@
         app:defaultValue="0"
         app:entries="@array/ringerModeArray"
         app:entryValues="@array/ringerModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="prf_pref_volumeNotificationsAccessSettings"
         app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
         app:summary="@string/profile_preferences_volumeNotificationsAccessSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget" >
+        app:iconSpaceReserved="false" >
     </Preference>
     <ListPreference
         app:title="@string/profile_preferences_volumeZenModeM"
@@ -32,7 +32,7 @@
         app:defaultValue="0"
         app:entries="@array/zenModeArray"
         app:entryValues="@array/zenModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_vibrateWhenRinging"
         app:summary="@string/array_pref_no_change"
@@ -40,6 +40,6 @@
         app:defaultValue="0"
         app:entries="@array/vibrateWhenRingingArray"
         app:entryValues="@array/vibrateWhenRingingValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     
 </androidx.preference.PreferenceScreen>

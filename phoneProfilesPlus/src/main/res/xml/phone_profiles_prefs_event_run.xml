@@ -9,11 +9,11 @@
         app:title="@string/phone_profiles_pref_eventRunUsePriority"
         app:summary="@string/event_preferences_event_priorityInfo_summary"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="applicationRestartEventsAlert"
         app:title="@string/phone_profiles_pref_applicationRestartEventsAlert"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     
 </androidx.preference.PreferenceScreen>

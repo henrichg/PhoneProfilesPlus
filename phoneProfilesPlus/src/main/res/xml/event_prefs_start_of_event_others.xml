@@ -8,13 +8,13 @@
         app:defaultValue="@string/empty_string"
         app:key="eventStartWhenActivatedProfile"
         app:title="@string/event_preferences_eventStartWhenActivatedProfile"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="manualProfileActivation"
         app:title="@string/event_preferences_manualProfileActivation"
         app:defaultValue="false"
         app:disableDependentsState="true"
-        app:layout="@layout/mp_preference_material_widget"/>
+        app:iconSpaceReserved="false"/>
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
         app:key="eventDelayStart"
         app:summary="@string/event_preferences_delayStart"
@@ -22,13 +22,13 @@
         app:defaultValue="0"
         app:dMin="0"
         app:dMax="86400"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="eventStartNotificationSoundInfo"
         app:title="@string/event_preferences_notificationSound"
         app:summary="@string/preferences_durationNotificationSoundInfo_summary"
         app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
         app:key="eventStartNotificationSound"
         app:summary="@string/ringtone_preference_not_set"
@@ -36,17 +36,17 @@
         app:ringtoneType="notification"
         app:showSilent="true"
         app:showDefault="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="eventStartNotificationVibrate"
         app:title="@string/event_preferences_notificationVibrate"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget"/>
+        app:iconSpaceReserved="false"/>
     <SwitchPreferenceCompat
         app:key="eventStartNotificationRepeat"
         app:title="@string/event_preferences_notificationRepeat"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget"/>
+        app:iconSpaceReserved="false"/>
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
         app:key="eventStartNotificationRepeatInterval"
         app:summary="@string/event_preferences_notificationRepeatInterval"
@@ -55,7 +55,7 @@
         app:dMin="10"
         app:dMax="86400"
         app:dependency="eventStartNotificationRepeat"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     
 
 </androidx.preference.PreferenceScreen>

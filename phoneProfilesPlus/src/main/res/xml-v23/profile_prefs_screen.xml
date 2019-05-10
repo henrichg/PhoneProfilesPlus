@@ -9,7 +9,7 @@
         app:title="@string/profile_preferences_deviceScreenTimeout"
         app:summary="@string/profile_preferences_deviceScreenTimeoutInfo_summary"
         app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceScreenTimeout"
         app:summary="@string/array_pref_no_change"
@@ -17,7 +17,7 @@
         app:defaultValue="0"
         app:entries="@array/screenTimeoutArray"
         app:entryValues="@array/screenTimeoutValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceKeyguard"
         app:summary="@string/array_pref_no_change"
@@ -25,14 +25,14 @@
         app:defaultValue="0"
         app:entries="@array/keyguardArray"
         app:entryValues="@array/keyguardValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.BrightnessDialogPreferenceX
         app:key="prf_pref_deviceBrightness"
         app:bNoChange="1"
         app:bAutomatic="0"
         app:title="@string/profile_preferences_deviceBrightness"
         app:summary="@string/brightness_pref_dialog_no_change_chb"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceAutoRotation"
         app:summary="@string/array_pref_no_change"
@@ -40,14 +40,14 @@
         app:defaultValue="0"
         app:entries="@array/displayRotationArray"
         app:entryValues="@array/displayRotationValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="prf_pref_notificationLedInfo"
         app:title="@string/profile_preferences_notificationLed_23"
         app:summary="@string/profile_preferences_notificationLedInfo_summary"
         app:widgetLayout="@layout/info_preference"
         app:dependency="prf_pref_notificationLed"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_notificationLed"
         app:summary="@string/array_pref_no_change"
@@ -55,7 +55,7 @@
         app:defaultValue="0"
         app:entries="@array/notificationLedArray"
         app:entryValues="@array/notificationLedValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_headsUpNotifications"
         app:summary="@string/array_pref_no_change"
@@ -63,7 +63,7 @@
         app:defaultValue="0"
         app:entries="@array/headsUpNotificationsArray"
         app:entryValues="@array/headsUpNotificationsValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <!--
     <ListPreference
         app:title="@string/profile_preferences_screenNightMode"
@@ -72,7 +72,7 @@
         app:defaultValue="0"
         app:entries="@array/screenNightModeArray"
         app:entryValues="@array/screenNightModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     -->
     
 </androidx.preference.PreferenceScreen>

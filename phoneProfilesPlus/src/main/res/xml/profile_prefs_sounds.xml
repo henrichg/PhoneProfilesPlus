@@ -9,7 +9,7 @@
         app:title="@string/menu_install_tone"
         app:summary="@string/profile_preferences_installSilentTone_summary"
         app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_soundRingtoneChange"
         app:summary="@string/array_pref_no_change"
@@ -17,7 +17,7 @@
         app:defaultValue="0"
         app:entries="@array/soundChangeArray"
         app:entryValues="@array/soundChangeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
         app:key="prf_pref_soundRingtone"
         app:summary="@string/ringtone_preference_not_set"
@@ -26,7 +26,7 @@
         app:showSilent="true"
         app:showDefault="true"
         app:dependency="prf_pref_soundRingtoneChange"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_soundNotificationChange"
         app:summary="@string/array_pref_no_change"
@@ -34,7 +34,7 @@
         app:defaultValue="0"
         app:entries="@array/soundChangeArray"
         app:entryValues="@array/soundChangeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
         app:key="prf_pref_soundNotification"
         app:summary="@string/ringtone_preference_not_set"
@@ -43,7 +43,7 @@
         app:showSilent="true"
         app:showDefault="true"
         app:dependency="prf_pref_soundNotificationChange"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_soundAlarmChange"
         app:summary="@string/array_pref_no_change"
@@ -51,7 +51,7 @@
         app:defaultValue="0"
         app:entries="@array/soundChangeArray"
         app:entryValues="@array/soundChangeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
         app:key="prf_pref_soundAlarm"
         app:summary="@string/ringtone_preference_not_set"
@@ -60,6 +60,6 @@
         app:showSilent="true"
         app:showDefault="true"
         app:dependency="prf_pref_soundAlarmChange"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     
 </androidx.preference.PreferenceScreen>

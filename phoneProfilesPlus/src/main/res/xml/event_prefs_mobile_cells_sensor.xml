@@ -8,21 +8,21 @@
         app:key="eventMobileCellsEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="eventMobileCellsScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
         app:summary="@string/phone_profiles_pref_eventMobileCellsAppSettings_summary"
         app:dependency="eventMobileCellsEnabled"
         app:widgetLayout="@layout/start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="eventMobileCellsLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="eventMobileCellsEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreferenceX
         app:key="eventMobileCellsRegistration"
         app:summary="@string/phone_profiles_pref_applicationEventMobileCellsRegistration"
@@ -31,18 +31,18 @@
         app:dMin="0"
         app:dMax="86400"
         app:dependency="eventMobileCellsEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.MobileCellsPreferenceX
         app:defaultValue="0"
         app:key="eventMobileCellsCells"
         app:title="@string/event_preferences_mobile_cells_cells"
         app:dependency="eventMobileCellsEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="eventMobileCellsStartWhenOutside"
         app:title="@string/event_preferences_mobile_cells_when_outside_pref_name"
         app:defaultValue="false"
         app:dependency="eventMobileCellsEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
 
 </androidx.preference.PreferenceScreen>

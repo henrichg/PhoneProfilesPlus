@@ -5,7 +5,6 @@
     android:key="eventPreferenceScreen"
     android:title="@string/title_activity_event_preferences">
     <PreferenceCategory
-        android:summary="@string/event_preferences_category_eventIdentification"
         android:title="@string/event_preferences_category_eventIdentification"
         android:layout="@layout/mp_preference_category" >
         <CheckBoxPreference

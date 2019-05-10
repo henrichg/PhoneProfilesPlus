@@ -8,14 +8,14 @@
         app:key="eventRadioSwitchEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="eventRadioSwitchConfigInfo"
         app:title="@string/event_preferences_radioSwitch_info_title"
         app:summary="@string/event_preferences_radioSwitch_info_summary"
         app:dependency="eventRadioSwitchEnabled"
         app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_wifi"
         app:summary="@string/array_pref_radioSwitch_notDetect"
@@ -24,7 +24,7 @@
         app:entries="@array/eventRadioSwitchArray"
         app:entryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_bluetooth"
         app:summary="@string/array_pref_radioSwitch_notDetect"
@@ -33,7 +33,7 @@
         app:entries="@array/eventRadioSwitchArray"
         app:entryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_mobileData"
         app:summary="@string/array_pref_radioSwitch_notDetect"
@@ -42,7 +42,7 @@
         app:entries="@array/eventRadioSwitchArray"
         app:entryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_gps"
         app:summary="@string/array_pref_radioSwitch_notDetect"
@@ -51,7 +51,7 @@
         app:entries="@array/eventRadioSwitchArray"
         app:entryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_nfc"
         app:summary="@string/array_pref_radioSwitch_notDetect"
@@ -60,7 +60,7 @@
         app:entries="@array/eventRadioSwitchArray"
         app:entryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_airplaneMode"
         app:summary="@string/array_pref_radioSwitch_notDetect"
@@ -69,6 +69,6 @@
         app:entries="@array/eventRadioSwitchArray"
         app:entryValues="@array/eventRadioSwitchValues"
         app:dependency="eventRadioSwitchEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
 
 </androidx.preference.PreferenceScreen>

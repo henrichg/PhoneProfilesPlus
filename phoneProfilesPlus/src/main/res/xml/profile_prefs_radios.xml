@@ -11,7 +11,7 @@
         app:defaultValue="0"
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceAutosync"
         app:summary="@string/array_pref_no_change"
@@ -19,7 +19,7 @@
         app:defaultValue="0"
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceNetworkType"
         app:summary="@string/array_pref_no_change"
@@ -27,7 +27,7 @@
         app:defaultValue="0"
         app:entries="@array/networkTypeNotSupportedArray"
         app:entryValues="@array/networkTypeNotSupportedValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceNetworkTypePrefs"
         app:summary="@string/array_pref_no_change"
@@ -35,7 +35,7 @@
         app:defaultValue="0"
         app:entries="@array/networkTypePrefsArray"
         app:entryValues="@array/networkTypePrefsValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceMobileData_21"
         app:summary="@string/array_pref_no_change"
@@ -43,7 +43,7 @@
         app:defaultValue="0"
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceMobileDataPrefs"
         app:summary="@string/array_pref_no_change"
@@ -51,7 +51,7 @@
         app:defaultValue="0"
         app:entries="@array/mobileDataPrefsArray"
         app:entryValues="@array/mobileDataPrefsValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceWiFi"
         app:summary="@string/array_pref_no_change"
@@ -59,19 +59,19 @@
         app:defaultValue="0"
         app:entries="@array/wifiModeArray"
         app:entryValues="@array/wifiModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <sk.henrichg.phoneprofilesplus.ConnectToSSIDDialogPreferenceX
         app:key="prf_pref_deviceConnectToSSID"
         app:defaultValue="^just_any^"
         app:title="@string/profile_preferences_deviceConnectToSSID"
         app:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="prf_pref_deviceWiFiAPInfo"
         app:title="@string/profile_preferences_deviceWiFiAP"
         app:summary="@string/profile_preferences_deviceWiFiAPInfo_summary"
         app:widgetLayout="@layout/info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceWiFiAP"
         app:summary="@string/array_pref_no_change"
@@ -79,7 +79,7 @@
         app:defaultValue="0"
         app:entries="@array/wifiAPArray"
         app:entryValues="@array/wifiAPValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceWiFiAPPrefs"
         app:summary="@string/array_pref_no_change"
@@ -87,7 +87,7 @@
         app:defaultValue="0"
         app:entries="@array/wiFiAPPrefsArray"
         app:entryValues="@array/wiFiAPPrefsValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceBluetooth"
         app:summary="@string/array_pref_no_change"
@@ -95,7 +95,7 @@
         app:defaultValue="0"
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceGPS"
         app:summary="@string/array_pref_no_change"
@@ -103,7 +103,7 @@
         app:defaultValue="0"
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceLocationServicePrefs"
         app:summary="@string/array_pref_no_change"
@@ -111,7 +111,7 @@
         app:defaultValue="0"
         app:entries="@array/locationServicePrefsArray"
         app:entryValues="@array/locationServicePrefsValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <ListPreference
         app:title="@string/profile_preferences_deviceNFC"
         app:summary="@string/array_pref_no_change"
@@ -119,6 +119,6 @@
         app:defaultValue="0"
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     
 </androidx.preference.PreferenceScreen>

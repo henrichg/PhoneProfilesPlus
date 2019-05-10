@@ -8,23 +8,23 @@
         app:key="applicationStartOnBoot"
         app:title="@string/phone_profiles_pref_applicationStartOnBoot"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <Preference
         app:key="applicationAutoStartManager"
         app:title="@string/phone_profiles_pref_systemAutoStartManager"
         app:summary="@string/phone_profiles_pref_systemAutoStartManager_summary"
-        app:layout="@layout/mp_preference_material_widget">
+        app:iconSpaceReserved="false">
     </Preference>
     <SwitchPreferenceCompat
         app:key="applicationActivate"
         app:title="@string/phone_profiles_pref_applicationActivate"
         app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
     <SwitchPreferenceCompat
         app:key="applicationStartEvents"
         app:title="@string/phone_profiles_pref_applicationStartEvents"
         app:defaultValue="true"
         app:dependency="applicationActivate"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:iconSpaceReserved="false" />
 
 </androidx.preference.PreferenceScreen>
