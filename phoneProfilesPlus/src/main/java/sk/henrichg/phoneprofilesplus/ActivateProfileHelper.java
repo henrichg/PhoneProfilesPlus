@@ -22,6 +22,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.location.LocationManager;
 import android.media.AudioManager;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -1074,9 +1075,29 @@ class ActivateProfileHelper {
                 if (!profile._soundRingtone.isEmpty()) {
                     try {
                         //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, profile._soundRingtone);
+                        /*
+                        Uri profileSoundUri = Uri.parse(profile._soundRingtone);
+                        Uri ppSilentToneUri = TonesHandler.uriFromRaw("phoneprofiles_silent", context);
+
+                        Log.e("ActivateProfileHelper.setTones", "ppSilentToneUri="+ppSilentToneUri);
+                        Log.e("ActivateProfileHelper.setTones", "profileSoundUri="+profileSoundUri);
+
+                        RingtoneManager manager = new RingtoneManager(context);
+                        manager.setType(RingtoneManager.TYPE_RINGTONE);
+                        Ringtone _ringtone = RingtoneManager.getRingtone(context, Uri.parse(profile._soundRingtone));
+                        String ringtoneName = _ringtone.getTitle(context);
+                        if (ringtoneName.equals(TonesHandler.TONE_NAME) || ringtoneName.equals("phoneprofiles_silent"))
+                            profileSoundUri = ppSilentToneUri;
+
+                        Log.e("ActivateProfileHelper.setTones", "result: profileSoundUri="+profileSoundUri);
+
+                        RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, profileSoundUri);*/
                         RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE, Uri.parse(profile._soundRingtone));
                     }
-                    catch (Exception ignored){ }
+                    catch (Exception e){
+                        Log.e("ActivateProfileHelper.setTones", "TYPE_RINGTONE");
+                        Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                    }
                 } else {
                     // selected is None tone
                     try {
@@ -2188,7 +2209,7 @@ class ActivateProfileHelper {
                 break;
         }
         if (setLockScreen) {
-            boolean isScreenOn;
+            //boolean isScreenOn;
             //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
             //if (pm != null) {
                 PPApplication.logE("$$$ ActivateProfileHelper.execute", "isScreenOn=" + PPApplication.isScreenOn);
