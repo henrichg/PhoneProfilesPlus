@@ -2805,7 +2805,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference = new Preference(context);
                         preference.setKey(PRF_GRANT_PERMISSIONS);
                         preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                        preference.setIconSpaceReserved(false);
                         preference.setOrder(-100);
                         preferenceCategory.addPreference(preference);
                     }
@@ -2847,7 +2847,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference = new Preference(context);
                         preference.setKey(PRF_GRANT_ROOT);
                         preference.setWidgetLayoutResource(R.layout.start_activity_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                        preference.setIconSpaceReserved(false);
                         preference.setOrder(-100);
                         preferenceCategory.addPreference(preference);
                     }
