@@ -877,7 +877,7 @@
   <string name="important_info_profile_grant">某些配置文件首选项需要WRITE_SECURE_SETTINGS权限。 ROOT不是必需的。这些首选项标有“(G1)”。</string>
   <string name="important_info_profile_grant_lookSectionProfiles">有关更多信息，请查看下面的“配置文件”部分。</string>
   <string name="profile_preferences_typesInfoGrant">有关详细信息，请参阅“重要信息”，“配置文件”部分。</string>
-  <string name="important_info_profile_grant_1_howTo_1">标有(GX)的配置文件参数需要PhoneProfilesPlus的特殊权限。这是通过安装了adb的PC完成的。</string>
+  <string name="important_info_profile_grant_1_howTo_1">标有(G1)的配置文件参数需要PhoneProfilesPlus的特殊权限。这是通过安装了adb的PC完成的。</string>
   <string name="important_info_profile_grant_1_howTo_2">如果您的PC上没有安装adb：</string>
   <string name="important_info_profile_grant_1_howTo_3">1.从以下位置下载SDK平台工具：</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>

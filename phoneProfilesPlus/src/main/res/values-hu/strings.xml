@@ -877,7 +877,7 @@
   <string name="important_info_profile_grant">Néhány profil tulajdonsághoz WRITE_SECURE_SETTINGS engedélyre van szükségük. ROOT nem szükséges. Ezeket a beállításokat \"(G1)\" jelöli.</string>
   <string name="important_info_profile_grant_lookSectionProfiles">További információért tekintse meg a \"Profilok\" szakasz alatt.</string>
   <string name="profile_preferences_typesInfoGrant">Több információhoz nézd a \"Fontos információ\", \"Profilok\" részt.</string>
-  <string name="important_info_profile_grant_1_howTo_1">Profil paraméterek (GX) jelöléssel külön engedély kell PhoneProfilesPlushoz. Ehhez a számítógépre telepített adb szükséges.</string>
+  <string name="important_info_profile_grant_1_howTo_1">Profil paraméterek (G1) jelöléssel külön engedély kell PhoneProfilesPlushoz. Ehhez a számítógépre telepített adb szükséges.</string>
   <string name="important_info_profile_grant_1_howTo_2">Ha nincs a számítógépre telepített adb:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Töltse le az SDK eszközöket \"SDK Platform Tools\":</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>

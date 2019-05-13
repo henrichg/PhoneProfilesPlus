@@ -877,7 +877,7 @@
   <string name="important_info_profile_grant">Деякі параметри профілів потребують дозволу WRITE_SECURE_SETTINGS. ROOT не вимагається. Ці параметри позначені \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Для отримання додаткової інформації дивіться нижче у розділі «Профілі».</string>
   <string name="profile_preferences_typesInfoGrant">Щоб дізнатися більше відвідайте пункт \"Важлива інформація\" у розділі \"Профілі\".</string>
-  <string name="important_info_profile_grant_1_howTo_1">Параметри профілю позначені (GX) потребують спеціального дозволу для PhoneProfilesPlus. Їх можна отримати з допомогою ПК із встановленим adb.</string>
+  <string name="important_info_profile_grant_1_howTo_1">Параметри профілю позначені (G1) потребують спеціального дозволу для PhoneProfilesPlus. Їх можна отримати з допомогою ПК із встановленим adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">Якщо на вашому ПК не встановлено adb:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Завантажити інструмент платформи SDK із:</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>

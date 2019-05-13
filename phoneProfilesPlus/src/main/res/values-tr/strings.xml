@@ -877,7 +877,7 @@
     <string name="important_info_profile_grant">Bazı tercih ayarları WRITE_SECURE_SETTINGS izni gereklidir. KÖK gerekli değildir. Bu Ayarlar \"(G1)\" ile işaretlenmiştir.</string>
     <string name="important_info_profile_grant_lookSectionProfiles">Daha fazla malumat için daha aşağıdaki \"Tercihler\" bölümüne bakın.</string>
     <string name="profile_preferences_typesInfoGrant">Daha fazla malumat için \"Tercihler\" bölümündeki \"Mühim malumat\"a göz atın.</string>
-    <string name="important_info_profile_grant_1_howTo_1">PhoneProfilesPlus\'ın (GX) ile işaretlenmiş tercih değerleri için gerekli izni verebilirsiniz. Bu adb yüklü bir bilgisayar gerektirir.</string>
+    <string name="important_info_profile_grant_1_howTo_1">PhoneProfilesPlus\'ın (G1) ile işaretlenmiş tercih değerleri için gerekli izni verebilirsiniz. Bu adb yüklü bir bilgisayar gerektirir.</string>
     <string name="important_info_profile_grant_1_howTo_2">Adb yüklü bilgisayar yoksa:</string>
     <string name="important_info_profile_grant_1_howTo_3">1. SDK platformu araçlarını şuradan indirin:</string>
     <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>

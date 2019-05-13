@@ -879,7 +879,7 @@
   <string name="important_info_profile_grant">Niektoré parametre profilu vyžadujú povolenie WRITE_SECURE_SETTINGS. ROOT nie je potrebný. Tieto parametre sú označená ako \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Pre viac informácií, pozrite si sekciu \"Profily\" ďalej nižšie.</string>
   <string name="profile_preferences_typesInfoGrant">Pre ďalšie informácie pozrite \"Dôležité informácie\", časť \"Profily\".</string>
-  <string name="important_info_profile_grant_1_howTo_1">Môžete udeliť povolenie pre PhoneProfilesPlus potrebné pre parametre profilu označené (GX). Potrebný je počítač s nainštalovaným adb.</string>
+  <string name="important_info_profile_grant_1_howTo_1">Môžete udeliť povolenie pre PhoneProfilesPlus potrebné pre parametre profilu označené (G1). Potrebný je počítač s nainštalovaným adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">Ak v počítači nemáte nainštalovaný adb:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Stiahnite SDK Platform Tools z:</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>

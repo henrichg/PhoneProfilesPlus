@@ -877,7 +877,7 @@
   <string name="important_info_profile_grant">Certaines préférences de profil requièrent l’autorisation WRITE_SECURE_SETTINGS. Le Root n’est pas nécessaire. Ces préférences sont marqués avec « (G1) ».</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Pour plus d’informations, reportez-vous à la section « Profils » plus loin ci-dessous.</string>
   <string name="profile_preferences_typesInfoGrant">Pour plus d’informations regardez « Informations importantes », section « Profils ».</string>
-  <string name="important_info_profile_grant_1_howTo_1">Vous pouvez accorder l’autorisation pour PhoneProfilesPlus requise pour les paramètres de profil marqués avec (GX). Ceci nécessite un PC avec adb installé.</string>
+  <string name="important_info_profile_grant_1_howTo_1">Vous pouvez accorder l’autorisation pour PhoneProfilesPlus requise pour les paramètres de profil marqués avec (G1). Ceci nécessite un PC avec adb installé.</string>
   <string name="important_info_profile_grant_1_howTo_2">Si vous n’avez pas installé adb sur un PC :</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Télécharger le SDK Platform Tools sur :</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>

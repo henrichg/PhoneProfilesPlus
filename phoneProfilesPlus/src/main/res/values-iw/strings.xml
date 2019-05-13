@@ -880,7 +880,7 @@
   <string name="important_info_profile_grant">העדפות פרופיל מסוימות דורשות הרשאת WRITE_SECURE_SETTINGS. אין צורך ברוט (ROOT). העדפות אלה מסומנות \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
   <string name="profile_preferences_typesInfoGrant">למידע נוסף קראו ב\"מידע חשוב\" בפיסקת \"פרופילים\".</string>
-  <string name="important_info_profile_grant_1_howTo_1">באפשרותך להעניק הרשאה ל-PhoneProfilesPlus הדרושה למאפייני פרופיל המסומנים (GX). פעולה זו דורשת מחשב עם adb מותקן.</string>
+  <string name="important_info_profile_grant_1_howTo_1">באפשרותך להעניק הרשאה ל-PhoneProfilesPlus הדרושה למאפייני פרופיל המסומנים (G1). פעולה זו דורשת מחשב עם adb מותקן.</string>
   <string name="important_info_profile_grant_1_howTo_2">אם אין לך adb מותקן במחשב:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. הורידו פלטפורמת כלי SDK מ:</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>

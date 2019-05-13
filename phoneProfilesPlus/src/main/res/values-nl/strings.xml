@@ -877,7 +877,7 @@
   <string name="important_info_profile_grant">Enkele profiel voorkeuren vereisen de machtiging WRITE_SECURE_SETTINGS. ROOT is niet vereist. Deze voorkeuren zijn gemarkeerd met \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Voor meer informatie, kijk verder bij de \"Profielen\" sectie hieronder.</string>
   <string name="profile_preferences_typesInfoGrant">Voor meer informatie kijk bij \"Important information\", sectie \"Profiles\".</string>
-  <string name="important_info_profile_grant_1_howTo_1">Je kunt permissie geven voor de machtigingen van PhoneProfilesPlus voor de profiel parameters gemarkeerd met (GX). Dit vereist een PC met adb geïnstalleerd.</string>
+  <string name="important_info_profile_grant_1_howTo_1">Je kunt permissie geven voor de machtigingen van PhoneProfilesPlus voor de profiel parameters gemarkeerd met (G1). Dit vereist een PC met adb geïnstalleerd.</string>
   <string name="important_info_profile_grant_1_howTo_2">Als je nog geen adb hebt geïnstalleerd op de PC:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Download het SDK Platform Tools van:</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>

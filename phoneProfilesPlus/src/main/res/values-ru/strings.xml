@@ -877,7 +877,7 @@
   <string name="important_info_profile_grant">Некоторые настройки профиля требуют разрешение WRITE_SECURE_SETTINGS. ROOT не требуется. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Для получения дополнительной информации смотрите ниже в разделе «Профили».</string>
   <string name="profile_preferences_typesInfoGrant">Для получения дополнительной информации смотрите раздел \"Профили\" в \"Важной информации\".</string>
-  <string name="important_info_profile_grant_1_howTo_1">Некоторые настройки профиля требуют разрешений, которые можно установить только через adb. Эти настройки отмечены \"(GX)\".</string>
+  <string name="important_info_profile_grant_1_howTo_1">Некоторые настройки профиля требуют разрешений, которые можно установить только через adb. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_1_howTo_2">Если adb на вашем компьютере не установлен:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Скачайте инструменты SDK с:</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
