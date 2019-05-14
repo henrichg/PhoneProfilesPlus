@@ -8,34 +8,30 @@
 
     <LinearLayout android:orientation="vertical"
                   android:layout_width="match_parent"
-                  android:layout_height="wrap_content">
+                  android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp">
 
-            <!--
-            <FrameLayout
+            <TextView
                 android:id="@+id/activity_log_header_color"
-                android:orientation="vertical"
                 android:layout_width="5dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:layout_marginEnd="5dp" >
-
-            </FrameLayout>
-            -->
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/empty_string"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/activity_log_header_log_date_time"
                 android:layout_weight="0.27"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
                 android:layout_marginEnd="10dp"
                 android:text="@string/activity_log_header_log_time"
                 android:textStyle="bold"/>
@@ -88,7 +84,7 @@
         android:id="@+id/activity_log_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dip"
+        android:padding="5dp"
         android:choiceMode="singleChoice"
         android:clipToPadding="false"
         android:scrollbarStyle="outsideOverlay"
