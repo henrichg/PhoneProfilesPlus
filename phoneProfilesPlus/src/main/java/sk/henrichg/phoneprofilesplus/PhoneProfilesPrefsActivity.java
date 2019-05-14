@@ -48,6 +48,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        PPApplication.logE("PhoneProfilesPrefsActivity.onCreate", "savedInstanceState="+savedInstanceState);
+
         setContentView(R.layout.activity_preferences);
 
         Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
