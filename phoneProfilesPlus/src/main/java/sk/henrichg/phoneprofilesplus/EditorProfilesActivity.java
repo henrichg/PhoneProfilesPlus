@@ -493,11 +493,11 @@ public class EditorProfilesActivity extends AppCompatActivity
         ArrayAdapter<CharSequence> orderSpinnerAdapter = ArrayAdapter.createFromResource(
                                     //getSupportActionBar().getThemedContext(),
                                     getBaseContext(),
-                                    R.array.drawerOrderEvents,
+                                    R.array.orderEventsArray,
                                     //android.R.layout.simple_spinner_item);
-                                    R.layout.editor_drawer_spinner);
+                                    R.layout.editor_order_spinner);
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_drawer_spinner_dropdown);
+        orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_order_spinner_dropdown);
         switch (appTheme) {
             case "dark":
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
