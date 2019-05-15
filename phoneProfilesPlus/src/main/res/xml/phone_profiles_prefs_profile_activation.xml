@@ -4,51 +4,59 @@
     app:key="profileActivationCategory"
     app:title="@string/phone_profiles_pref_category_activation">
 
-    <Preference
-        app:key="applicationBackgroundProfileInfo"
+    <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
-        app:summary="@string/phone_profiles_pref_applicationBackgroundProfileInfo_summary"
-        app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
-    <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
-        app:defaultValue="-999"
-        app:key="applicationBackgroundProfile"
-        app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
-        app:iconSpaceReserved="false"
-        app:addNoActivateItem="1" />
-    <SwitchPreferenceCompat
-        app:key="applicationBackgroundProfileUsage"
-        app:title="@string/phone_profiles_pref_backgroundProfileUsage"
-        app:summary="@string/phone_profiles_pref_backgroundProfileUsage_summary"
-        app:defaultValue="false"
-        app:iconSpaceReserved="false"/>
-    <Preference
-        app:key="applicationBackgroundProfileNotificationSoundInfo"
-        app:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
-        app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-        app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
-    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
-        app:key="applicationBackgroundProfileNotificationSound"
-        app:summary="@string/ringtone_preference_not_set"
-        app:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
-        app:ringtoneType="notification"
-        app:iconSpaceReserved="false"
-        app:showSilent="true"
-        app:showDefault="true" />
-    <SwitchPreferenceCompat
-        app:key="applicationBackgroundProfileNotificationVibrate"
-        app:title="@string/phone_profiles_pref_backgroundProfileNotificationVibrate"
-        app:defaultValue="false"
-        app:iconSpaceReserved="false"/>
+        app:iconSpaceReserved="false" >
+
+        <Preference
+            app:key="applicationBackgroundProfileInfo"
+            app:summary="@string/phone_profiles_pref_applicationBackgroundProfileInfo_summary"
+            app:widgetLayout="@layout/info_preference"
+            app:iconSpaceReserved="false" />
+        <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
+            app:defaultValue="-999"
+            app:key="applicationBackgroundProfile"
+            app:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
+            app:iconSpaceReserved="false"
+            app:addNoActivateItem="1" />
+        <SwitchPreferenceCompat
+            app:key="applicationBackgroundProfileUsage"
+            app:title="@string/phone_profiles_pref_backgroundProfileUsage"
+            app:summary="@string/phone_profiles_pref_backgroundProfileUsage_summary"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"/>
+        <Preference
+            app:key="applicationBackgroundProfileNotificationSoundInfo"
+            app:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
+            app:summary="@string/preferences_durationNotificationSoundInfo_summary"
+            app:widgetLayout="@layout/info_preference"
+            app:iconSpaceReserved="false" />
+        <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+            app:key="applicationBackgroundProfileNotificationSound"
+            app:summary="@string/ringtone_preference_not_set"
+            app:title="@string/phone_profiles_pref_backgroundProfileNotificationSound"
+            app:ringtoneType="notification"
+            app:iconSpaceReserved="false"
+            app:showSilent="true"
+            app:showDefault="true" />
+        <SwitchPreferenceCompat
+            app:key="applicationBackgroundProfileNotificationVibrate"
+            app:title="@string/phone_profiles_pref_backgroundProfileNotificationVibrate"
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"/>
+
+    </PreferenceCategory>
+
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_manualProfileActivation"
         app:iconSpaceReserved="false" >
+
         <SwitchPreferenceCompat
             app:key="applicationAlert"
             app:title="@string/phone_profiles_pref_applicationAlert"
             app:defaultValue="true"
             app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>
