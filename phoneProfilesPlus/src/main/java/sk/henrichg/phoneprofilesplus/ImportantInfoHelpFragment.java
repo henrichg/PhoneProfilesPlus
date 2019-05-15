@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -15,6 +16,7 @@ import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.thelittlefireman.appkillermanager.managers.KillerManager;
@@ -24,6 +26,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 public class ImportantInfoHelpFragment extends Fragment {
+
+    int scrollTo = 0;
 
     public ImportantInfoHelpFragment() {
         // Required empty public constructor
@@ -764,6 +768,16 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoTextNews.setVisibility(View.GONE);
         }
 
+        if (scrollTo != 0) {
+            final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
+            final View viewToScroll = view.findViewById(scrollTo);
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    scrollView.scrollTo(0, viewToScroll.getTop());
+                }
+            });
+        }
     }
 
 }

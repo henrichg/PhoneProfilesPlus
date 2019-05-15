@@ -15,7 +15,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 public class ImportantInfoActivity extends AppCompatActivity {
 
-    static final String EXTRA_SHOW_QUICK_GUIDE = "show_quick_guide";
+    static final String EXTRA_SHOW_QUICK_GUIDE = "extra_important_info_activity_show_quick_guide";
+    static final String EXTRA_SCROLL_TO = "extra_important_info_activity_scroll_to";
 
     @SuppressLint("InlinedApi")
     @Override
@@ -78,9 +79,17 @@ public class ImportantInfoActivity extends AppCompatActivity {
         HelpActivityFragmentStateAdapterX adapter = new HelpActivityFragmentStateAdapterX(getSupportFragmentManager(), getLifecycle());
         viewPager.setAdapter(adapter);
 
+        Intent intent = getIntent();
+        int scrollTo = intent.getIntExtra(EXTRA_SCROLL_TO, 0);
+
         // add Fragments in your ViewPagerFragmentAdapter class
-        adapter.addFragment(new ImportantInfoHelpFragment());
-        adapter.addFragment(new QuickGuideHelpFragment());
+        ImportantInfoHelpFragment importantInfoHelpFragment = new ImportantInfoHelpFragment();
+        importantInfoHelpFragment.scrollTo = scrollTo;
+        adapter.addFragment(importantInfoHelpFragment);
+
+        QuickGuideHelpFragment quickGuideHelpFragment = new QuickGuideHelpFragment();
+        quickGuideHelpFragment.scrollTo = scrollTo;
+        adapter.addFragment(quickGuideHelpFragment);
 
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
@@ -96,7 +105,6 @@ public class ImportantInfoActivity extends AppCompatActivity {
                 });
         tabLayoutMediator.attach();
 
-        Intent intent = getIntent();
         if (intent.getBooleanExtra(EXTRA_SHOW_QUICK_GUIDE, false)) {
             tabLayout.setScrollPosition(1,0f,true);
             viewPager.setCurrentItem(1);
