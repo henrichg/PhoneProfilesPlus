@@ -1391,6 +1391,7 @@
     <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
     <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
     <string name="profile_preferences_enabled">Enabled</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
 
     <!-- **************************************************************************************** -->
 

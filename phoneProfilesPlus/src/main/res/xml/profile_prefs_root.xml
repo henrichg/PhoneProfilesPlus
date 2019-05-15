@@ -53,7 +53,7 @@
         <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
             app:key="prf_pref_preferenceTypesInfo"
             app:title="@string/profile_preferences_preferenceTypesInfo_title"
-            app:summary="@string/info_preference_click_here"
+            app:summary="@string/profile_preferences_preferenceTypesInfo_summary"
             app:infoText="@string/empty_string"
             app:widgetLayout="@layout/info_preference_clickable"
             app:iconSpaceReserved="false" />
