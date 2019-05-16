@@ -97,6 +97,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant_app_manifest" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant_run_merged_manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javac" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint_jar" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged_assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged_jni_libs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged_manifests" />
@@ -190,51 +191,6 @@
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.1.0-rc01@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-tasks:16.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-process:2.0.0@aar" level="project" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
-    <orderEntry type="module" module-name="appkillermanager" />
-    <orderEntry type="module" module-name="RootTools" />
-    <orderEntry type="module" module-name="RootShell" />
-    <orderEntry type="module" module-name="android-betterpickers" />
-    <orderEntry type="module" module-name="time-duration-picker" />
     <orderEntry type="module" module-name="appkillermanager" />
     <orderEntry type="module" module-name="RootTools" />
     <orderEntry type="module" module-name="RootShell" />

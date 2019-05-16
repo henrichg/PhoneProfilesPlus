@@ -509,11 +509,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("prf_pref_preferenceTypesInfo");
         if (infoDialogPreference != null) {
             infoDialogPreference.setInfoText(
-                    getString(R.string.important_info_profile_grant)+"\n"+
-                            getString(R.string.profile_preferences_typesInfoGrant)+"\n\n"+
-                            getString(R.string.important_info_profile_root)+"\n\n"+
-                            getString(R.string.important_info_profile_settings)+"\n\n"+
-                            getString(R.string.important_info_profile_interactive));
+                    "• " + getString(R.string.important_info_profile_grant)+"\n\n"+
+                    "<II0 [0,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
+                        getString(R.string.profile_preferences_types_G1_show_info)+
+                    "<II0/>"+
+                    "\n\n"+
+                    "• " + getString(R.string.important_info_profile_root)+"\n\n"+
+                    "• " + getString(R.string.important_info_profile_settings)+"\n\n"+
+                    "• " + getString(R.string.important_info_profile_interactive));
         }
 
         Preference showInActivatorPreference = prefMng.findPreference(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
