@@ -2103,7 +2103,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         String key = preferenceCategory.getKey();
 
-        boolean addEnd = true;
+        //boolean addEnd = true;
 
         if (key.equals("applicationInterfaceCategoryRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationLanguage);
@@ -2312,7 +2312,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
                 summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context);
-                addEnd = false;
+                //addEnd = false;
             }
             else {
                 summary = summary + getString(R.string.phone_profiles_pref_applicationEventMobileCellEnableScanning) + ": ";
@@ -2464,10 +2464,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (addEnd) {
+        /*if (addEnd) {
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + "…";
-        }
+        }*/
 
         preferenceCategory.setSummary(summary);
     }
