@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="eventOrientationCategory"
+    app:title="@string/event_preferences_category_eventOrientationParameters" >
+
+    <SwitchPreferenceCompat
+        app:key="eventOrientationEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:iconSpaceReserved="false" />
+    <Preference
+        app:key="eventEnableOrientationScanningAppSettings"
+        app:title="@string/phone_profiles_pref_category_orientation_scanning"
+        app:summary="@string/phone_profiles_pref_eventOrientationAppSettings_summary"
+        app:dependency="eventOrientationEnabled"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:iconSpaceReserved="false" />
+    <MultiSelectListPreference
+        app:key="eventOrientationDisplay"
+        app:title="@string/event_preferences_orientation_display"
+        app:defaultValue="@array/emptyArray"
+        app:entries="@array/eventOrientationDisplayArray"
+        app:entryValues="@array/eventOrientationDisplayValues"
+        app:dependency="eventOrientationEnabled"
+        app:iconSpaceReserved="false" />
+    <MultiSelectListPreference
+        app:key="eventOrientationSides"
+        app:title="@string/event_preferences_orientation_sides"
+        app:defaultValue="@array/emptyArray"
+        app:entries="@array/eventOrientationSidesArray"
+        app:entryValues="@array/eventOrientationSidesValues"
+        app:dependency="eventOrientationEnabled"
+        app:iconSpaceReserved="false" />
+    <ListPreference
+        app:title="@string/event_preferences_orientation_distance"
+        app:summary="@string/array_event_pref_orientationDistanceType_noCheck"
+        app:key="eventOrientationDistance"
+        app:defaultValue="0"
+        app:entries="@array/eventOrientationDistanceTypeArray"
+        app:entryValues="@array/eventOrientationDistanceTypeValues"
+        app:dependency="eventOrientationEnabled"
+        app:iconSpaceReserved="false" />
+    <Preference
+        app:key="eventOrientationInstallExtender"
+        app:title="@string/extender_app_name"
+        app:summary="@string/event_preferences_orientation_PPPExtender_install_summary"
+        app:dependency="eventOrientationEnabled"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:iconSpaceReserved="false" />
+    <Preference
+        app:key="eventOrientationInstallExtenderInfo"
+        app:title="@string/event_preferences_PPPExtenderInstallInfo_text"
+        app:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
+        app:dependency="eventOrientationEnabled"
+        app:widgetLayout="@layout/info_preference"
+        app:iconSpaceReserved="false" />
+    <Preference
+        app:key="eventOrientationAccessibilitySettings"
+        app:title="@string/event_preferences_applications_AccessibilitySettings_title"
+        app:summary="@string/event_preferences_orientation_AccessibilitySettingsForExtender_summary"
+        app:dependency="eventOrientationEnabled"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:iconSpaceReserved="false" />
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
+        app:defaultValue="@string/dash_string"
+        app:key="eventOrientationIgnoredApplications"
+        app:title="@string/event_preferences_orientation_ignoreForApplications"
+        app:removePPApplications="0"
+        app:systemSettings="accessibility_2.0"
+        app:dependency="eventOrientationEnabled"
+        app:iconSpaceReserved="false" />
+
+</androidx.preference.PreferenceScreen>

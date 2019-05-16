@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="eventNFCCategory"
+    app:title="@string/event_preferences_category_eventNFCParameters" >
+
+    <SwitchPreferenceCompat
+        app:key="eventNFCEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:iconSpaceReserved="false" />
+    <sk.henrichg.phoneprofilesplus.NFCTagPreferenceX
+        app:defaultValue="@string/empty_string"
+        app:key="eventNFCTags"
+        app:title="@string/event_preferences_nfc_nfcTags"
+        app:dependency="eventNFCEnabled"
+        app:iconSpaceReserved="false" />
+    <SwitchPreferenceCompat
+        app:key="eventNFCPermanentRun"
+        app:title="@string/pref_event_permanentRun"
+        app:summary="@string/pref_event_permanentRun_summary"
+        app:defaultValue="true"
+        app:dependency="eventNFCEnabled"
+        app:iconSpaceReserved="false" />
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+        app:key="eventNFCDuration"
+        app:summary="@string/event_preferences_duration"
+        app:title="@string/event_preferences_duration"
+        app:defaultValue="5"
+        app:dMin="5"
+        app:dMax="86400"
+        app:dependency="eventNFCEnabled"
+        app:iconSpaceReserved="false" />
+
+</androidx.preference.PreferenceScreen>

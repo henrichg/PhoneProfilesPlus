@@ -192,7 +192,7 @@
             app:key="eventAccessoriesCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
             app:iconSpaceReserved="false"
-            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsPeripheralParameters" />
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsAccessoriesParameters" />
 
         <Preference
             app:title="@string/event_preferences_category_eventScreenParameters"

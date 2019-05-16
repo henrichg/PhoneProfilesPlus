@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/event_preferences_category_eventScreenParameters"
+    app:key="eventScreenCategory" >
+
+    <SwitchPreferenceCompat
+        app:key="eventScreenEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:iconSpaceReserved="false" />
+    <ListPreference
+        app:title="@string/event_preferences_screen_event_type"
+        app:summary="@string/array_event_pref_eventScreenEventType_screenOff"
+        app:key="eventScreenEventType"
+        app:defaultValue="1"
+        app:entries="@array/eventScreenEventTypeArray"
+        app:entryValues="@array/eventScreenEventTypeValues"
+        app:dependency="eventScreenEnabled"
+        app:iconSpaceReserved="false" />
+    <SwitchPreferenceCompat
+        app:key="eventScreenWhenUnlocked"
+        app:title="@string/event_preferences_screen_start_when_unlocked"
+        app:defaultValue="false"
+        app:dependency="eventScreenEnabled"
+        app:iconSpaceReserved="false" />
+    
+</androidx.preference.PreferenceScreen>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/event_preferences_category_eventPeripheralParameters"
+    app:key="eventAccessoriesCategory" >
+
+    <SwitchPreferenceCompat
+        app:key="eventPeripheralEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:iconSpaceReserved="false" />
+    <ListPreference
+        app:title="@string/event_preferences_peripheral_type"
+        app:summary="@string/array_event_pref_peripheralType_deskDock"
+        app:key="eventPeripheralType"
+        app:defaultValue="0"
+        app:entries="@array/eventPeripheralTypeArray"
+        app:entryValues="@array/eventPeripheralTypeValues"
+        app:dependency="eventPeripheralEnabled"
+        app:iconSpaceReserved="false" />
+    
+</androidx.preference.PreferenceScreen>

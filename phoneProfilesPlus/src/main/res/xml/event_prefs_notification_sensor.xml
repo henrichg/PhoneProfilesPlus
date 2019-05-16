@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="eventNotificationCategory"
+    app:title="@string/event_preferences_category_eventNotificationsParameters" >
+
+    <SwitchPreferenceCompat
+        app:key="eventNotificationEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:iconSpaceReserved="false" />
+    <Preference
+        app:key="eventNotificationNotificationsAccessSettings"
+        app:title="@string/profile_preferences_volumeNotificationsAccessSettings_title"
+        app:summary="@string/event_preferences_volumeNotificationsAccessSettings_summary"
+        app:dependency="eventNotificationEnabled"
+        app:widgetLayout="@layout/start_activity_preference"
+        app:iconSpaceReserved="false" />
+    <SwitchPreferenceCompat
+        app:key="eventNotificationInCall"
+        app:title="@string/event_preferences_notifications_inCall"
+        app:defaultValue="false"
+        app:dependency="eventNotificationEnabled"
+        app:iconSpaceReserved="false" />
+    <SwitchPreferenceCompat
+        app:key="eventNotificationMissedCall"
+        app:title="@string/event_preferences_notifications_missedCall"
+        app:defaultValue="false"
+        app:dependency="eventNotificationEnabled"
+        app:iconSpaceReserved="false" />
+    <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
+        app:defaultValue="@string/dash_string"
+        app:key="eventNotificationApplications"
+        app:title="@string/event_preferences_notifications_applications"
+        app:removePPApplications="0"
+        app:systemSettings="notifications"
+        app:dependency="eventNotificationEnabled"
+        app:iconSpaceReserved="false" />
+    <!--<SwitchPreferenceCompat
+        app:key="eventNotificationEndWhenRemoved"
+        app:title="@string/event_preferences_notifications_end_when_removed"
+        app:defaultValue="false"
+        app:dependency="eventNotificationEnabled"
+        app:iconSpaceReserved="false" />
+    <SwitchPreferenceCompat
+        app:key="eventNotificationPermanentRun"
+        app:title="@string/pref_event_permanentRun"
+        app:summary="@string/pref_event_permanentRun_summary"
+        app:defaultValue="true"
+        app:dependency="eventNotificationEnabled"
+        app:iconSpaceReserved="false" />
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+        app:key="eventNotificationDuration"
+        app:summary="@string/event_preferences_duration"
+        app:title="@string/event_preferences_duration"
+        app:defaultValue="5"
+        app:dMin="5"
+        app:dMax="86400"
+        app:dependency="eventNotificationEnabled"
+        app:iconSpaceReserved="false" /> -->
+    
+</androidx.preference.PreferenceScreen>
