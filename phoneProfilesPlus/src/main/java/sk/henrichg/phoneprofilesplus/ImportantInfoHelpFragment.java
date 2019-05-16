@@ -768,7 +768,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoTextNews.setVisibility(View.GONE);
         }
 
-        if (scrollTo != 0) {
+        if ((scrollTo != 0) && (savedInstanceState == null)) {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
             final View viewToScroll = view.findViewById(scrollTo);
             new Handler().postDelayed(new Runnable() {
