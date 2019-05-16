@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
@@ -10,14 +12,29 @@ import androidx.appcompat.widget.SwitchCompat;
 class EventStatusPopupWindow extends GuiInfoPopupWindow {
 
     @SuppressLint("SetTextI18n")
-    EventStatusPopupWindow(EditorEventListFragment fragment, Event event) {
+    EventStatusPopupWindow(final EditorEventListFragment fragment, Event event) {
         super(R.layout.event_status_popup_window, fragment.getActivity());
 
         // Disable default animation
         setAnimationStyle(0);
 
+        final TextView textView = popupView.findViewById(R.id.event_status_popup_window_text7);
+        textView.setClickable(true);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fragment.getActivity() != null) {
+                    Intent intentLaunch = new Intent(fragment.getActivity(), ImportantInfoActivity.class);
+                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
+                    intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_events);
+                    fragment.getActivity().startActivity(intentLaunch);
+                }
+
+                dismiss();
+            }
+        });
+
         if (event != null) {
-            final EditorEventListFragment _fragment = fragment;
             final Event _event = event;
 
             TextView eventName = popupView.findViewById(R.id.event_status_popup_window_text0);
@@ -29,8 +46,8 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                     //noinspection ConstantConditions
-                    if (_fragment != null) {
-                        _fragment.runStopEvent(_event);
+                    if (fragment != null) {
+                        fragment.runStopEvent(_event);
                     }
                 }
             });

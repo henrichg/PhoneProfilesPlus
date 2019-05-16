@@ -52,8 +52,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
-                    android:text="@string/run_stop_indicator_popup_window_important_info"
-                    android:id="@+id/run_stop_indicator_popup_window_important_info" />
+                    android:text="@string/popup_window_events_status_show_info"
+                    android:id="@+id/run_stop_indicator_popup_window_important_info"
+                    android:textColor="?attr/colorAccent" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/run_stop_indicator_popup_window_checkbox"
