@@ -771,12 +771,14 @@ public class ImportantInfoHelpFragment extends Fragment {
         if ((scrollTo != 0) && (savedInstanceState == null)) {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
             final View viewToScroll = view.findViewById(scrollTo);
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    scrollView.scrollTo(0, viewToScroll.getTop());
-                }
-            }, 200);
+            if ((scrollView != null) && (viewToScroll != null)) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollView.scrollTo(0, viewToScroll.getTop());
+                    }
+                }, 200);
+            }
         }
     }
 
