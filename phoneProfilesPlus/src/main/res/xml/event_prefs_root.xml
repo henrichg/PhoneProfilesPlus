@@ -5,24 +5,24 @@
 
     <PreferenceCategory
         app:title="@string/event_preferences_category_eventIdentification"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_category" >
         <SwitchPreferenceCompat
             app:key="eventEnabled"
             app:title="@string/event_preferences_eventEnabled"
             app:defaultValue="false"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <EditTextPreference
             app:key="eventName"
             app:summary="@string/event_preferences_eventName"
             app:title="@string/event_preferences_eventName"
             android:selectAllOnFocus="true"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <Preference
             app:key="eventUsePriorityAppSettings"
             app:title="@string/phone_profiles_pref_eventUsePriorityAppSettings"
             app:summary="@string/phone_profiles_pref_eventUsePriorityAppSettings_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/event_preferences_priority"
             app:summary="@string/array_event_pref_priorityMedium"
@@ -30,37 +30,37 @@
             app:defaultValue="0"
             app:entries="@array/eventPriorityArray"
             app:entryValues="@array/eventPriorityValues"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/event_preferences_category_startOfEvent"
         app:key="eventStartCategory"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_category" >
         <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
             app:defaultValue="0"
             app:key="eventProfileStart"
             app:title="@string/event_preferences_eventProfileStart"
             app:addNoActivateItem="0"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="eventForceRun"
             app:title="@string/event_preferences_ForceRun"
             app:defaultValue="false"
             app:summary="@string/event_preferences_ForceRun_summary"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="eventNoPauseByManualActivation"
             app:title="@string/event_preferences_noPauseByManualActivation"
             app:defaultValue="false"
             app:summary="@string/event_preferences_noPauseByManualActivation_summary"
             app:dependency="eventForceRun"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
 
         <Preference
             app:title="@string/event_preferences_category_startOfEventOthers"
             app:key="eventStartOthersCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsStartOfEventsOthers" />
         
     </PreferenceCategory>
@@ -69,13 +69,13 @@
         app:title="@string/event_preferences_category_endOfEvent"
         app:key="eventEndCategory"
         app:dependency="manualProfileActivation"
-        app:iconSpaceReserved="false">
+        app:layout="@layout/mp_preference_category">
         <ProfilePreferenceX
             app:defaultValue="-999"
             app:key="eventProfileEnd"
             app:title="@string/event_preferences_eventProfileEnd"
             app:addNoActivateItem="1"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/event_preferences_atEndDo"
             app:summary="@string/array_pref_atEndDo_restartEvents"
@@ -83,13 +83,13 @@
             app:defaultValue="2"
             app:entries="@array/eventAtEndDoArray"
             app:entryValues="@array/eventAtEndDoValues"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
 
         <Preference
             app:title="@string/event_preferences_category_startOfEventOthers"
             app:key="eventEndOthersCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsEndOfEventsOthers" />
         
     </PreferenceCategory>
@@ -97,21 +97,21 @@
     <PreferenceCategory
         app:title="@string/event_preferences_category_sensors"
         app:key="eventEventsCategory"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_category" >
         <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
             app:key="eventSensorsInfo"
             app:title="@string/event_preferences_sensorsInfo_title"
             app:summary="@string/info_preference_click_here"
             app:infoText="@string/event_preferences_sensorsInfo_summary"
             app:widgetLayout="@layout/info_preference_clickable"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
 
         <Preference
             app:title="@string/event_preferences_category_eventTimeParameters"
             app:summary="@string/event_preference_sensor_time_summary"
             app:key="eventTimeCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsTimeParameters" />
 
         <Preference
@@ -119,7 +119,7 @@
             app:summary="@string/event_preference_sensor_calendar_summary"
             app:key="eventCalendarCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsCalendarParameters" />
             
         <Preference
@@ -127,7 +127,7 @@
             app:summary="@string/event_preference_sensor_battery_summary"
             app:key="eventBatteryCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsBatteryParameters" />
 
         <Preference
@@ -135,7 +135,7 @@
             app:summary="@string/event_preference_sensor_call_summary"
             app:key="eventCallCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsCallParameters" />
 
         <Preference
@@ -143,7 +143,7 @@
             app:summary="@string/event_preference_sensor_sms_summary"
             app:key="eventSMSCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsSMSParameters" />
 
         <Preference
@@ -151,7 +151,7 @@
             app:title="@string/event_preferences_category_eventRadioSwitchParameters"
             app:summary="@string/event_preference_sensor_radioSwitch_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsRadioSwitchParameters" />
 
         <Preference
@@ -159,7 +159,7 @@
             app:title="@string/event_preferences_category_eventLocationsParameters"
             app:summary="@string/event_preference_sensor_location_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsLocationParameters" />
 
         <Preference
@@ -167,7 +167,7 @@
             app:title="@string/event_preferences_category_eventWifiParameters"
             app:summary="@string/event_preference_sensor_wifi_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsWifiParameters" />
 
         <Preference
@@ -175,7 +175,7 @@
             app:title="@string/event_preferences_category_eventBluetoothParameters"
             app:summary="@string/event_preference_sensor_bluetooth_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsBluetoothParameters" />
 
         <Preference
@@ -183,7 +183,7 @@
             app:title="@string/event_preferences_category_eventMobileCellsParameters"
             app:summary="@string/event_preference_sensor_mobile_cells_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsMobileCellsParameters" />
 
         <Preference
@@ -191,7 +191,7 @@
             app:summary="@string/event_preference_sensor_accessories_summary"
             app:key="eventAccessoriesCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsAccessoriesParameters" />
 
         <Preference
@@ -199,7 +199,7 @@
             app:summary="@string/event_preference_sensor_screen_summary"
             app:key="eventScreenCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsScreenParameters" />
 
         <Preference
@@ -207,7 +207,7 @@
             app:title="@string/event_preferences_category_eventNotificationsParameters"
             app:summary="@string/event_preference_sensor_notification_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsNotificationsParameters" />
 
         <Preference
@@ -215,7 +215,7 @@
             app:title="@string/event_preferences_category_eventApplicationsParameters"
             app:summary="@string/event_preference_sensor_application_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsApplicationsParameters" />
 
         <Preference
@@ -223,7 +223,7 @@
             app:title="@string/event_preferences_category_eventOrientationParameters"
             app:summary="@string/event_preference_sensor_orientation_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsOrientationParameters" />
 
         <Preference
@@ -231,7 +231,7 @@
             app:title="@string/event_preferences_category_eventNFCParameters"
             app:summary="@string/event_preference_sensor_nfc_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsNFCParameters" />
 
         <Preference
@@ -239,7 +239,7 @@
             app:summary="@string/event_preference_sensor_alarm_clock_summary"
             app:key="eventAlarmClockCategoryRoot"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false"
+            app:layout="@layout/mp_preference_material_widget"
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsAlarmClockParameters" />
         
     </PreferenceCategory>

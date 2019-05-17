@@ -8,7 +8,7 @@
         app:key="eventScreenEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preferences_screen_event_type"
         app:summary="@string/array_event_pref_eventScreenEventType_screenOff"
@@ -17,12 +17,12 @@
         app:entries="@array/eventScreenEventTypeArray"
         app:entryValues="@array/eventScreenEventTypeValues"
         app:dependency="eventScreenEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="eventScreenWhenUnlocked"
         app:title="@string/event_preferences_screen_start_when_unlocked"
         app:defaultValue="false"
         app:dependency="eventScreenEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

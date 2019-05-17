@@ -8,28 +8,28 @@
         app:key="eventApplicationEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventApplicationInstallExtender"
         app:title="@string/extender_app_name"
         app:summary="@string/event_preferences_applications_PPPExtender_install_summary"
         app:dependency="eventApplicationEnabled"
         app:widgetLayout="@layout/start_activity_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventApplicationInstallExtenderInfo"
         app:title="@string/event_preferences_PPPExtenderInstallInfo_text"
         app:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
         app:dependency="eventApplicationEnabled"
         app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventApplicationAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
         app:summary="@string/event_preferences_applications_AccessibilitySettingsForExtender_summary"
         app:dependency="eventApplicationEnabled"
         app:widgetLayout="@layout/start_activity_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
         app:defaultValue="@string/dash_string"
         app:key="eventApplicationApplications"
@@ -37,6 +37,6 @@
         app:removePPApplications="0"
         app:systemSettings="accessibility_2.0"
         app:dependency="eventApplicationEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

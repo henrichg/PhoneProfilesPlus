@@ -9,7 +9,7 @@
         app:summary="@string/profile_preferences_duration"
         app:title="@string/profile_preferences_duration"
         app:defaultValue="0"
-        app:iconSpaceReserved="false"
+        app:layout="@layout/mp_preference_material_widget"
         app:dMin="0"
         app:dMax="86400"
         app:dependency="prf_pref_askForDuration" />
@@ -21,24 +21,24 @@
         app:entries="@array/afterProfileDurationDoArray"
         app:entryValues="@array/afterProfileDurationDoValues"
         app:dependency="prf_pref_askForDuration"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="prf_pref_askForDuration"
         app:title="@string/profile_preferences_askForDuration"
         app:defaultValue="false"
-        app:iconSpaceReserved="false"
+        app:layout="@layout/mp_preference_material_widget"
         app:disableDependentsState="true"/>
     <Preference
         app:key="prf_pref_durationNotificationSoundInfo"
         app:title="@string/profile_preferences_durationNotificationSound"
         app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-        app:iconSpaceReserved="false"
+        app:layout="@layout/mp_preference_material_widget"
         app:widgetLayout="@layout/info_preference" />
     <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
         app:key="prf_pref_durationNotificationSound"
         app:summary="@string/ringtone_preference_not_set"
         app:title="@string/profile_preferences_durationNotificationSound"
-        app:iconSpaceReserved="false"
+        app:layout="@layout/mp_preference_material_widget"
         app:ringtoneType="notification"
         app:showSilent="true"
         app:showDefault="true" />
@@ -46,6 +46,6 @@
         app:key="prf_pref_durationNotificationVibrate"
         app:title="@string/profile_preferences_durationNotificationVibrate"
         app:defaultValue="false"
-        app:iconSpaceReserved="false"/>
+        app:layout="@layout/mp_preference_material_widget"/>
     
 </androidx.preference.PreferenceScreen>

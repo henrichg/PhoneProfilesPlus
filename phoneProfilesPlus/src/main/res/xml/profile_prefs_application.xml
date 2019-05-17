@@ -11,7 +11,7 @@
         app:defaultValue="0"
         app:entries="@array/applicationDisableScanningArray"
         app:entryValues="@array/applicationDisableScanningValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_applicationDisableBluetoothScanning"
         app:summary="@string/array_pref_no_change"
@@ -19,7 +19,7 @@
         app:defaultValue="0"
         app:entries="@array/applicationDisableScanningArray"
         app:entryValues="@array/applicationDisableScanningValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_applicationDisableLocationScanning"
         app:summary="@string/array_pref_no_change"
@@ -27,7 +27,7 @@
         app:defaultValue="0"
         app:entries="@array/applicationDisableScanningArray"
         app:entryValues="@array/applicationDisableScanningValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_applicationDisableMobileCellScanning"
         app:summary="@string/array_pref_no_change"
@@ -35,7 +35,7 @@
         app:defaultValue="0"
         app:entries="@array/applicationDisableScanningArray"
         app:entryValues="@array/applicationDisableScanningValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_applicationDisableOrientationScanning"
         app:summary="@string/array_pref_no_change"
@@ -43,6 +43,6 @@
         app:defaultValue="0"
         app:entries="@array/applicationDisableScanningArray"
         app:entryValues="@array/applicationDisableScanningValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

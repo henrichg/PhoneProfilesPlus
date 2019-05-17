@@ -9,25 +9,25 @@
         app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
         app:summary="@string/profile_preferences_deviceForceStopApplicationsInfo_summary"
         app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_deviceForceStopApplicationInstallExtender"
         app:title="@string/extender_app_name"
         app:summary="@string/profile_preferences_deviceForceStopApplications_PPPExtender_install_summary"
         app:widgetLayout="@layout/start_activity_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_deviceForceStopApplicationInstallExtenderInfo"
         app:title="@string/event_preferences_PPPExtenderInstallInfo_text"
         app:summary="@string/event_preferences_PPPExtenderInstallInfo_summary"
         app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_deviceForceStopApplicationAccessibilitySettings"
         app:title="@string/profile_preferences_deviceForceStopApplications_AccessibilitySettings_title"
         app:summary="@string/profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary"
         app:widgetLayout="@layout/start_activity_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
         app:summary="@string/array_pref_no_change"
@@ -35,13 +35,13 @@
         app:defaultValue="0"
         app:entries="@array/forceStopApplicationArray"
         app:entryValues="@array/forceStopApplicationValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ApplicationsMultiSelectDialogPreferenceX
         app:defaultValue="@string/dash_string"
         app:key="prf_pref_deviceForceStopApplicationPackageName"
         app:title="@string/profile_preferences_deviceForceStopApplicationsPackageName"
         app:removePPApplications="1"
         app:systemSettings="accessibility_2.0"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

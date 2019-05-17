@@ -9,33 +9,33 @@
         app:title="@string/phone_profiles_pref_category_bluetooth_scanning"
         app:summary="@string/phone_profiles_pref_applicationEventBluetooth_info"
         app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationEventBluetoothEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothEnableScanning"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventBluetoothLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventBluetoothLocationSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_material_widget" >
     </Preference>
     <SwitchPreferenceCompat
         app:key="applicationEventBluetoothScanIfBluetoothOff"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff"
         app:defaultValue="true"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventBluetoothScanIntervalInfo"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
         app:widgetLayout="@layout/exclamation_preference"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationEventBluetoothScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
@@ -44,7 +44,7 @@
         app:min="1"
         app:max="300"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationEventBluetoothLEScanDuration"
         app:summary="@string/phone_profiles_pref_applicationEventBluetoothLEScanDuration"
@@ -53,7 +53,7 @@
         app:min="5"
         app:max="30"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:key="applicationEventBluetoothScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode"
@@ -62,13 +62,13 @@
         app:entries="@array/scanInPowerSaveModeArray"
         app:entryValues="@array/scanInPowerSaveModeValues"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationEventBluetoothScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
         app:defaultValue="false"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationEventBluetoothRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -77,6 +77,6 @@
         app:entries="@array/applicationEventRescanArray"
         app:entryValues="@array/applicationEventRescanValues"
         app:dependency="applicationEventBluetoothEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

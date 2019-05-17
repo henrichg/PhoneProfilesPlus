@@ -9,19 +9,19 @@
         app:title="@string/phone_profiles_pref_category_mobile_cells_scanning"
         app:summary="@string/phone_profiles_pref_applicationEventMobileCell_info"
         app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationEventMobileCellEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventMobileCellEnableScanning"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventMobileCellsLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="applicationEventMobileCellEnableScannig"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_material_widget" >
     </Preference>
     <!--
     <sk.henrichg.phoneprofilesplus.MobileCellsRegistrationDialogPreference
@@ -32,7 +32,7 @@
         app:dMin="0"
         app:dMax="86400"
         app:dependency="applicationEventMobileCellEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     -->
     <ListPreference
         app:key="applicationEventMobileCellScanInPowerSaveMode"
@@ -42,13 +42,13 @@
         app:entries="@array/scanInPowerSaveModeMobileCellsArray"
         app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
         app:dependency="applicationEventMobileCellEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationEventMobileCellScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
         app:defaultValue="false"
         app:dependency="applicationEventMobileCellEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationEventMobileCellsRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -57,6 +57,6 @@
         app:entries="@array/applicationEventRescanArray"
         app:entryValues="@array/applicationEventRescanValues"
         app:dependency="applicationEventMobileCellEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

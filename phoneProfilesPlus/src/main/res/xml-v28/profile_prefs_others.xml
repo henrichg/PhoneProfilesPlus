@@ -11,7 +11,7 @@
         app:defaultValue="0"
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsChange"
         app:summary="@string/array_pref_no_change"
@@ -19,18 +19,18 @@
         app:defaultValue="0"
         app:entries="@array/runApplicationArray"
         app:entryValues="@array/runApplicationValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreferenceX
         app:defaultValue="-"
         app:key="prf_pref_deviceRunApplicationPackageName"
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_deviceCloseAllApplicationsInfo"
         app:title="@string/profile_preferences_deviceCloseAllApplications"
         app:summary="@string/profile_preferences_deviceCloseAllApplicationsInfo_summary"
         app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceCloseAllApplications"
         app:summary="@string/array_pref_no_change"
@@ -38,13 +38,13 @@
         app:defaultValue="0"
         app:entries="@array/closeAllApplicationsArray"
         app:entryValues="@array/closeAllApplicationsValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
         app:title="@string/profile_preferences_deviceForceStopApplicationsChange"
         app:key="prf_pref_forceStopApplicationsCategoryRoot"
         app:widgetLayout="@layout/start_activity_preference"
-        app:iconSpaceReserved="false"
+        app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsForceStopApplications" />
 
     <ListPreference
@@ -54,12 +54,12 @@
         app:defaultValue="0"
         app:entries="@array/changeWallpaperArray"
         app:entryValues="@array/changeWallpaperValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.WallpaperViewPreferenceX
         app:defaultValue="-"
         app:key="prf_pref_deviceWallpaper"
         app:title="@string/profile_preferences_deviceWallpaper"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceWallpaperFor"
         app:summary="@string/array_pref_device_wallpaper_homescreen"
@@ -67,14 +67,14 @@
         app:defaultValue="0"
         app:entries="@array/wallpaperForArray"
         app:entryValues="@array/wallpaperForValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
 
 
     <Preference
         app:title="@string/profile_preferences_lockDevice"
         app:key="prf_pref_lockDeviceCategoryRoot"
         app:widgetLayout="@layout/start_activity_preference"
-        app:iconSpaceReserved="false"
+        app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
 
 </androidx.preference.PreferenceScreen>

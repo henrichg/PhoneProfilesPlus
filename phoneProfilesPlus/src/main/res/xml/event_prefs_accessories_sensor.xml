@@ -8,7 +8,7 @@
         app:key="eventPeripheralEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preferences_peripheral_type"
         app:summary="@string/array_event_pref_peripheralType_deskDock"
@@ -17,6 +17,6 @@
         app:entries="@array/eventPeripheralTypeArray"
         app:entryValues="@array/eventPeripheralTypeValues"
         app:dependency="eventPeripheralEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

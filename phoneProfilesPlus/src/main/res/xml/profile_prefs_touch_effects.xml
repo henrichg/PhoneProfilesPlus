@@ -11,7 +11,7 @@
         app:defaultValue="0"
         app:entries="@array/soundOnTouchArray"
         app:entryValues="@array/soundOnTouchValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_vibrationOnTouch"
         app:summary="@string/array_pref_no_change"
@@ -19,7 +19,7 @@
         app:defaultValue="0"
         app:entries="@array/vibrationOnTouchArray"
         app:entryValues="@array/vibrationOnTouchValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_dtmfToneWhenDialing"
         app:summary="@string/array_pref_no_change"
@@ -27,6 +27,6 @@
         app:defaultValue="0"
         app:entries="@array/dtmfToneWhenDialingArray"
         app:entryValues="@array/dtmfToneWhenDialingValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

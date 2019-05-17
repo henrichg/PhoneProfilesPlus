@@ -8,17 +8,17 @@
         app:key="notificationsToast"
         app:title="@string/phone_profiles_pref_notificationsToast"
         app:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
         app:key="categoryNotificationsStatusBar"
         app:title="@string/phone_profiles_pref_notificationStatusBarNew"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_category" >
         <Preference
             app:key="notificationSystemSettings"
             app:title="@string/phone_profiles_pref_notificationSystemSettings"
             app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false">
+            app:layout="@layout/mp_preference_material_widget">
         </Preference>
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationLayoutType"
@@ -27,13 +27,13 @@
             app:defaultValue="0"
             app:entries="@array/notificationLayoutTypeArray"
             app:entryValues="@array/notificationLayoutTypeValues"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <Preference
             app:key="notificationStatusBarStyleInfo"
             app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
             app:widgetLayout="@layout/info_preference"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationStatusBarStyle"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
@@ -41,12 +41,12 @@
             app:defaultValue="1"
             app:entries="@array/notificationIconStyleArray"
             app:entryValues="@array/notificationIconStyleValues"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
             app:defaultValue="true"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
             app:summary="@string/phone_profiles_pref_notificationBackgroundColor_android"
@@ -54,7 +54,7 @@
             app:defaultValue="0"
             app:entries="@array/notificationBackgroundColorArray"
             app:entryValues="@array/notificationBackgroundColorValues"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationTextColor"
             app:summary="@string/array_pref_no_change"
@@ -62,17 +62,17 @@
             app:defaultValue="0"
             app:entries="@array/notificationTextColorArray"
             app:entryValues="@array/notificationTextColorValues"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"
             app:defaultValue="true"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <SwitchPreferenceCompat
             app:key="notificationShowButtonExit"
             app:title="@string/phone_profiles_pref_notificationShowButtonExit"
             app:defaultValue="false"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>

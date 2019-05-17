@@ -8,26 +8,26 @@
         app:key="applicationActivatorPrefIndicator"
         app:title="@string/phone_profiles_pref_applicationPrefIndicator"
         app:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationActivatorHeader"
         app:title="@string/phone_profiles_pref_applicationHeader"
         app:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationLongClickActivation"
         app:title="@string/phone_profiles_pref_applicationLongClickActivation"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationClose"
         app:title="@string/phone_profiles_pref_applicationClose"
         app:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationActivatorGridLayout"
         app:title="@string/phone_profiles_pref_applicationGridLayout"
         app:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

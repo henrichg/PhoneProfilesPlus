@@ -7,24 +7,24 @@
     <PreferenceCategory
         app:key="applicationUnlinkRingerNotificationVolumesCategory"
         app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_category" >
         <Preference
             app:key="applicationUnlinkRingerNotificationVolumesInfo"
             app:title="@string/empty_string"
             app:summary="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary"
             app:widgetLayout="@layout/info_preference"
-            app:iconSpaceReserved="false" />-
+            app:layout="@layout/mp_preference_material_widget" />-
         <SwitchPreferenceCompat
             app:key="applicationUnlinkRingerNotificationVolumes"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
             app:defaultValue="false"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <Preference
             app:key="applicationForceSetMergeRingNotificationVolumesInfo"
             app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
             app:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
             app:widgetLayout="@layout/info_preference"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:key="applicationForceSetMergeRingNotificationVolumes"
             app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
@@ -32,26 +32,26 @@
             app:defaultValue="0"
             app:entries="@array/forceSetMergeRingNotificationVolumesArray"
             app:entryValues="@array/forceSetMergeRingNotificationVolumesValues"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
 
     <PreferenceCategory
         app:key="applicationPowerParametersCategory"
         app:title="@string/phone_profiles_pref_applicationPowerParametersCategory"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_category" >
         <Preference
             app:key="applicationBatteryOptimization"
             app:title="@string/phone_profiles_pref_applicationBatteryOptimization"
             app:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false">
+            app:layout="@layout/mp_preference_material_widget">
         </Preference>
         <Preference
             app:key="applicationPowerManager"
             app:title="@string/phone_profiles_pref_applicationPowerManager"
             app:summary="@string/phone_profiles_pref_applicationPowerManager_summary"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false">
+            app:layout="@layout/mp_preference_material_widget">
         </Preference>
         <ListPreference
             app:key="applicationPowerSaveModeInternal"
@@ -60,26 +60,26 @@
             app:defaultValue="@string/applicationPowerSaveModeInternal_defaultValue"
             app:entries="@array/powerSaveModeArray"
             app:entryValues="@array/powerSaveModeValues"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
         <Preference
             app:key="applicationPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
             app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
             app:widgetLayout="@layout/start_activity_preference"
-            app:iconSpaceReserved="false">
+            app:layout="@layout/mp_preference_material_widget">
         </Preference>
     </PreferenceCategory>
 
     <PreferenceCategory
         app:key="applicationOtherParametersCategory"
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_category" >
         <SwitchPreferenceCompat
             app:key="applicationUseAlarmClock"
             app:title="@string/phone_profiles_pref_applicationUseAlarmClock"
             app:summary="@string/phone_profiles_pref_applicationUseAlarmClock_summary"
             app:defaultValue="false"
-            app:iconSpaceReserved="false" />
+            app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

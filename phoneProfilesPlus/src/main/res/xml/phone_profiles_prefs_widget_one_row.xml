@@ -8,7 +8,7 @@
         app:key="applicationWidgetOneRowPrefIndicator"
         app:title="@string/phone_profiles_pref_applicationPrefIndicator"
         app:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
         app:summary="25%%"
@@ -16,12 +16,12 @@
         app:defaultValue="25"
         app:entries="@array/widgetBackgroundArray"
         app:entryValues="@array/widgetBackgroundValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowBackgroundType"
         app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
         app:summary="0%%"
@@ -29,17 +29,17 @@
         app:defaultValue="0"
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetColorB"
         app:key="applicationWidgetOneRowBackgroundColor"
         app:defaultValue="-1"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowShowBorder"
         app:title="@string/phone_profiles_pref_applicationWidgetShowBorder"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
         app:summary="100%%"
@@ -47,12 +47,12 @@
         app:defaultValue="100"
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowRoundedCorners"
         app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
         app:defaultValue="true"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
         app:summary="100%%"
@@ -60,7 +60,7 @@
         app:defaultValue="100"
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
         app:summary="0"
@@ -68,7 +68,7 @@
         app:defaultValue="0"
         app:entries="@array/widgetColorArray"
         app:entryValues="@array/widgetColorValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
         app:summary="100%%"
@@ -76,11 +76,11 @@
         app:defaultValue="100"
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowCustomIconLightness"
         app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

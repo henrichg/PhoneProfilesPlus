@@ -8,7 +8,7 @@
         app:key="eventBatteryEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="eventBatteryLevelLow"
         app:summary="@string/event_preferences_battery_level_low"
@@ -17,7 +17,7 @@
         app:min="0"
         app:max="100"
         app:dependency="eventBatteryEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="eventBatteryLevelHight"
         app:summary="@string/event_preferences_battery_level_hight"
@@ -26,7 +26,7 @@
         app:min="0"
         app:max="100"
         app:dependency="eventBatteryEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preferences_battery_charging"
         app:summary="@string/array_event_pref_battery_charging_not_use"
@@ -35,7 +35,7 @@
         app:entries="@array/eventBatteryChargingArray"
         app:entryValues="@array/eventBatteryChargingValues"
         app:dependency="eventBatteryEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <MultiSelectListPreference
         app:key="eventBatteryPlugged"
         app:title="@string/event_preferences_battery_plugged"
@@ -43,13 +43,13 @@
         app:entries="@array/eventBatteryPluggedArray"
         app:entryValues="@array/eventBatteryPluggedValues"
         app:dependency="eventBatteryEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="eventBatteryPowerSaveMode"
         app:title="@string/event_preferences_battery_power_save_mode"
         app:defaultValue="false"
         app:dependency="eventBatteryEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 
 </androidx.preference.PreferenceScreen>

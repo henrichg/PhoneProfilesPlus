@@ -8,28 +8,28 @@
         app:key="eventWiFiEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventEnableWiFiScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_wifi_scanning"
         app:summary="@string/phone_profiles_pref_eventWifiAppSettings_summary"
         app:dependency="eventWiFiEnabled"
         app:widgetLayout="@layout/start_activity_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventWiFiLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="eventWiFiEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventWiFiKeepOnSystemSettings"
         app:title="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="eventWiFiEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preferences_wifi_connection_type"
         app:summary="@string/array_event_pref_wifiConnectionType_connected"
@@ -38,12 +38,12 @@
         app:entries="@array/eventWifiConnectionTypeArray"
         app:entryValues="@array/eventWifiConnectionTypeValues"
         app:dependency="eventWiFiEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.WifiSSIDPreferenceX
         app:key="eventWiFiSSID"
         app:summary="@string/event_preferences_wifi_ssid"
         app:title="@string/event_preferences_wifi_ssid"
         app:dependency="eventWiFiEnabled"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

@@ -9,19 +9,19 @@
         app:title="@string/phone_profiles_pref_category_wifi_scanning"
         app:summary="@string/phone_profiles_pref_applicationEventWifi_info"
         app:widgetLayout="@layout/info_preference"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationEventWifiEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventWifiEnableScanning"
         app:defaultValue="false"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventWiFiLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="applicationEventWifiEnableScannig"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_material_widget" >
     </Preference>
     <Preference
         app:key="applicationEventWiFiKeepOnSystemSettings"
@@ -29,21 +29,21 @@
         app:summary="@string/phone_profiles_pref_eventWiFiKeepOnSystemSettings_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:dependency="applicationEventWifiEnableScannig"
-        app:iconSpaceReserved="false" >
+        app:layout="@layout/mp_preference_material_widget" >
     </Preference>
     <SwitchPreferenceCompat
         app:key="applicationEventWifiScanIfWifiOff"
         app:title="@string/phone_profiles_pref_applicationEventWifiScanIfWifiOff"
         app:defaultValue="true"
         app:dependency="applicationEventWifiEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationEventWifiScanIntervalInfo"
         app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
         app:widgetLayout="@layout/exclamation_preference"
         app:dependency="applicationEventWifiEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="applicationEventWifiScanInterval"
         app:summary="@string/phone_profiles_pref_applicationEventWifiScanInterval"
@@ -52,7 +52,7 @@
         app:min="1"
         app:max="300"
         app:dependency="applicationEventWifiEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:key="applicationEventWifiScanInPowerSaveMode"
         app:title="@string/phone_profiles_pref_applicationEventWifiScanInPowerSaveMode"
@@ -61,13 +61,13 @@
         app:entries="@array/scanInPowerSaveModeArray"
         app:entryValues="@array/scanInPowerSaveModeValues"
         app:dependency="applicationEventWifiEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationEventWifiScanOnlyWhenScreenIsOn"
         app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
         app:defaultValue="false"
         app:dependency="applicationEventWifiEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationEventWifiRescan"
         app:summary="@string/phone_profiles_pref_applicationEventRescan_screenOn"
@@ -76,6 +76,6 @@
         app:entries="@array/applicationEventRescanArray"
         app:entryValues="@array/applicationEventRescanValues"
         app:dependency="applicationEventWifiEnableScannig"
-        app:iconSpaceReserved="false" />
+        app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>
