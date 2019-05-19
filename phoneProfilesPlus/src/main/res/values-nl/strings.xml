@@ -772,7 +772,7 @@
   <string name="event_preference_sensor_application_summary">Deze sensor is voor event start door programma op de voorgrond. Parameters: Programma.</string>
   <string name="event_preference_sensor_orientation_summary">Deze sensor is voor event start door oriëntatie van apparaat. Parameters: Scherm (Boven, onder), Zijden (Horizontaal, zijkant boven), Afstand (Nabij, veraf; gebruikt de nabijheidssensor), Negeer voor programma\'s (in de voorgrond).</string>
   <string name="event_preference_sensor_nfc_summary">Deze sensor is voor event start door NFC-tags. Parameters; NFC-tags, Voortdurend ingeschakeld, Duur (event-inschakelduur).</string>
-  <string name="editor_activity_targetHelps_navigationIcon_title">\"Weergaven\" zijpaneel</string>
+<!--  <string name="editor_activity_targetHelps_navigationIcon_title">\"Weergaven\" zijpaneel</string>-->
   <string name="editor_activity_targetHelps_applicationMenu_title">Programmamenu</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Klik hier om het Programmamenu te openen. Hier vind je de Programma-instellingen.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Events herstarten</string>
@@ -1016,7 +1016,7 @@
   <string name="notification_channel_grant_permission_description">Toont machtiging die nodig is om te geven.</string>
   <string name="notification_channel_notify_event_start">Start event notificatie</string>
   <string name="notification_channel_notify_event_start_description">Toont notificatie over start van event.</string>
-  <string name="editor_drawer_open">Open navigatiebalk</string>
+<!--  <string name="editor_drawer_open">Open navigatiebalk</string>-->
   <string name="important_info_accessibility_service_new_version">Installeer de nieuwe versie van PhoneProfilesPlusExtender. Meer informatie over de installatie vind je bij de opties die PhoneProfilesPlusExtender gebruiken.</string>
   <string name="important_info_accessibility_service_new_version_2">Klik hier voor het weergeven van PhoneProfilesPlusExtender releases op GitHub.</string>
   <string name="array_pref_no_force_stop">Stoppen niet forceren</string>
@@ -1237,8 +1237,8 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>-->
     <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
     <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 

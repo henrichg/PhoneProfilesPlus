@@ -6,12 +6,13 @@
              tools:context="sk.henrichg.phoneprofilesplus.EventDetailsFragment">
 
     <RelativeLayout
-                    android:id="@+id/event_detail_root"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="1dp"
-                    android:orientation="horizontal"
-                    android:layout_gravity="top" >
+        android:id="@+id/event_detail_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:orientation="horizontal"
+        android:layout_gravity="top"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:id="@+id/event_detail_buttons_root"

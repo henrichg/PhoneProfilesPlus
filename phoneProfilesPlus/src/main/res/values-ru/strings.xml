@@ -772,7 +772,7 @@
   <string name="event_preference_sensor_application_summary">Этот датчик запускает событие по приложению на переднем плане. Параметры: \"Приложения\".</string>
   <string name="event_preference_sensor_orientation_summary">Этот датчик запускает событие по ориентации устройства. Параметры: \"Экран\" (экраном вверх, экраном вниз), \"Стороны\" (горизонтально, определённой стороной вверх), \"Расстояние\" (рядом, далеко; используется датчик приближения), \"Игнорировать для приложений\" (на переднем плане).</string>
   <string name="event_preference_sensor_nfc_summary">Этот датчик запускает событие по NFC-меткам. Параметры: \"NFC-метки\", \"Постоянный запуск\", \"Продолжительность\" (события запуска).</string>
-  <string name="editor_activity_targetHelps_navigationIcon_title">Боковое меню</string>
+<!--  <string name="editor_activity_targetHelps_navigationIcon_title">Боковое меню</string>-->
   <string name="editor_activity_targetHelps_applicationMenu_title">Меню приложения</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Нажмите сюда для открытия меню приложения. В этом меню находятся параметры приложения.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Перезапуск событий</string>
@@ -1016,7 +1016,7 @@
   <string name="notification_channel_grant_permission_description">Показывает разрешение, которое нужно предоставить.</string>
   <string name="notification_channel_notify_event_start">Уведомление о начале события</string>
   <string name="notification_channel_notify_event_start_description">Показывает уведомление о начале события.</string>
-  <string name="editor_drawer_open">Открыть боковое меню</string>
+<!--  <string name="editor_drawer_open">Открыть боковое меню</string>-->
   <string name="important_info_accessibility_service_new_version">Установите, пожалуйста, новую версию PhoneProfilesPlusExtender. Дополнительные сведения об установке - в параметрах, для которых требуется PhoneProfilesPlusExtender.</string>
   <string name="important_info_accessibility_service_new_version_2">Нажмите сюда для просмотра релизов PhoneProfilesPlusExtender на GitHub.</string>
   <string name="array_pref_no_force_stop">Не останавливать принудительно</string>
@@ -1237,8 +1237,8 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">По ночному режиму</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Включите, пожалуйста, определение местоположения в настройках системы. Без этого сканирование мобильных вышек работать не будет.</string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Автоскрытие бокового меню</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">Нажмите сюда или проведите пальцем слева направо для открытия боковой панели, в которой вы можете переключаться между списками профилей и событий.</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Автоскрытие бокового меню</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Нажмите сюда или проведите пальцем слева направо для открытия боковой панели, в которой вы можете переключаться между списками профилей и событий.</string>-->
     <string name="action_for_external_application_notification_title">Поддержка внешних приложений (Tasker)</string>
     <string name="start_event_notification_text2">Уберите это уведомление, чтобы перестать его показывать.</string>
 

@@ -772,7 +772,7 @@
   <string name="event_preference_sensor_application_summary">此传感器用于按前台运行的应用程序启动事件。参数：应用程序。</string>
   <string name="event_preference_sensor_orientation_summary">此传感器用于按设备的方向启动事件。参数：显示 (向上，向下)，Sides (Horizontal, side up)，距离 (远，近，使用距离传感器检测)，忽略应用程序 (前台)。</string>
   <string name="event_preference_sensor_nfc_summary">此传感器用于按 NFC 标签启动事件。参数：NFC 标签，常驻运行，时间段 (时间运行时间段)。</string>
-  <string name="editor_activity_targetHelps_navigationIcon_title">“视图”侧面板</string>
+<!--  <string name="editor_activity_targetHelps_navigationIcon_title">“视图”侧面板</string>-->
   <string name="editor_activity_targetHelps_applicationMenu_title">应用程序菜单</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">单击此按钮打开“应用程序”菜单，您可以在其中更改应用程。</string>
   <string name="editor_activity_targetHelps_restartEvents_title">重新启动事件</string>
@@ -1016,7 +1016,7 @@
   <string name="notification_channel_grant_permission_description">显示需要的权限授予它。</string>
   <string name="notification_channel_notify_event_start">开始事件通知</string>
   <string name="notification_channel_notify_event_start_description">显示有关事件开始的通知。</string>
-  <string name="editor_drawer_open">打开侧边栏导航菜单</string>
+<!--  <string name="editor_drawer_open">打开侧边栏导航菜单</string>-->
   <string name="important_info_accessibility_service_new_version">请安装新版本的PhoneProfilesPlusExtender。有关安装的更多信息是参数，其中需要PhoneProfilesPlusExtender。</string>
   <string name="important_info_accessibility_service_new_version_2">单击此处以在GitHub中显示PhoneProfilesPlusExtender版本。</string>
   <string name="array_pref_no_force_stop">不要强制停止</string>
@@ -1233,8 +1233,8 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">按夜间模式</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">请在系统设置中启用位置。如果没有这个，移动基站扫描将无法工作。</string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">自动隐藏侧面板</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">单击此按钮或从左侧屏幕一侧向右滑动以打开“视图”侧面板，您可以在其中切换“个人档案”和“事件”视图。</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">自动隐藏侧面板</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">单击此按钮或从左侧屏幕一侧向右滑动以打开“视图”侧面板，您可以在其中切换“个人档案”和“事件”视图。</string>-->
     <string name="action_for_external_application_notification_title">外部应用程序支持(Tasker)</string>
     <string name="start_event_notification_text2">清除此通知以停止显示它。</string>
 

@@ -2,6 +2,6 @@
 <resources >
 
     <!-- Match 48dp default ActionBar height on landscape orientation -->
-    <dimen name="naw_drawer_margin_offset">-8dp</dimen>
+    <!--<dimen name="naw_drawer_margin_offset">-8dp</dimen>-->
 
 </resources>

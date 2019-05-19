@@ -772,7 +772,7 @@
   <string name="event_preference_sensor_application_summary">Ten sensor rozpocznie wydarzenie przez aplikację na pierwszym planie. Parametry: Aplikacje.</string>
   <string name="event_preference_sensor_orientation_summary">Ten sensor rozpocznie zdarzenie przez orientację urządzenia. Parametry: Wyświetlanie (góra, dół), Boki (poziomy, stroną do góry), Dystans (blisko, daleko, używany jest czjunik zbliżeniowy), Ignoruj dla aplikacji (w planie).</string>
   <string name="event_preference_sensor_nfc_summary">Sensor ten zacznie zdarzenie przez tagi NFC. Parametry: Tagi NFC, trwałe uruchomienie, czas trwania (czas trwania uruchomionego zdarzenia).</string>
-  <string name="editor_activity_targetHelps_navigationIcon_title">Boczny panel \"Wyświetleń\"</string>
+<!--  <string name="editor_activity_targetHelps_navigationIcon_title">Boczny panel \"Wyświetleń\"</string>-->
   <string name="editor_activity_targetHelps_applicationMenu_title">Menu aplikacji</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Kliknij to, aby otworzyć menu aplikacji, w którym możesz zmienić ustawienia aplikacji.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Zrestartuj wydarzenia</string>
@@ -1016,7 +1016,7 @@
   <string name="notification_channel_grant_permission_description">Pokazuje, które uprawnienia musisz przyznać.</string>
   <string name="notification_channel_notify_event_start">Włącz powiadomienia zdarzeń</string>
   <string name="notification_channel_notify_event_start_description">Pokazuje powiadomienia o uruchomieniu zdarzeń.</string>
-  <string name="editor_drawer_open">Otwórz szufladę nawigacji</string>
+<!--  <string name="editor_drawer_open">Otwórz szufladę nawigacji</string>-->
   <string name="important_info_accessibility_service_new_version">Proszę zainstalować nową wersję PhoneProfilesPlusExtender. Więcej informacji znajdziesz w konfiguracji parametrów, do których  PhoneProfilesPlusExtender jest wymagany.</string>
   <string name="important_info_accessibility_service_new_version_2">Kliknij tu aby zobaczyć nowe wydanie PhoneProfilesPlusExtender na GitHub\'ie.</string>
   <string name="array_pref_no_force_stop">Nie wymuszaj zatrzymania</string>
@@ -1237,8 +1237,8 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">Jak w trybie nocnym</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Proszę włączyć lokalizację w ustawieniach systemu. Bez tego skanowanie komórek mobilnych - nie działa. </string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-ukrywanie panelu bocznego</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">Kliknij tu lub przesuń od lewej krawędzi ekranu ku prawej, aby otworzyć panel boczny, w którym możesz przełączać widoki Profilu oraz Zdarzeń.</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-ukrywanie panelu bocznego</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Kliknij tu lub przesuń od lewej krawędzi ekranu ku prawej, aby otworzyć panel boczny, w którym możesz przełączać widoki Profilu oraz Zdarzeń.</string>-->
     <string name="action_for_external_application_notification_title">Wsparcie dla aplikacji zewnętrznych (Tasker)</string>
     <string name="start_event_notification_text2">wyczyść to powiadomienie aby przestać je wyświetlać</string>
 

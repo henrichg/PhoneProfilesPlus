@@ -35,10 +35,12 @@
         <item name="android:visibility">gone</item>
     </style>
 
+    <!--
     <style name="NavDrawer">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginRight">@dimen/naw_drawer_margin_offset</item>
     </style>
+    -->
 
     <style name="AlertDialogStyleColor" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:background">@color/activityBackgroundColor</item>

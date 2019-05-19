@@ -169,7 +169,7 @@
         <activity
             android:name=".EditorProfilesActivity"
             android:label="@string/title_activity_editor"
-            android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_withDrawerLayout_color">
+            android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_color">
         </activity>
         <activity
             android:name=".ProfilesPrefsActivity"

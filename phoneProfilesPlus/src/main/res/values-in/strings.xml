@@ -772,7 +772,7 @@
   <string name="event_preference_sensor_application_summary">Sensor ini akan memulai sebuah acara dengan aplikasi di latar depan. Parameter: Aplikasi.</string>
   <string name="event_preference_sensor_orientation_summary">Sensor ini akan memulai sebuah acara dengan orientasi perangkat. Parameter: Display (Atas, Bawah), Sisi (Horizontal, sisi atas), Jarak (Dekat, jauh, digunakan adalah sensor jarak), Abaikan aplikasi (di latar depan).</string>
   <string name="event_preference_sensor_nfc_summary">Sensor ini akan memulai sebuah event dengan tag NFC. Parameter: Tag NFC, Permanent run, Durasi (durasi lari acara).</string>
-  <string name="editor_activity_targetHelps_navigationIcon_title">Panel samping \"Views\"</string>
+<!--  <string name="editor_activity_targetHelps_navigationIcon_title">Panel samping \"Views\"</string>-->
   <string name="editor_activity_targetHelps_applicationMenu_title">Menu aplikasi</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Klik ini untuk membuka menu Aplikasi, di mana Anda bisa mengubah Pengaturan aplikasi.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Mulai ulang acara</string>
@@ -1016,7 +1016,7 @@
   <string name="notification_channel_grant_permission_description">Shows permission witch is needed grant it.</string>
   <string name="notification_channel_notify_event_start">Start event notification</string>
   <string name="notification_channel_notify_event_start_description">Shows notification about start of event.</string>
-  <string name="editor_drawer_open">Buka laci navigasi</string>
+<!--  <string name="editor_drawer_open">Buka laci navigasi</string>-->
   <string name="important_info_accessibility_service_new_version">Please install the new version of PhoneProfilesPlusExtender. More information about installation is in parameters for which is PhoneProfilesPlusExtender required.</string>
   <string name="important_info_accessibility_service_new_version_2">Click here to display PhoneProfilesPlusExtender releases in GitHub.</string>
   <string name="array_pref_no_force_stop">Do not force stop</string>
@@ -1237,8 +1237,8 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>-->
     <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
     <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 

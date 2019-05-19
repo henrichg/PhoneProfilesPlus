@@ -772,8 +772,8 @@
   <string name="event_preference_sensor_application_summary">Tento senzor je pre štart udalosti podľa aplikácie v popredí. Parametre: Aplikácie.</string>
   <string name="event_preference_sensor_orientation_summary">Tento senzor je pre štart udalosti podľa orientácie zariadenia. Parametre: Obrazovka (Hore, Dolu), Strany (Horizontálne, strana hore), Priblíženie (V blízkosti, Ďaleko; použitý je senzor priblíženia), ignorovať pre aplikácie (v popredí).</string>
   <string name="event_preference_sensor_nfc_summary">Tento senzor je pre štart udalosti podľa NFC tagov. Parametre: NFC tagy, Trvalý beh, Trvanie (dĺžka behu udalosti).</string>
-  <string name="editor_activity_targetHelps_navigationIcon_title">Bočný panel \"Pohľady\"</string>
-  <string name="editor_activity_targetHelps_navigationIcon_description">Kliknite sem, alebo potiahnite prstom z ľavej strany obrazovky doprava, na otvorenie bočného panelu \"Pohľady\". V tomto paneli môžete prepínať medzi zobrazeniami profilov a udalostí.</string>
+<!--  <string name="editor_activity_targetHelps_navigationIcon_title">Bočný panel \"Pohľady\"</string>-->
+<!--  <string name="editor_activity_targetHelps_navigationIcon_description">Kliknite sem, alebo potiahnite prstom z ľavej strany obrazovky doprava, na otvorenie bočného panelu \"Pohľady\". V tomto paneli môžete prepínať medzi zobrazeniami profilov a udalostí.</string>-->
   <string name="editor_activity_targetHelps_applicationMenu_title">Aplikačné menu</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Kliknite sem pre otvorenie menu aplikácie. V tejto ponuke sú Nastavenia aplikácie.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Reštart udalostí</string>
@@ -1019,7 +1019,7 @@
   <string name="notification_channel_grant_permission_description">Zobrazuje povolenie, ktoré je potrebné, aby ste udelili.</string>
   <string name="notification_channel_notify_event_start">Notifikácia spustenia udalosti</string>
   <string name="notification_channel_notify_event_start_description">Zobrazuje notifikáciu o spustení udalosti.</string>
-  <string name="editor_drawer_open">Otvor navigačný panel</string>
+<!--  <string name="editor_drawer_open">Otvor navigačný panel</string>-->
   <string name="important_info_accessibility_service_new_version">Prosím nainštalujte novú verziu PhoneProfilesPlusExtender. Ďalšie informácie o inštalácii sú v parametroch, ktoré PhoneProfilesPlusExtender vyžadujú.</string>
   <string name="important_info_accessibility_service_new_version_2">Kliknite sem pre zobrazenie vydaní PhoneProfilesPlusExtender v GitHub.</string>
   <string name="array_pref_no_force_stop">Nevynucovať zastavenie</string>
@@ -1240,7 +1240,7 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">Podľa nočného módu</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Prosím, zapnite Polohu v nastaveniach systému. Bez toho, skenovanie mobilných buniek nebude fungovať.</string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Automatické schovanie bočného panelu</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Automatické schovanie bočného panelu</string>-->
 
     <string name="event_preferences_battery_plugged">Typ nabíjačky</string>
     <string name="array_pref_battery_plugged_ac">Akumulátor</string>

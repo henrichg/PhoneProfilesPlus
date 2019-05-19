@@ -772,7 +772,7 @@
   <string name="event_preference_sensor_application_summary">Цей датчик запускає подію по додатку на передньому плані. Параметри: \"Додатки\".</string>
   <string name="event_preference_sensor_orientation_summary">Цей датчик запускає подію у орієнтації пристрою. Параметри: \"Екран\" ( Екраном догори, екраном вниз), \"Сторони\" (горизонтально, певною стороною догори), \" Відстань\" (поруч, далеко; використовується датчик наближення), \"Ігнорувати для додатків\" (на передньому плані).</string>
   <string name="event_preference_sensor_nfc_summary">Цей датчик обробляє події NFC мітки. Параметри: NFC мітки, Постійний запуск, тривалість (Тривалість запуску події).</string>
-  <string name="editor_activity_targetHelps_navigationIcon_title">«Вид» бокова панель</string>
+<!--  <string name="editor_activity_targetHelps_navigationIcon_title">«Вид» бокова панель</string>-->
   <string name="editor_activity_targetHelps_applicationMenu_title">Меню додатку</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Натисніть тут щоб відкрити меню додатка, де ви зможете змінити його налаштування.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Перезавантаження подій</string>
@@ -1016,7 +1016,7 @@
   <string name="notification_channel_grant_permission_description">Показує дозвіл, який потрібно надати.</string>
   <string name="notification_channel_notify_event_start">Сповіщення про початок події</string>
   <string name="notification_channel_notify_event_start_description">Показує сповіщення про початок події.</string>
-  <string name="editor_drawer_open">Відкрити бокове меню</string>
+<!--  <string name="editor_drawer_open">Відкрити бокове меню</string>-->
   <string name="important_info_accessibility_service_new_version">Будь ласка, встановіть нову версію PhoneProfilesPlusExtender. Додаткові відомості про встановлення - в параметрах, для яких потрібен PhoneProfilesPlusExtender.</string>
   <string name="important_info_accessibility_service_new_version_2">Натисніть тут аби побачити релізи PhoneProfilesPlusExtender на GitHub.</string>
   <string name="array_pref_no_force_stop">Не зупиняти примусово</string>
@@ -1237,8 +1237,8 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">Нічний режим</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Увімкніть Розташування в Налаштуваннях системи. Без цього, сканування мобільних вишок не буде працювати.</string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Автоматично ховати бічну панель</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">Натисніть тут або проведіть з лівого краю екрана до правого щоб відкрити \"Views\" бокову панель, там Ви зможете перемикнутись на вигляд Профілі або Події.</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Автоматично ховати бічну панель</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Натисніть тут або проведіть з лівого краю екрана до правого щоб відкрити \"Views\" бокову панель, там Ви зможете перемикнутись на вигляд Профілі або Події.</string>-->
     <string name="action_for_external_application_notification_title">Підтримка зовнішніх додатків (Tasker)</string>
     <string name="start_event_notification_text2">Очистіть це повідомлення щоб більше не показувати його.</string>
 

@@ -520,7 +520,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectFilterItem(position+1, true, true, false, true);
+                selectFilterItem(position+1, true, true, /*false,*/ true);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -559,7 +559,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != orderSelectedItem)
-                    changeEventOrder(position, false);
+                    changeEventOrder(position/*, false*/);
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -612,8 +612,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         PPApplication.logE("EditorProfilesActivity.onCreate", "orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
-        changeEventOrder(orderSelectedItem, savedInstanceState != null);
-        selectFilterItem(filterSelectedItem, false, false, savedInstanceState != null, false);
+        changeEventOrder(orderSelectedItem/*, savedInstanceState != null*/);
+        selectFilterItem(filterSelectedItem, false, false, /*savedInstanceState != null,*/ false);
 
         /*
         // not working good, all activity is under status bar
@@ -1176,7 +1176,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         
     }
 
-    private void selectFilterItem(final int position, final boolean fromClickListener, final boolean removePreferences, boolean orientationChange, final boolean startTargetHelps) {
+    private void selectFilterItem(final int position, final boolean fromClickListener, final boolean removePreferences, /*boolean orientationChange,*/ final boolean startTargetHelps) {
         /*// Close drawer
         if (ApplicationPreferences.applicationEditorAutoCloseDrawer(getApplicationContext()) && (!orientationChange))
             drawerLayout.closeDrawer(drawerRoot);*/
@@ -1194,7 +1194,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         _selectFilterItem(position, fromClickListener, removePreferences, startTargetHelps);
     }
 
-    private void changeEventOrder(int position, boolean orientationChange) {
+    private void changeEventOrder(int position/*, boolean orientationChange*/) {
         orderSelectedItem = position;
 
         if (filterSelectedItem != DSI_EVENTS_START_ORDER) {
@@ -1426,14 +1426,16 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
+    /*
     @Override
     public void onBackPressed()
     {
-        /*if (drawerLayout.isDrawerOpen(drawerRoot))
+        if (drawerLayout.isDrawerOpen(drawerRoot))
             drawerLayout.closeDrawer(drawerRoot);
-        else*/
+        else
             super.onBackPressed();
     }
+    */
 
     /*
     @Override

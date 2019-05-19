@@ -772,7 +772,7 @@
     <string name="event_preference_sensor_application_summary">Dieser Parameter ist für den Start nach App im Vordergrund.</string>
     <string name="event_preference_sensor_orientation_summary">Dieser Parameter ist für den Start nach Bildschirmausrichtung: Ausrichtung (oben, unten, links, rechts), Seiten (horizontal, Seite oben), Entfernung (Entfernungssensor), ignorieren bei Apps.</string>
     <string name="event_preference_sensor_nfc_summary">Dieser Parameter ist für den Start nach NFC-Tag: Tag, dauerhaft aktivieren, Dauer.</string>
-    <string name="editor_activity_targetHelps_navigationIcon_title">\"Ansichten\"-Seitenleiste</string>
+<!--    <string name="editor_activity_targetHelps_navigationIcon_title">\"Ansichten\"-Seitenleiste</string>-->
     <string name="editor_activity_targetHelps_applicationMenu_title">Anwendungsmenü</string>
     <string name="editor_activity_targetHelps_applicationMenu_description">Klicke hier um das Anwendungsmenü zu öffnen. In diesem Menü befinden sich die Anwendungseinstellungen.</string>
     <string name="editor_activity_targetHelps_restartEvents_title">Ereignisse neustarten</string>
@@ -1016,7 +1016,7 @@
     <string name="notification_channel_grant_permission_description">Zeigt welche Berechtigung benötigt wird.</string>
     <string name="notification_channel_notify_event_start">Starte Ereignis Benachrichtigung</string>
     <string name="notification_channel_notify_event_start_description">Zeigt Benachrichtigung über den Start des Ereignisses.</string>
-    <string name="editor_drawer_open">Navigationsleiste öffnen</string>
+<!--    <string name="editor_drawer_open">Navigationsleiste öffnen</string>-->
     <string name="important_info_accessibility_service_new_version">Bitte installieren sie die neue Version des PhoneProfilesPlusExtender. Weitere Informationen über die Installation finden sie in den Parametern wozu der Extender benötigt wird.</string>
     <string name="important_info_accessibility_service_new_version_2">Klicken sie hier um die Versionen von PhoneProfilePlusExtender in GitHub anzusehen.</string>
     <string name="array_pref_no_force_stop">Nicht abbrechen</string>
@@ -1237,8 +1237,8 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>-->
     <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
     <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 

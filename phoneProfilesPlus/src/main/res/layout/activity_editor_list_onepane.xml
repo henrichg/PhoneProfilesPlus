@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:fitsSystemWindows="false" >
+        android:fitsSystemWindows="false"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:id="@+id/editor_list_toolbar"

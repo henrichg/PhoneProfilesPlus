@@ -1,15 +1,17 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:padding="5dp">
 
     <RelativeLayout
-                    android:id="@+id/profile_detail_root"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="1dp"
-                    android:orientation="horizontal"
-                    android:layout_gravity="top" >
+        android:id="@+id/profile_detail_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="1dp"
+        android:orientation="horizontal"
+        android:layout_gravity="top"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:id="@+id/profile_detail_buttons_root"

@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Mode économie d\'énergie</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Paramètres du mode économie d\'énergie</string>
   <string name="array_pref_powerSaveMode_off">Désativé</string>
-  <string name="array_pref_powerSaveMode_5" formated="false">Mettre en marche à 5 % de batterie</string>
-  <string name="array_pref_powerSaveMode_15" formated="false">Mettre en marche à 5 % de batterie</string>
+  <string name="array_pref_powerSaveMode_5" formatted="false">Mettre en marche à 5% de batterie</string>
+  <string name="array_pref_powerSaveMode_15" formatted="false">Mettre en marche à 15% de batterie</string>
   <string name="important_info_profile_ringerMode_root">Dans Android 6, il n\'est pas possible de changer le réglage « Vibrer avec la sonnerie » sur un téléphone non rooté.</string>
   <string name="important_info_profile_adaptiveBrightness_root">Dans Android 6+, il n\'est pas possible de changer le réglage « Éclairage automatique» sur un téléphone non rooté.</string>
   <string name="important_info_profile_wifiScanning_location">Dans Android 6+, pour pouvoir scanner le wifi il faut valider la localisation wifi dans les paramètre de localisation.</string>
@@ -772,7 +772,7 @@
   <string name="event_preference_sensor_application_summary">Ce capteur est pour démarrer un événement par l’application au premier plan. Paramètres : Applications.</string>
   <string name="event_preference_sensor_orientation_summary">Ce capteur est pour démarrer un événement selon l’orientation de l’appareil. Paramètres : Affichage (haut, bas), côtés (horizontale, vers le haut), Distance (près, loin, utilisé le capteur de proximité), ignorer pour des applications (au premier plan).</string>
   <string name="event_preference_sensor_nfc_summary">Ce capteur est pour démarrer un événement par étiquette NFC. Paramètres : étiquette  NFC, exécution permanente, durée.</string>
-  <string name="editor_activity_targetHelps_navigationIcon_title">Panneau latéral « Vues »</string>
+<!--  <string name="editor_activity_targetHelps_navigationIcon_title">Panneau latéral « Vues »</string>-->
   <string name="editor_activity_targetHelps_applicationMenu_title">Menu de l’application</string>
   <string name="editor_activity_targetHelps_applicationMenu_description">Cliquez sur ce bouton pour ouvrir le menu d’Application. Dans ce menu on trouve les paramètres de l\'application.</string>
   <string name="editor_activity_targetHelps_restartEvents_title">Redémarrez l\'événement</string>
@@ -1016,7 +1016,7 @@
   <string name="notification_channel_grant_permission_description">Affiche les permissions à donner.</string>
   <string name="notification_channel_notify_event_start">Notification de début d\'événement</string>
   <string name="notification_channel_notify_event_start_description">Affiche la notification du début de l\'événement.</string>
-  <string name="editor_drawer_open">Ouvrir le tiroir de navigation</string>
+<!--  <string name="editor_drawer_open">Ouvrir le tiroir de navigation</string>-->
   <string name="important_info_accessibility_service_new_version">Veuillez installer la nouvelle version de PhoneProfilesPlusExtender. Les informations d\'installation sont présentes dans les paramètres qui en ont besoin.</string>
   <string name="important_info_accessibility_service_new_version_2">Cliquez ici pour afficher les mise à jour de PhoneProfilesPlusExtender dans GitHub.</string>
   <string name="array_pref_no_force_stop">Ne pas forcer l\'arrêt</string>
@@ -1238,8 +1238,8 @@
     <string name="phone_profiles_pref_applicationTheme_nightMode">By night mode</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Please enable Location in System Settings. Without this, Mobile cells scanning will not work.</string>
 
-    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>
-    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>
+<!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-hide side panel</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Click this or swipe from left screen side to right to open \"Views\" side panel, where you can switch between Profiles and Events views.</string>-->
     <string name="action_for_external_application_notification_title">External applications support (Tasker)</string>
     <string name="start_event_notification_text2">Clear this notification to stop displaying it.</string>
 
