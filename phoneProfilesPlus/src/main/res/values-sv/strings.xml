@@ -468,8 +468,8 @@
   <string name="event_preferences_battery_power_save_mode">Energisparläge</string>
   <string name="phone_profiles_pref_applicationPowerSaveMode">Inställningar energisparläge</string>
   <string name="array_pref_powerSaveMode_off">Av</string>
-  <string name="array_pref_powerSaveMode_5" formated="false">Slå på vid 5% batteri</string>
-  <string name="array_pref_powerSaveMode_15" formated="false">Slå på vid 15% batteri</string>
+  <string name="array_pref_powerSaveMode_5" formatted="false">Slå på vid 5% batteri</string>
+  <string name="array_pref_powerSaveMode_15" formatted="false">Slå på vid 15% batteri</string>
   <string name="important_info_profile_ringerMode_root">I Android 6+, är det inte möjligt att ändra inställning \"Vibrera när ringer\" på icke rotad enhet.</string>
   <string name="important_info_profile_adaptiveBrightness_root">I Android 6+, är det inte möjligt att ändra inställning \"Adaptiv ljusstyrka\" på icke rotad enhet.</string>
   <string name="important_info_profile_wifiScanning_location">I Android 6+, för skanning av Wi-Fi måste Plats och \"Wi-Fi scknning\" vara aktiverat i inställningar.</string>
