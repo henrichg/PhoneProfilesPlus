@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_enabled="true" android:state_pressed="true" android:color="?attr/navigationDrawerItemBackgroundPressedColor" />
-    <item android:state_enabled="false" android:state_focused="true" android:color="?attr/navigationDrawerItemBackgroundColor" />
-    <item android:state_enabled="false" android:state_selected="true" android:color="?attr/navigationDrawerItemBackgroundColor" />
-    <item android:state_enabled="false" android:state_checked="true" android:color="?attr/navigationDrawerItemBackgroundColor" />
-    <item android:state_enabled="true" android:state_activated="true" android:color="?attr/navigationDrawerItemBackgroundColor" />
-    <item android:color="@android:color/transparent" />
-</selector>
