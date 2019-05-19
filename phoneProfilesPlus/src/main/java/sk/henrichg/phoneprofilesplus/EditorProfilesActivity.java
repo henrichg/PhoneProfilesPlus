@@ -187,7 +187,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        GlobalGUIRoutines.setTheme(this, false, true, true);
+        GlobalGUIRoutines.setTheme(this, false, true/*, true*/);
         GlobalGUIRoutines.setLanguage(this);
 
         /*synchronized (EditorProfilesActivity.class) {

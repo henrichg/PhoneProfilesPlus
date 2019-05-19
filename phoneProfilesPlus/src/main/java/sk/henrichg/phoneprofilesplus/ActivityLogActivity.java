@@ -24,7 +24,7 @@ public class ActivityLogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
-        GlobalGUIRoutines.setTheme(this, false, false, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/); // must by called before super.onCreate()
         GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -89,7 +89,7 @@ public class ActivityLogActivity extends AppCompatActivity {
         menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
         if (PPApplication.getActivityLogEnabled(getApplicationContext())) {
-            int theme = GlobalGUIRoutines.getTheme(false, false, false, getApplicationContext());
+            int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ getApplicationContext());
             if (theme != 0) {
                 TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
                 int attributeResourceId = a.getResourceId(0, 0);
@@ -99,7 +99,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             menuItem.setTitle(R.string.menu_activity_log_pause);
         }
         else {
-            int theme = GlobalGUIRoutines.getTheme(false, false, false, getApplicationContext());
+            int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ getApplicationContext());
             if (theme != 0) {
                 TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPlayIcon});
                 int attributeResourceId = a.getResourceId(0, 0);

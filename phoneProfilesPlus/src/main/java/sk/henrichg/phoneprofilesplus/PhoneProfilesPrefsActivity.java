@@ -43,7 +43,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
-        GlobalGUIRoutines.setTheme(this, false, true, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, true/*, false*/); // must by called before super.onCreate()
         GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);

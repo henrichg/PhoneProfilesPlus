@@ -101,7 +101,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false, false);
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/);
         GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);

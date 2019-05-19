@@ -127,14 +127,14 @@ class GlobalGUIRoutines {
         }*/
     }
 
-    public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar, boolean withDrawerLayout)
+    public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar/*, boolean withDrawerLayout*/)
     {
-        int theme = getTheme(forPopup, withToolbar, withDrawerLayout, activity);
+        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
-    static int getTheme(boolean forPopup, boolean withToolbar, boolean withDrawerLayout, Context context) {
+    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/ Context context) {
         switch (ApplicationPreferences.applicationTheme(context, true)) {
             case "color":
                 if (forPopup) {
@@ -144,9 +144,9 @@ class GlobalGUIRoutines {
                         return R.style.PopupTheme_color;
                 } else {
                     if (withToolbar) {
-                        if (withDrawerLayout)
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
-                        else
+                        //if (withDrawerLayout)
+                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
+                        //else
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_color;
@@ -159,9 +159,9 @@ class GlobalGUIRoutines {
                         return R.style.PopupTheme_white;
                 } else {
                     if (withToolbar) {
-                        if (withDrawerLayout)
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
-                        else
+                        //if (withDrawerLayout)
+                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
+                        //else
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_white;
@@ -174,9 +174,9 @@ class GlobalGUIRoutines {
                         return R.style.PopupTheme_dark;
                 } else {
                     if (withToolbar) {
-                        if (withDrawerLayout)
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
-                        else
+                        //if (withDrawerLayout)
+                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+                        //else
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_dark;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dark;
@@ -189,9 +189,9 @@ class GlobalGUIRoutines {
                         return R.style.PopupTheme_dlight;
                 } else {
                     if (withToolbar) {
-                        if (withDrawerLayout)
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dlight;
-                        else
+                        //if (withDrawerLayout)
+                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dlight;
+                        //else
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_dlight;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dlight;
@@ -204,9 +204,9 @@ class GlobalGUIRoutines {
                         return R.style.PopupTheme_color;
                 } else {
                     if (withToolbar) {
-                        if (withDrawerLayout)
-                            return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
-                        else
+                        //if (withDrawerLayout)
+                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_color;
+                        //else
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_color;
@@ -796,7 +796,7 @@ class GlobalGUIRoutines {
         //final TypedValue value = new TypedValue();
         //context.getTheme().resolveAttribute(R.attr.eventStopStatusIndicator, value, true);
         //return value.data;
-        int theme = GlobalGUIRoutines.getTheme(false, false, false, context);
+        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ context);
         if (theme != 0) {
             TypedArray a = context.getTheme().obtainStyledAttributes(theme, new int[]{R.attr.eventStopStatusIndicator});
             return a.getResourceId(0, 0);
