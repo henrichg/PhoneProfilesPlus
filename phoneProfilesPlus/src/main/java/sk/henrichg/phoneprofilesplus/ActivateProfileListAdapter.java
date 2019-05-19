@@ -275,14 +275,17 @@ class ActivateProfileListAdapter extends BaseAdapter
             int[] screenLocation = new int[2];
             listItemView.getLocationOnScreen(screenLocation);
             //listItemView.getLocationInWindow(screenLocation);
-            profileItemTarget.offset(screenLocation[0] + listItemView.getWidth() / 2 - listItemView.getHeight() / 2, screenLocation[1]);
+            if (ApplicationPreferences.applicationActivatorGridLayout(activity))
+                profileItemTarget.offset(screenLocation[0] + listItemView.getWidth() / 2 - listItemView.getHeight() / 2, screenLocation[1]);
+            else
+                profileItemTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
             final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
 
             String appTheme = ApplicationPreferences.applicationTheme(activity, true);
-            /*int circleColor = R.color.tabTargetHelpCircleColor;
+            int circleColor = R.color.tabTargetHelpCircleColor;
             if (appTheme.equals("dark"))
-                circleColor = R.color.tabTargetHelpCircleColor_dark;*/
+                circleColor = R.color.tabTargetHelpCircleColor_dark;
             int textColor = R.color.tabTargetHelpTextColor;
             if (appTheme.equals("white"))
                 textColor = R.color.tabTargetHelpTextColor_white;
@@ -291,6 +294,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             sequence.targets(
                     TapTarget.forBounds(profileItemTarget, activity.getString(R.string.activator_activity_targetHelps_activateProfile_title), activity.getString(R.string.activator_activity_targetHelps_activateProfile_description))
                             .transparentTarget(true)
+                            .targetCircleColor(circleColor)
                             .textColor(textColor)
                             .tintTarget(tintTarget)
                             .drawShadow(true)

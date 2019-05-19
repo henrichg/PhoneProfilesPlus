@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" 
@@ -41,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
+                    <!--
                     <TextView
                         android:id="@+id/editor_filter_title"
                         android:layout_width="wrap_content"
@@ -52,6 +53,7 @@
                         android:textSize="15sp"
                         android:textColor="?attr/editorFilterTitleColor"
                         android:maxLines="1"/>
+                    -->
 
                     <ImageView
                         android:id="@+id/editor_list_run_stop_indicator"
@@ -60,10 +62,19 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="@dimen/run_stop_indicator_margin_end"
+                        android:layout_toEndOf="@id/editor_filter_spinner"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/run_stop_events_indicator"
                         android:scaleType="fitEnd"
                         android:src="@drawable/ic_run_events_indicator_stopped" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/editor_filter_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:entries="@array/emptyArray" />
 
                 </RelativeLayout>
 
@@ -164,6 +175,7 @@
 
     </RelativeLayout>
 
+    <!--
     <sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout
         android:id="@+id/editor_drawer_root"
         android:layout_height="match_parent"
@@ -186,36 +198,7 @@
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
             android:listSelector="@drawable/editor_drawer_list_item_background" />
-
-        <!--
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <LinearLayout
-                android:id="@+id/editor_drawer_order_root"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="5dp"
-                android:orientation="vertical" >
-
-            </LinearLayout>
-
-            <ListView
-                android:id="@+id/editor_drawer_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/editor_drawer_order_root"
-                android:layout_alignParentTop="true"
-                android:choiceMode="singleChoice"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0dp"
-                android:listSelector="@drawable/editor_drawer_list_item_background" />
-
-        </RelativeLayout>
-        -->
-
     </sk.henrichg.phoneprofilesplus.PPScrimInsetsFrameLayout>
+    -->
 
-</androidx.drawerlayout.widget.DrawerLayout>
+</FrameLayout>

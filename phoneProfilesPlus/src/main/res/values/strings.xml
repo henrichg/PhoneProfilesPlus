@@ -1394,6 +1394,8 @@
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Click here to show more information.</string>
     <string name="popup_window_events_status_show_info">Click here to show more information.</string>
+    <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
+    <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
 
     <!-- **************************************************************************************** -->
 

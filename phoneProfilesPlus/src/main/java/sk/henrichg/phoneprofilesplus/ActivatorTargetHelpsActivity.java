@@ -20,9 +20,9 @@ public class ActivatorTargetHelpsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume()
+    protected void onStart()
     {
-        super.onResume();
+        super.onStart();
 
         /*if (ActivateProfileActivity.getInstance() == null) {
             finish();

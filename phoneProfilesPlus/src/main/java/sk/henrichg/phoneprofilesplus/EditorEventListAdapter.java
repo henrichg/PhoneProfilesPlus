@@ -377,11 +377,13 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                 int[] screenLocation = new int[2];
                 listItemView.getLocationOnScreen(screenLocation);
                 //listItemView.getLocationInWindow(screenLocation);
-                eventItemTarget.offset(screenLocation[0] + listItemView.getWidth() / 2 - listItemView.getHeight() / 2, screenLocation[1]);
 
                 final TapTargetSequence sequence = new TapTargetSequence(activity);
 
                 if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
+                    View view = listItemView.findViewById(R.id.event_list_drag_handle);
+                    eventItemTarget.offset(screenLocation[0] + 80 + view.getWidth(), screenLocation[1]);
+
                     editor.putBoolean(PREF_START_TARGET_HELPS_ORDER, false);
                     startTargetHelpsOrder = false;
                     editor.apply();
@@ -389,6 +391,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                     sequence.targets(
                             TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
                                     .transparentTarget(true)
+                                    .targetCircleColor(circleColor)
                                     .textColor(textColor)
                                     .tintTarget(tintTarget)
                                     .drawShadow(true)
@@ -407,9 +410,12 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
                                     .id(3)
                     );
                 } else {
+                    eventItemTarget.offset(screenLocation[0] + 80, screenLocation[1]);
+
                     sequence.targets(
                             TapTarget.forBounds(eventItemTarget, activity.getString(R.string.editor_activity_targetHelps_eventPreferences_title), activity.getString(R.string.editor_activity_targetHelps_eventPreferences_description))
                                     .transparentTarget(true)
+                                    .targetCircleColor(circleColor)
                                     .textColor(textColor)
                                     .tintTarget(tintTarget)
                                     .drawShadow(true)
