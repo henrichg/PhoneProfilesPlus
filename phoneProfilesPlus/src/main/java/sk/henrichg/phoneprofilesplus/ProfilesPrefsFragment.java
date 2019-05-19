@@ -67,7 +67,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         PPApplication.logE("ProfilesPrefsFragment.onCreate", "xxx");
 
-        // is requred for to not call onCreate and onDestroy on orientation change
+        // is required for to not call onCreate and onDestroy on orientation change
         setRetainInstance(true);
 
         nestedFragment = !(this instanceof ProfilesPrefsActivity.ProfilesPrefsRoot);
@@ -1055,6 +1055,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preferences.getString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND)),
                         preferenceScreen, context);
+                //noinspection ConstantConditions
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, true, false, false, false);
                 return;
             }
@@ -1320,6 +1321,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM)),
                         preferenceScreen, context);
+                //noinspection ConstantConditions
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, true, false, false, false);
                 return;
             }

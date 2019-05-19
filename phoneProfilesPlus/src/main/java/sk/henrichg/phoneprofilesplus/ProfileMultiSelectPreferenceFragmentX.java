@@ -21,7 +21,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
     private ProfileMultiSelectPreferenceAdapterX profilePreferenceAdapter;
 
     private Context prefContext;
-    ProfileMultiSelectPreferenceX preference;
+    private ProfileMultiSelectPreferenceX preference;
 
     @SuppressLint("InflateParams")
     @Override

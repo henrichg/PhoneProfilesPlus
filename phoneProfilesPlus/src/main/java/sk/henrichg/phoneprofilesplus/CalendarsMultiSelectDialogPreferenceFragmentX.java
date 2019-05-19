@@ -23,7 +23,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    CalendarsMultiSelectDialogPreferenceX preference;
+    private CalendarsMultiSelectDialogPreferenceX preference;
 
     // Layout widgets.
     private ListView listView = null;

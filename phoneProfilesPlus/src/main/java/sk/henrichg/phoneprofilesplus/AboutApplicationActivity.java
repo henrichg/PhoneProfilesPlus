@@ -15,7 +15,6 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -180,7 +179,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void updateDrawState(TextPaint ds) {
+            public void updateDrawState(@NonNull TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
                 ds.setUnderlineText(false);    // this remove the underline
             }
@@ -207,7 +206,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void updateDrawState(TextPaint ds) {
+            public void updateDrawState(@NonNull TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
                 ds.setUnderlineText(false);    // this remove the underline
             }
@@ -234,7 +233,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void updateDrawState(TextPaint ds) {
+            public void updateDrawState(@NonNull TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
                 ds.setUnderlineText(false);    // this remove the underline
             }
@@ -261,7 +260,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void updateDrawState(TextPaint ds) {
+            public void updateDrawState(@NonNull TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
                 ds.setUnderlineText(false);    // this remove the underline
             }
@@ -315,7 +314,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         sbt = new SpannableString(str1);
         clickableSpan = new ClickableSpan() {
             @Override
-            public void updateDrawState(TextPaint ds) {
+            public void updateDrawState(@NonNull TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
                 ds.setUnderlineText(false);    // this remove the underline
             }

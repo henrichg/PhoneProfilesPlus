@@ -22,7 +22,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.location.LocationManager;
 import android.media.AudioManager;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
@@ -69,7 +68,7 @@ class ActivateProfileHelper {
     static boolean disableScreenTimeoutInternalChange = false;
 
     // bluetooth calls volume stream
-    static int STREAM_BLUETOOTH_SCO = 6;
+    static final int STREAM_BLUETOOTH_SCO = 6;
 
     static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 

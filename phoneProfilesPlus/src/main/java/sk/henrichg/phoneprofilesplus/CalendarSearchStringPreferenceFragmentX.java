@@ -13,7 +13,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 public class CalendarSearchStringPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    CalendarSearchStringPreferenceX preference;
+    private CalendarSearchStringPreferenceX preference;
 
     private EditText editText;
 

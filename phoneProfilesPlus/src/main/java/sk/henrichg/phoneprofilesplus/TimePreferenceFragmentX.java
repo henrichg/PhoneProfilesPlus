@@ -12,7 +12,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 public class TimePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    TimePreferenceX preference;
+    private TimePreferenceX preference;
 
     private TimePicker picker;
 
