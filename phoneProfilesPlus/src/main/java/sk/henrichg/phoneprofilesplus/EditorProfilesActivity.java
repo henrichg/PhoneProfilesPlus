@@ -2416,10 +2416,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         ApplicationPreferences.getSharedPreferences(this);
 
         boolean startTargetHelps = ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS, true);
+        boolean showTargetHelpsFilterSpinner = ApplicationPreferences.preferences.getBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
 
-        if (startTargetHelps ||
+        if (startTargetHelps || showTargetHelpsFilterSpinner ||
                 ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true) ||
-                ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_FILTER_SPINNER, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
@@ -2429,7 +2429,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
             //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
-            if (startTargetHelps) {
+            if (startTargetHelps || showTargetHelpsFilterSpinner) {
                 //Log.d("EditorProfilesActivity.showTargetHelps", "PREF_START_TARGET_HELPS=true");
 
                 Editor editor = ApplicationPreferences.preferences.edit();
@@ -2458,125 +2458,150 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterSpinnerTarget.offset(screenLocation[0] + 100, screenLocation[1]);
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);
-                if (Event.getGlobalEventsRunning(getApplicationContext())) {
-                    List<TapTarget> targets = new ArrayList<>();
-                    /*targets.add(
-                        TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
-                                .targetCircleColor(circleColor)
-                                .textColor(textColor)
-                                .tintTarget(tintTarget)
-                                .drawShadow(true)
-                                .id(1)
-                    );*/
-                    targets.add(
-                        TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                .transparentTarget(true)
-                                .targetCircleColor(circleColor)
-                                .textColor(textColor)
-                                .tintTarget(tintTarget)
-                                .drawShadow(true)
-                                .id(1)
-                    );
-                    targets.add(
-                        TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
-                                .targetCircleColor(circleColor)
-                                .textColor(textColor)
-                                .tintTarget(tintTarget)
-                                .drawShadow(true)
-                                .id(2)
-                    );
-
-                    int id = 3;
-                    try {
-                        targets.add(
-                                TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_restart_events, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
-                                        .targetCircleColor(circleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
-                    } catch (Exception ignored) {} // not in action bar?
-                    try {
-                        targets.add(
-                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
-                                    .targetCircleColor(circleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(tintTarget)
-                                    .drawShadow(true)
-                                    .id(id)
-                        );
-                        ++id;
-                    } catch (Exception ignored) {} // not in action bar?
-                    try {
-                        targets.add(
-                            TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
-                                    .targetCircleColor(circleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(tintTarget)
-                                    .drawShadow(true)
-                                    .id(id)
-                        );
-                        ++id;
-                    } catch (Exception ignored) {} // not in action bar?
-
-                    sequence.targets(targets);
-                }
-                else {
-                    List<TapTarget> targets = new ArrayList<>();
-                    /*targets.add(
+                List<TapTarget> targets = new ArrayList<>();
+                if (startTargetHelps) {
+                    if (Event.getGlobalEventsRunning(getApplicationContext())) {
+                        /*targets.add(
                             TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .targetCircleColor(circleColor)
                                     .textColor(textColor)
                                     .tintTarget(tintTarget)
                                     .drawShadow(true)
                                     .id(1)
-                    );*/
-                    targets.add(
-                            TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
-                                    .transparentTarget(true)
+                        );*/
+                        targets.add(
+                                TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                        .transparentTarget(true)
+                                        .targetCircleColor(circleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(tintTarget)
+                                        .drawShadow(true)
+                                        .id(1)
+                        );
+                        targets.add(
+                                TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
+                                        .targetCircleColor(circleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(tintTarget)
+                                        .drawShadow(true)
+                                        .id(2)
+                        );
+
+                        int id = 3;
+                        try {
+                            targets.add(
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_restart_events, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
+                                            .targetCircleColor(circleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(tintTarget)
+                                            .drawShadow(true)
+                                            .id(id)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+                        try {
+                            targets.add(
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
+                                            .targetCircleColor(circleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(tintTarget)
+                                            .drawShadow(true)
+                                            .id(id)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+                        try {
+                            targets.add(
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
+                                            .targetCircleColor(circleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(tintTarget)
+                                            .drawShadow(true)
+                                            .id(id)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+                    } else {
+                        /*targets.add(
+                                TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
+                                        .targetCircleColor(circleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(tintTarget)
+                                        .drawShadow(true)
+                                        .id(1)
+                        );*/
+                        targets.add(
+                                TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                        .transparentTarget(true)
+                                        .targetCircleColor(circleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(tintTarget)
+                                        .drawShadow(true)
+                                        .id(1)
+                        );
+                        targets.add(
+                                TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
+                                        .targetCircleColor(circleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(tintTarget)
+                                        .drawShadow(true)
+                                        .id(2)
+                        );
+
+                        int id = 3;
+                        try {
+                            targets.add(
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
+                                            .targetCircleColor(circleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(tintTarget)
+                                            .drawShadow(true)
+                                            .id(id)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+                        try {
+                            targets.add(
+                                    TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
+                                            .targetCircleColor(circleColor)
+                                            .textColor(textColor)
+                                            .tintTarget(tintTarget)
+                                            .drawShadow(true)
+                                            .id(id)
+                            );
+                            ++id;
+                        } catch (Exception ignored) {
+                        } // not in action bar?
+                    }
+                }
+                else {
+                    try {
+                        /*targets.add(
+                            TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
                                     .targetCircleColor(circleColor)
                                     .textColor(textColor)
                                     .tintTarget(tintTarget)
                                     .drawShadow(true)
                                     .id(1)
-                    );
-                    targets.add(
-                            TapTarget.forToolbarOverflow(editorToolbar, getString(R.string.editor_activity_targetHelps_applicationMenu_title), getString(R.string.editor_activity_targetHelps_applicationMenu_description))
-                                    .targetCircleColor(circleColor)
-                                    .textColor(textColor)
-                                    .tintTarget(tintTarget)
-                                    .drawShadow(true)
-                                    .id(2)
-                    );
-
-                    int id = 3;
-                    try {
+                        );*/
                         targets.add(
-                                TapTarget.forToolbarMenuItem(editorToolbar, R.id.menu_activity_log, getString(R.string.editor_activity_targetHelps_activityLog_title), getString(R.string.editor_activity_targetHelps_activityLog_description))
+                                TapTarget.forBounds(filterSpinnerTarget, getString(R.string.editor_activity_targetHelps_filterSpinner_title), getString(R.string.editor_activity_targetHelps_filterSpinner_description))
+                                        .transparentTarget(true)
                                         .targetCircleColor(circleColor)
                                         .textColor(textColor)
                                         .tintTarget(tintTarget)
                                         .drawShadow(true)
-                                        .id(id)
+                                        .id(1)
                         );
-                        ++id;
-                    } catch (Exception ignored) {} // not in action bar?
-                    try {
-                        targets.add(
-                                TapTarget.forToolbarMenuItem(editorToolbar, R.id.important_info, getString(R.string.editor_activity_targetHelps_importantInfoButton_title), getString(R.string.editor_activity_targetHelps_importantInfoButton_description))
-                                        .targetCircleColor(circleColor)
-                                        .textColor(textColor)
-                                        .tintTarget(tintTarget)
-                                        .drawShadow(true)
-                                        .id(id)
-                        );
-                        ++id;
-                    } catch (Exception ignored) {} // not in action bar?
-
-                    sequence.targets(targets);
+                    } catch (Exception ignored) {
+                    } // not in action bar?
                 }
+
+                sequence.targets(targets);
 
                 sequence.listener(new TapTargetSequence.Listener() {
                     // This listener will tell us when interesting(tm) events happen in regards
