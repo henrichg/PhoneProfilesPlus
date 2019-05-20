@@ -117,6 +117,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "editor_profiles_activity_start_target_helps";
     public static final String PREF_START_TARGET_HELPS_DEFAULT_PROFILE = "editor_profile_activity_start_target_helps_default_profile";
+    public static final String PREF_START_TARGET_HELPS_FILTER_SPINNER = "editor_profile_activity_start_target_helps_filter_spinner";
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -2418,6 +2419,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if (startTargetHelps ||
                 ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_DEFAULT_PROFILE, true) ||
+                ApplicationPreferences.preferences.getBoolean(PREF_START_TARGET_HELPS_FILTER_SPINNER, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListFragment.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS, true) ||
                 ApplicationPreferences.preferences.getBoolean(EditorProfileListAdapter.PREF_START_TARGET_HELPS_ORDER, true) ||
@@ -2432,6 +2434,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 Editor editor = ApplicationPreferences.preferences.edit();
                 editor.putBoolean(PREF_START_TARGET_HELPS, false);
+                editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, false);
                 editor.apply();
 
                 //TypedValue tv = new TypedValue();

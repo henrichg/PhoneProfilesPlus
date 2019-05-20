@@ -139,8 +139,6 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                     editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
                                     editor.apply();
-
-                                    restartService = true;
                                 }
                                 if (actualVersionCode <= 3500) {
                                     ApplicationPreferences.getSharedPreferences(appContext);
@@ -280,6 +278,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                             restartService = true;
                                         }
                                     }
+                                }
+
+                                if (actualVersionCode <= 4800) {
+                                    ApplicationPreferences.getSharedPreferences(appContext);
+                                    SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                                    editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
+                                    editor.apply();
                                 }
 
                                 PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);

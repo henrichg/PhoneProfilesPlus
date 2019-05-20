@@ -13,10 +13,11 @@
 // 4400 = moved SMS/MMS and Call sensor receivers into Extender
 //        separated preferences for single row widget
 // 4600 = support for "NOT LIKE" in calendar sensor
+// 4800 = show target helps for Editor filter spinner
 
 ext.ppVersions = [
     publishVersion: '3.7b',
-    publishVersionCode: 4658,
+    publishVersionCode: 4658, //4800
 
     minSdk: 21,
     targetSdk: 27, // do not set it to 28! wifi hotspot and other cmdXXX not working with 28.
