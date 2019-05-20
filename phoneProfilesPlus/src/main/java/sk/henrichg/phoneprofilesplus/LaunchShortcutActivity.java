@@ -37,20 +37,17 @@ public class LaunchShortcutActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        ComponentName componentName = new ComponentName(packageName, activityName);
-        //if (componentName != null) {
+        try {
+            ComponentName componentName = new ComponentName(packageName, activityName);
             //intent = new Intent(Intent.ACTION_MAIN);
             Intent intent = new Intent(Intent.ACTION_CREATE_SHORTCUT);
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             intent.setComponent(componentName);
-            try {
-                startActivityForResult(intent, 100);
-            } catch (Exception e) {
-                finish();
-            }
-        //}
-
+            startActivityForResult(intent, 100);
+        } catch (Exception e) {
+            finish();
+        }
     }
 
     @Override
