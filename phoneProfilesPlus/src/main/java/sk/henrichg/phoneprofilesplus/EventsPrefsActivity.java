@@ -30,10 +30,10 @@ import androidx.fragment.app.Fragment;
 
 public class EventsPrefsActivity extends AppCompatActivity {
 
-    private long event_id = 0;
+    long event_id = 0;
     private int old_event_status;
-    private int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
-    private int predefinedEventIndex = 0;
+    int newEventMode = EditorEventListFragment.EDIT_MODE_UNDEFINED;
+    int predefinedEventIndex = 0;
 
     private int resultCode = RESULT_CANCELED;
 

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    app:key="rootScreen"
+    app:title="@string/title_activity_event_preferences" >
 
     <PreferenceCategory
         app:title="@string/event_preferences_category_eventIdentification"
