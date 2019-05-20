@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
 
-import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
-
 import androidx.annotation.NonNull;
 
 class GuiInfoPopupWindow extends RelativePopupWindow {

@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 import java.io.File;
 import java.io.FileInputStream;

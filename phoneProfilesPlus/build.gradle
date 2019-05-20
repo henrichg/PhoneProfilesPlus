@@ -91,7 +91,7 @@ dependencies {
     //implementation 'com.evernote:android-job:1.2.6'
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     //implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
-    implementation 'com.labo.kaji:relativepopupwindow:0.3.1'
+    //implementation 'com.labo.kaji:relativepopupwindow:0.3.1'
     implementation 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
     //implementation 'com.getkeepsafe.taptargetview:taptargetview:1.12.0'
     //implementation 'com.code-troopers.betterpickers:library:3.1.0'

@@ -20,7 +20,6 @@ import android.widget.ImageView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.labo.kaji.relativepopupwindow.RelativePopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
