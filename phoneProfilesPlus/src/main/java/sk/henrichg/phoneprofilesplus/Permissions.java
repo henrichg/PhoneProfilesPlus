@@ -666,7 +666,7 @@ class Permissions {
     }
     */
 
-    private static boolean checkRingtonePreference(Context context) {
+    static boolean checkRingtonePreference(Context context) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23)
                 return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
