@@ -366,6 +366,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             eventStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (editorFragment.getActivity() == null)
+                        return;
+
                     EventStatusPopupWindow popup = new EventStatusPopupWindow(editorFragment, _event);
 
                     View contentView = popup.getContentView();
@@ -375,8 +378,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupWidth="+popupWidth);
                     //PPApplication.logE("EditorEventListViewHolder.bindEvent.onClick","popupHeight="+popupHeight);
 
-                    //noinspection ConstantConditions
                     ViewGroup activityView = editorFragment.getActivity().findViewById(android.R.id.content);
+                    //View activityView = editorFragment.getActivity().getWindow().getDecorView().getRootView();
                     int activityHeight = activityView.getHeight();
                     int activityWidth = activityView.getWidth();
 
@@ -397,8 +400,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     if ((statusViewLocation[1] + popupHeight) > activityHeight)
                         y = -(statusViewLocation[1] - (activityHeight - popupHeight));
 
+                    popup.setClippingEnabled(false); // disabled for draw outside activity
                     popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y);
+                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, false);
                 }
             });
 

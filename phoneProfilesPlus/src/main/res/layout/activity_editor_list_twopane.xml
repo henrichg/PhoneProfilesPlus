@@ -6,7 +6,7 @@
     android:id="@+id/editor_list_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true" >
+    android:fitsSystemWindows="false" >
        
     <RelativeLayout
         android:layout_width="match_parent"

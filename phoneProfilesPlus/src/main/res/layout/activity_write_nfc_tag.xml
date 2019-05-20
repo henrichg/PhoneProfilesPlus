@@ -7,7 +7,7 @@
               android:paddingEnd="@dimen/important_info_right_margin"
               android:paddingTop="@dimen/important_info_top_margin"
               android:paddingBottom="@dimen/important_info_bottom_margin"
-              android:fitsSystemWindows="true" >
+              android:fitsSystemWindows="false" >
 
     <TextView
         android:id="@+id/write_nfc_tag_touch"

@@ -2,7 +2,7 @@
 <LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
-               android:fitsSystemWindows="true" >
+               android:fitsSystemWindows="false" >
 
     <fragment android:id="@+id/donation_activity_container"
               android:layout_width="match_parent"
