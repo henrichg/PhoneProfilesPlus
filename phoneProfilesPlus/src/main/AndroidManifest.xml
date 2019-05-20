@@ -179,6 +179,10 @@
             android:name=".EventPreferencesActivity"
             android:label="@string/title_activity_event_preferences">
         </activity>
+        <activity
+            android:name=".EventsPrefsActivity"
+            android:label="@string/title_activity_event_preferences">
+        </activity>
         <!--
         <activity
             android:name=".PhoneProfilesPreferencesActivity"
