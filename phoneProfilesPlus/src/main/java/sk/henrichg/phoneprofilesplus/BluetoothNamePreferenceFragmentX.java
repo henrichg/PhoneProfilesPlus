@@ -226,6 +226,8 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                 }
             }
         });
+
+        refreshListView(false, "");
     }
 
     @Override

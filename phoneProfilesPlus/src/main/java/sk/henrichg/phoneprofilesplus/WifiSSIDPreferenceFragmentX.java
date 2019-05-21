@@ -216,6 +216,8 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                 }
             }
         });
+
+        refreshListView(false, "");
     }
 
     @Override

@@ -168,30 +168,30 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
         mValue.setOnClickListener(new View.OnClickListener() {
-                                      @Override
-                                      public void onClick(View view) {
-                                          int hours = mSeekBarHours.getProgress();
-                                          int minutes = mSeekBarMinutes.getProgress();
-                                          int seconds = mSeekBarSeconds.getProgress();
+                @Override
+                public void onClick(View view) {
+                    int hours = mSeekBarHours.getProgress();
+                    int minutes = mSeekBarMinutes.getProgress();
+                    int seconds = mSeekBarSeconds.getProgress();
 
-                                          int iValue = (hours * 3600 + minutes * 60 + seconds);
-                                          if (iValue < preference.mMin) iValue = preference.mMin;
-                                          if (iValue > preference.mMax) iValue = preference.mMax;
+                    int iValue = (hours * 3600 + minutes * 60 + seconds);
+                    if (iValue < preference.mMin) iValue = preference.mMin;
+                    if (iValue > preference.mMax) iValue = preference.mMax;
 
-                                          mValueDialog.setDuration(iValue * 1000);
-                                          if (!((Activity)prefContext).isFinishing())
-                                              mValueDialog.show();
-                                      }
-                                  }
+                    mValueDialog.setDuration(iValue * 1000);
+                    if (!((Activity)prefContext).isFinishing())
+                        mValueDialog.show();
+                }
+            }
         );
 
         mMobileCellNamesDialog = new MobileCellNamesDialogX((Activity)prefContext, preference, false);
         mCellsName.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View view) {
-                                              mMobileCellNamesDialog.show();
-                                          }
-                                      }
+                @Override
+                public void onClick(View view) {
+                    mMobileCellNamesDialog.show();
+                }
+            }
         );
 
         mSeekBarHours.setOnSeekBarChangeListener(this);
