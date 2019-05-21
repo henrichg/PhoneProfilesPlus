@@ -19,4 +19,8 @@
     <dimen name="important_info_bottom_margin">15dp</dimen>
 
     <dimen name="toolbar_dropShadow_height">1dp</dimen>
+
+    <dimen name="important_info_title_size">18sp</dimen>
+    <dimen name="important_info_text_size">16sp</dimen>
+
 </resources>

@@ -18,17 +18,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_text_1"
             android:text="@string/important_info_quick_guide_1"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_text_2"
-            android:text="@string/important_info_quick_guide_2"/>
+            android:text="@string/important_info_quick_guide_2"
+            android:textSize="@dimen/important_info_text_size"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_text_3"
             android:text="@string/important_info_quick_guide_3"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp"/>
 
         <TextView
@@ -36,18 +39,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_profiles_text_1"
             android:text="@string/important_info_quick_guide_profiles_1"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_profiles_text_2"
             android:text="@string/important_info_quick_guide_profiles_2"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_profiles_text_3"
             android:text="@string/important_info_quick_guide_profiles_3"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
 
         <TextView
@@ -55,59 +61,70 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_events_text_1"
             android:text="@string/important_info_quick_guide_events_1"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_events_text_2"
             android:text="@string/important_info_quick_guide_events_2"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_1"
-            android:text="@string/important_info_quick_guide_sensors_1" />
+            android:text="@string/important_info_quick_guide_sensors_1"
+            android:textSize="@dimen/important_info_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_2"
-            android:text="@string/important_info_quick_guide_sensors_2" />
+            android:text="@string/important_info_quick_guide_sensors_2"
+            android:textSize="@dimen/important_info_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_3"
-            android:text="@string/important_info_quick_guide_sensors_3" />
+            android:text="@string/important_info_quick_guide_sensors_3"
+            android:textSize="@dimen/important_info_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_4"
-            android:text="@string/important_info_quick_guide_sensors_4" />
+            android:text="@string/important_info_quick_guide_sensors_4"
+            android:textSize="@dimen/important_info_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_5"
-            android:text="@string/important_info_quick_guide_sensors_5" />
+            android:text="@string/important_info_quick_guide_sensors_5"
+            android:textSize="@dimen/important_info_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_6"
-            android:text="@string/important_info_quick_guide_sensors_6" />
+            android:text="@string/important_info_quick_guide_sensors_6"
+            android:textSize="@dimen/important_info_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_7"
-            android:text="@string/important_info_quick_guide_sensors_7" />
+            android:text="@string/important_info_quick_guide_sensors_7"
+            android:textSize="@dimen/important_info_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_8"
-            android:text="@string/important_info_quick_guide_sensors_8" />
+            android:text="@string/important_info_quick_guide_sensors_8"
+            android:textSize="@dimen/important_info_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_sensors_text_9"
             android:text="@string/important_info_quick_guide_sensors_9"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
 
         <TextView
@@ -115,6 +132,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_events_text_3"
             android:text="@string/important_info_quick_guide_events_3"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
 
         <TextView
@@ -122,6 +140,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_editor_text_3"
             android:text="@string/important_info_quick_guide_editor_1"
+            android:textSize="@dimen/important_info_text_size"
             android:paddingBottom="10dp" />
 
     </LinearLayout>
