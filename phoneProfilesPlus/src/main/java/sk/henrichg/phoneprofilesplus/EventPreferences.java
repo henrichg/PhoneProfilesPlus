@@ -2,7 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+
+import androidx.preference.PreferenceManager;
+//import android.preference.PreferenceManager;
 
 class EventPreferences {
 

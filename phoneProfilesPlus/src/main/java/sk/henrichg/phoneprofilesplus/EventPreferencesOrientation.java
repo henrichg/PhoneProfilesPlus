@@ -10,10 +10,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
@@ -22,6 +22,11 @@ import android.text.style.ForegroundColorSpan;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
 
 import static android.content.Context.SENSOR_SERVICE;
 
@@ -230,9 +235,9 @@ class EventPreferencesOrientation extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_ORIENTATION_ENABLED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -266,7 +271,7 @@ class EventPreferencesOrientation extends EventPreferences {
                     if(span instanceof CharacterStyle)
                         sbt.removeSpan(span);
                 }
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
                 if ((enabledPreference != null) && enabledPreference.isChecked()) {
                     if (titleColor != 0)
                         sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -292,7 +297,7 @@ class EventPreferencesOrientation extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_ORIENTATION_DISTANCE))
         {
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -314,14 +319,14 @@ class EventPreferencesOrientation extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS)) {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), true, false, false, true);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), true, false, false, true);
         }
 
         Event event = new Event();
         event.createEventPreferences();
         event._eventPreferencesOrientation.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesOrientation.isRunnable(context);
-        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
+        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISPLAY);
         if (preference != null) {
@@ -335,7 +340,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_SIDES);
         if (preference != null) {
@@ -349,12 +354,12 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             boolean bold = sides.length() > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
         }
-        ListPreference distancePreference = (ListPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
+        ListPreference distancePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_DISTANCE);
         if (distancePreference != null) {
             int index = distancePreference.findIndexOfValue(distancePreference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyle(distancePreference, enabled, index > 0, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(distancePreference, enabled, index > 0, true, true, !isRunnable, false);
         }
     }
 
@@ -444,9 +449,9 @@ class EventPreferencesOrientation extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_ORIENTATION_CATEGORY);
             if (preference != null) {
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -506,7 +511,7 @@ class EventPreferencesOrientation extends EventPreferences {
             preference.setEnabled(enabled);
         }
         enabled = PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
-        ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
+        ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_IGNORED_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(enabled);
             applicationsPreference.setSummaryAMSDP();

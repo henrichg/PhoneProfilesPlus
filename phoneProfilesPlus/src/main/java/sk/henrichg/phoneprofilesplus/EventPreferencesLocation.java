@@ -4,13 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
+//import android.preference.CheckBoxPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
 
 class EventPreferencesLocation extends EventPreferences {
 
@@ -128,9 +132,9 @@ class EventPreferencesLocation extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_LOCATION_ENABLED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -164,7 +168,7 @@ class EventPreferencesLocation extends EventPreferences {
                     if(span instanceof CharacterStyle)
                         sbt.removeSpan(span);
                 }
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
                 if ((enabledPreference != null) && enabledPreference.isChecked()) {
                     if (titleColor != 0)
                         sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -222,9 +226,9 @@ class EventPreferencesLocation extends EventPreferences {
             }
         }
         if (key.equals(PREF_EVENT_LOCATION_WHEN_OUTSIDE)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -232,12 +236,12 @@ class EventPreferencesLocation extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesLocation.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesLocation.isRunnable(context);
-        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
+        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_GEOFENCES);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_LOCATION_GEOFENCES, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, true);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, true);
         }
     }
 
@@ -277,9 +281,9 @@ class EventPreferencesLocation extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_LOCATION_CATEGORY);
             if (preference != null) {
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_LOCATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }

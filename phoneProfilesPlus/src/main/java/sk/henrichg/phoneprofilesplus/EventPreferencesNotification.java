@@ -7,9 +7,13 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
+
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
+//import android.preference.CheckBoxPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 
 class EventPreferencesNotification extends EventPreferences {
 
@@ -141,9 +145,9 @@ class EventPreferencesNotification extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -167,20 +171,20 @@ class EventPreferencesNotification extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesNotification.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNotification.isRunnable(context);
-        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
+        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-        CheckBoxPreference preference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
+        SwitchPreferenceCompat preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
         if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, preference.isChecked(), true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, preference.isChecked(), true, true, !isRunnable, false);
         }
-        preference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
+        preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
         if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, preference.isChecked(), true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, preference.isChecked(), true, true, !isRunnable, false);
         }
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NOTIFICATION_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(applicationsPreference, enabled, bold, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(applicationsPreference, enabled, bold, true, true, !isRunnable, false);
         }
     }
 
@@ -223,9 +227,9 @@ class EventPreferencesNotification extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
             if (preference != null) {
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -254,7 +258,7 @@ class EventPreferencesNotification extends EventPreferences {
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         //if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
             boolean enabled = PPNotificationListenerService.isNotificationListenerServiceEnabled(context);
-            ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference)prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
+            ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
             Preference ringingCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
             Preference missedCallPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
             if (applicationsPreference != null) {

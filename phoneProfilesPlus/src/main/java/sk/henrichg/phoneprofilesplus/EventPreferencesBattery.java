@@ -3,17 +3,23 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceManager;
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.Preference.OnPreferenceChangeListener;
+//import android.preference.PreferenceManager;
+//import android.preference.MultiSelectListPreference;
 import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import androidx.preference.ListPreference;
+import androidx.preference.MultiSelectListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
 import me.drakeet.support.toast.ToastCompat;
 
 class EventPreferencesBattery extends EventPreferences {
@@ -172,9 +178,9 @@ class EventPreferencesBattery extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -185,12 +191,12 @@ class EventPreferencesBattery extends EventPreferences {
                 preference.setSummary(value + "%");
         }
         if (key.equals(PREF_EVENT_BATTERY_CHARGING)) {
-            ListPreference listPreference = (ListPreference) prefMng.findPreference(key);
+            ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_PLUGGED)) {
@@ -208,13 +214,13 @@ class EventPreferencesBattery extends EventPreferences {
                     }
                 }
                 boolean bold = plugged.length() > 0;
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, bold, true, true, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, true, false, false);
             }
         }
         if (key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
     }
@@ -279,9 +285,9 @@ class EventPreferencesBattery extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
             if (preference != null) {
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BATTERY_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_BATTERY_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -300,14 +306,14 @@ class EventPreferencesBattery extends EventPreferences {
     {
         final Preference lowLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_LOW);
         final Preference hightLevelPreference = prefMng.findPreference(PREF_EVENT_BATTERY_LEVEL_HIGHT);
-        final MaterialListPreference chargingPreference = (MaterialListPreference)prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
-        final CheckBoxPreference powerSaveModePreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BATTERY_POWER_SAVE_MODE);
-        final MaterialMultiSelectListPreference pluggedPreference = (MaterialMultiSelectListPreference)prefMng.findPreference(PREF_EVENT_BATTERY_PLUGGED);
+        final ListPreference chargingPreference = prefMng.findPreference(PREF_EVENT_BATTERY_CHARGING);
+        final SwitchPreferenceCompat powerSaveModePreference = prefMng.findPreference(PREF_EVENT_BATTERY_POWER_SAVE_MODE);
+        final MultiSelectListPreference pluggedPreference = prefMng.findPreference(PREF_EVENT_BATTERY_PLUGGED);
         final PreferenceManager _prefMng = prefMng;
         final Context _context = context.getApplicationContext();
 
         if (lowLevelPreference != null) {
-            lowLevelPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            lowLevelPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     String sNewValue = (String) newValue;
@@ -340,7 +346,7 @@ class EventPreferencesBattery extends EventPreferences {
         }
 
         if (hightLevelPreference != null) {
-            hightLevelPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            hightLevelPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     String sNewValue = (String) newValue;
@@ -373,7 +379,7 @@ class EventPreferencesBattery extends EventPreferences {
         }
 
         if ((chargingPreference != null) && (powerSaveModePreference != null)  && (pluggedPreference != null)) {
-            chargingPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            chargingPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     String sNewValue = (String) newValue;
@@ -382,7 +388,7 @@ class EventPreferencesBattery extends EventPreferences {
                     return true;
                 }
             });
-            pluggedPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            pluggedPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (newValue != null)
@@ -390,7 +396,7 @@ class EventPreferencesBattery extends EventPreferences {
                     return true;
                 }
             });
-            powerSaveModePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            powerSaveModePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     boolean bNewValue = (boolean) newValue;

@@ -3,13 +3,18 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceManager;
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.Preference.OnPreferenceChangeListener;
+//import android.preference.PreferenceManager;
 
 import java.util.Arrays;
+
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
 
 class EventPreferencesScreen extends EventPreferences {
 
@@ -99,15 +104,15 @@ class EventPreferencesScreen extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_SCREEN_ENABLED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
         if (key.equals(PREF_EVENT_SCREEN_EVENT_TYPE))
         {
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -115,9 +120,9 @@ class EventPreferencesScreen extends EventPreferences {
             }
         }
         if (key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
     }
@@ -156,9 +161,9 @@ class EventPreferencesScreen extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_SCREEN_CATEGORY);
             if (preference != null) {
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SCREEN_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_SCREEN_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -179,7 +184,7 @@ class EventPreferencesScreen extends EventPreferences {
         final PreferenceManager _prefMng = prefMng;
 
         if (eventTypePreference != null) {
-            eventTypePreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            eventTypePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     String sNewValue = (String) newValue;
@@ -199,7 +204,7 @@ class EventPreferencesScreen extends EventPreferences {
 
     private void setWhenUnlockedTitle(PreferenceManager prefMng, int value)
     {
-        final CheckBoxPreference whenUnlockedPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SCREEN_WHEN_UNLOCKED);
+        final SwitchPreferenceCompat whenUnlockedPreference = prefMng.findPreference(PREF_EVENT_SCREEN_WHEN_UNLOCKED);
 
         if (whenUnlockedPreference != null) {
             if (value == 0)

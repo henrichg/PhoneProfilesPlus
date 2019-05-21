@@ -12,9 +12,9 @@ import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.SystemClock;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 
 import java.text.SimpleDateFormat;
@@ -23,6 +23,9 @@ import java.util.List;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 
 import static android.content.Context.SENSOR_SERVICE;
 
@@ -695,12 +698,12 @@ class Event {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 preference.setSummary(value);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END))
         {
-            ProfilePreference preference = (ProfilePreference)prefMng.findPreference(key);
+            ProfilePreferenceX preference = prefMng.findPreference(key);
             if (preference != null) {
                 long lProfileId;
                 try {
@@ -710,23 +713,23 @@ class Event {
                 }
                 preference.setSummary(lProfileId);
                 if (key.equals(PREF_EVENT_PROFILE_START))
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, true, lProfileId == 0, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, true, lProfileId == 0, false);
                 else
-                    GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
         {
-            ProfileMultiSelectPreference preference = (ProfileMultiSelectPreference)prefMng.findPreference(key);
+            ProfileMultiSelectPreferenceX preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_NOTIFICATION_SOUND_START) ||
             key.equals(PREF_EVENT_NOTIFICATION_SOUND_END))
         {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, !value.isEmpty(), true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), true, false, false, false);
         }
         if (key.equals(PREF_EVENT_PRIORITY_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
@@ -740,34 +743,34 @@ class Event {
                             context.getString(R.string.phone_profiles_pref_eventUsePriorityAppSettings_summary);
                 }
                 preference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, applicationEventUsePriority, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, applicationEventUsePriority, true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_PRIORITY))
         {
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 boolean applicationEventUsePriority = ApplicationPreferences.applicationEventUsePriority(context);
                 if (applicationEventUsePriority) {
                     int index = listPreference.findIndexOfValue(value);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, !value.equals("0"), true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, !value.equals("0"), true, false, false, false);
                 } else {
                     listPreference.setSummary(R.string.event_preferences_priority_notUse);
-                    GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, false, true, false, false, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, true, false, false, false);
                 }
                 listPreference.setEnabled(applicationEventUsePriority);
             }
         }
         if (key.equals(PREF_EVENT_AT_END_DO))
         {
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                GlobalGUIRoutines.setPreferenceTitleStyle(listPreference, true, index > 0, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, true, false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_DELAY_START))
@@ -779,7 +782,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 0, true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, true, false, false, false);
         }
         if (key.equals(PREF_EVENT_DELAY_END))
         {
@@ -790,7 +793,7 @@ class Event {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 0, true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 0, true, false, false, false);
         }
         /*
         if (key.equals(PREF_EVENT_NOTIFICATION_REPEAT_INTERVAL)) {
@@ -815,7 +818,7 @@ class Event {
             key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END) ||
             key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION)) {
             Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, value.equals("true"), true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), true, false, false, false);
         }
 
     }
@@ -887,7 +890,7 @@ class Event {
                                 notificationSoundStartChanged ||
                                 notificationVibrateStartChanged ||
                                 notificationRepeatStartChanged);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, bold, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false, false);
                 if (bold) {
                     String summary = "";
                     //if (forceRunChanged)
@@ -938,7 +941,7 @@ class Event {
                 boolean bold = (delayEndChanged ||
                                 notificationSoundEndChanged ||
                                 notificationVibrateEndChanged);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, bold, true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false, false);
                 if (bold) {
                     String summary = "";
                     if (delayEndChanged) {

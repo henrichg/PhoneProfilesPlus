@@ -8,15 +8,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
 
 class EventPreferencesSMS extends EventPreferences {
 
@@ -169,15 +174,15 @@ class EventPreferencesSMS extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_SMS_ENABLED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
         if (/*key.equals(PREF_EVENT_SMS_EVENT) ||*/ key.equals(PREF_EVENT_SMS_CONTACT_LIST_TYPE))
         {
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -185,9 +190,9 @@ class EventPreferencesSMS extends EventPreferences {
             }
         }
         if (key.equals(PREF_EVENT_SMS_PERMANENT_RUN)) {
-            CheckBoxPreference permanentRunPreference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_DURATION);
             if (preference != null) {
@@ -202,7 +207,7 @@ class EventPreferencesSMS extends EventPreferences {
             } catch (Exception e) {
                 delay = 0;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, delay > 5, true, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, true, false, false, false);
         }
         if (key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
@@ -222,25 +227,25 @@ class EventPreferencesSMS extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesSMS.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesSMS.isRunnable(context);
-        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
+        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_GROUPS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_SMS_CONTACT_GROUPS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACTS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_SMS_CONTACTS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_LIST_TYPE);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !isRunnable, false);
         boolean isAccessibilityEnabled = event._eventPreferencesSMS.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !isAccessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !isAccessibilityEnabled, false);
     }
 
     @Override
@@ -286,10 +291,10 @@ class EventPreferencesSMS extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
             if (preference != null) {
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !runnable, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -333,11 +338,11 @@ class EventPreferencesSMS extends EventPreferences {
         final boolean accessibilityEnabled =
                 PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
 
-        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
+        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !accessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !accessibilityEnabled, false);
 
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setCategorySummary(prefMng, preferences, context);

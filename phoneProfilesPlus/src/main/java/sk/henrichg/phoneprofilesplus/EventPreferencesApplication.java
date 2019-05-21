@@ -7,9 +7,13 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.preference.CheckBoxPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
+
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
+//import android.preference.CheckBoxPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 
 class EventPreferencesApplication extends EventPreferences {
 
@@ -136,9 +140,9 @@ class EventPreferencesApplication extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_APPLICATION_ENABLED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -160,17 +164,17 @@ class EventPreferencesApplication extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesApplication.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesApplication.isRunnable(context);
-        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
+        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_APPLICATION_APPLICATIONS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, true);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, true);
         }
         boolean isAccessibilityEnabled = event._eventPreferencesApplication.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !isAccessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !isAccessibilityEnabled, false);
     }
 
     @Override
@@ -205,10 +209,10 @@ class EventPreferencesApplication extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_CATEGORY);
             if (preference != null) {
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !runnable, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
@@ -249,17 +253,17 @@ class EventPreferencesApplication extends EventPreferences {
     public void checkPreferences(PreferenceManager prefMng, Context context) {
         final boolean accessibilityEnabled =
                 PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
-        ApplicationsMultiSelectDialogPreference applicationsPreference = (ApplicationsMultiSelectDialogPreference) prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
+        ApplicationsMultiSelectDialogPreferenceX applicationsPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_APPLICATIONS);
         if (applicationsPreference != null) {
             applicationsPreference.setEnabled(accessibilityEnabled);
             applicationsPreference.setSummaryAMSDP();
         }
 
-        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
+        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_APPLICATION_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_APPLICATION_ACCESSIBILITY_SETTINGS);
         if (preference != null)
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, false, true, true, !accessibilityEnabled, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !accessibilityEnabled, false);
 
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setCategorySummary(prefMng, preferences, context);

@@ -4,16 +4,21 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
-import android.preference.CheckBoxPreference;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceManager;
+//import android.preference.CheckBoxPreference;
+//import android.preference.ListPreference;
+//import android.preference.Preference;
+//import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 
 import java.util.Arrays;
+
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
+import androidx.preference.SwitchPreferenceCompat;
 
 class EventPreferencesBluetooth extends EventPreferences {
 
@@ -161,9 +166,9 @@ class EventPreferencesBluetooth extends EventPreferences {
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         if (key.equals(PREF_EVENT_BLUETOOTH_ENABLED)) {
-            CheckBoxPreference preference = (CheckBoxPreference) prefMng.findPreference(key);
+            SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
             }
         }
 
@@ -197,7 +202,7 @@ class EventPreferencesBluetooth extends EventPreferences {
                     if(span instanceof CharacterStyle)
                         sbt.removeSpan(span);
                 }
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
                 if ((enabledPreference != null) && enabledPreference.isChecked()) {
                     if (titleColor != 0)
                         sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -262,7 +267,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_CONNECTION_TYPE))
         {
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -270,7 +275,7 @@ class EventPreferencesBluetooth extends EventPreferences {
             }
 
             boolean btLESupported = WifiBluetoothScanner.bluetoothLESupported(context);
-            listPreference = (ListPreference)prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE);
+            listPreference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_DEVICES_TYPE);
             if (listPreference != null) {
                 if ((!btLESupported) || value.equals("0") || value.equals("2"))
                     listPreference.setEnabled(false);
@@ -280,7 +285,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_BLUETOOTH_DEVICES_TYPE))
         {
-            ListPreference listPreference = (ListPreference)prefMng.findPreference(key);
+            ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 boolean btLESupported = WifiBluetoothScanner.bluetoothLESupported(context);
 
@@ -299,12 +304,12 @@ class EventPreferencesBluetooth extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesBluetooth.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesBluetooth.isRunnable(context);
-        CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
+        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
         boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
         Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_BLUETOOTH_ADAPTER_NAME, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, bold, true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
         }
     }
 
@@ -362,9 +367,9 @@ class EventPreferencesBluetooth extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
             if (preference != null) {
-                CheckBoxPreference enabledPreference = (CheckBoxPreference)prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
+                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
-                GlobalGUIRoutines.setPreferenceTitleStyle(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
             }
         }
