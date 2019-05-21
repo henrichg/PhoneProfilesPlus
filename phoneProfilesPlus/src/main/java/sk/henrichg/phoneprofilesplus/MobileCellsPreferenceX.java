@@ -94,6 +94,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
         return false;
     }
 
+    @SuppressWarnings("SameParameterValue")
     void refreshListView(final boolean forRescan, final int renameCellId)
     {
         if (fragment != null)

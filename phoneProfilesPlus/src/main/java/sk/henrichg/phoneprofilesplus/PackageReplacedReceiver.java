@@ -129,7 +129,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, false);
                                     editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, false);
                                     editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, false);
-                                    editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, false);
+                                    editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, false);
                                     editor.apply();
 
                                     restartService = true;

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
@@ -39,7 +38,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         setSummaryCMSDP();
     }
 
-    @SuppressLint("StaticFieldLeak")
+    @SuppressWarnings("SameParameterValue")
     void refreshListView(final boolean notForUnselect) {
         if (fragment != null)
             fragment.refreshListView(notForUnselect);

@@ -1783,7 +1783,7 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver", "PhoneProfilesService_registerBluetoothStateChangedBroadcastReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothStateChangedBroadcastReceiver", "xxx");
-        if (!forceRegister && BluetoothNamePreference.forceRegister)
+        if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
             return;
         if (!register) {
             if (bluetoothStateChangedBroadcastReceiver != null) {
@@ -1938,7 +1938,7 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers", "PhoneProfilesService_registerBluetoothScannerReceivers");
         PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "xxx");
-        if (!forceRegister && BluetoothNamePreference.forceRegister)
+        if (!forceRegister && BluetoothNamePreferenceX.forceRegister)
             return;
         if (!register) {
             if (bluetoothScanReceiver != null) {
@@ -2017,7 +2017,7 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver", "PhoneProfilesService_registerWifiAPStateChangeBroadcastReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerWifiAPStateChangeBroadcastReceiver", "xxx");
-        if (!forceRegister && WifiSSIDPreference.forceRegister)
+        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
         if (!register) {
             if (wifiAPStateChangeBroadcastReceiver != null) {
@@ -2134,7 +2134,7 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.wifiStateChangedBroadcastReceiver", "PhoneProfilesService_wifiStateChangedBroadcastReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerWifiStateChangedBroadcastReceiver", "xxx");
-        if (!forceRegister && WifiSSIDPreference.forceRegister)
+        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
         if (!register) {
             if (wifiStateChangedBroadcastReceiver != null) {
@@ -2213,7 +2213,7 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "PhoneProfilesService_registerWifiConnectionBroadcastReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerWifiConnectionBroadcastReceiver", "xxx");
-        if (!forceRegister && WifiSSIDPreference.forceRegister)
+        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
         if (!register) {
             if (wifiConnectionBroadcastReceiver != null) {
@@ -2291,7 +2291,7 @@ public class PhoneProfilesService extends Service
         Context appContext = getApplicationContext();
         CallsCounter.logCounter(appContext, "PhoneProfilesService.registerWifiScannerReceiver", "PhoneProfilesService_registerWifiScannerReceiver");
         PPApplication.logE("[RJS] PhoneProfilesService.registerWifiScannerReceiver", "xxx");
-        if (!forceRegister && WifiSSIDPreference.forceRegister)
+        if (!forceRegister && WifiSSIDPreferenceX.forceRegister)
             return;
         if (!register) {
             if (wifiScanReceiver != null) {
@@ -2544,7 +2544,7 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleWifiJob", "PhoneProfilesService_scheduleWifiJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "xxx");
 
-        if (/*!forceStart &&*/ WifiSSIDPreference.forceRegister)
+        if (/*!forceStart &&*/ WifiSSIDPreferenceX.forceRegister)
             return;
 
         PPApplication.startHandlerThreadPPService();
@@ -2607,7 +2607,7 @@ public class PhoneProfilesService extends Service
         CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBluetoothJob", "PhoneProfilesService_scheduleBluetoothJob");
         PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "xxx");
 
-        if (/*!forceStart &&*/ BluetoothNamePreference.forceRegister)
+        if (/*!forceStart &&*/ BluetoothNamePreferenceX.forceRegister)
             return;
 
         PPApplication.startHandlerThreadPPService();
@@ -2824,7 +2824,7 @@ public class PhoneProfilesService extends Service
             Context appContext = getApplicationContext();
             CallsCounter.logCounter(appContext, "PhoneProfilesService.startPhoneStateScanner", "PhoneProfilesService_startPhoneStateScanner");
             PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "xxx");
-            if (!forceStart && (MobileCellsPreference.forceStart || MobileCellsRegistrationService.forceStart))
+            if (!forceStart && (MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart))
                 return;
             if (stop) {
                 if (isPhoneStateScannerStarted()) {

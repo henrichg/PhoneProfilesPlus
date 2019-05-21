@@ -47,13 +47,13 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         int popupWidth = contentView.getMeasuredWidth();
         int popupHeight = contentView.getMeasuredHeight();
-        PPApplication.logE("DialogHelpPopupWindow.showPopup","popupWidth="+popupWidth);
-        PPApplication.logE("DialogHelpPopupWindow.showPopup","popupHeight="+popupHeight);
+        PPApplication.logE("DialogHelpPopupWindowX.showPopup","popupWidth="+popupWidth);
+        PPApplication.logE("DialogHelpPopupWindowX.showPopup","popupHeight="+popupHeight);
 
         ViewGroup activityView = activity.findViewById(android.R.id.content);
         int activityHeight = activityView.getHeight();
         //int activityWidth = activityView.getWidth();
-        PPApplication.logE("DialogHelpPopupWindow.showPopup","activityHeight="+activityHeight);
+        PPApplication.logE("DialogHelpPopupWindowX.showPopup","activityHeight="+activityHeight);
 
         //int[] activityLocation = new int[2];
         //_eventStatusView.getLocationOnScreen(location);
@@ -62,8 +62,8 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
         int[] locationHelpIcon = new int[2];
         helpIcon.getLocationOnScreen(locationHelpIcon); // must be used this in dialogs.
         //helpIcon.getLocationInWindow(locationHelpIcon);
-        PPApplication.logE("DialogHelpPopupWindow.showPopup","locationHelpIcon[0]="+locationHelpIcon[0]);
-        PPApplication.logE("DialogHelpPopupWindow.showPopup","locationHelpIcon[1]="+locationHelpIcon[1]);
+        PPApplication.logE("DialogHelpPopupWindowX.showPopup","locationHelpIcon[0]="+locationHelpIcon[0]);
+        PPApplication.logE("DialogHelpPopupWindowX.showPopup","locationHelpIcon[1]="+locationHelpIcon[1]);
 
         int x = 0;
         int y = 0;
@@ -74,8 +74,8 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
         if ((locationHelpIcon[1] + popupHeight) > activityHeight)
             y = -(locationHelpIcon[1] - (activityHeight - popupHeight));
 
-        PPApplication.logE("DialogHelpPopupWindow.showPopup","x="+x);
-        PPApplication.logE("DialogHelpPopupWindow.showPopup","y="+y);
+        PPApplication.logE("DialogHelpPopupWindowX.showPopup","x="+x);
+        PPApplication.logE("DialogHelpPopupWindowX.showPopup","y="+y);
 
         popup.setClippingEnabled(false); // disabled for draw outside activity
         popup.showOnAnchor(helpIcon, VerticalPosition.ALIGN_TOP,

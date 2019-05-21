@@ -12,7 +12,7 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 public class DaysOfWeekPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;
-    DaysOfWeekPreferenceX preference;
+    private DaysOfWeekPreferenceX preference;
 
     private DaysOfWeekPreferenceAdapterX listAdapter;
 

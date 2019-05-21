@@ -178,7 +178,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                 && savedInstanceState.getBoolean(STATE_RESOLVING_ERROR, false);
 
         Intent intent = getIntent();
-        geofenceId = intent.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
+        geofenceId = intent.getLongExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, 0);
 
         if (geofenceId > 0) {
             geofence = DatabaseHandler.getInstance(getApplicationContext()).getGeofence(geofenceId);
@@ -251,7 +251,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
                     DatabaseHandler.getInstance(getApplicationContext()).checkGeofence(String.valueOf(geofence._id), 1);
 
                     Intent returnIntent = new Intent();
-                    returnIntent.putExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, geofence._id);
+                    returnIntent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofence._id);
                     setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 }

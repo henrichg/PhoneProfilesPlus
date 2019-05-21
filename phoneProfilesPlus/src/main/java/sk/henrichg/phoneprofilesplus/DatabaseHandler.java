@@ -4851,7 +4851,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 if (daysOfWeek != null)
                 {
                     String[] splits = daysOfWeek.split("\\|");
-                    if (splits[0].equals(DaysOfWeekPreference.allValue))
+                    if (splits[0].equals(DaysOfWeekPreferenceX.allValue))
                     {
                         eventPreferences._sunday = true;
                         eventPreferences._monday = true;

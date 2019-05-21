@@ -2168,7 +2168,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private void startEventPreferenceActivity(Event event, int editMode, int predefinedEventIndex) {
-        Intent intent = new Intent(getBaseContext(), EventPreferencesActivity.class);
+        Intent intent = new Intent(getBaseContext(), EventsPrefsActivity.class);
         if (editMode == EditorEventListFragment.EDIT_MODE_INSERT)
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, 0L);
         else {

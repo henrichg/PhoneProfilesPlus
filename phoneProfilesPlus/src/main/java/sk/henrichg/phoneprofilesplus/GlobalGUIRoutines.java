@@ -27,7 +27,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
@@ -241,6 +240,7 @@ class GlobalGUIRoutines {
             activity.recreate();
     }
 
+    /*
     public static void setPreferenceTitleStyle(Preference preference, boolean enabled,
                                                boolean bold, boolean addBullet,
                                                boolean underline, boolean errorColor, boolean systemSettings)
@@ -292,8 +292,8 @@ class GlobalGUIRoutines {
             }
         }
     }
+    */
 
-    @SuppressWarnings("SameParameterValue")
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
                                          boolean bold, boolean addBullet,
                                          boolean underline, boolean errorColor, boolean systemSettings)
@@ -874,6 +874,7 @@ class GlobalGUIRoutines {
         }
     }
 
+    /*
     static void registerOnActivityDestroyListener(@NonNull Preference preference, @NonNull PreferenceManager.OnActivityDestroyListener listener) {
         try {
             PreferenceManager pm = preference.getPreferenceManager();
@@ -899,6 +900,7 @@ class GlobalGUIRoutines {
         } catch (Exception ignored) {
         }
     }
+    */
 
     static void lockScreenOrientation(Activity activity) {
         try {

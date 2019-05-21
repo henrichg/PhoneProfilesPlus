@@ -103,6 +103,7 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
         setSummary(prefVolumeDataSummary);
     }
 
+    @SuppressWarnings("SameParameterValue")
     void refreshListView(final boolean notForUnselect) {
         if (fragment != null)
             fragment.refreshListView(notForUnselect);

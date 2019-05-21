@@ -36,6 +36,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         setSummaryCMSDP();
     }
 
+    @SuppressWarnings("SameParameterValue")
     void refreshListView(final boolean notForUnselect) {
         if (fragment != null)
             fragment.refreshListView(notForUnselect);

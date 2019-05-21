@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 public class EventsPrefsActivity extends AppCompatActivity {
 
@@ -95,13 +95,13 @@ public class EventsPrefsActivity extends AppCompatActivity {
             // for shared profile is not needed, for shared profile is used PPApplication.SHARED_PROFILE_PREFS_NAME
             // and this is used in Profile.getSharedProfile()
             //if (profile_id != Profile.SHARED_PROFILE_ID) {
-            toolbar.inflateMenu(R.menu.profile_preferences_save);
+            toolbar.inflateMenu(R.menu.event_preferences_save);
             //}
         }
         else {
             // no menu for shared profile
             //if (profile_id != Profile.SHARED_PROFILE_ID) {
-            toolbar.inflateMenu(R.menu.profile_preferences);
+            toolbar.inflateMenu(R.menu.event_preferences);
             //}
         }
         return true;
@@ -216,7 +216,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null)
-            ((ProfilesPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
+            ((EventsPrefsFragment)fragment).doOnActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -321,10 +321,18 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         if (event != null)
         {
-            Toolbar toolbar = findViewById(R.id.mp_toolbar);
-            toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + event._name);
+            // must be used handler for rewrite toolbar title/subtitle
+            final String eventName = event._name;
+            Handler handler = new Handler(getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
+                    toolbar.setSubtitle(getString(R.string.event_string_0) + ": " + eventName);
+                }
+            }, 200);
 
-            SharedPreferences preferences=getSharedPreferences(EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY, Activity.MODE_PRIVATE);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
             event.loadSharedPreferences(preferences);
         }
@@ -332,7 +340,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private boolean checkPreferences(final int new_event_mode, final int predefinedEventIndex)
     {
-        final SharedPreferences preferences = getSharedPreferences(EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY, Activity.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean enabled = preferences.getBoolean(Event.PREF_EVENT_ENABLED, false);
         if (!enabled) {
             if (!ApplicationPreferences.applicationEventNeverAskForEnableRun(this)) {
@@ -375,8 +383,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
                         editor.apply();
 
-                        String PREFS_NAME = EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY;
-                        SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                         editor = preferences.edit();
                         editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
                         editor.apply();
@@ -415,8 +422,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     Event getEventFromPreferences(long event_id, int new_event_mode, int predefinedEventIndex) {
         final Event event = createEvent(getApplicationContext(), event_id, new_event_mode, predefinedEventIndex, true);
         if (event != null) {
-            String PREFS_NAME = EventPreferencesNestedFragment.PREFS_NAME_ACTIVITY;
-            SharedPreferences preferences=getSharedPreferences(PREFS_NAME, Activity.MODE_PRIVATE);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             event.saveSharedPreferences(preferences, getApplicationContext());
         }
         return event;
@@ -561,7 +567,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             editor.putBoolean(PREF_START_TARGET_HELPS, false);
             editor.apply();
 
-            Toolbar toolbar = findViewById(R.id.mp_toolbar);
+            Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
 
             //TypedValue tv = new TypedValue();
             //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);

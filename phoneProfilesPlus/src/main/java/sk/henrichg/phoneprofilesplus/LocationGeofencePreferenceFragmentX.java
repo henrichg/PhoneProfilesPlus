@@ -195,10 +195,10 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
             // is not possible to get activity from preference, used is static method
             if (preference.onlyEdit == 0) {
-                //EventPreferencesFragment.setChangedLocationGeofencePreference(this);
+                //EventPrefsFragment.setChangedLocationGeofencePreference(this);
                 getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
             } else {
-                //PhoneProfilesPreferencesFragment.setChangedLocationGeofencePreference(this);
+                //PhoneProfilesPrefsFragment.setChangedLocationGeofencePreference(this);
                 getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
             }
         }

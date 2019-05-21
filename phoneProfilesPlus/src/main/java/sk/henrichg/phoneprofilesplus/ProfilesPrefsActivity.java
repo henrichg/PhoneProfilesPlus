@@ -604,7 +604,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 editor.putBoolean(PREF_START_TARGET_HELPS_SAVE, false);
                 editor.apply();
 
-                Toolbar toolbar = findViewById(R.id.mp_toolbar);
+                Toolbar toolbar = findViewById(R.id.activity_preferences_toolbar);
 
                 //TypedValue tv = new TypedValue();
                 //getTheme().resolveAttribute(R.attr.colorAccent, tv, true);

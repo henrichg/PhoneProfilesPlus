@@ -941,12 +941,12 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     preference.setGeofenceFromEditor(/*geofenceId*/);
                 }
             }
-            /*if (EventPreferencesFragment.changedLocationGeofencePreference != null) {
+            /*if (EventPrefsFragment.changedLocationGeofencePreference != null) {
                 if(resultCode == Activity.RESULT_OK){
                     //long geofenceId = data.getLongExtra(LocationGeofencePreference.EXTRA_GEOFENCE_ID, 0);
                     // this persistGeofence, for multiselect this mus only refresh listView in preference
-                    EventPreferencesFragment.changedLocationGeofencePreference.setGeofenceFromEditor();
-                    EventPreferencesFragment.changedLocationGeofencePreference = null;
+                    EventPrefsFragment.changedLocationGeofencePreference.setGeofenceFromEditor();
+                    EventPrefsFragment.changedLocationGeofencePreference = null;
                 }
             }*/
         }
@@ -1044,7 +1044,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }*/
-        if (requestCode == NFCTagPreference.RESULT_NFC_TAG_WRITE) {
+        if (requestCode == NFCTagPreferenceX.RESULT_NFC_TAG_WRITE) {
             if (resultCode == Activity.RESULT_OK) {
                 NFCTagPreferenceX preference = prefMng.findPreference(EventPreferencesNFC.PREF_EVENT_NFC_NFC_TAGS);
                 if (preference != null) {

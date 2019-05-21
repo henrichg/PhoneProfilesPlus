@@ -79,6 +79,7 @@ public class WifiSSIDPreferenceX extends DialogPreference {
         return false;
     }
 
+    @SuppressWarnings("SameParameterValue")
     void refreshListView(boolean forRescan, final String scrollToSSID)
     {
         if (fragment != null)

@@ -73,6 +73,7 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
         setSummary(summary);
     }
 
+    @SuppressWarnings("SameParameterValue")
     void updateInterface(long millisUntilFinished, boolean forceStop) {
         if (fragment != null)
             fragment.updateInterface(millisUntilFinished, forceStop);
