@@ -40,7 +40,7 @@ class EventPreferencesTime extends EventPreferences {
     private static final String PREF_EVENT_TIME_END_TIME = "eventTimeEndTime";
     //private static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
 
-    private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategory";
+    private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
 
     EventPreferencesTime(Event event,
                                 boolean enabled,

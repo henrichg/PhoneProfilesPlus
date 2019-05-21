@@ -28,7 +28,7 @@ class EventPreferencesScreen extends EventPreferences {
     private static final String PREF_EVENT_SCREEN_EVENT_TYPE = "eventScreenEventType";
     private static final String PREF_EVENT_SCREEN_WHEN_UNLOCKED = "eventScreenWhenUnlocked";
 
-    private static final String PREF_EVENT_SCREEN_CATEGORY = "eventScreenCategory";
+    private static final String PREF_EVENT_SCREEN_CATEGORY = "eventScreenCategoryRoot";
 
     EventPreferencesScreen(Event event,
                                     boolean enabled,

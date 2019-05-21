@@ -37,7 +37,7 @@ class EventPreferencesWifi extends EventPreferences {
     static final String PREF_EVENT_WIFI_LOCATION_SYSTEM_SETTINGS = "eventWiFiLocationSystemSettings";
     static final String PREF_EVENT_WIFI_KEEP_ON_SYSTEM_SETTINGS = "eventWiFiKeepOnSystemSettings";
 
-    private static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategory";
+    private static final String PREF_EVENT_WIFI_CATEGORY = "eventWifiCategoryRoot";
 
     static final String CONFIGURED_SSIDS_VALUE = "^configured_ssids^";
     static final String ALL_SSIDS_VALUE = "%";

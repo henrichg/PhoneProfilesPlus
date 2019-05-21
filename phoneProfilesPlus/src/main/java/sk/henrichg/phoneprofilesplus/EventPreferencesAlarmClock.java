@@ -28,7 +28,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
     private static final String PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN = "eventAlarmClockPermanentRun";
     private static final String PREF_EVENT_ALARM_CLOCK_DURATION = "eventAlarmClockDuration";
 
-    private static final String PREF_EVENT_ALARM_CLOCK_CATEGORY = "eventAlarmClockCategory";
+    private static final String PREF_EVENT_ALARM_CLOCK_CATEGORY = "eventAlarmClockCategoryRoot";
 
     EventPreferencesAlarmClock(Event event,
                                     boolean enabled,

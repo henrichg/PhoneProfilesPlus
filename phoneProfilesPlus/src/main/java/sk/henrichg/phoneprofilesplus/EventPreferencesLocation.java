@@ -27,7 +27,7 @@ class EventPreferencesLocation extends EventPreferences {
     static final String PREF_EVENT_LOCATION_APP_SETTINGS = "eventLocationScanningAppSettings";
     static final String PREF_EVENT_LOCATION_LOCATION_SYSTEM_SETTINGS = "eventLocationLocationSystemSettings";
 
-    private static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategory";
+    private static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategoryRoot";
 
     private DataWrapper dataWrapper = null;
 

@@ -70,9 +70,8 @@
     <PreferenceCategory
         app:title="@string/event_preferences_category_endOfEvent"
         app:key="eventEndCategory"
-        app:dependency="manualProfileActivation"
         app:layout="@layout/mp_preference_category">
-        <ProfilePreferenceX
+        <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
             app:defaultValue="-999"
             app:key="eventProfileEnd"
             app:title="@string/event_preferences_eventProfileEnd"

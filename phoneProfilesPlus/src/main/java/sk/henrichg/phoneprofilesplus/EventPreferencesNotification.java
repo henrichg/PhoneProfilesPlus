@@ -27,7 +27,7 @@ class EventPreferencesNotification extends EventPreferences {
     private static final String PREF_EVENT_NOTIFICATION_MISSED_CALL = "eventNotificationMissedCall";
     static final String PREF_EVENT_NOTIFICATION_NOTIFICATION_ACCESS = "eventNotificationNotificationsAccessSettings";
 
-    private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategory";
+    private static final String PREF_EVENT_NOTIFICATION_CATEGORY = "eventNotificationCategoryRoot";
 
     EventPreferencesNotification(Event event,
                                         boolean enabled,

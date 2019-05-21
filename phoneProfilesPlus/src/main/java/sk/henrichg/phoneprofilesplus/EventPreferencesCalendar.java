@@ -52,7 +52,7 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final String PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS = "eventCalendarIgnoreAllDayEvents";
     private static final String PREF_EVENT_CALENDAR_START_BEFORE_EVENT = "eventCalendarStartBeforeEvent";
 
-    private static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategory";
+    private static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategoryRoot";
 
     private static final int SEARCH_FIELD_TITLE = 0;
     private static final int SEARCH_FIELD_DESCRIPTION = 1;
@@ -274,7 +274,7 @@ class EventPreferencesCalendar extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_FIELD);
         if (preference != null) {
             preference.setEnabled(allEventsNotChecked);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, true, false, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, true, true, false, false, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_STRING);
         if (preference != null) {

@@ -31,7 +31,7 @@ class EventPreferencesMobileCells extends EventPreferences {
 
     static final String PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM = "eventMobileCellsEnabledNoCheckSim";
 
-    private static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategory";
+    private static final String PREF_EVENT_MOBILE_CELLS_CATEGORY = "eventMobileCellsCategoryRoot";
 
     //private DataWrapper dataWrapper = null;
 

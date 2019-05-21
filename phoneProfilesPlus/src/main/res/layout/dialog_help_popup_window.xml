@@ -30,7 +30,8 @@
                     android:id="@+id/dialog_help_popup_window_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/empty_string" />
+                    android:text="@string/empty_string"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

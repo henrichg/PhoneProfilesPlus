@@ -398,9 +398,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     if ((statusViewLocation[1] + popupHeight) > activityHeight)
                         y = -(statusViewLocation[1] - (activityHeight - popupHeight));
 
-                    popup.setClippingEnabled(false); // disabled for draw outside activity
+                    //popup.setClippingEnabled(false); // disabled for draw outside activity
                     popup.showOnAnchor(_eventStatusView, RelativePopupWindow.VerticalPosition.ALIGN_TOP,
-                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, false);
+                            RelativePopupWindow.HorizontalPosition.ALIGN_LEFT, x, y, true);
                 }
             });
 

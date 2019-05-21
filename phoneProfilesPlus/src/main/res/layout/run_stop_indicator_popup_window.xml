@@ -30,29 +30,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/important_info_profile_activation_traffic_light_icon"
+                    android:textSize="16sp"
                     android:id="@+id/run_stop_indicator_popup_window_text1"
                     android:drawablePadding="6dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/important_info_profile_activation_text9"
+                    android:textSize="16sp"
                     android:id="@+id/run_stop_indicator_popup_window_text2" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/important_info_profile_activation_text10"
+                    android:textSize="16sp"
                     android:id="@+id/run_stop_indicator_popup_window_text3" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:text="@string/important_info_profile_activation_text11"
+                    android:textSize="16sp"
                     android:id="@+id/run_stop_indicator_popup_window_text4" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:text="@string/popup_window_events_status_show_info"
+                    android:textSize="16sp"
                     android:id="@+id/run_stop_indicator_popup_window_important_info"
                     android:textColor="?attr/colorAccent" />
 
@@ -63,7 +68,8 @@
                     android:layout_marginTop="5dp"
                     android:checked="false"
                     android:focusable="false"
-                    android:text="@string/menu_run_events" />
+                    android:text="@string/menu_run_events"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

@@ -46,7 +46,7 @@ class EventPreferencesCall extends EventPreferences {
 
     static final String PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM = "eventCallEnabledEnabledNoCheckSim";
 
-    private static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategory";
+    private static final String PREF_EVENT_CALL_CATEGORY = "eventCallCategoryRoot";
 
     static final int CALL_EVENT_RINGING = 0;
     static final int CALL_EVENT_INCOMING_CALL_ANSWERED = 1;
