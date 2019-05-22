@@ -52,26 +52,32 @@ public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragm
     @Override
     public void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
+            boolean persist = true;
             BigDecimal number = mNumberPicker.getEnteredNumber();
             if (isSmaller(number) || isBigger(number)) {
-                String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(preference.mMin), String.valueOf(preference.mMax));
+                /*String errorText = context.getString(R.string.number_picker_min_max_error, String.valueOf(preference.mMin), String.valueOf(preference.mMax));
                 mNumberPicker.getErrorView().setText(errorText);
-                mNumberPicker.getErrorView().show();
-                return;
+                mNumberPicker.getErrorView().show();*/
+                persist = false;
             } else if (isSmaller(number)) {
-                String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(preference.mMin));
+                /*String errorText = context.getString(R.string.number_picker_min_error, String.valueOf(preference.mMin));
                 mNumberPicker.getErrorView().setText(errorText);
-                mNumberPicker.getErrorView().show();
-                return;
+                mNumberPicker.getErrorView().show();*/
+                persist = false;
             } else if (isBigger(number)) {
-                String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(preference.mMax));
+                /*String errorText = context.getString(R.string.number_picker_max_error, String.valueOf(preference.mMax));
                 mNumberPicker.getErrorView().setText(errorText);
-                mNumberPicker.getErrorView().show();
-                return;
+                mNumberPicker.getErrorView().show();*/
+                persist = false;
             }
 
-            preference.value = String.valueOf(mNumberPicker.getNumber());
-            preference.persistValue();
+            if (persist) {
+                preference.value = String.valueOf(mNumberPicker.getNumber());
+                preference.persistValue();
+            }
+        }
+        else {
+            preference.resetSummary();
         }
 
         preference.fragment = null;

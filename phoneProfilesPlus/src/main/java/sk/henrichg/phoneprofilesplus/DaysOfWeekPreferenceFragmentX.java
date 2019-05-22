@@ -46,6 +46,8 @@ public class DaysOfWeekPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
         listAdapter = new DaysOfWeekPreferenceAdapterX(prefContext, preference.daysOfWeekList);
         listView.setAdapter(listAdapter);
+
+        preference.getValueDOWMDP();
     }
 
 
@@ -54,6 +56,10 @@ public class DaysOfWeekPreferenceFragmentX extends PreferenceDialogFragmentCompa
         if (positiveResult) {
             preference.persistValue();
         }
+        else {
+            preference.resetSummary();
+        }
+
         preference.fragment = null;
     }
 

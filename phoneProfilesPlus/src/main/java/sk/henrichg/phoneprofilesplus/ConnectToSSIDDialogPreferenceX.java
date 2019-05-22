@@ -18,6 +18,7 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
     private final Context context;
 
     String value = "";
+    String defaultValue;
     //final int disableSharedProfile;
 
     List<WifiSSIDData> ssidList;
@@ -50,11 +51,9 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
     @Override
     protected void onSetInitialValue(Object defaultValue)
     {
-        try {
-            value = getPersistedString((String) defaultValue);
-        } catch  (Exception e) {
-            value = (String) defaultValue;
-        }
+        value = getPersistedString((String) defaultValue);
+        this.defaultValue = (String)defaultValue;
+
         setSummaryCTSDP();
     }
 
@@ -71,6 +70,12 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
 
     void persistValue() {
         persistString(value);
+        setSummaryCTSDP();
+    }
+
+    void resetSummary() {
+        value = getPersistedString(defaultValue);
+        setSummaryCTSDP();
     }
 
     @Override
@@ -83,6 +88,7 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
 
         final ConnectToSSIDDialogPreferenceX.SavedState myState = new ConnectToSSIDDialogPreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
         return myState;
     }
 
@@ -100,6 +106,7 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
         ConnectToSSIDDialogPreferenceX.SavedState myState = (ConnectToSSIDDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
         setSummaryCTSDP();
     }
@@ -108,12 +115,14 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -122,6 +131,7 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

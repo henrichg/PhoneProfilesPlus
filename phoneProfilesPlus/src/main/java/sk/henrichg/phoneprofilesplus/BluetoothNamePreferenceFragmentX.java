@@ -235,6 +235,9 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
         if (positiveResult) {
             preference.persistValue();
         }
+        else {
+            preference.resetSummary();
+        }
 
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();

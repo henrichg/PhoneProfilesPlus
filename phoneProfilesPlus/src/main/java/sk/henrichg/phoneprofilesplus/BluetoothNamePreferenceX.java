@@ -16,7 +16,11 @@ public class BluetoothNamePreferenceX extends DialogPreference {
 
     BluetoothNamePreferenceFragmentX fragment;
 
+    Context context;
+
     String value;
+    String defaultValue;
+
     List<BluetoothDeviceData> bluetoothList;
     final List<BluetoothDeviceData> customBluetoothList;
 
@@ -24,7 +28,9 @@ public class BluetoothNamePreferenceX extends DialogPreference {
 
     public BluetoothNamePreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
-        
+
+        this.context = context;
+
         bluetoothList = new ArrayList<>();
         customBluetoothList = new ArrayList<>();
     }
@@ -38,7 +44,9 @@ public class BluetoothNamePreferenceX extends DialogPreference {
 
     @Override
     protected void onSetInitialValue(Object defaultValue) {
-        value = getPersistedString(value);
+        value = getPersistedString((String)defaultValue);
+        this.defaultValue = (String)defaultValue;
+        setSummary();
     }
 
     void addBluetoothName(String bluetoothName) {
@@ -92,15 +100,46 @@ public class BluetoothNamePreferenceX extends DialogPreference {
             fragment.showEditMenu(view);
     }
 
+    void setSummary() {
+        String[] splits = value.split("\\|");
+        for (String _bluetoothName : splits) {
+            if (_bluetoothName.isEmpty()) {
+                setSummary(R.string.applications_multiselect_summary_text_not_selected);
+            } else if (splits.length == 1) {
+                switch (value) {
+                    case EventPreferencesBluetooth.ALL_BLUETOOTH_NAMES_VALUE:
+                        setSummary(R.string.bluetooth_name_pref_dlg_all_bt_names_chb);
+                        break;
+                    case EventPreferencesBluetooth.CONFIGURED_BLUETOOTH_NAMES_VALUE:
+                        setSummary(R.string.bluetooth_name_pref_dlg_configured_bt_names_chb);
+                        break;
+                    default:
+                        setSummary(_bluetoothName);
+                        break;
+                }
+            } else {
+                String selectedBluetoothNames = context.getString(R.string.applications_multiselect_summary_text_selected);
+                selectedBluetoothNames = selectedBluetoothNames + " " + splits.length;
+                setSummary(selectedBluetoothNames);
+                break;
+            }
+        }
+    }
+
     void persistValue() {
         if (shouldPersist()) {
             if (callChangeListener(value))
             {
+                setSummary();
                 persistString(value);
             }
         }
     }
 
+    void resetSummary() {
+        value = getPersistedString(defaultValue);
+        setSummary();
+    }
 
     @Override
     protected Parcelable onSaveInstanceState()
@@ -112,6 +151,7 @@ public class BluetoothNamePreferenceX extends DialogPreference {
 
         final BluetoothNamePreferenceX.SavedState myState = new BluetoothNamePreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -132,7 +172,9 @@ public class BluetoothNamePreferenceX extends DialogPreference {
         BluetoothNamePreferenceX.SavedState myState = (BluetoothNamePreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
+        setSummary();
         //notifyChanged();
     }
 
@@ -140,12 +182,14 @@ public class BluetoothNamePreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -154,6 +198,7 @@ public class BluetoothNamePreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

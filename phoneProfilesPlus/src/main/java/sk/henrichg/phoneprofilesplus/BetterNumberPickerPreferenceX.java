@@ -13,6 +13,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
     BetterNumberPickerPreferenceFragmentX fragment;
 
     String value;
+    String defaultValue;
     final int mMin, mMax;
 
     public BetterNumberPickerPreferenceX(Context context, AttributeSet attrs) {
@@ -37,6 +38,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
     @Override
     protected void onSetInitialValue(Object defaultValue) {
         value = getPersistedString((String) defaultValue);
+        this.defaultValue = (String)defaultValue;
         setSummary(value);
     }
 
@@ -47,6 +49,10 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
         }
     }
 
+    void resetSummary() {
+        value = getPersistedString(defaultValue);
+        setSummary(value);
+    }
 
     @Override
     protected Parcelable onSaveInstanceState()
@@ -58,6 +64,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
 
         final BetterNumberPickerPreferenceX.SavedState myState = new BetterNumberPickerPreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
         /*myState.mMin = mMin;
         myState.mMax = mMax;*/
         return myState;
@@ -77,6 +84,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
         BetterNumberPickerPreferenceX.SavedState myState = (BetterNumberPickerPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
         /*mMin = myState.mMin;
         mMax = myState.mMax;*/
 
@@ -87,6 +95,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
         //int mMin, mMax;
 
         SavedState(Parcel source)
@@ -95,6 +104,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
 
             // restore profileId
             value = source.readString();
+            defaultValue = source.readString();
             /*mMin = source.readInt();
             mMax = source.readInt();*/
         }
@@ -106,6 +116,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
 
             // save profileId
             dest.writeString(value);
+            dest.writeString(defaultValue);
             /*dest.writeInt(mMin);
             dest.writeInt(mMax);*/
         }

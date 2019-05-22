@@ -30,6 +30,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     final Context context;
 
     private String value = "";
+    String defaultValue;
 
     final List<Application> oldApplicationsList;
     final List<Application> applicationsList;
@@ -93,6 +94,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     {
         // Get the persistent value
         value = getPersistedString((String)defaultValue);
+        this.defaultValue = (String)defaultValue;
         getValueAMSDP();
         setSummaryAMSDP();
     }
@@ -415,6 +417,12 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
             setIcons();
             setSummaryAMSDP();
         }
+    }
+
+    void resetSummary() {
+        value = getPersistedString(defaultValue);
+        setIcons();
+        setSummaryAMSDP();
     }
 
     private void setIcons() {
@@ -740,6 +748,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
         final ApplicationsDialogPreferenceX.SavedState myState = new ApplicationsDialogPreferenceX.SavedState(superState);
         myState.value = getValue();
+        myState.defaultValue = defaultValue;
         return myState;
     }
 
@@ -758,6 +767,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
         ApplicationsDialogPreferenceX.SavedState myState = (ApplicationsDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
         getValueAMSDP();
         setSummaryAMSDP();
@@ -767,12 +777,14 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -781,6 +793,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

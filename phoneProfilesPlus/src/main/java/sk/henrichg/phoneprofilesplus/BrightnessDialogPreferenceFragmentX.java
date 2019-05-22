@@ -99,6 +99,9 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
         if (positiveResult) {
             preference.persistValue();
         }
+        else {
+            preference.resetSummary();
+        }
 
         if (Permissions.checkScreenBrightness(context, null)) {
             Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, preference.savedBrightnessMode);

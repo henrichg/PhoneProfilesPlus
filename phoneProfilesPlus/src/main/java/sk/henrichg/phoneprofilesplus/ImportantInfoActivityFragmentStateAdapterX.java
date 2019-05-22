@@ -8,11 +8,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-class HelpActivityFragmentStateAdapterX extends FragmentStateAdapter {
+class ImportantInfoActivityFragmentStateAdapterX extends FragmentStateAdapter {
 
     private final ArrayList<Fragment> arrayList = new ArrayList<>();
 
-    HelpActivityFragmentStateAdapterX(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    ImportantInfoActivityFragmentStateAdapterX(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 

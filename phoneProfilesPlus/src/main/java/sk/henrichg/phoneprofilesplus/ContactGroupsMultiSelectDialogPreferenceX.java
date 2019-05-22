@@ -17,6 +17,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
 
     private final Context _context;
     String value = "";
+    String defaultValue;
 
     public ContactGroupsMultiSelectDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -31,7 +32,9 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     @Override
     protected void onSetInitialValue(Object defaultValue)
     {
-        value = getPersistedString(value);
+        value = getPersistedString((String)defaultValue);
+        this.defaultValue = (String)defaultValue;
+
         getValueCMSDP();
         setSummaryCMSDP();
     }
@@ -109,30 +112,38 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
+    void getValue() {
+        // fill with strings of contact groups separated with |
+        value = "";
+        List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
+        if (contactGroupList != null)
+        {
+            for (ContactGroup contactGroup : contactGroupList)
+            {
+                if (contactGroup.checked)
+                {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + contactGroup.groupId;
+                }
+            }
+        }
+    }
+
     void persistValue() {
         if (shouldPersist())
         {
-            // fill with strings of contact groups separated with |
-            value = "";
-            List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
-            if (contactGroupList != null)
-            {
-                for (ContactGroup contactGroup : contactGroupList)
-                {
-                    if (contactGroup.checked)
-                    {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + contactGroup.groupId;
-                    }
-                }
-            }
+            getValue();
             persistString(value);
 
             setSummaryCMSDP();
         }
     }
 
+    void resetSummary() {
+        value = getPersistedString(defaultValue);
+        setSummaryCMSDP();
+    }
 
     @Override
     protected Parcelable onSaveInstanceState()
@@ -143,7 +154,9 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         }*/
 
         final ContactGroupsMultiSelectDialogPreferenceX.SavedState myState = new ContactGroupsMultiSelectDialogPreferenceX.SavedState(superState);
+        getValue();
         myState.value = value;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -165,7 +178,9 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         ContactGroupsMultiSelectDialogPreferenceX.SavedState myState = (ContactGroupsMultiSelectDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
+        getValueCMSDP();
         setSummaryCMSDP();
         //notifyChanged();
     }
@@ -174,12 +189,14 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -188,6 +205,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

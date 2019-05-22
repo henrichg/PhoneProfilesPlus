@@ -27,6 +27,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     final int stepSize = 1;
 
     private String sValue = "";
+    String defaultValue;
     int value = 0;
 
     final boolean adaptiveAllowed;
@@ -86,6 +87,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     {
         // Get the persistent value and correct it for the minimum value.
         sValue = getPersistedString((String) defaultValue);
+        this.defaultValue = (String)defaultValue;
 
         PPApplication.logE("VolumeDialogPreferenceX.getValueVDP", "form onSetInitialValue");
         getValueBDP();
@@ -182,6 +184,13 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         }
     }
 
+    void resetSummary() {
+        sValue = getPersistedString((String) defaultValue);
+
+        getValueBDP();
+        setSummaryBDP();
+    }
+
     static boolean changeEnabled(String value) {
         String[] splits = value.split("\\|");
         if (splits.length > 1) {
@@ -206,6 +215,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
 
         final BrightnessDialogPreferenceX.SavedState myState = new BrightnessDialogPreferenceX.SavedState(superState);
         myState.sValue = sValue;
+        myState.defaultValue = defaultValue;
         return myState;
     }
 
@@ -224,6 +234,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
         BrightnessDialogPreferenceX.SavedState myState = (BrightnessDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         sValue = myState.sValue;
+        defaultValue = myState.defaultValue;
 
         getValueBDP();
         setSummaryBDP();
@@ -233,12 +244,14 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String sValue;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             sValue = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -247,6 +260,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(sValue);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

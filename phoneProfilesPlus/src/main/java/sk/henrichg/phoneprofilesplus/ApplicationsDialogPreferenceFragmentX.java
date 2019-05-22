@@ -83,6 +83,9 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         if (positiveResult) {
             preference.persistValue();
         }
+        else {
+            preference.resetSummary();
+        }
 
         if ((asyncTask != null) && !asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             asyncTask.cancel(true);

@@ -29,8 +29,6 @@ class EventPreferencesLocation extends EventPreferences {
 
     private static final String PREF_EVENT_LOCATION_CATEGORY = "eventLocationCategoryRoot";
 
-    private DataWrapper dataWrapper = null;
-
     EventPreferencesLocation(Event event,
                                     boolean enabled,
                                     String geofences,
@@ -195,36 +193,6 @@ class EventPreferencesLocation extends EventPreferences {
                 preference.setSummary(summary);
             }
         }
-        if (key.equals(PREF_EVENT_LOCATION_GEOFENCES)) {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
-                    preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                            ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
-                }
-                /*else
-                if (!ApplicationPreferences.applicationEventLocationEnableScanning(context.getApplicationContext())) {
-                    preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                            ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
-                }*/
-                else {
-                    String[] splits = value.split("\\|");
-                    for (String _geofence : splits) {
-                        if (_geofence.isEmpty()) {
-                            preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
-                        } else if (splits.length == 1) {
-                            preference.setSummary(getGeofenceName(Long.valueOf(_geofence), context));
-                        } else {
-                            String selectedLocations = context.getString(R.string.applications_multiselect_summary_text_selected);
-                            selectedLocations = selectedLocations + " " + splits.length;
-                            preference.setSummary(selectedLocations);
-                            break;
-                        }
-                    }
-                }
-                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, true);
-            }
-        }
         if (key.equals(PREF_EVENT_LOCATION_WHEN_OUTSIDE)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -340,12 +308,11 @@ class EventPreferencesLocation extends EventPreferences {
     }
     */
 
-    private String getGeofenceName(long geofenceId, Context context) {
-        if (dataWrapper == null)
-            dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+    static String getGeofenceName(long geofenceId, Context context) {
         String name = DatabaseHandler.getInstance(context.getApplicationContext()).getGeofenceName(geofenceId);
         if (name.isEmpty())
             name = context.getString(R.string.event_preferences_locations_location_not_selected);
         return name;
     }
+
 }

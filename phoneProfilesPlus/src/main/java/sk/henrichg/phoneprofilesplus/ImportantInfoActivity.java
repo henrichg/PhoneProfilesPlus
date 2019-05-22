@@ -76,7 +76,7 @@ public class ImportantInfoActivity extends AppCompatActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager2 viewPager = findViewById(R.id.activity_important_info_pager);
-        HelpActivityFragmentStateAdapterX adapter = new HelpActivityFragmentStateAdapterX(getSupportFragmentManager(), getLifecycle());
+        ImportantInfoActivityFragmentStateAdapterX adapter = new ImportantInfoActivityFragmentStateAdapterX(getSupportFragmentManager(), getLifecycle());
         viewPager.setAdapter(adapter);
 
         Intent intent = getIntent();

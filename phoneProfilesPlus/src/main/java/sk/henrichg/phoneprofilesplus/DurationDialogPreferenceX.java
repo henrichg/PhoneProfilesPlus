@@ -13,6 +13,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
     DurationDialogPreferenceFragmentX fragment;
 
     String value;
+    String defaultValue;
 
     final int mMin, mMax;
 
@@ -40,6 +41,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
     @Override
     protected void onSetInitialValue(Object defaultValue) {
         value = getPersistedString((String) defaultValue);
+        this.defaultValue = (String)defaultValue;
         setSummaryDDP();
     }
 
@@ -47,9 +49,14 @@ public class DurationDialogPreferenceX extends DialogPreference {
         setSummary(GlobalGUIRoutines.getDurationString(Integer.parseInt(value)));
     }
 
-    void persistStringValue(String value)
+    void persistValue(String value)
     {
         persistString(value);
+    }
+
+    void resetSummary() {
+        value = getPersistedString((String) defaultValue);
+        setSummaryDDP();
     }
 
 
@@ -63,6 +70,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
 
         final DurationDialogPreferenceX.SavedState myState = new DurationDialogPreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
         /*myState.mMin = mMin;
         myState.mMax = mMax;*/
         return myState;
@@ -82,6 +90,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
         DurationDialogPreferenceX.SavedState myState = (DurationDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
         /*mMin = myState.mMin;
         mMax = myState.mMax;*/
 
@@ -92,6 +101,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
         //int mMin, mMax;
 
         SavedState(Parcel source)
@@ -100,6 +110,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
 
             // restore profileId
             value = source.readString();
+            defaultValue = source.readString();
             /*mMin = source.readInt();
             mMax = source.readInt();*/
         }
@@ -111,6 +122,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
 
             // save profileId
             dest.writeString(value);
+            dest.writeString(defaultValue);
             /*dest.writeInt(mMin);
             dest.writeInt(mMax);*/
         }

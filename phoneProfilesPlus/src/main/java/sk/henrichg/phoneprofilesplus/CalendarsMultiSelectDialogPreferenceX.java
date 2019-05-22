@@ -21,6 +21,7 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
 
     private final Context _context;
     String value = "";
+    String defaultValue;
 
     List<CalendarEvent> calendarList;
 
@@ -37,6 +38,8 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
     {
         // Get the persistent value
         value = getPersistedString((String)defaultValue);
+        this.defaultValue = (String)defaultValue;
+
         getValueCMSDP(true);
         setSummaryCMSDP();
     }
@@ -110,29 +113,37 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
+    private void getValue() {
+        // fill with strings of calendars separated with |
+        value = "";
+        if (calendarList != null)
+        {
+            for (CalendarEvent calendar : calendarList)
+            {
+                if (calendar.checked)
+                {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + calendar.calendarId;
+                }
+            }
+        }
+    }
+
     void persistValue() {
         if (shouldPersist())
         {
-            // fill with strings of calendars separated with |
-            value = "";
-            if (calendarList != null)
-            {
-                for (CalendarEvent calendar : calendarList)
-                {
-                    if (calendar.checked)
-                    {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + calendar.calendarId;
-                    }
-                }
-            }
+            getValue();
             persistString(value);
 
             setSummaryCMSDP();
         }
     }
 
+    void resetSummary() {
+        value = getPersistedString(defaultValue);
+        setSummaryCMSDP();
+    }
 
     @Override
     protected Parcelable onSaveInstanceState()
@@ -143,7 +154,9 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
         }*/
 
         final CalendarsMultiSelectDialogPreferenceX.SavedState myState = new CalendarsMultiSelectDialogPreferenceX.SavedState(superState);
+        getValue();
         myState.value = value;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -165,7 +178,9 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
         CalendarsMultiSelectDialogPreferenceX.SavedState myState = (CalendarsMultiSelectDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
+        getValueCMSDP(true);
         setSummaryCMSDP();
         //notifyChanged();
     }
@@ -174,12 +189,14 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -188,6 +205,7 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

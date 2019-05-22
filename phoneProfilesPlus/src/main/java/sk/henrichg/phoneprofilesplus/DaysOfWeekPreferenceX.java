@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -17,12 +18,17 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
 
     static final String allValue = "#ALL#";
 
+    Context context;
+
     private String value = "";
+    String defaultValue;
 
     final List<DayOfWeek> daysOfWeekList;
 
     public DaysOfWeekPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        this.context = context;
 
         daysOfWeekList = new ArrayList<>();
 
@@ -46,6 +52,8 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         for (int i = 1; i < 8; i++)
         {
             _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
+            Log.e("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "_dayOfWeek="+_dayOfWeek);
+            Log.e("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "namesOfDay[_dayOfWeek+1]="+namesOfDay[_dayOfWeek+1]);
 
             dayOfWeek = new DayOfWeek();
             dayOfWeek.name = namesOfDay[_dayOfWeek+1];
@@ -58,49 +66,77 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
     @Override
     protected void onSetInitialValue(Object defaultValue) {
         // Get the persistent value
-        value = getPersistedString(value);
+        value = getPersistedString((String)defaultValue);
+        this.defaultValue = (String)defaultValue;
         getValueDOWMDP();
         setSummaryDOWMDP();
     }
 
-    private void getValueDOWMDP()
+    void getValueDOWMDP()
     {
         // change checked state by value
         if (daysOfWeekList != null)
         {
+            Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "value="+value);
             String[] splits = value.split("\\|");
-            for (DayOfWeek dayOfWeek : daysOfWeekList)
-            {
-                dayOfWeek.checked = false;
-                for (String split : splits) {
-                    if (dayOfWeek.value.equals(split))
-                        dayOfWeek.checked = true;
+            boolean allIsConfigured = false;
+            for (String split : splits) {
+                Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "split="+split);
+                if (split.equals(allValue)) {
+                    Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "allIsConfigured");
+                    allIsConfigured = true;
+                    for (DayOfWeek dayOfWeek : daysOfWeekList) {
+                        dayOfWeek.checked = !dayOfWeek.value.equals(allValue);
+                    }
+                    break;
+                }
+            }
+            if (!allIsConfigured) {
+                for (DayOfWeek dayOfWeek : daysOfWeekList) {
+                    dayOfWeek.checked = false;
+                    for (String split : splits) {
+                        if (dayOfWeek.value.equals(split))
+                            dayOfWeek.checked = true;
+                    }
                 }
             }
         }
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    private void setSummaryDOWMDP()
-    {
+    private void setSummaryDOWMDP() {
         String[] namesOfDay = DateFormatSymbols.getInstance().getShortWeekdays();
 
         String summary = "";
 
-        if ((daysOfWeekList != null) && (daysOfWeekList.size() > 0))
-        {
-            if (daysOfWeekList.get(0).checked)
-            {
-                for ( int i = 1; i <= namesOfDay.length; i++ )
-                    summary = summary + namesOfDay[EventPreferencesTime.getDayOfWeekByLocale(i-1)+1] + " ";
+        String[] splits = value.split("\\|");
+        boolean allIsConfigured = false;
+        boolean[] daySet = new boolean[7];
+        for (String split : splits) {
+            if (split.equals(allValue)) {
+                allIsConfigured = true;
+                break;
             }
-            else
-            {
-                for ( int i = 1; i < daysOfWeekList.size(); i++ )
-                {
-                    DayOfWeek dayOfWeek = daysOfWeekList.get(i);
-                    if (dayOfWeek.checked)
-                        summary = summary + namesOfDay[EventPreferencesTime.getDayOfWeekByLocale(i-1)+1] + " ";
+            daySet[Integer.valueOf(split)] = true;
+        }
+        if (!allIsConfigured) {
+            allIsConfigured = true;
+            for (int i = 0; i < 7; i++)
+                allIsConfigured = allIsConfigured && daySet[i];
+        }
+        Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "allIsConfigured");
+        if (allIsConfigured)
+            summary = summary + context.getString(R.string.array_pref_event_all) + " ";
+        else {
+            for (String split : splits) {
+                for ( int i = 1; i < 8; i++ ) {
+                    int _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
+                    if (split.equals(String.valueOf(_dayOfWeek))) {
+                        Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek="+_dayOfWeek);
+                        Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "namesOfDay[_dayOfWeek+1]="+namesOfDay[_dayOfWeek+1]);
+                        summary = summary + namesOfDay[_dayOfWeek+1] + " ";
+                        break;
+                    }
                 }
             }
         }
@@ -109,29 +145,37 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
+    void getValue() {
+        // fill with days of week separated with |
+        value = "";
+        if (daysOfWeekList != null)
+        {
+            for (DayOfWeek dayOfWeek : daysOfWeekList)
+            {
+                if (dayOfWeek.checked)
+                {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + dayOfWeek.value;
+                }
+            }
+        }
+    }
+
     void persistValue() {
         if (shouldPersist())
         {
-            // fill with days of week separated with |
-            value = "";
-            if (daysOfWeekList != null)
-            {
-                for (DayOfWeek dayOfWeek : daysOfWeekList)
-                {
-                    if (dayOfWeek.checked)
-                    {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + dayOfWeek.value;
-                    }
-                }
-            }
+            getValue();
             persistString(value);
 
             setSummaryDOWMDP();
         }
     }
 
+    void resetSummary() {
+        value = getPersistedString(defaultValue);
+        setSummaryDOWMDP();
+    }
 
     @Override
     protected Parcelable onSaveInstanceState()
@@ -143,6 +187,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
 
         final DaysOfWeekPreferenceX.SavedState myState = new DaysOfWeekPreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -164,7 +209,9 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         DaysOfWeekPreferenceX.SavedState myState = (DaysOfWeekPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
+        getValueDOWMDP();
         setSummaryDOWMDP();
         //notifyChanged();
     }
@@ -173,12 +220,15 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
+
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -187,6 +237,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

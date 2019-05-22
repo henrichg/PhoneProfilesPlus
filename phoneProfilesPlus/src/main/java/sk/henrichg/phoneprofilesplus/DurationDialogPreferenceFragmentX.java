@@ -144,9 +144,12 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
             preference.value = String.valueOf(iValue);
 
             if (preference.callChangeListener(preference.value)) {
-                preference.persistStringValue(preference.value);
+                preference.persistValue(preference.value);
                 preference.setSummaryDDP();
             }
+        }
+        else {
+            preference.resetSummary();
         }
 
         preference.fragment = null;

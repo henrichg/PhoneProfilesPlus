@@ -177,8 +177,12 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        if (positiveResult && (preference.onlyEdit != 0))
-            preference.persistGeofence(false);
+        if (preference.onlyEdit != 0) {
+            if (positiveResult)
+                preference.persistGeofence(false);
+            else
+                preference.resetSummary();
+        }
 
         DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence("", 0);
         Cursor cursor = preference.listAdapter.getCursor();

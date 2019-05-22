@@ -27,6 +27,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
     private final Context _context;
 
     String value = "";
+    String defaultValue;
 
     private final int removePPApplications;
     private final String systemSettings;
@@ -84,6 +85,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
     protected void onSetInitialValue(Object defaultValue)
     {
         value = getPersistedString((String) defaultValue);
+        this.defaultValue = (String)defaultValue;
         getValueAMSDP();
         setSummaryAMSDP();
     }
@@ -259,6 +261,12 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
+    void resetSummary() {
+        value = getPersistedString(defaultValue);
+        setIcons();
+        setSummaryAMSDP();
+    }
+
     private void setIcons() {
         PackageManager packageManager = _context.getPackageManager();
         ApplicationInfo app;
@@ -382,6 +390,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
 
         final ApplicationsMultiSelectDialogPreferenceX.SavedState myState = new ApplicationsMultiSelectDialogPreferenceX.SavedState(superState);
         myState.value = getValue();
+        myState.defaultValue = defaultValue;
         return myState;
     }
 
@@ -400,6 +409,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
         ApplicationsMultiSelectDialogPreferenceX.SavedState myState = (ApplicationsMultiSelectDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
         getValueAMSDP();
         setSummaryAMSDP();
@@ -409,12 +419,14 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -423,6 +435,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)
