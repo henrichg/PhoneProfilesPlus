@@ -22,6 +22,9 @@ public class NFCTagPreferenceX extends DialogPreference {
     NFCTagPreferenceFragmentX fragment;
 
     String value;
+    String defaultValue;
+    boolean restoredInstanceState;
+
     List<NFCTag> nfcTagList;
 
     private final Context context;
@@ -48,7 +51,29 @@ public class NFCTagPreferenceX extends DialogPreference {
 
     @Override
     protected void onSetInitialValue(Object defaultValue) {
-        value = getPersistedString(value);
+        value = getPersistedString((String)defaultValue);
+        this.defaultValue = (String)defaultValue;
+        setSummary();
+    }
+
+    void setSummary() {
+        String[] splits = value.split("\\|");
+        for (String _tag : splits) {
+            if (_tag.isEmpty()) {
+                setSummary(R.string.applications_multiselect_summary_text_not_selected);
+            }
+            else
+            if (splits.length == 1) {
+                setSummary(_tag);
+            }
+            else {
+                String selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
+                selectedNfcTags = selectedNfcTags + " " + splits.length;
+                setSummary(selectedNfcTags);
+                break;
+            }
+        }
+        //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
     }
 
     /*public String getNfcTags()
@@ -153,10 +178,18 @@ public class NFCTagPreferenceX extends DialogPreference {
             if (callChangeListener(value))
             {
                 persistString(value);
+                setSummary();
             }
         }
     }
 
+    void resetSummary() {
+        if (!restoredInstanceState) {
+            value = getPersistedString((String) defaultValue);
+            setSummary();
+        }
+        restoredInstanceState = false;
+    }
 
     @Override
     protected Parcelable onSaveInstanceState()
@@ -168,6 +201,7 @@ public class NFCTagPreferenceX extends DialogPreference {
 
         final NFCTagPreferenceX.SavedState myState = new NFCTagPreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -175,6 +209,8 @@ public class NFCTagPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
+
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
@@ -188,7 +224,9 @@ public class NFCTagPreferenceX extends DialogPreference {
         NFCTagPreferenceX.SavedState myState = (NFCTagPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
+        setSummary();
         //notifyChanged();
     }
 
@@ -196,12 +234,14 @@ public class NFCTagPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -210,6 +250,7 @@ public class NFCTagPreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

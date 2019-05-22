@@ -129,29 +129,6 @@ class EventPreferencesNFC extends EventPreferences {
             }
         }
 
-        if (key.equals(PREF_EVENT_NFC_NFC_TAGS))
-        {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                String[] splits = value.split("\\|");
-                for (String _tag : splits) {
-                    if (_tag.isEmpty()) {
-                        preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
-                    }
-                    else
-                    if (splits.length == 1) {
-                        preference.setSummary(_tag);
-                    }
-                    else {
-                        String selectedNfcTags = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedNfcTags = selectedNfcTags + " " + splits.length;
-                        preference.setSummary(selectedNfcTags);
-                        break;
-                    }
-                }
-                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
         if (key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
