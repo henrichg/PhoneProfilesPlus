@@ -20,6 +20,7 @@ public class BluetoothNamePreferenceX extends DialogPreference {
 
     String value;
     String defaultValue;
+    private boolean restoredInstanceState;
 
     List<BluetoothDeviceData> bluetoothList;
     final List<BluetoothDeviceData> customBluetoothList;
@@ -137,8 +138,11 @@ public class BluetoothNamePreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        value = getPersistedString(defaultValue);
-        setSummary();
+        if (!restoredInstanceState) {
+            value = getPersistedString(defaultValue);
+            setSummary();
+        }
+        restoredInstanceState = false;
     }
 
     @Override
@@ -159,6 +163,8 @@ public class BluetoothNamePreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
+
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 

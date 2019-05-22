@@ -2,6 +2,8 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import androidx.preference.DialogPreference;
 
@@ -10,6 +12,9 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
     MobileCellsRegistrationDialogPreferenceFragmentX fragment;
 
     String value;
+    String cellName;
+    boolean restoredInstanceState;
+
     private final Context context;
 
     final int mMin, mMax;
@@ -85,6 +90,8 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
     }
 
     void setCellNameText(String text) {
+        PPApplication.logE("MobileCellsRegistrationDialogPreferenceX.setCellNameText", "text="+text);
+        cellName = text;
         if (fragment != null)
             fragment.setCellNameText(text);
     }
@@ -96,4 +103,88 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
             return null;
     }
 
+
+    @Override
+    protected Parcelable onSaveInstanceState()
+    {
+        final Parcelable superState = super.onSaveInstanceState();
+        /*if (isPersistent()) {
+            return superState;
+        }*/
+
+        final MobileCellsRegistrationDialogPreferenceX.SavedState myState = new MobileCellsRegistrationDialogPreferenceX.SavedState(superState);
+        myState.value = value;
+        myState.cellName = cellName;
+
+        return myState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state)
+    {
+        restoredInstanceState = true;
+
+        PPApplication.logE("MobileCellsRegistrationDialogPreferenceX.onCreateDialog", "xxx");
+
+        //if (dataWrapper == null)
+        //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
+
+        if (!state.getClass().equals(MobileCellsRegistrationDialogPreferenceX.SavedState.class)) {
+            // Didn't save state for us in onSaveInstanceState
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        // restore instance state
+        MobileCellsRegistrationDialogPreferenceX.SavedState myState = (MobileCellsRegistrationDialogPreferenceX.SavedState)state;
+        super.onRestoreInstanceState(myState.getSuperState());
+        value = myState.value;
+        cellName = myState.cellName;
+
+        //notifyChanged();
+    }
+
+    // SavedState class
+    private static class SavedState extends BaseSavedState
+    {
+        String value;
+        String cellName;
+
+        SavedState(Parcel source)
+        {
+            super(source);
+
+            value = source.readString();
+            cellName = source.readString();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags)
+        {
+            super.writeToParcel(dest, flags);
+
+            dest.writeString(value);
+            dest.writeString(cellName);
+        }
+
+        SavedState(Parcelable superState)
+        {
+            super(superState);
+        }
+
+        @SuppressWarnings("unused")
+        public static final Creator<MobileCellsRegistrationDialogPreferenceX.SavedState> CREATOR =
+                new Creator<MobileCellsRegistrationDialogPreferenceX.SavedState>() {
+                    public MobileCellsRegistrationDialogPreferenceX.SavedState createFromParcel(Parcel in)
+                    {
+                        return new MobileCellsRegistrationDialogPreferenceX.SavedState(in);
+                    }
+                    public MobileCellsRegistrationDialogPreferenceX.SavedState[] newArray(int size)
+                    {
+                        return new MobileCellsRegistrationDialogPreferenceX.SavedState[size];
+                    }
+
+                };
+
+    }
 }

@@ -17,6 +17,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     final int onlyEdit;
 
     String defaultValue;
+    private boolean restoredInstanceState;
 
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
@@ -57,6 +58,10 @@ public class LocationGeofencePreferenceX extends DialogPreference {
         if (onlyEdit == 0) {
             String value = getPersistedString((String) defaultValue);
             this.defaultValue = (String)defaultValue;
+
+            // clear all checks
+            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
+            // check by value
             DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
             setSummary();
         }
@@ -69,12 +74,16 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     */
 
     void persistGeofence(boolean reset) {
+        PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "onlyEdit="+onlyEdit);
         if (onlyEdit == 0) {
             if (shouldPersist()) {
+                PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "shouldPersist=true");
+                // get value for checked
                 String value = DatabaseHandler.getInstance(context.getApplicationContext()).getCheckedGeofences();
                 if (callChangeListener(value)) {
                     if (reset)
                         persistString("");
+                    PPApplication.logE("LocationGeofencePreferenceX.persistGeofence", "value="+value);
                     persistString(value);
                 }
             }
@@ -83,11 +92,16 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        if (onlyEdit == 0) {
+        if ((onlyEdit == 0) && (!restoredInstanceState)) {
+            PPApplication.logE("LocationGeofencePreferenceX.resetSummary", "xxx");
             String value = getPersistedString(defaultValue);
+            // clear all checks
+            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
+            // check by value
             DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
             setSummary();
         }
+        restoredInstanceState = false;
     }
 
     /*
@@ -150,22 +164,26 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        PPApplication.logE("LocationGeofencePreferenceX.onSaveInstanceState", "xxx");
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
         }*/
 
         final LocationGeofencePreferenceX.SavedState myState = new LocationGeofencePreferenceX.SavedState(superState);
-        //myState.value = value;
-        myState.defaultValue = defaultValue;
-        /*myState.mMin = mMin;
-        myState.mMax = mMax;*/
+        if (onlyEdit == 0) {
+            myState.value = DatabaseHandler.getInstance(context.getApplicationContext()).getCheckedGeofences();
+            myState.defaultValue = defaultValue;
+        }
         return myState;
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
+
         if (!state.getClass().equals(LocationGeofencePreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
@@ -173,34 +191,36 @@ public class LocationGeofencePreferenceX extends DialogPreference {
             return;
         }
 
-        // restore instance state
-        LocationGeofencePreferenceX.SavedState myState = (LocationGeofencePreferenceX.SavedState)state;
-        super.onRestoreInstanceState(myState.getSuperState());
-        //value = myState.value;
-        defaultValue = myState.defaultValue;
-        /*mMin = myState.mMin;
-        mMax = myState.mMax;*/
+        PPApplication.logE("LocationGeofencePreferenceX.onRestoreInstanceState", "xxx");
 
-        refreshListView();
-        setSummary();
+        // restore instance state
+        if (onlyEdit == 0) {
+            LocationGeofencePreferenceX.SavedState myState = (LocationGeofencePreferenceX.SavedState)state;
+            super.onRestoreInstanceState(myState.getSuperState());
+            String value = myState.value;
+            defaultValue = myState.defaultValue;
+
+            // clear all checks
+            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence("", 0);
+            // check by value
+            DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
+            refreshListView();
+            setSummary();
+        }
     }
 
     // SavedState class
     private static class SavedState extends BaseSavedState
     {
-        //String value;
+        String value;
         String defaultValue;
-        //int mMin, mMax;
 
         SavedState(Parcel source)
         {
             super(source);
 
-            // restore profileId
-            //value = source.readString();
+            value = source.readString();
             defaultValue = source.readString();
-            /*mMin = source.readInt();
-            mMax = source.readInt();*/
         }
 
         @Override
@@ -209,10 +229,8 @@ public class LocationGeofencePreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             // save profileId
-            //dest.writeString(value);
+            dest.writeString(value);
             dest.writeString(defaultValue);
-            /*dest.writeInt(mMin);
-            dest.writeInt(mMax);*/
         }
 
         SavedState(Parcelable superState)

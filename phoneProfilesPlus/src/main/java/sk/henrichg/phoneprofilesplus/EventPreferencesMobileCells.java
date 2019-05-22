@@ -197,26 +197,6 @@ class EventPreferencesMobileCells extends EventPreferences {
                 preference.setSummary(summary);
             }
         }
-        if (key.equals(PREF_EVENT_MOBILE_CELLS_CELLS)) {
-            Preference preference = prefMng.findPreference(key);
-            if (preference != null) {
-                /*if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext())) {
-                    preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                            ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
-                }
-                else {*/
-                    if (value.isEmpty())
-                        preference.setSummary(R.string.applications_multiselect_summary_text_not_selected);
-                    else {
-                        String[] splits = value.split("\\|");
-                        String selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
-                        selectedCells = selectedCells + " " + splits.length;
-                        preference.setSummary(selectedCells);
-                    }
-                //}
-                //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
-            }
-        }
         if (key.equals(PREF_EVENT_MOBILE_CELLS_WHEN_OUTSIDE)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {

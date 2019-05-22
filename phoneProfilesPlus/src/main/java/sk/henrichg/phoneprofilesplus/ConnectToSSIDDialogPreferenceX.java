@@ -19,6 +19,8 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
 
     String value = "";
     String defaultValue;
+    private boolean restoredInstanceState;
+
     //final int disableSharedProfile;
 
     List<WifiSSIDData> ssidList;
@@ -74,8 +76,11 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        value = getPersistedString(defaultValue);
-        setSummaryCTSDP();
+        if (!restoredInstanceState) {
+            value = getPersistedString(defaultValue);
+            setSummaryCTSDP();
+        }
+        restoredInstanceState = false;
     }
 
     @Override
@@ -95,6 +100,8 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
+
         if (!state.getClass().equals(ConnectToSSIDDialogPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);

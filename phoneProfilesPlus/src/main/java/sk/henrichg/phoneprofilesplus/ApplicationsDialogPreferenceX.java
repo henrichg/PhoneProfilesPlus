@@ -31,6 +31,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
     private String value = "";
     String defaultValue;
+    private boolean restoredInstanceState;
 
     final List<Application> oldApplicationsList;
     final List<Application> applicationsList;
@@ -420,9 +421,12 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        value = getPersistedString(defaultValue);
-        setIcons();
-        setSummaryAMSDP();
+        if (!restoredInstanceState) {
+            value = getPersistedString(defaultValue);
+            setIcons();
+            setSummaryAMSDP();
+        }
+        restoredInstanceState = false;
     }
 
     private void setIcons() {
@@ -755,6 +759,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
         if (!state.getClass().equals(ApplicationsDialogPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);

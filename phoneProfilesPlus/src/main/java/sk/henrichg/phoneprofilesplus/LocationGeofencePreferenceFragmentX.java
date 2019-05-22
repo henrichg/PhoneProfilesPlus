@@ -57,8 +57,6 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         preference.listAdapter = new LocationGeofencesPreferenceAdapterX(prefContext, DatabaseHandler.getInstance(prefContext.getApplicationContext()).getGeofencesCursor(), this);
         geofencesListView.setAdapter(preference.listAdapter);
 
-        preference.refreshListView();
-
         geofencesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 LocationGeofencesPreferenceAdapterX.ViewHolder viewHolder =
@@ -123,6 +121,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             unselectAllButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // clear all checks
                     DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence("", 0);
                     preference.refreshListView();
                 }
@@ -173,18 +172,22 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             }
         });
 
+        PPApplication.logE("LocationGeofencePreferenceFragmentX.onBindDialogView", "xxx");
+
+        preference.resetSummary();
+        preference.refreshListView();
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
-        if (preference.onlyEdit != 0) {
+        PPApplication.logE("LocationGeofencePreferenceFragmentX.onDialogClosed", "xxx");
+        if (preference.onlyEdit == 0) {
             if (positiveResult)
                 preference.persistGeofence(false);
             else
                 preference.resetSummary();
         }
 
-        DatabaseHandler.getInstance(prefContext.getApplicationContext()).checkGeofence("", 0);
         Cursor cursor = preference.listAdapter.getCursor();
         if (cursor != null)
             cursor.close();

@@ -78,10 +78,14 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         MobileCellsPreferenceX.forceStart = true;
 
         cellFilter = view.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
-        if (preference.value.isEmpty())
-            cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
+        if ((preference.cellFilter == null) || preference.cellFilter.isEmpty()) {
+            if (preference.value.isEmpty())
+                cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_all);
+            else
+                cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_selected);
+        }
         else
-            cellFilter.setText(R.string.mobile_cell_names_dialog_item_show_selected);
+            cellFilter.setText(preference.cellFilter);
         cellFilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -290,6 +294,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         if (positiveResult) {
             preference.persistValue();
         }
+        else {
+            preference.resetSummary();
+        }
 
         if ((mRenameDialog != null) && mRenameDialog.isShowing())
             mRenameDialog.dismiss();
@@ -393,6 +400,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "_value="+_value);
                     String[] splits = preference.value.split("\\|");
                     for (String cell : splits) {
+                        if (cell.isEmpty())
+                            continue;
+
                         boolean found = false;
                         for (MobileCellsData mCell : _cellsList) {
                             if (cell.equals(Integer.toString(mCell.cellId))) {

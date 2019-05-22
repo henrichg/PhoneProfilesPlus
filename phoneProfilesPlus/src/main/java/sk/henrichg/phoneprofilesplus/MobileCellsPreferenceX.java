@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.StringDef;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -17,6 +18,10 @@ public class MobileCellsPreferenceX extends DialogPreference {
     MobileCellsPreferenceFragmentX fragment;
 
     String value;
+    String defaultValue;
+    String cellFilter;
+    boolean restoredInstanceState;
+
     List<MobileCellsData> cellsList;
     List<MobileCellsData> filteredCellsList;
 
@@ -46,7 +51,27 @@ public class MobileCellsPreferenceX extends DialogPreference {
 
     @Override
     protected void onSetInitialValue(Object defaultValue) {
-        value = getPersistedString(value);
+        value = getPersistedString((String)defaultValue);
+        this.defaultValue = (String)defaultValue;
+        setSummary();
+    }
+
+    void setSummary() {
+        /*if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext())) {
+            preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                    ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
+        }
+        else {*/
+        if (value.isEmpty())
+            setSummary(R.string.applications_multiselect_summary_text_not_selected);
+        else {
+            String[] splits = value.split("\\|");
+            String selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
+            selectedCells = selectedCells + " " + splits.length;
+            setSummary(selectedCells);
+        }
+        //}
+        //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
     }
 
     void addCellId(int cellId) {
@@ -115,8 +140,17 @@ public class MobileCellsPreferenceX extends DialogPreference {
                 DatabaseHandler db = DatabaseHandler.getInstance(context);
                 db.saveMobileCellsList(cellsList, false, false);
                 persistString(value);
+                setSummary();
             }
         }
+    }
+
+    void resetSummary() {
+        if (!restoredInstanceState) {
+            value = getPersistedString(defaultValue);
+            setSummary();
+        }
+        restoredInstanceState = false;
     }
 
     void setCellNameText(String text) {
@@ -132,10 +166,10 @@ public class MobileCellsPreferenceX extends DialogPreference {
     }
 
     void setCellFilterText(String text) {
+        cellFilter = text;
         if (fragment != null)
             fragment.setCellFilterText(text);
     }
-
 
 
     @Override
@@ -148,6 +182,8 @@ public class MobileCellsPreferenceX extends DialogPreference {
 
         final MobileCellsPreferenceX.SavedState myState = new MobileCellsPreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
+        myState.cellFilter = cellFilter;
 
         return myState;
     }
@@ -155,6 +191,8 @@ public class MobileCellsPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
+
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
@@ -168,6 +206,10 @@ public class MobileCellsPreferenceX extends DialogPreference {
         MobileCellsPreferenceX.SavedState myState = (MobileCellsPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
+        cellFilter = myState.cellFilter;
+
+        setSummary();
 
         //notifyChanged();
     }
@@ -176,12 +218,16 @@ public class MobileCellsPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
+        String cellFilter;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
+            cellFilter = source.readString();
         }
 
         @Override
@@ -190,6 +236,8 @@ public class MobileCellsPreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
+            dest.writeString(cellFilter);
         }
 
         SavedState(Parcelable superState)

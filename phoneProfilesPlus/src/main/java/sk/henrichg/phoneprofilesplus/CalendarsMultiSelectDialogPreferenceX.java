@@ -22,6 +22,7 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
     private final Context _context;
     String value = "";
     String defaultValue;
+    private boolean restoredInstanceState;
 
     List<CalendarEvent> calendarList;
 
@@ -141,8 +142,11 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     void resetSummary() {
-        value = getPersistedString(defaultValue);
-        setSummaryCMSDP();
+        if (!restoredInstanceState) {
+            value = getPersistedString(defaultValue);
+            setSummaryCMSDP();
+        }
+        restoredInstanceState = false;
     }
 
     @Override
@@ -164,6 +168,8 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
+
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 

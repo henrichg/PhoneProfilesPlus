@@ -28,6 +28,8 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
 
     private String sValue = "";
     String defaultValue;
+    private boolean restoredInstanceState;
+
     int value = 0;
 
     final boolean adaptiveAllowed;
@@ -185,10 +187,12 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        sValue = getPersistedString((String) defaultValue);
-
-        getValueBDP();
-        setSummaryBDP();
+        if (!restoredInstanceState) {
+            sValue = getPersistedString((String) defaultValue);
+            getValueBDP();
+            setSummaryBDP();
+        }
+        restoredInstanceState = false;
     }
 
     static boolean changeEnabled(String value) {
@@ -222,6 +226,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
         if (!state.getClass().equals(SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);

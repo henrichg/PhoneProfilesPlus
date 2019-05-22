@@ -194,6 +194,10 @@ public class PPApplication extends Application {
                                          +"|VolumeDialogPreferenceFragmentX"
                                          +"|ApplicationsDialogPreferenceX"
                                          +"|ApplicationsDialogPreferenceFragmentX"
+                                         +"|LocationGeofencePreferenceX"
+                                         +"|LocationGeofencePreferenceFragmentX"
+                                         +"|MobileCellsRegistrationDialogPreferenceX"
+                                         +"|MobileCellsRegistrationDialogPreferenceFragmentX"
 
                                          //+"|Event.notifyEventStart"
                                          //+"|StartEventNotificationBroadcastReceiver"
@@ -383,7 +387,7 @@ public class PPApplication extends Application {
                                         //+"|PPNumberPicker"
                                         //+"|RingtonePreference.setRingtone"
                                         //+"|RingtonePreferenceX"
-                                        +"|PhoneProfilesService.playNotificationSound"
+                                        //+"|PhoneProfilesService.playNotificationSound"
             ;
 
 

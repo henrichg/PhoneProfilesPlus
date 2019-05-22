@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
 
     private String value = "";
     String defaultValue;
+    private boolean restoredInstanceState;
 
     final List<DayOfWeek> daysOfWeekList;
 
@@ -52,8 +52,8 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         for (int i = 1; i < 8; i++)
         {
             _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
-            Log.e("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "_dayOfWeek="+_dayOfWeek);
-            Log.e("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "namesOfDay[_dayOfWeek+1]="+namesOfDay[_dayOfWeek+1]);
+            //Log.e("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "_dayOfWeek="+_dayOfWeek);
+            //Log.e("DaysOfWeekPreferenceX.DaysOfWeekPreferenceX", "namesOfDay[_dayOfWeek+1]="+namesOfDay[_dayOfWeek+1]);
 
             dayOfWeek = new DayOfWeek();
             dayOfWeek.name = namesOfDay[_dayOfWeek+1];
@@ -77,13 +77,13 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         // change checked state by value
         if (daysOfWeekList != null)
         {
-            Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "value="+value);
+            //Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "value="+value);
             String[] splits = value.split("\\|");
             boolean allIsConfigured = false;
             for (String split : splits) {
-                Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "split="+split);
+                //Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "split="+split);
                 if (split.equals(allValue)) {
-                    Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "allIsConfigured");
+                    //Log.e("DaysOfWeekPreferenceX.getValueDOWMDP", "allIsConfigured");
                     allIsConfigured = true;
                     for (DayOfWeek dayOfWeek : daysOfWeekList) {
                         dayOfWeek.checked = !dayOfWeek.value.equals(allValue);
@@ -124,7 +124,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
             for (int i = 0; i < 7; i++)
                 allIsConfigured = allIsConfigured && daySet[i];
         }
-        Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "allIsConfigured");
+        //Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "allIsConfigured");
         if (allIsConfigured)
             summary = summary + context.getString(R.string.array_pref_event_all) + " ";
         else {
@@ -132,8 +132,8 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
                 for ( int i = 1; i < 8; i++ ) {
                     int _dayOfWeek = EventPreferencesTime.getDayOfWeekByLocale(i-1);
                     if (split.equals(String.valueOf(_dayOfWeek))) {
-                        Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek="+_dayOfWeek);
-                        Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "namesOfDay[_dayOfWeek+1]="+namesOfDay[_dayOfWeek+1]);
+                        //Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "_dayOfWeek="+_dayOfWeek);
+                        //Log.e("DaysOfWeekPreferenceX.setSummaryDOWMDP", "namesOfDay[_dayOfWeek+1]="+namesOfDay[_dayOfWeek+1]);
                         summary = summary + namesOfDay[_dayOfWeek+1] + " ";
                         break;
                     }
@@ -173,8 +173,11 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        value = getPersistedString(defaultValue);
-        setSummaryDOWMDP();
+        if (!restoredInstanceState) {
+            value = getPersistedString(defaultValue);
+            setSummaryDOWMDP();
+        }
+        restoredInstanceState = false;
     }
 
     @Override
@@ -195,6 +198,8 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
+
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 

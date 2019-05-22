@@ -18,6 +18,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     private final Context _context;
     String value = "";
     String defaultValue;
+    private boolean restoredInstanceState;
 
     public ContactGroupsMultiSelectDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -141,8 +142,11 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     void resetSummary() {
-        value = getPersistedString(defaultValue);
-        setSummaryCMSDP();
+        if (!restoredInstanceState) {
+            value = getPersistedString(defaultValue);
+            setSummaryCMSDP();
+        }
+        restoredInstanceState = false;
     }
 
     @Override
@@ -164,6 +168,8 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
+
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 

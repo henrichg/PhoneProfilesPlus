@@ -41,13 +41,16 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
     private Button stopButton;
     private MobileCellNamesDialogX mMobileCellNamesDialog;
 
+
     @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        PPApplication.logE("MobileCellsRegistrationDialogPreferenceFragmentX.onCreateDialog", "xxx");
 
         preference = (MobileCellsRegistrationDialogPreferenceX)getPreference();
         prefContext = preference.getContext();
+        preference.fragment = this;
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
         dialogBuilder.setTitle(preference.getTitle());
@@ -156,6 +159,8 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
                 if (iValue > preference.mMax)
                     iValue = preference.mMax;
 
+                preference.value = String.valueOf(iValue);
+
                 mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
                 int hours = iValue / 3600;
@@ -177,6 +182,8 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
                     int iValue = (hours * 3600 + minutes * 60 + seconds);
                     if (iValue < preference.mMin) iValue = preference.mMin;
                     if (iValue > preference.mMax) iValue = preference.mMax;
+
+                    preference.value = String.valueOf(iValue);
 
                     mValueDialog.setDuration(iValue * 1000);
                     if (!((Activity)prefContext).isFinishing())
@@ -238,6 +245,8 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
             if (iValue < preference.mMin) iValue = preference.mMin;
             if (iValue > preference.mMax) iValue = preference.mMax;
 
+            preference.value = String.valueOf(iValue);
+
             mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         }
     }
@@ -255,7 +264,10 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
     void updateInterface(long millisUntilFinished, boolean forceStop) {
         if ((mDialog != null) && mDialog.isShowing()) {
             boolean started = false;
-            mCellsName.setText(PhoneStateScanner.cellsNameForAutoRegistration);
+            if ((preference.cellName == null) || preference.cellName.isEmpty())
+                mCellsName.setText(PhoneStateScanner.cellsNameForAutoRegistration);
+            else
+                mCellsName.setText(preference.cellName);
             if (PhoneStateScanner.enabledAutoRegistration && !forceStop) {
                 mStatus.setText(R.string.mobile_cells_registration_pref_dlg_status_started);
                 if (millisUntilFinished > 0) {
@@ -328,7 +340,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
             MobileCellsRegistrationService.setMobileCellsAutoRegistrationRemainingDuration(prefContext, iValue);
             PhoneStateScanner.durationForAutoRegistration = iValue;
             PhoneStateScanner.cellsNameForAutoRegistration = mCellsName.getText().toString();
-            PPApplication.logE("MobileCellsRegistrationDialogPreference.startRegistration",
+            PPApplication.logE("MobileCellsRegistrationDialogPreferenceFragmentX.startRegistration",
                     "cellsNameForAutoRegistration="+PhoneStateScanner.cellsNameForAutoRegistration);
             PhoneStateScanner.startAutoRegistration(prefContext, false);
 
@@ -340,6 +352,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
     }
 
     void setCellNameText(String text) {
+        PPApplication.logE("MobileCellsRegistrationDialogPreferenceFragmentX.setCellNameText", "text="+text);
         mCellsName.setText(text);
     }
 

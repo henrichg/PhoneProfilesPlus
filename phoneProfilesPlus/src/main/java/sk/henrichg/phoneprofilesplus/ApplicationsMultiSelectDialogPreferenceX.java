@@ -28,6 +28,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
 
     String value = "";
     String defaultValue;
+    private boolean restoredInstanceState;
 
     private final int removePPApplications;
     private final String systemSettings;
@@ -262,9 +263,12 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     void resetSummary() {
-        value = getPersistedString(defaultValue);
-        setIcons();
-        setSummaryAMSDP();
+        if (!restoredInstanceState) {
+            value = getPersistedString(defaultValue);
+            setIcons();
+            setSummaryAMSDP();
+        }
+        restoredInstanceState = false;
     }
 
     private void setIcons() {
@@ -397,6 +401,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
+        restoredInstanceState = true;
         if (!state.getClass().equals(ApplicationsMultiSelectDialogPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
