@@ -1,8 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,15 +43,20 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    private MobileCellsRegistrationCountDownBroadcastReceiver mobileCellsRegistrationCountDownBroadcastReceiver = null;
+    private MobileCellsRegistrationStoppedBroadcastReceiver mobileCellsRegistrationStoppedBroadcastReceiver = null;
+
     public static final String PREF_START_TARGET_HELPS = "event_preferences_activity_start_target_helps";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, true/*, false*/);
         GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
+
+        PPApplication.logE("EventsPrefsActivity.onCreate", "xxx");
 
         setContentView(R.layout.activity_preferences);
 
@@ -85,6 +92,44 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
             showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
         }
+
+        if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
+            mobileCellsRegistrationCountDownBroadcastReceiver = new MobileCellsRegistrationCountDownBroadcastReceiver();
+            registerReceiver(mobileCellsRegistrationCountDownBroadcastReceiver, intentFilter);
+        }
+
+        if (mobileCellsRegistrationStoppedBroadcastReceiver == null) {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_NEW_CELLS);
+            mobileCellsRegistrationStoppedBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver();
+            registerReceiver(mobileCellsRegistrationStoppedBroadcastReceiver, intentFilter);
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        PPApplication.logE("EventsPrefsActivity.onDestroy", "xxx");
+
+        if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
+            try {
+                unregisterReceiver(mobileCellsRegistrationCountDownBroadcastReceiver);
+            } catch (IllegalArgumentException ignored) {
+            }
+            mobileCellsRegistrationCountDownBroadcastReceiver = null;
+        }
+
+        if (mobileCellsRegistrationStoppedBroadcastReceiver != null) {
+            try {
+                unregisterReceiver(mobileCellsRegistrationStoppedBroadcastReceiver);
+            } catch (IllegalArgumentException ignored) {
+            }
+            mobileCellsRegistrationStoppedBroadcastReceiver = null;
+        }
+
+        super.onDestroy();
     }
 
     @Override
@@ -621,6 +666,34 @@ public class EventsPrefsActivity extends AppCompatActivity {
                     .considerOuterCircleCanceled(true);
             //targetHelpsSequenceStarted = true;
             sequence.start();
+        }
+    }
+
+    public class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
+
+        MobileCellsRegistrationCountDownBroadcastReceiver(/*MobileCellsRegistrationDialogPreferenceX preference*/) {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+            if (fragment != null) {
+                long millisUntilFinished = intent.getLongExtra(MobileCellsRegistrationService.EXTRA_COUNTDOWN, 0L);
+                ((EventsPrefsFragment) fragment).doMobileCellsRegistrationCountDownBroadcastReceiver(millisUntilFinished);
+            }
+        }
+    }
+
+    public class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
+
+        MobileCellsRegistrationStoppedBroadcastReceiver(/*MobileCellsPreferenceX preference*/) {
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
+            if (fragment != null)
+                ((EventsPrefsFragment)fragment).doMobileCellsRegistrationStoppedBroadcastReceiver();
         }
     }
 

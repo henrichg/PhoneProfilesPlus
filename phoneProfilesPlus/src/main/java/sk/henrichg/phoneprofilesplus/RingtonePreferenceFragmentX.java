@@ -48,14 +48,12 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         preference.listAdapter = new RingtonePreferenceAdapterX(this, prefContext, preference.toneList);
         preference.listView.setAdapter(preference.listAdapter);
 
-        preference.initRingtoneUri();
-
         if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext)) {
             Handler handler = new Handler(prefContext.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    preference.oldRingtoneUri = preference.ringtoneUri;
+                    //preference.oldRingtoneUri = preference.ringtoneUri;
                     preference.refreshListView();
                 }
             }, 200);
@@ -68,15 +66,15 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         if (positiveResult) {
             preference.persistValue();
         }
-        else {
-            preference.setRingtone(preference.oldRingtoneUri, false);
-        }
+        //else {
+        //    preference.setRingtone(preference.oldRingtoneUri, false);
+        //}
 
         if ((preference.asyncTask != null) && !preference.asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             preference.asyncTask.cancel(true);
         }
 
-        PPApplication.logE("RingtonePreferenceX.onDialogClosed", "ringtoneUri="+preference.ringtoneUri);
+        PPApplication.logE("RingtonePreferenceFragmentX.onDialogClosed", "ringtoneUri="+preference.ringtoneUri);
         PPApplication.startHandlerThreadPlayTone();
         final Handler handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
         handler.post(new Runnable() {

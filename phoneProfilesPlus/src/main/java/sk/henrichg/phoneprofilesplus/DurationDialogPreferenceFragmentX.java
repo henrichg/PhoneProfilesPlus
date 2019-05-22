@@ -91,6 +91,8 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
                 if (iValue > preference.mMax)
                     iValue = preference.mMax;
 
+                preference.value = String.valueOf(iValue);
+
                 mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
                 int hours = iValue / 3600;
@@ -160,6 +162,8 @@ public class DurationDialogPreferenceFragmentX extends PreferenceDialogFragmentC
             int iValue = (hours * 3600 + minutes * 60 + seconds);
             if (iValue < preference.mMin) iValue = preference.mMin;
             if (iValue > preference.mMax) iValue = preference.mMax;
+
+            preference.value = String.valueOf(iValue);
 
             mValue.setText(GlobalGUIRoutines.getDurationString(iValue));
         }

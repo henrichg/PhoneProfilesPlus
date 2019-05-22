@@ -39,7 +39,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     public static final String PREF_START_TARGET_HELPS_SAVE = "profile_preferences_activity_start_target_helps_save";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         // must by called before super.onCreate() for PreferenceActivity
         GlobalGUIRoutines.setTheme(this, false, true/*, false*/);
         GlobalGUIRoutines.setLanguage(this);

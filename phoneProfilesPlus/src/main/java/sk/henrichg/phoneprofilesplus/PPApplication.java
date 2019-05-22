@@ -184,6 +184,8 @@ public class PPApplication extends Application {
                                          +"|PhoneProfilesPrefsFragment"
                                          +"|ProfilesPrefsActivity"
                                          +"|ProfilesPrefsFragment"
+                                         +"|EventsPrefsActivity"
+                                         +"|EventsPrefsFragment"
                                          //+"|PhoneProfilesPrefsNotifications"
                                          //+"|LocationGeofencePreferenceX"
                                          +"|ProfilePreferenceX"

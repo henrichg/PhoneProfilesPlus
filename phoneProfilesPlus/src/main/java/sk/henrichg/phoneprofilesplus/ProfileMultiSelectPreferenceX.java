@@ -188,24 +188,27 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
+    private void setValue() {
+        // fill with profile id strings separated with |
+        value = "";
+        if (dataWrapper.profileListFilled)
+        {
+            for (Profile profile : dataWrapper.profileList)
+            {
+                if (profile._checked) {
+                    if (!value.isEmpty())
+                        value = value + "|";
+                    value = value + profile._id;
+                }
+            }
+            PPApplication.logE("ProfileMultiSelectPreferenceX.onPositive","value="+value);
+        }
+    }
+
     void persistValue() {
         if (shouldPersist())
         {
-            // fill with profile id strings separated with |
-            value = "";
-            if (dataWrapper.profileListFilled)
-            {
-                for (Profile profile : dataWrapper.profileList)
-                {
-                    if (profile._checked) {
-                        if (!value.isEmpty())
-                            value = value + "|";
-                        value = value + profile._id;
-                    }
-                }
-                PPApplication.logE("ProfileMultiSelectPreferenceX.onPositive","value="+value);
-            }
-
+            setValue();
             persistString(value);
 
             setIcons();
@@ -222,6 +225,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
             return superState;
         }*/
 
+        setValue();
         final ProfileMultiSelectPreferenceX.SavedState myState = new ProfileMultiSelectPreferenceX.SavedState(superState);
         myState.value = value;
 
@@ -245,7 +249,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         ProfileMultiSelectPreferenceX.SavedState myState = (ProfileMultiSelectPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
-
+        getValuePMSDP();
         setSummaryPMSDP();
         //notifyChanged();
     }
