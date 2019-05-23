@@ -225,6 +225,9 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         if (positiveResult) {
             preference.persistValue();
         }
+        else {
+            preference.resetSummary();
+        }
 
         if ((mSelectorDialog != null) && mSelectorDialog.isShowing())
             mSelectorDialog.dismiss();

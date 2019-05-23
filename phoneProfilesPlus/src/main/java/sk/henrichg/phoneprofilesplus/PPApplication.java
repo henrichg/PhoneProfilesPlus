@@ -200,6 +200,8 @@ public class PPApplication extends Application {
                                          +"|MobileCellsRegistrationDialogPreferenceFragmentX"
                                          +"|ProfileIconPreferenceX"
                                          +"|ProfileIconPreferenceFragmentX"
+                                         +"|TimePreferenceX"
+                                         +"|TimePreferenceFragmentX"
 
                                          //+"|Event.notifyEventStart"
                                          //+"|StartEventNotificationBroadcastReceiver"

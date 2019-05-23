@@ -130,7 +130,7 @@ public class WallpaperViewPreferenceX extends Preference {
         SavedState myState = (SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         imageIdentifier = myState.imageIdentifier;
-        notifyChanged();
+        //notifyChanged();
     }
 
     private Bitmap getBitmap() {

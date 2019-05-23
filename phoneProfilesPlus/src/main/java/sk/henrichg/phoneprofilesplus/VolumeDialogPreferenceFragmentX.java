@@ -93,6 +93,9 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         if (positiveResult) {
             preference.persistValue();
         }
+        else {
+            preference.resetSummary();
+        }
 
         final Context _context = context;
         PPApplication.startHandlerThreadPlayTone();

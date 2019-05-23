@@ -95,6 +95,10 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
         if (positiveResult) {
             preference.persistValue();
         }
+        else {
+            preference.resetSummary();
+        }
+
         preference.fragment = null;
     }
 

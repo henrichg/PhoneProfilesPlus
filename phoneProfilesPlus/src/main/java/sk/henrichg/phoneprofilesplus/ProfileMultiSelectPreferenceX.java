@@ -17,6 +17,8 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
     ProfileMultiSelectPreferenceFragmentX fragment;
 
     private String value;
+    private String defaultValue;
+    private boolean savedInstanceState;
 
     private final Context prefContext;
 
@@ -68,7 +70,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
     protected void onSetInitialValue(Object defaultValue)
     {
         value = getPersistedString((String)defaultValue);
-
+        this.defaultValue = (String)defaultValue;
         getValuePMSDP();
         setSummaryPMSDP();
     }
@@ -216,10 +218,20 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         }
     }
 
+    void resetSummary() {
+        if (!savedInstanceState) {
+            value = getPersistedString(defaultValue);
+            getValuePMSDP();
+            setSummaryPMSDP();
+        }
+        savedInstanceState = false;
+    }
 
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
@@ -228,6 +240,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         setValue();
         final ProfileMultiSelectPreferenceX.SavedState myState = new ProfileMultiSelectPreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -249,6 +262,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
         ProfileMultiSelectPreferenceX.SavedState myState = (ProfileMultiSelectPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
         getValuePMSDP();
         setSummaryPMSDP();
         //notifyChanged();
@@ -258,12 +272,14 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -272,6 +288,7 @@ public class ProfileMultiSelectPreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)

@@ -17,9 +17,12 @@ public class TimePreferenceX extends DialogPreference {
 
     TimePreferenceFragmentX fragment;
 
+    int value;
+    int defaultValue;
+    boolean savedInstanceState;
+
     private final Context context;
     //private Calendar calendar;
-    int value;
 
     public TimePreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -45,7 +48,8 @@ public class TimePreferenceX extends DialogPreference {
         if (defaultValue == null) {
             value = getPersistedInt(now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE));
         } else {
-            value = Integer.parseInt(getPersistedString((String) defaultValue));
+            value = getPersistedInt((Integer) defaultValue);
+            this.defaultValue = (Integer)defaultValue;
         }
         setSummary(getSummary());
     }
@@ -72,10 +76,25 @@ public class TimePreferenceX extends DialogPreference {
         }
     }
 
+    void resetSummary() {
+        if (!savedInstanceState) {
+            Calendar now = Calendar.getInstance();
+            if (defaultValue == 0) {
+                value = getPersistedInt(now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE));
+            } else {
+                value = getPersistedInt(defaultValue);
+            }
+            setSummary(getSummary());
+        }
+        savedInstanceState = false;
+    }
+
 
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
@@ -83,6 +102,7 @@ public class TimePreferenceX extends DialogPreference {
 
         final TimePreferenceX.SavedState myState = new TimePreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -104,6 +124,9 @@ public class TimePreferenceX extends DialogPreference {
         TimePreferenceX.SavedState myState = (TimePreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
+
+        PPApplication.logE("TimePreferenceX.onRestoreInstanceState", "value="+getSummary());
 
         setSummary(getSummary());
         //notifyChanged();
@@ -113,12 +136,14 @@ public class TimePreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         int value;
+        int defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readInt();
+            defaultValue = source.readInt();
         }
 
         @Override
@@ -127,6 +152,7 @@ public class TimePreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeInt(value);
+            dest.writeInt(defaultValue);
         }
 
         SavedState(Parcelable superState)

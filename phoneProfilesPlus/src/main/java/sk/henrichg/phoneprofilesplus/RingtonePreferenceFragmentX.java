@@ -66,9 +66,9 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         if (positiveResult) {
             preference.persistValue();
         }
-        //else {
-        //    preference.setRingtone(preference.oldRingtoneUri, false);
-        //}
+        else {
+            preference.resetSummary();
+        }
 
         if ((preference.asyncTask != null) && !preference.asyncTask.getStatus().equals(AsyncTask.Status.FINISHED)){
             preference.asyncTask.cancel(true);

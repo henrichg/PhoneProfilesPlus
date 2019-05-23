@@ -16,7 +16,12 @@ public class WifiSSIDPreferenceX extends DialogPreference {
 
     WifiSSIDPreferenceFragmentX fragment;
 
+    Context context;
+
     String value;
+    String defaultValue;
+    boolean savedInstanceState;
+
     List<WifiSSIDData> SSIDList;
     final List<WifiSSIDData> customSSIDList;
 
@@ -24,7 +29,9 @@ public class WifiSSIDPreferenceX extends DialogPreference {
 
     public WifiSSIDPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
-        
+
+        this.context = context;
+
         SSIDList = new ArrayList<>();
         customSSIDList = new ArrayList<>();
     }
@@ -39,6 +46,8 @@ public class WifiSSIDPreferenceX extends DialogPreference {
     @Override
     protected void onSetInitialValue(Object defaultValue) {
         value = getPersistedString(value);
+        this.defaultValue = (String)defaultValue;
+        setSummary();
     }
 
     void addSSID(String ssid) {
@@ -92,19 +101,62 @@ public class WifiSSIDPreferenceX extends DialogPreference {
             fragment.showEditMenu(view);
     }
 
+    void setSummary() {
+        /*if (!ApplicationPreferences.applicationEventWifiEnableScanning(context.getApplicationContext())) {
+            preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                    ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
+        }
+        else {*/
+        String[] splits = value.split("\\|");
+        for (String _ssid : splits) {
+            if (_ssid.isEmpty()) {
+                setSummary(R.string.applications_multiselect_summary_text_not_selected);
+            } else if (splits.length == 1) {
+                switch (_ssid) {
+                    case EventPreferencesWifi.ALL_SSIDS_VALUE:
+                        setSummary(R.string.wifi_ssid_pref_dlg_all_ssids_chb);
+                        break;
+                    case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
+                        setSummary(R.string.wifi_ssid_pref_dlg_configured_ssids_chb);
+                        break;
+                    default:
+                        setSummary(_ssid);
+                        break;
+                }
+            } else {
+                String selectedSSIDs = context.getString(R.string.applications_multiselect_summary_text_selected);
+                selectedSSIDs = selectedSSIDs + " " + splits.length;
+                setSummary(selectedSSIDs);
+                break;
+            }
+        }
+        //}
+        //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
+    }
+
     void persistValue() {
         if (shouldPersist()) {
             if (callChangeListener(value))
             {
                 persistString(value);
+                setSummary();
             }
         }
     }
 
+    void resetSummary() {
+        if (!savedInstanceState) {
+            value = getPersistedString(defaultValue);
+            setSummary();
+        }
+        savedInstanceState = false;
+    }
 
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
@@ -112,6 +164,7 @@ public class WifiSSIDPreferenceX extends DialogPreference {
 
         final WifiSSIDPreferenceX.SavedState myState = new WifiSSIDPreferenceX.SavedState(superState);
         myState.value = value;
+        myState.defaultValue = defaultValue;
 
         return myState;
     }
@@ -132,7 +185,9 @@ public class WifiSSIDPreferenceX extends DialogPreference {
         WifiSSIDPreferenceX.SavedState myState = (WifiSSIDPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
+        defaultValue = myState.defaultValue;
 
+        setSummary();
         //notifyChanged();
     }
 
@@ -140,12 +195,14 @@ public class WifiSSIDPreferenceX extends DialogPreference {
     private static class SavedState extends BaseSavedState
     {
         String value;
+        String defaultValue;
 
         SavedState(Parcel source)
         {
             super(source);
 
             value = source.readString();
+            defaultValue = source.readString();
         }
 
         @Override
@@ -154,6 +211,7 @@ public class WifiSSIDPreferenceX extends DialogPreference {
             super.writeToParcel(dest, flags);
 
             dest.writeString(value);
+            dest.writeString(defaultValue);
         }
 
         SavedState(Parcelable superState)
