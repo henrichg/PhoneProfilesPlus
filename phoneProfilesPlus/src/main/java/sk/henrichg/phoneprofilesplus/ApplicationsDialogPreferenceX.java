@@ -30,7 +30,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     final Context context;
 
     private String value = "";
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     final List<Application> oldApplicationsList;

@@ -13,7 +13,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
     DurationDialogPreferenceFragmentX fragment;
 
     String value;
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     final int mMin, mMax;

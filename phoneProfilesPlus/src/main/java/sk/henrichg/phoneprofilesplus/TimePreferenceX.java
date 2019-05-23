@@ -18,8 +18,8 @@ public class TimePreferenceX extends DialogPreference {
     TimePreferenceFragmentX fragment;
 
     int value;
-    int defaultValue;
-    boolean savedInstanceState;
+    private int defaultValue;
+    private boolean savedInstanceState;
 
     private final Context context;
     //private Calendar calendar;

@@ -16,7 +16,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
 
     final int onlyEdit;
 
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     //private LinearLayout progressLinearLayout;
@@ -130,7 +130,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
         //updateGUIWithGeofence(geofenceId);
     }
 
-    void setSummary() {
+    private void setSummary() {
         if (onlyEdit == 0) {
             if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
                 setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed) +

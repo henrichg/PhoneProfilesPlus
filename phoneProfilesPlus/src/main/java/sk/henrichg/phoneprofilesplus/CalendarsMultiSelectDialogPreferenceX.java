@@ -21,7 +21,7 @@ public class CalendarsMultiSelectDialogPreferenceX extends DialogPreference
 
     private final Context _context;
     String value = "";
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     List<CalendarEvent> calendarList;

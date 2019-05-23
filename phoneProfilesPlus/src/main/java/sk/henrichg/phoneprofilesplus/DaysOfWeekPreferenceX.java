@@ -17,10 +17,10 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
 
     static final String allValue = "#ALL#";
 
-    Context context;
+    private final Context context;
 
     private String value = "";
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     final List<DayOfWeek> daysOfWeekList;
@@ -145,7 +145,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    void getValue() {
+    private void getValue() {
         // fill with days of week separated with |
         value = "";
         if (daysOfWeekList != null)

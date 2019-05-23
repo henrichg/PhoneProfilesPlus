@@ -27,7 +27,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     final int stepSize = 1;
 
     private String sValue = "";
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     int value = 0;

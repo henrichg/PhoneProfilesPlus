@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.StringDef;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -18,9 +17,9 @@ public class MobileCellsPreferenceX extends DialogPreference {
     MobileCellsPreferenceFragmentX fragment;
 
     String value;
-    String defaultValue;
+    private String defaultValue;
     String cellFilter;
-    boolean savedInstanceState;
+    private boolean savedInstanceState;
 
     List<MobileCellsData> cellsList;
     List<MobileCellsData> filteredCellsList;
@@ -56,7 +55,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
         setSummary();
     }
 
-    void setSummary() {
+    private void setSummary() {
         /*if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext())) {
             preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));

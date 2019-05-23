@@ -22,8 +22,8 @@ public class NFCTagPreferenceX extends DialogPreference {
     NFCTagPreferenceFragmentX fragment;
 
     String value;
-    String defaultValue;
-    boolean savedInstanceState;
+    private String defaultValue;
+    private boolean savedInstanceState;
 
     List<NFCTag> nfcTagList;
 
@@ -56,7 +56,7 @@ public class NFCTagPreferenceX extends DialogPreference {
         setSummary();
     }
 
-    void setSummary() {
+    private void setSummary() {
         String[] splits = value.split("\\|");
         for (String _tag : splits) {
             if (_tag.isEmpty()) {

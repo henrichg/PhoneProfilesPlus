@@ -13,7 +13,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
     BetterNumberPickerPreferenceFragmentX fragment;
 
     String value;
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     final int mMin, mMax;

@@ -32,8 +32,8 @@ public class RingtonePreferenceX extends DialogPreference {
     RingtonePreferenceFragmentX fragment;
 
     String ringtoneUri;
-    String defaultValue;
-    boolean savedInstanceState;
+    private String defaultValue;
+    private boolean savedInstanceState;
 
     //String oldRingtoneUri;
 

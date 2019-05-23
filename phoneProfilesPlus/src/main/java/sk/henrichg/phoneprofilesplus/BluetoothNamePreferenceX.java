@@ -16,10 +16,10 @@ public class BluetoothNamePreferenceX extends DialogPreference {
 
     BluetoothNamePreferenceFragmentX fragment;
 
-    Context context;
+    private final Context context;
 
     String value;
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     List<BluetoothDeviceData> bluetoothList;
@@ -101,7 +101,7 @@ public class BluetoothNamePreferenceX extends DialogPreference {
             fragment.showEditMenu(view);
     }
 
-    void setSummary() {
+    private void setSummary() {
         String[] splits = value.split("\\|");
         for (String _bluetoothName : splits) {
             if (_bluetoothName.isEmpty()) {

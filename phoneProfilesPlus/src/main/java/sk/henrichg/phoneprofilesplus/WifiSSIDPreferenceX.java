@@ -16,11 +16,11 @@ public class WifiSSIDPreferenceX extends DialogPreference {
 
     WifiSSIDPreferenceFragmentX fragment;
 
-    Context context;
+    private final Context context;
 
     String value;
-    String defaultValue;
-    boolean savedInstanceState;
+    private String defaultValue;
+    private boolean savedInstanceState;
 
     List<WifiSSIDData> SSIDList;
     final List<WifiSSIDData> customSSIDList;
@@ -101,7 +101,7 @@ public class WifiSSIDPreferenceX extends DialogPreference {
             fragment.showEditMenu(view);
     }
 
-    void setSummary() {
+    private void setSummary() {
         /*if (!ApplicationPreferences.applicationEventWifiEnableScanning(context.getApplicationContext())) {
             preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));

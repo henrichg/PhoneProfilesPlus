@@ -18,7 +18,7 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
     private final Context context;
 
     String value = "";
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     //final int disableSharedProfile;
@@ -59,7 +59,7 @@ public class ConnectToSSIDDialogPreferenceX extends DialogPreference {
         setSummaryCTSDP();
     }
 
-    void setSummaryCTSDP()
+    private void setSummaryCTSDP()
     {
         String prefSummary = context.getString(R.string.connect_to_ssid_pref_dlg_summary_text_just_any);
         //if (!value.isEmpty() && value.equals(Profile.CONNECTTOSSID_SHAREDPROFILE))

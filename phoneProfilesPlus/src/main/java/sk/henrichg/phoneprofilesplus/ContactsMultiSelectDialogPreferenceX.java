@@ -16,7 +16,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
 
     private final Context _context;
     String value = "";
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     List<Contact> contactList;
@@ -129,7 +129,7 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    void getValue() {
+    private void getValue() {
         // fill with strings of contacts separated with |
         value = "";
         if (contactList != null)

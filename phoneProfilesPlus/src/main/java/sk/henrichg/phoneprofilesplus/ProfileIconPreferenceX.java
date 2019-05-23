@@ -21,9 +21,9 @@ public class ProfileIconPreferenceX extends DialogPreference {
 
     ProfileIconPreferenceFragmentX fragment;
 
-    String value;
-    String defaultValue;
-    boolean savedInstanceState;
+    private String value;
+    private String defaultValue;
+    private boolean savedInstanceState;
 
     String imageIdentifier;
     boolean isImageResourceID;

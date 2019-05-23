@@ -27,7 +27,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
     private final Context _context;
 
     String value = "";
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     private final int removePPApplications;

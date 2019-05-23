@@ -17,7 +17,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
 
     private final Context _context;
     String value = "";
-    String defaultValue;
+    private String defaultValue;
     private boolean savedInstanceState;
 
     public ContactGroupsMultiSelectDialogPreferenceX(Context context, AttributeSet attrs) {
@@ -113,7 +113,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
     }
 
     @SuppressWarnings("StringConcatenationInLoop")
-    void getValue() {
+    private void getValue() {
         // fill with strings of contact groups separated with |
         value = "";
         List<ContactGroup> contactGroupList = EditorProfilesActivity.getContactGroupsCache().getList();
