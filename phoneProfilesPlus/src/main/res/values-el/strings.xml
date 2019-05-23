@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">Please grant them in the next dialog. Profile will then be activated.</string>
   <string name="permissions_for_profile_text_notification">Permissions request</string>
   <string name="permissions_for_profile_big_text_notification">requires some permissions to be granted.</string>
-  <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" cannot be executed because it requires some permissions.</string>
-  <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>
-  <string name="permissions_for_install_tone_text_notification">Αίτηση άδειας</string>
-  <string name="permissions_for_install_tone_big_text_notification">Η εγκατάσταση του ήχου «PhoneProfiles Σιωπηλό» απαιτεί την χορήγηση ορισμένων αδειών.</string>
+<!--  <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" cannot be executed because it requires some permissions.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>-->
+  <string name="permissions_notification_text">Αίτηση άδειας</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">Η εγκατάσταση του ήχου «PhoneProfiles Σιωπηλό» απαιτεί την χορήγηση ορισμένων αδειών.</string>-->
   <string name="menu_install_tone">Εγκατάσταση ήχου «PhoneProfiles Σιωπηλό»</string>
   <string name="toast_tone_installation_installed_ok">Ο ήχος «PhoneProfiles σιωπηλό» εγκαταστάθηκε.</string>
   <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
   <string name="run_stop_events_indicator">Enable/disable events run indicator</string>
-  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
   <string name="important_info_how_to_show">This important information can be viewed In Editor through the question mark icon in the toolbar.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">not supported by application</string>
   <string name="preference_not_allowed_reason_detail_old_android">old Android version</string>
@@ -876,7 +876,7 @@
   <string name="event_preferences_notificationVibrate">Notify by vibration</string>
   <string name="important_info_profile_grant">Some profile preferences require permission WRITE_SECURE_SETTINGS. ROOT is not required. These preferences are marked with \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
-  <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>
+<!--  <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Profile parameters marked with (G1) need special permission for PhoneProfilesPlus. This is done through your PC with installed adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">If you do not have adb installed on your PC:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Download SDK Platform Tools from:</string>
@@ -1127,7 +1127,7 @@
   <string name="permission_why_profile_radio_preferences">for enable/disable mobile data, change mobile network type, connect to SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
   <string name="permission_why_profile_custom_profile_icon">for custom profile icon</string>
-  <string name="permission_why_install_tone">for save tone into storage</string>
+<!--  <string name="permission_why_install_tone">for save tone into storage</string>-->
   <string name="permission_why_export">for save backup data into storage</string>
   <string name="permission_why_import">for load backup data from storage</string>
   <string name="permission_why_event_calendar_preferences">for read calendar data in Calendar sensor</string>

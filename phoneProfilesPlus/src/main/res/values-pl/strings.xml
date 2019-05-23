@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">Nadaj uprawnienia w następnym oknie. Profil zostanie następnie uruchomiony. </string>
   <string name="permissions_for_profile_text_notification">Prośba o pozwolenie</string>
   <string name="permissions_for_profile_big_text_notification">wymaga pewnych uprawnień przyznawanych.</string>
-  <string name="permissions_for_install_tone_text1">Instalacja tonu \"PhoneProfiles Silent\" nie zostanie wykonana, bo to wymaga pewnych uprawnień.</string>
-  <string name="permissions_for_install_tone_text2">Proszę przyznaj je w oknach dialogowych, które zaraz zobaczysz. Potem dźwięk zostanie zainstalowany.</string>
-  <string name="permissions_for_install_tone_text_notification">Prośba o uprawnienia</string>
-  <string name="permissions_for_install_tone_big_text_notification">Instalacja dźwięku \"PhoneProfiles Silent\" wymaga przyznania pewnych uprawnień.</string>
+<!--  <string name="permissions_for_install_tone_text1">Instalacja tonu \"PhoneProfiles Silent\" nie zostanie wykonana, bo to wymaga pewnych uprawnień.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">Proszę przyznaj je w oknach dialogowych, które zaraz zobaczysz. Potem dźwięk zostanie zainstalowany.</string>-->
+  <string name="permissions_notification_text">Prośba o uprawnienia</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">Instalacja dźwięku \"PhoneProfiles Silent\" wymaga przyznania pewnych uprawnień.</string>-->
   <string name="menu_install_tone">Zainstaluj dźwięk \"PhoneProfiles Silent\"</string>
   <string name="toast_tone_installation_installed_ok">Dźwięk \"PhoneProfiles Silent\" zainstalowany.</string>
   <string name="toast_tone_installation_installed_error">Błąd podczas instalowania dźwięku \"PhoneProfiles Silent\"!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">Koniec ikony profilu wydarzenia</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">Możesz konfigurować każdy parametr profilu, aby użyć \"Udostępniony profil\" i podczas aktywacji będą używane wartości z udostępnionego profilu. Kliknij tutaj, aby skonfigurować parametry udostępnionego profilu.</string> -->
   <string name="run_stop_events_indicator">Włącz/wyłącz wskaźnik włączonych wydarzeń</string>
-  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
   <string name="important_info_how_to_show">Ta ważna informacja może być wyświetlona w Edytorze przez ikonę znaku zapytania na pasku narzędzi.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">niespierane przez aplikację</string>
   <string name="preference_not_allowed_reason_detail_old_android">stara wersja Android</string>
@@ -876,7 +876,7 @@
   <string name="event_preferences_notificationVibrate">Powiadom przez wibracje</string>
   <string name="important_info_profile_grant">Niektóre preferencje profilu wymagają uprawnień WRITE_SECURE_SETTINGS. ROOT nie jest wymagany. Te preferencje są oznaczone \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Po więcej informacji zobacz funkcje \"Profile\" poniżej.</string>
-  <string name="profile_preferences_typesInfoGrant">Po więcej informacji zobacz \"Ważne informacje\", sekcję \"Profile\".</string>
+<!--  <string name="profile_preferences_typesInfoGrant">Po więcej informacji zobacz \"Ważne informacje\", sekcję \"Profile\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Parametry profilu zaznaczone (G1) wymagają specjalnych uprawnień dla PhoneProfilesPlus. Można to zrobić za pośrednictwem twojego komputera z zainstalowanym adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">Jeśli nie masz adb zainstalowanego na twoim PC:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Pobierz SDK Platform Tools z:</string>
@@ -1127,7 +1127,7 @@
   <string name="permission_why_profile_radio_preferences">aby włączać/wyłączać dane komórkowe, zmieniać rodzaj sieci, łączyć się z s SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">any rozdzielić regulację głośności dzwonka i powiadomień, włączać/wyłączać głośnik podczas połączenia</string>
   <string name="permission_why_profile_custom_profile_icon">dla ustawienia własnej ikony profilu</string>
-  <string name="permission_why_install_tone">aby zapisać dźwięk w pamięci urządzenia</string>
+<!--  <string name="permission_why_install_tone">aby zapisać dźwięk w pamięci urządzenia</string>-->
   <string name="permission_why_export">aby zapisać backup w pamięci urządzenia</string>
   <string name="permission_why_import">aby przywrócić dane backup\'u z pamięci urządzenia</string>
   <string name="permission_why_event_calendar_preferences">aby wczytywać dane wydarzeń za pomocą Czujnika Kalendarza</string>

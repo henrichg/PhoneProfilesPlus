@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">Please grant them in the next dialog. Profile will then be activated.</string>
   <string name="permissions_for_profile_text_notification">Permissions request</string>
   <string name="permissions_for_profile_big_text_notification">requires some permissions to be granted.</string>
-  <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" cannot be executed because it requires some permissions.</string>
-  <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>
-  <string name="permissions_for_install_tone_text_notification">Permissions request</string>
-  <string name="permissions_for_install_tone_big_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions to be granted.</string>
+<!--  <string name="permissions_for_install_tone_text1">Installation of tone \"PhoneProfiles Silent\" cannot be executed because it requires some permissions.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>-->
+  <string name="permissions_notification_text">Permissions request</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions to be granted.</string>-->
   <string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>
   <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>
   <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">End of event profile icon</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
   <string name="run_stop_events_indicator">Enable/disable events run indicator</string>
-  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
   <string name="important_info_how_to_show">This important information can be viewed In Editor through the question mark icon in the toolbar.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">not supported by application</string>
   <string name="preference_not_allowed_reason_detail_old_android">old Android version</string>

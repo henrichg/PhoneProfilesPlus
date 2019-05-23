@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">Prosím, povolte je v následujících dialogových oknech. Pak se profil aktivuje.</string>
   <string name="permissions_for_profile_text_notification">Vyžaduje se povolení</string>
   <string name="permissions_for_profile_big_text_notification">vyžaduje udělení některých povolení.</string>
-  <string name="permissions_for_install_tone_text1">Instalace zvuku \"PhoneProfiles Silent\" se neprovede, protože to vyžaduje některá povolení.</string>
-  <string name="permissions_for_install_tone_text2">Prosím, povolte je v následujících dialogových oknech. Pak se zvuk nainstaluje.</string>
-  <string name="permissions_for_install_tone_text_notification">Vyžaduje se povolení</string>
-  <string name="permissions_for_install_tone_big_text_notification">Instalace zvuku \"PhoneProfiles Silent\" vyžaduje udělení některých povolení.</string>
+<!--  <string name="permissions_for_install_tone_text1">Instalace zvuku \"PhoneProfiles Silent\" se neprovede, protože to vyžaduje některá povolení.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">Prosím, povolte je v následujících dialogových oknech. Pak se zvuk nainstaluje.</string>-->
+  <string name="permissions_notification_text">Vyžaduje se povolení</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">Instalace zvuku \"PhoneProfiles Silent\" vyžaduje udělení některých povolení.</string>-->
   <string name="menu_install_tone">Instalace zvuku \"PhoneProfiles Silent\"</string>
   <string name="toast_tone_installation_installed_ok">Zvuk \"PhoneProfiles Silent\" nainstalován.</string>
   <string name="toast_tone_installation_installed_error">Chyba při instalaci zvuku \"PhoneProfiles Silent\"!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">Ikona profilu konce události</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">Každý parametr profilu můžete nakonfigurovat tak, že použijete \"Sdílený profil\" a během aktivace se použijí hodnoty ze sdíleného profilu. Klikněte sem pro nakonfigurování parametrů sdíleného profilu.</string> -->
   <string name="run_stop_events_indicator">Povol/zastav běh událostí</string>
-  <string name="run_stop_indicator_popup_window_important_info">Více informací vyhledejte v Editoru přes ikonu otazníku v nástrojové liště a podívejte se na \"Důležité informace\".</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">Více informací vyhledejte v Editoru přes ikonu otazníku v nástrojové liště a podívejte se na \"Důležité informace\".</string>-->
   <string name="important_info_how_to_show">Tyto důležité informace lze zobrazit v Editoru pomocí ikony otazníku v panelu nástrojů.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">není podporováno aplikací</string>
   <string name="preference_not_allowed_reason_detail_old_android">stará verze Androidu</string>
@@ -878,7 +878,7 @@
   <string name="event_preferences_notificationVibrate">Oznamovat vibracemi</string>
   <string name="important_info_profile_grant">Některé parametry profilu vyžadují povolení WRITE_SECURE_SETTINGS. ROOT není potřebný. Tyto parametry jsou označena jako \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Další informace naleznete v části \"Profily\" níže.</string>
-  <string name="profile_preferences_typesInfoGrant">Další informace naleznete v \"Důležité informace\", část \"Profily\".</string>
+<!--  <string name="profile_preferences_typesInfoGrant">Další informace naleznete v \"Důležité informace\", část \"Profily\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Můžete udělit povolení pro PhoneProfilesPlus potřebné pro parametry profilu označené (G1). Potřebný je počítač s nainstalovaným adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">Pokud v počítači nemáte nainstalovaný adb:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Stáhnout SDK Platform Tools z:</string>
@@ -1130,7 +1130,7 @@
   <string name="permission_why_profile_radio_preferences">pro zapnutí/vypnutí mobilních dat, změnu typu mobilní sítě, připojení k SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">pro oddělení hlasitosti vyzvánění a notifikací, zapnutí/vypnutí sluchátka během hovoru</string>
   <string name="permission_why_profile_custom_profile_icon">pro vlastní ikonu profilu</string>
-  <string name="permission_why_install_tone">pro uložení zvuku do úložiště</string>
+<!--  <string name="permission_why_install_tone">pro uložení zvuku do úložiště</string>-->
   <string name="permission_why_export">pro uložení zálohovaných dat do úložiště</string>
   <string name="permission_why_import">pro načtení zálohovaných dat z úložiště</string>
   <string name="permission_why_event_calendar_preferences">pro čtení dat kalendáře v Senzoru kalendáře</string>

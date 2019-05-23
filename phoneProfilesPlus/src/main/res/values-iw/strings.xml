@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">אנא התירו את ההרשאות בתיבות דו-שיח הבאות. לאחר מכן יופעל הפרופיל.</string>
   <string name="permissions_for_profile_text_notification">בקשת הרשאות</string>
   <string name="permissions_for_profile_big_text_notification">נדרשת התרה של הרשאות מסוימות.</string>
-  <string name="permissions_for_install_tone_text1">התקנת הצליל \"PhoneProfiles Silent\" לא תבוצע, כי פעולה זו דורשת הרשאות מסוימות.</string>
-  <string name="permissions_for_install_tone_text2">אנא התירו אותן בתיבות דו-שיח הבאות, ואז הצליל יותקן.</string>
-  <string name="permissions_for_install_tone_text_notification">בקשת הרשאות</string>
-  <string name="permissions_for_install_tone_big_text_notification">התקנת הצליל \"PhoneProfiles Silent\" דורשת התרת הרשאות מסוימות.</string>
+<!--  <string name="permissions_for_install_tone_text1">התקנת הצליל \"PhoneProfiles Silent\" לא תבוצע, כי פעולה זו דורשת הרשאות מסוימות.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">אנא התירו אותן בתיבות דו-שיח הבאות, ואז הצליל יותקן.</string>-->
+  <string name="permissions_notification_text">בקשת הרשאות</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">התקנת הצליל \"PhoneProfiles Silent\" דורשת התרת הרשאות מסוימות.</string>-->
   <string name="menu_install_tone">התקנת הצליל \"PhoneProfiles Silent\"</string>
   <string name="toast_tone_installation_installed_ok">הצליל \"PhoneProfiles Silent\" הותקן.</string>
   <string name="toast_tone_installation_installed_error">אירעה שגיאה בעת התקנת הצליל \"PhoneProfiles Silent\"!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">סמל פרופיל סיום אירוע</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">You can configure each profile parameter to use \"Shared profile\" and during activation will be used values from shared profile. Click here to configure the Shared profile parameters.</string> -->
   <string name="run_stop_events_indicator">הפעלה/הפסקה של מחוון הפעלת האירועים</string>
-  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
   <string name="important_info_how_to_show">מידע חשוב זה ניתן להציג באמצעות העורך דרך סמל סימן השאלה בסרגל הכלים.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">לא נתמך על-ידי היישום</string>
   <string name="preference_not_allowed_reason_detail_old_android">גרסת אנדרואיד ישנה</string>
@@ -879,7 +879,7 @@
   <string name="event_preferences_notificationVibrate">הודעה באמצעות רטט</string>
   <string name="important_info_profile_grant">העדפות פרופיל מסוימות דורשות הרשאת WRITE_SECURE_SETTINGS. אין צורך ברוט (ROOT). העדפות אלה מסומנות \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">For more information, look at the \"Profiles\" section further below.</string>
-  <string name="profile_preferences_typesInfoGrant">למידע נוסף קראו ב\"מידע חשוב\" בפיסקת \"פרופילים\".</string>
+<!--  <string name="profile_preferences_typesInfoGrant">למידע נוסף קראו ב\"מידע חשוב\" בפיסקת \"פרופילים\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">באפשרותך להעניק הרשאה ל-PhoneProfilesPlus הדרושה למאפייני פרופיל המסומנים (G1). פעולה זו דורשת מחשב עם adb מותקן.</string>
   <string name="important_info_profile_grant_1_howTo_2">אם אין לך adb מותקן במחשב:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. הורידו פלטפורמת כלי SDK מ:</string>
@@ -1131,7 +1131,7 @@
   <string name="permission_why_profile_radio_preferences">for enable/disable mobile data, change mobile network type, connect to SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
   <string name="permission_why_profile_custom_profile_icon">for custom profile icon</string>
-  <string name="permission_why_install_tone">for save tone into storage</string>
+<!--  <string name="permission_why_install_tone">for save tone into storage</string>-->
   <string name="permission_why_export">for save backup data into storage</string>
   <string name="permission_why_import">for load backup data from storage</string>
   <string name="permission_why_event_calendar_preferences">for read calendar data in Calendar sensor</string>

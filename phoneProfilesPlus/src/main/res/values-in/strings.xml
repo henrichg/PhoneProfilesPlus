@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">Tolong beri mereka di dialog berikutnya. Profil kemudian akan diaktifkan.</string>
   <string name="permissions_for_profile_text_notification">Permintaan izin</string>
   <string name="permissions_for_profile_big_text_notification">membutuhkan beberapa izin untuk diberikan.</string>
-  <string name="permissions_for_install_tone_text1">Pemasangan nada \"PhoneProfiles Silent\" tidak bisa dijalankan karena membutuhkan beberapa izin.</string>
-  <string name="permissions_for_install_tone_text2">Tolong beri mereka di dialog berikutnya. Nada kemudian akan dipasang.</string>
-  <string name="permissions_for_install_tone_text_notification">Permintaan izin</string>
-  <string name="permissions_for_install_tone_big_text_notification">Pemasangan nada \"PhoneProfiles Silent\" membutuhkan beberapa izin untuk diberikan.</string>
+<!--  <string name="permissions_for_install_tone_text1">Pemasangan nada \"PhoneProfiles Silent\" tidak bisa dijalankan karena membutuhkan beberapa izin.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">Tolong beri mereka di dialog berikutnya. Nada kemudian akan dipasang.</string>-->
+  <string name="permissions_notification_text">Permintaan izin</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">Pemasangan nada \"PhoneProfiles Silent\" membutuhkan beberapa izin untuk diberikan.</string>-->
   <string name="menu_install_tone">Pasang nada \"PhoneProfiles Silent\"</string>
   <string name="toast_tone_installation_installed_ok">Nada \"PhoneProfiles Silent\" terpasang.</string>
   <string name="toast_tone_installation_installed_error">Kesalahan saat memasang nada \"PhoneProfiles Silent\"!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">Akhir ikon profil acara</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">Anda dapat mengkonfigurasi setiap parameter profil untuk menggunakan \"Profil bersama\" dan selama aktivasi akan digunakan nilai dari profil bersama. Klik di sini untuk mengkonfigurasi parameter profil Bersama.</string> -->
   <string name="run_stop_events_indicator">Aktifkan / nonaktifkan indikator aktivitas</string>
-  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">For more information, review the \"Important information\" screen in Editor through the question mark icon in the toolbar.</string>-->
   <string name="important_info_how_to_show">Informasi penting ini dapat dilihat di Editor melalui ikon tanda tanya di toolbar.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">tidak didukung oleh aplikasi</string>
   <string name="preference_not_allowed_reason_detail_old_android">versi Android lama</string>
@@ -876,7 +876,7 @@
   <string name="event_preferences_notificationVibrate">Beritahu dengan getaran</string>
   <string name="important_info_profile_grant">Beberapa preferensi profil memerlukan izin WRITE_SECURE_SETTINGS. ROOT tidak diperlukan Preferensi ini ditandai dengan \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Untuk informasi lebih lanjut, lihat bagian \"Profil\" di bawah ini.</string>
-  <string name="profile_preferences_typesInfoGrant">Untuk informasi lebih lanjut lihat \"Informasi Penting\", bagian \"Profil\".</string>
+<!--  <string name="profile_preferences_typesInfoGrant">Untuk informasi lebih lanjut lihat \"Informasi Penting\", bagian \"Profil\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Parameter profil yang ditandai dengan (G1) memerlukan izin khusus untuk PhoneProfilesPlus. Hal ini dilakukan melalui PC Anda dengan memasang adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">Jika Anda belum menginstal adb di PC Anda:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Download SDK Platform Tools dari:</string>
@@ -1127,7 +1127,7 @@
   <string name="permission_why_profile_radio_preferences">for enable/disable mobile data, change mobile network type, connect to SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
   <string name="permission_why_profile_custom_profile_icon">for custom profile icon</string>
-  <string name="permission_why_install_tone">for save tone into storage</string>
+<!--  <string name="permission_why_install_tone">for save tone into storage</string>-->
   <string name="permission_why_export">for save backup data into storage</string>
   <string name="permission_why_import">for load backup data from storage</string>
   <string name="permission_why_event_calendar_preferences">for read calendar data in Calendar sensor</string>

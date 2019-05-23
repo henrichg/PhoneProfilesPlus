@@ -422,10 +422,10 @@
     <string name="permissions_for_profile_text3">Lütfen sonraki iletişim kutularında izinleri verin. Sonra tercih faaliyete geçecektir.</string>
     <string name="permissions_for_profile_text_notification">İzin isteği</string>
     <string name="permissions_for_profile_big_text_notification">bazı izinlerin verilmiş olması lazımdır.</string>
-    <string name="permissions_for_install_tone_text1">\"PhoneProfiles Sessiz\" tonu kurulumu yürütülemiyor. Çünkü bazı izinler verilmemiş.</string>
-    <string name="permissions_for_install_tone_text2">Lütfen sonraki iletişim kutularında izinleri verin. Sonra ton kurulacak.</string>
-    <string name="permissions_for_install_tone_text_notification">İzin isteği</string>
-    <string name="permissions_for_install_tone_big_text_notification">\"PhoneProfiles Sessiz\" tonunun kurulabilmesi için bazı izinler lazımdır.</string>
+<!--    <string name="permissions_for_install_tone_text1">\"PhoneProfiles Sessiz\" tonu kurulumu yürütülemiyor. Çünkü bazı izinler verilmemiş.</string>-->
+<!--    <string name="permissions_for_install_tone_text2">Lütfen sonraki iletişim kutularında izinleri verin. Sonra ton kurulacak.</string>-->
+    <string name="permissions_notification_text">İzin isteği</string>
+<!--    <string name="permissions_for_install_tone_big_text_notification">\"PhoneProfiles Sessiz\" tonunun kurulabilmesi için bazı izinler lazımdır.</string>-->
     <string name="menu_install_tone">\"PhoneProfiles Sessiz\" tonunu kurun</string>
     <string name="toast_tone_installation_installed_ok">\"PhoneProfiles Sessiz\" tonu kuruldu.</string>
     <string name="toast_tone_installation_installed_error">\"PhoneProfiles Sessiz\" tonu kurulurken hata!</string>
@@ -716,7 +716,7 @@
     <string name="editor_event_list_item_profile_end_icon">Durum tercih bitirme simgesi</string>
 <!--    <string name="profile_preferences_sourceProfileInfo_summary">Herbir tercih şartını, \"Paylaşılan Tercih\"i kullanmak için ayarlayabilirsiniz. faaliyete geçirme sırasında değerler, paylaşılan tercihten kullanılacaktır. Paylaşılan tercih şartlarını ayarlamak için buraya dokunun.</string> -->
     <string name="run_stop_events_indicator">Durumları Çalıştır/Durdur başlatma göstergesi</string>
-    <string name="run_stop_indicator_popup_window_important_info">Daha fazla malumat için Düzenleyici\'de araç çubuğundaki soru işareti butonu vasıtasıyla \"Mühim Malumat\"ı gözden geçiriniz.</string>
+<!--    <string name="run_stop_indicator_popup_window_important_info">Daha fazla malumat için Düzenleyici\'de araç çubuğundaki soru işareti butonu vasıtasıyla \"Mühim Malumat\"ı gözden geçiriniz.</string>-->
     <string name="important_info_how_to_show">Bu mühim malumat, Düzenleyici üzerinde araç çubuğundaki soru işareti simgesi vasıtasıyla da görüntülenebilir.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">uygulama tarafından imkân verilmiyor</string>
     <string name="preference_not_allowed_reason_detail_old_android">eski Android sürümü</string>
@@ -876,7 +876,7 @@
     <string name="event_preferences_notificationVibrate">Titreşimle bildir</string>
     <string name="important_info_profile_grant">Bazı tercih ayarları WRITE_SECURE_SETTINGS izni gereklidir. KÖK gerekli değildir. Bu Ayarlar \"(G1)\" ile işaretlenmiştir.</string>
     <string name="important_info_profile_grant_lookSectionProfiles">Daha fazla malumat için daha aşağıdaki \"Tercihler\" bölümüne bakın.</string>
-    <string name="profile_preferences_typesInfoGrant">Daha fazla malumat için \"Tercihler\" bölümündeki \"Mühim malumat\"a göz atın.</string>
+<!--    <string name="profile_preferences_typesInfoGrant">Daha fazla malumat için \"Tercihler\" bölümündeki \"Mühim malumat\"a göz atın.</string>-->
     <string name="important_info_profile_grant_1_howTo_1">PhoneProfilesPlus\'ın (G1) ile işaretlenmiş tercih değerleri için gerekli izni verebilirsiniz. Bu adb yüklü bir bilgisayar gerektirir.</string>
     <string name="important_info_profile_grant_1_howTo_2">Adb yüklü bilgisayar yoksa:</string>
     <string name="important_info_profile_grant_1_howTo_3">1. SDK platformu araçlarını şuradan indirin:</string>
@@ -1127,7 +1127,7 @@
     <string name="permission_why_profile_radio_preferences">for enable/disable mobile data, change mobile network type, connect to SSID</string>
     <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
     <string name="permission_why_profile_custom_profile_icon">özel profil resmi değişikliği için</string>
-    <string name="permission_why_install_tone">for save tone into storage</string>
+<!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <string name="permission_why_export">for save backup data into storage</string>
     <string name="permission_why_import">for load backup data from storage</string>
     <string name="permission_why_event_calendar_preferences">for read calendar data in Calendar sensor</string>

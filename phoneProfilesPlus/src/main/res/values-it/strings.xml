@@ -422,10 +422,10 @@
     <string name="permissions_for_profile_text3">Si prega di concederle nella finestra successiva. Poi verrà attivato il profilo.</string>
     <string name="permissions_for_profile_text_notification">Richiesta autorizzazioni</string>
     <string name="permissions_for_profile_big_text_notification">richiede la concessione di alcune autorizzazioni.</string>
-    <string name="permissions_for_install_tone_text1">L\'installazione del tono \"PhoneProfile Silent\" non verrà eseguita perché mancano alcune autorizzazioni.</string>
-    <string name="permissions_for_install_tone_text2">Si prega di concederle nella finestra successiva. Poi verrà installato il tono.</string>
-    <string name="permissions_for_install_tone_text_notification">Richiesta autorizzazioni</string>
-    <string name="permissions_for_install_tone_big_text_notification">L\'installazione del tono \"PhoneProfile Silent\" richiede alcune autorizzazioni.</string>
+<!--    <string name="permissions_for_install_tone_text1">L\'installazione del tono \"PhoneProfile Silent\" non verrà eseguita perché mancano alcune autorizzazioni.</string>-->
+<!--    <string name="permissions_for_install_tone_text2">Si prega di concederle nella finestra successiva. Poi verrà installato il tono.</string>-->
+    <string name="permissions_notification_text">Richiesta autorizzazioni</string>
+<!--    <string name="permissions_for_install_tone_big_text_notification">L\'installazione del tono \"PhoneProfile Silent\" richiede alcune autorizzazioni.</string>-->
     <string name="menu_install_tone">Installare il tono \"PhoneProfiles Silent\"</string>
     <string name="toast_tone_installation_installed_ok">Tono \"PhoneProfiles Silent\" installato.</string>
     <string name="toast_tone_installation_installed_error">Errore durante l\'installazione del tono \"PhoneProfile Silent\"!</string>
@@ -716,7 +716,7 @@
     <string name="editor_event_list_item_profile_end_icon">Icona del profilo di fine evento</string>
 <!--    <string name="profile_preferences_sourceProfileInfo_summary">È possibile configurare ogni parametro del profilo utilizzando \"Profili condivisi\" e durante l\'attivazione sarà valori utilizzati dal profilo condiviso. Clicca qui per configurare i parametri del profilo condiviso.</string> -->
     <string name="run_stop_events_indicator">Abilita/disabilita indicatore eventi eseguiti</string>
-    <string name="run_stop_indicator_popup_window_important_info">Per ulteriori informazioni, consulta la schermata \"Informazioni importanti\" nell\'Editor tramite l\'icona punto interrogativo nella barra superiore.</string>
+<!--    <string name="run_stop_indicator_popup_window_important_info">Per ulteriori informazioni, consulta la schermata \"Informazioni importanti\" nell\'Editor tramite l\'icona punto interrogativo nella barra superiore.</string>-->
     <string name="important_info_how_to_show">Questa importante informazione può essere visualizzata nell\'Editor tramite l\'icona punto interrogativo nella barra degli strumenti.</string>
     <string name="preference_not_allowed_reason_not_supported_by_application">non supportato dall\'applicazione</string>
     <string name="preference_not_allowed_reason_detail_old_android">vecchia versione di Android</string>
@@ -876,7 +876,7 @@
     <string name="event_preferences_notificationVibrate">Notifica con vibrazione</string>
     <string name="important_info_profile_grant">Some profile preferences require permission WRITE_SECURE_SETTINGS. ROOT is not required. These preferences are marked with \"(G1)\".</string>
     <string name="important_info_profile_grant_lookSectionProfiles">Per ulteriori informazioni, guarda la sezione \"Profili\" più avanti.</string>
-    <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>
+<!--    <string name="profile_preferences_typesInfoGrant">For more information see \"Important information\", section \"Profiles\".</string>-->
     <string name="important_info_profile_grant_1_howTo_1">I parametri del profilo contrassegnati con (G1) richiedono una specifica autorizzazione per PhoneProfilesPlus. Questa può essere concessa usando adb installato sul tuo PC.</string>
     <string name="important_info_profile_grant_1_howTo_2">Se non hai installato adb sul tuo PC:</string>
     <string name="important_info_profile_grant_1_howTo_3">1. Scarica SDK Platform Tools da:</string>
@@ -1127,7 +1127,7 @@
     <string name="permission_why_profile_radio_preferences">for enable/disable mobile data, change mobile network type, connect to SSID</string>
     <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
     <string name="permission_why_profile_custom_profile_icon">for custom profile icon</string>
-    <string name="permission_why_install_tone">for save tone into storage</string>
+<!--    <string name="permission_why_install_tone">for save tone into storage</string>-->
     <string name="permission_why_export">for save backup data into storage</string>
     <string name="permission_why_import">for load backup data from storage</string>
     <string name="permission_why_event_calendar_preferences">for read calendar data in Calendar sensor</string>

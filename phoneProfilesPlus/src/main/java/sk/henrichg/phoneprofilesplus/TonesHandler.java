@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.media.MediaScannerConnection;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
@@ -37,13 +36,15 @@ class TonesHandler {
 
                 String uriId = uri + "/" + id;
 
-                //Log.d("TonesHandler.getPhoneProfilesSilentNotificationUri", "title="+title);
-                //Log.d("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId="+uriId);
+                Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", "title="+title);
+                Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId="+uriId);
 
                 if (title.equals("PhoneProfiles Silent") || title.equals("phoneprofiles_silent"))
                     return uriId;
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", Log.getStackTraceString(e));
+        }
         return "";
     }
 
@@ -70,15 +71,15 @@ class TonesHandler {
         return "";
     }
 
-    private static boolean  isToneInstalled(int resID, String directory, Context context) {
+    private static boolean  isToneInstalled(int resID, /*String directory,*/ int type, Context context) {
         // Make sure the shared storage is currently writable
-        if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+        /*if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             //Log.d("TonesHandler.isToneInstalled","not writable shared storage");
             return false;
-        }
-
-        File path = Environment.
-                getExternalStoragePublicDirectory(directory);
+        }*/
+        /*
+        //File path = Environment.getExternalStoragePublicDirectory(directory);
+        File path = context.getFilesDir();
         // Make sure the directory exists
         //noinspection ResultOfMethodCallIgnored
         path.mkdirs();
@@ -86,13 +87,16 @@ class TonesHandler {
         File outFile = new File(path, filename);
 
         if (!outFile.exists()) {
-            //Log.d("TonesHandler.isToneInstalled","file not exists");
+            Log.e("TonesHandler.isToneInstalled","file not exists");
             return false;
         }
+        */
 
+        /*
         String outAbsPath = outFile.getAbsolutePath();
 
-        Uri contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
+        //Uri contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
+        Uri contentUri = MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
 
         Cursor cursor = context.getContentResolver().query(contentUri,
                 new String[]{MediaStore.MediaColumns.DATA},
@@ -101,69 +105,79 @@ class TonesHandler {
         if ((cursor == null) || (!cursor.moveToFirst())) {
             if (cursor != null)
                 cursor.close();
-            //Log.d("TonesHandler.isToneInstalled","empty cursor");
+            Log.e("TonesHandler.isToneInstalled","empty cursor");
             return false;
         }
         else {
             //Log.d("TonesHandler.isToneInstalled","DATA="+cursor.getString(0));
             cursor.close();
         }
+        */
 
-            /*if (getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_RINGTONE).isEmpty()) {
-                Log.d("TonesHandler.isToneInstalled","not in ringtone manager");
-                return false;
-            }*/
+        if (getPhoneProfilesSilentUri(context, type).isEmpty()) {
+            Log.e("TonesHandler.isToneInstalled","not in ringtone manager");
+            return false;
+        }
 
-        //Log.d("TonesHandler.isToneInstalled","tone installed");
+        Log.e("TonesHandler.isToneInstalled","tone installed");
 
         return true;
     }
 
     static boolean isToneInstalled(@SuppressWarnings("SameParameterValue") int resID,
                                    Context context) {
-        if (Permissions.checkInstallTone(context, null)) {
-            boolean ringtone = isToneInstalled(resID, Environment.DIRECTORY_RINGTONES, context);
-            boolean notification = isToneInstalled(resID, Environment.DIRECTORY_NOTIFICATIONS, context);
-            boolean alarm = isToneInstalled(resID, Environment.DIRECTORY_ALARMS, context);
+        //if (Permissions.checkInstallTone(context, null)) {
+            //boolean ringtone = isToneInstalled(resID, Environment.DIRECTORY_RINGTONES, context);
+            //boolean notification = isToneInstalled(resID, Environment.DIRECTORY_NOTIFICATIONS, context);
+            //boolean alarm = isToneInstalled(resID, Environment.DIRECTORY_ALARMS, context);
+            boolean ringtone = isToneInstalled(resID, RingtoneManager.TYPE_RINGTONE, context);
+            boolean notification = isToneInstalled(resID, RingtoneManager.TYPE_NOTIFICATION, context);
+            boolean alarm = isToneInstalled(resID, RingtoneManager.TYPE_ALARM, context);
+
             return ringtone && notification && alarm;
-        }
-        else {
-            //Log.d("TonesHandler.isToneInstalled","not granted permission");
-            return false;
-        }
+        //}
+        //else {
+        //    //Log.d("TonesHandler.isToneInstalled","not granted permission");
+        //    return false;
+        //}
     }
 
-    private static boolean _installTone(int resID, int type, String title, Context context) {
-        try {
+    private static boolean _installTone(int resID, /*int type,*/ String title, Context context) {
+        /*try {
             // Make sure the shared storage is currently writable
             if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED))
                 return false;
         } catch (Exception e) {
             return false;
-        }
+        }*/
 
-        String directory;
+        //boolean isRingtone = true;
+        //boolean isNotification = true;
+        //boolean isAlarm = true;
+        /*String directory;
         boolean isRingtone = false;
         boolean isNotification = false;
         boolean isAlarm = false;
         switch (type) {
             case RingtoneManager.TYPE_RINGTONE:
-                directory = Environment.DIRECTORY_RINGTONES;
+                //directory = Environment.DIRECTORY_RINGTONES;
                 isRingtone = true;
                 break;
             case RingtoneManager.TYPE_NOTIFICATION:
-                directory = Environment.DIRECTORY_NOTIFICATIONS;
+                //directory = Environment.DIRECTORY_NOTIFICATIONS;
                 isNotification = true;
                 break;
             case RingtoneManager.TYPE_ALARM:
-                directory = Environment.DIRECTORY_ALARMS;
+                //directory = Environment.DIRECTORY_ALARMS;
                 isAlarm = true;
                 break;
             default:
                 return false;
-        }
-        File path = Environment.
-                getExternalStoragePublicDirectory(directory);
+        }*/
+
+        //File path = Environment.getExternalStoragePublicDirectory(directory);
+        File path = context.getFilesDir();
+        Log.e("TonesHandler._installTone", "path=" + path.getAbsolutePath());
         // Make sure the directory exists
         //noinspection ResultOfMethodCallIgnored
         path.mkdirs();
@@ -221,14 +235,60 @@ class TonesHandler {
                 // Set the file metadata
                 String outAbsPath = outFile.getAbsolutePath();
 
-                Uri contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
+                //Uri contentUri = MediaStore.Audio.Media.getContentUriForPath(outAbsPath);
+                Uri contentUri = MediaStore.Audio.Media.INTERNAL_CONTENT_URI;
 
+                // Add the metadata to the file in the database
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(MediaStore.MediaColumns.DATA, outAbsPath);
+                contentValues.put(MediaStore.MediaColumns.TITLE, title);
+                contentValues.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
+                contentValues.put(MediaStore.MediaColumns.SIZE, outFile.length());
+
+                contentValues.put(MediaStore.Audio.Media.IS_ALARM, true);
+                contentValues.put(MediaStore.Audio.Media.IS_NOTIFICATION, true);
+                contentValues.put(MediaStore.Audio.Media.IS_RINGTONE, true);
+                contentValues.put(MediaStore.Audio.Media.IS_MUSIC, false);
+                context.getContentResolver().delete(contentUri, MediaStore.MediaColumns.DATA + "='" + outAbsPath + "'", null);
+                Uri newUri = context.getContentResolver().insert(contentUri, contentValues);
+
+                if (newUri != null) {
+                    //Log.d("TonesHandler","inserted to resolver");
+
+                    // Tell the media scanner about the new ringtone
+                    MediaScannerConnection.scanFile(
+                            context,
+                            new String[]{newUri.toString()},
+                            new String[]{mimeType},
+                            null
+                            //new MediaScannerConnection.OnScanCompletedListener() {
+                            //    @Override
+                            //    public void onScanCompleted(String path, Uri uri) {
+                            //        Log.e("TonesHandler._installTone","scanFile completed");
+                            //        Log.e("TonesHandler._installTone","path="+path);
+                            //        Log.e("TonesHandler._installTone","uri="+uri);
+                            //    }
+                            //}
+                    );
+
+                    //try { Thread.sleep(300); } catch (InterruptedException e) { }
+                    //SystemClock.sleep(300);
+                    PPApplication.sleep(500);
+                }
+                else {
+                    Log.e("TonesHandler._installTone","newUri is empty");
+                    isError = true;
+                }
+
+                /*
                 Cursor cursor = context.getContentResolver().query(contentUri,
                         new String[]{MediaStore.MediaColumns.DATA},
                         MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
+                Log.e("TonesHandler._installTone", "cursor=" + cursor);
                 if (cursor != null) {
                     if (!cursor.moveToFirst()) {
-                        // not exists content
+                        // not exists in content
+                        Log.e("TonesHandler._installTone", "not exists in content resolver");
 
                         cursor.close();
 
@@ -258,11 +318,19 @@ class TonesHandler {
                                     new String[]{newUri.toString()},
                                     new String[]{mimeType},
                                     null
+                                    //new MediaScannerConnection.OnScanCompletedListener() {
+                                    //    @Override
+                                    //    public void onScanCompleted(String path, Uri uri) {
+                                    //        Log.e("TonesHandler._installTone","scanFile completed");
+                                    //        Log.e("TonesHandler._installTone","path="+path);
+                                    //        Log.e("TonesHandler._installTone","uri="+uri);
+                                    //    }
+                                    //}
                             );
 
                             //try { Thread.sleep(300); } catch (InterruptedException e) { }
                             //SystemClock.sleep(300);
-                            PPApplication.sleep(300);
+                            PPApplication.sleep(500);
                         }
                         else {
                             Log.e("TonesHandler._installTone","newUri is empty");
@@ -270,10 +338,11 @@ class TonesHandler {
                             isError = true;
                         }
                     } else {
-                        //Log.d("TonesHandler","exists in resolver");
+                        Log.e("TonesHandler","exists in content resolver");
                         cursor.close();
                     }
                 }
+                */
             } catch (Exception e) {
                 Log.e("TonesHandler._installTone", "Error installing tone " + filename, e);
                 isError = true;
@@ -287,20 +356,20 @@ class TonesHandler {
                             @SuppressWarnings("SameParameterValue") String title,
                             Context context) {
 
-        boolean granted = Permissions.grantInstallTonePermissions(context);
-        if (granted) {
-            boolean ringtone = _installTone(resID, RingtoneManager.TYPE_RINGTONE, title, context);
-            boolean notification = _installTone(resID, RingtoneManager.TYPE_NOTIFICATION, title, context);
-            boolean alarm = _installTone(resID, RingtoneManager.TYPE_ALARM, title, context);
+        //boolean granted = Permissions.grantInstallTonePermissions(context.getApplicationContext());
+        //if (granted) {
+            boolean ringtone = _installTone(resID, /*RingtoneManager.TYPE_RINGTONE,*/ title, context.getApplicationContext());
+            //boolean notification = _installTone(resID, RingtoneManager.TYPE_NOTIFICATION, title, context.getApplicationContext());
+            //boolean alarm = _installTone(resID, RingtoneManager.TYPE_ALARM, title, context.getApplicationContext());
             int strId = R.string.toast_tone_installation_installed_ok;
-            if (!(ringtone && notification && alarm))
+            if (!(ringtone/* && notification && alarm*/))
                 strId = R.string.toast_tone_installation_installed_error;
 
             Toast msg = ToastCompat.makeText(context.getApplicationContext(),
                     context.getResources().getString(strId),
                     Toast.LENGTH_SHORT);
             msg.show();
-        }
+        //}
     }
 
     /*

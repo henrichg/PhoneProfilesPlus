@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">请在下一个对话框中授权，然后情景将被激活。</string>
   <string name="permissions_for_profile_text_notification">权限请求</string>
   <string name="permissions_for_profile_big_text_notification">需要授予某些权限。</string>
-  <string name="permissions_for_install_tone_text1">将不会执行铃声“PhoneProfiles 无声”的安装，因为此操作需要某些特定权限。</string>
-  <string name="permissions_for_install_tone_text2">请在下一个对话框中授权，然后铃声将被安装。</string>
-  <string name="permissions_for_install_tone_text_notification">权限请求</string>
-  <string name="permissions_for_install_tone_big_text_notification">铃声“PhoneProfiles 无声”的安装需要授予某些特定权限。</string>
+<!--  <string name="permissions_for_install_tone_text1">将不会执行铃声“PhoneProfiles 无声”的安装，因为此操作需要某些特定权限。</string>-->
+<!--  <string name="permissions_for_install_tone_text2">请在下一个对话框中授权，然后铃声将被安装。</string>-->
+  <string name="permissions_notification_text">权限请求</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">铃声“PhoneProfiles 无声”的安装需要授予某些特定权限。</string>-->
   <string name="menu_install_tone">安装铃声“PhoneProfiles 无声”</string>
   <string name="toast_tone_installation_installed_ok">铃声“PhoneProfiles 无声”已安装</string>
   <string name="toast_tone_installation_installed_error">安装铃声“PhoneProfiles 无声”时发生错误！</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">事件情景结束图标</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">您可以将每个配置文件参数配置用于“共享配置文件”，并且在激活期间将使用共享配置文件中的值。单击此处配置共享配置文件参数。</string> -->
   <string name="run_stop_events_indicator">启用/停止事件运行指示器</string>
-  <string name="run_stop_indicator_popup_window_important_info">有关详细信息，请通过工具栏中的问号图标查看编辑器中的“重要信息”屏幕。</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">有关详细信息，请通过工具栏中的问号图标查看编辑器中的“重要信息”屏幕。</string>-->
   <string name="important_info_how_to_show">此重要信息可以通过点击编辑器底部工具栏中的问号图标查看。</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">应用程序不支持</string>
   <string name="preference_not_allowed_reason_detail_old_android">旧的 Android 版本</string>
@@ -876,7 +876,7 @@
   <string name="event_preferences_notificationVibrate">通过振动通知</string>
   <string name="important_info_profile_grant">某些配置文件首选项需要WRITE_SECURE_SETTINGS权限。 ROOT不是必需的。这些首选项标有“(G1)”。</string>
   <string name="important_info_profile_grant_lookSectionProfiles">有关更多信息，请查看下面的“配置文件”部分。</string>
-  <string name="profile_preferences_typesInfoGrant">有关详细信息，请参阅“重要信息”，“配置文件”部分。</string>
+<!--  <string name="profile_preferences_typesInfoGrant">有关详细信息，请参阅“重要信息”，“配置文件”部分。</string>-->
   <string name="important_info_profile_grant_1_howTo_1">标有(G1)的配置文件参数需要PhoneProfilesPlus的特殊权限。这是通过安装了adb的PC完成的。</string>
   <string name="important_info_profile_grant_1_howTo_2">如果您的PC上没有安装adb：</string>
   <string name="important_info_profile_grant_1_howTo_3">1.从以下位置下载SDK平台工具：</string>
@@ -1123,7 +1123,7 @@
   <string name="permission_why_profile_radio_preferences">用于启用/禁用移动数据，更改移动网络类型，连接到SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">要取消链接振铃和通知音量，请在通话期间启用/禁用免提通话</string>
   <string name="permission_why_profile_custom_profile_icon">自定义配置文件图标</string>
-  <string name="permission_why_install_tone">用于保存铃声到存储</string>
+<!--  <string name="permission_why_install_tone">用于保存铃声到存储</string>-->
   <string name="permission_why_export">用于将备份数据保存到存储中</string>
   <string name="permission_why_import">用于从存储加载备份数据</string>
   <string name="permission_why_event_calendar_preferences">用于在日历传感器中读取日历数据</string>

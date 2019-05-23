@@ -1695,12 +1695,12 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     doImport = false;
 
+                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+
                     if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
                         importProgressDialog.dismiss();
                         importProgressDialog = null;
                     }
-                    if (!isFinishing())
-                        GlobalGUIRoutines.unlockScreenOrientation(activity);
 
                     PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
                     this.dataWrapper.updateNotificationAndWidgets(true);

@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">Végezd el a beállításokat. Akkor aktiválódik a profil.</string>
   <string name="permissions_for_profile_text_notification">Engedély kérelem</string>
   <string name="permissions_for_profile_big_text_notification">engedéllyel kell rendelkeznie.</string>
-  <string name="permissions_for_install_tone_text1">A hangok telepítése a \"Csendes PhoneProfiles\"-ban nem lesz végrehajtva, mert ehhez bizonyos engedélyekre van szükség.</string>
-  <string name="permissions_for_install_tone_text2">Végezd el a beállításokat. Majd a hang telepítve lesz.</string>
-  <string name="permissions_for_install_tone_text_notification">Engedély kérelem</string>
-  <string name="permissions_for_install_tone_big_text_notification">\"Csendes PhoneProfiles\" hang telepítéséhez néhány dolgot engedélyezni kell.</string>
+<!--  <string name="permissions_for_install_tone_text1">A hangok telepítése a \"Csendes PhoneProfiles\"-ban nem lesz végrehajtva, mert ehhez bizonyos engedélyekre van szükség.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">Végezd el a beállításokat. Majd a hang telepítve lesz.</string>-->
+  <string name="permissions_notification_text">Engedély kérelem</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">\"Csendes PhoneProfiles\" hang telepítéséhez néhány dolgot engedélyezni kell.</string>-->
   <string name="menu_install_tone">Telepítse a \"Csendes PhoneProfiles\" hangokat</string>
   <string name="toast_tone_installation_installed_ok">\"Csendes PhoneProfiles\" hangok telepítve.</string>
   <string name="toast_tone_installation_installed_error">Hiba történt a \"Csendes PhoneProfiles\" hang telepítésénél!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">Esemény végződés ikon</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">A profil paramétereket megoszthatja a megosztandó paramétereket jelölheti \"Megosztott profil\" Az aktiválás során használt értékek, közös profil lesz és konfigurálható minden profil paraméter. Kattintson ide, hogy a Megosztott profil paramétereket beállítása.</string> -->
   <string name="run_stop_events_indicator">Endegélyezet/álló esemény futási visszajelzését</string>
-  <string name="run_stop_indicator_popup_window_important_info">További információért tekintse át a \"Fontos tudnivalók\" megjelenítheti a szerkesztőn keresztül a kérdőjel ikonra kattint az eszköztáron.</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">További információért tekintse át a \"Fontos tudnivalók\" megjelenítheti a szerkesztőn keresztül a kérdőjel ikonra kattint az eszköztáron.</string>-->
   <string name="important_info_how_to_show">Fontos információ megtekinthető a szerkesztőn keresztül, ha a kérdőjel ikonra kattintasz az eszköztáron.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">alkalmazás által nem támogatott</string>
   <string name="preference_not_allowed_reason_detail_old_android">régi Android verzió</string>
@@ -876,7 +876,7 @@
   <string name="event_preferences_notificationVibrate">Értesítés rezgéssel</string>
   <string name="important_info_profile_grant">Néhány profil tulajdonsághoz WRITE_SECURE_SETTINGS engedélyre van szükségük. ROOT nem szükséges. Ezeket a beállításokat \"(G1)\" jelöli.</string>
   <string name="important_info_profile_grant_lookSectionProfiles">További információért tekintse meg a \"Profilok\" szakasz alatt.</string>
-  <string name="profile_preferences_typesInfoGrant">Több információhoz nézd a \"Fontos információ\", \"Profilok\" részt.</string>
+<!--  <string name="profile_preferences_typesInfoGrant">Több információhoz nézd a \"Fontos információ\", \"Profilok\" részt.</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Profil paraméterek (G1) jelöléssel külön engedély kell PhoneProfilesPlushoz. Ehhez a számítógépre telepített adb szükséges.</string>
   <string name="important_info_profile_grant_1_howTo_2">Ha nincs a számítógépre telepített adb:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Töltse le az SDK eszközöket \"SDK Platform Tools\":</string>
@@ -1127,7 +1127,7 @@
   <string name="permission_why_profile_radio_preferences">ahhoz, hogy engedélyezze /tiltsa mobil adat forgalmat, mobil hálózatot, csatlakozást egy SSID-hez</string>
   <string name="permission_why_profile_phone_state_broadcast">for unlink ringing and notification volumes, enable/disable speakerphone during call</string>
   <string name="permission_why_profile_custom_profile_icon">for custom profile icon</string>
-  <string name="permission_why_install_tone">for save tone into storage</string>
+<!--  <string name="permission_why_install_tone">for save tone into storage</string>-->
   <string name="permission_why_export">for save backup data into storage</string>
   <string name="permission_why_import">for load backup data from storage</string>
   <string name="permission_why_event_calendar_preferences">for read calendar data in Calendar sensor</string>

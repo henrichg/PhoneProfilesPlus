@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">Предоставьте их в следующем диалоговом окне. После этого профиль будет активирован.</string>
   <string name="permissions_for_profile_text_notification">Запрос разрешений</string>
   <string name="permissions_for_profile_big_text_notification">требует дополнительные разрешения.</string>
-  <string name="permissions_for_install_tone_text1">Установка звука \"PhoneProfiles Silent\" не будет выполнена, не хватает требуемых разрешений.</string>
-  <string name="permissions_for_install_tone_text2">Предоставьте их в следующем диалоговом окне. После этого звук будет установлен.</string>
-  <string name="permissions_for_install_tone_text_notification">Запрос разрешений</string>
-  <string name="permissions_for_install_tone_big_text_notification">Установка звука \"PhoneProfiles Silent\" требует дополнительных разрешений.</string>
+<!--  <string name="permissions_for_install_tone_text1">Установка звука \"PhoneProfiles Silent\" не будет выполнена, не хватает требуемых разрешений.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">Предоставьте их в следующем диалоговом окне. После этого звук будет установлен.</string>-->
+  <string name="permissions_notification_text">Запрос разрешений</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">Установка звука \"PhoneProfiles Silent\" требует дополнительных разрешений.</string>-->
   <string name="menu_install_tone">Установить звук \"PhoneProfiles Silent\"</string>
   <string name="toast_tone_installation_installed_ok">Звук \"PhoneProfiles Silent\" установлен.</string>
   <string name="toast_tone_installation_installed_error">Произошла ошибка при установке звука \"PhoneProfiles Silent\"!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">Значок окончания события</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">При настройке каждого параметра профиля вы можете выбрать значение \"Исходный профиль\", и тогда при активации будут использованы значения этого параметра из Исходного профиля. Нажмите сюда, чтобы настроить параметры Исходного профиля.</string> -->
   <string name="run_stop_events_indicator">Включить/остановить индикатор запуска событий</string>
-  <string name="run_stop_indicator_popup_window_important_info">Дополнительную информацию можно посмотреть на экране \"Важная информация\"; для этого надо нажать на вопросительный знак на панели инструментов.</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">Дополнительную информацию можно посмотреть на экране \"Важная информация\"; для этого надо нажать на вопросительный знак на панели инструментов.</string>-->
   <string name="important_info_how_to_show">Эта важная информация может быть просмотрена в Редакторе при нажатии на значке вопросительного знака в панели инструментов.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">не поддерживается приложением</string>
   <string name="preference_not_allowed_reason_detail_old_android">старая версия Android</string>
@@ -876,7 +876,7 @@
   <string name="event_preferences_notificationVibrate">Уведомлять вибрацией</string>
   <string name="important_info_profile_grant">Некоторые настройки профиля требуют разрешение WRITE_SECURE_SETTINGS. ROOT не требуется. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Для получения дополнительной информации смотрите ниже в разделе «Профили».</string>
-  <string name="profile_preferences_typesInfoGrant">Для получения дополнительной информации смотрите раздел \"Профили\" в \"Важной информации\".</string>
+<!--  <string name="profile_preferences_typesInfoGrant">Для получения дополнительной информации смотрите раздел \"Профили\" в \"Важной информации\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Некоторые настройки профиля требуют разрешений, которые можно установить только через adb. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_1_howTo_2">Если adb на вашем компьютере не установлен:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Скачайте инструменты SDK с:</string>
@@ -1127,7 +1127,7 @@
   <string name="permission_why_profile_radio_preferences">для включения/отключения мобильных данных, изменения типа мобильной сети, подключения к SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">для разделения уровней громкости звонка и уведомлений, включения/отключения динамика во время вызова</string>
   <string name="permission_why_profile_custom_profile_icon">для пользовательской иконки профиля</string>
-  <string name="permission_why_install_tone">для сохранения мелодии в хранилище</string>
+<!--  <string name="permission_why_install_tone">для сохранения мелодии в хранилище</string>-->
   <string name="permission_why_export">для сохранения резервных копий в хранилище</string>
   <string name="permission_why_import">для загрузки резервных копий из хранилища</string>
   <string name="permission_why_event_calendar_preferences">для чтения данных календаря в Датчике календаря</string>

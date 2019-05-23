@@ -39,7 +39,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
     static final int PERMISSION_PROFILE_PHONE_STATE_BROADCAST = 9;
     static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
-    static final int PERMISSION_INSTALL_TONE = 11;
+    //static final int PERMISSION_INSTALL_TONE = 11;
     static final int PERMISSION_EXPORT = 12;
     static final int PERMISSION_IMPORT = 13;
     static final int PERMISSION_EVENT_CALENDAR_PREFERENCES = 15;
@@ -68,7 +68,7 @@ class Permissions {
     static final int PERMISSION_EVENT_BLUETOOTH_SWITCH_PREFERENCES = 38;
 
     static final int GRANT_TYPE_PROFILE = 1;
-    static final int GRANT_TYPE_INSTALL_TONE = 2;
+    //static final int GRANT_TYPE_INSTALL_TONE = 2;
     static final int GRANT_TYPE_WALLPAPER = 3;
     static final int GRANT_TYPE_CUSTOM_PROFILE_ICON = 4;
     static final int GRANT_TYPE_EXPORT = 5;
@@ -275,6 +275,7 @@ class Permissions {
     }
     */
 
+    /*
     static boolean checkInstallTone(Context context, ArrayList<PermissionType>  permissions) {
         try {
             if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -294,6 +295,7 @@ class Permissions {
             return false;
         }
     }
+    */
 
     static boolean checkPlayRingtoneNotification(Context context, boolean alsoContacts, ArrayList<PermissionType>  permissions) {
         try {
@@ -1371,6 +1373,7 @@ class Permissions {
             return true;
     }
 
+    /*
     static boolean grantInstallTonePermissions(Context context) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
             ArrayList<PermissionType> permissions = new ArrayList<>();
@@ -1393,6 +1396,7 @@ class Permissions {
         else
             return true;
     }
+    */
 
     static void grantPlayRingtoneNotificationPermissions(Context context/*, boolean onlyNotification*/, boolean alsoContacts) {
         if (android.os.Build.VERSION.SDK_INT >= 23) {
@@ -1923,12 +1927,14 @@ class Permissions {
             notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
     }
 
+    /*
     static void removeInstallToneNotification(Context context)
     {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null)
             notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
     }
+    */
 
     static void removePlayRingtoneNotificationNotification(Context context)
     {
@@ -1957,7 +1963,7 @@ class Permissions {
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (notificationManager != null) {
             notificationManager.cancel(PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
-            notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
+            //notificationManager.cancel(PPApplication.GRANT_INSTALL_TONE_PERMISSIONS_NOTIFICATION_ID);
             notificationManager.cancel(PPApplication.GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID);
             notificationManager.cancel(PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
             notificationManager.cancel(PPApplication.GRANT_LOG_TO_FILE_PERMISSIONS_NOTIFICATION_ID);

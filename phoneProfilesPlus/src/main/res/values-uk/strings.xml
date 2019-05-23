@@ -422,10 +422,10 @@
   <string name="permissions_for_profile_text3">Надайте дозвіл у наступному діалоговому вікні. Тоді профіль буде активовано.</string>
   <string name="permissions_for_profile_text_notification">Запит дозволів</string>
   <string name="permissions_for_profile_big_text_notification">потребує додаткових дозволів.</string>
-  <string name="permissions_for_install_tone_text1">Встановлення звуку \"PhoneProfiles Silent\" не буде виконано, бракує необхідних дозволів.</string>
-  <string name="permissions_for_install_tone_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього буде встановлено звук.</string>
-  <string name="permissions_for_install_tone_text_notification">Запит дозволів</string>
-  <string name="permissions_for_install_tone_big_text_notification">Встановлення звуку «PhoneProfiles Silent» потребує додаткових дозволів.</string>
+<!--  <string name="permissions_for_install_tone_text1">Встановлення звуку \"PhoneProfiles Silent\" не буде виконано, бракує необхідних дозволів.</string>-->
+<!--  <string name="permissions_for_install_tone_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього буде встановлено звук.</string>-->
+  <string name="permissions_notification_text">Запит дозволів</string>
+<!--  <string name="permissions_for_install_tone_big_text_notification">Встановлення звуку «PhoneProfiles Silent» потребує додаткових дозволів.</string>-->
   <string name="menu_install_tone">Встановити звук «PhoneProfiles Silent»</string>
   <string name="toast_tone_installation_installed_ok">Звук «PhoneProfiles Silent» встановлено.</string>
   <string name="toast_tone_installation_installed_error">Помилка встановлення звуку «PhoneProfiles Silent»!</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">Іконка завершення події</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">При налаштуванні кожного параметру профілю ви можете вибрати значення \"Спільний профіль\", і тоді при активації будуть використані значення цього параметра із Спільного профілю. Натисніть сюди, щоб налаштувати параметри Спільного профілю.</string> -->
   <string name="run_stop_events_indicator">Увімкнути/зупинити індикатор запуску подій</string>
-  <string name="run_stop_indicator_popup_window_important_info">Ви отримаєте більше відомостей на сторінці \"Важлива інформація\" натиснувши на знак питання в верхній панелі інструментів Редактора.</string>
+<!--  <string name="run_stop_indicator_popup_window_important_info">Ви отримаєте більше відомостей на сторінці \"Важлива інформація\" натиснувши на знак питання в верхній панелі інструментів Редактора.</string>-->
   <string name="important_info_how_to_show">Цю важливу інформацію можна переглядати в редакторі через іконку \"знак питання\" в панелі інструментів.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">не підтримуються додатком</string>
   <string name="preference_not_allowed_reason_detail_old_android">стара версія Android</string>
@@ -876,7 +876,7 @@
   <string name="event_preferences_notificationVibrate">Сповіщати вібрацією</string>
   <string name="important_info_profile_grant">Деякі параметри профілів потребують дозволу WRITE_SECURE_SETTINGS. ROOT не вимагається. Ці параметри позначені \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Для отримання додаткової інформації дивіться нижче у розділі «Профілі».</string>
-  <string name="profile_preferences_typesInfoGrant">Щоб дізнатися більше відвідайте пункт \"Важлива інформація\" у розділі \"Профілі\".</string>
+<!--  <string name="profile_preferences_typesInfoGrant">Щоб дізнатися більше відвідайте пункт \"Важлива інформація\" у розділі \"Профілі\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Параметри профілю позначені (G1) потребують спеціального дозволу для PhoneProfilesPlus. Їх можна отримати з допомогою ПК із встановленим adb.</string>
   <string name="important_info_profile_grant_1_howTo_2">Якщо на вашому ПК не встановлено adb:</string>
   <string name="important_info_profile_grant_1_howTo_3">1. Завантажити інструмент платформи SDK із:</string>
@@ -1127,7 +1127,7 @@
   <string name="permission_why_profile_radio_preferences">для вкл/вимк мобільного інтернету, зміни типу мережі, підключення до SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">для розділення рівнів гучності дзвінка і сповіщень, вкл/вимк гучномовця під час виклику</string>
   <string name="permission_why_profile_custom_profile_icon">для користувацької іконки профілю</string>
-  <string name="permission_why_install_tone">для збереження мелодії до сховища</string>
+<!--  <string name="permission_why_install_tone">для збереження мелодії до сховища</string>-->
   <string name="permission_why_export">для збереження файлів резервування до сховища</string>
   <string name="permission_why_import">для завантаження файлів резервування із сховища</string>
   <string name="permission_why_event_calendar_preferences">для читання даних календаря в Датчику календаря</string>
