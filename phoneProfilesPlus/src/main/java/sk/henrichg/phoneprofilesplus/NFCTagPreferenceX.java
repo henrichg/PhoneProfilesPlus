@@ -23,7 +23,7 @@ public class NFCTagPreferenceX extends DialogPreference {
 
     String value;
     String defaultValue;
-    boolean restoredInstanceState;
+    boolean savedInstanceState;
 
     List<NFCTag> nfcTagList;
 
@@ -184,16 +184,18 @@ public class NFCTagPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        if (!restoredInstanceState) {
-            value = getPersistedString((String) defaultValue);
+        if (!savedInstanceState) {
+            value = getPersistedString(defaultValue);
             setSummary();
         }
-        restoredInstanceState = false;
+        savedInstanceState = false;
     }
 
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
@@ -209,8 +211,6 @@ public class NFCTagPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        restoredInstanceState = true;
-
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 

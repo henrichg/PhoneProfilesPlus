@@ -20,7 +20,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
     String value;
     String defaultValue;
     String cellFilter;
-    boolean restoredInstanceState;
+    boolean savedInstanceState;
 
     List<MobileCellsData> cellsList;
     List<MobileCellsData> filteredCellsList;
@@ -146,11 +146,11 @@ public class MobileCellsPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        if (!restoredInstanceState) {
+        if (!savedInstanceState) {
             value = getPersistedString(defaultValue);
             setSummary();
         }
-        restoredInstanceState = false;
+        savedInstanceState = false;
     }
 
     void setCellNameText(String text) {
@@ -175,6 +175,8 @@ public class MobileCellsPreferenceX extends DialogPreference {
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
@@ -191,8 +193,6 @@ public class MobileCellsPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        restoredInstanceState = true;
-
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 

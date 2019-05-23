@@ -17,7 +17,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     final int onlyEdit;
 
     String defaultValue;
-    private boolean restoredInstanceState;
+    private boolean savedInstanceState;
 
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
@@ -92,7 +92,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        if ((onlyEdit == 0) && (!restoredInstanceState)) {
+        if ((onlyEdit == 0) && (!savedInstanceState)) {
             PPApplication.logE("LocationGeofencePreferenceX.resetSummary", "xxx");
             String value = getPersistedString(defaultValue);
             // clear all checks
@@ -101,7 +101,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
             DatabaseHandler.getInstance(context.getApplicationContext()).checkGeofence(value, 1);
             setSummary();
         }
-        restoredInstanceState = false;
+        savedInstanceState = false;
     }
 
     /*
@@ -166,6 +166,8 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     {
         PPApplication.logE("LocationGeofencePreferenceX.onSaveInstanceState", "xxx");
 
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
@@ -182,8 +184,6 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        restoredInstanceState = true;
-
         if (!state.getClass().equals(LocationGeofencePreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);

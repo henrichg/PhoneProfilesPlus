@@ -14,7 +14,7 @@ public class DurationDialogPreferenceX extends DialogPreference {
 
     String value;
     String defaultValue;
-    private boolean restoredInstanceState;
+    private boolean savedInstanceState;
 
     final int mMin, mMax;
 
@@ -56,17 +56,19 @@ public class DurationDialogPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        if (!restoredInstanceState) {
+        if (!savedInstanceState) {
             value = getPersistedString(defaultValue);
             setSummaryDDP();
         }
-        restoredInstanceState = false;
+        savedInstanceState = false;
     }
 
 
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
@@ -83,8 +85,6 @@ public class DurationDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        restoredInstanceState = true;
-
         if (!state.getClass().equals(DurationDialogPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);

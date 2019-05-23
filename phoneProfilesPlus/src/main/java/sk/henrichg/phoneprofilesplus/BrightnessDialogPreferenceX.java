@@ -28,7 +28,7 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
 
     private String sValue = "";
     String defaultValue;
-    private boolean restoredInstanceState;
+    private boolean savedInstanceState;
 
     int value = 0;
 
@@ -187,12 +187,12 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        if (!restoredInstanceState) {
-            sValue = getPersistedString((String) defaultValue);
+        if (!savedInstanceState) {
+            sValue = getPersistedString(defaultValue);
             getValueBDP();
             setSummaryBDP();
         }
-        restoredInstanceState = false;
+        savedInstanceState = false;
     }
 
     static boolean changeEnabled(String value) {
@@ -211,6 +211,8 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             // save is not needed, is already saved persistent
@@ -226,7 +228,6 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        restoredInstanceState = true;
         if (!state.getClass().equals(SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);

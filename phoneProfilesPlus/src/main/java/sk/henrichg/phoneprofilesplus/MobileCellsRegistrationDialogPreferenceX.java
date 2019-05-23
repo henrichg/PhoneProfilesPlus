@@ -13,7 +13,6 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
 
     String value;
     String cellName;
-    boolean restoredInstanceState;
 
     private final Context context;
 
@@ -122,8 +121,6 @@ public class MobileCellsRegistrationDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        restoredInstanceState = true;
-
         PPApplication.logE("MobileCellsRegistrationDialogPreferenceX.onCreateDialog", "xxx");
 
         //if (dataWrapper == null)

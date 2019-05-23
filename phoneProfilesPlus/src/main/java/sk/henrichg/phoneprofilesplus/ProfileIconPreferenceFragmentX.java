@@ -35,27 +35,24 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         super.onBindDialogView(view);
 
         GridView gridView = view.findViewById(R.id.profileicon_pref_dlg_gridview);
-        preference.adapter = new ProfileIconPreferenceAdapterX(prefContext,
+        preference.adapter = new ProfileIconPreferenceAdapterX(preference, prefContext/*,
                             preference.imageIdentifier,
                             preference.isImageResourceID,
                             preference.useCustomColor,
-                            preference.customColor);
+                            preference.customColor*/);
         gridView.setAdapter(preference.adapter);
         gridView.setSelection(ProfileIconPreferenceAdapterX.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                preference.setImageIdentifierAndType(/*prefContext.getResources().getResourceEntryName(Profile.profileIconId[position]),*/
-                        ProfileIconPreferenceAdapterX.getImageResourceName(position),
-                        true, false);
-                preference.adapter.imageIdentifierAndTypeChanged(preference.imageIdentifier, preference.isImageResourceID);
+                preference.setImageIdentifierAndType(ProfileIconPreferenceAdapterX.getImageResourceName(position),true);
+                preference.adapter.imageIdentifierAndTypeChanged(/*preference.imageIdentifier, preference.isImageResourceID*/);
                 preference.updateIcon(true);
                 colorChooserButton.setEnabled(preference.isImageResourceID);
             }
         });
 
         preference.dialogIcon = view.findViewById(R.id.profileicon_pref_dlg_icon);
-        preference.updateIcon(true);
 
         colorChooserButton = view.findViewById(R.id.profileicon_pref_dlg_change_color);
         //colorChooserButton.setAllCaps(false);
@@ -87,12 +84,19 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
         });
 
+        preference.getValuePIDP();
+        preference.updateIcon(true);
     }
 
     @Override
     public void onDialogClosed(boolean positiveResult) {
+        PPApplication.logE("ProfileIconPreferenceFragmentX.resetSummary", "xxx");
+
         if (positiveResult) {
             preference.persistIcon();
+        }
+        else {
+            preference.resetSummary();
         }
 
         preference.fragment = null;

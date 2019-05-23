@@ -789,8 +789,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (BitmapManipulator.checkBitmapSize(selectedImage.toString(), width, height, getContext())) {
                     ProfileIconPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_ICON);
                     if (preference != null) {
+                        preference.setImageIdentifierAndType(selectedImage.toString(), false);
+                        preference.setValue(true);
                         preference.dismissDialog();
-                        preference.setImageIdentifierAndType(selectedImage.toString(), false, true);
                     }
                     /*if (ProfilesPrefsFragment.changedProfileIconPreference != null) {
                         // set image identifier ant type for get bitmap path

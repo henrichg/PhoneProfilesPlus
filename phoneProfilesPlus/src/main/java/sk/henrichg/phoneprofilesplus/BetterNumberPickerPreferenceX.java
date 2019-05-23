@@ -14,7 +14,7 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
 
     String value;
     String defaultValue;
-    private boolean restoredInstanceState;
+    private boolean savedInstanceState;
 
     final int mMin, mMax;
 
@@ -52,16 +52,18 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
     }
 
     void resetSummary() {
-        if (!restoredInstanceState) {
+        if (!savedInstanceState) {
             value = getPersistedString(defaultValue);
             setSummary(value);
         }
-        restoredInstanceState = false;
+        savedInstanceState = false;
     }
 
     @Override
     protected Parcelable onSaveInstanceState()
     {
+        savedInstanceState = true;
+
         final Parcelable superState = super.onSaveInstanceState();
         /*if (isPersistent()) {
             return superState;
@@ -78,8 +80,6 @@ public class BetterNumberPickerPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        restoredInstanceState = true;
-
         if (!state.getClass().equals(BetterNumberPickerPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);

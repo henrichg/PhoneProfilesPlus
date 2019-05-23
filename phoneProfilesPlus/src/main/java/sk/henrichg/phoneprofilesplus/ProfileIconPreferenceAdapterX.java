@@ -16,21 +16,19 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
 
     private final Context context;
     private final LayoutInflater inflater;
-    private String imageIdentifier;
+
+    private final ProfileIconPreferenceX preference;
+    /*private String imageIdentifier;
     private boolean isImageResourceID;
     private boolean useCustomColor;
-    private int customColor;
+    private int customColor;*/
 
-    ProfileIconPreferenceAdapterX(Context c, String imageIdentifier, boolean isImageResourceID, boolean useCustomColor, int customColor)
+    ProfileIconPreferenceAdapterX(ProfileIconPreferenceX preference, Context context/*, String imageIdentifier, boolean isImageResourceID, boolean useCustomColor, int customColor*/)
     {
-        context = c;
+        this.preference = preference;
+        this.context = context;
 
-        inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        this.imageIdentifier = imageIdentifier;
-        this.isImageResourceID = isImageResourceID;
-        this.useCustomColor = useCustomColor;
-        this.customColor = customColor;
+        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public int getCount() {
@@ -70,7 +68,7 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
 
         //String iconResName = context.getResources().getResourceEntryName(Profile.profileIconId[position]);
         String iconResName = ProfileIconPreferenceAdapterX.getImageResourceName(position);
-        if (iconResName.equals(imageIdentifier) && isImageResourceID) {
+        if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID) {
             //if (Build.VERSION.SDK_INT >= 21)
                 holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
             /*else {
@@ -84,9 +82,9 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
             holder.icon.setBackgroundResource(0);
 
         int iconRes = Profile.profileIconId[position];
-        if (iconResName.equals(imageIdentifier) && isImageResourceID && useCustomColor) {
+        if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID && preference.useCustomColor) {
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconRes);
-            bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor/*, context*/);
+            bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, context*/);
             holder.icon.setImageBitmap(bitmap);
         }
         else
@@ -95,13 +93,13 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         return vi;
     }
 
-    void imageIdentifierAndTypeChanged(String imageIdentifier, boolean isImageResourceID) {
-        if (!this.imageIdentifier.equals(imageIdentifier)) {
-            this.useCustomColor = false;
-            this.customColor = 0;
+    void imageIdentifierAndTypeChanged(/*String imageIdentifier, boolean isImageResourceID*/) {
+        /*if (!preference.imageIdentifier.equals(imageIdentifier)) {
+            preference.useCustomColor = false;
+            preference.customColor = 0;
         }
-        this.imageIdentifier = imageIdentifier;
-        this.isImageResourceID = isImageResourceID;
+        preference.imageIdentifier = imageIdentifier;
+        preference.isImageResourceID = isImageResourceID;*/
         notifyDataSetChanged();
     }
 
@@ -131,9 +129,9 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         return "ic_profile_default";
     }
 
-    void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
-        useCustomColor = newUseCustomColor;
-        customColor = newCustomColor;
+    void setCustomColor(/*boolean newUseCustomColor, int newCustomColor*/) {
+        //preference.useCustomColor = newUseCustomColor;
+        //preference.customColor = newCustomColor;
         notifyDataSetChanged();
     }
 

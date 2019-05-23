@@ -198,6 +198,8 @@ public class PPApplication extends Application {
                                          +"|LocationGeofencePreferenceFragmentX"
                                          +"|MobileCellsRegistrationDialogPreferenceX"
                                          +"|MobileCellsRegistrationDialogPreferenceFragmentX"
+                                         +"|ProfileIconPreferenceX"
+                                         +"|ProfileIconPreferenceFragmentX"
 
                                          //+"|Event.notifyEventStart"
                                          //+"|StartEventNotificationBroadcastReceiver"
