@@ -42,6 +42,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 boolean applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners(context);
                 String applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT(context);
 
+                PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);
+
                 int monochromeValue = 0xFF;
                 if (applicationWidgetOneRowIconLightness.equals("0")) monochromeValue = 0x00;
                 if (applicationWidgetOneRowIconLightness.equals("25")) monochromeValue = 0x40;
@@ -141,21 +143,28 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                         int greenBorder;
                         int blueBorder;
                         if (applicationWidgetOneRowShowBorder) {
+                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "");
                             if (applicationWidgetOneRowLightnessBorder.equals("0")) redBorder = 0x00;
                             if (applicationWidgetOneRowLightnessBorder.equals("25")) redBorder = 0x40;
                             if (applicationWidgetOneRowLightnessBorder.equals("50")) redBorder = 0x80;
                             if (applicationWidgetOneRowLightnessBorder.equals("75")) redBorder = 0xC0;
                             //if (applicationWidgetOneRowLightnessBorder.equals("100")) redBorder = 0xFF;
+                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "redBorder="+redBorder);
                         }
                         greenBorder = redBorder;
                         blueBorder = redBorder;
                         if (applicationWidgetOneRowRoundedCorners) {
+                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "rounded corners");
                             remoteViews.setViewVisibility(R.id.widget_one_row_background, View.VISIBLE);
                             remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
-                            if (applicationWidgetOneRowShowBorder)
+                            if (applicationWidgetOneRowShowBorder) {
+                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.VISIBLE);
-                            else
+                            }
+                            else {
+                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
+                            }
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", 0x00000000);
                             remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", Color.argb(0xFF, red, green, blue));
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
@@ -165,12 +174,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             if (applicationWidgetOneRowShowBorder)
                                 remoteViews.setInt(R.id.widget_one_row_rounded_border, "setColorFilter", Color.argb(0xFF, redBorder, greenBorder, blueBorder));
                         } else {
+                            PPApplication.logE("OneRowWidgetProvider.onUpdate", "NOT rounded corners");
                             remoteViews.setViewVisibility(R.id.widget_one_row_background, View.GONE);
                             remoteViews.setViewVisibility(R.id.widget_one_row_rounded_border, View.GONE);
-                            if (applicationWidgetOneRowShowBorder)
+                            if (applicationWidgetOneRowShowBorder) {
+                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "VISIBLE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.VISIBLE);
-                            else
+                            }
+                            else {
+                                PPApplication.logE("OneRowWidgetProvider.onUpdate", "GONE border");
                                 remoteViews.setViewVisibility(R.id.widget_one_row_not_rounded_border, View.GONE);
+                            }
                             remoteViews.setInt(R.id.widget_one_row_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
                             /*remoteViews.setInt(R.id.widget_one_row_background, "setColorFilter", 0x00000000);
                             //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
