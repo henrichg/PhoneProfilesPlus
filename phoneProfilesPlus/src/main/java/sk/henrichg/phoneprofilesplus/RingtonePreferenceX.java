@@ -13,10 +13,13 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ListView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -293,6 +296,30 @@ public class RingtonePreferenceX extends DialogPreference {
             }
         }
     }
+
+    private boolean isPhoneProfilesSilent(Uri uri) {
+        String displayName = "";
+        Context appContext = prefContext.getApplicationContext();
+        Cursor cursor = appContext.getContentResolver().query(uri, null, null, null, null);
+        if (cursor != null) {
+
+            /*
+             * Get the column indexes of the data in the Cursor,
+             * move to the first row in the Cursor, get the data,
+             * and display it.
+             */
+            int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            cursor.moveToFirst();
+            displayName = cursor.getString(nameIndex);
+
+            PPApplication.logE("RingtonePreferenceX.isPhoneProfilesSilent", "displayName=" + displayName);
+
+            cursor.close();
+        }
+        String filename = prefContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
+        return displayName.equals(filename);
+    }
+
     void playRingtone() {
         final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
@@ -312,7 +339,19 @@ public class RingtonePreferenceX extends DialogPreference {
                         if (mediaPlayer == null)
                             mediaPlayer = new MediaPlayer();
                         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                        mediaPlayer.setDataSource(prefContext, _ringtoneUri);
+
+                        Context appContext = prefContext.getApplicationContext();
+
+                        if (isPhoneProfilesSilent(_ringtoneUri)) {
+                            String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
+                            File soundFile = new File(appContext.getFilesDir(), filename);
+                            // /data/user/0/sk.henrichg.phoneprofilesplus/files
+                            PPApplication.logE("RingtonePreferenceX.playRingtone", "soundFile=" + soundFile);
+                            mediaPlayer.setDataSource(soundFile.getAbsolutePath());
+                        }
+                        else
+                            mediaPlayer.setDataSource(appContext, _ringtoneUri);
+
                         mediaPlayer.prepare();
                         mediaPlayer.setLooping(false);
 
@@ -336,14 +375,14 @@ public class RingtonePreferenceX extends DialogPreference {
                                 break;
                         }
 
-                        PPApplication.logE("RingtonePreference.playRingtone", "ringtoneVolume=" + ringtoneVolume);
+                        PPApplication.logE("RingtonePreferenceX.playRingtone", "ringtoneVolume=" + ringtoneVolume);
 
                         int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 
                         float percentage = (float) ringtoneVolume / maximumRingtoneValue * 100.0f;
                         int mediaVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
-                        PPApplication.logE("RingtonePreference.playRingtone", "mediaVolume=" + mediaVolume);
+                        PPApplication.logE("RingtonePreferenceX.playRingtone", "mediaVolume=" + mediaVolume);
 
                         ActivateProfileHelper.setMediaVolume(prefContext, audioManager, mediaVolume);
 
@@ -365,7 +404,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                                     if (oldMediaVolume > -1)
                                         ActivateProfileHelper.setMediaVolume(prefContext, audioManager, oldMediaVolume);
-                                    PPApplication.logE("RingtonePreference.playRingtone", "play stopped");
+                                    PPApplication.logE("RingtonePreferenceX.playRingtone", "play stopped");
                                 }
 
                                 ringtoneIsPlayed = false;
@@ -387,7 +426,7 @@ public class RingtonePreferenceX extends DialogPreference {
                         }, mediaPlayer.getDuration());
 
                     } catch (SecurityException e) {
-                        PPApplication.logE("RingtonePreference.playRingtone", "security exception");
+                        PPApplication.logE("RingtonePreferenceX.playRingtone", "security exception");
                         stopPlayRingtone();
                         PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
@@ -400,7 +439,7 @@ public class RingtonePreferenceX extends DialogPreference {
                         //PostDelayedBroadcastReceiver.setAlarm(
                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
                     } catch (Exception e) {
-                        PPApplication.logE("RingtonePreference.playRingtone", "exception");
+                        PPApplication.logE("RingtonePreferenceX.playRingtone", Log.getStackTraceString(e));
                         stopPlayRingtone();
                         PPApplication.startHandlerThreadInternalChangeToFalse();
                         final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());

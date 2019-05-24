@@ -102,6 +102,7 @@ public class PPApplication extends Application {
                                          +"|PPApplication.setBlockProfileEventActions"
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
+                                         +"|TonesHandler"
 
                                          //+"|[RJS] PPApplication"
                                          //+"|##### ScreenOnOffBroadcastReceiver.onReceive"

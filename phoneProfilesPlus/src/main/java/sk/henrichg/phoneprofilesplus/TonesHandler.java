@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -36,8 +37,8 @@ class TonesHandler {
 
                 String uriId = uri + "/" + id;
 
-                Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", "title="+title);
-                Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId="+uriId);
+                PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "title="+title);
+                PPApplication.logE("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId="+uriId);
 
                 if (title.equals(TONE_NAME) || title.equals("phoneprofiles_silent"))
                     return uriId;
@@ -115,11 +116,11 @@ class TonesHandler {
         */
 
         if (getPhoneProfilesSilentUri(context, type).isEmpty()) {
-            Log.e("TonesHandler.isToneInstalled","not in ringtone manager");
+            PPApplication.logE("TonesHandler.isToneInstalled","not in ringtone manager");
             return false;
         }
 
-        Log.e("TonesHandler.isToneInstalled","tone installed");
+        PPApplication.logE("TonesHandler.isToneInstalled","tone installed");
 
         return true;
     }
@@ -142,6 +143,7 @@ class TonesHandler {
         //}
     }
 
+    @SuppressLint("SetWorldReadable")
     private static boolean _installTone(int resID, /*int type,*/ String title, Context context) {
         /*try {
             // Make sure the shared storage is currently writable
@@ -177,7 +179,7 @@ class TonesHandler {
 
         //File path = Environment.getExternalStoragePublicDirectory(directory);
         File path = context.getFilesDir();
-        Log.e("TonesHandler._installTone", "path=" + path.getAbsolutePath());
+        PPApplication.logE("TonesHandler._installTone", "path=" + path.getAbsolutePath());
         // Make sure the directory exists
         //noinspection ResultOfMethodCallIgnored
         path.mkdirs();
@@ -186,7 +188,7 @@ class TonesHandler {
 
         boolean isError = false;
 
-        if (!outFile.exists()) {
+        //if (!outFile.exists()) {
 
             // Write the file
             InputStream inputStream = null;
@@ -225,7 +227,11 @@ class TonesHandler {
                 Log.e("TonesHandler._installTone", "Error writing " + filename);
                 isError = true;
             }
-        }
+            else {
+                if (!outFile.setReadable(true, false))
+                    Log.e("TonesHandler._installTone", "Error setting readable to all " + filename);
+            }
+        //}
 
         if (!isError) {
 
@@ -264,9 +270,9 @@ class TonesHandler {
                             //new MediaScannerConnection.OnScanCompletedListener() {
                             //    @Override
                             //    public void onScanCompleted(String path, Uri uri) {
-                            //        Log.e("TonesHandler._installTone","scanFile completed");
-                            //        Log.e("TonesHandler._installTone","path="+path);
-                            //        Log.e("TonesHandler._installTone","uri="+uri);
+                            //        PPApplication.logE("TonesHandler._installTone","scanFile completed");
+                            //        PPApplication.logE("TonesHandler._installTone","path="+path);
+                            //        PPApplication.logE("TonesHandler._installTone","uri="+uri);
                             //    }
                             //}
                     );
@@ -284,11 +290,11 @@ class TonesHandler {
                 Cursor cursor = context.getContentResolver().query(contentUri,
                         new String[]{MediaStore.MediaColumns.DATA},
                         MediaStore.MediaColumns.DATA + "=\"" + outAbsPath + "\"", null, null);
-                Log.e("TonesHandler._installTone", "cursor=" + cursor);
+                PPApplication.logE("TonesHandler._installTone", "cursor=" + cursor);
                 if (cursor != null) {
                     if (!cursor.moveToFirst()) {
                         // not exists in content
-                        Log.e("TonesHandler._installTone", "not exists in content resolver");
+                        PPApplication.logE("TonesHandler._installTone", "not exists in content resolver");
 
                         cursor.close();
 
@@ -321,9 +327,9 @@ class TonesHandler {
                                     //new MediaScannerConnection.OnScanCompletedListener() {
                                     //    @Override
                                     //    public void onScanCompleted(String path, Uri uri) {
-                                    //        Log.e("TonesHandler._installTone","scanFile completed");
-                                    //        Log.e("TonesHandler._installTone","path="+path);
-                                    //        Log.e("TonesHandler._installTone","uri="+uri);
+                                    //        PPApplication.logE("TonesHandler._installTone","scanFile completed");
+                                    //        PPApplication.logE("TonesHandler._installTone","path="+path);
+                                    //        PPApplication.logE("TonesHandler._installTone","uri="+uri);
                                     //    }
                                     //}
                             );
@@ -348,6 +354,9 @@ class TonesHandler {
                 isError = true;
             }
         }
+
+        if (!isError)
+            PPApplication.logE("TonesHandler._installTone", "Tone installed: " + filename);
 
         return !isError;
     }
