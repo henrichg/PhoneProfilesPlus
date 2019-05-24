@@ -92,7 +92,7 @@ class TonesHandler {
         return displayName.equals(filename);
     }
 
-    private static boolean  isToneInstalled(int resID, /*String directory,*/ int type, Context context) {
+    private static boolean  isToneInstalled(/*int resID, String directory,*/ int type, Context context) {
         // Make sure the shared storage is currently writable
         /*if (!Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             //Log.d("TonesHandler.isToneInstalled","not writable shared storage");
@@ -145,15 +145,15 @@ class TonesHandler {
         return true;
     }
 
-    static boolean isToneInstalled(@SuppressWarnings("SameParameterValue") int resID,
+    static boolean isToneInstalled(/*@SuppressWarnings("SameParameterValue") int resID,*/
                                    Context context) {
         //if (Permissions.checkInstallTone(context, null)) {
             //boolean ringtone = isToneInstalled(resID, Environment.DIRECTORY_RINGTONES, context);
             //boolean notification = isToneInstalled(resID, Environment.DIRECTORY_NOTIFICATIONS, context);
             //boolean alarm = isToneInstalled(resID, Environment.DIRECTORY_ALARMS, context);
-            boolean ringtone = isToneInstalled(resID, RingtoneManager.TYPE_RINGTONE, context);
-            boolean notification = isToneInstalled(resID, RingtoneManager.TYPE_NOTIFICATION, context);
-            boolean alarm = isToneInstalled(resID, RingtoneManager.TYPE_ALARM, context);
+            boolean ringtone = isToneInstalled(/*resID,*/ RingtoneManager.TYPE_RINGTONE, context);
+            boolean notification = isToneInstalled(/*resID,*/ RingtoneManager.TYPE_NOTIFICATION, context);
+            boolean alarm = isToneInstalled(/*resID,*/ RingtoneManager.TYPE_ALARM, context);
 
             return ringtone && notification && alarm;
         //}

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -4291,6 +4292,106 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
 
             return profileList;
+
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void fixPhoneProfilesSilentInProfiles() {
+        importExportLock.lock();
+        try {
+
+            try {
+                startRunningCommand();
+
+                final String selectQuery = "SELECT " + KEY_ID + "," +
+                        KEY_SOUND_RINGTONE_CHANGE + "," +
+                        KEY_SOUND_RINGTONE + "," +
+                        KEY_SOUND_NOTIFICATION_CHANGE + "," +
+                        KEY_SOUND_NOTIFICATION + "," +
+                        KEY_SOUND_ALARM_CHANGE + "," +
+                        KEY_SOUND_ALARM +
+                        " FROM " + TABLE_PROFILES;
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                try {
+                    db.beginTransaction();
+
+                    String ringtoneUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_RINGTONE);
+                    String notificationUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
+                    String alarmUri = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_ALARM);
+
+                    // looping through all rows and adding to list
+                    if (cursor.moveToFirst()) {
+                        do {
+                            long profileId = cursor.getLong(cursor.getColumnIndex(KEY_ID));
+
+                            int soundRingtoneChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE)));
+                            String soundRingtone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE));
+                            int soundNotificationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE)));
+                            String soundNotification = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION));
+                            int soundAlarmChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE)));
+                            String soundAlarm = cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM));
+
+                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "profileId="+profileId);
+                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundRingtoneChange="+soundRingtoneChange);
+                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundRingtone="+soundRingtone);
+                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundNotificationChange="+soundNotificationChange);
+                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundNotification="+soundNotification);
+                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundAlarmChange="+soundAlarmChange);
+                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundAlarm="+soundAlarm);
+
+                            ContentValues values = new ContentValues();
+                            if (soundRingtoneChange != 0) {
+                                String[] splits = soundRingtone.split("\\|");
+                                if ((splits.length == 2) && (splits[1].equals("1"))) {
+                                    // it is "PhoneProfiles Silent" tone
+                                    PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_RINGTONE="+ringtoneUri+"|1");
+                                    values.put(KEY_SOUND_RINGTONE, ringtoneUri+"|1");
+                                }
+                            }
+                            if (soundNotificationChange != 0) {
+                                String[] splits = soundNotification.split("\\|");
+                                if ((splits.length == 2) && (splits[1].equals("1"))) {
+                                    // it is "PhoneProfiles Silent" tone
+                                    PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_NOTIFICATION="+notificationUri+"|1");
+                                    values.put(KEY_SOUND_NOTIFICATION, notificationUri+"|1");
+                                }
+                            }
+                            if (soundAlarmChange != 0) {
+                                String[] splits = soundAlarm.split("\\|");
+                                if ((splits.length == 2) && (splits[1].equals("1"))) {
+                                    // it is "PhoneProfiles Silent" tone
+                                    PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_ALARM="+alarmUri+"|1");
+                                    values.put(KEY_SOUND_ALARM, alarmUri+"|1");
+                                }
+                            }
+
+                            if (values.size() > 0)
+                                db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                                                new String[]{String.valueOf(profileId)});
+
+                        } while (cursor.moveToNext());
+                    }
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                } finally {
+                    db.endTransaction();
+                }
+
+                cursor.close();
+                //db.close();
+
+            } catch (Exception ignored) {
+            }
 
         } finally {
             stopRunningCommand();

@@ -3294,8 +3294,10 @@ public class PhoneProfilesService extends Service
 
                             //Permissions.clearMergedPermissions(appContext);
 
-                            if (!TonesHandler.isToneInstalled(TonesHandler.TONE_ID, appContext))
+                            if (!TonesHandler.isToneInstalled(/*TonesHandler.TONE_ID,*/ appContext)) {
                                 TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext);
+                                DatabaseHandler.getInstance(appContext).fixPhoneProfilesSilentInProfiles();
+                            }
 
                             //TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, appContext, false);
                             ActivateProfileHelper.setMergedRingNotificationVolumes(appContext, true);

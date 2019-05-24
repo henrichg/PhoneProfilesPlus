@@ -71,7 +71,6 @@ public class PPApplication extends Application {
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && BuildConfig.DEBUG;
-    @SuppressWarnings("WeakerAccess")
     static final boolean logIntoFile = false;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && BuildConfig.DEBUG;
@@ -102,7 +101,8 @@ public class PPApplication extends Application {
                                          +"|PPApplication.setBlockProfileEventActions"
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
-                                         +"|TonesHandler"
+                                         //+"|TonesHandler"
+                                         //+"|DatabaseHandler.fixPhoneProfilesSilentInProfiles"
 
                                          //+"|[RJS] PPApplication"
                                          //+"|##### ScreenOnOffBroadcastReceiver.onReceive"
@@ -181,14 +181,14 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
-                                         +"|PhoneProfilesPrefsActivity"
+                                         /*+"|PhoneProfilesPrefsActivity"
                                          +"|PhoneProfilesPrefsFragment"
                                          +"|ProfilesPrefsActivity"
                                          +"|ProfilesPrefsFragment"
                                          +"|EventsPrefsActivity"
                                          +"|EventsPrefsFragment"
-                                         //+"|PhoneProfilesPrefsNotifications"
-                                         //+"|LocationGeofencePreferenceX"
+                                         +"|PhoneProfilesPrefsNotifications"
+                                         +"|LocationGeofencePreferenceX"
                                          +"|ProfilePreferenceX"
                                          +"|RingtonePreferenceX"
                                          +"|VolumeDialogPreferenceX"
@@ -202,7 +202,7 @@ public class PPApplication extends Application {
                                          +"|ProfileIconPreferenceX"
                                          +"|ProfileIconPreferenceFragmentX"
                                          +"|TimePreferenceX"
-                                         +"|TimePreferenceFragmentX"
+                                         +"|TimePreferenceFragmentX"*/
 
                                          //+"|Event.notifyEventStart"
                                          //+"|StartEventNotificationBroadcastReceiver"

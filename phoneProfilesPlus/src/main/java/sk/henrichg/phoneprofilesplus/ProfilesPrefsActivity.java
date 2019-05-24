@@ -394,11 +394,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
             editor.putString(Profile.PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
             editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(profile._soundRingtoneChange));
-            editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE, profile._soundRingtone);
+            String[] splits = profile._soundRingtone.split("\\|");
+            editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE, splits[0]);
             editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(profile._soundNotificationChange));
-            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, profile._soundNotification);
+            splits = profile._soundNotification.split("\\|");
+            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, splits[0]);
             editor.putString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(profile._soundAlarmChange));
-            editor.putString(Profile.PREF_PROFILE_SOUND_ALARM, profile._soundAlarm);
+            splits = profile._soundAlarm.split("\\|");
+            editor.putString(Profile.PREF_PROFILE_SOUND_ALARM, splits[0]);
             editor.putString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(profile._deviceAirplaneMode));
             editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI, Integer.toString(profile._deviceWiFi));
             editor.putString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, Integer.toString(profile._deviceBluetooth));
@@ -474,30 +477,37 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._volumeAlarm = preferences.getString(Profile.PREF_PROFILE_VOLUME_ALARM, "");
             profile._volumeSystem = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM, "");
             profile._volumeVoice = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE, "");
+
             profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
             String toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
-            Uri soundUri = Uri.parse(toneString);
+            String[] splits = toneString.split("\\|");
+            Uri soundUri = Uri.parse(splits[0]);
             if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
-                profile._soundRingtone = toneString+"|1";
+                profile._soundRingtone = splits[0]+"|1";
             else
-                profile._soundRingtone = toneString+"|0";
+                profile._soundRingtone = splits[0]+"|0";
             PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundRingtone=" + profile._soundRingtone);
+
             profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
-            soundUri = Uri.parse(toneString);
+            splits = toneString.split("\\|");
+            soundUri = Uri.parse(splits[0]);
             if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
-                profile._soundNotification = toneString+"|1";
+                profile._soundNotification = splits[0]+"|1";
             else
-                profile._soundNotification = toneString+"|0";
+                profile._soundNotification = splits[0]+"|0";
             PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundNotification=" + profile._soundNotification);
+
             profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
-            soundUri = Uri.parse(toneString);
+            splits = toneString.split("\\|");
+            soundUri = Uri.parse(splits[0]);
             if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
-                profile._soundAlarm = toneString+"|1";
+                profile._soundAlarm = splits[0]+"|1";
             else
-                profile._soundAlarm = toneString+"|0";
+                profile._soundAlarm = splits[0]+"|0";
             PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundAlarm=" + profile._soundAlarm);
+
             profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
             profile._deviceWiFi = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI, ""));
             profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, ""));

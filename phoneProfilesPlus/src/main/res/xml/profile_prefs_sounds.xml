@@ -4,12 +4,14 @@
     app:title="@string/profile_preferences_category_sounds"
     app:key="prf_pref_soundsCategory" >
 
+    <!--
     <Preference
         app:key="prf_pref_soundInstallSilentTone"
         app:title="@string/menu_install_tone"
         app:summary="@string/profile_preferences_installSilentTone_summary"
         app:widgetLayout="@layout/start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
+    -->
     <ListPreference
         app:title="@string/profile_preferences_soundRingtoneChange"
         app:summary="@string/array_pref_no_change"
