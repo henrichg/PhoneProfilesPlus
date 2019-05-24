@@ -39,7 +39,7 @@ class TonesHandler {
                 Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", "title="+title);
                 Log.e("TonesHandler.getPhoneProfilesSilentNotificationUri", "uriId="+uriId);
 
-                if (title.equals("PhoneProfiles Silent") || title.equals("phoneprofiles_silent"))
+                if (title.equals(TONE_NAME) || title.equals("phoneprofiles_silent"))
                     return uriId;
             }
         } catch (Exception e) {
