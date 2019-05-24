@@ -93,7 +93,9 @@ public class RingtonePreferenceX extends DialogPreference {
     protected void onSetInitialValue(Object defaultValue)
     {
         // set ringtone uri from preference value
-        ringtoneUri = getPersistedString((String) defaultValue);
+        String value = getPersistedString((String) defaultValue);
+        String[] splits = value.split("\\|");
+        ringtoneUri = splits[0];
         this.defaultValue = (String)defaultValue;
         setSummary("");
         setRingtone("", true);
@@ -297,29 +299,6 @@ public class RingtonePreferenceX extends DialogPreference {
         }
     }
 
-    private boolean isPhoneProfilesSilent(Uri uri) {
-        String displayName = "";
-        Context appContext = prefContext.getApplicationContext();
-        Cursor cursor = appContext.getContentResolver().query(uri, null, null, null, null);
-        if (cursor != null) {
-
-            /*
-             * Get the column indexes of the data in the Cursor,
-             * move to the first row in the Cursor, get the data,
-             * and display it.
-             */
-            int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-            cursor.moveToFirst();
-            displayName = cursor.getString(nameIndex);
-
-            PPApplication.logE("RingtonePreferenceX.isPhoneProfilesSilent", "displayName=" + displayName);
-
-            cursor.close();
-        }
-        String filename = prefContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
-        return displayName.equals(filename);
-    }
-
     void playRingtone() {
         final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
@@ -342,7 +321,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         Context appContext = prefContext.getApplicationContext();
 
-                        if (isPhoneProfilesSilent(_ringtoneUri)) {
+                        if (TonesHandler.isPhoneProfilesSilent(_ringtoneUri, appContext)) {
                             String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
                             File soundFile = new File(appContext.getFilesDir(), filename);
                             // /data/user/0/sk.henrichg.phoneprofilesplus/files
@@ -476,7 +455,9 @@ public class RingtonePreferenceX extends DialogPreference {
 
     void resetSummary() {
         if (!savedInstanceState) {
-            ringtoneUri = getPersistedString(defaultValue);
+            String value = getPersistedString(defaultValue);
+            String[] splits = value.split("\\|");
+            ringtoneUri = splits[0];
             setSummary("");
             setRingtone("", true);
         }

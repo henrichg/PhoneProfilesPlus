@@ -597,7 +597,8 @@ class GlobalGUIRoutines {
                 if ((ringtoneUri == null) || ringtoneUri.isEmpty())
                     ringtoneName = context.getString(R.string.ringtone_preference_none);
                 else {
-                    Uri uri = Uri.parse(ringtoneUri);
+                    String[] splits = ringtoneUri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
                     Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
                     try {
                         ringtoneName = ringtone.getTitle(context);
@@ -609,7 +610,8 @@ class GlobalGUIRoutines {
                 if ((notificationUri == null) || notificationUri.isEmpty())
                     notificationName = context.getString(R.string.ringtone_preference_none);
                 else {
-                    Uri uri = Uri.parse(notificationUri);
+                    String[] splits = notificationUri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
                     Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
                     try {
                         notificationName = ringtone.getTitle(context);
@@ -621,7 +623,8 @@ class GlobalGUIRoutines {
                 if ((alarmUri == null) || alarmUri.isEmpty())
                     alarmName = context.getString(R.string.ringtone_preference_none);
                 else {
-                    Uri uri = Uri.parse(alarmUri);
+                    String[] splits = alarmUri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
                     Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
                     try {
                         alarmName = ringtone.getTitle(context);

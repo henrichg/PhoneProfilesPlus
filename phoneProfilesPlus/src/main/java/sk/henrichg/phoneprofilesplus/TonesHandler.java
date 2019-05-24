@@ -8,6 +8,7 @@ import android.media.MediaScannerConnection;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -70,6 +71,25 @@ class TonesHandler {
                 return title;
         }
         return "";
+    }
+
+    static boolean isPhoneProfilesSilent(Uri uri, Context appContext) {
+        String displayName = "";
+        try {
+            Cursor cursor = appContext.getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    displayName = cursor.getString(nameIndex);
+                }
+
+                PPApplication.logE("TonesHandler.isPhoneProfilesSilent", "displayName=" + displayName);
+
+                cursor.close();
+            }
+        } catch (Exception ignored) {}
+        String filename = appContext.getResources().getResourceEntryName(TonesHandler.TONE_ID) + ".ogg";
+        return displayName.equals(filename);
     }
 
     private static boolean  isToneInstalled(int resID, /*String directory,*/ int type, Context context) {

@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -474,13 +475,28 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._volumeSystem = preferences.getString(Profile.PREF_PROFILE_VOLUME_SYSTEM, "");
             profile._volumeVoice = preferences.getString(Profile.PREF_PROFILE_VOLUME_VOICE, "");
             profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, ""));
-            profile._soundRingtone = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
+            String toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE, "");
+            Uri soundUri = Uri.parse(toneString);
+            if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+                profile._soundRingtone = toneString+"|1";
+            else
+                profile._soundRingtone = toneString+"|0";
             PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundRingtone=" + profile._soundRingtone);
             profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, ""));
-            profile._soundNotification = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
+            toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
+            soundUri = Uri.parse(toneString);
+            if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+                profile._soundNotification = toneString+"|1";
+            else
+                profile._soundNotification = toneString+"|0";
             PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundNotification=" + profile._soundNotification);
             profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, ""));
-            profile._soundAlarm = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
+            toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM, "");
+            soundUri = Uri.parse(toneString);
+            if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+                profile._soundAlarm = toneString+"|1";
+            else
+                profile._soundAlarm = toneString+"|0";
             PPApplication.logE("ProfilesPrefsActivity.savePreferences", "profile._soundAlarm=" + profile._soundAlarm);
             profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, ""));
             profile._deviceWiFi = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI, ""));
