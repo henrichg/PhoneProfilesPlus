@@ -4306,11 +4306,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 startRunningCommand();
 
                 final String selectQuery = "SELECT " + KEY_ID + "," +
-                        KEY_SOUND_RINGTONE_CHANGE + "," +
                         KEY_SOUND_RINGTONE + "," +
-                        KEY_SOUND_NOTIFICATION_CHANGE + "," +
                         KEY_SOUND_NOTIFICATION + "," +
-                        KEY_SOUND_ALARM_CHANGE + "," +
                         KEY_SOUND_ALARM +
                         " FROM " + TABLE_PROFILES;
 
@@ -4331,45 +4328,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         do {
                             long profileId = cursor.getLong(cursor.getColumnIndex(KEY_ID));
 
-                            int soundRingtoneChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE)));
                             String soundRingtone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE));
-                            int soundNotificationChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE)));
                             String soundNotification = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION));
-                            int soundAlarmChange = Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE)));
                             String soundAlarm = cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM));
 
                             PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "profileId="+profileId);
-                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundRingtoneChange="+soundRingtoneChange);
                             PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundRingtone="+soundRingtone);
-                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundNotificationChange="+soundNotificationChange);
                             PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundNotification="+soundNotification);
-                            PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundAlarmChange="+soundAlarmChange);
                             PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "soundAlarm="+soundAlarm);
 
                             ContentValues values = new ContentValues();
-                            if (soundRingtoneChange != 0) {
-                                String[] splits = soundRingtone.split("\\|");
-                                if ((splits.length == 2) && (splits[1].equals("1"))) {
-                                    // it is "PhoneProfiles Silent" tone
-                                    PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_RINGTONE="+ringtoneUri+"|1");
-                                    values.put(KEY_SOUND_RINGTONE, ringtoneUri+"|1");
-                                }
+                            String[] splits = soundRingtone.split("\\|");
+                            if ((splits.length == 2) && (splits[1].equals("1"))) {
+                                // it is "PhoneProfiles Silent" tone
+                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_RINGTONE="+ringtoneUri+"|1");
+                                values.put(KEY_SOUND_RINGTONE, ringtoneUri+"|1");
                             }
-                            if (soundNotificationChange != 0) {
-                                String[] splits = soundNotification.split("\\|");
-                                if ((splits.length == 2) && (splits[1].equals("1"))) {
-                                    // it is "PhoneProfiles Silent" tone
-                                    PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_NOTIFICATION="+notificationUri+"|1");
-                                    values.put(KEY_SOUND_NOTIFICATION, notificationUri+"|1");
-                                }
+                            splits = soundNotification.split("\\|");
+                            if ((splits.length == 2) && (splits[1].equals("1"))) {
+                                // it is "PhoneProfiles Silent" tone
+                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_NOTIFICATION="+notificationUri+"|1");
+                                values.put(KEY_SOUND_NOTIFICATION, notificationUri+"|1");
                             }
-                            if (soundAlarmChange != 0) {
-                                String[] splits = soundAlarm.split("\\|");
-                                if ((splits.length == 2) && (splits[1].equals("1"))) {
-                                    // it is "PhoneProfiles Silent" tone
-                                    PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_ALARM="+alarmUri+"|1");
-                                    values.put(KEY_SOUND_ALARM, alarmUri+"|1");
-                                }
+                            splits = soundAlarm.split("\\|");
+                            if ((splits.length == 2) && (splits[1].equals("1"))) {
+                                // it is "PhoneProfiles Silent" tone
+                                PPApplication.logE("DatabaseHandler.fixPhoneProfilesSilentInProfiles", "KEY_SOUND_ALARM="+alarmUri+"|1");
+                                values.put(KEY_SOUND_ALARM, alarmUri+"|1");
                             }
 
                             if (values.size() > 0)
