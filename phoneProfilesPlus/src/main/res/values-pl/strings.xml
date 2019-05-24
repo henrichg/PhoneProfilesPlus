@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktywny</string>
   <string name="preference_profile_no_change">Nie zmieniaj</string>
-  <string name="preference_profile_autoBrightness">Automatyczna</string>
+  <!--<string name="preference_profile_autoBrightness">Automatyczna</string>-->
   <string name="title_activity_phone_profiles_preferences">Ustawienia aplikacji</string>
   <string name="menu_exit">Wyjście</string>
   <string name="activate_profile_alert_message">Uaktywnić profil?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Proszę przyznaj je w oknach dialogowych, które zaraz zobaczysz. Potem dźwięk zostanie zainstalowany.</string>-->
   <string name="permissions_notification_text">Prośba o uprawnienia</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Instalacja dźwięku \"PhoneProfiles Silent\" wymaga przyznania pewnych uprawnień.</string>-->
-  <string name="menu_install_tone">Zainstaluj dźwięk \"PhoneProfiles Silent\"</string>
+  <!--<string name="menu_install_tone">Zainstaluj dźwięk \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">Dźwięk \"PhoneProfiles Silent\" zainstalowany.</string>
   <string name="toast_tone_installation_installed_error">Błąd podczas instalowania dźwięku \"PhoneProfiles Silent\"!</string>
   <string name="toast_permissions_granted">Uprawnienia już zostały otrzymane</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Kod źródłowy:</string>
   <string name="about_application_translations">Tłumaczenia:</string>
   <string name="about_application_rate_in_googlePlay">Proszę oceń tę aplikację na Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Aplikacja używa języków konfigurowanych w systemie.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Aplikacja używa języków konfigurowanych w systemie.</string>-->
   <string name="permission_group_name_access_notification_policy">Nie przeszkadzaj dostępowi</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Nie włączyłeś \"Nie przeszkadzaj dostępowi\". Nie pytać ponownie?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Nie przeszkadzaj dostępowi</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">wsparcie</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Kliknij, aby zainstalować  Ton Cichy.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Ton Cichy zainstalowany.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Kliknij, aby zainstalować  Ton Cichy.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Ton Cichy zainstalowany.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Proszę przyznać je na kolejnych ekranach/komunikatach. Tylko wtedy logi będą zapisywane.</string>
     <string name="permission_why_log_to_file">aby zapisywać logi debugowania w plikach log.txt and crash.txt</string>

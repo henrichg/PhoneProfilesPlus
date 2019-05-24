@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.OpenableColumns;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;

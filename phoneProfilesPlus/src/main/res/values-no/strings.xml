@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profile</string>
   <string name="toast_profile_activated_1">activated</string>
   <string name="preference_profile_no_change">Do not change</string>
-  <string name="preference_profile_autoBrightness">Automatic</string>
+  <!--<string name="preference_profile_autoBrightness">Automatic</string>-->
   <string name="title_activity_phone_profiles_preferences">Application Settings</string>
   <string name="menu_exit">Exit</string>
   <string name="activate_profile_alert_message">Activate profile?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Please grant them in the next dialog. Tone will then be installed.</string>-->
   <string name="permissions_notification_text">Permissions request</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Installation of tone \"PhoneProfiles Silent\" requires some permissions to be granted.</string>-->
-  <string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>
+  <!--<string name="menu_install_tone">Install tone \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">Tone \"PhoneProfiles Silent\" installed.</string>
   <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>
   <string name="toast_permissions_granted">Permissions are already granted</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Source code:</string>
   <string name="about_application_translations">Translations:</string>
   <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>-->
   <string name="permission_group_name_access_notification_policy">Do not disturb access</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Do not disturb access</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Профіль</string>
   <string name="toast_profile_activated_1">активований</string>
   <string name="preference_profile_no_change">Не змінювати</string>
-  <string name="preference_profile_autoBrightness">Автоматичний</string>
+  <!--<string name="preference_profile_autoBrightness">Автоматичний</string>-->
   <string name="title_activity_phone_profiles_preferences">Налаштування додатку</string>
   <string name="menu_exit">Вийти</string>
   <string name="activate_profile_alert_message">Активувати профіль?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього буде встановлено звук.</string>-->
   <string name="permissions_notification_text">Запит дозволів</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Встановлення звуку «PhoneProfiles Silent» потребує додаткових дозволів.</string>-->
-  <string name="menu_install_tone">Встановити звук «PhoneProfiles Silent»</string>
+  <!--<string name="menu_install_tone">Встановити звук «PhoneProfiles Silent»</string>-->
   <string name="toast_tone_installation_installed_ok">Звук «PhoneProfiles Silent» встановлено.</string>
   <string name="toast_tone_installation_installed_error">Помилка встановлення звуку «PhoneProfiles Silent»!</string>
   <string name="toast_permissions_granted">Дозволи надано</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Початковий код:</string>
   <string name="about_application_translations">Переклади:</string>
   <string name="about_application_rate_in_googlePlay">Будь ласка, оцініть цей додаток в Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Додаток використовує мови, встановлені в системі.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Додаток використовує мови, встановлені в системі.</string>-->
   <string name="permission_group_name_access_notification_policy">Не запитувати доступ</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Ви не дозволили «Не запитувати доступ». Більше не питати?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Не запитувати доступ</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">звʼязок:</string>
     <string name="about_application_support_subject">підтримка</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Натисніть аби встановити тон.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Тон встановлено.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Натисніть аби встановити тон.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Тон встановлено.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log в log.txt та crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Будь ласка дайте дозвіл в наступному діалозі. Debug log буде записано.</string>
     <string name="permission_why_log_to_file">для запису debug log в log.txt та crash.txt</string>

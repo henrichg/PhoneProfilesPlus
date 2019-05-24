@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">設定檔</string>
   <string name="toast_profile_activated_1">已啟動</string>
   <string name="preference_profile_no_change">不要變更</string>
-  <string name="preference_profile_autoBrightness">自動</string>
+  <!--<string name="preference_profile_autoBrightness">自動</string>-->
   <string name="title_activity_phone_profiles_preferences">應用程式設定</string>
   <string name="menu_exit">離開</string>
   <string name="activate_profile_alert_message">啟動設定檔嗎?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">請在下一個對話方塊中授予他們。然後音調將會安裝。</string>-->
   <string name="permissions_notification_text">許可權請求</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">安裝音調 \"PhoneProfiles 無聲\" 需要一些要授予許可權。</string>-->
-  <string name="menu_install_tone">安裝 \"PhoneProfiles 無聲\" 音調</string>
+  <!--<string name="menu_install_tone">安裝 \"PhoneProfiles 無聲\" 音調</string>-->
   <string name="toast_tone_installation_installed_ok">音調 \"PhoneProfiles 無聲\" 已安裝。</string>
   <string name="toast_tone_installation_installed_error">安裝音調 \"PhoneProfiles 無聲\" 時錯誤！</string>
   <string name="toast_permissions_granted">已授予許可權</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">原始碼:</string>
   <string name="about_application_translations">Translations:</string>
   <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">應用程式使用在系統設置的語言.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">應用程式使用在系統設置的語言.</string>-->
   <string name="permission_group_name_access_notification_policy">請勿打擾</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">您沒有啟用 \"請勿打擾\". 是否不再詢問?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">請勿打擾</string>
@@ -1191,8 +1191,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

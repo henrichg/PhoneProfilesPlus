@@ -146,7 +146,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
         else {
             // no menu for shared profile
             //if (profile_id != Profile.SHARED_PROFILE_ID) {
-            toolbar.inflateMenu(R.menu.event_preferences);
+            //toolbar.inflateMenu(R.menu.event_preferences);
+            toolbar.getMenu().clear();
             //}
         }
         return true;

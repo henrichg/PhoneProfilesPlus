@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">פרופיל</string>
   <string name="toast_profile_activated_1">הופעל</string>
   <string name="preference_profile_no_change">ללא שינוי</string>
-  <string name="preference_profile_autoBrightness">אוטומטית</string>
+  <!--<string name="preference_profile_autoBrightness">אוטומטית</string>-->
   <string name="title_activity_phone_profiles_preferences">הגדרות היישום</string>
   <string name="menu_exit">יציאה</string>
   <string name="activate_profile_alert_message">להפעיל פרופיל?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">אנא התירו אותן בתיבות דו-שיח הבאות, ואז הצליל יותקן.</string>-->
   <string name="permissions_notification_text">בקשת הרשאות</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">התקנת הצליל \"PhoneProfiles Silent\" דורשת התרת הרשאות מסוימות.</string>-->
-  <string name="menu_install_tone">התקנת הצליל \"PhoneProfiles Silent\"</string>
+  <!--<string name="menu_install_tone">התקנת הצליל \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">הצליל \"PhoneProfiles Silent\" הותקן.</string>
   <string name="toast_tone_installation_installed_error">אירעה שגיאה בעת התקנת הצליל \"PhoneProfiles Silent\"!</string>
   <string name="toast_permissions_granted">ההרשאות כבר הותרו</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">קוד מקור:</string>
   <string name="about_application_translations">תרגומים:</string>
   <string name="about_application_rate_in_googlePlay">אנא דרגו יישום זה ב- Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">היישום משתמש בשפות שתצורתן נקבעה במערכת.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">היישום משתמש בשפות שתצורתן נקבעה במערכת.</string>-->
   <string name="permission_group_name_access_notification_policy">גישה ל\'נא לא להפריע\'</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">לא הפעלת גישה ל\'נא לא להפריע\'. להפסיק להתריע לך על כך?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">גישה ל\'נא לא להפריע\'</string>
@@ -1197,8 +1197,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

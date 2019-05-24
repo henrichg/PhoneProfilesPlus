@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">diaktifkan</string>
   <string name="preference_profile_no_change">Jangan mengubah</string>
-  <string name="preference_profile_autoBrightness">Otomatis</string>
+  <!--<string name="preference_profile_autoBrightness">Otomatis</string>-->
   <string name="title_activity_phone_profiles_preferences">Pengaturan Aplikasi</string>
   <string name="menu_exit">Keluar</string>
   <string name="activate_profile_alert_message">Aktifkan profil?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Tolong beri mereka di dialog berikutnya. Nada kemudian akan dipasang.</string>-->
   <string name="permissions_notification_text">Permintaan izin</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Pemasangan nada \"PhoneProfiles Silent\" membutuhkan beberapa izin untuk diberikan.</string>-->
-  <string name="menu_install_tone">Pasang nada \"PhoneProfiles Silent\"</string>
+  <!--<string name="menu_install_tone">Pasang nada \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">Nada \"PhoneProfiles Silent\" terpasang.</string>
   <string name="toast_tone_installation_installed_error">Kesalahan saat memasang nada \"PhoneProfiles Silent\"!</string>
   <string name="toast_permissions_granted">Izin sudah diberikan</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Kode sumber:</string>
   <string name="about_application_translations">Terjemahan:</string>
   <string name="about_application_rate_in_googlePlay">Silakan menilai aplikasi ini di Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Aplikasi menggunakan bahasa yang dikonfigurasi dalam sistem.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Aplikasi menggunakan bahasa yang dikonfigurasi dalam sistem.</string>-->
   <string name="permission_group_name_access_notification_policy">Jangan ganggu akses</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Anda belum mengaktifkan \"Jangan ganggu akses\". Tidak pernah bertanya lagi?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Jangan ganggu akses</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

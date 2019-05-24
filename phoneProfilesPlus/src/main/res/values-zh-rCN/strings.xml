@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">情景</string>
   <string name="toast_profile_activated_1">已激活</string>
   <string name="preference_profile_no_change">不要更改</string>
-  <string name="preference_profile_autoBrightness">自动</string>
+  <!--<string name="preference_profile_autoBrightness">自动</string>-->
   <string name="title_activity_phone_profiles_preferences">应用设置</string>
   <string name="menu_exit">退出</string>
   <string name="activate_profile_alert_message">确定激活情景？</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">请在下一个对话框中授权，然后铃声将被安装。</string>-->
   <string name="permissions_notification_text">权限请求</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">铃声“PhoneProfiles 无声”的安装需要授予某些特定权限。</string>-->
-  <string name="menu_install_tone">安装铃声“PhoneProfiles 无声”</string>
+  <!--<string name="menu_install_tone">安装铃声“PhoneProfiles 无声”</string>-->
   <string name="toast_tone_installation_installed_ok">铃声“PhoneProfiles 无声”已安装</string>
   <string name="toast_tone_installation_installed_error">安装铃声“PhoneProfiles 无声”时发生错误！</string>
   <string name="toast_permissions_granted">已授予权限</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">源代码：</string>
   <string name="about_application_translations">翻译：</string>
   <string name="about_application_rate_in_googlePlay">请在 Google Play 中为此应用程序打分</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">应用程序使用系统中设置的语言。</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">应用程序使用系统中设置的语言。</string>-->
   <string name="permission_group_name_access_notification_policy">访问“勿扰模式”</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">您没有启用“访问勿扰模式”，是否以后不再询问？</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">访问“勿扰模式”</string>
@@ -1189,8 +1189,8 @@
     <string name="about_application_support2">联系：</string>
     <string name="about_application_support_subject">支持</string>
 
-    <string name="profile_preferences_installSilentTone_summary">点击这里安装铃声。</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">铃声已安装.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">点击这里安装铃声。</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">铃声已安装.</string>-->
     <string name="permissions_for_log_to_file_text1">调试登录到log.txt和crash.txt</string>
     <string name="permissions_for_log_to_file_text2">请在下一个对话框中授予它们。然后将调试调试日志。</string>
     <string name="permission_why_log_to_file">用于将调试日志写入log.txt和crash.txt</string>

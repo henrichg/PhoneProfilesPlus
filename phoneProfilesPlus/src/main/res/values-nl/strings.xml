@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profiel</string>
   <string name="toast_profile_activated_1">geactiveerd</string>
   <string name="preference_profile_no_change">Niet wijzigen</string>
-  <string name="preference_profile_autoBrightness">Automatisch</string>
+  <!--<string name="preference_profile_autoBrightness">Automatisch</string>-->
   <string name="title_activity_phone_profiles_preferences">Programmainstellingen</string>
   <string name="menu_exit">Afsluiten</string>
   <string name="activate_profile_alert_message">Profiel activeren?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Sta het toe in de volgende schermen. Dan zal Toon geïnstalleerd worden.</string>-->
   <string name="permissions_notification_text">Toestemming aanvragen</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Installatie van geluid \"PhoneProfiles Silent\" vereist een aantal machtigingen.</string>-->
-  <string name="menu_install_tone">Installeer geluid \"PhoneProfiles Silent\"</string>
+  <!--<string name="menu_install_tone">Installeer geluid \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">Geluid \"PhoneProfiles Silente\" geïnstalleerd.</string>
   <string name="toast_tone_installation_installed_error">Fout bij het installeren van geluid \"PhoneProfiles Silent\"!</string>
   <string name="toast_permissions_granted">Machtigingen zijn al toegekend</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Broncode:</string>
   <string name="about_application_translations">Vertalingen:</string>
   <string name="about_application_rate_in_googlePlay">Beoordeel dit programma in Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Programma maakt gebruik van talen in het systeem.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Programma maakt gebruik van talen in het systeem.</string>-->
   <string name="permission_group_name_access_notification_policy">Toegang niet storen</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">U hebt niet \"Toegang niet storen\" ingeschakeld. Niet opnieuw vragen?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Toegang niet storen</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

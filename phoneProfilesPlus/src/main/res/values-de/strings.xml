@@ -24,7 +24,7 @@
     <string name="toast_profile_activated_0">Profil</string>
     <string name="toast_profile_activated_1">aktiviert</string>
     <string name="preference_profile_no_change">Nicht ändern</string>
-    <string name="preference_profile_autoBrightness">Automatisch</string>
+    <!--<string name="preference_profile_autoBrightness">Automatisch</string>-->
     <string name="title_activity_phone_profiles_preferences">App-Einstellungen</string>
     <string name="menu_exit">Beenden</string>
     <string name="activate_profile_alert_message">Profil aktivieren?</string>
@@ -426,7 +426,7 @@
 <!--    <string name="permissions_for_install_tone_text2">Bitte erteile sie in den nächsten Dialogen. Der Ton wird dann installiert.</string>-->
     <string name="permissions_notification_text">Berechtigungsanforderung</string>
 <!--    <string name="permissions_for_install_tone_big_text_notification">Installation des Tons \"PhoneProfiles Silent\" erfordert einige Berechtigungen.</string>-->
-    <string name="menu_install_tone">Ton \"PhoneProfiles Silent\" installieren</string>
+    <!--<string name="menu_install_tone">Ton \"PhoneProfiles Silent\" installieren</string>-->
     <string name="toast_tone_installation_installed_ok">Ton \"PhoneProfiles Silent\" installiert.</string>
     <string name="toast_tone_installation_installed_error">Fehler bei der Installation des Tons \"PhoneProfiles Silent\"!</string>
     <string name="toast_permissions_granted">Berechtigungen sind bereits erteilt.</string>
@@ -611,7 +611,7 @@
     <string name="about_application_source_code">Quellcode:</string>
     <string name="about_application_translations">Übersetzungen:</string>
     <string name="about_application_rate_in_googlePlay">Bitte bewerten Sie diese App im Google Play-Store</string>
-    <string name="phone_profiles_pref_systemLanguage_summary">Diese App nutzt die Systemsprache.</string>
+    <!--<string name="phone_profiles_pref_systemLanguage_summary">Diese App nutzt die Systemsprache.</string>-->
     <string name="permission_group_name_access_notification_policy">Systemeinstellungen nicht ändern</string>
     <string name="permissions_access_notification_policy_not_allowed_confirm">Sie haben \"PhoneProfilesPlus\" nicht erlaubt, Systemeinstellungen zu ändern. Diese Nachricht nicht mehr anzeigen?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Systemeinstellungen nicht ändern</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

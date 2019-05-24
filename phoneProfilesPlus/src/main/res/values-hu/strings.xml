@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktiválva</string>
   <string name="preference_profile_no_change">Nem változik</string>
-  <string name="preference_profile_autoBrightness">Automatikus</string>
+  <!--<string name="preference_profile_autoBrightness">Automatikus</string>-->
   <string name="title_activity_phone_profiles_preferences">Alkalmazás beállításai</string>
   <string name="menu_exit">Kilépés</string>
   <string name="activate_profile_alert_message">Aktiválod a profilt?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Végezd el a beállításokat. Majd a hang telepítve lesz.</string>-->
   <string name="permissions_notification_text">Engedély kérelem</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">\"Csendes PhoneProfiles\" hang telepítéséhez néhány dolgot engedélyezni kell.</string>-->
-  <string name="menu_install_tone">Telepítse a \"Csendes PhoneProfiles\" hangokat</string>
+  <!--<string name="menu_install_tone">Telepítse a \"Csendes PhoneProfiles\" hangokat</string>-->
   <string name="toast_tone_installation_installed_ok">\"Csendes PhoneProfiles\" hangok telepítve.</string>
   <string name="toast_tone_installation_installed_error">Hiba történt a \"Csendes PhoneProfiles\" hang telepítésénél!</string>
   <string name="toast_permissions_granted">Már engedélyezett</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Forráskód:</string>
   <string name="about_application_translations">Fordítások:</string>
   <string name="about_application_rate_in_googlePlay">Kérjük, értékelje ezt az alkalmazást a Google Playen</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Az alkalmazás a rendszer által konfigurált nyelvet használja.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Az alkalmazás a rendszer által konfigurált nyelvet használja.</string>-->
   <string name="permission_group_name_access_notification_policy">Ne zavarjanak mód</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Nincs engedélyezve \"Ne zavarjanak mód\". Ne kérdezze újra?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne zavarjanak mód</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

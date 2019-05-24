@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktivovaný</string>
   <string name="preference_profile_no_change">Nemeniť</string>
-  <string name="preference_profile_autoBrightness">Automaticky</string>
+  <!--<string name="preference_profile_autoBrightness">Automaticky</string>-->
   <string name="title_activity_phone_profiles_preferences">Nastavenia aplikácie</string>
   <string name="menu_exit">Ukončiť</string>
   <string name="activate_profile_alert_message">Aktivovať profil?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa tón nainštaluje.</string>-->
   <string name="permissions_notification_text">Vyžaduje sa povolenie</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Inštalácia tónu \"PhoneProfiles Silent\" vyžaduje udelenie niektorých povolení.</string>-->
-  <string name="menu_install_tone">Nainštaluj tón \"PhoneProfiles Silent\"</string>
+  <!--<string name="menu_install_tone">Nainštaluj tón \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">Tón \"PhoneProfiles Silent\" je nainštalovaný.</string>
   <string name="toast_tone_installation_installed_error">Chyba pri inštalácii tónu \"PhoneProfiles Silent\"!</string>
   <string name="toast_permissions_granted">Povolenia sú už udelené</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Zdrojový kód:</string>
   <string name="about_application_translations">Preklady:</string>
   <string name="about_application_rate_in_googlePlay">Ohodnoťte prosím túto aplikáciu v obchode Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Aplikácia používa jazyky nakonfigurované v systéme.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Aplikácia používa jazyky nakonfigurované v systéme.</string>-->
   <string name="permission_group_name_access_notification_policy">Prístup k nastaveniu Nerušiť</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Nepovolili ste \"Prístup k nastaveniu Nerušiť\". Nabudúce sa už nepýtať?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Prístup k nastaveniu Nerušiť</string>
@@ -1196,8 +1196,8 @@
     <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">podpora</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Kliknite sem pre inštaláciu tónu.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tón je nainštalovaný.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Kliknite sem pre inštaláciu tónu.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tón je nainštalovaný.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log do log.txt a crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Debug log potom bude zapisovaný.</string>
     <string name="permission_why_log_to_file">pre zápis debug logu do log.txt a crash.txt</string>

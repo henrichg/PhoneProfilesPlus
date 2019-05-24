@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Профиль</string>
   <string name="toast_profile_activated_1">активирован</string>
   <string name="preference_profile_no_change">Не изменять</string>
-  <string name="preference_profile_autoBrightness">Автоматическая</string>
+  <!--<string name="preference_profile_autoBrightness">Автоматическая</string>-->
   <string name="title_activity_phone_profiles_preferences">Настройки Приложения</string>
   <string name="menu_exit">Выход</string>
   <string name="activate_profile_alert_message">Активировать профиль?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Предоставьте их в следующем диалоговом окне. После этого звук будет установлен.</string>-->
   <string name="permissions_notification_text">Запрос разрешений</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Установка звука \"PhoneProfiles Silent\" требует дополнительных разрешений.</string>-->
-  <string name="menu_install_tone">Установить звук \"PhoneProfiles Silent\"</string>
+  <!--<string name="menu_install_tone">Установить звук \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">Звук \"PhoneProfiles Silent\" установлен.</string>
   <string name="toast_tone_installation_installed_error">Произошла ошибка при установке звука \"PhoneProfiles Silent\"!</string>
   <string name="toast_permissions_granted">Разрешения предоставлены</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Исходный код:</string>
   <string name="about_application_translations">Переводы:</string>
   <string name="about_application_rate_in_googlePlay">Пожалуйста, оцените это приложение в Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>-->
   <string name="permission_group_name_access_notification_policy">Функция \"Не беспокоить\"</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Вы не разрешили доступ к функции \"Не беспокоить\". Больше не спрашивать?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Доступ к функции \"Не беспокоить\"</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">пишите:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Нажмите сюда, чтобы установить мелодию.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Мелодия установлена.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Нажмите сюда, чтобы установить мелодию.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Мелодия установлена.</string>-->
     <string name="permissions_for_log_to_file_text1">Журнал отладки в log.txt и crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. После этого журнал отладки будет записан.</string>
     <string name="permission_why_log_to_file">для записи журнала отладки в log.txt и crash.txt</string>

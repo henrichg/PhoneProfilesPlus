@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">aktivovaný</string>
   <string name="preference_profile_no_change">Neměnit</string>
-  <string name="preference_profile_autoBrightness">Automaticky</string>
+  <!--<string name="preference_profile_autoBrightness">Automaticky</string>-->
   <string name="title_activity_phone_profiles_preferences">Nastavení aplikace</string>
   <string name="menu_exit">Ukončit</string>
   <string name="activate_profile_alert_message">Aktivovat profil</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Prosím, povolte je v následujících dialogových oknech. Pak se zvuk nainstaluje.</string>-->
   <string name="permissions_notification_text">Vyžaduje se povolení</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Instalace zvuku \"PhoneProfiles Silent\" vyžaduje udělení některých povolení.</string>-->
-  <string name="menu_install_tone">Instalace zvuku \"PhoneProfiles Silent\"</string>
+  <!--<string name="menu_install_tone">Instalace zvuku \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">Zvuk \"PhoneProfiles Silent\" nainstalován.</string>
   <string name="toast_tone_installation_installed_error">Chyba při instalaci zvuku \"PhoneProfiles Silent\"!</string>
   <string name="toast_permissions_granted">Povolení jsou již udělena</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Zdrojový kód:</string>
   <string name="about_application_translations">Překlady:</string>
   <string name="about_application_rate_in_googlePlay">Ohodnoťte prosím tuto aplikaci v Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Aplikace používá jazyky nakonfigurovány v systému.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Aplikace používá jazyky nakonfigurovány v systému.</string>-->
   <string name="permission_group_name_access_notification_policy">Přístup k nastavení Nerušit</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Nedovolili jste \"Přístup k nastavení Nerušit\". Příště se již neptat?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Přístup k nastavení Nerušit</string>
@@ -1196,8 +1196,8 @@
     <string name="about_application_support2">kontakt:</string>
     <string name="about_application_support_subject">podpora</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Klikněte sem pro instalaci zvuku.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Zvuk je nainstalován.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Klikněte sem pro instalaci zvuku.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Zvuk je nainstalován.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log do log.txt a crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Prosím, povolte je v následujícím dialogovém okně. Debug log pak bude zapisován.</string>
     <string name="permission_why_log_to_file">pro zápis debug logu do log.txt a crash.txt</string>

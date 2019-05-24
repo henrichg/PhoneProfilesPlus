@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">प्रोफाइल</string>
   <string name="toast_profile_activated_1">सक्रिय</string>
   <string name="preference_profile_no_change">परिवर्तन न करें</string>
-  <string name="preference_profile_autoBrightness">स्वचालित</string>
+  <!--<string name="preference_profile_autoBrightness">स्वचालित</string>-->
   <string name="title_activity_phone_profiles_preferences">एप्लिकेशन सेटिंग्स</string>
   <string name="menu_exit">बाहर निकलें</string>
   <string name="activate_profile_alert_message">प्रोफ़ाइल सक्रिय करें?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">कृपया उंहें अगले संवाद में अनुदान । प्रोफ़ाइल फिर सक्रिय हो जाएगा ।</string>-->
   <string name="permissions_notification_text">अनुमति अनुरोधित</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">टोन की स्थापना \"PhoneProfiles मूक\" कुछ अनुमति दी जा करने की आवश्यकता है ।</string>-->
-  <string name="menu_install_tone">टोन स्थापित करें \"PhoneProfiles मूक\"</string>
+  <!--<string name="menu_install_tone">टोन स्थापित करें \"PhoneProfiles मूक\"</string>-->
   <string name="toast_tone_installation_installed_ok">टोन \"PhoneProfiles मूक\" स्थापित ।</string>
   <string name="toast_tone_installation_installed_error">\"PhoneProfiles मूक\" टोन स्थापित करते समय त्रुटि!</string>
   <string name="toast_permissions_granted">अनुमतियाँ पहले से ही दी गई हैं</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Source code:</string>
   <string name="about_application_translations">Translations:</string>
   <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Application uses languages configured in system.</string>-->
   <string name="permission_group_name_access_notification_policy">Do not disturb access</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">You have not enabled \"Do not disturb access\". Never ask again?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Do not disturb access</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

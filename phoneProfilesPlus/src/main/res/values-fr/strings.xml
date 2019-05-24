@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Profil</string>
   <string name="toast_profile_activated_1">activé</string>
   <string name="preference_profile_no_change">Ne pas changer</string>
-  <string name="preference_profile_autoBrightness">Automatique</string>
+  <!--<string name="preference_profile_autoBrightness">Automatique</string>-->
   <string name="title_activity_phone_profiles_preferences">Paramètres de l\'application</string>
   <string name="menu_exit">Sortie</string>
   <string name="activate_profile_alert_message">Activer le profil ?</string>
@@ -426,7 +426,7 @@
 <!--  <string name="permissions_for_install_tone_text2">S\'il vous plaît validez les boîtes de dialogues suivantes pour que « tone » soit installé.</string>-->
   <string name="permissions_notification_text">Demande d\'autorisation</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">L\'installation de « tone » « PhoneProfiles silencieux » nécessite des autorisations.</string>-->
-  <string name="menu_install_tone">Installer « tone » « PhoneProfiles silencieux »</string>
+  <!--<string name="menu_install_tone">Installer « tone » « PhoneProfiles silencieux »</string>-->
   <string name="toast_tone_installation_installed_ok">« tone » « PhoneProfiles silencieux » installé.</string>
   <string name="toast_tone_installation_installed_error">Erreur lors de l\'installation de « tone » « PhoneProfiles silencieux » !</string>
   <string name="toast_permissions_granted">Les permissions sont déjà octroyées</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Code source :</string>
   <string name="about_application_translations">Traductions :</string>
   <string name="about_application_rate_in_googlePlay">Merci d\'évaluer cette application dans Google Play</string>
-  <string name="phone_profiles_pref_systemLanguage_summary">L\'application utilise la langue configurée dans le système.</string>
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">L\'application utilise la langue configurée dans le système.</string>-->
   <string name="permission_group_name_access_notification_policy">Ne pas perturber les accès</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Vous n’avez pas activé « Ne pas perturber les accès ». Ne plus demander à pour cela ?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne pas perturber les accès</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Cliquez ici pour installer tone. </string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone est installée. </string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Cliquez ici pour installer tone. </string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone est installée. </string>-->
     <string name="permissions_for_log_to_file_text1">Info de débogage dans log.txt et crash.txt </string>
     <string name="permissions_for_log_to_file_text2">Veuillez les accorder dans la boîte de dialogue suivante. Le journal de débogage sera alors écrit. </string>
     <string name="permission_why_log_to_file">pour écrire le journal de débogage dans log.txt et crash.txt </string>

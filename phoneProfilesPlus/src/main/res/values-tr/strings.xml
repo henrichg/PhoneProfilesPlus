@@ -24,7 +24,7 @@
     <string name="toast_profile_activated_0">Tercih</string>
     <string name="toast_profile_activated_1">faaliyette</string>
     <string name="preference_profile_no_change">Değiştirilmesin</string>
-    <string name="preference_profile_autoBrightness">Otomatik parlaklık</string>
+    <!--<string name="preference_profile_autoBrightness">Otomatik parlaklık</string>-->
     <string name="title_activity_phone_profiles_preferences">Uygulama Ayarları</string>
     <string name="menu_exit">Çıkış</string>
     <string name="activate_profile_alert_message">Tercih faaliyete geçsin mi?</string>
@@ -426,7 +426,7 @@
 <!--    <string name="permissions_for_install_tone_text2">Lütfen sonraki iletişim kutularında izinleri verin. Sonra ton kurulacak.</string>-->
     <string name="permissions_notification_text">İzin isteği</string>
 <!--    <string name="permissions_for_install_tone_big_text_notification">\"PhoneProfiles Sessiz\" tonunun kurulabilmesi için bazı izinler lazımdır.</string>-->
-    <string name="menu_install_tone">\"PhoneProfiles Sessiz\" tonunu kurun</string>
+    <!--<string name="menu_install_tone">\"PhoneProfiles Sessiz\" tonunu kurun</string>-->
     <string name="toast_tone_installation_installed_ok">\"PhoneProfiles Sessiz\" tonu kuruldu.</string>
     <string name="toast_tone_installation_installed_error">\"PhoneProfiles Sessiz\" tonu kurulurken hata!</string>
     <string name="toast_permissions_granted">İzinleri zaten verilmiş</string>
@@ -611,7 +611,7 @@
     <string name="about_application_source_code">Kaynak kodu:</string>
     <string name="about_application_translations">Tercümeler:</string>
     <string name="about_application_rate_in_googlePlay">Lütfen bu uygulamaya Google Play\'de puan veriniz</string>
-    <string name="phone_profiles_pref_systemLanguage_summary">Uygulama, sistemde ayarlanmış dili kullanır.</string>
+    <!--<string name="phone_profiles_pref_systemLanguage_summary">Uygulama, sistemde ayarlanmış dili kullanır.</string>-->
     <string name="permission_group_name_access_notification_policy">Rahatsız Etmeyin Modu\'na erişim</string>
     <string name="permissions_access_notification_policy_not_allowed_confirm">\"Rahatsız Etmeyin Modu\'na erişim\"e izin vermediniz. Bunun için tekrar sorulmasın mı?</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Rahatsız Etmeyin Modu\'na erişim</string>
@@ -1193,8 +1193,8 @@
     <string name="about_application_support2">contact:</string>
     <string name="about_application_support_subject">support</string>
 
-    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>
-    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>
+    <!--<string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>

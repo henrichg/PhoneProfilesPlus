@@ -1,8 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto" >
-    <!--<item android:id="@+id/profile_preferences_shared_profile"
-          android:title="@string/default_profile_name"
-          android:orderInCategory="99"
-          app:showAsAction="always"
-          android:icon="?attr/actionSharedProfileIcon" />-->
-</menu>
