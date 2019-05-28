@@ -140,7 +140,7 @@ class EventPreferencesCall extends EventPreferences {
                 descr = context.getString(R.string.event_preference_sensor_call_summary);
         } else {
             if (addBullet) {
-                descr = descr + "<b>\u2022 ";
+                descr = descr + "<b>";
                 descr = descr + getPassStatusString(context.getString(R.string.event_type_call), addPassStatus, DatabaseHandler.ETYPE_CALL, context);
                 descr = descr + ": </b>";
             }
@@ -336,7 +336,7 @@ class EventPreferencesCall extends EventPreferences {
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !runnable, false);
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false));
             }
         } else {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);

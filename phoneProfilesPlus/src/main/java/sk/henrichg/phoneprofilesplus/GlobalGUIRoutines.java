@@ -18,16 +18,21 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.BulletSpan;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
+
+import org.xml.sax.XMLReader;
 
 import java.text.Collator;
 import java.text.DateFormat;
@@ -509,13 +514,41 @@ class GlobalGUIRoutines {
         return timeDate.concat(AmPm);
     }
 
-    public static Spanned fromHtml(String source) {
+    public static Spanned fromHtml(String source, boolean forBullets) {
+        Spanned htmlSpanned;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+            htmlSpanned =  Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
         } else {
-            //noinspection deprecation
-            return Html.fromHtml(source);
+            if (forBullets)
+                htmlSpanned = Html.fromHtml(source, null, new LiTagHandler());
+            else
+                htmlSpanned = Html.fromHtml(source);
         }
+
+        if (forBullets)
+            return addBullets(htmlSpanned);
+        else
+            return  htmlSpanned;
+
+    }
+
+    private static int dip(int dp) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
+    }
+
+    private static SpannableStringBuilder addBullets(Spanned htmlSpanned) {
+        SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
+        BulletSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), BulletSpan.class);
+        if (spans != null) {
+            for (BulletSpan span : spans) {
+                int start = spannableBuilder.getSpanStart(span);
+                int end  = spannableBuilder.getSpanEnd(span);
+                spannableBuilder.removeSpan(span);
+                spannableBuilder.setSpan(new ImprovedBulletSpan(dip(2), dip(8), 0), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+        }
+        return spannableBuilder;
     }
 
     @SuppressLint("DefaultLocale")
@@ -918,6 +951,33 @@ class GlobalGUIRoutines {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
             // FC in tablets: java.lang.IllegalStateException: Only fullscreen activities can request orientation
         } catch (Exception ignored) {}
+    }
+
+    static class LiTagHandler implements Html.TagHandler {
+
+        @Override
+        public void handleTag(boolean opening, String tag, Editable output, XMLReader xmlReader) {
+
+            class Bullet {}
+
+            if (tag.equals("li") && opening) {
+                output.setSpan(new Bullet(), output.length(), output.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+            if (tag.equals("li") && !opening) {
+                //output.append("\n\n");
+                output.append("\n");
+                Bullet[] spans = output.getSpans(0, output.length(), Bullet.class);
+                if (spans != null) {
+                    Bullet lastMark = spans[spans.length-1];
+                    int start = output.getSpanStart(lastMark);
+                    output.removeSpan(lastMark);
+                    if (start != output.length()) {
+                        output.setSpan(new BulletSpan(), start, output.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    }
+                }
+            }
+        }
+
     }
 
 }

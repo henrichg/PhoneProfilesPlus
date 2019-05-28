@@ -1117,7 +1117,113 @@ class Event {
 
         description = "";
 
-        description = description + _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, context);
+        if (_eventPreferencesTime._enabled) {
+            String desc = _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesCalendar._enabled) {
+            String desc = _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesBattery._enabled) {
+            String desc = _eventPreferencesBattery.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesCall._enabled) {
+            String desc = _eventPreferencesCall.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesSMS._enabled) {
+            String desc = _eventPreferencesSMS.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesRadioSwitch._enabled) {
+            String desc = _eventPreferencesRadioSwitch.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesLocation._enabled) {
+            String desc = _eventPreferencesLocation.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesWifi._enabled) {
+            String desc = _eventPreferencesWifi.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesBluetooth._enabled) {
+            String desc = _eventPreferencesBluetooth.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesMobileCells._enabled) {
+            String desc = _eventPreferencesMobileCells.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesPeripherals._enabled) {
+            String desc = _eventPreferencesPeripherals.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesScreen._enabled) {
+            String desc = _eventPreferencesScreen.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesNotification._enabled) {
+            String desc = _eventPreferencesNotification.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesApplication._enabled) {
+            String desc = _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesOrientation._enabled) {
+            String desc = _eventPreferencesOrientation.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesNFC._enabled) {
+            String desc = _eventPreferencesNFC.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesAlarmClock._enabled) {
+            String desc = _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (!description.isEmpty())
+            description = "<ul>" + description + "</ul>";
+
+
+        /*description = description + _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, context);
 
         if (_eventPreferencesCalendar._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
         description = description + _eventPreferencesCalendar.getPreferencesDescription(true, addPassStatus, context);
@@ -1165,7 +1271,7 @@ class Event {
         description = description + _eventPreferencesNFC.getPreferencesDescription(true, addPassStatus, context);
 
         if (_eventPreferencesAlarmClock._enabled && (!description.isEmpty())) description = description + "<br>"; //"\n";
-        description = description + _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);
+        description = description + _eventPreferencesAlarmClock.getPreferencesDescription(true, addPassStatus, context);*/
 
         //description = description.replace(' ', '\u00A0');
 

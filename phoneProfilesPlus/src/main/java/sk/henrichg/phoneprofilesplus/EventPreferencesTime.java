@@ -164,7 +164,7 @@ class EventPreferencesTime extends EventPreferences {
         } else {
             if (Event.isEventPreferenceAllowed(PREF_EVENT_TIME_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (addBullet) {
-                    descr = descr + "<b>\u2022 ";
+                    descr = descr + "<b>";
                     descr = descr + getPassStatusString(context.getString(R.string.event_type_time), addPassStatus, DatabaseHandler.ETYPE_TIME, context);
                     descr = descr + ": </b>";
                 }
@@ -313,7 +313,7 @@ class EventPreferencesTime extends EventPreferences {
                 SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_TIME_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false));
             }
         }
         else {

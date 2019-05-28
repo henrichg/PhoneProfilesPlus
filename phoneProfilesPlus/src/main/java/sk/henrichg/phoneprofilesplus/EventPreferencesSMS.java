@@ -131,7 +131,7 @@ class EventPreferencesSMS extends EventPreferences {
                 descr = context.getString(R.string.event_preference_sensor_sms_summary);
         } else {
             if (addBullet) {
-                descr = descr + "<b>\u2022 ";
+                descr = descr + "<b>";
                 descr = descr + getPassStatusString(context.getString(R.string.event_type_sms), addPassStatus, DatabaseHandler.ETYPE_SMS, context);
                 descr = descr + ": </b>";
             }
@@ -295,7 +295,7 @@ class EventPreferencesSMS extends EventPreferences {
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !runnable, false);
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context)));
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false));
             }
         }
         else {

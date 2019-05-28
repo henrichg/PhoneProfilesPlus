@@ -156,7 +156,7 @@ class AddEventAdapter extends BaseAdapter {
                         holder.eventPreferencesDescription.setVisibility(View.GONE);
                     else {
                         String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
-                        holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription));
+                        holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription, true));
                         holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
                     }
                 }

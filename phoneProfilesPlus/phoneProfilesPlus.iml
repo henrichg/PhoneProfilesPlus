@@ -22,6 +22,37 @@
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
       </configuration>
     </facet>
+    <facet type="kotlin-language" name="Kotlin">
+      <configuration version="3" platform="JVM 1.6" useProjectSettings="false">
+        <compilerSettings />
+        <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/build/tmp/kotlin-classes/debug" />
+          <option name="classpath" value="$MODULE_DIR$/libs/sdk-v1.0.0.jar:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/libs/slook_v1.4.0.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/ac8645f2911beebb44b5c13ef43d4072/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/ed3275f339d98d26e04bbe92e1391fa1/jars/classes.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.31/e652770b6416c6d85934086899ffed3eccd35813/kotlin-stdlib-jdk7-1.3.31.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.31/11289d20fd95ae219333f3456072be9f081c30cc/kotlin-stdlib-1.3.31.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.31/20c34a04ea25cb1ef0139598bd67c764562cb170/kotlin-stdlib-common-1.3.31.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/589f2ed505b6c4e93e1e2f403e4be1a1/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/aac085181fd7a2f81146f11b389a6ee0/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/2ce9cb41f608f098afc0773cc817143f/jars/classes.jar:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/RootTools/build/intermediates/compile_library_classes/debug/classes.jar:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/android-betterpickers/build/intermediates/compile_library_classes/debug/classes.jar:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/time-duration-picker/build/intermediates/compile_library_classes/debug/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/87df578137dc0db67c03ae84b2d2def8/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/c0e3cb6240ac608abff4f785a5cbe45e/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/825ba51866aff18ac9a5bfcda29786cb/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/1b2ee464e32e71a9d210ac30cc7d7e5b/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/9650383a658552f705dc2d34f242b7ad/jars/classes.jar:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/appkillermanager/build/intermediates/compile_library_classes/debug/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/5b9330d27d100a7788dd2bdc9ad7cab5/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/886432e16d630a0ee20020f8665d584f/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/094651e1c1b0987447247a7989e9b41f/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/57d296c63d444a70fc33a4d0c63be614/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/2a1e576c6cd41f6544a2bb762aa4f5a1/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/4ea137730cf057b530a2e7708a493540/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/3a24497621448d63ee8697945115a51f/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/d2b2ad03cd95a462ad55fa5b49863bf4/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/58ba2383db5281bd59961be7c03103a2/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/5e53188f6cdcd1ead946e1a0c40f57f2/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/27c369f9763b83f59c2009421aff9352/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/0dfc29f12ea4038e69d31d3215150e1c/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/6af3ea845be8adf14687e1e0abd62e06/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/ba63c735963d710054dc5c4f94c50447/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/56dfe6aadb994d958d375f8a1e1c390b/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/4fee9d74c7106d87db5a52ccf8143cbd/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/bbcc9f71023cad8297c8d7fdd1afa6b4/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/b7d13937448427f691a35073b5628150/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/fc664910402bd3469248999fccde413b/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/6c1b2e54c27aa0e82d61532d2f5b46c7/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/54efbf0a7f02a44b2b9eef14c126fe41/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/cc352888c12e4c995983018bea28c85f/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/03fb1f65473397f7fe008b4f52cb530d/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/d1a90b88fda71490f3aaa5150398c715/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/da6b2784e0deb3d40c8174674df225bd/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/420af2039a9f756502b85ea8c5b83fdd/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/13beed53b276f263f06da963e0df5595/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/e1f3200ddb1dee3414cb6e717358e51d/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/c67297d18415aa2645385e7af569ad23/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/de9baf7c86be57130ead5c6d1929a8b7/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/900de8ab46691f6857311dc170ad903d/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/3c8357eea2912a34b8530552f70ebf00/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/7a245a87ad1852f039f52852e181df50/jars/classes.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/androidx.collection/collection/1.1.0-rc01/1f27220b47669781457de0d600849a5de0e89909/collection-1.1.0-rc01.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/androidx.concurrent/concurrent-futures/1.0.0-beta01/355d6e1c54bf1e99dc4d4a9dfd851e7ce766c806/concurrent-futures-1.0.0-beta01.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/973d34f335e318dd50dd5a3b378a4f52/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/b31f86c0d4b86349157d9421b6c8125b/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/2c17ec2d9c0dd4e14927747d8347898b/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/d8b4ec3e40f89ae84b9a1420a590bb3e/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/c64eb35e19e7c08a5f5f59f30b3a8ad7/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/f6d02dedea879d1d006b01e5221f2d96/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/1ee3ae1bdc4bc038dd9593114256f9d2/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/6ac8f763c05fda50f4e0a2744079b093/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/9a6f55a3942f88760bfe5cc693582758/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/3fc1493080aa35a9bceb85ad0ecc39e5/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/3465858f27e846c21b947b0b0cf0a120/jars/classes.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.2.0-alpha01/c67e7807d9cd6c329b9d0218b2ec4e505dd340b7/lifecycle-common-2.2.0-alpha01.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.1.0-beta01/b3152fc64428c9354344bd89848ecddc09b6f07e/core-common-2.1.0-beta01.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/androidx.room/room-common/2.0.0/ecbcb11279cd5568fa7d86a0a7dc13ba0d8f37c9/room-common-2.0.0.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/2a03d72d9f55d25b79bce4ec35309d82/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/2194629c4c4b8c6c9fd3feae8e6ff526/jars/classes.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/androidx.annotation/annotation/1.1.0-rc01/e3a6fb2f40e3a3842e6b7472628ba4ce416ea4c8/annotation-1.1.0-rc01.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/com.google.guava/listenablefuture/1.0/c949a840a6acbc5268d088e47b04177bf90b3cad/listenablefuture-1.0.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/878d8b3ebf67b138799a41dcb6aabc88/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/177d13772d2b37479725595a6f722aeb/jars/classes.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.2/3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf/gson-2.8.2.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/b2382bc31f8de7249f2516b7df3c4ac9/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/df128b48d068edf59bccb96ecd1d8dbd/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/78d0db6f2f0bc119ab9a215ec55e949c/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/f74d5b9b2eec461d4816e826e10add44/jars/classes.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/667f063ae56b3e6ecf980db6e9d34515/jars/classes.jar:/home/henrisko/.gradle/caches/modules-2/files-2.1/com.google.android.apps.dashclock/dashclock-api/2.0.0/fe40ba5457e17502d11114f39b45e9dfe3f51c6d/dashclock-api-2.0.0.jar:/home/henrisko/.gradle/caches/transforms-2/files-2.1/333dd4a1362f896311a275a55d6ebf7e/jars/classes.jar:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/RootShell/build/intermediates/compile_library_classes/debug/classes.jar:/home/henrisko/android-sdk/platforms/android-28/android.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="phoneProfilesPlus_debug" />
+          <option name="addCompilerBuiltIns" value="true" />
+          <option name="loadBuiltInsFromDependencies" value="true" />
+          <option name="languageVersion" value="1.3" />
+          <option name="apiVersion" value="1.3" />
+          <option name="pluginOptions">
+            <array>
+              <option value="plugin:org.jetbrains.kotlin.android:experimental=false" />
+              <option value="plugin:org.jetbrains.kotlin.android:enabled=true" />
+              <option value="plugin:org.jetbrains.kotlin.android:defaultCacheImplementation=hashMap" />
+            </array>
+          </option>
+          <option name="pluginClasspaths">
+            <array>
+              <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.3.31/57bdeb88c9265052448a7a8422ed64ad92e9b262/kotlin-android-extensions-1.3.31.jar" />
+            </array>
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
+          </option>
+        </compilerArguments>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7">
     <output url="file://$MODULE_DIR$/build/intermediates/javac/debug/compileDebugJavaWithJavac/classes" />
@@ -97,6 +128,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant_app_manifest" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant_run_merged_manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javac" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint_jar" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged_assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged_jni_libs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged_manifests" />
@@ -116,7 +148,6 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 28 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: androidx.core:core:1.1.0-beta01@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.drawerlayout:drawerlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.documentfile:documentfile:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.material:material:1.1.0-alpha06@aar" level="project" />
@@ -125,6 +156,7 @@
     <orderEntry type="library" name="Gradle: androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.preference:preference:1.1.0-alpha05@aar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/libs/slook_v1.4.0.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.core:core:1.2.0-alpha01@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.cardview:cardview:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha01@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.0.0@aar" level="project" />
@@ -137,12 +169,14 @@
     <orderEntry type="library" name="Gradle: androidx.gridlayout:gridlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.asynclayoutinflater:asynclayoutinflater:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.interpolator:interpolator:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-location:16.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.work:work-runtime:2.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-maps:16.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-service:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.slidingpanelayout:slidingpanelayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.media:media:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.31@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.recyclerview:recyclerview:1.1.0-alpha05@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.1.0-beta01@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.2.0-alpha01@jar" level="project" />
@@ -156,12 +190,15 @@
     <orderEntry type="library" name="Gradle: androidx.multidex:multidex:2.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.savedstate:savedstate:1.0.0-beta01@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.swiperefreshlayout:swiperefreshlayout:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.31@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.viewpager:viewpager:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-core-ui:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.loader:loader:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.room:room-runtime:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:/home/henrisko/Projekty/AndroidStudio/PhoneProfilesPlus/phoneProfilesPlus/libs/sdk-v1.0.0.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.1.0-rc01@jar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.core:core-ktx:1.2.0-alpha01@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.vectordrawable:vectordrawable-animated:1.1.0-beta01@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.apps.dashclock:dashclock-api:2.0.0@jar" level="project" />
@@ -174,6 +211,7 @@
     <orderEntry type="library" name="Gradle: androidx.sqlite:sqlite-framework:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-base:16.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.transition:transition:1.0.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.31@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.crashlytics.sdk.android:crashlytics:2.10.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.sqlite:sqlite:2.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.concurrent:concurrent-futures:1.0.0-beta01@jar" level="project" />
