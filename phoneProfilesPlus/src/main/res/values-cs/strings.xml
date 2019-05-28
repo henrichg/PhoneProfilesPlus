@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Nastavení dostupnosti</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Pro změnu adaptívní úrovně je vyžadován ROOT.</string>
   <string name="important_info_profile_activation_text1">Profil může být aktivován ve dvou režimech:</string>
-  <string name="important_info_profile_activation_text2">1. ruční aktivace - aktivuje se v Aktivátoru, Editoru, notifikaci, widgetu, zástupci. Ručně aktivovaný profil je označen \"[M]\" před názvem profilu.</string>
-  <string name="important_info_profile_activation_text3">2. aktivace událostí - aktivováno událostí.</string>
+  <string name="important_info_profile_activation_text2">Ruční aktivace - aktivuje se v Aktivátoru, Editoru, notifikaci, widgetu, zástupci. Ručně aktivovaný profil je označen \"[M]\" před názvem profilu.</string>
+  <string name="important_info_profile_activation_text3">Aktivace událostí - aktivováno událostí.</string>
   <string name="important_info_profile_activation_text4">Ruční aktivace pozastaví všechny události a ty již nebudou spuštěny. Abyste obnovili spouštění událostí, musíte Restartovat události.</string>
   <string name="important_info_profile_activation_text5">Vyjímkou pro toto pravidlo je, když má událost nastaveno \"Ignorovat ruční nastavení\".</string>
   <string name="important_info_profile_activation_text6">Restart událostí lze vyvolat z Aktivátoru, Editoru a notifikace.</string>

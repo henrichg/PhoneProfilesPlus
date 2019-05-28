@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Kisegítő lehetőségek beállításai</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Adaptív szint változtatáshoz, ROOT jogosultság kell.</string>
   <string name="important_info_profile_activation_text1">A profil aktiválás két módja:</string>
-  <string name="important_info_profile_activation_text2">1. kézi aktiválás - aktiválja a Profilt, szerkesztőt, értesítést, widget, parancsikont. Kézzel aktivált profilt \"[M]\" jelöli a profil neve előtt.</string>
-  <string name="important_info_profile_activation_text3">2. esemény aktiválás: - aktiválás esemény által.</string>
+  <string name="important_info_profile_activation_text2">Kézi aktiválás - aktiválja a Profilt, szerkesztőt, értesítést, widget, parancsikont. Kézzel aktivált profilt \"[M]\" jelöli a profil neve előtt.</string>
+  <string name="important_info_profile_activation_text3">Esemény aktiválás: - aktiválás esemény által.</string>
   <string name="important_info_profile_activation_text4">Kézi aktiválás után az esemény vezérlés megáll, és nem indul újra. Az eseményeket újra kell indítani.</string>
   <string name="important_info_profile_activation_text5">E szabály alól kivétel, ha az eseménybe beállatásra kerül \"Figyelmen kívül hagyja a kézi aktiválást\".</string>
   <string name="important_info_profile_activation_text6">Újraindítja az eseményt a Profilokból, Szerkesztőből és az értesítésekből.</string>

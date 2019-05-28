@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Paramètres d\'accessibilité</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Pour modifier le niveau adaptatif, le ROOT est requis.</string>
   <string name="important_info_profile_activation_text1">Le profil peut être activé dans deux modes :</string>
-  <string name="important_info_profile_activation_text2">1. activation manuelle - activée dans le raccourci Éditeur, notification, widget. Un profil activé manuellement est signalé par «[M] » devant le nom du profil.</string>
-  <string name="important_info_profile_activation_text3">2. activation d\'événement - activée par l\'événement.</string>
+  <string name="important_info_profile_activation_text2">Activation manuelle - activée dans le raccourci Éditeur, notification, widget. Un profil activé manuellement est signalé par «[M] » devant le nom du profil.</string>
+  <string name="important_info_profile_activation_text3">Activation d\'événement - activée par l\'événement.</string>
   <string name="important_info_profile_activation_text4">Activation manuelle arrête tous les événements et les événements ne démarre jamais. Vous devez redémarrer les événements pour les réactiver.</string>
   <string name="important_info_profile_activation_text5">Exceptions à cette règle si l\'événement a la valeur « Ignorer l\'activation manuelle ».</string>
   <string name="important_info_profile_activation_text6">Le redémarrage des événements peut être demandé depuis l\'Activateur, l\'éditeur ou la notification.</string>

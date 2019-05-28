@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Dostupnosť</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Zmena úrovne adaptívneho jasu vyžaduje ROOT.</string>
   <string name="important_info_profile_activation_text1">Profil je možné aktivovať v dvoch režimoch:</string>
-  <string name="important_info_profile_activation_text2">1. manuálna aktivácia - aktivované v Aktivátore, Editore, cez notifikáciu, widget, odpka na profil. Manuálna aktivácia profilu je indikovaná \"[M]\" pred názvom profilu.</string>
-  <string name="important_info_profile_activation_text3">2. aktivácia udalosťou - profil je aktivovaný udalosťou.</string>
+  <string name="important_info_profile_activation_text2">Manuálna aktivácia - aktivované v Aktivátore, Editore, cez notifikáciu, widget, odpka na profil. Manuálna aktivácia profilu je indikovaná \"[M]\" pred názvom profilu.</string>
+  <string name="important_info_profile_activation_text3">Aktivácia udalosťou - profil je aktivovaný udalosťou.</string>
   <string name="important_info_profile_activation_text4">Manuálna aktivácia pozastaví všetky udalosti a nikdy nebudú spustené. Musíte spraviť Reštart udalostí, pre povolenie ich spustenia.</string>
   <string name="important_info_profile_activation_text5">Výnimky z tohto pravidla je, ak udalosť má nastavený parameter \"Ignoruj manuálnu aktiváciu\".</string>
   <string name="important_info_profile_activation_text6">Reštart udalostí sa dá vyvolať z Aktivátora, Editora a z notifikácie.</string>

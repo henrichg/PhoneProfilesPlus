@@ -493,8 +493,8 @@
     <string name="event_preferences_applications_AccessibilitySettings_title">Erişebilirlik ayarları</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">Uyarlama seviyesini değiştirmek için kök izni lazımdır.</string>
     <string name="important_info_profile_activation_text1">Tercih iki modda faal edilebilir:</string>
-    <string name="important_info_profile_activation_text2">1. El ile faaliyete geçirmek- Muharrik, Düzenleyici, bildirim, widget veya kısayol içinde el ile faaliyete geçirilebilir. El ile faaliyete geçmişse, tercih isminin önünde \"[M]\" ifadesi gösterilir.</string>
-    <string name="important_info_profile_activation_text3">2. Durum ile faaeliyete geçirmek- Durum tarafından faaliyete geçirilebilir.</string>
+    <string name="important_info_profile_activation_text2">El ile faaliyete geçirmek- Muharrik, Düzenleyici, bildirim, widget veya kısayol içinde el ile faaliyete geçirilebilir. El ile faaliyete geçmişse, tercih isminin önünde \"[M]\" ifadesi gösterilir.</string>
+    <string name="important_info_profile_activation_text3">Durum ile faaeliyete geçirmek- Durum tarafından faaliyete geçirilebilir.</string>
     <string name="important_info_profile_activation_text4">El ile faaliyete geçirme, Durumların tamamına fasıla verir ve Durumlar asla otomatik başlatılmaz. Durumların otomatik başlamasını devam ettirmek için başlatma butonuna dokunmanız lüzumludur.</string>
     <string name="important_info_profile_activation_text5">Bu kuralın istisnası, Durum tercihinde \"El ile faaliyete geçirmeyi ihmal et\" seçilmiş olmasıdır.</string>
     <string name="important_info_profile_activation_text6">Durumları tekrar başlatma, Muharrik, Düzenleyici ve bildirimden çağrılabilir.</string>

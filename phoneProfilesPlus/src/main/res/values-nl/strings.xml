@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Instellingen voor toegankelijkheid</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Voor wijzigen van Adaptieve helderheid is ROOT nodig.</string>
   <string name="important_info_profile_activation_text1">Profiel kan worden geactiveerd in twee modi:</string>
-  <string name="important_info_profile_activation_text2">1. handmatige activering - geactiveerd in Activator, Editor, notificatie, widget, snelkoppeling. Handmatig geactiveerd profiel wordt aangeduid met \"[M]\" voor de profielnaam.</string>
-  <string name="important_info_profile_activation_text3">2. gebeurtenis activeren - geactiveerd door een event.</string>
+  <string name="important_info_profile_activation_text2">Handmatige activering - geactiveerd in Activator, Editor, notificatie, widget, snelkoppeling. Handmatig geactiveerd profiel wordt aangeduid met \"[M]\" voor de profielnaam.</string>
+  <string name="important_info_profile_activation_text3">Gebeurtenis activeren - geactiveerd door een event.</string>
   <string name="important_info_profile_activation_text4">Handmatige activering pauzeert alle events en event zal nooit worden gestart. Je moet events opnieuw starten om het starten van events te hervatten.</string>
   <string name="important_info_profile_activation_text5">Uitzonderingen op deze regel is als het event een voorkeur heeft van \'Handmatige activering negeren\'.</string>
   <string name="important_info_profile_activation_text6">Herstarten van events kan vanuit Activator, Editor en notificatie.</string>

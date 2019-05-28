@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Ustawienia ułatwień dostępu</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Root wymagany do zmiany automatycznego poziomu jasności.</string>
   <string name="important_info_profile_activation_text1">Profile mogą zostać aktywowane w jednym z dwóch trybów:</string>
-  <string name="important_info_profile_activation_text2">1. Ręczna aktywacja - aktywowany w Aktywatorze, Edytorze, powiadomieniu, widgecie, skrócie. Ręcznie aktywowane profile są zaznaczane symbolem \"[M]\" przed nazwą profilu.</string>
-  <string name="important_info_profile_activation_text3">2. Aktywacja zdarzenia - aktywowano przez zdarzenie.</string>
+  <string name="important_info_profile_activation_text2">Ręczna aktywacja - aktywowany w Aktywatorze, Edytorze, powiadomieniu, widgecie, skrócie. Ręcznie aktywowane profile są zaznaczane symbolem \"[M]\" przed nazwą profilu.</string>
+  <string name="important_info_profile_activation_text3">Aktywacja zdarzenia - aktywowano przez zdarzenie.</string>
   <string name="important_info_profile_activation_text4">Ręczna aktywacja wstrzymuje wszystkie zdarzenia, które nigdy nie zostaną uruchomione. Musisz ręcznie Zrestartować zdarzenia, aby wznowić normalne funkcje zdarzenia.</string>
   <string name="important_info_profile_activation_text5">Wyjątek od tej reguły stosuje się po ustawieniu preferencji \"Ignoruj ręczną aktywację\".</string>
   <string name="important_info_profile_activation_text6">Ponowne uruchomienie zdarzenia może być wywołane przez Aktywator, Edytor lub powiadomienie.</string>

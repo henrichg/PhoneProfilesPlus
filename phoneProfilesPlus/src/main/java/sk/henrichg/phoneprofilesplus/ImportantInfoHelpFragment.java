@@ -621,15 +621,21 @@ public class ImportantInfoHelpFragment extends Fragment {
         });
 
 
-        TextView infoText100 = view.findViewById(R.id.activity_info_profile_activation1);
-        String text =
-                getString(R.string.important_info_profile_activation_text1) + "\n" +
-                getString(R.string.important_info_profile_activation_text2) + "\n" +
-                getString(R.string.important_info_profile_activation_text3) + "\n" +
+        TextView infoText100 = view.findViewById(R.id.activity_info_profile_activation2);
+        String text = "<ol>"+
+                        "<li>"+getString(R.string.important_info_profile_activation_text2) + "</li>" +
+                        "<li>"+getString(R.string.important_info_profile_activation_text3) + "</li>" +
+                      "</ol>"
+                ;
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true));
+        infoText100 = view.findViewById(R.id.activity_info_profile_activation3);
+        text =
                 getString(R.string.important_info_profile_activation_text4) + "\n" +
                 getString(R.string.important_info_profile_activation_text5) + "\n\n" +
                 getString(R.string.important_info_profile_activation_text6)
                 ;
+        infoText100.setText(text);
+
         infoText100.setText(text);
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         text =  "<ul>"+
@@ -638,7 +644,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 "<li>" + getString(R.string.important_info_profile_activation_text11) + "</li>" +
                 "</ul>"
                 ;
-        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false));
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         text =  "<ul>"+
                 "<li>" + getString(R.string.important_info_profile_grant) + "</li>" +
@@ -647,7 +653,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 "<li>" + getString(R.string.important_info_profile_interactive) +
                 "</ul>"
         ;
-        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false));
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
         text =
                 getString(R.string.important_info_profile_grant_1_howTo_6) + "\n" +
@@ -674,25 +680,25 @@ public class ImportantInfoHelpFragment extends Fragment {
                 "<li>" + getString(R.string.info_notification_manage_events_from_tasker_restart_events) + "</li>" +
                 "</ul>"
         ;
-        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false));
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_2);
         text =  "<ul>"+
                 "<li>" + getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) + "</li>" +
                 "</ul>"
         ;
-        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false));
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_3);
         text =  "<ul>"+
                 "<li>" + getString(R.string.info_notification_manage_events_from_tasker_pause_event) + "</li>" +
                 "</ul>"
         ;
-        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false));
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_4);
         text =  "<ul>"+
                 "<li>" + getString(R.string.info_notification_manage_events_from_tasker_stop_event) + "</li>" +
                 "</ul>"
         ;
-        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false));
 
 
         Spannable spannable = new SpannableString(str);

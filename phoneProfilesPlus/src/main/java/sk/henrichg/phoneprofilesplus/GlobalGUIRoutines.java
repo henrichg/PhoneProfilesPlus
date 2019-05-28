@@ -28,6 +28,7 @@ import android.text.style.BulletSpan;
 import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.LeadingMarginSpan;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
@@ -43,6 +44,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.Vector;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
@@ -514,14 +516,18 @@ class GlobalGUIRoutines {
         return timeDate.concat(AmPm);
     }
 
-    static Spanned fromHtml(String source, boolean forBullets) {
+    static Spanned fromHtml(String source, boolean forBullets, boolean forNumbers, int numberFrom, int sp) {
         Spanned htmlSpanned;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            htmlSpanned =  Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
-            //htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
+            if (forNumbers)
+                htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
+            else {
+                htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
+                //htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
+            }
         } else {
-            if (forBullets)
+            if (forBullets || forNumbers)
                 htmlSpanned = Html.fromHtml(source, null, new LiTagHandler());
             else
                 htmlSpanned = Html.fromHtml(source);
@@ -530,12 +536,19 @@ class GlobalGUIRoutines {
         if (forBullets)
             return addBullets(htmlSpanned);
         else
+        if (forNumbers)
+            return addNumbers(htmlSpanned, numberFrom, sp);
+        else
             return  htmlSpanned;
 
     }
 
     private static int dip(int dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics()));
+    }
+
+    private static int sip(int sp) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics()));
     }
 
     private static SpannableStringBuilder addBullets(Spanned htmlSpanned) {
@@ -547,6 +560,23 @@ class GlobalGUIRoutines {
                 int end  = spannableBuilder.getSpanEnd(span);
                 spannableBuilder.removeSpan(span);
                 spannableBuilder.setSpan(new ImprovedBulletSpan(dip(2), dip(8), 0), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }
+        }
+        return spannableBuilder;
+    }
+
+    private static SpannableStringBuilder addNumbers(Spanned htmlSpanned, int numberFrom, int sp) {
+        int listItemCount = numberFrom-1;
+        SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
+        BulletSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), BulletSpan.class);
+        if (spans != null) {
+            for (BulletSpan span : spans) {
+                int start = spannableBuilder.getSpanStart(span);
+                int end  = spannableBuilder.getSpanEnd(span);
+                spannableBuilder.removeSpan(span);
+                ++listItemCount;
+                spannableBuilder.insert(start, listItemCount + ". ");
+                spannableBuilder.setSpan(new LeadingMarginSpan.Standard(0, sip(sp)), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             }
         }
         return spannableBuilder;

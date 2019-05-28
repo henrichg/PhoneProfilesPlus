@@ -298,7 +298,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_profile_activation1"
             android:textStyle="bold" />
-        <!--<TextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/important_info_profile_activation_text2"
@@ -312,7 +312,7 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_profile_activation3"
             android:textStyle="bold" />
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/important_info_profile_activation_text4"

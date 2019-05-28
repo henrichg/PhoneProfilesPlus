@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Налаштування доступності</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Для зміни адаптивного рівня потрібні права ROOT.</string>
   <string name="important_info_profile_activation_text1">Профіль може бути активовано у двох режимах:</string>
-  <string name="important_info_profile_activation_text2">1. Ручна активація - активований через Активатор, Редактор, сповіщення, віджет, ярлик. Активований вручну профіль відображається з «[M]» перед назвою профіля.</string>
-  <string name="important_info_profile_activation_text3">2. подія активації - виконується за подією.</string>
+  <string name="important_info_profile_activation_text2">Ручна активація - активований через Активатор, Редактор, сповіщення, віджет, ярлик. Активований вручну профіль відображається з «[M]» перед назвою профіля.</string>
+  <string name="important_info_profile_activation_text3">подія активації - виконується за подією.</string>
   <string name="important_info_profile_activation_text4">Ручна активація призупиняє всі події і вони ніколи не будуть запущені повторно. Вам необхідно перезавантажити події, щоб відновити їх.</string>
   <string name="important_info_profile_activation_text5">Виключення із цього правила, якщо подіям присвоєно \"Ігнорувати ручну активацію\".</string>
   <string name="important_info_profile_activation_text6">Перезавантаження подій може бути викликане із Активатора, Редактора чи сповіщень.</string>

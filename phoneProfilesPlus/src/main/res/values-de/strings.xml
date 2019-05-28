@@ -493,8 +493,8 @@
     <string name="event_preferences_applications_AccessibilitySettings_title">Bedienungshilfen-Einstellungen</string>
     <string name="brightness_pref_dialog_adaptive_level_root_required">Um die adaptive Helligkeit zu ändern ist Root erforderlich.</string>
     <string name="important_info_profile_activation_text1">Profil kann in zwei Modi aktiviert werden:</string>
-    <string name="important_info_profile_activation_text2">1. Manuelle Aktivierung - Mit Starter, Editor, Benachrichtigung, Widget oder Verknüpfung aktiviert. Manuell aktivierte Profile werden mit \"[M]\" vor dem Profilnamen angegeben.</string>
-    <string name="important_info_profile_activation_text3">2. Ereignis wurde akriviert.</string>
+    <string name="important_info_profile_activation_text2">Manuelle Aktivierung - Mit Starter, Editor, Benachrichtigung, Widget oder Verknüpfung aktiviert. Manuell aktivierte Profile werden mit \"[M]\" vor dem Profilnamen angegeben.</string>
+    <string name="important_info_profile_activation_text3">Ereignis wurde akriviert.</string>
     <string name="important_info_profile_activation_text4">Die Manuelle Aktivierung hält alle Ereignisse an. Du musst die Ereignisse neustarten, um sie wieder zu aktivieren.</string>
     <string name="important_info_profile_activation_text5">Die Ausnahme zu dieser Regel sind Ereignisse mit der Eigenschaft \"Manuelle Aktivierung ignorieren\".</string>
     <string name="important_info_profile_activation_text6">Ein Ereignisneustart kann von Starter, Editor und Benachrichtigung ausgelöst werden.</string>

@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">הגדרות נגישות</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">שינוי ברמת הסתגלנות מחייב הרשאות ROOT.</string>
   <string name="important_info_profile_activation_text1">פרופיל יכול להיות מופעל בשני מצבים:</string>
-  <string name="important_info_profile_activation_text2">1. הפעלה ידנית - מופעלת ב-Activator, עורך, הודעות, יישומון, קיצור-דרך. פרופיל מופעל ידנית מסומן ב-\"[M]\" לפני שם הפרופיל.</string>
-  <string name="important_info_profile_activation_text3">2. הפעלה ע\"י אירוע - מופעל על-ידי אירוע.</string>
+  <string name="important_info_profile_activation_text2">הפעלה ידנית - מופעלת ב-Activator, עורך, הודעות, יישומון, קיצור-דרך. פרופיל מופעל ידנית מסומן ב-\"[M]\" לפני שם הפרופיל.</string>
+  <string name="important_info_profile_activation_text3">הפעלה ע\"י אירוע - מופעל על-ידי אירוע.</string>
   <string name="important_info_profile_activation_text4">הפעלה ידנית משהה את כל האירועים והאירועים לא יפעלו. עליך להפעיל מחדש את האירועים כדי לחדש את הפעלת האירועים.</string>
   <string name="important_info_profile_activation_text5">חריגות מכלל זה הן אם האירוע הגדיר העדפה \"התעלמות מהפעלה ידנית\".</string>
   <string name="important_info_profile_activation_text6">ניתן להפעיל מחדש אירועים מ-Activator, עורך, הודעות.</string>

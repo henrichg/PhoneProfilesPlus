@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">辅助功能设置</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">必须 root 才能更改自适应级别。</string>
   <string name="important_info_profile_activation_text1">情景可以通过两种模式激活：</string>
-  <string name="important_info_profile_activation_text2">1. 手动激活 - 在激活清单、编辑器、通知、小部件和快捷方式中激活。手动激活的情景在情景名称前以“[M]”表示。</string>
-  <string name="important_info_profile_activation_text3">2. 事件激活 - 以事件激活。</string>
+  <string name="important_info_profile_activation_text2">手动激活 - 在激活清单、编辑器、通知、小部件和快捷方式中激活。手动激活的情景在情景名称前以“[M]”表示。</string>
+  <string name="important_info_profile_activation_text3">事件激活 - 以事件激活。</string>
   <string name="important_info_profile_activation_text4">手动激活会暂停所有事件，事件将永远不会开始。您必须重新开启事件以恢复开始事件。</string>
   <string name="important_info_profile_activation_text5">此规则的例外情况是，如果该事件在设置设置为“忽略手动激活”。</string>
   <string name="important_info_profile_activation_text6">可以从激活清单、 编辑器和通知调用中重新启动事件。</string>

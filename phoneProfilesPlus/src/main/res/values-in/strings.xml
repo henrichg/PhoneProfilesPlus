@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Pengaturan aksesibilitas</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">ROOT diperlukan untuk mengubah tingkat adaptif.</string>
   <string name="important_info_profile_activation_text1">Profil dapat diaktifkan dalam salah satu dari dua mode berikut:</string>
-  <string name="important_info_profile_activation_text2">1. Aktivasi manual - diaktifkan di Activator, Editor, notifikasi, widget, shortcut. Profil yang diaktifkan secara manual ditunjukkan dengan \" [M] \" di depan nama profil.</string>
-  <string name="important_info_profile_activation_text3">2. Aktivasi acara - diaktifkan oleh sebuah acara.</string>
+  <string name="important_info_profile_activation_text2">Aktivasi manual - diaktifkan di Activator, Editor, notifikasi, widget, shortcut. Profil yang diaktifkan secara manual ditunjukkan dengan \" [M] \" di depan nama profil.</string>
+  <string name="important_info_profile_activation_text3">Aktivasi acara - diaktifkan oleh sebuah acara.</string>
   <string name="important_info_profile_activation_text4">Aktivasi manual menghentikan semua kejadian, yang tidak akan pernah dimulai. Anda harus secara manual Restart acara untuk melanjutkan fungsi acara normal.</string>
   <string name="important_info_profile_activation_text5">Pengecualian terhadap peraturan ini berlaku bila Anda menetapkan preferensi \"Abaikan aktivasi manual\".</string>
   <string name="important_info_profile_activation_text6">Event restart bisa dipanggil melalui Activator, Editor atau notifikasi.</string>

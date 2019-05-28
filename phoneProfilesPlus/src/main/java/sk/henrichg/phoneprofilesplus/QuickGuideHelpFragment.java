@@ -43,7 +43,7 @@ public class QuickGuideHelpFragment extends Fragment {
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_9) + "</li>";
         text = text + "</ul>";
 
-        sensors.setText(GlobalGUIRoutines.fromHtml(text, true));
+        sensors.setText(GlobalGUIRoutines.fromHtml(text, true, false));
 
         if ((scrollTo != 0) && (savedInstanceState == null)) {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);

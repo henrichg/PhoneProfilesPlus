@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Tillgänglighetsinställningar</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">För förändring på adaptiv nivå krävs ROOT.</string>
   <string name="important_info_profile_activation_text1">Profilen kan aktiveras i två lägen:</string>
-  <string name="important_info_profile_activation_text2">1. manuell aktivering - aktiverat i aktiveraren, redigering, notifiering, widget, genväg. Manuellt aktiverat profil indikeras med \"[M]\" framför profilnamnet.</string>
-  <string name="important_info_profile_activation_text3">2. händelse aktivering - aktiverad av händelse.</string>
+  <string name="important_info_profile_activation_text2">Manuell aktivering - aktiverat i aktiveraren, redigering, notifiering, widget, genväg. Manuellt aktiverat profil indikeras med \"[M]\" framför profilnamnet.</string>
+  <string name="important_info_profile_activation_text3">Händelse aktivering - aktiverad av händelse.</string>
   <string name="important_info_profile_activation_text4">Manuell aktivering pausar alla händelser och händelser kommer att aldrig startas. Du måste starta om händelser för att återuppta händelser.</string>
   <string name="important_info_profile_activation_text5">Undantag från denna regel är om händelsen har preferensen \"Ignorera manuell aktivering\".</string>
   <string name="important_info_profile_activation_text6">Starta om händelser kan anropas från aktiveraren, redigering och notifiering.</string>

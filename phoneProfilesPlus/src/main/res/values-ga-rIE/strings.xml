@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Accessibility settings</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">ROOT required to change adaptive level.</string>
   <string name="important_info_profile_activation_text1">Profiles can be activated in one of two modes:</string>
-  <string name="important_info_profile_activation_text2">1. Manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profiles are indicated with \"[M]\" in front of the profile name.</string>
-  <string name="important_info_profile_activation_text3">2. Event activation - activated by an event.</string>
+  <string name="important_info_profile_activation_text2">Manual activation - activated in Activator, Editor, notification, widget, shortcut. Manually activated profiles are indicated with \"[M]\" in front of the profile name.</string>
+  <string name="important_info_profile_activation_text3">Event activation - activated by an event.</string>
   <string name="important_info_profile_activation_text4">Manual activation pauses all events, which will never start. You must manually Restart events to resume normal event function.</string>
   <string name="important_info_profile_activation_text5">Exception to this rule applies when you set the \"Ignore manual activation\" preference.</string>
   <string name="important_info_profile_activation_text6">Event restart can be invoked via the Activator, Editor or notification.</string>

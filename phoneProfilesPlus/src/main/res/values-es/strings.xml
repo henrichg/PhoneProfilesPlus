@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">Ajustes de accesibilidad</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">Para cambiar el nivel adaptativo, es necesario Root.</string>
   <string name="important_info_profile_activation_text1">El perfil se puede activar de dos formas:</string>
-  <string name="important_info_profile_activation_text2">1. Manual de activación - activado en activador, Editor, notificación, widget, atajo. Perfiles activados manualmente son indicados con una \"[M]\" delante del nombre del perfil</string>
-  <string name="important_info_profile_activation_text3">2. activación evento - activada por evento.</string>
+  <string name="important_info_profile_activation_text2">Manual de activación - activado en activador, Editor, notificación, widget, atajo. Perfiles activados manualmente son indicados con una \"[M]\" delante del nombre del perfil</string>
+  <string name="important_info_profile_activation_text3">Activación evento - activada por evento.</string>
   <string name="important_info_profile_activation_text4">La activación manual pausa todos los eventos y éstos nunca serán iniciados. Debes Reiniciar los eventos para hacer que se inicien.</string>
   <string name="important_info_profile_activation_text5">La excepción a esta regla aplica cuando se configura \"Ignorar activación manual\" en las preferencias.</string>
   <string name="important_info_profile_activation_text6">Reiniciar eventos puede ser invocado desde Activador, Editor y Notificación.</string>

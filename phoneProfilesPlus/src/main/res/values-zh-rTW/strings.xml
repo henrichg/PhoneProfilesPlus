@@ -493,8 +493,8 @@
   <string name="event_preferences_applications_AccessibilitySettings_title">協助工具設定</string>
   <string name="brightness_pref_dialog_adaptive_level_root_required">自動調整級別需要 ROOT。</string>
   <string name="important_info_profile_activation_text1">設定檔可在兩種模式下被啟動:</string>
-  <string name="important_info_profile_activation_text2">1. 手動啟動 - 透過啟動器, 編輯器, 通知區域, 小工具或捷徑啟動設定檔. 手動啟動的設定檔名稱前會有 \"[M]\" 字樣.</string>
-  <string name="important_info_profile_activation_text3">2. 事件啟動 - 透過事件啟動.</string>
+  <string name="important_info_profile_activation_text2">手動啟動 - 透過啟動器, 編輯器, 通知區域, 小工具或捷徑啟動設定檔. 手動啟動的設定檔名稱前會有 \"[M]\" 字樣.</string>
+  <string name="important_info_profile_activation_text3">事件啟動 - 透過事件啟動.</string>
   <string name="important_info_profile_activation_text4">手動啟動將暫停所有事件, 並且不會再次自動開始. 您必須手動重新開始事件才能恢復正常的事件功能.</string>
   <string name="important_info_profile_activation_text5">此規則的例外情況是該事件被設置為 \"忽略手動啟動\".</string>
   <string name="important_info_profile_activation_text6">可以透過啟動器, 編輯器或通知區域重新開始事件.</string>
