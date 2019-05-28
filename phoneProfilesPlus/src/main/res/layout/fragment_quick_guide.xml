@@ -26,13 +26,13 @@
             android:id="@+id/activity_info_quick_guide_text_2"
             android:text="@string/important_info_quick_guide_2"
             android:textSize="@dimen/important_info_text_size"/>
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/activity_info_quick_guide_text_3"
             android:text="@string/important_info_quick_guide_3"
             android:textSize="@dimen/important_info_text_size"
-            android:paddingBottom="10dp"/>
+            android:paddingBottom="10dp"/>-->
 
         <TextView
             android:layout_width="wrap_content"

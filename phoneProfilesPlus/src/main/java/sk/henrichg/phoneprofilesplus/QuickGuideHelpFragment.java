@@ -31,7 +31,7 @@ public class QuickGuideHelpFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView sensors = view.findViewById(R.id.activity_info_quick_guide_sensors_texts);
+        TextView textView = view.findViewById(R.id.activity_info_quick_guide_sensors_texts);
         String text = "<ul>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_2) + "</li>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_3) + "</li>";
@@ -42,8 +42,14 @@ public class QuickGuideHelpFragment extends Fragment {
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_8) + "</li>";
         text = text + "<li>" + getString(R.string.important_info_quick_guide_sensors_9) + "</li>";
         text = text + "</ul>";
+        textView.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
 
-        sensors.setText(GlobalGUIRoutines.fromHtml(text, true, false));
+        textView = view.findViewById(R.id.activity_info_quick_guide_text_2);
+        text = "<ol>";
+        text = text + "<li>" + getString(R.string.important_info_quick_guide_2) + "</li>";
+        text = text + "<li>" + getString(R.string.important_info_quick_guide_3) + "</li>";
+        text = text + "</ol>";
+        textView.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
 
         if ((scrollTo != 0) && (savedInstanceState == null)) {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);

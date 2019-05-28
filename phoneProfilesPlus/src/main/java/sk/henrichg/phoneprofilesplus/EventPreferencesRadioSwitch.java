@@ -293,7 +293,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_ENABLED);
                 boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
-                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false));
+                preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }
         else {
