@@ -632,12 +632,13 @@ public class ImportantInfoHelpFragment extends Fragment {
                 ;
         infoText100.setText(text);
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
-        text =
-                getString(R.string.important_info_profile_activation_text9) + "\n" +
-                getString(R.string.important_info_profile_activation_text10) + "\n" +
-                getString(R.string.important_info_profile_activation_text11) + "\n"
+        text =  "<ul>"+
+                "<li>" + getString(R.string.important_info_profile_activation_text9) + "</li>" +
+                "<li>" + getString(R.string.important_info_profile_activation_text10) + "</li>" +
+                "<li>" + getString(R.string.important_info_profile_activation_text11) + "</li>" +
+                "</ul>"
                 ;
-        infoText100.setText(text);
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         text =
                 getString(R.string.important_info_profile_grant) + "\n\n" +
