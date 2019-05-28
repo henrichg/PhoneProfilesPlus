@@ -377,7 +377,6 @@
     <string name="array_pref_ringerModeArray_silentL">Prioritätsmodus</string>
     <string name="menu_import_export">Sichern/Wiederherstellen</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 Minuten</string>
-    <string name="info_notification_event_not_started">Ereignis wird nicht gestartet, wenn:\n1. du das allgemeine Ausführen von Ereignissen angehalten hast (rote \"Ampel\"). Im Editor kannst du es mit dem Menüpunkt \"Laufende Ereignisse aktivieren\" wieder aktivieren.\n2.... du ein Profil manuell aktiviert hast (gelbe \"Ampel\"). Dann musst du \"Ereignisse neu starten\" im Starter, Editor oder der Benachrichtigung wählen. Ein manuell aktiviertes Profil wird auch mit einem \"[M]\" vor dem Profilnamen angezeigt. Ausnahmen bilden Ereignisse, in denen \"Manuelle Aktivierung ignorieren\" ausgewählt ist.\n3.…du das Ereignis in den Ereigniseinstellungen angehalten hast. \"Ereignis aktiveren\" muss ausgewählt sein.\nBeachte: Die \"Ampel\" ist oben im Starter und Editor.</string>
     <string name="important_info_profiles">Profile</string>
     <string name="important_info_events">Ereignisse</string>
     <string name="important_info_system">System</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Ereignis wird nicht gestartet, wenn:</string>
+    <string name="info_notification_event_not_started_2">du das allgemeine Ausführen von Ereignissen angehalten hast (rote \"Ampel\"). Im Editor kannst du es mit dem Menüpunkt \"Laufende Ereignisse aktivieren\" wieder aktivieren.</string>
+    <string name="info_notification_event_not_started_3">du ein Profil manuell aktiviert hast (gelbe \"Ampel\"). Dann musst du \"Ereignisse neu starten\" im Starter, Editor oder der Benachrichtigung wählen. Ein manuell aktiviertes Profil wird auch mit einem \"[M]\" vor dem Profilnamen angezeigt. Ausnahmen bilden Ereignisse, in denen \"Manuelle Aktivierung ignorieren\" ausgewählt ist.</string>
+    <string name="info_notification_event_not_started_4">du das Ereignis in den Ereigniseinstellungen angehalten hast. \"Ereignis aktiveren\" muss ausgewählt sein. Beachte: Die \"Ampel\" ist oben im Starter und Editor.</string>
 
     <!-- **************************************************************************************** -->
 

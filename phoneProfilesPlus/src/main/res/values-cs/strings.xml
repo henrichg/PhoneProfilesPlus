@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Prioritní režim</string>
   <string name="menu_import_export">Záloha/Obnova</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minut</string>
-  <string name="info_notification_event_not_started">Událost se nespustí, když:\n1. Máte zakázáno spouštění událostí (červený \"semafor\") - povolte spouštění událostí v menu Editoru položkou menu \"Povol běh událostí\".\n2. Máte manuálně aktivován profil (oranžový \"semafor\") - musíte restartovat události. Použijte ikonu \"Restart událostí\" v titulku Aktivátoru, Editoru nebo v notifikaci. Manuální aktivace profilu je také indikována \"[M]\" před názvem profilu. Výjimkou z blokování události manuální aktivací je, pokud máte v parametrech události zaškrnutý parametr \"Ignoruj manuální aktivaci\".\n3. Máte zakázáno spuštění události v jeho parametrech - parametr \"Povol běh\" musí být zaškrtnutý.\nPoznámka: \"Semafor\" se nachází v titulku Aktivátoru a Editoru.</string>
   <string name="important_info_profiles">Profily</string>
   <string name="important_info_events">Události</string>
   <string name="important_info_system">Systém</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Použij PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">V Android 9+, aby fungovalo skenování mobilních buněk, musíte povolit Polohu v systémových nastaveních.</string>
+
+    <string name="info_notification_event_not_started_1">Událost se nespustí, když:</string>
+    <string name="info_notification_event_not_started_2">Máte zakázáno spouštění událostí (červený \"semafor\") - povolte spouštění událostí v menu Editoru položkou menu \"Povol běh událostí\".</string>
+    <string name="info_notification_event_not_started_3">Máte manuálně aktivován profil (oranžový \"semafor\") - musíte restartovat události. Použijte ikonu \"Restart událostí\" v titulku Aktivátoru, Editoru nebo v notifikaci. Manuální aktivace profilu je také indikována \"[M]\" před názvem profilu. Výjimkou z blokování události manuální aktivací je, pokud máte v parametrech události zaškrnutý parametr \"Ignoruj manuální aktivaci\".</string>
+    <string name="info_notification_event_not_started_4">Máte zakázáno spuštění události v jeho parametrech - parametr \"Povol běh\" musí být zaškrtnutý. Poznámka: \"Semafor\" se nachází v titulku Aktivátoru a Editoru.</string>
 
     <!-- **************************************************************************************** -->
 

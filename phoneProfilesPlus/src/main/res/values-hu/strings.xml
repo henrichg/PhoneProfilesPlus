@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Prioritás mód</string>
   <string name="menu_import_export">Biztonsági mentés és visszaállítás</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 perc</string>
-  <string name="info_notification_event_not_started">Esemény nem indul el akkor:\n1. Az összes esemény futtatását kikapcsoltad (piros \"lámpa\") - Ezt a Szerkesztő menüben \"Esemény indítás engedélyezés\".\n2. Kézi aktiválás esetén az aktív profil mellett (\"Sárga lámpa\") - az esemény újra indítása szükséges. Használt az esemény újra indítás ikont a Profilokban, Szerkesztőben vagy az eseményekben. Kézzel aktivált profil jelzése \"[M]\" a profil neve előtt. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
   <string name="important_info_profiles">Profilok</string>
   <string name="important_info_events">Események</string>
   <string name="important_info_system">Rendszer</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Esemény nem indul el akkor:</string>
+    <string name="info_notification_event_not_started_2">Az összes esemény futtatását kikapcsoltad (piros \"lámpa\") - Ezt a Szerkesztő menüben \"Esemény indítás engedélyezés\".</string>
+    <string name="info_notification_event_not_started_3">Kézi aktiválás esetén az aktív profil mellett (\"Sárga lámpa\") - az esemény újra indítása szükséges. Használt az esemény újra indítás ikont a Profilokban, Szerkesztőben vagy az eseményekben. Kézzel aktivált profil jelzése \"[M]\" a profil neve előtt. Exception from this is, when event has checked preference \"Ignore manual activation\".</string>
+    <string name="info_notification_event_not_started_4">You have disabled event run in event preferences - event preference \"Enable run\" must by checked. Note: \"Traffic light\" is in title of Activator and Editor.</string>
 
     <!-- **************************************************************************************** -->
 

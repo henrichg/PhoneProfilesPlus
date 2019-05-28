@@ -377,7 +377,6 @@
     <string name="array_pref_ringerModeArray_silentL">Modalità Priorità</string>
     <string name="menu_import_export">Backup/Ripristino</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 minuti</string>
-    <string name="info_notification_event_not_started">Gli eventi non vengono avviati quando:\n1. È disabilitata l\'esecuzione globale degli eventi (\"semaforo\" rosso) - menù Editor con l\'opzione \"Abilita esecuzione eventi\".\n2. È stato attivato manualmente un profilo (\"semaforo\" arancione) - è indispensabile riavviare gli eventi. Usare l\'icona Riavvia gli eventi nell\'Attivatore, nell\'Editor o nelle Notifiche. I profili attivati manualmente sono da \"[M]\" davanti al nome del profilo ad eccezione di quelli in cui è specificata l\'opzione \"Ignora attivazione manuale\".\n3. È disabilitata l\'esecuzione degli eventi in preferenze eventi - \"Abilita esecuzione\" deve avere la spunta.\nNota: il \"semaforo\" si trova nella barra del titolo di Attivatore ed Editor</string>
     <string name="important_info_profiles">Profili</string>
     <string name="important_info_events">Eventi</string>
     <string name="important_info_system">Sistema</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Gli eventi non vengono avviati quando:</string>
+    <string name="info_notification_event_not_started_2">È disabilitata l\'esecuzione globale degli eventi (\"semaforo\" rosso) - menù Editor con l\'opzione \"Abilita esecuzione eventi\".</string>
+    <string name="info_notification_event_not_started_3">È stato attivato manualmente un profilo (\"semaforo\" arancione) - è indispensabile riavviare gli eventi. Usare l\'icona Riavvia gli eventi nell\'Attivatore, nell\'Editor o nelle Notifiche. I profili attivati manualmente sono da \"[M]\" davanti al nome del profilo ad eccezione di quelli in cui è specificata l\'opzione \"Ignora attivazione manuale\".</string>
+    <string name="info_notification_event_not_started_4">È disabilitata l\'esecuzione degli eventi in preferenze eventi - \"Abilita esecuzione\" deve avere la spunta. Nota: il \"semaforo\" si trova nella barra del titolo di Attivatore ed Editor</string>
 
     <!-- **************************************************************************************** -->
 

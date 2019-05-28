@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">מצב עדיפות</string>
   <string name="menu_import_export">גיבוי/שחזור</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 דקות</string>
-  <string name="info_notification_event_not_started">האירוע אינו מתחיל כאשר: /n1. ביטלת הפעלת אירועים גורפת (\"רמזור\" אדום) - יש לאפשר זאת בתפריט העורך עם \"אפשרות להפעלת אירועים\"./n2. You have manually activated profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profile is indicated also with \"[M]\" in front of the profile name. Exception from this is, when event has checked preference \"Ignore manual activation\".\n3. You have disabled event run in event preferences - event preference \"Enable run\" must by checked.\nNote: \"Traffic light\" is in title of Activator and Editor.</string>
   <string name="important_info_profiles">פרופילים</string>
   <string name="important_info_events">אירועים</string>
   <string name="important_info_system">מערכת</string>
@@ -1305,6 +1304,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Event will not start when:</string>
+    <string name="info_notification_event_not_started_2">You disable global events run (red \"traffic light\") - enable it in Editor menu with item \"Enable events run\".</string>
+    <string name="info_notification_event_not_started_3">You manually activated a profile (orange \"traffic light\") - you must restart events. Use Restart events icon in title of Activator, Editor or in notification. Manually activated profiles are indicated with \"[M]\" in front of the profile name. Exception applies when the event has \"Ignore manual activation\" preference checked.</string>
+    <string name="info_notification_event_not_started_4">You disable Run event in event preferences - event preferences \"Enable run\" must by checked. Note: \"Traffic light\" is in title of Activator and Editor.</string>
 
     <!-- **************************************************************************************** -->
 

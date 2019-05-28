@@ -441,7 +441,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:layout_marginTop="-10dp"
             android:paddingBottom="5dp"
             android:fontFamily="monospace"
             android:text="@string/important_info_profile_grant_1_howTo_11"
@@ -451,7 +451,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
+            android:paddingBottom="0dp"
             android:text="@string/important_info_profile_grant_1_howTo_4"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_profile_grant_1_howTo_4" />
@@ -483,7 +483,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="5dp"
+            android:layout_marginTop="-10dp"
             android:paddingBottom="5dp"
             android:fontFamily="monospace"
             android:text="@string/empty_string"
@@ -493,7 +493,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
+            android:paddingBottom="0dp"
             android:text="@string/important_info_profile_grant_1_howTo_10"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_profile_grant_1_howTo_10" />
@@ -647,20 +647,21 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/info_notification_event_not_started"
+            android:text="@string/info_notification_event_not_started_1"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_event_not_started"
             android:textStyle="bold" />
-        <!--<TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/info_notification_event_priority_new"
-            android:textSize="@dimen/important_info_text_size"
-            android:id="@+id/activity_info_notification_event_priority"
-            android:textStyle="bold" />-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/info_notification_event_not_started_2"
+            android:textSize="@dimen/important_info_text_size"
+            android:id="@+id/activity_info_notification_event_not_started_1"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
             android:text="@string/important_info_profile_activation_restart_events_icon"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_profile_activation7b"
@@ -670,7 +671,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
+            android:paddingBottom="20dp"
             android:text="@string/important_info_profile_activation_traffic_light_icon"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_profile_activation8b"

@@ -654,19 +654,45 @@ public class ImportantInfoHelpFragment extends Fragment {
                 "</ul>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
+
+        infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_3);
+        text =  "<ol>" +
+                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_3) + "</li>" +
+                "</ol>"
+        ;
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
+        infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_4);
+        text =  "<ol>" +
+                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_4) + "</li>" +
+                "</ol>"
+        ;
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 2, 17));
+
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
-        text =
-                getString(R.string.important_info_profile_grant_1_howTo_6) + "\n" +
-                getString(R.string.important_info_profile_grant_1_howTo_7) + "\n" +
-                getString(R.string.important_info_profile_grant_1_howTo_8)
+        text =  "<ol>" +
+                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_6) + "</li>" +
+                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_7) + "</li>" +
+                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_8) +
+                "</ol>"
         ;
-        infoText100.setText(text);
-        infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started);
-        text =
-                getString(R.string.info_notification_event_not_started) + "\n" +
-                getString(R.string.info_notification_event_priority_new)
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
+        infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_10);
+        text =  "<ol>" +
+                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_10) + "</li>" +
+                "</ol>"
         ;
-        infoText100.setText(text);
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 4, 17));
+
+
+        infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
+        text =  "<ol>" +
+                "<li>" + getString(R.string.info_notification_event_not_started_2) + "</li>" +
+                "<li>" + getString(R.string.info_notification_event_not_started_3) + "</li>" +
+                "<li>" + getString(R.string.info_notification_event_not_started_4) + "</li>" +
+                "<li>" + getString(R.string.info_notification_event_priority_new) +
+                "</ol>"
+        ;
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
 
         TextView infoText41 = view.findViewById(R.id.activity_info_activate_profile_from_tasker_params);
         String str = "Send Intent [\n" +  //↵

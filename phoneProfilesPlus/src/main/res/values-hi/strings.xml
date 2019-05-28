@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">प्राथमिकता मोड</string>
   <string name="menu_import_export">बैकअप बहाल/</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 मिनट</string>
-  <string name="info_notification_event_not_started">इवेंट प्रारंभ नहीं होगा जब: \ n1 । आप अक्षम वैश्विक घटनाओं चलाने (लाल \"यातायात प्रकाश\")-यह संपादक मेनू में सक्षम आइटम के साथ \"घटनाओं रन सक्षम\" .\n2. आप मैंयुअल रूप से एक प्रोफ़ाइल (नारंगी \"यातायात प्रकाश\") सक्रिय-आप घटनाओं को पुनः आरंभ करना चाहिए । उत्प्रेरक, संपादक या अधिसूचना में शीर्षक में पुनः आरंभ घटनाओं आइकन का प्रयोग करें । मैन्युअल रूप से सक्रिय प्रोफ़ाइल्स प्रोफ़ाइल नाम के सामने \"[M]\" के साथ इंगित किया गया है । अपवाद लागू होता है जब घटना है \"मैंयुअल सक्रियण पर ध्यान न दें\" वरीयता चेक. \ n3 । आप ईवेंट प्राथमिकताएँ-इवेंट प्राथमिकताएँ \"चलाएँ सक्षम करें\" में इवेंट चलाएँ अक्षम करें जाँच द्वारा आवश्यक है. \ nNote: \"यातायात प्रकाश\" उत्प्रेरक और संपादक के शीर्षक में है ।</string>
   <string name="important_info_profiles">प्रोफ़ाइल</string>
   <string name="important_info_events">ईवेंट</string>
   <string name="important_info_system">सिस्‍टम</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">इवेंट प्रारंभ नहीं होगा जब:</string>
+    <string name="info_notification_event_not_started_2">। आप अक्षम वैश्विक घटनाओं चलाने (लाल \"यातायात प्रकाश\")-यह संपादक मेनू में सक्षम आइटम के साथ \"घटनाओं रन सक्षम\" .</string>
+    <string name="info_notification_event_not_started_3">आप मैंयुअल रूप से एक प्रोफ़ाइल (नारंगी \"यातायात प्रकाश\") सक्रिय-आप घटनाओं को पुनः आरंभ करना चाहिए । उत्प्रेरक, संपादक या अधिसूचना में शीर्षक में पुनः आरंभ घटनाओं आइकन का प्रयोग करें । मैन्युअल रूप से सक्रिय प्रोफ़ाइल्स प्रोफ़ाइल नाम के सामने \"[M]\" के साथ इंगित किया गया है । अपवाद लागू होता है जब घटना है \"मैंयुअल सक्रियण पर ध्यान न दें\" वरीयता चेक.</string>
+    <string name="info_notification_event_not_started_4">। आप ईवेंट प्राथमिकताएँ-इवेंट प्राथमिकताएँ \"चलाएँ सक्षम करें\" में इवेंट चलाएँ अक्षम करें जाँच द्वारा आवश्यक है. Note: \"यातायात प्रकाश\" उत्प्रेरक और संपादक के शीर्षक में है ।</string>
 
     <!-- **************************************************************************************** -->
 

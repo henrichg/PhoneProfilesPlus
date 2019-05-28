@@ -377,7 +377,6 @@
     <string name="array_pref_ringerModeArray_silentL">Öncelik modu</string>
     <string name="menu_import_export">Yedekle/Geri Yükle</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 dakika</string>
-    <string name="info_notification_event_not_started">Durum başlamıyorsa:\n1. Genel Durumları çalıştırmayı devre dışı bırakmışsınızdır: (Kırmızı \"trafik ışığı\" parlaktır) - Düzenleyici menüsünde \"Durumların çalışmasına izin ver\" kutusunu işaretleyin.\n2. El ile faaliyete geçirdiğiniz herhangi bir tercih vardır: (Turuncu \"trafik ışığı\" parlaktır) - Durumları tekrar başlatmanız lüzumludur. Muharrik, Düzenleyici veya bildirim başlığında bulunan, \"Durumları tekrar başlat\" simgesine dokunun. Ayrıca El ile faaliyete geçirilmiş tercih isminin önünde \"[M]\" işareti gösterilir. İstisnaî vaziyet ise Durum ayarında \"El ile faal etmeyi ihmal et\" işaretlenmiş olmasıdır.\n3. Durum ayarlarında - Durum, devre dışı bırakılmıştır. \"Durumu çalıştır\" ayarı işaretlenmesi gerekir.\nNot: \"Trafik ışığı\" Muharrik ve Düzenleyici başlığında bulunur.</string>
     <string name="important_info_profiles">Tercihler</string>
     <string name="important_info_events">Durumlar</string>
     <string name="important_info_system">Sistem</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Durum başlamıyorsa:</string>
+    <string name="info_notification_event_not_started_2">Genel Durumları çalıştırmayı devre dışı bırakmışsınızdır: (Kırmızı \"trafik ışığı\" parlaktır) - Düzenleyici menüsünde \"Durumların çalışmasına izin ver\" kutusunu işaretleyin.</string>
+    <string name="info_notification_event_not_started_3">El ile faaliyete geçirdiğiniz herhangi bir tercih vardır: (Turuncu \"trafik ışığı\" parlaktır) - Durumları tekrar başlatmanız lüzumludur. Muharrik, Düzenleyici veya bildirim başlığında bulunan, \"Durumları tekrar başlat\" simgesine dokunun. Ayrıca El ile faaliyete geçirilmiş tercih isminin önünde \"[M]\" işareti gösterilir. İstisnaî vaziyet ise Durum ayarında \"El ile faal etmeyi ihmal et\" işaretlenmiş olmasıdır.</string>
+    <string name="info_notification_event_not_started_4">Durum ayarlarında - Durum, devre dışı bırakılmıştır. \"Durumu çalıştır\" ayarı işaretlenmesi gerekir. Not: \"Trafik ışığı\" Muharrik ve Düzenleyici başlığında bulunur.</string>
 
     <!-- **************************************************************************************** -->
 

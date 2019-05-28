@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">优先模式</string>
   <string name="menu_import_export">备份/恢复</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 分钟</string>
-  <string name="info_notification_event_not_started">以下情况事件将不会启动：n1. 你禁用了全局事件运行 (显示红灯) - 请在编辑器菜单中点击“允许运行事件”以启用事件运行功能。n2. 你手工激活了情景 (显示黄灯) - 必须重新运行事件。使用激活清单、编辑器或通知中的“重新启动事件”图标。手动激活的情景在情景名称前用“[M]”标记。例外的情况：如果事件设置中选中了“忽略手工激活”，则事件仍会运行。n3. 你在事件设置中禁止了事件运行 - 必须在事件设置中选中“允许运行”选项n注意：“红绿灯”在激活清单和编辑器的标题中显示。</string>
   <string name="important_info_profiles">情景</string>
   <string name="important_info_events">事件</string>
   <string name="important_info_system">系统</string>
@@ -1298,6 +1297,11 @@
     <string name="important_info_profile_mobileCellsScanning_location">在Android 9+中，要扫描移动基站，您必须在系统设置中启用位置。</string>
 
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
+
+    <string name="info_notification_event_not_started_1">以下情况事件将不会启动：</string>
+    <string name="info_notification_event_not_started_2">你禁用了全局事件运行 (显示红灯) - 请在编辑器菜单中点击“允许运行事件”以启用事件运行功能。</string>
+    <string name="info_notification_event_not_started_3">你手工激活了情景 (显示黄灯) - 必须重新运行事件。使用激活清单、编辑器或通知中的“重新启动事件”图标。手动激活的情景在情景名称前用“[M]”标记。例外的情况：如果事件设置中选中了“忽略手工激活”，则事件仍会运行。</string>
+    <string name="info_notification_event_not_started_4">你在事件设置中禁止了事件运行 - 必须在事件设置中选中“允许运行”选项n注意：“红绿灯”在激活清单和编辑器的标题中显示。</string>
 
     <!-- **************************************************************************************** -->
 

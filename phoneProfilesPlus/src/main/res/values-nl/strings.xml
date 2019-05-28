@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Prioriteitsmodus</string>
   <string name="menu_import_export">Back-up/Herstel</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minuten</string>
-  <string name="info_notification_event_not_started">Event wordt niet gestart wanneer:\n1. Je de events globaal hebt uitgeschakeld (rood verkeerslicht) - Zet deze in de editor aan met \"Events activeren\". \n2. Je handmatig een profiel hebt geactiveerd (oranje verkeerslicht) - herstart de events. Gebruik de \"Events herstarten\" knop in de header van de activator, de editor of in de notificatie. Handmatig geactiveerde profielen zijn ook herkenbaar aan de \"[M]\" voor de profielnaam. De enige uitzondering is wanneer er in een event de optie \"Negeer handmatige activatie\" is geselecteerd. \n3. Je een of meerdere events niet hebt geactiveerd, activeer deze per event in de editor door \"Uitvoeren inschakelen\" te selecteren.\nNoot: het \"verkeerslicht\" is zichtbaar in de header van de activator en de editor.</string>
   <string name="important_info_profiles">Profielen</string>
   <string name="important_info_events">Events</string>
   <string name="important_info_system">Systeem</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Event wordt niet gestart wanneer:</string>
+    <string name="info_notification_event_not_started_2">Je de events globaal hebt uitgeschakeld (rood verkeerslicht) - Zet deze in de editor aan met \"Events activeren\".</string>
+    <string name="info_notification_event_not_started_3">Je handmatig een profiel hebt geactiveerd (oranje verkeerslicht) - herstart de events. Gebruik de \"Events herstarten\" knop in de header van de activator, de editor of in de notificatie. Handmatig geactiveerde profielen zijn ook herkenbaar aan de \"[M]\" voor de profielnaam. De enige uitzondering is wanneer er in een event de optie \"Negeer handmatige activatie\" is geselecteerd.</string>
+    <string name="info_notification_event_not_started_4">Je een of meerdere events niet hebt geactiveerd, activeer deze per event in de editor door \"Uitvoeren inschakelen\" te selecteren. Noot: het \"verkeerslicht\" is zichtbaar in de header van de activator en de editor.</string>
 
     <!-- **************************************************************************************** -->
 

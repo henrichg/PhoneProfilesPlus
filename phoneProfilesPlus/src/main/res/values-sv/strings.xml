@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Prioriterat läge</string>
   <string name="menu_import_export">Backup/Restore</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minuter</string>
-  <string name="info_notification_event_not_started">Händelsen är inte igång när: \n1. Du har inaktiverat globala händelsekörningar (rött \"trafikljus\") - aktivera det i Redigera-menyn med postenn \"Aktivera händelsekörningar\". \n2. Du har manuellt aktiverat profil (orange \"trafikljus\") - du måste starta om händelser. Använda starta händelser-ikonen i titeln på aktiveraren, redaktör eller i notifiering. Manuellt aktiverad profil anges också med \"[M]\" framför profilnamnet. Undantaget från detta är, när händelsen har  \"ignorera manuell aktivering\" markerad. \n3. Du har inaktiverat händelsekörning i inställningarna för händelse - händelse egenskap \"Aktivera kör\" måste markerass. \nNote: \"Trafikljus\" är i titeln på aktiveraren och redigeraren.</string>
   <string name="important_info_profiles">Profiler</string>
   <string name="important_info_events">Händelser</string>
   <string name="important_info_system">System</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Händelsen är inte igång när:</string>
+    <string name="info_notification_event_not_started_2">Du har inaktiverat globala händelsekörningar (rött \"trafikljus\") - aktivera det i Redigera-menyn med postenn \"Aktivera händelsekörningar\".</string>
+    <string name="info_notification_event_not_started_3">Du har manuellt aktiverat profil (orange \"trafikljus\") - du måste starta om händelser. Använda starta händelser-ikonen i titeln på aktiveraren, redaktör eller i notifiering. Manuellt aktiverad profil anges också med \"[M]\" framför profilnamnet. Undantaget från detta är, när händelsen har  \"ignorera manuell aktivering\" markerad.</string>
+    <string name="info_notification_event_not_started_4">Du har inaktiverat händelsekörning i inställningarna för händelse - händelse egenskap \"Aktivera kör\" måste markerass. Note: \"Trafikljus\" är i titeln på aktiveraren och redigeraren.</string>
 
     <!-- **************************************************************************************** -->
 

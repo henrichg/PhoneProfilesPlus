@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">優先模式</string>
   <string name="menu_import_export">備份/還原</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 分鐘</string>
-  <string name="info_notification_event_not_started">事件在以下情況不會開始:\n1. 事件執行被禁止 (紅燈) - 在編輯器功能表中選擇 \"啟用事件執行\". \n2. 您手動啟動了一個設定檔 (橘燈) - 您必須重新開始事件. 可使用在啟動器標題列, 編輯器標題列或通知區域裡的重新開始事件圖示. 手動啟動的設定檔名稱前會有 \"[M]\" 字樣. 除非您在事件設定中勾選了 \"忽略手動啟動\".\n3. 您在事件設定中禁止事件執行 - 在事件設定中的 \"啟用執行\" 必須被勾選.\n備註: 燈號顯示在啟動器和編輯器的標題列.</string>
   <string name="important_info_profiles">設定檔</string>
   <string name="important_info_events">事件</string>
   <string name="important_info_system">系統</string>
@@ -1300,6 +1299,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">事件在以下情況不會開始:</string>
+    <string name="info_notification_event_not_started_2">事件執行被禁止 (紅燈) - 在編輯器功能表中選擇 \"啟用事件執行\".</string>
+    <string name="info_notification_event_not_started_3">您手動啟動了一個設定檔 (橘燈) - 您必須重新開始事件. 可使用在啟動器標題列, 編輯器標題列或通知區域裡的重新開始事件圖示. 手動啟動的設定檔名稱前會有 \"[M]\" 字樣. 除非您在事件設定中勾選了 \"忽略手動啟動\".</string>
+    <string name="info_notification_event_not_started_4">您在事件設定中禁止事件執行 - 在事件設定中的 \"啟用執行\" 必須被勾選. 備註: 燈號顯示在啟動器和編輯器的標題列.</string>
 
     <!-- **************************************************************************************** -->
 

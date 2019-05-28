@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Modo prioritario</string>
   <string name="menu_import_export">Respaldar/Recobrar</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minutos</string>
-  <string name="info_notification_event_not_started">El evento no se inicia cuando:\n1. Has deshabilitado la ejecución global de eventos (\"semáforo\" en rojo) - actívalo desde el menú del Editor en la opción \"Activar ejecución de eventos\".\n2. Has activado manualmente el perfil (\"semáforo\" en ámbar) - debes reiniciar los eventos. Usa el icono de Reiniciar eventos en el título del Activador, Editor o en la notificación. Un perfil activado manualmente se indica también con \"[M]\" delante del nombre del perfil. Excepto cuando en el evento se ha activado la opción \"Ignorar activación automática\".\n3. Has deshabilitado la ejecución de eventos desde las preferencias de evento - la opción de evento \"Ejecutar eventos\" debe estar marcada.\n Nota: El \"Semáforo\" está en el título del Activador y en el Editor.</string>
   <string name="important_info_profiles">Perfiles</string>
   <string name="important_info_events">Eventos</string>
   <string name="important_info_system">Sistema</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">El evento no se inicia cuando:</string>
+    <string name="info_notification_event_not_started_2">Has deshabilitado la ejecución global de eventos (\"semáforo\" en rojo) - actívalo desde el menú del Editor en la opción \"Activar ejecución de eventos\".</string>
+    <string name="info_notification_event_not_started_3">Has activado manualmente el perfil (\"semáforo\" en ámbar) - debes reiniciar los eventos. Usa el icono de Reiniciar eventos en el título del Activador, Editor o en la notificación. Un perfil activado manualmente se indica también con \"[M]\" delante del nombre del perfil. Excepto cuando en el evento se ha activado la opción \"Ignorar activación automática\".</string>
+    <string name="info_notification_event_not_started_4">Has deshabilitado la ejecución de eventos desde las preferencias de evento - la opción de evento \"Ejecutar eventos\" debe estar marcada. Nota: El \"Semáforo\" está en el título del Activador y en el Editor.</string>
 
     <!-- **************************************************************************************** -->
 

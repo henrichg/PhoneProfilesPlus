@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Mode priorité</string>
   <string name="menu_import_export">Sauvegarde/Restauration</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minutes</string>
-  <string name="info_notification_event_not_started">L\'événement n\'est pas commencé quand : \n1. Vous avez désactivé globalement les évènements (\"feu rouge\") - activer-les dans le menu éditeur avec « Activer les évènements ». \n2. Vous avez activé manuellement le profil ( « feu orange ») - vous devez redémarrer les événements. Utilisez l\'icône redémarrer les événements de l\'activateur. Les profils activés manuellement  sont indiqués par «[M] » devant le nom du profil. Il y a une exception quand l\'événement a la case « ignorer activation manuelle » cochée. \n3. Vous avez désactivé les évènements dans les préférences des événements. \nNote: « Le Feu » est dans la barre de titre.</string>
   <string name="important_info_profiles">Profils</string>
   <string name="important_info_events">Événements</string>
   <string name="important_info_system">Système</string>
@@ -1303,6 +1302,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">L\'événement n\'est pas commencé quand :</string>
+    <string name="info_notification_event_not_started_2">Vous avez désactivé globalement les évènements (\"feu rouge\") - activer-les dans le menu éditeur avec « Activer les évènements ».</string>
+    <string name="info_notification_event_not_started_3">Vous avez activé manuellement le profil ( « feu orange ») - vous devez redémarrer les événements. Utilisez l\'icône redémarrer les événements de l\'activateur. Les profils activés manuellement  sont indiqués par «[M] » devant le nom du profil. Il y a une exception quand l\'événement a la case « ignorer activation manuelle » cochée.</string>
+    <string name="info_notification_event_not_started_4">Vous avez désactivé les évènements dans les préférences des événements. Note: « Le Feu » est dans la barre de titre.</string>
 
     <!-- **************************************************************************************** -->
 

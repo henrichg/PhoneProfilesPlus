@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Mode de prioritat</string>
   <string name="menu_import_export">Backup/Restore</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minuts</string>
-  <string name="info_notification_event_not_started">Esdeveniment no s\'executa quan: \n1. Heu inhabilitat l\'execució esdeveniments  globals(\"semàfor vermell\") - habilitar-los al menú d\'Editor, opció \"Permetre executar esdeveniments\". \n2. Heu activat manualment el perfil (\"semàfor taronja\") - cal que re-inicieu els esdeveniments. Utilitza la icona Reprendre esdeveniments des de les opcions Activador, Editor o Notificació. L\'activació manual del Perfil està indicat també amb \"[M]\" davant del nom del perfil. L\'Excepció d\'això és, quan l\'esdeveniment ha marcat la preferència \"ignora activació manual\". \n3. Heu inhabilitat l\'execució de l\'esdeveniment en preferències de l\'esdeveniment - preferència d\'esdeveniment \"Permetre executar\" ha d\'estar marcada. \nNota: \"Semàfor\" és al títol de l\'Activador i al Editor.</string>
   <string name="important_info_profiles">Perfils</string>
   <string name="important_info_events">Esdeveniments</string>
   <string name="important_info_system">Sistema</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Esdeveniment no s\'executa quan:</string>
+    <string name="info_notification_event_not_started_2">Heu inhabilitat l\'execució esdeveniments  globals(\"semàfor vermell\") - habilitar-los al menú d\'Editor, opció \"Permetre executar esdeveniments\".</string>
+    <string name="info_notification_event_not_started_3">Heu activat manualment el perfil (\"semàfor taronja\") - cal que re-inicieu els esdeveniments. Utilitza la icona Reprendre esdeveniments des de les opcions Activador, Editor o Notificació. L\'activació manual del Perfil està indicat també amb \"[M]\" davant del nom del perfil. L\'Excepció d\'això és, quan l\'esdeveniment ha marcat la preferència \"ignora activació manual\".</string>
+    <string name="info_notification_event_not_started_4">Heu inhabilitat l\'execució de l\'esdeveniment en preferències de l\'esdeveniment - preferència d\'esdeveniment \"Permetre executar\" ha d\'estar marcada. Nota: \"Semàfor\" és al títol de l\'Activador i al Editor.</string>
 
     <!-- **************************************************************************************** -->
 

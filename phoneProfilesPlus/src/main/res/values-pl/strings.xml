@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Tryb priorytetu</string>
   <string name="menu_import_export">Kopia zapasowa/przywracanie</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 minut</string>
-  <string name="info_notification_event_not_started">Zdarzenie nie zostanie rozpoczęte gdy: \n1. Wyłączyłeś  globalnie uruchamianie zdarzeń (czerwone światło na \"sygnalizacji świetlnej\") - włącz je z powrotem w Edytorze opcją \"Włącz uruchamianie zdarzeń\". \n2. Ręcznie uaktywniono profil (pomarańczowe światło na\"sygnalizacji świetlnej\") - należy ponownie uruchomić zdarzenia. Użyj ikony \"Restart zdarzeń\" w oknie Aktywatora, Edytora lub w powiadomieniu. Ręcznie aktywowany profil jest oznaczony\"[M]\" przed nazwą profilu. Wyjątek: gdy zdarzenie ma zaznaczoną opcję \"Ignoruj ręczną aktywację\". \n3. Wyłączono uruchamianie zdarzenia - \"Włącz uruchamianie\" w opcjach zdarzenia musi być zaznaczone. \nUwaga:\"Sygnalizacja świetlna\" znajduje się w oknie Aktywatora i Edytora</string>
   <string name="important_info_profiles">Profile</string>
   <string name="important_info_events">Zdarzenia</string>
   <string name="important_info_system">System</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Użyj PhoneProfilesPlus</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">W Android 9+, aby działało skanowanie komórek mobilnych, musisz włączyć Lokalizację w ustawieniach systemowych.</string>
+
+    <string name="info_notification_event_not_started_1">Zdarzenie nie zostanie rozpoczęte gdy:</string>
+    <string name="info_notification_event_not_started_2">Wyłączyłeś  globalnie uruchamianie zdarzeń (czerwone światło na \"sygnalizacji świetlnej\") - włącz je z powrotem w Edytorze opcją \"Włącz uruchamianie zdarzeń\".</string>
+    <string name="info_notification_event_not_started_3">Ręcznie uaktywniono profil (pomarańczowe światło na\"sygnalizacji świetlnej\") - należy ponownie uruchomić zdarzenia. Użyj ikony \"Restart zdarzeń\" w oknie Aktywatora, Edytora lub w powiadomieniu. Ręcznie aktywowany profil jest oznaczony\"[M]\" przed nazwą profilu. Wyjątek: gdy zdarzenie ma zaznaczoną opcję \"Ignoruj ręczną aktywację\".</string>
+    <string name="info_notification_event_not_started_4">Wyłączono uruchamianie zdarzenia - \"Włącz uruchamianie\" w opcjach zdarzenia musi być zaznaczone. Uwaga:\"Sygnalizacja świetlna\" znajduje się w oknie Aktywatora i Edytora</string>
 
     <!-- **************************************************************************************** -->
 

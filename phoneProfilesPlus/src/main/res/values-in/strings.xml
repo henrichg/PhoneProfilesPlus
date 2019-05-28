@@ -377,7 +377,6 @@
   <string name="array_pref_ringerModeArray_silentL">Mode prioritas</string>
   <string name="menu_import_export">Backup / Restore</string>
   <string name="array_pref_screenTimeoutArray_5minutes">5 menit</string>
-  <string name="info_notification_event_not_started">Acara tidak akan dimulai saat: \ n 1. Anda menonaktifkan acara global yang dijalankan (lampu merah \"lalu lintas\") - mengaktifkannya di menu Editor dengan item \"Enable events run\". \ n 2. Anda secara manual mengaktifkan profil (oranye \"lampu lalu lintas\") - Anda harus memulai ulang acara. Gunakan ikon acara Restart di judul Activator, Editor atau notifikasi. Profil yang diaktifkan secara manual ditunjukkan dengan \" [M] \" di depan nama profil. Pengecualian berlaku bila acara memiliki preferensi \"Abaikan Pengaktifan Manual\". \ n 3. Anda menonaktifkan Run event dalam event preferences - event preferences \"Enable run\" harus dengan dicentang. \ n Catatan: \"Lampu lalu lintas\" ada dalam judul Activator and Editor.</string>
   <string name="important_info_profiles">Profil</string>
   <string name="important_info_events">Acara</string>
   <string name="important_info_system">Sistem</string>
@@ -1302,6 +1301,11 @@
     <string name="array_pref_lockDevice_extender">Use PhoneProfilesPlusExtender</string>
 
     <string name="important_info_profile_mobileCellsScanning_location">In Android 9+, for Mobile cells scanning to work, you must enable Location in system settings.</string>
+
+    <string name="info_notification_event_not_started_1">Acara tidak akan dimulai saat:</string>
+    <string name="info_notification_event_not_started_2">Anda menonaktifkan acara global yang dijalankan (lampu merah \"lalu lintas\") - mengaktifkannya di menu Editor dengan item \"Enable events run\".</string>
+    <string name="info_notification_event_not_started_3">Anda secara manual mengaktifkan profil (oranye \"lampu lalu lintas\") - Anda harus memulai ulang acara. Gunakan ikon acara Restart di judul Activator, Editor atau notifikasi. Profil yang diaktifkan secara manual ditunjukkan dengan \" [M] \" di depan nama profil. Pengecualian berlaku bila acara memiliki preferensi \"Abaikan Pengaktifan Manual\".</string>
+    <string name="info_notification_event_not_started_4">Anda menonaktifkan Run event dalam event preferences - event preferences \"Enable run\" harus dengan dicentang. Catatan: \"Lampu lalu lintas\" ada dalam judul Activator and Editor.</string>
 
     <!-- **************************************************************************************** -->
 
