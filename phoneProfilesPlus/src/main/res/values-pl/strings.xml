@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Jasność tekstu (widżet)</string>
   <string name="altype_eventStop">zatrzymaj wydarzenie</string>
   <string name="info_notification_manage_events_from_tasker">Możesz zarządzać zdarzeniami za pośrednictwem Tasker. Skonfiguruj zadanie \"System\"/\"Wyślij intencję\" z parametrami:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- zrestartuj wydarzenia:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- włącz uruchamianie zdarzeń:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- zatrzymaj wydarzenie:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- zatrzymaj wydarzenie:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">zrestartuj wydarzenia:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">włącz uruchamianie zdarzeń:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">zatrzymaj wydarzenie:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">zatrzymaj wydarzenie:</string>
   <string name="phone_profiles_pref_category_eventRun">Uruchamianie zdarzeń</string>
   <string name="phone_profiles_pref_eventRunUsePriority">Używaj priorytetów zdarzeń</string>
   <string name="event_preferences_priority_notUse">Priorytety wyłączone</string>

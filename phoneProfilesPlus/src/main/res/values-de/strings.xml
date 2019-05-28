@@ -667,10 +667,10 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Helligkeit von Texten (Widget)</string>
     <string name="altype_eventStop">Ereignis stoppen</string>
     <string name="info_notification_manage_events_from_tasker">Du kannst die Ereignisse vom Aufgabenplaner aus verwalten. Wähle Aufgabe \"System\"/ Send Intend\" mit den Einstellungen:</string>
-    <string name="info_notification_manage_events_from_tasker_restart_events">Ereignisse neu starten:</string>
-    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">-starten des Ereignisses aktivieren:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">Ereignisse Pausieren:</string>
-    <string name="info_notification_manage_events_from_tasker_stop_event">Ereignisse anhalten:</string>
+    <string name="info_notification_manage_events_from_tasker_restart_events">ereignisse neu starten:</string>
+    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">starten des Ereignisses aktivieren:</string>
+    <string name="info_notification_manage_events_from_tasker_pause_event">ereignisse Pausieren:</string>
+    <string name="info_notification_manage_events_from_tasker_stop_event">ereignisse anhalten:</string>
     <string name="phone_profiles_pref_category_eventRun">Ereignis ausführen</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Den Prioritätsparameter bei Ereignissen verwenden</string>
     <string name="event_preferences_priority_notUse">Wird nicht benutzt</string>

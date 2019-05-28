@@ -385,7 +385,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
+            android:layout_marginTop="-5dp"
+            android:text="@string/important_info_profile_type_of_preferences"
+            android:textSize="@dimen/important_info_text_size"
+            android:textStyle="bold"
+            android:id="@+id/activity_info_notification_profile_preference_types0" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/important_info_profile_grant"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_profile_preference_types" />
@@ -414,6 +421,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
             android:text="@string/important_info_profile_grant_1_howTo_1"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_profile_grant_1_howTo_1"
@@ -534,6 +542,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:text="@string/info_notification_activate_profile_from_tasker"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_activate_profile_from_tasker" />
@@ -727,6 +736,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:text="@string/info_notification_manage_events_from_tasker"
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_manage_events_from_tasker" />
@@ -739,6 +749,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
             android:paddingBottom="10dp"
             android:text="@string/empty_string"
             android:textSize="@dimen/important_info_text_size"
@@ -756,6 +767,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
             android:paddingBottom="10dp"
             android:text="@string/empty_string"
             android:textSize="@dimen/important_info_text_size"
@@ -773,6 +785,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
             android:paddingBottom="10dp"
             android:text="@string/empty_string"
             android:textSize="@dimen/important_info_text_size"
@@ -790,6 +803,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
             android:paddingBottom="10dp"
             android:text="@string/empty_string"
             android:textSize="@dimen/important_info_text_size"

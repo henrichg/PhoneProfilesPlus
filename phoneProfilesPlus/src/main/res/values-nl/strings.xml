@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Tekst lichtheid (widget)</string>
   <string name="altype_eventStop">event stop</string>
   <string name="info_notification_manage_events_from_tasker">Je kunt events beheren vanuit Tasker. Configureer taak \"System\"/\"Send Intent\" met parameters:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- Events herstarten:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- Inschakelen uitvoeren voor event:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- Pauzeer event:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- Stop event:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">events herstarten:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">inschakelen uitvoeren voor event:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">pauzeer event:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">stop event:</string>
   <string name="phone_profiles_pref_category_eventRun">Event uitvoeren</string>
   <string name="phone_profiles_pref_eventRunUsePriority">Gebruik \"Prioriteit\" event parameter</string>
   <string name="event_preferences_priority_notUse">Niet gebruiken</string>

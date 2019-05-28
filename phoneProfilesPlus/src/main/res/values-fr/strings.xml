@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Luminosité du texte (widget)</string>
   <string name="altype_eventStop">arrêt de l’événement</string>
   <string name="info_notification_manage_events_from_tasker">Vous pouvez activer le profil depuis le gestionnaire de tache. Configurer la tâche « Système » / « Envoyer » avec des paramètres :</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">-Redémarrez des événements :</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- Autoriser le lancement pour l’événement :</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">-pauser l\'événement :</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- Arrêter l\'événement :</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">redémarrez des événements :</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">autoriser le lancement pour l’événement :</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">pauser l\'événement :</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">arrêter l\'événement :</string>
   <string name="phone_profiles_pref_category_eventRun">Lancer l\'événement</string>
   <string name="phone_profiles_pref_eventRunUsePriority">Utilisez le paramètre « Priorité » de l’événement</string>
   <string name="event_preferences_priority_notUse">Non utilisé</string>

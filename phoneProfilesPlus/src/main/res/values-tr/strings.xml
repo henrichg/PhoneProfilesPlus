@@ -667,10 +667,10 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Metin hafifliği (widget)</string>
     <string name="altype_eventStop">durum durdurma</string>
     <string name="info_notification_manage_events_from_tasker">Durumları Tasker uygulamasından yönetebilirsiniz. \"System\"/\"Send Intent\" vazifesini şu değerler ile ayarlayın:</string>
-    <string name="info_notification_manage_events_from_tasker_restart_events">- Durumları tekrar başlatmak için:</string>
-    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- Durumların çalışmasına izin vermek için:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">- Durumlara fasıla vermek için:</string>
-    <string name="info_notification_manage_events_from_tasker_stop_event">- Durumları durdurmak için:</string>
+    <string name="info_notification_manage_events_from_tasker_restart_events">durumları tekrar başlatmak için:</string>
+    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">durumların çalışmasına izin vermek için:</string>
+    <string name="info_notification_manage_events_from_tasker_pause_event">durumlara fasıla vermek için:</string>
+    <string name="info_notification_manage_events_from_tasker_stop_event">durumları durdurmak için:</string>
     <string name="phone_profiles_pref_category_eventRun">Durum çalıştır</string>
     <string name="phone_profiles_pref_eventRunUsePriority">\"Öncelik\" durum değeri kullan</string>
     <string name="event_preferences_priority_notUse">Kullanılmıyor</string>

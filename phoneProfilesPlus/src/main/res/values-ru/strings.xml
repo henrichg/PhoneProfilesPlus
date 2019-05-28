@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Яркость текста (виджет)</string>
   <string name="altype_eventStop">событие остановки</string>
   <string name="info_notification_manage_events_from_tasker">Вы можете управлять событиями из Tasker. Настройте задачу \"System\"/\"Send Intent\" с параметрами:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- перезапустить события:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- разрешить запуск для событий:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- приостановить событие:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- остановить событие:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">перезапустить события:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">разрешить запуск для событий:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">приостановить событие:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">остановить событие:</string>
   <string name="phone_profiles_pref_category_eventRun">Запуск события</string>
   <string name="phone_profiles_pref_eventRunUsePriority">Использовать параметр события \"Приоритет\"</string>
   <string name="event_preferences_priority_notUse">Не использовать</string>

@@ -667,10 +667,10 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Luminosità del testo (widget)</string>
     <string name="altype_eventStop">ferma l\'evento</string>
     <string name="info_notification_manage_events_from_tasker">È possibile gestire eventi tramite Tasker. Configurare attività \"Sistema\" / \"Invia intent\" con i parametri:</string>
-    <string name="info_notification_manage_events_from_tasker_restart_events">- riavvia gli eventi:</string>
-    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- abilita esecuzione evento:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">- sospendi evento:</string>
-    <string name="info_notification_manage_events_from_tasker_stop_event">- interrompi evento:</string>
+    <string name="info_notification_manage_events_from_tasker_restart_events">riavvia gli eventi:</string>
+    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">abilita esecuzione evento:</string>
+    <string name="info_notification_manage_events_from_tasker_pause_event">sospendi evento:</string>
+    <string name="info_notification_manage_events_from_tasker_stop_event">interrompi evento:</string>
     <string name="phone_profiles_pref_category_eventRun">Esegui evento</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Utilizzare il parametro \"Priorità\" dell\'evento</string>
     <string name="event_preferences_priority_notUse">Non usato</string>

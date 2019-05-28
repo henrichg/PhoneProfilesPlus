@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Svetlosť textu (miniapl.)</string>
   <string name="altype_eventStop">zastavenie udalosti</string>
   <string name="info_notification_manage_events_from_tasker">Môžete ovládať udalosti z Tasker-a. Nakonfugurujte task \"System\"/\"Send Intent\" s parametrami:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- reštart udalostí:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- povoliť spúšťanie udalosti:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- pozastavenie udalosti:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- zastavenie udalosti:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">reštart udalostí:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">povoliť spúšťanie udalosti:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">pozastavenie udalosti:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">zastavenie udalosti:</string>
   <string name="phone_profiles_pref_category_eventRun">Beh udalostí</string>
   <string name="phone_profiles_pref_eventRunUsePriority">Používať parameter udalosti \"Priorita\"</string>
   <string name="event_preferences_priority_notUse">Nepoužívať</string>

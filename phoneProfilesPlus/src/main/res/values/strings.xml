@@ -708,10 +708,10 @@
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Text lightness (widget)</string>
     <string name="altype_eventStop">stop event</string>
     <string name="info_notification_manage_events_from_tasker">You can manage events through Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
-    <string name="info_notification_manage_events_from_tasker_restart_events">- restart events:</string>
-    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- enable event run:</string>
-    <string name="info_notification_manage_events_from_tasker_pause_event">- pause event:</string>
-    <string name="info_notification_manage_events_from_tasker_stop_event">- stop event:</string>
+    <string name="info_notification_manage_events_from_tasker_restart_events">restart events:</string>
+    <string name="info_notification_manage_events_from_tasker_enable_run_for_event">enable event run:</string>
+    <string name="info_notification_manage_events_from_tasker_pause_event">pause event:</string>
+    <string name="info_notification_manage_events_from_tasker_stop_event">stop event:</string>
     <string name="phone_profiles_pref_category_eventRun">Run event</string>
     <string name="phone_profiles_pref_eventRunUsePriority">Use \"Priority\" event parameter</string>
     <string name="event_preferences_priority_notUse">Don\'t use</string>
@@ -1396,6 +1396,7 @@
     <string name="popup_window_events_status_show_info">Click here to show more information.</string>
     <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
     <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
+    <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
 
     <!-- **************************************************************************************** -->
 

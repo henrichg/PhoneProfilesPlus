@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Яскравість тексту (віджет)</string>
   <string name="altype_eventStop">зупинка події</string>
   <string name="info_notification_manage_events_from_tasker">Ви можете керувати подіями із Tasker. Конфігурація задачі \"Система\"/\"Надіслати ціль\" із параметрами:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- перезапуск подій:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- дозволити запуск для подій:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- призупинення події:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- зупинення події:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">перезапуск подій:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">дозволити запуск для подій:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">призупинення події:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">зупинення події:</string>
   <string name="phone_profiles_pref_category_eventRun">Запуск події</string>
   <string name="phone_profiles_pref_eventRunUsePriority">Використовувати \"Пріоритет\" в налаштуванні події</string>
   <string name="event_preferences_priority_notUse">Не використовувати</string>

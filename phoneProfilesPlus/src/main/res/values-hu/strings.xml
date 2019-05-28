@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Szöveg világosság (widget)</string>
   <string name="altype_eventStop">esemény leállítás</string>
   <string name="info_notification_manage_events_from_tasker">Eseményeket kezelheti a Tasker-ben. Állítsa be \"Rendszer\" / \"Küldés szándék\" paraméterekkel:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- esemény újraindítás:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- futtatás engedélyezés az eseményhez:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- esemény szüneteltetés:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- esemény leállítás:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">esemény újraindítás:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">futtatás engedélyezés az eseményhez:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">esemény szüneteltetés:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">esemény leállítás:</string>
   <string name="phone_profiles_pref_category_eventRun">Esemény fut</string>
   <string name="phone_profiles_pref_eventRunUsePriority">\"Prioritás\" esemény paraméter használata</string>
   <string name="event_preferences_priority_notUse">Nem használható</string>

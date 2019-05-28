@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">文本亮度 (小部件)</string>
   <string name="altype_eventStop">事件停止</string>
   <string name="info_notification_manage_events_from_tasker">您可以从 Tasker 管理情景，以如下参数配置 Tasker 任务“系统”/“发送Intent”：</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- 重新启动事件：</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- 启用事件运行：</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- 暂停事件：</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- 停止事件：</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">重新启动事件：</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">启用事件运行：</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">暂停事件：</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">停止事件：</string>
   <string name="phone_profiles_pref_category_eventRun">事件运行</string>
   <string name="phone_profiles_pref_eventRunUsePriority">使用“优先级”事件参数</string>
   <string name="event_preferences_priority_notUse">不使用</string>

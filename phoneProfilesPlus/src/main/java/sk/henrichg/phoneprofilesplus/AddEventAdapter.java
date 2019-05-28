@@ -153,11 +153,12 @@ class AddEventAdapter extends BaseAdapter {
             {
                 if (holder.eventPreferencesDescription != null) {
                     if (position == 0)
-                        holder.eventPreferencesDescription.setVisibility(View.GONE);
+                        //holder.eventPreferencesDescription.setVisibility(View.GONE);
+                        holder.eventPreferencesDescription.setText(R.string.empty_string);
                     else {
                         String eventPrefDescription = event.getPreferencesDescription(vi.getContext(), false);
                         holder.eventPreferencesDescription.setText(GlobalGUIRoutines.fromHtml(eventPrefDescription, true));
-                        holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
+                        //holder.eventPreferencesDescription.setVisibility(View.VISIBLE);
                     }
                 }
             }

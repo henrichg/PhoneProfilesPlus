@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">בהירות המלל (ווידג\'ט)</string>
   <string name="altype_eventStop">עצירת אירוע</string>
   <string name="info_notification_manage_events_from_tasker">באפשרותך לנהל אירועים מה\"משימאי\". יש לקבוע תצורה של משימה \"מערכת\"/\"שלח כוונה\" עם פרמטרים:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- הפעלת אירועים מחדש:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- אפשר הפעלה לאירוע:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- השהיית אירוע:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- עצירת אירוע:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">הפעלת אירועים מחדש:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">אפשר הפעלה לאירוע:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">השהיית אירוע:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">עצירת אירוע:</string>
   <string name="phone_profiles_pref_category_eventRun">הפעלת אירוע</string>
   <string name="phone_profiles_pref_eventRunUsePriority">שימוש בפרמטר \"עדיפות\" של אירוע</string>
   <string name="event_preferences_priority_notUse">ללא שימוש</string>

@@ -640,13 +640,14 @@ public class ImportantInfoHelpFragment extends Fragment {
                 ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
-        text =
-                getString(R.string.important_info_profile_grant) + "\n\n" +
-                getString(R.string.important_info_profile_root) + "\n\n" +
-                getString(R.string.important_info_profile_settings) + "\n\n" +
-                getString(R.string.important_info_profile_interactive)
+        text =  "<ul>"+
+                "<li>" + getString(R.string.important_info_profile_grant) + "</li>" +
+                "<li>" + getString(R.string.important_info_profile_root) + "</li>" +
+                "<li>" + getString(R.string.important_info_profile_settings) + "</li>" +
+                "<li>" + getString(R.string.important_info_profile_interactive) +
+                "</ul>"
         ;
-        infoText100.setText(text);
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
         text =
                 getString(R.string.important_info_profile_grant_1_howTo_6) + "\n" +
@@ -667,6 +668,33 @@ public class ImportantInfoHelpFragment extends Fragment {
                 " Extra:profile_name:profile name\n" +
                 " Target:Activity\n" +
                 "]";
+
+        infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_1);
+        text =  "<ul>"+
+                "<li>" + getString(R.string.info_notification_manage_events_from_tasker_restart_events) + "</li>" +
+                "</ul>"
+        ;
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_2);
+        text =  "<ul>"+
+                "<li>" + getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) + "</li>" +
+                "</ul>"
+        ;
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_3);
+        text =  "<ul>"+
+                "<li>" + getString(R.string.info_notification_manage_events_from_tasker_pause_event) + "</li>" +
+                "</ul>"
+        ;
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+        infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_4);
+        text =  "<ul>"+
+                "<li>" + getString(R.string.info_notification_manage_events_from_tasker_stop_event) + "</li>" +
+                "</ul>"
+        ;
+        infoText100.setText(GlobalGUIRoutines.fromHtml(text, true));
+
+
         Spannable spannable = new SpannableString(str);
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

@@ -519,6 +519,7 @@ class GlobalGUIRoutines {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             htmlSpanned =  Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
+            //htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
         } else {
             if (forBullets)
                 htmlSpanned = Html.fromHtml(source, null, new LiTagHandler());

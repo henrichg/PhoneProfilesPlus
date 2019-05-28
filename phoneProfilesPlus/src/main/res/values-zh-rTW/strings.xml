@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Text lightness (widget)</string>
   <string name="altype_eventStop">停止事件</string>
   <string name="info_notification_manage_events_from_tasker">您可以透過 Tasker 管理事件. 請以此參數設置工作中的 \"系統\"/\"發送 Intent\":</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- 重新開始事件:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- 啟用事件執行:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- 暫停事件:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- 停止事件:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">重新開始事件:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">啟用事件執行:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">暫停事件:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">停止事件:</string>
   <string name="phone_profiles_pref_category_eventRun">執行事件</string>
   <string name="phone_profiles_pref_eventRunUsePriority">使用 \"優先權\" 事件參數</string>
   <string name="event_preferences_priority_notUse">不使用</string>

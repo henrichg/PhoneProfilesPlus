@@ -667,10 +667,10 @@
   <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Teks ringan (widget)</string>
   <string name="altype_eventStop">berhenti acara</string>
   <string name="info_notification_manage_events_from_tasker">Anda bisa mengatur acara melalui Tasker. Konfigurasikan tugas \"System\" / \"Send Intent\" dengan parameter:</string>
-  <string name="info_notification_manage_events_from_tasker_restart_events">- restart acara:</string>
-  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">- aktifkan acara lari:</string>
-  <string name="info_notification_manage_events_from_tasker_pause_event">- jeda acara:</string>
-  <string name="info_notification_manage_events_from_tasker_stop_event">- berhenti acara:</string>
+  <string name="info_notification_manage_events_from_tasker_restart_events">restart acara:</string>
+  <string name="info_notification_manage_events_from_tasker_enable_run_for_event">aktifkan acara lari:</string>
+  <string name="info_notification_manage_events_from_tasker_pause_event">jeda acara:</string>
+  <string name="info_notification_manage_events_from_tasker_stop_event">berhenti acara:</string>
   <string name="phone_profiles_pref_category_eventRun">Jalankan acara</string>
   <string name="phone_profiles_pref_eventRunUsePriority">Gunakan parameter acara \"Prioritas\"</string>
   <string name="event_preferences_priority_notUse">Jangan gunakan</string>
