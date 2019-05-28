@@ -878,14 +878,14 @@
 <!--  <string name="profile_preferences_typesInfoGrant">Для получения дополнительной информации смотрите раздел \"Профили\" в \"Важной информации\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Некоторые настройки профиля требуют разрешений, которые можно установить только через adb. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_1_howTo_2">Если adb на вашем компьютере не установлен:</string>
-  <string name="important_info_profile_grant_1_howTo_3">1. Скачайте инструменты SDK с:</string>
+  <string name="important_info_profile_grant_1_howTo_3">Скачайте инструменты SDK с:</string>
   <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
-  <string name="important_info_profile_grant_1_howTo_4">2. Извлеките содержимое архива.</string>
+  <string name="important_info_profile_grant_1_howTo_4">Извлеките содержимое архива.</string>
   <string name="important_info_profile_grant_1_howTo_5">Как предоставить разрешение WRITE_SECURE_SETTINGS:</string>
   <string name="important_info_profile_grant_1_howTo_6">Зайдите на своём устройстве в \"Настройки\" &gt; \"О телефоне\" &gt; \"Информация о ПО\" и 7 раз нажмите на \"Номер сборки\". Это разблокирует и отобразит в Настройках пункт \"Для разработчиков\".</string>
   <string name="important_info_profile_grant_1_howTo_7">Зайдите в Настройки &gt; Для разработчиков и включите Отладку по USB.</string>
   <string name="important_info_profile_grant_1_howTo_8">На своём ПК откройте командную строку (в Windows) или терминал (в Linux, OSX). Перейдите в папку, в которую вы извлекли ваши файлы adb, и В ТОЧНОСТИ выполните следующую команду:</string>
-  <string name="important_info_profile_grant_1_howTo_10">4. После успешного выполнения все параметры профиля, помеченные (G1), будут включены.</string>
+  <string name="important_info_profile_grant_1_howTo_10">После успешного выполнения все параметры профиля, помеченные (G1), будут включены.</string>
   <string name="important_info_activity_title">Важная информация</string>
   <string name="important_info_quick_guide_tab">Краткое руководство</string>
   <string name="important_info_important_info_tab">Важная информация</string>
