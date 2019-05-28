@@ -389,77 +389,88 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
             }
 
+            String whyString = "";
             if (showRequestWriteSettings) {
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_write_settings) + "</b>";
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_write_settings) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[0]);
                 if (whyPermissionString != null)
-                    showRequestString = showRequestString + whyPermissionString;
-                showRequestString = showRequestString + "<br>";
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
             }
             if (showRequestReadExternalStorage || showRequestWriteExternalStorage) {
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_storage) + "</b>";
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_storage) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[3][i] || whyPermissionType[6][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 if (whyPermissionString != null)
-                    showRequestString = showRequestString + whyPermissionString;
-                showRequestString = showRequestString + "<br>";
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
             }
             if (showRequestReadPhoneState) {
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_phone) + "</b>";
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_phone) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i] || whyPermissionType[14][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 if (whyPermissionString != null)
-                    showRequestString = showRequestString + whyPermissionString;
-                showRequestString = showRequestString + "<br>";
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
             }
             if (showRequestReadCalendar) {
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_calendar) + "</b>";
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_calendar) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[7]);
                 if (whyPermissionString != null)
-                    showRequestString = showRequestString + whyPermissionString;
-                showRequestString = showRequestString + "<br>";
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
             }
             if (showRequestReadContacts) {
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_contacts) + "</b>";
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_contacts) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[8]);
                 if (whyPermissionString != null)
-                    showRequestString = showRequestString + whyPermissionString;
-                showRequestString = showRequestString + "<br>";
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
             }
             if (showRequestAccessCoarseLocation || showRequestAccessFineLocation) {
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_location) + "</b>";
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_location) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
                     permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 if (whyPermissionString != null)
-                    showRequestString = showRequestString + whyPermissionString;
-                showRequestString = showRequestString + "<br>";
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
             }
             if (showRequestAccessNotificationPolicy) {
-                showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[1]);
                 if (whyPermissionString != null)
-                    showRequestString = showRequestString + whyPermissionString;
-                showRequestString = showRequestString + "<br>";
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
             }
             if (showRequestDrawOverlays) {
+                whyString = whyString + "<li>";
                 if (!PPApplication.romIsMIUI)
-                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
+                    whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_draw_overlays) + "</b>";
                 else
-                    showRequestString = showRequestString + "<b>" + "\u2022 " + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
+                    whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_draw_overlays_miui) + "</b>";
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[2]);
                 if (whyPermissionString != null)
-                    showRequestString = showRequestString + whyPermissionString;
-                showRequestString = showRequestString + "<br>";
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
             }
+            if (!whyString.isEmpty())
+                showRequestString = "<ul>" + whyString + "</ul>";
 
             showRequestString = showRequestString + "<br>";
 
@@ -499,7 +510,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.permissions_alert_title);
-            dialogBuilder.setMessage(GlobalGUIRoutines.fromHtml(showRequestString, false));
+            dialogBuilder.setMessage(GlobalGUIRoutines.fromHtml(showRequestString, true));
             dialogBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -697,7 +708,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (s.isEmpty())
             return s;
         else
-            return "<br>" + "&nbsp;&nbsp;&nbsp;- " + s;
+            return " - " + s;
     }
 
     private void showNotification() {
