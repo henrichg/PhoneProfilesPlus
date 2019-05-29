@@ -1943,7 +1943,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String notificationTone = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, "");
             String uriId = TonesHandler.getPhoneProfilesSilentUri(context, RingtoneManager.TYPE_NOTIFICATION);
             if (notificationToneChange.equals("1") && notificationTone.equals(uriId))
-                preference.setSummary(R.string.profile_preferences_volumeNotificationVolume0_summaryConfigured);
+                preference.setSummary(R.string.profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured);
+            else
+            if (notificationToneChange.equals("1") && (notificationTone.isEmpty() ||
+                                    notificationTone.equals(TonesHandler.NOTIFICATION_TONE_URI_NONE)))
+                preference.setSummary(R.string.profile_preferences_volumeNotificationVolume0_summaryNoneConfigured);
             else
                 preference.setSummary(R.string.profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0);
         }

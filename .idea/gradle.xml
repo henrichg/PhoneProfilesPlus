@@ -3,9 +3,6 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT" />
-        </compositeConfiguration>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.14.1" />
@@ -15,10 +12,8 @@
             <option value="$PROJECT_DIR$/RootShell" />
             <option value="$PROJECT_DIR$/RootTools" />
             <option value="$PROJECT_DIR$/android-betterpickers" />
-            <option value="$PROJECT_DIR$/android-job" />
             <option value="$PROJECT_DIR$/appkillermanager" />
             <option value="$PROJECT_DIR$/phoneProfilesPlus" />
-            <option value="$PROJECT_DIR$/taptargetview" />
             <option value="$PROJECT_DIR$/time-duration-picker" />
           </set>
         </option>

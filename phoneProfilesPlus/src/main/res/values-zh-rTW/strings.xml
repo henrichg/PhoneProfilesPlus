@@ -738,16 +738,13 @@
   <string name="profile_preferences_category_profileActivationParameters">啟動參數</string>
   <string name="profile_preferences_category_profileDeviceParameters">裝置參數</string>
   <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\".</string>
-  <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
-  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu and try again.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">您的手機連結了鈴聲與通知的音量. 您可以使用 \"反連結鈴聲與通知音量\". 點擊此處設定.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">您的手機連結了鈴聲與通知的音量. 若您想要反連結, 啟用此參數.</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings">使用優先權</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable usage of parameter \"Priority\" in application settings.</string>
   <string name="phone_profiles_pref_notificationStatusBarNew">狀態列通知</string>
-  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
+  <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Currently configured:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">鈴聲音量 = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">若鈴聲音量設為 \"0\", 將配置手機為靜音模式. 通知音量會被忽略.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">重要資訊!</string>
@@ -1304,6 +1301,35 @@
     <string name="info_notification_event_not_started_2">事件執行被禁止 (紅燈) - 在編輯器功能表中選擇 \"啟用事件執行\".</string>
     <string name="info_notification_event_not_started_3">您手動啟動了一個設定檔 (橘燈) - 您必須重新開始事件. 可使用在啟動器標題列, 編輯器標題列或通知區域裡的重新開始事件圖示. 手動啟動的設定檔名稱前會有 \"[M]\" 字樣. 除非您在事件設定中勾選了 \"忽略手動啟動\".</string>
     <string name="info_notification_event_not_started_4">您在事件設定中禁止事件執行 - 在事件設定中的 \"啟用執行\" 必須被勾選. 備註: 燈號顯示在啟動器和編輯器的標題列.</string>
+
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
+    <string name="permission_why_profile_radio_preferences_emui">for enable/disable mobile data, change mobile network type, connect to SSID, enable/disable Bluetooth</string>
+    <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
+    <string name="event_preferences_priority_appSettings_enabled">Priority is enabled</string>
+    <string name="event_preferences_priority_appSettings_disabled">Priority is disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes is enabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes is disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Your device has linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
+    <string name="phone_profiles_pref_applicationPowerParametersCategory">Battery and power</string>
+    <string name="phone_profiles_pref_applicationOtherParametersCategory">Other</string>
+    <string name="activity_log_header_log_time">Log time</string>
+    <string name="activity_log_header_data_type">Data type</string>
+    <string name="activity_log_header_data">Data</string>
+    <string name="profile_preferences_volumeDTMF">DTMF tones volume</string>
+    <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
+    <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
+    <string name="profile_preferences_enabled">Enabled</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
+    <string name="profile_preferences_types_G1_show_info">Click here to show more information.</string>
+    <string name="popup_window_events_status_show_info">Click here to show more information.</string>
+    <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
+    <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
+    <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
 
     <!-- **************************************************************************************** -->
 

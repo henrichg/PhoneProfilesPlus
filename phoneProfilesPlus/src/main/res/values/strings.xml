@@ -791,16 +791,13 @@
     <string name="profile_preferences_category_profileActivationParameters">Activation parameters</string>
     <string name="profile_preferences_category_profileDeviceParameters">Device parameters</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Change notification tone</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_question">Configure notification tone to \"PhoneProfiles Silent\"?</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it from Editor menu and try again.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Your device has linked volume levels for ringtone and notifications. You can use \"Unlink ringer and notification volumes\". Click here to configure it.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Your device has linked volumes for ringtone and notifications. If you want unlinked volumes, enable this parameter.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Use priority</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Enable usage of parameter \"Priority\" in application settings.</string>
     <string name="phone_profiles_pref_notificationStatusBarNew">Status bar notification</string>
-    <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Currently configured:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Currently configured:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Ringtone volume = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">If ringtone volume is set to \"0\", it configures the device for silent mode. Notification volume is ignored.</string>
     <string name="phone_profiles_pref_notificationStatusBarInfo_title">Important information!</string>
@@ -1401,6 +1398,10 @@
     <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
     <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
     <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
 
     <!-- **************************************************************************************** -->
 

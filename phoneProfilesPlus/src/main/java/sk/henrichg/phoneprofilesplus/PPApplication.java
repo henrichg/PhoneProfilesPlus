@@ -102,6 +102,7 @@ public class PPApplication extends Application {
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
                                          //+"|TonesHandler"
+                                         //+"|TonesHandler.getToneName"
                                          //+"|DatabaseHandler.fixPhoneProfilesSilentInProfiles"
 
                                          //+"|[RJS] PPApplication"

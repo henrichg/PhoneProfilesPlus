@@ -738,16 +738,13 @@
   <string name="profile_preferences_category_profileActivationParameters">Activatie parameters</string>
   <string name="profile_preferences_category_profileDeviceParameters">Apparaat parameters</string>
   <string name="profile_preferences_volumeNotificationVolume0_title">Wijzig notificatie toon</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Notificatie toon \"PhoneProfiles Stil\" geconfigureerd.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Voor notificatie volume = 0 configureer de \"PhoneProfiles Stil\" toon voor echt stille meldingen.</string>
-  <string name="profile_preferences_volumeNotificationVolume0_question">Zet notificatie toon op \"PhoneProfiles Silent\"?</string>
-  <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notificatie toon \"PhoneProfiles Stil\" is niet geïnstalleerd. Installeer het vanuit het Editor menu en probeer opnieuw.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notificatie toon \"PhoneProfiles Stil\" geconfigureerd.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">Je apparaat heeft een samengevoegd volume voor beltoon en notificatie toon. Je kunt \"Volume ontkoppelen\" instellen. Tik hier om te configureren.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Je apparaat heeft een samengevoegd volume voor beltoon en notificatie toon. Als je ontkoppeld volume wilt, deze parameter aanvinken.</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings">Gebruik prioriteit</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Schakel het gebruik van de parameter \'Prioriteit\' in bij programma-instellingen.</string>
   <string name="phone_profiles_pref_notificationStatusBarNew">Statusbalknotificatie</string>
-  <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Op dit moment geconfigureerd:</string>
+  <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Op dit moment geconfigureerd:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Beltoonvolume = 0</string>
   <string name="profile_preferences_volumeRingtone0Info_summary">Beltoonvolume = 0 configureert het apparaat naar de Stille modus. Notificatievolume wordt genegeerd.</string>
   <string name="phone_profiles_pref_notificationStatusBarInfo_title">Belangrijke informatie!</string>
@@ -1306,6 +1303,39 @@
     <string name="info_notification_event_not_started_2">Je de events globaal hebt uitgeschakeld (rood verkeerslicht) - Zet deze in de editor aan met \"Events activeren\".</string>
     <string name="info_notification_event_not_started_3">Je handmatig een profiel hebt geactiveerd (oranje verkeerslicht) - herstart de events. Gebruik de \"Events herstarten\" knop in de header van de activator, de editor of in de notificatie. Handmatig geactiveerde profielen zijn ook herkenbaar aan de \"[M]\" voor de profielnaam. De enige uitzondering is wanneer er in een event de optie \"Negeer handmatige activatie\" is geselecteerd.</string>
     <string name="info_notification_event_not_started_4">Je een of meerdere events niet hebt geactiveerd, activeer deze per event in de editor door \"Uitvoeren inschakelen\" te selecteren. Noot: het \"verkeerslicht\" is zichtbaar in de header van de activator en de editor.</string>
+
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
+    <string name="permission_why_profile_radio_preferences_emui">for enable/disable mobile data, change mobile network type, connect to SSID, enable/disable Bluetooth</string>
+    <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
+    <string name="event_preferences_priority_appSettings_enabled">Priority is enabled</string>
+    <string name="event_preferences_priority_appSettings_disabled">Priority is disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes is enabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes is disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Your device has linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
+    <string name="phone_profiles_pref_applicationPowerParametersCategory">Battery and power</string>
+    <string name="phone_profiles_pref_applicationOtherParametersCategory">Other</string>
+    <string name="activity_log_header_log_time">Log time</string>
+    <string name="activity_log_header_data_type">Data type</string>
+    <string name="activity_log_header_data">Data</string>
+    <string name="profile_preferences_volumeDTMF">DTMF tones volume</string>
+    <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
+    <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
+    <string name="profile_preferences_enabled">Enabled</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
+    <string name="profile_preferences_types_G1_show_info">Click here to show more information.</string>
+    <string name="popup_window_events_status_show_info">Click here to show more information.</string>
+    <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
+    <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
+    <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
+    <!--
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Voor notificatie volume = 0 configureer de \"PhoneProfiles Stil\" toon voor echt stille meldingen.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notificatie toon \"PhoneProfiles Stil\" is niet geïnstalleerd. Installeer het vanuit het Editor menu en probeer opnieuw.</string>
+    -->
 
     <!-- **************************************************************************************** -->
 

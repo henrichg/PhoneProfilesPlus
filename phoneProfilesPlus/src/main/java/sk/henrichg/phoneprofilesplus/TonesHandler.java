@@ -24,6 +24,10 @@ class TonesHandler {
     static final int TONE_ID = R.raw.phoneprofiles_silent;
     static final String TONE_NAME = "PhoneProfiles Silent";
 
+    private static final String RINGING_TONE_URI_NONE = "content://settings/system/ringtone";
+    static final String NOTIFICATION_TONE_URI_NONE = "content://settings/system/notification_sound";
+    private static final String ALARM_TONE_URI_NONE = "content://settings/system/alarm_alert";
+
     static String getPhoneProfilesSilentUri(Context context,
                                             @SuppressWarnings("SameParameterValue") int type) {
         try {
@@ -53,9 +57,19 @@ class TonesHandler {
     static String getToneName(Context context,
                               @SuppressWarnings("SameParameterValue") int type,
                               String _uri) {
+
+        if ((type == RingtoneManager.TYPE_RINGTONE) && (_uri.isEmpty() || _uri.equals(RINGING_TONE_URI_NONE)))
+            return context.getString(R.string.ringtone_preference_none);
+        if ((type == RingtoneManager.TYPE_NOTIFICATION) && (_uri.isEmpty() || _uri.equals(NOTIFICATION_TONE_URI_NONE)))
+            return context.getString(R.string.ringtone_preference_none);
+        if ((type == RingtoneManager.TYPE_ALARM) && (_uri.isEmpty() || _uri.equals(ALARM_TONE_URI_NONE)))
+            return context.getString(R.string.ringtone_preference_none);
+
         RingtoneManager manager = new RingtoneManager(context);
         manager.setType(type);
         Cursor cursor = manager.getCursor();
+
+        PPApplication.logE("TonesHandler.getToneName", "_uri="+_uri);
 
         while (cursor.moveToNext()) {
             String id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);

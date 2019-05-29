@@ -738,16 +738,13 @@
     <string name="profile_preferences_category_profileActivationParameters">Aktivierungsparameter</string>
     <string name="profile_preferences_category_profileDeviceParameters">Geräte-Parameter</string>
     <string name="profile_preferences_volumeNotificationVolume0_title">Benachrichtigungston ändern</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigured">Benachrichtigungston \"PhoneProfiles Silent\" ist konfiguriert.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Für die Benachrichtigungslautstärke 0 wähle den Benachrichtigungston \"PhoneProfiles Silent\", um Benachrichtigungen wirklich stumm zu stellen.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_question">\"PhoneProfiles Silent\" als Benachrichtigungston einstellen?</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Benachrichtigungston \"PhoneProfiles Silent\" ist nicht installiert. Bitte installiere ihn vom Editor-Menü.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Benachrichtigungston \"PhoneProfiles Silent\" ist konfiguriert.</string>
     <string name="info_notification_unlink_ringer_notification_volumes">Dein Gerät hat verbundene Anruf- und Benachrichtigungs-Lautstärke. Klicke hier, wenn du sie trennen willst.</string>
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Dein Gerät hat verbundene Anruf- und Benachrichtigungs-Lautstärke. Aktiviere diese Option, wenn du sie trennen willst.</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings">Prioritäten verwenden</string>
     <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Aktiviere die Nutzung von Prioritäten in den App-Einstellungen.</string>
     <string name="phone_profiles_pref_notificationStatusBarNew">Benachrichtigung in der Statusleiste</string>
-    <string name="profile_preferences_volumeNotificationVolume0_questionNowConfigured">Derzeit eingestellt:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Derzeit eingestellt:</string>
     <string name="profile_preferences_volumeRingtone0Info_title">Klingeltonlautstärke = 0</string>
     <string name="profile_preferences_volumeRingtone0Info_summary">Anruflautstärke = 0 schaltet das Gerät in den \"Bitte nicht stören\"-Modus. Die Benachrichtigungslautstärke wird ignoriert.</string>
     <string name="phone_profiles_pref_notificationStatusBarInfo_title">Wichtige Information!</string>
@@ -1306,6 +1303,39 @@
     <string name="info_notification_event_not_started_2">du das allgemeine Ausführen von Ereignissen angehalten hast (rote \"Ampel\"). Im Editor kannst du es mit dem Menüpunkt \"Laufende Ereignisse aktivieren\" wieder aktivieren.</string>
     <string name="info_notification_event_not_started_3">du ein Profil manuell aktiviert hast (gelbe \"Ampel\"). Dann musst du \"Ereignisse neu starten\" im Starter, Editor oder der Benachrichtigung wählen. Ein manuell aktiviertes Profil wird auch mit einem \"[M]\" vor dem Profilnamen angezeigt. Ausnahmen bilden Ereignisse, in denen \"Manuelle Aktivierung ignorieren\" ausgewählt ist.</string>
     <string name="info_notification_event_not_started_4">du das Ereignis in den Ereigniseinstellungen angehalten hast. \"Ereignis aktiveren\" muss ausgewählt sein. Beachte: Die \"Ampel\" ist oben im Starter und Editor.</string>
+
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
+    <string name="permission_why_profile_radio_preferences_emui">for enable/disable mobile data, change mobile network type, connect to SSID, enable/disable Bluetooth</string>
+    <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
+    <string name="event_preferences_priority_appSettings_enabled">Priority is enabled</string>
+    <string name="event_preferences_priority_appSettings_disabled">Priority is disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes is enabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes is disabled</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Your device has linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
+    <string name="phone_profiles_pref_applicationPowerParametersCategory">Battery and power</string>
+    <string name="phone_profiles_pref_applicationOtherParametersCategory">Other</string>
+    <string name="activity_log_header_log_time">Log time</string>
+    <string name="activity_log_header_data_type">Data type</string>
+    <string name="activity_log_header_data">Data</string>
+    <string name="profile_preferences_volumeDTMF">DTMF tones volume</string>
+    <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
+    <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
+    <string name="profile_preferences_enabled">Enabled</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
+    <string name="profile_preferences_types_G1_show_info">Click here to show more information.</string>
+    <string name="popup_window_events_status_show_info">Click here to show more information.</string>
+    <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
+    <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
+    <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
+    <!--
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Für die Benachrichtigungslautstärke 0 wähle den Benachrichtigungston \"PhoneProfiles Silent\", um Benachrichtigungen wirklich stumm zu stellen.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Benachrichtigungston \"PhoneProfiles Silent\" ist nicht installiert. Bitte installiere ihn vom Editor-Menü.</string>
+    -->
 
     <!-- **************************************************************************************** -->
 
