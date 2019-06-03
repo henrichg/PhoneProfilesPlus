@@ -36,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -605,6 +606,27 @@ public class PPApplication extends Application {
 
         if (checkAppReplacingState())
             return;
+
+        ///////////////////////////////////////////
+        // Bypass Android's hidden API restrictions
+        // https://github.com/tiann/FreeReflection
+        if (Build.VERSION.SDK_INT >= 28) {
+            try {
+                Method forName = Class.class.getDeclaredMethod("forName", String.class);
+                Method getDeclaredMethod = Class.class.getDeclaredMethod("getDeclaredMethod", String.class, Class[].class);
+
+                Class<?> vmRuntimeClass = (Class<?>) forName.invoke(null, "dalvik.system.VMRuntime");
+                Method getRuntime = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "getRuntime", null);
+                Method setHiddenApiExemptions = (Method) getDeclaredMethod.invoke(vmRuntimeClass, "setHiddenApiExemptions", new Class[]{String[].class});
+
+                Object vmRuntime = getRuntime.invoke(null);
+
+                setHiddenApiExemptions.invoke(vmRuntime, new Object[]{new String[]{"L"}});
+            } catch (Exception e) {
+                Log.e("PPApplication.onCreate", Log.getStackTraceString(e));
+            }
+        }
+        //////////////////////////////////////////
 
         if (logIntoFile || crashIntoFile)
             Permissions.grantLogToFilePermissions(getApplicationContext());
