@@ -769,10 +769,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((preferenceCategory != null) && (preference != null))
                 preferenceCategory.removePreference(preference);
 
-            preferenceCategory = findPreference("categorySystem");
+            PreferenceCategory preferenceCategory2 = findPreference("applicationPowerParametersCategory");
             preference = findPreference(PREF_BATTERY_OPTIMIZATION_SYSTEM_SETTINGS);
-            if ((preferenceCategory != null) && (preference != null))
-                preferenceCategory.removePreference(preference);
+            if ((preferenceCategory2 != null) && (preference != null))
+                preferenceCategory2.removePreference(preference);
         }
 
         if (PPApplication.isRooted(true)) {
@@ -1079,7 +1079,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 });
             } else {
-                PreferenceScreen preferenceCategory = findPreference("categorySystem");
+                PreferenceCategory preferenceCategory = findPreference("applicationPowerParametersCategory");
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
