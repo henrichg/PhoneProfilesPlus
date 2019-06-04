@@ -323,7 +323,8 @@ public class PhoneProfilesService extends Service
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_ORDER, true);
         editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, true);
         editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, true);
-        editor.putBoolean(EventPreferencesActivity.PREF_START_TARGET_HELPS, true);
+        editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, true);
+        //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
         editor.apply();
         */
 

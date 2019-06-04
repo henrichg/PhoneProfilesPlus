@@ -424,13 +424,13 @@ public class EventsPrefsActivity extends AppCompatActivity {
                 dialogBuilder.setView(superContainer);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
+                        /*SharedPreferences settings = ApplicationPreferences.getSharedPreferences(EventsPrefsActivity.this);
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NEVER_ASK_FOR_ENABLE_RUN, false);
-                        editor.apply();
+                        editor.apply();*/
 
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                        editor = preferences.edit();
+                        SharedPreferences.Editor editor = preferences.edit();
                         editor.putBoolean(Event.PREF_EVENT_ENABLED, true);
                         editor.apply();
 
