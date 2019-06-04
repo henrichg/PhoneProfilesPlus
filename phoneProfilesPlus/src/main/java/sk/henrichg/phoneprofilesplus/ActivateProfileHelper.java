@@ -939,31 +939,34 @@ class ActivateProfileHelper {
             if ((zenMode != ZENMODE_SILENT) && canChangeZenMode(context, false)) {
                 PPApplication.logE("ActivateProfileHelper.setZenMode", "not ZENMODE_SILENT and can change zen mode");
 
-                if (ringerMode != -1) {
-                    RingerModeChangeReceiver.notUnlinkVolumes = false;
-                    audioManager.setRingerMode(ringerMode/*AudioManager.RINGER_MODE_NORMAL*/);
-                    //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(500);
-                    PPApplication.sleep(500);
-                }
+                try {
+                    if (ringerMode != -1) {
+                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        audioManager.setRingerMode(ringerMode/*AudioManager.RINGER_MODE_NORMAL*/);
+                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(500);
+                        PPApplication.sleep(500);
+                    }
 
-                if ((zenMode != systemZenMode) || (zenMode == ZENMODE_PRIORITY)) {
-                    PPApplication.logE("ActivateProfileHelper.setZenMode", "change zen mode");
-                    RingerModeChangeReceiver.notUnlinkVolumes = false;
-                    PPNotificationListenerService.requestInterruptionFilter(context, zenMode);
-                    InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
-                }
+                    if ((zenMode != systemZenMode) || (zenMode == ZENMODE_PRIORITY)) {
+                        PPApplication.logE("ActivateProfileHelper.setZenMode", "change zen mode");
+                        RingerModeChangeReceiver.notUnlinkVolumes = false;
+                        PPNotificationListenerService.requestInterruptionFilter(context, zenMode);
+                        InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(context, zenMode);
+                    }
 
-                /*
-                if (zenMode == ZENMODE_PRIORITY) {
-                    PPApplication.logE("ActivateProfileHelper.setZenMode", "change ringer mode");
-                    //try { Thread.sleep(500); } catch (InterruptedException e) { }
-                    //SystemClock.sleep(500);
-                    PPApplication.sleep(1000);
-                    //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                    audioManager.setRingerMode(ringerMode);
-                }
-                */
+                    /*
+                    if (zenMode == ZENMODE_PRIORITY) {
+                        PPApplication.logE("ActivateProfileHelper.setZenMode", "change ringer mode");
+                        //try { Thread.sleep(500); } catch (InterruptedException e) { }
+                        //SystemClock.sleep(500);
+                        PPApplication.sleep(1000);
+                        //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                        audioManager.setRingerMode(ringerMode);
+                    }
+                    */
+                } catch (Exception ignored) {}
+
             } else {
                 PPApplication.logE("ActivateProfileHelper.setZenMode", "ZENMODE_SILENT or not can change zen mode");
                 try {
