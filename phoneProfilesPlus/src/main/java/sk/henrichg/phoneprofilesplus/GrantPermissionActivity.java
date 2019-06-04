@@ -92,9 +92,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
         boolean onlyNotification = intent.getBooleanExtra(Permissions.EXTRA_ONLY_NOTIFICATION, false);
         forceGrant = intent.getBooleanExtra(Permissions.EXTRA_FORCE_GRANT, false);
         permissions = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
-        PPApplication.logE("GrantPermissionActivity.onCreate", "permissions.size()="+permissions.size());
+        if (permissions != null)
+            PPApplication.logE("GrantPermissionActivity.onCreate", "permissions.size()="+permissions.size());
         permissionsForRecheck = intent.getParcelableArrayListExtra(Permissions.EXTRA_PERMISSION_TYPES);
-        PPApplication.logE("GrantPermissionActivity.onCreate", "permissionsForRecheck.size()="+permissionsForRecheck.size());
+        if (permissionsForRecheck != null)
+            PPApplication.logE("GrantPermissionActivity.onCreate", "permissionsForRecheck.size()="+permissionsForRecheck.size());
         /*mergedNotification = false;
         if (permissions == null) {
             permissions = Permissions.getMergedPermissions(getApplicationContext());
