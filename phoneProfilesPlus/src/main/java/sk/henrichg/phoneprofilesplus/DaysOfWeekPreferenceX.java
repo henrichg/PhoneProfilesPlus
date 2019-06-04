@@ -109,15 +109,17 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
 
         String summary = "";
 
-        String[] splits = value.split("\\|");
         boolean allIsConfigured = false;
         boolean[] daySet = new boolean[7];
-        for (String split : splits) {
-            if (split.equals(allValue)) {
-                allIsConfigured = true;
-                break;
+        String[] splits = value.split("\\|");
+        if (!value.isEmpty()) {
+            for (String split : splits) {
+                if (split.equals(allValue)) {
+                    allIsConfigured = true;
+                    break;
+                }
+                daySet[Integer.valueOf(split)] = true;
             }
-            daySet[Integer.valueOf(split)] = true;
         }
         if (!allIsConfigured) {
             allIsConfigured = true;
