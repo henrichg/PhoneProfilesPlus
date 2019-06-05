@@ -834,6 +834,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             });
         }
 
+        InfoDialogPreferenceX infoDialogPreference = prefMng.findPreference("eventSensorsInfo");
+        if (infoDialogPreference != null) {
+            String info = getString(R.string.event_preferences_sensorsInfo_summary);
+            info = "• " + info;
+            info = info.replace("\n\n", "\n\n• ");
+            infoDialogPreference.setInfoText(info);
+        }
+
     }
 
     @Override
