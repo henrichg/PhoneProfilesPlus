@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 public class ImportantInfoHelpFragment extends Fragment {
 
     int scrollTo = 0;
+    boolean firstInstallation = false;
 
     public ImportantInfoHelpFragment() {
         // Required empty public constructor
@@ -62,21 +63,21 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
 
         boolean news = false;
-        boolean newsLatest = (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean newsLatest = (!firstInstallation) && (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
-        boolean news4340 = (versionCode >= 4340) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news4340 = (!firstInstallation) && (versionCode >= 4340) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news4340="+news4340);
-        boolean news3985 = (versionCode >= 3985) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news3985 = (!firstInstallation) && (versionCode >= 3985) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3985="+news3985);
-        boolean news3670 = (versionCode >= 3670); // news for PhoneProfilesPlusExtender - show it when not activated
+        boolean news3670 = (!firstInstallation) && ((versionCode >= 3670) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3670="+news3670);
-        boolean news3640 = ((versionCode >= 3640) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        boolean news3640 = (!firstInstallation) && ((versionCode >= 3640) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news3640="+news3640);
-        boolean news2190 = ((versionCode >= 2190) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        boolean news2190 = (!firstInstallation) && ((versionCode >= 2190) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news2190="+news2190);
-        boolean news1804 = ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        boolean news1804 = (!firstInstallation) && ((versionCode >= 1804) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news1804="+news1804);
-        boolean news1772 = ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
+        boolean news1772 = (!firstInstallation) && ((versionCode >= 1772) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news1772="+news1772);
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);

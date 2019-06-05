@@ -80,11 +80,13 @@ public class ImportantInfoActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
         Intent intent = getIntent();
+        boolean firstInstallation = intent.getBooleanExtra(ImportantInfoNotification.EXTRA_FIRST_INSTALLATION, false);
         int scrollTo = intent.getIntExtra(EXTRA_SCROLL_TO, 0);
 
         // add Fragments in your ViewPagerFragmentAdapter class
         ImportantInfoHelpFragment importantInfoHelpFragment = new ImportantInfoHelpFragment();
         importantInfoHelpFragment.scrollTo = scrollTo;
+        importantInfoHelpFragment.firstInstallation = firstInstallation;
         adapter.addFragment(importantInfoHelpFragment);
 
         QuickGuideHelpFragment quickGuideHelpFragment = new QuickGuideHelpFragment();
