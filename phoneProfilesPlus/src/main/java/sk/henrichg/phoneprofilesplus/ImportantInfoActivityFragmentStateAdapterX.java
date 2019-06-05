@@ -18,9 +18,17 @@ class ImportantInfoActivityFragmentStateAdapterX extends FragmentStateAdapter {
 
     @NonNull
     @Override
+    public Fragment createFragment(int position) {
+        return arrayList.get(position);
+    }
+
+    /*
+    @NonNull
+    @Override
     public Fragment getItem(int position) {
         return arrayList.get(position);
     }
+    */
 
     void addFragment(Fragment fragment) {
         arrayList.add(fragment);
