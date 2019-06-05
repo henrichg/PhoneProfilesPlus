@@ -49,6 +49,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     private MobileCellNamesDialogX mMobileCellsFilterDialog;
     private MobileCellNamesDialogX mMobileCellNamesDialog;
     private AppCompatImageButton addCellButton;
+    private TextView locationEnabledStatusTextView;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -241,29 +242,18 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
         });
 
-        final TextView locationEnabledStatusTextView = view.findViewById(R.id.mobile_cells_pref_dlg_locationEnableStatus);
-        String statusText;
-        if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
-            if (Build.VERSION.SDK_INT < 28)
-                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                        getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
-            else
-                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                        "* " +getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
-        } else {
-            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                    getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
-        }
-        locationEnabledStatusTextView.setText(statusText);
+        locationEnabledStatusTextView = view.findViewById(R.id.mobile_cells_pref_dlg_locationEnableStatus);
+        setLocationEnableStatus();
 
         AppCompatImageButton locationSystemSettingsButton = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsButton);
         locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
+                if ((getActivity() != null) &&
+                        GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    startActivity(intent);
+                    getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS);
                 }
                 else {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
@@ -315,6 +305,22 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         PPApplication.restartPhoneStateScanner(prefContext, false);
 
         preference.fragment = null;
+    }
+
+    void setLocationEnableStatus() {
+        String statusText;
+        if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
+            if (Build.VERSION.SDK_INT < 28)
+                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                        getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
+            else
+                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                        "* " +getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
+        } else {
+            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                    getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+        }
+        locationEnabledStatusTextView.setText(statusText);
     }
 
     @SuppressLint("StaticFieldLeak")

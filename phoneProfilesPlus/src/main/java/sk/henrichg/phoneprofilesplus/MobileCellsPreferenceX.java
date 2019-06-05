@@ -118,6 +118,11 @@ public class MobileCellsPreferenceX extends DialogPreference {
         return false;
     }
 
+    void setLocationEnableStatus() {
+        if (fragment != null)
+            fragment.setLocationEnableStatus();
+    }
+
     @SuppressWarnings("SameParameterValue")
     void refreshListView(final boolean forRescan, final int renameCellId)
     {

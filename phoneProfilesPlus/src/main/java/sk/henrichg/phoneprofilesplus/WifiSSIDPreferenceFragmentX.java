@@ -44,6 +44,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     private EditText SSIDName;
     private AppCompatImageButton addIcon;
     private WifiSSIDPreferenceAdapterX listAdapter;
+    private TextView locationEnabledStatusTextView;
 
     private AsyncTask<Void, Integer, Void> rescanAsyncTask;
 
@@ -177,24 +178,17 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             }
         });
 
-        final TextView locationEnabledStatusTextView = view.findViewById(R.id.wifi_ssid_pref_dlg_locationEnableStatus);
-        String statusText;
-        if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
-            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                    "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
-        } else {
-            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                    getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
-        }
-        locationEnabledStatusTextView.setText(statusText);
+        locationEnabledStatusTextView = view.findViewById(R.id.wifi_ssid_pref_dlg_locationEnableStatus);
+        setLocationEnableStatus();
 
         AppCompatImageButton locationSystemSettingsButton = view.findViewById(R.id.wifi_ssid_pref_dlg_locationSystemSettingsButton);
         locationSystemSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
+                if ((getActivity() != null) &&
+                        GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, prefContext.getApplicationContext())) {
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(intent);
+                    getActivity().startActivityForResult(intent, EventsPrefsFragment.RESULT_WIFI_LOCATION_SYSTEM_SETTINGS);
                 }
                 else {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(prefContext);
@@ -239,6 +233,18 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
         PPApplication.reregisterReceiversForWifiScanner(prefContext);
 
         preference.fragment = null;
+    }
+
+    void setLocationEnableStatus() {
+        String statusText;
+        if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
+            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                    "* " + getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
+        } else {
+            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                    getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+        }
+        locationEnabledStatusTextView.setText(statusText);
     }
 
     @SuppressLint("StaticFieldLeak")

@@ -51,11 +51,11 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_USE_PRIORITY_APP_SETTINGS = "eventUsePriorityAppSettings";
     private static final int RESULT_USE_PRIORITY_SETTINGS = 1988;
     private static final String PREF_MOBILE_CELLS_REGISTRATION = "eventMobileCellsRegistration";
-    private static final int RESULT_WIFI_LOCATION_SYSTEM_SETTINGS = 1989;
-    private static final int RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = 1990;
-    private static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
+    static final int RESULT_WIFI_LOCATION_SYSTEM_SETTINGS = 1989;
+    static final int RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS = 1990;
+    static final int RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS = 1991;
     private static final int RESULT_WIFI_KEEP_ON_SYSTEM_SETTINGS = 1992;
-    private static final int RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = 1993;
+    static final int RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS = 1993;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -960,24 +960,44 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
         }
         if (requestCode == RESULT_WIFI_LOCATION_SYSTEM_SETTINGS) {
+            WifiSSIDPreferenceX preference = prefMng.findPreference(EventPreferencesWifi.PREF_EVENT_WIFI_SSID);
+            if (preference != null) {
+                preference.setLocationEnableStatus();
+            }
+
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
             setPermissionsPreference();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
+            BluetoothNamePreferenceX preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
+            if (preference != null) {
+                preference.setLocationEnableStatus();
+            }
+
             event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
             setPermissionsPreference();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
+            LocationGeofencePreferenceX preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_GEOFENCES);
+            if (preference != null) {
+                preference.setLocationEnableStatus();
+            }
+
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
             setPermissionsPreference();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");
             ActivateProfileHelper.updateGUI(context.getApplicationContext(), true, true);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
+            MobileCellsPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
+            if (preference != null) {
+                preference.setLocationEnableStatus();
+            }
+
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
             setPermissionsPreference();
             PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventPreferencesNestedFragment.doOnActivityResult");

@@ -134,6 +134,11 @@ public class WifiSSIDPreferenceX extends DialogPreference {
         //GlobalGUIRoutines.setPreferenceTitleStyle(preference, false, true, false, false);
     }
 
+    void setLocationEnableStatus() {
+        if (fragment != null)
+            fragment.setLocationEnableStatus();
+    }
+
     void persistValue() {
         if (shouldPersist()) {
             if (callChangeListener(value))

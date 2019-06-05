@@ -88,6 +88,11 @@ public class BluetoothNamePreferenceX extends DialogPreference {
         return false;
     }
 
+    void setLocationEnableStatus() {
+        if (fragment != null)
+            fragment.setLocationEnableStatus();
+    }
+
     @SuppressWarnings("SameParameterValue")
     void refreshListView(boolean forRescan, final String scrollToBTName)
     {

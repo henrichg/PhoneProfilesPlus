@@ -117,7 +117,12 @@ public class LocationGeofencePreferenceX extends DialogPreference {
         this.geofenceName.setText(name);
     }
     */
-    
+
+    void setLocationEnableStatus() {
+        if (fragment != null)
+            fragment.setLocationEnableStatus();
+    }
+
     public void refreshListView()
     {
         listAdapter.reload(dataWrapper);
