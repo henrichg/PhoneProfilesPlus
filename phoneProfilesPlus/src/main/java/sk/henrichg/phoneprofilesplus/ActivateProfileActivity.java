@@ -52,6 +52,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
     private final BroadcastReceiver showTargetHelpsBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive( Context context, Intent intent ) {
+            if (ActivateProfileActivity.this.isFinishing())
+                return;
+
             boolean forActivity = intent.getBooleanExtra(EXTRA_SHOW_TARGET_HELPS_FOR_ACTIVITY, false);
             if (forActivity)
                 ActivateProfileActivity.this.showTargetHelps();
