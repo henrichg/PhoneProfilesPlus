@@ -1304,38 +1304,34 @@
     <string name="info_notification_event_not_started_3">Máte manuálně aktivován profil (oranžový \"semafor\") - musíte restartovat události. Použijte ikonu \"Restart událostí\" v titulku Aktivátoru, Editoru nebo v notifikaci. Manuální aktivace profilu je také indikována \"[M]\" před názvem profilu. Výjimkou z blokování události manuální aktivací je, pokud máte v parametrech události zaškrnutý parametr \"Ignoruj manuální aktivaci\".</string>
     <string name="info_notification_event_not_started_4">Máte zakázáno spuštění události v jeho parametrech - parametr \"Povol běh\" musí být zaškrtnutý. Poznámka: \"Semafor\" se nachází v titulku Aktivátoru a Editoru.</string>
 
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
-    <string name="permission_why_profile_radio_preferences_emui">for enable/disable mobile data, change mobile network type, connect to SSID, enable/disable Bluetooth</string>
-    <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
-    <string name="event_preferences_priority_appSettings_enabled">Priority is enabled</string>
-    <string name="event_preferences_priority_appSettings_disabled">Priority is disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes is enabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes is disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Your device has linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
-    <string name="phone_profiles_pref_applicationPowerParametersCategory">Battery and power</string>
-    <string name="phone_profiles_pref_applicationOtherParametersCategory">Other</string>
-    <string name="activity_log_header_log_time">Log time</string>
-    <string name="activity_log_header_data_type">Data type</string>
-    <string name="activity_log_header_data">Data</string>
-    <string name="profile_preferences_volumeDTMF">DTMF tones volume</string>
-    <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
-    <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
-    <string name="profile_preferences_enabled">Enabled</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
-    <string name="profile_preferences_types_G1_show_info">Click here to show more information.</string>
-    <string name="popup_window_events_status_show_info">Click here to show more information.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
-    <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
-    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
-    <!--
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pro hlasitost notifikací = 0 nastavte zvuk notifikací na \"PhoneProfiles Silent\" pro skutečně tiché notifikace.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Zvuk notifikace \"PhoneProfiles Silent\" není nainstalován. Nainstalujte jej z menu Editoru a zkuste to znovu.</string>
-    -->
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Pokud skenování mobilních buněk nefunguje, aktivujte Polohu v nastaveních systému.</string>
+    <string name="permission_why_profile_radio_preferences_emui">pro zapnutí/vypnutí mobilních dat, změnu typu mobilní sítě, připojení k SSID, zapnutí / vypnutí Bluetooth</string>
+    <string name="permission_why_event_bluetooth_preferences_emui">pro zapnutí/vypnutí Bluetooth v senzoru Bluetooth</string>
+    <string name="event_preferences_priority_appSettings_enabled">Priorita je zapnutá</string>
+    <string name="event_preferences_priority_appSettings_disabled">Priorita je vypnutá</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Oddělování hlasitostí je zapnuto</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Oddělování hlasitostí je vypnuté</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Vaše zařízení má sloučenou hlasitost vyzvánění hovorů a notifikací. Klikněte sem nakonfigurování jejich oddělování.</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Vaše zařízení nemá sloučenou hlasitost vyzvánění hovorů a notifikací. Klikněte sem nakonfigurování jejich oddělování.</string>
+    <string name="phone_profiles_pref_applicationPowerParametersCategory">Baterie a napájení</string>
+    <string name="phone_profiles_pref_applicationOtherParametersCategory">Ostaní</string>
+    <string name="activity_log_header_log_time">Čas logu</string>
+    <string name="activity_log_header_data_type">Typ údajů</string>
+    <string name="activity_log_header_data">Údaje</string>
+    <string name="profile_preferences_volumeDTMF">Hlasitost DTMF tónů</string>
+    <string name="profile_preferences_volumeAccessibility">Hlasitost hlášek dostupnosti</string>
+    <string name="profile_preferences_volumeBluetoothSCO">Hlasitost Bluetooth hovoru</string>
+    <string name="profile_preferences_enabled">Povolené</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Klikněte sem pro zobrazení informací o typech parametrů: (G1), (R), (S), (I).</string>
+    <string name="profile_preferences_types_G1_show_info">Klikněte sem pro zobrazení více informací.</string>
+    <string name="popup_window_events_status_show_info">Klikněte sem pro zobrazení více informací.</string>
+    <string name="editor_activity_targetHelps_filterSpinner_title">Filtr pohledů</string>
+    <string name="editor_activity_targetHelps_filterSpinner_description">Klikněte sem pro přepínání mezi pohledy na Profily a Události.</string>
+    <string name="important_info_profile_type_of_preferences">Typy parametrů:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Nakonfigurovat tón oznámení na:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Tón oznámení \"Žádný\" je nakonfigurován.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pro zcela tichou hlasitost notifikací, nakonfigurujte tón oznámení na \"PhoneProfiles Silent\" nebo \"Žádný\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Tón oznámení \"PhoneProfiles Silent\" není nainstalován. Prosím nainstalujte ho v parametru profilu \"Tóny\".</string>
 
     <!-- **************************************************************************************** -->
 
