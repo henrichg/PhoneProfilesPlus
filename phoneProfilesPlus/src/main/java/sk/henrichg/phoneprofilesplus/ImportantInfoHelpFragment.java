@@ -65,6 +65,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         boolean news = false;
         boolean newsLatest = (!firstInstallation) && (versionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "newsLatest="+newsLatest);
+        boolean news4550 = (!firstInstallation) && (versionCode >= 4550) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news4550="+news4550);
         boolean news4340 = (!firstInstallation) && (versionCode >= 4340) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
         PPApplication.logE("ImportantInfoHelpFragment.onViewCreated", "news4340="+news4340);
         boolean news3985 = (!firstInstallation) && (versionCode >= 3985) && (versionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
@@ -82,9 +84,19 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
 
+        //noinspection StatementWithEmptyBody
         if (newsLatest) {
             // move this to newXXX, for switch off news
 
+            //news = news ||
+            //        news_extender;
+        }
+        else {
+            // move this to newXXX, for switch off news
+
+        }
+
+        if (news4550) {
             if (Build.VERSION.SDK_INT >= 28) {
                 TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
                 infoText21.setOnClickListener(new View.OnClickListener() {
@@ -124,13 +136,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
                 infoText21.setVisibility(View.GONE);
             }
-
-            //news = news ||
-            //        news_extender;
         }
         else {
-            // move this to newXXX, for switch off news
-
             if (Build.VERSION.SDK_INT >= 28) {
                 TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
                 infoText21.setVisibility(View.GONE);

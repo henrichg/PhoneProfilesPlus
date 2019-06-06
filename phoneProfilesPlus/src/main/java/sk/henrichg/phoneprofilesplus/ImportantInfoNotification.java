@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat;
 class ImportantInfoNotification {
 
     // this version code must by <= version code in dependencies.gradle
-    static final int VERSION_CODE_FOR_NEWS = 4550;
+    static final int VERSION_CODE_FOR_NEWS = 4651;
 
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START = "show_info_notification_on_start";
     private static final String PREF_SHOW_INFO_NOTIFICATION_ON_START_VERSION = "show_info_notification_on_start_version";
@@ -58,6 +58,7 @@ class ImportantInfoNotification {
         PPApplication.logE("ImportantInfoNotification.canShowNotification", "packageVersionCode="+packageVersionCode);
 
         boolean newsLatest = (packageVersionCode >= ImportantInfoNotification.VERSION_CODE_FOR_NEWS);
+        boolean news4550 = ((packageVersionCode >= 4550) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news4340 = ((packageVersionCode >= 4340) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news3670 = ((packageVersionCode >= 3670) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
         boolean news1804 = ((packageVersionCode >= 1804) && (packageVersionCode < ImportantInfoNotification.VERSION_CODE_FOR_NEWS));
@@ -70,6 +71,11 @@ class ImportantInfoNotification {
 
         if (newsLatest) {
             // change to false for not show notification
+            //noinspection ConstantConditions
+            news = false;
+        }
+
+        if (news4550) {
             if (Build.VERSION.SDK_INT >= 28)
                 news = true;
         }
