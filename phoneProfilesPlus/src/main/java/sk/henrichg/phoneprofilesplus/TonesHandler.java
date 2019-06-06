@@ -159,6 +159,7 @@ class TonesHandler {
         return true;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     static boolean isToneInstalled(/*@SuppressWarnings("SameParameterValue") int resID,*/
                                    Context context) {
         //if (Permissions.checkInstallTone(context, null)) {

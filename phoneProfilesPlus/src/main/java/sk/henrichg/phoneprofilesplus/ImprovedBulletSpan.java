@@ -12,9 +12,9 @@ import android.text.style.LeadingMarginSpan;
 @SuppressWarnings("unused")
 public final class ImprovedBulletSpan implements LeadingMarginSpan {
     private Path mBulletPath;
-    private int bulletRadius;
-    private int gapWidth;
-    private int color;
+    private final int bulletRadius;
+    private final int gapWidth;
+    private final int color;
 
     public int getLeadingMargin(boolean first) {
         return 2 * this.bulletRadius + this.gapWidth;

@@ -55,7 +55,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     public static final int SIGN_POSITIVE = 0;
     public static final int SIGN_NEGATIVE = 1;
 
-    protected View mDivider;
+    private View mDivider;
     private ColorStateList mTextColor;
     private int mKeyBackgroundResId;
     private int mButtonBackgroundResId;
@@ -63,9 +63,7 @@ public class NumberPicker extends LinearLayout implements Button.OnClickListener
     private int mDeleteDrawableSrcResId;
     private int mTheme = -1;
 
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     protected BigDecimal mMinNumber = null;
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     protected BigDecimal mMaxNumber = null;
 
     /**

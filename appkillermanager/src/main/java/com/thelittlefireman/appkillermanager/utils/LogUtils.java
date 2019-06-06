@@ -48,7 +48,6 @@ public class LogUtils {
         logFile.delete();
     }
 
-    @SuppressWarnings("UnusedAssignment")
     @SuppressLint("SimpleDateFormat")
     static private void logIntoFile(String type, String tag, String text)
     {

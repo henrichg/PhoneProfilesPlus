@@ -515,7 +515,7 @@ public final class RootToolsInternalMethods {
 
                         String[] temp = line.split(" ");
 
-                        //noinspection ConstantConditions,ConstantConditions
+                        //noinspection ConstantConditions
                         if (temp.length > 1 && temp[1].contains("v1.") && !foundVersion) {
                             //noinspection UnusedAssignment
                             foundVersion = true;
@@ -548,7 +548,7 @@ public final class RootToolsInternalMethods {
 
                             String[] temp = line.split(" ");
 
-                            //noinspection ConstantConditions,ConstantConditions
+                            //noinspection ConstantConditions
                             if (temp.length > 1 && temp[1].contains("v1.") && !foundVersion) {
                                 //noinspection UnusedAssignment
                                 foundVersion = true;
@@ -739,7 +739,7 @@ public final class RootToolsInternalMethods {
 
         InternalVariables.mounts = new ArrayList<>();
 
-        //noinspection ConstantConditions,ConstantConditions
+        //noinspection ConstantConditions
         if(null == InternalVariables.mounts || InternalVariables.mounts.isEmpty()) {
             Shell shell = RootTools.getShell(true);
 
@@ -1015,7 +1015,6 @@ public final class RootToolsInternalMethods {
      * space on SDCard. Will also return <code>false</code>, if the SDCard is not mounted as
      * read/write
      */
-    @SuppressWarnings("deprecation")
     public boolean hasEnoughSpaceOnSdCard(long updateSize) {
         RootTools.log("Checking SDcard size and that it is mounted as RW");
         String status = Environment.getExternalStorageState();

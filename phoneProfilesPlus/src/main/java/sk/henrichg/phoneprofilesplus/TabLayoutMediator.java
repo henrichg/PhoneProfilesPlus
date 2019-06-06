@@ -246,8 +246,8 @@ public final class TabLayoutMediator {
     // TabLayout.selectTab(TabLayout.Tab, boolean) through reflection, until they have been made
     // public in the Material Design Components library.
 
-    private static Method sSetScrollPosition;
-    private static Method sSelectTab;
+    private static final Method sSetScrollPosition;
+    private static final Method sSelectTab;
     private static final String SET_SCROLL_POSITION_NAME = "TabLayout.setScrollPosition(int, float,"
             + " boolean, boolean)";
     private static final String SELECT_TAB_NAME = "TabLayout.selectTab(TabLayout.Tab, boolean)";

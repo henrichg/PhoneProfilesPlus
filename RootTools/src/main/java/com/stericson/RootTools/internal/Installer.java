@@ -99,7 +99,6 @@ class Installer
             catch (FileNotFoundException e)
             {
                 FileOutputStream fos = null;
-                //noinspection TryFinallyCanBeTryWithResources
                 try
                 {
                     fos = context.openFileOutput("bogus", Context.MODE_PRIVATE);
@@ -141,7 +140,6 @@ class Installer
             InputStream iss = context.getResources().openRawResource(sourceId);
             ReadableByteChannel rfc = Channels.newChannel(iss);
             FileOutputStream oss = null;
-            //noinspection TryFinallyCanBeTryWithResources
             try
             {
                 oss = new FileOutputStream(mf);
