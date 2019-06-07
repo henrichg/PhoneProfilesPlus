@@ -104,7 +104,7 @@
     <attr name="fastScrollPopupTextPP" format="reference" />
     <attr name="actionDefaultProfile" format="reference" />
     <attr name="actionRunStopEventsIcon" format="reference" />
-    <attr name="editorDrawerSpinnerDropDownTextColor" format="reference" />
+    <attr name="editorSpinnerDropDownTextColor" format="reference" />
     <attr name="bottomToolbarTheme" format="reference" />
     <attr name="editorFilterTitleColor" format="reference" />
     <attr name="runEventsIndicatorAll" format="reference" />

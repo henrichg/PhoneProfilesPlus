@@ -2696,7 +2696,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (position == mSelectedIndex) {
                     itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(context));
                 } else {
-                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorDrawerSpinnerDropDownTextColor(context));
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorSpinnerDropDownTextColor(context));
                 }
             }
 

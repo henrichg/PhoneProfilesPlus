@@ -906,9 +906,9 @@ class GlobalGUIRoutines {
     }
     */
 
-    static int getThemeEditorDrawerSpinnerDropDownTextColor(final Context context) {
+    static int getThemeEditorSpinnerDropDownTextColor(final Context context) {
         final TypedValue value = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.editorDrawerSpinnerDropDownTextColor, value, true);
+        context.getTheme().resolveAttribute(R.attr.editorSpinnerDropDownTextColor, value, true);
         return value.data;
     }
 
