@@ -130,6 +130,7 @@ public class PPApplication extends Application {
                                          //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
                                          //+"|EditorProfilesActivity.onStart"
+                                         +"|EditorProfilesActivity.onActivityResult"
 
                                          //+"|PostDelayedBroadcastReceiver"
 
