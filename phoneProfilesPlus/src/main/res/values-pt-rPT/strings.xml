@@ -7,7 +7,7 @@
   <string name="menu_settings">Definições</string>
   <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
   <string name="title_activity_profile_preferences">Preferências do Perfil</string>
-  <string name="title_activity_event_preferences">Event preferences</string>
+  <string name="title_activity_event_preferences">Opçoes de evento</string>
   <string name="menu_new_profile">Novo perfil</string>
   <string name="menu_delete_all_profiles">Apagar todos os perfis</string>
   <string name="menu_new_event">Novo evento</string>
@@ -94,11 +94,11 @@
   <string name="toast_import_ok">Opções restauradas</string>
   <string name="import_profiles_alert_title">Opções de restauro</string>
   <string name="import_profiles_alert_message">Tem a certeza?</string>
-  <string name="import_profiles_alert_error">Error during restore process</string>
-  <string name="export_profiles_alert_title">Backup settings</string>
-  <string name="export_profiles_alert_error">Error during backup process</string>
+  <string name="import_profiles_alert_error">Erro durante o restauro</string>
+  <string name="export_profiles_alert_title">Opções de backup</string>
+  <string name="export_profiles_alert_error">Erro durante o processo de backup</string>
   <string name="profile_preferences_deviceMobileData">Dados móveis</string>
-  <string name="profile_preferences_deviceMobileDataPrefs">(l) Preferências dos dados móveis</string>
+  <string name="profile_preferences_deviceMobileDataPrefs">(l) Opções dos dados móveis</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_color">Colorido</string>
   <string name="phone_profiles_pref_notificationStatusBarStyle_android">Nativo</string>
   <string name="phone_profiles_pref_applicationLongClickActivation">Pressão longa para ativar perfil</string>
@@ -133,8 +133,8 @@
   <string name="editor_drawer_title_profiles">Perfil</string>
   <string name="editor_drawer_title_events">Evento</string>
   <string name="editor_drawer_list_item_profiles_all">Todos</string>
-  <string name="editor_drawer_list_item_profiles_show_in_activator">Shown in Activator</string>
-  <string name="editor_drawer_list_item_profiles_no_show_in_activator">Not shown in Activator</string>
+  <string name="editor_drawer_list_item_profiles_show_in_activator">Mostrar no ativador</string>
+  <string name="editor_drawer_list_item_profiles_no_show_in_activator">Não mostrar no ativador</string>
   <string name="editor_drawer_list_item_events_all">Todos</string>
   <string name="editor_drawer_list_item_events_running">a correr</string>
   <string name="editor_drawer_list_item_events_paused">Em Pausa</string>
@@ -142,20 +142,20 @@
   <string name="profile_preferences_deviceAutosync">Sincronização automatica</string>
   <string name="editor_drawer_order_label">Ordenar eventor por:</string>
   <string name="editor_drawer_order_event_name">Nome do evento</string>
-  <string name="editor_drawer_order_profile_name">Profile name</string>
+  <string name="editor_drawer_order_profile_name">Nome do perfil</string>
   <string name="toast_default_profiles_generated">Default profiles generated</string>
-  <string name="default_profile_name_home">Home</string>
-  <string name="default_profile_name_outdoor">Outdoor</string>
-  <string name="default_profile_name_work">Work</string>
-  <string name="default_profile_name_meeting">Meeting</string>
-  <string name="default_profile_name_sleep">Sleep</string>
-  <string name="alert_button_yes">Yes</string>
-  <string name="alert_button_no">No</string>
+  <string name="default_profile_name_home">Casa</string>
+  <string name="default_profile_name_outdoor">Exterior</string>
+  <string name="default_profile_name_work">Trabalho</string>
+  <string name="default_profile_name_meeting">Reunião</string>
+  <string name="default_profile_name_sleep">Repousar</string>
+  <string name="alert_button_yes">Sim</string>
+  <string name="alert_button_no">Não</string>
   <string name="profile_preferences_deviceAutoRotation">Display rotation</string>
   <string name="title_activity_activator">Activator</string>
   <string name="title_activity_editor">Editor</string>
   <string name="menu_run_events">Enable run events</string>
-  <string name="menu_stop_events">Stop events</string>
+  <string name="menu_stop_events">Parar Eventos</string>
   <string name="array_pref_0_percent" formatted="false">0%</string>
   <string name="array_pref_25_percent" formatted="false">25%</string>
   <string name="array_pref_50_percent" formatted="false">50%</string>
@@ -207,17 +207,17 @@
   <string name="event_preferences_call_contacts">Contacts</string>
   <string name="event_preferences_call_event">Call event</string>
   <string name="array_event_pref_ringing">Ringing</string>
-  <string name="array_event_pref_incall_started">Incoming call answered</string>
-  <string name="array_event_pref_outcall_answered">Outgoing call started</string>
+  <string name="array_event_pref_incall_started">Chamada atendida</string>
+  <string name="array_event_pref_outcall_answered">Chamada efetuada</string>
   <string name="event_preferences_contactListType">Contact list type</string>
   <string name="array_event_pref_contact_list_type_white_list">White list</string>
   <string name="array_event_pref_contact_list_type_black_list">Black list</string>
   <string name="array_event_pref_contact_list_type_not_use">Do not use</string>
   <string name="event_type_call">Call</string>
-  <string name="pref_event_call_event">Event</string>
+  <string name="pref_event_call_event">Evento</string>
   <string name="pref_event_call_contactListType">List</string>
   <string name="event_preferences_battery_level_bad_value">Bad value</string>
-  <string name="event_preferences_eventProfileEnd">Activate profile</string>
+  <string name="event_preferences_eventProfileEnd">Activar perfil</string>
   <string name="menu_restart_events">Restart events</string>
   <string name="event_preferences_ForceRun">Ignore manual activation</string>
   <string name="restart_events_alert_title">Restart events</string>
@@ -232,8 +232,8 @@
   <string name="array_event_pref_priorityMedium">[P:5] Medium</string>
   <string name="array_event_pref_priorityLow">[P:3] Low</string>
   <string name="array_event_pref_priorityVeryLow">[P:1] Very low</string>
-  <string name="editor_drawer_order_priority">Priority</string>
-  <string name="event_type_peripheral">Accessories</string>
+  <string name="editor_drawer_order_priority">Prioridade</string>
+  <string name="event_type_peripheral">Accessorios</string>
   <string name="array_event_pref_peripheralType_deskDock">Desk dock</string>
   <string name="array_event_pref_peripheralType_carDock">Car dock</string>
   <string name="event_preferences_category_eventPeripheralParameters">Accessories sensor</string>
@@ -245,13 +245,13 @@
   <string name="default_event_name_weekend">Weekend</string>
   <string name="default_event_name_during_the_work">During work</string>
   <string name="default_event_name_overnight">Overnight</string>
-  <string name="default_event_name_low_battery">Low battery</string>
-  <string name="default_profile_name_battery_low">Low battery</string>
-  <string name="calendars_multiselect_summary_text_selected">Selected</string>
-  <string name="calendars_multiselect_summary_text_not_selected">Not selected</string>
+  <string name="default_event_name_low_battery">Bateria baixa</string>
+  <string name="default_profile_name_battery_low">Bateria baixa</string>
+  <string name="calendars_multiselect_summary_text_selected">Seleccionado</string>
+  <string name="calendars_multiselect_summary_text_not_selected">Não selecionado</string>
   <string name="event_preferences_category_eventCalendarParameters">Calendar sensor</string>
-  <string name="event_preferences_calendar_calendars">Calendars</string>
-  <string name="event_type_calendar">Calendar</string>
+  <string name="event_preferences_calendar_calendars">Calendario</string>
+  <string name="event_type_calendar">Calendario</string>
   <string name="event_preferences_calendar_search_field">Search field</string>
   <string name="array_event_pref_calendarSearchField_eventName">Event name</string>
   <string name="array_event_pref_calendarSearchField_description">Description</string>
@@ -311,7 +311,7 @@
   <string name="phone_profiles_pref_notificationStatusBarPermanent">Ongoing notification</string>
   <string name="phone_profiles_pref_notificationStatusBarCancel">Cancel after</string>
   <string name="event_name_background_profile">Default profile</string>
-  <string name="phone_profiles_pref_applicationEventWifiRescan">Re-scan Wi-Fi</string>
+  <string name="phone_profiles_pref_applicationEventWifiRescan">Pesquisar Wi-Fi</string>
   <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>
   <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>
@@ -839,12 +839,12 @@
   <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Use this if volume link detection is wrong.</string>
   <string name="profile_preferences_category_application">Funções de aplicação</string>
   <string name="profile_preferences_applicationDisableWifiScanning">Disable Wi-Fi scanning</string>
-  <string name="profile_preferences_applicationDisableBluetoothScanning">Disable Bluetooth scanning</string>
+  <string name="profile_preferences_applicationDisableBluetoothScanning">Disativar pesquisa Bluetooth</string>
   <string name="array_pref_ringerModeArray_ZenModeM">Não incomodar</string>
   <string name="profile_preferences_volumeZenModeM">\"Não incomodar\" tipo</string>
   <string name="array_pref_zenModeArray_off">Desligado</string>
   <string name="array_pref_zenModeArray_offButVibration">Desligado com vibração</string>
-  <string name="array_pref_zenModeArray_totalSilence">Total silence</string>
+  <string name="array_pref_zenModeArray_totalSilence">Silencio total</string>
   <string name="profile_preferences_zenMode_off_summary">Disturb with all notifications</string>
   <string name="profile_preferences_zenMode_totalSilence_summary">Silence all notifications</string>
   <string name="array_pref_applicationDisableScanning_disabled">Scanning disabled</string>
@@ -1326,9 +1326,9 @@
     <string name="popup_window_events_status_show_info">Click here to show more information.</string>
     <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
     <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
-    <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
-    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
+    <string name="important_info_profile_type_of_preferences">Tipo de preferencias:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configurar tom de notificação:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">tom de notificação \"None\" está configurado.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
 
@@ -1351,8 +1351,8 @@
 
     <string name="extender_accessibility_service_event_sensor_sms_mms">• Accessibility service for event parameter \"SMS/MMS sensor\". Accessibility function is not used, service is needed for receiving SMS and MMS.:</string>
     <string name="extender_permissions_event_sensor_sms_mms">• Permissions for event parameter \"SMS/MMS sensor\" - permission SMS:</string>
-    <string name="extender_permissions_not_granted">Not granted</string>
-    <string name="extender_permissions_granted">Granted</string>
+    <string name="extender_permissions_not_granted">Não autorizado</string>
+    <string name="extender_permissions_granted">Autorizado</string>
     <string name="extender_permissions_button">Dar/negar\npermissões</string>
 
     <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
@@ -1360,5 +1360,5 @@
     <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
     <string name="extender_toast_permissions_not_granted">Permissões não atribuídas</string>
 
-    <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
+    <string name="extender_accessibility_service_profile_lock_device">• Parametros de acessibilidade para o perfil \"Bloquear dispositivo\":</string>
 </resources>
