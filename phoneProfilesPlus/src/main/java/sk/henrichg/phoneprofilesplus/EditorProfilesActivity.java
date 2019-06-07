@@ -493,9 +493,9 @@ public class EditorProfilesActivity extends AppCompatActivity
         };
         HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
-                R.layout.editor_order_spinner,
+                R.layout.editor_toolbar_spinner,
                 filterItems);
-        filterSpinnerAdapter.setDropDownViewResource(R.layout.editor_order_spinner_dropdown);
+        filterSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
         switch (appTheme) {
             case "dark":
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
@@ -529,7 +529,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         orderSpinner = findViewById(R.id.editor_list_bottom_bar_order);
         HighlightedSpinnerAdapter orderSpinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
-                R.layout.editor_order_spinner,
+                R.layout.editor_toolbar_spinner,
                 getResources().getStringArray(R.array.orderEventsArray));
         /*
         ArrayAdapter<CharSequence> orderSpinnerAdapter = ArrayAdapter.createFromResource(
@@ -537,9 +537,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     getBaseContext(),
                                     R.array.orderEventsArray,
                                     //android.R.layout.simple_spinner_item);
-                                    R.layout.editor_order_spinner);*/
+                                    R.layout.editor_toolbar_spinner);*/
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
-        orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_order_spinner_dropdown);
+        orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
         switch (appTheme) {
             case "dark":
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
