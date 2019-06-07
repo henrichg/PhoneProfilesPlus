@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -490,13 +491,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
                 getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
         };
-        ArrayAdapter<String> filterSpinnerAdapter = new ArrayAdapter<>(
-                //getSupportActionBar().getThemedContext(),
-                getBaseContext(),
-                //android.R.layout.simple_spinner_item);
+        OrderSpinnerAdapter filterSpinnerAdapter = new OrderSpinnerAdapter(
+                this,
                 R.layout.editor_order_spinner,
                 filterItems);
-        //filterSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         filterSpinnerAdapter.setDropDownViewResource(R.layout.editor_order_spinner_dropdown);
         switch (appTheme) {
             case "dark":
@@ -520,6 +518,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((OrderSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
                 selectFilterItem(position+1, true, true, /*false,*/ true);
             }
 
@@ -528,12 +527,17 @@ public class EditorProfilesActivity extends AppCompatActivity
         });
 
         orderSpinner = findViewById(R.id.editor_list_bottom_bar_order);
+        OrderSpinnerAdapter orderSpinnerAdapter = new OrderSpinnerAdapter(
+                this,
+                R.layout.editor_order_spinner,
+                getResources().getStringArray(R.array.orderEventsArray));
+        /*
         ArrayAdapter<CharSequence> orderSpinnerAdapter = ArrayAdapter.createFromResource(
                                     //getSupportActionBar().getThemedContext(),
                                     getBaseContext(),
                                     R.array.orderEventsArray,
                                     //android.R.layout.simple_spinner_item);
-                                    R.layout.editor_order_spinner);
+                                    R.layout.editor_order_spinner);*/
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_order_spinner_dropdown);
         switch (appTheme) {
@@ -558,6 +562,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((OrderSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
                 if (position != orderSelectedItem)
                     changeEventOrder(position/*, false*/);
             }
@@ -2670,6 +2675,39 @@ public class EditorProfilesActivity extends AppCompatActivity
                 }, 500);
             }
         }
+    }
+
+    class OrderSpinnerAdapter extends ArrayAdapter<String>{
+
+        private int mSelectedIndex = -1;
+        private Context context;
+
+        OrderSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+            this.context = context;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent){
+            View itemView =  super.getDropDownView(position, convertView, parent);
+
+            TextView itemText = itemView.findViewById(android.R.id.text1);
+            if (itemText != null) {
+                if (position == mSelectedIndex) {
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeAccentColor(context));
+                } else {
+                    itemText.setTextColor(GlobalGUIRoutines.getThemeEditorDrawerSpinnerDropDownTextColor(context));
+                }
+            }
+
+            return itemView;
+        }
+
+        public void setSelection(int position) {
+            mSelectedIndex =  position;
+            notifyDataSetChanged();
+        }
+
     }
 
 }
