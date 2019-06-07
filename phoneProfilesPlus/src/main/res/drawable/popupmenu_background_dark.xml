@@ -5,7 +5,7 @@
     <item>
         <shape android:shape="rectangle">
 
-            <solid android:color="#00202020" />
+            <solid android:color="#00454545" />
 
             <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
@@ -15,7 +15,7 @@
             <padding
                 android:bottom="2dp" />
 
-            <solid android:color="#80202020" />
+            <solid android:color="#80454545" />
 
             <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
@@ -28,7 +28,7 @@
                 android:right="1dp"
                 android:top="1dp" />
 
-            <solid android:color="#FF202020" />
+            <solid android:color="#FF454545" />
 
             <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
@@ -37,7 +37,7 @@
     <!-- Background -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/activityPopupBackground_dark" />
+            <solid android:color="@color/activityBackgroundColor_dark" />
 
             <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
