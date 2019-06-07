@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Профиль</string>
   <string name="toast_profile_activated_1">активирован</string>
   <string name="preference_profile_no_change">Не изменять</string>
-  <!--<string name="preference_profile_autoBrightness">Автоматическая</string>-->
+   <!--<string name="preference_profile_autoBrightness">Автоматическая</string>-->
   <string name="title_activity_phone_profiles_preferences">Настройки Приложения</string>
   <string name="menu_exit">Выход</string>
   <string name="activate_profile_alert_message">Активировать профиль?</string>
@@ -425,9 +425,9 @@
 <!--  <string name="permissions_for_install_tone_text2">Предоставьте их в следующем диалоговом окне. После этого звук будет установлен.</string>-->
   <string name="permissions_notification_text">Запрос разрешений</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Установка звука \"PhoneProfiles Silent\" требует дополнительных разрешений.</string>-->
-  <!--<string name="menu_install_tone">Установить звук \"PhoneProfiles Silent\"</string>-->
-  <string name="toast_tone_installation_installed_ok">Звук \"PhoneProfiles Silent\" установлен.</string>
-  <string name="toast_tone_installation_installed_error">Произошла ошибка при установке звука \"PhoneProfiles Silent\"!</string>
+   <!--<string name="menu_install_tone">Установить звук \"PhoneProfiles Silent\"</string>-->
+  <string name="toast_tone_installation_installed_ok">Мелодия уведомления \"PhoneProfiles Silent\" установлена.</string>
+  <string name="toast_tone_installation_installed_error">При установке мелодии уведомления \"PhoneProfiles Silent\" произошла ошибка!</string>
   <string name="toast_permissions_granted">Разрешения предоставлены</string>
   <string name="toast_permissions_not_granted">Разрешения не предоставлены</string>
   <string name="permissions_for_wallpaper_text1">Выбор обоев требует дополнительных разрешений.</string>
@@ -469,8 +469,8 @@
   <string name="array_pref_powerSaveMode_off">Выключить</string>
   <string name="array_pref_powerSaveMode_5" formated="false">Включить при 5% заряде батареи</string>
   <string name="array_pref_powerSaveMode_15" formated="false">Включить при 15% заряде батареи</string>
-  <string name="important_info_profile_ringerMode_root">В Android 6 невозможно изменить системную настройку «Вибрация при звонке» без прав Суперпользователя.</string>
-  <string name="important_info_profile_adaptiveBrightness_root">В Android 6+ невозможно изменить системную настройку «Адаптивная регулировка» без прав Суперпользователя.</string>
+  <string name="important_info_profile_ringerMode_root">В Android 6 невозможно изменить системную настройку \"Вибрация при звонке\" без прав Суперпользователя.</string>
+  <string name="important_info_profile_adaptiveBrightness_root">В Android 6+ невозможно изменить системную настройку \"Адаптивная регулировка\" без прав Суперпользователя.</string>
   <string name="important_info_profile_wifiScanning_location">В Android 6+ для Wi-Fi сканирования должен быть включен режим \"По всем источникам\" в настройках \"Местоположение\".</string>
   <string name="important_info_profile_bluetoothScanning_location">В Android 6+ для Bluetooth LE сканирования должен быть включен режим \"По всем источникам\" в настройках \"Местоположение\".</string>
   <string name="profile_preferences_devicePowerSaveMode">(G1)(R) Режим энергосбережения</string>
@@ -498,7 +498,7 @@
   <string name="important_info_profile_activation_text5">Исключение из этого правила - когда событиям установлено \"Игнорировать ручную активацию\".</string>
   <string name="important_info_profile_activation_text6">Перезапуск событий может быть вызван из Активатора, Редактора и уведомлений.</string>
   <string name="important_info_profile_activation_text8">В шапках и Активатора, и Редактора показывается «светофор».</string>
-  <string name="important_info_profile_activation_text9">Зеленый цвет: события могут быть запущены.</string>
+  <string name="important_info_profile_activation_text9">Зелёный цвет: события могут быть запущены.</string>
   <string name="important_info_profile_activation_text10">Оранжевый цвет: события не выполняются - профиль активирован вручную.</string>
   <string name="important_info_profile_activation_text11">Красный цвет: события остановлены - запуск событий может быть возобновлён с помощью пункта меню редактора \"Разрешить запуск событий\".</string>
   <string name="important_info_profile_activation_restart_events_icon">Иконка перезапуска событий:</string>
@@ -594,7 +594,7 @@
   <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Установите параметры сканирования ориентации в настройках приложения.</string>
   <string name="array_pref_screenTimeoutArray_24hours">24 часа</string>
   <string name="array_pref_screenTimeoutArray_alwaysOn">Включено всегда</string>
-  <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Если опция «24 часа» не работает на вашем устройстве (LG), попробуйте использовать вариант «Включено всегда». Опция «Включено всегда» может не работать на вашем устройстве (Samsung), попробуйте использовать вариант «24 часа».</string>
+  <string name="profile_preferences_deviceScreenTimeoutInfo_summary">Если опция \"24 часа\" не работает на вашем устройстве (LG), попробуйте использовать вариант \"Включено всегда\". Опция \"Включено всегда\" может не работать на вашем устройстве (Samsung), попробуйте использовать вариант \"24 часа\".</string>
   <string name="profile_preferences_vibrateWhenRinging">Вибрация при звонке</string>
   <string name="permissions_for_play_ringtone_notification_text1">Вы выбрали мелодию звонка/уведомления, расположенную на sdcard. Звук не будет воспроизводиться, поскольку для этого требуются дополнительные разрешения.</string>
   <string name="permissions_for_play_ringtone_notification_text2">Дайте разрешения в следующих диалоговых окнах. Затем мелодия будет установлена.</string>
@@ -610,7 +610,7 @@
   <string name="about_application_source_code">Исходный код:</string>
   <string name="about_application_translations">Переводы:</string>
   <string name="about_application_rate_in_googlePlay">Пожалуйста, оцените это приложение в Google Play</string>
-  <!--<string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>-->
+   <!--<string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>-->
   <string name="permission_group_name_access_notification_policy">Функция \"Не беспокоить\"</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Вы не разрешили доступ к функции \"Не беспокоить\". Больше не спрашивать?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Доступ к функции \"Не беспокоить\"</string>
@@ -645,8 +645,8 @@
   <string name="array_pref_mobile_cells_rename_selected">Выбранные</string>
   <string name="preference_not_allowed_reason_no_hardware">нет оборудования</string>
   <string name="preference_not_allowed_reason_not_rooted">нет root прав</string>
-  <string name="preference_not_allowed_reason_settings_not_found">утилита «настройки» не найдена</string>
-  <string name="preference_not_allowed_reason_service_not_found">утилита «настройки» не найдена</string>
+  <string name="preference_not_allowed_reason_settings_not_found">утилита \"Настройки\" не найдена</string>
+  <string name="preference_not_allowed_reason_service_not_found">утилита \"Настройки\" не найдена</string>
   <string name="preference_not_allowed_reason_not_supported">не поддерживается системой</string>
   <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Регистрация мобильных вышек</string>
   <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Все SSID, настроенные в системе</string>
@@ -715,7 +715,7 @@
   <string name="editor_event_list_item_profile_end_icon">Значок окончания события</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">При настройке каждого параметра профиля вы можете выбрать значение \"Исходный профиль\", и тогда при активации будут использованы значения этого параметра из Исходного профиля. Нажмите сюда, чтобы настроить параметры Исходного профиля.</string> -->
   <string name="run_stop_events_indicator">Включить/остановить индикатор запуска событий</string>
-<!--  <string name="run_stop_indicator_popup_window_important_info">Дополнительную информацию можно посмотреть на экране \"Важная информация\"; для этого надо нажать на вопросительный знак на панели инструментов.</string>-->
+ <!--  <string name="run_stop_indicator_popup_window_important_info">Дополнительную информацию можно посмотреть на экране \"Важная информация\"; для этого надо нажать на вопросительный знак на панели инструментов.</string>-->
   <string name="important_info_how_to_show">Эта важная информация может быть просмотрена в Редакторе при нажатии на значке вопросительного знака в панели инструментов.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">не поддерживается приложением</string>
   <string name="preference_not_allowed_reason_detail_old_android">старая версия Android</string>
@@ -738,11 +738,11 @@
   <string name="profile_preferences_category_profileActivationParameters">Параметры активации</string>
   <string name="profile_preferences_category_profileDeviceParameters">Параметры устройства</string>
   <string name="profile_preferences_volumeNotificationVolume0_title">Изменить мелодию уведомления</string>
-  <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Мелодия уведомления «PhoneProfiles Silent» настроена.</string>
+  <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Мелодия уведомления \"PhoneProfiles Silent\" установлена.</string>
   <string name="info_notification_unlink_ringer_notification_volumes">В вашем устройстве уровни громкости мелодии звонка и уведомлений объединены. Вы можете разделить их. Нажмите сюда, чтобы настроить разделение.</string>
   <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes_summary">Уровни громкости мелодии звонка и уведомлений в вашем устройстве объединены. Если Вы хотите разделить их, включите этот параметр.</string>
   <string name="phone_profiles_pref_eventUsePriorityAppSettings">Использовать приоритет</string>
-  <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Включить использование параметра «Приоритет» в настройках приложения.</string>
+  <string name="phone_profiles_pref_eventUsePriorityAppSettings_summary">Включить использование параметра \"Приоритет\" в настройках приложения.</string>
   <string name="phone_profiles_pref_notificationStatusBarNew">Уведомление в строке состояния</string>
   <string name="profile_preferences_volumeNotificationVolume0_NowConfigured">Текущие настройки:</string>
   <string name="profile_preferences_volumeRingtone0Info_title">Громкость звонка = 0</string>
@@ -872,7 +872,7 @@
   <string name="event_preferences_notificationVibrate">Уведомлять вибрацией</string>
   <string name="important_info_profile_grant">Некоторые настройки профиля требуют разрешение WRITE_SECURE_SETTINGS. ROOT не требуется. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Для получения дополнительной информации смотрите ниже в разделе «Профили».</string>
-<!--  <string name="profile_preferences_typesInfoGrant">Для получения дополнительной информации смотрите раздел \"Профили\" в \"Важной информации\".</string>-->
+ <!--  <string name="profile_preferences_typesInfoGrant">Для получения дополнительной информации смотрите раздел \"Профили\" в \"Важной информации\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Некоторые настройки профиля требуют разрешений, которые можно установить только через adb. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_1_howTo_2">Если adb на вашем компьютере не установлен:</string>
   <string name="important_info_profile_grant_1_howTo_3">Скачайте инструменты SDK с:</string>
@@ -1123,7 +1123,7 @@
   <string name="permission_why_profile_radio_preferences">для включения/отключения мобильных данных, изменения типа мобильной сети, подключения к SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">для разделения уровней громкости звонка и уведомлений, включения/отключения динамика во время вызова</string>
   <string name="permission_why_profile_custom_profile_icon">для пользовательской иконки профиля</string>
-<!--  <string name="permission_why_install_tone">для сохранения мелодии в хранилище</string>-->
+ <!--  <string name="permission_why_install_tone">для сохранения мелодии в хранилище</string>-->
   <string name="permission_why_export">для сохранения резервных копий в хранилище</string>
   <string name="permission_why_import">для загрузки резервных копий из хранилища</string>
   <string name="permission_why_event_calendar_preferences">для чтения данных календаря в Датчике календаря</string>
@@ -1229,7 +1229,7 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_android">Родной (Android)</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_dark">Тёмный</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">По ночному режиму</string>
-    <string name="phone_profiles_pref_nightModeOffApplicationTheme">Тема ночного режима отключена</string>
+    <string name="phone_profiles_pref_nightModeOffApplicationTheme">Тема при отключении ночного режима</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">По ночному режиму</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Включите, пожалуйста, определение местоположения в настройках системы. Без этого сканирование мобильных вышек работать не будет.</string>
 
@@ -1242,7 +1242,7 @@
     <string name="array_pref_battery_plugged_ac">От аккумулятора</string>
     <string name="array_pref_battery_plugged_usb">Через USB</string>
     <string name="array_pref_battery_plugged_wireless">Беспроводная</string>
-    <string name="pref_dlg_info_about_wildcards_5">Если нужно, чтобы указанная строка в имени отсутствовала, поставьте перед ней \"!\".</string>
+    <string name="pref_dlg_info_about_wildcards_5">Если нужно, чтобы искомая строка в тексте отсутствовала, поставьте перед ней \"!\".</string>
     <string name="pref_dlg_info_about_wildcards_6">\"!\" в начале строки</string>
     <string name="phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary">Определение местоположения отключено</string>
     <string name="phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary">Определение местоположения включено</string>
@@ -1304,34 +1304,34 @@
     <string name="info_notification_event_not_started_3">Вы активировали профиль вручную (оранжевый цвет \"светофора\") - необходимо перезапустить все события. В меню Активатора, Редактора или в уведомлении нажмите \"Перезапустить события\". Если профиль активирован вручную, то перед его названием появляется буква \"[M]\" (Manual). Исключение: в настройках события включено \"Игнорировать ручную активацию\".</string>
     <string name="info_notification_event_not_started_4">Вы отключили запуск данного события в его настройках - включите \"Разрешить запуск\" в настройках данного события. Примечание: \"светофор\" показывается в шапках Активатора и Редактора.</string>
 
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
-    <string name="permission_why_profile_radio_preferences_emui">for enable/disable mobile data, change mobile network type, connect to SSID, enable/disable Bluetooth</string>
-    <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
-    <string name="event_preferences_priority_appSettings_enabled">Priority is enabled</string>
-    <string name="event_preferences_priority_appSettings_disabled">Priority is disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes is enabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes is disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Your device has linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
-    <string name="phone_profiles_pref_applicationPowerParametersCategory">Battery and power</string>
-    <string name="phone_profiles_pref_applicationOtherParametersCategory">Other</string>
-    <string name="activity_log_header_log_time">Log time</string>
-    <string name="activity_log_header_data_type">Data type</string>
-    <string name="activity_log_header_data">Data</string>
-    <string name="profile_preferences_volumeDTMF">DTMF tones volume</string>
-    <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
-    <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
-    <string name="profile_preferences_enabled">Enabled</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
-    <string name="profile_preferences_types_G1_show_info">Click here to show more information.</string>
-    <string name="popup_window_events_status_show_info">Click here to show more information.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
-    <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
-    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Если сканирование мобильных вышек не работает, включите определение местоположения в настройках системы.</string>
+    <string name="permission_why_profile_radio_preferences_emui">для включения/выключения мобильных данных, изменения типа мобильной сети, подключения к SSID, включения/выключения Bluetooth</string>
+    <string name="permission_why_event_bluetooth_preferences_emui">для переключения состояния Bluetooth в Датчике Bluetooth</string>
+    <string name="event_preferences_priority_appSettings_enabled">Приоритет включён</string>
+    <string name="event_preferences_priority_appSettings_disabled">Приоритет отключён</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Разделение уровней громкости включено</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Разделение уровней громкости отключено</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Уровни громкости мелодии звонка и уведомлений в вашем устройстве объединены. Нажмите сюда, чтобы разделить их.</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Уровни громкости мелодии звонка и уведомлений в вашем устройстве разделены. Нажмите сюда, чтобы объединить их.</string>
+    <string name="phone_profiles_pref_applicationPowerParametersCategory">Батарея и питание</string>
+    <string name="phone_profiles_pref_applicationOtherParametersCategory">Прочее</string>
+    <string name="activity_log_header_log_time">Время логирования</string>
+    <string name="activity_log_header_data_type">Тип данных</string>
+    <string name="activity_log_header_data">Данные</string>
+    <string name="profile_preferences_volumeDTMF">Уровень громкости тонального набора</string>
+    <string name="profile_preferences_volumeAccessibility">Уровень громкости запросов спец. возможностей</string>
+    <string name="profile_preferences_volumeBluetoothSCO">Уровень громкости вызова через Bluetooth</string>
+    <string name="profile_preferences_enabled">Вкл.</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Информация о типах настроек: (G1), (R), (S), (I).</string>
+    <string name="profile_preferences_types_G1_show_info">Дополнительная информация.</string>
+    <string name="popup_window_events_status_show_info">Дополнительная информация.</string>
+    <string name="editor_activity_targetHelps_filterSpinner_title">Фильтр</string>
+    <string name="editor_activity_targetHelps_filterSpinner_description">Нажмите сюда, чтобы переключиться между Профилями и Событиями.</string>
+    <string name="important_info_profile_type_of_preferences">Типы настроек:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Установить мелодию уведомления:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Мелодия уведомления \"None\" установлена.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Чтобы уведомление было по-настоящему бесшумным, настройте мелодию уведомления на \"PhoneProfiles Silent\" или \"None\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Мелодия уведомления \"PhoneProfiles Silent\" не установлена. Установите её, пожалуйста, в параметре профиля \"Звуки\".</string>
     <!--
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Чтобы уведомление было по-настоящему бесшумным, настройте мелодию уведомления на \"PhoneProfiles Silent\".</string>
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Мелодия уведомления \"PhoneProfiles Silent\" не установлена. Пожалуйста, установите её из меню Редактора и попробуйте ещё раз.</string>
