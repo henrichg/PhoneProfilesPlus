@@ -763,7 +763,7 @@
   <string name="event_preference_sensor_bluetooth_summary">Цей датчик обробляє події Bluetooth. Параметри: \"Тип з\'єднання\" (поруч, підключено і т.д.), \"Тип сканованих пристроїв\" (звичайні, з низькою енергоспоживаністю і т.д.), \"Ім\'я Bluetooth-пристрою\".</string>
   <string name="event_preference_sensor_mobile_cells_summary">Цей датчик запускає події якщо є підключення до мобільних вишок. Параметри: \"Вишки\", \"Запускати при від\'єднанні від вишок\".</string>
   <string name="event_preference_sensor_accessories_summary">Цей датчик запускає події по підключеному аксесуару (док-станція, гарнітура, навушники і т.д.). Параметри: \"Тип аксесуарів\".</string>
-  <string name="event_preference_sensor_screen_summary">Цей датчик обробляє події увімк./вимк. дисплея. Параметри: \"Тип події\" (увімкнення дисплея, вимкнення дисплея), \"Завершувати при розблокуванні\" (коли пристрій розблоковується, подія завершується).</string>
+  <string name="event_preference_sensor_screen_summary">Цей датчик обробляє події вкл/вимк дисплея. Параметри: \"Тип події\" (увімкнення дисплея, вимкнення дисплея), \"Завершувати при розблокуванні\" (коли пристрій розблоковується, подія завершується).</string>
   <string name="event_preference_sensor_notification_summary">Цей датчик обробляє події сповіщень від додатків. Параметри: \"Додатки\", \"Завершувати при видаленні\" (при видаленні сповіщення подія завершується), \"Постійний запуск\", \"Тривалість\" (події запуску).</string>
   <string name="event_preference_sensor_application_summary">Цей датчик запускає подію по додатку на передньому плані. Параметри: \"Додатки\".</string>
   <string name="event_preference_sensor_orientation_summary">Цей датчик запускає подію у орієнтації пристрою. Параметри: \"Екран\" ( Екраном догори, екраном вниз), \"Сторони\" (горизонтально, певною стороною догори), \" Відстань\" (поруч, далеко; використовується датчик наближення), \"Ігнорувати для додатків\" (на передньому плані).</string>
@@ -817,7 +817,7 @@
   <string name="event_preferences_calendar_start_before_event">Почати перед подією</string>
   <string name="event_preferences_startBeforeEvent">Очікувати перед початком події</string>
   <string name="event_preferences_category_eventRadioSwitchParameters">Датчик радіомодулів</string>
-  <string name="event_preference_sensor_radioSwitch_summary">Цей датчик призначено для запуску події перемиканням радіомодулів ( увімк./вимк.). Параметри: \"Wi-Fi\", \"Bluetooth\", \"Передача даних\", \"GPS\", \"NFC\", режим \"В літаку\".</string>
+  <string name="event_preference_sensor_radioSwitch_summary">Цей датчик призначено для запуску події перемиканням радіомодулів ( вкл/вимк). Параметри: \"Wi-Fi\", \"Bluetooth\", \"Передача даних\", \"GPS\", \"NFC\", режим \"В літаку\".</string>
   <string name="event_type_radioSwitch">Радіомодулі</string>
   <string name="array_pref_radioSwitch_notDetect">Не визначати</string>
   <string name="array_pref_radioSwitch_on">Увімк</string>
@@ -832,7 +832,7 @@
   <string name="event_preferences_radioSwitch_info_summary">Стан всіх вибраних радіомодулів має бути виконаний аби подія розпочалась. Налаштуйте тільки ті радіомодулі, який вам необхідні.</string>
   <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Будь-який</string>
   <string name="profile_preferences_deviceConnectToSSID">Під\'єднатись до SSID</string>
-  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Об\'єднати рівнів гучності</string>
+  <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Об\'єднати рівні гучності</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Автовизначення</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Рівні гучності об\'єднані</string>
   <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Рівні гучності не об\'єднані</string>
@@ -1039,7 +1039,7 @@
   <string name="profileicon_pref_dialog_custom_icon_image_too_large">Зображення завелике.</string>
   <string name="profile_preferences_category_touchEffects">Ефекти торкання</string>
   <string name="profile_preferences_soundOnTouch">Звук при торканні</string>
-  <string name="profile_preferences_dtmfToneWhenDialing">DTMF тон під час дзвінка</string>
+  <string name="profile_preferences_dtmfToneWhenDialing">DTMF сигнал під час дзвінка</string>
   <string name="not_saved_changes_alert_title">Налаштування змінені</string>
   <string name="not_saved_changes_alert_message">Зберегти зміни?</string>
   <string name="export_profiles_alert_message">Файли резевного копіювання будуть збережені у пам’ять пристрою до папки</string>
@@ -1138,12 +1138,12 @@
   <string name="permission_why_play_ringtone_notification">для відтворення мелодій виклику та сповіщень</string>
   <string name="permission_why_profile_access_notification_policy">для зміни звукового профілю, гучності дзвінка, повідомлень, звуків системи</string>
   <string name="permission_why_profile_lock_device">для блокування телефону</string>
-  <string name="permission_why_ringtone_preference">для завантаження мелодій дзвінка з сховища</string>
-  <string name="permission_why_profile_dtmf_tone_when_dialing">для вкл/вимк DTMF тону при наборі номеру</string>
+  <string name="permission_why_ringtone_preference">для завантаження мелодій дзвінка із сховища</string>
+  <string name="permission_why_profile_dtmf_tone_when_dialing">для вкл/вимк DTMF сигналу при наборі номеру</string>
   <string name="permission_why_profile_sound_on_touch">для вкл/вимк звуку при натисканні</string>
   <string name="permission_why_brightness_preference">для зміни яскравості під час налаштування</string>
-  <string name="permission_why_wallpaper_preference">для завантаження шпалер з сховища</string>
-  <string name="permission_why_custom_profile_icon_preference">для завантаження іконок користувача з сховища</string>
+  <string name="permission_why_wallpaper_preference">для завантаження шпалер із сховища</string>
+  <string name="permission_why_custom_profile_icon_preference">для завантаження іконок користувача із сховища</string>
   <string name="permission_why_location_preference">для отримання даних місцезнаходження під час налаштування</string>
   <string name="permission_why_calendar_preference">для отримання даних календарю під час налаштування</string>
   <string name="exit_application_alert_title">Вийти з додатку</string>
@@ -1189,8 +1189,8 @@
     <string name="about_application_support2">звʼязок:</string>
     <string name="about_application_support_subject">підтримка</string>
 
-    <!--<string name="profile_preferences_installSilentTone_summary">Натисніть аби встановити тон.</string>-->
-    <!--<string name="profile_preferences_installSilentTone_installed_summary">Тон встановлено.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_summary">Натисніть щоб встановити сигнал.</string>-->
+    <!--<string name="profile_preferences_installSilentTone_installed_summary">Сигнал встановлено.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log в log.txt та crash.txt</string>
     <string name="permissions_for_log_to_file_text2">Будь ласка дайте дозвіл в наступному діалозі. Debug log буде записано.</string>
     <string name="permission_why_log_to_file">для запису debug log в log.txt та crash.txt</string>
@@ -1199,7 +1199,7 @@
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">Використовуйте світлість іконки для іконок профіля користувача</string>
 
     <string name="preferences_not_enabled_accessibility_service_title">Служба спец. можливостей вимкнута!</string>
-    <string name="profile_preferences_volumeVoiceCall">Гучність мелодії виклику</string>
+    <string name="profile_preferences_volumeVoiceCall">Гучність співрозмовника при виклику</string>
     <string name="pref_event_permanentRun_summary">Призупинити подію після ручної активації профілю та перезапустити події</string>
     <string name="event_preferences_call_AccessibilitySettingsForExtender_summary">Дозволити PhoneProfilesPlusExtender \"Служба спец. можливостей\" в налаштуваннях системи. Служба спец. можливостей не використовується, вона потрібна для отримання викликів.</string>
     <string name="event_preferences_call_PPPExtender_install_summary">Натисність щоб встановити PhoneProfilesPlusExtender. Запущена служба необхідна для отримання викликів.</string>
@@ -1231,10 +1231,10 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Нічний режим</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Тема до нічного режиму вимкнута</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">Нічний режим</string>
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Увімкніть Розташування в Налаштуваннях системи. Без цього, сканування мобільних вишок не буде працювати.</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Увімкніть Місцезнаходження в Налаштуваннях системи. Без цього, сканування мобільних вишок не буде працювати.</string>
 
 <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Автоматично ховати бічну панель</string>-->
-<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Натисніть тут або проведіть з лівого краю екрана до правого щоб відкрити \"Views\" бокову панель, там Ви зможете перемикнутись на вигляд Профілі або Події.</string>-->
+<!--    <string name="editor_activity_targetHelps_navigationIcon_description">Натисніть тут або проведіть з лівого краю екрана до правого щоб відкрити \"Views\" бокову панель, там Ви зможете перемкнутись на вигляд Профілі або Події.</string>-->
     <string name="action_for_external_application_notification_title">Підтримка зовнішніх додатків (Tasker)</string>
     <string name="start_event_notification_text2">Очистіть це повідомлення щоб більше не показувати його.</string>
 
@@ -1244,8 +1244,8 @@
     <string name="array_pref_battery_plugged_wireless">Бездротова</string>
     <string name="pref_dlg_info_about_wildcards_5">Використовуйте \"!\" на початку рядка, коли рядок не має бути присутній.</string>
     <string name="pref_dlg_info_about_wildcards_6">\"!\" на початку рядка</string>
-    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary">Доступ до Розташування надано</string>
-    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary">Доступ до Розташування НЕ надано</string>
+    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary">Доступ до Місцезнаходження НЕ надано</string>
+    <string name="phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary">Доступ до Місцезнаходження надано</string>
 
     <string name="preference_not_allowed_reason_no_sim_card">немає SIM карти</string>
     <string name="preference_not_allowed_reason_not_granted_g1_permission">немає дозволу WRITE_SECURE_SETTINGS</string>
@@ -1294,47 +1294,47 @@
 
     <string name="profile_preferences_lockDevice_PPPExtender_install_summary">Для типу блокування \"Use PhoneProfilesPlusExtender\", натисніть тут щоб встановити PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettings_title"> Налаштування Спец. можливостей</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Для типу блокування \"Use PhoneProfilesPlusExtender\", дайте дозвіл PhoneProfilesPlusExtender \"Accessibility\" в налаштуваннях телефону.</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Для типу блокування \"Use PhoneProfilesPlusExtender\", дайте дозвіл PhoneProfilesPlusExtender \"Спец. можливості\" в налаштуваннях телефону.</string>
     <string name="array_pref_lockDevice_extender">Використвувати PhoneProfilesPlusExtender</string>
 
-    <string name="important_info_profile_mobileCellsScanning_location"> Android 9+, щоб працювало сканування по стільниковим вишкам, потрібно активувати доступ до Розташування в налаштуваннях телефону.</string>
+    <string name="important_info_profile_mobileCellsScanning_location"> Android 9+, щоб працювало сканування по стільниковим вишкам, потрібно активувати доступ до Місцезнаходження в налаштуваннях телефону.</string>
 
     <string name="info_notification_event_not_started_1">Подія не розпочалась:</string>
     <string name="info_notification_event_not_started_2">Ви вимкнули запуск всіх подій (червоний індикатор) - в меню Редактора натисніть \"Дозволити запуск подій\".</string>
     <string name="info_notification_event_not_started_3">Ви вручну активували профіль (помаранчевий індикатор) - необхідно перезавантажити всі події. В меню Активатора, Редактора чи в сповіщенні натисніть \"Перезавантажити події\". Якщо профіль активовано вручну, то перед його назвою з\'являється буква \"[M]\" (Manual). Виняток: в налаштуваннях події увімкнено \"Ігнорувати ручну активацію\".</string>
-    <string name="info_notification_event_not_started_4">Ви вимкнули запуск даної події в його налаштуваннях - увімкніть \"Дозволити запуск\" в налаштуваннях даної події. Примітка: \"колір індикатора\" відображено у назві події в меню Активатора та Редактора.</string>
+    <string name="info_notification_event_not_started_4">Ви вимкнули запуск цієї події в його налаштуваннях - увімкніть \"Дозволити запуск\" в налаштуваннях події. Примітка: \"колір індикатора\" відображено у назві події в меню Активатора та Редактора.</string>
 
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">If Mobile cells scanning not working, enable Location in System Settings.</string>
-    <string name="permission_why_profile_radio_preferences_emui">for enable/disable mobile data, change mobile network type, connect to SSID, enable/disable Bluetooth</string>
-    <string name="permission_why_event_bluetooth_preferences_emui">for switch Bluetooth ON/OFF in Bluetooth sensor</string>
-    <string name="event_preferences_priority_appSettings_enabled">Priority is enabled</string>
-    <string name="event_preferences_priority_appSettings_disabled">Priority is disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Unlink volumes is enabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Unlink volumes is disabled</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">Your device has linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
-    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">Your device does not have linked volume levels for ringtone and notifications. Click here to configure unlink.</string>
-    <string name="phone_profiles_pref_applicationPowerParametersCategory">Battery and power</string>
-    <string name="phone_profiles_pref_applicationOtherParametersCategory">Other</string>
-    <string name="activity_log_header_log_time">Log time</string>
-    <string name="activity_log_header_data_type">Data type</string>
-    <string name="activity_log_header_data">Data</string>
-    <string name="profile_preferences_volumeDTMF">DTMF tones volume</string>
-    <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
-    <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
-    <string name="profile_preferences_enabled">Enabled</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
-    <string name="profile_preferences_types_G1_show_info">Click here to show more information.</string>
-    <string name="popup_window_events_status_show_info">Click here to show more information.</string>
-    <string name="editor_activity_targetHelps_filterSpinner_title">Views filter</string>
-    <string name="editor_activity_targetHelps_filterSpinner_description">Click this to switch between Profiles and Events views.</string>
-    <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
-    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Configure notification tone to:</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Notification tone \"None\" is configured.</string>
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">For truly silent notification volume, configure notification tone to \"PhoneProfiles Silent\" or \"None\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Якщо сканування мобільних вишок не працює, увімкніть Місцезнаходження в Налаштуваннях Системи.</string>
+    <string name="permission_why_profile_radio_preferences_emui">щоб вкл/вимк передачу даних, змінити тип мережі, підʼєднатись до SSID, увімк/вимк Bluetooth</string>
+    <string name="permission_why_event_bluetooth_preferences_emui">щоб перемкнути Bluetooth вкл/вимк в датчику Bluetooth</string>
+    <string name="event_preferences_priority_appSettings_enabled">Пріоритет увімкнуто</string>
+    <string name="event_preferences_priority_appSettings_disabled">Пріоритет вимкнуто</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_enabled">Об\'єднання рівнів гучності увімкнуто</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_disabled">Об\'єднання рівнів гучності вимкнуто</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_merged">На Вашому пристрою обʼєднанні рівні гучності для дзвінків та сповіщень. Натисніть тут щоб розʼєднати.</string>
+    <string name="profile_preferences_applicationUnlinkRingerNotificationVolumes_not_merged">На Вашому пристрою НЕ обʼєднанні рівні гучності для дзвінків та сповіщень. Натисніть тут щоб обʼєднати.</string>
+    <string name="phone_profiles_pref_applicationPowerParametersCategory">Живлення</string>
+    <string name="phone_profiles_pref_applicationOtherParametersCategory">Інше</string>
+    <string name="activity_log_header_log_time">Час Журналу дій</string>
+    <string name="activity_log_header_data_type">Тип даних</string>
+    <string name="activity_log_header_data">Дані</string>
+    <string name="profile_preferences_volumeDTMF">Гучність DTMF сигналів</string>
+    <string name="profile_preferences_volumeAccessibility">Гучність з урахуванням Спец. можливостей</string>
+    <string name="profile_preferences_volumeBluetoothSCO">Гучність виклику через Bluetooth</string>
+    <string name="profile_preferences_enabled">Увімкнуто</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Натисніть тут щоб показати інформацію про типи налаштувань: (G1), (R), (S), (I).</string>
+    <string name="profile_preferences_types_G1_show_info">Натисніть тут щоб показати більше інформації.</string>
+    <string name="popup_window_events_status_show_info">Натисніть тут щоб показати більше інформації.</string>
+    <string name="editor_activity_targetHelps_filterSpinner_title">Вигляд</string>
+    <string name="editor_activity_targetHelps_filterSpinner_description">Натисніть тут щоб перемкнутись між виглядом Профілі або Події.</string>
+    <string name="important_info_profile_type_of_preferences">Тип налаштувань:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_radioButtonsLabel">Встановити сигнал сповіщення на:</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Сигнал сповіщення \"Немає\" встановлено.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Тиша\" або \"Немає\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Сигнал сповіщення \"Тиша\" НЕ встановлено. Будь ласка, встановіть його в параметрах профілю \"Звуки\".</string>
     <!--
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було по справжньому безшумним, встановіть сигнал сповіщення на \"PhoneProfiles Silent\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Сигнал сповіщення \"PhoneProfiles Silent\" не налаштовано. Будь ласка, встановіть його з меню Редактора і спробуйте ще раз.</string>
+    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Тиша\".</string>
+    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Сигнал сповіщення \"Тиша\" НЕ налаштовано. Будь ласка, встановіть його з меню Редактора і спробуйте ще раз.</string>
     -->
 
     <!-- **************************************************************************************** -->
