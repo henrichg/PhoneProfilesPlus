@@ -491,7 +491,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
                 getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
         };
-        OrderSpinnerAdapter filterSpinnerAdapter = new OrderSpinnerAdapter(
+        HighlightedSpinnerAdapter filterSpinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.editor_order_spinner,
                 filterItems);
@@ -518,7 +518,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((OrderSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
                 selectFilterItem(position+1, true, true, /*false,*/ true);
             }
 
@@ -527,7 +527,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         });
 
         orderSpinner = findViewById(R.id.editor_list_bottom_bar_order);
-        OrderSpinnerAdapter orderSpinnerAdapter = new OrderSpinnerAdapter(
+        HighlightedSpinnerAdapter orderSpinnerAdapter = new HighlightedSpinnerAdapter(
                 this,
                 R.layout.editor_order_spinner,
                 getResources().getStringArray(R.array.orderEventsArray));
@@ -562,7 +562,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((OrderSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
+                ((HighlightedSpinnerAdapter)orderSpinner.getAdapter()).setSelection(position);
                 if (position != orderSelectedItem)
                     changeEventOrder(position/*, false*/);
             }
@@ -2677,12 +2677,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
-    class OrderSpinnerAdapter extends ArrayAdapter<String>{
+    class HighlightedSpinnerAdapter extends ArrayAdapter<String>{
 
         private int mSelectedIndex = -1;
         private Context context;
 
-        OrderSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
+        HighlightedSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
             super(context, textViewResourceId, objects);
             this.context = context;
         }
