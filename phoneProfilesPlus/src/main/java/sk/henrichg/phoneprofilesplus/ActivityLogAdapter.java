@@ -72,9 +72,9 @@ class ActivityLogAdapter extends CursorAdapter {
 
         int otherColor;
         switch (ApplicationPreferences.applicationTheme(context, true)) {
-            case "color":
+            /*case "color":
                 otherColor = R.color.altype_other;
-                break;
+                break;*/
             case "white":
                 otherColor = R.color.altype_other_white;
                 break;

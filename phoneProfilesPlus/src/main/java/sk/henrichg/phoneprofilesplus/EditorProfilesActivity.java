@@ -893,7 +893,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 if (!theme.equals("night_mode")) {
                     if (theme.equals("dark")) {
                         SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(getApplicationContext());
-                        //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "color");
+                        //theme = preferences.getString(ApplicationPreferences.PREF_APPLICATION_NOT_DARK_THEME, "white");
                         theme = ApplicationPreferences.applicationNightModeOffTheme(getApplicationContext());
                         Editor editor = preferences.edit();
                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, theme);
@@ -1546,10 +1546,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     {
                         if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME))
                         {
-                            if (v.equals("light"))
+                            if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight"))
                                 prefEdit.putString(key, "white");
-                            if (v.equals("material"))
-                                prefEdit.putString(key, "color");
                         }
                         if (key.equals(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES))
                             ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), true, prefEdit);

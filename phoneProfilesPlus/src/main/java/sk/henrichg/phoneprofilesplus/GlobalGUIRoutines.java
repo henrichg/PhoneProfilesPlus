@@ -137,7 +137,7 @@ class GlobalGUIRoutines {
 
     static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/ Context context) {
         switch (ApplicationPreferences.applicationTheme(context, true)) {
-            case "color":
+            /*case "color":
                 if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_color;
@@ -151,7 +151,7 @@ class GlobalGUIRoutines {
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_color;
-                }
+                }*/
             case "white":
                 if (forPopup) {
                     if (withToolbar)
@@ -182,7 +182,7 @@ class GlobalGUIRoutines {
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dark;
                 }
-            case "dlight":
+            /*case "dlight":
                 if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dlight;
@@ -196,9 +196,23 @@ class GlobalGUIRoutines {
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_dlight;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dlight;
-                }
+                }*/
             default:
                 if (forPopup) {
+                    if (withToolbar)
+                        return R.style.PopupTheme_withToolbar_white;
+                    else
+                        return R.style.PopupTheme_white;
+                } else {
+                    if (withToolbar) {
+                        //if (withDrawerLayout)
+                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_white;
+                        //else
+                        return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
+                    } else
+                        return R.style.Theme_PhoneProfilesTheme_white;
+                }
+                /*if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_color;
                     else
@@ -211,7 +225,7 @@ class GlobalGUIRoutines {
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_color;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_color;
-                }
+                }*/
         }
     }
 

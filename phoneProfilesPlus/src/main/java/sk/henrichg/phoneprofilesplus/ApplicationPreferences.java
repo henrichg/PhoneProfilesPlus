@@ -184,15 +184,12 @@ class ApplicationPreferences {
     }
 
     static public String applicationTheme(Context context, boolean useNightMode) {
-        String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, "color");
-        if (applicationTheme.equals("light")){
-            applicationTheme = "color";
-            SharedPreferences.Editor editor = getSharedPreferences(context).edit();
-            editor.putString(PREF_APPLICATION_THEME, applicationTheme);
-            editor.apply();
-        }
-        if (applicationTheme.equals("material")){
-            applicationTheme = "color";
+        String applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_THEME, "white");
+        if (applicationTheme.equals("light") ||
+                applicationTheme.equals("material") ||
+                applicationTheme.equals("color")  ||
+                applicationTheme.equals("dlight")){
+            applicationTheme = "white";
             SharedPreferences.Editor editor = getSharedPreferences(context).edit();
             editor.putString(PREF_APPLICATION_THEME, applicationTheme);
             editor.apply();
@@ -205,10 +202,10 @@ class ApplicationPreferences {
                     applicationTheme = "dark";
                     break;
                 case Configuration.UI_MODE_NIGHT_NO:
-                    applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "color");
+                    applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
                     break;
                 case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                    applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "color");
+                    applicationTheme = getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
                     break;
             }
         }
@@ -721,7 +718,7 @@ class ApplicationPreferences {
     }
 
     static String applicationNightModeOffTheme(Context context) {
-        return getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "color");
+        return getSharedPreferences(context).getString(PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
     }
 
 }
