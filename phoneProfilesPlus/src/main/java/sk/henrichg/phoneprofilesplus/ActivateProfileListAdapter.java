@@ -283,9 +283,12 @@ class ActivateProfileListAdapter extends BaseAdapter
             final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);
 
             String appTheme = ApplicationPreferences.applicationTheme(activity, true);
-            int circleColor = R.color.tabTargetHelpCircleColor_white;
+            int outerCircleColor = R.color.tabTargetHelpOuterCircleColor_white;
             if (appTheme.equals("dark"))
-                circleColor = R.color.tabTargetHelpCircleColor_dark;
+                outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
+            int targetCircleColor = R.color.tabTargetHelpTargetCircleColor_white;
+            if (appTheme.equals("dark"))
+                targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int textColor = R.color.tabTargetHelpTextColor_white;
             if (appTheme.equals("dark"))
                 textColor = R.color.tabTargetHelpTextColor_dark;
@@ -294,7 +297,8 @@ class ActivateProfileListAdapter extends BaseAdapter
             sequence.targets(
                     TapTarget.forBounds(profileItemTarget, activity.getString(R.string.activator_activity_targetHelps_activateProfile_title), activity.getString(R.string.activator_activity_targetHelps_activateProfile_description))
                             .transparentTarget(true)
-                            .targetCircleColor(circleColor)
+                            .outerCircleColor(outerCircleColor)
+                            .targetCircleColor(targetCircleColor)
                             .textColor(textColor)
                             .tintTarget(tintTarget)
                             .drawShadow(true)

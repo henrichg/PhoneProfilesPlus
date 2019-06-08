@@ -621,9 +621,12 @@ public class EventsPrefsActivity extends AppCompatActivity {
             //final Display display = getWindowManager().getDefaultDisplay();
 
             String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
-            int circleColor = R.color.tabTargetHelpCircleColor_white;
+            int outerCircleColor = R.color.tabTargetHelpOuterCircleColor_white;
             if (appTheme.equals("dark"))
-                circleColor = R.color.tabTargetHelpCircleColor_dark;
+                outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
+            int targetCircleColor = R.color.tabTargetHelpTargetCircleColor_white;
+            if (appTheme.equals("dark"))
+                targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
             int textColor = R.color.tabTargetHelpTextColor_white;
             if (appTheme.equals("dark"))
                 textColor = R.color.tabTargetHelpTextColor_dark;
@@ -635,7 +638,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
             try {
                 targets.add(
                         TapTarget.forToolbarMenuItem(toolbar, R.id.event_preferences_save, getString(R.string.event_preference_activity_targetHelps_save_title), getString(R.string.event_preference_activity_targetHelps_save_description))
-                                .targetCircleColor(circleColor)
+                                .outerCircleColor(outerCircleColor)
+                                .targetCircleColor(targetCircleColor)
                                 .textColor(textColor)
                                 .tintTarget(tintTarget)
                                 .drawShadow(true)

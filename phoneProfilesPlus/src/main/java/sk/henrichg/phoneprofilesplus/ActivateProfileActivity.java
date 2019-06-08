@@ -471,9 +471,12 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 editor.apply();
 
                 String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
-                int circleColor = R.color.tabTargetHelpCircleColor_white;
+                int outerCircleColor = R.color.tabTargetHelpOuterCircleColor_white;
                 if (appTheme.equals("dark"))
-                    circleColor = R.color.tabTargetHelpCircleColor_dark;
+                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
+                int targetCircleColor = R.color.tabTargetHelpTargetCircleColor_white;
+                if (appTheme.equals("dark"))
+                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
                 int textColor = R.color.tabTargetHelpTextColor_white;
                 if (appTheme.equals("dark"))
                     textColor = R.color.tabTargetHelpTextColor_dark;
@@ -487,7 +490,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
                         targets.add(
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
-                                        .targetCircleColor(circleColor)
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
                                         .tintTarget(tintTarget)
                                         .drawShadow(true)
@@ -499,7 +503,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         View restartEventsActionView = toolbar.findViewById(R.id.menu_restart_events);
                         targets.add(
                                 TapTarget.forView(restartEventsActionView, getString(R.string.editor_activity_targetHelps_restartEvents_title), getString(R.string.editor_activity_targetHelps_restartEvents_description))
-                                        .targetCircleColor(circleColor)
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
                                         .tintTarget(tintTarget)
                                         .drawShadow(true)
@@ -516,7 +521,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                         View editorActionView = toolbar.findViewById(R.id.menu_edit_profiles);
                         targets.add(
                                 TapTarget.forView(editorActionView, getString(R.string.activator_activity_targetHelps_editor_title), getString(R.string.activator_activity_targetHelps_editor_description_ppp))
-                                        .targetCircleColor(circleColor)
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
                                         .tintTarget(tintTarget)
                                         .drawShadow(true)

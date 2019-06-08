@@ -638,9 +638,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
                 //final Display display = getWindowManager().getDefaultDisplay();
 
-                int circleColor = R.color.tabTargetHelpCircleColor_white;
+                int outerCircleColor = R.color.tabTargetHelpOuterCircleColor_white;
                 if (applicationTheme.equals("dark"))
-                    circleColor = R.color.tabTargetHelpCircleColor_dark;
+                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
+                int targetCircleColor = R.color.tabTargetHelpTargetCircleColor_white;
+                if (applicationTheme.equals("dark"))
+                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
                 int textColor = R.color.tabTargetHelpTextColor_white;
                 if (applicationTheme.equals("dark"))
                     textColor = R.color.tabTargetHelpTextColor_dark;
@@ -658,7 +661,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     /*try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_shared_profile, getString(R.string.title_activity_default_profile_preferences), getString(R.string.profile_preferences_sourceProfileInfo_summary))
-                                        .targetCircleColor(circleColor)
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
                                         .tintTarget(tintTarget)
                                         .drawShadow(true)
@@ -669,7 +673,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
-                                        .targetCircleColor(circleColor)
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
                                         .tintTarget(tintTarget)
                                         .drawShadow(true)
@@ -686,7 +691,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(toolbar, R.id.profile_preferences_save, getString(R.string.profile_preference_activity_targetHelps_save_title), getString(R.string.profile_preference_activity_targetHelps_save_description))
-                                        .targetCircleColor(circleColor)
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
                                         .textColor(textColor)
                                         .tintTarget(tintTarget)
                                         .drawShadow(true)

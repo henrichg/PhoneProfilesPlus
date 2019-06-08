@@ -27,7 +27,8 @@
 
     <color name="editorFilterTitleColor_white">#FF000000</color>
 
-    <color name="tabTargetHelpCircleColor_white">#FFFFFFFF</color>
+    <color name="tabTargetHelpOuterCircleColor_white">#FFF7F7F7</color>
+    <color name="tabTargetHelpTargetCircleColor_white">#FFFFFFFF</color>
     <color name="tabTargetHelpTextColor_white">#FF000000</color>
 
     <!--
