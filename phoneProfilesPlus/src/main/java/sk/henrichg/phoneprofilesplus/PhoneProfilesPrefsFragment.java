@@ -1329,17 +1329,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //prefMng.setSharedPreferencesMode(Activity.MODE_PRIVATE);
 
         preferences = prefMng.getSharedPreferences();
+        if (getContext() != null) {
+            applicationPreferences = getContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+        }
 
         PPApplication.logE("PhoneProfilesPrefsFragment.initPreferenceFragment", "getContext()="+getContext());
 
         if (savedInstanceState == null) {
-            if (getContext() != null) {
-                applicationPreferences = getContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = preferences.edit();
-                updateSharedPreferences(editor, applicationPreferences);
-                editor.apply();
-            }
+            SharedPreferences.Editor editor = preferences.edit();
+            updateSharedPreferences(editor, applicationPreferences);
+            editor.apply();
         }
 
         preferences.registerOnSharedPreferenceChangeListener(this);
