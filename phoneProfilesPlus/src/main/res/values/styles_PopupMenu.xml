@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="PopupMenu_color" parent="@style/Widget.AppCompat.Light.PopupMenu">
-        <item name="android:popupBackground">@drawable/popupmenu_background_color</item>
-        <item name="android:elevation">0dp</item>
-        <item name="android:overlapAnchor">true</item>
-    </style>
+    <!--<style name="PopupMenu_color" parent="@style/Widget.AppCompat.Light.PopupMenu">-->
+        <!--<item name="android:popupBackground">@drawable/popupmenu_background_color</item>-->
+        <!--<item name="android:elevation">0dp</item>-->
+        <!--<item name="android:overlapAnchor">true</item>-->
+    <!--</style>-->
 
-    <style name="PopupMenu_dlight" parent="@style/Widget.AppCompat.Light.PopupMenu">
-        <item name="android:popupBackground">@drawable/popupmenu_background_dlight</item>
-        <item name="android:elevation">0dp</item>
-        <item name="android:overlapAnchor">true</item>
-    </style>
+    <!--<style name="PopupMenu_dlight" parent="@style/Widget.AppCompat.Light.PopupMenu">-->
+        <!--<item name="android:popupBackground">@drawable/popupmenu_background_dlight</item>-->
+        <!--<item name="android:elevation">0dp</item>-->
+        <!--<item name="android:overlapAnchor">true</item>-->
+    <!--</style>-->
 
     <style name="PopupMenu_dark" parent="@style/Widget.AppCompat.PopupMenu">
         <item name="android:popupBackground">@drawable/popupmenu_background_dark</item>
