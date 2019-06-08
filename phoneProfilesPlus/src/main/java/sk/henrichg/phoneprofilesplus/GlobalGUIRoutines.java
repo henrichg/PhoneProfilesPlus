@@ -197,6 +197,21 @@ class GlobalGUIRoutines {
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dlight;
                 }*/
+            /*case "night_mode":
+                if (forPopup) {
+                    if (withToolbar)
+                        return R.style.PopupTheme_withToolbar_dayNight;
+                    else
+                        return R.style.PopupTheme_dayNight;
+                } else {
+                    if (withToolbar) {
+                        //if (withDrawerLayout)
+                        //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+                        //else
+                        return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
+                    } else
+                        return R.style.Theme_PhoneProfilesTheme_dayNight;
+                }*/
             default:
                 if (forPopup) {
                     if (withToolbar)
