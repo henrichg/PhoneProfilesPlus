@@ -21,7 +21,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     private boolean showEditorHeader;
     private String activeLanguage;
     private String activeTheme;
-    private String activeNightModeOffTheme;
+    //private String activeNightModeOffTheme;
     private boolean locationScannerEnabled;
     private boolean wifiScannerEnabled;
     private boolean bluetoothScannerEnabled;
@@ -66,7 +66,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         ApplicationPreferences.getSharedPreferences(this);
         activeLanguage = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_LANGUAGE, "system");
         activeTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
-        activeNightModeOffTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
+        //activeNightModeOffTheme = ApplicationPreferences.preferences.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white");
         showEditorPrefIndicator = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
         showEditorHeader = ApplicationPreferences.preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER, true);
 
@@ -272,12 +272,12 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //EditorProfilesActivity.setTheme(this, false);
             invalidateEditor = true;
         }
-        else
+        /*else
         if (!activeNightModeOffTheme.equals(ApplicationPreferences.applicationNightModeOffTheme(appContext)))
         {
             //EditorProfilesActivity.setTheme(this, false);
             invalidateEditor = true;
-        }
+        }*/
         else
         if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator(appContext))
         {
@@ -373,7 +373,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LAUNCHER, "activator"));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_NOTIFICATION_LAUNCHER, "activator"));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_THEME, "white"));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white"));
+            //editor.putString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME, "white"));
         }
 
     }

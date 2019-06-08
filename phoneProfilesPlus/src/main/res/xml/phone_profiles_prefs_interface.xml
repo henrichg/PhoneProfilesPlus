@@ -51,13 +51,13 @@
         app:entries="@array/themeArray"
         app:entryValues="@array/themeValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+<!--    <ListPreference
         app:title="@string/phone_profiles_pref_nightModeOffApplicationTheme"
         app:summary="@string/phone_profiles_pref_applicationTheme_color"
         app:key="applicationNightModeOffTheme"
         app:defaultValue="@string/array_pref_value_color"
         app:entries="@array/nightModeOffThemeArray"
         app:entryValues="@array/nightModeOffThemeValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_material_widget" /> -->
 
 </androidx.preference.PreferenceScreen>

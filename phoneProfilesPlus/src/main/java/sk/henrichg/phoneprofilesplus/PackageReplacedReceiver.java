@@ -284,6 +284,11 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     ApplicationPreferences.getSharedPreferences(appContext);
                                     SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
                                     editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
+
+                                    String theme = ApplicationPreferences.applicationTheme(appContext, false);
+                                    if (!(theme.equals("white") || theme.equals("dark")))
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
+
                                     editor.apply();
                                 }
 

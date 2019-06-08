@@ -14,10 +14,11 @@
 //        separated preferences for single row widget
 // 4600 = support for "NOT LIKE" in calendar sensor
 // 4800 = show target helps for Editor filter spinner
+//        removed color and dark-light theme
 
 ext.ppVersions = [
     publishVersion: '3.7b',
-    publishVersionCode: 4666, //4800
+    publishVersionCode: 4667, //4800
 
     minSdk: 21,
     targetSdk: 28,
