@@ -28,7 +28,7 @@
     <color name="editorFilterTitleColor_dark">#FFFFFFFF</color>
 
     <color name="tabTargetHelpCircleColor_dark">#FF7F7F7F</color>
-    <!--<color name="tabTargetHelpTextColor_dark">#FFFFFFFF</color>-->
+    <color name="tabTargetHelpTextColor_dark">#FFFFFFFF</color>-->
 
     <color name="notificationBackground_dark">#FF202020</color>
 

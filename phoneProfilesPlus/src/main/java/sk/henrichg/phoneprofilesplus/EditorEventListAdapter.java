@@ -358,12 +358,12 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             //Log.d("EditorEventListAdapter.showTargetHelps", "PREF_START_TARGET_HELPS_ORDER=true");
 
             String appTheme = ApplicationPreferences.applicationTheme(activity, true);
-            int circleColor = R.color.tabTargetHelpCircleColor;
+            int circleColor = R.color.tabTargetHelpCircleColor_white;
             if (appTheme.equals("dark"))
                 circleColor = R.color.tabTargetHelpCircleColor_dark;
-            int textColor = R.color.tabTargetHelpTextColor;
-            if (appTheme.equals("white"))
-                textColor = R.color.tabTargetHelpTextColor_white;
+            int textColor = R.color.tabTargetHelpTextColor_white;
+            if (appTheme.equals("dark"))
+                textColor = R.color.tabTargetHelpTextColor_dark;
             boolean tintTarget = !appTheme.equals("white");
 
             if (startTargetHelps) {

@@ -39,10 +39,10 @@
     <color name="map_last_location_marker_fill"
            tools:keep="@color/map_last_location_marker_fill">#7784d2ef</color>
 
-    <color name="editorFilterTitleColor">#FFFFFFFF</color>
+    <!--<color name="editorFilterTitleColor">#FFFFFFFF</color>-->
 
-    <color name="tabTargetHelpCircleColor">#FFFFFFFF</color>
-    <color name="tabTargetHelpTextColor">#FFFFFFFF</color>
+    <!--<color name="tabTargetHelpCircleColor">#FFFFFFFF</color>-->
+    <!--<color name="tabTargetHelpTextColor">#FFFFFFFF</color>-->
 
     <color name="lockDevice_textColor">#FFFFFFFF</color>
 

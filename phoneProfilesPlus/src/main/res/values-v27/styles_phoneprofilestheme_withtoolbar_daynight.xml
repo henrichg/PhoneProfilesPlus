@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.PhoneProfilesTheme_withToolbar_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_withToolbar_dayNight">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu_dayNight</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/primaryDark</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+</resources>

@@ -885,12 +885,12 @@ public class EditorProfileListFragment extends Fragment
                 editor.apply();
 
                 String appTheme = ApplicationPreferences.applicationTheme(getActivity(), true);
-                int circleColor = R.color.tabTargetHelpCircleColor;
+                int circleColor = R.color.tabTargetHelpCircleColor_white;
                 if (appTheme.equals("dark"))
                     circleColor = R.color.tabTargetHelpCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor;
-                if (appTheme.equals("white"))
-                    textColor = R.color.tabTargetHelpTextColor_white;
+                int textColor = R.color.tabTargetHelpTextColor_white;
+                if (appTheme.equals("dark"))
+                    textColor = R.color.tabTargetHelpTextColor_dark;
                 boolean tintTarget = !appTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(getActivity());

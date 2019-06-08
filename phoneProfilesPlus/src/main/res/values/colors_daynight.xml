@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="primary">#F7F7F7</color>-->
+    <color name="primary">#FFFFFF</color>
+    <color name="primaryDark">#A7A7A7</color>
+    <color name="accent">#DC8160</color>
+    <color name="accent_disabled">#70DC8160</color>
+    <color name="navigationBar">#A7A7A7</color>
+
+    <color name="activityBackgroundColor">#FFFFFFFF</color>
+    <color name="activityTextColor">#FF000000</color>
+    <color name="activityDisabledTextColor">#4F000000</color>
+    <color name="activityCommandBackgroundColor">#1F000000</color>
+
+    <!--<color name="activityPopupBackground">#FFd0d0d0</color>-->
+    <!--<color name="navigationDrawerTextColor">#ff000000</color>-->
+<!--    <color name="navigationDrawerSubTextColor">#80000000</color> -->
+    <!--<color name="navigationDrawerBackground">#fffafafa</color>-->
+    <!--<color name="navigationDrawerInsetForeground">#A7A7A7</color>-->
+    <!--<color name="navigationDrawerItemBackground">#80DC8160</color>-->
+    <!--<color name="navigationDrawerItemBackgroundPressed">#0F000000</color>-->
+    <color name="preferenceDialogBackground">#FFFFFFFF</color>
+    <color name="editorDrawerListHeaderTitleColor">#FF000000</color>
+    <color name="dialog_divider">#17000000</color>
+
+    <color name="altype_other">#FFD0D0D0</color>
+
+    <color name="editorFilterTitleColor">#FF000000</color>
+
+    <color name="tabTargetHelpCircleColor">#FFFFFFFF</color>
+    <color name="tabTargetHelpTextColor">#FF000000</color>
+
+    <color name="notificationBackground">#FFFFFFFF</color>
+
+    <color name="fastScrollTrackPP">#FFEFEFEF</color>
+    <color name="fastScrollThumbPP">#FFDC8160</color>
+    <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>
+    <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
+
+    <color name="eventPauseTextColor">#FF00a7d8</color>
+    <color name="eventStopTextColor">#FF6c6c6c</color>
+    <color name="eventInDelayTextColor">#FFffb000</color>
+
+    <color name="sensor_pass_status_passed">#FF00B000</color>
+    <color name="sensor_pass_status_not_passed">#FFD00000</color>
+    <color name="sensor_pass_status_waiting">#FFffb000</color>
+
+</resources>

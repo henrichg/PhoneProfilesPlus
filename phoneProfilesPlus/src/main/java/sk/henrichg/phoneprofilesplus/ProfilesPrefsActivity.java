@@ -638,12 +638,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
                 //final Display display = getWindowManager().getDefaultDisplay();
 
-                int circleColor = R.color.tabTargetHelpCircleColor;
+                int circleColor = R.color.tabTargetHelpCircleColor_white;
                 if (applicationTheme.equals("dark"))
                     circleColor = R.color.tabTargetHelpCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor;
-                if (applicationTheme.equals("white"))
-                    textColor = R.color.tabTargetHelpTextColor_white;
+                int textColor = R.color.tabTargetHelpTextColor_white;
+                if (applicationTheme.equals("dark"))
+                    textColor = R.color.tabTargetHelpTextColor_dark;
                 boolean tintTarget = !applicationTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(this);

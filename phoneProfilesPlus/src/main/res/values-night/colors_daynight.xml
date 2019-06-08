@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#202020</color>
+    <color name="primaryDark">#202020</color>
+    <!--<color name="primaryDark">#141414</color>-->
+    <color name="accent">#DC8160</color>
+    <color name="accent_disabled">#70DC8160</color>
+
+    <!--<color name="activityBackgroundColor">#FF252525</color>-->
+    <color name="activityBackgroundColor">#FF202020</color>
+    <color name="activityTextColor">#FFFFFFFF</color>
+    <color name="activityDisabledTextColor">#4FFFFFFF</color>
+    <color name="activityCommandBackgroundColor">#1FFFFFFF</color>
+
+<!--    <color name="activityPopupBackground">#FF2A2A2A</color>-->
+    <!--<color name="navigationDrawerTextColor">#ffe5e5e5</color>-->
+<!--    <color name="navigationDrawerSubTextColor">#80ffffff</color> -->
+    <!--<color name="navigationDrawerBackground">#FF252525</color>-->
+    <!--<color name="navigationDrawerItemBackground">#80DC8160</color>-->
+    <!--<color name="navigationDrawerInsetForeground">#FF252525</color>-->
+    <!--<color name="navigationDrawerItemBackgroundPressed">#1FFFFFFF</color>-->
+    <color name="preferenceDialogBackground">#FF000000</color>
+    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>
+    <color name="dialog_divider">#20FFFFFF</color>
+
+    <color name="altype_other">#FF7F7F7F</color>
+
+    <color name="editorFilterTitleColor">#FFFFFFFF</color>
+
+    <color name="tabTargetHelpCircleColor">#FF7F7F7F</color>
+    <color name="tabTargetHelpTextColor">#FFFFFFFF</color>
+
+    <color name="notificationBackground">#FF202020</color>
+
+    <color name="fastScrollTrackPP">#FF5F5F5F</color>
+    <color name="fastScrollThumbPP">#FFDC8160</color>
+    <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>
+    <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
+
+    <color name="eventPauseTextColor">#FF00a7d8</color>
+    <color name="eventStopTextColor">#FFb5b5b5</color>
+    <color name="eventInDelayTextColor">#FFffb000</color>
+
+    <color name="sensor_pass_status_passed_dark">#FF00C000</color>
+    <color name="sensor_pass_status_not_passed_dark">#FFE05050</color>
+    <color name="sensor_pass_status_waiting_dark">#FFffb000</color>
+
+</resources>
