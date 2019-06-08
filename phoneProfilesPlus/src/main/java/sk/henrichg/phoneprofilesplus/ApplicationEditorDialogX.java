@@ -149,11 +149,11 @@ class ApplicationEditorDialogX
             case "white":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-            case "dlight":
+            /*case "dlight":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-                break;
+                break;*/
             default:
-                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }
         filterValues= activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterValues);

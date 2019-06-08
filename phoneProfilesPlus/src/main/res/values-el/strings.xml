@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Κουδούνισμα</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Κουδούνισμα και Δόνηση</string>
   <string name="array_pref_ringerModeArray_vibrate">Δόνηση</string>
-  <string name="array_pref_ringerModeArray_silent">Αθόρυβο</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Αθόρυβο</string>-->
   <string name="array_pref_hardwareModeArray_on">Ενεργό</string>
   <string name="array_pref_hardwareModeArray_off">Ανενεργό</string>
   <string name="array_pref_hardwareModeArray_toggle">Εναλλαγή</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Διαγραφή όλων των γεγονότων</string>
   <string name="alert_message_delete_all_events">Είστε σίγουροι;</string>
   <string name="phone_profiles_pref_applicationTheme">Θέμα εφαρμογής</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Χρώμα</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Χρώμα</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Σκούρο</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Φωτεινό με σκοτεινό τίτλο</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Φωτεινό με σκοτεινό τίτλο</string>-->
   <string name="phone_preferences_actionMode_save">Αποθήκευση</string>
   <string name="profile_preferences_showInActivator">Εμφάνιση στον Ενεργοποιητή</string>
   <string name="event_type_time">Ώρα</string>

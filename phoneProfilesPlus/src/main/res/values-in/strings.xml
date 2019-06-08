@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Cincin</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Cincin dan bergetar</string>
   <string name="array_pref_ringerModeArray_vibrate">Getar</string>
-  <string name="array_pref_ringerModeArray_silent">Senyap</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Senyap</string>-->
   <string name="array_pref_hardwareModeArray_on">aktif</string>
   <string name="array_pref_hardwareModeArray_off">Mati</string>
   <string name="array_pref_hardwareModeArray_toggle">Toggle</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Menghapus semua acara</string>
   <string name="alert_message_delete_all_events">Anda yakin?</string>
   <string name="phone_profiles_pref_applicationTheme">Aplikasi tema</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Warna</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Warna</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Gelap</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Cahaya dengan judul gelap</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Cahaya dengan judul gelap</string>-->
   <string name="phone_preferences_actionMode_save">Simpan</string>
   <string name="profile_preferences_showInActivator">Tampilkan di aktivator</string>
   <string name="event_type_time">Waktu</string>

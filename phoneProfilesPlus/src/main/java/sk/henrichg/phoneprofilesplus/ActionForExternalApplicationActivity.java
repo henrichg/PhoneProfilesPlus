@@ -268,7 +268,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
         }
         PPApplication.createExclamationNotificationChannel(getApplicationContext());
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(this, R.color.primary))
+                .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification

@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">अंगूठी</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">अंगूठी और कंपन</string>
   <string name="array_pref_ringerModeArray_vibrate">कंपन</string>
-  <string name="array_pref_ringerModeArray_silent">मौन</string>
+  <!--<string name="array_pref_ringerModeArray_silent">मौन</string>-->
   <string name="array_pref_hardwareModeArray_on">चालू</string>
   <string name="array_pref_hardwareModeArray_off">बंद</string>
   <string name="array_pref_hardwareModeArray_toggle">टॉगल</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">सभी इवेंट को हटाएँ</string>
   <string name="alert_message_delete_all_events">क्या आपको यकीन है?</string>
   <string name="phone_profiles_pref_applicationTheme">अनुप्रयोग विषयवस्तु</string>
-  <string name="phone_profiles_pref_applicationTheme_color">रंग</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">रंग</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">अंधेरा</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">अंधेरे शीर्षक के साथ प्रकाश</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">अंधेरे शीर्षक के साथ प्रकाश</string>-->
   <string name="phone_preferences_actionMode_save">सहेजें</string>
   <string name="profile_preferences_showInActivator">उत्प्रेरक में दिखाएं</string>
   <string name="event_type_time">समय</string>

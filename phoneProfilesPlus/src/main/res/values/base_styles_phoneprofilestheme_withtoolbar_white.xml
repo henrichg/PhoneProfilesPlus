@@ -69,7 +69,7 @@
         <item name="fastScrollPopupTextPP">@color/fastScrollPopupTextPP_white</item>
         <item name="actionDefaultProfile">@drawable/ic_action_default_profile_white</item>
         <item name="actionRunStopEventsIcon">@drawable/ic_action_play_white</item>
-        <item name="editorSpinnerDropDownTextColor">@color/activityTextColor</item>
+        <item name="editorSpinnerDropDownTextColor">@color/activityTextColor_white</item>
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor_white</item>
         <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all_white</item>
         <item name="buttonBackground">@drawable/pp_button_background_white</item>

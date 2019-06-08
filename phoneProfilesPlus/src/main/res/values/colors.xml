@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="primary">#237e9f</color>
-    <color name="primaryDark">#237e9f</color>
+    <!--<color name="primary">#237e9f</color>-->
+    <!--<color name="primaryDark">#237e9f</color>-->
     <!--<color name="primaryDark">#1d6681</color>--> <!-- 900(700) -->
-    <color name="accent">#DC8160</color>
-    <color name="accent_disabled">#70DC8160</color>
+    <!--<color name="accent">#DC8160</color>-->
+    <!--<color name="accent_disabled">#70DC8160</color>-->
 
-    <color name="activityBackgroundColor">#FFFFFFFF</color>
-    <color name="activityTextColor">#FF000000</color>
-    <color name="activityDisabledTextColor">#4F000000</color>
-    <color name="activityCommandBackgroundColor">#1F000000</color>
+    <!--<color name="activityBackgroundColor">#FFFFFFFF</color>-->
+    <!--<color name="activityTextColor">#FF000000</color>-->
+    <!--<color name="activityDisabledTextColor">#4F000000</color>-->
+    <!--<color name="activityCommandBackgroundColor">#1F000000</color>-->
 
 <!--    <color name="activityPopupBackground">#FFd0d0d0</color>-->
     <!--<color name="navigationDrawerTextColor">#ff000000</color>-->
@@ -18,15 +18,17 @@
     <!--<color name="navigationDrawerInsetForeground">#A7A7A7</color>-->
     <!--<color name="navigationDrawerItemBackground">#80DC8160</color>-->
     <!--<color name="navigationDrawerItemBackgroundPressed">#0F000000</color>-->
-    <color name="preferenceDialogBackground">#FFFFFFFF</color>
-    <color name="editorDrawerListHeaderTitleColor">#FF000000</color>
-    <color name="dialog_divider">#17000000</color>
+    <!--<color name="preferenceDialogBackground">#FFFFFFFF</color>-->
+    <!--<color name="editorDrawerListHeaderTitleColor">#FF000000</color>-->
+    <!--<color name="dialog_divider">#17000000</color>-->
+
+    <color name="notificationDecorationColor">#237e9f</color>
 
     <color name="altype_profile">#FF0000FF</color>
     <color name="altype_eventStart">#FF00C000</color>
     <color name="altype_eventEnd">#FFFF0000</color>
     <color name="altype_eventDelayStartEnd">#FFFFB000</color>
-    <color name="altype_other">#FFD0D0D0</color>
+    <!--<color name="altype_other">#FFD0D0D0</color>-->
 
     <color name="map_edited_location_marker_stroke"
            tools:keep="@color/map_edited_location_marker_stroke">#FFDC8160</color>
@@ -44,17 +46,17 @@
 
     <color name="lockDevice_textColor">#FFFFFFFF</color>
 
-    <color name="fastScrollTrackPP">#FFEFEFEF</color>
-    <color name="fastScrollThumbPP">#FFDC8160</color>
-    <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>
-    <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
+    <!--<color name="fastScrollTrackPP">#FFEFEFEF</color>-->
+    <!--<color name="fastScrollThumbPP">#FFDC8160</color>-->
+    <!--<color name="fastScrollPopupBackgroundPP">#FFDC8160</color>-->
+    <!--<color name="fastScrollPopupTextPP">#FFFFFFFF</color>-->
 
-    <color name="eventPauseTextColor">#FF00a7d8</color>
-    <color name="eventStopTextColor">#FF6c6c6c</color>
-    <color name="eventInDelayTextColor">#FFffb000</color>
+    <!--<color name="eventPauseTextColor">#FF00a7d8</color>-->
+    <!--<color name="eventStopTextColor">#FF6c6c6c</color>-->
+    <!--<color name="eventInDelayTextColor">#FFffb000</color>-->
 
-    <color name="sensor_pass_status_passed">#FF00B000</color>
-    <color name="sensor_pass_status_not_passed">#FFD00000</color>
-    <color name="sensor_pass_status_waiting">#FFffb000</color>
+    <!--<color name="sensor_pass_status_passed">#FF00B000</color>-->
+    <!--<color name="sensor_pass_status_not_passed">#FFD00000</color>-->
+    <!--<color name="sensor_pass_status_waiting">#FFffb000</color>-->
 
 </resources>

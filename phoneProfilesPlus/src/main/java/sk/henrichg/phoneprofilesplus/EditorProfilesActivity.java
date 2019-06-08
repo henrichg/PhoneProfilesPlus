@@ -505,13 +505,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-            case "dlight":
+            /*case "dlight":
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-                break;
+                break;*/
             default:
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
-                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }
         filterSpinner.setAdapter(filterSpinnerAdapter);
@@ -549,13 +549,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
                 orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-            case "dlight":
+            /*case "dlight":
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
                 orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-                break;
+                break;*/
             default:
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
-                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }
         orderSpinner.setAdapter(orderSpinnerAdapter);
@@ -2678,8 +2678,9 @@ public class EditorProfilesActivity extends AppCompatActivity
     class HighlightedSpinnerAdapter extends ArrayAdapter<String>{
 
         private int mSelectedIndex = -1;
-        private Context context;
+        private final Context context;
 
+        @SuppressWarnings("SameParameterValue")
         HighlightedSpinnerAdapter(Context context, int textViewResourceId, String[] objects) {
             super(context, textViewResourceId, objects);
             this.context = context;

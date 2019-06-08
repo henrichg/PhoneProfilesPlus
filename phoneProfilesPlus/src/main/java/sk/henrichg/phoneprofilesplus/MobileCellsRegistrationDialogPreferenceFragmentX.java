@@ -290,7 +290,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
                 mValue.setTextColor(colors);
             }
             else
-                mValue.setTextColor(ContextCompat.getColor(prefContext, R.color.accent));
+                mValue.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
             mSeekBarHours.setEnabled(!started);
             mSeekBarMinutes.setEnabled(!started);
             mSeekBarSeconds.setEnabled(!started);
@@ -300,7 +300,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
                 mCellsName.setTextColor(colors);
             }
             else
-                mCellsName.setTextColor(ContextCompat.getColor(prefContext, R.color.accent));
+                mCellsName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(prefContext));
 
             String value = mCellsName.getText().toString();
             boolean enable = !value.isEmpty();

@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Pozvoni</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Pozvoni in vibriraj</string>
   <string name="array_pref_ringerModeArray_vibrate">Vibriraj</string>
-  <string name="array_pref_ringerModeArray_silent">Tiho</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Tiho</string>-->
   <string name="array_pref_hardwareModeArray_on">Vključi</string>
   <string name="array_pref_hardwareModeArray_off">Izključi</string>
   <string name="array_pref_hardwareModeArray_toggle">Preklopi</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Izbriši vse dogodke</string>
   <string name="alert_message_delete_all_events">Si prepričan?</string>
   <string name="phone_profiles_pref_applicationTheme">Tema aplikacije</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Barva</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Barva</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Temno</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Svetlo s temnim naslovom</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Svetlo s temnim naslovom</string>-->
   <string name="phone_preferences_actionMode_save">Shrani</string>
   <string name="profile_preferences_showInActivator">Prikaži v aktivatorju</string>
   <string name="event_type_time">Čas</string>

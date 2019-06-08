@@ -75,7 +75,7 @@
     <string name="array_pref_ringerModeArray_ring">Squillo</string>
     <string name="array_pref_ringerModeArray_ring_and_vibrate">Squilla e vibra</string>
     <string name="array_pref_ringerModeArray_vibrate">Vibra</string>
-    <string name="array_pref_ringerModeArray_silent">Silenzioso</string>
+    <!--<string name="array_pref_ringerModeArray_silent">Silenzioso</string>-->
     <string name="array_pref_hardwareModeArray_on">Acceso</string>
     <string name="array_pref_hardwareModeArray_off">Spento</string>
     <string name="array_pref_hardwareModeArray_toggle">Alterna</string>
@@ -107,9 +107,9 @@
     <string name="alert_title_delete_all_events">Elimina tutti gli eventi</string>
     <string name="alert_message_delete_all_events">Sei sicuro?</string>
     <string name="phone_profiles_pref_applicationTheme">Tema dell\'applicazione</string>
-    <string name="phone_profiles_pref_applicationTheme_color">Colore</string>
+    <!--<string name="phone_profiles_pref_applicationTheme_color">Colore</string>-->
     <string name="phone_profiles_pref_applicationTheme_dark">Scuro</string>
-    <string name="phone_profiles_pref_applicationTheme_dlight">Chiaro con titolo scuro</string>
+    <!--<string name="phone_profiles_pref_applicationTheme_dlight">Chiaro con titolo scuro</string>-->
     <string name="phone_preferences_actionMode_save">Salva</string>
     <string name="profile_preferences_showInActivator">Mostra nell\'attivatore</string>
     <string name="event_type_time">Orario</string>

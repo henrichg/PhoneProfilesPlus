@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Звънене</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Звънене и вибрация</string>
   <string name="array_pref_ringerModeArray_vibrate">Вибриране</string>
-  <string name="array_pref_ringerModeArray_silent">Тих режим</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Тих режим</string>-->
   <string name="array_pref_hardwareModeArray_on">Вкл.</string>
   <string name="array_pref_hardwareModeArray_off">Изкл.</string>
   <string name="array_pref_hardwareModeArray_toggle">Превключване</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Изтрий всички събития</string>
   <string name="alert_message_delete_all_events">Сигурни ли сте?</string>
   <string name="phone_profiles_pref_applicationTheme">Тема на приложението</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Color</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Color</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Тъмна</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Светла с тъмни заглавия</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Светла с тъмни заглавия</string>-->
   <string name="phone_preferences_actionMode_save">Save</string>
   <string name="profile_preferences_showInActivator">Показване в активатора</string>
   <string name="event_type_time">Час</string>

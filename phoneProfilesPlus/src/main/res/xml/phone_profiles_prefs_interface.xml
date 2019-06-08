@@ -45,9 +45,9 @@
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationTheme"
-        app:summary="@string/phone_profiles_pref_applicationTheme_color"
+        app:summary="@string/phone_profiles_pref_applicationTheme_white"
         app:key="applicationTheme"
-        app:defaultValue="@string/array_pref_value_color"
+        app:defaultValue="@string/array_pref_value_white"
         app:entries="@array/themeArray"
         app:entryValues="@array/themeValues"
         app:layout="@layout/mp_preference_material_widget" />

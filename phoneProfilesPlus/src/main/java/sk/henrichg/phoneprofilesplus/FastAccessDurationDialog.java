@@ -218,11 +218,11 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             case "white":
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-            case "dlight":
+            /*case "dlight":
                 afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-                break;
+                break;*/
             default:
-                afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+                afterDoSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }
         afterDoValues = mActivity.getResources().getStringArray(R.array.afterProfileDurationDoValues);

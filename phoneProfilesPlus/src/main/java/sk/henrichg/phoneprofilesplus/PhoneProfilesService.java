@@ -3967,7 +3967,7 @@ public class PhoneProfilesService extends Service
             notificationBuilder.setContentIntent(pIntent);
 
             //if (Build.VERSION.SDK_INT >= 21)
-                notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.primary));
+                notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
 
             if (Build.VERSION.SDK_INT >= 26) {
                 PPApplication.createProfileNotificationChannel(/*profile, */appContext);

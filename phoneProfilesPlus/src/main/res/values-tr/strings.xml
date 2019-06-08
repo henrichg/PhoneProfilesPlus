@@ -75,7 +75,7 @@
     <string name="array_pref_ringerModeArray_ring">Çal</string>
     <string name="array_pref_ringerModeArray_ring_and_vibrate">Çal ve Titret</string>
     <string name="array_pref_ringerModeArray_vibrate">Titret</string>
-    <string name="array_pref_ringerModeArray_silent">Sessiz</string>
+    <!--<string name="array_pref_ringerModeArray_silent">Sessiz</string>-->
     <string name="array_pref_hardwareModeArray_on">Aç</string>
     <string name="array_pref_hardwareModeArray_off">Kapat</string>
     <string name="array_pref_hardwareModeArray_toggle">Aç/Kapat</string>
@@ -107,9 +107,9 @@
     <string name="alert_title_delete_all_events">Durumların tamamını sil</string>
     <string name="alert_message_delete_all_events">Emin misiniz?</string>
     <string name="phone_profiles_pref_applicationTheme">Uygulama Teması</string>
-    <string name="phone_profiles_pref_applicationTheme_color">Renk</string>
+    <!--<string name="phone_profiles_pref_applicationTheme_color">Renk</string>-->
     <string name="phone_profiles_pref_applicationTheme_dark">Koyu</string>
-    <string name="phone_profiles_pref_applicationTheme_dlight">Koyu başlık ile açık renkli tema</string>
+    <!--<string name="phone_profiles_pref_applicationTheme_dlight">Koyu başlık ile açık renkli tema</string>-->
     <string name="phone_preferences_actionMode_save">Kaydet</string>
     <string name="profile_preferences_showInActivator">\"Muharrik\" içinde göster</string>
     <string name="event_type_time">Zaman</string>

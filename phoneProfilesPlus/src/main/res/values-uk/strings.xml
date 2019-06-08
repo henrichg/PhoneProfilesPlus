@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Дзвінок</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Мелодія дзвінка та вібросигнал</string>
   <string name="array_pref_ringerModeArray_vibrate">Вібросигнал</string>
-  <string name="array_pref_ringerModeArray_silent">Беззвучний</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Беззвучний</string>-->
   <string name="array_pref_hardwareModeArray_on">Увімкнути</string>
   <string name="array_pref_hardwareModeArray_off">Вимкнути</string>
   <string name="array_pref_hardwareModeArray_toggle">Перемкнути</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Вилучити усі події</string>
   <string name="alert_message_delete_all_events">Ви впевнені?</string>
   <string name="phone_profiles_pref_applicationTheme">Тема додатку</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Кольорова</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Кольорова</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Темна</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Світла з темним заголовком</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Світла з темним заголовком</string>-->
   <string name="phone_preferences_actionMode_save">Зберегти</string>
   <string name="profile_preferences_showInActivator">Показувати в активаторі</string>
   <string name="event_type_time">Час</string>

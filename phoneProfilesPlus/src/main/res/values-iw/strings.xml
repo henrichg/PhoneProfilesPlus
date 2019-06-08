@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">צלצול</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">צלצול ורטט</string>
   <string name="array_pref_ringerModeArray_vibrate">רטט</string>
-  <string name="array_pref_ringerModeArray_silent">שקט</string>
+  <!--<string name="array_pref_ringerModeArray_silent">שקט</string>-->
   <string name="array_pref_hardwareModeArray_on">פעיל</string>
   <string name="array_pref_hardwareModeArray_off">כבוי</string>
   <string name="array_pref_hardwareModeArray_toggle">שינוי מצב</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">מחיקת כל האירועים</string>
   <string name="alert_message_delete_all_events">את/ה בטוח/ה?</string>
   <string name="phone_profiles_pref_applicationTheme">ערכת נושא היישום</string>
-  <string name="phone_profiles_pref_applicationTheme_color">צבע</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">צבע</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">כהה</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">בהיר עם כותרת כהה</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">בהיר עם כותרת כהה</string>-->
   <string name="phone_preferences_actionMode_save">שמור</string>
   <string name="profile_preferences_showInActivator">תצוגה במפעיל</string>
   <string name="event_type_time">זמן</string>

@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Jen zvonit</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Zvonit a vibrovat</string>
   <string name="array_pref_ringerModeArray_vibrate">Jen vibrovat</string>
-  <string name="array_pref_ringerModeArray_silent">Nezvonit a nevibrovat</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Nezvonit a nevibrovat</string>-->
   <string name="array_pref_hardwareModeArray_on">Zapnout</string>
   <string name="array_pref_hardwareModeArray_off">Vypnout</string>
   <string name="array_pref_hardwareModeArray_toggle">Přepnout stav</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Odstranit všechny události</string>
   <string name="alert_message_delete_all_events">Jste si jistí?</string>
   <string name="phone_profiles_pref_applicationTheme">Téma aplikace</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Barva</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Barva</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Tmavé</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Světlé s tmavým titulkem</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Světlé s tmavým titulkem</string>-->
   <string name="phone_preferences_actionMode_save">Uložit</string>
   <string name="profile_preferences_showInActivator">Zobrazit v Aktivátoru</string>
   <string name="event_type_time">Čas</string>

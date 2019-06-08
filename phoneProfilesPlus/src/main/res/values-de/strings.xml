@@ -75,7 +75,7 @@
     <string name="array_pref_ringerModeArray_ring">Ton</string>
     <string name="array_pref_ringerModeArray_ring_and_vibrate">Ton und Vibration</string>
     <string name="array_pref_ringerModeArray_vibrate">Vibration</string>
-    <string name="array_pref_ringerModeArray_silent">Still</string>
+    <!--<string name="array_pref_ringerModeArray_silent">Still</string>-->
     <string name="array_pref_hardwareModeArray_on">An</string>
     <string name="array_pref_hardwareModeArray_off">Aus</string>
     <string name="array_pref_hardwareModeArray_toggle">Umschalten</string>
@@ -107,9 +107,9 @@
     <string name="alert_title_delete_all_events">Alle Ereignisse löschen</string>
     <string name="alert_message_delete_all_events">Sicher?</string>
     <string name="phone_profiles_pref_applicationTheme">App-Thema</string>
-    <string name="phone_profiles_pref_applicationTheme_color">Farbe</string>
+    <!--<string name="phone_profiles_pref_applicationTheme_color">Farbe</string>-->
     <string name="phone_profiles_pref_applicationTheme_dark">Dunkel</string>
-    <string name="phone_profiles_pref_applicationTheme_dlight">Hell mit dunklem Titel</string>
+    <!--<string name="phone_profiles_pref_applicationTheme_dlight">Hell mit dunklem Titel</string>-->
     <string name="phone_preferences_actionMode_save">Speichern</string>
     <string name="profile_preferences_showInActivator">Im Starter anzeigen</string>
     <string name="event_type_time">Zeit</string>

@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">铃声</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">响铃并震动</string>
   <string name="array_pref_ringerModeArray_vibrate">震动</string>
-  <string name="array_pref_ringerModeArray_silent">静音</string>
+  <!--<string name="array_pref_ringerModeArray_silent">静音</string>-->
   <string name="array_pref_hardwareModeArray_on">开启</string>
   <string name="array_pref_hardwareModeArray_off">关闭</string>
   <string name="array_pref_hardwareModeArray_toggle">切换</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">删除所有事件</string>
   <string name="alert_message_delete_all_events">你确定吗?</string>
   <string name="phone_profiles_pref_applicationTheme">应用主题</string>
-  <string name="phone_profiles_pref_applicationTheme_color">颜色</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">颜色</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">酷黑</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">光与暗的标题</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">光与暗的标题</string>-->
   <string name="phone_preferences_actionMode_save">保存</string>
   <string name="profile_preferences_showInActivator">在激活清单中显示</string>
   <string name="event_type_time">时间</string>

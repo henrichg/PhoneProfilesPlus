@@ -136,7 +136,7 @@ class ImportantInfoNotification {
         }
         PPApplication.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(context, R.color.primary))
+                .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
                 .setContentTitle(nTitle) // title for notification
                 .setContentText(nText) // message for notification

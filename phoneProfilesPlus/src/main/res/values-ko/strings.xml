@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">소리</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">소리, 진동</string>
   <string name="array_pref_ringerModeArray_vibrate">진동</string>
-  <string name="array_pref_ringerModeArray_silent">무음</string>
+  <!--<string name="array_pref_ringerModeArray_silent">무음</string>-->
   <string name="array_pref_hardwareModeArray_on">켜기</string>
   <string name="array_pref_hardwareModeArray_off">끄기</string>
   <string name="array_pref_hardwareModeArray_toggle">꺼짐 - 켜짐</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">모든 이벤트 삭제</string>
   <string name="alert_message_delete_all_events">그대로 진행해도 좋습니까?</string>
   <string name="phone_profiles_pref_applicationTheme">어플리케이션 테마</string>
-  <string name="phone_profiles_pref_applicationTheme_color">색상</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">색상</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">어두움</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">어두운 제목에 밝은</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">어두운 제목에 밝은</string>-->
   <string name="phone_preferences_actionMode_save">저장</string>
   <string name="profile_preferences_showInActivator">활성창 표시</string>
   <string name="event_type_time">시간</string>

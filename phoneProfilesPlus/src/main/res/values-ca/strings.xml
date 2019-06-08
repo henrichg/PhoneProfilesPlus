@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">So</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Sona i vibra</string>
   <string name="array_pref_ringerModeArray_vibrate">Vibrar</string>
-  <string name="array_pref_ringerModeArray_silent">Silenciós</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Silenciós</string>-->
   <string name="array_pref_hardwareModeArray_on">Activar</string>
   <string name="array_pref_hardwareModeArray_off">Desactivar</string>
   <string name="array_pref_hardwareModeArray_toggle">Alternar</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Esborrar tots els esdeveniments</string>
   <string name="alert_message_delete_all_events">Esteu segur?</string>
   <string name="phone_profiles_pref_applicationTheme">Tema de l\'aplicació</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Color</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Color</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Fosc</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Clar amb títol fosc</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Clar amb títol fosc</string>-->
   <string name="phone_preferences_actionMode_save">Save</string>
   <string name="profile_preferences_showInActivator">Mostrar a activador</string>
   <string name="event_type_time">Horari</string>

@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">با صدا</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">با صدا و لرزش</string>
   <string name="array_pref_ringerModeArray_vibrate">لرزش</string>
-  <string name="array_pref_ringerModeArray_silent">بی صدا</string>
+  <!--<string name="array_pref_ringerModeArray_silent">بی صدا</string>-->
   <string name="array_pref_hardwareModeArray_on">روشن</string>
   <string name="array_pref_hardwareModeArray_off">خاموش</string>
   <string name="array_pref_hardwareModeArray_toggle">تغییر وضعیت</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">حذف تمامی رویداد ها</string>
   <string name="alert_message_delete_all_events">آیا شما مطمئن هستید؟</string>
   <string name="phone_profiles_pref_applicationTheme">پوسته نرم افزار</string>
-  <string name="phone_profiles_pref_applicationTheme_color">رنگ</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">رنگ</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">تیره</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">روشن با عنوان تیره</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">روشن با عنوان تیره</string>-->
   <string name="phone_preferences_actionMode_save">ذخیره</string>
   <string name="profile_preferences_showInActivator">نمایش در فعال ساز</string>
   <string name="event_type_time">زمان</string>

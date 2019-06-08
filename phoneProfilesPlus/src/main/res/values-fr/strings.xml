@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Sonner</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Sonner et vibrer</string>
   <string name="array_pref_ringerModeArray_vibrate">Vibrer</string>
-  <string name="array_pref_ringerModeArray_silent">Silencieux</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Silencieux</string>-->
   <string name="array_pref_hardwareModeArray_on">Allumer</string>
   <string name="array_pref_hardwareModeArray_off">Eteint</string>
   <string name="array_pref_hardwareModeArray_toggle">Basculer</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Supprimer tous les événements</string>
   <string name="alert_message_delete_all_events">Êtes-vous sûr?</string>
   <string name="phone_profiles_pref_applicationTheme">Thème de l\'application</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Couleur</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Couleur</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Sombre</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Lumineux avec titre foncé</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Lumineux avec titre foncé</string>-->
   <string name="phone_preferences_actionMode_save">Enregistrer</string>
   <string name="profile_preferences_showInActivator">Montrer dans l\'activateur</string>
   <string name="event_type_time">Temps</string>

@@ -12,7 +12,7 @@
     <color name="activityDisabledTextColor_white">#4F000000</color>
     <color name="activityCommandBackgroundColor_white">#1F000000</color>
 
-    <color name="activityPopupBackground_white">#FFd0d0d0</color>
+    <!--<color name="activityPopupBackground_white">#FFd0d0d0</color>-->
     <!--<color name="navigationDrawerTextColor_white">#ff000000</color>-->
 <!--    <color name="navigationDrawerSubTextColor_white">#80000000</color> -->
     <!--<color name="navigationDrawerBackground_white">#fffafafa</color>-->

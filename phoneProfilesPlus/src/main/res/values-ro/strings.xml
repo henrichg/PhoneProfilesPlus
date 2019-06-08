@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Sună</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Sună şi vibrează</string>
   <string name="array_pref_ringerModeArray_vibrate">Vibrează</string>
-  <string name="array_pref_ringerModeArray_silent">Silenţios</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Silenţios</string>-->
   <string name="array_pref_hardwareModeArray_on">Pornit</string>
   <string name="array_pref_hardwareModeArray_off">Oprit</string>
   <string name="array_pref_hardwareModeArray_toggle">Comută</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Șterge toate evenimentele</string>
   <string name="alert_message_delete_all_events">Ești sigur?</string>
   <string name="phone_profiles_pref_applicationTheme">Tema aplicației</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Culoare</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Culoare</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Întunecat</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Luminos cu titlu întunecat</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Luminos cu titlu întunecat</string>-->
   <string name="phone_preferences_actionMode_save">Salvează</string>
   <string name="profile_preferences_showInActivator">Arată în Activator</string>
   <string name="event_type_time">Ora</string>

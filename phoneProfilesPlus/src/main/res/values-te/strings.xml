@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">రింగ్</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">రింగ్ మరియు వైబ్రేట్</string>
   <string name="array_pref_ringerModeArray_vibrate">వైబ్రేట్</string>
-  <string name="array_pref_ringerModeArray_silent">సైలెంట్</string>
+  <!--<string name="array_pref_ringerModeArray_silent">సైలెంట్</string>-->
   <string name="array_pref_hardwareModeArray_on">ఓన్</string>
   <string name="array_pref_hardwareModeArray_off">ఆఫ్</string>
   <string name="array_pref_hardwareModeArray_toggle">టోగుల్</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">అన్ని ఈవెంట్లను తొలగించు</string>
   <string name="alert_message_delete_all_events">మీరు ఖచ్చితంగా చెప్తున్నారా?</string>
   <string name="phone_profiles_pref_applicationTheme">అప్లికేషన్ థీమ్</string>
-  <string name="phone_profiles_pref_applicationTheme_color">రంగు</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">రంగు</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">డార్క్</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">డార్క్ టైటిల్ తో లైట్</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">డార్క్ టైటిల్ తో లైట్</string>-->
   <string name="phone_preferences_actionMode_save">సేవ్</string>
   <string name="profile_preferences_showInActivator">షౌ ఇన్ ఆక్టివేటర్</string>
   <string name="event_type_time">సమయం</string>

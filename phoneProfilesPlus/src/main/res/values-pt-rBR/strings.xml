@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Toque</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Tocar e vibrar</string>
   <string name="array_pref_ringerModeArray_vibrate">Vibrar</string>
-  <string name="array_pref_ringerModeArray_silent">Silencioso</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Silencioso</string>-->
   <string name="array_pref_hardwareModeArray_on">Ativado</string>
   <string name="array_pref_hardwareModeArray_off">Desativado</string>
   <string name="array_pref_hardwareModeArray_toggle">Alternar</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Apagar todos os eventos</string>
   <string name="alert_message_delete_all_events">Tem certeza?</string>
   <string name="phone_profiles_pref_applicationTheme">Tema do aplicativo</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Cor</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Cor</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Escuro</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Claro com título escuro</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Claro com título escuro</string>-->
   <string name="phone_preferences_actionMode_save">Gravar</string>
   <string name="profile_preferences_showInActivator">Mostrar no ativador</string>
   <string name="event_type_time">Horário</string>

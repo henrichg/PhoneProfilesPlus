@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Dzwonek</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Dzwonek i wibracje</string>
   <string name="array_pref_ringerModeArray_vibrate">Wibracje</string>
-  <string name="array_pref_ringerModeArray_silent">Cichy</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Cichy</string>-->
   <string name="array_pref_hardwareModeArray_on">Włącz</string>
   <string name="array_pref_hardwareModeArray_off">Wyłącz</string>
   <string name="array_pref_hardwareModeArray_toggle">Zmień stan na przeciwny</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Usuń wszystkie zdarzenia</string>
   <string name="alert_message_delete_all_events">Czy na pewno?</string>
   <string name="phone_profiles_pref_applicationTheme">Wygląd aplikacji</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Kolor</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Kolor</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Ciemna</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Jasna z ciemnym tytułem</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Jasna z ciemnym tytułem</string>-->
   <string name="phone_preferences_actionMode_save">Zapisz</string>
   <string name="profile_preferences_showInActivator">Pokazuj w Aktywatorze</string>
   <string name="event_type_time">Czas</string>

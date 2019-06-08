@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Ring</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Ring och vibration</string>
   <string name="array_pref_ringerModeArray_vibrate">Vibration</string>
-  <string name="array_pref_ringerModeArray_silent">Ljudlöst</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Ljudlöst</string>-->
   <string name="array_pref_hardwareModeArray_on">På</string>
   <string name="array_pref_hardwareModeArray_off">Av</string>
   <string name="array_pref_hardwareModeArray_toggle">Växla</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Ta bort alla händelser</string>
   <string name="alert_message_delete_all_events">Är du säker?</string>
   <string name="phone_profiles_pref_applicationTheme">Applikationstema</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Färg</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Färg</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Mörk</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Ljus med mörk rubrik</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Ljus med mörk rubrik</string>-->
   <string name="phone_preferences_actionMode_save">Spara</string>
   <string name="profile_preferences_showInActivator">Visa i Väljaren</string>
   <string name="event_type_time">Tid</string>

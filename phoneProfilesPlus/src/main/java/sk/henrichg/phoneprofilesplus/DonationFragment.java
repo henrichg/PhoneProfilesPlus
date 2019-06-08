@@ -86,11 +86,11 @@ public class DonationFragment extends Fragment {
             case "white":
                 mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-            case "dlight":
+            /*case "dlight":
                 mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-                break;
+                break;*/
             default:
-                mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_color);
+                mGoogleSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }
 

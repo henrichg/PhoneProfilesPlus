@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Bellen</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Bellen en trillen</string>
   <string name="array_pref_ringerModeArray_vibrate">Trillen</string>
-  <string name="array_pref_ringerModeArray_silent">Stil</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Stil</string>-->
   <string name="array_pref_hardwareModeArray_on">Aan</string>
   <string name="array_pref_hardwareModeArray_off">Uit</string>
   <string name="array_pref_hardwareModeArray_toggle">Wisselen</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Verwijder alle events</string>
   <string name="alert_message_delete_all_events">Weet je het zeker?</string>
   <string name="phone_profiles_pref_applicationTheme">Programmathema</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Kleur</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Kleur</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Donker</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Licht met donkere titel</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Licht met donkere titel</string>-->
   <string name="phone_preferences_actionMode_save">Opslaan</string>
   <string name="profile_preferences_showInActivator">Zichtbaar in Activator</string>
   <string name="event_type_time">Tijd</string>

@@ -75,7 +75,7 @@
   <string name="array_pref_ringerModeArray_ring">Рингтон</string>
   <string name="array_pref_ringerModeArray_ring_and_vibrate">Рингтон и вибросигнал</string>
   <string name="array_pref_ringerModeArray_vibrate">Вибросигнал</string>
-  <string name="array_pref_ringerModeArray_silent">Беззвучный</string>
+  <!--<string name="array_pref_ringerModeArray_silent">Беззвучный</string>-->
   <string name="array_pref_hardwareModeArray_on">Включать</string>
   <string name="array_pref_hardwareModeArray_off">Выключать</string>
   <string name="array_pref_hardwareModeArray_toggle">Переключать</string>
@@ -107,9 +107,9 @@
   <string name="alert_title_delete_all_events">Удалить все события</string>
   <string name="alert_message_delete_all_events">Вы уверены?</string>
   <string name="phone_profiles_pref_applicationTheme">Тема приложения</string>
-  <string name="phone_profiles_pref_applicationTheme_color">Цветная</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_color">Цветная</string>-->
   <string name="phone_profiles_pref_applicationTheme_dark">Тёмная</string>
-  <string name="phone_profiles_pref_applicationTheme_dlight">Светлая с тёмным названием</string>
+  <!--<string name="phone_profiles_pref_applicationTheme_dlight">Светлая с тёмным названием</string>-->
   <string name="phone_preferences_actionMode_save">Сохранить</string>
   <string name="profile_preferences_showInActivator">Показывать в Активаторе</string>
   <string name="event_type_time">Время</string>

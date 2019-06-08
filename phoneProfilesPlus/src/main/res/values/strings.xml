@@ -78,7 +78,7 @@
     <string name="array_pref_ringerModeArray_ring">Ring</string>
     <string name="array_pref_ringerModeArray_ring_and_vibrate">Ring and Vibrate</string>
     <string name="array_pref_ringerModeArray_vibrate">Vibrate</string>
-    <string name="array_pref_ringerModeArray_silent">Silent</string>
+    <!--<string name="array_pref_ringerModeArray_silent">Silent</string>-->
     <string name="array_pref_hardwareModeArray_on">On</string>
     <string name="array_pref_hardwareModeArray_off">Off</string>
     <string name="array_pref_hardwareModeArray_toggle">Toggle</string>
@@ -141,12 +141,12 @@
     <string name="alert_title_delete_all_events">Delete all events</string>
     <string name="alert_message_delete_all_events">Are you sure?</string>
     <string name="phone_profiles_pref_applicationTheme">Application theme</string>
-    <string name="phone_profiles_pref_applicationTheme_color">Color</string>
+    <!--<string name="phone_profiles_pref_applicationTheme_color">Color</string>-->
     <string name="phone_profiles_pref_applicationTheme_dark">Dark</string>
-    <string name="phone_profiles_pref_applicationTheme_dlight">Light with dark title</string>
-    <string name="array_pref_value_color" translatable="false">color</string>
+    <!--<string name="phone_profiles_pref_applicationTheme_dlight">Light with dark title</string>-->
+    <!--<string name="array_pref_value_color" translatable="false">color</string>-->
     <string name="array_pref_value_dark" translatable="false">dark</string>
-    <string name="array_pref_value_dlight" translatable="false">dlight</string>
+    <!--<string name="array_pref_value_dlight" translatable="false">dlight</string>-->
     <string name="phone_preferences_actionMode_save">Save</string>
     <string name="profile_preferences_showInActivator">Show in Activator</string>
     <string name="event_type_time">Time</string>
