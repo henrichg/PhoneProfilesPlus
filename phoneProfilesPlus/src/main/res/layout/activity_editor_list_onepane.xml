@@ -23,7 +23,7 @@
             android:paddingBottom="3dp"
             android:orientation="vertical"
             android:background="?attr/colorPrimary"
-            android:elevation="1dp" >
+            android:elevation="0dp" >
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/editor_toolbar"
@@ -136,7 +136,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/toolbar_dropShadow_height"
-                android:background="@drawable/bottombar_dropshadow"
+                android:background="?attr/dialogDivider"
                 android:layout_gravity="bottom" />
 
         </FrameLayout>

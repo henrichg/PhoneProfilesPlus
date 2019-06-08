@@ -6,18 +6,19 @@
     <color name="accent_dark">#DC8160</color>
     <color name="accent_dark_disabled">#70DC8160</color>
 
-    <color name="activityBackgroundColor_dark">#FF252525</color>
+    <!--<color name="activityBackgroundColor_dark">#FF252525</color>-->
+    <color name="activityBackgroundColor_dark">#FF202020</color>
     <color name="activityTextColor_dark">#FFFFFFFF</color>
     <color name="activityDisabledTextColor_dark">#4FFFFFFF</color>
     <color name="activityCommandBackgroundColor_dark">#1FFFFFFF</color>
 
-    <color name="activityPopupBackground_dark">#FF2A2A2A</color>
-    <color name="navigationDrawerTextColor_dark">#ffe5e5e5</color>
+<!--    <color name="activityPopupBackground_dark">#FF2A2A2A</color>-->
+    <!--<color name="navigationDrawerTextColor_dark">#ffe5e5e5</color>-->
 <!--    <color name="navigationDrawerSubTextColor_dark">#80ffffff</color> -->
-    <color name="navigationDrawerBackground_dark">#FF252525</color>
-    <color name="navigationDrawerItemBackground_dark">#80DC8160</color>
-    <color name="navigationDrawerInsetForeground_dark">#FF252525</color>
-    <color name="navigationDrawerItemBackgroundPressed_dark">#1FFFFFFF</color>
+    <!--<color name="navigationDrawerBackground_dark">#FF252525</color>-->
+    <!--<color name="navigationDrawerItemBackground_dark">#80DC8160</color>-->
+    <!--<color name="navigationDrawerInsetForeground_dark">#FF252525</color>-->
+    <!--<color name="navigationDrawerItemBackgroundPressed_dark">#1FFFFFFF</color>-->
     <color name="preferenceDialogBackground_dark">#FF000000</color>
     <color name="editorDrawerListHeaderTitleColor_dark">#FFFFFFFF</color>
     <color name="dialog_divider_dark">#20FFFFFF</color>

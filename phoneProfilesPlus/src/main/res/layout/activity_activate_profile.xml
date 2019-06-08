@@ -12,7 +12,7 @@
         android:paddingBottom="3dp"
         android:orientation="vertical"
         android:background="?attr/colorPrimary"
-        android:elevation="1dp"
+        android:elevation="0dp"
         tools:ignore="UnusedAttribute">
 
         <androidx.appcompat.widget.Toolbar

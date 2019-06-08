@@ -15,8 +15,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="5dp"
             android:padding="6dp" >
 
             <ImageView
@@ -50,8 +50,6 @@
             android:id="@+id/wifi_ssid_pref_dlg_buttonBarDivider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:background="?attr/dialogDivider" />
 
     </LinearLayout>

@@ -5,7 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <!-- root LinearLayout is required -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_dropShadow_height"
+        android:background="?attr/dialogDivider"
+        android:layout_gravity="top" />
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -138,9 +138,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
         // add header height
         if (ApplicationPreferences.applicationActivatorHeader(getApplicationContext())) {
             if (!applicationActivatorGridLayout)
-                popupHeight = popupHeight + 72f * scale;
+                popupHeight = popupHeight + 57f * scale;
             else
-                popupHeight = popupHeight + 74f * scale;
+                popupHeight = popupHeight + 59f * scale;
         }
 
         // add toolbar height
