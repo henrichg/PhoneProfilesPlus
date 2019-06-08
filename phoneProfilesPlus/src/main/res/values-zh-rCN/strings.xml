@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">延迟暂停: 事件已开始，但在延迟中等待。事件参数已满足。</string>
   <string name="event_preferences_calendar_ignore_all_day_events">忽略“全天”事件</string>
   <string name="important_info_default_profile">当没有任何事件在运行时，如果已经设置，则激活的是“默认情景”。您可以在应用程序设定中的“情景激活”来设置默认情景。按这里进行设置。</string>
-  <string name="important_info_how_does_volume_separation_work">“音量区分”是如何工作的：设备音量由情景激活中的情景通知来调整音量级别。当检测到电话响了时，来电音量级别从激活情景中获取。通话完毕后，通知音量从恢复的情景中获取。</string>
+  <string name="important_info_how_does_volume_separation_work_title">“音量区分”是如何工作的：</string>
+  <string name="important_info_how_does_volume_separation_work">设备音量由情景激活中的情景通知来调整音量级别。当检测到电话响了时，来电音量级别从激活情景中获取。通话完毕后，通知音量从恢复的情景中获取。</string>
   <string name="event_type_locations">定位</string>
   <string name="event_preferences_category_eventLocationsParameters">位置传感器</string>
   <string name="event_preferences_locations_location">定位</string>

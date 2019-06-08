@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">Paused with delay: event is started, but is waiting for the delay to expire. Event parameters are satisfied.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>
   <string name="important_info_default_profile">When no events are running, the \"Default profile\" is enabled if configured. You can configure a default profile in application settings in \"Profile activation\". Click here to configure it.</string>
-  <string name="important_info_how_does_volume_separation_work">How \"volume separation\" works: Profile activation adjusts device volume by the running profile notifications volume level. When call ringing is detected, the ringing volume level from the running profile is adjusted. After the call ends, the notification volume level from the running profile is restored.</string>
+    <string name="important_info_how_does_volume_separation_work_title">How \"volume separation\" works:</string>
+    <string name="important_info_how_does_volume_separation_work">Profile activation adjusts device volume by the running profile notifications volume level. When call ringing is detected, the ringing volume level from the running profile is adjusted. After the call ends, the notification volume level from the running profile is restored.</string>
   <string name="event_type_locations">Location</string>
   <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>
   <string name="event_preferences_locations_location">Location</string>

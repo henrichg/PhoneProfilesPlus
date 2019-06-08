@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">Pausade med fördröjning: händelsen är startad, men i vänteläge. Händelse parametrar är uppfyllda.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignorera \"Hela dagen\" händelser</string>
   <string name="important_info_default_profile">Om ingen händelse är igång aktiveras \"standardprofilen, om så är konfigurerat. Du kan konfigurera standardprofilen i programinställningar i \"Profil aktivering\". Klicka här för att konfigurera den.</string>
-  <string name="important_info_how_does_volume_separation_work">Hur \"volym separation\" fungerar: Profil aktivering justerar enhetens volym utefter profil aviseringars volymnivå. När samtals ringning upptäcks, justeras ring volymnivå från profilen. Efter slutet av samtalet justeras aviseringsvolymnivån tillbaka enligt profil.</string>
+  <string name="important_info_how_does_volume_separation_work_title">Hur \"volym separation\" fungerar:</string>
+  <string name="important_info_how_does_volume_separation_work">Profil aktivering justerar enhetens volym utefter profil aviseringars volymnivå. När samtals ringning upptäcks, justeras ring volymnivå från profilen. Efter slutet av samtalet justeras aviseringsvolymnivån tillbaka enligt profil.</string>
   <string name="event_type_locations">Plats</string>
   <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>
   <string name="event_preferences_locations_location">Plats</string>

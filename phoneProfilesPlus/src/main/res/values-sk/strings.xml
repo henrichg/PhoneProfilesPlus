@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">Pozastavená s pozdržaním: udalosť je spustená, ale čaká v pozdržaní. Parametre udalosti sú splnené.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj \"celodenné\" udalosti</string>
   <string name="important_info_default_profile">Ak nebežia žiadne udalosti, aktivovaný je \"Predvolený profil\". Predvolený profil môžete nastaviť v nastaveniach aplikácie v \"Aktivácia profilu\". Kliknite sem na jeho nakonfigurovanie.</string>
-  <string name="important_info_how_does_volume_separation_work">Ako funguje \"oddeľovanie hlasitostí\": Aktivácia profilu nastaví hlasitosť zariadenia podľa hlasitosti notifikácií v profile. Ak je zachytený príchodzí hovor, nastaví sa hlasitosť zvonenia z profilu. Po ukončení hovoru sa spať nastaví hlasitosť notifikácií z profilu.</string>
+  <string name="important_info_how_does_volume_separation_work_title">Ako funguje \"oddeľovanie hlasitostí\":</string>
+  <string name="important_info_how_does_volume_separation_work">Aktivácia profilu nastaví hlasitosť zariadenia podľa hlasitosti notifikácií v profile. Ak je zachytený príchodzí hovor, nastaví sa hlasitosť zvonenia z profilu. Po ukončení hovoru sa spať nastaví hlasitosť notifikácií z profilu.</string>
   <string name="event_type_locations">Poloha</string>
   <string name="event_preferences_category_eventLocationsParameters">Senzor polohy</string>
   <string name="event_preferences_locations_location">Poloha</string>

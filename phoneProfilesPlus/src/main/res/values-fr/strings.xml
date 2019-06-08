@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">Pause avec tempo : L\'événement est démarré, mais est en attente pendant une pause. Paramètres d\'événement sont remplies.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignorer les événements de « Journaliers »</string>
   <string name="important_info_default_profile">Quand pas n\'importe quel événement est en cours d\'exécution, activé est « Le profil par défaut » lorsqu\'est configuré. Vous pouvez configurer le profil par défaut dans les paramètres de l\'application dans « Activation du profil ». Cliquez ici pour le configurer.</string>
-  <string name="important_info_how_does_volume_separation_work">Comment fonctionne la « séparation du volume » : L\'activation du profil ajuste le volume de l\'appareil de niveau des notifications. Lorsque la sonnerie est détectée, Le volume est ajustée. Après la fin de l\'appel, le volume est réinitialisé à la valeur des notifications.</string>
+  <string name="important_info_how_does_volume_separation_work_title">Comment fonctionne la « séparation du volume » :</string>
+  <string name="important_info_how_does_volume_separation_work">L\'activation du profil ajuste le volume de l\'appareil de niveau des notifications. Lorsque la sonnerie est détectée, Le volume est ajustée. Après la fin de l\'appel, le volume est réinitialisé à la valeur des notifications.</string>
   <string name="event_type_locations">Emplacement</string>
   <string name="event_preferences_category_eventLocationsParameters">Capteur emplacement</string>
   <string name="event_preferences_locations_location">Emplacement</string>

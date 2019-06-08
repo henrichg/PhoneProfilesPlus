@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">Призупинено із затримкою: подія виконується, але відкладено. Параметри подій задоволені.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ігнорувати події \"Увесь день\"</string>
   <string name="important_info_default_profile">Коли жодна подія не виконується, активується «Профіль за промовчуванням», якщо його налаштовано. Профіль за промовчуванням можна налаштувати в параметрах додатку, пункт «Активація профілю». Натисніть тут, щоб налаштувати його.</string>
-  <string name="important_info_how_does_volume_separation_work">Як працює «розділення гучності»: активація профілю встановлює гучність пристрою на рівні гучності сповіщень. При виявленні виклику рівень гучності встановлюється в залежності від налаштувань профілю. Після закінчення виклику рівень гучності повертається до рівня гучності сповіщень профілю.</string>
+  <string name="important_info_how_does_volume_separation_work_title">Як працює «розділення гучності»:</string>
+  <string name="important_info_how_does_volume_separation_work">Активація профілю встановлює гучність пристрою на рівні гучності сповіщень. При виявленні виклику рівень гучності встановлюється в залежності від налаштувань профілю. Після закінчення виклику рівень гучності повертається до рівня гучності сповіщень профілю.</string>
   <string name="event_type_locations">Місцезнаходження</string>
   <string name="event_preferences_category_eventLocationsParameters">Датчик місцезнаходження</string>
   <string name="event_preferences_locations_location">Місцезнаходження</string>

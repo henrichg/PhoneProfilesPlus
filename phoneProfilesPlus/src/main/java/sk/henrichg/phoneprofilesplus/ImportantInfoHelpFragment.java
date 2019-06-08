@@ -550,6 +550,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         */
 
+        /*
         if (ApplicationPreferences.preferences.getBoolean(ActivateProfileHelper.PREF_MERGED_RING_NOTIFICATION_VOLUMES, true)) {
             // detection of volumes merge = volumes are merged
             TextView infoText3 = view.findViewById(R.id.activity_info_notification_unlink_ringer_notification_volumes);
@@ -568,6 +569,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             TextView infoText3 = view.findViewById(R.id.activity_info_notification_unlink_ringer_notification_volumes);
             infoText3.setVisibility(View.GONE);
         }
+        */
 
         KillerManager.init(activity);
         if (KillerManager.isActionAvailable(activity, KillerManager.Actions.ACTION_POWERSAVING)) {

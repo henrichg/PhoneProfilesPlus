@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">מושהה עם השהיה: האירוע התחיל, אך ממתין למשך ההשהיה. הפרמטרים של האירוע התקיימו.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">התעלמות מאירועי \"כל היום\"</string>
   <string name="important_info_default_profile">כאשר לא פועל כל אירוע, הפרופיל הפעיל הוא \"פרופיל ברירת המחדל\", אם מוגדר. ניתן להגדיר פרופיל ברירת-מחדל בהגדרות היישום ב- \"הפעלה פרופיל\". לחצו כאן להגדרות.</string>
-  <string name="important_info_how_does_volume_separation_work">איך עובדת \"הפרדת עוצמות שמע\": הפעלת פרופיל קובעת את עוצמת הקול של המכשיר עפ\"י הגדרת עוצמת השמע של הודעות בפרופיל. כאשר מזוהה צלצול של שיחה, עוצמת הצלצול נקבעת כמוגדר בפרופיל. לאחר סיום השיחה, מותאמת עוצמת השמע חזרה לעוצמת צליל הודעה המוגדרת בפרופיל.</string>
+  <string name="important_info_how_does_volume_separation_work_title">איך עובדת \"הפרדת עוצמות שמע\":</string>
+  <string name="important_info_how_does_volume_separation_work">הפעלת פרופיל קובעת את עוצמת הקול של המכשיר עפ\"י הגדרת עוצמת השמע של הודעות בפרופיל. כאשר מזוהה צלצול של שיחה, עוצמת הצלצול נקבעת כמוגדר בפרופיל. לאחר סיום השיחה, מותאמת עוצמת השמע חזרה לעוצמת צליל הודעה המוגדרת בפרופיל.</string>
   <string name="event_type_locations">מיקום</string>
   <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>
   <string name="event_preferences_locations_location">מיקום</string>

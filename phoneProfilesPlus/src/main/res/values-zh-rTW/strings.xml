@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">延遲暫停: 事件已開始，但在延遲中等待。事件參數已滿足。</string>
   <string name="event_preferences_calendar_ignore_all_day_events">忽略 \"全天\" 事件</string>
   <string name="important_info_default_profile">當沒有執行中的事件時, \"預設設定檔\" 會被啟用. 您可以在應用程式設定中的 \"設定檔啟動\" 中設置一個預設設定檔. 點擊此處開始設置.</string>
-  <string name="important_info_how_does_volume_separation_work">關於 \"音量分隔\" 的運作方式: 設定檔啟動時會以執行中設定檔的通知音量設定來調整手機音量. 當有來電時, 改以執行中設定檔的鈴聲音量設定做調整. 來電結束時, 再調整回執行中設定檔的通知音量.</string>
+  <string name="important_info_how_does_volume_separation_work_title">關於 \"音量分隔\" 的運作方式:</string>
+  <string name="important_info_how_does_volume_separation_work">設定檔啟動時會以執行中設定檔的通知音量設定來調整手機音量. 當有來電時, 改以執行中設定檔的鈴聲音量設定做調整. 來電結束時, 再調整回執行中設定檔的通知音量.</string>
   <string name="event_type_locations">定位</string>
   <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>
   <string name="event_preferences_locations_location">定位</string>

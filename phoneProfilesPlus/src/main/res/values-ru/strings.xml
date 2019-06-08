@@ -512,7 +512,8 @@
   <string name="info_notification_event_states_paused_delay">Приостановлено с задержкой: событие выполняется, но отложено. Параметры событий удовлетворены.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Игнорировать события \"Весь день\"</string>
   <string name="important_info_default_profile">Когда ни одно событие не выполняется, активируется «Профиль по умолчанию», если он настроен. Профиль по умолчанию можно настроить в настройках приложения в разделе \"Активация профиля\". Нажмите здесь, чтобы настроить его.</string>
-  <string name="important_info_how_does_volume_separation_work">Как работает \"разделение уровней громкости\": активация профиля устанавливает громкость устройства по уровню громкости уведомлений этого профиля. При обнаружении вызова уровень громкости звонка устанавливается в зависимости от настроек профиля. После окончания вызова восстанавливается уровень громкости уведомлений запущенного профиля.</string>
+  <string name="important_info_how_does_volume_separation_work_title">Как работает \"разделение уровней громкости\":</string>
+  <string name="important_info_how_does_volume_separation_work">Активация профиля устанавливает громкость устройства по уровню громкости уведомлений этого профиля. При обнаружении вызова уровень громкости звонка устанавливается в зависимости от настроек профиля. После окончания вызова восстанавливается уровень громкости уведомлений запущенного профиля.</string>
   <string name="event_type_locations">Местоположение</string>
   <string name="event_preferences_category_eventLocationsParameters">Датчик местоположения</string>
   <string name="event_preferences_locations_location">Местоположение</string>

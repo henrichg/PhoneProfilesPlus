@@ -512,7 +512,8 @@
     <string name="info_notification_event_states_paused_delay">Angehalten mit Verzögerung: Ereignis ist gestartet, wartet aber ä die eingestellte Verzögerung ab. Ereignisparameter sind erfüllt.</string>
     <string name="event_preferences_calendar_ignore_all_day_events">Ignoriere ganztägige Termine</string>
     <string name="important_info_default_profile">Wenn kein Ereignis ausgeführt wird, ist das \"Standardprofil\" aktiv, sofern es konfiguriert ist. Es kann in den Einstellungen unter \"Profil Aktivierung\" konfiguriert werden. Zur Konfiguration hier tippen.</string>
-    <string name="important_info_how_does_volume_separation_work">Wie die \"Lautstärketrennung\" funktioniert: Wenn ein Anruf-Klingeln beginnt, wird die Lautstärke auf die \"Anruflautstärke\" gesetzt und hinterher wird die Ursprungslautstärke wiederhergestellt.</string>
+    <string name="important_info_how_does_volume_separation_work_title">Wie die \"Lautstärketrennung\" funktioniert:</string>
+    <string name="important_info_how_does_volume_separation_work">Wenn ein Anruf-Klingeln beginnt, wird die Lautstärke auf die \"Anruflautstärke\" gesetzt und hinterher wird die Ursprungslautstärke wiederhergestellt.</string>
     <string name="event_type_locations">Standort</string>
     <string name="event_preferences_category_eventLocationsParameters">Standort Ereignisse</string>
     <string name="event_preferences_locations_location">Standort</string>

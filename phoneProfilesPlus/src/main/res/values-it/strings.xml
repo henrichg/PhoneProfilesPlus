@@ -512,7 +512,8 @@
     <string name="info_notification_event_states_paused_delay">In pausa con ritardo: gli eventi sono avviati ma sospesi in attesa che trascorra il tempo di ritardo. Le condizioni dell\'evento sono soddisfatte.</string>
     <string name="event_preferences_calendar_ignore_all_day_events">Ignora gli eventi \"Tutto il giorno\"</string>
     <string name="important_info_default_profile">Quando non ci sono eventi in esecuzione è attivo il \"Profilo predefinito\", se configurato. È possibile configurare il profilo predefinito in \"Attivazione del profilo\". Clicca qui per configurarlo.</string>
-    <string name="important_info_how_does_volume_separation_work">Come funziona la \"separazione dei volumi\": l\'attivazione del profilo imposta il volume in base all\'impostazione richiesta. Quando si rileva un chiamata in entrata, viene modificato il livello del volume della suoneria. A fine chiamata viene ripristinato al valore originale.</string>
+    <string name="important_info_how_does_volume_separation_work_title">Come funziona la \"separazione dei volumi\":</string>
+    <string name="important_info_how_does_volume_separation_work">L\'attivazione del profilo imposta il volume in base all\'impostazione richiesta. Quando si rileva un chiamata in entrata, viene modificato il livello del volume della suoneria. A fine chiamata viene ripristinato al valore originale.</string>
     <string name="event_type_locations">Posizione</string>
     <string name="event_preferences_category_eventLocationsParameters">Sensore posizione</string>
     <string name="event_preferences_locations_location">Posizione</string>
