@@ -10,8 +10,7 @@
 
         <Preference
             app:key="applicationBackgroundProfileInfo"
-            app:summary="@string/phone_profiles_pref_applicationBackgroundProfileInfo_summary"
-            app:widgetLayout="@layout/info_preference"
+            app:title="@string/phone_profiles_pref_applicationBackgroundProfileInfo_summary"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.ProfilePreferenceX
             app:defaultValue="-999"
