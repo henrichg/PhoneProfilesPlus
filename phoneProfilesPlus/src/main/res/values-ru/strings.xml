@@ -24,7 +24,7 @@
   <string name="toast_profile_activated_0">Профиль</string>
   <string name="toast_profile_activated_1">активирован</string>
   <string name="preference_profile_no_change">Не изменять</string>
-   <!--<string name="preference_profile_autoBrightness">Автоматическая</string>-->
+  <!--<string name="preference_profile_autoBrightness">Автоматическая</string>-->
   <string name="title_activity_phone_profiles_preferences">Настройки Приложения</string>
   <string name="menu_exit">Выход</string>
   <string name="activate_profile_alert_message">Активировать профиль?</string>
@@ -425,7 +425,7 @@
 <!--  <string name="permissions_for_install_tone_text2">Предоставьте их в следующем диалоговом окне. После этого звук будет установлен.</string>-->
   <string name="permissions_notification_text">Запрос разрешений</string>
 <!--  <string name="permissions_for_install_tone_big_text_notification">Установка звука \"PhoneProfiles Silent\" требует дополнительных разрешений.</string>-->
-   <!--<string name="menu_install_tone">Установить звук \"PhoneProfiles Silent\"</string>-->
+<!--<string name="menu_install_tone">Установить звук \"PhoneProfiles Silent\"</string>-->
   <string name="toast_tone_installation_installed_ok">Мелодия уведомления \"PhoneProfiles Silent\" установлена.</string>
   <string name="toast_tone_installation_installed_error">При установке мелодии уведомления \"PhoneProfiles Silent\" произошла ошибка!</string>
   <string name="toast_permissions_granted">Разрешения предоставлены</string>
@@ -511,8 +511,8 @@
   <string name="info_notification_event_states_stopped">Остановлено: событие остановлено и не может быть запущено. Параметр события \"Разрешить выполнение\" не отмечен.</string>
   <string name="info_notification_event_states_paused_delay">Приостановлено с задержкой: событие выполняется, но отложено. Параметры событий удовлетворены.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Игнорировать события \"Весь день\"</string>
-  <string name="important_info_default_profile">Когда ни одно событие не выполняется, активируется «Профиль по умолчанию», если он настроен. Профиль по умолчанию можно настроить в настройках приложения в разделе \"Активация профиля\". Нажмите здесь, чтобы настроить его.</string>
-  <string name="important_info_how_does_volume_separation_work_title">Как работает \"Разделить уровни громкости звонка и уведомлений\":</string>
+  <string name="important_info_default_profile">Когда ни одно событие не выполняется, активируется \"Профиль по умолчанию\", если он настроен. Профиль по умолчанию можно настроить в настройках приложения в разделе \"Активация профиля\". Нажмите здесь, чтобы настроить его.</string>
+  <string name="important_info_how_does_volume_separation_work_title">Как работает разделение уровней громкости звонка и уведомлений:</string>
   <string name="important_info_how_does_volume_separation_work">Активация профиля устанавливает громкость устройства по уровню громкости уведомлений этого профиля. При обнаружении вызова уровень громкости звонка устанавливается в зависимости от настроек профиля. После окончания вызова восстанавливается уровень громкости уведомлений запущенного профиля.</string>
   <string name="event_type_locations">Местоположение</string>
   <string name="event_preferences_category_eventLocationsParameters">Датчик местоположения</string>
@@ -522,7 +522,7 @@
   <string name="event_preferences_locations_cant_delete_location_text">Невозможно удалить, местоположение используется в данный момент.</string>
   <string name="location_editor_title">Редактирование местоположения</string>
   <string name="permissions_for_location_geofence_editor_activity_text1">Местоположение запрашивает дополнительные права.</string>
-  <string name="permissions_for_location_geofence_editor_activity_text2">Пожалуйста, разрешите их в следующих диалогах. Когда произойдет изменение местоположения.</string>
+  <string name="permissions_for_location_geofence_editor_activity_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. После этого будет проведена проверка изменения местоположения.</string>
   <string name="event_preferences_location_new_location_name">Местоположение</string>
   <string name="event_preferences_location_no_address_found">Адрес не найден</string>
   <string name="event_preferences_location_google_api_connection_error_title">Ошибка сервиса Google Play</string>
@@ -611,7 +611,7 @@
   <string name="about_application_source_code">Исходный код:</string>
   <string name="about_application_translations">Переводы:</string>
   <string name="about_application_rate_in_googlePlay">Пожалуйста, оцените это приложение в Google Play</string>
-   <!--<string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>-->
+  <!--<string name="phone_profiles_pref_systemLanguage_summary">Приложение использует языки, настроенные в системе.</string>-->
   <string name="permission_group_name_access_notification_policy">Функция \"Не беспокоить\"</string>
   <string name="permissions_access_notification_policy_not_allowed_confirm">Вы не разрешили доступ к функции \"Не беспокоить\". Больше не спрашивать?</string>
   <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Доступ к функции \"Не беспокоить\"</string>
@@ -716,7 +716,7 @@
   <string name="editor_event_list_item_profile_end_icon">Значок окончания события</string>
 <!--  <string name="profile_preferences_sourceProfileInfo_summary">При настройке каждого параметра профиля вы можете выбрать значение \"Исходный профиль\", и тогда при активации будут использованы значения этого параметра из Исходного профиля. Нажмите сюда, чтобы настроить параметры Исходного профиля.</string> -->
   <string name="run_stop_events_indicator">Включить/остановить индикатор запуска событий</string>
- <!--  <string name="run_stop_indicator_popup_window_important_info">Дополнительную информацию можно посмотреть на экране \"Важная информация\"; для этого надо нажать на вопросительный знак на панели инструментов.</string>-->
+<!--  <string name="run_stop_indicator_popup_window_important_info">Дополнительную информацию можно посмотреть на экране \"Важная информация\"; для этого надо нажать на вопросительный знак на панели инструментов.</string>-->
   <string name="important_info_how_to_show">Эта важная информация может быть просмотрена в Редакторе при нажатии на значке вопросительного знака в панели инструментов.</string>
   <string name="preference_not_allowed_reason_not_supported_by_application">не поддерживается приложением</string>
   <string name="preference_not_allowed_reason_detail_old_android">старая версия Android</string>
@@ -873,7 +873,7 @@
   <string name="event_preferences_notificationVibrate">Уведомлять вибрацией</string>
   <string name="important_info_profile_grant">Некоторые настройки профиля требуют разрешение WRITE_SECURE_SETTINGS. ROOT не требуется. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_lookSectionProfiles">Для получения дополнительной информации смотрите ниже в разделе «Профили».</string>
- <!--  <string name="profile_preferences_typesInfoGrant">Для получения дополнительной информации смотрите раздел \"Профили\" в \"Важной информации\".</string>-->
+<!--  <string name="profile_preferences_typesInfoGrant">Для получения дополнительной информации смотрите раздел \"Профили\" в \"Важной информации\".</string>-->
   <string name="important_info_profile_grant_1_howTo_1">Некоторые настройки профиля требуют разрешений, которые можно установить только через adb. Эти настройки отмечены \"(G1)\".</string>
   <string name="important_info_profile_grant_1_howTo_2">Если adb на вашем компьютере не установлен:</string>
   <string name="important_info_profile_grant_1_howTo_3">Скачайте инструменты SDK с:</string>
@@ -1124,7 +1124,7 @@
   <string name="permission_why_profile_radio_preferences">для включения/отключения мобильных данных, изменения типа мобильной сети, подключения к SSID</string>
   <string name="permission_why_profile_phone_state_broadcast">для разделения уровней громкости звонка и уведомлений, включения/отключения динамика во время вызова</string>
   <string name="permission_why_profile_custom_profile_icon">для пользовательской иконки профиля</string>
- <!--  <string name="permission_why_install_tone">для сохранения мелодии в хранилище</string>-->
+<!--  <string name="permission_why_install_tone">для сохранения мелодии в хранилище</string>-->
   <string name="permission_why_export">для сохранения резервных копий в хранилище</string>
   <string name="permission_why_import">для загрузки резервных копий из хранилища</string>
   <string name="permission_why_event_calendar_preferences">для чтения данных календаря в Датчике календаря</string>
@@ -1333,8 +1333,8 @@
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Мелодия уведомления \"None\" установлена.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Чтобы уведомление было по-настоящему бесшумным, настройте мелодию уведомления на \"PhoneProfiles Silent\" или \"None\".</string>
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Мелодия уведомления \"PhoneProfiles Silent\" не установлена. Установите её, пожалуйста, в параметре профиля \"Звуки\".</string>
-
-    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
+    
+    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Нажмите сюда, чтобы узнать, как работает разделение уровней громкости звонка и уведомлений.</string>
 
     <!-- **************************************************************************************** -->
 
