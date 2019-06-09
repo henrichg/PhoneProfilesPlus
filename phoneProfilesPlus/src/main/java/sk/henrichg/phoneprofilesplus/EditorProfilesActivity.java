@@ -496,7 +496,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                 R.layout.editor_toolbar_spinner,
                 filterItems);
         filterSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
-        switch (appTheme) {
+        filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+        filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+/*        switch (appTheme) {
             case "dark":
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -505,15 +507,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-            /*case "dlight":
-                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
-                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-                break;*/
+//            case "dlight":
+//                filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+//                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+//                break;
             default:
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-        }
+        }*/
         filterSpinner.setAdapter(filterSpinnerAdapter);
         filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -540,7 +542,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     R.layout.editor_toolbar_spinner);*/
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
-        switch (appTheme) {
+        orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+        orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+/*        switch (appTheme) {
             case "dark":
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
                 orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -549,15 +553,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_white));
                 orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-            /*case "dlight":
-                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
-                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-                break;*/
+//            case "dlight":
+//                orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
+//                orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+//                break;
             default:
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
                 orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-        }
+        }*/
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -2448,15 +2452,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //final Display display = getWindowManager().getDefaultDisplay();
 
                 String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
-                int outerCircleColor = R.color.tabTargetHelpOuterCircleColor_white;
-                if (appTheme.equals("dark"))
-                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
-                int targetCircleColor = R.color.tabTargetHelpTargetCircleColor_white;
-                if (appTheme.equals("dark"))
-                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor_white;
-                if (appTheme.equals("dark"))
-                    textColor = R.color.tabTargetHelpTextColor_dark;
+                int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
+//                if (appTheme.equals("dark"))
+//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
+                int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
+//                if (appTheme.equals("dark"))
+//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
+                int textColor = R.color.tabTargetHelpTextColor;
+//                if (appTheme.equals("dark"))
+//                    textColor = R.color.tabTargetHelpTextColor_dark;
                 boolean tintTarget = !appTheme.equals("white");
 
                 Rect filterSpinnerTarget = new Rect(0, 0, filterSpinner.getHeight(), filterSpinner.getHeight());

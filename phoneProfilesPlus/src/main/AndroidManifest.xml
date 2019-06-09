@@ -164,12 +164,12 @@
             android:excludeFromRecents="true"
             android:label="@string/title_activity_activator"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/PopupTheme_withToolbar_white">
+            android:theme="@style/PopupTheme_withToolbar_dayNight">
         </activity>
         <activity
             android:name=".EditorProfilesActivity"
             android:label="@string/title_activity_editor"
-            android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_white">
+            android:theme="@style/Theme.PhoneProfilesTheme_withToolbar_dayNight">
         </activity>
         <activity
             android:name=".ProfilesPrefsActivity"
@@ -211,7 +211,7 @@
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/PopupTheme_white">
+            android:theme="@style/PopupTheme_dayNight">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
 

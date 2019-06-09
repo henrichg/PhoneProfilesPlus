@@ -142,20 +142,21 @@ class ApplicationEditorDialogX
         });
 
         Spinner filterSpinner = layout.findViewById(R.id.applications_editor_dialog_filter_spinner);
-        switch (ApplicationPreferences.applicationTheme(activity, true)) {
+        filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+/*        switch (ApplicationPreferences.applicationTheme(activity, true)) {
             case "dark":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
                 break;
             case "white":
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-            /*case "dlight":
-                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
-                break;*/
+//            case "dlight":
+//                filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dlight);
+//                break;
             default:
                 filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-        }
+        }*/
         filterValues= activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterValues);
 
         if (editedApplication != null) {

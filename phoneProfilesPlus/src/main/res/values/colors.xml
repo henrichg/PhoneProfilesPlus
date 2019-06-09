@@ -23,6 +23,7 @@
     <!--<color name="dialog_divider">#17000000</color>-->
 
     <color name="notificationDecorationColor">#237e9f</color>
+    <color name="notificationBackground">#FF202020</color>
 
     <color name="altype_profile">#FF0000FF</color>
     <color name="altype_eventStart">#FF00C000</color>

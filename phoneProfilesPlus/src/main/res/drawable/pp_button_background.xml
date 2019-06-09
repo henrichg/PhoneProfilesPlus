@@ -31,7 +31,7 @@
                 android:left="10dp"
                 android:right="10dp" />
 
-            <solid android:color="@color/activityBackgroundColor_white" />
+            <solid android:color="@color/activityBackgroundColor" />
 
             <corners android:radius="@dimen/button_corner_radius" />
         </shape>

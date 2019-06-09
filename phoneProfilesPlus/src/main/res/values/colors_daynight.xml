@@ -31,8 +31,6 @@
     <color name="tabTargetHelpTargetCircleColor">#FFFFFFFF</color>
     <color name="tabTargetHelpTextColor">#FF000000</color>
 
-    <color name="notificationBackground">#FFFFFFFF</color>
-
     <color name="fastScrollTrackPP">#FFEFEFEF</color>
     <color name="fastScrollThumbPP">#FFDC8160</color>
     <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>

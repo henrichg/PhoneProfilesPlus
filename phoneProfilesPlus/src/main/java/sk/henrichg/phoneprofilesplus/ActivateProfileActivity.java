@@ -471,15 +471,15 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 editor.apply();
 
                 String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
-                int outerCircleColor = R.color.tabTargetHelpOuterCircleColor_white;
-                if (appTheme.equals("dark"))
-                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
-                int targetCircleColor = R.color.tabTargetHelpTargetCircleColor_white;
-                if (appTheme.equals("dark"))
-                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
-                int textColor = R.color.tabTargetHelpTextColor_white;
-                if (appTheme.equals("dark"))
-                    textColor = R.color.tabTargetHelpTextColor_dark;
+                int outerCircleColor = R.color.tabTargetHelpOuterCircleColor;
+//                if (appTheme.equals("dark"))
+//                    outerCircleColor = R.color.tabTargetHelpOuterCircleColor_dark;
+                int targetCircleColor = R.color.tabTargetHelpTargetCircleColor;
+//                if (appTheme.equals("dark"))
+//                    targetCircleColor = R.color.tabTargetHelpTargetCircleColor_dark;
+                int textColor = R.color.tabTargetHelpTextColor;
+//                if (appTheme.equals("dark"))
+//                    textColor = R.color.tabTargetHelpTextColor_dark;
                 boolean tintTarget = !appTheme.equals("white");
 
                 final TapTargetSequence sequence = new TapTargetSequence(ActivatorTargetHelpsActivity.activity);

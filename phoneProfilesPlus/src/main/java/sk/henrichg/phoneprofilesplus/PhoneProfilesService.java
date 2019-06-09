@@ -4135,7 +4135,7 @@ public class PhoneProfilesService extends Service
             }
 
             if (notificationDarkBackground) {
-                int color = getResources().getColor(R.color.notificationBackground_dark);
+                int color = getResources().getColor(R.color.notificationBackground);
                 contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                 if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                     contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
