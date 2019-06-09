@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Base.Theme.PhoneProfilesTheme_withToolbar_dayNight" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Base.Theme.PhoneProfilesTheme_dayNight" parent="Theme.AppCompat.DayNight.DarkActionBar">
 
         <!-- disable initial empty screen - useful for dark theme -->
         <item name="android:windowDisablePreview">true</item>
@@ -43,14 +43,10 @@
         <item name="editItemMenuIcon">@drawable/ic_list_item_edit_menu</item>
         <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart</item>
         <item name="importantInfoEventsRestartIcon">@drawable/ic_important_info_events_restart</item>
-        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
-        <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Light</item>
-        <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.ActionBar</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
         <item name="android:actionModeCloseButtonStyle">@style/NoCloseButton</item>
-        <item name="windowActionModeOverlay">true</item>
         <!--<item name="editorDrawerListHeaderBackground">@drawable/editor_drawer_list_header_background</item>-->
         <item name="editorDrawerListHeaderTitle">@color/editorDrawerListHeaderTitleColor</item>
         <!--<item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg</item>-->
