@@ -2,4 +2,5 @@
 <resources>
     <integer name="profilePrefIndicatorScaleType">2</integer>
     <dimen name="gridView_horizontalSpacing">1dp</dimen>
+    <bool name="windowLightStatusBar">true</bool>
 </resources>

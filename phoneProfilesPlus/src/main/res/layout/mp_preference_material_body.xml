@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="?android:attr/textColorPrimary"
         android:singleLine="false"/>
 
     <TextView

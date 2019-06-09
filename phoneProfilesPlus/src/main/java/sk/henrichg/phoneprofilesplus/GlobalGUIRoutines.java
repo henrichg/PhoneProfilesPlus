@@ -136,7 +136,7 @@ class GlobalGUIRoutines {
     }
 
     static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/ Context context) {
-        switch (ApplicationPreferences.applicationTheme(context, true)) {
+        switch (ApplicationPreferences.applicationTheme(context, false)) {
             /*case "color":
                 if (forPopup) {
                     if (withToolbar)
@@ -197,7 +197,7 @@ class GlobalGUIRoutines {
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dlight;
                 }*/
-            /*case "night_mode":
+            case "night_mode":
                 if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dayNight;
@@ -211,7 +211,7 @@ class GlobalGUIRoutines {
                         return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dayNight;
-                }*/
+                }
             default:
                 if (forPopup) {
                     if (withToolbar)

@@ -53,13 +53,13 @@
         <!--<item name="editorDrawerFilterHeaderBg">@drawable/ic_events_drawer_filter_header_bg_dark</item>-->
         <item name="dialogDivider">@color/dialog_divider_dark</item>
         <!--<item name="actionActivityLogIcon">@drawable/ic_action_activity_log</item> -->
-        <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload</item>
+        <item name="actionActivityLogReloadIcon">@drawable/ic_action_activity_log_reload_dark</item>
         <item name="actionActivityLogPlayIcon">@drawable/ic_action_play</item>
-        <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause</item>
+        <item name="actionActivityLogPauseIcon">@drawable/ic_action_activity_log_pause_dark</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleDark</item>
         <item name="dialogTheme">@style/DialogStyleDark</item>
         <!--<item name="actionSharedProfileIcon">@drawable/ic_action_shared_profile</item>-->
-        <item name="actionHelpIcon">@drawable/ic_action_help</item>
+        <item name="actionHelpIcon">@drawable/ic_action_help_dark</item>
         <item name="fastScrollTrackPP">@color/fastScrollTrackPP_dark</item>
         <item name="fastScrollThumbPP">@color/fastScrollThumbPP_dark</item>
         <item name="fastScrollPopupBackgroundPP">@color/fastScrollPopupBackgroundPP_dark</item>
@@ -78,8 +78,8 @@
         <item name="sensorPassStatusNotPassed">@color/sensor_pass_status_not_passed_dark</item>
         <item name="sensorPassStatusWaiting">@color/sensor_pass_status_waiting_dark</item>
         <item name="activityLogTypeOther">@color/altype_other_dark</item>
-        <item name="infoPreferenceIcon">@drawable/ic_info_preference_icon_white</item>
-        <item name="exclamationPreferenceIcon">@drawable/ic_exclamation_preference_icon_white</item>
+        <item name="infoPreferenceIcon">@drawable/ic_info_preference_icon_dark</item>
+        <item name="exclamationPreferenceIcon">@drawable/ic_exclamation_preference_icon_dark</item>
 
     </style>
 

@@ -10,7 +10,7 @@
         android:layout_alignParentEnd="true"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_info_preference_icon"
+        android:src="@drawable/ic_info_preference_icon_clickable"
         android:contentDescription="@string/empty_string" />
 
 </RelativeLayout>

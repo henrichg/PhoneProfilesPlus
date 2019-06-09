@@ -27,7 +27,7 @@
         <item name="actionDeleteAllIcon">@drawable/ic_action_delete_all_white</item>
         <item name="actionEditProfilesIcon">@drawable/ic_action_edit_profiles_white</item>
 <!--        <item name="activityPopupBackground">@color/activityPopupBackground_white</item>-->
-        <item name="dragHandleIcon">@drawable/ic_drag_handle</item>
+        <item name="dragHandleIcon">@drawable/ic_drag_handle_white</item>
         <item name="actionProfilePrefSave">@drawable/ic_action_profile_pref_save_white</item>
         <item name="actionProfilePrefCancel">@drawable/ic_action_profile_pref_cancel_white</item>
         <item name="actionProfileButtonTextStyle">@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse</item>
@@ -42,7 +42,7 @@
         <item name="preferenceDialogBackground">@color/preferenceDialogBackground_white</item>
         <item name="editItemMenuIcon">@drawable/ic_list_item_edit_menu</item>
         <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_white</item>
-        <item name="importantInfoEventsRestartIcon">@drawable/ic_important_info_events_restart</item>
+        <item name="importantInfoEventsRestartIcon">@drawable/ic_important_info_events_restart_white</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
@@ -71,14 +71,14 @@
         <item name="buttonBackground">@drawable/pp_button_background_white</item>
         <item name="eventPauseTextColor">@color/eventPauseTextColor_white</item>
         <item name="eventStopTextColor">@color/eventStopTextColor_white</item>
-        <item name="eventStopStatusIndicator">@drawable/ic_event_status_stop</item>
+        <item name="eventStopStatusIndicator">@drawable/ic_event_status_stop_white</item>
         <item name="eventInDelayTextColor">@color/eventInDelayTextColor_white</item>
         <item name="sensorPassStatusPassed">@color/sensor_pass_status_passed_white</item>
         <item name="sensorPassStatusNotPassed">@color/sensor_pass_status_not_passed_white</item>
         <item name="sensorPassStatusWaiting">@color/sensor_pass_status_waiting_white</item>
         <item name="activityLogTypeOther">@color/altype_other_white</item>
-        <item name="infoPreferenceIcon">@drawable/ic_info_preference_icon_dark</item>
-        <item name="exclamationPreferenceIcon">@drawable/ic_exclamation_preference_icon_dark</item>
+        <item name="infoPreferenceIcon">@drawable/ic_info_preference_icon_white</item>
+        <item name="exclamationPreferenceIcon">@drawable/ic_exclamation_preference_icon_white</item>
 
     </style>
 
