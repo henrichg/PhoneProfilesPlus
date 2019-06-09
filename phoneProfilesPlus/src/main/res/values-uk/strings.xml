@@ -1333,10 +1333,8 @@
     <string name="profile_preferences_volumeNotificationVolume0_summaryNoneConfigured">Сигнал сповіщення \"Немає\" встановлено.</string>
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Тиша\" або \"Немає\".</string>
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Сигнал сповіщення \"Тиша\" НЕ встановлено. Будь ласка, встановіть його в параметрах профілю \"Звуки\".</string>
-    <!--
-    <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Щоб сповіщення було дійсно безшумним, встановіть сигнал сповіщення на \"Тиша\".</string>
-    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Сигнал сповіщення \"Тиша\" НЕ налаштовано. Будь ласка, встановіть його з меню Редактора і спробуйте ще раз.</string>
-    -->
+
+    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
 
     <!-- **************************************************************************************** -->
 

@@ -1339,6 +1339,8 @@
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Tonalité de notification \"PhoneProfiles silencieux\" n’est pas installée. Veuillez l’installer depuis le menu éditeur et essayer à nouveau.</string>
     -->
 
+    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

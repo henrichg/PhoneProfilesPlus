@@ -1332,6 +1332,8 @@
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">未安装通知提示音“PhoneProfiles 无声”。请从编辑器菜单安装后再重试。</string>
     -->
 
+    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

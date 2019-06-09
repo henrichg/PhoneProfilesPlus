@@ -1338,6 +1338,8 @@
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Benachrichtigungston \"PhoneProfiles Silent\" ist nicht installiert. Bitte installiere ihn vom Editor-Menü.</string>
     -->
 
+    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

@@ -1338,6 +1338,8 @@
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">El timbre de notificación \"PhoneProfiles Silent\" no está instalado. Por favor instálalo desde el menú de editor e intentelo de nuevo.</string>
     -->
 
+    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>
