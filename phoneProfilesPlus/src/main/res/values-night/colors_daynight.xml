@@ -5,6 +5,7 @@
     <!--<color name="primaryDark">#141414</color>-->
     <color name="accent">#DC8160</color>
     <color name="accent_disabled">#70DC8160</color>
+    <color name="navigationBar">#202020</color>
 
     <!--<color name="activityBackgroundColor">#FF252525</color>-->
     <color name="activityBackgroundColor">#FF202020</color>
