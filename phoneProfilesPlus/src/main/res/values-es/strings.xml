@@ -512,7 +512,7 @@
   <string name="info_notification_event_states_paused_delay">Pausado y con retraso: el evento ha iniciado, pero está en espera debido a un retraso. Los parámetros del evento han sido comprobados.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignorar eventos \"Todo el día\"</string>
   <string name="important_info_default_profile">Cuando no hay eventos en funcionamiento, el \"Perfil predeterminado\" está habilitado siempre que haya sido configurado. Puede configurar el perfil predeterminado en las opciones de la aplicación en \"Activación de perfil\". Haga click aquí para configurarlo.</string>
-  <string name="important_info_how_does_volume_separation_work_title">Cómo funciona la \"separación de volumen\":</string>
+  <string name="important_info_how_does_volume_separation_work_title">Cómo funciona la \"Desvincular vols. de llamadas y notif.\":</string>
   <string name="important_info_how_does_volume_separation_work">El perfil de activación ajusta el volumen del dispositivo según el perfil establecido para las notificaciones. Cuando se detecta una llamada, el volumen del perfil habilitado se ajusta. Cuando la llamada finaliza, el volumen de las notificaciones establecido anteriormente es restaurado.</string>
   <string name="event_type_locations">Localización</string>
   <string name="event_preferences_category_eventLocationsParameters">Sensor de localización</string>

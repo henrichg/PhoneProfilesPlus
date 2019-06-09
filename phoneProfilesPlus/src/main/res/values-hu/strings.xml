@@ -512,7 +512,7 @@
   <string name="info_notification_event_states_paused_delay">Szünetel késleltetéssel: esemény elindult, de a késleltetve vár. Esemény paraméterei teljesüljenek.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Figyelmen kívül hagyja a \"Egész napos\"-eseményeket</string>
   <string name="important_info_default_profile">Nem minden esetben működik, ha aktiválva van \"Alapértelmezett profil\", ha be van állítva. Beállíthatja az alapértelmezett profilt, az alkalmazás beállításaiban \"Profil aktiválás\". Kattintson ide, hogy beállítsd.</string>
-  <string name="important_info_how_does_volume_separation_work_title">Hogyan működik a \"hangerő szétválasztása\":</string>
+  <string name="important_info_how_does_volume_separation_work_title">Hogyan működik a \"Csengőhang és értesítés hangerő szétválasztása\":</string>
   <string name="important_info_how_does_volume_separation_work">Profil aktiválás a hangerőt eszköz által profil értesítések hangerejét. Hívás csengetés észlelésekor igazítja a csengetés hangerejét a profilból. Után a hívás befejeztével értesítés hangerő profilból vissza kell állítani.</string>
   <string name="event_type_locations">Helyszín</string>
   <string name="event_preferences_category_eventLocationsParameters">Helyérzékelő</string>

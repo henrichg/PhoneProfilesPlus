@@ -512,7 +512,7 @@
   <string name="info_notification_event_states_paused_delay">Gepauzeerd met vertraging: event is gestart maar wacht. Aan event parameters wordt voldaan.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">\"Dagvullende\" events negeren</string>
   <string name="important_info_default_profile">Als geen event loopt, dan wordt \"Standaard profiel\" geactiveerd, mits geconfigureerd. Je kunt Standaard profiel configureren in programma-instellingen bij \"Profiel activering\". Klik hier om te configureren.</string>
-  <string name="important_info_how_does_volume_separation_work_title">Hoe \"Volume scheiding\" werkt:</string>
+  <string name="important_info_how_does_volume_separation_work_title">Hoe \"Beltoon- en meldingsvolumes ontkoppelen\" werkt:</string>
   <string name="important_info_how_does_volume_separation_work">Profiel activering wijzigt het apparaat volume in het notificatie volume. Als een telefoonoproep gedetecteerd wordt zal het volume niveau van het profiel aangepast worden. Na de oproep gaat het volume niveau weer naar het voorgaande niveau.</string>
   <string name="event_type_locations">Locatie</string>
   <string name="event_preferences_category_eventLocationsParameters">Locatie sensor</string>

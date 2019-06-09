@@ -512,7 +512,7 @@
     <string name="info_notification_event_states_paused_delay">Erteleme ile fasıla verildi: Durum başladı, fakat ertelemede bekliyor. Durum değerleri karşılanmıştır.</string>
     <string name="event_preferences_calendar_ignore_all_day_events">\"Tam gün\" Durumlarını ihmal eder</string>
     <string name="important_info_default_profile">Herhangi bir Durum çalışmadığı zaman, ayarlanmış ise \"Varsayılan tercih\" başlatılır. Varsayılan tercihi, uygulama ayarlarında \"Tercihi faaliyete geçir\" olarak ayarlayabilirsiniz. Ayarlamak için buraya dokunun.</string>
-    <string name="important_info_how_does_volume_separation_work_title">\"Seviye ayırma\" nasıl çalışır:</string>
+    <string name="important_info_how_does_volume_separation_work_title">\"Zil ve bildirim seslerinin seviyelerini birleştir\" nasıl çalışır:</string>
     <string name="important_info_how_does_volume_separation_work">Tercih faaliyete geçince, zil ses seviyesi, tercih bildirim ses seviyesi olarak ayarlanır. Arama algılandığında, bildirim ses seviyesi, tercih tarafından otomatik olarak seçtiğiniz zil sesi seviyesine ayarlanır. Çağrı bitiminden sonra bildirim ses seviyesi, tekrar otomatik olarak tercih tarafından geri ayarlanır.</string>
     <string name="event_type_locations">Konum</string>
     <string name="event_preferences_category_eventLocationsParameters">Konum sensörü</string>

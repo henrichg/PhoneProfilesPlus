@@ -512,7 +512,7 @@
   <string name="info_notification_event_states_paused_delay">Dijeda dengan penundaan: acara dimulai, namun menunggu penundaan berakhir. Parameter acara terpenuhi.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Abaikan \"sepanjang hari\" acara</string>
   <string name="important_info_default_profile">Bila tidak ada aktivitas yang berjalan, \"Profil default\" diaktifkan jika dikonfigurasi. Anda dapat mengkonfigurasi profil default dalam pengaturan aplikasi di \"Aktivasi Profil\". Klik disini untuk mengkonfigurasinya.</string>
-  <string name="important_info_how_does_volume_separation_work_title">Cara \"pemisahan volume\" bekerja:</string>
+  <string name="important_info_how_does_volume_separation_work_title">Cara \"Batalkan pengiriman volume dering dan notifikasi\" bekerja:</string>
   <string name="important_info_how_does_volume_separation_work">Pengaktifan profil akan menyesuaikan volume perangkat menurut tingkat profil yang sedang berjalan tingkat pemberitahuan. Saat deringan panggilan terdeteksi, tingkat volume dering dari profil berjalan disesuaikan. Setelah panggilan berakhir, tingkat volume notifikasi dari profil berjalan dipulihkan.</string>
   <string name="event_type_locations">Lokasi</string>
   <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>

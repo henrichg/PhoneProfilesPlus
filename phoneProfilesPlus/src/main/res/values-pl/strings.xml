@@ -512,7 +512,7 @@
   <string name="info_notification_event_states_paused_delay">Zatrzymane z opóźnieniem: zdarzenie jest rozpoczęte, ale czeka na wygaśnięcie opóźnienia. Parametry zdarzenia są spełnione.</string>
   <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj wydarzenia całodniowe</string>
   <string name="important_info_default_profile">Kiedy nie jest uruchomione żadne zdarzenie, \"Domyślny profil\" jest włączony jeśli skonfigurowany. Możesz skonfigurować domyślny profil w ustawieniach aplikacji w \"Aktywacja profilu\". Kliknij tutaj aby to skonfigurować.</string>
-  <string name="important_info_how_does_volume_separation_work_title">Jak działa \"separacja głośności\":</string>
+  <string name="important_info_how_does_volume_separation_work_title">Jak działa \"Rozłącz ustawienia głośności dzwonka i powiadomień\":</string>
   <string name="important_info_how_does_volume_separation_work">Aktywacja profilu dostosowuje głośność urządzenia przez uruchamianie poziomu głośności powiadomień profilu. Kiedy połączenie zostaje wykryte, poziom głośności dzwonka z uruchomionego profilu jest korygowana. Po zakończeniu połączenia, poziom głośności powiadomień z uruchomionego profilu jest przywracany.</string>
   <string name="event_type_locations">Lokalizacja</string>
   <string name="event_preferences_category_eventLocationsParameters">Location sensor</string>
