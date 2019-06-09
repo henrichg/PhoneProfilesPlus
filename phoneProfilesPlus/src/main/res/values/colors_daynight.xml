@@ -5,7 +5,7 @@
     <color name="primaryDark">#A7A7A7</color>
     <color name="accent">#DC8160</color>
     <color name="accent_disabled">#70DC8160</color>
-    <color name="navigationBar">#A7A7A7</color>
+    <color name="navigationBar">#000000</color>
 
     <color name="activityBackgroundColor">#FFFFFFFF</color>
     <color name="activityTextColor">#FF000000</color>
