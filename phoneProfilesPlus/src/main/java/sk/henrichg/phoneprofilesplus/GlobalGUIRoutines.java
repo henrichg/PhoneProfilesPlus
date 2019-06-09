@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 
@@ -153,7 +154,8 @@ class GlobalGUIRoutines {
                         return R.style.Theme_PhoneProfilesTheme_color;
                 }*/
             case "white":
-                if (forPopup) {
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                /*if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_white;
                     else
@@ -166,9 +168,11 @@ class GlobalGUIRoutines {
                             return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_white;
-                }
+                }*/
+                break;
             case "dark":
-                if (forPopup) {
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                /*if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dark;
                     else
@@ -182,6 +186,8 @@ class GlobalGUIRoutines {
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dark;
                 }
+                */
+                break;
             /*case "dlight":
                 if (forPopup) {
                     if (withToolbar)
@@ -198,7 +204,8 @@ class GlobalGUIRoutines {
                         return R.style.Theme_PhoneProfilesTheme_dlight;
                 }*/
             case "night_mode":
-                if (forPopup) {
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                /*if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_dayNight;
                     else
@@ -211,9 +218,11 @@ class GlobalGUIRoutines {
                         return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_dayNight;
-                }
+                }*/
+                break;
             default:
-                if (forPopup) {
+                //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                /*if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_white;
                     else
@@ -226,7 +235,7 @@ class GlobalGUIRoutines {
                         return R.style.Theme_PhoneProfilesTheme_withToolbar_white;
                     } else
                         return R.style.Theme_PhoneProfilesTheme_white;
-                }
+                }*/
                 /*if (forPopup) {
                     if (withToolbar)
                         return R.style.PopupTheme_withToolbar_color;
@@ -241,6 +250,34 @@ class GlobalGUIRoutines {
                     } else
                         return R.style.Theme_PhoneProfilesTheme_color;
                 }*/
+        }
+        if (forPopup) {
+            if (withToolbar)
+                return R.style.PopupTheme_withToolbar_dayNight;
+            else
+                return R.style.PopupTheme_dayNight;
+        } else {
+            if (withToolbar) {
+                //if (withDrawerLayout)
+                //    return R.style.Theme_PhoneProfilesTheme_withToolbar_withDrawerLayout_dark;
+                //else
+                return R.style.Theme_PhoneProfilesTheme_withToolbar_dayNight;
+            } else
+                return R.style.Theme_PhoneProfilesTheme_dayNight;
+        }
+    }
+
+    static void switchNightMode(Context appContext) {
+        switch (ApplicationPreferences.applicationTheme(appContext, false)) {
+            case "white":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "dark":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "night_mode":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
         }
     }
 

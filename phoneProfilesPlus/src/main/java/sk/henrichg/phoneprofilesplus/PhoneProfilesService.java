@@ -3263,6 +3263,7 @@ public class PhoneProfilesService extends Service
                         PPApplication.getServicesList();
 
                         GlobalGUIRoutines.setLanguage(appContext);
+                        GlobalGUIRoutines.switchNightMode(getApplicationContext());
 
                         if (_startOnBoot || _startOnPackageReplace || _initializeStart) {
                             // restart first start
