@@ -40,8 +40,8 @@
     <color name="eventStopTextColor">#FFb5b5b5</color>
     <color name="eventInDelayTextColor">#FFffb000</color>
 
-    <color name="sensor_pass_status_passed_dark">#FF00C000</color>
-    <color name="sensor_pass_status_not_passed_dark">#FFE05050</color>
-    <color name="sensor_pass_status_waiting_dark">#FFffb000</color>
+    <color name="sensor_pass_status_passed">#FF00C000</color>
+    <color name="sensor_pass_status_not_passed">#FFE05050</color>
+    <color name="sensor_pass_status_waiting">#FFffb000</color>
 
 </resources>

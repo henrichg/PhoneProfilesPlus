@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import com.crashlytics.android.Crashlytics;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
