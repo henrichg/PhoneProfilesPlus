@@ -6,7 +6,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen> -->
 
-    <dimen name="run_stop_indicator_margin_end">10dp</dimen>
+    <dimen name="run_stop_indicator_margin_end">15dp</dimen>
 
     <dimen name="popup_corner_radius">4dp</dimen>
     <dimen name="button_corner_radius">4dp</dimen>
