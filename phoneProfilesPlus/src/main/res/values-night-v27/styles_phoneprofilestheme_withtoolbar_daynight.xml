@@ -3,10 +3,11 @@
 
     <style name="Theme.PhoneProfilesTheme_withToolbar_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_withToolbar_dayNight">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu_white</item>
-        <item name="actionOverflowMenuStyle">@style/PopupMenu_white</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu_dark</item>
+        <item name="actionOverflowMenuStyle">@style/PopupMenu_dark</item>
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
-        <item name="android:navigationBarColor">@color/navigationBar</item>
+        <item name="android:navigationBarColor">@color/primaryDark</item>
+        <item name="android:windowLightNavigationBar">@bool/windowLightStatusBar</item>
     </style>
 
 </resources>

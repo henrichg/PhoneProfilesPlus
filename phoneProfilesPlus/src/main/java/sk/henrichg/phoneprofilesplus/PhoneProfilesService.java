@@ -3732,6 +3732,7 @@ public class PhoneProfilesService extends Service
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
         showProfileNotification(true);
         PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         ActivateProfileHelper.updateGUI(getApplicationContext(), true, true);

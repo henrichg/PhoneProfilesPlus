@@ -97,11 +97,15 @@ public class PPApplication extends Application {
                                          +"|PackageReplacedReceiver"
                                          +"|PhoneProfilesBackupAgent"
                                          +"|ShutdownBroadcastReceiver"
+
+                                         +"|PhoneProfilesService.onConfigurationChanged"
+
                                          /*+"|DatabaseHandler.onUpgrade"
                                          +"|EditorProfilesActivity.doImportData"
                                          +"|PPApplication.setBlockProfileEventActions"
                                          +"|ImportantInfoHelpFragment.onViewCreated"
                                          +"|ImportantInfoNotification"*/
+
                                          //+"|TonesHandler"
                                          //+"|TonesHandler.getToneName"
                                          //+"|DatabaseHandler.fixPhoneProfilesSilentInProfiles"

@@ -11,6 +11,10 @@
         <item name="colorAccent">@color/accent_dark</item>
         <item name="colorAccentDisabled">@color/accent_dark_disabled</item>
 
+        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+
         <item name="android:windowBackground">@color/activityBackgroundColor_dark</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor_dark</item>
         <item name="activityTextColor">@color/activityTextColor_dark</item>
@@ -44,9 +48,6 @@
         <item name="editItemMenuIcon">@drawable/ic_list_item_edit_menu_dark</item>
         <item name="actionEventsRestartIcon">@drawable/ic_action_events_restart_dark</item>
         <item name="importantInfoEventsRestartIcon">@drawable/ic_important_info_events_restart_dark</item>
-        <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
-        <item name="bottomToolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="android:actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeBackground">?attr/colorPrimary</item>
         <item name="actionModeCloseButtonStyle">@style/NoCloseButton</item>
