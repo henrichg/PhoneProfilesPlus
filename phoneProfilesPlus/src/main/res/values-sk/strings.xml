@@ -1334,7 +1334,7 @@
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Pre úplne tichú hlasitosť notifikácií, nakonfigurujte tón notifikácie na \"PhoneProfiles Silent\" alebo \"Žiadny\".</string>
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Tón notifikácie \"PhoneProfiles Silent\" nie je nainštalovaný. Prosím nainštalujte ho v parametri profilu \"Tóny\".</string>
 
-    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
+    <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Kliknite sem pre zobrazenie ako funguje \"Oddeľ hlasitosť zvonenia a notifikácií\.</string>
 
     <!-- **************************************************************************************** -->
 
