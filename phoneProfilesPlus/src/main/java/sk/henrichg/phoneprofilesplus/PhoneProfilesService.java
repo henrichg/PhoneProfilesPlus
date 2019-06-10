@@ -3848,17 +3848,21 @@ public class PhoneProfilesService extends Service
                 switch (nightModeFlags) {
                     case Configuration.UI_MODE_NIGHT_YES:
                         notificationDarkBackground = true;
+                        notificationTextColor = "2";
                         break;
                     case Configuration.UI_MODE_NIGHT_NO:
+                        notificationTextColor = "1";
                         break;
                     case Configuration.UI_MODE_NIGHT_UNDEFINED:
                         break;
                 }
             }
 
+            PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationDarkBackground="+notificationDarkBackground);
+
             boolean useDecorator = (!PPApplication.romIsMIUI) || (Build.VERSION.SDK_INT >= 26);
             useDecorator = useDecorator && notificationUseDecoration;
-            useDecorator = useDecorator && (!notificationDarkBackground);
+            useDecorator = useDecorator && (!notificationDarkBackground) && (!notificationBackgroundColor.equals("2"));
 
             if (PPApplication.romIsMIUI) {
                 if (android.os.Build.VERSION.SDK_INT >= 24) {
@@ -4139,6 +4143,12 @@ public class PhoneProfilesService extends Service
                 contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                 if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
                     contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+            }
+            else {
+                //int color = getResources().getColor(R.color.notificationBackground);
+                contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                if ((Build.VERSION.SDK_INT >= 24)/* && (contentView != null)*/)
+                    contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
             }
 
             if (notificationTextColor.equals("1") && (!notificationDarkBackground)) {
