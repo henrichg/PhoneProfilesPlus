@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -187,6 +188,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 updateTextFields(false);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
+        mValueDialog.getDurationInput().setDurationDisplayBackgroundColor(Color.TRANSPARENT);
         mValue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

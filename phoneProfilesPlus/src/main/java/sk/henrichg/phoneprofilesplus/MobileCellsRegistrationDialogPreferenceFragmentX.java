@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -171,6 +172,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
                 mSeekBarSeconds.setProgress(seconds);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
+        mValueDialog.getDurationInput().setDurationDisplayBackgroundColor(Color.TRANSPARENT);
         mValue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

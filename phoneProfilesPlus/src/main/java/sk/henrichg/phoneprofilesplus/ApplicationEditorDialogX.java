@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -120,6 +121,8 @@ class ApplicationEditorDialogX
                 startApplicationDelay = iValue;
             }
         }, startApplicationDelay * 1000, TimeDurationPicker.HH_MM_SS);
+        mDelayValueDialog.getDurationInput().setDurationDisplayBackgroundColor(Color.TRANSPARENT);
+        //mDelayValueDialog.getDurationInput().setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(activity));
         delayValueRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

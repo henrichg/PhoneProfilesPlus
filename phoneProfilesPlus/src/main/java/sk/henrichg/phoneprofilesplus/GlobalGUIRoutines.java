@@ -979,6 +979,15 @@ class GlobalGUIRoutines {
     }
 
     /*
+    static int getThemeDialogDividerColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.dialogDivider, value, true);
+        return value.data;
+    }
+    */
+
+
+    /*
     static int getResourceId(String pVariableName, String pResourceName, Context context)
     {
         try {
