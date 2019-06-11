@@ -121,7 +121,7 @@ class ApplicationEditorDialogX
                 startApplicationDelay = iValue;
             }
         }, startApplicationDelay * 1000, TimeDurationPicker.HH_MM_SS);
-        mDelayValueDialog.getDurationInput().setDurationDisplayBackgroundColor(Color.TRANSPARENT);
+        //mDelayValueDialog.getDurationInput().setDurationDisplayBackgroundColor(Color.TRANSPARENT);
         //mDelayValueDialog.getDurationInput().setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(activity));
         delayValueRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
