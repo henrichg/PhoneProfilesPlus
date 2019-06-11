@@ -42,8 +42,8 @@
         <item name="textAppearanceDisplay">@style/TextAppearance.TimeDurationPicker.Display</item>
         <item name="textAppearanceUnit">@style/TextAppearance.TimeDurationPicker.Unit</item>
         <item name="textAppearanceButton">@style/TextAppearance.TimeDurationPicker.Button</item>
-        <item name="backspaceIcon">@drawable/ic_backspace</item>
-        <item name="clearIcon">@drawable/ic_clear</item>
+        <item name="backspaceIcon">@drawable/ic_backspace_tdp</item>
+        <item name="clearIcon">@drawable/ic_clear_tdp</item>
     </style>
     <style name="Widget.TimeDurationPicker.Large" tools:ignore="UnusedResources">
         <item name="textAppearanceDisplay">@style/TextAppearance.TimeDurationPicker.Display.Large</item>
@@ -52,12 +52,12 @@
     </style>
 
     <style name="Widget.TimeDurationPicker.Light" tools:ignore="UnusedResources">
-        <item name="backspaceIcon">@drawable/ic_backspace_light</item>
-        <item name="clearIcon">@drawable/ic_backspace_light</item>
+        <item name="backspaceIcon">@drawable/ic_backspace_light_tdp</item>
+        <item name="clearIcon">@drawable/ic_backspace_light_tdp</item>
     </style>
     <style name="Widget.TimeDurationPicker.Large.Light" tools:ignore="UnusedResources">
-        <item name="backspaceIcon">@drawable/ic_backspace_light</item>
-        <item name="clearIcon">@drawable/ic_backspace_light</item>
+        <item name="backspaceIcon">@drawable/ic_backspace_light_tdp</item>
+        <item name="clearIcon">@drawable/ic_backspace_light_tdp</item>
     </style>
 
     <style name="Widget.TimeDurationPicker.Dialog">

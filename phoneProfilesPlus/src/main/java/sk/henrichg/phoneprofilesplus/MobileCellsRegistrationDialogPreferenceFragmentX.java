@@ -172,7 +172,7 @@ public class MobileCellsRegistrationDialogPreferenceFragmentX extends Preference
                 mSeekBarSeconds.setProgress(seconds);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
-        //mValueDialog.getDurationInput().setDurationDisplayBackgroundColor(Color.TRANSPARENT);
+        GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), getActivity());
         mValue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

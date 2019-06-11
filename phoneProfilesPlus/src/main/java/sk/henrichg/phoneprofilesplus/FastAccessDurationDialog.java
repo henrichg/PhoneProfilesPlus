@@ -188,7 +188,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 updateTextFields(false);
             }
         }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
-        //mValueDialog.getDurationInput().setDurationDisplayBackgroundColor(Color.TRANSPARENT);
+        GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), activity);
         mValue.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

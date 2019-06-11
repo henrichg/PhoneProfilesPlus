@@ -76,7 +76,7 @@
             android:layout_toStartOf="@+id/clear"
             android:minWidth="@dimen/touchable"
             android:minHeight="@dimen/touchable"
-            android:src="@drawable/ic_backspace_light"
+            android:src="@drawable/ic_backspace_light_tdp"
             android:background="?selectableItemBackgroundBorderless"
             tools:ignore="ContentDescription"/>
 
@@ -88,7 +88,7 @@
             android:layout_alignParentEnd="true"
             android:minWidth="@dimen/touchable"
             android:minHeight="@dimen/touchable"
-            android:src="@drawable/ic_clear_light"
+            android:src="@drawable/ic_clear_light_tdp"
             android:background="?selectableItemBackgroundBorderless"
             tools:ignore="ContentDescription"/>
 
