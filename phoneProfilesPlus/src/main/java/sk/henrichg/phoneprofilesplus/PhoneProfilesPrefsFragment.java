@@ -381,6 +381,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_WRITE_SETTINGS, getActivity().getApplicationContext())) {
                             @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                            intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_WRITE_SYSTEM_SETTINGS_PERMISSIONS);
                         } else {
@@ -477,6 +478,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, getActivity().getApplicationContext())) {
                             @SuppressLint("InlinedApi")
                             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                            intent.setData(Uri.parse("package:sk.henrichg.phoneprofilesplus"));
                             //intent.addCategory(Intent.CATEGORY_DEFAULT);
                             startActivityForResult(intent, RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS);
                         } else {
@@ -1925,7 +1927,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = getString(R.string.permission_granted);
                 else {
                     summary = getString(R.string.permission_not_granted);
-                    summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions_summary);
+                    //summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions_summary);
                 }
                 preference.setSummary(summary);
             }
@@ -1945,7 +1947,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = getString(R.string.permission_granted);
                 else {
                     summary = getString(R.string.permission_not_granted);
-                    summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_drawOverlaysPermissions_summary);
+                    //summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_drawOverlaysPermissions_summary);
                 }
                 preference.setSummary(summary);
             }
