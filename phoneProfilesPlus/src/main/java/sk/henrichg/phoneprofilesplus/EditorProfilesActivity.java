@@ -497,7 +497,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterItems);
         filterSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        switch (appTheme) {
+        filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+/*        switch (appTheme) {
             case "dark":
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
                 //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -514,7 +515,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
                 //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-        }
+        }*/
         filterSpinner.setAdapter(filterSpinnerAdapter);
         filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -542,7 +543,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         //orderSpinnerAdapter.setDropDownViewResource(android.support.v7.appcompat.R.layout.support_simple_spinner_dropdown_item);
         orderSpinnerAdapter.setDropDownViewResource(R.layout.editor_toolbar_spinner_dropdown);
         orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        switch (appTheme) {
+        orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.accent));
+/*        switch (appTheme) {
             case "dark":
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor_dark));
                 //orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_dark);
@@ -559,7 +561,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 orderSpinner.setSupportBackgroundTintList(ContextCompat.getColorStateList(getBaseContext(), R.color.editorFilterTitleColor));
                 //orderSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
-        }
+        }*/
         orderSpinner.setAdapter(orderSpinnerAdapter);
         orderSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 

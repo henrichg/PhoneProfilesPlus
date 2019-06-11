@@ -71,6 +71,7 @@
         <item name="actionRunStopEventsIcon">@drawable/ic_action_play</item>
         <item name="editorSpinnerDropDownTextColor">@color/activityTextColor</item>
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor</item>
+        <item name="editorFilterBackgroundColor">@color/editorFilterBackgroundColor</item>
         <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all</item>
         <item name="buttonBackground">@drawable/pp_button_background</item>
         <item name="eventPauseTextColor">@color/eventPauseTextColor</item>

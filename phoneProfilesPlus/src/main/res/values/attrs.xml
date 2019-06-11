@@ -120,5 +120,6 @@
     <attr name="activityLogTypeOther" format="reference" />
     <attr name="infoPreferenceIcon" format="reference" />
     <attr name="exclamationPreferenceIcon" format="reference" />
+    <attr name="editorFilterBackgroundColor" format="reference" />
 
 </resources>

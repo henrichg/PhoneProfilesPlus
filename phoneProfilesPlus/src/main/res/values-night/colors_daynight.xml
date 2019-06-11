@@ -27,6 +27,7 @@
     <color name="altype_other">#FF7F7F7F</color>
 
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
+    <color name="editorFilterBackgroundColor">#FF272727</color>
 
     <color name="tabTargetHelpOuterCircleColor">#FF272727</color>
     <color name="tabTargetHelpTargetCircleColor">#FF7F7F7F</color>
