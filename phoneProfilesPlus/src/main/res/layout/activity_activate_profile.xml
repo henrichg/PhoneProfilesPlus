@@ -34,11 +34,12 @@
 
                 <ImageView
                     android:id="@+id/act_prof_run_stop_indicator"
-                    android:layout_width="40dp"
-                    android:layout_height="13dp"
+                    android:layout_width="50dp"
+                    android:layout_height="23dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/run_stop_indicator_margin_end"
+                    android:padding="5dp"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/run_stop_events_indicator"
                     android:scaleType="fitEnd"
