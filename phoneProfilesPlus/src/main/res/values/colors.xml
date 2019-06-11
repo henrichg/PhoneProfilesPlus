@@ -40,7 +40,8 @@
     <color name="map_last_location_marker_fill"
            tools:keep="@color/map_last_location_marker_fill">#7784d2ef</color>
 
-    <!--<color name="editorFilterTitleColor">#FFFFFFFF</color>-->
+    <color name="editorFilterTitleColor_white">#FF000000</color>
+    <color name="editorFilterTitleColor_dark">#FFFFFFFF</color>
 
     <!--<color name="tabTargetHelpCircleColor">#FFFFFFFF</color>-->
     <!--<color name="tabTargetHelpTextColor">#FFFFFFFF</color>-->
