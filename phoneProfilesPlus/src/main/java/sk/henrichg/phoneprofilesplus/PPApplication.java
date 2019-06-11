@@ -134,7 +134,7 @@ public class PPApplication extends Application {
                                          //+"|LauncherActivity.onStart"
                                          //+"|EditorProfilesActivity.onCreate"
                                          //+"|EditorProfilesActivity.onStart"
-                                         +"|EditorProfilesActivity.onActivityResult"
+                                         //+"|EditorProfilesActivity.onActivityResult"
 
                                          //+"|PostDelayedBroadcastReceiver"
 
@@ -188,9 +188,9 @@ public class PPApplication extends Application {
                                          //+"|ActivateProfileHelper.setVibrateWhenRinging"
 
                                          //+"|PhoneProfilesPreferencesNestedFragment.onActivityCreated"
-                                         /*+"|PhoneProfilesPrefsActivity"
+                                         //+"|PhoneProfilesPrefsActivity"
                                          +"|PhoneProfilesPrefsFragment"
-                                         +"|ProfilesPrefsActivity"
+                                         /*+"|ProfilesPrefsActivity"
                                          +"|ProfilesPrefsFragment"
                                          +"|EventsPrefsActivity"
                                          +"|EventsPrefsFragment"

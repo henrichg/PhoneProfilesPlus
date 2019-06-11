@@ -286,7 +286,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
 
                                     String theme = ApplicationPreferences.applicationTheme(appContext, false);
-                                    if (!(theme.equals("white") || theme.equals("dark")))
+                                    if (!(theme.equals("white") || theme.equals("dark") || theme.equals("night_mode")))
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
 
                                     editor.apply();
@@ -323,6 +323,13 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive.2");
                         PPApplication.logE("PackageReplacedReceiver.onReceive", "restartService="+restartService);
+
+                        /*
+                        ApplicationPreferences.getSharedPreferences(appContext);
+                        SharedPreferences.Editor editor = ApplicationPreferences.preferences.edit();
+                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
+                        editor.apply();
+                        */
 
                         if (PhoneStateScanner.enabledAutoRegistration) {
                             PhoneStateScanner.stopAutoRegistration(appContext);
