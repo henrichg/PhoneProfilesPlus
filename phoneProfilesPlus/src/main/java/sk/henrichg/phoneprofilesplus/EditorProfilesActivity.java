@@ -909,7 +909,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "dark");
                         editor.apply();
                     }
-                    GlobalGUIRoutines.switchNightMode(getApplicationContext());
+                    GlobalGUIRoutines.switchNightMode(getApplicationContext(), false);
                     GlobalGUIRoutines.reloadActivity(this, true);
                 }
                 return true;

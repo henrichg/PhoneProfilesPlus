@@ -144,5 +144,7 @@
     <orderEntry type="library" name="Gradle: androidx.interpolator:interpolator:1.0.0@aar" level="project" />
     <orderEntry type="module" module-name="RootShell" />
     <orderEntry type="module" module-name="RootShell" />
+    <orderEntry type="module" module-name="RootShell" />
+    <orderEntry type="module" module-name="RootShell" />
   </component>
 </module>

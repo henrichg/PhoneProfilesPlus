@@ -49,6 +49,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.core.content.ContextCompat;
 
+import static android.os.Looper.getMainLooper;
+
 class GlobalGUIRoutines {
 
     static Collator collator = null;
@@ -267,7 +269,7 @@ class GlobalGUIRoutines {
         }
     }
 
-    static void switchNightMode(Context appContext) {
+    private static void switchNightMode(Context appContext) {
         switch (ApplicationPreferences.applicationTheme(appContext, false)) {
             case "white":
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -279,6 +281,21 @@ class GlobalGUIRoutines {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                 break;
         }
+    }
+
+    static void switchNightMode(final Context appContext, boolean useHandler) {
+        if (useHandler) {
+            new Handler(getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        switchNightMode(appContext);
+                    } catch (Exception ignored) {}
+                }
+            });
+        }
+        else
+            switchNightMode(appContext);
     }
 
     static void reloadActivity(final Activity activity, @SuppressWarnings("SameParameterValue") boolean newIntent)

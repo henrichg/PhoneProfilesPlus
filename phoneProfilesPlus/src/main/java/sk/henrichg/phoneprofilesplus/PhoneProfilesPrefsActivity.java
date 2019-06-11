@@ -270,7 +270,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
             //EditorProfilesActivity.setTheme(this, false);
-            GlobalGUIRoutines.switchNightMode(appContext);
+            GlobalGUIRoutines.switchNightMode(appContext, false);
             invalidateEditor = true;
         }
         /*else
