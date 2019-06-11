@@ -286,8 +286,10 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                     editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_FILTER_SPINNER, true);
 
                                     String theme = ApplicationPreferences.applicationTheme(appContext, false);
-                                    if (!(theme.equals("white") || theme.equals("dark") || theme.equals("night_mode")))
+                                    if (!(theme.equals("white") || theme.equals("dark") || theme.equals("night_mode"))) {
                                         editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, "white");
+                                        GlobalGUIRoutines.switchNightMode(appContext);
+                                    }
 
                                     editor.apply();
                                 }
