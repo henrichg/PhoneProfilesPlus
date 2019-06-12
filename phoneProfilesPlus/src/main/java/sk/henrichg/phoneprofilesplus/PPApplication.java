@@ -23,7 +23,6 @@ import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobApi;
 import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobManager;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;

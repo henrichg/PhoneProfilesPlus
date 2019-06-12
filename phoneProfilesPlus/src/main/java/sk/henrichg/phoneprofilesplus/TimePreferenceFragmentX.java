@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TimePicker;
 
+//import androidx.leanback.widget.picker.Picker;
+//import androidx.leanback.widget.picker.TimePicker;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class TimePreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -40,6 +42,16 @@ public class TimePreferenceFragmentX extends PreferenceDialogFragmentCompat {
         picker.setCurrentHour(preference.value / 60);
         picker.setCurrentMinute(preference.value % 60);
 
+        /*
+        picker.addOnValueChangedListener(new Picker.PickerValueListener() {
+            @Override
+            public void onValueChanged(Picker picker, int column) {
+                Log.e("TimePreferenceFragmentX.onValueChanged", "hour="+((TimePicker)picker).getHour());
+                Log.e("TimePreferenceFragmentX.onValueChanged", "minute="+((TimePicker)picker).getMinute());
+                preference.value = ((TimePicker)picker).getHour() * 60 + ((TimePicker)picker).getMinute();
+            }
+        });
+        */
         picker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
