@@ -1434,8 +1434,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
 
                 String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOSYNC)),
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)),
                         arrayValues, arrayStrings, context);
 
                 summary = summary + title + ": " + value;
