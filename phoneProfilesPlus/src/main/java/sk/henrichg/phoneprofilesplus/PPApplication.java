@@ -23,6 +23,7 @@ import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobApi;
 import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobManager;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.RootShell.RootShell;
@@ -537,8 +538,7 @@ public class PPApplication extends Application {
 
     public static boolean isScreenOn;
 
-    //@SuppressWarnings("SpellCheckingInspection")
-    //static private FirebaseAnalytics mFirebaseAnalytics;
+    //static private FirebaseAnalytics firebaseAnalytics;
 
     public static HandlerThread handlerThread = null;
     public static HandlerThread handlerThreadInternalChangeToFalse = null;
@@ -637,8 +637,10 @@ public class PPApplication extends Application {
             Permissions.grantLogToFilePermissions(getApplicationContext());
 
         try {
-            // Obtain the FirebaseAnalytics instance.
-            //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            /*if (!BuildConfig.DEBUG) {
+                // Obtain the FirebaseAnalytics instance.
+                firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+            }*/
 
             /*
             // Set up Crashlytics, disabled for debug builds
