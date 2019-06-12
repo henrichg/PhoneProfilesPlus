@@ -271,7 +271,8 @@ public class RingtonePreferenceX extends DialogPreference {
             //positive.setEnabled(true);
             setPositiveButtonText(android.R.string.ok);
 
-            listAdapter.notifyDataSetChanged();
+            if (listAdapter != null)
+                listAdapter.notifyDataSetChanged();
         }
     }
 

@@ -125,7 +125,8 @@ public class LocationGeofencePreferenceX extends DialogPreference {
 
     public void refreshListView()
     {
-        listAdapter.reload(dataWrapper);
+        if (listAdapter != null)
+            listAdapter.reload(dataWrapper);
     }
 
     void setGeofenceFromEditor(/*long geofenceId*/) {
