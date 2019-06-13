@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--<androidx.leanback.widget.picker.TimePicker-->
-<TimePicker
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/time_pref_dlg_timePicker"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="@dimen/alert_dialog_top_padding" />

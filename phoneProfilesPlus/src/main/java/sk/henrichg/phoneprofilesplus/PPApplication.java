@@ -248,7 +248,7 @@ public class PPApplication extends Application {
                                          //+"|WifiConnectionBroadcastReceiver"
                                          //+"|%%%% WifiBluetoothScanner.doScan"
                                          //+"|$$$W WifiBluetoothScanner"
-                                         +"|$$$B WifiBluetoothScanner"
+                                         /*+"|$$$B WifiBluetoothScanner"
                                          +"|$$$BCL WifiBluetoothScanner"
                                          +"|$$$BLE WifiBluetoothScanner"
                                          +"|BluetoothScanJob.onRunJob"
@@ -262,7 +262,7 @@ public class PPApplication extends Application {
                                          +"|BluetoothScanJob.finishLEScan"
                                          +"|BluetoothScanBroadcastReceiver.onReceive"
                                          +"|@@@ BluetoothScanBroadcastReceiver.onReceive"
-                                         +"|BluetoothLEScanCallback21"
+                                         +"|BluetoothLEScanCallback21"*/
                                         //+"|[BTScan] DataWrapper.doHandleEvents"
                                         //+"|BluetoothConnectedDevices"
                                         //+"|BluetoothConnectionBroadcastReceiver"

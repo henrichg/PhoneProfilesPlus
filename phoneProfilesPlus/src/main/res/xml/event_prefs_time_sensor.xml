@@ -15,7 +15,7 @@
         app:title="@string/event_preferences_time_timeDays"
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.TimePreferenceX
+    <sk.henrichg.phoneprofilesplus.TimePickerPreferenceX
         app:key="eventTimeStartTime"
         app:defaultValue="0"
         app:title="@string/event_preferences_time_startTime"
@@ -29,7 +29,7 @@
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     -->
-    <sk.henrichg.phoneprofilesplus.TimePreferenceX
+    <sk.henrichg.phoneprofilesplus.TimePickerPreferenceX
         app:key="eventTimeEndTime"
         app:defaultValue="0"
         app:title="@string/event_preferences_time_endTime"

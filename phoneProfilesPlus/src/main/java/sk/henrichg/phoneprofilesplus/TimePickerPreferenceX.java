@@ -6,32 +6,26 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
-import android.widget.TimePicker;
 
 import java.sql.Date;
 import java.util.Calendar;
 
-//import androidx.leanback.widget.picker.TimePicker;
 import androidx.preference.DialogPreference;
 
-public class TimePreferenceX extends DialogPreference {
+public class TimePickerPreferenceX extends DialogPreference {
 
-    TimePreferenceFragmentX fragment;
+    TimePickerPreferenceFragmentX fragment;
 
     int value;
     private int defaultValue;
     private boolean savedInstanceState;
 
-    private final Context context;
-    //private Calendar calendar;
+    final Context _context;
 
-    public TimePreferenceX(Context context, AttributeSet attrs) {
+    public TimePickerPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        this.context = context;
-
-        setPositiveButtonText(android.R.string.ok);
-        setNegativeButtonText(android.R.string.cancel);
+        _context = context;
 
         Calendar now = Calendar.getInstance();
         value = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE);
@@ -60,14 +54,17 @@ public class TimePreferenceX extends DialogPreference {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, value / 60);
         calendar.set(Calendar.MINUTE, value % 60);
-        return DateFormat.getTimeFormat(context).format(new Date(calendar.getTimeInMillis()));
+        return DateFormat.getTimeFormat(_context).format(new Date(calendar.getTimeInMillis()));
     }
 
-    void persistValue(TimePicker picker) {
+    void persistValue(long duration) {
         if (shouldPersist()) {
-            picker.clearFocus();
 
-            value = picker.getCurrentHour() * 60 + picker.getCurrentMinute();
+            value = (int)(duration / 1000 / 60);
+            if (value < 0)
+                value = 0;
+            if (value > 23 * 60 + 59)
+                value = 23 * 60 + 59;
 
             setSummary(getSummary());
             if (callChangeListener(value)) {
@@ -101,7 +98,7 @@ public class TimePreferenceX extends DialogPreference {
             return superState;
         }*/
 
-        final TimePreferenceX.SavedState myState = new TimePreferenceX.SavedState(superState);
+        final TimePickerPreferenceX.SavedState myState = new TimePickerPreferenceX.SavedState(superState);
         myState.value = value;
         myState.defaultValue = defaultValue;
 
@@ -114,7 +111,7 @@ public class TimePreferenceX extends DialogPreference {
         //if (dataWrapper == null)
         //    dataWrapper = new DataWrapper(prefContext, false, 0, false);
 
-        if (!state.getClass().equals(TimePreferenceX.SavedState.class)) {
+        if (!state.getClass().equals(TimePickerPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             setSummary(getSummary());
@@ -122,12 +119,12 @@ public class TimePreferenceX extends DialogPreference {
         }
 
         // restore instance state
-        TimePreferenceX.SavedState myState = (TimePreferenceX.SavedState)state;
+        TimePickerPreferenceX.SavedState myState = (TimePickerPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
         defaultValue = myState.defaultValue;
 
-        PPApplication.logE("TimePreferenceX.onRestoreInstanceState", "value="+getSummary());
+        PPApplication.logE("TimePickerPreferenceX.onRestoreInstanceState", "value="+getSummary());
 
         setSummary(getSummary());
         //notifyChanged();
@@ -162,19 +159,19 @@ public class TimePreferenceX extends DialogPreference {
         }
 
         @SuppressWarnings("unused")
-        public static final Creator<TimePreferenceX.SavedState> CREATOR =
-                new Creator<TimePreferenceX.SavedState>() {
-                    public TimePreferenceX.SavedState createFromParcel(Parcel in)
+        public static final Creator<TimePickerPreferenceX.SavedState> CREATOR =
+                new Creator<TimePickerPreferenceX.SavedState>() {
+                    public TimePickerPreferenceX.SavedState createFromParcel(Parcel in)
                     {
-                        return new TimePreferenceX.SavedState(in);
+                        return new TimePickerPreferenceX.SavedState(in);
                     }
-                    public TimePreferenceX.SavedState[] newArray(int size)
+                    public TimePickerPreferenceX.SavedState[] newArray(int size)
                     {
-                        return new TimePreferenceX.SavedState[size];
+                        return new TimePickerPreferenceX.SavedState[size];
                     }
 
                 };
 
     }
 
-} 
+}
