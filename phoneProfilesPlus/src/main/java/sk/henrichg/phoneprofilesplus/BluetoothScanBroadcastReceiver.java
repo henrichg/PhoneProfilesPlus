@@ -49,8 +49,10 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             final String deviceName = intent.getStringExtra(BluetoothDevice.EXTRA_NAME);
 
-            PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","device="+device);
-            PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive","deviceName="+deviceName);
+            if (action.equals(BluetoothDevice.ACTION_FOUND)) {
+                PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive", "device=" + device);
+                PPApplication.logE("BluetoothScanBroadcastReceiver.onReceive", "deviceName=" + deviceName);
+            }
 
             PPApplication.startHandlerThread("BluetoothScanBroadcastReceiver.onReceive");
             final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
