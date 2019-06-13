@@ -18,6 +18,8 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     private Button colorChooserButton;
 
+    private ProfileIconPreferenceAdapterX adapter;
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(Context context)
@@ -35,18 +37,18 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         super.onBindDialogView(view);
 
         GridView gridView = view.findViewById(R.id.profileicon_pref_dlg_gridview);
-        preference.adapter = new ProfileIconPreferenceAdapterX(preference, prefContext/*,
+        adapter = new ProfileIconPreferenceAdapterX(preference, prefContext/*,
                             preference.imageIdentifier,
                             preference.isImageResourceID,
                             preference.useCustomColor,
                             preference.customColor*/);
-        gridView.setAdapter(preference.adapter);
+        gridView.setAdapter(adapter);
         gridView.setSelection(ProfileIconPreferenceAdapterX.getImageResourcePosition(preference.imageIdentifier/*, prefContext*/));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 preference.setImageIdentifierAndType(ProfileIconPreferenceAdapterX.getImageResourceName(position),true);
-                preference.adapter.imageIdentifierAndTypeChanged(/*preference.imageIdentifier, preference.isImageResourceID*/);
+                adapter.imageIdentifierAndTypeChanged(/*preference.imageIdentifier, preference.isImageResourceID*/);
                 preference.updateIcon(true);
                 colorChooserButton.setEnabled(preference.isImageResourceID);
             }
@@ -119,6 +121,10 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
                 .build();
         colorDialog.show(); // an AppCompatActivity which implements ColorCallback
         */
+    }
+
+    void setCustomColor() {
+        adapter.setCustomColor();
     }
 
 }

@@ -32,7 +32,6 @@ public class ProfileIconPreferenceX extends DialogPreference {
     //private Bitmap bitmap;
 
     private ImageView imageView;
-    ProfileIconPreferenceAdapterX adapter;
     ImageView dialogIcon;
     private final Context prefContext;
 
@@ -183,7 +182,8 @@ public class ProfileIconPreferenceX extends DialogPreference {
     void setCustomColor(boolean newUseCustomColor, int newCustomColor) {
         useCustomColor = newUseCustomColor;
         customColor = newCustomColor;
-        adapter.setCustomColor(/*useCustomColor, customColor*/);
+        if (fragment != null)
+            fragment.setCustomColor(/*useCustomColor, customColor*/);
         updateIcon(true);
         setValue(false);
     }

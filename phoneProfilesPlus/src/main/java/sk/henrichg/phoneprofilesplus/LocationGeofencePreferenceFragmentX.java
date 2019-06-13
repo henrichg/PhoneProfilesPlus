@@ -28,6 +28,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
     private Context prefContext;
 
+    private LocationGeofencesPreferenceAdapterX listAdapter;
+
     @SuppressLint("InflateParams")
     @Override
     protected View onCreateDialogView(Context context)
@@ -56,8 +58,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
         ListView geofencesListView = view.findViewById(R.id.location_pref_dlg_listview);
 
-        preference.listAdapter = new LocationGeofencesPreferenceAdapterX(prefContext, DatabaseHandler.getInstance(prefContext.getApplicationContext()).getGeofencesCursor(), this);
-        geofencesListView.setAdapter(preference.listAdapter);
+        listAdapter = new LocationGeofencesPreferenceAdapterX(prefContext, DatabaseHandler.getInstance(prefContext.getApplicationContext()).getGeofencesCursor(), this);
+        geofencesListView.setAdapter(listAdapter);
 
         geofencesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -183,7 +185,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                 preference.resetSummary();
         }
 
-        Cursor cursor = preference.listAdapter.getCursor();
+        Cursor cursor = listAdapter.getCursor();
         if (cursor != null)
             cursor.close();
 
@@ -278,6 +280,12 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 
 
         popup.show();
+    }
+
+    void refreshListView()
+    {
+        if (listAdapter != null)
+            listAdapter.reload(preference.dataWrapper);
     }
 
 }

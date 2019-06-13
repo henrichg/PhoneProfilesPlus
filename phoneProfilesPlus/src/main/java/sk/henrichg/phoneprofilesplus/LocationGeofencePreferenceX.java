@@ -22,7 +22,6 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     //private LinearLayout progressLinearLayout;
     //private RelativeLayout dataRelativeLayout;
     //private TextView geofenceName;
-    LocationGeofencesPreferenceAdapterX listAdapter;
 
     public final DataWrapper dataWrapper;
 
@@ -125,8 +124,8 @@ public class LocationGeofencePreferenceX extends DialogPreference {
 
     public void refreshListView()
     {
-        if (listAdapter != null)
-            listAdapter.reload(dataWrapper);
+        if (fragment != null)
+            fragment.refreshListView();
     }
 
     void setGeofenceFromEditor(/*long geofenceId*/) {

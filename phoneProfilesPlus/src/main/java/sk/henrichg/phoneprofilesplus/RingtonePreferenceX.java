@@ -16,12 +16,9 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ListView;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,8 +44,6 @@ public class RingtonePreferenceX extends DialogPreference {
     AsyncTask asyncTask = null;
 
     private final Context prefContext;
-    RingtonePreferenceAdapterX listAdapter;
-    ListView listView;
 
     private static MediaPlayer mediaPlayer = null;
     private static int oldMediaVolume = -1;
@@ -213,18 +208,15 @@ public class RingtonePreferenceX extends DialogPreference {
                         toneList.clear();
                         toneList.putAll(_toneList);
 
-                    /*if (defaultRingtone == null) {
-                        // ringtone not found
-                        //View positive = getButton(DialogInterface.BUTTON_POSITIVE);
-                        //positive.setEnabled(false);
-                        setPositiveButtonText(null);
-                    }*/
+                        /*if (defaultRingtone == null) {
+                            // ringtone not found
+                            //View positive = getButton(DialogInterface.BUTTON_POSITIVE);
+                            //positive.setEnabled(false);
+                            setPositiveButtonText(null);
+                        }*/
 
-                        listAdapter.notifyDataSetChanged();
-
-                        List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
-                        final int position = uris.indexOf(ringtoneUri);
-                        listView.setSelection(position);
+                        if (fragment != null)
+                            fragment.updateListView(true);
                     }
 
                 }.execute();
@@ -271,8 +263,8 @@ public class RingtonePreferenceX extends DialogPreference {
             //positive.setEnabled(true);
             setPositiveButtonText(android.R.string.ok);
 
-            if (listAdapter != null)
-                listAdapter.notifyDataSetChanged();
+            if (fragment != null)
+                fragment.updateListView(false);
         }
     }
 
@@ -440,15 +432,15 @@ public class RingtonePreferenceX extends DialogPreference {
     void persistValue() {
         if (shouldPersist())
         {
-            List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
-            final int position = uris.indexOf(ringtoneUri);
+            if (fragment != null) {
+                final int position = fragment.getRingtonePosition();
+                if (position != -1) {
+                    // save to preferences
+                    persistString(ringtoneUri);
 
-            if (position != -1) {
-                // save to preferences
-                persistString(ringtoneUri);
-
-                // and notify
-                notifyChanged();
+                    // and notify
+                    notifyChanged();
+                }
             }
         }
     }

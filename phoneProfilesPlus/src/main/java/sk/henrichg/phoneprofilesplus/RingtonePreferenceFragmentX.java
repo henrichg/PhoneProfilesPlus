@@ -7,12 +7,19 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     RingtonePreferenceX preference;
+
+    private RingtonePreferenceAdapterX listAdapter;
+    private ListView listView;
 
     private Context prefContext;
 
@@ -33,20 +40,20 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
     {
         super.onBindDialogView(view);
 
-        preference.listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
+        listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
 
-        preference.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View item, int position, long id)
             {
                 RingtonePreferenceAdapterX.ViewHolder viewHolder = (RingtonePreferenceAdapterX.ViewHolder) item.getTag();
-                preference.setRingtone((String)preference.listAdapter.getItem(position), false);
+                preference.setRingtone((String)listAdapter.getItem(position), false);
                 viewHolder.radioBtn.setChecked(true);
                 preference.playRingtone();
             }
         });
 
-        preference.listAdapter = new RingtonePreferenceAdapterX(this, prefContext, preference.toneList);
-        preference.listView.setAdapter(preference.listAdapter);
+        listAdapter = new RingtonePreferenceAdapterX(this, prefContext, preference.toneList);
+        listView.setAdapter(listAdapter);
 
         if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext)) {
             Handler handler = new Handler(prefContext.getMainLooper());
@@ -85,6 +92,23 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         });
 
         preference.fragment = null;
+    }
+
+    void updateListView(boolean alsoSelection) {
+        if (listAdapter != null) {
+            listAdapter.notifyDataSetChanged();
+
+            if (alsoSelection) {
+                List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
+                final int position = uris.indexOf(preference.ringtoneUri);
+                listView.setSelection(position);
+            }
+        }
+    }
+
+    int getRingtonePosition() {
+        List<String> uris = new ArrayList<>(listAdapter.toneList.keySet());
+        return uris.indexOf(preference.ringtoneUri);
     }
 
 }
