@@ -22,6 +22,9 @@ public class WifiScanBroadcastReceiver extends BroadcastReceiver {
         if (!PPApplication.getApplicationStarted(context, true))
             // application is not started
             return;
+        if (!ApplicationPreferences.applicationEventWifiEnableScanning(context))
+            // scanning is disabled
+            return;
 
         if (intent == null)
             return;

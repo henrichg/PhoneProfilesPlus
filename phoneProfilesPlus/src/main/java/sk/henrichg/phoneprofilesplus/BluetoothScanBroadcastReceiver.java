@@ -25,6 +25,9 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
         if (!PPApplication.getApplicationStarted(appContext, true))
             // application is not started
             return;
+        if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context))
+            // scanning is disabled
+            return;
 
         if (intent == null)
             return;
@@ -144,7 +147,7 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
                                                 BluetoothScanJob.fillBoundedDevicesList(appContext);
                                             }
 
-                                            BluetoothScanJob.finishScan(appContext);
+                                            BluetoothScanJob.finishCLScan(appContext);
                                             break;
                                     }
                                 }

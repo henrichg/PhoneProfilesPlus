@@ -342,7 +342,7 @@ class WifiBluetoothScanner {
                                             PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "waiting for classic scan end");
 
                                             // wait for scan end
-                                            waitForBluetoothScanEnd(context);
+                                            waitForBluetoothCLScanEnd(context);
 
                                             PPApplication.logE("$$$BCL WifiBluetoothScanner.doScan", "classic scan ended");
                                         }
@@ -684,7 +684,7 @@ class WifiBluetoothScanner {
         } while (SystemClock.uptimeMillis() - start < wifiScanDuration * 1000);
     }
 
-    private static void waitForBluetoothScanEnd(Context context)
+    private static void waitForBluetoothCLScanEnd(Context context)
     {
         long start = SystemClock.uptimeMillis();
         do {
@@ -695,7 +695,7 @@ class WifiBluetoothScanner {
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
 
-        BluetoothScanJob.finishScan(context);
+        BluetoothScanJob.finishCLScan(context);
         BluetoothScanJob.stopCLScan(context);
     }
 
@@ -712,9 +712,19 @@ class WifiBluetoothScanner {
                 //try { Thread.sleep(100); } catch (InterruptedException e) { }
                 SystemClock.sleep(100);
             } while (SystemClock.uptimeMillis() - start < applicationEventBluetoothLEScanDuration * 1000);
-
             BluetoothScanJob.finishLEScan(context);
             BluetoothScanJob.stopLEScan(context);
+
+
+            // wait for ScanCallback.onBatchScanResults after stop scan
+            start = SystemClock.uptimeMillis();
+            do {
+                //try { Thread.sleep(100); } catch (InterruptedException e) { }
+                SystemClock.sleep(100);
+            } while (SystemClock.uptimeMillis() - start < 10 * 1000);
+            // save ScanCallback.onBatchScanResults
+            BluetoothScanJob.finishLEScan(context);
+
         }
     }
 
@@ -732,7 +742,7 @@ class WifiBluetoothScanner {
             //try { Thread.sleep(100); } catch (InterruptedException e) { }
             SystemClock.sleep(100);
         } while (SystemClock.uptimeMillis() - start < classicBTScanDuration * 1000);
-        BluetoothScanJob.finishScan(context);
+        BluetoothScanJob.finishCLScan(context);
         BluetoothScanJob.stopCLScan(context);
 
         if (asyncTask != null)
@@ -756,6 +766,15 @@ class WifiBluetoothScanner {
         } while (SystemClock.uptimeMillis() - start < applicationEventBluetoothLEScanDuration * 1000);
         BluetoothScanJob.finishLEScan(context);
         BluetoothScanJob.stopLEScan(context);
+
+        // wait for ScanCallback.onBatchScanResults after stop scan
+        start = SystemClock.uptimeMillis();
+        do {
+            //try { Thread.sleep(100); } catch (InterruptedException e) { }
+            SystemClock.sleep(100);
+        } while (SystemClock.uptimeMillis() - start < 10 * 1000);
+        // save ScanCallback.onBatchScanResults
+        BluetoothScanJob.finishLEScan(context);
     }
 
     @SuppressLint("InlinedApi")

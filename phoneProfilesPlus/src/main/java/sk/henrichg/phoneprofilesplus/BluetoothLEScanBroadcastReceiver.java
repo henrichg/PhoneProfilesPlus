@@ -43,9 +43,9 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
 
                         PPApplication.logE("PPApplication.startHandlerThread", "START run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
 
-                        boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
+                        //boolean scanStarted = (BluetoothScanJob.getWaitForLEResults(appContext));
 
-                        if (scanStarted) {
+                        //if (scanStarted) {
                             PPApplication.logE("@@@ BluetoothLEScanBroadcastReceiver.onReceive", "xxx");
 
 
@@ -86,7 +86,7 @@ public class BluetoothLEScanBroadcastReceiver extends BroadcastReceiver {
                             }, 5000);*/
                                 PostDelayedBroadcastReceiver.setAlarmForHandleEvents(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER, 5, appContext);
                             }
-                        }
+                        //}
 
                         PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BluetoothLEScanBroadcastReceiver.onReceive.1");
                     } finally {

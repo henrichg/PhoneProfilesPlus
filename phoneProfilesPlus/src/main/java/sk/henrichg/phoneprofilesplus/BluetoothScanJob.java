@@ -402,11 +402,11 @@ class BluetoothScanJob extends Job {
 
             if (Permissions.checkLocation(context)) {
                 boolean startScan = bluetooth.startDiscovery();
-                PPApplication.logE("@@@ BluetoothScanJob.startScan", "scanStarted=" + startScan);
+                PPApplication.logE("BluetoothScanJob.startCLScan", "scanStarted=" + startScan);
 
                 if (!startScan) {
                     if (getBluetoothEnabledForScan(context)) {
-                        PPApplication.logE("@@@ BluetoothScanJob.startScan", "disable bluetooth");
+                        PPApplication.logE("BluetoothScanJob.startCLScan", "disable bluetooth");
                         if (Permissions.checkBluetoothForEMUI(context))
                             bluetooth.disable();
                     }
@@ -418,17 +418,22 @@ class BluetoothScanJob extends Job {
     }
 
     static void stopCLScan(Context context) {
+        PPApplication.logE("BluetoothScanJob.stopCLScan", "xxx");
         if (bluetooth == null)
             bluetooth = getBluetoothAdapter(context);
         if (bluetooth != null) {
-            if (bluetooth.isDiscovering())
+            if (bluetooth.isDiscovering()) {
                 bluetooth.cancelDiscovery();
+                PPApplication.logE("BluetoothScanJob.stopCLScan", "stopped");
+            }
         }
     }
 
     @SuppressLint("NewApi")
     static void startLEScan(Context context)
     {
+        PPApplication.logE("BluetoothScanJob.startLEScan", "xxx");
+
         if (WifiBluetoothScanner.bluetoothLESupported(context)) {
 
             synchronized (PPApplication.bluetoothLEScanMutex) {
@@ -457,7 +462,7 @@ class BluetoothScanJob extends Job {
                             if (forceScan == WifiBluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG)
                                 builder.setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
                             else
-                                builder.setScanMode(ScanSettings.SCAN_MODE_LOW_POWER);
+                                builder.setScanMode(ScanSettings.SCAN_MODE_BALANCED);
 
                             if (bluetooth.isOffloadedScanBatchingSupported())
                                 builder.setReportDelay(ApplicationPreferences.applicationEventBluetoothLEScanDuration(context) * 1000);
@@ -467,6 +472,8 @@ class BluetoothScanJob extends Job {
                             try {
                                 WifiBluetoothScanner.bluetoothLEScanner.startScan(filters, settings, new BluetoothLEScanCallback21(context));
                                 startScan = true;
+
+                                PPApplication.logE("BluetoothScanJob.startLEScan", "scanStarted=" + startScan);
                             } catch (Exception ignored) {
                             }
                         /*} else {
@@ -496,6 +503,7 @@ class BluetoothScanJob extends Job {
 
     @SuppressLint("NewApi")
     static void stopLEScan(Context context) {
+        PPApplication.logE("BluetoothScanJob.stopLEScan", "xxx");
         if (WifiBluetoothScanner.bluetoothLESupported(context)) {
             if (bluetooth == null)
                 bluetooth = getBluetoothAdapter(context);
@@ -514,6 +522,7 @@ class BluetoothScanJob extends Job {
                             //    WifiBluetoothScanner.bluetoothLEScanCallback18 = new BluetoothLEScanCallback18(context);
                             bluetooth.stopLeScan(new BluetoothLEScanCallback18(context));
                         }*/
+                        PPApplication.logE("BluetoothScanJob.stopLEScan", "stopped");
                     } catch (Exception ignored) {}
                 }
             }
@@ -531,7 +540,7 @@ class BluetoothScanJob extends Job {
                 for (BluetoothDeviceData device : tmpScanLEResults) {
                     scanResults.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, false, true));
                 }
-                tmpScanLEResults = null;
+                //tmpScanLEResults = null;
             }
 
             saveLEScanResults(context, scanResults);
@@ -843,9 +852,9 @@ class BluetoothScanJob extends Job {
         }
     }
 
-    static void finishScan(final Context context) {
+    static void finishCLScan(final Context context) {
         synchronized (PPApplication.bluetoothScanMutex) {
-            PPApplication.logE("BluetoothScanJob.finishScan", "BluetoothScanBroadcastReceiver: discoveryStarted=" + WifiBluetoothScanner.bluetoothDiscoveryStarted);
+            PPApplication.logE("BluetoothScanJob.finishCLScan", "BluetoothScanBroadcastReceiver: discoveryStarted=" + WifiBluetoothScanner.bluetoothDiscoveryStarted);
 
             if (WifiBluetoothScanner.bluetoothDiscoveryStarted) {
 
