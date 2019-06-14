@@ -1135,8 +1135,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         PPApplication.logE("PhoneProfilesPrefsFragment.onSharedPreferenceChanged", "xxx");
         setSummary(key);
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_LANGUAGE)) {
-            GlobalGUIRoutines.setLanguage(getActivity());
-            GlobalGUIRoutines.reloadActivity(getActivity(), true);
+            if (getActivity() != null) {
+                GlobalGUIRoutines.setLanguage(getActivity());
+                GlobalGUIRoutines.reloadActivity(getActivity(), true);
+            }
         }
     }
 
