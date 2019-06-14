@@ -757,6 +757,7 @@ public class PPApplication extends Application {
         brightnessHandler = new Handler(getMainLooper());
         screenTimeoutHandler = new Handler(getMainLooper());
 
+        JobConfig.setApiEnabled(JobApi.WORK_MANAGER, true);
         //JobConfig.setForceAllowApi14(true); // https://github.com/evernote/android-job/issues/197
         JobConfig.setApiEnabled(JobApi.GCM, false); // is only important for Android 4.X
 
