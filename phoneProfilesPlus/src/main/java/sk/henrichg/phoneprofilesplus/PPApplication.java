@@ -1650,30 +1650,31 @@ public class PPApplication extends Application {
                 serviceListMutex.serviceList = new ArrayList<>();
             else
                 serviceListMutex.serviceList.clear();
-
-            synchronized (PPApplication.rootMutex) {
-                //noinspection RegExpRedundantEscape
-                final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
-                Command command = new Command(0, false, "service list") {
-                    @Override
-                    public void commandOutput(int id, String line) {
-                        //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - line="+line);
-                        Matcher matcher = compile.matcher(line);
-                        if (matcher.find()) {
+        }
+        synchronized (PPApplication.rootMutex) {
+            //noinspection RegExpRedundantEscape
+            final Pattern compile = Pattern.compile("^[0-9]+\\s+([a-zA-Z0-9_\\-\\.]+): \\[(.*)\\]$");
+            Command command = new Command(0, false, "service list") {
+                @Override
+                public void commandOutput(int id, String line) {
+                    //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - line="+line);
+                    Matcher matcher = compile.matcher(line);
+                    if (matcher.find()) {
+                        synchronized (PPApplication.serviceListMutex) {
                             //noinspection unchecked
                             serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
                             //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(1)="+matcher.group(1));
                             //PPApplication.logE("$$$ WifiAP", "PhoneProfilesService.getServicesList - matcher.group(2)="+matcher.group(2));
                         }
-                        super.commandOutput(id, line);
                     }
-                };
-                try {
-                    RootTools.getShell(false).add(command);
-                    commandWait(command);
-                } catch (Exception e) {
-                    Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
+                    super.commandOutput(id, line);
                 }
+            };
+            try {
+                RootTools.getShell(false).add(command);
+                commandWait(command);
+            } catch (Exception e) {
+                Log.e("PPApplication.getServicesList", Log.getStackTraceString(e));
             }
         }
     }
