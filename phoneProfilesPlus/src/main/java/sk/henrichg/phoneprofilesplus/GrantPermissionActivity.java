@@ -417,7 +417,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_phone) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
-                    permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i] || whyPermissionType[14][i];
+                    permissionTypes[i] = whyPermissionType[4][i] || whyPermissionType[5][i];
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 if (whyPermissionString != null)
