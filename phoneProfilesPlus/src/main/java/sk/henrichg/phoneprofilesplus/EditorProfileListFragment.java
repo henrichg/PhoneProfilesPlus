@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +48,7 @@ public class EditorProfileListFragment extends Fragment
 
     public DataWrapper activityDataWrapper;
 
+    private RelativeLayout activatedProfileHeader;
     RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
@@ -56,6 +60,10 @@ public class EditorProfileListFragment extends Fragment
     private ItemTouchHelper itemTouchHelper;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
+
+    private ValueAnimator hideAnimator;
+    private ValueAnimator showAnimator;
+    private int headerHeight;
 
     static final int EDIT_MODE_UNDEFINED = 0;
     static final int EDIT_MODE_INSERT = 1;
@@ -183,6 +191,60 @@ public class EditorProfileListFragment extends Fragment
         //listView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
+
+        activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
+        if (activatedProfileHeader != null) {
+            Handler handler = new Handler(getActivity().getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (getActivity() == null)
+                        return;
+
+                    headerHeight = activatedProfileHeader.getMeasuredHeight();
+                    Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
+                    hideAnimator = ValueAnimator.ofInt(headerHeight, 0);
+                    hideAnimator.setDuration(500);
+                    hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            int val = (Integer) valueAnimator.getAnimatedValue();
+                            //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
+                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
+                            layoutParams.height = val;
+                            activatedProfileHeader.setLayoutParams(layoutParams);
+                        }
+                    });
+                    showAnimator = ValueAnimator.ofInt(0, headerHeight);
+                    showAnimator.setDuration(500);
+                    showAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            int val = (Integer) valueAnimator.getAnimatedValue();
+                            //Log.e("showAnimator.onAnimationUpdate", "val="+val);
+                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
+                            layoutParams.height = val;
+                            activatedProfileHeader.setLayoutParams(layoutParams);
+                        }
+                    });
+
+                }
+            }, 200);
+
+            listView.addOnScrollListener(new HidingScrollListener() {
+                @Override
+                public void onHide() {
+                    if (activatedProfileHeader.getMeasuredHeight() == headerHeight)
+                        hideAnimator.start();
+                }
+                @Override
+                public void onShow() {
+                    if (activatedProfileHeader.getMeasuredHeight() == 0)
+                    showAnimator.start();
+                }
+            });
+        }
+
         textViewNoData = view.findViewById(R.id.editor_profiles_list_empty);
         progressBar = view.findViewById(R.id.editor_profiles_list_linla_progress);
 
