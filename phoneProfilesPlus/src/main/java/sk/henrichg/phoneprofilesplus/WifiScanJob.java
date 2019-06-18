@@ -332,16 +332,19 @@ class WifiScanJob extends Job {
                 wifiLock.acquire();
             PPApplication.logE("$$$ WifiScanJob.lock","xxx");
         } catch(Exception e) {
-            Log.e("WifiScanJob.lock", "Error getting Lock: "+e.getMessage());
-            PPApplication.logE("$$$ WifiScanJob.lock", "Error getting Lock: " + e.getMessage());
+            Log.e("WifiScanJob.lock", Log.getStackTraceString(e));
         }
     }
 
     public static void unlock()
     {
-        if ((wifiLock != null) && (wifiLock.isHeld()))
-            wifiLock.release();
-        PPApplication.logE("$$$ WifiScanJob.unlock", "xxx");
+        try {
+            if ((wifiLock != null) && (wifiLock.isHeld()))
+                wifiLock.release();
+            PPApplication.logE("$$$ WifiScanJob.unlock", "xxx");
+        } catch(Exception e) {
+            Log.e("WifiScanJob.unlock", Log.getStackTraceString(e));
+        }
     }
 
     static boolean getScanRequest(Context context)
