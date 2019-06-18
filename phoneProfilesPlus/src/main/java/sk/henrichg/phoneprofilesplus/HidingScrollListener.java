@@ -1,9 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class HidingScrollListener extends RecyclerView.OnScrollListener {
