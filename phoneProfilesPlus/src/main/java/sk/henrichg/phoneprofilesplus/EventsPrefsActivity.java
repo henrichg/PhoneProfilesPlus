@@ -92,7 +92,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
             showSaveMenu = savedInstanceState.getBoolean("showSaveMenu", false);
         }
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         if (mobileCellsRegistrationCountDownBroadcastReceiver == null) {
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(MobileCellsRegistrationService.ACTION_MOBILE_CELLS_REGISTRATION_COUNTDOWN);
@@ -106,12 +110,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
             mobileCellsRegistrationStoppedBroadcastReceiver = new MobileCellsRegistrationStoppedBroadcastReceiver();
             registerReceiver(mobileCellsRegistrationStoppedBroadcastReceiver, intentFilter);
         }
-
     }
 
     @Override
-    protected void onDestroy() {
-        PPApplication.logE("EventsPrefsActivity.onDestroy", "xxx");
+    protected void onStop() {
+        super.onStop();
 
         if (mobileCellsRegistrationCountDownBroadcastReceiver != null) {
             try {
@@ -128,8 +131,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
             }
             mobileCellsRegistrationStoppedBroadcastReceiver = null;
         }
-
-        super.onDestroy();
     }
 
     @Override

@@ -191,11 +191,6 @@ public class EditorProfilesActivity extends AppCompatActivity
         GlobalGUIRoutines.setTheme(this, false, true/*, true*/);
         GlobalGUIRoutines.setLanguage(this);
 
-        /*synchronized (EditorProfilesActivity.class) {
-            PPApplication.logE("$$$$$ EditorProfilesActivity.onCreate", "instance set");
-            instance = this;
-        }*/
-
         savedInstanceStateChanged = (savedInstanceState != null);
 
         createApplicationsCache();
@@ -635,7 +630,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         });
         */
+    }
 
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshGUIBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".RefreshEditorGUIBroadcastReceiver"));
@@ -646,17 +646,6 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         LocalBroadcastManager.getInstance(this).registerReceiver(finishBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".FinishEditorBroadcastReceiver"));
-    }
-
-    /*public static EditorProfilesActivity getInstance()
-    {
-        return instance;
-    }*/
-
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
 
         // this is for list widget header
         if (!PPApplication.getApplicationStarted(getApplicationContext(), true))
@@ -700,34 +689,15 @@ public class EditorProfilesActivity extends AppCompatActivity
     {
         super.onStop();
 
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(finishBroadcastReceiver);
+
         if ((addProfileDialog != null) && (addProfileDialog.mDialog != null) && addProfileDialog.mDialog.isShowing())
             addProfileDialog.mDialog.dismiss();
         if ((addEventDialog != null) && (addEventDialog.mDialog != null) && addEventDialog.mDialog.isShowing())
             addEventDialog.mDialog.dismiss();
-
-        /*synchronized (EditorProfilesActivity.class) {
-            PPApplication.logE("$$$$$ EditorProfilesActivity.onStop", "instance clear");
-            instance = null;
-        }*/
     }
-
-    /*
-    @Override
-    protected void onResume()
-    {
-        //Debug.stopMethodTracing();
-        super.onResume();
-
-        if (EditorProfilesActivity.getInstance() == null)
-        {
-            synchronized (EditorProfilesActivity.class) {
-                PPApplication.logE("$$$$$ EditorProfilesActivity.onResume", "instance set");
-                instance = this;
-            }
-            refreshGUI(false, false);
-        }
-    }
-    */
 
     @Override
     protected void onDestroy()
@@ -758,10 +728,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                 contactsCache.clearCache(true);
             contactsCache = null;
         }
-
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshGUIBroadcastReceiver);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(showTargetHelpsBroadcastReceiver);
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(finishBroadcastReceiver);
 
         super.onDestroy();
     }

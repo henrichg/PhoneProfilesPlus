@@ -15,6 +15,7 @@ import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -71,7 +72,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        refreshListViewBroadcastReceiver = new MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver(preference);
+        Log.e("MobileCellsPreferenceFragmentX.onBindDialogView", "xxx");
+
+        refreshListViewBroadcastReceiver = new MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver(/*preference*/);
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
 
@@ -279,8 +282,10 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         refreshListView(false, Integer.MAX_VALUE);
     }
 
-        @Override
+    @Override
     public void onDialogClosed(boolean positiveResult) {
+        Log.e("MobileCellsPreferenceFragmentX.onDialogClosed", "xxx");
+
         if (positiveResult) {
             preference.persistValue();
         }
@@ -594,17 +599,18 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
     public class RefreshListViewBroadcastReceiver extends BroadcastReceiver {
 
-        final MobileCellsPreferenceX preference;
+        //final MobileCellsPreferenceX preference;
 
-        RefreshListViewBroadcastReceiver(MobileCellsPreferenceX preference) {
+        /*RefreshListViewBroadcastReceiver(MobileCellsPreferenceX preference) {
             this.preference = preference;
-        }
+        }*/
 
         @Override
         public void onReceive(final Context context, Intent intent) {
             PPApplication.logE("MobileCellsPreferenceFragmentX.RefreshListViewBroadcastReceiver", "xxx");
-            if (preference != null)
-                preference.refreshListView(false, Integer.MAX_VALUE);
+            //if (preference != null)
+            //    preference.refreshListView(false, Integer.MAX_VALUE);
+            refreshListView(false, Integer.MAX_VALUE);
         }
     }
 
