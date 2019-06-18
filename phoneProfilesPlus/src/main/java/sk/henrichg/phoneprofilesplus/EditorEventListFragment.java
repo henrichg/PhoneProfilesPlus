@@ -213,7 +213,7 @@ public class EditorEventListFragment extends Fragment
 
                     headerHeight = activatedProfileHeader.getMeasuredHeight();
                     Log.e("EditorProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
-                    hideAnimator = ValueAnimator.ofInt(headerHeight, 0);
+                    hideAnimator = ValueAnimator.ofInt(headerHeight / 4, 0);
                     hideAnimator.setDuration(500);
                     hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
@@ -221,11 +221,11 @@ public class EditorEventListFragment extends Fragment
                             int val = (Integer) valueAnimator.getAnimatedValue();
                             //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
                             ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                            layoutParams.height = val;
+                            layoutParams.height = val * 4;
                             activatedProfileHeader.setLayoutParams(layoutParams);
                         }
                     });
-                    showAnimator = ValueAnimator.ofInt(0, headerHeight);
+                    showAnimator = ValueAnimator.ofInt(0, headerHeight / 4);
                     showAnimator.setDuration(500);
                     showAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
@@ -233,7 +233,7 @@ public class EditorEventListFragment extends Fragment
                             int val = (Integer) valueAnimator.getAnimatedValue();
                             //Log.e("showAnimator.onAnimationUpdate", "val="+val);
                             ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
-                            layoutParams.height = val;
+                            layoutParams.height = val * 4;
                             activatedProfileHeader.setLayoutParams(layoutParams);
                         }
                     });
@@ -244,7 +244,8 @@ public class EditorEventListFragment extends Fragment
             listView.addOnScrollListener(new HidingScrollListener() {
                 @Override
                 public void onHide() {
-                    if (activatedProfileHeader.getMeasuredHeight() == headerHeight)
+                    if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                        (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
                         hideAnimator.start();
                 }
                 @Override
