@@ -96,16 +96,15 @@ class EventPreferencesWifi extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
-                if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context))
-                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
-                    else
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
-                }
-                else
-                if (((this._connectionType == 1) || (this._connectionType == 3)) &&
-                        (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext()))) {
-                    descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                if ((this._connectionType == 1) || (this._connectionType == 3)) {
+                    if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
+                        if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context))
+                            descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                        else
+                            descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                    } else if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                    }
                 }
 
                 descr = descr + context.getString(R.string.pref_event_wifi_connectionType);

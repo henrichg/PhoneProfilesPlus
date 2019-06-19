@@ -106,16 +106,15 @@ class EventPreferencesBluetooth extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
-                if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
-                    if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context))
-                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
-                    else
-                        descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
-                }
-                else
-                if (((this._connectionType == 1) || (this._connectionType == 3)) &&
-                        (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext()))) {
-                    descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                if ((this._connectionType == 1) || (this._connectionType == 3)) {
+                    if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context)) {
+                        if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile(context))
+                            descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                        else
+                            descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                    } else if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                        descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
+                    }
                 }
 
                 descr = descr + context.getString(R.string.pref_event_bluetooth_connectionType);
