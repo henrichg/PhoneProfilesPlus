@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.animation.ValueAnimator;
+import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -43,6 +42,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import me.drakeet.support.toast.ToastCompat;
 
+import static android.view.View.GONE;
+
 public class EditorProfileListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
@@ -61,9 +62,9 @@ public class EditorProfileListFragment extends Fragment
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
-    private ValueAnimator hideAnimator;
-    private ValueAnimator showAnimator;
-    private int headerHeight;
+    //private ValueAnimator hideAnimator;
+    //private ValueAnimator showAnimator;
+    //private int headerHeight;
 
     static final int EDIT_MODE_UNDEFINED = 0;
     static final int EDIT_MODE_INSERT = 1;
@@ -194,7 +195,7 @@ public class EditorProfileListFragment extends Fragment
 
         activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
         if (activatedProfileHeader != null) {
-            Handler handler = new Handler(getActivity().getMainLooper());
+            /*Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -229,19 +230,27 @@ public class EditorProfileListFragment extends Fragment
                     });
 
                 }
-            }, 200);
+            }, 200);*/
+
+            final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_profiles_list_fragment))
+                                                            .getLayoutTransition();
+            layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
             listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
                 @Override
                 public void onHide() {
-                    if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                    /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
                         (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-                        hideAnimator.start();
+                        hideAnimator.start();*/
+                    if (!layoutTransition.isRunning())
+                        activatedProfileHeader.setVisibility(GONE);
                 }
                 @Override
                 public void onShow() {
-                    if (activatedProfileHeader.getMeasuredHeight() == 0)
-                    showAnimator.start();
+                    /*if (activatedProfileHeader.getMeasuredHeight() == 0)
+                        showAnimator.start();*/
+                    if (!layoutTransition.isRunning())
+                        activatedProfileHeader.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -280,7 +289,7 @@ public class EditorProfileListFragment extends Fragment
         });
 
         LinearLayout orderLayout = getActivity().findViewById(R.id.editor_list_bottom_bar_order_root);
-        orderLayout.setVisibility(View.GONE);
+        orderLayout.setVisibility(GONE);
 
         synchronized (activityDataWrapper.profileList) {
             if (!activityDataWrapper.profileListFilled) {
@@ -332,7 +341,7 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = this.fragmentWeakRef.get();
 
             if ((fragment != null) && (fragment.isAdded())) {
-                fragment.textViewNoData.setVisibility(View.GONE);
+                fragment.textViewNoData.setVisibility(GONE);
                 fragment.progressBar.setVisibility(View.VISIBLE);
             }
         }
@@ -369,7 +378,7 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = fragmentWeakRef.get();
             
             if ((fragment != null) && (fragment.isAdded())) {
-                fragment.progressBar.setVisibility(View.GONE);
+                fragment.progressBar.setVisibility(GONE);
 
                 // get local profileList
                 _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
@@ -694,13 +703,19 @@ public class EditorProfileListFragment extends Fragment
         if ((activeProfileName == null) || (activeProfileIcon == null))
             return;
 
+        String oldDisplayedText = (String)activatedProfileHeader.getTag();
+
         if (profile == null)
         {
-            activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
+            activatedProfileHeader.setTag(getString(R.string.profiles_header_profile_name_no_activated));
+
+            activeProfileName.setText(getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
         }
         else
         {
+            activatedProfileHeader.setTag(DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context));
+
             activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context));
             if (profile.getIsIconResourceID())
             {
@@ -735,6 +750,10 @@ public class EditorProfileListFragment extends Fragment
                 }
             }
         }
+
+        String newDisplayedText = (String)activatedProfileHeader.getTag();
+        if (!newDisplayedText.equals(oldDisplayedText))
+            activatedProfileHeader.setVisibility(View.VISIBLE);
     }
 
     public void doOnActivityResult(int requestCode, int resultCode, Intent data)

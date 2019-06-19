@@ -1,6 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.animation.ValueAnimator;
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,6 +39,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static android.view.View.GONE;
+
 public class EditorEventListFragment extends Fragment
                                         implements OnStartDragItemListener {
 
@@ -58,9 +59,9 @@ public class EditorEventListFragment extends Fragment
 
     private WeakReference<LoadEventListAsyncTask> asyncTaskContext;
 
-    private ValueAnimator hideAnimator;
-    private ValueAnimator showAnimator;
-    private int headerHeight;
+    //private ValueAnimator hideAnimator;
+    //private ValueAnimator showAnimator;
+    //private int headerHeight;
 
     static final int EDIT_MODE_UNDEFINED = 0;
     static final int EDIT_MODE_INSERT = 1;
@@ -204,7 +205,7 @@ public class EditorEventListFragment extends Fragment
 
         activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
         if (activatedProfileHeader != null) {
-            Handler handler = new Handler(getActivity().getMainLooper());
+            /*Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -239,19 +240,27 @@ public class EditorEventListFragment extends Fragment
                     });
 
                 }
-            }, 200);
+            }, 200);*/
+
+            final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_events_list_fragment))
+                    .getLayoutTransition();
+            layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
             listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
                 @Override
                 public void onHide() {
-                    if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                    /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
                         (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-                        hideAnimator.start();
+                        hideAnimator.start();*/
+                    if (!layoutTransition.isRunning())
+                        activatedProfileHeader.setVisibility(GONE);
                 }
                 @Override
                 public void onShow() {
-                    if (activatedProfileHeader.getMeasuredHeight() == 0)
-                        showAnimator.start();
+                    /*if (activatedProfileHeader.getMeasuredHeight() == 0)
+                        showAnimator.start();*/
+                    if (!layoutTransition.isRunning())
+                        activatedProfileHeader.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -732,13 +741,19 @@ public class EditorEventListFragment extends Fragment
 
         //Log.e("***** EditorEventListFragment.updateHeader", "profile="+profile);
 
+        String oldDisplayedText = (String)activatedProfileHeader.getTag();
+
         if (profile == null)
         {
+            activatedProfileHeader.setTag(getString(R.string.profiles_header_profile_name_no_activated));
+
             activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
         }
         else
         {
+            activatedProfileHeader.setTag(DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, activityDataWrapper, true, activityDataWrapper.context));
+
             activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, activityDataWrapper, true, activityDataWrapper.context));
             if (profile.getIsIconResourceID())
             {
@@ -773,6 +788,10 @@ public class EditorEventListFragment extends Fragment
                 }
             }
         }
+
+        String newDisplayedText = (String)activatedProfileHeader.getTag();
+        if (!newDisplayedText.equals(oldDisplayedText))
+            activatedProfileHeader.setVisibility(View.VISIBLE);
     }
 
     void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition, long loadEventId)

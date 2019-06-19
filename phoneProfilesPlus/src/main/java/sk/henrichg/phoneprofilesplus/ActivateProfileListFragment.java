@@ -1,12 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.animation.ValueAnimator;
+import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +27,8 @@ import java.util.Comparator;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import static android.view.View.GONE;
+
 public class ActivateProfileListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
@@ -43,9 +44,9 @@ public class ActivateProfileListFragment extends Fragment {
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
-    private ValueAnimator hideAnimator;
-    private ValueAnimator showAnimator;
-    private int headerHeight;
+    //private ValueAnimator hideAnimator;
+    //private ValueAnimator showAnimator;
+    //private int headerHeight;
 
     private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
@@ -165,7 +166,7 @@ public class ActivateProfileListFragment extends Fragment {
 
         activatedProfileHeader = view.findViewById(R.id.act_prof_header);
         if (activatedProfileHeader != null) {
-            @SuppressWarnings("ConstantConditions")
+            /*@SuppressWarnings("ConstantConditions")
             Handler handler = new Handler(getActivity().getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
@@ -201,19 +202,27 @@ public class ActivateProfileListFragment extends Fragment {
                     });
 
                 }
-            }, 200);
+            }, 200);*/
+
+            final LayoutTransition layoutTransition = ((ViewGroup) view.findViewById(R.id.layout_activator_list_fragment))
+                    .getLayoutTransition();
+            layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
 
             absListView.setOnScrollListener(new HidingAbsListViewScrollListener() {
                 @Override
                 public void onHide() {
-                    if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
-                            (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
-                        hideAnimator.start();
+                    /*if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                        (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
+                        hideAnimator.start();*/
+                    if (!layoutTransition.isRunning())
+                        activatedProfileHeader.setVisibility(GONE);
                 }
                 @Override
                 public void onShow() {
-                    if (activatedProfileHeader.getMeasuredHeight() == 0)
-                        showAnimator.start();
+                    /*if (activatedProfileHeader.getMeasuredHeight() == 0)
+                        showAnimator.start();*/
+                    if (!layoutTransition.isRunning())
+                        activatedProfileHeader.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -424,13 +433,19 @@ public class ActivateProfileListFragment extends Fragment {
             // Activator opened from recent app list and setting for show header is changed
             return;
 
+        String oldDisplayedText = (String)activatedProfileHeader.getTag();
+
         if (profile == null)
         {
+            activatedProfileHeader.setTag(getString(R.string.profiles_header_profile_name_no_activated));
+
             activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
         }
         else
         {
+            activatedProfileHeader.setTag(DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context));
+
             activeProfileName.setText(DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, activityDataWrapper, false, activityDataWrapper.context));
             if (profile.getIsIconResourceID())
             {
@@ -464,6 +479,10 @@ public class ActivateProfileListFragment extends Fragment {
                 }
             }
         }
+
+        String newDisplayedText = (String)activatedProfileHeader.getTag();
+        if (!newDisplayedText.equals(oldDisplayedText))
+            activatedProfileHeader.setVisibility(View.VISIBLE);
     }
 
     private void activateProfile(Profile profile)

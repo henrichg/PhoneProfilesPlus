@@ -223,7 +223,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
-        String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
+        //String appTheme = ApplicationPreferences.applicationTheme(getApplicationContext(), true);
 
         /*
         if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)) {
