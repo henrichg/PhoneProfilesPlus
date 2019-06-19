@@ -113,7 +113,8 @@ class EventPreferencesBluetooth extends EventPreferences {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
                 else
-                if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
+                if (((this._connectionType == 1) || (this._connectionType == 3)) &&
+                        (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext()))) {
                     descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
                 }
 
