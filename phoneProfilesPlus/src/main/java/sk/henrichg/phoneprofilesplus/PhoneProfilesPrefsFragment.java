@@ -1388,8 +1388,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //setSummary(ApplicationPreferences.PREF_APPLICATION_NIGHT_MODE_OFF_THEME);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_HEADER);
-        setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_HEADER);
+        //setSummary(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_TOAST);
         if (Build.VERSION.SDK_INT < 26)
             setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR);

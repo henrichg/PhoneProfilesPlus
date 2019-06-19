@@ -149,15 +149,15 @@ public class EditorProfileListFragment extends Fragment
         View rootView;
 
         boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
-        boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context);
+        //boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context);
 
-        if (applicationEditorPrefIndicator && applicationEditorHeader)
+        if (applicationEditorPrefIndicator/* && applicationEditorHeader*/)
             rootView = inflater.inflate(R.layout.editor_profile_list, container, false);
         else
-        if (applicationEditorHeader)
+        //if (applicationEditorHeader)
             rootView = inflater.inflate(R.layout.editor_profile_list_no_indicator, container, false);
-        else
-            rootView = inflater.inflate(R.layout.editor_profile_list_no_header, container, false);
+        //else
+        //    rootView = inflater.inflate(R.layout.editor_profile_list_no_header, container, false);
 
         return rootView;
     }
@@ -296,8 +296,8 @@ public class EditorProfileListFragment extends Fragment
                         ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context));
                 updateHeader(profile);
                 profileListAdapter.notifyDataSetChanged(false);
-                if (!ApplicationPreferences.applicationEditorHeader(fragment.activityDataWrapper.context))
-                    setProfileSelection(profile);
+                //if (!ApplicationPreferences.applicationEditorHeader(fragment.activityDataWrapper.context))
+                //    setProfileSelection(profile);
             }
         }
 
@@ -391,8 +391,8 @@ public class EditorProfileListFragment extends Fragment
                                 applicationEditorPrefIndicator);
                 fragment.updateHeader(profile);
                 fragment.profileListAdapter.notifyDataSetChanged(false);
-                if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
-                    fragment.setProfileSelection(profile);
+                //if (!ApplicationPreferences.applicationEditorHeader(_dataWrapper.context))
+                //    fragment.setProfileSelection(profile);
 
                 if (defaultProfilesGenerated)
                 {
@@ -688,8 +688,8 @@ public class EditorProfileListFragment extends Fragment
 
     void updateHeader(Profile profile)
     {
-        if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
-            return;
+        //if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+        //    return;
 
         if ((activeProfileName == null) || (activeProfileIcon == null))
             return;

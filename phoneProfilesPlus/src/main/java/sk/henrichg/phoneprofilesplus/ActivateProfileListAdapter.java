@@ -193,16 +193,17 @@ class ActivateProfileListAdapter extends BaseAdapter
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
         }
         else {
-            boolean applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(fragment.getActivity());
-            if (profile._checked && (!applicationActivatorHeader)) {
-                holder.profileName.setTypeface(/*Typeface.create("sans-serif-condensed", Typeface.BOLD)*/ null, Typeface.BOLD);
+            //boolean applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(fragment.getActivity());
+            /*if (profile._checked && (!applicationActivatorHeader)) {
+                holder.profileName.setTypeface(//Typeface.create("sans-serif-condensed", Typeface.BOLD)
+                    null, Typeface.BOLD);
                 if (applicationActivatorGridLayout)
                     holder.profileName.setTextSize(14);
                 else
                     holder.profileName.setTextSize(16);
                 //noinspection ConstantConditions
                 holder.profileName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(fragment.getActivity()));
-            } else {
+            } else*/ {
                 holder.profileName.setTypeface(/*Typeface.create("sans-serif-condensed", Typeface.NORMAL)*/ null, Typeface.NORMAL);
                 if (applicationActivatorGridLayout)
                     holder.profileName.setTextSize(13);
@@ -213,9 +214,9 @@ class ActivateProfileListAdapter extends BaseAdapter
             }
 
             Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile,
-                    (!applicationActivatorGridLayout) &&
+                    false, /*(!applicationActivatorGridLayout) &&
                             profile._checked &&
-                            (!applicationActivatorHeader),
+                            (!applicationActivatorHeader),*/
                     "", true,
                     true/*applicationActivatorGridLayout*/,
                     activityDataWrapper, false, activityDataWrapper.context);

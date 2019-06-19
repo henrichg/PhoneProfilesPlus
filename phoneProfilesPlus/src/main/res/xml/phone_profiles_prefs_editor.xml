@@ -9,11 +9,13 @@
         app:title="@string/phone_profiles_pref_applicationPrefIndicator"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
+    <!--
     <SwitchPreferenceCompat
         app:key="applicationEditorHeader"
         app:title="@string/phone_profiles_pref_applicationHeader"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
+    -->
     <SwitchPreferenceCompat
         app:key="applicationEditorSaveEditorState"
         app:title="@string/phone_profiles_pref_applicationEditorSaveEditorState"

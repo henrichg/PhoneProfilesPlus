@@ -19,8 +19,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_THEME = "applicationTheme";
     static final String PREF_APPLICATION_ACTIVATOR_PREF_INDICATOR = "applicationActivatorPrefIndicator";
     static final String PREF_APPLICATION_EDITOR_PREF_INDICATOR = "applicationEditorPrefIndicator";
-    static final String PREF_APPLICATION_ACTIVATOR_HEADER = "applicationActivatorHeader";
-    static final String PREF_APPLICATION_EDITOR_HEADER = "applicationEditorHeader";
+    //static final String PREF_APPLICATION_ACTIVATOR_HEADER = "applicationActivatorHeader";
+    //static final String PREF_APPLICATION_EDITOR_HEADER = "applicationEditorHeader";
     static final String PREF_NOTIFICATION_TOAST = "notificationsToast";
     static final String PREF_NOTIFICATION_STATUS_BAR  = "notificationStatusBar";
     static final String PREF_NOTIFICATION_STATUS_BAR_STYLE  = "notificationStatusBarStyle";
@@ -219,7 +219,7 @@ class ApplicationPreferences {
     static public boolean applicationEditorPrefIndicator(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_PREF_INDICATOR, true);
     }
-
+    /*
     static boolean applicationActivatorHeader(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_HEADER, true);
     }
@@ -227,7 +227,7 @@ class ApplicationPreferences {
     static boolean applicationEditorHeader(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HEADER, true);
     }
-
+    */
     static boolean notificationsToast(Context context) {
         return getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_TOAST, true);
     }

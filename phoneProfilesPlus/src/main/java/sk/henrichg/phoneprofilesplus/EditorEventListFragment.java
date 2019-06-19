@@ -164,16 +164,16 @@ public class EditorEventListFragment extends Fragment
         View rootView;
 
         boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator(activityDataWrapper.context);
-        boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context);
+        //boolean applicationEditorHeader = ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context);
 
         //rootView = inflater.inflate(R.layout.editor_event_list, container, false);
-        if (applicationEditorPrefIndicator && applicationEditorHeader)
+        if (applicationEditorPrefIndicator/* && applicationEditorHeader*/)
             rootView = inflater.inflate(R.layout.editor_event_list, container, false);
         else
-        if (applicationEditorHeader)
+        //if (applicationEditorHeader)
             rootView = inflater.inflate(R.layout.editor_event_list_no_indicator, container, false);
-        else
-            rootView = inflater.inflate(R.layout.editor_event_list_no_header, container, false);
+        //else
+        //    rootView = inflater.inflate(R.layout.editor_event_list_no_header, container, false);
 
         return rootView;
     }
@@ -722,8 +722,8 @@ public class EditorEventListFragment extends Fragment
 
     void updateHeader(Profile profile)
     {
-        if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
-            return;
+        //if (!ApplicationPreferences.applicationEditorHeader(activityDataWrapper.context))
+        //    return;
 
         //Log.e("***** EditorEventListFragment.updateHeader", "xxx");
 

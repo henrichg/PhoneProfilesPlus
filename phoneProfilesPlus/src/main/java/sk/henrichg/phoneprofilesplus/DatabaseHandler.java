@@ -3565,12 +3565,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
 
-                if (forActivator && (!ApplicationPreferences.applicationActivatorHeader(context))) {
+                /*if (forActivator && (!ApplicationPreferences.applicationActivatorHeader(context))) {
                     Profile profile = getActivatedProfile();
                     if ((profile != null) && (!profile._showInActivator)) {
                         r++;
                     }
-                }
+                }*/
 
             } catch (Exception ignored) {
             }
