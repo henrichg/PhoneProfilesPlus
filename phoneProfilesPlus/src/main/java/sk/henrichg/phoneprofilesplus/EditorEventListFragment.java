@@ -241,7 +241,7 @@ public class EditorEventListFragment extends Fragment
                 }
             }, 200);
 
-            listView.addOnScrollListener(new HidingScrollListener() {
+            listView.addOnScrollListener(new HidingRecyclerViewScrollListener() {
                 @Override
                 public void onHide() {
                     if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&

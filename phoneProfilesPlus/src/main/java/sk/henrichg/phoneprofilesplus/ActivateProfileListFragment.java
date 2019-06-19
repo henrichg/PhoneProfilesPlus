@@ -1,10 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -29,6 +32,7 @@ public class ActivateProfileListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;
     private ActivateProfileListAdapter profileListAdapter = null;
+    private RelativeLayout activatedProfileHeader;
     private ListView listView = null;
     private GridView gridView = null;
     private TextView activeProfileName;
@@ -38,6 +42,10 @@ public class ActivateProfileListFragment extends Fragment {
     //FrameLayout gridViewDivider = null;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
+
+    private ValueAnimator hideAnimator;
+    private ValueAnimator showAnimator;
+    private int headerHeight;
 
     private  static final String START_TARGET_HELPS_ARGUMENT = "start_target_helps";
 
@@ -154,6 +162,61 @@ public class ActivateProfileListFragment extends Fragment {
         });
 
         //absListView.setRemoveListener(onRemove);
+
+        activatedProfileHeader = view.findViewById(R.id.act_prof_header);
+        if (activatedProfileHeader != null) {
+            @SuppressWarnings("ConstantConditions")
+            Handler handler = new Handler(getActivity().getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (getActivity() == null)
+                        return;
+
+                    headerHeight = activatedProfileHeader.getMeasuredHeight();
+                    Log.e("ActivateProfileListFragment.doOnViewCreated", "headerHeight="+headerHeight);
+                    hideAnimator = ValueAnimator.ofInt(headerHeight / 4, 0);
+                    hideAnimator.setDuration(500);
+                    hideAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            int val = (Integer) valueAnimator.getAnimatedValue();
+                            //Log.e("hideAnimator.onAnimationUpdate", "val="+val);
+                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
+                            layoutParams.height = val * 4;
+                            activatedProfileHeader.setLayoutParams(layoutParams);
+                        }
+                    });
+                    showAnimator = ValueAnimator.ofInt(0, headerHeight / 4);
+                    showAnimator.setDuration(500);
+                    showAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                            int val = (Integer) valueAnimator.getAnimatedValue();
+                            //Log.e("showAnimator.onAnimationUpdate", "val="+val);
+                            ViewGroup.LayoutParams layoutParams = activatedProfileHeader.getLayoutParams();
+                            layoutParams.height = val * 4;
+                            activatedProfileHeader.setLayoutParams(layoutParams);
+                        }
+                    });
+
+                }
+            }, 200);
+
+            absListView.setOnScrollListener(new HidingAbsListViewScrollListener() {
+                @Override
+                public void onHide() {
+                    if ((activatedProfileHeader.getMeasuredHeight() >= headerHeight - 4) &&
+                            (activatedProfileHeader.getMeasuredHeight() <= headerHeight + 4))
+                        hideAnimator.start();
+                }
+                @Override
+                public void onShow() {
+                    if (activatedProfileHeader.getMeasuredHeight() == 0)
+                        showAnimator.start();
+                }
+            });
+        }
 
         if (!activityDataWrapper.profileListFilled)
         {
