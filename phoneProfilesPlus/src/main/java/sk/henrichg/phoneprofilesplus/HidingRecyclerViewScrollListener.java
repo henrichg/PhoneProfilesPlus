@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
@@ -13,10 +14,11 @@ public abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnSc
     public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        /*int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-        Log.e("HidingRecyclerViewScrollListener.onScrolled", "firstVisibleItem="+firstVisibleItem);
+        //noinspection ConstantConditions
+        int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        //Log.e("HidingRecyclerViewScrollListener.onScrolled", "firstVisibleItem="+firstVisibleItem);
         //show views if first item is first visible position and views are hidden
-        if (firstVisibleItem == 0) {
+        /*if (firstVisibleItem == 0) {
             if(!controlsVisible) {
                 onShow();
                 controlsVisible = true;
@@ -31,16 +33,21 @@ public abstract class HidingRecyclerViewScrollListener extends RecyclerView.OnSc
                 controlsVisible = true;
                 scrolledDistance = 0;
             }
-        }
+        }*/
 
-        if((controlsVisible && dy>0) || (!controlsVisible && dy<0)) {
+        /*if((controlsVisible && dy>0) || (!controlsVisible && dy<0)) {
             scrolledDistance += dy;
         }*/
 
-        if (dy < 0)
+        if (firstVisibleItem == 0) {
             onShow();
-        if (dy > 0)
-            onHide();
+        }
+        else {
+            //if (dy < 0)
+            //    onShow();
+            if (dy > 0)
+                onHide();
+        }
     }
 
     public abstract void onHide();

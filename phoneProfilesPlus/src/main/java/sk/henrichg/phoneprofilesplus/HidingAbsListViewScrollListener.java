@@ -10,12 +10,16 @@ public abstract class HidingAbsListViewScrollListener implements AbsListView.OnS
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         final int currentFirstVisibleItem = view.getFirstVisiblePosition();
 
-        if (currentFirstVisibleItem > mLastFirstVisibleItem) {
-            // scrolling up
-            onHide();
-        } else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
-            // scrolling down
+        if (currentFirstVisibleItem == 0)
             onShow();
+        else {
+            if (currentFirstVisibleItem > mLastFirstVisibleItem) {
+                // scrolling up
+                onHide();
+            }/* else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
+                // scrolling down
+                onShow();
+            }*/
         }
 
         mLastFirstVisibleItem = currentFirstVisibleItem;
