@@ -251,7 +251,7 @@ public class PPApplication extends Application {
                                          //+"|$$$B WifiBluetoothScanner"
                                          //+"|$$$BCL WifiBluetoothScanner"
                                          //+"|$$$BLE WifiBluetoothScanner"
-                                         +"|[WiFi] DataWrapper.doHandleEvents"
+                                         //+"|[WiFi] DataWrapper.doHandleEvents"
                                          /*+"|BluetoothScanJob.onRunJob"
                                          +"|BluetoothScanJob.startScanner"
                                          +"|BluetoothScanJob.startCLScan"
