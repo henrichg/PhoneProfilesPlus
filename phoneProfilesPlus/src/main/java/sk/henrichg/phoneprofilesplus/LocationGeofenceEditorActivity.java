@@ -206,7 +206,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         SeekBar radiusSeekBar = findViewById(R.id.location_pref_dlg_radius_seekbar);
         final float minRadius = 20;
         final float maxRadius = 1020;
-        //radiusSeekBar.setProgress(Math.round(geofence._radius / (float)20.0)-1);
         int value = (int)(Math.sqrt(((geofence._radius - minRadius) / (maxRadius - minRadius)) * 1000.0f * 1000.0f));
         radiusSeekBar.setProgress(value);
         //Log.e("LocationGeofenceEditorActivity.onCreate", "geofence._radius="+geofence._radius);
@@ -215,7 +214,6 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         radiusSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //geofence._radius = (progress+1) * 20;
                 // Approximate an exponential curve with x^2.
                 geofence._radius = ((progress * progress) / (1000.0f * 1000.0f)) * (maxRadius - minRadius) + minRadius;
                 updateEditedMarker(false);
