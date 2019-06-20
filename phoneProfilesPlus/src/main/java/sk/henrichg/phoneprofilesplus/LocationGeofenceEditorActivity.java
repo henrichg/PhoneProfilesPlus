@@ -201,12 +201,23 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
         mapFragment.getMapAsync(this);
 
         radiusLabel = findViewById(R.id.location_pref_dlg_radius_seekbar_label);
+
+        // seekBar is logarithmic
         SeekBar radiusSeekBar = findViewById(R.id.location_pref_dlg_radius_seekbar);
-        radiusSeekBar.setProgress(Math.round(geofence._radius / (float)20.0)-1);
+        final float minRadius = 20;
+        final float maxRadius = 1020;
+        //radiusSeekBar.setProgress(Math.round(geofence._radius / (float)20.0)-1);
+        int value = (int)(Math.sqrt(((geofence._radius - minRadius) / (maxRadius - minRadius)) * 1000.0f * 1000.0f));
+        radiusSeekBar.setProgress(value);
+        //Log.e("LocationGeofenceEditorActivity.onCreate", "geofence._radius="+geofence._radius);
+        //Log.e("LocationGeofenceEditorActivity.onCreate", "seekBar value="+value);
+
         radiusSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                geofence._radius = (progress+1) * 20;
+                //geofence._radius = (progress+1) * 20;
+                // Approximate an exponential curve with x^2.
+                geofence._radius = ((progress * progress) / (1000.0f * 1000.0f)) * (maxRadius - minRadius) + minRadius;
                 updateEditedMarker(false);
                 //Log.d("LocationGeofenceEditorActivity.onProgressChanged", "radius="+geofence._radius);
             }
