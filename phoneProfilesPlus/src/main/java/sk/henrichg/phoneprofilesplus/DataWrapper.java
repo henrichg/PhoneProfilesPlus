@@ -2440,7 +2440,7 @@ public class DataWrapper {
                     if (wifiConnected) {
                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifi connected");
 
-                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanJob.getSSID(wifiInfo, wifiConfigurationList));
+                        PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiSSID=" + WifiScanJob.getSSID(wifiManager, wifiInfo, wifiConfigurationList));
                         PPApplication.logE("[WiFi] DataWrapper.doHandleEvents", "wifiBSSID=" + wifiInfo.getBSSID());
 
                         //PPApplication.logE("----- DataWrapper.doHandleEvents","SSID="+event._eventPreferencesWifi._SSID);
@@ -2457,13 +2457,13 @@ public class DataWrapper {
                                     break;
                                 case EventPreferencesWifi.CONFIGURED_SSIDS_VALUE:
                                     for (WifiSSIDData data : wifiConfigurationList) {
-                                        connected[i] = WifiScanJob.compareSSID(wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
+                                        connected[i] = WifiScanJob.compareSSID(wifiManager, wifiInfo, data.ssid.replace("\"", ""), wifiConfigurationList);
                                         if (connected[i])
                                             break;
                                     }
                                     break;
                                 default:
-                                    connected[i] = WifiScanJob.compareSSID(wifiInfo, _ssid, wifiConfigurationList);
+                                    connected[i] = WifiScanJob.compareSSID(wifiManager, wifiInfo, _ssid, wifiConfigurationList);
                                     break;
                             }
                             i++;

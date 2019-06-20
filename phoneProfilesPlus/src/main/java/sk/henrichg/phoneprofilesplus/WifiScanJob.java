@@ -664,7 +664,7 @@ class WifiScanJob extends Job {
         }
     }
 
-    static String getSSID(WifiInfo wifiInfo, List<WifiSSIDData> wifiConfigurationList)
+    static String getSSID(WifiManager wifiManager, WifiInfo wifiInfo, List<WifiSSIDData> wifiConfigurationList)
     {
         String SSID = wifiInfo.getSSID();
         if (SSID == null)
@@ -684,12 +684,23 @@ class WifiScanJob extends Job {
             }
         }
 
+        if (SSID.equals("<unknown ssid>")) {
+            List<WifiConfiguration> listOfConfigurations = wifiManager.getConfiguredNetworks();
+
+            for (int index = 0; index < listOfConfigurations.size(); index++) {
+                WifiConfiguration configuration = listOfConfigurations.get(index);
+                if (configuration.networkId == wifiInfo.getNetworkId()) {
+                    return configuration.SSID;
+                }
+            }
+        }
+
         return SSID;
     }
 
-    static boolean compareSSID(WifiInfo wifiInfo, String SSID, List<WifiSSIDData> wifiConfigurationList)
+    static boolean compareSSID(WifiManager wifiManager, WifiInfo wifiInfo, String SSID, List<WifiSSIDData> wifiConfigurationList)
     {
-        String wifiInfoSSID = getSSID(wifiInfo, wifiConfigurationList);
+        String wifiInfoSSID = getSSID(wifiManager, wifiInfo, wifiConfigurationList);
         String ssid2 = "\"" + SSID + "\"";
         //return (wifiInfoSSID.equals(SSID) || wifiInfoSSID.equals(ssid2));
         return (Wildcard.match(wifiInfoSSID, SSID, '_', '%', true) || Wildcard.match(wifiInfoSSID, ssid2, '_', '%', true));

@@ -96,7 +96,7 @@ class EventPreferencesWifi extends EventPreferences {
                     descr = descr + ": </b>";
                 }
 
-                //if ((this._connectionType == 1) || (this._connectionType == 3)) {
+                if ((this._connectionType == 1) || (this._connectionType == 3)) {
                     if (!ApplicationPreferences.applicationEventWifiEnableScanning(context)) {
                         if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile(context))
                             descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
@@ -105,7 +105,7 @@ class EventPreferencesWifi extends EventPreferences {
                     } else if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
                         descr = descr + "* " + context.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *<br>";
                     }
-                //}
+                }
 
                 descr = descr + context.getString(R.string.pref_event_wifi_connectionType);
                 String[] connectionListTypeNames = context.getResources().getStringArray(R.array.eventWifiConnectionTypeArray);
