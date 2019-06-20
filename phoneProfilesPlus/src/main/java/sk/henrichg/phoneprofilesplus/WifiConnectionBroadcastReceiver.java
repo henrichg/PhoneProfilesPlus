@@ -87,6 +87,8 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
                                             if ((PhoneProfilesService.getInstance() != null) && (!PhoneProfilesService.getInstance().connectToSSIDStarted)) {
                                                 // connect to SSID is not started
 
+                                                PPApplication.logE("$$$ WifiConnectionBroadcastReceiver.onReceive", "start HandleEvents - SENSOR_TYPE_WIFI_CONNECTION");
+
                                                 // start events handler
                                                 EventsHandler eventsHandler = new EventsHandler(appContext);
                                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
