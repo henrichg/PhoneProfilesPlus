@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -33,7 +34,7 @@ public class WifiConnectionBroadcastReceiver extends BroadcastReceiver {
             if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
                 final NetworkInfo info = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
 
-                if (info != null) {
+                if ((info != null) && (ConnectivityManager.TYPE_WIFI == info.getType ())) {
 
                     PPApplication.startHandlerThread("WifiConnectionBroadcastReceiver.onReceive");
                     final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
