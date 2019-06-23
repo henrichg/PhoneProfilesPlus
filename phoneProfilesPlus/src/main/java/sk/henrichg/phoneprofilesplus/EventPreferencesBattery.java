@@ -163,7 +163,9 @@ class EventPreferencesBattery extends EventPreferences {
                         for (String s : splits) {
                             if (!selectedPlugged.isEmpty())
                                 selectedPlugged = selectedPlugged + ", ";
-                            selectedPlugged = selectedPlugged + pluggedNames[Arrays.asList(pluggedValues).indexOf(s)];
+                            try {
+                                selectedPlugged = selectedPlugged + pluggedNames[Arrays.asList(pluggedValues).indexOf(s)];
+                            } catch (Exception ignored) {}
                         }
                     }
                     descr = descr + " • " + context.getString(R.string.event_preferences_battery_plugged) + ": " + selectedPlugged;
