@@ -73,7 +73,10 @@ public class GeofenceScannerErrorActivity extends AppCompatActivity {
     }
 
     /* A fragment to display an error dialog */
-    static class ErrorDialogFragment extends DialogFragment {
+    // Must be public:
+    //   java.lang.IllegalStateException: Fragment sk.henrichg.phoneprofilesplus.GeofenceScannerErrorActivity.ErrorDialogFragment
+    //   must be a public static class to be  properly recreated from instance state.
+    public static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() {
             super();
         }
