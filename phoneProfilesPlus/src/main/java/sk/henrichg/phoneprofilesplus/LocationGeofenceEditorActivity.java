@@ -643,7 +643,7 @@ public class LocationGeofenceEditorActivity extends AppCompatActivity
     }
 
     /* A fragment to display an error dialog */
-    static class ErrorDialogFragment extends DialogFragment {
+    public static class ErrorDialogFragment extends DialogFragment {
         public ErrorDialogFragment() { }
 
         @NonNull
