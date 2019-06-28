@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     private boolean showEditorPrefIndicator;
-    private boolean showEditorHeader;
+    //private boolean showEditorHeader;
     private String activeLanguage;
     private String activeTheme;
     //private String activeNightModeOffTheme;

@@ -473,7 +473,7 @@ class BluetoothScanJob extends Job {
                                 WifiBluetoothScanner.bluetoothLEScanner.startScan(filters, settings, new BluetoothLEScanCallback21(context));
                                 startScan = true;
 
-                                PPApplication.logE("BluetoothScanJob.startLEScan", "scanStarted=" + startScan);
+                                //PPApplication.logE("BluetoothScanJob.startLEScan", "scanStarted=" + startScan);
                             } catch (Exception ignored) {
                             }
                         /*} else {

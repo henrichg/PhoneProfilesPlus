@@ -13,7 +13,7 @@ public class TimePickerPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
     private TimePickerPreferenceX preference;
 
-    TimeDurationPickerDialog mDialog;
+    private TimeDurationPickerDialog mDialog;
 
     @NonNull
     @Override

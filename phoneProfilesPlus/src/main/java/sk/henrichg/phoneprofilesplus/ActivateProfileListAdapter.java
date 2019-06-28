@@ -95,7 +95,7 @@ class ActivateProfileListAdapter extends BaseAdapter
         return -1;
     }
     */
-
+    /*
     int getItemPosition(Profile profile)
     {
         if (profile == null)
@@ -114,7 +114,7 @@ class ActivateProfileListAdapter extends BaseAdapter
         }
         return -1;
     }
-
+    */
     public Profile getActivatedProfile()
     {
         for (Profile p : activityDataWrapper.profileList)
