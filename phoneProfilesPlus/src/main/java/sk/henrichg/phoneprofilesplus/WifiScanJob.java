@@ -687,10 +687,12 @@ class WifiScanJob extends Job {
         if (SSID.equals("<unknown ssid>")) {
             List<WifiConfiguration> listOfConfigurations = wifiManager.getConfiguredNetworks();
 
-            for (int index = 0; index < listOfConfigurations.size(); index++) {
-                WifiConfiguration configuration = listOfConfigurations.get(index);
-                if (configuration.networkId == wifiInfo.getNetworkId()) {
-                    return configuration.SSID;
+            if (listOfConfigurations != null) {
+                for (int index = 0; index < listOfConfigurations.size(); index++) {
+                    WifiConfiguration configuration = listOfConfigurations.get(index);
+                    if (configuration.networkId == wifiInfo.getNetworkId()) {
+                        return configuration.SSID;
+                    }
                 }
             }
         }
