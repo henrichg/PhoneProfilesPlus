@@ -621,22 +621,8 @@
   <string name="array_pref_device_wallpaper_homescreen">Ekran główny</string>
   <string name="array_pref_device_wallpaper_lockscreen">Ekran blokady</string>
   <string name="array_pref_device_wallpaper_all">Ekran główny i blokady</string>
-  <string name="event_type_mobile_cells">Komórki mobilne</string>
-  <string name="event_preferences_category_eventMobileCellsParameters">Mobile cell sensor</string>
-  <string name="event_preferences_mobile_cells_cells">Komórki</string>
-  <string name="event_preferences_mobile_cells_when_outside_pref_name">Zacznij, kiedy poza komórką mobilną</string>
-  <string name="event_preferences_mobile_cells_when_outside_description">Kiedy na zewnątrz</string>
-  <string name="permissions_for_mobile_cells_scan_dialog_text1">Skanowanie komórek mobilnych wymaga pewnych uprawnień.</string>
-  <string name="mobile_cells_pref_dlg_rescan_button">Skanuj ponownie</string>
-  <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) nowa komórka, (C) podłączony do komórki.</string>
   <string name="mobile_cells_pref_dlg_cell_name_hint">Nazwa komórki</string>
-  <string name="mobile_cells_pref_dlg_cell_rename_title">Zmień nazwę komórki</string>
-  <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Setup Mobile cell scanning parameters in application settings.</string>
-  <string name="phone_profiles_pref_category_mobile_cells_scanning">Skanowanie komórek mobilnych</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Rejestracja komórki</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Skanowanie komórek mobilnych w trybie oszczędzania baterii</string>
   <string name="array_pref_scanInPowerSaveMode_scan">Skanuj</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Przeskanuj ponownie komórki mobilne</string>
   <string name="mobile_cells_registration_pref_dlg_start_button">Rozpocznij</string>
   <string name="mobile_cells_registration_pref_dlg_stop_button">Zatrzymaj</string>
   <string name="mobile_cells_registration_pref_dlg_status_started">Rozpoczęte</string>
@@ -649,7 +635,6 @@
   <string name="preference_not_allowed_reason_settings_not_found">nie znaleziono usługi \"ustawienia\"</string>
   <string name="preference_not_allowed_reason_service_not_found">nie znaleziono \"narzędzia\" usługi</string>
   <string name="preference_not_allowed_reason_not_supported">niewspierane przez system</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Rejestracja komórek mobilnych</string>
   <string name="wifi_ssid_pref_dlg_configured_ssids_chb">Wszystkie SSID skonfigurowane w systemie</string>
   <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">Wszystkie nazwy Bluetooth konfigurowane w systemie</string>
   <string name="wifi_ssid_pref_dlg_all_ssids_chb">Wszystkie SSID</string>
@@ -703,7 +688,6 @@
   <string name="preference_not_allowed_reason_not_configured_in_system_settings">nie skonfigurowane w Ustawieniach Systemu</string>
   <string name="mobile_cells_pref_dlg_last_connected">połączony:</string>
   <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Dodaj nazwę Bluetooth</string>
-  <string name="mobile_cells_pref_dlg_rename_icon">Zmień nazwę komórki</string>
   <string name="nfc_tag_pref_dlg_add_icon">Dodaj tag NFC</string>
   <string name="wifi_ssid_pref_dlg_add_wifi_ssid_icon">Dodaj Wi-Fi SSID</string>
   <string name="about_application_application_icon">Ikona PhoneProfilesPlus</string>
@@ -729,7 +713,6 @@
   <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Niektóre urządzenia nie wspomagają kolorowych ikon na pasku statusu.</string>
   <string name="pref_dlg_change_selection_title">Zmień wybór</string>
   <string name="array_pref_change_selection_unselect_all">Odznacz wszystkie</string>
-  <string name="array_pref_change_selection_mobile_cells_select_by_name">Wybierz ze względu na nazwę komórki</string>
   <string name="pref_dlg_change_selection_button_unselect_all">Odznacz wszystko</string>
   <string name="array_pref_change_selection_wifi_ssid_select_by_name">Wybierz ze względu na nazwę SSID</string>
   <string name="array_pref_change_selection_bluetooth_name_select_by_name">Wybierz przez nazwę Bluetooth</string>
@@ -762,7 +745,6 @@
   <string name="event_preference_sensor_location_summary">Ten sensor zacznie zdarzenie przez lokalizację urządzenia. Parametry: Lokalizacja, Start, kiedy poza lokalizacją.</string>
   <string name="event_preference_sensor_wifi_summary">Czujnik zacznie wydarzenie przez Wi-Fi SSID. Parametry: Typ Połączenia (w pobliżu, połączony, itp) SSID.</string>
   <string name="event_preference_sensor_bluetooth_summary">Ten sensor rozpocznie wydarzenie przez nazwę Bluetooth. Parametry: Typ Połączenia (W pobliżu, Połączony, itp.) Skanowany typ urządzenia (Klasyczny, Niskie zużycie energii, itp.), Nazwa Bluetooth.</string>
-  <string name="event_preference_sensor_mobile_cells_summary">Czujnik ten zacznie zdarzenie przez połączone komórki mobilne (wieże). Parametry: Komórki, zacznij, kiedy poza komórkami.</string>
   <string name="event_preference_sensor_accessories_summary">Ten sensor rozpocznie zdarzenie przez podłączone akcesoria (stacja dokująca samochodu, bez rąk, słuchawki, itp.) Parametry: Typ akcesoriów.</string>
   <string name="event_preference_sensor_screen_summary">Czujnik ten zacznie zdarzenie przez włączony/wyłączony. Parametry: Typ zdarzenia (ekran włączony, ekran wyłączony, tip.). Zakończ kiedy odblokowany (zdarzenia kończą się po odblokowaniu urządzenia).</string>
   <string name="event_preference_sensor_notification_summary">Ten sensor rozpocznie zdarzenie przez powiadomienia z aplikacji. Parametry: Aplikacje, Zakończ kiedy oddalone (koniec zdarzenia z oddaleniem powiadomienia), Stałe uruchomienie, Czas trwania (czas trwania zdarzenia).</string>
@@ -933,8 +915,6 @@
 <!--  <string name="profile_preferences_sourceProfileInfoX_summary">Możesz konfigurować każdy parametr profilu, aby użyć \"Udostępniony profil\" i podczas aktywacji będą używane wartości z udostępnionego profilu.</string> -->
   <string name="editor_activity_targetHelps_backgroundProfileButton_title">Domyślny profil</string>
   <string name="editor_activity_targetHelps_backgroundProfileButton_description">Ten profil zostanie aktywowany, kiedy żadne zdarzenie nie jest uruchomione. Kliknij tutaj, aby go skonfigurować.</string>
-  <string name="mobile_cell_names_dialog_title">Nazwy komórek</string>
-  <string name="mobile_cell_names_dialog_filter_title">Filtr nazw komórek</string>
   <string name="mobile_cell_names_dialog_item_show_selected">[ Zaznaczone ]</string>
   <string name="mobile_cell_names_dialog_item_show_without_name">[ Bez nazwy ]</string>
   <string name="mobile_cell_names_dialog_item_show_new">[ Nowe (N) ]</string>
@@ -982,10 +962,8 @@
   <string name="phone_profiles_pref_applicationEventBluetoothScanIfBluetoothOff">Skanuj nawet jeśli Bluetooth jest wyłączony</string>
   <string name="phone_profiles_pref_applicationEventLocationEnableScanning">Włącz skanowanie lokalizacji</string>
   <string name="profile_preferences_applicationDisableLocationScanning">Wyłącz skanowanie lokalizacji</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Włącz skanowanie komórek mobilnych</string>
   <string name="phone_profiles_pref_applicationEventOrientationEnableScanning">Włącz skanowanie orientacji</string>
   <string name="phone_profiles_pref_applicationEventScanningDisabled">Skanowanie wyłączone!</string>
-  <string name="profile_preferences_applicationDisableMobileCellScanning">Skanowanie komórek mobilnych</string>
   <string name="profile_preferences_applicationDisableOrientationScanning">Skanowanie orientacji</string>
   <string name="profile_preferences_headsUpNotifications">(G1) (R) wyskakujące powiadomienia</string>
   <string name="event_preferences_PPPExtenderInstallInfo_text">Jak zainstalować PhoneProfilesPlusExtender</string>
@@ -996,7 +974,6 @@
   <string name="button_close">Zamknij</string>
   <string name="fast_access_duration_activate_without_button_2">Aktywuj bez czekania</string>
   <string name="profileicon_pref_dlg_customIconButton">Ikona niestandardowa</string>
-  <string name="mobile_cells_registration_cell_name_hint">Kliknij aby ustawić nazwę komórki</string>
   <string name="profile_preferences_deviceWiFiAPInfo_summary">Włączenie może uniemożliwiać łączenie z innymi hotspot\'ami.</string>
   <string name="array_event_pref_battery_charging_not_use">Nie monitoruj</string>
   <string name="array_event_pref_battery_charging_start_when_charging">Aktywuj, gdy ładowany</string>
@@ -1006,7 +983,6 @@
   <string name="notification_channel_activated_profile">Aktywny profil</string>
   <string name="notification_channel_activated_profile_description_ppp">Pokazuje profil aktywowany przez zdarzenie.</string>
   <string name="notification_channel_activated_profile_description_pp">Pokazuje aktywny profil.</string>
-  <string name="notification_channel_mobile_cells_registration_description">Pokazuje czas pozostały do końca rejestracji komórek.</string>
   <string name="notification_channel_information">Informacja</string>
   <string name="notification_channel_exclamation">Ostrzeżenie</string>
   <string name="notification_channel_grant_permission">Przyznaj uprawnienia</string>
@@ -1035,7 +1011,6 @@
   <string name="phone_profiles_pref_applicationEventLocation_info">To są ustawienia dla czujnika lokalizacji.</string>
   <string name="phone_profiles_pref_applicationEventWifi_info">To są ustawienia dla czujnika Wi-Fi.</string>
   <string name="phone_profiles_pref_applicationEventBluetooth_info">To są ustawienia dla czujnika Bluetooth.</string>
-  <string name="phone_profiles_pref_applicationEventMobileCell_info">To są ustawienia dla czujnika komórek mobilnych GSM.</string>
   <string name="phone_profiles_pref_applicationEventOrientation_info">To są ustawienia dla czujnika orientacji ekranu.</string>
   <string name="profileicon_pref_dialog_custom_icon_image_too_large">Wybrana ikona jest zbyt duża. Dozwolone jest max.</string>
   <string name="profile_preferences_category_touchEffects">Efekty dotykowe</string>
@@ -1054,10 +1029,6 @@
   <string name="array_pref_auto_rotate_off">Automatyczny obrót ekranu wyłączony</string>
   <string name="brightness_pref_dialog_adaptive_level_may_not_working">Zmiana poziomu automatycznego może nie działać na Twoim urządzeniu (np. w Samsungach).</string>
   <string name="about_application_xda_developers_community">Forum XDA-developers:</string>
-  <string name="mobile_cells_pref_dlg_connected_cell">Połączona komórka:</string>
-  <string name="permissions_for_mobile_cells_registration_dialog_text1">Rejestracja komórek GSM wymaga kilku uprawnień.</string>
-  <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Liczba nowych komórek:</string>
-  <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Stop</string>
   <string name="mobile_cells_registration_pref_dlg_add_event_button">Dodaj zdarzenie</string>
   <string name="mobile_cells_registration_pref_dlg_remove_event_button">Usuń zdarzenie</string>
   <string name="altype_eventPreferencesChanged">Zmieniono konfigurację zdarzenia</string>
@@ -1132,7 +1103,6 @@
     <string name="permission_why_event_location_preferences">aby używać danych lokalizacji w Czujniku Lokalizacji</string>
   <string name="permission_why_event_wifi_preferences">aby używać danych lokalizacji w Czujniku Wi-Fi</string>
   <string name="permission_why_event_bluetooth_preferences">aby używać danych lokalizacji w Czujniku Bluetooth</string>
-  <string name="permission_why_event_mobile_cells_preferences">aby używać danych lokalizacji w Czujniku komórek GSM</string>
   <string name="permission_why_event_contacts_preference">aby odczytywać dane kontaktów podczas konfiguracji</string>
   <string name="permission_why_profile_notification_led">aby włączyć/wyłączyć powiadomienie LED</string>
   <string name="permission_why_profile_vibrate_when_ringing">aby włączyć/wyłączyć wibrację podczas dzwonka rozmowy</string>
@@ -1232,7 +1202,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_nightMode">Jak w trybie nocnym</string>
     <string name="phone_profiles_pref_nightModeOffApplicationTheme">Motyw dla wył. trybu nocnego</string>
     <string name="phone_profiles_pref_applicationTheme_nightMode">Jak w trybie nocnym</string>
-    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Proszę włączyć lokalizację w ustawieniach systemu. Bez tego skanowanie komórek mobilnych - nie działa. </string>
 
 <!--    <string name="phone_profiles_pref_applicationAutoCloseDrawer">Auto-ukrywanie panelu bocznego</string>-->
 <!--    <string name="editor_activity_targetHelps_navigationIcon_description">Kliknij tu lub przesuń od lewej krawędzi ekranu ku prawej, aby otworzyć panel boczny, w którym możesz przełączać widoki Profilu oraz Zdarzeń.</string>-->
@@ -1337,6 +1306,38 @@
     <string name="profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0">Dla naprawdę cichej głośności powiadomień, skonfiguruj dźwięk powiadomień na \"PhoneProfiles Silent\".</string>
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Dźwięk powiadomień \"PhoneProfiles Silent\" nie jest zainstalowany. Proszę zainstalować go z menu edytora i spróbować ponownie.</string>
     -->
+
+    <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettings_summary">Proszę włączyć lokalizację w ustawieniach systemu. Bez tego skanowanie stacji bazowych - nie działa. </string>
+    <string name="array_pref_change_selection_mobile_cells_select_by_name">Wybierz ze względu na nazwę stacji bazowej</string>
+    <string name="event_preference_sensor_mobile_cells_summary">Sensor ten zacznie zdarzenie gdy telefon połączy się z określonymi stacjami bazowymi sieci mobilnej (wieże GSM, CDMA). Parametry: stacje, zacznij, kiedy poza stacją (ami).</string>
+    <string name="event_preferences_category_eventMobileCellsParameters">Sensor stacji bazowych</string>
+    <string name="event_preferences_mobile_cells_cells">Stacje</string>
+    <string name="event_preferences_mobile_cells_when_outside_description">Uruchom, kiedy poza wybranymi stacjami bazowymi</string>
+    <string name="event_preferences_mobile_cells_when_outside_pref_name">Uruchom, kiedy poza stacją bazową</string>
+    <string name="event_type_mobile_cells">Stacje bazowe</string>
+    <string name="mobile_cell_names_dialog_filter_title">Filtr nazw stacji bazowych</string>
+    <string name="mobile_cell_names_dialog_title">Nazwy stacji</string>
+    <string name="mobile_cells_pref_dlg_cell_rename_title">Zmień nazwę stacji</string>
+    <string name="mobile_cells_pref_dlg_connected_cell">Połączona stacja:</string>
+    <string name="mobile_cells_pref_dlg_help" tools:ignore="TypographyOther">(N) nowa stacja, (C) podłączony do stacji.</string>
+    <string name="mobile_cells_pref_dlg_rename_icon">Zmień nazwę stacji</string>
+    <string name="mobile_cells_pref_dlg_rescan_button">Skanuj ponownie</string>
+    <string name="mobile_cells_registration_cell_name_hint">Kliknij, aby ustawić nazwę stacji</string>
+    <string name="mobile_cells_registration_pref_dlg_status_new_cells_count">Liczba nowych stacji:</string>
+    <string name="notification_channel_mobile_cells_registration_description">Pokazuje czas pozostały do końca rejestracji stacji.</string>
+    <string name="permission_why_event_mobile_cells_preferences">aby używać danych lokalizacji w Czujniku stacji bazowych</string>
+    <string name="permissions_for_mobile_cells_registration_dialog_text1">Rejestracja stacji bazowych wymaga kilku uprawnień.</string>
+    <string name="permissions_for_mobile_cells_scan_dialog_text1">Skanowanie stacji bazowych wymaga pewnych uprawnień.</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellEnableScanning">Włącz skanowanie stacji bazowych</string>
+    <string name="phone_profiles_pref_applicationEventMobileCell_info">To są ustawienia dla czujnika stacji bazowych.</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration">Rejestracja stacji</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_notification">Rejestracja stacji bazowych</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">Stop</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsRescan">Przeskanuj ponownie stacje bazowe</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanInPowerSaveMode">Skanowanie stacji bazowych w trybie oszczędzania baterii</string>
+    <string name="phone_profiles_pref_category_mobile_cells_scanning">Skanowanie stacji bazowych</string>
+    <string name="phone_profiles_pref_eventMobileCellsAppSettings_summary">Skonfiguruj opcje skanowania stacji bazowych w ustawieniach aplikacji.</string>
+    <string name="profile_preferences_applicationDisableMobileCellScanning">Skanowanie stacji bazowych</string>
 
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
 
