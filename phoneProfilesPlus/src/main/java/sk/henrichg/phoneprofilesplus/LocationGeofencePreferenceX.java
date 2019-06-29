@@ -199,9 +199,9 @@ public class LocationGeofencePreferenceX extends DialogPreference {
         PPApplication.logE("LocationGeofencePreferenceX.onRestoreInstanceState", "xxx");
 
         // restore instance state
+        LocationGeofencePreferenceX.SavedState myState = (LocationGeofencePreferenceX.SavedState)state;
+        super.onRestoreInstanceState(myState.getSuperState());
         if (onlyEdit == 0) {
-            LocationGeofencePreferenceX.SavedState myState = (LocationGeofencePreferenceX.SavedState)state;
-            super.onRestoreInstanceState(myState.getSuperState());
             String value = myState.value;
             defaultValue = myState.defaultValue;
 
