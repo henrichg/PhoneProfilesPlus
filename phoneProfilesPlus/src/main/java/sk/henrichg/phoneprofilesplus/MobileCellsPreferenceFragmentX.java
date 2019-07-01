@@ -316,14 +316,14 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         String statusText;
         if (!PhoneProfilesService.isLocationEnabled(prefContext)) {
             if (Build.VERSION.SDK_INT < 28)
-                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                        getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
+                statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                        prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary);
             else
-                statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                        "* " +getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
+                statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                        "* " +prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsDisabled_summary) + "! *";
         } else {
-            statusText = getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
-                    getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
+            statusText = prefContext.getString(R.string.phone_profiles_pref_eventLocationSystemSettings) + ":\n" +
+                    prefContext.getString(R.string.phone_profiles_pref_applicationEventScanningLocationSettingsEnabled_summary);
         }
         locationEnabledStatusTextView.setText(statusText);
     }
@@ -460,7 +460,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     _filteredCellsList.clear();
                     splits = _value.split("\\|");
                     for (MobileCellsData cellData : _cellsList) {
-                        if (_cellFilterValue.equals(getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
+                        if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_selected))) {
                             for (String cell : splits) {
                                 if (cell.equals(Integer.toString(cellData.cellId))) {
                                     PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells into filtered list - added selected cellId="+cellData.cellId);
@@ -468,13 +468,13 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                     break;
                                 }
                             }
-                        } else if (_cellFilterValue.equals(getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
+                        } else if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_without_name))) {
                             if (cellData.name.isEmpty())
                                 _filteredCellsList.add(cellData);
-                        } else if (_cellFilterValue.equals(getString(R.string.mobile_cell_names_dialog_item_show_new))) {
+                        } else if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_new))) {
                             if (cellData._new)
                                 _filteredCellsList.add(cellData);
-                        } else if (_cellFilterValue.equals(getString(R.string.mobile_cell_names_dialog_item_show_all))) {
+                        } else if (_cellFilterValue.equals(prefContext.getString(R.string.mobile_cell_names_dialog_item_show_all))) {
                             _filteredCellsList.add(cellData);
                         } else {
                             if (_cellFilterValue.equals(cellData.name))
@@ -510,7 +510,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     }
                 }
 
-                String connectedCellName = getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
+                String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
                 if (preference.registeredCellData != null) {
                     if (!preference.registeredCellData.name.isEmpty())
                         connectedCellName = connectedCellName + preference.registeredCellData.name + ", ";
