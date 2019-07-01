@@ -212,7 +212,8 @@ class Application  implements Parcelable {
         this.activityName = in.readString();
         this.shortcutId = in.readLong();
         this.intentId = in.readLong();
-        this.checked = in.readBoolean();
+        //this.checked = in.readBoolean();
+        this.checked = in.readByte() != 0;
         this.startApplicationDelay = in.readInt();
     }
 
@@ -230,7 +231,8 @@ class Application  implements Parcelable {
         dest.writeString(this.activityName);
         dest.writeLong(this.shortcutId);
         dest.writeLong(this.intentId);
-        dest.writeBoolean(this.checked);
+        //dest.writeBoolean(this.checked);
+        dest.writeByte((byte) (this.checked ? 1 : 0));
         dest.writeInt(this.startApplicationDelay);
     }
 
