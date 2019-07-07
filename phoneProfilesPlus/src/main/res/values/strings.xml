@@ -1263,7 +1263,7 @@
 <!--    <string name="profile_preferences_installSilentTone_summary">Click here to install tone.</string>-->
 <!--    <string name="profile_preferences_installSilentTone_installed_summary">Tone is installed.</string>-->
     <string name="permissions_for_log_to_file_text1">Debug log into log.txt and crash.txt</string>
-    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be write.</string>
+    <string name="permissions_for_log_to_file_text2">Please grant them in next dialog. Debug log will then be written.</string>
     <string name="permission_why_log_to_file">for write debug log into log.txt and crash.txt</string>
     <string name="permissions_for_log_to_file_big_text_notification">Write debug log into log.txt and crash.txt requires some permissions to be granted.</string>
     <string name="dashclock_extension_description">Displays active profile with preferences indicator. Opens Activator on touch.</string>
