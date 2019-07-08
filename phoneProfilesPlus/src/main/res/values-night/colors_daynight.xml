@@ -3,8 +3,8 @@
     <color name="primary">#202020</color>
     <color name="primaryDark">#202020</color>
     <!--<color name="primaryDark">#141414</color>-->
-    <color name="accent">#DC8160</color>
-    <color name="accent_disabled">#70DC8160</color>
+    <color name="accent">#E99B7F</color>
+    <color name="accent_disabled">#70E99B7F</color>
     <color name="navigationBar">#000000</color>
 
     <!--<color name="activityBackgroundColor">#FF252525</color>-->
@@ -34,8 +34,8 @@
     <color name="tabTargetHelpTextColor">#FFFFFFFF</color>
 
     <color name="fastScrollTrackPP">#FF5F5F5F</color>
-    <color name="fastScrollThumbPP">#FFDC8160</color>
-    <color name="fastScrollPopupBackgroundPP">#FFDC8160</color>
+    <color name="fastScrollThumbPP">#FFE99B7F</color>
+    <color name="fastScrollPopupBackgroundPP">#FFE99B7F</color>
     <color name="fastScrollPopupTextPP">#FFFFFFFF</color>
 
     <color name="eventPauseTextColor">#FF00a7d8</color>
