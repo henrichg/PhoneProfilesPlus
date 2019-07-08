@@ -714,7 +714,8 @@ class PhoneStateScanner extends PhoneStateListener {
     static void stopAutoRegistration(Context context) {
         PPApplication.logE("PhoneStateScanner.stopAutoRegistration", "xxx");
 
-        context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
+        //context.stopService(new Intent(context.getApplicationContext(), MobileCellsRegistrationService.class));
+        MobileCellsRegistrationService.stop(context);
 
         clearEventList();
 

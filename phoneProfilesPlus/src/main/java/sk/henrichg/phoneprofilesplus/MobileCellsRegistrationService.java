@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -34,7 +35,24 @@ public class MobileCellsRegistrationService extends Service {
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_CELLS_NAME = "mobile_cells_autoregistration_cell_name";
     private static final String PREF_MOBILE_CELLS_AUTOREGISTRATION_ENABLED = "mobile_cells_autoregistration_enabled";
 
+    private static final String ACTION_STOP = PPApplication.PACKAGE_NAME + ".MobileCellsRegistrationService.ACTION_STOP_SERVICE";
+
     private MobileCellsRegistrationStopButtonBroadcastReceiver mobileCellsRegistrationStopButtonBroadcastReceiver = null;
+
+    private final BroadcastReceiver stopReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            PPApplication.logE("PhoneProfilesService.stopReceiver", "xxx");
+            try {
+                //noinspection deprecation
+                context.removeStickyBroadcast(intent);
+            } catch (Exception e) {
+                PPApplication.logE("PhoneProfilesService.stopReceiver", Log.getStackTraceString(e));
+            }
+            stopForeground(true);
+            stopSelf();
+        }
+    };
 
     @Override
     public void onCreate()
@@ -44,6 +62,8 @@ public class MobileCellsRegistrationService extends Service {
         PPApplication.logE("MobileCellsRegistrationService.onCreate", "xxx");
 
         context = this;
+
+        registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
 
         removeResultNotification();
         showNotification(getMobileCellsAutoRegistrationRemainingDuration(this));
@@ -110,6 +130,10 @@ public class MobileCellsRegistrationService extends Service {
     public void onDestroy() {
         PPApplication.logE("MobileCellsRegistrationService.onDestroy", "xxx");
 
+        try {
+            unregisterReceiver(stopReceiver);
+        } catch (Exception ignored) {}
+
         if (serviceStarted) {
             countDownTimer.cancel();
 
@@ -137,6 +161,15 @@ public class MobileCellsRegistrationService extends Service {
 
         //Log.d("MobileCellsRegistrationService", "Timer cancelled");
         super.onDestroy();
+    }
+
+    public static void stop(Context context) {
+        try {
+            //noinspection deprecation
+            context.sendStickyBroadcast(new Intent(ACTION_STOP));
+            //context.sendBroadcast(new Intent(ACTION_STOP));
+        } catch (Exception ignored) {
+        }
     }
 
     private void showNotification(long millisUntilFinished) {
