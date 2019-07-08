@@ -53,7 +53,7 @@
     <string name="profile_preferences_category_sounds">Sounds</string>
     <string name="profile_preferences_profileName">Profile name</string>
     <string name="profile_preferences_profileIcon">Profile icon</string>
-    <string name="profile_preferences_volumeRingerMode">Ringer mode</string>
+    <!--<string name="profile_preferences_volumeRingerMode">Ringer mode</string>-->
     <string name="profile_preferences_volumeRingtone">Ringtone volume</string>
     <string name="profile_preferences_volumeNotification">Notification volume</string>
     <string name="profile_preferences_volumeMedia">Media volume</string>
@@ -75,9 +75,9 @@
     <string name="profile_preferences_deviceWallpaper">Wallpaper</string>
     <string name="profile_preferences_deviceWallpaperChange">Change wallpaper</string>
     <string name="array_pref_no_change">Do not change</string>
-    <string name="array_pref_ringerModeArray_ring">Ring</string>
-    <string name="array_pref_ringerModeArray_ring_and_vibrate">Ring and Vibrate</string>
-    <string name="array_pref_ringerModeArray_vibrate">Vibrate</string>
+    <!--<string name="array_pref_ringerModeArray_ring">Ring</string>-->
+    <!--<string name="array_pref_ringerModeArray_ring_and_vibrate">Ring and Vibrate</string>-->
+    <!--<string name="array_pref_ringerModeArray_vibrate">Vibrate</string>-->
     <!--<string name="array_pref_ringerModeArray_silent">Silent</string>-->
     <string name="array_pref_hardwareModeArray_on">On</string>
     <string name="array_pref_hardwareModeArray_off">Off</string>
@@ -352,7 +352,7 @@
     <string name="phone_profiles_pref_applicationEventBluetoothRescan">Re-scan Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOn">Screen On</string>
     <string name="phone_profiles_pref_applicationEventRescan_screenOnAndRestartEvents">Screen On &amp; Restart events</string>
-    <string name="array_pref_ringerModeArray_ZenMode">Interruptions</string>
+    <!--<string name="array_pref_ringerModeArray_ZenMode">Interruptions</string>-->
     <string name="profile_preferences_volumeZenMode">Interruptions type</string>
     <string name="array_pref_zenModeArray_all">All</string>
     <string name="array_pref_zenModeArray_priority">Priority</string>
@@ -411,7 +411,7 @@
     <string name="info_notification_title">Important information</string>
     <string name="info_notification_text">Click here to show important information</string>
     <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
-    <string name="array_pref_ringerModeArray_silentL">Priority mode</string>
+    <!--<string name="array_pref_ringerModeArray_silentL">Priority mode</string>-->
     <string name="menu_import_export">Backup/Restore</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 minutes</string>
     <string name="important_info_profiles">Profiles</string>
@@ -584,7 +584,7 @@
     <string name="phone_profiles_pref_applicationEventLocationScanInPowerSaveMode">Location scan in Power Save mode</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings">Location system settings</string>
     <string name="phone_profiles_pref_eventLocationSystemSettings_summary">Please enable Location in System Settings. Without this, location scanning will not work.</string>
-    <string name="array_pref_ringerModeArray_silentM">Alarms only</string>
+    <!--<string name="array_pref_ringerModeArray_silentM">Alarms only</string>-->
     <string name="phone_profiles_pref_applicationEventLocationsEditor">Locations editor</string>
     <string name="phone_profiles_pref_applicationEventLocationsUseGPS">Use GPS when not in Power Save mode</string>
     <string name="menu_activity_log_pause">Pause logging</string>
@@ -894,7 +894,7 @@
     <string name="profile_preferences_category_application">Application functions</string>
     <string name="profile_preferences_applicationDisableWifiScanning">Disable Wi-Fi scanning</string>
     <string name="profile_preferences_applicationDisableBluetoothScanning">Disable Bluetooth scanning</string>
-    <string name="array_pref_ringerModeArray_ZenModeM">Do not disturb</string>
+    <!--<string name="array_pref_ringerModeArray_ZenModeM">Do not disturb</string>-->
     <string name="profile_preferences_volumeZenModeM">\"Do not disturb\" type</string>
     <string name="array_pref_zenModeArray_off">Off</string>
     <string name="array_pref_zenModeArray_offButVibration">Off with vibration</string>
@@ -1405,6 +1405,15 @@
     <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>
 
     <string name="phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary">Click here to show how \"Unlink ringer and notification volumes\" works.</string>
+
+    <string name="profile_preferences_volumeSoundMode">Sound mode</string>
+    <string name="array_pref_soundModeArray_sound">Sound</string>
+    <string name="array_pref_soundModeArray_sound_and_vibration">Sound and vibration</string>
+    <string name="array_pref_soundModeArray_vibration">Vibration</string>
+    <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>
+    <string name="array_pref_soundModeArray_silentL">Priority mode</string>
+    <string name="array_pref_soundModeArray_silentM">Alarms only</string>
+    <string name="array_pref_soundModeArray_ZenModeM">Do not disturb</string>
 
     <!-- **************************************************************************************** -->
 

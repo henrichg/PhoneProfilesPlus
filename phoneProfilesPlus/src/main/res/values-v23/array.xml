@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string-array name="ringerModeArray" tools:ignore="InconsistentArrays">
+    <string-array name="soundModeArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_ringerModeArray_ring</item>
-        <item>@string/array_pref_ringerModeArray_ring_and_vibrate</item>
-        <item>@string/array_pref_ringerModeArray_vibrate</item>
-        <item>@string/array_pref_ringerModeArray_silentM</item>
-        <item>@string/array_pref_ringerModeArray_ZenModeM</item>
+        <item>@string/array_pref_soundModeArray_sound</item>
+        <item>@string/array_pref_soundModeArray_sound_and_vibration</item>
+        <item>@string/array_pref_soundModeArray_vibration</item>
+        <item>@string/array_pref_soundModeArray_silentM</item>
+        <item>@string/array_pref_soundModeArray_ZenModeM</item>
     </string-array>
-    <string-array name="ringerModeValues" tools:ignore="InconsistentArrays">
+    <string-array name="soundModeValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
         <item>2</item>

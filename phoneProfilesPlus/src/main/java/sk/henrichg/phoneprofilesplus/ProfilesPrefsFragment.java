@@ -285,7 +285,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             } else {
                 if (ringerModePreference != null) {
                     CharSequence[] entries = ringerModePreference.getEntries();
-                    entries[5] = "(S) " + getString(R.string.array_pref_ringerModeArray_ZenMode);
+                    entries[5] = "(S) " + getString(R.string.array_pref_soundModeArray_ZenMode);
                     ringerModePreference.setEntries(entries);
                 }
 
@@ -1072,12 +1072,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGER_MODE));
             String zenMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE,
                     Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ZEN_MODE));
-            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, R.string.profile_preferences_volumeRingerMode, false, context);
+            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, R.string.profile_preferences_volumeSoundMode, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
 
                 String value = GlobalGUIRoutines.getListPreferenceString(ringerMode,
-                                        R.array.ringerModeValues, R.array.ringerModeArray, context);
+                                        R.array.soundModeValues, R.array.soundModeArray, context);
 
                 summary = summary + title + ": " + value;
             }
