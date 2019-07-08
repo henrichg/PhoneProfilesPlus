@@ -110,13 +110,12 @@ public class AboutApplicationActivity extends AppCompatActivity {
                 getEmailBodyText(EMAIL_BODY_SUPPORT, this),
                 false,this);
 
-        /*
         text = findViewById(R.id.about_application_translations);
         str1 = getString(R.string.about_application_translations);
         str2 = str1 + " https://crowdin.com/project/phoneprofilesplus";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        clickableSpan = new ClickableSpan() {
+        ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
@@ -137,22 +136,21 @@ public class AboutApplicationActivity extends AppCompatActivity {
         //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
-        */
-        emailMe((TextView) findViewById(R.id.about_application_translations),
+        /*emailMe((TextView) findViewById(R.id.about_application_translations),
                 getString(R.string.about_application_translations),
                 getString(R.string.about_application_translations2),
                 getString(R.string.about_application_translations_subject),
                 getEmailBodyText(EMAIL_BODY_TRANSLATIONS, this),
-                false,this);
+                false,this);*/
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
         str2 = str1 + " https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ClickableSpan clickableSpan = new ClickableSpan() {
+        /*ClickableSpan*/ clickableSpan = new ClickableSpan() {
             @Override
-            public void updateDrawState(TextPaint ds) {
+            public void updateDrawState(@NonNull TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
                 ds.setUnderlineText(false);    // this remove the underline
             }
