@@ -1408,7 +1408,6 @@
 
     <string name="profile_preferences_volumeSoundMode">Sound mode</string>
     <string name="array_pref_soundModeArray_sound">Sound</string>
-    <string name="array_pref_soundModeArray_sound_and_vibration">Sound and vibration</string>
     <string name="array_pref_soundModeArray_vibration">Vibration</string>
     <string name="array_pref_soundModeArray_ZenMode">Interruptions</string>
     <string name="array_pref_soundModeArray_silentL">Priority mode</string>

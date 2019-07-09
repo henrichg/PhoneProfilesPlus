@@ -3,7 +3,6 @@
     <string-array name="soundModeArray" tools:ignore="InconsistentArrays">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_soundModeArray_sound</item>
-        <item>@string/array_pref_soundModeArray_sound_and_vibration</item>
         <item>@string/array_pref_soundModeArray_vibration</item>
         <item>@string/array_pref_soundModeArray_silentM</item>
         <item>@string/array_pref_soundModeArray_ZenModeM</item>
@@ -11,7 +10,6 @@
     <string-array name="soundModeValues" tools:ignore="InconsistentArrays">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>

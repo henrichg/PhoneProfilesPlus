@@ -1102,15 +1102,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, R.string.profile_preferences_vibrateWhenRinging, false, context);
                 if (!title.isEmpty()) {
-                    if ((zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
+                    if (ringerMode != null) {
+                        if (ringerMode.equals("1") || ringerMode.equals("4")) {
+                            if (!summary.isEmpty()) summary = summary + " • ";
 
-                        String value = GlobalGUIRoutines.getListPreferenceString(
-                                preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING,
-                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)),
-                                R.array.vibrateWhenRingingValues, R.array.vibrateWhenRingingArray, context);
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)),
+                                    R.array.vibrateWhenRingingValues, R.array.vibrateWhenRingingArray, context);
 
-                        summary = summary + title + ": " + value;
+                            summary = summary + title + ": " + value;
+                        } else if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
+                            if (!summary.isEmpty()) summary = summary + " • ";
+
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)),
+                                    R.array.vibrateWhenRingingValues, R.array.vibrateWhenRingingArray, context);
+
+                            summary = summary + title + ": " + value;
+                        }
                     }
                 }
             }
@@ -2732,10 +2743,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String zenMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
             boolean enabled = false;
             // also look at Profile.mergeProfiles()
-            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) &&
-                    ringerMode.equals("5")) {
-                if (zenMode.equals("1") || zenMode.equals("2"))
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, preferences, true, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (ringerMode.equals("1") || ringerMode.equals("4"))
                     enabled = true;
+                if (ringerMode.equals("5")) {
+                    if (zenMode.equals("1") || zenMode.equals("2"))
+                        enabled = true;
+                }
             }
             ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null) {

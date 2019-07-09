@@ -1506,7 +1506,7 @@ class ActivateProfileHelper {
                         audioManager.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
                     } catch (Exception ignored) {
                     }
-                    setVibrateWhenRinging(context, null, 0);
+                    setVibrateWhenRinging(context, profile, -1);
                     break;
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
                     PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING & VIBRATE");
@@ -1562,7 +1562,7 @@ class ActivateProfileHelper {
                         } catch (Exception ignored) {
                         }
                     }*/
-                    setVibrateWhenRinging(context, null, 0);
+                    setVibrateWhenRinging(context, profile, -1);
                     break;
                 case Profile.RINGERMODE_ZENMODE:
                     PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=ZEN MODE");
