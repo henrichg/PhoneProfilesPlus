@@ -13,22 +13,17 @@ android {
         versionCode ppVersions.publishVersionCode
         versionName ppVersions.publishVersion
         multiDexEnabled true
-        /*
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_7
-            targetCompatibility JavaVersion.VERSION_1_7
-        }
-        */
+
         resConfigs "en", "af", "ar", "bn-rIN", "bg", "ca", "cs", "da", "de", "el", "es", "et", "fa",
                 "fi", "fr", "ga-rIN", "hi", "hr", "hu", "in", "is", "it", "iw", "ja", "ko", "ku",
                 "lb", "lv", "ms", "nl", "no", "pl", "pt-rBR", "pt-rPT", "ro", "ru", "sk", "sl", "sr",
                 "b+sr+Latn", "sv", "te", "th", "tr", "uk", "vi", "zh-rCN", "zh-rTW"
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_7
+//        targetCompatibility JavaVersion.VERSION_1_7
+//    }
 
     buildTypes {
         release {
