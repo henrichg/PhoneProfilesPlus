@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2330;
+    private static final int DATABASE_VERSION = 2340;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -2838,7 +2838,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VOLUME_BLUETOOTH_SCO + "=\"-1|1|0\"");
         }
 
-        if (oldVersion < 2330)
+        if (oldVersion < 2340)
         {
             //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
             //{
@@ -2857,7 +2857,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         ringerMode = 1;
 
                         db.execSQL("UPDATE " + TABLE_PROFILES +
-                                " SET " + KEY_VOLUME_RINGER_MODE + "=" + ringerMode + " " +
+                                " SET " + KEY_VOLUME_RINGER_MODE + "=" + ringerMode + ", " +
+                                          KEY_VIBRATE_WHEN_RINGING + "=1" + " " +
                                 "WHERE " + KEY_ID + "=" + id);
                     }
 
@@ -9731,6 +9732,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 int duration = 0;
                                 int zenMode = 0;
                                 int lockDevice = 0;
+                                int ringerMode = 0;
 
                                 if (cursorExportedDB.moveToFirst()) {
                                     do {
@@ -9813,12 +9815,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                     }
                                                 }
                                                 */
-                                                if (exportedDBObj.getVersion() < 2330) {
-                                                    if (columnNamesExportedDB[i].equals(KEY_VOLUME_RINGER_MODE)) {
-                                                        if (value.equals("2"))
-                                                            value = "1";
-                                                    }
-                                                }
 
                                                 values.put(columnNamesExportedDB[i], value);
                                             }
@@ -9828,6 +9824,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                                 zenMode = cursorExportedDB.getInt(i);
                                             if (columnNamesExportedDB[i].equals(KEY_LOCK_DEVICE))
                                                 lockDevice = cursorExportedDB.getInt(i);
+                                            if (columnNamesExportedDB[i].equals(KEY_VOLUME_RINGER_MODE))
+                                                ringerMode = cursorExportedDB.getInt(i);
                                         }
 
                                         // for non existent fields set default value
@@ -9972,6 +9970,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                         if (exportedDBObj.getVersion() < 2320) {
                                             values.put(KEY_VOLUME_BLUETOOTH_SCO, "-1|1|0");
+                                        }
+
+                                        if (exportedDBObj.getVersion() < 2340) {
+                                            if (ringerMode == 2) {
+                                                values.remove(KEY_VOLUME_RINGER_MODE);
+                                                values.remove(KEY_VIBRATE_WHEN_RINGING);
+                                                values.put(KEY_VOLUME_RINGER_MODE, 1);
+                                                values.put(KEY_VIBRATE_WHEN_RINGING, 1);
+                                            }
                                         }
 
                                         ///////////////////////////////////////////////////////
