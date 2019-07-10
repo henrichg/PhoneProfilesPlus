@@ -3,6 +3,8 @@ package sk.henrichg.phoneprofilesplus.billing;
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
 import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.ConsumeParams;
 import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
@@ -14,6 +16,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import sk.henrichg.phoneprofilesplus.DonationFragment;
@@ -50,7 +53,10 @@ public class BillingManager implements PurchasesUpdatedListener {
     public BillingManager(AppCompatActivity activity) {
         PPApplication.logE(TAG, "start client");
         mActivity = activity;
-        mBillingClient = BillingClient.newBuilder(mActivity).setListener(this).build();
+        mBillingClient = BillingClient.newBuilder(mActivity)
+                .enablePendingPurchases()
+                .setListener(this)
+                .build();
         startServiceConnectionIfNeeded(null);
     }
 
@@ -72,8 +78,8 @@ public class BillingManager implements PurchasesUpdatedListener {
 
             mBillingClient.startConnection(new BillingClientStateListener() {
                 @Override
-                public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponse) {
-                    if (billingResponse == BillingClient.BillingResponse.OK) {
+                public void onBillingSetupFinished(BillingResult billingResult) {
+                    if (billingResult.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                         //Log.i(TAG, "onBillingSetupFinished() response: " + billingResponse);
 
                         if (executeOnSuccess == null) {
@@ -88,6 +94,7 @@ public class BillingManager implements PurchasesUpdatedListener {
                         Log.w(TAG, "onBillingSetupFinished() error code: " + billingResponse);
                     }*/
                 }
+
                 @Override
                 public void onBillingServiceDisconnected() {
                     //Log.w(TAG, "onBillingServiceDisconnected()");
@@ -97,10 +104,10 @@ public class BillingManager implements PurchasesUpdatedListener {
     }
 
     @Override
-    public void onPurchasesUpdated(@BillingClient.BillingResponse int responseCode,
-                                   List<Purchase> purchases) {
+    public void onPurchasesUpdated(BillingResult billingResult, @Nullable List<Purchase> purchases) {
+        int responseCode = billingResult.getResponseCode();
         PPApplication.logE(TAG, "onPurchasesUpdated() response: " + responseCode);
-        if (responseCode == BillingClient.BillingResponse.OK) {
+        if (responseCode == BillingClient.BillingResponseCode.OK) {
             getFragment().purchaseSuccessful(purchases);
 
             if (purchases != null) {
@@ -133,9 +140,8 @@ public class BillingManager implements PurchasesUpdatedListener {
                 mBillingClient.querySkuDetailsAsync(skuDetailsParams,
                         new SkuDetailsResponseListener() {
                             @Override
-                            public void onSkuDetailsResponse(int responseCode,
-                                                             List<SkuDetails> skuDetailsList) {
-                                listener.onSkuDetailsResponse(responseCode, skuDetailsList);
+                            public void onSkuDetailsResponse(BillingResult billingResult, List<SkuDetails> skuDetailsList) {
+                                listener.onSkuDetailsResponse(billingResult, skuDetailsList);
                             }
                         });
             }
@@ -153,7 +159,7 @@ public class BillingManager implements PurchasesUpdatedListener {
                 BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
                         .setSkuDetails(skuDetails)
                         .build();
-                int responseCode = mBillingClient.launchBillingFlow(mActivity, billingFlowParams);
+                int responseCode = mBillingClient.launchBillingFlow(mActivity, billingFlowParams).getResponseCode();
                 PPApplication.logE(TAG, "startPurchaseFlow responseCode="+responseCode);
                 getFragment().displayAnErrorIfNeeded(responseCode);
             }
@@ -188,12 +194,17 @@ public class BillingManager implements PurchasesUpdatedListener {
         Runnable executeOnConnectedService = new Runnable() {
             @Override
             public void run() {
-                mBillingClient.consumeAsync(purchase.getPurchaseToken(),
+                ConsumeParams consumeParams =
+                        ConsumeParams.newBuilder()
+                                .setPurchaseToken(purchase.getPurchaseToken())
+                                .setDeveloperPayload(purchase.getDeveloperPayload())
+                                .build();
+
+                mBillingClient.consumeAsync(consumeParams,
                         new ConsumeResponseListener() {
                             @Override
-                            public void onConsumeResponse(@BillingClient.BillingResponse int responseCode,
-                                                          String outToken) {
-                                PPApplication.logE(TAG, "onConsumeResponse() response: " + responseCode);
+                            public void onConsumeResponse(BillingResult billingResult, String purchaseToken) {
+                                PPApplication.logE(TAG, "onConsumeResponse() response: " + billingResult.getResponseCode());
                                 /*if (responseCode == BillingClient.BillingResponse.OK) {
                                     // Handle the success of the consume operation.
                                     // For example, increase the number of player's coins,
