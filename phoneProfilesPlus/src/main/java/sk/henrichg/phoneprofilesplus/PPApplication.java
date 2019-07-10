@@ -408,6 +408,9 @@ public class PPApplication extends Application {
                                         //+"|RingtonePreference.setRingtone"
                                         //+"|RingtonePreferenceX"
                                         //+"|PhoneProfilesService.playNotificationSound"
+
+                                        +"|[RJS] PhoneProfilesService.scheduleWifiJob"
+                                        +"|[RJS] PhoneProfilesService.cancelWifiJob"
             ;
 
 

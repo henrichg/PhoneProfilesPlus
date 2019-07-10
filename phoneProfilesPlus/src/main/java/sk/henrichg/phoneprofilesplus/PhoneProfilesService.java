@@ -2530,12 +2530,12 @@ public class PhoneProfilesService extends Service
 
     private void cancelWifiJob(final Context context, final Handler _handler) {
         if (WifiScanJob.isJobScheduled()) {
-            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleWifiJob->CANCEL", "PhoneProfilesService_scheduleWifiJob");
-            PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "CANCEL");
+            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelWifiJob->CANCEL", "PhoneProfilesService_cancelWifiJob");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiJob", "CANCEL");
             WifiScanJob.cancelJob(context, true, _handler);
         }
         else
-            PPApplication.logE("[RJS] PhoneProfilesService.scheduleWifiJob", "not scheduled");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelWifiJob", "not scheduled");
     }
 
     void scheduleWifiJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
@@ -2594,12 +2594,12 @@ public class PhoneProfilesService extends Service
 
     private void cancelBluetoothJob(final Context context, final Handler _handler) {
         if (BluetoothScanJob.isJobScheduled()) {
-            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleBluetoothJob->CANCEL", "PhoneProfilesService_scheduleBluetoothJob");
-            PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "CANCEL");
+            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelBluetoothJob->CANCEL", "PhoneProfilesService_cancelBluetoothJob");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothJob", "CANCEL");
             BluetoothScanJob.cancelJob(context, true, _handler);
         }
         else
-            PPApplication.logE("[RJS] PhoneProfilesService.scheduleBluetoothJob", "not scheduled");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelBluetoothJob", "not scheduled");
     }
 
     private void scheduleBluetoothJob(final boolean schedule, /*final boolean cancel,*/ final boolean checkDatabase,
@@ -2657,7 +2657,7 @@ public class PhoneProfilesService extends Service
 
     private void cancelGeofenceScannerJob(final Context context, final Handler _handler) {
         if (GeofenceScannerJob.isJobScheduled()) {
-            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelGeofenceScannerJob->CANCEL", "PhoneProfilesService_scheduleGeofenceScannerJob");
+            CallsCounter.logCounterNoInc(context, "PhoneProfilesService.cancelGeofenceScannerJob->CANCEL", "PhoneProfilesService_cancelGeofenceScannerJob");
             PPApplication.logE("[RJS] PhoneProfilesService.cancelGeofenceScannerJob", "CANCEL");
             GeofenceScannerJob.cancelJob(true, _handler);
         }
@@ -2721,11 +2721,11 @@ public class PhoneProfilesService extends Service
     private void cancelSearchCalendarEventsJob(final Context context, final Handler _handler) {
         if (SearchCalendarEventsJob.isJobScheduled()) {
             CallsCounter.logCounterNoInc(context, "PhoneProfilesService.scheduleSearchCalendarEventsJob->CANCEL", "PhoneProfilesService_scheduleSearchCalendarEventsJob");
-            PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "CANCEL");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsJob", "CANCEL");
             SearchCalendarEventsJob.cancelJob(true, _handler);
         }
         else
-            PPApplication.logE("[RJS] PhoneProfilesService.scheduleSearchCalendarEventsJob", "not scheduled");
+            PPApplication.logE("[RJS] PhoneProfilesService.cancelSearchCalendarEventsJob", "not scheduled");
     }
 
     private void scheduleSearchCalendarEventsJob(final boolean schedule, final boolean cancel, final boolean checkDatabase) {
