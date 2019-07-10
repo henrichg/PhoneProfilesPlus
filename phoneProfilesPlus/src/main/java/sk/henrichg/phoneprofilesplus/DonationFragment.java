@@ -209,13 +209,13 @@ public class DonationFragment extends Fragment {
                         PPApplication.logE(TAG, "purchaseSuccessful - priceS=" + skuDetail.getPrice());
                         PPApplication.logE(TAG, "purchaseSuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
                         PPApplication.logE(TAG, "purchaseSuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
-                        Answers.getInstance().logPurchase(new PurchaseEvent()
+                        /*Answers.getInstance().logPurchase(new PurchaseEvent()
                                 .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
                                 .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
                                 .putItemName("Donation")
                                 //.putItemType("Apparel")
                                 .putItemId(sku)
-                                .putSuccess(true));
+                                .putSuccess(true));*/
                     }
                 }
             }
@@ -238,13 +238,13 @@ public class DonationFragment extends Fragment {
                         PPApplication.logE(TAG, "purchaseUnsuccessful - priceS=" + skuDetail.getPrice());
                         PPApplication.logE(TAG, "purchaseUnsuccessful - priceMicros=" + skuDetail.getPriceAmountMicros());
                         PPApplication.logE(TAG, "purchaseUnsuccessful - price=" + skuDetail.getPriceAmountMicros() / 1000000.0);
-                        Answers.getInstance().logPurchase(new PurchaseEvent()
+                        /*Answers.getInstance().logPurchase(new PurchaseEvent()
                                 .putItemPrice(BigDecimal.valueOf(skuDetail.getPriceAmountMicros() / 1000000.0))
                                 .putCurrency(Currency.getInstance(skuDetail.getPriceCurrencyCode()))
                                 .putItemName("Donation")
                                 //.putItemType("Apparel")
                                 .putItemId(sku)
-                                .putSuccess(false));
+                                .putSuccess(false));*/
                     }
                 }
             }
