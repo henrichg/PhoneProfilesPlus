@@ -144,10 +144,12 @@ class EventPreferencesNotification extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
         if (key.equals(PREF_EVENT_NOTIFICATION_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
         }
 
@@ -171,15 +173,14 @@ class EventPreferencesNotification extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesNotification.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNotification.isRunnable(context);
-        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
-        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        boolean enabled = preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
         SwitchPreferenceCompat preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_IN_CALL);
         if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, preference.isChecked(), true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_IN_CALL, false), true, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_MISSED_CALL);
         if (preference != null) {
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, preference.isChecked(), true, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, preferences.getBoolean(PREF_EVENT_NOTIFICATION_MISSED_CALL, false), true, true, !isRunnable, false);
         }
         Preference applicationsPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_APPLICATIONS);
         if (preference != null) {
@@ -227,8 +228,7 @@ class EventPreferencesNotification extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_CATEGORY);
             if (preference != null) {
-                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_NOTIFICATION_ENABLED);
-                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_NOTIFICATION_ENABLED, false);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }

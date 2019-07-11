@@ -259,10 +259,12 @@ class EventPreferencesTime extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
         if (key.equals(PREF_EVENT_TIME_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
         }
 
@@ -272,8 +274,7 @@ class EventPreferencesTime extends EventPreferences {
         boolean isRunnable = event._eventPreferencesTime.isRunnable(context);
         Preference preference = prefMng.findPreference(PREF_EVENT_TIME_DAYS);
         if (preference != null) {
-            SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_TIME_ENABLED);
-            boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+            boolean enabled = preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_TIME_DAYS, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, true, !isRunnable, false);
         }
@@ -310,8 +311,7 @@ class EventPreferencesTime extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_TIME_CATEGORY);
             if (preference != null) {
-                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_TIME_ENABLED);
-                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_TIME_ENABLED, false);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }

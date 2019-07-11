@@ -179,10 +179,12 @@ class EventPreferencesBattery extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
         if (key.equals(PREF_EVENT_BATTERY_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
         }
 
@@ -222,7 +224,7 @@ class EventPreferencesBattery extends EventPreferences {
         if (key.equals(PREF_EVENT_BATTERY_POWER_SAVE_MODE)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
         }
     }
@@ -287,8 +289,7 @@ class EventPreferencesBattery extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
             if (preference != null) {
-                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_BATTERY_ENABLED);
-                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_BATTERY_ENABLED, false);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }

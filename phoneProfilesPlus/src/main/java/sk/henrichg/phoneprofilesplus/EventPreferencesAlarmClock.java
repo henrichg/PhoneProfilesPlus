@@ -101,17 +101,19 @@ class EventPreferencesAlarmClock extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
         if (key.equals(PREF_EVENT_ALARM_CLOCK_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
         }
 
         if (key.equals(PREF_EVENT_ALARM_CLOCK_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_DURATION);
             if (preference != null) {
@@ -162,8 +164,7 @@ class EventPreferencesAlarmClock extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_CATEGORY);
             if (preference != null) {
-                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_ALARM_CLOCK_ENABLED);
-                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_ALARM_CLOCK_ENABLED, false);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }

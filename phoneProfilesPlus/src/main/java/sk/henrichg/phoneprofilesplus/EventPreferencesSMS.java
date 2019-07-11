@@ -173,10 +173,12 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
         if (key.equals(PREF_EVENT_SMS_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
         }
 
@@ -192,7 +194,7 @@ class EventPreferencesSMS extends EventPreferences {
         if (key.equals(PREF_EVENT_SMS_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_DURATION);
             if (preference != null) {
@@ -227,8 +229,7 @@ class EventPreferencesSMS extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesSMS.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesSMS.isRunnable(context);
-        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
-        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        boolean enabled = preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CONTACT_GROUPS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_SMS_CONTACT_GROUPS, "").isEmpty();
@@ -291,8 +292,7 @@ class EventPreferencesSMS extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_SMS_CATEGORY);
             if (preference != null) {
-                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
-                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
@@ -338,13 +338,13 @@ class EventPreferencesSMS extends EventPreferences {
         final boolean accessibilityEnabled =
                 PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
 
-        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_SMS_ENABLED);
-        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
+        boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_SMS_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !accessibilityEnabled, false);
 
-        SharedPreferences preferences = prefMng.getSharedPreferences();
         setCategorySummary(prefMng, preferences, context);
     }
 

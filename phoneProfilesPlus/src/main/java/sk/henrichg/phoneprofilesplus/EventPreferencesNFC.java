@@ -122,17 +122,19 @@ class EventPreferencesNFC extends EventPreferences {
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
         if (key.equals(PREF_EVENT_NFC_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
         }
 
         if (key.equals(PREF_EVENT_NFC_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_DURATION);
             if (preference != null) {
@@ -154,8 +156,7 @@ class EventPreferencesNFC extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesNFC.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesNFC.isRunnable(context);
-        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
-        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        boolean enabled = preferences.getBoolean(PREF_EVENT_NFC_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_NFC_NFC_TAGS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_NFC_NFC_TAGS, "").isEmpty();
@@ -208,8 +209,7 @@ class EventPreferencesNFC extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_NFC_CATEGORY);
             if (preference != null) {
-                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_NFC_ENABLED);
-                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_NFC_ENABLED, false);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !tmp.isRunnable(context), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }

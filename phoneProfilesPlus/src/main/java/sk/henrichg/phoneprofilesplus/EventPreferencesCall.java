@@ -186,10 +186,12 @@ class EventPreferencesCall extends EventPreferences {
 
     @Override
     void setSummary(PreferenceManager prefMng, String key, String value, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
         if (key.equals(PREF_EVENT_CALL_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
         }
 
@@ -210,7 +212,6 @@ class EventPreferencesCall extends EventPreferences {
                     boolean enabled = value.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) ||
                             value.equals(String.valueOf(CALL_EVENT_INCOMING_CALL_ENDED)) ||
                             value.equals(String.valueOf(CALL_EVENT_OUTGOING_CALL_ENDED));
-                    SharedPreferences preferences = prefMng.getSharedPreferences();
                     enabled = enabled && !preferences.getBoolean(PREF_EVENT_CALL_PERMANENT_RUN, false);
                     preferenceDuration.setEnabled(enabled);
                 }
@@ -224,9 +225,8 @@ class EventPreferencesCall extends EventPreferences {
         if (key.equals(PREF_EVENT_CALL_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, permanentRunPreference.isChecked(), true, false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), true, false, false, false);
             }
-            SharedPreferences preferences = prefMng.getSharedPreferences();
             String callEvent = preferences.getString(PREF_EVENT_CALL_EVENT, "-1");
             if (!callEvent.equals(String.valueOf(CALL_EVENT_MISSED_CALL)) &&
                     !callEvent.equals(String.valueOf(CALL_EVENT_INCOMING_CALL_ENDED)) &&
@@ -270,8 +270,7 @@ class EventPreferencesCall extends EventPreferences {
         event.createEventPreferences();
         event._eventPreferencesCall.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesCall.isRunnable(context);
-        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_CALL_ENABLED);
-        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        boolean enabled = preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_GROUPS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALL_CONTACT_GROUPS, "").isEmpty();
@@ -332,8 +331,7 @@ class EventPreferencesCall extends EventPreferences {
 
             Preference preference = prefMng.findPreference(PREF_EVENT_CALL_CATEGORY);
             if (preference != null) {
-                SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_CALL_ENABLED);
-                boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+                boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
                 boolean runnable = tmp.isRunnable(context) && (tmp.isAccessibilityServiceEnabled(context) == 1);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, true, false, !runnable, false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
@@ -377,13 +375,13 @@ class EventPreferencesCall extends EventPreferences {
         final boolean accessibilityEnabled =
                 PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
 
-        SwitchPreferenceCompat enabledPreference = prefMng.findPreference(PREF_EVENT_CALL_ENABLED);
-        boolean enabled = (enabledPreference != null) && enabledPreference.isChecked();
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+
+        boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_CALL_ENABLED, false);
         Preference preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, true, !accessibilityEnabled, false);
 
-        SharedPreferences preferences = prefMng.getSharedPreferences();
         setCategorySummary(prefMng, preferences, context);
     }
 
