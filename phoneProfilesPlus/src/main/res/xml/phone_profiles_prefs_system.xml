@@ -58,6 +58,13 @@
             app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget">
         </Preference>
+        <Preference
+            app:key="applicationDoNotKillMyApp"
+            app:title="@string/phone_profiles_pref_applicationDoNotKillMyApp"
+            app:summary="@string/phone_profiles_pref_applicationDoNotKillMyApp_summary"
+            app:widgetLayout="@layout/start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget">
+        </Preference>
         <ListPreference
             app:key="applicationPowerSaveModeInternal"
             app:title="@string/phone_profiles_pref_applicationPowerSaveMode"

@@ -1414,6 +1414,9 @@
     <string name="array_pref_soundModeArray_silentM">Alarms only</string>
     <string name="array_pref_soundModeArray_ZenModeM">Do not disturb</string>
 
+    <string name="phone_profiles_pref_applicationDoNotKillMyApp">Don\'t kill my app</string>
+    <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary">Please click here for display \"Don\'t kill my app!\" page. In this page is how to configure device to not killing PPP, when is running in background.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name">PhoneProfilesPlusExtender</string>

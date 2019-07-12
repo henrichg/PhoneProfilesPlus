@@ -9,15 +9,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.evernote.android.job.JobRequest;
 import com.thelittlefireman.appkillermanager.managers.KillerManager;
 
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AlertDialog;
@@ -1107,6 +1114,54 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
                     intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_how_does_volume_separation_work_title);
                     startActivity(intentLaunch);
+                    return false;
+                }
+            });
+        }
+
+        preference = findPreference("applicationDoNotKillMyApp");
+        if (preference != null) {
+            preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    /*
+                    new AsyncTask<Void, Void, String>() {
+                        @Override
+                        protected String doInBackground(Void... voids) {
+                            try {
+                                return ((JSONObject) new JSONTokener(
+                                        InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/"+Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-")+".json").openStream())).nextValue()
+                                ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", getString(R.string.app_name));
+                            } catch (Exception e) {
+                                // This vendor is not in the DontKillMyApp list
+                            }
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(String result) {
+                            try {
+                                if (result != null) {
+                                    WebView wv = new WebView(getContext());
+                                    wv.loadData(result, "text/html; charset=utf-8", "UTF-8");
+                                    wv.setWebViewClient(new WebViewClient() {
+                                        @Override
+                                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                            view.loadUrl(url);
+                                            return true;
+                                        }
+                                    });
+
+                                    new AlertDialog.Builder(getContext())
+                                            .setTitle("How to make my app work")
+                                            .setView(wv).setPositiveButton(android.R.string.ok, null).show();
+                                }
+                            } catch (Exception e) {
+                                Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
+                            }
+                        }
+                    }.execute();
+                    */
                     return false;
                 }
             });
