@@ -1130,6 +1130,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         @Override
                         protected String doInBackground(Void... voids) {
                             try {
+                                //noinspection RegExpRedundantEscape
                                 return ((JSONObject) new JSONTokener(
                                         InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/"+Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-")+".json").openStream())).nextValue()
                                 ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", getString(R.string.app_name));
@@ -1162,13 +1163,28 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                         }
                                     });
 
+                                    //noinspection ConstantConditions
                                     new AlertDialog.Builder(getContext())
                                             .setTitle("How to make my app work")
                                             .setView(wv).setPositiveButton(android.R.string.ok, null).show();
 
                                 }
+                                else {
+                                    String url = "https://dontkillmyapp.com/";
+                                    Intent i = new Intent(Intent.ACTION_VIEW);
+                                    i.setData(Uri.parse(url));
+                                    try {
+                                        startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                                    } catch (Exception ignored) {}
+                                }
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
+                                String url = "https://dontkillmyapp.com/";
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(url));
+                                try {
+                                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                                } catch (Exception ignored) {}
                             }
                         }
                     }.execute();
