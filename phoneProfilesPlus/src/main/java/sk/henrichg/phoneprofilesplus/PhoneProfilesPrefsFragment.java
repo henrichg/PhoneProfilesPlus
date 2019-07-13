@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -1124,7 +1125,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    /*
+
                     new AsyncTask<Void, Void, String>() {
                         @Override
                         protected String doInBackground(Void... voids) {
@@ -1134,6 +1135,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", getString(R.string.app_name));
                             } catch (Exception e) {
                                 // This vendor is not in the DontKillMyApp list
+                                Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
                             }
                             return null;
                         }
@@ -1142,8 +1144,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         protected void onPostExecute(String result) {
                             try {
                                 if (result != null) {
+                                    //Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", result);
+
+                                    String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
+                                    String html = "<html>" + head + "<body>" + result + "</body></html>";
+
                                     WebView wv = new WebView(getContext());
-                                    wv.loadData(result, "text/html; charset=utf-8", "UTF-8");
+                                    WebSettings settings = wv.getSettings();
+                                    WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
+                                    settings.setLayoutAlgorithm(layoutAlgorithm);
+                                    wv.loadData(html, "text/html; charset=utf-8", "UTF-8");
                                     wv.setWebViewClient(new WebViewClient() {
                                         @Override
                                         public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -1155,13 +1165,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     new AlertDialog.Builder(getContext())
                                             .setTitle("How to make my app work")
                                             .setView(wv).setPositiveButton(android.R.string.ok, null).show();
+
                                 }
                             } catch (Exception e) {
                                 Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
                             }
                         }
                     }.execute();
-                    */
+
                     return false;
                 }
             });
