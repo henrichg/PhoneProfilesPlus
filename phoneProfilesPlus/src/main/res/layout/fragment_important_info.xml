@@ -232,10 +232,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="@string/important_into_sony_stamina_mode"
+            android:text="@string/important_info_do_not_kill_my_app1"
             android:textSize="@dimen/important_info_text_size"
-            android:id="@+id/activity_info_notification_sony_stamina_mode"
-            android:textStyle="bold" />
+            android:id="@+id/activity_info_notification_do_not_kill_my_app"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAccent" />
 
         <!--
         <TextView

@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -1122,6 +1124,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = findPreference("applicationDoNotKillMyApp");
         if (preference != null) {
+            preference.setSummary(getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_summary1) + " " +
+                    getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
+                    getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_summary2));
             preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
@@ -1150,6 +1155,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                                     String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
                                     String html = "<html>" + head + "<body>" + result + "</body></html>";
 
+                                    /*
                                     WebView wv = new WebView(getContext());
                                     WebSettings settings = wv.getSettings();
                                     WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
@@ -1165,9 +1171,34 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
                                     //noinspection ConstantConditions
                                     new AlertDialog.Builder(getContext())
-                                            .setTitle("How to make my app work")
+                                            .setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle)
                                             .setView(wv).setPositiveButton(android.R.string.ok, null).show();
+                                    */
 
+                                    //noinspection ConstantConditions
+                                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                                    dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
+                                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+
+                                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                                    @SuppressLint("InflateParams")
+                                    View layout = inflater.inflate(R.layout.activity_do_not_kill_my_app_dialog, null);
+                                    dialogBuilder.setView(layout);
+
+                                    WebView webView = layout.findViewById(R.id.do_not_kill_my_app_dialog_webView);
+                                    WebSettings settings = webView.getSettings();
+                                    WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
+                                    settings.setLayoutAlgorithm(layoutAlgorithm);
+                                    webView.loadData(html, "text/html; charset=utf-8", "UTF-8");
+                                    webView.setWebViewClient(new WebViewClient() {
+                                        @Override
+                                        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                            view.loadUrl(url);
+                                            return true;
+                                        }
+                                    });
+
+                                    dialogBuilder.show();
                                 }
                                 else {
                                     String url = "https://dontkillmyapp.com/";

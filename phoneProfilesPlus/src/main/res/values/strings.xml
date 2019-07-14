@@ -1414,8 +1414,13 @@
     <string name="array_pref_soundModeArray_silentM">Alarms only</string>
     <string name="array_pref_soundModeArray_ZenModeM">Do not disturb</string>
 
-    <string name="phone_profiles_pref_applicationDoNotKillMyApp">Don\'t kill my app</string>
-    <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary">Please click here for display \"Don\'t kill my app!\" page. In this page is how to configure device to not killing PPP, when is running in background.</string>
+    <string name="phone_profiles_pref_applicationDoNotKillMyApp">PhoneProfilesPlus not working in background</string>
+    <string name="phone_profiles_pref_applicationDoNotKillMyApp_webSiteName" translatable="false">\"Don\'t kill my app!\"</string>
+    <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary1">Please click here for display</string>
+    <string name="phone_profiles_pref_applicationDoNotKillMyApp_summary2">web page. In this page is how to configure device to not killing PhoneProfilesPlus, when is in background.</string>
+    <string name="phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle">How to make PhoneProfilesPlus work</string>
+    <string name="important_info_do_not_kill_my_app1">Concerning problems with killing PhoneProfilesPlus when is running in background, click here for display</string>
+    <string name="important_info_do_not_kill_my_app2">web page. In this page is how to configure device to not killing PhoneProfilesPlus, when is in background.</string>
 
     <!-- **************************************************************************************** -->
 

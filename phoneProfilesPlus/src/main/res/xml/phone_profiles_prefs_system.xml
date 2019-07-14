@@ -61,7 +61,7 @@
         <Preference
             app:key="applicationDoNotKillMyApp"
             app:title="@string/phone_profiles_pref_applicationDoNotKillMyApp"
-            app:summary="@string/phone_profiles_pref_applicationDoNotKillMyApp_summary"
+            app:summary="@string/phone_profiles_pref_applicationDoNotKillMyApp_summary1"
             app:widgetLayout="@layout/start_activity_preference"
             app:layout="@layout/mp_preference_material_widget">
         </Preference>
